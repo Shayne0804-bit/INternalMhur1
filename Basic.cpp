@@ -4878,11 +4878,10 @@ extern "C" void SDK_RunGodmode()
 			return;
 		}
 
-		// Attempt to cast to ACh008 (player character)
-		ACh008* Player = (ACh008*)PlayerController->Pawn;
-		if (!Player)
+		UObject* PlayerObj = (UObject*)PlayerController->Pawn;
+		if (!PlayerObj)
 		{
-			Logger::LogWarning("[Godmode] Could not cast to ACh008");
+			Logger::LogWarning("[Godmode] Invalid player object");
 			return;
 		}
 
@@ -4890,8 +4889,40 @@ extern "C" void SDK_RunGodmode()
 		static bool bGodmodeActive = false;
 		bGodmodeActive = !bGodmodeActive;
 
-		// Call BP_SetUnbreakable
-		Player->BP_SetUnbreakable(bGodmodeActive);
+		// Get BP_SetUnbreakable function via reflection (no ACh008 dependency needed)
+		static class UFunction* Func = nullptr;
+		if (Func == nullptr)
+		{
+			UClass* PlayerClass = PlayerObj->GetClass();
+			if (!PlayerClass)
+			{
+				Logger::LogWarning("[Godmode] Could not get player class");
+				return;
+			}
+
+			Func = PlayerClass->FindFunctionByName("BP_SetUnbreakable");
+			if (!Func)
+			{
+				Logger::LogWarning("[Godmode] BP_SetUnbreakable function not found");
+				return;
+			}
+		}
+
+		// Create simple parameter struct for BP_SetUnbreakable(bool bEnable)
+		struct FSetUnbreakableParams
+		{
+			bool bEnable;
+		} Parms{};
+
+		Parms.bEnable = bGodmodeActive;
+
+		// Call via ProcessEvent
+		auto Flgs = Func->FunctionFlags;
+		Func->FunctionFlags |= 0x400;
+
+		UObject::ProcessEvent(Func, &Parms);
+
+		Func->FunctionFlags = Flgs;
 
 		// Log result
 		if (bGodmodeActive)
