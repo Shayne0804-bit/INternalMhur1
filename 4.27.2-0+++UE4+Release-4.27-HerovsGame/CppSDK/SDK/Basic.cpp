@@ -2869,14 +2869,23 @@ static void SDK_UpdateActorCache()
 			cachedActor.ActorPtr = Actor;
 			cachedActor.ClassName = ClassName;
 			cachedActor.Position = Actor->K2_GetActorLocation();
-			cachedActor.IsMySelf = false;  // Default to false
+			cachedActor.IsMySelf = SDK_GetCharacterOutGameIsMySelf(Actor);
 			cachedActor.CitizenType = 0;
+			
+			// DETECT LOCAL PLAYER - Update cached team ID when we find ourselves
+			if (cachedActor.IsMySelf && (ClassName == "CharacterBattle" || ClassName == "ACharacterBattle"))
+			{
+				uint8 myTeam = GetCharacterTeamId(Actor);
+				if (myTeam != 255)  // Valid team ID
+				{
+					g_MyTeamId = myTeam;
+					g_LastLocalPlayerCharacter = Actor;
+				}
+			}
 			
 			// Get character ID and costume (only for CharacterOutGame)
 			if (ClassName == "CharacterOutGame" || ClassName == "ACharacterOutGame")
 			{
-				// Only call SDK_GetCharacterOutGameIsMySelf for CharacterOutGame actors
-				cachedActor.IsMySelf = SDK_GetCharacterOutGameIsMySelf(Actor);
 				cachedActor.CharacterID = SDK_GetCharacterOutGameId(Actor);
 				cachedActor.CostumeCode = SDK_GetCharacterOutGameCostumeCode(Actor);
 				cachedActor.Health = 0.0f;
@@ -4748,20 +4757,17 @@ extern "C" void SDK_RunTeleportToKota()
 		
 		for (auto& actor : g_ActorsForRendering)
 		{
-			// Only check NPCCitizen actors
-			if (actor.ClassName != "NPCCitizen")
-				continue;
-			
 			if (!actor.ActorPtr)
 			{
 				TeleportToKotaLog("  Skipping: ActorPtr is NULL");
 				continue;
 			}
 			
-			TeleportToKotaLog("  Checking NPCCitizen: CitizenType: %d", (int)actor.CitizenType);
+			TeleportToKotaLog("  Checking actor: %s | CitizenType: %d (IsMySelf:%d)", 
+				actor.ClassName.c_str(), (int)actor.CitizenType, actor.IsMySelf ? 1 : 0);
 			
 			// Search for NPCCitizen with CitizenType == 4 (SPECIAL_KID)
-			if (actor.CitizenType == 4)
+			if (actor.ClassName == "NPCCitizen" && actor.CitizenType == 4 && !actor.IsMySelf)
 			{
 				TeleportToKotaLog("  → Found SPECIAL_KID: NPCCitizen (CitizenType=4) ✓");
 				kotaActor = &actor;
@@ -4828,6 +4834,85 @@ extern "C" void SDK_RunTeleportToKota()
 		TeleportToKotaLog("✗✗✗ FAILED ✗✗✗");
 		TeleportToKotaLog("K2_TeleportTo() returned FALSE - teleport failed");
 		TeleportToKotaLog("===== TELEPORT TO KOTA TICK END (FAILED - K2_TELEPORTTO RETURNED FALSE) =====");
+	}
+}
+
+// ===== GODMODE / UNBREAKABLE =====
+/**
+ * @brief Toggle godmode (invulnerability) for player via BP_SetUnbreakable
+ */
+extern "C" void SDK_RunGodmode()
+{
+	// Check if godmode enabled
+	if (!ImGuiMenu::g_Settings.EnableGodmode)
+	{
+		return;
+	}
+
+	bool menuVisible = ImGuiMenu::IsVisible();
+
+	// Check hotkey input (Keyboard/Mouse + Gamepad)
+	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.GodmodeKey, HotKeyType::KeyboardMouse);
+	bool gamepadPressed = false;
+
+	if (!menuVisible)
+	{
+		gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.GodmodeKey_Xbox, HotKeyType::Gamepad) ||
+						IsKeyPressed(ImGuiMenu::g_Settings.GodmodeKey_PS4, HotKeyType::Gamepad);
+	}
+
+	bool hotKeyPressed = keyboardPressed || gamepadPressed;
+	if (!hotKeyPressed)
+	{
+		return;  // Hotkey not pressed
+	}
+
+	try
+	{
+		// Godmode functionality disabled: requires full ACh008 class definition
+		Logger::LogWarning("[Godmode] Godmode feature is currently disabled (requires complete ACh008 definition)");
+		/*
+		// Get player controller
+		APlayerController* PlayerController = SDK_GetPlayerController();
+		if (!PlayerController || !PlayerController->Pawn)
+		{
+			Logger::LogWarning("[Godmode] No player found");
+			return;
+		}
+
+		// Attempt to cast to ACh008 (player character)
+		ACh008* Player = (ACh008*)PlayerController->Pawn;
+		if (!Player)
+		{
+			Logger::LogWarning("[Godmode] Could not cast to ACh008");
+			return;
+		}
+
+		// Toggle godmode state
+		static bool bGodmodeActive = false;
+		bGodmodeActive = !bGodmodeActive;
+
+		// Call BP_SetUnbreakable
+		Player->BP_SetUnbreakable(bGodmodeActive);
+
+		// Log result
+		if (bGodmodeActive)
+		{
+			Logger::LogInfo("[Godmode] ✅ ENABLED - Player is now invulnerable!");
+		}
+		else
+		{
+			Logger::LogInfo("[Godmode] ❌ DISABLED - Player is now vulnerable");
+		}
+		*/
+	}
+	catch (const std::exception& e)
+	{
+		Logger::LogError(std::string("[Godmode] Exception: ") + e.what());
+	}
+	catch (...)
+	{
+		Logger::LogError("[Godmode] Unknown exception");
 	}
 }
 
