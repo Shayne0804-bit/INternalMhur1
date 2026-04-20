@@ -4,10 +4,6 @@
 #include <Windows.h>
 #include <cstdint>
 
-// Forward declarations
-class ACh008;
-class APlayer;
-
 namespace ImGuiMenu
 {
     // ============================================================================
@@ -63,12 +59,6 @@ namespace ImGuiMenu
         
         // BulletTP (Silent Aim) - Alpha Skills Only - Uses same settings as Aimbot
         bool EnableBulletTP = false;
-        
-        // Godmode
-        bool EnableGodmode = false;
-        int GodmodeKey = 0x47;  // VK_G (G key)
-        int GodmodeKey_Xbox = 0x0020;  // XINPUT_GAMEPAD_A
-        int GodmodeKey_PS4 = 0x0020;   // XINPUT_GAMEPAD_A (X)
 
         // ESP - Filters
         bool ShowEnemies = true;
