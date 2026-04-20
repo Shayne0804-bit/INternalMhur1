@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Configuration">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{12345678-1234-1234-1234-123456789012}</ProjectGuid>
+    <RootNamespace>RUGIR_INTERNAL</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;RUGIR_INTERNAL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\dependencies\imgui;$(ProjectDir)src\dependencies;$(ProjectDir)4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>None</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraries>d3d11.lib;dxgi.lib;%(AdditionalLibraries)</AdditionalLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;RUGIR_INTERNAL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\dependencies\imgui;$(ProjectDir)src\dependencies;$(ProjectDir)4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalLibraries>d3d11.lib;dxgi.lib;%(AdditionalLibraries)</AdditionalLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="DllEntry.cpp" />
+    <ClCompile Include="src\Core\Main.cpp" />
+    <ClCompile Include="src\Hooks\D3D11Hook.cpp" />
+    <ClCompile Include="src\Hooks\GameThreadHook.cpp" />
+    <ClCompile Include="src\Menu\ImGuiMenu.cpp" />
+    <ClCompile Include="src\Utils\Logger.cpp" />
+    <ClCompile Include="src\dependencies\imgui\imgui.cpp" />
+    <ClCompile Include="src\dependencies\imgui\imgui_draw.cpp" />
+    <ClCompile Include="src\dependencies\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\dependencies\imgui\imgui_tables.cpp" />
+    <ClCompile Include="src\dependencies\imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="src\dependencies\imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="src\dependencies\imgui\custom.cpp" />
+    <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\Basic.cpp" />
+    <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\CoreUObject_functions.cpp" />
+    <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\Engine_functions.cpp" />
+    <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\InGameModule_functions.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Core\Main.h" />
+    <ClInclude Include="src\Hooks\D3D11Hook.h" />
+    <ClInclude Include="src\Hooks\GameThreadHook.h" />
+    <ClInclude Include="src\Menu\ImGuiMenu.h" />
+    <ClInclude Include="src\Utils\Logger.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
