@@ -2869,23 +2869,14 @@ static void SDK_UpdateActorCache()
 			cachedActor.ActorPtr = Actor;
 			cachedActor.ClassName = ClassName;
 			cachedActor.Position = Actor->K2_GetActorLocation();
-			cachedActor.IsMySelf = SDK_GetCharacterOutGameIsMySelf(Actor);
+			cachedActor.IsMySelf = false;  // Default to false
 			cachedActor.CitizenType = 0;
-			
-			// DETECT LOCAL PLAYER - Update cached team ID when we find ourselves
-			if (cachedActor.IsMySelf && (ClassName == "CharacterBattle" || ClassName == "ACharacterBattle"))
-			{
-				uint8 myTeam = GetCharacterTeamId(Actor);
-				if (myTeam != 255)  // Valid team ID
-				{
-					g_MyTeamId = myTeam;
-					g_LastLocalPlayerCharacter = Actor;
-				}
-			}
 			
 			// Get character ID and costume (only for CharacterOutGame)
 			if (ClassName == "CharacterOutGame" || ClassName == "ACharacterOutGame")
 			{
+				// Only call SDK_GetCharacterOutGameIsMySelf for CharacterOutGame actors
+				cachedActor.IsMySelf = SDK_GetCharacterOutGameIsMySelf(Actor);
 				cachedActor.CharacterID = SDK_GetCharacterOutGameId(Actor);
 				cachedActor.CostumeCode = SDK_GetCharacterOutGameCostumeCode(Actor);
 				cachedActor.Health = 0.0f;
@@ -4757,17 +4748,20 @@ extern "C" void SDK_RunTeleportToKota()
 		
 		for (auto& actor : g_ActorsForRendering)
 		{
+			// Only check NPCCitizen actors
+			if (actor.ClassName != "NPCCitizen")
+				continue;
+			
 			if (!actor.ActorPtr)
 			{
 				TeleportToKotaLog("  Skipping: ActorPtr is NULL");
 				continue;
 			}
 			
-			TeleportToKotaLog("  Checking actor: %s | CitizenType: %d (IsMySelf:%d)", 
-				actor.ClassName.c_str(), (int)actor.CitizenType, actor.IsMySelf ? 1 : 0);
+			TeleportToKotaLog("  Checking NPCCitizen: CitizenType: %d", (int)actor.CitizenType);
 			
 			// Search for NPCCitizen with CitizenType == 4 (SPECIAL_KID)
-			if (actor.ClassName == "NPCCitizen" && actor.CitizenType == 4 && !actor.IsMySelf)
+			if (actor.CitizenType == 4)
 			{
 				TeleportToKotaLog("  → Found SPECIAL_KID: NPCCitizen (CitizenType=4) ✓");
 				kotaActor = &actor;
