@@ -1,0 +1,228 @@
+#pragma once
+
+#include <string>
+#include <cstdint>
+
+namespace SDK
+{
+    class APlayerControllerBattle;
+    class ACharacterBattle;
+    struct FInGameBattleCharacterData;
+    struct FVector;
+    class AActor;
+}
+
+// ============================================================================
+// UTILITY FUNCTIONS
+// ============================================================================
+
+/**
+ * Check if current game mode is a valid battle mode (2-9)
+ * Valid modes: SOLO_BATTLE(2), DUO_BATTLE(3), SQUAD_BATTLE(4), LEADERS_BATTLE(5),
+ *             DOMINATION_BATTLE(6), SOLOPICK_BATTLE(7), TUTORIAL(8), TRAINING(9)
+ * @return true if in valid battle mode, false otherwise
+ */
+bool IsValidBattleMode();
+
+/**
+ * Change character on server with logging
+ * @param PlayerController - The APlayerControllerBattle instance
+ * @param CurrentCharacter - Current character battle pawn
+ * @param NewCharacterData - The new character data to apply
+ */
+bool TrainingHack_ChangeCharacterOnServer(
+    SDK::APlayerControllerBattle* PlayerController,
+    SDK::ACharacterBattle* CurrentCharacter,
+    const SDK::FInGameBattleCharacterData& NewCharacterData);
+
+/**
+ * Transform player into target character on server
+ * @param playerController - The player controller
+ * @param playerCharacter - The player's current character pawn
+ * @param targetCharacter - The target character to transform into
+ */
+bool InGameHack_TransformInto(
+    SDK::APlayerControllerBattle* playerController,
+    SDK::ACharacterBattle* playerCharacter,
+    const SDK::ACharacterBattle* targetCharacter);
+
+/**
+ * Transform into random ESP target (hotkey wrapper)
+ * Gets player and random target from ESP, then calls InGameHack_TransformInto
+ */
+bool InGameHack_TransformIntoRandomESP();
+
+/**
+ * Duplicate player into target character for imitation on server
+ * @param playerController - The player controller
+ * @param playerCharacter - The player's current character pawn
+ * @param targetCharacter - The target character to duplicate into
+ * @param spawnLocation - Where to spawn the duplicate
+ * @param lifeTime - How long the imitation lasts
+ */
+bool InGameHack_DuplicateIntoImitation(
+    SDK::APlayerControllerBattle* playerController,
+    SDK::ACharacterBattle* playerCharacter,
+    const SDK::ACharacterBattle* targetCharacter,
+    const SDK::FVector& spawnLocation,
+    float lifeTime);
+
+/**
+ * Duplicate into random ESP target for imitation (hotkey wrapper)
+ * Gets player and forward target from ESP, then calls InGameHack_DuplicateIntoImitation N times
+ */
+bool InGameHack_DuplicateIntoImitationRandomESP(float spawnOffsetZ, float lifeTime, int count);
+
+// ============================================
+// BUFF/STAT ADJUSTMENT HACKS
+// ============================================
+
+/**
+ * Set general reload adjust rate
+ * @param rate - Reload rate multiplier (1.0 = normal, 0.5 = half speed, 2.0 = double speed)
+ */
+bool InGameHack_SetReloadAdjustRate(float rate);
+
+/**
+ * Set reload adjust rate for roll slot skills
+ * @param rate - Reload rate multiplier for roll slot
+ */
+bool InGameHack_SetReloadAdjustRate_RollSlot(float rate);
+
+/**
+ * Set reload adjust rate while wearing blue flame
+ * @param rate - Reload rate multiplier while wearing blue flame
+ */
+bool InGameHack_SetReloadAdjustRate_WearBlueFlame(float rate);
+
+// ============================================
+// TRAINING MODE EXECUTION
+// ============================================
+
+/**
+ * Apply training player configuration (player character setup only, no AI)
+ * @param characterId - Character ID (0-50)
+ * @param unique1 - Unique skill 1 level (0-10)
+ * @param unique2 - Unique skill 2 level (0-10)
+ * @param unique3 - Unique skill 3 level (0-10)
+ * @param skillCode - Skill variation code (0-5)
+ * @param costumeCode - Costume code ID (0=default)
+ * @param costumeAuraType - Costume aura type (0-5)
+ */
+/**
+ * Apply player configuration for training mode
+ */
+bool InGameHack_ApplyPlayerConfiguration(int characterId, int unique1, int unique2, int unique3, int skillCode, int costumeCode, int costumeAuraType);
+
+/**
+ * Apply player configuration to ALL PlayerControllerBattle instances in the match
+ */
+bool InGameHack_ApplyToAllControllers(int characterId, int unique1, int unique2, int unique3, int skillCode, int costumeCode, int costumeAuraType);
+
+/**
+ * Start the training match by calling Decide() on UTrainingMenuWidget
+ * Must be called after configuring player via OnSetPlayerCharacter
+ */
+bool InGameHack_DecideTraining();
+
+// ============================================
+// RECOVERY & INVINCIBILITY HACKS
+// ============================================
+
+/**
+ * Apply invincibility to player
+ * @param fixTime - Time to fix (seconds)
+ * @param maxTime - Max invincibility time (seconds)
+ * @param enableEffect - Show visual effect
+/**
+ * Set invincibility (hardcoded: all true, fixTime=10, maxTime=120)
+ * No parameters needed - all settings are predetermined
+ */
+bool InGameHack_SetInvincible();
+
+/**
+ * Rebuild/reset the player character state (REBUILD_MYSELF)
+ * Resets character dynamics and condition
+ */
+bool InGameHack_RebuildMyself();
+
+/**
+ * Apply CH202_TRANS_MISSION condition to player character
+ * Enables Ch202 transformation/mission state (ECharacterConditionId = 85)
+ */
+bool InGameHack_CH202TransMission();
+
+/**
+ * Apply UNBREAKABLE condition to player character
+ * Makes player unbreakable/invulnerable (ECharacterConditionId = 35)
+ */
+bool InGameHack_Unbreakable();
+
+/**
+ * Recover player and all team members with dying flag
+ * Calls BP_RecoverDying on self + allies that are currently dying
+ */
+bool InGameHack_RecoverDyingTeam();
+
+/**
+ * Recover all dying characters visible in ESP
+ * Calls BP_RecoverDying on all ESP targets with dying flag
+ */
+bool InGameHack_RecoverDyingAllESP();
+
+/**
+ * Apply COMPRESSION_REGENERATION condition to player character
+ * Regenerates and applies compression state (ECharacterConditionId = 62)
+ */
+bool InGameHack_CompressionRegeneration();
+
+/**
+ * Apply CH024_TRANSPARENT condition to player character
+ * Enables CH024 transparency effect (ECharacterConditionId = 65)
+ */
+bool InGameHack_CH024Transparent();
+
+/**
+ * Apply CH011_ABYSS_DARK_BODY condition to player character
+ * Applies abyss dark body state (ECharacterConditionId = 95)
+ */
+bool InGameHack_CH011AbyssDarkBody();
+
+// ============================================
+// ABILITY HACKS
+// ============================================
+
+/**
+ * Apply ABILITY_ATTACK buff to player character
+ * @param level - Ability level (1-100)
+ * Span: 50 seconds
+ */
+bool InGameHack_AbilityAttack(int level);
+
+/**
+ * Apply ABILITY_DURABLE buff to player character
+ * @param level - Ability level (1-100)
+ * Span: 50 seconds
+ */
+bool InGameHack_AbilityDurable(int level);
+
+/**
+ * Apply ABILITY_MOVESPEED buff to player character
+ * @param level - Ability level (1-100)
+ * Span: 50 seconds
+ */
+bool InGameHack_AbilityMovespeed(int level);
+
+/**
+ * Apply ABILITY_HEAL buff to player character
+ * @param level - Ability level (1-100)
+ * Span: 50 seconds
+ */
+bool InGameHack_AbilityHeal(int level);
+
+/**
+ * Apply ABILITY_TECHNIQUE buff to player character
+ * @param level - Ability level (1-100)
+ * Span: 50 seconds
+ */
+bool InGameHack_AbilityTechnique(int level);

@@ -4,9 +4,14 @@
 #include <fstream>
 #include "src/Core/Main.h"
 
+// Global module handle for unload
+static HMODULE g_hModule = nullptr;
+
 // MainThread following Dumper-7 recommended pattern
 DWORD WINAPI MainThread(HMODULE Module)
 {
+    g_hModule = Module;
+    
     /* Console completely disabled - no logging output */
     // AllocConsole removed - console window will not appear
     // All printf statements disabled
@@ -31,6 +36,44 @@ DWORD WINAPI MainThread(HMODULE Module)
     }
 
     return 0;
+}
+
+// Thread function to completely unload the DLL
+DWORD WINAPI UnloadThread(LPVOID lpParam)
+{
+    // Wait for current render operations to finish
+    Sleep(500);
+    
+    // Complete cleanup - remove all hooks and restore original state
+    try
+    {
+        Main::Shutdown();
+    }
+    catch (...)
+    {
+    }
+    
+    // Wait a bit more to ensure all cleanup is done
+    Sleep(100);
+    
+    // Now unload the DLL completely
+    if (g_hModule)
+    {
+        FreeLibraryAndExitThread(g_hModule, 0);
+    }
+    
+    return 0;
+}
+
+// Extern function to unload DLL from menu - starts unload thread
+extern "C" __declspec(dllexport) void DLL_Unload()
+{
+    // Create a dedicated thread for unloading to avoid blocking game
+    HANDLE hThread = CreateThread(nullptr, 0, UnloadThread, nullptr, 0, nullptr);
+    if (hThread)
+    {
+        CloseHandle(hThread);
+    }
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)

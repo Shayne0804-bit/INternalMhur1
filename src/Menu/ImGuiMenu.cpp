@@ -2,12 +2,15 @@
 #include "../Utils/Logger.h"
 #include "../Hooks/D3D11Hook.h"
 #include "../Hooks/GameThreadHook.h"
+#include "../Hacks/InGameModuleHacks.h"
+#include "../SDK/SDKInit.h"
 #include <imgui.h>
 #include <imgui_impl_dx11.h>
 #include <imgui_impl_win32.h>
 #include <windowsx.h>
 #include <Xinput.h>
 #include <string>
+#include <fstream>
 #pragma comment(lib, "xinput.lib")
 
 // Forward declare ImGui WndProc handler
@@ -15,6 +18,9 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg
 
 // Forward declare SDK canvas resolution function
 extern "C" void SDK_SetImGuiCanvasMaxResolution();
+
+// Forward declare unload function
+extern "C" __declspec(dllimport) void DLL_Unload();
 
 // Forward declare SDK drawing functions
 extern "C" void SDK_DrawAllRectangles();
@@ -26,8 +32,6 @@ extern "C" void SDK_DrawAimbotFOV();
 // Forward declare SDK aimbot functions
 extern "C" void SDK_RunAimbot();
 extern "C" void SDK_RunSilentAim();
-
-// Forward declare SDK teleport item functions
 extern "C" void SDK_RunTeleportLevelUpCards();
 extern "C" void SDK_TeleportItem_LevelUpCard();
 extern "C" void SDK_TeleportItem_BagLarge();
@@ -58,6 +62,7 @@ namespace ImGuiMenu
     // GLOBAL STATE
     // ============================================================================
     MenuSettings g_Settings;
+    HackSettings g_HackSettings;
 
     static bool g_Initialized = false;
     static bool g_Visible = true;
@@ -507,38 +512,14 @@ namespace ImGuiMenu
         ImGui::Spacing();
         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.4f, 0.6f, 1.0f));
         {
-            std::string kbLabel = "[KB] Keyboard: " + GetKeyName(g_Settings.AimbotHoldKey, 0);
-            if (ImGui::Button(kbLabel.c_str(), ImVec2(-1, 0)))
+            std::string hotkeyLabel = "[KB] " + GetKeyName(g_Settings.AimbotHoldKey.Keyboard, 0) + 
+                                      " | [X] " + GetKeyName(g_Settings.AimbotHoldKey.Xbox, 1) + 
+                                      " | [PS] " + GetKeyName(g_Settings.AimbotHoldKey.PS4, 1);
+            if (ImGui::Button(hotkeyLabel.c_str(), ImVec2(-1, 0)))
             {
                 g_ListeningForHotkey = true;
                 g_HotkeyListenStartTime = GetTickCount();
-                g_CurrentHotkeyValue = 0;
-            }
-        }
-        ImGui::PopStyleColor();
-        
-        ImGui::Spacing();
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.4f, 0.6f, 1.0f));
-        {
-            std::string xboxLabel = "[X] Xbox: " + GetKeyName(g_Settings.AimbotHoldKey_Xbox, 1);
-            if (ImGui::Button(xboxLabel.c_str(), ImVec2(-1, 0)))
-            {
-                g_ListeningForHotkey = true;
-                g_HotkeyListenStartTime = GetTickCount();
-                g_CurrentHotkeyValue = 1;  // Flag for gamepad mode
-            }
-        }
-        ImGui::PopStyleColor();
-        
-        ImGui::Spacing();
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.4f, 0.6f, 1.0f));
-        {
-            std::string ps4Label = "[PS] PlayStation: " + GetKeyName(g_Settings.AimbotHoldKey_PS4, 1);
-            if (ImGui::Button(ps4Label.c_str(), ImVec2(-1, 0)))
-            {
-                g_ListeningForHotkey = true;
-                g_HotkeyListenStartTime = GetTickCount();
-                g_CurrentHotkeyValue = 2;  // Flag for PS4 mode (same as Xbox)
+                g_CurrentHotkeyValue = 100;  // Aimbot hotkey (unified)
             }
         }
         ImGui::PopStyleColor();
@@ -565,6 +546,111 @@ namespace ImGuiMenu
         ImGui::Text("HACKS");
         ImGui::PopStyleColor();
         ImGui::Separator();
+
+        // Transform Into Random ESP Target Section
+        if (ImGui::CollapsingHeader("TRANSFORM TOGA", ImGuiTreeNodeFlags_DefaultOpen))
+        {
+            // Enable/Disable toggle
+            ImGui::Checkbox("Enable Transform", &g_Settings.EnableTransformIntoRandomESP);
+            
+            if (g_Settings.EnableTransformIntoRandomESP)
+            {
+                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentGreen);
+                ImGui::Text("Status: ENABLED");
+                ImGui::PopStyleColor();
+            }
+            else
+            {
+                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentOrange);
+                ImGui::Text("Status: DISABLED");
+                ImGui::PopStyleColor();
+            }
+            
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
+            ImGui::Text("HOTKEY CONFIGURATION");
+            ImGui::PopStyleColor();
+            
+            ImGui::Spacing();
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.4f, 0.6f, 1.0f));
+            {
+                std::string hotkeyLabel = "[KB] " + GetKeyName(g_Settings.TransformIntoRandomESPKey.Keyboard, 0) + 
+                                          " | [X] " + GetKeyName(g_Settings.TransformIntoRandomESPKey.Xbox, 1) + 
+                                          " | [PS] " + GetKeyName(g_Settings.TransformIntoRandomESPKey.PS4, 1);
+                if (ImGui::Button(hotkeyLabel.c_str(), ImVec2(-1, 0)))
+                {
+                    g_ListeningForHotkey = true;
+                    g_HotkeyListenStartTime = GetTickCount();
+                    g_CurrentHotkeyValue = 102;  // Transform hotkey (unified)
+                }
+            }
+            ImGui::PopStyleColor();
+            
+            ImGui::Spacing();
+            ImGui::Spacing();
+            ImGui::TextWrapped("Info: Press hotkey in-game to transform to a random ESP target (works with menu open)");
+        }
+
+        // Duplicate Into Imitation Random ESP Target Section
+        if (ImGui::CollapsingHeader("DUPLICATE IMITATION", ImGuiTreeNodeFlags_DefaultOpen))
+        {
+            ImGui::Spacing();
+            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentYellow);
+            ImGui::Text("DUPLICATE IMITATION VARIANT");
+            ImGui::PopStyleColor();
+            
+            ImGui::Checkbox("Enable DuplicateIntoImitation", &g_Settings.EnableDuplicateIntoImitationRandomESP);
+            ImGui::SliderFloat("Imitation Lifetime##DupIm", &g_Settings.DuplicateImitationLifeTime, 5.0f, 120.0f, "%.1f");
+            ImGui::SliderInt("Imitation Duplicate Count##DupIm", &g_Settings.DuplicateIntoImitationCount, 1, 100, "%d");
+            
+            if (g_Settings.EnableDuplicateIntoImitationRandomESP)
+            {
+                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentGreen);
+                ImGui::Text("DuplicateIntoImitation: ENABLED");
+                ImGui::PopStyleColor();
+            }
+            else
+            {
+                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentOrange);
+                ImGui::Text("DuplicateIntoImitation: DISABLED");
+                ImGui::PopStyleColor();
+            }
+            
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
+            ImGui::Text("RELOAD ADJUST RATES");
+            ImGui::PopStyleColor();
+            
+            ImGui::SliderFloat("General Reload Rate##reload", &g_Settings.ReloadAdjustRate, 0.1f, 5.0f, "%.2f");
+            ImGui::SliderFloat("Reload Rate (Roll Slot)##rollslot", &g_Settings.ReloadAdjustRate_RollSlot, 0.1f, 5.0f, "%.2f");
+            ImGui::SliderFloat("Reload Rate (Blue Flame)##blueflame", &g_Settings.ReloadAdjustRate_WearBlueFlame, 0.1f, 5.0f, "%.2f");
+            
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
+            ImGui::Text("IMITATION HOTKEYS");
+            ImGui::PopStyleColor();
+            
+            ImGui::Spacing();
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.4f, 0.6f, 1.0f));
+            {
+                std::string hotkeyLabel = "[KB] " + GetKeyName(g_Settings.DuplicateIntoImitationRandomESPKey.Keyboard, 0) + 
+                                          " | [X] " + GetKeyName(g_Settings.DuplicateIntoImitationRandomESPKey.Xbox, 1) + 
+                                          " | [PS] " + GetKeyName(g_Settings.DuplicateIntoImitationRandomESPKey.PS4, 1);
+                if (ImGui::Button(hotkeyLabel.c_str(), ImVec2(-1, 0)))
+                {
+                    g_ListeningForHotkey = true;
+                    g_HotkeyListenStartTime = GetTickCount();
+                    g_CurrentHotkeyValue = 103;  // DuplicateImitation hotkey (unified)
+                }
+            }
+            ImGui::PopStyleColor();
+            
+            ImGui::Spacing();
+            ImGui::TextWrapped("Info: Press hotkey to spawn temporary duplicate near target.");
+        }
 
         // Teleport to KOTA Section
         if (ImGui::CollapsingHeader("TELEPORT TO KOTA", ImGuiTreeNodeFlags_DefaultOpen))
@@ -594,38 +680,14 @@ namespace ImGuiMenu
             ImGui::Spacing();
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.4f, 0.6f, 1.0f));
             {
-                std::string kbLabel = "[KB] Keyboard: " + GetKeyName(g_Settings.TeleportToKotaKey, 0);
-                if (ImGui::Button(kbLabel.c_str(), ImVec2(-1, 0)))
+                std::string hotkeyLabel = "[KB] " + GetKeyName(g_Settings.TeleportToKotaKey.Keyboard, 0) + 
+                                          " | [X] " + GetKeyName(g_Settings.TeleportToKotaKey.Xbox, 1) + 
+                                          " | [PS] " + GetKeyName(g_Settings.TeleportToKotaKey.PS4, 1);
+                if (ImGui::Button(hotkeyLabel.c_str(), ImVec2(-1, 0)))
                 {
                     g_ListeningForHotkey = true;
                     g_HotkeyListenStartTime = GetTickCount();
-                    g_CurrentHotkeyValue = 3;  // Flag for Teleport Keyboard
-                }
-            }
-            ImGui::PopStyleColor();
-            
-            ImGui::Spacing();
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.4f, 0.6f, 1.0f));
-            {
-                std::string xboxLabel = "[X] Xbox: " + GetKeyName(g_Settings.TeleportToKotaKey_Xbox, 1);
-                if (ImGui::Button(xboxLabel.c_str(), ImVec2(-1, 0)))
-                {
-                    g_ListeningForHotkey = true;
-                    g_HotkeyListenStartTime = GetTickCount();
-                    g_CurrentHotkeyValue = 4;  // Flag for Teleport Xbox
-                }
-            }
-            ImGui::PopStyleColor();
-            
-            ImGui::Spacing();
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.4f, 0.6f, 1.0f));
-            {
-                std::string ps4Label = "[PS] PlayStation: " + GetKeyName(g_Settings.TeleportToKotaKey_PS4, 1);
-                if (ImGui::Button(ps4Label.c_str(), ImVec2(-1, 0)))
-                {
-                    g_ListeningForHotkey = true;
-                    g_HotkeyListenStartTime = GetTickCount();
-                    g_CurrentHotkeyValue = 5;  // Flag for Teleport PS4
+                    g_CurrentHotkeyValue = 101;  // Teleport hotkey (unified)
                 }
             }
             ImGui::PopStyleColor();
@@ -731,6 +793,482 @@ namespace ImGuiMenu
         }
     }
 
+    static void RenderTrainingCharacterMenu()
+    {
+        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentCyan);
+        ImGui::Text("TRAINING MODE - PLAYER SETUP");
+        ImGui::PopStyleColor();
+        ImGui::Separator();
+
+        ImGui::Spacing();
+        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentYellow);
+        ImGui::Text("Configure Player Character");
+        ImGui::PopStyleColor();
+        ImGui::Spacing();
+
+        // Character ID selector (0=UNDEF, 1=Ch000, 2=Ch001, ... 44=Ch999, MAX=45)
+        ImGui::SliderInt("Player Character##training", &g_Settings.TrainingPlayerCharacter, 0, 44, "CharID%03d");
+        
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        // Skill levels
+        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentGreen);
+        ImGui::Text("Unique Skill Levels");
+        ImGui::PopStyleColor();
+        
+        ImGui::SliderInt("Unique 1 Level##p1", &g_Settings.TrainingPlayerUnique1, 0, 10, "%d");
+        ImGui::SliderInt("Unique 2 Level##p2", &g_Settings.TrainingPlayerUnique2, 0, 10, "%d");
+        ImGui::SliderInt("Unique 3 Level##p3", &g_Settings.TrainingPlayerUnique3, 0, 10, "%d");
+        
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        // Skill variation code
+        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentPurple);
+        ImGui::Text("Skill Configuration");
+        ImGui::PopStyleColor();
+        
+        ImGui::SliderInt("Skill Variation Code##pskill", &g_Settings.TrainingPlayerSkillCode, 0, 5, "%d");
+
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        // Costume settings
+        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentOrange);
+        ImGui::Text("Costume Settings");
+        ImGui::PopStyleColor();
+        
+        ImGui::SliderInt("Costume Code##pcostume", &g_Settings.TrainingPlayerCostumeCode, 0, 100, "%d");
+        ImGui::SliderInt("Costume Aura Type##paura", &g_Settings.TrainingPlayerCostumeAuraType, 0, 5, "%d");
+
+        ImGui::Spacing();
+        ImGui::Spacing();
+
+        // Apply button
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.6f, 0.8f, 1.0f));
+        if (ImGui::Button("Apply Player Configuration", ImVec2(-1, 0)))
+        {
+            InGameHack_ApplyPlayerConfiguration(
+                g_Settings.TrainingPlayerCharacter,
+                g_Settings.TrainingPlayerUnique1,
+                g_Settings.TrainingPlayerUnique2,
+                g_Settings.TrainingPlayerUnique3,
+                g_Settings.TrainingPlayerSkillCode,
+                g_Settings.TrainingPlayerCostumeCode,
+                g_Settings.TrainingPlayerCostumeAuraType
+            );
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+
+        // Load current config button
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.4f, 0.6f, 0.4f, 1.0f));
+        if (ImGui::Button("Load Current Config", ImVec2(-1, 0)))
+        {
+            Logger::LogInfo("[Menu] Attempting to load current training player config...");
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+
+        // Confirm and start training match
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.4f, 0.4f, 1.0f));
+        if (ImGui::Button("Confirm - Start Training", ImVec2(-1, 0)))
+        {
+            Logger::LogInfo("[Menu] Starting training match with current configuration...");
+            InGameHack_DecideTraining();
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        // Info display
+        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentOrange);
+        ImGui::Text("Current Configuration:");
+        ImGui::PopStyleColor();
+        
+        ImGui::Text("Character ID: Ch%03d", g_Settings.TrainingPlayerCharacter);
+        ImGui::Text("Unique 1: Level %d", g_Settings.TrainingPlayerUnique1);
+        ImGui::Text("Unique 2: Level %d", g_Settings.TrainingPlayerUnique2);
+        ImGui::Text("Unique 3: Level %d", g_Settings.TrainingPlayerUnique3);
+        ImGui::Text("Skill Code: %d", g_Settings.TrainingPlayerSkillCode);
+    }
+
+    // Forward declaration
+    static void RenderAbilityHackMenu();
+
+    static void RenderCombatSupportMenu()
+    {
+        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentCyan);
+        ImGui::Text("COMBAT SUPPORT");
+        ImGui::PopStyleColor();
+        ImGui::Separator();
+
+        ImGui::Spacing();
+        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentYellow);
+        ImGui::Text("Invincibility (Hardcoded: 10s-120s, All Effects Enabled)");
+        ImGui::PopStyleColor();
+        ImGui::Spacing();
+
+        // Invincibility Hotkey button
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.6f, 0.2f, 1.0f));
+        {
+            std::string hotkeyLabel = "[KB] " + GetKeyName(g_Settings.SetInvincibleKey.Keyboard, 0) + 
+                                      " | [X] " + GetKeyName(g_Settings.SetInvincibleKey.Xbox, 1) + 
+                                      " | [PS] " + GetKeyName(g_Settings.SetInvincibleKey.PS4, 1);
+            if (ImGui::Button(hotkeyLabel.c_str(), ImVec2(-1, 0)))
+            {
+                g_ListeningForHotkey = true;
+                g_HotkeyListenStartTime = GetTickCount();
+                g_CurrentHotkeyValue = 104;  // SetInvincible hotkey (unified)
+            }
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.6f, 0.2f, 1.0f));
+        if (ImGui::Button("ACTIVATE INVINCIBILITY NOW", ImVec2(-1, 0)))
+        {
+            if (InGameHack_SetInvincible())
+            {
+                Logger::LogInfo("[COMBAT] Invincibility activated!");
+            }
+            else
+            {
+                Logger::LogError("[COMBAT] Failed to activate invincibility");
+            }
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentGreen);
+        ImGui::Text("Recovery Options");
+        ImGui::PopStyleColor();
+        ImGui::Spacing();
+
+        // Recover Team button
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.8f, 0.6f, 1.0f));
+        if (ImGui::Button("Recover Team Now", ImVec2(-1, 0)))
+        {
+            if (InGameHack_RecoverDyingTeam())
+            {
+                Logger::LogInfo("[COMBAT] Team recovery executed!");
+            }
+            else
+            {
+                Logger::LogError("[COMBAT] Failed to recover team");
+            }
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+
+        // Recover All ESP button
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.6f, 0.8f, 0.2f, 1.0f));
+        if (ImGui::Button("Recover All ESP Targets", ImVec2(-1, 0)))
+        {
+            if (InGameHack_RecoverDyingAllESP())
+            {
+                Logger::LogInfo("[COMBAT] All ESP targets recovery executed!");
+            }
+            else
+            {
+                Logger::LogError("[COMBAT] Failed to recover ESP targets");
+            }
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentOrange);
+        ImGui::Text("Character Conditions");
+        ImGui::PopStyleColor();
+        ImGui::Spacing();
+        
+        // Rebuild Myself button
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.4f, 0.8f, 1.0f));
+        if (ImGui::Button("OVERHAUL HEAL", ImVec2(-1, 0)))
+        {
+            if (InGameHack_RebuildMyself())
+            {
+                Logger::LogInfo("[COMBAT] Rebuild myself executed!");
+            }
+            else
+            {
+                Logger::LogError("[COMBAT] Failed to execute rebuild myself");
+            }
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+
+        // Rebuild Myself Hotkey button
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.4f, 0.8f, 1.0f));
+        {
+            std::string hotkeyLabel = "[KB] " + GetKeyName(g_Settings.RebuildMyselfKey.Keyboard, 0) + 
+                                      " | [X] " + GetKeyName(g_Settings.RebuildMyselfKey.Xbox, 1) + 
+                                      " | [PS] " + GetKeyName(g_Settings.RebuildMyselfKey.PS4, 1);
+            if (ImGui::Button(hotkeyLabel.c_str(), ImVec2(-1, 0)))
+            {
+                g_ListeningForHotkey = true;
+                g_HotkeyListenStartTime = GetTickCount();
+                g_CurrentHotkeyValue = 105;  // RebuildMyself hotkey (unified)
+            }
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+
+        // CH202 Trans Mission button
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 0.6f, 0.0f, 1.0f));
+        if (ImGui::Button("DEKU MODE", ImVec2(-1, 0)))
+        {
+            if (InGameHack_CH202TransMission())
+            {
+                Logger::LogInfo("[COMBAT] CH202 Trans Mission executed!");
+            }
+            else
+            {
+                Logger::LogError("[COMBAT] Failed to execute CH202 Trans Mission");
+            }
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+
+        // Unbreakable button
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 0.8f, 0.0f, 1.0f));
+        if (ImGui::Button("UNBREAKABLE", ImVec2(-1, 0)))
+        {
+            if (InGameHack_Unbreakable())
+            {
+                Logger::LogInfo("[COMBAT] Unbreakable executed!");
+            }
+            else
+            {
+                Logger::LogError("[COMBAT] Failed to execute Unbreakable");
+            }
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+
+        // Compression Regeneration button
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.8f, 0.6f, 1.0f));
+        if (ImGui::Button("MR COMPRESSE MODE", ImVec2(-1, 0)))
+        {
+            if (InGameHack_CompressionRegeneration())
+            {
+                Logger::LogInfo("[COMBAT] Compression Regeneration executed!");
+            }
+            else
+            {
+                Logger::LogError("[COMBAT] Failed to execute Compression Regeneration");
+            }
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+
+        // CH024 Transparent button
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.5f, 0.5f, 0.8f, 1.0f));
+        if (ImGui::Button("MIRIO MODE", ImVec2(-1, 0)))
+        {
+            if (InGameHack_CH024Transparent())
+            {
+                Logger::LogInfo("[COMBAT] CH024 Transparent executed!");
+            }
+            else
+            {
+                Logger::LogError("[COMBAT] Failed to execute CH024 Transparent");
+            }
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+
+        // CH011 Abyss Dark Body button
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.2f, 0.4f, 1.0f));
+        if (ImGui::Button("TOKOYAMI DARK MODE", ImVec2(-1, 0)))
+        {
+            if (InGameHack_CH011AbyssDarkBody())
+            {
+                Logger::LogInfo("[COMBAT] CH011 Abyss Dark Body executed!");
+            }
+            else
+            {
+                Logger::LogError("[COMBAT] Failed to execute CH011 Abyss Dark Body");
+            }
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        RenderAbilityHackMenu();
+        
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        // Character change for all players
+        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentMagenta);
+        ImGui::Text("APPLY CHARACTER TO ALL PLAYERS");
+        ImGui::PopStyleColor();
+        ImGui::Separator();
+
+        ImGui::Spacing();
+
+        // Character ID selector
+        ImGui::SliderInt("Character ID##char_id", &g_HackSettings.CharacterId, 1, 44);
+        ImGui::Spacing();
+
+        // Unique skills sliders
+        ImGui::SliderInt("Unique 1 Level##char_unique1", &g_HackSettings.CharacterUnique1, 1, 100);
+        ImGui::SliderInt("Unique 2 Level##char_unique2", &g_HackSettings.CharacterUnique2, 1, 100);
+        ImGui::SliderInt("Unique 3 Level##char_unique3", &g_HackSettings.CharacterUnique3, 1, 100);
+        ImGui::Spacing();
+
+        // Variation and cosmetics
+        ImGui::SliderInt("Skill Code##char_skill", &g_HackSettings.CharacterSkillCode, 0, 5);
+        ImGui::SliderInt("Costume Code##char_costume", &g_HackSettings.CharacterCostumeCode, 0, 100);
+        ImGui::SliderInt("Costume Aura Type##char_aura", &g_HackSettings.CharacterCostumeAuraType, 0, 5);
+        ImGui::Spacing();
+
+        // Apply button
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.1f, 0.5f, 0.9f, 1.0f));
+        if (ImGui::Button("APPLY CHARACTER TO ALL PLAYERS", ImVec2(-1, 0)))
+        {
+            if (InGameHack_ApplyToAllControllers(
+                g_HackSettings.CharacterId,
+                g_HackSettings.CharacterUnique1,
+                g_HackSettings.CharacterUnique2,
+                g_HackSettings.CharacterUnique3,
+                g_HackSettings.CharacterSkillCode,
+                g_HackSettings.CharacterCostumeCode,
+                g_HackSettings.CharacterCostumeAuraType))
+            {
+                Logger::LogInfo("[CHARACTER] Applied to all controllers!");
+            }
+            else
+            {
+                Logger::LogError("[CHARACTER] Failed to apply to all controllers");
+            }
+        }
+        ImGui::PopStyleColor();
+    }
+
+    static void RenderAbilityHackMenu()
+    {
+        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentMagenta);
+        ImGui::Text("ABILITY HACKS");
+        ImGui::PopStyleColor();
+        ImGui::Separator();
+
+        ImGui::Spacing();
+
+        // Ability Attack
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
+        ImGui::SliderInt("Attack Level##ability_attack", &g_HackSettings.AbilityAttackLevel, 1, 100);
+        if (ImGui::Button("ABILITY ATTACK", ImVec2(-1, 0)))
+        {
+            if (InGameHack_AbilityAttack(g_HackSettings.AbilityAttackLevel))
+            {
+                Logger::LogInfo("[COMBAT] Ability Attack Level " + std::to_string(g_HackSettings.AbilityAttackLevel) + " applied!");
+            }
+            else
+            {
+                Logger::LogError("[COMBAT] Failed to apply Ability Attack");
+            }
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+
+        // Ability Durable
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 1.0f, 0.0f, 1.0f));
+        ImGui::SliderInt("Durable Level##ability_durable", &g_HackSettings.AbilityDurableLevel, 1, 100);
+        if (ImGui::Button("ABILITY DURABLE", ImVec2(-1, 0)))
+        {
+            if (InGameHack_AbilityDurable(g_HackSettings.AbilityDurableLevel))
+            {
+                Logger::LogInfo("[COMBAT] Ability Durable Level " + std::to_string(g_HackSettings.AbilityDurableLevel) + " applied!");
+            }
+            else
+            {
+                Logger::LogError("[COMBAT] Failed to apply Ability Durable");
+            }
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+
+        // Ability Movespeed
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 1.0f, 1.0f, 1.0f));
+        ImGui::SliderInt("Movespeed Level##ability_movespeed", &g_HackSettings.AbilityMovespeedLevel, 1, 100);
+        if (ImGui::Button("ABILITY MOVESPEED", ImVec2(-1, 0)))
+        {
+            if (InGameHack_AbilityMovespeed(g_HackSettings.AbilityMovespeedLevel))
+            {
+                Logger::LogInfo("[COMBAT] Ability Movespeed Level " + std::to_string(g_HackSettings.AbilityMovespeedLevel) + " applied!");
+            }
+            else
+            {
+                Logger::LogError("[COMBAT] Failed to apply Ability Movespeed");
+            }
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+
+        // Ability Heal
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 0.0f, 1.0f, 1.0f));
+        ImGui::SliderInt("Heal Level##ability_heal", &g_HackSettings.AbilityHealLevel, 1, 100);
+        if (ImGui::Button("ABILITY HEAL", ImVec2(-1, 0)))
+        {
+            if (InGameHack_AbilityHeal(g_HackSettings.AbilityHealLevel))
+            {
+                Logger::LogInfo("[COMBAT] Ability Heal Level " + std::to_string(g_HackSettings.AbilityHealLevel) + " applied!");
+            }
+            else
+            {
+                Logger::LogError("[COMBAT] Failed to apply Ability Heal");
+            }
+        }
+        ImGui::PopStyleColor();
+
+        ImGui::Spacing();
+
+        // Ability Technique
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 0.0f, 1.0f));
+        ImGui::SliderInt("Technique Level##ability_technique", &g_HackSettings.AbilityTechniqueLevel, 1, 100);
+        if (ImGui::Button("ABILITY TECHNIQUE", ImVec2(-1, 0)))
+        {
+            if (InGameHack_AbilityTechnique(g_HackSettings.AbilityTechniqueLevel))
+            {
+                Logger::LogInfo("[COMBAT] Ability Technique Level " + std::to_string(g_HackSettings.AbilityTechniqueLevel) + " applied!");
+            }
+            else
+            {
+                Logger::LogError("[COMBAT] Failed to apply Ability Technique");
+            }
+        }
+        ImGui::PopStyleColor();
+    }
+
     static void RenderSettingsMenu()
     {
         ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentCyan);
@@ -744,6 +1282,14 @@ namespace ImGuiMenu
         ImGui::PopStyleColor();
 
 
+
+        ImGui::Spacing();
+        ImGui::Separator();
+
+        // Debug section
+        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentGreen);
+        ImGui::Text("DEBUG");
+        ImGui::PopStyleColor();
 
         ImGui::Spacing();
         ImGui::Separator();
@@ -969,49 +1515,78 @@ namespace ImGuiMenu
                 return;
             }
             
-            // Determine which hotkey we're listening for
-            int inputType = g_CurrentHotkeyValue;  // 0=keyboard, 1=Xbox, 2=PS4, 3/4/5=Teleport variants
+            // Determine which hotkey we're listening for (unified system: 100=Aimbot, 101=Teleport, 102=Transform, 103=DuplicateImitation)
+            int hotkeyType = g_CurrentHotkeyValue;
             
-            // Get the pressed key
-            int pressedKey = 0;
-            if (inputType <= 2)
-            {
-                // Aimbot hotkeys
-                pressedKey = GetHotkey(0, inputType);
-            }
-            else
-            {
-                // Teleport hotkeys - convert to correct input type
-                int teleportInputType = (inputType == 3) ? 0 : 1;  // 3=KB, 4/5=Gamepad
-                pressedKey = GetHotkey(0, teleportInputType);
-            }
+            // Try both keyboard and gamepad inputs
+            int keyboardKey = GetHotkey(0, 0);  // Check keyboard
+            int gamepadKey = GetHotkey(0, 1);   // Check gamepad
+            
+            int pressedKey = keyboardKey != 0 ? keyboardKey : gamepadKey;
+            int inputType = keyboardKey != 0 ? 0 : 1;  // 0=keyboard, 1=gamepad
             
             if (pressedKey != 0)
             {
-                // Update the corresponding hotkey setting
-                if (inputType == 0)
+                // Update the corresponding hotkey setting based on unified type
+                if (hotkeyType == 100)  // Aimbot hotkey (unified)
                 {
-                    g_Settings.AimbotHoldKey = pressedKey;
+                    if (inputType == 0)  // Keyboard
+                        g_Settings.AimbotHoldKey.Keyboard = pressedKey;
+                    else  // Gamepad
+                    {
+                        g_Settings.AimbotHoldKey.Xbox = pressedKey;
+                        g_Settings.AimbotHoldKey.PS4 = pressedKey;
+                    }
                 }
-                else if (inputType == 1)
+                else if (hotkeyType == 101)  // Teleport hotkey (unified)
                 {
-                    g_Settings.AimbotHoldKey_Xbox = pressedKey;
+                    if (inputType == 0)  // Keyboard
+                        g_Settings.TeleportToKotaKey.Keyboard = pressedKey;
+                    else  // Gamepad
+                    {
+                        g_Settings.TeleportToKotaKey.Xbox = pressedKey;
+                        g_Settings.TeleportToKotaKey.PS4 = pressedKey;
+                    }
                 }
-                else if (inputType == 2)
+                else if (hotkeyType == 102)  // Transform hotkey (unified)
                 {
-                    g_Settings.AimbotHoldKey_PS4 = pressedKey;
+                    if (inputType == 0)  // Keyboard
+                        g_Settings.TransformIntoRandomESPKey.Keyboard = pressedKey;
+                    else  // Gamepad
+                    {
+                        g_Settings.TransformIntoRandomESPKey.Xbox = pressedKey;
+                        g_Settings.TransformIntoRandomESPKey.PS4 = pressedKey;
+                    }
                 }
-                else if (inputType == 3)
+                else if (hotkeyType == 103)  // DuplicateImitation hotkey (unified)
                 {
-                    g_Settings.TeleportToKotaKey = pressedKey;
+                    if (inputType == 0)  // Keyboard
+                        g_Settings.DuplicateIntoImitationRandomESPKey.Keyboard = pressedKey;
+                    else  // Gamepad
+                    {
+                        g_Settings.DuplicateIntoImitationRandomESPKey.Xbox = pressedKey;
+                        g_Settings.DuplicateIntoImitationRandomESPKey.PS4 = pressedKey;
+                    }
                 }
-                else if (inputType == 4)
+                else if (hotkeyType == 104)  // SetInvincible hotkey (unified)
                 {
-                    g_Settings.TeleportToKotaKey_Xbox = pressedKey;
+                    if (inputType == 0)  // Keyboard
+                        g_Settings.SetInvincibleKey.Keyboard = pressedKey;
+                    else  // Gamepad
+                    {
+                        g_Settings.SetInvincibleKey.Xbox = pressedKey;
+                        g_Settings.SetInvincibleKey.PS4 = pressedKey;
+                    }
                 }
-                else if (inputType == 5)
+                else if (hotkeyType == 105)  // RebuildMyself hotkey (unified)
                 {
-                    g_Settings.TeleportToKotaKey_PS4 = pressedKey;
+                    if (inputType == 0)  // Keyboard
+                        g_Settings.RebuildMyselfKey.Keyboard = pressedKey;
+                    else  // Gamepad
+                    {
+                        g_Settings.RebuildMyselfKey.Xbox = pressedKey;
+                        g_Settings.RebuildMyselfKey.PS4 = pressedKey;
+                    }
                 }
                 
                 g_ListeningForHotkey = false;  // Stop listening
@@ -1161,6 +1736,16 @@ namespace ImGuiMenu
                         RenderAimbotMenu();
                         ImGui::EndTabItem();
                     }
+                    if (ImGui::BeginTabItem("CHARACTER"))
+                    {
+                        RenderTrainingCharacterMenu();
+                        ImGui::EndTabItem();
+                    }
+                    if (ImGui::BeginTabItem("COMBAT"))
+                    {
+                        RenderCombatSupportMenu();
+                        ImGui::EndTabItem();
+                    }
                     if (ImGui::BeginTabItem("HACKS"))
                     {
                         RenderHacksMenu();
@@ -1175,6 +1760,22 @@ namespace ImGuiMenu
                     ImGui::EndTabBar();
                 }
 
+                ImGui::Separator();
+                
+                // Unload button with warning
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.2f, 0.2f, 1.0f));  // Red
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.0f, 0.3f, 0.3f, 1.0f));  // Lighter red
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.6f, 0.1f, 0.1f, 1.0f));   // Darker red
+                
+                if (ImGui::Button("UNLOAD DLL (Complete Cleanup)", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
+                {
+                    Logger::LogWarning("[Menu] UNLOAD DLL button pressed - complete cleanup starting...");
+                    DLL_Unload();
+                }
+                
+                ImGui::PopStyleColor(3);
+                ImGui::TextColored(ImVec4(1.0f, 0.8f, 0.0f, 1.0f), "⚠️  Removes ALL hooks and unloads DLL");
+                
                 ImGui::Separator();
                 ImGui::TextColored(g_Colors.textSecondary, "Press INSERT to toggle menu");
                 ImGui::TextColored(g_Colors.accentCyan, "FPS: %.1f", ImGui::GetIO().Framerate);

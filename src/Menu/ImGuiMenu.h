@@ -4,8 +4,25 @@
 #include <Windows.h>
 #include <cstdint>
 
+// Forward declarations
+class ACh008;
+class APlayer;
+
 namespace ImGuiMenu
 {
+    // ============================================================================
+    // HOTKEY STRUCTURE - Groups Keyboard, Xbox, and PS4 together
+    // ============================================================================
+    struct HotkeySet
+    {
+        int Keyboard = 0x00;  // PC keyboard key code
+        int Xbox = 0x0000;    // XINPUT gamepad button code (Xbox/PS4 compatible)
+        int PS4 = 0x0000;     // Same as Xbox for gamepad buttons
+        
+        HotkeySet() = default;
+        HotkeySet(int kb, int gamepad) : Keyboard(kb), Xbox(gamepad), PS4(gamepad) {}
+    };
+
     // ============================================================================
     // SETTINGS STRUCTURE
     // ============================================================================
@@ -37,25 +54,50 @@ namespace ImGuiMenu
         float AimbotFOVRadius = 500.0f;  // FOV radius in pixels (adjustable)
         bool AimbotRequireHold = true;  // Require holding key (Zero1 exact - reduces detection)
         
-        // Hotkeys (Keyboard/Mouse + Gamepad)
-        int AimbotHoldKey = 0x02;  // VK_RBUTTON (right mouse button) - hold to activate
-        int AimbotHoldKey_Xbox = 0x0100;  // XINPUT_GAMEPAD_LB (Left Shoulder) - Zero1 exact
-        int AimbotHoldKey_PS4 = 0x0100;   // XINPUT_GAMEPAD_LB (L1) - Zero1 exact
+        // Aimbot Hotkey (Keyboard/Xbox/PS4 grouped)
+        HotkeySet AimbotHoldKey = HotkeySet(0x02, 0x0100);  // KB: RButton, Gamepad: LB
         
-        // Teleport to Kota
+        // Teleport to Kota Hotkey
         bool EnableTeleportToKota = false;
-        int TeleportToKotaKey = 0x50;  // VK_P (P key)
-        int TeleportToKotaKey_Xbox = 0x0080;  // XINPUT_GAMEPAD_RB (Right Shoulder)
-        int TeleportToKotaKey_PS4 = 0x0080;   // XINPUT_GAMEPAD_RB (R1)
+        HotkeySet TeleportToKotaKey = HotkeySet(0x50, 0x0080);  // KB: P, Gamepad: RB
+
+        // Transform Into Random ESP Target Hotkey
+        bool EnableTransformIntoRandomESP = false;
+        HotkeySet TransformIntoRandomESPKey = HotkeySet(0x4F, 0x0040);  // KB: O, Gamepad: A
+        
+        // Duplicate Into Imitation Random ESP Target Hotkey
+        bool EnableDuplicateIntoImitationRandomESP = false;
+        HotkeySet DuplicateIntoImitationRandomESPKey = HotkeySet(0x49, 0x8000);  // KB: I, Gamepad: Y
+        float DuplicateImitationLifeTime = 30.0f;  // Lifetime for imitation duplicate
+        int DuplicateIntoImitationCount = 1;  // Number of imitation duplicates to spawn per hotkey (1-100)
+        
+        // Reload Adjust Rates
+        float ReloadAdjustRate = 1.0f;                    // General reload rate (1.0 = normal)
+        float ReloadAdjustRate_RollSlot = 1.0f;           // Reload rate for roll slot
+        float ReloadAdjustRate_WearBlueFlame = 1.0f;      // Reload rate while wearing blue flame
+        
+        // Training Mode - Player Character Setup
+        int TrainingPlayerCharacter = 0;                  // Character ID (0=UNDEF, 1=Ch000, 2=Ch001... 44=Ch999)
+        int TrainingPlayerUnique1 = 1;                    // Unique 1 skill level (0-10)
+        int TrainingPlayerUnique2 = 1;                    // Unique 2 skill level (0-10)
+        int TrainingPlayerUnique3 = 1;                    // Unique 3 skill level (0-10)
+        int TrainingPlayerSkillCode = 0;                  // Skill variation code (0-5)
+        int TrainingPlayerCostumeCode = 0;                // Costume code ID (0=default)
+        int TrainingPlayerCostumeAuraType = 0;            // Costume aura type (0-5)
+        
+        // Invincibility Hotkey (unified)
+        HotkeySet SetInvincibleKey = HotkeySet(0x00, 0x0000);  // KB: F11, Gamepad: B
+        
+        
+        // Rebuild Myself Hotkey (no default - user must set)
+        HotkeySet RebuildMyselfKey = HotkeySet(0x00, 0x0000);  // No default hotkey
+        
+        // Recovery Settings
+        bool EnableRecoveryTeam = false;                 // Recover self + team members
+        bool EnableRecoveryAllESP = false;               // Recover all ESP targets with dying flag
         
         // Teleport Items (Level Up Cards)
         bool EnableTeleportLevelUpCards = false;
-        
-        // Duplicate Player
-        bool EnableDuplicate = false;
-        int DuplicateKey = 0x4F;  // VK_O (O key)
-        int DuplicateKey_Xbox = 0x0040;  // XINPUT_GAMEPAD_Y
-        int DuplicateKey_PS4 = 0x0040;   // XINPUT_GAMEPAD_Y (Triangle)
         
         // BulletTP (Silent Aim) - Alpha Skills Only - Uses same settings as Aimbot
         bool EnableBulletTP = false;
@@ -78,6 +120,22 @@ namespace ImGuiMenu
         bool EnableInfiniteBarrier = false;
         bool EnableInfinitePlusUltra = false;
         bool EnableFullBuff = false;
+
+        // Ability Hack Levels (1-100)
+        int AbilityAttackLevel = 50;
+        int AbilityDurableLevel = 50;
+        int AbilityMovespeedLevel = 50;
+        int AbilityHealLevel = 50;
+        int AbilityTechniqueLevel = 50;
+
+        // Character Settings for ApplyToAllControllers
+        int CharacterId = 1;                  // Character ID (1-44 for Ch000-Ch999)
+        int CharacterUnique1 = 1;             // Unique 1 skill level (0-100)
+        int CharacterUnique2 = 1;             // Unique 2 skill level (0-100)
+        int CharacterUnique3 = 1;             // Unique 3 skill level (0-100)
+        int CharacterSkillCode = 0;           // Skill variation code (0-5)
+        int CharacterCostumeCode = 0;         // Costume code ID (0=default)
+        int CharacterCostumeAuraType = 0;     // Costume aura type (0-5)
     };
 
     // ============================================================================

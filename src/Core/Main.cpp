@@ -101,17 +101,16 @@ namespace Main
         Logger::LogInfo("✅ ESP drawing system initialized (ImGui overlay)");
 
 
-        // Initialize game thread hook (Tick monitoring)
-        // DISABLED - GameThreadHook disabled
-        // if (GameThreadHook::Initialize())
-        // {
-        //     Logger::LogInfo("Game thread hook initialized successfully");
-        //     Logger::LogInfo("Monitoring Tick calls in game thread");
-        // }
-        // else
-        // {
-        //     Logger::LogWarning("Game thread hook initialization failed (non-critical)");
-        // }
+        // Initialize game thread hook (VMT shadowing ProcessEvent)
+        if (GameThreadHook::Initialize())
+        {
+            Logger::LogInfo("Game thread hook initialized successfully");
+            Logger::LogInfo("VMT shadowing ProcessEvent hook active");
+        }
+        else
+        {
+            Logger::LogWarning("Game thread hook initialization failed (non-critical)");
+        }
 
         g_initialized = true;
         Logger::LogInfo("Initialization complete! Press INSERT to toggle menu");
@@ -121,14 +120,21 @@ namespace Main
     {
         if (!g_initialized) return;
 
-        Logger::LogInfo("Shutdown in progress...");
+        Logger::LogInfo("=== COMPLETE DLL SHUTDOWN IN PROGRESS ===");
+        Logger::LogInfo("[Shutdown] Disabling game thread hook (VMT restoration)...");
+        GameThreadHook::Shutdown();
+        Logger::LogInfo("[Shutdown] Game thread hook disabled - VMT hooks restored");
         
-        // GameThreadHook::Shutdown(); // DISABLED
+        Logger::LogInfo("[Shutdown] Disabling D3D11 hook (renderer restoration)...");
         D3D11Hook::Shutdown();
+        Logger::LogInfo("[Shutdown] D3D11 hook disabled - renderer hooks restored");
+        
+        Logger::LogInfo("[Shutdown] Disabling ImGui menu...");
         ImGuiMenu::Shutdown();
+        Logger::LogInfo("[Shutdown] ImGui menu disabled");
         
         g_initialized = false;
-        Logger::LogInfo("Shutdown complete");
+        Logger::LogInfo("=== SHUTDOWN COMPLETE - DLL READY FOR UNLOAD ===");
     }
 
     bool IsInitialized()

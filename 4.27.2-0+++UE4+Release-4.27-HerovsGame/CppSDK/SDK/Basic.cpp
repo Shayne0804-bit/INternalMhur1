@@ -1697,15 +1697,8 @@ extern "C" float SDK_GetDistanceToActor(AActor* Actor)
 // Get bMySelf flag (offset 0x0554)
 extern "C" bool SDK_GetCharacterOutGameIsMySelf(void* Character)
 {
-	try
-	{
-		if (!Character) return false;
-		return *(bool*)((uintptr_t)Character + 0x0554);
-	}
-	catch (...)
-	{
-		return false;
-	}
+	// DISABLED: IsMySelf check disabled
+	return false;
 }
 
 // Get _outGameCharacterId (offset 0x0555)
@@ -2810,24 +2803,12 @@ static void SDK_UpdateActorCache()
 			AActor* Actor = AllActors[i];
 			if (!Actor) continue;
 			
-			// Get class name with extra safety checks
+			// Get class name
 			std::string ClassName = "";
 			try
 			{
-				// Extra checks for Class validity
-				if (!Actor->Class)
-					continue;
-				
-				// Verify Class pointer is not corrupted (IsDefaultObject check)
-				if (Actor->Class->IsDefaultObject())
-					continue;
-				
-				// Safely get class name
-				ClassName = Actor->Class->GetName();
-				
-				// Verify ClassName is not empty
-				if (ClassName.empty())
-					continue;
+				if (Actor->Class)
+					ClassName = Actor->Class->GetName();
 			}
 			catch (...)
 			{
@@ -2876,39 +2857,30 @@ static void SDK_UpdateActorCache()
 			if (!isCharacter && !isChxxx && !isNPC && !isItem)
 				continue;
 			
-			// Cache this actor with enhanced safety
+			// Cache this actor
 			CachedActor cachedActor;
 			cachedActor.ActorPtr = Actor;
 			cachedActor.ClassName = ClassName;
-			
-			// Safely get actor location
-			try
-			{
-				cachedActor.Position = Actor->K2_GetActorLocation();
-			}
-			catch (...)
-			{
-				continue;  // Skip actor if we can't get its location
-			}
-			
-			cachedActor.IsMySelf = false;  // Default to false
+			cachedActor.Position = Actor->K2_GetActorLocation();
+			cachedActor.IsMySelf = SDK_GetCharacterOutGameIsMySelf(Actor);
 			cachedActor.CitizenType = 0;
+			
+			// DETECT LOCAL PLAYER - Update cached team ID when we find ourselves
+			if (cachedActor.IsMySelf && (ClassName == "CharacterBattle" || ClassName == "ACharacterBattle"))
+			{
+				uint8 myTeam = GetCharacterTeamId(Actor);
+				if (myTeam != 255)  // Valid team ID
+				{
+					g_MyTeamId = myTeam;
+					g_LastLocalPlayerCharacter = Actor;
+				}
+			}
 			
 			// Get character ID and costume (only for CharacterOutGame)
 			if (ClassName == "CharacterOutGame" || ClassName == "ACharacterOutGame")
 			{
-				// Only call SDK_GetCharacterOutGameIsMySelf for CharacterOutGame actors
-				try
-				{
-					cachedActor.IsMySelf = SDK_GetCharacterOutGameIsMySelf(Actor);
-					cachedActor.CharacterID = SDK_GetCharacterOutGameId(Actor);
-					cachedActor.CostumeCode = SDK_GetCharacterOutGameCostumeCode(Actor);
-				}
-				catch (...)
-				{
-					// Skip this actor if SDK calls fail
-					continue;
-				}
+				cachedActor.CharacterID = SDK_GetCharacterOutGameId(Actor);
+				cachedActor.CostumeCode = SDK_GetCharacterOutGameCostumeCode(Actor);
 				cachedActor.Health = 0.0f;
 				cachedActor.MaxHealth = 0.0f;
 				cachedActor.GuardPoint = 0.0f;
@@ -3682,11 +3654,11 @@ static bool IsAimbotHoldKeyPressed()
 		return true;
 
 	// Check keyboard/mouse hold key (exactly like Zero1)
-	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey, HotKeyType::KeyboardMouse);
+	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.Keyboard, HotKeyType::KeyboardMouse);
 	
 	// Check gamepad hold button (Xbox and PS4)
-	bool gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey_Xbox, HotKeyType::Gamepad) ||
-	                      IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey_PS4, HotKeyType::Gamepad);
+	bool gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.Xbox, HotKeyType::Gamepad) ||
+	                      IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.PS4, HotKeyType::Gamepad);
 	
 	// Return true if EITHER keyboard OR gamepad is pressed (Zero1 exact: keyboardPressed || gamepadPressed)
 	return keyboardPressed || gamepadPressed;
@@ -3703,7 +3675,7 @@ static bool IsAimbotHoldKeyPressed_OLD()
 
 	// Check if the configured hold key is pressed
 	// GetAsyncKeyState returns high bit set if key is pressed
-	int holdKey = ImGuiMenu::g_Settings.AimbotHoldKey;
+	int holdKey = ImGuiMenu::g_Settings.AimbotHoldKey.Keyboard;
 	return (GetAsyncKeyState(holdKey) & 0x8000) != 0;
 }
 
@@ -4104,14 +4076,14 @@ extern "C" void SDK_RunAimbot()
 	bool menuVisible = ImGuiMenu::IsVisible();
 	
 	// Zero1 EXACT: Check hotkey input (exactly as Zero1 does)
-	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey, HotKeyType::KeyboardMouse);
+	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.Keyboard, HotKeyType::KeyboardMouse);
 	bool gamepadPressed = false;
 	
 	// Only test gamepad hotkey when menu is NOT visible
 	if (!menuVisible)
 	{
-		gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey_Xbox, HotKeyType::Gamepad) ||
-	                   IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey_PS4, HotKeyType::Gamepad);
+		gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.Xbox, HotKeyType::Gamepad) ||
+	                   IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.PS4, HotKeyType::Gamepad);
 	}
 	
 	bool hotKeyPressed = keyboardPressed || gamepadPressed;
@@ -4372,13 +4344,13 @@ extern "C" void SDK_RunSilentAim()
 	bool menuVisible = ImGuiMenu::IsVisible();
 	
 	// Check hotkey input (uses Aimbot hotkeys)
-	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey, HotKeyType::KeyboardMouse);
+	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.Keyboard, HotKeyType::KeyboardMouse);
 	bool gamepadPressed = false;
 	
 	if (!menuVisible)
 	{
-		gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey_Xbox, HotKeyType::Gamepad) ||
-						IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey_PS4, HotKeyType::Gamepad);
+		gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.Xbox, HotKeyType::Gamepad) ||
+						IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.PS4, HotKeyType::Gamepad);
 	}
 	
 	bool flag = keyboardPressed || gamepadPressed;
@@ -4727,13 +4699,13 @@ extern "C" void SDK_RunTeleportToKota()
 	bool menuVisible = ImGuiMenu::IsVisible();
 	
 	// Check hotkey input (Keyboard/Mouse + Gamepad)
-	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.TeleportToKotaKey, HotKeyType::KeyboardMouse);
+	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.TeleportToKotaKey.Keyboard, HotKeyType::KeyboardMouse);
 	bool gamepadPressed = false;
 	
 	if (!menuVisible)
 	{
-		gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.TeleportToKotaKey_Xbox, HotKeyType::Gamepad) ||
-						IsKeyPressed(ImGuiMenu::g_Settings.TeleportToKotaKey_PS4, HotKeyType::Gamepad);
+		gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.TeleportToKotaKey.Xbox, HotKeyType::Gamepad) ||
+						IsKeyPressed(ImGuiMenu::g_Settings.TeleportToKotaKey.PS4, HotKeyType::Gamepad);
 	}
 	
 	TeleportToKotaLog("[Hotkey Check] Keyboard: %s, Gamepad: %s", 
@@ -4778,20 +4750,17 @@ extern "C" void SDK_RunTeleportToKota()
 		
 		for (auto& actor : g_ActorsForRendering)
 		{
-			// Only check NPCCitizen actors
-			if (actor.ClassName != "NPCCitizen")
-				continue;
-			
 			if (!actor.ActorPtr)
 			{
 				TeleportToKotaLog("  Skipping: ActorPtr is NULL");
 				continue;
 			}
 			
-			TeleportToKotaLog("  Checking NPCCitizen: CitizenType: %d", (int)actor.CitizenType);
+			TeleportToKotaLog("  Checking actor: %s | CitizenType: %d (IsMySelf:%d)", 
+				actor.ClassName.c_str(), (int)actor.CitizenType, actor.IsMySelf ? 1 : 0);
 			
 			// Search for NPCCitizen with CitizenType == 4 (SPECIAL_KID)
-			if (actor.CitizenType == 4)
+			if (actor.ClassName == "NPCCitizen" && actor.CitizenType == 4 && !actor.IsMySelf)
 			{
 				TeleportToKotaLog("  → Found SPECIAL_KID: NPCCitizen (CitizenType=4) ✓");
 				kotaActor = &actor;
@@ -4858,165 +4827,6 @@ extern "C" void SDK_RunTeleportToKota()
 		TeleportToKotaLog("✗✗✗ FAILED ✗✗✗");
 		TeleportToKotaLog("K2_TeleportTo() returned FALSE - teleport failed");
 		TeleportToKotaLog("===== TELEPORT TO KOTA TICK END (FAILED - K2_TELEPORTTO RETURNED FALSE) =====");
-	}
-}
-
-// ===== DUPLICATE PLAYER VIA REFLECTION =====
-extern "C" void SDK_RunDuplicate()
-{
-	// Debug file logging
-	auto DebugLog = [](const std::string& msg) {
-		std::ofstream log("c:\\temp\\Duplicate_Debug.log", std::ios::app);
-		if (log.is_open()) {
-			log << msg << "\n";
-			log.close();
-		}
-	};
-
-	DebugLog("=== SDK_RunDuplicate CALLED ===");
-
-	try
-	{
-		// Get player controller first
-		DebugLog("Step 1: Getting player controller...");
-		APlayerController* PlayerController = SDK_GetPlayerController();
-		if (!PlayerController)
-		{
-			DebugLog("ERROR: PlayerController is NULL");
-			Logger::LogWarning("[Duplicate] PlayerController is NULL");
-			return;
-		}
-		DebugLog("OK: PlayerController found");
-
-		if (!PlayerController->Pawn)
-		{
-			DebugLog("ERROR: PlayerController->Pawn is NULL");
-			Logger::LogWarning("[Duplicate] No player character found");
-			return;
-		}
-		DebugLog("OK: Pawn found");
-
-		AActor* PlayerActor = PlayerController->Pawn;
-		DebugLog(std::string("Player actor: ") + (PlayerActor ? "valid" : "NULL"));
-		Logger::LogInfo("[Duplicate] Starting duplicate player...");
-
-		// Step 1: Get DuplicateControlComponent via reflection
-		DebugLog("Step 2: Finding BP_GetDuplicateController function...");
-		UFunction* GetDuplicateFunc = nullptr;
-		{
-			if (!PlayerActor->Class)
-			{
-				DebugLog("ERROR: PlayerActor->Class is NULL");
-				Logger::LogWarning("[Duplicate] Player class not found");
-				return;
-			}
-			DebugLog("OK: PlayerActor->Class valid");
-
-			GetDuplicateFunc = PlayerActor->Class->GetFunction("ACharacterBattle", "BP_GetDuplicateController");
-			if (!GetDuplicateFunc)
-			{
-				DebugLog("ERROR: BP_GetDuplicateController function NOT FOUND");
-				Logger::LogWarning("[Duplicate] BP_GetDuplicateController function not found");
-				return;
-			}
-			DebugLog("OK: BP_GetDuplicateController found");
-		}
-
-		// Call BP_GetDuplicateController to get the component
-		DebugLog("Step 3: Calling BP_GetDuplicateController ProcessEvent...");
-		void* DuplicateComp = nullptr;
-		{
-			struct GetDuplicateParams
-			{
-				void* ReturnValue;
-			} Params{};
-
-			Params.ReturnValue = nullptr;
-
-			auto Flgs = GetDuplicateFunc->FunctionFlags;
-			GetDuplicateFunc->FunctionFlags |= 0x400;
-			PlayerActor->ProcessEvent(GetDuplicateFunc, &Params);
-			GetDuplicateFunc->FunctionFlags = Flgs;
-
-			DuplicateComp = Params.ReturnValue;
-		}
-		DebugLog(std::string("DuplicateComp returned: ") + (DuplicateComp ? "VALID" : "NULL"));
-
-		if (!DuplicateComp)
-		{
-			DebugLog("ERROR: DuplicateControlComponent is NULL - BP_GetDuplicateController returned nothing");
-			Logger::LogWarning("[Duplicate] DuplicateControlComponent is NULL");
-			return;
-		}
-		DebugLog("OK: Got DuplicateControlComponent");
-
-		// Step 2: Find DuplicateInto_RPC_ToServer function via reflection
-		DebugLog("Step 4: Finding UDuplicateControlComponent class...");
-		UFunction* DuplicateFunc = nullptr;
-		{
-			UClass* DuplicateCompClass = UObject::FindClass("UDuplicateControlComponent");
-			if (!DuplicateCompClass)
-			{
-				DebugLog("ERROR: UDuplicateControlComponent class NOT FOUND");
-				Logger::LogWarning("[Duplicate] UDuplicateControlComponent class not found");
-				return;
-			}
-			DebugLog("OK: UDuplicateControlComponent class found");
-
-			DuplicateFunc = DuplicateCompClass->GetFunction("UDuplicateControlComponent", "DuplicateInto_RPC_ToServer");
-			if (!DuplicateFunc)
-			{
-				DebugLog("ERROR: DuplicateInto_RPC_ToServer function NOT FOUND");
-				Logger::LogWarning("[Duplicate] DuplicateInto_RPC_ToServer function not found");
-				return;
-			}
-			DebugLog("OK: DuplicateInto_RPC_ToServer found");
-		}
-
-		// Step 3: Call DuplicateInto_RPC_ToServer with player as target and offset position
-		DebugLog("Step 5: Preparing RPC parameters...");
-		{
-			FVector PlayerLocation = PlayerActor->K2_GetActorLocation();
-			FVector SpawnLocation = PlayerLocation + FVector(200.0f, 0.0f, 0.0f);  // 2m offset
-
-			struct DuplicateParams
-			{
-				void* targetCharacter;
-				FVector SpawnLocation;
-			} Params{};
-
-			Params.targetCharacter = PlayerActor;
-			Params.SpawnLocation = SpawnLocation;
-
-			std::stringstream ss;
-			ss << "Player Location: X=" << PlayerLocation.X << " Y=" << PlayerLocation.Y << " Z=" << PlayerLocation.Z;
-			DebugLog(ss.str());
-
-			std::stringstream ss2;
-			ss2 << "Spawn Location: X=" << SpawnLocation.X << " Y=" << SpawnLocation.Y << " Z=" << SpawnLocation.Z;
-			DebugLog(ss2.str());
-
-			DebugLog("Step 6: Calling DuplicateInto_RPC_ToServer ProcessEvent...");
-			auto Flgs = DuplicateFunc->FunctionFlags;
-			DuplicateFunc->FunctionFlags |= 0x400;
-			((UObject*)DuplicateComp)->ProcessEvent(DuplicateFunc, &Params);
-			DuplicateFunc->FunctionFlags = Flgs;
-
-			DebugLog("SUCCESS: DuplicateInto_RPC_ToServer called!");
-			Logger::LogInfo("[Duplicate] SUCCESS - Player duplicated!");
-		}
-		DebugLog("=== SDK_RunDuplicate COMPLETED SUCCESSFULLY ===");
-	}
-	catch (const std::exception& e)
-	{
-		std::string errMsg = std::string("EXCEPTION: ") + e.what();
-		DebugLog(errMsg);
-		Logger::LogError(std::string("[Duplicate] Exception: ") + e.what());
-	}
-	catch (...)
-	{
-		DebugLog("UNKNOWN EXCEPTION");
-		Logger::LogError("[Duplicate] Unknown exception occurred");
 	}
 }
 
@@ -5145,6 +4955,177 @@ extern "C" void SDK_RunTeleportLevelUpCards()
 	SDK_TeleportItem_AbilitySupplyGamma();
 	
 	Logger::LogInfo("[TeleportItems] Global teleport executed");
+}
+
+// ============================================
+// GET FORWARD ESP TARGET (closest in front)
+// ============================================
+/**
+ * Get closest ACharacterBattle in front of player using forward vector
+ * Returns as AActor* pointer for portability
+ */
+extern "C" SDK::AActor* SDK_GetForwardESPTarget()
+{
+	try
+	{
+		APlayerController* playerController = SDK_GetPlayerController();
+		if (!playerController || !playerController->Pawn)
+		{
+			return nullptr;
+		}
+
+		AActor* playerPawn = playerController->Pawn;
+		FVector playerPos = playerPawn->K2_GetActorLocation();
+		FVector forwardVector = playerPawn->GetActorForwardVector();
+
+		std::vector<SDK::AActor*> validTargets;
+
+		// Access the cached actors from ESP rendering list
+		// Filter for ACharacterBattle actors only
+		for (const auto& cachedActor : g_ActorsForRendering)
+		{
+			// Check if it's a valid target (ACharacterBattle, CharacterBattle, or Ch***)
+			bool isValidCharacter = false;
+
+			// Check for standard character battle names
+			if (cachedActor.ClassName == "CharacterBattle" || cachedActor.ClassName == "ACharacterBattle")
+			{
+				isValidCharacter = true;
+			}
+			// Check for Ch*** character classes (Ch008, Ch005, etc.)
+			else if (cachedActor.ClassName.length() > 2 &&
+				cachedActor.ClassName[0] == 'C' &&
+				cachedActor.ClassName[1] == 'h')
+			{
+				isValidCharacter = true;
+			}
+
+			if (isValidCharacter && cachedActor.ActorPtr != nullptr && !cachedActor.IsMySelf)
+			{
+				validTargets.push_back(cachedActor.ActorPtr);
+			}
+		}
+
+		// If no targets found, return nullptr
+		if (validTargets.empty())
+		{
+			return nullptr;
+		}
+
+		// Find closest target in front (using dot product with forward vector)
+		SDK::AActor* closestTarget = nullptr;
+		float closestDistance = FLT_MAX;
+		float bestDotProduct = -1.0f;
+
+		for (auto* target : validTargets)
+		{
+			if (!target)
+				continue;
+
+			try
+			{
+				FVector targetPos = target->K2_GetActorLocation();
+				FVector directionToTarget = (targetPos - playerPos);
+				
+				// Calculate distance manually: sqrt(x^2 + y^2 + z^2)
+				float distanceToTarget = std::sqrt(
+					directionToTarget.X * directionToTarget.X +
+					directionToTarget.Y * directionToTarget.Y +
+					directionToTarget.Z * directionToTarget.Z
+				);
+
+				// Normalize direction
+				if (distanceToTarget > 0.001f)
+				{
+					directionToTarget = directionToTarget / distanceToTarget;
+
+					// Calculate dot product (1.0 = directly in front, -1.0 = behind)
+					float dotProduct = forwardVector.X * directionToTarget.X +
+						forwardVector.Y * directionToTarget.Y +
+						forwardVector.Z * directionToTarget.Z;
+
+					// Only consider targets in front (dot > 0) and closest
+					if (dotProduct > 0.0f && dotProduct > bestDotProduct)
+					{
+						bestDotProduct = dotProduct;
+						closestTarget = target;
+						closestDistance = distanceToTarget;
+					}
+				}
+			}
+			catch (...)
+			{
+				continue;
+			}
+		}
+
+		return closestTarget;
+	}
+	catch (const std::exception& e)
+	{
+		return nullptr;
+	}
+}
+
+// ============================================
+// GET RANDOM ESP TARGET
+// ============================================
+/**
+ * Get a random ACharacterBattle from ESP filter
+ * Returns as AActor* pointer for portability
+ */
+extern "C" SDK::AActor* SDK_GetRandomESPTarget()
+{
+	std::vector<SDK::AActor*> validTargets;
+	
+	try
+	{
+		// Access the cached actors from ESP rendering list
+		// Filter for ACharacterBattle actors only
+		for (const auto& cachedActor : g_ActorsForRendering)
+		{
+			// Check if it's a valid target (ACharacterBattle, CharacterBattle, or Ch***)
+			bool isValidCharacter = false;
+			
+			// Check for standard character battle names
+			if (cachedActor.ClassName == "CharacterBattle" || cachedActor.ClassName == "ACharacterBattle")
+			{
+				isValidCharacter = true;
+			}
+			// Check for Ch*** character classes (Ch008, Ch005, etc.)
+			else if (cachedActor.ClassName.length() > 2 && 
+			         cachedActor.ClassName[0] == 'C' && 
+			         cachedActor.ClassName[1] == 'h')
+			{
+				isValidCharacter = true;
+			}
+			
+			if (isValidCharacter && cachedActor.ActorPtr != nullptr && !cachedActor.IsMySelf)
+			{
+				validTargets.push_back(cachedActor.ActorPtr);
+			}
+		}
+		
+		// If no targets found, return nullptr
+		if (validTargets.empty())
+		{
+			Logger::LogWarning("[SDK::ESP] No valid CharacterBattle targets found");
+			return nullptr;
+		}
+		
+		// Get random target
+		int randomIndex = rand() % validTargets.size();
+		SDK::AActor* selectedTarget = validTargets[randomIndex];
+		
+		Logger::LogInfo("[SDK::ESP] Selected random target. Total available: " + std::to_string(validTargets.size()));
+		
+		return selectedTarget;
+	}
+	catch (const std::exception& e)
+	{
+		Logger::LogError("[SDK::ESP] Exception in SDK_GetRandomESPTarget: " + std::string(e.what()));
+		return nullptr;
+	}
 }
 
 SDK_NAMESPACE_END
