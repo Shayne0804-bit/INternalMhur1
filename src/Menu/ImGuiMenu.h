@@ -78,6 +78,7 @@ namespace ImGuiMenu
         
         // Training Mode - Player Character Setup
         int TrainingPlayerCharacter = 0;                  // Character ID (0=UNDEF, 1=Ch000, 2=Ch001... 44=Ch999)
+        int TrainingPlayerVariationId = 0;                // Variation ID (0-100)
         int TrainingPlayerUnique1 = 1;                    // Unique 1 skill level (0-10)
         int TrainingPlayerUnique2 = 1;                    // Unique 2 skill level (0-10)
         int TrainingPlayerUnique3 = 1;                    // Unique 3 skill level (0-10)
@@ -88,13 +89,10 @@ namespace ImGuiMenu
         // Invincibility Hotkey (unified)
         HotkeySet SetInvincibleKey = HotkeySet(0x00, 0x0000);  // KB: F11, Gamepad: B
         
-        
-        // Rebuild Myself Hotkey (no default - user must set)
-        HotkeySet RebuildMyselfKey = HotkeySet(0x00, 0x0000);  // No default hotkey
-        
         // Recovery Settings
-        bool EnableRecoveryTeam = false;                 // Recover self + team members
-        bool EnableRecoveryAllESP = false;               // Recover all ESP targets with dying flag
+        bool EnableRecoveryMe = false;                  // Recover self only
+        bool EnableRecoveryTeam = false;                // Recover self + team members
+        bool EnableRecoveryAllESP = false;              // Recover all ESP targets with dying flag
         
         // Teleport Items (Level Up Cards)
         bool EnableTeleportLevelUpCards = false;
@@ -102,12 +100,19 @@ namespace ImGuiMenu
         // BulletTP (Silent Aim) - Alpha Skills Only - Uses same settings as Aimbot
         bool EnableBulletTP = false;
 
+        // Rebuild Myself Hotkey
+        bool EnableRebuildMyself = false;
+        HotkeySet RebuildMyselfKey = HotkeySet(0x4C, 0x4000);  // KB: L, Gamepad: LT
+
         // ESP - Filters
         bool ShowEnemies = true;
         bool ShowTeam = false;
         bool ShowLobbyCharacters = true;
         bool ShowKota = true;          // Display KOTA (special NPC)
         float Player_DrawDistance = 5000.0f;
+        
+        // Character Control
+        int SelectedCharacterIndex = -1;  // Index of selected character for dying/killing
     };
 
     // ============================================================================
@@ -130,6 +135,7 @@ namespace ImGuiMenu
 
         // Character Settings for ApplyToAllControllers
         int CharacterId = 1;                  // Character ID (1-44 for Ch000-Ch999)
+        int CharacterVariationId = 0;         // Variation ID (0-100)
         int CharacterUnique1 = 1;             // Unique 1 skill level (0-100)
         int CharacterUnique2 = 1;             // Unique 2 skill level (0-100)
         int CharacterUnique3 = 1;             // Unique 3 skill level (0-100)

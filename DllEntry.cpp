@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <fstream>
 #include "src/Core/Main.h"
+#include "src/Core/UnloadManager.h"
 
 // Global module handle for unload
 static HMODULE g_hModule = nullptr;
@@ -42,7 +43,7 @@ DWORD WINAPI MainThread(HMODULE Module)
 DWORD WINAPI UnloadThread(LPVOID lpParam)
 {
     // Wait for current render operations to finish
-    Sleep(500);
+    Sleep(1000);
     
     // Complete cleanup - remove all hooks and restore original state
     try
@@ -53,21 +54,32 @@ DWORD WINAPI UnloadThread(LPVOID lpParam)
     {
     }
     
-    // Wait a bit more to ensure all cleanup is done
-    Sleep(100);
+    // Wait to ensure all cleanup is done
+    Sleep(500);
     
-    // Now unload the DLL completely
-    if (g_hModule)
-    {
-        FreeLibraryAndExitThread(g_hModule, 0);
-    }
+    // Don't unload the DLL forcefully - that causes game crash
+    // Instead, just clean up and let the VTable become a passthrough
+    // The game will continue to call HookedPresent, but it will just
+    // pass through to g_OriginalPresent without doing anything
+    
+    // Exit this thread
+    ExitThread(0);
     
     return 0;
 }
 
-// Extern function to unload DLL from menu - starts unload thread
+// Extern function to get unload status
+extern "C" __declspec(dllexport) bool DLL_IsUnloadRequested()
+{
+    return UnloadManager::IsUnloadRequested();
+}
+
+// Extern function to request DLL unload - starts unload thread
 extern "C" __declspec(dllexport) void DLL_Unload()
 {
+    // Set flag to signal all components to unload
+    UnloadManager::RequestUnload();
+    
     // Create a dedicated thread for unloading to avoid blocking game
     HANDLE hThread = CreateThread(nullptr, 0, UnloadThread, nullptr, 0, nullptr);
     if (hThread)

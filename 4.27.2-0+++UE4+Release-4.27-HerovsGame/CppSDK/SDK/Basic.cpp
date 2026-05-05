@@ -2801,14 +2801,29 @@ static void SDK_UpdateActorCache()
 		for (int i = 0; i < AllActors.Num(); i++)
 		{
 			AActor* Actor = AllActors[i];
+			
+			// Safety: Skip null or default objects
 			if (!Actor) continue;
+			if (Actor->IsDefaultObject()) continue;
+			
+			// Additional safety: Try to access Class - if it crashes, skip
+			SDK::UClass* ActorClass = nullptr;
+			try
+			{
+				ActorClass = Actor->Class;
+				if (!ActorClass) continue;
+			}
+			catch (...)
+			{
+				continue;  // Skip if Class is inaccessible
+			}
 			
 			// Get class name
 			std::string ClassName = "";
 			try
 			{
-				if (Actor->Class)
-					ClassName = Actor->Class->GetName();
+				ClassName = ActorClass->GetName();
+				if (ClassName.empty()) continue;  // Skip if name is empty
 			}
 			catch (...)
 			{

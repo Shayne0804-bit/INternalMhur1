@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <cstdint>
 
 namespace SDK
@@ -10,7 +11,34 @@ namespace SDK
     struct FInGameBattleCharacterData;
     struct FVector;
     class AActor;
+    enum class ECharacterId : uint8_t;
 }
+
+// ============================================================================
+// CHARACTER VARIATION FUNCTIONS
+// ============================================================================
+
+/**
+ * Get available variations for a character
+ * @param characterId - The character to get variations for
+ * @return Vector of variation IDs (0-based indices)
+ */
+std::vector<int32_t> GetVariationsForCharacter(SDK::ECharacterId characterId);
+
+/**
+ * Get the display name of a variation
+ * @param variationId - The variation index (0, 1, 2, etc.)
+ * @return String name like "Variation 0", "Variation 1", etc.
+ */
+std::string GetVariationName(int32_t variationId);
+
+/**
+ * Convert combo index to actual variation ID
+ * @param characterId - The character ID
+ * @param comboIndex - The index from the combo box (0, 1, 2, etc.)
+ * @return The actual variation ID (e.g., 0, 1, 2 for Ch000; 1, 3 for Ch001)
+ */
+int32_t GetVariationIdFromComboIndex(SDK::ECharacterId characterId, int32_t comboIndex);
 
 // ============================================================================
 // UTILITY FUNCTIONS
@@ -112,12 +140,12 @@ bool InGameHack_SetReloadAdjustRate_WearBlueFlame(float rate);
 /**
  * Apply player configuration for training mode
  */
-bool InGameHack_ApplyPlayerConfiguration(int characterId, int unique1, int unique2, int unique3, int skillCode, int costumeCode, int costumeAuraType);
+bool InGameHack_ApplyPlayerConfiguration(int characterId, int variationId, int unique1, int unique2, int unique3, int skillCode, int costumeCode, int costumeAuraType);
 
 /**
  * Apply player configuration to ALL PlayerControllerBattle instances in the match
  */
-bool InGameHack_ApplyToAllControllers(int characterId, int unique1, int unique2, int unique3, int skillCode, int costumeCode, int costumeAuraType);
+bool InGameHack_ApplyToAllControllers(int characterId, int variationId, int unique1, int unique2, int unique3, int skillCode, int costumeCode, int costumeAuraType);
 
 /**
  * Start the training match by calling Decide() on UTrainingMenuWidget
@@ -159,14 +187,20 @@ bool InGameHack_CH202TransMission();
 bool InGameHack_Unbreakable();
 
 /**
- * Recover player and all team members with dying flag
- * Calls BP_RecoverDying on self + allies that are currently dying
+ * Recover self (player only) with full health restoration
+ * Calls BP_ClearDyingState(true) on self
+ */
+bool InGameHack_RecoverMe();
+
+/**
+ * Recover player + all team members with full health restoration
+ * Calls BP_ClearDyingState(true) on all team characters
  */
 bool InGameHack_RecoverDyingTeam();
 
 /**
- * Recover all dying characters visible in ESP
- * Calls BP_RecoverDying on all ESP targets with dying flag
+ * Recover ALL characters on map with full health restoration
+ * Calls BP_ClearDyingState(true) on all characters regardless of team
  */
 bool InGameHack_RecoverDyingAllESP();
 
@@ -226,3 +260,68 @@ bool InGameHack_AbilityHeal(int level);
  * Span: 50 seconds
  */
 bool InGameHack_AbilityTechnique(int level);
+
+// ============================================
+// CHARACTER CONTROL FUNCTIONS
+// ============================================
+
+/**
+ * Get all ACharacterBattle instances visible in the world
+ * Returns vector of character pointers for menu selection
+ */
+std::vector<class SDK::ACharacterBattle*> InGameHack_GetAllCharacterBattles();
+
+/**
+ * Get character names for UI display
+ * Returns vector of character names (from PlayerState)
+ */
+std::vector<std::string> InGameHack_GetCharacterNames();
+
+/**
+ * Set a character to dying state
+ * target: The ACharacterBattle to set dying
+ */
+bool InGameHack_SetCharacterDying(class SDK::ACharacterBattle* target);
+
+/**
+ * Kill a character
+ * @param victim: The ACharacterBattle to kill
+ * @param killer: The ACharacterBattle doing the killing (nullptr = use player)
+ */
+bool InGameHack_KillCharacter(class SDK::ACharacterBattle* victim, class SDK::ACharacterBattle* killer);
+
+/**
+ * Validate transmission mission level
+ * @param level - Level to validate (0-9)
+ */
+bool InGameHack_ValidateTransMissionLevel(int level);
+
+/**
+ * Prevent dropping supplies when character dies
+ * @param bPreventDrop - true to prevent dropping
+ */
+bool InGameHack_PreventDropOnDeath(bool bPreventDrop);
+
+/**
+ * Set skill level for a character
+ * @param skillIndex - The skill index (0-8 for levels 1-9)
+ * @param level - Level to set (1-9)
+ */
+bool InGameHack_SetSkillLevel(int skillIndex, int level);
+
+/**
+ * Upgrade a supply item
+ * @param supplyIndex - The supply index in inventory
+ * @param level - Level to set (1-99)
+ */
+bool InGameHack_UpgradeSupply(int supplyIndex, int level);
+
+/**
+ * Stop using current supply
+ */
+bool InGameHack_StopUsingSupply();
+
+/**
+ * Validate transmission mission level (calls ValidateTransMissionLevel with level 5)
+ */
+void InGameHack_ValidateTransMissionLevel();
