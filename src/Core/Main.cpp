@@ -6,6 +6,7 @@
 #include "../Hooks/GameThreadHook.h"
 #include "../Menu/ImGuiMenu.h"
 #include "../Utils/Logger.h"
+#include "../Hacks/HackThread.h"
 
 // Include SDK for accessing UObject, FindObjectFast, etc.
 // Using Engine_classes.hpp as recommended in Dumper-7 guide for faster compilation
@@ -79,7 +80,7 @@ namespace Main
                 Logger::LogWarning("[SDK] ⚠️ GObjects address is null (game might not be loaded yet)");
             }
             
-        } catch (const std::exception& e) {
+        } catch (const std::exception&) {
             Logger::LogError("[SDK] ❌ Exception during SDK initialization");
         } catch (...) {
             Logger::LogError("[SDK] ❌ Unknown exception during SDK initialization");
@@ -95,6 +96,17 @@ namespace Main
         {
             Logger::LogError("Failed to initialize D3D11 hook!");
             return;
+        }
+
+        // Initialize the hack thread system
+        try
+        {
+            HackThreadManager::GetInstance().Initialize();
+            Logger::LogInfo("Hack thread manager initialized successfully");
+        }
+        catch (const std::exception& e)
+        {
+            Logger::LogError("[HackThread] Failed to initialize: " + std::string(e.what()));
         }
 
         // ESP drawing is now done directly in SDK_TestDeprojectScreenToWorld() using ImGui
@@ -121,6 +133,11 @@ namespace Main
         if (!g_initialized) return;
 
         Logger::LogInfo("=== COMPLETE DLL SHUTDOWN IN PROGRESS ===");
+        
+        Logger::LogInfo("[Shutdown] Shutting down hack thread...");
+        HackThreadManager::GetInstance().Shutdown();
+        Logger::LogInfo("[Shutdown] Hack thread shutdown complete");
+        
         Logger::LogInfo("[Shutdown] Disabling game thread hook (VMT restoration)...");
         GameThreadHook::Shutdown();
         Logger::LogInfo("[Shutdown] Game thread hook disabled - VMT hooks restored");

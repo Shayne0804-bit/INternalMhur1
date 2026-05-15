@@ -148,6 +148,13 @@ bool InGameHack_ApplyPlayerConfiguration(int characterId, int variationId, int u
 bool InGameHack_ApplyToAllControllers(int characterId, int variationId, int unique1, int unique2, int unique3, int skillCode, int costumeCode, int costumeAuraType);
 
 /**
+ * Iterate all players via GameStateTraining method (Method 3)
+ * Access PlayerControllerTraining -> GameStateTraining -> UWorld
+ * Log all players and their info to temp/gamestate_training_players.log
+ */
+bool InGameHack_IteratePlayersViaGameStateTraining();
+
+/**
  * Start the training match by calling Decide() on UTrainingMenuWidget
  * Must be called after configuring player via OnSetPlayerCharacter
  */
@@ -276,6 +283,15 @@ std::vector<class SDK::ACharacterBattle*> InGameHack_GetAllCharacterBattles();
  * Returns vector of character names (from PlayerState)
  */
 std::vector<std::string> InGameHack_GetCharacterNames();
+std::vector<SDK::ACharacterBattle*> InGameHack_GetTeamCharacterBattles();
+std::vector<std::string> InGameHack_GetTeamCharacterNames();
+bool InGameHack_RecoverDyingTeamMember(SDK::ACharacterBattle* target);
+
+/**
+ * Log all damage attenuation curves found in game
+ * Scans all UANS_Attack objects and logs their _damageAttenuation curves with their properties
+ */
+void InGameHack_LogAllDamageAttenuationCurves();
 
 /**
  * Set a character to dying state
@@ -295,6 +311,13 @@ bool InGameHack_KillCharacter(class SDK::ACharacterBattle* victim, class SDK::AC
  * @param level - Level to validate (0-9)
  */
 bool InGameHack_ValidateTransMissionLevel(int level);
+
+/**
+ * Set CH202 init transmission mission level in Ch202Params
+ * @param levelIndex - index in unique3_initLevel array
+ * @param newValue - new value to store
+ */
+bool InGameHack_SetInitTransMissionLevel(int levelIndex, int32_t newValue);
 
 /**
  * Prevent dropping supplies when character dies
@@ -325,3 +348,5 @@ bool InGameHack_StopUsingSupply();
  * Validate transmission mission level (calls ValidateTransMissionLevel with level 5)
  */
 void InGameHack_ValidateTransMissionLevel();
+
+

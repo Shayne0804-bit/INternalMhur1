@@ -2837,7 +2837,7 @@ static void SDK_UpdateActorCache()
 			
 			// Check for Ch001-Ch999 pattern (any Chxxx)
 			bool isChxxx = false;
-			if (ClassName.length() >= 5 && ClassName[0] == 'C' && ClassName[1] == 'h' &&
+			if (ClassName.length() == 5 && ClassName[0] == 'C' && ClassName[1] == 'h' &&
 				std::isdigit(ClassName[2]) && std::isdigit(ClassName[3]) && std::isdigit(ClassName[4]))
 			{
 				isChxxx = true;

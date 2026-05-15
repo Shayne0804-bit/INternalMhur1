@@ -354,6 +354,23 @@ namespace D3D11Hook
             Logger::LogWarning("D3D11Hook: Exception during rebuild myself hotkey");
         }
 
+        // ===== RUN CH202 INIT TRANSMISSION LEVEL 5 AUTO-APPLY =====
+        try
+        {
+            // Auto-apply CH202 init trans level 5 each frame if enabled
+            if (ImGuiMenu::g_Settings.EnableCH202InitTransLevel5)
+            {
+                if (IsValidBattleMode())
+                {
+                    InGameHack_SetInitTransMissionLevel(0, 5);
+                }
+            }
+        }
+        catch (...)
+        {
+            Logger::LogWarning("D3D11Hook: Exception during CH202 init trans level 5 auto-apply");
+        }
+
         // ===== RUN RELOAD ADJUST RATE BUFFS =====
         try
         {

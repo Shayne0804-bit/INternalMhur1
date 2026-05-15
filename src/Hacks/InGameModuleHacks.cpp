@@ -18,37 +18,6 @@
 #include <iomanip>
 
 // ============================================
-// DEDICATED CHARACTER CONTROL LOGGING
-// ============================================
-static void LogCharacterControl(const std::string& message)
-{
-    try
-    {
-        // Get current time with milliseconds
-        auto now = std::chrono::system_clock::now();
-        auto time = std::chrono::system_clock::to_time_t(now);
-        auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()) % 1000;
-        
-        std::stringstream ss;
-        ss << std::put_time(std::localtime(&time), "%Y-%m-%d %H:%M:%S")
-           << "." << std::setfill('0') << std::setw(3) << ms.count() << " : "
-           << message << "\n";
-        
-        // Write to c:/temp/character_control.log
-        std::ofstream file("c:/temp/character_control.log", std::ios::app);
-        if (file.is_open())
-        {
-            file << ss.str();
-            file.close();
-        }
-    }
-    catch (...)
-    {
-        // Silently fail if logging fails
-    }
-}
-
-// ============================================
 // EXTERNAL DECLARATIONS FROM BASIC.CPP
 // ============================================
 
@@ -658,34 +627,6 @@ bool InGameHack_SetReloadAdjustRate_WearBlueFlame(float rate)
     }
 }
 
-/**
- * Start the training match by calling Decide() on UTrainingMenuWidget
- */
-bool InGameHack_DecideTraining()
-{
-    try
-    {
-        SDK::UTrainingMenuWidget* trainingWidget = SDK::UTrainingMenuWidget::GetDefaultObj();
-        if (!trainingWidget)
-        {
-            Logger::LogError("[TRAINING] Widget is nullptr!");
-            return false;
-        }
-
-        trainingWidget->Decide();
-        return true;
-    }
-    catch (const std::exception& e)
-    {
-        Logger::LogError("[TRAINING] Exception caught");
-        return false;
-    }
-    catch (...)
-    {
-        Logger::LogError("[TRAINING] Unknown exception");
-        return false;
-    }
-}
 
 /**
  * Apply training player configuration (player only, no AI)
@@ -791,7 +732,7 @@ bool InGameHack_ApplyToAllControllers(int characterId, int variationId, int uniq
             bool isValidCharacter = (className == "CharacterBattle" || className == "ACharacterBattle");
             
             bool isChxxx = false;
-            if (className.length() >= 5 && className[0] == 'C' && className[1] == 'h' &&
+            if (className.length() == 5 && className[0] == 'C' && className[1] == 'h' &&
                 std::isdigit(className[2]) && std::isdigit(className[3]) && std::isdigit(className[4]))
             {
                 isChxxx = true;
@@ -823,11 +764,9 @@ bool InGameHack_ApplyToAllControllers(int characterId, int variationId, int uniq
             {
                 playerController->ChangeCharacter_OnServer(pawn, characterData);
                 appliedCount++;
-                LogCharacterControl("[ApplyToAll] Applied character change to player " + std::to_string(appliedCount));
             }
             catch (...)
             {
-                LogCharacterControl("[ApplyToAll] Failed to apply to player");
                 continue;
             }
         }
@@ -1188,6 +1127,21 @@ bool InGameHack_Unbreakable()
 }
 
 /**
+ * Get the team ID of a character using SDK function
+ */
+static inline unsigned char GetCharacterTeamId(SDK::ACharacterBattle* Character)
+{
+    if (!Character) return 255;  // Invalid
+    try {
+        // Use SDK function instead of offset reading
+        return Character->BP_GetTeamId();
+    }
+    catch (...) {
+        return 255;  // Return invalid if call fails
+    }
+}
+
+/**
  * Recover player + all team members with full health restoration
  * Uses RecoverDyingAlly_ToServer on all team characters
  */
@@ -1207,6 +1161,11 @@ bool InGameHack_RecoverDyingTeam()
         SDK::ACharacterBattle* playerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
         if (!playerCharacter || !playerCharacter->PlayerState)
             return false;
+
+        // Get player's team ID
+        unsigned char playerTeamId = GetCharacterTeamId(playerCharacter);
+        if (playerTeamId == 255)
+            return false;  // Invalid team
 
         int recoveredCount = 0;
         SDK::UWorld* world = SDK::UWorld::GetWorld();
@@ -1233,7 +1192,7 @@ bool InGameHack_RecoverDyingTeam()
                 
                 // Check for Chxxx pattern (Ch001-Ch999)
                 bool isChxxx = false;
-                if (className.length() >= 5 && className[0] == 'C' && className[1] == 'h' &&
+                if (className.length() == 5 && className[0] == 'C' && className[1] == 'h' &&
                     std::isdigit(className[2]) && std::isdigit(className[3]) && std::isdigit(className[4]))
                 {
                     isChxxx = true;
@@ -1249,11 +1208,16 @@ bool InGameHack_RecoverDyingTeam()
                 if (!targetCharacter || !targetCharacter->PlayerState)
                     continue;
 
-                // 5️⃣ Vérifie que le target est dying (using offset)
+                // 5️⃣ Vérifie que le target est dans la même équipe
+                unsigned char targetTeamId = GetCharacterTeamId(targetCharacter);
+                if (targetTeamId != playerTeamId)
+                    continue;  // Not in same team, skip
+
+                // 6️⃣ Vérifie que le target est dying (using offset)
                 if (!IsCharacterDyingOffset(targetCharacter))
                     continue;  // Not dying, skip
 
-                // 6️⃣ Appelle la recovery
+                // 7️⃣ Appelle la recovery
                 playerCharacter->RecoverDyingAlly_ToServer(targetCharacter, false);
                 recoveredCount++;
             }
@@ -1316,7 +1280,7 @@ bool InGameHack_RecoverDyingAllESP()
                 
                 // Check for Chxxx pattern (Ch001-Ch999)
                 bool isChxxx = false;
-                if (className.length() >= 5 && className[0] == 'C' && className[1] == 'h' &&
+                if (className.length() == 5 && className[0] == 'C' && className[1] == 'h' &&
                     std::isdigit(className[2]) && std::isdigit(className[3]) && std::isdigit(className[4]))
                 {
                     isChxxx = true;
@@ -1539,8 +1503,8 @@ bool InGameHack_CH011AbyssDarkBody()
         conditionComponent->SetCondition_ToServer(
             (SDK::ECharacterConditionId)94,  // CH011_ABYSS_DARK_BODY = 95
             5,                               // Level
-            5000.0f,                           // span
-            5000,                            // value
+            50.0f,                           // span
+            50,                            // value
             0.1f,                            // interval
             5,                               // subLevel
             nullptr,                         // instigatedPlayer
@@ -1571,13 +1535,6 @@ bool InGameHack_CH011AbyssDarkBody()
  */
 static bool SetAbility(int abilityId, int level)
 {
-    // Verify we're in a valid battle mode
-    if (!IsValidBattleMode())
-    {
-        Logger::LogWarning("[COMBAT] Cannot apply ability - not in valid battle mode");
-        return false;
-    }
-
     try
     {
         // Clamp level to 1-100
@@ -1621,7 +1578,7 @@ static bool SetAbility(int abilityId, int level)
             (SDK::ECharacterConditionId)abilityId,  // Ability ID (43-47)
             level,                                   // Level (1-100)
             500.0f,                                   // span: 50 seconds
-            100000.0f,                                   // value
+            1000.0f,                                   // value
             0.1f,                                   // interval
             level,                                       // subLevel
             nullptr,                                 // instigatedPlayer
@@ -1682,7 +1639,6 @@ std::vector<SDK::ACharacterBattle*> InGameHack_GetAllCharacterBattles()
         SDK::UWorld* world = SDK::UWorld::GetWorld();
         if (world && world->PersistentLevel && world->PersistentLevel->Actors.Num() > 0)
         {
-            LogCharacterControl("[GET_CHARS] World found, iterating " + std::to_string(world->PersistentLevel->Actors.Num()) + " actors");
             
             for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
             {
@@ -1732,7 +1688,7 @@ std::vector<SDK::ACharacterBattle*> InGameHack_GetAllCharacterBattles()
         }
         
         // Always use ESP fallback to ensure we get targets
-        LogCharacterControl("[GET_CHARS] Using ESP fallback to get targets");
+        
         
         for (int attempt = 0; attempt < 100; attempt++)
         {
@@ -1756,15 +1712,12 @@ std::vector<SDK::ACharacterBattle*> InGameHack_GetAllCharacterBattles()
             }
         }
         
-        LogCharacterControl("[GET_CHARS] Found " + std::to_string(characters.size()) + " total characters");
     }
     catch (const std::exception& e)
     {
-        LogCharacterControl("[GET_CHARS] Exception: " + std::string(e.what()));
     }
     catch (...)
     {
-        LogCharacterControl("[GET_CHARS] Unknown exception occurred while getting characters");
     }
     
     return characters;
@@ -1777,7 +1730,6 @@ std::vector<std::string> InGameHack_GetCharacterNames()
     try
     {
         auto characters = InGameHack_GetAllCharacterBattles();
-        LogCharacterControl("[GET_NAMES] Processing " + std::to_string(characters.size()) + " characters");
         
         for (size_t idx = 0; idx < characters.size(); idx++)
         {
@@ -1799,7 +1751,6 @@ std::vector<std::string> InGameHack_GetCharacterNames()
             }
             catch (...)
             {
-                LogCharacterControl("[GET_NAMES] Failed to get class name for character " + std::to_string(idx));
             }
             
             // Get player name from PlayerState
@@ -1813,44 +1764,268 @@ std::vector<std::string> InGameHack_GetCharacterNames()
                     if (namePtr && namePtr[0] != '\0')
                     {
                         playerName = namePtr;
-                        LogCharacterControl("[GET_NAMES] Character " + std::to_string(idx) + ": " + playerName + " (" + charClassName + ")");
-                    }
-                    else
-                    {
-                        LogCharacterControl("[GET_NAMES] Empty name from SDK_GetPlayerName for character " + std::to_string(idx));
                     }
                 }
                 catch (const std::exception& e)
                 {
-                    LogCharacterControl("[GET_NAMES] Exception getting player name: " + std::string(e.what()));
                 }
                 catch (...)
                 {
-                    LogCharacterControl("[GET_NAMES] Unknown exception getting player name for character " + std::to_string(idx));
                 }
             }
             else
             {
-                LogCharacterControl("[GET_NAMES] No PlayerState for character " + std::to_string(idx));
             }
             
             // Format: "PlayerName (ChXXX)"
             std::string displayName = playerName + " (" + charClassName + ")";
             names.push_back(displayName);
         }
-        
-        LogCharacterControl("[GET_NAMES] Returning " + std::to_string(names.size()) + " names");
     }
     catch (const std::exception& e)
     {
-        LogCharacterControl("[GET_NAMES] Exception: " + std::string(e.what()));
     }
     catch (...)
     {
-        LogCharacterControl("[GET_NAMES] Unknown exception occurred while getting character names");
     }
     
     return names;
+}
+
+std::vector<SDK::ACharacterBattle*> InGameHack_GetTeamCharacterBattles()
+{
+    std::vector<SDK::ACharacterBattle*> teamCharacters;
+    try
+    {
+        if (!IsValidBattleMode())
+            return teamCharacters;
+
+        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!playerController)
+            return teamCharacters;
+
+        SDK::ACharacterBattle* playerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
+        if (!playerCharacter || !playerCharacter->PlayerState)
+            return teamCharacters;
+
+        unsigned char playerTeamId = GetCharacterTeamId(playerCharacter);
+        if (playerTeamId == 255)
+            return teamCharacters;
+
+        auto characters = InGameHack_GetAllCharacterBattles();
+        for (auto* character : characters)
+        {
+            if (!character || character == playerCharacter || character->IsDefaultObject())
+                continue;
+
+            if (!character->PlayerState || !character->Class)
+                continue;
+
+            unsigned char targetTeamId = GetCharacterTeamId(character);
+            if (targetTeamId != playerTeamId)
+                continue;
+
+            teamCharacters.push_back(character);
+        }
+    }
+    catch (...)
+    {
+        // ignore
+    }
+
+    return teamCharacters;
+}
+
+std::vector<std::string> InGameHack_GetTeamCharacterNames()
+{
+    std::vector<std::string> names;
+    try
+    {
+        auto teamCharacters = InGameHack_GetTeamCharacterBattles();
+        for (auto* character : teamCharacters)
+        {
+            if (!character)
+            {
+                names.push_back("Unknown");
+                continue;
+            }
+
+            std::string playerName = "Unknown";
+            if (character->PlayerState)
+            {
+                const char* namePtr = SDK_GetPlayerName(character->PlayerState);
+                if (namePtr && namePtr[0] != '\0')
+                    playerName = namePtr;
+            }
+
+            std::string className = "Unknown";
+            if (character->Class)
+            {
+                try
+                {
+                    className = character->Class->GetName();
+                }
+                catch (...) {}
+            }
+
+            names.push_back(playerName + " (" + className + ")");
+        }
+    }
+    catch (...)
+    {
+        // ignore
+    }
+    return names;
+}
+
+bool InGameHack_RecoverDyingTeamMember(SDK::ACharacterBattle* target)
+{
+    try
+    {
+        if (!IsValidBattleMode())
+            return false;
+
+        if (!target || target->IsDefaultObject() || !target->PlayerState)
+            return false;
+
+        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!playerController)
+            return false;
+
+        SDK::ACharacterBattle* playerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
+        if (!playerCharacter || !playerCharacter->PlayerState)
+            return false;
+
+        unsigned char playerTeamId = GetCharacterTeamId(playerCharacter);
+        if (playerTeamId == 255)
+            return false;
+
+        unsigned char targetTeamId = GetCharacterTeamId(target);
+        if (targetTeamId != playerTeamId)
+            return false;
+
+        if (!IsCharacterDyingOffset(target))
+            return false;
+
+        playerCharacter->RecoverDyingAlly_ToServer(target, false);
+        return true;
+    }
+    catch (...)
+    {
+        return false;
+    }
+}
+
+void InGameHack_LogAllDamageAttenuationCurves()
+{
+    try
+    {
+        // Créer le dossier c:\temp s'il n'existe pas
+        std::system("mkdir c:\\temp 2>nul");
+        
+        // Ouvrir le fichier log
+        std::ofstream logFile("c:\\temp\\damage_attenuation_curves.log", std::ios::out | std::ios::trunc);
+        if (!logFile.is_open())
+        {
+            Logger::LogError("[CURVE] Failed to open log file: c:\\temp\\damage_attenuation_curves.log");
+            return;
+        }
+
+        Logger::LogInfo("[CURVE] ============ Logging All DamageAttenuation Curves ============");
+        logFile << "============ DamageAttenuation Curves Log ============\n";
+        logFile << "Timestamp: " << std::time(nullptr) << "\n";
+        logFile << "================================================\n\n";
+        
+        if (!SDK::UObject::GObjects)
+        {
+            Logger::LogWarning("[CURVE] GObjects is null, cannot scan");
+            logFile << "ERROR: GObjects is null, cannot scan\n";
+            logFile.close();
+            return;
+        }
+
+        int32_t foundCount = 0;
+        int32_t totalKeys = 0;
+
+        // Scan all objects for UANS_Attack instances
+        for (int32_t i = 0; i < SDK::UObject::GObjects->Num(); ++i)
+        {
+            auto* obj = SDK::UObject::GObjects->GetByIndex(i);
+            if (!obj)
+                continue;
+
+            // Check class name to filter UANS_Attack objects
+            std::string className = std::string(obj->Class->GetName());
+            if (className != "ANS_Attack")
+                continue;
+
+            // Cast to UANS_Attack
+            auto* ansAttack = static_cast<SDK::UANS_Attack*>(obj);
+            if (!ansAttack || !ansAttack->_damageAttenuation)
+                continue;
+
+            foundCount++;
+
+            // Get object name
+            std::string objName = ansAttack->GetName();
+            
+            // Log the curve pointer and class
+            std::string logMsg = "[CURVE] #" + std::to_string(foundCount) + " - Name: " + objName +
+                          " | Curve Ptr: 0x" + std::to_string((uint64_t)ansAttack->_damageAttenuation);
+            Logger::LogInfo(logMsg);
+            logFile << logMsg << "\n";
+
+            // Log curve details
+            if (ansAttack->_damageAttenuation)
+            {
+                SDK::FRichCurve* curvePtr = &(ansAttack->_damageAttenuation->FloatCurve);
+                if (!curvePtr)
+                    continue;
+
+                int32_t numKeys = curvePtr->Keys.Num();
+                
+                std::string keysMsg = "[CURVE]   -> Keys: " + std::to_string(numKeys);
+                Logger::LogInfo(keysMsg);
+                logFile << keysMsg << "\n";
+                totalKeys += numKeys;
+
+                // Log each key
+                if (numKeys > 0)
+                {
+                    for (int32_t keyIdx = 0; keyIdx < numKeys; ++keyIdx)
+                    {
+                        SDK::FRichCurveKey& key = curvePtr->Keys[keyIdx];
+                        
+                        std::string keyMsg = "[CURVE]      Key[" + std::to_string(keyIdx) + "]: Time=" + 
+                                      std::to_string(key.Time) + ", Value=" + std::to_string(key.value);
+                        Logger::LogInfo(keyMsg);
+                        logFile << keyMsg << "\n";
+                    }
+                }
+            }
+        }
+
+        std::string summary = "[CURVE] ============ Summary ============\n" +
+                             std::string("[CURVE] Total curves found: ") + std::to_string(foundCount) + "\n" +
+                             std::string("[CURVE] Total keys logged: ") + std::to_string(totalKeys) + "\n" +
+                             std::string("[CURVE] ====================================");
+        Logger::LogInfo(summary);
+        logFile << "\n================================================\n";
+        logFile << "Total curves found: " << foundCount << "\n";
+        logFile << "Total keys logged: " << totalKeys << "\n";
+        logFile << "================================================\n";
+        
+        logFile.close();
+        Logger::LogInfo("[CURVE] Log file saved to c:\\temp\\damage_attenuation_curves.log");
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[CURVE] Exception in LogAllDamageAttenuationCurves: " + std::string(e.what()));
+    }
+    catch (...)
+    {
+        Logger::LogError("[CURVE] Unknown exception in LogAllDamageAttenuationCurves");
+    }
 }
 
 bool InGameHack_SetCharacterDying(SDK::ACharacterBattle* character)
@@ -1859,14 +2034,12 @@ bool InGameHack_SetCharacterDying(SDK::ACharacterBattle* character)
     {
         if (!character || !character->PlayerState)
         {
-            LogCharacterControl("[SET_DYING] Invalid character or player state");
             return false;
         }
         
         SDK::APlayerStateBattle* victimState = static_cast<SDK::APlayerStateBattle*>(character->PlayerState);
         if (!victimState)
         {
-            LogCharacterControl("[SET_DYING] Failed to cast player state");
             return false;
         }
         
@@ -1874,7 +2047,6 @@ bool InGameHack_SetCharacterDying(SDK::ACharacterBattle* character)
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
         if (!playerController || !playerController->Pawn)
         {
-            LogCharacterControl("[SET_DYING] Failed to get player character");
             return false;
         }
         
@@ -1884,31 +2056,26 @@ bool InGameHack_SetCharacterDying(SDK::ACharacterBattle* character)
         SDK::UWorld* world = SDK::UWorld::GetWorld();
         if (!world || !world->GameState)
         {
-            LogCharacterControl("[SET_DYING] Failed to get world or game state");
             return false;
         }
         
         SDK::AGameStateBattle* gameState = (SDK::AGameStateBattle*)(world->GameState);
         if (!gameState)
         {
-            LogCharacterControl("[SET_DYING] Failed to cast to AGameStateBattle");
             return false;
         }
         
         // Call OnCharacterDying_NetMulti on game state with victim and aggressor
         gameState->OnCharacterDying_NetMulti(victimState, playerCharacter);
         
-        LogCharacterControl("[SET_DYING] Character set to dying state");
         return true;
     }
     catch (const std::exception& e)
     {
-        LogCharacterControl("[SET_DYING] Exception caught");
         return false;
     }
     catch (...)
     {
-        LogCharacterControl("[SET_DYING] Unknown exception");
         return false;
     }
 }
@@ -1919,14 +2086,12 @@ bool InGameHack_KillCharacter(SDK::ACharacterBattle* victim, SDK::ACharacterBatt
     {
         if (!victim || !victim->PlayerState)
         {
-            LogCharacterControl("[KILL_CHAR] Invalid victim or player state");
             return false;
         }
         
         SDK::APlayerStateBattle* victimState = static_cast<SDK::APlayerStateBattle*>(victim->PlayerState);
         if (!victimState)
         {
-            LogCharacterControl("[KILL_CHAR] Failed to cast victim player state");
             return false;
         }
         
@@ -1937,7 +2102,6 @@ bool InGameHack_KillCharacter(SDK::ACharacterBattle* victim, SDK::ACharacterBatt
             SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
             if (!playerController || !playerController->Pawn)
             {
-                LogCharacterControl("[KILL_CHAR] Failed to get player character as killer");
                 return false;
             }
             killerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
@@ -1947,14 +2111,12 @@ bool InGameHack_KillCharacter(SDK::ACharacterBattle* victim, SDK::ACharacterBatt
         SDK::UWorld* world = SDK::UWorld::GetWorld();
         if (!world || !world->GameState)
         {
-            LogCharacterControl("[KILL_CHAR] Failed to get world or game state");
             return false;
         }
         
         SDK::AGameStateBattle* gameState = (SDK::AGameStateBattle*)(world->GameState);
         if (!gameState)
         {
-            LogCharacterControl("[KILL_CHAR] Failed to cast to AGameStateBattle");
             return false;
         }
         
@@ -1965,12 +2127,10 @@ bool InGameHack_KillCharacter(SDK::ACharacterBattle* victim, SDK::ACharacterBatt
     }
     catch (const std::exception& e)
     {
-        LogCharacterControl("[KILL_CHAR] Exception caught");
         return false;
     }
     catch (...)
     {
-        LogCharacterControl("[KILL_CHAR] Unknown exception");
         return false;
     }
 }
@@ -1981,22 +2141,117 @@ bool InGameHack_ValidateTransMissionLevel(int level)
     {
         if (level < 0 || level > 9)
         {
-            LogCharacterControl("[VALIDATE_TRANS] Invalid level (0-9)");
             return false;
         }
 
         SDK::int32 validatedLevel = SDK::UCh202ActionAttackBase::ValidateTransMissionLevel(level);
-        LogCharacterControl("[VALIDATE_TRANS] ValidateTransMissionLevel(" + std::to_string(level) + ") returned: " + std::to_string(validatedLevel));
         return true;
     }
     catch (const std::exception& e)
     {
-        LogCharacterControl("[VALIDATE_TRANS] Exception caught");
         return false;
     }
     catch (...)
     {
-        LogCharacterControl("[VALIDATE_TRANS] Unknown exception");
+        return false;
+    }
+}
+
+bool InGameHack_SetInitTransMissionLevel(int levelIndex, int32_t newValue)
+{
+    try
+    {
+        if (levelIndex < 0)
+        {
+            Logger::LogError("[CH202] Invalid init trans mission index: " + std::to_string(levelIndex));
+            return false;
+        }
+
+        SDK::UCh202Params* ch202Params = SDK::UCh202Params::GetDefaultObj();
+        if (!ch202Params)
+        {
+            Logger::LogError("[CH202] Could not get UCh202Params default object");
+            return false;
+        }
+
+        int arraySize = ch202Params->unique3_initLevel.Num();
+        if (levelIndex >= arraySize)
+        {
+            Logger::LogError("[CH202] Init trans mission index out of range: " + std::to_string(levelIndex) + ", size=" + std::to_string(arraySize));
+            return false;
+        }
+
+        ch202Params->unique3_initLevel[levelIndex] = newValue;
+        Logger::LogInfo("[CH202] Set unique3_initLevel[" + std::to_string(levelIndex) + "] = " + std::to_string(newValue));
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[CH202] Exception in SetInitTransMissionLevel");
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[CH202] Unknown exception in SetInitTransMissionLevel");
+        return false;
+    }
+}
+
+// Get current max stack count from selected supply widget
+// Cached max stack value updated each frame
+static int32_t g_CachedMaxStackValue = 100;
+
+int32_t InGameHack_GetSupplyMaxStackCount()
+{
+    try
+    {
+        // Return the cached value that was updated from the widget
+        // This value is updated in ModifySupplyMaxStack() each frame
+        return g_CachedMaxStackValue;
+    }
+    catch (...)
+    {
+        return 0;
+    }
+}
+
+// Helper function to search for UItemWidget and read maxStack value
+int32_t GetMaxStackFromWidget()
+{
+    try
+    {
+        // UItemWidget has cached maxStack at offset 0x08A0
+        // However, accessing UI widgets from gameplay layer is complex
+        // as widgets exist in viewport/UI hierarchy
+        
+        // For now, use the actual game default value
+        // When enabled in menu, the slider will override this with user value
+        return 100;  // Default maxStack value in RUGIR
+    }
+    catch (...)
+    {
+        return 100;
+    }
+}
+
+bool InGameHack_ModifySupplyMaxStack()
+{
+    try
+    {
+        // This function is called each frame to update supply max stack
+        // Update the cached value from the actual widget
+        g_CachedMaxStackValue = GetMaxStackFromWidget();
+        
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[SUPPLY] Exception in ModifySupplyMaxStack: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[SUPPLY] Unknown exception in ModifySupplyMaxStack");
         return false;
     }
 }
@@ -2012,23 +2267,23 @@ bool InGameHack_PreventDropOnDeath(bool bPreventDrop)
         
         if (bPreventDrop)
         {
-            LogCharacterControl("[PREVENT_DROP] Drop prevention ENABLED - items will be protected on death");
+            
         }
         else
         {
-            LogCharacterControl("[PREVENT_DROP] Drop prevention disabled");
+            
         }
         
         return true;
     }
     catch (const std::exception& e)
     {
-        LogCharacterControl("[PREVENT_DROP] Exception caught");
+        
         return false;
     }
     catch (...)
     {
-        LogCharacterControl("[PREVENT_DROP] Unknown exception");
+      
         return false;
     }
 }
@@ -2045,21 +2300,21 @@ bool InGameHack_SetSkillLevel(int skillIndex, int level)
     {
         if (skillIndex < 0 || skillIndex > 8 || level < 1 || level > 9)
         {
-            LogCharacterControl("[SKILL_LEVEL] Invalid index or level");
+            
             return false;
         }
         
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
         if (!playerController)
         {
-            LogCharacterControl("[SKILL_LEVEL] Failed to get player controller");
+            
             return false;
         }
         
         SDK::ACharacterBattle* playerChar = (SDK::ACharacterBattle*)playerController->Pawn;
         if (!playerChar || !playerChar->PlayerState)
         {
-            LogCharacterControl("[SKILL_LEVEL] Failed to get player character");
+        
             return false;
         }
         
@@ -2068,7 +2323,7 @@ bool InGameHack_SetSkillLevel(int skillIndex, int level)
         
         if (!supplyHolderComp)
         {
-            LogCharacterControl("[SKILL_LEVEL] Failed to get supply holder component");
+            
             return false;
         }
         
@@ -2076,19 +2331,11 @@ bool InGameHack_SetSkillLevel(int skillIndex, int level)
         // EAttackId enum - skill index 0-8 maps to attack level
         supplyHolderComp->SetSkillLevel_ToServer((SDK::EAttackId)skillIndex, level);
         
-        LogCharacterControl("[SKILL_LEVEL] Set skill " + std::to_string(skillIndex) + " to level " + std::to_string(level));
+        
         return true;
     }
     catch (const std::exception& e)
-    {
-        LogCharacterControl("[SKILL_LEVEL] Exception caught");
-        return false;
-    }
-    catch (...)
-    {
-        LogCharacterControl("[SKILL_LEVEL] Unknown exception");
-        return false;
-    }
+    
 }
 
 bool InGameHack_UpgradeSupply(int supplyIndex, int level)
@@ -2097,21 +2344,21 @@ bool InGameHack_UpgradeSupply(int supplyIndex, int level)
     {
         if (level < 1 || level > 99)
         {
-            LogCharacterControl("[UPGRADE_SUPPLY] Invalid level (1-99)");
+            
             return false;
         }
         
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
         if (!playerController)
         {
-            LogCharacterControl("[UPGRADE_SUPPLY] Failed to get player controller");
+            
             return false;
         }
         
         SDK::ACharacterBattle* playerChar = (SDK::ACharacterBattle*)playerController->Pawn;
         if (!playerChar || !playerChar->PlayerState)
         {
-            LogCharacterControl("[UPGRADE_SUPPLY] Failed to get player character");
+        
             return false;
         }
         
@@ -2120,7 +2367,7 @@ bool InGameHack_UpgradeSupply(int supplyIndex, int level)
         
         if (!supplyHolderComp)
         {
-            LogCharacterControl("[UPGRADE_SUPPLY] Failed to get supply holder component");
+            
             return false;
         }
 
@@ -2135,18 +2382,17 @@ bool InGameHack_UpgradeSupply(int supplyIndex, int level)
         if (supplyIndex == 6) // ABILITY
         {
             manipData._type = SDK::ESupplyHolderType::ABILITYSLOT; // Type 2
-            LogCharacterControl("[UPGRADE_SUPPLY] Upgrading ABILITY to level " + std::to_string(level));
+        
         }
         else if (supplyIndex == 7) // SHOULDER
         {
             manipData._type = SDK::ESupplyHolderType::ABILITYSLOT; // Type 2
-            LogCharacterControl("[UPGRADE_SUPPLY] Upgrading SHOULDER to level " + std::to_string(level));
-        }
+        }   
         else // INVENTORY
         {
             manipData._type = SDK::ESupplyHolderType::INVENTORY; // Type 1
             manipData._index = supplyIndex;
-            LogCharacterControl("[UPGRADE_SUPPLY] Upgrading INVENTORY item " + std::to_string(supplyIndex) + " to level " + std::to_string(level));
+        
         }
         
         // Add level to level list
@@ -2163,12 +2409,10 @@ bool InGameHack_UpgradeSupply(int supplyIndex, int level)
     }
     catch (const std::exception& e)
     {
-        LogCharacterControl("[UPGRADE_SUPPLY] Exception caught");
         return false;
     }
     catch (...)
     {
-        LogCharacterControl("[UPGRADE_SUPPLY] Unknown exception");
         return false;
     }
 }
@@ -2180,14 +2424,14 @@ bool InGameHack_StopUsingSupply()
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
         if (!playerController)
         {
-            LogCharacterControl("[STOP_SUPPLY] Failed to get player controller");
+        
             return false;
         }
         
         SDK::ACharacterBattle* playerChar = (SDK::ACharacterBattle*)playerController->Pawn;
         if (!playerChar || !playerChar->PlayerState)
         {
-            LogCharacterControl("[STOP_SUPPLY] Failed to get player character");
+        
             return false;
         }
         
@@ -2196,22 +2440,20 @@ bool InGameHack_StopUsingSupply()
         
         if (!supplyHolderComp)
         {
-            LogCharacterControl("[STOP_SUPPLY] Failed to get supply holder component");
+        
             return false;
         }
         
         supplyHolderComp->OnStopUsing_ToServer();
-        LogCharacterControl("[STOP_SUPPLY] Stopped using supply");
         return true;
     }
     catch (const std::exception& e)
     {
-        LogCharacterControl("[STOP_SUPPLY] Exception caught");
+        
         return false;
     }
     catch (...)
     {
-        LogCharacterControl("[STOP_SUPPLY] Unknown exception");
         return false;
     }
 }
@@ -2221,14 +2463,9 @@ void InGameHack_ValidateTransMissionLevel()
     try
     {
         SDK::int32 validatedLevel = SDK::UCh202ActionAttackBase::ValidateTransMissionLevel(5);
-        LogCharacterControl("[VALIDATE_TRANS_MISSION] ValidateTransMissionLevel(5) returned: " + std::to_string(validatedLevel));
+      
     }
     catch (const std::exception& e)
-    {
-        LogCharacterControl("[VALIDATE_TRANS_MISSION] Exception caught");
-    }
-    catch (...)
-    {
-        LogCharacterControl("[VALIDATE_TRANS_MISSION] Unknown exception");
-    }
+    
+
 }

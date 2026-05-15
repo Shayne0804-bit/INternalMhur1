@@ -3,6 +3,7 @@
 #include "../Hooks/D3D11Hook.h"
 #include "../Hooks/GameThreadHook.h"
 #include "../Hacks/InGameModuleHacks.h"
+#include <algorithm>
 #include "../SDK/SDKInit.h"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/CommonModule_structs.hpp"
 #include <imgui.h>
@@ -18,7 +19,6 @@
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 // Forward declare SDK canvas resolution function
-extern "C" void SDK_SetImGuiCanvasMaxResolution();
 
 // Forward declare unload function
 extern "C" __declspec(dllimport) void DLL_Unload();
@@ -65,6 +65,7 @@ namespace ImGuiMenu
     MenuSettings g_Settings;
     HackSettings g_HackSettings;
     std::vector<SDK::ACharacterBattle*> g_AllCharactersList;
+    std::vector<SDK::ACharacterBattle*> g_CurrentTeamCharacters;
 
     // ============================================================================
     // GLOBAL MENU STATE
@@ -871,6 +872,7 @@ namespace ImGuiMenu
     static bool g_CharacterConditionsOpen = true;
     static bool g_CharacterControlOpen = true;
     static bool g_SupplyManagementOpen = true;
+    static bool g_TrainingIterationOpen = true;
     static bool g_AbilityHacksOpen = true;
     static bool g_ApplyToAllPlayersOpen = true;
 
@@ -1096,6 +1098,57 @@ namespace ImGuiMenu
             ImGui::Checkbox("Recover All ESP##RecoverAllESP", &g_Settings.EnableRecoveryAllESP);
             ImGui::SameLine();
             ImGui::TextColored(ImVec4(0.6f, 0.8f, 0.2f, 1.0f), "(Whole map)");
+
+            ImGui::Spacing();
+            SectionHeader("Recovery Team Roster");
+
+            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.success);
+            if (ImGui::Button("REFRESH TEAM ROSTER##refresh_team", ImVec2(-1, 0)))
+            {
+                g_CurrentTeamCharacters = InGameHack_GetTeamCharacterBattles();
+                g_Settings.SelectedRecoveryTeamIndex = -1;
+                Logger::LogInfo("[RECOVERY] Team roster refreshed: " + std::to_string(g_CurrentTeamCharacters.size()) + " members found");
+            }
+            ImGui::PopStyleColor();
+
+            if (g_CurrentTeamCharacters.empty())
+            {
+                ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "No team members found. Refresh or join a battle.");
+            }
+            else
+            {
+                auto teamNames = InGameHack_GetTeamCharacterNames();
+                static std::vector<std::string> teamNameStorage;
+                static std::vector<const char*> teamNamePtrs;
+                teamNameStorage = teamNames;
+                teamNamePtrs.clear();
+                for (auto& name : teamNameStorage)
+                {
+                    teamNamePtrs.push_back(name.c_str());
+                }
+
+                if (!teamNamePtrs.empty())
+                {
+                    ImGui::Text("Select team member to recover:");
+                    ImGui::ListBox("##team_member_list", &g_Settings.SelectedRecoveryTeamIndex, teamNamePtrs.data(), (int)teamNamePtrs.size(), 5);
+
+                    ImGui::Spacing();
+                    if (g_Settings.SelectedRecoveryTeamIndex >= 0 && g_Settings.SelectedRecoveryTeamIndex < (int)g_CurrentTeamCharacters.size())
+                    {
+                        ImGui::Checkbox("Recover Selected Team Member##RecoverSelectedTeam", &g_Settings.EnableRecoverySelectedTeam);
+                        ImGui::SameLine();
+                        ImGui::TextColored(g_Colors.accentColor, "(Selected member only)");
+                    }
+                    else
+                    {
+                        ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.0f, 1.0f), "Select a team member from the list above.");
+                    }
+                }
+                else
+                {
+                    ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.0f, 1.0f), "No team names could be generated.");
+                }
+            }
         }
 
         // ===== CHARACTER CONDITIONS SECTION =====
@@ -1152,11 +1205,21 @@ namespace ImGuiMenu
                 }
                 else
                 {
-                    Logger::LogError("[COMBAT] Failed to execute CH202 Full Mode");
+                    Logger::LogError("[COMBAT] Failed to execute CH202 Trans Mission");
                 }
             }
             ImGui::PopStyleColor();
 
+            ImGui::Spacing();
+            
+            // CH202 Init Transmission Mission Level enable/disable checkbox
+            ImGui::Checkbox("Enable CH202 Trans Level 5##CH202InitLevel", &g_Settings.EnableCH202InitTransLevel5);
+            
+            ImGui::Spacing();
+            
+            // Supply Max Stack 100 enable/disable checkbox
+            ImGui::Checkbox("Supply Max Stack 100##SupplyMaxStack", &g_Settings.EnableSupplyMaxStackTo100);
+            
             ImGui::Spacing();
 
             // Unbreakable button
@@ -1232,101 +1295,6 @@ namespace ImGuiMenu
             RenderAbilityHackMenu();
         }
 
-        // ===== CHARACTER CONTROL SECTION =====
-        if (ImGui::CollapsingHeader("CHARACTER CONTROL", &g_CharacterControlOpen, ImGuiTreeNodeFlags_DefaultOpen))
-        {
-            // Refresh character list button
-            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.success);
-            if (ImGui::Button("REFRESH CHARACTER LIST##refresh", ImVec2(-1, 0)))
-            {
-                g_AllCharactersList = InGameHack_GetAllCharacterBattles();
-                Logger::LogInfo("[CONTROL] Character list refreshed: " + std::to_string(g_AllCharactersList.size()) + " characters found");
-            }
-            ImGui::PopStyleColor();
-
-            ImGui::Spacing();
-
-            // Auto-refresh character list if empty
-            if (g_AllCharactersList.size() == 0)
-            {
-                g_AllCharactersList = InGameHack_GetAllCharacterBattles();
-            }
-
-            // Character dropdown with names
-            if (g_AllCharactersList.size() > 0)
-            {
-                auto char_names_str = InGameHack_GetCharacterNames();
-                
-                if (char_names_str.size() > 0 && char_names_str.size() == g_AllCharactersList.size())
-                {
-                    static std::vector<std::string> name_storage;
-                    static std::vector<const char*> name_ptrs;
-                    
-                    name_storage = char_names_str;
-                    name_ptrs.clear();
-                    for (auto& name : name_storage)
-                    {
-                        name_ptrs.push_back(name.c_str());
-                    }
-                    
-                    if (!name_ptrs.empty())
-                    {
-                        ImGui::Text("Select Target Character:");
-                        ImGui::ListBox("##character_list", &g_Settings.SelectedCharacterIndex, name_ptrs.data(), (int)name_ptrs.size(), 5);
-                        
-                        ImGui::Spacing();
-
-                        if (g_Settings.SelectedCharacterIndex >= 0 && g_Settings.SelectedCharacterIndex < (int)g_AllCharactersList.size())
-                        {
-                            // Set to Dying button
-                            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.warning);
-                            if (ImGui::Button("SET TARGET TO DYING##set_dying", ImVec2(-1, 0)))
-                            {
-                                if (InGameHack_SetCharacterDying(g_AllCharactersList[g_Settings.SelectedCharacterIndex]))
-                                {
-                                    Logger::LogInfo("[CONTROL] Target set to dying state");
-                                }
-                                else
-                                {
-                                    Logger::LogError("[CONTROL] Failed to set target to dying");
-                                }
-                            }
-                            ImGui::PopStyleColor();
-
-                            ImGui::Spacing();
-
-                            // Kill Target button
-                            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.danger);
-                            if (ImGui::Button("KILL TARGET##kill_target", ImVec2(-1, 0)))
-                            {
-                                if (InGameHack_KillCharacter(g_AllCharactersList[g_Settings.SelectedCharacterIndex], nullptr))
-                                {
-                                    Logger::LogInfo("[CONTROL] Target eliminated");
-                                }
-                                else
-                                {
-                                    Logger::LogError("[CONTROL] Failed to kill target");
-                                }
-                            }
-                            ImGui::PopStyleColor();
-                        }
-                    }
-                    else
-                    {
-                        ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.0f, 1.0f), "Failed to get character names");
-                    }
-                }
-                else
-                {
-                    ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "No names available");
-                }
-            }
-            else
-            {
-                ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "No characters found. Click 'Refresh Character List'");
-            }
-        }
-
         // ===== SUPPLY MANAGEMENT SECTION =====
         if (ImGui::CollapsingHeader("SUPPLY MANAGEMENT", &g_SupplyManagementOpen, ImGuiTreeNodeFlags_DefaultOpen))
         {
@@ -1387,6 +1355,27 @@ namespace ImGuiMenu
                     bEnableStopSupply = false;
                 }
             }
+        }
+
+        // ===== TRAINING PLAYER ITERATION SECTION =====
+        if (ImGui::CollapsingHeader("TRAINING PLAYER ITERATION", &g_TrainingIterationOpen, ImGuiTreeNodeFlags_DefaultOpen))
+        {
+            SectionHeader("Debug: Log Damage Attenuation Curves");
+
+            ImGui::Text("Logs all damage attenuation curves to file");
+
+            ImGui::Spacing();
+
+            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
+            if (ImGui::Button("LOG ALL DAMAGE ATTENUATION CURVES##log_curves", ImVec2(-1, 0)))
+            {
+                Logger::LogInfo("[CURVE] Scanning for damage attenuation curves...");
+                InGameHack_LogAllDamageAttenuationCurves();
+            }
+            ImGui::PopStyleColor();
+
+            ImGui::Spacing();
+            ImGui::TextColored(ImVec4(0.8f, 0.8f, 0.2f, 1.0f), "Check c:/temp/damage_attenuation_curves.log for output");
         }
 
         // ===== APPLY TO ALL PLAYERS SECTION =====
@@ -1753,9 +1742,6 @@ namespace ImGuiMenu
             Logger::LogError("ImGuiMenu: Failed to initialize backends after retries");
             return false;
         }
-
-        // Set ImGui canvas to 4K resolution for sharp rendering
-        SDK_SetImGuiCanvasMaxResolution();
 
         try
         {

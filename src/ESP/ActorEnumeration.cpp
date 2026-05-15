@@ -40,6 +40,10 @@
 #include <string>
 #include <algorithm>
 #include <cctype>
+#include <fstream>
+#include <ctime>
+#include <sstream>
+#include <iomanip>
 
 // Include UE4 SDK
 #include "../../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/CoreUObject_classes.hpp"
@@ -53,6 +57,46 @@
 #include "../Utils/Logger.h"
 
 SDK_NAMESPACE_START
+
+/* ============================================================================
+   FILE LOGGING UTILITIES
+   ============================================================================ */
+
+static std::mutex g_LogFileMutex;
+static const char* g_LogFilePath = "C:\\temp\\rugir_esp.log";
+
+/**
+ * @brief Write log message to file with timestamp
+ * @param message Log message
+ */
+static void LogToFile(const std::string& message)
+{
+    std::lock_guard<std::mutex> lock(g_LogFileMutex);
+    try
+    {
+        // Create C:\temp directory if it doesn't exist
+        CreateDirectoryA("C:\\temp", nullptr);
+        
+        std::ofstream logFile(g_LogFilePath, std::ios::app);
+        if (!logFile.is_open()) return;
+        
+        // Get current time
+        time_t now = time(nullptr);
+        struct tm timeinfo;
+        localtime_s(&timeinfo, &now);
+        
+        // Format timestamp: [2026-05-05 14:30:45]
+        std::ostringstream timestamp;
+        timestamp << std::put_time(&timeinfo, "[%Y-%m-%d %H:%M:%S]");
+        
+        logFile << timestamp.str() << " " << message << "\n";
+        logFile.close();
+    }
+    catch (...)
+    {
+        // Silently fail - don't interrupt game
+    }
+}
 
 /* ============================================================================
    ACTOR CACHE STRUCTURES & GLOBALS
@@ -525,6 +569,8 @@ extern "C" void ESP_EnumerateActorsFromWorld()
     
     g_LastActorEnumerationTime = currentTime;
     
+    LogToFile("[ESP_EnumerateActorsFromWorld] Starting actor enumeration");
+    
     try
     {
         // STEP 1: Get world
@@ -714,21 +760,50 @@ extern "C" void ESP_EnumerateActorsFromWorld()
             g_ActorsRendering.swap(g_ActorsProcessing);
         }
         
-        // STEP 8: Log summary (optional, can be disabled in Release)
+        // STEP 8: Log summary to file and console
         {
-            char logMsg[256];
+            char logMsg[512];
             snprintf(logMsg, sizeof(logMsg),
                 "[ESP_Enumeration] Checked %d actors | Characters: %d | NPCs: %d | Items: %d | Cache: %zu",
                 totalActorsChecked, charactersFound, npcsfound, itemsFound, g_ActorsRendering.size());
             Logger::LogInfo(logMsg);
+            LogToFile(logMsg);
+            
+            // Log detailed character information
+            if (charactersFound > 0)
+            {
+                LogToFile("=== CHARACTER DETAILS ===");
+                for (const auto& actor : g_ActorsRendering)
+                {
+                    if (actor.ClassName.find("Character") != std::string::npos ||
+                        actor.ClassName.find("Ch") == 0)
+                    {
+                        char detailMsg[512];
+                        snprintf(detailMsg, sizeof(detailMsg),
+                            "Class: %s | Pos: (%.1f, %.1f, %.1f) | HP: %.1f/%.1f | GP: %.1f | PlusUltra: %.1f | Team: %d | Dying: %s | IsAlly: %s",
+                            actor.ClassName.c_str(),
+                            actor.WorldPosition.X, actor.WorldPosition.Y, actor.WorldPosition.Z,
+                            actor.Health, actor.MaxHealth,
+                            actor.GuardPoint,
+                            actor.PlusUltra,
+                            actor.TeamId,
+                            actor.IsDying ? "YES" : "NO",
+                            actor.IsAlly ? "YES" : "NO");
+                        LogToFile(detailMsg);
+                    }
+                }
+            }
         }
     }
     catch (const std::exception& e)
     {
-        Logger::LogError(std::string("[ESP_EnumerateActorsFromWorld] Exception: ") + e.what());
+        std::string errorMsg = std::string("[ESP_EnumerateActorsFromWorld] Exception: ") + e.what();
+        Logger::LogError(errorMsg);
+        LogToFile(errorMsg);
     }
     catch (...)
     {
+        LogToFile("[ESP_EnumerateActorsFromWorld] Unknown exception");
         Logger::LogError("[ESP_EnumerateActorsFromWorld] Unknown exception");
     }
 }
@@ -744,6 +819,11 @@ extern "C" void ESP_EnumerateActorsFromWorld()
 extern "C" std::vector<CachedActorInfo> ESP_GetCachedActors()
 {
     std::lock_guard<std::mutex> lock(g_ActorCacheMutex);
+    
+    char logMsg[256];
+    snprintf(logMsg, sizeof(logMsg), "[ESP_GetCachedActors] Returning %zu cached actors", g_ActorsRendering.size());
+    LogToFile(logMsg);
+    
     return g_ActorsRendering;  // Return copy (lock is released immediately after)
 }
 
@@ -753,6 +833,10 @@ extern "C" std::vector<CachedActorInfo> ESP_GetCachedActors()
  */
 extern "C" uint8 ESP_GetLocalPlayerTeamId()
 {
+    char logMsg[256];
+    snprintf(logMsg, sizeof(logMsg), "[ESP_GetLocalPlayerTeamId] LocalPlayer TeamId: %d", g_LocalPlayerTeamId);
+    LogToFile(logMsg);
+    
     return g_LocalPlayerTeamId;
 }
 
@@ -762,6 +846,10 @@ extern "C" uint8 ESP_GetLocalPlayerTeamId()
  */
 extern "C" AActor* ESP_GetLocalPlayerCharacter()
 {
+    char logMsg[256];
+    snprintf(logMsg, sizeof(logMsg), "[ESP_GetLocalPlayerCharacter] LocalPlayer Actor: %p", g_LocalPlayerCharacter);
+    LogToFile(logMsg);
+    
     return g_LocalPlayerCharacter;
 }
 
@@ -772,6 +860,11 @@ extern "C" AActor* ESP_GetLocalPlayerCharacter()
 extern "C" size_t ESP_GetCachedActorCount()
 {
     std::lock_guard<std::mutex> lock(g_ActorCacheMutex);
+    
+    char logMsg[256];
+    snprintf(logMsg, sizeof(logMsg), "[ESP_GetCachedActorCount] Cache size: %zu", g_ActorsRendering.size());
+    LogToFile(logMsg);
+    
     return g_ActorsRendering.size();
 }
 

@@ -3,8 +3,14 @@
 #include <dxgi.h>
 #include <Windows.h>
 #include <cstdint>
+#include <vector>
 
 // Forward declarations
+namespace SDK
+{
+    class ACharacterBattle;
+}
+
 class ACh008;
 class APlayer;
 
@@ -92,6 +98,7 @@ namespace ImGuiMenu
         // Recovery Settings
         bool EnableRecoveryMe = false;                  // Recover self only
         bool EnableRecoveryTeam = false;                // Recover self + team members
+        bool EnableRecoverySelectedTeam = false;        // Recover selected team member only
         bool EnableRecoveryAllESP = false;              // Recover all ESP targets with dying flag
         
         // Teleport Items (Level Up Cards)
@@ -113,6 +120,9 @@ namespace ImGuiMenu
         
         // Character Control
         int SelectedCharacterIndex = -1;  // Index of selected character for dying/killing
+        int SelectedRecoveryTeamIndex = -1;  // Index of selected team member for recovery
+        bool EnableCH202InitTransLevel5 = false;  // Enable CH202 init trans level 5 auto-apply each frame
+        bool EnableSupplyMaxStackTo100 = false;  // Enable auto-set supply max stack to 100 each frame
     };
 
     // ============================================================================
@@ -158,4 +168,5 @@ namespace ImGuiMenu
     // Global settings access
     extern MenuSettings g_Settings;
     extern HackSettings g_HackSettings;
+    extern std::vector<SDK::ACharacterBattle*> g_CurrentTeamCharacters;
 }
