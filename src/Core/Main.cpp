@@ -5,7 +5,7 @@
 #include "../Hooks/D3D11Hook.h"
 #include "../Hooks/GameThreadHook.h"
 #include "../Menu/ImGuiMenu.h"
-#include "../Utils/Logger.h"
+
 #include "../Hacks/HackThread.h"
 
 // Include SDK for accessing UObject, FindObjectFast, etc.
@@ -32,18 +32,10 @@ namespace Main
 
         // All logging is silent - no console output
 
-        // Print diagnostic info about logging
-        Logger::LogInfo("[SDK] Diagnostic log files location:");
-        Logger::LogInfo("[SDK]   - C:\\temp\\RUGIR_Diagnostic.log (DLL load test)");
-        Logger::LogInfo("[SDK]   - C:\\temp\\RUGIR_AddComponent.log (Function calls)");
-        Logger::LogInfo("[SDK]   - C:\\temp\\RUGIR_GetFunction.log (Function resolution)");
-        Logger::LogInfo("[SDK]   - C:\\temp\\RUGIR_FindObject.log (Object searches)");
-
         // Print SDK initialization logs now that console is set up
         SDK_PrintInitLogs();
 
         // === SDK INITIALIZATION ===
-        Logger::LogInfo("[SDK] Initializing UE4 SDK...");
         
         try {
             // Get module base address using SDK function (which logs)
@@ -56,45 +48,37 @@ namespace Main
             // Try to access GObjects memory location
             uintptr_t* GObjectsPtr = (uintptr_t*)GObjectsAddress;
             if (*GObjectsPtr != 0) {
-                Logger::LogInfo("[SDK] ✅ GObjects Successfully Accessed!");
-                
                 std::stringstream ss;
                 ss << "[SDK] Module Base: 0x" << std::hex << ModuleBase;
-                Logger::LogInfo(ss.str());
                 
                 ss.str("");
                 ss << "[SDK] GObjects Address: 0x" << std::hex << GObjectsAddress;
-                Logger::LogInfo(ss.str());
                 
                 ss.str("");
                 ss << "[SDK] First GObject Pointer: 0x" << std::hex << *GObjectsPtr;
-                Logger::LogInfo(ss.str());
-                
-                Logger::LogInfo("[SDK] ✅ SDK is ready for use!");
                 
                 // Call comprehensive SDK diagnostics from Basic.cpp
                 SDK_RunComprehensiveDiagnostics();
                 
                 
             } else {
-                Logger::LogWarning("[SDK] ⚠️ GObjects address is null (game might not be loaded yet)");
+                // GObjects address is null (game might not be loaded yet)
             }
             
         } catch (const std::exception&) {
-            Logger::LogError("[SDK] ❌ Exception during SDK initialization");
+            // Exception during SDK initialization
         } catch (...) {
-            Logger::LogError("[SDK] ❌ Unknown exception during SDK initialization");
+            // Unknown exception during SDK initialization
         }
 
         // Initialiser le hook D3D11
         if (D3D11Hook::Initialize())
         {
-            Logger::LogInfo("D3D11 hook initialized successfully");
-            Logger::LogInfo("MenuUI will initialize on first frame");
+            // D3D11 hook initialized successfully
         }
         else
         {
-            Logger::LogError("Failed to initialize D3D11 hook!");
+            // Failed to initialize D3D11 hook!
             return;
         }
 
@@ -102,56 +86,38 @@ namespace Main
         try
         {
             HackThreadManager::GetInstance().Initialize();
-            Logger::LogInfo("Hack thread manager initialized successfully");
         }
         catch (const std::exception& e)
         {
-            Logger::LogError("[HackThread] Failed to initialize: " + std::string(e.what()));
+            // Failed to initialize hack thread manager
         }
 
         // ESP drawing is now done directly in SDK_TestDeprojectScreenToWorld() using ImGui
-        Logger::LogInfo("✅ ESP drawing system initialized (ImGui overlay)");
 
 
         // Initialize game thread hook (VMT shadowing ProcessEvent)
         if (GameThreadHook::Initialize())
         {
-            Logger::LogInfo("Game thread hook initialized successfully");
-            Logger::LogInfo("VMT shadowing ProcessEvent hook active");
+            // Game thread hook initialized successfully
         }
         else
         {
-            Logger::LogWarning("Game thread hook initialization failed (non-critical)");
+            // Game thread hook initialization failed (non-critical)
         }
 
         g_initialized = true;
-        Logger::LogInfo("Initialization complete! Press INSERT to toggle menu");
     }
 
     void Shutdown()
     {
         if (!g_initialized) return;
 
-        Logger::LogInfo("=== COMPLETE DLL SHUTDOWN IN PROGRESS ===");
-        
-        Logger::LogInfo("[Shutdown] Shutting down hack thread...");
         HackThreadManager::GetInstance().Shutdown();
-        Logger::LogInfo("[Shutdown] Hack thread shutdown complete");
-        
-        Logger::LogInfo("[Shutdown] Disabling game thread hook (VMT restoration)...");
         GameThreadHook::Shutdown();
-        Logger::LogInfo("[Shutdown] Game thread hook disabled - VMT hooks restored");
-        
-        Logger::LogInfo("[Shutdown] Disabling D3D11 hook (renderer restoration)...");
         D3D11Hook::Shutdown();
-        Logger::LogInfo("[Shutdown] D3D11 hook disabled - renderer hooks restored");
-        
-        Logger::LogInfo("[Shutdown] Disabling ImGui menu...");
         ImGuiMenu::Shutdown();
-        Logger::LogInfo("[Shutdown] ImGui menu disabled");
         
         g_initialized = false;
-        Logger::LogInfo("=== SHUTDOWN COMPLETE - DLL READY FOR UNLOAD ===");
     }
 
     bool IsInitialized()

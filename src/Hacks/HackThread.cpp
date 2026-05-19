@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "HackThread.h"
-#include "../Utils/Logger.h"
+
 #include "InGameModuleHacks.h"
 #include "../Menu/ImGuiMenu.h"
 #include <algorithm>
@@ -33,8 +33,7 @@ void HackThreadManager::Initialize()
 {
     if (m_isRunning.load())
     {
-        Logger::LogWarning("[HackThreadManager] Already initialized");
-        return;
+return;
     }
 
     m_isRunning.store(true);
@@ -44,12 +43,10 @@ void HackThreadManager::Initialize()
     try
     {
         m_workerThread = std::make_unique<std::thread>(&HackThreadManager::WorkerThreadProc, this);
-        Logger::LogInfo("[HackThreadManager] Hack thread initialized successfully");
-    }
+}
     catch (const std::exception& e)
     {
-        Logger::LogError("[HackThreadManager] Failed to initialize: " + std::string(e.what()));
-        m_isRunning.store(false);
+m_isRunning.store(false);
     }
 }
 
@@ -59,10 +56,7 @@ void HackThreadManager::Shutdown()
     {
         return;
     }
-
-    Logger::LogInfo("[HackThreadManager] Shutting down hack thread...");
-
-    // Signal shutdown
+// Signal shutdown
     m_shutdown.store(true);
     m_taskAvailable.notify_one();
 
@@ -73,15 +67,13 @@ void HackThreadManager::Shutdown()
     }
 
     m_isRunning.store(false);
-    Logger::LogInfo("[HackThreadManager] Hack thread shutdown complete");
 }
 
 void HackThreadManager::EnqueueHack(std::function<void()> hackFunction)
 {
     if (!m_isRunning.load())
     {
-        Logger::LogWarning("[HackThreadManager] Hack thread not running, executing immediately");
-        hackFunction();
+hackFunction();
         return;
     }
 
@@ -98,8 +90,7 @@ void HackThreadManager::EnqueueHackWithDelay(std::function<void()> hackFunction,
 {
     if (!m_isRunning.load())
     {
-        Logger::LogWarning("[HackThreadManager] Hack thread not running, executing immediately");
-        hackFunction();
+hackFunction();
         return;
     }
 
@@ -129,9 +120,7 @@ void HackThreadManager::WaitForCompletion()
 
 void HackThreadManager::WorkerThreadProc()
 {
-    Logger::LogInfo("[HackThreadManager] Worker thread started");
-
-    while (!m_shutdown.load())
+while (!m_shutdown.load())
     {
         HackTask task(nullptr);
         bool hasTask = false;
@@ -174,20 +163,16 @@ void HackThreadManager::WorkerThreadProc()
             }
             catch (const std::exception& e)
             {
-                Logger::LogError("[HackThreadManager] Exception in hack task: " + std::string(e.what()));
-            }
+}
             catch (...)
             {
-                Logger::LogError("[HackThreadManager] Unknown exception in hack task");
-            }
+}
 
             // Decrement pending tasks and notify waiters
             m_pendingTasks.fetch_sub(1);
             m_tasksCompleted.notify_all();
         }
     }
-
-    Logger::LogInfo("[HackThreadManager] Worker thread stopped");
 }
 
 // ============================================================================
@@ -201,16 +186,17 @@ void HackThreadManager::FrameUpdateHacks()
         return;
 
     // ===== AUTO CLEAR CONDITIONS ON GAME MODE CHANGE =====
-    try
-    {
-        EnqueueHack([]() {
-            InGameHack_AutoClearConditionOnModeChange();
-        });
-    }
-    catch (...)
-    {
-        Logger::LogWarning("[FrameUpdateHacks] Exception during auto clear conditions");
-    }
+    // DISABLED: Function not yet implemented
+    // try
+    // {
+    //     EnqueueHack([]() {
+    //         InGameHack_AutoClearConditionOnModeChange();
+    //     });
+    // }
+    // catch (...)
+    // {
+    //     Logger::LogWarning("[FrameUpdateHacks] Exception during auto clear conditions");
+    // }
 
     // ===== TRANSFORM INTO RANDOM ESP TARGET =====
     if (ImGuiMenu::g_Settings.EnableTransformIntoRandomESP)
@@ -264,8 +250,7 @@ void HackThreadManager::FrameUpdateHacks()
         }
         catch (...)
         {
-            Logger::LogWarning("[FrameUpdateHacks] Exception during transform into random ESP");
-        }
+}
     }
 
     // ===== DUPLICATE INTO IMITATION RANDOM ESP TARGET =====
@@ -320,8 +305,7 @@ void HackThreadManager::FrameUpdateHacks()
         }
         catch (...)
         {
-            Logger::LogWarning("[FrameUpdateHacks] Exception during duplicate into imitation random ESP");
-        }
+}
     }
 
     // ===== SET INVINCIBLE HOTKEY =====
@@ -372,8 +356,7 @@ void HackThreadManager::FrameUpdateHacks()
     }
     catch (...)
     {
-        Logger::LogWarning("[FrameUpdateHacks] Exception during set invincible");
-    }
+}
 
     // ===== REBUILD MYSELF HOTKEY =====
     try
@@ -426,8 +409,7 @@ void HackThreadManager::FrameUpdateHacks()
     }
     catch (...)
     {
-        Logger::LogWarning("[FrameUpdateHacks] Exception during rebuild myself");
-    }
+}
 
     // ===== RECOVERY ME (EVERY FRAME) =====
     if (ImGuiMenu::g_Settings.EnableRecoveryMe)
@@ -440,8 +422,7 @@ void HackThreadManager::FrameUpdateHacks()
         }
         catch (...)
         {
-            Logger::LogWarning("[FrameUpdateHacks] Exception during recovery me");
-        }
+}
     }
 
     // ===== RECOVERY TEAM (EVERY FRAME) =====
@@ -455,8 +436,7 @@ void HackThreadManager::FrameUpdateHacks()
         }
         catch (...)
         {
-            Logger::LogWarning("[FrameUpdateHacks] Exception during recovery team");
-        }
+}
     }
 
     // ===== RECOVERY ALL ESP (EVERY FRAME) =====
@@ -470,8 +450,25 @@ void HackThreadManager::FrameUpdateHacks()
         }
         catch (...)
         {
-            Logger::LogWarning("[FrameUpdateHacks] Exception during recovery all ESP");
+}
+    }
+
+    // ===== BULLET REDIRECTION (EVERY FRAME) =====
+    if (ImGuiMenu::g_Settings.EnableBulletTP)
+    {
+        try
+        {
+            // Always redirect bullets every frame (no hotkey required)
+            EnqueueHack([alpha = ImGuiMenu::g_Settings.BulletTP_IncludeAlpha,
+                        beta = ImGuiMenu::g_Settings.BulletTP_IncludeBeta,
+                        gamma = ImGuiMenu::g_Settings.BulletTP_IncludeGamma,
+                        special = ImGuiMenu::g_Settings.BulletTP_IncludeSpecial]() {
+                InGameHack_RedirectBulletsToNearestEnemy(alpha, beta, gamma, special);
+            });
         }
+        catch (...)
+        {
+}
     }
 
 }

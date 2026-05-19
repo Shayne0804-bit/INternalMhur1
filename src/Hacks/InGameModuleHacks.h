@@ -12,6 +12,7 @@ namespace SDK
     struct FVector;
     class AActor;
     enum class ECharacterId : uint8_t;
+    enum class EVariationCharacterId : uint8_t;
 }
 
 // ============================================================================
@@ -39,6 +40,35 @@ std::string GetVariationName(int32_t variationId);
  * @return The actual variation ID (e.g., 0, 1, 2 for Ch000; 1, 3 for Ch001)
  */
 int32_t GetVariationIdFromComboIndex(SDK::ECharacterId characterId, int32_t comboIndex);
+
+/**
+ * Convert ECharacterId + variation index to EVariationCharacterId
+ * @param characterId - The character ID
+ * @param variationIndex - The variation index (0, 1, 2, etc.)
+ * @return The corresponding EVariationCharacterId that contains both character and variation info
+ */
+SDK::EVariationCharacterId GetVariationCharacterId(SDK::ECharacterId characterId, int32_t variationIndex);
+
+/**
+ * Extract character ID and variation index from EVariationCharacterId
+ * Inverse operation of GetVariationCharacterId()
+ * @param variationCharacterId - The variation character ID enum
+ * @return Pair of (ECharacterId, variation index)
+ */
+std::pair<SDK::ECharacterId, int32_t> GetCharacterAndVariationFromVariationCharacterId(SDK::EVariationCharacterId variationCharacterId);
+
+/**
+ * Get list of all available variation character IDs as enums
+ * Returns all EVariationCharacterId enums in order: Ch001_Variation0, Ch001_Variation1, Ch002_Variation0, etc.
+ * This is the direct enum list - no conversion needed!
+ */
+std::vector<SDK::EVariationCharacterId> GetAllVariationCharacterIds();
+
+/**
+ * Get list of all available variation names for combo selection
+ * Returns all variations in order: Ch001_Variation0, Ch001_Variation1, Ch002_Variation0, etc.
+ */
+std::vector<std::string> GetAllVariationNames();
 
 // ============================================================================
 // UTILITY FUNCTIONS
@@ -144,8 +174,57 @@ bool InGameHack_ApplyPlayerConfiguration(int characterId, int variationId, int u
 
 /**
  * Apply player configuration to ALL PlayerControllerBattle instances in the match
+ * @param variationCharacterId - The combined EVariationCharacterId enum (e.g., Ch001_Variation0)
+ * @param unique1 - Unique skill 1 level (1-9)
+ * @param unique2 - Unique skill 2 level (1-9)
+ * @param unique3 - Unique skill 3 level (1-9)
+ * @param costumeCode - Costume code ID (0-5)
+ * @param costumeAuraType - Costume aura type (0-5)
  */
-bool InGameHack_ApplyToAllControllers(int characterId, int variationId, int unique1, int unique2, int unique3, int skillCode, int costumeCode, int costumeAuraType);
+bool InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType);
+
+/**
+ * Get ALL UNIQUE TEAM IDs present in the current match
+ * Scans all characters and collects their unique team IDs (no hardcoding)
+ * @return Vector of unique team IDs found in the match
+ */
+std::vector<unsigned char> InGameHack_GetAllTeamIds();
+
+/**
+ * Get all characters belonging to a specific TEAM ID
+ * @param teamId - The team ID to filter by
+ * @return Vector of all ACharacterBattle pointers in that team
+ */
+std::vector<SDK::ACharacterBattle*> InGameHack_GetCharactersByTeamId(unsigned char teamId);
+
+/**
+ * Apply player configuration to ALL characters in a SPECIFIC TEAM
+ * Filters characters by TeamID and applies changes only to matching team members
+ * @param teamId - Target team ID (actual value from the match, not hardcoded)
+ * @param variationCharacterId - Character variation to apply
+ * @param unique1 - Unique skill 1 level (1-9)
+ * @param unique2 - Unique skill 2 level (1-9)
+ * @param unique3 - Unique skill 3 level (1-9)
+ * @param costumeCode - Costume code ID (0-5)
+ * @param costumeAuraType - Costume aura type (0-5)
+ * @return true if at least one character was modified, false otherwise
+ */
+bool InGameHack_ApplyToTeam(unsigned char teamId, SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType);
+
+// ============================================================================
+// BULLET REDIRECTION FUNCTIONS
+// ============================================================================
+
+/**
+ * Redirect all bullets to nearest enemy
+ * Filters bullets by skill type (Alpha/Beta/Gamma/Special)
+ * @param bIncludeAlpha - Include Alpha (Unique1) skills
+ * @param bIncludeBeta - Include Beta (Unique2) skills
+ * @param bIncludeGamma - Include Gamma (Unique3) skills
+ * @param bIncludeSpecial - Include Special skills
+ * @return true if bullets were redirected
+ */
+bool InGameHack_RedirectBulletsToNearestEnemy(bool bIncludeAlpha, bool bIncludeBeta, bool bIncludeGamma, bool bIncludeSpecial);
 
 /**
  * Iterate all players via GameStateTraining method (Method 3)

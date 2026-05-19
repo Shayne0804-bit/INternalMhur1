@@ -106,7 +106,6 @@
     <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\GameModule_functions.cpp" />
     <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\InGameModule_functions.cpp" />
     <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\BackendSubsystem_functions.cpp" />
-    <ClCompile Include="src\Hacks\HackThread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\Main.h" />
@@ -116,10 +115,12 @@
     <ClInclude Include="src\Menu\ImGuiMenu.h" />
     <ClInclude Include="src\Utils\Logger.h" />
     <ClInclude Include="src\SDK\SDKInit.h" />
-    <ClInclude Include="src\Hacks\HackThread.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hacks\InGameModuleHacks.cpp">
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <ClCompile Include="src\Hacks\HackThread.cpp">
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
   </ItemGroup>

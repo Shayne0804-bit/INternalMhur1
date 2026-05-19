@@ -1,9 +1,10 @@
 #include "D3D11Hook.h"
 #include "GameThreadHook.h"
 #include "../Menu/ImGuiMenu.h"
-#include "../Utils/Logger.h"
+
 #include "../SDK/SDKESPFunctions.h"
 #include "../Hacks/InGameModuleHacks.h"
+#include "../Hacks/HackThread.h"
 #include <imgui.h>
 #include <imgui_impl_win32.h>
 #include <Xinput.h>
@@ -55,16 +56,13 @@ namespace D3D11Hook
             if (SUCCEEDED(pSwapChain->GetDevice(IID_PPV_ARGS(&g_Device))))
             {
                 g_Device->GetImmediateContext(&g_Context);
-                Logger::LogInfo("D3D11Hook: Device et context acquis");
-
-                // Get game window - ImGuiMenu will handle WndProc hooking
+// Get game window - ImGuiMenu will handle WndProc hooking
                 if (!g_GameWindow)
                 {
                     DXGI_SWAP_CHAIN_DESC desc{};
                     pSwapChain->GetDesc(&desc);
                     g_GameWindow = desc.OutputWindow;
-                    Logger::LogInfo("D3D11Hook: Game window detected");
-                }
+}
             }
         }
 
@@ -74,12 +72,10 @@ namespace D3D11Hook
             if (ImGuiMenu::Initialize(pSwapChain, g_GameWindow))
             {
                 g_ImGuiInit = true;
-                Logger::LogInfo("D3D11Hook: ImGui menu initialized");
-            }
+}
             else
             {
-                Logger::LogWarning("D3D11Hook: ImGui menu initialization failed - retry next frame");
-            }
+}
         }
 
         // Test DeprojectScreenToWorld conversion per frame - MUST BE BEFORE ImguiMenu::Render!
@@ -95,8 +91,7 @@ namespace D3D11Hook
             }
             catch (...)
             {
-                Logger::LogWarning("D3D11Hook: Exception during deproject test");
-            }
+}
         }
 
         // ===== RUN AIMBOT EVERY FRAME =====
@@ -107,8 +102,17 @@ namespace D3D11Hook
         }
         catch (...)
         {
-            Logger::LogWarning("D3D11Hook: Exception during aimbot execution");
+}
+
+        // ===== FRAME UPDATE HACKS (via HackThread) =====
+        // This calls all continuous frame-based hacks like bullet redirection
+        try
+        {
+            HackThreadManager::GetInstance().FrameUpdateHacks();
         }
+        catch (...)
+        {
+}
 
         // ===== RUN TELEPORT TO KOTA =====
         try
@@ -117,242 +121,22 @@ namespace D3D11Hook
         }
         catch (...)
         {
-            Logger::LogWarning("D3D11Hook: Exception during teleport to kota execution");
-        }
+}
 
         // ===== RUN TRANSFORM INTO RANDOM ESP TARGET =====
-        if (ImGuiMenu::g_Settings.EnableTransformIntoRandomESP)
-        {
-            try
-            {
-                // Debounce tracking - static across frames
-                static bool lastTransformPressed = false;
-                static auto lastTransformTime = std::chrono::high_resolution_clock::now();
-                const int TRANSFORM_COOLDOWN_MS = 100;  // 100ms cooldown between presses
-
-                bool shouldTransform = false;
-                
-                // Check keyboard hotkey
-                if ((GetAsyncKeyState(ImGuiMenu::g_Settings.TransformIntoRandomESPKey.Keyboard) & 0x8000) != 0)
-                {
-                    shouldTransform = true;
-                }
-                
-                // Check gamepad hotkeys (if no keyboard key pressed)
-                if (!shouldTransform)
-                {
-                    XINPUT_STATE xInputState = {};
-                    
-                    // Check Xbox gamepad
-                    if (XInputGetState(0, &xInputState) == ERROR_SUCCESS)
-                    {
-                        if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.TransformIntoRandomESPKey.Xbox) != 0)
-                        {
-                            shouldTransform = true;
-                        }
-                        else if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.TransformIntoRandomESPKey.PS4) != 0)
-                        {
-                            shouldTransform = true;
-                        }
-                    }
-                }
-                
-                // Debounce: only execute when transitioning from not-pressed to pressed AND cooldown elapsed
-                if (shouldTransform && !lastTransformPressed)
-                {
-                    auto now = std::chrono::high_resolution_clock::now();
-                    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastTransformTime).count();
-                    
-                    if (elapsed >= TRANSFORM_COOLDOWN_MS)
-                    {
-                        InGameHack_TransformIntoRandomESP();
-                        lastTransformTime = now;
-                    }
-                }
-                
-                // Update last pressed state
-                lastTransformPressed = shouldTransform;
-            }
-            catch (...)
-            {
-                Logger::LogWarning("D3D11Hook: Exception during transform into random ESP execution");
-            }
-        }
+        // NOTE: InGameHack_TransformIntoRandomESP is now called from HackThread.cpp::FrameUpdateHacks()
 
         // ===== RUN DUPLICATE INTO IMITATION RANDOM ESP TARGET =====
-        if (ImGuiMenu::g_Settings.EnableDuplicateIntoImitationRandomESP)
-        {
-            try
-            {
-                // Debounce tracking - static across frames
-                static bool lastDuplicateImitationPressed = false;
-                static auto lastDuplicateImitationTime = std::chrono::high_resolution_clock::now();
-                const int DUPLICATE_IMITATION_COOLDOWN_MS = 100;  // 100ms cooldown between presses
-
-                bool shouldDuplicateImitation = false;
-                
-                // Check keyboard hotkey
-                if ((GetAsyncKeyState(ImGuiMenu::g_Settings.DuplicateIntoImitationRandomESPKey.Keyboard) & 0x8000) != 0)
-                {
-                    shouldDuplicateImitation = true;
-                }
-                
-                // Check gamepad hotkeys (if no keyboard key pressed)
-                if (!shouldDuplicateImitation)
-                {
-                    XINPUT_STATE xInputState = {};
-                    
-                    // Check Xbox gamepad
-                    if (XInputGetState(0, &xInputState) == ERROR_SUCCESS)
-                    {
-                        if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.DuplicateIntoImitationRandomESPKey.Xbox) != 0)
-                        {
-                            shouldDuplicateImitation = true;
-                        }
-                        else if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.DuplicateIntoImitationRandomESPKey.PS4) != 0)
-                        {
-                            shouldDuplicateImitation = true;
-                        }
-                    }
-                }
-                
-                // Debounce: only execute when transitioning from not-pressed to pressed AND cooldown elapsed
-                if (shouldDuplicateImitation && !lastDuplicateImitationPressed)
-                {
-                    auto now = std::chrono::high_resolution_clock::now();
-                    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastDuplicateImitationTime).count();
-                    
-                    if (elapsed >= DUPLICATE_IMITATION_COOLDOWN_MS)
-                    {
-                        InGameHack_DuplicateIntoImitationRandomESP(0.0f, ImGuiMenu::g_Settings.DuplicateImitationLifeTime, ImGuiMenu::g_Settings.DuplicateIntoImitationCount);
-                        lastDuplicateImitationTime = now;
-                    }
-                }
-                
-                // Update last pressed state
-                lastDuplicateImitationPressed = shouldDuplicateImitation;
-            }
-            catch (...)
-            {
-                Logger::LogWarning("D3D11Hook: Exception during duplicate into imitation random ESP execution");
-            }
-        }
+        // NOTE: InGameHack_DuplicateIntoImitationRandomESP is now called from HackThread.cpp::FrameUpdateHacks()
 
         // =====================================================================
         // HOTKEY: SET INVINCIBLE (F11 or B button)
         // =====================================================================
-        try
-        {
-            static auto lastSetInvincibleTime = std::chrono::high_resolution_clock::now();
-            static bool lastSetInvinciblePressed = false;
-            const int SET_INVINCIBLE_COOLDOWN_MS = 500;  // 500ms cooldown
-
-            bool shouldSetInvincible = false;
-
-            // Check keyboard hotkey
-            if ((GetAsyncKeyState(ImGuiMenu::g_Settings.SetInvincibleKey.Keyboard) & 0x8000) != 0)
-            {
-                shouldSetInvincible = true;
-            }
-
-            // Check gamepad hotkeys (if no keyboard key pressed)
-            if (!shouldSetInvincible)
-            {
-                XINPUT_STATE xInputState = {};
-
-                // Check Xbox gamepad
-                if (XInputGetState(0, &xInputState) == ERROR_SUCCESS)
-                {
-                    if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.SetInvincibleKey.Xbox) != 0)
-                    {
-                        shouldSetInvincible = true;
-                    }
-                    else if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.SetInvincibleKey.PS4) != 0)
-                    {
-                        shouldSetInvincible = true;
-                    }
-                }
-            }
-
-            // Debounce: only execute when transitioning from not-pressed to pressed AND cooldown elapsed
-            if (shouldSetInvincible && !lastSetInvinciblePressed)
-            {
-                auto now = std::chrono::high_resolution_clock::now();
-                auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastSetInvincibleTime).count();
-
-                if (elapsed >= SET_INVINCIBLE_COOLDOWN_MS)
-                {
-                    InGameHack_SetInvincible();
-                    lastSetInvincibleTime = now;
-                }
-            }
-
-            // Update last pressed state
-            lastSetInvinciblePressed = shouldSetInvincible;
-        }
-        catch (...)
-        {
-            Logger::LogWarning("D3D11Hook: Exception during set invincible execution");
-        }
+        // NOTE: InGameHack_SetInvincible is now called from HackThread.cpp::FrameUpdateHacks()
 
         // ===== REBUILD MYSELF HOTKEY =====
-        try
-        {
-            // Only allow in valid battle modes
-            if (IsValidBattleMode())
-            {
-                static auto lastRebuildMyselfTime = std::chrono::high_resolution_clock::now();
-                static bool lastRebuildMyselfPressed = false;
-                const int REBUILD_MYSELF_COOLDOWN_MS = 200;  // 200ms cooldown
-
-                bool shouldRebuildMyself = false;
-
-                // Check keyboard hotkey
-                if ((GetAsyncKeyState(ImGuiMenu::g_Settings.RebuildMyselfKey.Keyboard) & 0x8000) != 0)
-                {
-                    shouldRebuildMyself = true;
-                }
-
-                // Check gamepad hotkeys (if no keyboard key pressed)
-                if (!shouldRebuildMyself)
-                {
-                    XINPUT_STATE xInputState = {};
-
-                    // Check Xbox gamepad
-                    if (XInputGetState(0, &xInputState) == ERROR_SUCCESS)
-                    {
-                        if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.RebuildMyselfKey.Xbox) != 0)
-                        {
-                            shouldRebuildMyself = true;
-                        }
-                        else if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.RebuildMyselfKey.PS4) != 0)
-                        {
-                            shouldRebuildMyself = true;
-                        }
-                    }
-                }
-
-                // Debounce: only execute when transitioning from not-pressed to pressed AND cooldown elapsed
-                if (shouldRebuildMyself && !lastRebuildMyselfPressed)
-                {
-                    auto now = std::chrono::high_resolution_clock::now();
-                    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastRebuildMyselfTime).count();
-
-                    if (elapsed >= REBUILD_MYSELF_COOLDOWN_MS)
-                    {
-                        InGameHack_RebuildMyself();
-                        lastRebuildMyselfTime = now;
-                    }
-                }
-
-                // Update last pressed state
-                lastRebuildMyselfPressed = shouldRebuildMyself;
-            }
-        }
-        catch (...)
-        {
-            Logger::LogWarning("D3D11Hook: Exception during rebuild myself hotkey");
-        }
+        // NOTE: InGameHack_RebuildMyself is now called from HackThread.cpp::FrameUpdateHacks()
+        // via EnqueueHack() to avoid duplicate calls and maintain consistency
 
         // ===== RUN CH202 INIT TRANSMISSION LEVEL 5 AUTO-APPLY =====
         try
@@ -368,8 +152,7 @@ namespace D3D11Hook
         }
         catch (...)
         {
-            Logger::LogWarning("D3D11Hook: Exception during CH202 init trans level 5 auto-apply");
-        }
+}
 
         // ===== RUN RELOAD ADJUST RATE BUFFS =====
         try
@@ -398,8 +181,7 @@ namespace D3D11Hook
         }
         catch (...)
         {
-            Logger::LogWarning("D3D11Hook: Exception during reload adjust rate buff execution");
-        }
+}
 
         // ===== TRAINING MODE - PLAYER CHARACTER CONFIGURATION =====
         try
@@ -423,78 +205,10 @@ namespace D3D11Hook
         }
         catch (...)
         {
-            Logger::LogWarning("D3D11Hook: Exception during training mode player configuration");
-        }
+}
 
-        // ===== RECOVERY OPTIONS =====
-        // Recover Me toggle
-        if (ImGuiMenu::g_Settings.EnableRecoveryMe)
-        {
-            try
-            {
-                static auto lastRecoveryMeTime = std::chrono::high_resolution_clock::now();
-                const int RECOVERY_ME_COOLDOWN_MS = 500;  // 500ms cooldown
-
-                auto now = std::chrono::high_resolution_clock::now();
-                auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastRecoveryMeTime).count();
-
-                if (elapsed >= RECOVERY_ME_COOLDOWN_MS)
-                {
-                    InGameHack_RecoverMe();
-                    lastRecoveryMeTime = now;
-                }
-            }
-            catch (...)
-            {
-                Logger::LogWarning("D3D11Hook: Exception during recovery me");
-            }
-        }
-
-        // Recover Team toggle
-        if (ImGuiMenu::g_Settings.EnableRecoveryTeam)
-        {
-            try
-            {
-                static auto lastRecoveryTeamTime = std::chrono::high_resolution_clock::now();
-                const int RECOVERY_TEAM_COOLDOWN_MS = 500;  // 500ms cooldown
-
-                auto now = std::chrono::high_resolution_clock::now();
-                auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastRecoveryTeamTime).count();
-
-                if (elapsed >= RECOVERY_TEAM_COOLDOWN_MS)
-                {
-                    InGameHack_RecoverDyingTeam();
-                    lastRecoveryTeamTime = now;
-                }
-            }
-            catch (...)
-            {
-                Logger::LogWarning("D3D11Hook: Exception during recovery team");
-            }
-        }
-
-        // Recover All ESP toggle
-        if (ImGuiMenu::g_Settings.EnableRecoveryAllESP)
-        {
-            try
-            {
-                static auto lastRecoveryAllESPTime = std::chrono::high_resolution_clock::now();
-                const int RECOVERY_ALL_ESP_COOLDOWN_MS = 500;  // 500ms cooldown
-
-                auto now = std::chrono::high_resolution_clock::now();
-                auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastRecoveryAllESPTime).count();
-
-                if (elapsed >= RECOVERY_ALL_ESP_COOLDOWN_MS)
-                {
-                    InGameHack_RecoverDyingAllESP();
-                    lastRecoveryAllESPTime = now;
-                }
-            }
-            catch (...)
-            {
-                Logger::LogWarning("D3D11Hook: Exception during recovery all ESP");
-            }
-        }
+        // NOTE: Recovery functions (RecoverMe, RecoverTeam, RecoverAllESP) are now called
+        // from HackThread.cpp::FrameUpdateHacks() via EnqueueHack() to avoid duplicate calls
 
         // ===== RUN SILENT AIM (BULLET TP) - DISABLED =====
         // BulletTP has been disabled
@@ -516,8 +230,7 @@ namespace D3D11Hook
             }
             catch (...)
             {
-                Logger::LogError("D3D11Hook: Exception during render");
-            }
+}
         }
 
         // Drawing is now done in ImGuiMenu::Render() at the right time (after NewFrame, before Render)
@@ -530,9 +243,7 @@ namespace D3D11Hook
 
     bool Initialize()
     {
-        Logger::LogInfo("D3D11Hook: Installation du hook");
-
-        // Créer une fenêtre temporaire
+// Créer une fenêtre temporaire
         WNDCLASSEXW wc{ sizeof(wc), CS_CLASSDC, DefWindowProcW, 0L, 0L,
             GetModuleHandleW(nullptr), nullptr, nullptr, nullptr, nullptr,
             L"D3D11Hook_Tmp", nullptr };
@@ -574,8 +285,7 @@ namespace D3D11Hook
 
         if (FAILED(hr))
         {
-            Logger::LogError("D3D11Hook: D3D11CreateDeviceAndSwapChain failed");
-            DestroyWindow(hwnd);
+DestroyWindow(hwnd);
             UnregisterClassW(wc.lpszClassName, wc.hInstance);
             return false;
         }
@@ -588,10 +298,7 @@ namespace D3D11Hook
         VirtualProtect(&vtable[8], sizeof(void*), PAGE_EXECUTE_READWRITE, &old);
         vtable[8] = reinterpret_cast<void*>(&HookedPresent);
         VirtualProtect(&vtable[8], sizeof(void*), old, &old);
-
-        Logger::LogInfo("D3D11Hook: Present hook installed");
-
-        swap->Release();
+swap->Release();
         context->Release();
         device->Release();
 
@@ -603,9 +310,7 @@ namespace D3D11Hook
 
     void Shutdown()
     {
-        Logger::LogInfo("D3D11Hook: Shutdown");
-
-        if (g_ImGuiInit)
+if (g_ImGuiInit)
         {
             ImGuiMenu::Shutdown();
             g_ImGuiInit = false;
@@ -623,9 +328,7 @@ namespace D3D11Hook
         }
 
         g_OriginalPresent = nullptr;
-
-        Logger::LogInfo("D3D11Hook: Shutdown complete");
-    }
+}
 
     ID3D11Device* GetDevice() { return g_Device; }
     ID3D11DeviceContext* GetContext() { return g_Context; }

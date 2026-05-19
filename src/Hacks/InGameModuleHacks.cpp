@@ -108,15 +108,347 @@ bool IsValidBattleMode()
     }
 }
 
+/**
+ * Get list of all available variation character IDs as enums
+ * Returns all EVariationCharacterId enums in order: Ch001_Variation0, Ch001_Variation1, Ch002_Variation0, etc.
+ * This is the direct enum list - no conversion needed!
+ */
+std::vector<SDK::EVariationCharacterId> GetAllVariationCharacterIds()
+{
+    static std::vector<SDK::EVariationCharacterId> allIds = {
+        // Ch001: 2 variations
+        SDK::EVariationCharacterId::Ch001_Variation0,
+        SDK::EVariationCharacterId::Ch001_Variation1,
+        
+        // Ch002: 3 variations
+        SDK::EVariationCharacterId::Ch002_Variation0,
+        SDK::EVariationCharacterId::Ch002_Variation1,
+        SDK::EVariationCharacterId::Ch002_Variation2,
+        
+        // Ch003: 2 variations
+        SDK::EVariationCharacterId::Ch003_Variation0,
+        SDK::EVariationCharacterId::Ch003_Variation1,
+        
+        // Ch004: 2 variations
+        SDK::EVariationCharacterId::Ch004_Variation0,
+        SDK::EVariationCharacterId::Ch004_Variation1,
+        
+        // Ch005: 2 variations
+        SDK::EVariationCharacterId::Ch005_Variation0,
+        SDK::EVariationCharacterId::Ch005_Variation1,
+        
+        // Ch006: 2 variations
+        SDK::EVariationCharacterId::Ch006_Variation0,
+        SDK::EVariationCharacterId::Ch006_Variation1,
+        
+        // Ch007: 2 variations
+        SDK::EVariationCharacterId::Ch007_Variation0,
+        SDK::EVariationCharacterId::Ch007_Variation1,
+        
+        // Ch008: 2 variations
+        SDK::EVariationCharacterId::Ch008_Variation0,
+        SDK::EVariationCharacterId::Ch008_Variation1,
+        
+        // Ch010: 2 variations
+        SDK::EVariationCharacterId::Ch010_Variation0,
+        SDK::EVariationCharacterId::Ch010_Variation1,
+        
+        // Ch011: 2 variations
+        SDK::EVariationCharacterId::Ch011_Variation0,
+        SDK::EVariationCharacterId::Ch011_Variation1,
+        
+        // Ch012: 2 variations
+        SDK::EVariationCharacterId::Ch012_Variation0,
+        SDK::EVariationCharacterId::Ch012_Variation1,
+        
+        // Ch013: 2 variations
+        SDK::EVariationCharacterId::Ch013_Variation0,
+        SDK::EVariationCharacterId::Ch013_Variation1,
+        
+        // Ch015: 3 variations
+        SDK::EVariationCharacterId::Ch015_Variation0,
+        SDK::EVariationCharacterId::Ch015_Variation1,
+        SDK::EVariationCharacterId::Ch015_Variation2,
+        
+        // Ch016: 2 variations
+        SDK::EVariationCharacterId::Ch016_Variation0,
+        SDK::EVariationCharacterId::Ch016_Variation1,
+        
+        // Ch017: 2 variations
+        SDK::EVariationCharacterId::Ch017_Variation0,
+        SDK::EVariationCharacterId::Ch017_Variation1,
+        
+        // Ch018: 2 variations
+        SDK::EVariationCharacterId::Ch018_Variation0,
+        SDK::EVariationCharacterId::Ch018_Variation1,
+        
+        // Ch023: 2 variations
+        SDK::EVariationCharacterId::Ch023_Variation0,
+        SDK::EVariationCharacterId::Ch023_Variation1,
+        
+        // Ch024: 2 variations
+        SDK::EVariationCharacterId::Ch024_Variation0,
+        SDK::EVariationCharacterId::Ch024_Variation1,
+        
+        // Ch025: 2 variations
+        SDK::EVariationCharacterId::Ch025_Variation0,
+        SDK::EVariationCharacterId::Ch025_Variation1,
+        
+        // Ch026: 2 variations
+        SDK::EVariationCharacterId::Ch026_Variation0,
+        SDK::EVariationCharacterId::Ch026_Variation1,
+        
+        // Ch034: 2 variations
+        SDK::EVariationCharacterId::Ch034_Variation0,
+        SDK::EVariationCharacterId::Ch034_Variation1,
+        
+        // Ch037: 2 variations
+        SDK::EVariationCharacterId::Ch037_Variation0,
+        SDK::EVariationCharacterId::Ch037_Variation1,
+        
+        // Ch038: 2 variations
+        SDK::EVariationCharacterId::Ch038_Variation0,
+        SDK::EVariationCharacterId::Ch038_Variation1,
+        
+        // Ch043: 2 variations
+        SDK::EVariationCharacterId::Ch043_Variation0,
+        SDK::EVariationCharacterId::Ch043_Variation1,
+        
+        // Ch046: 2 variations
+        SDK::EVariationCharacterId::Ch046_Variation0,
+        SDK::EVariationCharacterId::Ch046_Variation1,
+        
+        // Ch100: 2 variations
+        SDK::EVariationCharacterId::Ch100_Variation0,
+        SDK::EVariationCharacterId::Ch100_Variation1,
+        
+        // Ch101: 2 variations
+        SDK::EVariationCharacterId::Ch101_Variation0,
+        SDK::EVariationCharacterId::Ch101_Variation1,
+        
+        // Ch102: 2 variations
+        SDK::EVariationCharacterId::Ch102_Variation0,
+        SDK::EVariationCharacterId::Ch102_Variation1,
+        
+        // Ch103: 2 variations
+        SDK::EVariationCharacterId::Ch103_Variation0,
+        SDK::EVariationCharacterId::Ch103_Variation1,
+        
+        // Ch104: 2 variations
+        SDK::EVariationCharacterId::Ch104_Variation0,
+        SDK::EVariationCharacterId::Ch104_Variation1,
+        
+        // Ch105: 2 variations
+        SDK::EVariationCharacterId::Ch105_Variation0,
+        SDK::EVariationCharacterId::Ch105_Variation1,
+        
+        // Ch109: 2 variations
+        SDK::EVariationCharacterId::Ch109_Variation0,
+        SDK::EVariationCharacterId::Ch109_Variation1,
+        
+        // Ch114: 2 variations
+        SDK::EVariationCharacterId::Ch114_Variation0,
+        SDK::EVariationCharacterId::Ch114_Variation1,
+        
+        // Ch115: 2 variations
+        SDK::EVariationCharacterId::Ch115_Variation0,
+        SDK::EVariationCharacterId::Ch115_Variation1,
+        
+        // Ch200: 2 variations
+        SDK::EVariationCharacterId::Ch200_Variation0,
+        SDK::EVariationCharacterId::Ch200_Variation1,
+        
+        // Ch201: 2 variations
+        SDK::EVariationCharacterId::Ch201_Variation0,
+        SDK::EVariationCharacterId::Ch201_Variation1,
+        
+        // Ch202: 2 variations
+        SDK::EVariationCharacterId::Ch202_Variation0,
+        SDK::EVariationCharacterId::Ch202_Variation1,
+    };
+    
+    return allIds;
+}
+
 // ============================================
 // CHARACTER VARIATION MAPPING
 // ============================================
 
 /**
+ * Convert ECharacterId + variation index to EVariationCharacterId
+ * @param characterId - The character ID
+ * @param variationIndex - The variation index (0, 1, 2, etc.)
+ * @return The corresponding EVariationCharacterId
+ */
+SDK::EVariationCharacterId GetVariationCharacterId(SDK::ECharacterId characterId, int32_t variationIndex)
+{
+    // Map (ECharacterId, variationIndex) to EVariationCharacterId
+    static std::map<std::pair<SDK::ECharacterId, int32_t>, SDK::EVariationCharacterId> variationMap = {
+        // Ch001: 2 variations
+        { {SDK::ECharacterId::Ch001, 0}, SDK::EVariationCharacterId::Ch001_Variation0 },
+        { {SDK::ECharacterId::Ch001, 1}, SDK::EVariationCharacterId::Ch001_Variation1 },
+        
+        // Ch002: 3 variations
+        { {SDK::ECharacterId::Ch002, 0}, SDK::EVariationCharacterId::Ch002_Variation0 },
+        { {SDK::ECharacterId::Ch002, 1}, SDK::EVariationCharacterId::Ch002_Variation1 },
+        { {SDK::ECharacterId::Ch002, 2}, SDK::EVariationCharacterId::Ch002_Variation2 },
+        
+        // Ch003: 2 variations
+        { {SDK::ECharacterId::Ch003, 0}, SDK::EVariationCharacterId::Ch003_Variation0 },
+        { {SDK::ECharacterId::Ch003, 1}, SDK::EVariationCharacterId::Ch003_Variation1 },
+        
+        // Ch004: 2 variations
+        { {SDK::ECharacterId::Ch004, 0}, SDK::EVariationCharacterId::Ch004_Variation0 },
+        { {SDK::ECharacterId::Ch004, 1}, SDK::EVariationCharacterId::Ch004_Variation1 },
+        
+        // Ch005: 2 variations
+        { {SDK::ECharacterId::Ch005, 0}, SDK::EVariationCharacterId::Ch005_Variation0 },
+        { {SDK::ECharacterId::Ch005, 1}, SDK::EVariationCharacterId::Ch005_Variation1 },
+        
+        // Ch006: 2 variations
+        { {SDK::ECharacterId::Ch006, 0}, SDK::EVariationCharacterId::Ch006_Variation0 },
+        { {SDK::ECharacterId::Ch006, 1}, SDK::EVariationCharacterId::Ch006_Variation1 },
+        
+        // Ch007: 2 variations
+        { {SDK::ECharacterId::Ch007, 0}, SDK::EVariationCharacterId::Ch007_Variation0 },
+        { {SDK::ECharacterId::Ch007, 1}, SDK::EVariationCharacterId::Ch007_Variation1 },
+        
+        // Ch008: 2 variations
+        { {SDK::ECharacterId::Ch008, 0}, SDK::EVariationCharacterId::Ch008_Variation0 },
+        { {SDK::ECharacterId::Ch008, 1}, SDK::EVariationCharacterId::Ch008_Variation1 },
+        
+        // Ch010: 2 variations
+        { {SDK::ECharacterId::Ch010, 0}, SDK::EVariationCharacterId::Ch010_Variation0 },
+        { {SDK::ECharacterId::Ch010, 1}, SDK::EVariationCharacterId::Ch010_Variation1 },
+        
+        // Ch011: 2 variations
+        { {SDK::ECharacterId::Ch011, 0}, SDK::EVariationCharacterId::Ch011_Variation0 },
+        { {SDK::ECharacterId::Ch011, 1}, SDK::EVariationCharacterId::Ch011_Variation1 },
+        
+        // Ch012: 2 variations
+        { {SDK::ECharacterId::Ch012, 0}, SDK::EVariationCharacterId::Ch012_Variation0 },
+        { {SDK::ECharacterId::Ch012, 1}, SDK::EVariationCharacterId::Ch012_Variation1 },
+        
+        // Ch013: 2 variations
+        { {SDK::ECharacterId::Ch013, 0}, SDK::EVariationCharacterId::Ch013_Variation0 },
+        { {SDK::ECharacterId::Ch013, 1}, SDK::EVariationCharacterId::Ch013_Variation1 },
+        
+        // Ch015: 3 variations
+        { {SDK::ECharacterId::Ch015, 0}, SDK::EVariationCharacterId::Ch015_Variation0 },
+        { {SDK::ECharacterId::Ch015, 1}, SDK::EVariationCharacterId::Ch015_Variation1 },
+        { {SDK::ECharacterId::Ch015, 2}, SDK::EVariationCharacterId::Ch015_Variation2 },
+        
+        // Ch016: 2 variations
+        { {SDK::ECharacterId::Ch016, 0}, SDK::EVariationCharacterId::Ch016_Variation0 },
+        { {SDK::ECharacterId::Ch016, 1}, SDK::EVariationCharacterId::Ch016_Variation1 },
+        
+        // Ch017: 2 variations
+        { {SDK::ECharacterId::Ch017, 0}, SDK::EVariationCharacterId::Ch017_Variation0 },
+        { {SDK::ECharacterId::Ch017, 1}, SDK::EVariationCharacterId::Ch017_Variation1 },
+        
+        // Ch018: 2 variations
+        { {SDK::ECharacterId::Ch018, 0}, SDK::EVariationCharacterId::Ch018_Variation0 },
+        { {SDK::ECharacterId::Ch018, 1}, SDK::EVariationCharacterId::Ch018_Variation1 },
+        
+        // Ch023: 2 variations
+        { {SDK::ECharacterId::Ch023, 0}, SDK::EVariationCharacterId::Ch023_Variation0 },
+        { {SDK::ECharacterId::Ch023, 1}, SDK::EVariationCharacterId::Ch023_Variation1 },
+        
+        // Ch024: 2 variations
+        { {SDK::ECharacterId::Ch024, 0}, SDK::EVariationCharacterId::Ch024_Variation0 },
+        { {SDK::ECharacterId::Ch024, 1}, SDK::EVariationCharacterId::Ch024_Variation1 },
+        
+        // Ch025: 2 variations
+        { {SDK::ECharacterId::Ch025, 0}, SDK::EVariationCharacterId::Ch025_Variation0 },
+        { {SDK::ECharacterId::Ch025, 1}, SDK::EVariationCharacterId::Ch025_Variation1 },
+        
+        // Ch026: 2 variations
+        { {SDK::ECharacterId::Ch026, 0}, SDK::EVariationCharacterId::Ch026_Variation0 },
+        { {SDK::ECharacterId::Ch026, 1}, SDK::EVariationCharacterId::Ch026_Variation1 },
+        
+        // Ch034: 2 variations
+        { {SDK::ECharacterId::Ch034, 0}, SDK::EVariationCharacterId::Ch034_Variation0 },
+        { {SDK::ECharacterId::Ch034, 1}, SDK::EVariationCharacterId::Ch034_Variation1 },
+        
+        // Ch037: 2 variations
+        { {SDK::ECharacterId::Ch037, 0}, SDK::EVariationCharacterId::Ch037_Variation0 },
+        { {SDK::ECharacterId::Ch037, 1}, SDK::EVariationCharacterId::Ch037_Variation1 },
+        
+        // Ch038: 2 variations
+        { {SDK::ECharacterId::Ch038, 0}, SDK::EVariationCharacterId::Ch038_Variation0 },
+        { {SDK::ECharacterId::Ch038, 1}, SDK::EVariationCharacterId::Ch038_Variation1 },
+        
+        // Ch043: 2 variations
+        { {SDK::ECharacterId::Ch043, 0}, SDK::EVariationCharacterId::Ch043_Variation0 },
+        { {SDK::ECharacterId::Ch043, 1}, SDK::EVariationCharacterId::Ch043_Variation1 },
+        
+        // Ch046: 2 variations
+        { {SDK::ECharacterId::Ch046, 0}, SDK::EVariationCharacterId::Ch046_Variation0 },
+        { {SDK::ECharacterId::Ch046, 1}, SDK::EVariationCharacterId::Ch046_Variation1 },
+        
+        // Ch100: 2 variations
+        { {SDK::ECharacterId::Ch100, 0}, SDK::EVariationCharacterId::Ch100_Variation0 },
+        { {SDK::ECharacterId::Ch100, 1}, SDK::EVariationCharacterId::Ch100_Variation1 },
+        
+        // Ch101: 2 variations
+        { {SDK::ECharacterId::Ch101, 0}, SDK::EVariationCharacterId::Ch101_Variation0 },
+        { {SDK::ECharacterId::Ch101, 1}, SDK::EVariationCharacterId::Ch101_Variation1 },
+        
+        // Ch102: 2 variations
+        { {SDK::ECharacterId::Ch102, 0}, SDK::EVariationCharacterId::Ch102_Variation0 },
+        { {SDK::ECharacterId::Ch102, 1}, SDK::EVariationCharacterId::Ch102_Variation1 },
+        
+        // Ch103: 2 variations
+        { {SDK::ECharacterId::Ch103, 0}, SDK::EVariationCharacterId::Ch103_Variation0 },
+        { {SDK::ECharacterId::Ch103, 1}, SDK::EVariationCharacterId::Ch103_Variation1 },
+        
+        // Ch104: 2 variations
+        { {SDK::ECharacterId::Ch104, 0}, SDK::EVariationCharacterId::Ch104_Variation0 },
+        { {SDK::ECharacterId::Ch104, 1}, SDK::EVariationCharacterId::Ch104_Variation1 },
+        
+        // Ch105: 2 variations
+        { {SDK::ECharacterId::Ch105, 0}, SDK::EVariationCharacterId::Ch105_Variation0 },
+        { {SDK::ECharacterId::Ch105, 1}, SDK::EVariationCharacterId::Ch105_Variation1 },
+        
+        // Ch109: 2 variations
+        { {SDK::ECharacterId::Ch109, 0}, SDK::EVariationCharacterId::Ch109_Variation0 },
+        { {SDK::ECharacterId::Ch109, 1}, SDK::EVariationCharacterId::Ch109_Variation1 },
+        
+        // Ch114: 2 variations
+        { {SDK::ECharacterId::Ch114, 0}, SDK::EVariationCharacterId::Ch114_Variation0 },
+        { {SDK::ECharacterId::Ch114, 1}, SDK::EVariationCharacterId::Ch114_Variation1 },
+        
+        // Ch115: 2 variations
+        { {SDK::ECharacterId::Ch115, 0}, SDK::EVariationCharacterId::Ch115_Variation0 },
+        { {SDK::ECharacterId::Ch115, 1}, SDK::EVariationCharacterId::Ch115_Variation1 },
+        
+        // Ch200: 2 variations
+        { {SDK::ECharacterId::Ch200, 0}, SDK::EVariationCharacterId::Ch200_Variation0 },
+        { {SDK::ECharacterId::Ch200, 1}, SDK::EVariationCharacterId::Ch200_Variation1 },
+        
+        // Ch201: 2 variations
+        { {SDK::ECharacterId::Ch201, 0}, SDK::EVariationCharacterId::Ch201_Variation0 },
+        { {SDK::ECharacterId::Ch201, 1}, SDK::EVariationCharacterId::Ch201_Variation1 },
+        
+        // Ch202: 2 variations
+        { {SDK::ECharacterId::Ch202, 0}, SDK::EVariationCharacterId::Ch202_Variation0 },
+        { {SDK::ECharacterId::Ch202, 1}, SDK::EVariationCharacterId::Ch202_Variation1 },
+    };
+
+    auto it = variationMap.find({characterId, variationIndex});
+    if (it != variationMap.end())
+    {
+        return it->second;
+    }
+    
+    // Default fallback
+    return SDK::EVariationCharacterId::UNDEF;
+}
+
+/**
  * Get available variations for a character
- * Maps ECharacterId to their available variations
  * @param characterId - The character to get variations for
- * @return Vector of variation IDs (0-based indices for the combo)
+ * @return Vector of variation indices (0, 1, 2, etc.)
  */
 std::vector<int32_t> GetVariationsForCharacter(SDK::ECharacterId characterId)
 {
@@ -198,9 +530,314 @@ int32_t GetVariationIdFromComboIndex(SDK::ECharacterId characterId, int32_t comb
     return variations[comboIndex];
 }
 
-// ============================================
-// TRAINING HACKS - Character Changing
-// ============================================
+/**
+ * Get list of all available variation names for combo display
+ * Generates names from enums: Ch001_Variation0, Ch001_Variation1, etc.
+ */
+std::vector<std::string> GetAllVariationNames()
+{
+    auto allIds = GetAllVariationCharacterIds();
+    std::vector<std::string> names;
+    
+    for (auto id : allIds)
+    {
+        // Get character name and variation from enum value
+        const char* charName = nullptr;
+        int varIdx = 0;
+        
+        // Map enum to character name and variation index
+        switch (id)
+        {
+            case SDK::EVariationCharacterId::Ch001_Variation0: charName = "Ch001"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch001_Variation1: charName = "Ch001"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch002_Variation0: charName = "Ch002"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch002_Variation1: charName = "Ch002"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch002_Variation2: charName = "Ch002"; varIdx = 2; break;
+            case SDK::EVariationCharacterId::Ch003_Variation0: charName = "Ch003"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch003_Variation1: charName = "Ch003"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch004_Variation0: charName = "Ch004"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch004_Variation1: charName = "Ch004"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch005_Variation0: charName = "Ch005"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch005_Variation1: charName = "Ch005"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch006_Variation0: charName = "Ch006"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch006_Variation1: charName = "Ch006"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch007_Variation0: charName = "Ch007"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch007_Variation1: charName = "Ch007"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch008_Variation0: charName = "Ch008"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch008_Variation1: charName = "Ch008"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch010_Variation0: charName = "Ch010"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch010_Variation1: charName = "Ch010"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch011_Variation0: charName = "Ch011"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch011_Variation1: charName = "Ch011"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch012_Variation0: charName = "Ch012"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch012_Variation1: charName = "Ch012"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch013_Variation0: charName = "Ch013"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch013_Variation1: charName = "Ch013"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch015_Variation0: charName = "Ch015"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch015_Variation1: charName = "Ch015"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch015_Variation2: charName = "Ch015"; varIdx = 2; break;
+            case SDK::EVariationCharacterId::Ch016_Variation0: charName = "Ch016"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch016_Variation1: charName = "Ch016"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch017_Variation0: charName = "Ch017"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch017_Variation1: charName = "Ch017"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch018_Variation0: charName = "Ch018"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch018_Variation1: charName = "Ch018"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch023_Variation0: charName = "Ch023"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch023_Variation1: charName = "Ch023"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch024_Variation0: charName = "Ch024"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch024_Variation1: charName = "Ch024"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch025_Variation0: charName = "Ch025"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch025_Variation1: charName = "Ch025"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch026_Variation0: charName = "Ch026"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch026_Variation1: charName = "Ch026"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch034_Variation0: charName = "Ch034"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch034_Variation1: charName = "Ch034"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch037_Variation0: charName = "Ch037"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch037_Variation1: charName = "Ch037"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch038_Variation0: charName = "Ch038"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch038_Variation1: charName = "Ch038"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch043_Variation0: charName = "Ch043"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch043_Variation1: charName = "Ch043"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch046_Variation0: charName = "Ch046"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch046_Variation1: charName = "Ch046"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch100_Variation0: charName = "Ch100"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch100_Variation1: charName = "Ch100"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch101_Variation0: charName = "Ch101"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch101_Variation1: charName = "Ch101"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch102_Variation0: charName = "Ch102"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch102_Variation1: charName = "Ch102"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch103_Variation0: charName = "Ch103"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch103_Variation1: charName = "Ch103"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch104_Variation0: charName = "Ch104"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch104_Variation1: charName = "Ch104"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch105_Variation0: charName = "Ch105"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch105_Variation1: charName = "Ch105"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch109_Variation0: charName = "Ch109"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch109_Variation1: charName = "Ch109"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch114_Variation0: charName = "Ch114"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch114_Variation1: charName = "Ch114"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch115_Variation0: charName = "Ch115"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch115_Variation1: charName = "Ch115"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch200_Variation0: charName = "Ch200"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch200_Variation1: charName = "Ch200"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch201_Variation0: charName = "Ch201"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch201_Variation1: charName = "Ch201"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch202_Variation0: charName = "Ch202"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch202_Variation1: charName = "Ch202"; varIdx = 1; break;
+            default: charName = "Unknown"; break;
+        }
+        
+        if (charName)
+        {
+            names.push_back(std::string(charName) + "_Variation" + std::to_string(varIdx));
+        }
+    }
+    
+    return names;
+}
+
+/**
+ * Convert EVariationCharacterId back to (ECharacterId, variationId)
+ * @param variationCharacterId - The combined variation character ID
+ * @return Pair of (ECharacterId, variationId) or (UNDEF, -1) if invalid
+ */
+std::pair<SDK::ECharacterId, int32_t> GetCharacterAndVariationFromVariationCharacterId(SDK::EVariationCharacterId variationCharacterId)
+{
+    // Map EVariationCharacterId enum values back to (ECharacterId, variationId)
+    // This is the inverse of GetVariationCharacterId()
+    
+    switch (variationCharacterId)
+    {
+        // Ch001: variations 0, 1
+        case SDK::EVariationCharacterId::Ch001_Variation0: return {SDK::ECharacterId::Ch001, 0};
+        case SDK::EVariationCharacterId::Ch001_Variation1: return {SDK::ECharacterId::Ch001, 1};
+        
+        // Ch002: variations 0, 1, 2
+        case SDK::EVariationCharacterId::Ch002_Variation0: return {SDK::ECharacterId::Ch002, 0};
+        case SDK::EVariationCharacterId::Ch002_Variation1: return {SDK::ECharacterId::Ch002, 1};
+        case SDK::EVariationCharacterId::Ch002_Variation2: return {SDK::ECharacterId::Ch002, 2};
+        
+        // Ch003: variations 0, 1
+        case SDK::EVariationCharacterId::Ch003_Variation0: return {SDK::ECharacterId::Ch003, 0};
+        case SDK::EVariationCharacterId::Ch003_Variation1: return {SDK::ECharacterId::Ch003, 1};
+        
+        // Ch004: variations 0, 1
+        case SDK::EVariationCharacterId::Ch004_Variation0: return {SDK::ECharacterId::Ch004, 0};
+        case SDK::EVariationCharacterId::Ch004_Variation1: return {SDK::ECharacterId::Ch004, 1};
+        
+        // Ch005: variations 0, 1
+        case SDK::EVariationCharacterId::Ch005_Variation0: return {SDK::ECharacterId::Ch005, 0};
+        case SDK::EVariationCharacterId::Ch005_Variation1: return {SDK::ECharacterId::Ch005, 1};
+        
+        // Ch006: variations 0, 1
+        case SDK::EVariationCharacterId::Ch006_Variation0: return {SDK::ECharacterId::Ch006, 0};
+        case SDK::EVariationCharacterId::Ch006_Variation1: return {SDK::ECharacterId::Ch006, 1};
+        
+        // Ch007: variations 0, 1
+        case SDK::EVariationCharacterId::Ch007_Variation0: return {SDK::ECharacterId::Ch007, 0};
+        case SDK::EVariationCharacterId::Ch007_Variation1: return {SDK::ECharacterId::Ch007, 1};
+        
+        // Ch008: variations 0, 1
+        case SDK::EVariationCharacterId::Ch008_Variation0: return {SDK::ECharacterId::Ch008, 0};
+        case SDK::EVariationCharacterId::Ch008_Variation1: return {SDK::ECharacterId::Ch008, 1};
+        
+        // Ch010: variations 0, 1
+        case SDK::EVariationCharacterId::Ch010_Variation0: return {SDK::ECharacterId::Ch010, 0};
+        case SDK::EVariationCharacterId::Ch010_Variation1: return {SDK::ECharacterId::Ch010, 1};
+        
+        // Ch011: variations 0, 1
+        case SDK::EVariationCharacterId::Ch011_Variation0: return {SDK::ECharacterId::Ch011, 0};
+        case SDK::EVariationCharacterId::Ch011_Variation1: return {SDK::ECharacterId::Ch011, 1};
+        
+        // Ch012: variations 0, 1
+        case SDK::EVariationCharacterId::Ch012_Variation0: return {SDK::ECharacterId::Ch012, 0};
+        case SDK::EVariationCharacterId::Ch012_Variation1: return {SDK::ECharacterId::Ch012, 1};
+        
+        // Ch013: variations 0, 1
+        case SDK::EVariationCharacterId::Ch013_Variation0: return {SDK::ECharacterId::Ch013, 0};
+        case SDK::EVariationCharacterId::Ch013_Variation1: return {SDK::ECharacterId::Ch013, 1};
+        
+        // Ch015: variations 0, 1, 2
+        case SDK::EVariationCharacterId::Ch015_Variation0: return {SDK::ECharacterId::Ch015, 0};
+        case SDK::EVariationCharacterId::Ch015_Variation1: return {SDK::ECharacterId::Ch015, 1};
+        case SDK::EVariationCharacterId::Ch015_Variation2: return {SDK::ECharacterId::Ch015, 2};
+        
+        // Ch016: variations 0, 1
+        case SDK::EVariationCharacterId::Ch016_Variation0: return {SDK::ECharacterId::Ch016, 0};
+        case SDK::EVariationCharacterId::Ch016_Variation1: return {SDK::ECharacterId::Ch016, 1};
+        
+        // Ch017: variations 0, 1
+        case SDK::EVariationCharacterId::Ch017_Variation0: return {SDK::ECharacterId::Ch017, 0};
+        case SDK::EVariationCharacterId::Ch017_Variation1: return {SDK::ECharacterId::Ch017, 1};
+        
+        // Ch018: variations 0, 1
+        case SDK::EVariationCharacterId::Ch018_Variation0: return {SDK::ECharacterId::Ch018, 0};
+        case SDK::EVariationCharacterId::Ch018_Variation1: return {SDK::ECharacterId::Ch018, 1};
+        
+        // Ch023: variations 0, 1
+        case SDK::EVariationCharacterId::Ch023_Variation0: return {SDK::ECharacterId::Ch023, 0};
+        case SDK::EVariationCharacterId::Ch023_Variation1: return {SDK::ECharacterId::Ch023, 1};
+        
+        // Ch024: variations 0, 1
+        case SDK::EVariationCharacterId::Ch024_Variation0: return {SDK::ECharacterId::Ch024, 0};
+        case SDK::EVariationCharacterId::Ch024_Variation1: return {SDK::ECharacterId::Ch024, 1};
+        
+        // Ch025: variations 0, 1
+        case SDK::EVariationCharacterId::Ch025_Variation0: return {SDK::ECharacterId::Ch025, 0};
+        case SDK::EVariationCharacterId::Ch025_Variation1: return {SDK::ECharacterId::Ch025, 1};
+        
+        // Ch026: variations 0, 1
+        case SDK::EVariationCharacterId::Ch026_Variation0: return {SDK::ECharacterId::Ch026, 0};
+        case SDK::EVariationCharacterId::Ch026_Variation1: return {SDK::ECharacterId::Ch026, 1};
+        
+        // Ch034: variations 0, 1
+        case SDK::EVariationCharacterId::Ch034_Variation0: return {SDK::ECharacterId::Ch034, 0};
+        case SDK::EVariationCharacterId::Ch034_Variation1: return {SDK::ECharacterId::Ch034, 1};
+        
+        // Ch037: variations 0, 1
+        case SDK::EVariationCharacterId::Ch037_Variation0: return {SDK::ECharacterId::Ch037, 0};
+        case SDK::EVariationCharacterId::Ch037_Variation1: return {SDK::ECharacterId::Ch037, 1};
+        
+        // Ch038: variations 0, 1
+        case SDK::EVariationCharacterId::Ch038_Variation0: return {SDK::ECharacterId::Ch038, 0};
+        case SDK::EVariationCharacterId::Ch038_Variation1: return {SDK::ECharacterId::Ch038, 1};
+        
+        // Ch043: variations 0, 1
+        case SDK::EVariationCharacterId::Ch043_Variation0: return {SDK::ECharacterId::Ch043, 0};
+        case SDK::EVariationCharacterId::Ch043_Variation1: return {SDK::ECharacterId::Ch043, 1};
+        
+        // Ch046: variations 0, 1
+        case SDK::EVariationCharacterId::Ch046_Variation0: return {SDK::ECharacterId::Ch046, 0};
+        case SDK::EVariationCharacterId::Ch046_Variation1: return {SDK::ECharacterId::Ch046, 1};
+        
+        // Ch100: variations 0, 1
+        case SDK::EVariationCharacterId::Ch100_Variation0: return {SDK::ECharacterId::Ch100, 0};
+        case SDK::EVariationCharacterId::Ch100_Variation1: return {SDK::ECharacterId::Ch100, 1};
+        
+        // Ch101: variations 0, 1
+        case SDK::EVariationCharacterId::Ch101_Variation0: return {SDK::ECharacterId::Ch101, 0};
+        case SDK::EVariationCharacterId::Ch101_Variation1: return {SDK::ECharacterId::Ch101, 1};
+        
+        // Ch102: variations 0, 1
+        case SDK::EVariationCharacterId::Ch102_Variation0: return {SDK::ECharacterId::Ch102, 0};
+        case SDK::EVariationCharacterId::Ch102_Variation1: return {SDK::ECharacterId::Ch102, 1};
+        
+        // Ch103: variations 0, 1
+        case SDK::EVariationCharacterId::Ch103_Variation0: return {SDK::ECharacterId::Ch103, 0};
+        case SDK::EVariationCharacterId::Ch103_Variation1: return {SDK::ECharacterId::Ch103, 1};
+        
+        // Ch104: variations 0, 1
+        case SDK::EVariationCharacterId::Ch104_Variation0: return {SDK::ECharacterId::Ch104, 0};
+        case SDK::EVariationCharacterId::Ch104_Variation1: return {SDK::ECharacterId::Ch104, 1};
+        
+        // Ch105: variations 0, 1
+        case SDK::EVariationCharacterId::Ch105_Variation0: return {SDK::ECharacterId::Ch105, 0};
+        case SDK::EVariationCharacterId::Ch105_Variation1: return {SDK::ECharacterId::Ch105, 1};
+        
+        // Ch109: variations 0, 1
+        case SDK::EVariationCharacterId::Ch109_Variation0: return {SDK::ECharacterId::Ch109, 0};
+        case SDK::EVariationCharacterId::Ch109_Variation1: return {SDK::ECharacterId::Ch109, 1};
+        
+        // Ch114: variations 0, 1
+        case SDK::EVariationCharacterId::Ch114_Variation0: return {SDK::ECharacterId::Ch114, 0};
+        case SDK::EVariationCharacterId::Ch114_Variation1: return {SDK::ECharacterId::Ch114, 1};
+        
+        // Ch115: variations 0, 1
+        case SDK::EVariationCharacterId::Ch115_Variation0: return {SDK::ECharacterId::Ch115, 0};
+        case SDK::EVariationCharacterId::Ch115_Variation1: return {SDK::ECharacterId::Ch115, 1};
+        
+        // Ch200: variations 0, 1
+        case SDK::EVariationCharacterId::Ch200_Variation0: return {SDK::ECharacterId::Ch200, 0};
+        case SDK::EVariationCharacterId::Ch200_Variation1: return {SDK::ECharacterId::Ch200, 1};
+        
+        // Ch201: variations 0, 1
+        case SDK::EVariationCharacterId::Ch201_Variation0: return {SDK::ECharacterId::Ch201, 0};
+        case SDK::EVariationCharacterId::Ch201_Variation1: return {SDK::ECharacterId::Ch201, 1};
+        
+        // Ch202: variations 0, 1
+        case SDK::EVariationCharacterId::Ch202_Variation0: return {SDK::ECharacterId::Ch202, 0};
+        case SDK::EVariationCharacterId::Ch202_Variation1: return {SDK::ECharacterId::Ch202, 1};
+        
+        default: return {SDK::ECharacterId::UNDEF, -1};
+    }
+}
+
+/**
+ * Get character ID and variation index from combo index
+ * Maps combo selection index back to (ECharacterId, variationIndex)
+ */
+std::pair<SDK::ECharacterId, int32_t> GetCharacterAndVariationFromIndex(int32_t comboIndex)
+{
+    static SDK::ECharacterId characterList[] = {
+        SDK::ECharacterId::Ch001, SDK::ECharacterId::Ch002, SDK::ECharacterId::Ch003, SDK::ECharacterId::Ch004,
+        SDK::ECharacterId::Ch005, SDK::ECharacterId::Ch006, SDK::ECharacterId::Ch007, SDK::ECharacterId::Ch008,
+        SDK::ECharacterId::Ch010, SDK::ECharacterId::Ch011, SDK::ECharacterId::Ch012, SDK::ECharacterId::Ch013,
+        SDK::ECharacterId::Ch015, SDK::ECharacterId::Ch016, SDK::ECharacterId::Ch017, SDK::ECharacterId::Ch018,
+        SDK::ECharacterId::Ch023, SDK::ECharacterId::Ch024, SDK::ECharacterId::Ch025, SDK::ECharacterId::Ch026,
+        SDK::ECharacterId::Ch034, SDK::ECharacterId::Ch037, SDK::ECharacterId::Ch038, SDK::ECharacterId::Ch043,
+        SDK::ECharacterId::Ch046, SDK::ECharacterId::Ch100, SDK::ECharacterId::Ch101, SDK::ECharacterId::Ch102,
+        SDK::ECharacterId::Ch103, SDK::ECharacterId::Ch104, SDK::ECharacterId::Ch105, SDK::ECharacterId::Ch109,
+        SDK::ECharacterId::Ch114, SDK::ECharacterId::Ch115, SDK::ECharacterId::Ch200, SDK::ECharacterId::Ch201,
+        SDK::ECharacterId::Ch202
+    };
+    
+    int currentIndex = 0;
+    
+    // Find the character and variation at the given combo index
+    for (const auto& charId : characterList)
+    {
+        auto variations = GetVariationsForCharacter(charId);
+        if (comboIndex < currentIndex + static_cast<int32_t>(variations.size()))
+        {
+            int varIdx = variations[comboIndex - currentIndex];
+            return {charId, varIdx};
+        }
+        currentIndex += static_cast<int32_t>(variations.size());
+    }
+    
+    // Invalid index
+    return {SDK::ECharacterId::UNDEF, -1};
+}
 
 /**
  * Change character on server with logging
@@ -686,10 +1323,11 @@ bool InGameHack_ApplyPlayerConfiguration(int characterId, int variationId, int u
 // ============================================
 
 /**
- * Apply player configuration to ALL PlayerStateBattle instances in the match
- * Calls SDK_ApplyCharacterToAllPlayers from Basic.cpp to apply configuration
+ * Apply player configuration to ALL enemy characters in the match
+ * Same exploit method as Dll.cpp: local player controller calls ChangeCharacter_OnServer for each enemy
+ * Uses SDK method call directly (not ProcessEvent)
  */
-bool InGameHack_ApplyToAllControllers(int characterId, int variationId, int unique1, int unique2, int unique3, int skillCode, int costumeCode, int costumeAuraType)
+bool InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType)
 {
     // Check if in valid battle mode first
     if (!IsValidBattleMode())
@@ -708,11 +1346,31 @@ bool InGameHack_ApplyToAllControllers(int characterId, int variationId, int uniq
             return false;
         }
 
+        // Get LOCAL player controller and character
+        SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!basePlayerController)
+        {
+            Logger::LogError("[ApplyToAllControllers] Could not get player controller");
+            return false;
+        }
+
+        SDK::APlayerControllerBattle* battlePC = static_cast<SDK::APlayerControllerBattle*>(basePlayerController);
+        if (!battlePC || !battlePC->Pawn)
+        {
+            Logger::LogError("[ApplyToAllControllers] Could not get valid battle controller or pawn");
+            return false;
+        }
+
         // Create character data once with ALL parameters
         SDK::FInGameBattleCharacterData characterData = {};
-        characterData._characterId = (SDK::ECharacterId)characterId;
-        characterData._variationId = (SDK::int32)variationId;
-        characterData._skillVariationCode = skillCode;
+        
+        // DECODE EVariationCharacterId into (characterId, variationId)
+        auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(variationCharacterId);
+        
+        // Use decoded ECharacterId and variation index in struct fields
+        characterData._characterId = characterId;  // Decoded ECharacterId
+        characterData._variationId = variationId;  // Variation index (0, 1, 2, etc)
+        characterData._skillVariationCode = variationId;  // Use full enum value for skill code
         characterData._technique1Level = unique1;
         characterData._technique2Level = unique2;
         characterData._technique3Level = unique3;
@@ -721,48 +1379,23 @@ bool InGameHack_ApplyToAllControllers(int characterId, int variationId, int uniq
 
         int appliedCount = 0;
 
-        // LOOP OVER ALL ACTORS - find ALL character battle pawns
+        // LOOP OVER ALL ACTORS - INCLUDING local player
+        // LOCAL CONTROLLER calls ChangeCharacter_OnServer for EACH character (including self)
         for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
         {
             SDK::AActor* actor = world->PersistentLevel->Actors[i];
-            if (!actor || actor->IsDefaultObject() || !actor->Class)
-                continue;
-
-            std::string className = std::string(actor->Class->GetName());
-            bool isValidCharacter = (className == "CharacterBattle" || className == "ACharacterBattle");
             
-            bool isChxxx = false;
-            if (className.length() == 5 && className[0] == 'C' && className[1] == 'h' &&
-                std::isdigit(className[2]) && std::isdigit(className[3]) && std::isdigit(className[4]))
-            {
-                isChxxx = true;
-            }
-
-            if (!isValidCharacter && !isChxxx)
+            // Robust type check using IsA()
+            if (!actor || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
                 continue;
 
-            SDK::ACharacterBattle* pawn = static_cast<SDK::ACharacterBattle*>(actor);
-            if (!pawn || !pawn->PlayerState)
-                continue;
+            SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(actor);
 
-            // Get PlayerState for this character
-            SDK::APlayerStateBattle* playerState = static_cast<SDK::APlayerStateBattle*>(pawn->PlayerState);
-            if (!playerState)
-                continue;
-
-            // Get PlayerController from PlayerState
-            SDK::APlayerController* baseController = (SDK::APlayerController*)playerState->Owner;
-            if (!baseController)
-                continue;
-
-            SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
-            if (!playerController)
-                continue;
-
-            // Call ChangeCharacter_OnServer for THIS character with THIS controller
+            // Call LOCAL controller's ChangeCharacter_OnServer for THIS character
+            // Includes local player and all enemies
             try
             {
-                playerController->ChangeCharacter_OnServer(pawn, characterData);
+                battlePC->ChangeCharacter_OnServer(targetCharacter, characterData);
                 appliedCount++;
             }
             catch (...)
@@ -773,16 +1406,16 @@ bool InGameHack_ApplyToAllControllers(int characterId, int variationId, int uniq
 
         if (appliedCount == 0)
         {
-            Logger::LogError("[ApplyToAllControllers] No players found to apply changes to");
+            Logger::LogError("[ApplyToAllControllers] No characters found to apply changes to");
             return false;
         }
 
-        Logger::LogInfo("[CHARACTER] Applied character change to " + std::to_string(appliedCount) + " players");
+        Logger::LogInfo("[CHARACTER] Applied character change to " + std::to_string(appliedCount) + " characters (including self)");
         return true;
     }
     catch (const std::exception& e)
     {
-        Logger::LogError("[CHARACTER] Exception in ApplyToAllControllers");
+        Logger::LogError("[CHARACTER] Exception in ApplyToAllControllers: " + std::string(e.what()));
         return false;
     }
     catch (...)
@@ -793,8 +1426,248 @@ bool InGameHack_ApplyToAllControllers(int characterId, int variationId, int uniq
 }
 
 // ============================================
-// INVINCIBILITY & RECOVERY IMPLEMENTATIONS
+// APPLY TO TEAM
 // ============================================
+
+/**
+ * Apply player configuration to ALL characters in a specific team
+ * Uses same exploit as ApplyToAllControllers but filters by team ID
+ */
+bool InGameHack_ApplyToTeam(unsigned char teamId, SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType)
+{
+    // Check if in valid battle mode first
+    if (!IsValidBattleMode())
+    {
+        Logger::LogWarning("[ApplyToTeam] Not in valid battle mode");
+        return false;
+    }
+
+    try
+    {
+        // Get world
+        SDK::UWorld* world = SDK::UWorld::GetWorld();
+        if (!world || !world->PersistentLevel)
+        {
+            Logger::LogError("[ApplyToTeam] Could not get world");
+            return false;
+        }
+
+        // Get LOCAL player controller and character
+        SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!basePlayerController)
+        {
+            Logger::LogError("[ApplyToTeam] Could not get player controller");
+            return false;
+        }
+
+        SDK::APlayerControllerBattle* battlePC = static_cast<SDK::APlayerControllerBattle*>(basePlayerController);
+        if (!battlePC || !battlePC->Pawn)
+        {
+            Logger::LogError("[ApplyToTeam] Invalid battle PC or no pawn");
+            return false;
+        }
+
+        // Create character data once with ALL parameters
+        SDK::FInGameBattleCharacterData characterData = {};
+        
+        // DECODE EVariationCharacterId into (characterId, variationId)
+        auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(variationCharacterId);
+        
+        // Use decoded ECharacterId and variation index in struct fields
+        characterData._characterId = characterId;
+        characterData._variationId = variationId;
+        characterData._skillVariationCode = variationId;
+        characterData._technique1Level = unique1;
+        characterData._technique2Level = unique2;
+        characterData._technique3Level = unique3;
+        characterData._costumeCode = costumeCode;
+        characterData._costumeAuraType = costumeAuraType;
+
+        int appliedCount = 0;
+
+        // LOOP OVER ALL ACTORS - FILTER BY TEAM ID
+        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
+        {
+            SDK::AActor* actor = world->PersistentLevel->Actors[i];
+            
+            // Robust type check using IsA()
+            if (!actor || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
+                continue;
+
+            SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(actor);
+
+            // GET TARGET CHARACTER'S TEAM ID AND FILTER
+            unsigned char characterTeamId = 255;
+            try {
+                characterTeamId = targetCharacter->BP_GetTeamId();
+            }
+            catch (...) {
+                continue;
+            }
+            
+            if (characterTeamId != teamId)
+                continue;  // Skip if not in target team
+
+            // Call LOCAL controller's ChangeCharacter_OnServer for THIS character (only if team matches)
+            try
+            {
+                battlePC->ChangeCharacter_OnServer(targetCharacter, characterData);
+                appliedCount++;
+            }
+            catch (...)
+            {
+                continue;
+            }
+        }
+
+        if (appliedCount == 0)
+        {
+            Logger::LogWarning("[ApplyToTeam] No characters found in team " + std::to_string(teamId));
+            return false;
+        }
+
+        Logger::LogInfo("[ApplyToTeam] Applied character change to " + std::to_string(appliedCount) + " characters in team " + std::to_string(teamId));
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[ApplyToTeam] Exception: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[ApplyToTeam] Unknown exception");
+        return false;
+    }
+}
+
+// ============================================
+// APPLY TECHNIQUE LEVELS ONLY
+// ============================================
+
+/**
+ * Apply technique levels to ALL characters WITHOUT changing their character/variation/costume
+ * Modifies ONLY the technique levels while keeping everything else the same
+ */
+bool InGameHack_ApplyTechniqueLevelsToAll(int unique1, int unique2, int unique3)
+{
+    // Check if in valid battle mode first
+    if (!IsValidBattleMode())
+    {
+        Logger::LogWarning("[ApplyTechniqueLevelsToAll] Not in valid battle mode");
+        return false;
+    }
+
+    try
+    {
+        // Get world
+        SDK::UWorld* world = SDK::UWorld::GetWorld();
+        if (!world || !world->PersistentLevel)
+        {
+            Logger::LogError("[ApplyTechniqueLevelsToAll] Could not get world");
+            return false;
+        }
+
+        // Get LOCAL player controller
+        SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!basePlayerController)
+        {
+            Logger::LogError("[ApplyTechniqueLevelsToAll] Could not get player controller");
+            return false;
+        }
+
+        SDK::APlayerControllerBattle* battlePC = static_cast<SDK::APlayerControllerBattle*>(basePlayerController);
+        if (!battlePC || !battlePC->Pawn)
+        {
+            Logger::LogError("[ApplyTechniqueLevelsToAll] Could not get valid battle controller or pawn");
+            return false;
+        }
+
+        int appliedCount = 0;
+
+        // LOOP OVER ALL ACTORS - modify technique levels only
+        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
+        {
+            SDK::AActor* actor = world->PersistentLevel->Actors[i];
+            
+            // Robust type check using IsA()
+            if (!actor || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
+                continue;
+
+            SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(actor);
+            
+            // Try to get current character data to preserve everything except levels
+            SDK::FInGameBattleCharacterData currentData = {};
+            
+            try
+            {
+                // Try to get PlayerState to read current data
+                if (targetCharacter->PlayerState)
+                {
+                    SDK::APlayerStateBattle* playerState = static_cast<SDK::APlayerStateBattle*>(targetCharacter->PlayerState);
+                    if (playerState)
+                    {
+                        // Get current character data from player state if available
+                        // This preserves character ID, variation, costume, etc.
+                        // For now, we'll create new data with default values
+                        // If you have a getter for current character data, use it here
+                        currentData._characterId = SDK::ECharacterId::Ch001; // Default fallback
+                        currentData._variationId = 0;
+                        currentData._skillVariationCode = 0;
+                        currentData._costumeCode = 0;
+                        currentData._costumeAuraType = 0;
+                    }
+                }
+            }
+            catch (...)
+            {
+                // If we can't get current data, use defaults
+                currentData._characterId = SDK::ECharacterId::Ch001;
+                currentData._variationId = 0;
+                currentData._skillVariationCode = 0;
+                currentData._costumeCode = 0;
+                currentData._costumeAuraType = 0;
+            }
+
+            // Set ONLY the technique levels
+            currentData._technique1Level = unique1;
+            currentData._technique2Level = unique2;
+            currentData._technique3Level = unique3;
+
+            // Apply the modified data
+            try
+            {
+                battlePC->ChangeCharacter_OnServer(targetCharacter, currentData);
+                appliedCount++;
+            }
+            catch (...)
+            {
+                continue;
+            }
+        }
+
+        if (appliedCount == 0)
+        {
+            Logger::LogError("[ApplyTechniqueLevelsToAll] No characters found to apply levels to");
+            return false;
+        }
+
+        Logger::LogInfo("[TECHNIQUES] Applied technique levels (U1:" + std::to_string(unique1) + 
+                       " U2:" + std::to_string(unique2) + " U3:" + std::to_string(unique3) + 
+                       ") to " + std::to_string(appliedCount) + " characters");
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[TECHNIQUES] Exception in ApplyTechniqueLevelsToAll: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[TECHNIQUES] Unknown exception in ApplyTechniqueLevelsToAll");
+        return false;
+    }
+}
 
 /**
  * Recover self (player only) with full health restoration
@@ -963,7 +1836,7 @@ bool InGameHack_RebuildMyself()
 
         // Call SetCondition_ToServer with REBUILD_MYSELF (enum value 24)
         conditionComponent->SetCondition_ToServer(
-            (SDK::ECharacterConditionId)24,  // REBUILD_MYSELF = 24
+            (SDK::ECharacterConditionId)23,  // REBUILD_MYSELF = 24
             0,                               // Level
             0.0f,                            // span
             0.0f,                            // value
@@ -2335,7 +3208,9 @@ bool InGameHack_SetSkillLevel(int skillIndex, int level)
         return true;
     }
     catch (const std::exception& e)
-    
+    {
+        return false;
+    }
 }
 
 bool InGameHack_UpgradeSupply(int supplyIndex, int level)
@@ -2466,6 +3341,318 @@ void InGameHack_ValidateTransMissionLevel()
       
     }
     catch (const std::exception& e)
-    
+    {
+        // Error occurred
+    }
+}
 
+// ============================================
+// GET ALL TEAM IDS
+// ============================================
+
+std::vector<unsigned char> InGameHack_GetAllTeamIds()
+{
+    std::vector<unsigned char> teamIds;
+    
+    try
+    {
+        // Get world
+        SDK::UWorld* world = SDK::UWorld::GetWorld();
+        if (!world || !world->PersistentLevel)
+        {
+            return teamIds;  // Empty
+        }
+
+        // Iterate through all actors
+        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
+        {
+            SDK::AActor* actor = world->PersistentLevel->Actors[i];
+            
+            // Check if actor is a character
+            if (!actor || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
+                continue;
+
+            SDK::ACharacterBattle* character = static_cast<SDK::ACharacterBattle*>(actor);
+            
+            // Get team ID
+            try
+            {
+                unsigned char teamId = character->BP_GetTeamId();
+                
+                // Add to vector if not already present
+                bool found = false;
+                for (unsigned char id : teamIds)
+                {
+                    if (id == teamId)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                
+                if (!found && teamId != 255)  // 255 = invalid
+                {
+                    teamIds.push_back(teamId);
+                }
+            }
+            catch (...)
+            {
+                continue;
+            }
+        }
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[GetAllTeamIds] Exception: " + std::string(e.what()));
+    }
+    catch (...)
+    {
+        Logger::LogError("[GetAllTeamIds] Unknown exception");
+    }
+
+    return teamIds;
+}
+
+// ============================================
+// BULLET REDIRECTION FUNCTIONS
+// ============================================
+
+/**
+ * Helper: Check if bullet is a melee attack (should NOT be redirected)
+ */
+static inline bool IsBulletMeleeAttack(const std::string& bulletName)
+{
+    // Check for melee/punch/slash patterns
+    if (bulletName.find("Melee") != std::string::npos) return true;
+    if (bulletName.find("Punch") != std::string::npos) return true;
+    if (bulletName.find("Slash") != std::string::npos) return true;
+    if (bulletName.find("Strike") != std::string::npos) return true;
+    if (bulletName.find("Attack") != std::string::npos && bulletName.find("Skill") == std::string::npos) return true;
+    return false;
+}
+
+/**
+ * Helper: Check if bullet name contains Alpha (Unique1) skill
+ */
+static inline bool IsBulletAlphaSkill(const std::string& bulletName)
+{
+    if (bulletName.find("Unique1") != std::string::npos) return true;
+    if (bulletName.find("BPB_CementShot") != std::string::npos) return true;
+    if (bulletName.find("BPB_Cement_L") != std::string::npos) return true;
+    if (bulletName.find("BPB_Cracks_L") != std::string::npos) return true;
+    if (bulletName.find("BPB_FogShot_") != std::string::npos) return true;
+    if (bulletName.find("BPB202_U1_") != std::string::npos) return true;
+    return false;
+}
+
+/**
+ * Helper: Check if bullet name contains Beta (Unique2) skill
+ */
+static inline bool IsBulletBetaSkill(const std::string& bulletName)
+{
+    if (bulletName.find("Unique2") != std::string::npos) return true;
+    if (bulletName.find("BPB_ThunderBackGroundHit_C") != std::string::npos) return true;
+    if (bulletName.find("BPB_CracksRange_L") != std::string::npos) return true;
+    if (bulletName.find("BPB_RiseCement_L") != std::string::npos) return true;
+    if (bulletName.find("BPB_PortalA_") != std::string::npos) return true;
+    if (bulletName.find("BPB_PortalShotA_") != std::string::npos) return true;
+    if (bulletName.find("BPB202_U2_") != std::string::npos) return true;
+    return false;
+}
+
+/**
+ * Helper: Check if bullet name contains Gamma (Unique3) skill
+ */
+static inline bool IsBulletGammaSkill(const std::string& bulletName)
+{
+    if (bulletName.find("Unique3") != std::string::npos) return true;
+    if (bulletName.find("Cement3Shot") != std::string::npos) return true;
+    if (bulletName.find("BPB202_U3_") != std::string::npos) return true;
+    return false;
+}
+
+/**
+ * Helper: Check if bullet name contains Special skill
+ */
+static inline bool IsBulletSpecialSkill(const std::string& bulletName)
+{
+    if (bulletName.find("BPB_Special_C") != std::string::npos) return true;
+    if (bulletName.find("BPB_UniqueSpecial_") != std::string::npos) return true;
+    return false;
+}
+
+/**
+ * Helper: Check if bullet cannot be teleported (causes crash)
+ * Some special balls like rebuild balls crash when teleported
+ */
+static inline bool IsBulletNonTeleportable(const std::string& bulletName)
+{
+    // Rebuild skill special ball - DO NOT teleport
+    if (bulletName.find("Rebuild") != std::string::npos) return true;
+    if (bulletName.find("BPB_Rebuild") != std::string::npos) return true;
+    // Add more non-teleportable ball patterns here as needed
+    return false;
+}
+
+/**
+ * Redirect bullets to nearest enemy in front
+ * Filters bullets by skill type (Alpha/Beta/Gamma/Special)
+ * Uses K2_TeleportTo to redirect each bullet to enemy position
+ * 
+ * @param bIncludeAlpha - Include Alpha (Unique1) skills
+ * @param bIncludeBeta - Include Beta (Unique2) skills
+ * @param bIncludeGamma - Include Gamma (Unique3) skills
+ * @param bIncludeSpecial - Include Special skills
+ * @return true if bullets were redirected
+ */
+bool InGameHack_RedirectBulletsToNearestEnemy(bool bIncludeAlpha, bool bIncludeBeta, bool bIncludeGamma, bool bIncludeSpecial)
+{
+    try
+    {
+        // Validate we're in battle
+        if (!IsValidBattleMode())
+        {
+            return false;
+        }
+
+        // Get world
+        SDK::UWorld* world = SDK::UWorld::GetWorld();
+        if (!world || !world->PersistentLevel)
+            return false;
+
+        // Get player controller
+        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!playerController)
+            return false;
+
+        // Get player character
+        SDK::ACharacterBattle* playerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
+        if (!playerCharacter)
+            return false;
+
+        // Get nearest forward target (closest enemy in front)
+        SDK::AActor* nearestEnemyPtr = SDK_GetForwardESPTarget();
+        if (!nearestEnemyPtr)
+            return false;
+
+        SDK::ACharacterBattle* nearestEnemy = static_cast<SDK::ACharacterBattle*>(nearestEnemyPtr);
+        if (!nearestEnemy)
+            return false;
+
+        // Get nearest enemy position
+        SDK::FVector targetPosition = nearestEnemy->K2_GetActorLocation();
+
+        int redirectedCount = 0;
+        int totalBulletsFound = 0;
+        int bulletsFiltered = 0;
+
+        // Iterate through all actors to find and redirect bullets
+        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
+        {
+            SDK::AActor* actor = world->PersistentLevel->Actors[i];
+            
+            // Check if actor is a bullet
+            if (!actor || actor->IsDefaultObject() || !actor->IsA(SDK::ABullet::StaticClass()))
+                continue;
+
+            SDK::ABullet* bullet = static_cast<SDK::ABullet*>(actor);
+            if (!bullet)
+                continue;
+
+            totalBulletsFound++;
+
+            // Check if bullet belongs to player character
+            if (bullet->_ownerChr != playerCharacter)
+                continue;
+
+            // Get bullet class name
+            std::string bulletClassName = "";
+            try
+            {
+                if (bullet->Class)
+                {
+                    bulletClassName = bullet->Class->GetName();
+                    if (bulletClassName.empty())
+                        continue;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            catch (...)
+            {
+                continue;  // Skip if we can't get class name
+            }
+
+            // CRITICAL: Skip melee attacks to prevent crash
+            if (IsBulletMeleeAttack(bulletClassName))
+                continue;
+
+            // CRITICAL: Skip non-teleportable bullets (rebuild, etc) to prevent crash
+            if (IsBulletNonTeleportable(bulletClassName))
+                continue;
+
+            // Check if bullet matches skill filter
+            bool matchesFilter = false;
+            if (bIncludeAlpha && IsBulletAlphaSkill(bulletClassName))
+                matchesFilter = true;
+            else if (bIncludeBeta && IsBulletBetaSkill(bulletClassName))
+                matchesFilter = true;
+            else if (bIncludeGamma && IsBulletGammaSkill(bulletClassName))
+                matchesFilter = true;
+            else if (bIncludeSpecial && IsBulletSpecialSkill(bulletClassName))
+                matchesFilter = true;
+
+            if (!matchesFilter)
+                continue;  // Skip this bullet if it doesn't match filter
+
+            bulletsFiltered++;
+
+            // Redirect bullet to target position using K2_TeleportTo
+            try
+            {
+                bullet->K2_TeleportTo(targetPosition, SDK::FRotator(0, 0, 0));
+                redirectedCount++;
+            }
+            catch (...)
+            {
+                continue;  // Skip if teleport fails
+            }
+        }
+
+        // Log results for debugging
+        if (totalBulletsFound > 0 || redirectedCount > 0)
+        {
+            // Write debug log to C:\temp\bullet_redirect_debug.log
+            try
+            {
+                std::ofstream logFile("C:\\temp\\bullet_redirect_debug.log", std::ios::app);
+                if (logFile.is_open())
+                {
+                    logFile << "[BulletRedirect] Total Bullets: " << totalBulletsFound 
+                           << " | Filtered: " << bulletsFiltered 
+                           << " | Redirected: " << redirectedCount 
+                           << " | Filters(A:" << bIncludeAlpha 
+                           << " B:" << bIncludeBeta 
+                           << " G:" << bIncludeGamma 
+                           << " S:" << bIncludeSpecial << ")\n";
+                    logFile.close();
+                }
+            }
+            catch (...)
+            {
+            }
+        }
+
+        return redirectedCount > 0;
+    }
+    catch (const std::exception& e)
+    {
+        return false;
+    }
+    catch (...)
+    {
+        return false;
+    }
 }

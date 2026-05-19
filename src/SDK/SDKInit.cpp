@@ -1,5 +1,5 @@
 #include "SDKInit.h"
-#include "../Utils/Logger.h"
+
 #include <sstream>
 #include <fstream>
 #include <Windows.h>
@@ -15,43 +15,31 @@ namespace SDKInit
 		{
 			return true;
 		}
-
-		Logger::LogInfo("[SDK] Initializing SDK systems...");
-
-		try
+try
 		{
 			// Get image base - used by SDK for offset calculations
 			uintptr_t ImageBase = InSDKUtils::GetImageBase();
 			if (!ImageBase)
 			{
-				Logger::LogError("[SDK] Failed to get process image base!");
-				return false;
+return false;
 			}
 			
 			std::stringstream ss;
 			ss << std::hex << ImageBase;
-			Logger::LogInfo("[SDK] Image base: 0x" + ss.str());
-
-			// GObjects will be initialized by SDK as needed
-			Logger::LogInfo("[SDK] SDK ready for use");
-
-			// Enumerate available character classes for spawn selector
-			Logger::LogInfo("[SDK] Enumerating available character classes...");
-			EnumerateAvailableCharacterClasses();
+// GObjects will be initialized by SDK as needed
+// Enumerate available character classes for spawn selector
+EnumerateAvailableCharacterClasses();
 
 			g_SDKInitialized = true;
-			Logger::LogInfo("[SDK] SDK initialization complete!");
-			return true;
+return true;
 		}
 		catch (const std::exception& ex)
 		{
-			Logger::LogError(std::string("[SDK] Exception: ") + ex.what());
-			return false;
+return false;
 		}
 		catch (...)
 		{
-			Logger::LogError("[SDK] Unknown exception!");
-			return false;
+return false;
 		}
 	}
 
@@ -79,8 +67,7 @@ namespace SDKInit
 			std::ofstream log("c:\\temp\\pawns.log", std::ios::app);
 			if (!log.is_open())
 			{
-				Logger::LogWarning("[SDK] Could not open pawns.log");
-				return;
+return;
 			}
 
 			log << "\n========== [LogExistingPawns] Pawn enumeration ==========\n";
@@ -120,17 +107,13 @@ namespace SDKInit
 			log << "\n[SUMMARY] Total Objects: " << TotalObjects << " | Total Pawns: " << PawnCount << "\n";
 			log << "========== [LogExistingPawns] Complete ==========\n\n";
 			log.close();
-
-			Logger::LogInfo("[SDK] LogExistingPawns executed - Found " + std::to_string(PawnCount) + " pawns");
-		}
+}
 		catch (const std::exception& ex)
 		{
-			Logger::LogError(std::string("[SDK] Exception in LogExistingPawns: ") + ex.what());
-		}
+}
 		catch (...)
 		{
-			Logger::LogError("[SDK] Unknown exception in LogExistingPawns");
-		}
+}
 	}
 
 	APawn* SpawnCharacterBattle(const FVector& SpawnLocation)
@@ -138,13 +121,10 @@ namespace SDKInit
 		try
 		{
 			// Log immediately to see if function is called at all
-			Logger::LogInfo("[SDK] SpawnCharacterBattle() called!");
-
-			std::ofstream log("c:\\temp\\spawn.log", std::ios::app);
+std::ofstream log("c:\\temp\\spawn.log", std::ios::app);
 			if (!log.is_open())
 			{
-				Logger::LogError("[SDK] CRITICAL: Could not open c:\\temp\\spawn.log!");
-				return nullptr;
+return nullptr;
 			}
 
 			log << "\n========== [SpawnCharacterBattle] START ==========\n";
@@ -155,8 +135,7 @@ namespace SDKInit
 				log << "[ERROR] SDK not initialized! g_SDKInitialized = " << (g_SDKInitialized ? "true" : "false") << "\n";
 				log << "========== [SpawnCharacterBattle] FAILED ==========\n\n";
 				log.close();
-				Logger::LogError("[SDK] SDK not initialized!");
-				return nullptr;
+return nullptr;
 			}
 
 			log << "[INFO] SDK initialized, proceeding with spawn...\n";
@@ -169,8 +148,7 @@ namespace SDKInit
 				log << "[ERROR] UWorld::GetWorld() returned nullptr!\n";
 				log << "========== [SpawnCharacterBattle] FAILED ==========\n\n";
 				log.close();
-				Logger::LogError("[SDK] Failed to get world!");
-				return nullptr;
+return nullptr;
 			}
 			log << "[INFO] World retrieved successfully at 0x" << std::hex << reinterpret_cast<uint64_t>(World) << std::dec << "\n";
 			log.flush();
@@ -182,8 +160,7 @@ namespace SDKInit
 				log << "[ERROR] GetPlayerController returned nullptr!\n";
 				log << "========== [SpawnCharacterBattle] FAILED ==========\n\n";
 				log.close();
-				Logger::LogError("[SDK] Failed to get player controller!");
-				return nullptr;
+return nullptr;
 			}
 			log << "[INFO] PlayerController retrieved at 0x" << std::hex << reinterpret_cast<uint64_t>(PlayerController) << std::dec << "\n";
 			log.flush();
@@ -195,8 +172,7 @@ namespace SDKInit
 				log << "[ERROR] PlayerController->GetPawn() returned nullptr!\n";
 				log << "========== [SpawnCharacterBattle] FAILED ==========\n\n";
 				log.close();
-				Logger::LogError("[SDK] PlayerController has no possessed pawn!");
-				return nullptr;
+return nullptr;
 			}
 			log << "[INFO] Player pawn retrieved at 0x" << std::hex << reinterpret_cast<uint64_t>(PlayerPawn) << std::dec << "\n";
 			log << "[INFO] Player pawn name: " << PlayerPawn->GetName() << "\n";
@@ -209,8 +185,7 @@ namespace SDKInit
 				log << "[ERROR] PlayerPawn->Class is nullptr!\n";
 				log << "========== [SpawnCharacterBattle] FAILED ==========\n\n";
 				log.close();
-				Logger::LogError("[SDK] Player pawn has no class!");
-				return nullptr;
+return nullptr;
 			}
 			log << "[INFO] Player pawn class: " << PlayerClass->GetName() << "\n";
 			log << "[INFO] Using this class to spawn new pawn at 0x" << std::hex << reinterpret_cast<uint64_t>(PlayerClass) << std::dec << "\n";
@@ -242,8 +217,7 @@ namespace SDKInit
 				log << "[ERROR] This usually means the class cannot be instantiated (abstract, etc.)\n";
 				log << "========== [SpawnCharacterBattle] FAILED ==========\n\n";
 				log.close();
-				Logger::LogError("[SDK] BeginDeferredActorSpawnFromClass failed!");
-				return nullptr;
+return nullptr;
 			}
 			log << "[INFO] Actor spawned (deferred) at 0x" << std::hex << reinterpret_cast<uint64_t>(SpawnedActor) << std::dec << "\n";
 			log.flush();
@@ -258,8 +232,7 @@ namespace SDKInit
 				log << "[ERROR] FinishSpawningActor returned nullptr!\n";
 				log << "========== [SpawnCharacterBattle] FAILED ==========\n\n";
 				log.close();
-				Logger::LogError("[SDK] FinishSpawningActor failed!");
-				return nullptr;
+return nullptr;
 			}
 			log << "[INFO] Actor spawn finished at 0x" << std::hex << reinterpret_cast<uint64_t>(FinalActor) << std::dec << "\n";
 			log.flush();
@@ -271,8 +244,7 @@ namespace SDKInit
 				log << "[ERROR] Spawned actor is not a pawn!\n";
 				log << "========== [SpawnCharacterBattle] FAILED ==========\n\n";
 				log.close();
-				Logger::LogError("[SDK] Spawned actor is not a pawn!");
-				return nullptr;
+return nullptr;
 			}
 			log << "[INFO] Successfully cast to APawn: " << FinalActor->GetName() << "\n";
 			log.flush();
@@ -292,32 +264,26 @@ namespace SDKInit
 			log << "[SUCCESS] New pawn: " << SpawnedPawn->GetName() << " | Class: " << PlayerClass->GetName() << "\n";
 			log << "========== [SpawnCharacterBattle] SUCCESS ==========\n\n";
 			log.close();
-
-			Logger::LogInfo("[SDK] Character spawned successfully - check c:/temp/spawn.log");
-			return SpawnedPawn;
+return SpawnedPawn;
 		}
 		catch (const std::exception& ex)
 		{
-			Logger::LogError(std::string("[SDK] Exception in SpawnCharacterBattle: ") + ex.what());
-			return nullptr;
+return nullptr;
 		}
 		catch (...)
 		{
-			Logger::LogError("[SDK] Unknown exception in SpawnCharacterBattle");
-			return nullptr;
+return nullptr;
 		}
 	}
 
 	void EnumerateAvailableCharacterClasses()
 	{
-		Logger::LogInfo("[SDK] Enumerating available character classes...");
-		g_AvailableClasses.clear();
+g_AvailableClasses.clear();
 
 		std::ofstream log("c:\\temp\\class_enumeration.log", std::ios::app);
 		if (!log.is_open())
 		{
-			Logger::LogWarning("[SDK] Could not open class_enumeration.log");
-			return;
+return;
 		}
 
 		log << "\n========== [EnumerateAvailableCharacterClasses] START ==========\n";
@@ -362,9 +328,7 @@ namespace SDKInit
 
 								log << "[FOUND] Class #" << classesFound << ": " << ClassName << " at 0x" << std::hex << reinterpret_cast<uint64_t>(CharClass) << std::dec << "\n";
 								log.flush();
-
-								Logger::LogInfo("[SDK] Found character class: " + ClassName);
-							}
+}
 						}
 						catch (...)
 						{
@@ -377,21 +341,17 @@ namespace SDKInit
 			log << "[SUMMARY] Classes checked: " << classesChecked << " | Classes found: " << classesFound << "\n";
 			log << "========== [EnumerateAvailableCharacterClasses] COMPLETE ==========\n\n";
 			log.close();
-
-			Logger::LogInfo("[SDK] Character class enumeration complete - Found " + std::to_string(classesFound) + " classes");
-		}
+}
 		catch (const std::exception& ex)
 		{
 			log << "[ERROR] Exception: " << ex.what() << "\n";
 			log.close();
-			Logger::LogError(std::string("[SDK] Exception in EnumerateAvailableCharacterClasses: ") + ex.what());
-		}
+}
 		catch (...)
 		{
 			log << "[ERROR] Unknown exception\n";
 			log.close();
-			Logger::LogError("[SDK] Unknown exception in EnumerateAvailableCharacterClasses");
-		}
+}
 	}
 
 	const std::vector<std::string>& GetAvailableCharacterClasses()
@@ -532,13 +492,10 @@ namespace SDKInit
 	{
 		try
 		{
-			Logger::LogInfo("[SDK] SpawnCharacterByClass() called with class: " + ClassName);
-
-			std::ofstream log("c:\\temp\\spawn_by_class.log", std::ios::app);
+std::ofstream log("c:\\temp\\spawn_by_class.log", std::ios::app);
 			if (!log.is_open())
 			{
-				Logger::LogError("[SDK] Could not open spawn_by_class.log");
-				return nullptr;
+return nullptr;
 			}
 
 			log << "\n========== [SpawnCharacterByClass] START ==========\n";
@@ -642,8 +599,7 @@ namespace SDKInit
 				}
 				log << "========== [SpawnCharacterByClass] FAILED ==========\n\n";
 				log.close();
-				Logger::LogError("[SDK] Class not found: " + ClassName);
-				return nullptr;
+return nullptr;
 			}
 
 			// Get world and player controller
@@ -785,19 +741,15 @@ namespace SDKInit
 			log << "[SUCCESS] New pawn: " << SpawnedPawn->GetName() << "\n";
 			log << "========== [SpawnCharacterByClass] SUCCESS ==========\n\n";
 			log.close();
-
-			Logger::LogInfo("[SDK] Character spawned successfully - check c:/temp/spawn_by_class.log");
-			return SpawnedPawn;
+return SpawnedPawn;
 		}
 		catch (const std::exception& ex)
 		{
-			Logger::LogError(std::string("[SDK] Exception in SpawnCharacterByClass: ") + ex.what());
-			return nullptr;
+return nullptr;
 		}
 		catch (...)
 		{
-			Logger::LogError("[SDK] Unknown exception in SpawnCharacterByClass");
-			return nullptr;
+return nullptr;
 		}
 	}
 }

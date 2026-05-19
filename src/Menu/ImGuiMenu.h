@@ -104,8 +104,14 @@ namespace ImGuiMenu
         // Teleport Items (Level Up Cards)
         bool EnableTeleportLevelUpCards = false;
         
-        // BulletTP (Silent Aim) - Alpha Skills Only - Uses same settings as Aimbot
+        // BulletTP (Silent Aim) - Bullet Redirection - Uses same settings as Aimbot
         bool EnableBulletTP = false;
+        bool BulletTP_IncludeAlpha = true;      // Include Alpha (Unique1) skills
+        bool BulletTP_IncludeBeta = false;      // Include Beta (Unique2) skills
+        bool BulletTP_IncludeGamma = false;     // Include Gamma (Unique3) skills
+        bool BulletTP_IncludeSpecial = false;   // Include Special skills
+        float BulletTP_FOVRadius = 500.0f;      // FOV radius in pixels for targeting
+        float BulletTP_MaxDistance = 5000.0f;   // Maximum distance to search for targets
 
         // Rebuild Myself Hotkey
         bool EnableRebuildMyself = false;
