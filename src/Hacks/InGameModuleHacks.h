@@ -180,8 +180,9 @@ bool InGameHack_ApplyPlayerConfiguration(int characterId, int variationId, int u
  * @param unique3 - Unique skill 3 level (1-9)
  * @param costumeCode - Costume code ID (0-5)
  * @param costumeAuraType - Costume aura type (0-5)
+ * @return Number of characters successfully changed (0 if failed or no characters found)
  */
-bool InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType);
+int InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType);
 
 /**
  * Get ALL UNIQUE TEAM IDs present in the current match
@@ -189,6 +190,26 @@ bool InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharac
  * @return Vector of unique team IDs found in the match
  */
 std::vector<unsigned char> InGameHack_GetAllTeamIds();
+
+/**
+ * Get all characters in a specific team by team ID
+ * @param teamId - The team ID to search for
+ * @return Vector of ACharacterBattle pointers for that team
+ */
+std::vector<SDK::ACharacterBattle*> InGameHack_GetTeamCharactersByTeamId(unsigned char teamId);
+
+/**
+ * Get all player names in a specific team by team ID
+ * @param teamId - The team ID to search for
+ * @return Vector of player names for that team
+ */
+std::vector<std::string> InGameHack_GetTeamNamesByTeamId(unsigned char teamId);
+
+/**
+ * Get my current team ID
+ * @return Team ID of the local player, or -1 if not found
+ */
+int InGameHack_GetMyTeamId();
 
 /**
  * Get all characters belonging to a specific TEAM ID
@@ -210,6 +231,40 @@ std::vector<SDK::ACharacterBattle*> InGameHack_GetCharactersByTeamId(unsigned ch
  * @return true if at least one character was modified, false otherwise
  */
 bool InGameHack_ApplyToTeam(unsigned char teamId, SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType);
+
+/**
+ * Copy skills from the nearest enemy character to the local player
+ * Automatically finds the nearest enemy and copies their skills
+ * @param bSetCopySkill - Whether to enable skill copy mode
+ * @param bUseOwnerCharacterLevel - Use local player's level for copied skills
+ * @return 1 if successful, 0 if failed or no enemy found
+ */
+int InGameHack_CopySkillsFromNearestEnemy(bool bSetCopySkill, bool bUseOwnerCharacterLevel);
+
+/**
+ * Copy skills from ONE specific character to the local player
+ * The character to copy from must NOT be the local player
+ * @param masterCharacter - The character to copy skills from
+ * @param bSetCopySkill - Whether to enable skill copy mode
+ * @param bUseOwnerCharacterLevel - Use local player's level for copied skills
+ * @return 1 if successful, 0 if failed
+ */
+int InGameHack_CopySkillsFromCharacter(SDK::ACharacterBattle* masterCharacter, bool bSetCopySkill, bool bUseOwnerCharacterLevel);
+
+/**
+ * Change my team ID to a random available team (excluding current team)
+ * Gets all available teams in the match, excludes current team, and switches to a random one
+ * Uses BP_SetTeamId to change the player's team
+ * @return 1 if successful, 0 if failed
+ */
+int InGameHack_ChangeMyTeam();
+
+/**
+ * Change my team ID to a specific team ID
+ * @param targetTeamId - The team ID to switch to
+ * @return 1 if successful, 0 if failed
+ */
+int InGameHack_ChangeMyTeamTo(unsigned char targetTeamId);
 
 // ============================================================================
 // BULLET REDIRECTION FUNCTIONS

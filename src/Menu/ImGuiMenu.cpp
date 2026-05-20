@@ -1527,28 +1527,76 @@ namespace ImGuiMenu
             }
             else
             {
-                // Display team selection buttons
+                // Get my current team ID
+                int myTeamId = InGameHack_GetMyTeamId();
+
                 ImGui::Text("Select Team:");
-                for (unsigned char teamId : g_AvailableTeamIds)
+                ImGui::Spacing();
+
+                // Display team selection buttons in grid (4 per row)
+                const int teamsPerRow = 4;
+                for (size_t i = 0; i < g_AvailableTeamIds.size(); i++)
                 {
-                    char label[64];
-                    snprintf(label, sizeof(label), "Team %d", (int)teamId);
+                    unsigned char teamId = g_AvailableTeamIds[i];
+                    
+                    // Get players in this team
+                    auto playerNames = InGameHack_GetTeamNamesByTeamId(teamId);
+                    
+                    // Create button label
+                    char buttonLabel[128];
+                    if (teamId == myTeamId)
+                        snprintf(buttonLabel, sizeof(buttonLabel), "TEAM %d\n[MY TEAM]\n(%zu players)", (int)teamId, playerNames.size());
+                    else
+                        snprintf(buttonLabel, sizeof(buttonLabel), "TEAM %d\n(%zu players)", (int)teamId, playerNames.size());
                     
                     bool isSelected = (g_SelectedTeamId == (int)teamId);
+                    
+                    // Style button based on whether it's selected
                     if (isSelected)
                     {
                         ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
                         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, g_Colors.accentColorHover);
                     }
+                    else if (teamId == myTeamId)
+                    {
+                        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 0.0f, 0.5f));
+                        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.0f, 1.0f, 0.0f, 0.7f));
+                    }
                     
-                    if (ImGui::Button(label, ImVec2(ImGui::GetContentRegionAvail().x, 25)))
+                    // Button to select this team
+                    if (ImGui::Button(buttonLabel, ImVec2(ImGui::GetContentRegionAvail().x / (teamsPerRow - (i % teamsPerRow)), 60)))
                     {
                         g_SelectedTeamId = (int)teamId;
                     }
                     
-                    if (isSelected)
+                    ImGui::PopStyleColor(2);
+                    
+                    // Add spacing and new line every 4 teams
+                    if ((i + 1) % teamsPerRow != 0 && i + 1 < g_AvailableTeamIds.size())
                     {
-                        ImGui::PopStyleColor(2);
+                        ImGui::SameLine();
+                    }
+                    else
+                    {
+                        // Show player names after each row or at the end
+                        ImGui::Spacing();
+                        
+                        // Display players for teams in this row
+                        for (size_t j = i - (i % teamsPerRow); j <= i && j < g_AvailableTeamIds.size(); j++)
+                        {
+                            unsigned char currentTeamId = g_AvailableTeamIds[j];
+                            auto currentPlayerNames = InGameHack_GetTeamNamesByTeamId(currentTeamId);
+                            
+                            ImGui::TextColored(g_Colors.textSecondary, "TEAM %d players:", (int)currentTeamId);
+                            for (const auto& playerName : currentPlayerNames)
+                            {
+                                ImGui::TextColored(g_Colors.textSecondary, "  - %s", playerName.c_str());
+                            }
+                        }
+                        
+                        ImGui::Spacing();
+                        ImGui::Separator();
+                        ImGui::Spacing();
                     }
                 }
             }
@@ -1610,11 +1658,11 @@ namespace ImGuiMenu
                             0,
                             0))
                         {
-                            ImGui::OpenPopup("##ApplyTeamSuccess");
+                            ImGui::OpenPopup("ApplyTeamSuccess");
                         }
                         else
                         {
-                            ImGui::OpenPopup("##ApplyTeamFailed");
+                            ImGui::OpenPopup("ApplyTeamFailed");
                         }
                     }
                 }
@@ -1626,11 +1674,20 @@ namespace ImGuiMenu
         // ===== APPLY TO ALL PLAYERS =====
         if (ImGui::CollapsingHeader("APPLY TO ALL PLAYERS", &g_ApplyToAllPlayersOpen, ImGuiTreeNodeFlags_None))
         {
-            // Character + Variation selector
+            ImGui::Spacing();
+            ImGui::TextColored(g_Colors.textSecondary, "Select a character and apply to ALL players in the game.");
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+            
+            // Character + Variation selector - STATIC VARIABLES DECLARED HERE
             static std::vector<SDK::EVariationCharacterId> all_players_variation_ids;
             static std::vector<std::string> all_players_variation_names;
             static std::vector<const char*> all_players_variation_ptrs;
+            static int selected_all_players_index = 0;
+            static int uniqueLevelAll = 9;
             
+            // Load variation data once
             if (all_players_variation_ids.empty())
             {
                 all_players_variation_ids = GetAllVariationCharacterIds();
@@ -1641,43 +1698,50 @@ namespace ImGuiMenu
                 }
             }
             
-            static int selected_all_players_index = 0;
-            ImGui::Combo("Character", &selected_all_players_index, all_players_variation_ptrs.data(), (int)all_players_variation_ptrs.size());
-
-            // Single unified slider for technique levels
-            static int uniqueLevelAll = 9;
-            ImGuiSliderHelper::SliderInt("Technique Level", &uniqueLevelAll, 150.0f, 1, 9);
-
-            ImGui::Spacing();
-
-            // Apply button
-            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.success);
-            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.55f, 1.0f, 0.65f, 1.0f));
-            
-            if (ImGui::Button("APPLY TO ALL PLAYERS", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
+            // Display UI
+            if (all_players_variation_ids.empty())
             {
-                if (selected_all_players_index >= 0 && selected_all_players_index < (int)all_players_variation_ids.size())
+                ImGui::TextColored(g_Colors.danger, "No characters available!");
+            }
+            else
+            {
+                // Character combo box
+                if (ImGui::Combo("Character##AllPlayers", &selected_all_players_index, all_players_variation_ptrs.data(), (int)all_players_variation_ptrs.size()))
                 {
-                    SDK::EVariationCharacterId variationCharId = all_players_variation_ids[selected_all_players_index];
-                    
-                    if (InGameHack_ApplyToAllControllers(
-                        variationCharId,
-                        uniqueLevelAll,
-                        uniqueLevelAll,
-                        uniqueLevelAll,
-                        0,
-                        0))
+                    // Selection changed
+                }
+
+                ImGui::Spacing();
+
+                // Technique level slider
+                ImGuiSliderHelper::SliderInt("Technique Level##AllPlayers", &uniqueLevelAll, 150.0f, 1, 9);
+
+                ImGui::Spacing();
+
+                // Apply button
+                ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.success);
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.55f, 1.0f, 0.65f, 1.0f));
+                
+                if (ImGui::Button("APPLY TO ALL PLAYERS", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
+                {
+                    if (selected_all_players_index >= 0 && selected_all_players_index < (int)all_players_variation_ids.size())
                     {
-                        ImGui::OpenPopup("ApplyAllSuccess");
-                    }
-                    else
-                    {
-                        ImGui::OpenPopup("ApplyAllFailed");
+                        SDK::EVariationCharacterId variationCharId = all_players_variation_ids[selected_all_players_index];
+                        int result = InGameHack_ApplyToAllControllers(variationCharId, uniqueLevelAll, uniqueLevelAll, uniqueLevelAll, 0, 0);
+                        
+                        if (result > 0)
+                        {
+                            ImGui::OpenPopup("ApplyAllSuccess");
+                        }
+                        else
+                        {
+                            ImGui::OpenPopup("ApplyAllFailed");
+                        }
                     }
                 }
+                
+                ImGui::PopStyleColor(2);
             }
-            
-            ImGui::PopStyleColor(2);
         }
 
         // Success popup - Apply All
@@ -1727,6 +1791,215 @@ namespace ImGuiMenu
         {
             ImGui::TextColored(g_Colors.danger, "Failed to apply changes to Team %d.", g_SelectedTeamId);
             ImGui::TextColored(g_Colors.textSecondary, "Ensure you are in a valid battle mode.");
+            ImGui::Spacing();
+            
+            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
+            {
+                ImGui::CloseCurrentPopup();
+            }
+            
+            ImGui::EndPopup();
+        }
+
+        // ===== COPY SKILLS FROM NEAREST ENEMY =====
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        static bool g_CopySkillsOpen = true;
+        if (ImGui::CollapsingHeader("COPY SKILLS FROM NEAREST ENEMY", &g_CopySkillsOpen, ImGuiTreeNodeFlags_None))
+        {
+            ImGui::TextColored(g_Colors.textSecondary, "Copy skills from the nearest enemy to yourself.");
+            ImGui::TextColored(g_Colors.textSecondary, "You can copy from dead enemies too!");
+            ImGui::Spacing();
+
+            // Copy button
+            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, g_Colors.accentColorHover);
+            
+            if (ImGui::Button("COPY SKILLS FROM NEAREST ENEMY", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
+            {
+                int result = InGameHack_CopySkillsFromNearestEnemy(true, true);
+                
+                if (result > 0)
+                {
+                    ImGui::OpenPopup("CopySkillsSuccess");
+                }
+                else
+                {
+                    ImGui::OpenPopup("CopySkillsFailed");
+                }
+            }
+            
+            ImGui::PopStyleColor(2);
+        }
+
+        // Success popup - Copy Skills
+        if (ImGui::BeginPopupModal("CopySkillsSuccess", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            ImGui::TextColored(g_Colors.success, "Successfully copied skills from nearest enemy!");
+            ImGui::Spacing();
+            
+            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
+            {
+                ImGui::CloseCurrentPopup();
+            }
+            
+            ImGui::EndPopup();
+        }
+
+        // Failed popup - Copy Skills
+        if (ImGui::BeginPopupModal("CopySkillsFailed", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            ImGui::TextColored(g_Colors.danger, "Failed to copy skills from nearest enemy.");
+            ImGui::TextColored(g_Colors.textSecondary, "Ensure you are in a valid battle mode and there are enemies nearby.");
+            ImGui::Spacing();
+            
+            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
+            {
+                ImGui::CloseCurrentPopup();
+            }
+            
+            ImGui::EndPopup();
+        }
+
+        // ===== CHANGE TEAM =====
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        static bool g_ChangeTeamOpen = true;
+        if (ImGui::CollapsingHeader("CHANGE MY TEAM", &g_ChangeTeamOpen, ImGuiTreeNodeFlags_None))
+        {
+            ImGui::TextColored(g_Colors.textSecondary, "View all teams and switch to another team.");
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+
+            // Refresh button
+            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
+            if (ImGui::Button("REFRESH TEAMS", ImVec2(-1, 0)))
+            {
+                // Will refresh on next frame
+            }
+            ImGui::PopStyleColor();
+            ImGui::Spacing();
+
+            // Get all available teams
+            std::vector<unsigned char> availableTeamIds = InGameHack_GetAllTeamIds();
+            int myTeamId = InGameHack_GetMyTeamId();
+            
+            if (availableTeamIds.empty())
+            {
+                ImGui::TextColored(g_Colors.danger, "No teams found!");
+            }
+            else
+            {
+                ImGui::TextColored(g_Colors.textSecondary, "Total Teams: %d", (int)availableTeamIds.size());
+                ImGui::Spacing();
+                ImGui::Separator();
+                ImGui::Spacing();
+
+                ImGui::Text("Click on a team to switch:");
+                ImGui::Spacing();
+
+                // Display teams as buttons in a grid (4 per row)
+                const int teamsPerRow = 4;
+                for (size_t i = 0; i < availableTeamIds.size(); i++)
+                {
+                    unsigned char teamId = availableTeamIds[i];
+                    
+                    // Get players in this team
+                    auto playerNames = InGameHack_GetTeamNamesByTeamId(teamId);
+                    
+                    // Create button label
+                    char buttonLabel[128];
+                    if (teamId == myTeamId)
+                        snprintf(buttonLabel, sizeof(buttonLabel), "TEAM %d\n[MY TEAM]\n(%zu players)", (int)teamId, playerNames.size());
+                    else
+                        snprintf(buttonLabel, sizeof(buttonLabel), "TEAM %d\n(%zu players)", (int)teamId, playerNames.size());
+                    
+                    // Style button based on whether it's my team
+                    if (teamId == myTeamId)
+                    {
+                        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 0.0f, 0.5f));
+                        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.0f, 1.0f, 0.0f, 0.7f));
+                    }
+                    else
+                    {
+                        ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
+                        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, g_Colors.accentColorHover);
+                    }
+                    
+                    // Button to switch to this team
+                    if (ImGui::Button(buttonLabel, ImVec2(ImGui::GetContentRegionAvail().x / (teamsPerRow - (i % teamsPerRow)), 60)))
+                    {
+                        int result = InGameHack_ChangeMyTeamTo(teamId);
+                        if (result > 0)
+                        {
+                            ImGui::OpenPopup("ChangeTeamSuccess");
+                        }
+                        else
+                        {
+                            ImGui::OpenPopup("ChangeTeamFailed");
+                        }
+                    }
+                    
+                    ImGui::PopStyleColor(2);
+                    
+                    // Add spacing and new line every 4 teams
+                    if ((i + 1) % teamsPerRow != 0 && i + 1 < availableTeamIds.size())
+                    {
+                        ImGui::SameLine();
+                    }
+                    else
+                    {
+                        // Show player names after each row or at the end
+                        ImGui::Spacing();
+                        
+                        // Display players for teams in this row
+                        for (size_t j = i - (i % teamsPerRow); j <= i && j < availableTeamIds.size(); j++)
+                        {
+                            unsigned char currentTeamId = availableTeamIds[j];
+                            auto currentPlayerNames = InGameHack_GetTeamNamesByTeamId(currentTeamId);
+                            
+                            ImGui::TextColored(g_Colors.textSecondary, "TEAM %d players:", (int)currentTeamId);
+                            for (const auto& playerName : currentPlayerNames)
+                            {
+                                ImGui::TextColored(g_Colors.textSecondary, "  - %s", playerName.c_str());
+                            }
+                        }
+                        
+                        ImGui::Spacing();
+                        ImGui::Separator();
+                        ImGui::Spacing();
+                    }
+                }
+            }
+
+            ImGui::Separator();
+            ImGui::Spacing();
+        }
+
+        // Success popup - Change Team
+        if (ImGui::BeginPopupModal("ChangeTeamSuccess", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            ImGui::TextColored(g_Colors.success, "Successfully changed team!");
+            ImGui::Spacing();
+            
+            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
+            {
+                ImGui::CloseCurrentPopup();
+            }
+            
+            ImGui::EndPopup();
+        }
+
+        // Failed popup - Change Team
+        if (ImGui::BeginPopupModal("ChangeTeamFailed", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            ImGui::TextColored(g_Colors.danger, "Failed to change team.");
+            ImGui::TextColored(g_Colors.textSecondary, "Ensure you are in a valid battle mode and there are other teams available.");
             ImGui::Spacing();
             
             if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))

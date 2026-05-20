@@ -1326,14 +1326,14 @@ bool InGameHack_ApplyPlayerConfiguration(int characterId, int variationId, int u
  * Apply player configuration to ALL enemy characters in the match
  * Same exploit method as Dll.cpp: local player controller calls ChangeCharacter_OnServer for each enemy
  * Uses SDK method call directly (not ProcessEvent)
+ * Returns: number of characters changed (0 if failed or no characters found)
  */
-bool InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType)
+int InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType)
 {
     // Check if in valid battle mode first
     if (!IsValidBattleMode())
     {
-        Logger::LogWarning("[ApplyToAllControllers] Not in valid battle mode");
-        return false;
+        return 0;
     }
 
     try
@@ -1342,23 +1342,20 @@ bool InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharac
         SDK::UWorld* world = SDK::UWorld::GetWorld();
         if (!world || !world->PersistentLevel)
         {
-            Logger::LogError("[ApplyToAllControllers] Could not get world");
-            return false;
+            return 0;
         }
 
         // Get LOCAL player controller and character
         SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
         if (!basePlayerController)
         {
-            Logger::LogError("[ApplyToAllControllers] Could not get player controller");
-            return false;
+            return 0;
         }
 
         SDK::APlayerControllerBattle* battlePC = static_cast<SDK::APlayerControllerBattle*>(basePlayerController);
         if (!battlePC || !battlePC->Pawn)
         {
-            Logger::LogError("[ApplyToAllControllers] Could not get valid battle controller or pawn");
-            return false;
+            return 0;
         }
 
         // Create character data once with ALL parameters
@@ -1378,15 +1375,19 @@ bool InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharac
         characterData._costumeAuraType = costumeAuraType;
 
         int appliedCount = 0;
+        int totalActors = world->PersistentLevel->Actors.Num();
 
         // LOOP OVER ALL ACTORS - INCLUDING local player
         // LOCAL CONTROLLER calls ChangeCharacter_OnServer for EACH character (including self)
-        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
+        for (int i = 0; i < totalActors; i++)
         {
             SDK::AActor* actor = world->PersistentLevel->Actors[i];
             
             // Robust type check using IsA()
-            if (!actor || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
+            if (!actor || actor->IsDefaultObject())
+                continue;
+                
+            if (!actor->IsA(SDK::ACharacterBattle::StaticClass()))
                 continue;
 
             SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(actor);
@@ -1406,22 +1407,18 @@ bool InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharac
 
         if (appliedCount == 0)
         {
-            Logger::LogError("[ApplyToAllControllers] No characters found to apply changes to");
-            return false;
+            return 0;
         }
 
-        Logger::LogInfo("[CHARACTER] Applied character change to " + std::to_string(appliedCount) + " characters (including self)");
-        return true;
+        return appliedCount;
     }
     catch (const std::exception& e)
     {
-        Logger::LogError("[CHARACTER] Exception in ApplyToAllControllers: " + std::string(e.what()));
-        return false;
+        return 0;
     }
     catch (...)
     {
-        Logger::LogError("[CHARACTER] Unknown exception in ApplyToAllControllers");
-        return false;
+        return 0;
     }
 }
 
@@ -1542,103 +1539,267 @@ bool InGameHack_ApplyToTeam(unsigned char teamId, SDK::EVariationCharacterId var
 }
 
 // ============================================
-// APPLY TECHNIQUE LEVELS ONLY
+// COPY SKILLS FROM CHARACTER
 // ============================================
 
 /**
- * Apply technique levels to ALL characters WITHOUT changing their character/variation/costume
- * Modifies ONLY the technique levels while keeping everything else the same
+ * Copy skills from a RANDOM enemy character to the local player
+ * Automatically finds a random enemy and copies their skills
+ * Returns: 1 if successful, 0 if failed
  */
-bool InGameHack_ApplyTechniqueLevelsToAll(int unique1, int unique2, int unique3)
+int InGameHack_CopySkillsFromNearestEnemy(bool bSetCopySkill, bool bUseOwnerCharacterLevel)
 {
-    // Check if in valid battle mode first
+    // Check if in valid battle mode
     if (!IsValidBattleMode())
     {
-        Logger::LogWarning("[ApplyTechniqueLevelsToAll] Not in valid battle mode");
-        return false;
+        Logger::LogWarning("[CopySkillsFromNearestEnemy] Not in valid battle mode");
+        return 0;
     }
 
     try
     {
-        // Get world
-        SDK::UWorld* world = SDK::UWorld::GetWorld();
-        if (!world || !world->PersistentLevel)
-        {
-            Logger::LogError("[ApplyTechniqueLevelsToAll] Could not get world");
-            return false;
-        }
-
-        // Get LOCAL player controller
+        // Get local player controller and character
         SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
         if (!basePlayerController)
         {
-            Logger::LogError("[ApplyTechniqueLevelsToAll] Could not get player controller");
-            return false;
+            Logger::LogError("[CopySkillsFromNearestEnemy] Could not get player controller");
+            return 0;
         }
 
         SDK::APlayerControllerBattle* battlePC = static_cast<SDK::APlayerControllerBattle*>(basePlayerController);
         if (!battlePC || !battlePC->Pawn)
         {
-            Logger::LogError("[ApplyTechniqueLevelsToAll] Could not get valid battle controller or pawn");
-            return false;
+            Logger::LogError("[CopySkillsFromNearestEnemy] Could not get valid battle controller or pawn");
+            return 0;
         }
 
-        int appliedCount = 0;
+        SDK::ACharacterBattle* localCharacter = static_cast<SDK::ACharacterBattle*>(battlePC->Pawn);
 
-        // LOOP OVER ALL ACTORS - modify technique levels only
+        // Get world
+        SDK::UWorld* world = SDK::UWorld::GetWorld();
+        if (!world || !world->PersistentLevel)
+        {
+            Logger::LogError("[CopySkillsFromNearestEnemy] Could not get world");
+            return 0;
+        }
+
+        // Find ALL enemies
+        std::vector<SDK::ACharacterBattle*> enemies;
+
         for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
         {
             SDK::AActor* actor = world->PersistentLevel->Actors[i];
             
-            // Robust type check using IsA()
             if (!actor || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
                 continue;
 
             SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(actor);
             
-            // Try to get current character data to preserve everything except levels
-            SDK::FInGameBattleCharacterData currentData = {};
+            // Skip if it's the local player
+            if (targetCharacter == localCharacter)
+                continue;
+
+            enemies.push_back(targetCharacter);
+        }
+
+        if (enemies.empty())
+        {
+            Logger::LogWarning("[CopySkillsFromNearestEnemy] No enemies found to copy skills from");
+            return 0;
+        }
+
+        // Pick a random enemy
+        int randomIndex = rand() % enemies.size();
+        SDK::ACharacterBattle* randomEnemy = enemies[randomIndex];
+
+        // Now copy skills from the random enemy
+        return InGameHack_CopySkillsFromCharacter(randomEnemy, bSetCopySkill, bUseOwnerCharacterLevel);
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[CopySkillsFromNearestEnemy] Exception: " + std::string(e.what()));
+        return 0;
+    }
+    catch (...)
+    {
+        Logger::LogError("[CopySkillsFromNearestEnemy] Unknown exception");
+        return 0;
+    }
+}
+
+/**
+ * Copy skills from ONE specific character to the local player
+ * The character to copy from must NOT be the local player
+ * Returns: 1 if successful, 0 if failed
+ */
+int InGameHack_CopySkillsFromCharacter(SDK::ACharacterBattle* masterCharacter, bool bSetCopySkill, bool bUseOwnerCharacterLevel)
+{
+    // Check if in valid battle mode
+    if (!IsValidBattleMode())
+    {
+        Logger::LogWarning("[CopySkillsFromCharacter] Not in valid battle mode");
+        return 0;
+    }
+
+    try
+    {
+        // Get local player controller and character
+        SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!basePlayerController)
+        {
+            Logger::LogError("[CopySkillsFromCharacter] Could not get player controller");
+            return 0;
+        }
+
+        SDK::APlayerControllerBattle* battlePC = static_cast<SDK::APlayerControllerBattle*>(basePlayerController);
+        if (!battlePC || !battlePC->Pawn)
+        {
+            Logger::LogError("[CopySkillsFromCharacter] Could not get valid battle controller or pawn");
+            return 0;
+        }
+
+        SDK::ACharacterBattle* localCharacter = static_cast<SDK::ACharacterBattle*>(battlePC->Pawn);
+        
+        // Validate master character
+        if (!masterCharacter || masterCharacter->IsDefaultObject())
+        {
+            Logger::LogError("[CopySkillsFromCharacter] Invalid master character");
+            return 0;
+        }
+
+        // IMPORTANT: Do NOT copy from yourself!
+        if (masterCharacter == localCharacter)
+        {
+            Logger::LogWarning("[CopySkillsFromCharacter] Cannot copy skills from yourself");
+            return 0;
+        }
+
+        // Get the SkillManagementComponent from the LOCAL player
+        SDK::USkillManagementComponent* skillMgmt = nullptr;
+        if (localCharacter->_skillManagementComponent)
+        {
+            skillMgmt = localCharacter->_skillManagementComponent;
+        }
+        
+        if (!skillMgmt)
+        {
+            Logger::LogError("[CopySkillsFromCharacter] Could not get SkillManagementComponent from local player");
+            return 0;
+        }
+
+        // Activate copy mode first, then set the character to copy from
+        try
+        {
+            // Start copy mode with a 30 second duration (using None type)
+            skillMgmt->BP_StartCopyMode(300.0f, (SDK::ECopyModeCharacterType)1);
+            Logger::LogInfo("[CopySkillsFromCharacter] Started copy mode");
+
+            // Now set the master character to copy from
+            skillMgmt->BP_SetCopyCharacter(masterCharacter, bSetCopySkill, bUseOwnerCharacterLevel);
+            Logger::LogInfo("[CopySkillsFromCharacter] Successfully copied skills from enemy character");
+            return 1;
+        }
+        catch (...)
+        {
+            Logger::LogError("[CopySkillsFromCharacter] Failed to execute copy sequence");
+            return 0;
+        }
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[CopySkillsFromCharacter] Exception: " + std::string(e.what()));
+        return 0;
+    }
+    catch (...)
+    {
+        Logger::LogError("[CopySkillsFromCharacter] Unknown exception");
+        return 0;
+    }
+}
+
+/**
+ * Change my team ID to a random available team (excluding current team)
+ * Gets all available teams, excludes current team, and switches to a random one
+ * @return 1 if successful, 0 if failed
+ */
+int InGameHack_ChangeMyTeam()
+{
+    try
+    {
+        if (!IsValidBattleMode())
+        {
+            Logger::LogWarning("[ChangeMyTeam] Not in valid battle mode");
+            return 0;
+        }
+
+        // Get player controller and character
+        SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!basePlayerController || !basePlayerController->PlayerState)
+        {
+            Logger::LogError("[ChangeMyTeam] Could not get player controller or player state");
+            return 0;
+        }
+
+        // Cast to HerovsPlayerState to access team functions
+        SDK::AHerovsPlayerState* playerState = static_cast<SDK::AHerovsPlayerState*>(basePlayerController->PlayerState);
+        if (!playerState)
+        {
+            Logger::LogError("[ChangeMyTeam] Could not get HerovsPlayerState");
+            return 0;
+        }
+
+        // Get my current team ID
+        int myCurrentTeamId = -1;
+        try
+        {
+            myCurrentTeamId = playerState->BP_GetTeamId();
+        }
+        catch (...)
+        {
+            Logger::LogError("[ChangeMyTeam] Failed to get current team ID");
+            return 0;
+        }
+
+        Logger::LogInfo("[ChangeMyTeam] Current team ID: " + std::to_string(myCurrentTeamId));
+
+        // Get world to scan all characters and find available teams
+        SDK::UWorld* world = SDK::UWorld::GetWorld();
+        if (!world || !world->PersistentLevel)
+        {
+            Logger::LogError("[ChangeMyTeam] Could not get world");
+            return 0;
+        }
+
+        // Collect all unique team IDs in the match
+        std::vector<int> availableTeams;
+        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
+        {
+            SDK::AActor* actor = world->PersistentLevel->Actors[i];
+            if (!actor || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
+                continue;
+
+            SDK::ACharacterBattle* character = static_cast<SDK::ACharacterBattle*>(actor);
             
             try
             {
-                // Try to get PlayerState to read current data
-                if (targetCharacter->PlayerState)
+                int teamId = character->BP_GetTeamId();
+                
+                // Check if this team ID is already in our list
+                bool teamFound = false;
+                for (int existingTeamId : availableTeams)
                 {
-                    SDK::APlayerStateBattle* playerState = static_cast<SDK::APlayerStateBattle*>(targetCharacter->PlayerState);
-                    if (playerState)
+                    if (existingTeamId == teamId)
                     {
-                        // Get current character data from player state if available
-                        // This preserves character ID, variation, costume, etc.
-                        // For now, we'll create new data with default values
-                        // If you have a getter for current character data, use it here
-                        currentData._characterId = SDK::ECharacterId::Ch001; // Default fallback
-                        currentData._variationId = 0;
-                        currentData._skillVariationCode = 0;
-                        currentData._costumeCode = 0;
-                        currentData._costumeAuraType = 0;
+                        teamFound = true;
+                        break;
                     }
                 }
-            }
-            catch (...)
-            {
-                // If we can't get current data, use defaults
-                currentData._characterId = SDK::ECharacterId::Ch001;
-                currentData._variationId = 0;
-                currentData._skillVariationCode = 0;
-                currentData._costumeCode = 0;
-                currentData._costumeAuraType = 0;
-            }
-
-            // Set ONLY the technique levels
-            currentData._technique1Level = unique1;
-            currentData._technique2Level = unique2;
-            currentData._technique3Level = unique3;
-
-            // Apply the modified data
-            try
-            {
-                battlePC->ChangeCharacter_OnServer(targetCharacter, currentData);
-                appliedCount++;
+                
+                // Add new team ID if not already in list and valid
+                if (!teamFound && teamId >= 0 && teamId != myCurrentTeamId)
+                {
+                    availableTeams.push_back(teamId);
+                }
             }
             catch (...)
             {
@@ -1646,26 +1807,113 @@ bool InGameHack_ApplyTechniqueLevelsToAll(int unique1, int unique2, int unique3)
             }
         }
 
-        if (appliedCount == 0)
+        // Check if we found any other teams
+        if (availableTeams.empty())
         {
-            Logger::LogError("[ApplyTechniqueLevelsToAll] No characters found to apply levels to");
-            return false;
+            Logger::LogWarning("[ChangeMyTeam] No other teams found to join");
+            return 0;
         }
 
-        Logger::LogInfo("[TECHNIQUES] Applied technique levels (U1:" + std::to_string(unique1) + 
-                       " U2:" + std::to_string(unique2) + " U3:" + std::to_string(unique3) + 
-                       ") to " + std::to_string(appliedCount) + " characters");
-        return true;
+        // Select a random team from available teams
+        int randomIndex = rand() % availableTeams.size();
+        int newTeamId = availableTeams[randomIndex];
+
+        Logger::LogInfo("[ChangeMyTeam] Switching to team ID: " + std::to_string(newTeamId));
+
+        // Change team via BP_SetTeamId
+        try
+        {
+            playerState->BP_SetTeamId(newTeamId);
+            Logger::LogInfo("[ChangeMyTeam] Successfully changed team to: " + std::to_string(newTeamId));
+            return 1;
+        }
+        catch (...)
+        {
+            Logger::LogError("[ChangeMyTeam] Failed to call BP_SetTeamId");
+            return 0;
+        }
     }
     catch (const std::exception& e)
     {
-        Logger::LogError("[TECHNIQUES] Exception in ApplyTechniqueLevelsToAll: " + std::string(e.what()));
-        return false;
+        Logger::LogError("[ChangeMyTeam] Exception: " + std::string(e.what()));
+        return 0;
     }
     catch (...)
     {
-        Logger::LogError("[TECHNIQUES] Unknown exception in ApplyTechniqueLevelsToAll");
-        return false;
+        Logger::LogError("[ChangeMyTeam] Unknown exception");
+        return 0;
+    }
+}
+
+/**
+ * Change my team ID to a specific team ID
+ * @param targetTeamId - The team ID to switch to
+ * @return 1 if successful, 0 if failed
+ */
+int InGameHack_ChangeMyTeamTo(unsigned char targetTeamId)
+{
+    try
+    {
+        if (!IsValidBattleMode())
+            return 0;
+
+        // Get player controller and character
+        SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!basePlayerController)
+        {
+            Logger::LogError("[ChangeMyTeamTo] Could not get player controller");
+            return 0;
+        }
+
+        SDK::APlayerControllerBattle* battlePC = static_cast<SDK::APlayerControllerBattle*>(basePlayerController);
+        if (!battlePC || !battlePC->Pawn)
+        {
+            Logger::LogError("[ChangeMyTeamTo] Could not get valid battle controller or pawn");
+            return 0;
+        }
+
+        // Get player state
+        SDK::ACharacterBattle* localCharacter = static_cast<SDK::ACharacterBattle*>(battlePC->Pawn);
+        if (!localCharacter || !localCharacter->PlayerState)
+        {
+            Logger::LogError("[ChangeMyTeamTo] Could not get player state");
+            return 0;
+        }
+
+        SDK::AHerovsPlayerState* playerState = static_cast<SDK::AHerovsPlayerState*>(localCharacter->PlayerState);
+        if (!playerState)
+        {
+            Logger::LogError("[ChangeMyTeamTo] Could not get HerovsPlayerState");
+            return 0;
+        }
+
+        // Get my current team ID
+        int myCurrentTeamId = playerState->BP_GetTeamId();
+
+        Logger::LogInfo("[ChangeMyTeamTo] Switching to team ID: " + std::to_string(targetTeamId));
+
+        // Change team via BP_SetTeamId
+        try
+        {
+            playerState->BP_SetTeamId(targetTeamId);
+            Logger::LogInfo("[ChangeMyTeamTo] Successfully changed team to: " + std::to_string(targetTeamId));
+            return 1;
+        }
+        catch (...)
+        {
+            Logger::LogError("[ChangeMyTeamTo] Failed to call BP_SetTeamId");
+            return 0;
+        }
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[ChangeMyTeamTo] Exception: " + std::string(e.what()));
+        return 0;
+    }
+    catch (...)
+    {
+        Logger::LogError("[ChangeMyTeamTo] Unknown exception");
+        return 0;
     }
 }
 
@@ -3411,6 +3659,106 @@ std::vector<unsigned char> InGameHack_GetAllTeamIds()
     }
 
     return teamIds;
+}
+
+/**
+ * Get all characters in a specific team by team ID
+ * @param teamId - The team ID to search for
+ * @return Vector of ACharacterBattle pointers for that team
+ */
+std::vector<SDK::ACharacterBattle*> InGameHack_GetTeamCharactersByTeamId(unsigned char teamId)
+{
+    std::vector<SDK::ACharacterBattle*> teamCharacters;
+    try
+    {
+        if (!IsValidBattleMode())
+            return teamCharacters;
+
+        auto allCharacters = InGameHack_GetAllCharacterBattles();
+        for (auto* character : allCharacters)
+        {
+            if (!character || character->IsDefaultObject())
+                continue;
+
+            if (!character->PlayerState)
+                continue;
+
+            unsigned char characterTeamId = GetCharacterTeamId(character);
+            if (characterTeamId == teamId)
+            {
+                teamCharacters.push_back(character);
+            }
+        }
+    }
+    catch (...)
+    {
+        Logger::LogError("[GetTeamCharactersByTeamId] Exception occurred");
+    }
+
+    return teamCharacters;
+}
+
+/**
+ * Get all player names in a specific team by team ID
+ * @param teamId - The team ID to search for
+ * @return Vector of player names for that team
+ */
+std::vector<std::string> InGameHack_GetTeamNamesByTeamId(unsigned char teamId)
+{
+    std::vector<std::string> names;
+    try
+    {
+        auto teamCharacters = InGameHack_GetTeamCharactersByTeamId(teamId);
+        for (auto* character : teamCharacters)
+        {
+            if (!character)
+            {
+                names.push_back("Unknown");
+                continue;
+            }
+
+            std::string playerName = "Unknown";
+            if (character->PlayerState)
+            {
+                const char* namePtr = SDK_GetPlayerName(character->PlayerState);
+                if (namePtr && namePtr[0] != '\0')
+                    playerName = namePtr;
+            }
+
+            names.push_back(playerName);
+        }
+    }
+    catch (...)
+    {
+        Logger::LogError("[GetTeamNamesByTeamId] Exception occurred");
+    }
+
+    return names;
+}
+
+/**
+ * Get my current team ID
+ * @return Team ID of the local player, or -1 if not found
+ */
+int InGameHack_GetMyTeamId()
+{
+    try
+    {
+        SDK::APlayerController* basePC = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!basePC || !basePC->PlayerState)
+            return -1;
+
+        SDK::AHerovsPlayerState* myPlayerState = static_cast<SDK::AHerovsPlayerState*>(basePC->PlayerState);
+        if (!myPlayerState)
+            return -1;
+
+        return myPlayerState->BP_GetTeamId();
+    }
+    catch (...)
+    {
+        Logger::LogError("[GetMyTeamId] Exception occurred");
+        return -1;
+    }
 }
 
 // ============================================
