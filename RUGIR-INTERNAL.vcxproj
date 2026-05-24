@@ -105,6 +105,7 @@
     <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\Engine_functions.cpp" />
     <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\GameModule_functions.cpp" />
     <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\InGameModule_functions.cpp" />
+    <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\OutGameModule_functions.cpp" />
     <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\BackendSubsystem_functions.cpp" />
   </ItemGroup>
   <ItemGroup>

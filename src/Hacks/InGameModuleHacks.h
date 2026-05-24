@@ -13,6 +13,7 @@ namespace SDK
     class AActor;
     enum class ECharacterId : uint8_t;
     enum class EVariationCharacterId : uint8_t;
+    enum class ESeasonType : uint8_t;
 }
 
 // ============================================================================
@@ -474,6 +475,16 @@ bool InGameHack_SetSkillLevel(int skillIndex, int level);
 bool InGameHack_UpgradeSupply(int supplyIndex, int level);
 
 /**
+ * Apply team buffs
+ * @param attackAdjust - Attack bonus (e.g. 1.5f = +50%)
+ * @param durableAdjust - Durability bonus
+ * @param speedAdjust - Speed bonus
+ * @param healingAdjust - Healing bonus
+ * @param reloadAdjust - Reload speed bonus
+ */
+bool InGameHack_ApplyTeamBuffs(float attackAdjust, float durableAdjust, float speedAdjust, float healingAdjust, float reloadAdjust);
+
+/**
  * Stop using current supply
  */
 bool InGameHack_StopUsingSupply();
@@ -482,5 +493,20 @@ bool InGameHack_StopUsingSupply();
  * Validate transmission mission level (calls ValidateTransMissionLevel with level 5)
  */
 void InGameHack_ValidateTransMissionLevel();
+
+/**
+ * Get the current season pass rank and log it to C:/Temp/SeasonPassRank.log
+ * @return Current season pass rank (int32), or -1 if error
+ */
+int InGameHack_GetCurrentSeasonPassRank();
+
+/**
+ * Test BP_SetPurchaseTotalExpValue to increase season pass EXP preview
+ * @param type - Season type (0=SeasonLicense, 1=SpecialLicense)
+ * @param count - Number of items to purchase
+ * @return true if successful, false if widget not found or error
+ */
+bool InGameHack_IncreaseSeasonPassExp(SDK::ESeasonType type, int32_t count);
+
 
 

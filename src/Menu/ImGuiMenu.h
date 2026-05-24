@@ -77,6 +77,12 @@ namespace ImGuiMenu
         float DuplicateImitationLifeTime = 30.0f;  // Lifetime for imitation duplicate
         int DuplicateIntoImitationCount = 1;  // Number of imitation duplicates to spawn per hotkey (1-100)
         
+        // Copy Skills From Nearest Enemy Hotkey
+        bool EnableCopySkillsFromNearestEnemy = false;
+        HotkeySet CopySkillsFromNearestEnemyKey = HotkeySet(0x4B, 0x2000);  // KB: K, Gamepad: RB
+        bool CopySkillsSetCopySkill = true;  // Set copy skill flag
+        bool CopySkillsUseOwnerCharacterLevel = true;  // Use owner character level
+        
         // Reload Adjust Rates
         float ReloadAdjustRate = 1.0f;                    // General reload rate (1.0 = normal)
         float ReloadAdjustRate_RollSlot = 1.0f;           // Reload rate for roll slot

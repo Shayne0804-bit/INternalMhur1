@@ -3,6 +3,7 @@
 #include "../Hooks/D3D11Hook.h"
 #include "../Hooks/GameThreadHook.h"
 #include "../Hacks/InGameModuleHacks.h"
+#include "../Utils/Logger.h"
 #include <algorithm>
 #include "../SDK/SDKInit.h"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/CommonModule_structs.hpp"
@@ -854,6 +855,63 @@ namespace ImGuiMenu
             ImGui::TextWrapped("Info: Press hotkey to spawn temporary duplicate near target.");
         }
 
+        // Copy Skills From Nearest Enemy Section
+        if (ImGui::CollapsingHeader("COPY SKILLS", ImGuiTreeNodeFlags_None))
+        {
+            ImGui::Spacing();
+            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentYellow);
+            ImGui::Text("COPY SKILLS FROM NEAREST ENEMY");
+            ImGui::PopStyleColor();
+            
+            ImGuiHelper::ToggleSwitchLarge("Enable Copy Skills", &g_Settings.EnableCopySkillsFromNearestEnemy);
+            
+            if (g_Settings.EnableCopySkillsFromNearestEnemy)
+            {
+                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentGreen);
+                ImGui::Text("CopySkills: ENABLED");
+                ImGui::PopStyleColor();
+            }
+            else
+            {
+                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentOrange);
+                ImGui::Text("CopySkills: DISABLED");
+                ImGui::PopStyleColor();
+            }
+            
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
+            ImGui::Text("COPY SETTINGS");
+            ImGui::PopStyleColor();
+            
+            ImGuiHelper::ToggleSwitch("Set Copy Skill", &g_Settings.CopySkillsSetCopySkill);
+            ImGuiHelper::ToggleSwitch("Use Owner Character Level", &g_Settings.CopySkillsUseOwnerCharacterLevel);
+            
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
+            ImGui::Text("HOTKEY CONFIGURATION");
+            ImGui::PopStyleColor();
+            
+            ImGui::Spacing();
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.4f, 0.6f, 1.0f));
+            {
+                std::string hotkeyLabel = "[KB] " + GetKeyName(g_Settings.CopySkillsFromNearestEnemyKey.Keyboard, 0) + 
+                                          " | [X] " + GetKeyName(g_Settings.CopySkillsFromNearestEnemyKey.Xbox, 1) + 
+                                          " | [PS] " + GetKeyName(g_Settings.CopySkillsFromNearestEnemyKey.PS4, 1);
+                if (ImGui::Button(hotkeyLabel.c_str(), ImVec2(-1, 0)))
+                {
+                    g_ListeningForHotkey = true;
+                    g_HotkeyListenStartTime = GetTickCount();
+                    g_CurrentHotkeyValue = 106;  // Copy Skills hotkey (unified)
+                }
+            }
+            ImGui::PopStyleColor();
+            
+            ImGui::Spacing();
+            ImGui::TextWrapped("Info: Press hotkey to copy skills from nearest enemy character in battle.");
+        }
+
         // Teleport to KOTA Section
         if (ImGui::CollapsingHeader("TELEPORT TO KOTA", ImGuiTreeNodeFlags_None))
         {
@@ -1005,7 +1063,6 @@ namespace ImGuiMenu
     static bool g_SupplyManagementOpen = true;
     static bool g_TrainingIterationOpen = true;
     static bool g_AbilityHacksOpen = true;
-    static bool g_ApplyToAllPlayersOpen = true;
     
     // Lobby Exploit Menu state
     static int g_SelectedTeamId = -1;  // -1 = no selection, or actual team ID
@@ -1671,108 +1728,6 @@ namespace ImGuiMenu
             }
         }
 
-        // ===== APPLY TO ALL PLAYERS =====
-        if (ImGui::CollapsingHeader("APPLY TO ALL PLAYERS", &g_ApplyToAllPlayersOpen, ImGuiTreeNodeFlags_None))
-        {
-            ImGui::Spacing();
-            ImGui::TextColored(g_Colors.textSecondary, "Select a character and apply to ALL players in the game.");
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
-            
-            // Character + Variation selector - STATIC VARIABLES DECLARED HERE
-            static std::vector<SDK::EVariationCharacterId> all_players_variation_ids;
-            static std::vector<std::string> all_players_variation_names;
-            static std::vector<const char*> all_players_variation_ptrs;
-            static int selected_all_players_index = 0;
-            static int uniqueLevelAll = 9;
-            
-            // Load variation data once
-            if (all_players_variation_ids.empty())
-            {
-                all_players_variation_ids = GetAllVariationCharacterIds();
-                all_players_variation_names = GetAllVariationNames();
-                for (const auto& name : all_players_variation_names)
-                {
-                    all_players_variation_ptrs.push_back(name.c_str());
-                }
-            }
-            
-            // Display UI
-            if (all_players_variation_ids.empty())
-            {
-                ImGui::TextColored(g_Colors.danger, "No characters available!");
-            }
-            else
-            {
-                // Character combo box
-                if (ImGui::Combo("Character##AllPlayers", &selected_all_players_index, all_players_variation_ptrs.data(), (int)all_players_variation_ptrs.size()))
-                {
-                    // Selection changed
-                }
-
-                ImGui::Spacing();
-
-                // Technique level slider
-                ImGuiSliderHelper::SliderInt("Technique Level##AllPlayers", &uniqueLevelAll, 150.0f, 1, 9);
-
-                ImGui::Spacing();
-
-                // Apply button
-                ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.success);
-                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.55f, 1.0f, 0.65f, 1.0f));
-                
-                if (ImGui::Button("APPLY TO ALL PLAYERS", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
-                {
-                    if (selected_all_players_index >= 0 && selected_all_players_index < (int)all_players_variation_ids.size())
-                    {
-                        SDK::EVariationCharacterId variationCharId = all_players_variation_ids[selected_all_players_index];
-                        int result = InGameHack_ApplyToAllControllers(variationCharId, uniqueLevelAll, uniqueLevelAll, uniqueLevelAll, 0, 0);
-                        
-                        if (result > 0)
-                        {
-                            ImGui::OpenPopup("ApplyAllSuccess");
-                        }
-                        else
-                        {
-                            ImGui::OpenPopup("ApplyAllFailed");
-                        }
-                    }
-                }
-                
-                ImGui::PopStyleColor(2);
-            }
-        }
-
-        // Success popup - Apply All
-        if (ImGui::BeginPopupModal("ApplyAllSuccess", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-        {
-            ImGui::TextColored(g_Colors.success, "Successfully applied changes to all players!");
-            ImGui::Spacing();
-            
-            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
-            {
-                ImGui::CloseCurrentPopup();
-            }
-            
-            ImGui::EndPopup();
-        }
-
-        // Failed popup - Apply All
-        if (ImGui::BeginPopupModal("ApplyAllFailed", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-        {
-            ImGui::TextColored(g_Colors.danger, "Failed to apply changes to all players.");
-            ImGui::TextColored(g_Colors.textSecondary, "Ensure you are in a valid battle mode.");
-            ImGui::Spacing();
-            
-            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
-            {
-                ImGui::CloseCurrentPopup();
-            }
-            
-            ImGui::EndPopup();
-        }
-
         if (ImGui::BeginPopupModal("ApplyTeamSuccess", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
         {
             ImGui::TextColored(g_Colors.success, "Successfully applied changes to Team %d!", g_SelectedTeamId);
@@ -1801,43 +1756,82 @@ namespace ImGuiMenu
             ImGui::EndPopup();
         }
 
-        // ===== COPY SKILLS FROM NEAREST ENEMY =====
+        // 
+        // ===== APPLY TO ALL PLAYERS =====
         ImGui::Spacing();
         ImGui::Separator();
         ImGui::Spacing();
 
-        static bool g_CopySkillsOpen = true;
-        if (ImGui::CollapsingHeader("COPY SKILLS FROM NEAREST ENEMY", &g_CopySkillsOpen, ImGuiTreeNodeFlags_None))
+        static bool g_ApplyToAllPlayersOpen2 = true;
+        static int g_LastAppliedCount = 0;  // Store count for popup
+        
+        if (ImGui::CollapsingHeader("APPLY TO ALL PLAYERS", &g_ApplyToAllPlayersOpen2))
         {
-            ImGui::TextColored(g_Colors.textSecondary, "Copy skills from the nearest enemy to yourself.");
-            ImGui::TextColored(g_Colors.textSecondary, "You can copy from dead enemies too!");
             ImGui::Spacing();
 
-            // Copy button
-            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
-            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, g_Colors.accentColorHover);
+            // Character + Variation selector - EXACTLY like APPLY TO TEAM
+            static std::vector<SDK::EVariationCharacterId> all_variation_ids_all;
+            static std::vector<std::string> all_variation_names_all;
+            static std::vector<const char*> variation_ptrs_all;
             
-            if (ImGui::Button("COPY SKILLS FROM NEAREST ENEMY", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
+            if (all_variation_ids_all.empty())
             {
-                int result = InGameHack_CopySkillsFromNearestEnemy(true, true);
-                
-                if (result > 0)
+                all_variation_ids_all = GetAllVariationCharacterIds();
+                all_variation_names_all = GetAllVariationNames();
+                for (const auto& name : all_variation_names_all)
                 {
-                    ImGui::OpenPopup("CopySkillsSuccess");
+                    variation_ptrs_all.push_back(name.c_str());
                 }
-                else
+            }
+            
+            static int selected_variation_index_all = 0;
+            ImGui::Combo("Character##ApplyAll", &selected_variation_index_all, variation_ptrs_all.data(), (int)variation_ptrs_all.size());
+
+            // Single unified slider for technique levels
+            static int uniqueLevelApplyAll = 9;
+            ImGuiSliderHelper::SliderInt("Technique Level##ApplyAll", &uniqueLevelApplyAll, 150.0f, 1, 9);
+
+            ImGui::Spacing();
+
+            // Apply to All button
+            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.success);
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.55f, 1.0f, 0.65f, 1.0f));
+            
+            if (ImGui::Button("APPLY TO ALL PLAYERS##ApplyAllTab", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
+            {
+                if (selected_variation_index_all >= 0 && selected_variation_index_all < (int)all_variation_ids_all.size())
                 {
-                    ImGui::OpenPopup("CopySkillsFailed");
+                    SDK::EVariationCharacterId variationCharId = all_variation_ids_all[selected_variation_index_all];
+                    
+                    int appliedCount = InGameHack_ApplyToAllControllers(
+                        variationCharId,
+                        uniqueLevelApplyAll,
+                        uniqueLevelApplyAll,
+                        uniqueLevelApplyAll,
+                        0,
+                        0);
+                    
+                    g_LastAppliedCount = appliedCount;
+                    
+                    if (appliedCount > 0)
+                    {
+                        ImGui::OpenPopup("ApplyAllSuccess");
+                    }
+                    else
+                    {
+                        ImGui::OpenPopup("ApplyAllFailed");
+                    }
                 }
             }
             
             ImGui::PopStyleColor(2);
         }
 
-        // Success popup - Copy Skills
-        if (ImGui::BeginPopupModal("CopySkillsSuccess", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+        // Success popup - Apply All
+        if (ImGui::BeginPopupModal("ApplyAllSuccess", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
         {
-            ImGui::TextColored(g_Colors.success, "Successfully copied skills from nearest enemy!");
+            ImGui::TextColored(g_Colors.success, "Successfully applied changes!");
+            ImGui::TextColored(g_Colors.textSecondary, "Players modified: %d", g_LastAppliedCount);
             ImGui::Spacing();
             
             if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
@@ -1848,11 +1842,11 @@ namespace ImGuiMenu
             ImGui::EndPopup();
         }
 
-        // Failed popup - Copy Skills
-        if (ImGui::BeginPopupModal("CopySkillsFailed", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+        // Failed popup - Apply All
+        if (ImGui::BeginPopupModal("ApplyAllFailed", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
         {
-            ImGui::TextColored(g_Colors.danger, "Failed to copy skills from nearest enemy.");
-            ImGui::TextColored(g_Colors.textSecondary, "Ensure you are in a valid battle mode and there are enemies nearby.");
+            ImGui::TextColored(g_Colors.danger, "Failed to apply changes to all players.");
+            ImGui::TextColored(g_Colors.textSecondary, "Ensure you are in a valid battle mode.");
             ImGui::Spacing();
             
             if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
@@ -1861,6 +1855,83 @@ namespace ImGuiMenu
             }
             
             ImGui::EndPopup();
+        }
+
+        // ===== TEAM BUFFS =====
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        static bool g_TeamBuffsOpen = true;
+        if (ImGui::CollapsingHeader("APPLY TEAM BUFFS", &g_TeamBuffsOpen))
+        {
+            ImGui::TextColored(g_Colors.textSecondary, "Apply stat buffs to your team.");
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+
+            // Static variables for buff sliders
+            static float g_BuffAttack = 1.0f;
+            static float g_BuffDurable = 1.0f;
+            static float g_BuffSpeed = 1.0f;
+            static float g_BuffHealing = 1.0f;
+            static float g_BuffReload = 1.0f;
+
+            ImGui::TextColored(g_Colors.accentCyan, "Buff Multipliers:");
+            ImGui::Spacing();
+
+            // Attack Adjust
+            ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
+            ImGui::SliderFloat("Attack Adjust", &g_BuffAttack, 0.5f, 3.0f, "%.2fx");
+            ImGui::PopStyleColor();
+
+            // Durability Adjust
+            ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(0.0f, 1.0f, 0.0f, 1.0f));
+            ImGui::SliderFloat("Durability Adjust", &g_BuffDurable, 0.5f, 3.0f, "%.2fx");
+            ImGui::PopStyleColor();
+
+            // Speed Adjust
+            ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(0.0f, 1.0f, 1.0f, 1.0f));
+            ImGui::SliderFloat("Speed Adjust", &g_BuffSpeed, 0.5f, 3.0f, "%.2fx");
+            ImGui::PopStyleColor();
+
+            // Healing Adjust
+            ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1.0f, 0.0f, 1.0f, 1.0f));
+            ImGui::SliderFloat("Healing Adjust", &g_BuffHealing, 0.5f, 3.0f, "%.2fx");
+            ImGui::PopStyleColor();
+
+            // Reload Adjust
+            ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1.0f, 1.0f, 0.0f, 1.0f));
+            ImGui::SliderFloat("Reload Adjust", &g_BuffReload, 0.5f, 3.0f, "%.2fx");
+            ImGui::PopStyleColor();
+
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+
+            // Apply Buffs button
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.8f, 1.0f, 1.0f));
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.9f, 1.0f, 1.0f));
+            if (ImGui::Button("APPLY TEAM BUFFS", ImVec2(-1, 40)))
+            {
+                if (InGameHack_ApplyTeamBuffs(g_BuffAttack, g_BuffDurable, g_BuffSpeed, g_BuffHealing, g_BuffReload))
+                {
+                    // Success
+                }
+                else
+                {
+                    // Failed
+                }
+            }
+            ImGui::PopStyleColor(2);
+
+            ImGui::Spacing();
+
+            // Info text
+            ImGui::TextColored(g_Colors.textSecondary, "Buff values are multipliers:");
+            ImGui::TextColored(g_Colors.textSecondary, "  1.0x = Normal (no change)");
+            ImGui::TextColored(g_Colors.textSecondary, "  2.0x = Double the stats");
+            ImGui::TextColored(g_Colors.textSecondary, "  0.5x = Half the stats");
         }
 
         // ===== CHANGE TEAM =====
@@ -2008,6 +2079,86 @@ namespace ImGuiMenu
             }
             
             ImGui::EndPopup();
+        }
+
+        // ===== SEASON PASS RANK INFO =====
+        if (ImGui::CollapsingHeader("SEASON PASS INFO", ImGuiTreeNodeFlags_None))
+        {
+            ImGui::Spacing();
+            ImGui::TextColored(g_Colors.textSecondary, "View and log your current season pass rank.");
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+
+            static int lastRank = -1;
+            static bool rankFetched = false;
+
+            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
+            if (ImGui::Button("FETCH CURRENT RANK", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
+            {
+                lastRank = InGameHack_GetCurrentSeasonPassRank();
+                rankFetched = true;
+            }
+            ImGui::PopStyleColor();
+
+            ImGui::Spacing();
+
+            if (rankFetched)
+            {
+                if (lastRank > 0)
+                {
+                    ImGui::TextColored(g_Colors.success, "Current Season Pass Rank: %d", lastRank);
+                    ImGui::TextColored(g_Colors.textSecondary, "Logged to: C:/Temp/SeasonPassRank.log");
+                }
+                else if (lastRank == 0)
+                {
+                    ImGui::TextColored(g_Colors.warning, "Season Pass Rank: 0 (default value)");
+                    ImGui::TextColored(g_Colors.textSecondary, "Check if season pass data is available.");
+                }
+                else
+                {
+                    ImGui::TextColored(g_Colors.danger, "Failed to fetch rank");
+                }
+            }
+
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+            ImGui::TextColored(g_Colors.textSecondary, "Add REAL EXP to your Season Pass (memory modification)");
+            ImGui::Spacing();
+
+            static int expCount = 1;
+            static int seasonTypeIndex = 0;
+            const char* seasonTypes[] = { "SeasonLicense", "SpecialLicense" };
+
+            ImGui::SetNextItemWidth(150);
+            ImGui::SliderInt("EXP Count (x100)##ExpCount", &expCount, 1, 100);
+            ImGui::TextColored(g_Colors.textSecondary, "Total EXP to add: %d", expCount * 100);
+
+            ImGui::Spacing();
+            ImGui::SetNextItemWidth(150);
+            ImGui::Combo("Season Type##ExpType", &seasonTypeIndex, seasonTypes, IM_ARRAYSIZE(seasonTypes));
+
+            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
+            if (ImGui::Button("ADD SEASON PASS EXP (REAL)", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
+            {
+                // 0 = SeasonLicense, 1 = SpecialLicense
+                SDK::ESeasonType type = (seasonTypeIndex == 0) ? static_cast<SDK::ESeasonType>(0) : static_cast<SDK::ESeasonType>(1);
+                bool result = InGameHack_IncreaseSeasonPassExp(type, expCount);
+                
+                if (result)
+                {
+                    Logger::LogInfo("[Menu] REAL EXP added - check C:/Temp/SeasonPassExp.log");
+                }
+                else
+                {
+                    Logger::LogError("[Menu] Failed to add EXP (widget may not be initialized)");
+                }
+            }
+            ImGui::PopStyleColor();
+            
+            ImGui::TextColored(g_Colors.success, "Modifies _prevSeasonExp directly in memory");
+            ImGui::TextColored(g_Colors.textSecondary, "EXP persists in current session. Check C:/Temp/SeasonPassExp.log");
         }
     }
 
@@ -2335,6 +2486,16 @@ return true;
                     {
                         g_Settings.RebuildMyselfKey.Xbox = pressedKey;
                         g_Settings.RebuildMyselfKey.PS4 = pressedKey;
+                    }
+                }
+                else if (hotkeyType == 106)  // CopySkills hotkey (unified)
+                {
+                    if (inputType == 0)  // Keyboard
+                        g_Settings.CopySkillsFromNearestEnemyKey.Keyboard = pressedKey;
+                    else  // Gamepad
+                    {
+                        g_Settings.CopySkillsFromNearestEnemyKey.Xbox = pressedKey;
+                        g_Settings.CopySkillsFromNearestEnemyKey.PS4 = pressedKey;
                     }
                 }
                 

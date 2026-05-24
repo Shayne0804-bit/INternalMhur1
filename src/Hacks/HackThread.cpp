@@ -411,6 +411,60 @@ void HackThreadManager::FrameUpdateHacks()
     {
 }
 
+    // ===== COPY SKILLS FROM NEAREST ENEMY HOTKEY =====
+    if (ImGuiMenu::g_Settings.EnableCopySkillsFromNearestEnemy)
+    {
+        try
+        {
+            static auto lastCopySkillsTime = std::chrono::high_resolution_clock::now();
+            static bool lastCopySkillsPressed = false;
+            const int COPY_SKILLS_COOLDOWN_MS = 500;
+
+            bool shouldCopySkills = false;
+
+            if ((GetAsyncKeyState(ImGuiMenu::g_Settings.CopySkillsFromNearestEnemyKey.Keyboard) & 0x8000) != 0)
+            {
+                shouldCopySkills = true;
+            }
+
+            if (!shouldCopySkills)
+            {
+                XINPUT_STATE xInputState = {};
+                if (XInputGetState(0, &xInputState) == ERROR_SUCCESS)
+                {
+                    if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.CopySkillsFromNearestEnemyKey.Xbox) != 0)
+                    {
+                        shouldCopySkills = true;
+                    }
+                    else if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.CopySkillsFromNearestEnemyKey.PS4) != 0)
+                    {
+                        shouldCopySkills = true;
+                    }
+                }
+            }
+
+            if (shouldCopySkills && !lastCopySkillsPressed)
+            {
+                auto now = std::chrono::high_resolution_clock::now();
+                auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastCopySkillsTime).count();
+
+                if (elapsed >= COPY_SKILLS_COOLDOWN_MS)
+                {
+                    EnqueueHack([bSetCopySkill = ImGuiMenu::g_Settings.CopySkillsSetCopySkill, 
+                                bUseOwnerCharacterLevel = ImGuiMenu::g_Settings.CopySkillsUseOwnerCharacterLevel]() {
+                        InGameHack_CopySkillsFromNearestEnemy(bSetCopySkill, bUseOwnerCharacterLevel);
+                    });
+                    lastCopySkillsTime = now;
+                }
+            }
+
+            lastCopySkillsPressed = shouldCopySkills;
+        }
+        catch (...)
+        {
+}
+    }
+
     // ===== RECOVERY ME (EVERY FRAME) =====
     if (ImGuiMenu::g_Settings.EnableRecoveryMe)
     {

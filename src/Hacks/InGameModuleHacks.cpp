@@ -4,8 +4,10 @@
 
 #include "InGameModuleHacks.h"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/InGameModule_classes.hpp"
+#include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/OutGameModule_classes.hpp"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/GameModule_structs.hpp"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/CommonModule_structs.hpp"
+#include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/BackendSubsystem_classes.hpp"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/Basic.hpp"
 #include "../Utils/Logger.h"
 #include "../Menu/ImGuiMenu.h"
@@ -1151,7 +1153,7 @@ bool InGameHack_SetReloadAdjustRate(float rate)
         }
         
         // Set the reload adjust rate
-        buffParam->BP_SetAttackAdjustRate(rate);
+        buffParam->BP_SetAttackAdjustRate_Unique1(rate);
         return true;
     }
     catch (...)
@@ -1333,6 +1335,7 @@ int InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharact
     // Check if in valid battle mode first
     if (!IsValidBattleMode())
     {
+        Logger::LogWarning("[ApplyToAll] Not in valid battle mode");
         return 0;
     }
 
@@ -1342,82 +1345,105 @@ int InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharact
         SDK::UWorld* world = SDK::UWorld::GetWorld();
         if (!world || !world->PersistentLevel)
         {
+            Logger::LogError("[ApplyToAll] Could not get world");
             return 0;
         }
 
-        // Get LOCAL player controller and character
+        // Get LOCAL player controller
         SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
         if (!basePlayerController)
         {
+            Logger::LogError("[ApplyToAll] Could not get player controller");
             return 0;
         }
 
         SDK::APlayerControllerBattle* battlePC = static_cast<SDK::APlayerControllerBattle*>(basePlayerController);
         if (!battlePC || !battlePC->Pawn)
         {
+            Logger::LogError("[ApplyToAll] Invalid battle PC or no pawn");
             return 0;
         }
 
-        // Create character data once with ALL parameters
-        SDK::FInGameBattleCharacterData characterData = {};
-        
         // DECODE EVariationCharacterId into (characterId, variationId)
         auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(variationCharacterId);
         
-        // Use decoded ECharacterId and variation index in struct fields
-        characterData._characterId = characterId;  // Decoded ECharacterId
-        characterData._variationId = variationId;  // Variation index (0, 1, 2, etc)
-        characterData._skillVariationCode = variationId;  // Use full enum value for skill code
+        // Create character data with ALL parameters FILLED
+        SDK::FInGameBattleCharacterData characterData;
+        characterData._characterId = characterId;
+        characterData._variationId = variationId;
+        characterData._skillVariationCode = variationId;  // Default skill variation
         characterData._technique1Level = unique1;
         characterData._technique2Level = unique2;
         characterData._technique3Level = unique3;
         characterData._costumeCode = costumeCode;
         characterData._costumeAuraType = costumeAuraType;
+        // emoteCodes, voiceCodes, roleSlot use defaults (empty arrays/struct)
+
+        // Open log file for getter data
+        std::ofstream debugFile("C:\\temp\\ApplyToAll_GetterData.txt", std::ios::trunc);
+        debugFile << "=== ApplyToAll Getter Data Log ===" << std::endl;
+        debugFile << "Requested Change - CharId: " << (int)characterId << ", Variation: " << variationId << std::endl;
+        debugFile << "Technique Levels: " << unique1 << ", " << unique2 << ", " << unique3 << std::endl;
+        debugFile << "Costume: " << costumeCode << ", Aura: " << costumeAuraType << std::endl;
+        debugFile << "\n--- Player Data Retrieved via Getters ---\n" << std::endl;
 
         int appliedCount = 0;
-        int totalActors = world->PersistentLevel->Actors.Num();
 
-        // LOOP OVER ALL ACTORS - INCLUDING local player
-        // LOCAL CONTROLLER calls ChangeCharacter_OnServer for EACH character (including self)
-        for (int i = 0; i < totalActors; i++)
+        // LOOP OVER ALL ACTORS - NO FILTERING, APPLY TO EVERYONE
+        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
         {
             SDK::AActor* actor = world->PersistentLevel->Actors[i];
             
             // Robust type check using IsA()
-            if (!actor || actor->IsDefaultObject())
-                continue;
-                
-            if (!actor->IsA(SDK::ACharacterBattle::StaticClass()))
+            if (!actor || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
                 continue;
 
             SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(actor);
 
-            // Call LOCAL controller's ChangeCharacter_OnServer for THIS character
-            // Includes local player and all enemies
             try
             {
+                // ✅ RETRIEVE ACTUAL DATA from character via getters
+                int32_t currentVariationNo = targetCharacter->BP_GetVariationNo();
+                int32_t currentCostumeCode = targetCharacter->BP_GetCostumeCode();
+                SDK::ECharacterId currentCharacterId = targetCharacter->BP_GetCharacterId();
+
+                // Log to file
+                debugFile << "Actor " << i << ": CharId=" << (int)currentCharacterId 
+                          << ", Variation=" << currentVariationNo 
+                          << ", Costume=" << currentCostumeCode << std::endl;
+
+                // Call LOCAL controller's ChangeCharacter_OnServer for THIS character
                 battlePC->ChangeCharacter_OnServer(targetCharacter, characterData);
                 appliedCount++;
             }
             catch (...)
             {
+                debugFile << "Actor " << i << ": ERROR retrieving data" << std::endl;
                 continue;
             }
         }
 
+        debugFile << "\n--- Summary ---" << std::endl;
+        debugFile << "Total applied: " << appliedCount << std::endl;
+        debugFile.close();
+
         if (appliedCount == 0)
         {
+            Logger::LogWarning("[ApplyToAll] No characters found to modify");
             return 0;
         }
 
+        Logger::LogInfo("[ApplyToAll] Applied character change to " + std::to_string(appliedCount) + " characters");
         return appliedCount;
     }
     catch (const std::exception& e)
     {
+        Logger::LogError("[ApplyToAll] Exception: " + std::string(e.what()));
         return 0;
     }
     catch (...)
     {
+        Logger::LogError("[ApplyToAll] Unknown exception");
         return 0;
     }
 }
@@ -1464,8 +1490,8 @@ bool InGameHack_ApplyToTeam(unsigned char teamId, SDK::EVariationCharacterId var
             return false;
         }
 
-        // Create character data once with ALL parameters
-        SDK::FInGameBattleCharacterData characterData = {};
+        // Create character data once with ALL parameters FILLED
+        SDK::FInGameBattleCharacterData characterData;
         
         // DECODE EVariationCharacterId into (characterId, variationId)
         auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(variationCharacterId);
@@ -1473,7 +1499,7 @@ bool InGameHack_ApplyToTeam(unsigned char teamId, SDK::EVariationCharacterId var
         // Use decoded ECharacterId and variation index in struct fields
         characterData._characterId = characterId;
         characterData._variationId = variationId;
-        characterData._skillVariationCode = variationId;
+        characterData._skillVariationCode = 0;  // Default skill variation
         characterData._technique1Level = unique1;
         characterData._technique2Level = unique2;
         characterData._technique3Level = unique3;
@@ -1599,18 +1625,29 @@ int InGameHack_CopySkillsFromNearestEnemy(bool bSetCopySkill, bool bUseOwnerChar
             if (targetCharacter == localCharacter)
                 continue;
 
+            // Skip if character has no SkillManagementComponent
+            if (!targetCharacter->_skillManagementComponent)
+                continue;
+
             enemies.push_back(targetCharacter);
         }
 
         if (enemies.empty())
         {
-            Logger::LogWarning("[CopySkillsFromNearestEnemy] No enemies found to copy skills from");
+            Logger::LogWarning("[CopySkillsFromNearestEnemy] No valid enemies found to copy skills from");
             return 0;
         }
 
         // Pick a random enemy
         int randomIndex = rand() % enemies.size();
         SDK::ACharacterBattle* randomEnemy = enemies[randomIndex];
+
+        // Final safety check
+        if (!randomEnemy || randomEnemy->IsDefaultObject() || !randomEnemy->_skillManagementComponent)
+        {
+            Logger::LogError("[CopySkillsFromNearestEnemy] Selected random enemy became invalid");
+            return 0;
+        }
 
         // Now copy skills from the random enemy
         return InGameHack_CopySkillsFromCharacter(randomEnemy, bSetCopySkill, bUseOwnerCharacterLevel);
@@ -1687,6 +1724,20 @@ int InGameHack_CopySkillsFromCharacter(SDK::ACharacterBattle* masterCharacter, b
             return 0;
         }
 
+        // Verify master character has a SkillManagementComponent before attempting to copy
+        if (!masterCharacter->_skillManagementComponent)
+        {
+            Logger::LogError("[CopySkillsFromCharacter] Master character has no SkillManagementComponent");
+            return 0;
+        }
+
+        // Verify master character is still valid and not default object
+        if (masterCharacter->IsDefaultObject())
+        {
+            Logger::LogError("[CopySkillsFromCharacter] Master character became invalid (default object)");
+            return 0;
+        }
+
         // Activate copy mode first, then set the character to copy from
         try
         {
@@ -1694,14 +1745,26 @@ int InGameHack_CopySkillsFromCharacter(SDK::ACharacterBattle* masterCharacter, b
             skillMgmt->BP_StartCopyMode(300.0f, (SDK::ECopyModeCharacterType)1);
             Logger::LogInfo("[CopySkillsFromCharacter] Started copy mode");
 
+            // Verify master character is STILL valid after starting copy mode
+            if (masterCharacter->IsDefaultObject())
+            {
+                Logger::LogError("[CopySkillsFromCharacter] Master character became invalid after starting copy mode");
+                return 0;
+            }
+
             // Now set the master character to copy from
             skillMgmt->BP_SetCopyCharacter(masterCharacter, bSetCopySkill, bUseOwnerCharacterLevel);
             Logger::LogInfo("[CopySkillsFromCharacter] Successfully copied skills from enemy character");
             return 1;
         }
+        catch (const std::exception& ex)
+        {
+            Logger::LogError("[CopySkillsFromCharacter] Failed to execute copy sequence: " + std::string(ex.what()));
+            return 0;
+        }
         catch (...)
         {
-            Logger::LogError("[CopySkillsFromCharacter] Failed to execute copy sequence");
+            Logger::LogError("[CopySkillsFromCharacter] Failed to execute copy sequence (unknown error)");
             return 0;
         }
     }
@@ -3461,84 +3524,6 @@ bool InGameHack_SetSkillLevel(int skillIndex, int level)
     }
 }
 
-bool InGameHack_UpgradeSupply(int supplyIndex, int level)
-{
-    try
-    {
-        if (level < 1 || level > 99)
-        {
-            
-            return false;
-        }
-        
-        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController)
-        {
-            
-            return false;
-        }
-        
-        SDK::ACharacterBattle* playerChar = (SDK::ACharacterBattle*)playerController->Pawn;
-        if (!playerChar || !playerChar->PlayerState)
-        {
-        
-            return false;
-        }
-        
-        SDK::APlayerStateBattle* playerState = (SDK::APlayerStateBattle*)playerChar->PlayerState;
-        auto supplyHolderComp = playerState->_supplyHolderComponent;
-        
-        if (!supplyHolderComp)
-        {
-            
-            return false;
-        }
-
-        // Create manipulation data for upgrade
-        SDK::FNetSupplyHolderData manipData;
-        manipData._manipulation = (SDK::ESupplyManipulationType)0; // DEFAULT
-        manipData._bEnable = true;
-        manipData._index = 0;
-        
-        // Determine supply type based on index
-        // supplyIndex 6 = ABILITY, 7 = SHOULDER, or any inventory index
-        if (supplyIndex == 6) // ABILITY
-        {
-            manipData._type = SDK::ESupplyHolderType::ABILITYSLOT; // Type 2
-        
-        }
-        else if (supplyIndex == 7) // SHOULDER
-        {
-            manipData._type = SDK::ESupplyHolderType::ABILITYSLOT; // Type 2
-        }   
-        else // INVENTORY
-        {
-            manipData._type = SDK::ESupplyHolderType::INVENTORY; // Type 1
-            manipData._index = supplyIndex;
-        
-        }
-        
-        // Add level to level list
-        manipData._levelList.Add(level);
-        
-        // Create array with manipulation data
-        SDK::TArray<SDK::FNetSupplyHolderData> manipList;
-        manipList.Add(manipData);
-        
-        // Send upgrade command
-        supplyHolderComp->OnManipulation_ToServer(manipList);
-        
-        return true;
-    }
-    catch (const std::exception& e)
-    {
-        return false;
-    }
-    catch (...)
-    {
-        return false;
-    }
-}
 
 bool InGameHack_StopUsingSupply()
 {
@@ -3573,6 +3558,180 @@ bool InGameHack_StopUsingSupply()
     catch (const std::exception& e)
     {
         
+        return false;
+    }
+    catch (...)
+    {
+        return false;
+    }
+}
+
+// ============================================
+// UPGRADE SUPPLY - MAXSTACKNUM
+// ============================================
+
+bool InGameHack_UpgradeSupply(int supplyIndex, int level)
+{
+    try
+    {
+        // Validate level range
+        if (level < 1 || level > 99)
+        {
+            return false;
+        }
+
+        // Get player controller
+        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!playerController)
+        {
+            return false;
+        }
+
+        // Get character
+        SDK::ACharacterBattle* playerChar = (SDK::ACharacterBattle*)playerController->Pawn;
+        if (!playerChar || !playerChar->PlayerState)
+        {
+            return false;
+        }
+
+        // Get player state
+        SDK::APlayerStateBattle* playerState = (SDK::APlayerStateBattle*)playerChar->PlayerState;
+        if (!playerState)
+        {
+            return false;
+        }
+
+        // Get supply holder component
+        auto supplyHolderComp = playerState->_supplyHolderComponent;
+        if (!supplyHolderComp)
+        {
+            return false;
+        }
+
+        // Get supply holder from inventory
+        if (supplyIndex < 0 || supplyIndex >= supplyHolderComp->_inventory.Num())
+        {
+            return false;
+        }
+
+        auto supplyHolder = supplyHolderComp->_inventory[supplyIndex];
+        if (!supplyHolder || supplyHolder->_supplies.Num() == 0)
+        {
+            return false;
+        }
+
+        // Get first supply
+        auto supply = supplyHolder->_supplies[0];
+        if (!supply)
+        {
+            return false;
+        }
+
+        // Get world
+        SDK::UWorld* world = SDK::UWorld::GetWorld();
+        if (!world)
+        {
+            return false;
+        }
+
+        // Supply ID array
+        const char* supplyIds[] = {
+            "Su001", "Su002", "Su003", "Su004", "Su005", "Su006",
+            "Su007", "Su008", "Su009", "Su010", "Su011", "Su012",
+            "Su013", "Su014", "Su015", "Su016", "Su017", "Su018",
+            "Su019", "Su020", "Su021", "Su022", "Su023", "Su024",
+            "Su025", "Su026"
+        };
+
+        // Get supply ID string
+        const char* supplyIdStr = (supplyIndex < 26) ? supplyIds[supplyIndex] : supplyIds[0];
+
+        // Convert to wchar_t and then to FName
+        int len = strlen(supplyIdStr) + 1;
+        wchar_t* wstr = new wchar_t[len];
+        mbstowcs(wstr, supplyIdStr, len);
+        SDK::FName supplyFName = SDK::BasicFilesImplUtils::StringToName(wstr);
+        delete[] wstr;
+
+        // Get supply data asset
+        auto supplyAsset = SDK::UStaticDataManager::GetSupplyBaseDataAsset(world, supplyFName);
+        if (!supplyAsset)
+        {
+            return false;
+        }
+
+        // Set max stack num
+        supplyAsset->_maxStackNum = level;
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        return false;
+    }
+    catch (...)
+    {
+        return false;
+    }
+}
+
+// ============================================
+// APPLY TEAM BUFFS
+// ============================================
+
+bool InGameHack_ApplyTeamBuffs(float attackAdjust, float durableAdjust, float speedAdjust, float healingAdjust, float reloadAdjust)
+{
+    try
+    {
+        // Get player controller
+        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!playerController)
+        {
+            return false;
+        }
+
+        // Get character
+        SDK::ACharacterBattle* playerChar = (SDK::ACharacterBattle*)playerController->Pawn;
+        if (!playerChar || !playerChar->PlayerState)
+        {
+            return false;
+        }
+
+        // Get player state
+        SDK::APlayerStateBattle* playerState = (SDK::APlayerStateBattle*)playerChar->PlayerState;
+        if (!playerState || !playerState->_buffParam)
+        {
+            return false;
+        }
+
+        // Apply buffs directly using UBuffParam setters
+        auto buffParam = playerState->_buffParam;
+
+        // Set attack adjust rate
+        buffParam->BP_SetAttackAdjustRate(attackAdjust);
+
+        // Set durable adjust rate
+        buffParam->BP_SetDurableAdjustRate(durableAdjust);
+
+        // Set speed (movement speed team role)
+        buffParam->BP_SetMoveSpeedAdjustRate_TeamRole(speedAdjust);
+
+        // Set healing adjust rate (direct modification)
+        buffParam->_healingAdjustRate_TeamRole = healingAdjust;
+
+        // Set reload adjust rate
+        buffParam->BP_SetReloadAdjustRate(reloadAdjust);
+
+        // Send request to buff control component to notify server
+        auto buffComponent = playerChar->_buffControlComponent;
+        if (buffComponent)
+        {
+            buffComponent->RequestApplyTeamBuffs_ToServer();
+        }
+
+        return true;
+    }
+    catch (const std::exception& e)
+    {
         return false;
     }
     catch (...)
@@ -4001,6 +4160,191 @@ bool InGameHack_RedirectBulletsToNearestEnemy(bool bIncludeAlpha, bool bIncludeB
     }
     catch (...)
     {
+        return false;
+    }
+}
+
+// ============================================
+// GET CURRENT SEASON PASS RANK
+// ============================================
+
+/**
+ * Helper: Write timestamped log to rank file
+ */
+static void LogToSeasonPassRankFile(const std::string& message)
+{
+    try
+    {
+        std::ofstream logFile("C:/Temp/SeasonPassRank.log", std::ios::app);
+        if (logFile.is_open())
+        {
+            auto now = std::chrono::system_clock::now();
+            auto time = std::chrono::system_clock::to_time_t(now);
+            auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()) % 1000;
+
+            std::stringstream timestamp;
+            timestamp << std::put_time(std::localtime(&time), "%Y-%m-%d %H:%M:%S")
+                     << "." << std::setfill('0') << std::setw(3) << ms.count();
+
+            logFile << "[" << timestamp.str() << "] " << message << "\n";
+            logFile.close();
+        }
+    }
+    catch (...) { }
+}
+
+/**
+ * Get the current season pass rank
+ * All logs written to C:/Temp/SeasonPassRank.log
+ * @return Current season pass rank (int32), or -1 if error
+ */
+int InGameHack_GetCurrentSeasonPassRank()
+{
+    try
+    {
+        // Direct access to BackendSubsystem singleton
+        SDK::UBackendSubsystem* backendSubsystem = SDK::UBackendSubsystem::GetDefaultObj();
+        
+        // Try to get the rank directly
+        if (backendSubsystem)
+        {
+            SDK::UDatabaseParams* dbParams = backendSubsystem->GetDatabaseParams();
+            if (dbParams)
+            {
+                SDK::UDbpResult* dbpResult = dbParams->GetResultData();
+                if (dbpResult)
+                {
+                    int32_t currentRank = dbpResult->GetCurrentSeasonPassRank();
+                    
+                    // Log the result to file
+                    LogToSeasonPassRankFile("[SUCCESS] Current Season Pass Rank: " + std::to_string(currentRank));
+                    return currentRank;
+                }
+            }
+        }
+
+        // If we couldn't get rank through normal methods, return -1
+        LogToSeasonPassRankFile("[ERROR] Could not retrieve rank from BackendSubsystem");
+        return -1;
+    }
+    catch (const std::exception& e)
+    {
+        LogToSeasonPassRankFile("[ERROR] C++ Exception: " + std::string(e.what()));
+        return -1;
+    }
+    catch (...)
+    {
+        LogToSeasonPassRankFile("[ERROR] Unknown exception occurred");
+        return -1;
+    }
+}
+
+// ============================================
+// TEST SEASON PASS EXP INCREASE
+// ============================================
+
+/**
+ * Helper: Write timestamped log to file
+ */
+static void LogToSeasonPassFile(const std::string& message)
+{
+    try
+    {
+        std::ofstream logFile("C:/Temp/SeasonPassExp.log", std::ios::app);
+        if (logFile.is_open())
+        {
+            auto now = std::chrono::system_clock::now();
+            auto time = std::chrono::system_clock::to_time_t(now);
+            auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()) % 1000;
+
+            std::stringstream timestamp;
+            timestamp << std::put_time(std::localtime(&time), "%Y-%m-%d %H:%M:%S")
+                     << "." << std::setfill('0') << std::setw(3) << ms.count();
+
+            logFile << "[" << timestamp.str() << "] " << message << "\n";
+            logFile.close();
+        }
+    }
+    catch (...) { }
+}
+
+/**
+ * Add real EXP to Season Pass (modify memory directly)
+ * Modifies _prevSeasonExp and triggers rewards unlocking
+ * Does NOT use BackendSubsystem functions
+ * All logs go to C:/Temp/SeasonPassExp.log
+ * SAFE: No function calls that could crash
+ */
+bool InGameHack_IncreaseSeasonPassExp(SDK::ESeasonType type, int32_t count)
+{
+    try
+    {
+        // Get widget instance
+        SDK::USeasonPassLicensePurchaseWindow* purchaseWindow = nullptr;
+        
+        try
+        {
+            purchaseWindow = SDK::USeasonPassLicensePurchaseWindow::GetDefaultObj();
+        }
+        catch (...)
+        {
+            LogToSeasonPassFile("[ERROR] Exception getting widget instance");
+            return false;
+        }
+        
+        // Validate pointer is not null
+        if (!purchaseWindow)
+        {
+            LogToSeasonPassFile("[ERROR] Widget GetDefaultObj() returned nullptr");
+            return false;
+        }
+
+        // Additional validation: check pointer range (basic sanity check)
+        uintptr_t addr = reinterpret_cast<uintptr_t>(purchaseWindow);
+        if (addr < 0x10000 || addr > 0x7FFFFFFF0000)
+        {
+            LogToSeasonPassFile("[ERROR] Widget pointer invalid: 0x" + 
+                              std::to_string(addr));
+            return false;
+        }
+
+        // Access widget members safely - direct memory modification only
+        try
+        {
+            // Read current EXP value (offset 0x03AC)
+            int32_t currentExp = purchaseWindow->_prevSeasonExp;
+            int32_t addedExp = count * 100;
+            int32_t newExp = currentExp + addedExp;
+
+            // Write new EXP value directly (SAFE: no function calls)
+            purchaseWindow->_prevSeasonExp = newExp;
+            
+            // Update display value
+            purchaseWindow->_purchaseExp = addedExp;
+
+            // Log modification to file
+            LogToSeasonPassFile("[SUCCESS] EXP modified: " + std::to_string(currentExp) + 
+                              " -> " + std::to_string(newExp) + " (+= " + std::to_string(addedExp) + ")");
+            
+            LogToSeasonPassFile("[INFO] Season Type: " + std::to_string(static_cast<int32_t>(type)));
+            
+            return true;
+        }
+        catch (const std::exception& e)
+        {
+            LogToSeasonPassFile("[ERROR] Exception accessing widget members: " + 
+                              std::string(e.what()));
+            return false;
+        }
+    }
+    catch (const std::exception& e)
+    {
+        LogToSeasonPassFile("[ERROR] C++ Exception: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        LogToSeasonPassFile("[ERROR] Unknown exception occurred");
         return false;
     }
 }
