@@ -164,6 +164,11 @@ namespace ImGuiMenu
         int CharacterSkillCode = 0;           // Skill variation code (0-5)
         int CharacterCostumeCode = 0;         // Costume code ID (0=default)
         int CharacterCostumeAuraType = 0;     // Costume aura type (0-5)
+
+        // Supply Management - Unique Skill Levels (for Supply Management section)
+        int SupplyUniqueSkill1Level = 1;     // Unique Skill 1 level (1-9)
+        int SupplyUniqueSkill2Level = 1;     // Unique Skill 2 level (1-9)
+        int SupplyUniqueSkill3Level = 1;     // Unique Skill 3 level (1-9)
     };
 
     // ============================================================================

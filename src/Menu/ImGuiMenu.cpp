@@ -18,6 +18,7 @@
 #include "ico_font.h"
 #include "segue_font.h"
 #include "ImGuiSliderHelper.h"
+#include "SettingsManager.h"
 #pragma comment(lib, "xinput.lib")
 
 // Forward declare ImGui WndProc handler
@@ -86,6 +87,11 @@ namespace ImGuiMenu
     static WNDPROC g_OriginalWndProc = nullptr;
     static ID3D11Device* g_Device = nullptr;
     static ID3D11DeviceContext* g_DeviceContext = nullptr;
+
+    // Profile Management
+    static std::string g_CurrentProfileName = "Default";
+    static char g_ProfileNameBuffer[256] = "Default";
+    static std::vector<std::string> g_ProfilesList;
 
     // Section open/close states
     static bool g_ESP_DisplayOpen = true;
@@ -345,10 +351,16 @@ namespace ImGuiMenu
         }
 
         // Handle ImGui input
-        if (ImGui::GetCurrentContext() != nullptr)
+        if (ImGui::GetCurrentContext() != nullptr && g_Visible)
         {
+            // First pass the message to ImGui_ImplWin32_WndProcHandler for proper input handling
             ImGuiIO& io = ImGui::GetIO();
 
+            // Let ImGui process the message first (for text input, keyboard, etc.)
+            if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+                return true;
+
+            // Then handle our custom logic
             switch (msg)
             {
             case WM_MOUSEMOVE:
@@ -371,14 +383,14 @@ namespace ImGuiMenu
                 break;
             case WM_KEYDOWN:
             case WM_KEYUP:
-                if (g_Visible && io.WantCaptureKeyboard)
+                if (io.WantCaptureKeyboard)
                 {
                     return true;
                 }
                 break;
             }
 
-            if (g_Visible && (io.WantCaptureMouse || io.WantCaptureKeyboard))
+            if (io.WantCaptureMouse || io.WantCaptureKeyboard)
             {
                 return true;
             }
@@ -1413,19 +1425,15 @@ namespace ImGuiMenu
 
             // Unique Skills Sliders (Unique 1, 2, 3)
             {
-                static int unique1Level = 1;
-                static int unique2Level = 1;
-                static int unique3Level = 1;
-                
-                ImGuiSliderHelper::SliderInt("Unique Skill 1", &unique1Level, 150.0f, 1, 9);
-                ImGuiSliderHelper::SliderInt("Unique Skill 2", &unique2Level, 150.0f, 1, 9);
-                ImGuiSliderHelper::SliderInt("Unique Skill 3", &unique3Level, 150.0f, 1, 9);
+                ImGuiSliderHelper::SliderInt("Unique Skill 1", &g_HackSettings.SupplyUniqueSkill1Level, 150.0f, 1, 9);
+                ImGuiSliderHelper::SliderInt("Unique Skill 2", &g_HackSettings.SupplyUniqueSkill2Level, 150.0f, 1, 9);
+                ImGuiSliderHelper::SliderInt("Unique Skill 3", &g_HackSettings.SupplyUniqueSkill3Level, 150.0f, 1, 9);
                 
                 if (ImGui::Button("Set Unique Skills", ImVec2(-1, 0)))
                 {
-                    InGameHack_SetSkillLevel(1, unique1Level);  // UNIQUE1
-                    InGameHack_SetSkillLevel(2, unique2Level);  // UNIQUE2
-                    InGameHack_SetSkillLevel(3, unique3Level);  // UNIQUE3
+                    InGameHack_SetSkillLevel(1, g_HackSettings.SupplyUniqueSkill1Level);  // UNIQUE1
+                    InGameHack_SetSkillLevel(2, g_HackSettings.SupplyUniqueSkill2Level);  // UNIQUE2
+                    InGameHack_SetSkillLevel(3, g_HackSettings.SupplyUniqueSkill3Level);  // UNIQUE3
                 }
             }
             ImGui::Spacing();
@@ -2187,14 +2195,92 @@ namespace ImGuiMenu
         ImGui::Spacing();
         ImGui::Separator();
 
-        // Save/Load
-        if (ImGui::Button("Save Configuration", ImVec2(-1, 0)))
+        // ========== PROFILE MANAGEMENT UI ==========
+        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentGreen);
+        ImGui::Text("PROFILE MANAGEMENT");
+        ImGui::PopStyleColor();
+
+        // Profile name input with proper focus handling
+        ImGui::PushItemWidth(-1);
+        ImGui::InputTextWithHint("##ProfileNameInput", "Enter profile name...", g_ProfileNameBuffer, sizeof(g_ProfileNameBuffer));
+        ImGui::PopItemWidth();
+
+        // Reload profiles list
+        if (ImGui::Button("Reload Profiles", ImVec2(-1, 0)))
         {
-}
+            g_ProfilesList = SettingsManager::GetProfilesList();
+            Logger::Log(Logger::LogLevel::Info, "[ImGuiMenu] Profiles reloaded. Count: " + std::to_string(g_ProfilesList.size()));
+        }
+
+        ImGui::Spacing();
+
+        // Save Profile
+        if (ImGui::Button("Save Configuration", ImVec2(ImGui::GetContentRegionAvail().x * 0.48f, 0)))
+        {
+            std::string profileName(g_ProfileNameBuffer);
+            if (!profileName.empty())
+            {
+                if (SettingsManager::SaveCurrentProfile(profileName))
+                {
+                    g_CurrentProfileName = profileName;
+                    g_ProfilesList = SettingsManager::GetProfilesList();
+                    Logger::Log(Logger::LogLevel::Info, "[ImGuiMenu] Profile saved: " + profileName);
+                }
+                else
+                {
+                    Logger::Log(Logger::LogLevel::Error, "[ImGuiMenu] Failed to save profile");
+                }
+            }
+            else
+            {
+                Logger::Log(Logger::LogLevel::Error, "[ImGuiMenu] Profile name cannot be empty");
+            }
+        }
+
         ImGui::SameLine();
-        if (ImGui::Button("Load Configuration", ImVec2(-1, 0)))
+
+        // Load Profile
+        if (ImGui::Button("Load Configuration", ImVec2(ImGui::GetContentRegionAvail().x, 0)))
         {
-}
+            std::string profileName(g_ProfileNameBuffer);
+            if (!profileName.empty())
+            {
+                if (SettingsManager::LoadCurrentProfile(profileName))
+                {
+                    g_CurrentProfileName = profileName;
+                    Logger::Log(Logger::LogLevel::Info, "[ImGuiMenu] Profile loaded: " + profileName);
+                }
+                else
+                {
+                    Logger::Log(Logger::LogLevel::Error, "[ImGuiMenu] Failed to load profile");
+                }
+            }
+            else
+            {
+                Logger::Log(Logger::LogLevel::Error, "[ImGuiMenu] Profile name cannot be empty");
+            }
+        }
+
+        ImGui::Spacing();
+        ImGui::Separator();
+
+        // Show profiles list
+        if (ImGui::BeginListBox("Available Profiles"))
+        {
+            for (const auto& profile : g_ProfilesList)
+            {
+                bool is_selected = (profile == g_CurrentProfileName);
+                if (ImGui::Selectable(profile.c_str(), is_selected))
+                {
+                    strcpy_s(g_ProfileNameBuffer, sizeof(g_ProfileNameBuffer), profile.c_str());
+                    g_CurrentProfileName = profile;
+                }
+                if (is_selected)
+                    ImGui::SetItemDefaultFocus();
+            }
+            ImGui::EndListBox();
+        }
+
     }
 
     // ============================================================================
@@ -2356,6 +2442,16 @@ return false;
         catch (...)
         {
 return false;
+        }
+
+        // Initialize profile system
+        SettingsManager::EnsureProfilesDirectory();
+        g_ProfilesList = SettingsManager::GetProfilesList();
+        if (g_ProfilesList.empty())
+        {
+            // Create default profile with all settings disabled
+            SettingsManager::CreateDefaultProfile();
+            g_ProfilesList = SettingsManager::GetProfilesList();
         }
 
         g_Initialized = true;
