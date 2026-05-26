@@ -507,6 +507,27 @@ void HackThreadManager::FrameUpdateHacks()
 }
     }
 
+    // ===== RECOVERY SPECIFIC TEAM MEMBER (EVERY FRAME) =====
+    if (ImGuiMenu::g_Settings.EnableRecoverySelectedTeam)
+    {
+        try
+        {
+            // Get the selected team member index
+            int selectedIndex = ImGuiMenu::g_Settings.SelectedRecoveryTeamIndex;
+            
+            // Validate index
+            if (selectedIndex >= 0 && selectedIndex < (int)ImGuiMenu::g_CurrentTeamCharacters.size())
+            {
+                EnqueueHack([selectedIndex]() {
+                    InGameHack_RecoverDyingSpecificTeamMember(selectedIndex);
+                });
+            }
+        }
+        catch (...)
+        {
+}
+    }
+
     // ===== BULLET REDIRECTION (EVERY FRAME) =====
     if (ImGuiMenu::g_Settings.EnableBulletTP)
     {

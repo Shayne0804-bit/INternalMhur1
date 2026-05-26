@@ -341,6 +341,12 @@ bool InGameHack_RecoverMe();
 bool InGameHack_RecoverDyingTeam();
 
 /**
+ * Recover a specific team member by index
+ * Calls RecoverDyingAlly_ToServer on selected team character
+ */
+bool InGameHack_RecoverDyingSpecificTeamMember(int teamMemberIndex);
+
+/**
  * Recover ALL characters on map with full health restoration
  * Calls BP_ClearDyingState(true) on all characters regardless of team
  */
@@ -508,5 +514,44 @@ int InGameHack_GetCurrentSeasonPassRank();
  */
 bool InGameHack_IncreaseSeasonPassExp(SDK::ESeasonType type, int32_t count);
 
+// ============================================================================
+// CHARACTER CONDITION AUTO-EXECUTION (Battle Mode Transition Detection)
+// ============================================================================
+
+/**
+ * Process character condition auto-execution on battle mode entry
+ * Called every frame from menu render loop to detect battle mode transitions
+ * When transitioning from invalid to valid battle mode, executes active toggles once
+ * 
+ * This function should be called from ImGuiMenu::Render() every frame
+ * @param enableDekuMode - Execute DEKU MODE when entering battle?
+ * @param enableUnbreakable - Execute UNBREAKABLE when entering battle?
+ * @param enableCompressionRegen - Execute MR COMPRESSE MODE when entering battle?
+ * @param enableMirioMode - Execute MIRIO MODE when entering battle?
+ * @param enableTokoyamiMode - Execute TOKOYAMI DARK MODE when entering battle?
+ */
+void InGameHack_ProcessCharacterConditionAutoExecution(
+    bool enableDekuMode,
+    bool enableUnbreakable,
+    bool enableCompressionRegen,
+    bool enableMirioMode,
+    bool enableTokoyamiMode);
+// ============================================================================
+// PLAYER NAME CHANGE
+// ============================================================================
+
+/**
+ * Change player name in the game
+ * @param newName - The new player name (max 255 characters)
+ * @return true if successful, false otherwise
+ */
+bool InGameHack_ChangePlayerName(const char* newName);
+
+/**
+ * Buy License Exp from backend subsystem
+ * @param count - Number of License Exp to buy
+ * @return true if successful, false otherwise
+ */
+bool InGameHack_BuyLicenseExp(int32_t count);
 
 

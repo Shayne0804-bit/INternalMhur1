@@ -141,12 +141,14 @@ namespace D3D11Hook
         // ===== RUN CH202 INIT TRANSMISSION LEVEL 5 AUTO-APPLY =====
         try
         {
-            // Auto-apply CH202 init trans level 5 each frame if enabled
+            // Auto-apply CH202 init trans level 5 once if enabled
             if (ImGuiMenu::g_Settings.EnableCH202InitTransLevel5)
             {
                 if (IsValidBattleMode())
                 {
                     InGameHack_SetInitTransMissionLevel(0, 5);
+                    // Disable after execution to prevent re-execution
+                    ImGuiMenu::g_Settings.EnableCH202InitTransLevel5 = false;
                 }
             }
         }

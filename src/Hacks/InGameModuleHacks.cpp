@@ -2420,6 +2420,81 @@ bool InGameHack_RecoverDyingTeam()
 }
 
 /**
+ * Recover a specific team member by index
+ * Uses RecoverDyingAlly_ToServer on selected team character
+ */
+bool InGameHack_RecoverDyingSpecificTeamMember(int teamMemberIndex)
+{
+    // 0️⃣ Check if in valid battle mode
+    if (!IsValidBattleMode())
+    {
+        Logger::LogWarning("[RECOVER SPECIFIC] Not in valid battle mode");
+        return false;
+    }
+
+    // 1️⃣ Validate team member index
+    if (teamMemberIndex < 0 || teamMemberIndex >= (int)ImGuiMenu::g_CurrentTeamCharacters.size())
+    {
+        Logger::LogWarning("[RECOVER SPECIFIC] Invalid team member index: " + std::to_string(teamMemberIndex));
+        return false;
+    }
+
+    // 2️⃣ Get player controller
+    SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+    if (!playerController)
+    {
+        Logger::LogWarning("[RECOVER SPECIFIC] No player controller");
+        return false;
+    }
+
+    // 3️⃣ Get player character
+    SDK::ACharacterBattle* playerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
+    if (!playerCharacter || !playerCharacter->PlayerState)
+    {
+        Logger::LogWarning("[RECOVER SPECIFIC] Player character not found");
+        return false;
+    }
+
+    // 4️⃣ Get target team member
+    SDK::ACharacterBattle* targetCharacter = ImGuiMenu::g_CurrentTeamCharacters[teamMemberIndex];
+    if (!targetCharacter || targetCharacter->IsDefaultObject())
+    {
+        Logger::LogWarning("[RECOVER SPECIFIC] Target character is invalid");
+        return false;
+    }
+
+    try
+    {
+        // 5️⃣ Verify target is on same team
+        unsigned char playerTeamId = GetCharacterTeamId(playerCharacter);
+        unsigned char targetTeamId = GetCharacterTeamId(targetCharacter);
+        
+        if (playerTeamId == 255 || targetTeamId != playerTeamId)
+        {
+            Logger::LogWarning("[RECOVER SPECIFIC] Target is not on same team");
+            return false;
+        }
+
+        // 6️⃣ Check if target is dying
+        if (!IsCharacterDyingOffset(targetCharacter))
+        {
+            Logger::LogInfo("[RECOVER SPECIFIC] Target is not dying, skipping recovery");
+            return false;
+        }
+
+        // 7️⃣ Call recovery on target
+        Logger::LogInfo("[RECOVER SPECIFIC] Recovering specific team member at index " + std::to_string(teamMemberIndex));
+        playerCharacter->RecoverDyingAlly_ToServer(targetCharacter, false);
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[RECOVER SPECIFIC] Exception: " + std::string(e.what()));
+        return false;
+    }
+}
+
+/**
  * Recover ALL characters on map with full health restoration
  * Uses RecoverDyingAlly_ToServer on all characters regardless of team
  */
@@ -2548,16 +2623,15 @@ bool InGameHack_CompressionRegeneration()
         }
 
         // Call SetCondition_ToServer with COMPRESSION_REGENERATION (enum value 62)
-        conditionComponent->SetCondition_ToServer(
-            (SDK::ECharacterConditionId)62,  // COMPRESSION_REGENERATION = 62
+        conditionComponent->BP_SetCondition(
+            (SDK::ECharacterConditionId)75,  // COMPRESSION_REGENERATION = 62
             0,                               // Level
-            50.0f,                           // span
-            0.0f,                            // value
-            0.001f,                          // interval
+            500.0f,                           // span
+            1.0f,                            // value
+            0.1f,                          // interval
             0,                               // subLevel
             nullptr,                         // instigatedPlayer
-            0,                               // damageActionSerialNo
-            false                            // bTimeOverwrite
+            0                            // bTimeOverwrite
         );
 
         return true;
@@ -2616,16 +2690,15 @@ bool InGameHack_CH024Transparent()
         }
 
         // Call SetCondition_ToServer with CH024_TRANSPARENT (enum value 65)
-        conditionComponent->SetCondition_ToServer(
-            (SDK::ECharacterConditionId)90,  // CH024_TRANSPARENT = 65
+        conditionComponent->BP_SetCondition(
+            (SDK::ECharacterConditionId)76,  // CH024_TRANSPARENT = 65
             0,                               // Level
-            50.0f,                           // span
-            0.0f,                            // value
-            0.0f,                            // interval
+            500.0f,                           // span
+            5.0f,                            // value
+            0.01f,                            // interval
             0,                               // subLevel
             nullptr,                         // instigatedPlayer
-            0,                               // damageActionSerialNo
-            false                            // bTimeOverwrite
+            0                           // bTimeOverwrite
         );
 
         return true;
@@ -2732,42 +2805,78 @@ static bool SetAbility(int abilityId, int level)
             return false;
         }
 
+        // Validate controller pointer
+        try
+        {
+            if (!baseController || IsBadReadPtr(baseController, sizeof(void*)))
+            {
+                Logger::LogError("[COMBAT] PlayerController pointer is invalid for Ability");
+                return false;
+            }
+        }
+        catch (...)
+        {
+            Logger::LogError("[COMBAT] PlayerController validation failed for Ability");
+            return false;
+        }
+
         // Cast to APlayerControllerBattle
         SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
         if (!playerController)
         {
-            Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle");
+            Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle for Ability");
             return false;
         }
 
         // Get the player's current character
         SDK::APawn* pawn = playerController->Pawn;
-        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
+        if (!pawn || IsBadReadPtr(pawn, sizeof(void*)))
+        {
+            Logger::LogError("[COMBAT] Pawn pointer is invalid for Ability");
+            return false;
+        }
 
+        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
         if (!playerCharacter)
         {
-            Logger::LogError("[COMBAT] Could not get player character");
+            Logger::LogError("[COMBAT] Could not get player character for Ability");
+            return false;
+        }
+
+        // Validate character pointer
+        if (IsBadReadPtr(playerCharacter, sizeof(void*)))
+        {
+            Logger::LogError("[COMBAT] Character pointer is invalid for Ability");
             return false;
         }
 
         // Get the condition control component
         auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
-        if (!conditionComponent)
+        if (!conditionComponent || IsBadReadPtr(conditionComponent, sizeof(void*)))
         {
+            Logger::LogError("[COMBAT] Could not get or validate condition component for Ability");
             return false;
         }
 
-        // Call SetCondition_ToServer with ability ID, level 1-100, span 50 seconds
-        conditionComponent->BP_SetCondition(
-            (SDK::ECharacterConditionId)abilityId,  // Ability ID (43-47)
-            level,                                   // Level (1-100)
-            500.0f,                                   // span: 50 seconds
-            1000.0f,                                   // value
-            0.1f,                                   // interval
-            level,                                       // subLevel
-            nullptr,                                 // instigatedPlayer
-            0                               // damageActionSerialNo
-        );
+        // Call BP_SetCondition with ability ID, level 1-100, span 50 seconds
+        try
+        {
+            conditionComponent->BP_SetConditionLocal(
+                (SDK::ECharacterConditionId)abilityId,  // Ability ID (43-47)
+                level,                                   // Level (1-100)
+                500.0f,                                  // span: 50 seconds
+                1000.0f,                                 // value
+                0.1f,                                    // interval
+                level,                                   // subLevel
+                nullptr,                                 // instigatedPlayer
+                0                                        // damageActionSerialNo
+            );
+        }
+        catch (...)
+        {
+            Logger::LogError("[COMBAT] Exception calling BP_SetCondition for Ability");
+            return false;
+        }
 
         return true;
     }
@@ -2785,27 +2894,517 @@ static bool SetAbility(int abilityId, int level)
 
 bool InGameHack_AbilityAttack(int level)
 {
-    return SetAbility(43, level);  // ABILITY_ATTACK = 43
+    try
+    {
+        // Clamp level to 1-100
+        level = (level < 1) ? 1 : (level > 100) ? 100 : level;
+
+        // Get player controller
+        SDK::APlayerController* baseController = SDK_GetPlayerController();
+        if (!baseController)
+        {
+            Logger::LogError("[COMBAT] Could not get PlayerController for AbilityAttack");
+            return false;
+        }
+
+        // Validate controller pointer
+        try
+        {
+            if (!baseController || IsBadReadPtr(baseController, sizeof(void*)))
+            {
+                Logger::LogError("[COMBAT] PlayerController pointer is invalid for AbilityAttack");
+                return false;
+            }
+        }
+        catch (...)
+        {
+            Logger::LogError("[COMBAT] PlayerController validation failed for AbilityAttack");
+            return false;
+        }
+
+        // Cast to APlayerControllerBattle
+        SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
+        if (!playerController)
+        {
+            Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle for AbilityAttack");
+            return false;
+        }
+
+        // Get the player's current character
+        SDK::APawn* pawn = playerController->Pawn;
+        if (!pawn || IsBadReadPtr(pawn, sizeof(void*)))
+        {
+            Logger::LogError("[COMBAT] Pawn pointer is invalid for AbilityAttack");
+            return false;
+        }
+
+        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
+        if (!playerCharacter)
+        {
+            Logger::LogError("[COMBAT] Could not get player character for AbilityAttack");
+            return false;
+        }
+
+        // Validate character pointer
+        if (IsBadReadPtr(playerCharacter, sizeof(void*)))
+        {
+            Logger::LogError("[COMBAT] Character pointer is invalid for AbilityAttack");
+            return false;
+        }
+
+        // Get the condition control component
+        auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
+        if (!conditionComponent || IsBadReadPtr(conditionComponent, sizeof(void*)))
+        {
+            Logger::LogError("[COMBAT] Could not get or validate condition component for AbilityAttack");
+            return false;
+        }
+
+        // Call BP_SetCondition for ABILITY_ATTACK (ID 43)
+        try
+        {
+            conditionComponent->BP_SetCondition(
+                (SDK::ECharacterConditionId)43,  // ABILITY_ATTACK = 43
+                level,                            // Level (1-100)
+                500.0f,                           // span: 50 seconds
+                1000.0f,                          // value
+                0.1f,                             // interval
+                level,                            // subLevel
+                nullptr,                          // instigatedPlayer
+                0                                 // damageActionSerialNo
+            );
+        }
+        catch (...)
+        {
+            Logger::LogError("[COMBAT] Exception calling BP_SetCondition for AbilityAttack");
+            return false;
+        }
+
+        Logger::LogInfo("[COMBAT] AbilityAttack applied with level " + std::to_string(level));
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[COMBAT] Exception in AbilityAttack: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[COMBAT] Unknown exception in AbilityAttack");
+        return false;
+    }
 }
 
 bool InGameHack_AbilityDurable(int level)
 {
-    return SetAbility(44, level);  // ABILITY_DURABLE = 44
+    try
+    {
+        // Clamp level to 1-100
+        level = (level < 1) ? 1 : (level > 100) ? 100 : level;
+
+        // Get player controller
+        SDK::APlayerController* baseController = SDK_GetPlayerController();
+        if (!baseController)
+        {
+            Logger::LogError("[COMBAT] Could not get PlayerController for AbilityDurable");
+            return false;
+        }
+
+        // Validate controller pointer
+        try
+        {
+            if (!baseController || IsBadReadPtr(baseController, sizeof(void*)))
+            {
+                Logger::LogError("[COMBAT] PlayerController pointer is invalid for AbilityDurable");
+                return false;
+            }
+        }
+        catch (...)
+        {
+            Logger::LogError("[COMBAT] PlayerController validation failed for AbilityDurable");
+            return false;
+        }
+
+        // Cast to APlayerControllerBattle
+        SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
+        if (!playerController)
+        {
+            Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle for AbilityDurable");
+            return false;
+        }
+
+        // Get the player's current character
+        SDK::APawn* pawn = playerController->Pawn;
+        if (!pawn || IsBadReadPtr(pawn, sizeof(void*)))
+        {
+            Logger::LogError("[COMBAT] Pawn pointer is invalid for AbilityDurable");
+            return false;
+        }
+
+        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
+        if (!playerCharacter)
+        {
+            Logger::LogError("[COMBAT] Could not get player character for AbilityDurable");
+            return false;
+        }
+
+        // Validate character pointer
+        if (IsBadReadPtr(playerCharacter, sizeof(void*)))
+        {
+            Logger::LogError("[COMBAT] Character pointer is invalid for AbilityDurable");
+            return false;
+        }
+
+        // Get the condition control component
+        auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
+        if (!conditionComponent || IsBadReadPtr(conditionComponent, sizeof(void*)))
+        {
+            Logger::LogError("[COMBAT] Could not get or validate condition component for AbilityDurable");
+            return false;
+        }
+
+        // Call BP_SetCondition for ABILITY_DURABLE (ID 44)
+        try
+        {
+            conditionComponent->BP_SetCondition(
+                (SDK::ECharacterConditionId)44,  // ABILITY_DURABLE = 44
+                level,                            // Level (1-100)
+                500.0f,                           // span: 50 seconds
+                1000.0f,                          // value
+                0.1f,                             // interval
+                level,                            // subLevel
+                nullptr,                          // instigatedPlayer
+                0                                 // damageActionSerialNo
+            );
+        }
+        catch (...)
+        {
+            Logger::LogError("[COMBAT] Exception calling BP_SetCondition for AbilityDurable");
+            return false;
+        }
+
+        Logger::LogInfo("[COMBAT] AbilityDurable applied with level " + std::to_string(level));
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[COMBAT] Exception in AbilityDurable: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[COMBAT] Unknown exception in AbilityDurable");
+        return false;
+    }
 }
 
 bool InGameHack_AbilityMovespeed(int level)
 {
-    return SetAbility(45, level);  // ABILITY_MOVESPEED = 45
+    try
+    {
+        // Clamp level to 1-100
+        level = (level < 1) ? 1 : (level > 100) ? 100 : level;
+
+        // Get player controller
+        SDK::APlayerController* baseController = SDK_GetPlayerController();
+        if (!baseController)
+        {
+            Logger::LogError("[COMBAT] Could not get PlayerController for AbilityMovespeed");
+            return false;
+        }
+
+        // Validate controller pointer
+        try
+        {
+            if (!baseController || IsBadReadPtr(baseController, sizeof(void*)))
+            {
+                Logger::LogError("[COMBAT] PlayerController pointer is invalid for AbilityMovespeed");
+                return false;
+            }
+        }
+        catch (...)
+        {
+            Logger::LogError("[COMBAT] PlayerController validation failed for AbilityMovespeed");
+            return false;
+        }
+
+        // Cast to APlayerControllerBattle
+        SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
+        if (!playerController)
+        {
+            Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle for AbilityMovespeed");
+            return false;
+        }
+
+        // Get the player's current character
+        SDK::APawn* pawn = playerController->Pawn;
+        if (!pawn || IsBadReadPtr(pawn, sizeof(void*)))
+        {
+            Logger::LogError("[COMBAT] Pawn pointer is invalid for AbilityMovespeed");
+            return false;
+        }
+
+        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
+        if (!playerCharacter)
+        {
+            Logger::LogError("[COMBAT] Could not get player character for AbilityMovespeed");
+            return false;
+        }
+
+        // Validate character pointer
+        if (IsBadReadPtr(playerCharacter, sizeof(void*)))
+        {
+            Logger::LogError("[COMBAT] Character pointer is invalid for AbilityMovespeed");
+            return false;
+        }
+
+        // Get the condition control component
+        auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
+        if (!conditionComponent || IsBadReadPtr(conditionComponent, sizeof(void*)))
+        {
+            Logger::LogError("[COMBAT] Could not get or validate condition component for AbilityMovespeed");
+            return false;
+        }
+
+        // Call BP_SetCondition for ABILITY_MOVESPEED (ID 45)
+        try
+        {
+            conditionComponent->BP_SetConditionLocal(
+                (SDK::ECharacterConditionId)45,  // ABILITY_MOVESPEED = 45
+                level,                            // Level (1-100)
+                500.0f,                           // span: 50 seconds
+                1000.0f,                          // value
+                0.1f,                             // interval
+                level,                            // subLevel
+                nullptr,                          // instigatedPlayer
+                0                                 // damageActionSerialNo
+            );
+        }
+        catch (...)
+        {
+            Logger::LogError("[COMBAT] Exception calling BP_SetCondition for AbilityMovespeed");
+            return false;
+        }
+
+        Logger::LogInfo("[COMBAT] AbilityMovespeed applied with level " + std::to_string(level));
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[COMBAT] Exception in AbilityMovespeed: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[COMBAT] Unknown exception in AbilityMovespeed");
+        return false;
+    }
 }
 
 bool InGameHack_AbilityHeal(int level)
 {
-    return SetAbility(46, level);  // ABILITY_HEAL = 46
+    try
+    {
+        // Clamp level to 1-100
+        level = (level < 1) ? 1 : (level > 100) ? 100 : level;
+
+        // Get player controller
+        SDK::APlayerController* baseController = SDK_GetPlayerController();
+        if (!baseController)
+        {
+            Logger::LogError("[COMBAT] Could not get PlayerController for AbilityHeal");
+            return false;
+        }
+
+        // Validate controller pointer
+        try
+        {
+            if (!baseController || IsBadReadPtr(baseController, sizeof(void*)))
+            {
+                Logger::LogError("[COMBAT] PlayerController pointer is invalid for AbilityHeal");
+                return false;
+            }
+        }
+        catch (...)
+        {
+            Logger::LogError("[COMBAT] PlayerController validation failed for AbilityHeal");
+            return false;
+        }
+
+        // Cast to APlayerControllerBattle
+        SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
+        if (!playerController)
+        {
+            Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle for AbilityHeal");
+            return false;
+        }
+
+        // Get the player's current character
+        SDK::APawn* pawn = playerController->Pawn;
+        if (!pawn || IsBadReadPtr(pawn, sizeof(void*)))
+        {
+            Logger::LogError("[COMBAT] Pawn pointer is invalid for AbilityHeal");
+            return false;
+        }
+
+        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
+        if (!playerCharacter)
+        {
+            Logger::LogError("[COMBAT] Could not get player character for AbilityHeal");
+            return false;
+        }
+
+        // Validate character pointer
+        if (IsBadReadPtr(playerCharacter, sizeof(void*)))
+        {
+            Logger::LogError("[COMBAT] Character pointer is invalid for AbilityHeal");
+            return false;
+        }
+
+        // Get the condition control component
+        auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
+        if (!conditionComponent || IsBadReadPtr(conditionComponent, sizeof(void*)))
+        {
+            Logger::LogError("[COMBAT] Could not get or validate condition component for AbilityHeal");
+            return false;
+        }
+
+        // Call BP_SetCondition for ABILITY_HEAL (ID 46)
+        try
+        {
+            conditionComponent->BP_SetConditionLocal(
+                (SDK::ECharacterConditionId)46,  // ABILITY_HEAL = 46
+                level,                            // Level (1-100)
+                500.0f,                           // span: 50 seconds
+                1000.0f,                          // value
+                0.1f,                             // interval
+                level,                            // subLevel
+                nullptr,                          // instigatedPlayer
+                0                                 // damageActionSerialNo
+            );
+        }
+        catch (...)
+        {
+            Logger::LogError("[COMBAT] Exception calling BP_SetCondition for AbilityHeal");
+            return false;
+        }
+
+        Logger::LogInfo("[COMBAT] AbilityHeal applied with level " + std::to_string(level));
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[COMBAT] Exception in AbilityHeal: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[COMBAT] Unknown exception in AbilityHeal");
+        return false;
+    }
 }
 
 bool InGameHack_AbilityTechnique(int level)
 {
-    return SetAbility(47, level);  // ABILITY_TECHNIQUE = 47
+    try
+    {
+        // Clamp level to 1-100
+        level = (level < 1) ? 1 : (level > 100) ? 100 : level;
+
+        // Get player controller
+        SDK::APlayerController* baseController = SDK_GetPlayerController();
+        if (!baseController)
+        {
+            Logger::LogError("[COMBAT] Could not get PlayerController for AbilityTechnique");
+            return false;
+        }
+
+        // Validate controller pointer
+        try
+        {
+            if (!baseController || IsBadReadPtr(baseController, sizeof(void*)))
+            {
+                Logger::LogError("[COMBAT] PlayerController pointer is invalid for AbilityTechnique");
+                return false;
+            }
+        }
+        catch (...)
+        {
+            Logger::LogError("[COMBAT] PlayerController validation failed for AbilityTechnique");
+            return false;
+        }
+
+        // Cast to APlayerControllerBattle
+        SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
+        if (!playerController)
+        {
+            Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle for AbilityTechnique");
+            return false;
+        }
+
+        // Get the player's current character
+        SDK::APawn* pawn = playerController->Pawn;
+        if (!pawn || IsBadReadPtr(pawn, sizeof(void*)))
+        {
+            Logger::LogError("[COMBAT] Pawn pointer is invalid for AbilityTechnique");
+            return false;
+        }
+
+        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
+        if (!playerCharacter)
+        {
+            Logger::LogError("[COMBAT] Could not get player character for AbilityTechnique");
+            return false;
+        }
+
+        // Validate character pointer
+        if (IsBadReadPtr(playerCharacter, sizeof(void*)))
+        {
+            Logger::LogError("[COMBAT] Character pointer is invalid for AbilityTechnique");
+            return false;
+        }
+
+        // Get the condition control component
+        auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
+        if (!conditionComponent || IsBadReadPtr(conditionComponent, sizeof(void*)))
+        {
+            Logger::LogError("[COMBAT] Could not get or validate condition component for AbilityTechnique");
+            return false;
+        }
+
+        // Call BP_SetCondition for ABILITY_TECHNIQUE (ID 47)
+        try
+        {
+            conditionComponent->BP_SetConditionLocal(
+                (SDK::ECharacterConditionId)47,  // ABILITY_TECHNIQUE = 47
+                level,                            // Level (1-100)
+                500.0f,                           // span: 50 seconds
+                1000.0f,                          // value
+                0.1f,                             // interval
+                level,                            // subLevel
+                nullptr,                          // instigatedPlayer
+                0                                 // damageActionSerialNo
+            );
+        }
+        catch (...)
+        {
+            Logger::LogError("[COMBAT] Exception calling BP_SetCondition for AbilityTechnique");
+            return false;
+        }
+
+        Logger::LogInfo("[COMBAT] AbilityTechnique applied with level " + std::to_string(level));
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[COMBAT] Exception in AbilityTechnique: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[COMBAT] Unknown exception in AbilityTechnique");
+        return false;
+    }
 }
 
 // ============================================
@@ -4345,6 +4944,250 @@ bool InGameHack_IncreaseSeasonPassExp(SDK::ESeasonType type, int32_t count)
     catch (...)
     {
         LogToSeasonPassFile("[ERROR] Unknown exception occurred");
+        return false;
+    }
+}
+
+// ============================================================================
+// CHARACTER CONDITION AUTO-EXECUTION
+// ============================================================================
+
+/**
+ * Process character condition auto-execution on battle mode entry
+ * Detects transitions from invalid to valid battle mode and executes active toggles once
+ */
+void InGameHack_ProcessCharacterConditionAutoExecution(
+    bool enableDekuMode,
+    bool enableUnbreakable,
+    bool enableCompressionRegen,
+    bool enableMirioMode,
+    bool enableTokoyamiMode)
+{
+    // Static tracking of battle session state
+    static bool wasInValidBattle = false;
+    static bool hasExecutedInCurrentSession = false;  // Track if we already executed in this battle session
+    
+    try
+    {
+        // Check if currently in valid battle mode
+        bool isCurrentlyInValidBattle = IsValidBattleMode();
+        
+        // Detect transition: from invalid to valid battle mode
+        bool enteredValidBattle = (!wasInValidBattle && isCurrentlyInValidBattle);
+        
+        // Detect exit from battle: from valid to invalid
+        bool exitedBattle = (wasInValidBattle && !isCurrentlyInValidBattle);
+        
+        // Update state for next frame
+        wasInValidBattle = isCurrentlyInValidBattle;
+        
+        // If we exited battle, reset the execution flag for the next battle session
+        if (exitedBattle)
+        {
+            hasExecutedInCurrentSession = false;
+            Logger::LogInfo("[AUTO-EXECUTE] Exited battle mode - reset execution flag");
+            return;
+        }
+        
+        // If not in valid battle mode, don't do anything
+        if (!isCurrentlyInValidBattle)
+        {
+            return;
+        }
+        
+        // If we already executed in this session, don't execute again
+        if (hasExecutedInCurrentSession)
+        {
+            return;
+        }
+        
+        // If we just entered valid battle mode, execute active toggles ONCE
+        if (enteredValidBattle)
+        {
+            Logger::LogInfo("[AUTO-EXECUTE] Entered valid battle mode - executing active conditions ONCE");
+            
+            // Mark that we've executed so we won't do it again this session
+            hasExecutedInCurrentSession = true;
+            
+            // Execute DEKU MODE (CH202 Trans Mission - enum 85)
+            if (enableDekuMode)
+            {
+                Logger::LogInfo("[AUTO-EXECUTE] Executing DEKU MODE");
+                InGameHack_CH202TransMission();
+                // Auto-disable after execution
+                ImGuiMenu::g_HackSettings.CharCondition_EnableDekuMode = false;
+                Logger::LogInfo("[AUTO-EXECUTE] DEKU MODE disabled after execution");
+            }
+            
+            // Execute UNBREAKABLE
+            if (enableUnbreakable)
+            {
+                Logger::LogInfo("[AUTO-EXECUTE] Executing UNBREAKABLE");
+                InGameHack_Unbreakable();
+                // Auto-disable after execution
+                ImGuiMenu::g_HackSettings.CharCondition_EnableUnbreakable = false;
+                Logger::LogInfo("[AUTO-EXECUTE] UNBREAKABLE disabled after execution");
+            }
+            
+            // Execute MR COMPRESSE MODE (Compression Regeneration)
+            if (enableCompressionRegen)
+            {
+                Logger::LogInfo("[AUTO-EXECUTE] Executing MR COMPRESSE MODE");
+                InGameHack_CompressionRegeneration();
+                // Auto-disable after execution
+                ImGuiMenu::g_HackSettings.CharCondition_EnableCompressionRegen = false;
+                Logger::LogInfo("[AUTO-EXECUTE] MR COMPRESSE MODE disabled after execution");
+            }
+            
+            // Execute MIRIO MODE (CH024 Transparent)
+            if (enableMirioMode)
+            {
+                Logger::LogInfo("[AUTO-EXECUTE] Executing MIRIO MODE");
+                InGameHack_CH024Transparent();
+                // Auto-disable after execution
+                ImGuiMenu::g_HackSettings.CharCondition_EnableMirioMode = false;
+                Logger::LogInfo("[AUTO-EXECUTE] MIRIO MODE disabled after execution");
+            }
+            
+            // Execute TOKOYAMI DARK MODE (CH011 Abyss Dark Body)
+            if (enableTokoyamiMode)
+            {
+                Logger::LogInfo("[AUTO-EXECUTE] Executing TOKOYAMI DARK MODE");
+                InGameHack_CH011AbyssDarkBody();
+                // Auto-disable after execution
+                ImGuiMenu::g_HackSettings.CharCondition_EnableTokoyamiMode = false;
+                Logger::LogInfo("[AUTO-EXECUTE] TOKOYAMI DARK MODE disabled after execution");
+            }
+        }
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[AUTO-EXECUTE] Exception: " + std::string(e.what()));
+    }
+    catch (...)
+    {
+        Logger::LogError("[AUTO-EXECUTE] Unknown exception");
+    }
+}
+
+// ============================================================================
+// PLAYER NAME CHANGE
+// ============================================================================
+
+/**
+ * Change player name in the game
+ * Calls AGameModeBase::ChangeName on server
+ * @param newName - The new player name (max 255 characters)
+ * @return true if successful, false otherwise
+ */
+bool InGameHack_ChangePlayerName(const char* newName)
+{
+    try
+    {
+        // Validate input
+        if (!newName || newName[0] == '\0' || strlen(newName) > 255)
+        {
+            Logger::LogError("[ChangeName] Invalid player name");
+            return false;
+        }
+
+        // Get player controller
+        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!playerController)
+        {
+            Logger::LogError("[ChangeName] Could not get player controller");
+            return false;
+        }
+
+        // Validate controller pointer
+        if (IsBadReadPtr(playerController, sizeof(void*)))
+        {
+            Logger::LogError("[ChangeName] PlayerController pointer is invalid");
+            return false;
+        }
+
+        // Convert C string (const char*) to wide string (wchar_t*)
+        int requiredSize = MultiByteToWideChar(CP_UTF8, 0, newName, -1, NULL, 0);
+        if (requiredSize <= 0)
+        {
+            Logger::LogError("[ChangeName] Failed to convert player name to wide string");
+            return false;
+        }
+
+        wchar_t* wideNameBuffer = new wchar_t[requiredSize];
+        MultiByteToWideChar(CP_UTF8, 0, newName, -1, wideNameBuffer, requiredSize);
+
+        // Create FString from wide string
+        SDK::FString newNameFString(wideNameBuffer);
+
+        // Call ServerChangeName RPC on player controller
+        playerController->ServerChangeName(newNameFString);
+
+        // Clean up
+        delete[] wideNameBuffer;
+
+        Logger::LogInfo("[ChangeName] Successfully changed player name to: " + std::string(newName));
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[ChangeName] Exception: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[ChangeName] Unknown exception");
+        return false;
+    }
+}
+
+bool InGameHack_BuyLicenseExp(int32_t count)
+{
+    try
+    {
+        // Validate input
+        if (count <= 0 || count > 10000)
+        {
+            Logger::LogError("[BuyLicenseExp] Invalid count: " + std::to_string(count) + " (must be 1-10000)");
+            return false;
+        }
+
+        // Get BackendSubsystem singleton via direct pointer access
+        SDK::UBackendSubsystem* backendSubsystem = SDK::UBackendSubsystem::GetDefaultObj();
+        if (!backendSubsystem)
+        {
+            Logger::LogError("[BuyLicenseExp] Could not get BackendSubsystem");
+            return false;
+        }
+
+        if (IsBadReadPtr(backendSubsystem, sizeof(void*)))
+        {
+            Logger::LogError("[BuyLicenseExp] BackendSubsystem pointer is invalid");
+            return false;
+        }
+
+        try
+        {
+            // Call BuyLicenseExp with conversion to SDK int32 type
+            SDK::int32 requestId = backendSubsystem->BuyLicenseExp((SDK::int32)count);
+
+            Logger::LogInfo("[BuyLicenseExp] Purchase request sent: count=" + std::to_string(count) + ", requestId=" + std::to_string(requestId));
+            return true;
+        }
+        catch (...)
+        {
+            Logger::LogError("[BuyLicenseExp] Exception calling BuyLicenseExp method");
+            return false;
+        }
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[BuyLicenseExp] Exception: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[BuyLicenseExp] Unknown exception");
         return false;
     }
 }

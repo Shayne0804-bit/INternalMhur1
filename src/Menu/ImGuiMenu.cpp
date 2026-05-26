@@ -78,7 +78,7 @@ namespace ImGuiMenu
     // ============================================================================
     // GLOBAL MENU STATE
     // ============================================================================
-    static int g_SelectedTab = 0;  // 0=ESP, 1=AIMBOT, 2=COMBAT, 3=HACKS, 4=LOBBY EXPLOIT, 5=SETTINGS
+    static int g_SelectedTab = 0;  // 0=ESP, 1=CHARACTER, 2=AIMBOT, 3=COMBAT, 4=HACKS, 5=LOBBY EXPLOIT, 6=SETTINGS
     
     static bool g_Initialized = false;
     static bool g_Visible = true;
@@ -621,6 +621,146 @@ namespace ImGuiMenu
     // ============================================================================
     // RENDER FUNCTIONS - TAB CONTENT
     // ============================================================================
+    static void RenderCharacterMenu()
+    {
+        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentCyan);
+        ImGui::Text("CHARACTER MANAGEMENT");
+        ImGui::PopStyleColor();
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        // ===== OWNER CHARACTER SWAP =====
+        {
+            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
+            ImGui::Text("OWNER CHARACTER SWAP");
+            ImGui::PopStyleColor();
+            ImGui::Spacing();
+
+            // Character + Variation selector
+            static std::vector<SDK::EVariationCharacterId> all_variation_ids;
+            static std::vector<std::string> all_variation_names;
+            static std::vector<const char*> variation_ptrs;
+            
+            if (all_variation_ids.empty())
+            {
+                all_variation_ids = GetAllVariationCharacterIds();
+                all_variation_names = GetAllVariationNames();
+                for (const auto& name : all_variation_names)
+                {
+                    variation_ptrs.push_back(name.c_str());
+                }
+            }
+            
+            static int selected_variation_index = 0;
+            ImGui::Combo("Character##CharTab", &selected_variation_index, variation_ptrs.data(), (int)variation_ptrs.size());
+
+            // Single unified slider for technique levels
+            static int uniqueLevel = 9;
+            ImGuiSliderHelper::SliderInt("Technique Level##CharTab", &uniqueLevel, 150.0f, 1, 9);
+
+            ImGui::Spacing();
+
+            // Apply button
+            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.success);
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.55f, 1.0f, 0.65f, 1.0f));
+            
+            if (ImGui::Button("APPLY CONFIGURATION##CharTab", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
+            {
+                if (selected_variation_index >= 0 && selected_variation_index < (int)all_variation_ids.size())
+                {
+                    SDK::EVariationCharacterId variationCharId = all_variation_ids[selected_variation_index];
+                    auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(variationCharId);
+                    
+                    InGameHack_ApplyPlayerConfiguration(
+                        (int)characterId,
+                        variationId,
+                        uniqueLevel,
+                        uniqueLevel,
+                        uniqueLevel,
+                        0,
+                        0,
+                        0
+                    );
+                }
+            }
+            
+            ImGui::PopStyleColor(2);
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+        }
+
+        // ===== RELOAD ADJUST RATES =====
+        {
+            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
+            ImGui::Text("RELOAD ADJUST RATES");
+            ImGui::PopStyleColor();
+            ImGui::Spacing();
+
+            ImGuiSliderHelper::SliderFloat("General Reload Rate", &g_Settings.ReloadAdjustRate, 150.0f, 1.0f, 5.0f);
+            ImGuiSliderHelper::SliderFloat("Reload Rate (Roll Slot)", &g_Settings.ReloadAdjustRate_RollSlot, 150.0f, 1.0f, 5.0f);
+            ImGuiSliderHelper::SliderFloat("Reload Rate (Blue Flame)", &g_Settings.ReloadAdjustRate_WearBlueFlame, 150.0f, 1.0f, 50.0f);
+            
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+        }
+
+        // ===== UNIQUE SKILLS =====
+        {
+            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
+            ImGui::Text("UNIQUE SKILLS");
+            ImGui::PopStyleColor();
+            ImGui::Spacing();
+
+            if (ImGuiSliderHelper::SliderInt("Unique Skill 1##CharTab", &g_HackSettings.SupplyUniqueSkill1Level, 150.0f, 1, 9))
+            {
+                InGameHack_SetSkillLevel(1, g_HackSettings.SupplyUniqueSkill1Level);  // UNIQUE1
+            }
+            
+            if (ImGuiSliderHelper::SliderInt("Unique Skill 2##CharTab", &g_HackSettings.SupplyUniqueSkill2Level, 150.0f, 1, 9))
+            {
+                InGameHack_SetSkillLevel(2, g_HackSettings.SupplyUniqueSkill2Level);  // UNIQUE2
+            }
+            
+            if (ImGuiSliderHelper::SliderInt("Unique Skill 3##CharTab", &g_HackSettings.SupplyUniqueSkill3Level, 150.0f, 1, 9))
+            {
+                InGameHack_SetSkillLevel(3, g_HackSettings.SupplyUniqueSkill3Level);  // UNIQUE3
+            }
+            
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+        }
+
+        // ===== REVIVE OPTIONS =====
+        {
+            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
+            ImGui::Text("REVIVE OPTIONS");
+            ImGui::PopStyleColor();
+            ImGui::Spacing();
+
+            ImGuiHelper::ToggleSwitch("Recover Me (Self)##CharTab", &g_Settings.EnableRecoveryMe);
+            ImGui::SameLine();
+            ImGui::TextColored(g_Colors.warning, "(Self only)");
+
+            ImGuiHelper::ToggleSwitch("Recover Team##CharTab", &g_Settings.EnableRecoveryTeam);
+            ImGui::SameLine();
+            ImGui::TextColored(g_Colors.success, "(Team members)");
+
+            ImGuiHelper::ToggleSwitch("Recover All ESP##CharTab", &g_Settings.EnableRecoveryAllESP);
+            ImGui::SameLine();
+            ImGui::TextColored(ImVec4(0.6f, 0.8f, 0.2f, 1.0f), "(Whole map)");
+
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+        }
+
+
+
+    }
+
     static void RenderESPMenu()
     {
         // Global ESP Control Section
@@ -835,16 +975,6 @@ namespace ImGuiMenu
             ImGui::Spacing();
             ImGui::Separator();
             ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
-            ImGui::Text("RELOAD ADJUST RATES");
-            ImGui::PopStyleColor();
-            
-            ImGuiSliderHelper::SliderFloat("General Reload Rate", &g_Settings.ReloadAdjustRate, 150.0f, 1.0f, 5.0f);
-            ImGuiSliderHelper::SliderFloat("Reload Rate (Roll Slot)", &g_Settings.ReloadAdjustRate_RollSlot, 150.0f, 1.0f, 5.0f);
-            ImGuiSliderHelper::SliderFloat("Reload Rate (Blue Flame)", &g_Settings.ReloadAdjustRate_WearBlueFlame, 150.0f, 1.0f, 50.0f);
-            
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
             ImGui::Text("IMITATION HOTKEYS");
             ImGui::PopStyleColor();
             
@@ -1046,12 +1176,8 @@ namespace ImGuiMenu
             if (ImGui::Button("LvlUp", ImVec2(50, 0))) { SDK_TeleportItem_LevelUpCard(); }
             ImGui::SameLine();
             if (ImGui::Button("Enhance", ImVec2(60, 0))) { SDK_TeleportItem_TeamEnhancementKit(); }
-            ImGui::SameLine();
-            if (ImGui::Button("Rev 1/3", ImVec2(60, 0))) { SDK_TeleportItem_Revive1_3(); }
             
             ImGui::Spacing();
-            
-            if (ImGui::Button("Rev Full", ImVec2(70, 0))) { SDK_TeleportItem_ReviveFull(); }
             ImGui::SameLine();
             if (ImGui::Button("Card A", ImVec2(50, 0))) { SDK_TeleportItem_AbilitySupplyAlpha(); }
             ImGui::SameLine();
@@ -1107,59 +1233,7 @@ namespace ImGuiMenu
 
     static void RenderCombatMenu()
     {
-        // ===== TRAINING CHARACTER SECTION =====
-        if (ImGui::CollapsingHeader("OWNER CHARACTER SWAP", &g_CombatTrainingOpen, ImGuiTreeNodeFlags_None))
-        {
-            // Character + Variation selector
-            static std::vector<SDK::EVariationCharacterId> all_variation_ids;
-            static std::vector<std::string> all_variation_names;
-            static std::vector<const char*> variation_ptrs;
-            
-            if (all_variation_ids.empty())
-            {
-                all_variation_ids = GetAllVariationCharacterIds();
-                all_variation_names = GetAllVariationNames();
-                for (const auto& name : all_variation_names)
-                {
-                    variation_ptrs.push_back(name.c_str());
-                }
-            }
-            
-            static int selected_variation_index_training = 0;
-            ImGui::Combo("Character", &selected_variation_index_training, variation_ptrs.data(), (int)variation_ptrs.size());
 
-            // Single unified slider for technique levels
-            static int uniqueLevelTraining = 9;
-            ImGuiSliderHelper::SliderInt("Technique Level", &uniqueLevelTraining, 150.0f, 1, 9);
-
-            ImGui::Spacing();
-
-            // Apply button
-            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.success);
-            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.55f, 1.0f, 0.65f, 1.0f));
-            
-            if (ImGui::Button("APPLY CONFIGURATION", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
-            {
-                if (selected_variation_index_training >= 0 && selected_variation_index_training < (int)all_variation_ids.size())
-                {
-                    SDK::EVariationCharacterId variationCharId = all_variation_ids[selected_variation_index_training];
-                    auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(variationCharId);
-                    
-                    InGameHack_ApplyPlayerConfiguration(
-                        (int)characterId,
-                        variationId,
-                        uniqueLevelTraining,
-                        uniqueLevelTraining,
-                        uniqueLevelTraining,
-                        0,
-                        0,
-                        0
-                    );
-                }
-            }
-            
-            ImGui::PopStyleColor(2);
-        }
 
         // ===== INVINCIBILITY & RECOVERY SECTION =====
         if (ImGui::CollapsingHeader("INVINCIBILITY & RECOVERY", &g_InvincibilityRecoveryOpen, ImGuiTreeNodeFlags_None))
@@ -1200,21 +1274,6 @@ namespace ImGuiMenu
             ImGui::Separator();
             ImGui::Spacing();
 
-            SectionHeader("Recovery Options");
-
-            ImGuiHelper::ToggleSwitch("Recover Me (Self)", &g_Settings.EnableRecoveryMe);
-            ImGui::SameLine();
-            ImGui::TextColored(g_Colors.warning, "(Self only)");
-
-            ImGuiHelper::ToggleSwitch("Recover Team", &g_Settings.EnableRecoveryTeam);
-            ImGui::SameLine();
-            ImGui::TextColored(g_Colors.success, "(Team members)");
-
-            ImGuiHelper::ToggleSwitch("Recover All ESP", &g_Settings.EnableRecoveryAllESP);
-            ImGui::SameLine();
-            ImGui::TextColored(ImVec4(0.6f, 0.8f, 0.2f, 1.0f), "(Whole map)");
-
-            ImGui::Spacing();
             SectionHeader("Recovery Team Roster");
 
             ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.success);
@@ -1308,20 +1367,7 @@ namespace ImGuiMenu
 
             // Condition mode toggle
             // CH202 Trans Mission toggle (85)
-            static bool g_EnableDekuMode = false;
-            if (ImGuiHelper::ToggleSwitch("DEKU MODE", &g_EnableDekuMode))
-            {
-                if (g_EnableDekuMode)
-                {
-                    if (InGameHack_CH202TransMission())
-                    {
-}
-                }
-                else
-                {
-}
-            }
-
+            ImGuiHelper::ToggleSwitch("DEKU MODE", &g_HackSettings.CharCondition_EnableDekuMode);
             ImGui::Spacing();
             
             // CH202 Init Transmission Mission Level enable/disable toggle
@@ -1335,70 +1381,44 @@ namespace ImGuiMenu
             ImGui::Spacing();
 
             // Unbreakable toggle
-            static bool g_EnableUnbreakable = false;
-            if (ImGuiHelper::ToggleSwitch("UNBREAKABLE", &g_EnableUnbreakable))
-            {
-                if (g_EnableUnbreakable)
-                {
-                    if (InGameHack_Unbreakable())
-                    {
-}
-                }
-                else
-                {
-}
-            }
-
+            ImGuiHelper::ToggleSwitch("UNBREAKABLE", &g_HackSettings.CharCondition_EnableUnbreakable);
             ImGui::Spacing();
 
             // Compression Regeneration toggle
-            static bool g_EnableCompressionRegen = false;
-            if (ImGuiHelper::ToggleSwitch("MR COMPRESSE MODE", &g_EnableCompressionRegen))
-            {
-                if (g_EnableCompressionRegen)
-                {
-                    if (InGameHack_CompressionRegeneration())
-                    {
-}
-                }
-                else
-                {
-}
-            }
-
+            ImGuiHelper::ToggleSwitch("MR COMPRESSE MODE", &g_HackSettings.CharCondition_EnableCompressionRegen);
             ImGui::Spacing();
 
             // CH024 Transparent toggle
-            static bool g_EnableMirioMode = false;
-            if (ImGuiHelper::ToggleSwitch("MIRIO MODE", &g_EnableMirioMode))
-            {
-                if (g_EnableMirioMode)
-                {
-                    if (InGameHack_CH024Transparent())
-                    {
-}
-                }
-                else
-                {
-}
-            }
-
+            ImGuiHelper::ToggleSwitch("MIRIO MODE", &g_HackSettings.CharCondition_EnableMirioMode);
             ImGui::Spacing();
 
             // CH011 Abyss Dark Body toggle
-            static bool g_EnableTokoyamiMode = false;
-            if (ImGuiHelper::ToggleSwitch("TOKOYAMI DARK MODE", &g_EnableTokoyamiMode))
+            ImGuiHelper::ToggleSwitch("TOKOYAMI DARK MODE", &g_HackSettings.CharCondition_EnableTokoyamiMode);
+
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+
+            SectionHeader("Player Name Change");
+
+            // Player name input field
+            ImGui::InputText("New Player Name", g_HackSettings.ChangePlayerNameBuffer, sizeof(g_HackSettings.ChangePlayerNameBuffer));
+            ImGui::Spacing();
+
+            // Change player name button
+            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
+            if (ImGui::Button("CHANGE NAME", ImVec2(-1, 0)))
             {
-                if (g_EnableTokoyamiMode)
+                if (InGameHack_ChangePlayerName(g_HackSettings.ChangePlayerNameBuffer))
                 {
-                    if (InGameHack_CH011AbyssDarkBody())
-                    {
-}
+                    Logger::LogInfo("[MENU] Player name changed to: " + std::string(g_HackSettings.ChangePlayerNameBuffer));
                 }
                 else
                 {
-}
+                    Logger::LogError("[MENU] Failed to change player name");
+                }
             }
+            ImGui::PopStyleColor();
         }
 
         // ===== ABILITY HACKS SECTION =====
@@ -1420,21 +1440,6 @@ namespace ImGuiMenu
             if (bPreventDrop)
             {
                 InGameHack_PreventDropOnDeath(true);
-            }
-            ImGui::Spacing();
-
-            // Unique Skills Sliders (Unique 1, 2, 3)
-            {
-                ImGuiSliderHelper::SliderInt("Unique Skill 1", &g_HackSettings.SupplyUniqueSkill1Level, 150.0f, 1, 9);
-                ImGuiSliderHelper::SliderInt("Unique Skill 2", &g_HackSettings.SupplyUniqueSkill2Level, 150.0f, 1, 9);
-                ImGuiSliderHelper::SliderInt("Unique Skill 3", &g_HackSettings.SupplyUniqueSkill3Level, 150.0f, 1, 9);
-                
-                if (ImGui::Button("Set Unique Skills", ImVec2(-1, 0)))
-                {
-                    InGameHack_SetSkillLevel(1, g_HackSettings.SupplyUniqueSkill1Level);  // UNIQUE1
-                    InGameHack_SetSkillLevel(2, g_HackSettings.SupplyUniqueSkill2Level);  // UNIQUE2
-                    InGameHack_SetSkillLevel(3, g_HackSettings.SupplyUniqueSkill3Level);  // UNIQUE3
-                }
             }
             ImGui::Spacing();
 
@@ -2168,6 +2173,144 @@ namespace ImGuiMenu
             ImGui::TextColored(g_Colors.success, "Modifies _prevSeasonExp directly in memory");
             ImGui::TextColored(g_Colors.textSecondary, "EXP persists in current session. Check C:/Temp/SeasonPassExp.log");
         }
+
+        // ===== PLAYER NAME CHANGE =====
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        static bool g_PlayerNameChangeOpen = true;
+        if (ImGui::CollapsingHeader("PLAYER NAME CHANGE", &g_PlayerNameChangeOpen))
+        {
+            ImGui::TextColored(g_Colors.textSecondary, "Change your player name (lobby)");
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+
+            // Player name input field
+            ImGui::InputText("New Player Name##LobbyChange", g_HackSettings.ChangePlayerNameBuffer, sizeof(g_HackSettings.ChangePlayerNameBuffer));
+            ImGui::Spacing();
+
+            // Change player name button
+            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.4f, 0.8f, 1.0f, 1.0f));
+            if (ImGui::Button("CHANGE NAME", ImVec2(-1, 35)))
+            {
+                if (InGameHack_ChangePlayerName(g_HackSettings.ChangePlayerNameBuffer))
+                {
+                    Logger::LogInfo("[MENU] Player name changed to: " + std::string(g_HackSettings.ChangePlayerNameBuffer));
+                    ImGui::OpenPopup("NameChangeSuccess");
+                }
+                else
+                {
+                    Logger::LogError("[MENU] Failed to change player name");
+                    ImGui::OpenPopup("NameChangeFailed");
+                }
+            }
+            ImGui::PopStyleColor(2);
+
+            ImGui::Spacing();
+            ImGui::TextColored(g_Colors.textSecondary, "Changes your display name instantly");
+        }
+
+        // Success popup - Name Change
+        if (ImGui::BeginPopupModal("NameChangeSuccess", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            ImGui::TextColored(g_Colors.success, "Name changed successfully!");
+            ImGui::TextColored(g_Colors.textSecondary, "New name: %s", g_HackSettings.ChangePlayerNameBuffer);
+            ImGui::Spacing();
+            
+            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
+            {
+                ImGui::CloseCurrentPopup();
+            }
+            
+            ImGui::EndPopup();
+        }
+
+        // Failed popup - Name Change
+        if (ImGui::BeginPopupModal("NameChangeFailed", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            ImGui::TextColored(g_Colors.danger, "Failed to change player name.");
+            ImGui::TextColored(g_Colors.textSecondary, "Ensure the name is valid (max 255 characters).");
+            ImGui::Spacing();
+            
+            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
+            {
+                ImGui::CloseCurrentPopup();
+            }
+            
+            ImGui::EndPopup();
+        }
+
+        // ===== BUY LICENSE EXP =====
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        static bool g_BuyLicenseExpOpen = true;
+        if (ImGui::CollapsingHeader("BUY LICENSE EXP", &g_BuyLicenseExpOpen))
+        {
+            ImGui::TextColored(g_Colors.textSecondary, "Purchase License Exp from backend");
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+
+            // Buy License Exp amount slider
+            ImGui::SliderInt("License Exp Amount##BuyLicense", &g_HackSettings.BuyLicenseExpCount, 1, 10000, "%d");
+            ImGui::Spacing();
+
+            // Buy License Exp button
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.6f, 0.2f, 0.8f));
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.0f, 0.8f, 0.3f, 1.0f));
+            if (ImGui::Button("BUY LICENSE EXP", ImVec2(-1, 35)))
+            {
+                if (InGameHack_BuyLicenseExp(g_HackSettings.BuyLicenseExpCount))
+                {
+                    Logger::LogInfo("[MENU] Buying " + std::to_string(g_HackSettings.BuyLicenseExpCount) + " License Exp");
+                    ImGui::OpenPopup("BuyLicenseExpSuccess");
+                }
+                else
+                {
+                    Logger::LogError("[MENU] Failed to buy License Exp");
+                    ImGui::OpenPopup("BuyLicenseExpFailed");
+                }
+            }
+            ImGui::PopStyleColor(2);
+
+            ImGui::Spacing();
+            ImGui::TextColored(g_Colors.textSecondary, "Request sent to backend server");
+        }
+
+        // Success popup - Buy License Exp
+        if (ImGui::BeginPopupModal("BuyLicenseExpSuccess", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            ImGui::TextColored(g_Colors.success, "License Exp purchase requested!");
+            ImGui::TextColored(g_Colors.textSecondary, "Amount: %d", g_HackSettings.BuyLicenseExpCount);
+            ImGui::Spacing();
+            
+            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
+            {
+                ImGui::CloseCurrentPopup();
+            }
+            
+            ImGui::EndPopup();
+        }
+
+        // Failed popup - Buy License Exp
+        if (ImGui::BeginPopupModal("BuyLicenseExpFailed", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            ImGui::TextColored(g_Colors.danger, "Failed to purchase License Exp.");
+            ImGui::TextColored(g_Colors.textSecondary, "Check game state and try again.");
+            ImGui::Spacing();
+            
+            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
+            {
+                ImGui::CloseCurrentPopup();
+            }
+            
+            ImGui::EndPopup();
+        }
     }
 
     static void RenderSettingsMenu()
@@ -2454,6 +2597,18 @@ return false;
             g_ProfilesList = SettingsManager::GetProfilesList();
         }
 
+        // Load the last saved profile if available
+        if (!g_ProfilesList.empty())
+        {
+            // Get the most recently modified profile (last one saved)
+            std::string lastProfileName = g_ProfilesList.back();
+            if (SettingsManager::LoadCurrentProfile(lastProfileName))
+            {
+                g_CurrentProfileName = lastProfileName;
+                Logger::LogInfo("[Menu] Loaded last saved profile: " + lastProfileName);
+            }
+        }
+
         g_Initialized = true;
 return true;
     }
@@ -2617,6 +2772,15 @@ return true;
         // Update hotkey listener state every frame (Zero1 exact)
         UpdateHotkeyListener();
 
+        // Process character condition auto-execution on battle mode entry
+        InGameHack_ProcessCharacterConditionAutoExecution(
+            g_HackSettings.CharCondition_EnableDekuMode,
+            g_HackSettings.CharCondition_EnableUnbreakable,
+            g_HackSettings.CharCondition_EnableCompressionRegen,
+            g_HackSettings.CharCondition_EnableMirioMode,
+            g_HackSettings.CharCondition_EnableTokoyamiMode
+        );
+
         // ⭐ RETRY MECHANISM: Try to initialize GameThreadHook every frame if not active yet
         if (!GameThreadHook::IsHookActive())
         {
@@ -2765,24 +2929,28 @@ backbuffer->Release();
                     g_SelectedTab = 0;
                 ImGui::Spacing();
                 
-                if (ModernButton("N   AIMBOT", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 1))
+                if (ModernButton("C   CHARACTER", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 1))
                     g_SelectedTab = 1;
                 ImGui::Spacing();
                 
-                if (ModernButton("Q   COMBAT", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 2))
+                if (ModernButton("N   AIMBOT", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 2))
                     g_SelectedTab = 2;
                 ImGui::Spacing();
                 
-                if (ModernButton("I   HACKS", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 3))
+                if (ModernButton("Q   COMBAT", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 3))
                     g_SelectedTab = 3;
                 ImGui::Spacing();
                 
-                if (ModernButton("O   LOBBY EXPLOIT", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 4))
+                if (ModernButton("I   HACKS", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 4))
                     g_SelectedTab = 4;
                 ImGui::Spacing();
                 
-                if (ModernButton("R   SETTINGS", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 5))
+                if (ModernButton("O   LOBBY EXPLOIT", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 5))
                     g_SelectedTab = 5;
+                ImGui::Spacing();
+                
+                if (ModernButton("R   SETTINGS", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 6))
+                    g_SelectedTab = 6;
                 ImGui::Spacing();
 
                 ImGui::SetCursorPosY(ImGui::GetWindowHeight() - 80.0f);
@@ -2805,19 +2973,22 @@ backbuffer->Release();
                 case 0:  // ESP
                     RenderESPMenu();
                     break;
-                case 1:  // AIMBOT
+                case 1:  // CHARACTER
+                    RenderCharacterMenu();
+                    break;
+                case 2:  // AIMBOT
                     RenderAimbotMenu();
                     break;
-                case 2:  // COMBAT
+                case 3:  // COMBAT
                     RenderCombatMenu();
                     break;
-                case 3:  // HACKS
+                case 4:  // HACKS
                     RenderHacksMenu();
                     break;
-                case 4:  // LOBBY EXPLOIT
+                case 5:  // LOBBY EXPLOIT
                     RenderLobbyExploitMenu();
                     break;
-                case 5:  // SETTINGS
+                case 6:  // SETTINGS
                     RenderSettingsMenu();
                     break;
                 }

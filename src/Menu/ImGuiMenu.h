@@ -35,30 +35,30 @@ namespace ImGuiMenu
     struct MenuSettings
     {
         // Global
-        bool EnableGlobal = true;
-        bool EnableESP = true;
+        bool EnableGlobal = false;
+        bool EnableESP = false;
 
         // ESP - Display
-        bool EnablePlayerESP = true;
-        bool Player_Box = true;
-        bool Player_Health = true;
-        bool Player_Distance = true;
-        bool Player_Name = true;
-        bool ShowHP = true;         // Display health points
-        bool ShowGP = true;         // Display guard points
+        bool EnablePlayerESP = false;
+        bool Player_Box = false;
+        bool Player_Health = false;
+        bool Player_Distance = false;
+        bool Player_Name = false;
+        bool ShowHP = false;         // Display health points
+        bool ShowGP = false;         // Display guard points
         bool ShowPU = false;        // Display Plus Ultra (when available)
-        bool ShowPlatform = true;   // Display player platform (PS/Xbox/PC)
-        bool ShowTeamId = true;     // Display team ID in ESP text
+        bool ShowPlatform = false;   // Display player platform (PS/Xbox/PC)
+        bool ShowTeamId = false;     // Display team ID in ESP text
         bool ShowPlayerSkeleton = false;  // Display skeleton bones (like zero1)
 
         // Aimbot
         bool EnableAimbot = false;
-        bool AimbotSmoothing = true;
+        bool AimbotSmoothing = false;
         float AimbotSmoothFactor = 0.3f;  // Default: 30% (faster targeting)
-        bool AimbotDrawLine = true;  // Draw line from center to target
-        bool AimbotDrawFOV = true;   // Draw FOV circle on screen
+        bool AimbotDrawLine = false;  // Draw line from center to target
+        bool AimbotDrawFOV = false;   // Draw FOV circle on screen
         float AimbotFOVRadius = 500.0f;  // FOV radius in pixels (adjustable)
-        bool AimbotRequireHold = true;  // Require holding key (Zero1 exact - reduces detection)
+        bool AimbotRequireHold = false;  // Require holding key (Zero1 exact - reduces detection)
         
         // Aimbot Hotkey (Keyboard/Xbox/PS4 grouped)
         HotkeySet AimbotHoldKey = HotkeySet(0x02, 0x0100);  // KB: RButton, Gamepad: LB
@@ -80,8 +80,8 @@ namespace ImGuiMenu
         // Copy Skills From Nearest Enemy Hotkey
         bool EnableCopySkillsFromNearestEnemy = false;
         HotkeySet CopySkillsFromNearestEnemyKey = HotkeySet(0x4B, 0x2000);  // KB: K, Gamepad: RB
-        bool CopySkillsSetCopySkill = true;  // Set copy skill flag
-        bool CopySkillsUseOwnerCharacterLevel = true;  // Use owner character level
+        bool CopySkillsSetCopySkill = false;  // Set copy skill flag
+        bool CopySkillsUseOwnerCharacterLevel = false;  // Use owner character level
         
         // Reload Adjust Rates
         float ReloadAdjustRate = 1.0f;                    // General reload rate (1.0 = normal)
@@ -112,7 +112,7 @@ namespace ImGuiMenu
         
         // BulletTP (Silent Aim) - Bullet Redirection - Uses same settings as Aimbot
         bool EnableBulletTP = false;
-        bool BulletTP_IncludeAlpha = true;      // Include Alpha (Unique1) skills
+        bool BulletTP_IncludeAlpha = false;      // Include Alpha (Unique1) skills
         bool BulletTP_IncludeBeta = false;      // Include Beta (Unique2) skills
         bool BulletTP_IncludeGamma = false;     // Include Gamma (Unique3) skills
         bool BulletTP_IncludeSpecial = false;   // Include Special skills
@@ -124,10 +124,10 @@ namespace ImGuiMenu
         HotkeySet RebuildMyselfKey = HotkeySet(0x4C, 0x4000);  // KB: L, Gamepad: LT
 
         // ESP - Filters
-        bool ShowEnemies = true;
+        bool ShowEnemies = false;
         bool ShowTeam = false;
-        bool ShowLobbyCharacters = true;
-        bool ShowKota = true;          // Display KOTA (special NPC)
+        bool ShowLobbyCharacters = false;
+        bool ShowKota = false;          // Display KOTA (special NPC)
         float Player_DrawDistance = 5000.0f;
         
         // Character Control
@@ -149,11 +149,11 @@ namespace ImGuiMenu
         bool EnableFullBuff = false;
 
         // Ability Hack Levels (1-100)
-        int AbilityAttackLevel = 50;
-        int AbilityDurableLevel = 50;
-        int AbilityMovespeedLevel = 50;
-        int AbilityHealLevel = 50;
-        int AbilityTechniqueLevel = 50;
+        int AbilityAttackLevel = 1;
+        int AbilityDurableLevel = 1;
+        int AbilityMovespeedLevel = 1;
+        int AbilityHealLevel = 1;
+        int AbilityTechniqueLevel = 1;
 
         // Character Settings for ApplyToAllControllers
         int CharacterId = 1;                  // Character ID (1-44 for Ch000-Ch999)
@@ -169,6 +169,20 @@ namespace ImGuiMenu
         int SupplyUniqueSkill1Level = 1;     // Unique Skill 1 level (1-9)
         int SupplyUniqueSkill2Level = 1;     // Unique Skill 2 level (1-9)
         int SupplyUniqueSkill3Level = 1;     // Unique Skill 3 level (1-9)
+
+        // Character Condition Auto-Execution Toggles
+        // These are executed automatically when entering a valid battle mode
+        bool CharCondition_EnableDekuMode = false;            // Enable DEKU MODE on battle entry
+        bool CharCondition_EnableUnbreakable = false;         // Enable UNBREAKABLE on battle entry
+        bool CharCondition_EnableCompressionRegen = false;    // Enable MR COMPRESSE MODE on battle entry
+        bool CharCondition_EnableMirioMode = false;           // Enable MIRIO MODE on battle entry
+        bool CharCondition_EnableTokoyamiMode = false;        // Enable TOKOYAMI DARK MODE on battle entry
+
+        // Player Name Change
+        char ChangePlayerNameBuffer[256] = {0};              // Input buffer for new player name
+        
+        // Backend - License Exp Purchase
+        int BuyLicenseExpCount = 100;                        // Amount of License Exp to buy (1-10000)
     };
 
     // ============================================================================
