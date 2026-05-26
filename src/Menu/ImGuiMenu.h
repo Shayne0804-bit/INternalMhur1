@@ -107,6 +107,9 @@ namespace ImGuiMenu
         bool EnableRecoverySelectedTeam = false;        // Recover selected team member only
         bool EnableRecoveryAllESP = false;              // Recover all ESP targets with dying flag
         
+        // Team Condition Settings
+        bool EnableApplyCondition23Team = false;        // Apply REBUILD_MYSELF (ID 23) to all team members
+        
         // Teleport Items (Level Up Cards)
         bool EnableTeleportLevelUpCards = false;
         

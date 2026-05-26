@@ -2494,6 +2494,77 @@ bool InGameHack_RecoverDyingSpecificTeamMember(int teamMemberIndex)
     }
 }
 
+bool InGameHack_ApplyConditionToTeam(int conditionId, int level, float span, float value, float interval, int subLevel)
+{
+    try
+    {
+        if (!IsValidBattleMode())
+        {
+            Logger::LogWarning("[APPLY CONDITION TEAM] Not in valid battle mode");
+            return false;
+        }
+
+        auto teamCharacters = InGameHack_GetTeamCharacterBattles();
+        if (teamCharacters.empty())
+        {
+            Logger::LogWarning("[APPLY CONDITION TEAM] No team characters found");
+            return false;
+        }
+
+        int successCount = 0;
+        for (auto* character : teamCharacters)
+        {
+            if (!character || character->IsDefaultObject())
+                continue;
+
+            auto* conditionComponent = character->BP_GetConditionControlComponent();
+            if (!conditionComponent)
+                continue;
+
+            try
+            {
+                conditionComponent->SetCondition_ToServer(
+                    (SDK::ECharacterConditionId)conditionId,
+                    level,
+                    span,
+                    value,
+                    interval,
+                    subLevel,
+                    nullptr,
+                    0,
+                    false
+                );
+                successCount++;
+            }
+            catch (...)
+            {
+                // Continue applying to other team members
+            }
+        }
+
+        Logger::LogInfo("[APPLY CONDITION TEAM] Applied condition " + std::to_string(conditionId) + " to " + std::to_string(successCount) + "/" + std::to_string(teamCharacters.size()) + " team members");
+        return successCount > 0;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[APPLY CONDITION TEAM] Exception: " + std::string(e.what()));
+        return false;
+    }
+}
+
+bool InGameHack_ApplyCondition23ToTeam()
+{
+    // Apply REBUILD_MYSELF (ID 23) to all team members
+    return InGameHack_ApplyConditionToTeam(
+        23,                              // REBUILD_MYSELF
+        0,                               // Level
+        0.0f,                            // span
+        0.0f,                            // value
+        0.0f,                            // interval
+        0                                // subLevel
+    );
+}
+
 /**
  * Recover ALL characters on map with full health restoration
  * Uses RecoverDyingAlly_ToServer on all characters regardless of team
@@ -3617,6 +3688,32 @@ std::vector<SDK::ACharacterBattle*> InGameHack_GetTeamCharacterBattles()
     }
 
     return teamCharacters;
+}
+
+SDK::ACharacterBattle* InGameHack_GetTeamCharacterByIndex(int teamMemberIndex)
+{
+    try
+    {
+        if (!IsValidBattleMode())
+            return nullptr;
+
+        if (teamMemberIndex < 0)
+            return nullptr;
+
+        auto teamCharacters = InGameHack_GetTeamCharacterBattles();
+        if (teamMemberIndex >= (int)teamCharacters.size())
+            return nullptr;
+
+        SDK::ACharacterBattle* character = teamCharacters[teamMemberIndex];
+        if (!character || character->IsDefaultObject())
+            return nullptr;
+
+        return character;
+    }
+    catch (...)
+    {
+        return nullptr;
+    }
 }
 
 std::vector<std::string> InGameHack_GetTeamCharacterNames()

@@ -228,6 +228,9 @@ namespace SettingsManager
 			file << "    \"EnableRecoverySelectedTeam\": " << BoolToJson(menuSettings.EnableRecoverySelectedTeam) << ",\n";
 			file << "    \"EnableRecoveryAllESP\": " << BoolToJson(menuSettings.EnableRecoveryAllESP) << ",\n";
 
+			// Team Condition Settings
+			file << "    \"EnableApplyCondition23Team\": " << BoolToJson(menuSettings.EnableApplyCondition23Team) << ",\n";
+
 			// Teleport Items
 			file << "    \"EnableTeleportLevelUpCards\": " << BoolToJson(menuSettings.EnableTeleportLevelUpCards) << ",\n";
 
@@ -337,6 +340,7 @@ namespace SettingsManager
 		emptyMenu.EnableRecoveryTeam = false;
 		emptyMenu.EnableRecoverySelectedTeam = false;
 		emptyMenu.EnableRecoveryAllESP = false;
+		emptyMenu.EnableApplyCondition23Team = false;
 		emptyMenu.EnableTeleportLevelUpCards = false;
 		emptyMenu.EnableBulletTP = false;
 		emptyMenu.BulletTP_IncludeAlpha = false;
@@ -562,6 +566,8 @@ namespace SettingsManager
 			menuSettings.EnableRecoveryTeam = ExtractBool("EnableRecoveryTeam");
 			menuSettings.EnableRecoverySelectedTeam = ExtractBool("EnableRecoverySelectedTeam");
 			menuSettings.EnableRecoveryAllESP = ExtractBool("EnableRecoveryAllESP");
+
+			menuSettings.EnableApplyCondition23Team = ExtractBool("EnableApplyCondition23Team");
 
 			menuSettings.EnableTeleportLevelUpCards = ExtractBool("EnableTeleportLevelUpCards");
 

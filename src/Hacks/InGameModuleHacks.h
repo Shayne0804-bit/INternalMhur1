@@ -425,8 +425,11 @@ std::vector<class SDK::ACharacterBattle*> InGameHack_GetAllCharacterBattles();
  */
 std::vector<std::string> InGameHack_GetCharacterNames();
 std::vector<SDK::ACharacterBattle*> InGameHack_GetTeamCharacterBattles();
+SDK::ACharacterBattle* InGameHack_GetTeamCharacterByIndex(int teamMemberIndex);
 std::vector<std::string> InGameHack_GetTeamCharacterNames();
 bool InGameHack_RecoverDyingTeamMember(SDK::ACharacterBattle* target);
+bool InGameHack_ApplyConditionToTeam(int conditionId, int level, float span, float value, float interval, int subLevel);
+bool InGameHack_ApplyCondition23ToTeam();
 
 /**
  * Log all damage attenuation curves found in game

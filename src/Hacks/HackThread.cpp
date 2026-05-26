@@ -525,7 +525,21 @@ void HackThreadManager::FrameUpdateHacks()
         }
         catch (...)
         {
-}
+        }
+    }
+
+    // ===== APPLY CONDITION 23 TO ENTIRE TEAM (EVERY FRAME) =====
+    if (ImGuiMenu::g_Settings.EnableApplyCondition23Team)
+    {
+        try
+        {
+            EnqueueHack([]() {
+                InGameHack_ApplyCondition23ToTeam();
+            });
+        }
+        catch (...)
+        {
+        }
     }
 
     // ===== BULLET REDIRECTION (EVERY FRAME) =====

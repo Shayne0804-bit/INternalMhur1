@@ -1316,8 +1316,15 @@ namespace ImGuiMenu
                     {
                         ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.0f, 1.0f), "Select a team member from the list above.");
                     }
+                    
+                    ImGui::Spacing();
+                    ImGui::Separator();
+                    ImGui::Spacing();
+                    
+                    ImGuiHelper::ToggleSwitchLarge("Apply Condition 23 To Team", &g_Settings.EnableApplyCondition23Team);
+                    ImGui::SameLine();
+                    ImGui::TextColored(g_Colors.accentColor, "(REBUILD_MYSELF)");
                 }
-                else
                 {
                     ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.0f, 1.0f), "No team names could be generated.");
                 }
