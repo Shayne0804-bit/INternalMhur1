@@ -20,13 +20,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -87,6 +87,7 @@
   <ItemGroup>
     <ClCompile Include="DllEntry.cpp" />
     <ClCompile Include="src\Core\Main.cpp" />
+    <ClCompile Include="src\Core\UnloadManager.cpp" />
     <ClCompile Include="src\Hooks\D3D11Hook.cpp" />
     <ClCompile Include="src\Hooks\GameThreadHook.cpp" />
     <ClCompile Include="src\Menu\ImGuiMenu.cpp" />
@@ -98,17 +99,31 @@
     <ClCompile Include="src\dependencies\imgui\imgui_impl_dx11.cpp" />
     <ClCompile Include="src\dependencies\imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="src\dependencies\imgui\custom.cpp" />
+    <ClCompile Include="src\SDK\SDKInit.cpp" />
     <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\Basic.cpp" />
     <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\CoreUObject_functions.cpp" />
     <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\Engine_functions.cpp" />
+    <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\GameModule_functions.cpp" />
     <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\InGameModule_functions.cpp" />
+    <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\OutGameModule_functions.cpp" />
+    <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\BackendSubsystem_functions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\Main.h" />
+    <ClInclude Include="src\Core\UnloadManager.h" />
     <ClInclude Include="src\Hooks\D3D11Hook.h" />
     <ClInclude Include="src\Hooks\GameThreadHook.h" />
     <ClInclude Include="src\Menu\ImGuiMenu.h" />
     <ClInclude Include="src\Utils\Logger.h" />
+    <ClInclude Include="src\SDK\SDKInit.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Hacks\InGameModuleHacks.cpp">
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <ClCompile Include="src\Hacks\HackThread.cpp">
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -30,9 +30,6 @@
 #include "ImGui_classes.hpp"
 #include "ImGui_structs.hpp"
 
-// Include Logger from project
-#include "../../../src/Utils/Logger.h"
-
 // Include Menu Settings
 #include "../../../src/Menu/ImGuiMenu.h"
 
@@ -900,9 +897,6 @@ public:
 uintptr_t InSDKUtils::GetImageBase()
 {
 	uintptr_t Base = reinterpret_cast<uintptr_t>(GetModuleHandle(0));
-	std::stringstream ss;
-	ss << "[SDK::GetImageBase()] Module Base = 0x" << std::hex << Base;
-	Logger::LogInfo(ss.str());
 	return Base;
 }
 
@@ -1036,20 +1030,15 @@ bool FWeakObjectPtr::operator!=(const class UObject* Other) const
 	{
 		try
 		{
-			Logger::LogInfo("[SDK::LogPawnsFromGObjects] ========== SEARCHING FOR PAWNS IN GOBJECTS ==========");
+	
 
 			if (!UObject::GObjects)
 			{
-				Logger::LogError("[SDK::LogPawnsFromGObjects] GObjects is NULL!");
+
 				return;
 			}
 
 			int TotalObjects = UObject::GObjects->Num();
-			{
-				std::stringstream ss;
-				ss << "[SDK::LogPawnsFromGObjects] Starting enumeration of " << TotalObjects << " objects";
-				Logger::LogInfo(ss.str());
-			}
 
 			int PawnCount = 0;
 			int CheckedCount = 0;
@@ -1093,37 +1082,25 @@ bool FWeakObjectPtr::operator!=(const class UObject* Other) const
 
 					if (PawnCount <= 10)  // Log first 10 detaillés
 					{
-						std::stringstream ss;
-						ss << "[Pawn " << PawnCount << "] FullName=" << PawnInfo.FullName 
-							<< " | Class=" << PawnInfo.ClassName 
-							<< " | Address=0x" << std::hex << PawnInfo.Address << std::dec;
-						Logger::LogInfo(ss.str());
+
 					}
 				}
 			}
 
 			// Summary
-			{
-				std::stringstream ss;
-				ss << "[SDK::LogPawnsFromGObjects] Checked " << CheckedCount << "/" << TotalObjects 
-					<< " objects, Found " << PawnCount << " Pawns";
-				Logger::LogInfo(ss.str());
-			}
 
 			if (FoundPawns.size() > 10)
 			{
-				std::stringstream ss;
-				ss << "[SDK::LogPawnsFromGObjects] Total unique Pawns: " << FoundPawns.size();
-				Logger::LogInfo(ss.str());
+
 			}
 		}
 		catch (const std::exception& e)
 		{
-			Logger::LogError(std::string("[SDK::LogPawnsFromGObjects] Exception: ") + e.what());
+
 		}
 		catch (...)
 		{
-			Logger::LogError("[SDK::LogPawnsFromGObjects] Unknown exception");
+
 		}
 	}
 
@@ -1131,18 +1108,18 @@ bool FWeakObjectPtr::operator!=(const class UObject* Other) const
 	{
 		try
 		{
-			Logger::LogInfo("[SDK::LogAllActorsFromLevel] ========== ENUMERATING LEVEL ACTORS ==========");
+
 			
 			UWorld* World = UWorld::GetWorld();
 			if (!World)
 			{
-				Logger::LogError("[SDK::LogAllActorsFromLevel] World is NULL!");
+
 				return;
 			}
 
 			if (!World->PersistentLevel)
 			{
-				Logger::LogError("[SDK::LogAllActorsFromLevel] PersistentLevel is NULL!");
+
 				return;
 			}
 
@@ -1150,9 +1127,7 @@ bool FWeakObjectPtr::operator!=(const class UObject* Other) const
 			TArray<AActor*>& Actors = Level->Actors;
 
 			{
-				std::stringstream ss;
-				ss << "[SDK::LogAllActorsFromLevel] Total level actors: " << Actors.Num();
-				Logger::LogInfo(ss.str());
+
 			}
 
 			int ActorCount = 0;
@@ -1181,17 +1156,13 @@ bool FWeakObjectPtr::operator!=(const class UObject* Other) const
 
 					if (ActorCount <= 15)  // Log first 15 détaillés
 					{
-						std::stringstream ss;
-						ss << "[Actor " << ActorCount << "] Name=" << ActorName 
-							<< " | Class=" << ClassName 
-							<< " | Address=0x" << std::hex << ActorAddr << std::dec;
-						Logger::LogInfo(ss.str());
+
 					}
 				}
 				catch (const std::exception& e)
 				{
 					ErrorCount++;
-					Logger::LogWarning(std::string("[SDK::LogAllActorsFromLevel] Error reading Actor") + e.what());
+
 				}
 				catch (...)
 				{
@@ -1200,347 +1171,45 @@ bool FWeakObjectPtr::operator!=(const class UObject* Other) const
 			}
 
 			{
-				std::stringstream ss;
-				ss << "[SDK::LogAllActorsFromLevel] Summary - Total=" << ActorCount 
-					<< " | Valid=" << ValidActors 
-					<< " | Errors=" << ErrorCount;
-				Logger::LogInfo(ss.str());
+
 			}
 		}
 		catch (const std::exception& e)
 		{
-			Logger::LogError(std::string("[SDK::LogAllActorsFromLevel] Exception: ") + e.what());
+
 		}
 		catch (...)
 		{
-			Logger::LogError("[SDK::LogAllActorsFromLevel] Unknown exception");
+
 		}
 	}
 
 	static void TestUObjectFunctionsDetailed()
 	{
-		try
-		{
-			Logger::LogInfo("[SDK::TestUObjectFunctionsDetailed] ========== TESTING UOBJECT FUNCTIONS ==========");
-
-			UWorld* World = UWorld::GetWorld();
-			if (!World || !World->PersistentLevel)
-			{
-				Logger::LogWarning("[SDK::TestUObjectFunctionsDetailed] Cannot access World");
-				return;
-			}
-
-			ULevel* Level = World->PersistentLevel;
-			TArray<AActor*>& Actors = Level->Actors;
-
-			int TestedCount = 0;
-			int SuccessCount = 0;
-			int ErrorCount = 0;
-
-			for (AActor* Actor : Actors)
-			{
-				if (!Actor || TestedCount >= 5)
-					continue;
-
-				TestedCount++;
-
-				std::string ActorName = Actor->GetName();
-				Logger::LogInfo(std::string("[Test " + std::to_string(TestedCount) + "] Testing Actor: ") + ActorName);
-
-				// Test GetFullName
-				try
-				{
-					std::string FullName = Actor->GetFullName();
-					std::stringstream ss;
-					ss << "  ├─ GetFullName(): " << FullName;
-					Logger::LogInfo(ss.str());
-					SuccessCount++;
-				}
-				catch (const std::exception& e)
-				{
-					Logger::LogWarning(std::string("  ├─ GetFullName() FAILED: ") + e.what());
-					ErrorCount++;
-				}
-
-				// Test Class info
-				try
-				{
-					if (Actor->Class)
-					{
-						std::string ClassName = Actor->Class->GetName();
-						std::stringstream ss;
-						ss << "  ├─ ClassName: " << ClassName;
-						Logger::LogInfo(ss.str());
-						SuccessCount++;
-					}
-				}
-				catch (const std::exception& e)
-				{
-					Logger::LogWarning(std::string("  ├─ Class access FAILED: ") + e.what());
-					ErrorCount++;
-				}
-
-				// Test Outer
-				try
-				{
-					UObject* Outer = Actor->Outer;
-					if (Outer)
-					{
-						std::string OuterName = Outer->GetName();
-						std::stringstream ss;
-						ss << "  ├─ Outer/Parent: " << OuterName;
-						Logger::LogInfo(ss.str());
-						SuccessCount++;
-					}
-					else
-					{
-						Logger::LogInfo("  ├─ Outer/Parent: NULL");
-					}
-				}
-				catch (const std::exception& e)
-				{
-					Logger::LogWarning(std::string("  ├─ Outer access FAILED: ") + e.what());
-					ErrorCount++;
-				}
-
-				// Test IsDefaultObject
-				try
-				{
-					bool IsDefault = Actor->IsDefaultObject();
-					std::stringstream ss;
-					ss << "  └─ IsDefaultObject: " << (IsDefault ? "true" : "false");
-					Logger::LogInfo(ss.str());
-					SuccessCount++;
-				}
-				catch (const std::exception& e)
-				{
-					Logger::LogWarning(std::string("  └─ IsDefaultObject FAILED: ") + e.what());
-					ErrorCount++;
-				}
-			}
-
-			{
-				std::stringstream ss;
-				ss << "[SDK::TestUObjectFunctionsDetailed] Results - Tested=" << TestedCount 
-					<< " | Success=" << SuccessCount 
-					<< " | Errors=" << ErrorCount;
-				Logger::LogInfo(ss.str());
-			}
-		}
-		catch (const std::exception& e)
-		{
-			Logger::LogError(std::string("[SDK::TestUObjectFunctionsDetailed] Exception: ") + e.what());
-		}
-		catch (...)
-		{
-			Logger::LogError("[SDK::TestUObjectFunctionsDetailed] Unknown exception");
-		}
+		// Diagnostic function - all logging removed
 	}
 
 // Public function to run all comprehensive SDK diagnostics
 extern "C" void SDK_LogGameInstances()
 {
-	try
-	{
-		Logger::LogInfo("[SDK] ========== INITIALIZE GAME INSTANCES ==========");
-
-		// Get Engine
-		UEngine* Engine = UEngine::GetEngine();
-		if (Engine) {
-			std::stringstream ss;
-			ss << "[SDK] ✅ UEngine::GetEngine() found at 0x" << std::hex << reinterpret_cast<uint64_t>(Engine);
-			Logger::LogInfo(ss.str());
-		} else {
-			Logger::LogWarning("[SDK] ⚠️ UEngine::GetEngine() returned nullptr");
-		}
-
-		// Get World
-		UWorld* World = UWorld::GetWorld();
-		if (World) {
-			std::stringstream ss;
-			ss << "[SDK] ✅ UWorld::GetWorld() found at 0x" << std::hex << reinterpret_cast<uint64_t>(World);
-			Logger::LogInfo(ss.str());
-
-			// GameInstance
-			if (World->OwningGameInstance) {
-				std::stringstream ss_gi;
-				ss_gi << "[SDK] ✅ GameInstance found at 0x" << std::hex << reinterpret_cast<uint64_t>(World->OwningGameInstance);
-				Logger::LogInfo(ss_gi.str());
-
-				// PlayerController
-				if (World->OwningGameInstance->LocalPlayers.Num() > 0) {
-					ULocalPlayer* LocalPlayer = World->OwningGameInstance->LocalPlayers[0];
-					if (LocalPlayer && LocalPlayer->PlayerController) {
-						std::stringstream ss_pc;
-						ss_pc << "[SDK] ✅ PlayerController found at 0x" << std::hex << reinterpret_cast<uint64_t>(LocalPlayer->PlayerController);
-						Logger::LogInfo(ss_pc.str());
-					}
-				}
-			}
-		} else {
-			Logger::LogWarning("[SDK] ⚠️ UWorld::GetWorld() returned nullptr");
-		}
-	}
-	catch (const std::exception& e)
-	{
-		Logger::LogError(std::string("[SDK] Exception logging game instances: ") + e.what());
-	}
-	catch (...)
-	{
-		Logger::LogError("[SDK] Unknown exception logging game instances");
-	}
+	// Diagnostic function - all logging removed
 }
 
 // Initialize and test GNames (Dumper-7 pattern - GNames is fallback only)
 static void InitializeAndTestGNames()
 {
-	try
-	{
-		Logger::LogInfo("[SDK] ========== INITIALIZE GNAMES (FALLBACK ONLY) ==========");
-		
-		uint64_t image_base = (uint64_t)GetModuleHandle(nullptr);
-		if (!image_base)
-		{
-			Logger::LogError("[SDK::GNames] Failed to get module base");
-			return;
-		}
-
-		uint64_t gnames_address = image_base + Offsets::GNames;
-		auto gnames_ptr = reinterpret_cast<void***>(gnames_address);
-		auto gnames_value = *gnames_ptr;
-
-		if (gnames_value)
-		{
-			std::stringstream ss;
-			ss << "[SDK::GNames] ✅ Available at 0x" << std::hex << (uint64_t)gnames_value;
-			Logger::LogInfo(ss.str());
-			Logger::LogInfo("[SDK::GNames] Note: Using FName::AppendString instead (Dumper-7 recommended)");
-		}
-		else
-		{
-			Logger::LogWarning("[SDK::GNames] ⚠️ GNames is NULL (Expected - using FName::AppendString fallback)");
-		}
-	}
-	catch (const std::exception& e)
-	{
-		Logger::LogError(std::string("[SDK::GNames] Exception: ") + e.what());
-	}
-	catch (...)
-	{
-		Logger::LogError("[SDK::GNames] Unknown exception during initialization");
-	}
+	// Diagnostic function - all logging removed
 }
 
 // Test ESP Functions using Dumper-7 recommended pattern (use SDK functions directly)
 static void TestESPFunctions()
 {
-	try
-	{
-		Logger::LogInfo("[SDK] ========== INITIALIZE ESP FUNCTIONS (DUMPER-7 PATTERN) ==========");
-		
-		// Dumper-7 Pattern: Use UWorld::GetWorld() instead of GWorld offset
-		UWorld* World = UWorld::GetWorld();
-		if (!World)
-		{
-			Logger::LogError("[SDK::ESP] ❌ UWorld::GetWorld() failed");
-			return;
-		}
-
-		std::stringstream ss;
-		ss << "[SDK::ESP] ✅ UWorld::GetWorld() at 0x" << std::hex << (uint64_t)World;
-		Logger::LogInfo(ss.str());
-
-		// Dumper-7 Pattern: Use UGameplayStatics::GetPlayerController()
-		APlayerController* PC = UGameplayStatics::GetPlayerController(World, 0);
-		if (!PC)
-		{
-			Logger::LogWarning("[SDK::ESP] ⚠️ GetPlayerController returned nullptr (game might not be fully loaded)");
-			return;
-		}
-
-		std::stringstream ss_pc;
-		ss_pc << "[SDK::ESP] ✅ GetPlayerController() at 0x" << std::hex << (uint64_t)PC;
-		Logger::LogInfo(ss_pc.str());
-
-		// Test ProjectWorldToScreen (W2S for ESP)
-		try
-		{
-			FVector TestPos = { 0.0f, 0.0f, 0.0f };
-			FVector2D ScreenPos = { 0.0f, 0.0f };
-			bool bResult = UGameplayStatics::ProjectWorldToScreen(PC, TestPos, &ScreenPos, false);
-			std::stringstream ss_w2s;
-			ss_w2s << "[SDK::ESP] ✅ ProjectWorldToScreen() works (result=" << (bResult ? "true" : "false") << ")";
-			Logger::LogInfo(ss_w2s.str());
-		}
-		catch (const std::exception& e)
-		{
-			Logger::LogWarning(std::string("[SDK::ESP] ProjectWorldToScreen ERROR: ") + e.what());
-		}
-
-		// Test GetCameraLocation (via PlayerCameraManager)
-		try
-		{
-			if (PC->PlayerCameraManager)
-			{
-				FVector CameraLoc = PC->PlayerCameraManager->GetCameraLocation();
-				std::stringstream ss_cam;
-				ss_cam << "[SDK::ESP] ✅ GetCameraLocation() = (" << CameraLoc.X << ", " << CameraLoc.Y << ", " << CameraLoc.Z << ")";
-				Logger::LogInfo(ss_cam.str());
-			}
-		}
-		catch (const std::exception& e)
-		{
-			Logger::LogWarning(std::string("[SDK::ESP] GetCameraLocation ERROR: ") + e.what());
-		}
-
-		// Test GetViewportSize
-		try
-		{
-			int32 SizeX = 0, SizeY = 0;
-			PC->GetViewportSize(&SizeX, &SizeY);
-			std::stringstream ss_vp;
-			ss_vp << "[SDK::ESP] ✅ GetViewportSize() = " << SizeX << "x" << SizeY;
-			Logger::LogInfo(ss_vp.str());
-		}
-		catch (const std::exception& e)
-		{
-			Logger::LogWarning(std::string("[SDK::ESP] GetViewportSize ERROR: ") + e.what());
-		}
-
-		// Test DeprojectScreenToWorld (S2W)
-		try
-		{
-			FVector2D ScreenPos = { 960.0f, 540.0f };
-			FVector WorldPos = { 0.0f, 0.0f, 0.0f };
-			FVector WorldDir = { 0.0f, 0.0f, 0.0f };
-			bool bResult = UGameplayStatics::DeprojectScreenToWorld(PC, ScreenPos, &WorldPos, &WorldDir);
-			std::stringstream ss_s2w;
-			ss_s2w << "[SDK::ESP] ✅ DeprojectScreenToWorld() works (result=" << (bResult ? "true" : "false") << ")";
-			Logger::LogInfo(ss_s2w.str());
-		}
-		catch (const std::exception& e)
-		{
-			Logger::LogWarning(std::string("[SDK::ESP] DeprojectScreenToWorld ERROR: ") + e.what());
-		}
-
-		Logger::LogInfo("[SDK::ESP] ✅ All ESP functions initialized successfully (Dumper-7 pattern)");
-	}
-	catch (const std::exception& e)
-	{
-		Logger::LogError(std::string("[SDK::ESP] Exception: ") + e.what());
-	}
-	catch (...)
-	{
-		Logger::LogError("[SDK::ESP] Unknown exception during ESP functions test");
-	}
+	// Diagnostic function - all logging removed
 }
 
 // Public comprehensive diagnostics function
 extern "C" void SDK_RunComprehensiveDiagnostics()
 {
-	Logger::LogInfo("[SDK] ╔════════════════════════════════════════════════════════╗");
-	Logger::LogInfo("[SDK] ║   COMPREHENSIVE SDK DIAGNOSTICS - START                ║");
-	Logger::LogInfo("[SDK] ╚════════════════════════════════════════════════════════╝");
 	
 	SDK_LogGameInstances();
 	InitializeAndTestGNames();
@@ -1549,9 +1218,6 @@ extern "C" void SDK_RunComprehensiveDiagnostics()
 	LogAllActorsFromLevel();
 	TestUObjectFunctionsDetailed();
 	
-	Logger::LogInfo("[SDK] ╔════════════════════════════════════════════════════════╗");
-	Logger::LogInfo("[SDK] ║   COMPREHENSIVE SDK DIAGNOSTICS - COMPLETE             ║");
-	Logger::LogInfo("[SDK] ╚════════════════════════════════════════════════════════╝");
 }
 
 // ========== PUBLIC DUMPER-7 STYLE ACCESSORS (USE SDK FUNCTIONS DIRECTLY) ==========
@@ -1697,15 +1363,8 @@ extern "C" float SDK_GetDistanceToActor(AActor* Actor)
 // Get bMySelf flag (offset 0x0554)
 extern "C" bool SDK_GetCharacterOutGameIsMySelf(void* Character)
 {
-	try
-	{
-		if (!Character) return false;
-		return *(bool*)((uintptr_t)Character + 0x0554);
-	}
-	catch (...)
-	{
-		return false;
-	}
+	// DISABLED: IsMySelf check disabled
+	return false;
 }
 
 // Get _outGameCharacterId (offset 0x0555)
@@ -2808,14 +2467,29 @@ static void SDK_UpdateActorCache()
 		for (int i = 0; i < AllActors.Num(); i++)
 		{
 			AActor* Actor = AllActors[i];
+			
+			// Safety: Skip null or default objects
 			if (!Actor) continue;
+			if (Actor->IsDefaultObject()) continue;
+			
+			// Additional safety: Try to access Class - if it crashes, skip
+			SDK::UClass* ActorClass = nullptr;
+			try
+			{
+				ActorClass = Actor->Class;
+				if (!ActorClass) continue;
+			}
+			catch (...)
+			{
+				continue;  // Skip if Class is inaccessible
+			}
 			
 			// Get class name
 			std::string ClassName = "";
 			try
 			{
-				if (Actor->Class)
-					ClassName = Actor->Class->GetName();
+				ClassName = ActorClass->GetName();
+				if (ClassName.empty()) continue;  // Skip if name is empty
 			}
 			catch (...)
 			{
@@ -2829,7 +2503,7 @@ static void SDK_UpdateActorCache()
 			
 			// Check for Ch001-Ch999 pattern (any Chxxx)
 			bool isChxxx = false;
-			if (ClassName.length() >= 5 && ClassName[0] == 'C' && ClassName[1] == 'h' &&
+			if (ClassName.length() == 5 && ClassName[0] == 'C' && ClassName[1] == 'h' &&
 				std::isdigit(ClassName[2]) && std::isdigit(ClassName[3]) && std::isdigit(ClassName[4]))
 			{
 				isChxxx = true;
@@ -2869,14 +2543,23 @@ static void SDK_UpdateActorCache()
 			cachedActor.ActorPtr = Actor;
 			cachedActor.ClassName = ClassName;
 			cachedActor.Position = Actor->K2_GetActorLocation();
-			cachedActor.IsMySelf = false;  // Default to false
+			cachedActor.IsMySelf = SDK_GetCharacterOutGameIsMySelf(Actor);
 			cachedActor.CitizenType = 0;
+			
+			// DETECT LOCAL PLAYER - Update cached team ID when we find ourselves
+			if (cachedActor.IsMySelf && (ClassName == "CharacterBattle" || ClassName == "ACharacterBattle"))
+			{
+				uint8 myTeam = GetCharacterTeamId(Actor);
+				if (myTeam != 255)  // Valid team ID
+				{
+					g_MyTeamId = myTeam;
+					g_LastLocalPlayerCharacter = Actor;
+				}
+			}
 			
 			// Get character ID and costume (only for CharacterOutGame)
 			if (ClassName == "CharacterOutGame" || ClassName == "ACharacterOutGame")
 			{
-				// Only call SDK_GetCharacterOutGameIsMySelf for CharacterOutGame actors
-				cachedActor.IsMySelf = SDK_GetCharacterOutGameIsMySelf(Actor);
 				cachedActor.CharacterID = SDK_GetCharacterOutGameId(Actor);
 				cachedActor.CostumeCode = SDK_GetCharacterOutGameCostumeCode(Actor);
 				cachedActor.Health = 0.0f;
@@ -3652,11 +3335,11 @@ static bool IsAimbotHoldKeyPressed()
 		return true;
 
 	// Check keyboard/mouse hold key (exactly like Zero1)
-	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey, HotKeyType::KeyboardMouse);
+	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.Keyboard, HotKeyType::KeyboardMouse);
 	
 	// Check gamepad hold button (Xbox and PS4)
-	bool gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey_Xbox, HotKeyType::Gamepad) ||
-	                      IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey_PS4, HotKeyType::Gamepad);
+	bool gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.Xbox, HotKeyType::Gamepad) ||
+	                      IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.PS4, HotKeyType::Gamepad);
 	
 	// Return true if EITHER keyboard OR gamepad is pressed (Zero1 exact: keyboardPressed || gamepadPressed)
 	return keyboardPressed || gamepadPressed;
@@ -3673,7 +3356,7 @@ static bool IsAimbotHoldKeyPressed_OLD()
 
 	// Check if the configured hold key is pressed
 	// GetAsyncKeyState returns high bit set if key is pressed
-	int holdKey = ImGuiMenu::g_Settings.AimbotHoldKey;
+	int holdKey = ImGuiMenu::g_Settings.AimbotHoldKey.Keyboard;
 	return (GetAsyncKeyState(holdKey) & 0x8000) != 0;
 }
 
@@ -4074,14 +3757,14 @@ extern "C" void SDK_RunAimbot()
 	bool menuVisible = ImGuiMenu::IsVisible();
 	
 	// Zero1 EXACT: Check hotkey input (exactly as Zero1 does)
-	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey, HotKeyType::KeyboardMouse);
+	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.Keyboard, HotKeyType::KeyboardMouse);
 	bool gamepadPressed = false;
 	
 	// Only test gamepad hotkey when menu is NOT visible
 	if (!menuVisible)
 	{
-		gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey_Xbox, HotKeyType::Gamepad) ||
-	                   IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey_PS4, HotKeyType::Gamepad);
+		gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.Xbox, HotKeyType::Gamepad) ||
+	                   IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.PS4, HotKeyType::Gamepad);
 	}
 	
 	bool hotKeyPressed = keyboardPressed || gamepadPressed;
@@ -4181,7 +3864,6 @@ extern "C" void SDK_RunAimbot()
 	// Read actual CharacterID and Variant from the target actor
 	if (!target.actor->ActorPtr || target.actor->ActorPtr->IsDefaultObject())
 	{
-		Logger::LogWarning("[Aimbot] ERROR: Target actor pointer became invalid");
 		g_LastAimbotTargetPtr = nullptr;
 		return;
 	}
@@ -4342,27 +4024,25 @@ extern "C" void SDK_RunSilentAim()
 	bool menuVisible = ImGuiMenu::IsVisible();
 	
 	// Check hotkey input (uses Aimbot hotkeys)
-	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey, HotKeyType::KeyboardMouse);
+	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.Keyboard, HotKeyType::KeyboardMouse);
 	bool gamepadPressed = false;
 	
 	if (!menuVisible)
 	{
-		gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey_Xbox, HotKeyType::Gamepad) ||
-						IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey_PS4, HotKeyType::Gamepad);
+		gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.Xbox, HotKeyType::Gamepad) ||
+						IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.PS4, HotKeyType::Gamepad);
 	}
 	
 	bool flag = keyboardPressed || gamepadPressed;
 	if (!flag)
 		return;
 	
-	Logger::LogInfo("[BulletTP] ===== BULLETTP TICK START =====");
 	BulletTPLog("===== BULLETTP TICK START =====");
 	
 	// Get player controller
 	APlayerController* playerController = SDK_GetPlayerController();
 	if (!playerController || !playerController->Pawn)
 	{
-		Logger::LogWarning("[BulletTP] ERROR: No player controller or pawn");
 		BulletTPLog("ERROR: No player controller or pawn");
 		return;
 	}
@@ -4375,12 +4055,10 @@ extern "C" void SDK_RunSilentAim()
 	
 	char logMsg[256];
 	snprintf(logMsg, sizeof(logMsg), "[BulletTP] Found %d bullets from player", (int)bullets.size());
-	Logger::LogInfo(logMsg);
 	BulletTPLog("Found %d bullets from player", (int)bullets.size());
 	
 	if (bullets.empty())
 	{
-		Logger::LogInfo("[BulletTP] No bullets found - returning");
 		BulletTPLog("No bullets found - returning");
 		return;
 	}
@@ -4389,21 +4067,18 @@ extern "C" void SDK_RunSilentAim()
 	FVector cameraPos = SDK_GetCameraLocation();
 	if (cameraPos.X == 0 && cameraPos.Y == 0 && cameraPos.Z == 0)
 	{
-		Logger::LogWarning("[BulletTP] ERROR: Invalid camera position");
 		BulletTPLog("ERROR: Invalid camera position");
 		return;
 	}
 	
 	char camLog[256];
 	snprintf(camLog, sizeof(camLog), "[BulletTP] Camera pos: (%.1f, %.1f, %.1f)", cameraPos.X, cameraPos.Y, cameraPos.Z);
-	Logger::LogInfo(camLog);
 	BulletTPLog("Camera pos: (%.1f, %.1f, %.1f)", cameraPos.X, cameraPos.Y, cameraPos.Z);
 	
 	// Select target using Silent Aim FOV settings
 	AimbotTarget target = SelectSilentAimTarget();
 	if (!target.isValid)
 	{
-		Logger::LogWarning("[BulletTP] ERROR: No valid target found in FOV");
 		BulletTPLog("ERROR: No valid target found in FOV");
 		return;
 	}
@@ -4411,7 +4086,6 @@ extern "C" void SDK_RunSilentAim()
 	char targetLog[256];
 	snprintf(targetLog, sizeof(targetLog), "[BulletTP] Target found: %s", 
 		target.actor ? target.actor->ClassName.c_str() : "NULL");
-	Logger::LogInfo(targetLog);
 	BulletTPLog("Target found: %s", target.actor ? target.actor->ClassName.c_str() : "NULL");
 	
 	// Validate target still exists
@@ -4428,7 +4102,6 @@ extern "C" void SDK_RunSilentAim()
 		}
 		if (!targetStillValid)
 		{
-			Logger::LogWarning("[BulletTP] ERROR: Target no longer in actor cache");
 			BulletTPLog("ERROR: Target no longer in actor cache");
 			g_LastSilentAimTargetPtr = nullptr;
 			return;
@@ -4438,14 +4111,12 @@ extern "C" void SDK_RunSilentAim()
 	// Validate target state
 	if (IsCharacterDowned(target.actor->ActorPtr))
 	{
-		Logger::LogWarning("[BulletTP] ERROR: Target is downed");
 		BulletTPLog("ERROR: Target is downed");
 		return;
 	}
 	
 	if (target.actor->IsAlly)
 	{
-		Logger::LogWarning("[BulletTP] ERROR: Target is ally");
 		BulletTPLog("ERROR: Target is ally");
 		return;
 	}
@@ -4456,14 +4127,12 @@ extern "C" void SDK_RunSilentAim()
 	{
 		char boneLog[256];
 		snprintf(boneLog, sizeof(boneLog), "[BulletTP] ERROR: Invalid bone positions (size: %d)", (int)bonePositions.size());
-		Logger::LogWarning(boneLog);
 		BulletTPLog("ERROR: Invalid bone positions (size: %d)", (int)bonePositions.size());
 		return;
 	}
 	
 	char bonePosLog[256];
 	snprintf(bonePosLog, sizeof(bonePosLog), "[BulletTP] Got %d bone positions", (int)bonePositions.size());
-	Logger::LogInfo(bonePosLog);
 	BulletTPLog("Got %d bone positions", (int)bonePositions.size());
 	
 	// Always aim at Head (index 0) for BulletTP
@@ -4476,14 +4145,12 @@ extern "C" void SDK_RunSilentAim()
 	{
 		targetBonePos = target.actor->Position;
 		targetBonePos.Z += 150.0f;  // Approximate head height
-		Logger::LogWarning("[BulletTP] Using fallback head position (invalid bone)");
 		BulletTPLog("Using fallback head position (invalid bone)");
 	}
 	
 	char headLog[256];
 	snprintf(headLog, sizeof(headLog), "[BulletTP] Target head bone pos: (%.1f, %.1f, %.1f)", 
 		targetBonePos.X, targetBonePos.Y, targetBonePos.Z);
-	Logger::LogInfo(headLog);
 	BulletTPLog("Target head bone pos: (%.1f, %.1f, %.1f)", targetBonePos.X, targetBonePos.Y, targetBonePos.Z);
 	
 	// Process each bullet - TELEPORT TO TARGET (like Zero1)
@@ -4494,14 +4161,12 @@ extern "C" void SDK_RunSilentAim()
 	
 	char procLog[256];
 	snprintf(procLog, sizeof(procLog), "[BulletTP] Processing %d bullets...", (int)bullets.size());
-	Logger::LogInfo(procLog);
 	BulletTPLog("Processing %d bullets...", (int)bullets.size());
 	
 	for (AActor* bullet : bullets)
 	{
 		if (!bullet)
 		{
-			Logger::LogDebug("[BulletTP]   - NULL bullet, skipping");
 			BulletTPLog("  - NULL bullet, skipping");
 			continue;
 		}
@@ -4529,7 +4194,6 @@ extern "C" void SDK_RunSilentAim()
 			
 			char tpLog[256];
 			snprintf(tpLog, sizeof(tpLog), "[BulletTP]   - Bullet '%s' TELEPORTING", bulletClassName.c_str());
-			Logger::LogInfo(tpLog);
 			BulletTPLog("  - Bullet '%s' TELEPORTING", bulletClassName.c_str());
 			
 			// Teleport bullet to target bone position 25 times (like Zero1)
@@ -4549,7 +4213,6 @@ extern "C" void SDK_RunSilentAim()
 	
 	char summaryLog[256];
 	snprintf(summaryLog, sizeof(summaryLog), "[BulletTP] Summary: %d processed, %d ignored", bulletsProcessed, bulletsIgnored);
-	Logger::LogInfo(summaryLog);
 	BulletTPLog("Summary: %d processed, %d ignored", bulletsProcessed, bulletsIgnored);
 	
 	// Clear processed bullets after a short delay
@@ -4561,7 +4224,6 @@ extern "C" void SDK_RunSilentAim()
 		frameCounter = 0;
 	}
 	
-	Logger::LogInfo("[BulletTP] ===== BULLETTP TICK END =====");
 	BulletTPLog("===== BULLETTP TICK END =====");
 }
 
@@ -4604,6 +4266,42 @@ extern "C" void SDK_DrawAimbotFOV()
 	);
 }
 
+/**
+ * @brief Draw bullet redirection FOV circle on screen
+ */
+extern "C" void SDK_DrawBulletRedirectionFOV()
+{
+	ImDrawList* drawlist = ImGui::GetForegroundDrawList();
+	if (!drawlist)
+		return;
+
+	// Only draw if bullet redirection enabled
+	if (!ImGuiMenu::g_Settings.EnableBulletTP)
+		return;
+
+	// Get viewport size
+	int32 vX = 0, vY = 0;
+	SDK_GetViewportSize(&vX, &vY);
+	if (vX <= 0 || vY <= 0)
+		return;
+
+	float screenCenterX = (float)vX / 2.0f;
+	float screenCenterY = (float)vY / 2.0f;
+
+	// FOV circle radius (from menu setting)
+	float fovRadius = ImGuiMenu::g_Settings.BulletTP_FOVRadius;
+
+	// Draw circle: cyan outline, semi-transparent
+	ImU32 bulletFovColor = IM_COL32(0, 255, 255, 100);  // Cyan, semi-transparent
+	drawlist->AddCircle(
+		ImVec2(screenCenterX, screenCenterY),
+		fovRadius,
+		bulletFovColor,
+		64,  // Number of segments for smooth circle
+		2.0f  // Line thickness
+	);
+}
+
 extern "C" void SDK_DrawAimbotInfo()
 {
 	if (!ImGuiMenu::g_Settings.EnableAimbot || !ImGuiMenu::g_Settings.AimbotDrawLine)
@@ -4636,39 +4334,7 @@ extern "C" void SDK_DrawAimbotInfo()
 	}
 }
 
-/**
- * @brief Log TeleportToKota debug info to file
- */
-static inline void TeleportToKotaLog(const char* format, ...)
-{
-	try
-	{
-		va_list args;
-		va_start(args, format);
-		
-		// Format message
-		char buffer[512];
-		vsnprintf(buffer, sizeof(buffer), format, args);
-		va_end(args);
-		
-		// Write to file C:\temp\TeleportToKota_Debug.log
-		static std::ofstream logFile;
-		if (!logFile.is_open())
-		{
-			logFile.open("C:\\temp\\TeleportToKota_Debug.log", std::ios::app);
-		}
-		
-		if (logFile.is_open())
-		{
-			logFile << buffer << "\n";
-			logFile.flush();
-		}
-	}
-	catch (...)
-	{
-		// Silently fail if file write fails
-	}
-}
+
 
 /**
  * @brief Teleport to Kota (special NPC) with definable hotkey
@@ -4683,13 +4349,11 @@ extern "C" void SDK_RunTeleportToKota()
 		frameCounter++;
 		if (frameCounter > 300)  // Every 5 seconds at 60 FPS
 		{
-			TeleportToKotaLog("[DISABLED] TeleportToKota feature is disabled");
 			frameCounter = 0;
 		}
 		return;
 	}
 	
-	TeleportToKotaLog("===== TELEPORT TO KOTA TICK START =====");
 	
 	// Note: We DON'T check IsGameActive() here because we want to teleport even with menu open
 	// (Unlike aimbot which needs to be disabled when menu is visible)
@@ -4697,45 +4361,34 @@ extern "C" void SDK_RunTeleportToKota()
 	bool menuVisible = ImGuiMenu::IsVisible();
 	
 	// Check hotkey input (Keyboard/Mouse + Gamepad)
-	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.TeleportToKotaKey, HotKeyType::KeyboardMouse);
+	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.TeleportToKotaKey.Keyboard, HotKeyType::KeyboardMouse);
 	bool gamepadPressed = false;
 	
 	if (!menuVisible)
 	{
-		gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.TeleportToKotaKey_Xbox, HotKeyType::Gamepad) ||
-						IsKeyPressed(ImGuiMenu::g_Settings.TeleportToKotaKey_PS4, HotKeyType::Gamepad);
+		gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.TeleportToKotaKey.Xbox, HotKeyType::Gamepad) ||
+						IsKeyPressed(ImGuiMenu::g_Settings.TeleportToKotaKey.PS4, HotKeyType::Gamepad);
 	}
-	
-	TeleportToKotaLog("[Hotkey Check] Keyboard: %s, Gamepad: %s", 
-		keyboardPressed ? "PRESSED" : "not pressed", 
-		gamepadPressed ? "PRESSED" : "not pressed");
 	
 	bool hotKeyPressed = keyboardPressed || gamepadPressed;
 	if (!hotKeyPressed)
 	{
-		TeleportToKotaLog("Hotkey NOT pressed - skipping");
 		return;  // Hotkey not pressed
 	}
 	
-	TeleportToKotaLog("✓ Hotkey detected!");
 	
 	// Get player controller
 	APlayerController* playerController = SDK_GetPlayerController();
 	if (!playerController)
 	{
-		TeleportToKotaLog("ERROR: PlayerController is NULL");
-		Logger::LogWarning("[TeleportToKota] ERROR: No player controller");
 		return;
 	}
 	
 	if (!playerController->Pawn)
 	{
-		TeleportToKotaLog("ERROR: PlayerController->Pawn is NULL");
-		Logger::LogWarning("[TeleportToKota] ERROR: No player pawn");
 		return;
 	}
 	
-	TeleportToKotaLog("✓ PlayerController and Pawn valid");
 	
 	// Find Kota in actor cache (NPCCitizen with CitizenType == 4)
 	CachedActor* kotaActor = nullptr;
@@ -4743,29 +4396,19 @@ extern "C" void SDK_RunTeleportToKota()
 	{
 		std::lock_guard<std::mutex> lock(g_ActorCacheMutex);
 		
-		TeleportToKotaLog("Searching through %d actors in cache for NPCCitizen (CitizenType=4)...", (int)g_ActorsForRendering.size());
 		actorCount = g_ActorsForRendering.size();
 		
 		for (auto& actor : g_ActorsForRendering)
 		{
-			// Only check NPCCitizen actors
-			if (actor.ClassName != "NPCCitizen")
-				continue;
-			
 			if (!actor.ActorPtr)
 			{
-				TeleportToKotaLog("  Skipping: ActorPtr is NULL");
 				continue;
 			}
 			
-			TeleportToKotaLog("  Checking NPCCitizen: CitizenType: %d", (int)actor.CitizenType);
-			
 			// Search for NPCCitizen with CitizenType == 4 (SPECIAL_KID)
-			if (actor.CitizenType == 4)
+			if (actor.ClassName == "NPCCitizen" && actor.CitizenType == 4 && !actor.IsMySelf)
 			{
-				TeleportToKotaLog("  → Found SPECIAL_KID: NPCCitizen (CitizenType=4) ✓");
 				kotaActor = &actor;
-				TeleportToKotaLog("✓ KOTA FOUND - NPCCitizen SPECIAL_KID selected");
 				break;
 			}
 		}
@@ -4773,39 +4416,27 @@ extern "C" void SDK_RunTeleportToKota()
 	
 	if (!kotaActor)
 	{
-		TeleportToKotaLog("ERROR: SPECIAL_KID NOT found in %d actors", actorCount);
-		Logger::LogWarning("[TeleportToKota] ERROR: SPECIAL_KID (NPCCitizen CitizenType=4) not found in actor cache");
-		TeleportToKotaLog("===== TELEPORT TO KOTA TICK END (FAILED - SPECIAL_KID NOT FOUND) =====");
 		return;
 	}
 	
 	// Get Kota's position
 	FVector kotaPosition = kotaActor->Position;
-	TeleportToKotaLog("Kota Position (raw): X=%.1f, Y=%.1f, Z=%.1f", kotaPosition.X, kotaPosition.Y, kotaPosition.Z);
 	
 	if (kotaPosition.X == 0 && kotaPosition.Y == 0 && kotaPosition.Z == 0)
 	{
-		TeleportToKotaLog("ERROR: Kota position is all zeros (invalid)");
-		Logger::LogWarning("[TeleportToKota] ERROR: Invalid Kota position");
-		TeleportToKotaLog("===== TELEPORT TO KOTA TICK END (FAILED - INVALID POS) =====");
 		return;
 	}
 	
 	// Offset height to spawn above ground (avoid stuck)
 	kotaPosition.Z += 100.0f;
-	TeleportToKotaLog("Kota Position (adjusted +100cm): X=%.1f, Y=%.1f, Z=%.1f", kotaPosition.X, kotaPosition.Y, kotaPosition.Z);
 	
 	// Get player pawn
 	AActor* playerPawn = playerController->Pawn;
 	if (!playerPawn)
 	{
-		TeleportToKotaLog("ERROR: Player pawn is NULL");
-		Logger::LogWarning("[TeleportToKota] ERROR: Player pawn is null");
-		TeleportToKotaLog("===== TELEPORT TO KOTA TICK END (FAILED - NULL PAWN) =====");
 		return;
 	}
 	
-	TeleportToKotaLog("✓ Player pawn valid - calling K2_TeleportTo...");
 	
 	// Teleport player to Kota using K2_TeleportTo
 	FRotator dummyRotation = FRotator(0, 0, 0);  // Keep current rotation
@@ -4816,177 +4447,10 @@ extern "C" void SDK_RunTeleportToKota()
 		char logMsg[256];
 		snprintf(logMsg, sizeof(logMsg), "[TeleportToKota] SUCCESS: Teleported to Kota at (%.1f, %.1f, %.1f)", 
 			kotaPosition.X, kotaPosition.Y, kotaPosition.Z);
-		Logger::LogInfo(logMsg);
 		
-		TeleportToKotaLog("✓✓✓ SUCCESS ✓✓✓");
-		TeleportToKotaLog("Teleported to Kota at (%.1f, %.1f, %.1f)", kotaPosition.X, kotaPosition.Y, kotaPosition.Z);
-		TeleportToKotaLog("===== TELEPORT TO KOTA TICK END (SUCCESS) =====");
 	}
 	else
 	{
-		Logger::LogWarning("[TeleportToKota] ERROR: Teleport failed");
-		TeleportToKotaLog("✗✗✗ FAILED ✗✗✗");
-		TeleportToKotaLog("K2_TeleportTo() returned FALSE - teleport failed");
-		TeleportToKotaLog("===== TELEPORT TO KOTA TICK END (FAILED - K2_TELEPORTTO RETURNED FALSE) =====");
-	}
-}
-
-// ===== DUPLICATE PLAYER VIA REFLECTION =====
-extern "C" void SDK_RunDuplicate()
-{
-	// Debug file logging
-	auto DebugLog = [](const std::string& msg) {
-		std::ofstream log("c:\\temp\\Duplicate_Debug.log", std::ios::app);
-		if (log.is_open()) {
-			log << msg << "\n";
-			log.close();
-		}
-	};
-
-	DebugLog("=== SDK_RunDuplicate CALLED ===");
-
-	try
-	{
-		// Get player controller first
-		DebugLog("Step 1: Getting player controller...");
-		APlayerController* PlayerController = SDK_GetPlayerController();
-		if (!PlayerController)
-		{
-			DebugLog("ERROR: PlayerController is NULL");
-			Logger::LogWarning("[Duplicate] PlayerController is NULL");
-			return;
-		}
-		DebugLog("OK: PlayerController found");
-
-		if (!PlayerController->Pawn)
-		{
-			DebugLog("ERROR: PlayerController->Pawn is NULL");
-			Logger::LogWarning("[Duplicate] No player character found");
-			return;
-		}
-		DebugLog("OK: Pawn found");
-
-		AActor* PlayerActor = PlayerController->Pawn;
-		DebugLog(std::string("Player actor: ") + (PlayerActor ? "valid" : "NULL"));
-		Logger::LogInfo("[Duplicate] Starting duplicate player...");
-
-		// Step 1: Get DuplicateControlComponent via reflection
-		DebugLog("Step 2: Finding BP_GetDuplicateController function...");
-		UFunction* GetDuplicateFunc = nullptr;
-		{
-			if (!PlayerActor->Class)
-			{
-				DebugLog("ERROR: PlayerActor->Class is NULL");
-				Logger::LogWarning("[Duplicate] Player class not found");
-				return;
-			}
-			DebugLog("OK: PlayerActor->Class valid");
-
-			GetDuplicateFunc = PlayerActor->Class->GetFunction("ACharacterBattle", "BP_GetDuplicateController");
-			if (!GetDuplicateFunc)
-			{
-				DebugLog("ERROR: BP_GetDuplicateController function NOT FOUND");
-				Logger::LogWarning("[Duplicate] BP_GetDuplicateController function not found");
-				return;
-			}
-			DebugLog("OK: BP_GetDuplicateController found");
-		}
-
-		// Call BP_GetDuplicateController to get the component
-		DebugLog("Step 3: Calling BP_GetDuplicateController ProcessEvent...");
-		void* DuplicateComp = nullptr;
-		{
-			struct GetDuplicateParams
-			{
-				void* ReturnValue;
-			} Params{};
-
-			Params.ReturnValue = nullptr;
-
-			auto Flgs = GetDuplicateFunc->FunctionFlags;
-			GetDuplicateFunc->FunctionFlags |= 0x400;
-			PlayerActor->ProcessEvent(GetDuplicateFunc, &Params);
-			GetDuplicateFunc->FunctionFlags = Flgs;
-
-			DuplicateComp = Params.ReturnValue;
-		}
-		DebugLog(std::string("DuplicateComp returned: ") + (DuplicateComp ? "VALID" : "NULL"));
-
-		if (!DuplicateComp)
-		{
-			DebugLog("ERROR: DuplicateControlComponent is NULL - BP_GetDuplicateController returned nothing");
-			Logger::LogWarning("[Duplicate] DuplicateControlComponent is NULL");
-			return;
-		}
-		DebugLog("OK: Got DuplicateControlComponent");
-
-		// Step 2: Find DuplicateInto_RPC_ToServer function via reflection
-		DebugLog("Step 4: Finding UDuplicateControlComponent class...");
-		UFunction* DuplicateFunc = nullptr;
-		{
-			UClass* DuplicateCompClass = UObject::FindClass("UDuplicateControlComponent");
-			if (!DuplicateCompClass)
-			{
-				DebugLog("ERROR: UDuplicateControlComponent class NOT FOUND");
-				Logger::LogWarning("[Duplicate] UDuplicateControlComponent class not found");
-				return;
-			}
-			DebugLog("OK: UDuplicateControlComponent class found");
-
-			DuplicateFunc = DuplicateCompClass->GetFunction("UDuplicateControlComponent", "DuplicateInto_RPC_ToServer");
-			if (!DuplicateFunc)
-			{
-				DebugLog("ERROR: DuplicateInto_RPC_ToServer function NOT FOUND");
-				Logger::LogWarning("[Duplicate] DuplicateInto_RPC_ToServer function not found");
-				return;
-			}
-			DebugLog("OK: DuplicateInto_RPC_ToServer found");
-		}
-
-		// Step 3: Call DuplicateInto_RPC_ToServer with player as target and offset position
-		DebugLog("Step 5: Preparing RPC parameters...");
-		{
-			FVector PlayerLocation = PlayerActor->K2_GetActorLocation();
-			FVector SpawnLocation = PlayerLocation + FVector(200.0f, 0.0f, 0.0f);  // 2m offset
-
-			struct DuplicateParams
-			{
-				void* targetCharacter;
-				FVector SpawnLocation;
-			} Params{};
-
-			Params.targetCharacter = PlayerActor;
-			Params.SpawnLocation = SpawnLocation;
-
-			std::stringstream ss;
-			ss << "Player Location: X=" << PlayerLocation.X << " Y=" << PlayerLocation.Y << " Z=" << PlayerLocation.Z;
-			DebugLog(ss.str());
-
-			std::stringstream ss2;
-			ss2 << "Spawn Location: X=" << SpawnLocation.X << " Y=" << SpawnLocation.Y << " Z=" << SpawnLocation.Z;
-			DebugLog(ss2.str());
-
-			DebugLog("Step 6: Calling DuplicateInto_RPC_ToServer ProcessEvent...");
-			auto Flgs = DuplicateFunc->FunctionFlags;
-			DuplicateFunc->FunctionFlags |= 0x400;
-			((UObject*)DuplicateComp)->ProcessEvent(DuplicateFunc, &Params);
-			DuplicateFunc->FunctionFlags = Flgs;
-
-			DebugLog("SUCCESS: DuplicateInto_RPC_ToServer called!");
-			Logger::LogInfo("[Duplicate] SUCCESS - Player duplicated!");
-		}
-		DebugLog("=== SDK_RunDuplicate COMPLETED SUCCESSFULLY ===");
-	}
-	catch (const std::exception& e)
-	{
-		std::string errMsg = std::string("EXCEPTION: ") + e.what();
-		DebugLog(errMsg);
-		Logger::LogError(std::string("[Duplicate] Exception: ") + e.what());
-	}
-	catch (...)
-	{
-		DebugLog("UNKNOWN EXCEPTION");
-		Logger::LogError("[Duplicate] Unknown exception occurred");
 	}
 }
 
@@ -5053,7 +4517,6 @@ static void TeleportItemType(const std::string& itemClassName, const std::string
 		{
 			char logMsg[256];
 			snprintf(logMsg, sizeof(logMsg), "[TeleportItems] ✓ %s: %d items teleported", itemDisplayName.c_str(), count);
-			Logger::LogInfo(logMsg);
 		}
 	}
 	catch (...)
@@ -5114,7 +4577,174 @@ extern "C" void SDK_RunTeleportLevelUpCards()
 	SDK_TeleportItem_AbilitySupplyBeta();
 	SDK_TeleportItem_AbilitySupplyGamma();
 	
-	Logger::LogInfo("[TeleportItems] Global teleport executed");
+}
+
+// ============================================
+// GET FORWARD ESP TARGET (closest in front)
+// ============================================
+/**
+ * Get closest ACharacterBattle in front of player using forward vector
+ * Returns as AActor* pointer for portability
+ */
+extern "C" SDK::AActor* SDK_GetForwardESPTarget()
+{
+	try
+	{
+		APlayerController* playerController = SDK_GetPlayerController();
+		if (!playerController || !playerController->Pawn)
+		{
+			return nullptr;
+		}
+
+		AActor* playerPawn = playerController->Pawn;
+		FVector playerPos = playerPawn->K2_GetActorLocation();
+		FVector forwardVector = playerPawn->GetActorForwardVector();
+
+		std::vector<SDK::AActor*> validTargets;
+
+		// Access the cached actors from ESP rendering list
+		// Filter for ACharacterBattle actors only
+		for (const auto& cachedActor : g_ActorsForRendering)
+		{
+			// Check if it's a valid target (ACharacterBattle, CharacterBattle, or Ch***)
+			bool isValidCharacter = false;
+
+			// Check for standard character battle names
+			if (cachedActor.ClassName == "CharacterBattle" || cachedActor.ClassName == "ACharacterBattle")
+			{
+				isValidCharacter = true;
+			}
+			// Check for Ch*** character classes (Ch008, Ch005, etc.)
+			else if (cachedActor.ClassName.length() > 2 &&
+				cachedActor.ClassName[0] == 'C' &&
+				cachedActor.ClassName[1] == 'h')
+			{
+				isValidCharacter = true;
+			}
+
+			if (isValidCharacter && cachedActor.ActorPtr != nullptr && !cachedActor.IsMySelf)
+			{
+				validTargets.push_back(cachedActor.ActorPtr);
+			}
+		}
+
+		// If no targets found, return nullptr
+		if (validTargets.empty())
+		{
+			return nullptr;
+		}
+
+		// Find closest target in front (using dot product with forward vector)
+		SDK::AActor* closestTarget = nullptr;
+		float closestDistance = FLT_MAX;
+		float bestDotProduct = -1.0f;
+
+		for (auto* target : validTargets)
+		{
+			if (!target)
+				continue;
+
+			try
+			{
+				FVector targetPos = target->K2_GetActorLocation();
+				FVector directionToTarget = (targetPos - playerPos);
+				
+				// Calculate distance manually: sqrt(x^2 + y^2 + z^2)
+				float distanceToTarget = std::sqrt(
+					directionToTarget.X * directionToTarget.X +
+					directionToTarget.Y * directionToTarget.Y +
+					directionToTarget.Z * directionToTarget.Z
+				);
+
+				// Normalize direction
+				if (distanceToTarget > 0.001f)
+				{
+					directionToTarget = directionToTarget / distanceToTarget;
+
+					// Calculate dot product (1.0 = directly in front, -1.0 = behind)
+					float dotProduct = forwardVector.X * directionToTarget.X +
+						forwardVector.Y * directionToTarget.Y +
+						forwardVector.Z * directionToTarget.Z;
+
+					// Only consider targets in front (dot > 0) and closest
+					if (dotProduct > 0.0f && dotProduct > bestDotProduct)
+					{
+						bestDotProduct = dotProduct;
+						closestTarget = target;
+						closestDistance = distanceToTarget;
+					}
+				}
+			}
+			catch (...)
+			{
+				continue;
+			}
+		}
+
+		return closestTarget;
+	}
+	catch (const std::exception& e)
+	{
+		return nullptr;
+	}
+}
+
+// ============================================
+// GET RANDOM ESP TARGET
+// ============================================
+/**
+ * Get a random ACharacterBattle from ESP filter
+ * Returns as AActor* pointer for portability
+ */
+extern "C" SDK::AActor* SDK_GetRandomESPTarget()
+{
+	std::vector<SDK::AActor*> validTargets;
+	
+	try
+	{
+		// Access the cached actors from ESP rendering list
+		// Filter for ACharacterBattle actors only
+		for (const auto& cachedActor : g_ActorsForRendering)
+		{
+			// Check if it's a valid target (ACharacterBattle, CharacterBattle, or Ch***)
+			bool isValidCharacter = false;
+			
+			// Check for standard character battle names
+			if (cachedActor.ClassName == "CharacterBattle" || cachedActor.ClassName == "ACharacterBattle")
+			{
+				isValidCharacter = true;
+			}
+			// Check for Ch*** character classes (Ch008, Ch005, etc.)
+			else if (cachedActor.ClassName.length() > 2 && 
+			         cachedActor.ClassName[0] == 'C' && 
+			         cachedActor.ClassName[1] == 'h')
+			{
+				isValidCharacter = true;
+			}
+			
+			if (isValidCharacter && cachedActor.ActorPtr != nullptr && !cachedActor.IsMySelf)
+			{
+				validTargets.push_back(cachedActor.ActorPtr);
+			}
+		}
+		
+		// If no targets found, return nullptr
+		if (validTargets.empty())
+		{
+			return nullptr;
+		}
+		
+		// Get random target
+		int randomIndex = rand() % validTargets.size();
+		SDK::AActor* selectedTarget = validTargets[randomIndex];
+		
+		
+		return selectedTarget;
+	}
+	catch (const std::exception& e)
+	{
+		return nullptr;
+	}
 }
 
 SDK_NAMESPACE_END
