@@ -16,6 +16,7 @@
 #include <cctype>
 #include <string>
 #include <fstream>
+#include <sstream>
 #include <chrono>
 #include <iomanip>
 
@@ -2496,33 +2497,147 @@ bool InGameHack_RecoverDyingSpecificTeamMember(int teamMemberIndex)
 
 bool InGameHack_ApplyConditionToTeam(int conditionId, int level, float span, float value, float interval, int subLevel)
 {
+    // Open debug file
+    std::ofstream debugFile("C:\\temp\\condition_team_debug.txt", std::ios::app);
+    auto GetTimestamp = []() {
+        auto now = std::chrono::system_clock::now();
+        auto time = std::chrono::system_clock::to_time_t(now);
+        std::stringstream ss;
+        ss << std::put_time(std::localtime(&time), "%H:%M:%S");
+        return ss.str();
+    };
+    
+    debugFile << "[" << GetTimestamp() << "] === ApplyConditionToTeam CALLED ===" << std::endl;
+    debugFile << "[" << GetTimestamp() << "] Condition ID: " << conditionId << ", Level: " << level << std::endl;
+    debugFile.flush();
+
     try
     {
+        debugFile << "[" << GetTimestamp() << "] Checking valid battle mode..." << std::endl;
+        debugFile.flush();
+        
         if (!IsValidBattleMode())
         {
+            debugFile << "[" << GetTimestamp() << "] ERROR: Not in valid battle mode!" << std::endl;
+            debugFile.flush();
+            debugFile.close();
             Logger::LogWarning("[APPLY CONDITION TEAM] Not in valid battle mode");
             return false;
         }
 
-        auto teamCharacters = InGameHack_GetTeamCharacterBattles();
-        if (teamCharacters.empty())
+        debugFile << "[" << GetTimestamp() << "] Valid battle mode confirmed" << std::endl;
+        debugFile << "[" << GetTimestamp() << "] Team characters count: " << ImGuiMenu::g_CurrentTeamCharacters.size() << std::endl;
+        debugFile.flush();
+
+        // Use global team characters vector which is populated from menu
+        if (ImGuiMenu::g_CurrentTeamCharacters.empty())
         {
-            Logger::LogWarning("[APPLY CONDITION TEAM] No team characters found");
-            return false;
+            debugFile << "[" << GetTimestamp() << "] Global team list empty, fetching dynamically..." << std::endl;
+            debugFile.flush();
+            
+            // Try fetching dynamically if not populated
+            auto teamCharacters = InGameHack_GetTeamCharacterBattles();
+            debugFile << "[" << GetTimestamp() << "] Dynamic fetch returned: " << teamCharacters.size() << " characters" << std::endl;
+            debugFile.flush();
+            
+            if (teamCharacters.empty())
+            {
+                debugFile << "[" << GetTimestamp() << "] ERROR: No team characters found!" << std::endl;
+                debugFile.flush();
+                debugFile.close();
+                Logger::LogWarning("[APPLY CONDITION TEAM] No team characters found");
+                return false;
+            }
+
+            int successCount = 0;
+            for (size_t i = 0; i < teamCharacters.size(); i++)
+            {
+                auto* character = teamCharacters[i];
+                debugFile << "[" << GetTimestamp() << "] Processing character " << i << " at " << (void*)character << std::endl;
+                debugFile.flush();
+                
+                if (!character || character->IsDefaultObject())
+                {
+                    debugFile << "[" << GetTimestamp() << "] Character " << i << " is null or default object, skipping" << std::endl;
+                    debugFile.flush();
+                    continue;
+                }
+
+                auto* conditionComponent = character->BP_GetConditionControlComponent();
+                debugFile << "[" << GetTimestamp() << "] Condition component: " << (void*)conditionComponent << std::endl;
+                debugFile.flush();
+                
+                if (!conditionComponent)
+                {
+                    debugFile << "[" << GetTimestamp() << "] Character " << i << " has no condition component!" << std::endl;
+                    debugFile.flush();
+                    continue;
+                }
+
+                try
+                {
+                    debugFile << "[" << GetTimestamp() << "] Calling SetCondition_ToServer..." << std::endl;
+                    debugFile.flush();
+                    
+                    conditionComponent->SetCondition_NetMulticast(
+                        (SDK::ECharacterConditionId)conditionId,
+                        level,
+                        span,
+                        value,
+                        interval,
+                        subLevel,
+                        nullptr,
+                        0,
+                        false
+                    );
+                    
+                    debugFile << "[" << GetTimestamp() << "] SUCCESS for character " << i << std::endl;
+                    debugFile.flush();
+                    successCount++;
+                }
+                catch (const std::exception& ex)
+                {
+                    debugFile << "[" << GetTimestamp() << "] EXCEPTION for character " << i << ": " << ex.what() << std::endl;
+                    debugFile.flush();
+                }
+            }
+
+            debugFile << "[" << GetTimestamp() << "] Applied to " << successCount << "/" << teamCharacters.size() << " members" << std::endl;
+            debugFile.flush();
+            debugFile.close();
+            return successCount > 0;
         }
 
         int successCount = 0;
-        for (auto* character : teamCharacters)
+        for (size_t i = 0; i < ImGuiMenu::g_CurrentTeamCharacters.size(); i++)
         {
+            auto* character = ImGuiMenu::g_CurrentTeamCharacters[i];
+            debugFile << "[" << GetTimestamp() << "] Processing character " << i << " at " << (void*)character << std::endl;
+            debugFile.flush();
+            
             if (!character || character->IsDefaultObject())
+            {
+                debugFile << "[" << GetTimestamp() << "] Character " << i << " is null or default object, skipping" << std::endl;
+                debugFile.flush();
                 continue;
+            }
 
             auto* conditionComponent = character->BP_GetConditionControlComponent();
+            debugFile << "[" << GetTimestamp() << "] Condition component: " << (void*)conditionComponent << std::endl;
+            debugFile.flush();
+            
             if (!conditionComponent)
+            {
+                debugFile << "[" << GetTimestamp() << "] Character " << i << " has no condition component!" << std::endl;
+                debugFile.flush();
                 continue;
+            }
 
             try
             {
+                debugFile << "[" << GetTimestamp() << "] Calling SetCondition_ToServer..." << std::endl;
+                debugFile.flush();
+                
                 conditionComponent->SetCondition_ToServer(
                     (SDK::ECharacterConditionId)conditionId,
                     level,
@@ -2534,19 +2649,29 @@ bool InGameHack_ApplyConditionToTeam(int conditionId, int level, float span, flo
                     0,
                     false
                 );
+                
+                debugFile << "[" << GetTimestamp() << "] SUCCESS for character " << i << std::endl;
+                debugFile.flush();
                 successCount++;
             }
-            catch (...)
+            catch (const std::exception& ex)
             {
-                // Continue applying to other team members
+                debugFile << "[" << GetTimestamp() << "] EXCEPTION for character " << i << ": " << ex.what() << std::endl;
+                debugFile.flush();
             }
         }
 
-        Logger::LogInfo("[APPLY CONDITION TEAM] Applied condition " + std::to_string(conditionId) + " to " + std::to_string(successCount) + "/" + std::to_string(teamCharacters.size()) + " team members");
+        debugFile << "[" << GetTimestamp() << "] Applied to " << successCount << "/" << ImGuiMenu::g_CurrentTeamCharacters.size() << " members" << std::endl;
+        debugFile << "[" << GetTimestamp() << "] === END ===" << std::endl;
+        debugFile.flush();
+        debugFile.close();
         return successCount > 0;
     }
     catch (const std::exception& e)
     {
+        debugFile << "[" << GetTimestamp() << "] CRITICAL EXCEPTION: " << e.what() << std::endl;
+        debugFile.flush();
+        debugFile.close();
         Logger::LogError("[APPLY CONDITION TEAM] Exception: " + std::string(e.what()));
         return false;
     }
