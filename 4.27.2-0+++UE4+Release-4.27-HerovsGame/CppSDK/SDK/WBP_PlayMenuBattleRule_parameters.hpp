@@ -30,7 +30,6 @@ public:
 	uint8                                         Pad_1A[0x2];                                       // 0x001A(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FLinearColor                           K2Node_Select_Default;                             // 0x001C(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_PlayMenuBattleRule_C_ExecuteUbergraph_WBP_PlayMenuBattleRule;
 
 // Function WBP_PlayMenuBattleRule.WBP_PlayMenuBattleRule_C.OnGrayOutEvent
 // 0x0001 (0x0001 - 0x0000)
@@ -39,7 +38,6 @@ struct WBP_PlayMenuBattleRule_C_OnGrayOutEvent final
 public:
 	bool                                          bIsGrayOut;                                        // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_PlayMenuBattleRule_C_OnGrayOutEvent;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

@@ -10,11 +10,11 @@
 
 #include "Basic.hpp"
 
-#include "UMG_classes.hpp"
-#include "Engine_classes.hpp"
-#include "SlateCore_structs.hpp"
-#include "DeveloperSettings_classes.hpp"
 #include "DevelopMenu_structs.hpp"
+#include "UMG_classes.hpp"
+#include "DeveloperSettings_classes.hpp"
+#include "SlateCore_structs.hpp"
+#include "Engine_classes.hpp"
 
 
 SDK_NAMESPACE_START
@@ -55,7 +55,8 @@ class UDevelopMenuEditorSettings final : public UDeveloperSettings
 {
 public:
 	bool                                          bUseSepareteSaveForEditor;                         // 0x0038(0x0001)(Edit, ZeroConstructor, Config, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_39[0x7];                                       // 0x0039(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	bool                                          bEditerbleDuringPIE;                               // 0x0039(0x0001)(Edit, ZeroConstructor, Config, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_3A[0x6];                                       // 0x003A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	static class UClass* StaticClass()

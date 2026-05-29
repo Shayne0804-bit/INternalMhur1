@@ -10,10 +10,10 @@
 
 #include "Basic.hpp"
 
-#include "UMG_structs.hpp"
-#include "BackendSubsystem_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "BackendSubsystem_structs.hpp"
 #include "SlateCore_structs.hpp"
+#include "UMG_structs.hpp"
 #include "UIFramework_structs.hpp"
 
 
@@ -55,7 +55,6 @@ public:
 	class FName                                   CallFunc_GetCurrentLanguageName_ReturnValue;       // 0x007C(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         CallFunc_Array_Find_ReturnValue;                   // 0x0084(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TOS_Base_C_ExecuteUbergraph_WBP_TOS_Base;
 
 // Function WBP_TOS_Base.WBP_TOS_Base_C.BndEvt__WBP_TOS_Base_ExitWindow_K2Node_ComponentBoundEvent_0_OnWindowInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -66,7 +65,6 @@ public:
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          leftButton;                                        // 0x0009(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TOS_Base_C_BndEvt__WBP_TOS_Base_ExitWindow_K2Node_ComponentBoundEvent_0_OnWindowInputEventDelegate__DelegateSignature;
 
 // Function WBP_TOS_Base.WBP_TOS_Base_C.BndEvt__WBP_TOS_Base__languageSetting_K2Node_ComponentBoundEvent_11_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -76,7 +74,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TOS_Base_C_BndEvt__WBP_TOS_Base__languageSetting_K2Node_ComponentBoundEvent_11_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_TOS_Base.WBP_TOS_Base_C.BndEvt__WBP_TOS_Base_SelectLanguageWindow_K2Node_ComponentBoundEvent_0_OnWindowInputEventDelegate__DelegateSignature
 // 0x0018 (0x0018 - 0x0000)
@@ -89,7 +86,6 @@ public:
 	EWidgetInputType                              inputType;                                         // 0x0010(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          leftButton;                                        // 0x0011(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TOS_Base_C_BndEvt__WBP_TOS_Base_SelectLanguageWindow_K2Node_ComponentBoundEvent_0_OnWindowInputEventDelegate__DelegateSignature;
 
 // Function WBP_TOS_Base.WBP_TOS_Base_C.OnAnalogValueChanged
 // 0x02C0 (0x02C0 - 0x0000)
@@ -108,7 +104,6 @@ public:
 	struct FEventReply                            CallFunc_Unhandled_ReturnValue;                    // 0x0200(0x00B8)()
 	bool                                          CallFunc_Not_PreBool_ReturnValue;                  // 0x02B8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TOS_Base_C_OnAnalogValueChanged;
 
 // Function WBP_TOS_Base.WBP_TOS_Base_C.LanguageSelectPC
 // 0x0058 (0x0058 - 0x0000)
@@ -127,7 +122,6 @@ public:
 	class UWBP_langugeImage_C*                    CallFunc_Create_ReturnValue;                       // 0x0048(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UPanelSlot*                             CallFunc_AddChild_ReturnValue;                     // 0x0050(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TOS_Base_C_LanguageSelectPC;
 
 // Function WBP_TOS_Base.WBP_TOS_Base_C.LanguageSelectTOC
 // 0x0048 (0x0048 - 0x0000)
@@ -144,7 +138,6 @@ public:
 	class UWBP_langugeImage_C*                    CallFunc_Create_ReturnValue;                       // 0x0038(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UPanelSlot*                             CallFunc_AddChild_ReturnValue;                     // 0x0040(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TOS_Base_C_LanguageSelectTOC;
 
 // Function WBP_TOS_Base.WBP_TOS_Base_C.SetMainText
 // 0x0020 (0x0020 - 0x0000)
@@ -154,7 +147,6 @@ public:
 	class FText                                   NewParam;                                          // 0x0000(0x0018)(BlueprintVisible, BlueprintReadOnly, Parm)
 	class FName                                   LanguageName;                                      // 0x0018(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TOS_Base_C_SetMainText;
 
 // Function WBP_TOS_Base.WBP_TOS_Base_C.SetTitleText
 // 0x0018 (0x0018 - 0x0000)
@@ -163,7 +155,6 @@ struct WBP_TOS_Base_C_SetTitleText final
 public:
 	class FText                                   NewParam;                                          // 0x0000(0x0018)(BlueprintVisible, BlueprintReadOnly, Parm)
 };
-DUMPER7_ASSERTS_WBP_TOS_Base_C_SetTitleText;
 
 // Function WBP_TOS_Base.WBP_TOS_Base_C.GetSelectWindowIndex
 // 0x0030 (0x0030 - 0x0000)
@@ -179,7 +170,6 @@ public:
 	int32                                         CallFunc_Array_Find_ReturnValue;                   // 0x0024(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         CallFunc_GetStartSelectedIndex_selectedIndex;      // 0x0028(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TOS_Base_C_GetSelectWindowIndex;
 
 // Function WBP_TOS_Base.WBP_TOS_Base_C.DoCustomNavigation_0
 // 0x0018 (0x0018 - 0x0000)
@@ -192,7 +182,6 @@ public:
 	int32                                         CallFunc_GetActiveWidgetIndex_ReturnValue;         // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_SwitchInteger_CmpSuccess;                   // 0x0014(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TOS_Base_C_DoCustomNavigation_0;
 
 // Function WBP_TOS_Base.WBP_TOS_Base_C.LanguageSelectDATA
 // 0x0050 (0x0050 - 0x0000)
@@ -210,7 +199,6 @@ public:
 	class UWBP_langugeImage_C*                    CallFunc_Create_ReturnValue;                       // 0x0040(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UPanelSlot*                             CallFunc_AddChild_ReturnValue;                     // 0x0048(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TOS_Base_C_LanguageSelectDATA;
 
 // Function WBP_TOS_Base.WBP_TOS_Base_C.Get TOSImage
 // 0x00C8 (0x00C8 - 0x0000)
@@ -231,7 +219,6 @@ public:
 	TSoftObjectPtr<class UTexture2D>              CallFunc_BP_GetTOSImage_ReturnValue;               // 0x0078(0x0028)(UObjectWrapper, HasGetValueTypeHash)
 	TSoftObjectPtr<class UTexture2D>              CallFunc_BP_GetPlayStationImage_ReturnValue;       // 0x00A0(0x0028)(UObjectWrapper, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TOS_Base_C_Get_TOSImage;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

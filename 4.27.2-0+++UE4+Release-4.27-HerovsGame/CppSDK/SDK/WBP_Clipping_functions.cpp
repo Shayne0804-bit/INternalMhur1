@@ -16,21 +16,21 @@
 
 SDK_NAMESPACE_START
 
-// Function WBP_Clipping.WBP_Clipping_C.Setup
-// (Public, BlueprintCallable, BlueprintEvent)
+// Function WBP_Clipping.WBP_Clipping_C.ExecuteUbergraph_WBP_Clipping
+// (Final, UbergraphFunction)
 // Parameters:
-// bool                                    bBlackExclushion                                       (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UWBP_Clipping_C::Setup(bool bBlackExclushion)
+void UWBP_Clipping_C::ExecuteUbergraph_WBP_Clipping(int32 EntryPoint)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Clipping_C", "Setup");
+		Func = Class->GetFunction("WBP_Clipping_C", "ExecuteUbergraph_WBP_Clipping");
 
-	Params::WBP_Clipping_C_Setup Parms{};
+	Params::WBP_Clipping_C_ExecuteUbergraph_WBP_Clipping Parms{};
 
-	Parms.bBlackExclushion = bBlackExclushion;
+	Parms.EntryPoint = EntryPoint;
 
 	UObject::ProcessEvent(Func, &Parms);
 }
@@ -56,21 +56,21 @@ void UWBP_Clipping_C::PreConstruct(bool IsDesignTime)
 }
 
 
-// Function WBP_Clipping.WBP_Clipping_C.ExecuteUbergraph_WBP_Clipping
-// (Final, UbergraphFunction)
+// Function WBP_Clipping.WBP_Clipping_C.Setup
+// (Public, BlueprintCallable, BlueprintEvent)
 // Parameters:
-// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// bool                                    bBlackExclushion                                       (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 
-void UWBP_Clipping_C::ExecuteUbergraph_WBP_Clipping(int32 EntryPoint)
+void UWBP_Clipping_C::Setup(bool bBlackExclushion)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Clipping_C", "ExecuteUbergraph_WBP_Clipping");
+		Func = Class->GetFunction("WBP_Clipping_C", "Setup");
 
-	Params::WBP_Clipping_C_ExecuteUbergraph_WBP_Clipping Parms{};
+	Params::WBP_Clipping_C_Setup Parms{};
 
-	Parms.EntryPoint = EntryPoint;
+	Parms.bBlackExclushion = bBlackExclushion;
 
 	UObject::ProcessEvent(Func, &Parms);
 }

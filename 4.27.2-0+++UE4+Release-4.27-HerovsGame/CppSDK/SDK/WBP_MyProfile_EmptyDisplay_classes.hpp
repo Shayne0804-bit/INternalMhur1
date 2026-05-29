@@ -43,6 +43,5 @@ public:
 		return GetDefaultObjImpl<UWBP_MyProfile_EmptyDisplay_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_MyProfile_EmptyDisplay_C;
 
 SDK_NAMESPACE_END

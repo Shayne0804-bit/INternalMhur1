@@ -10,18 +10,18 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
 #include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionEmote.BP_ActionEmote_C
-// 0x0008 (0x0270 - 0x0268)
+// 0x0008 (0x0278 - 0x0270)
 class UBP_ActionEmote_C final : public UActionEmote
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0268(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0270(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
 
 public:
 	void ExecuteUbergraph_BP_ActionEmote(int32 EntryPoint);

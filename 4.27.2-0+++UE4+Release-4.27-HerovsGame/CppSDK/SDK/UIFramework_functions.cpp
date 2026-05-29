@@ -512,21 +512,21 @@ class FName UWidgetBase::GetOwningLevelName() const
 }
 
 
-// Function UIFramework.WidgetScrollText.BP_SetActive
+// Function UIFramework.CustomTextBlock.SetLineHeightPercentage
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
-// bool                                    val                                                    (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const float                             InLineHeightPercentage                                 (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UWidgetScrollText::BP_SetActive(bool val)
+void UCustomTextBlock::SetLineHeightPercentage(const float InLineHeightPercentage)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetScrollText", "BP_SetActive");
+		Func = Class->GetFunction("CustomTextBlock", "SetLineHeightPercentage");
 
-	Params::WidgetScrollText_BP_SetActive Parms{};
+	Params::CustomTextBlock_SetLineHeightPercentage Parms{};
 
-	Parms.val = val;
+	Parms.InLineHeightPercentage = InLineHeightPercentage;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -537,21 +537,21 @@ void UWidgetScrollText::BP_SetActive(bool val)
 }
 
 
-// Function UIFramework.WidgetScrollText.Update
-// (Final, Native, Public)
+// Function UIFramework.CustomTextBlock.SetMargin
+// (Final, Native, Public, HasOutParams, BlueprintCallable)
 // Parameters:
-// float                                   DeltaTime                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FMargin&                   InMargin                                               (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 
-void UWidgetScrollText::Update(float DeltaTime)
+void UCustomTextBlock::SetMargin(const struct FMargin& InMargin)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetScrollText", "Update");
+		Func = Class->GetFunction("CustomTextBlock", "SetMargin");
 
-	Params::WidgetScrollText_Update Parms{};
+	Params::CustomTextBlock_SetMargin Parms{};
 
-	Parms.DeltaTime = DeltaTime;
+	Parms.InMargin = std::move(InMargin);
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -562,19 +562,21 @@ void UWidgetScrollText::Update(float DeltaTime)
 }
 
 
-// Function UIFramework.WidgetScrollText.BP_GetActive
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Function UIFramework.CustomTextBlock.SetWrapTextAt
+// (Final, Native, Public, BlueprintCallable)
 // Parameters:
-// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const float                             InWrapTextAt                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-bool UWidgetScrollText::BP_GetActive() const
+void UCustomTextBlock::SetWrapTextAt(const float InWrapTextAt)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetScrollText", "BP_GetActive");
+		Func = Class->GetFunction("CustomTextBlock", "SetWrapTextAt");
 
-	Params::WidgetScrollText_BP_GetActive Parms{};
+	Params::CustomTextBlock_SetWrapTextAt Parms{};
+
+	Parms.InWrapTextAt = InWrapTextAt;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -582,8 +584,6 @@ bool UWidgetScrollText::BP_GetActive() const
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
 }
 
 
@@ -640,851 +640,6 @@ void UCustomListView::AddScrollOffsetByAnalogStick(const struct FAnalogInputEven
 	Func->FunctionFlags |= 0x400;
 
 	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindowBase.Close
-// (Final, Native, Public, BlueprintCallable)
-
-void UWidgetGeneralWindowBase::Close()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindowBase", "Close");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindowBase.OnClose
-// (Event, Public, BlueprintEvent)
-
-void UWidgetGeneralWindowBase::OnClose()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindowBase", "OnClose");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function UIFramework.WidgetGeneralWindowBase.OnOpen
-// (Event, Public, BlueprintEvent)
-
-void UWidgetGeneralWindowBase::OnOpen()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindowBase", "OnOpen");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function UIFramework.WidgetGeneralWindowBase.Open
-// (Final, Native, Public, BlueprintCallable)
-
-void UWidgetGeneralWindowBase::Open()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindowBase", "Open");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindowBase.SetTag
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const class FString&                    Tag                                                    (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindowBase::SetTag(const class FString& Tag)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindowBase", "SetTag");
-
-	Params::WidgetGeneralWindowBase_SetTag Parms{};
-
-	Parms.Tag = std::move(Tag);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindowBase.SetText
-// (Final, Native, Public, HasOutParams, BlueprintCallable)
-// Parameters:
-// const class FText&                      InText                                                 (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindowBase::SetText(const class FText& InText)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindowBase", "SetText");
-
-	Params::WidgetGeneralWindowBase_SetText Parms{};
-
-	Parms.InText = std::move(InText);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindowBase.SetTextStyleSet
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// class UDataTable*                       textStyleSet                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindowBase::SetTextStyleSet(class UDataTable* textStyleSet)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindowBase", "SetTextStyleSet");
-
-	Params::WidgetGeneralWindowBase_SetTextStyleSet Parms{};
-
-	Parms.textStyleSet = textStyleSet;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindowBase.SetupHeaderText
-// (Final, Native, Public, HasOutParams, BlueprintCallable)
-// Parameters:
-// const class FText&                      InText                                                 (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindowBase::SetupHeaderText(const class FText& InText)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindowBase", "SetupHeaderText");
-
-	Params::WidgetGeneralWindowBase_SetupHeaderText Parms{};
-
-	Parms.InText = std::move(InText);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindowBase.SetWindowPosition
-// (Final, Native, Public, HasOutParams, HasDefaults, BlueprintCallable)
-// Parameters:
-// const struct FVector2D&                 windowPosition                                         (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindowBase::SetWindowPosition(const struct FVector2D& windowPosition)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindowBase", "SetWindowPosition");
-
-	Params::WidgetGeneralWindowBase_SetWindowPosition Parms{};
-
-	Parms.windowPosition = std::move(windowPosition);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindowBase.SetWindowSize
-// (Final, Native, Public, HasOutParams, HasDefaults, BlueprintCallable)
-// Parameters:
-// const struct FVector2D&                 windowSize                                             (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindowBase::SetWindowSize(const struct FVector2D& windowSize)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindowBase", "SetWindowSize");
-
-	Params::WidgetGeneralWindowBase_SetWindowSize Parms{};
-
-	Parms.windowSize = std::move(windowSize);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindowBase.GetWindowPosition
-// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// struct FVector2D                        ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-struct FVector2D UWidgetGeneralWindowBase::GetWindowPosition() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindowBase", "GetWindowPosition");
-
-	Params::WidgetGeneralWindowBase_GetWindowPosition Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function UIFramework.WidgetGeneralWindowBase.GetWindowSize
-// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// struct FVector2D                        ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-struct FVector2D UWidgetGeneralWindowBase::GetWindowSize() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindowBase", "GetWindowSize");
-
-	Params::WidgetGeneralWindowBase_GetWindowSize Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.BP_FocusButton
-// (Final, Native, Protected, BlueprintCallable)
-// Parameters:
-// bool                                    bLeft                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::BP_FocusButton(bool bLeft)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "BP_FocusButton");
-
-	Params::WidgetGeneralWindow_BP_FocusButton Parms{};
-
-	Parms.bLeft = bLeft;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.BP_SetButtonEnable
-// (Final, Native, Protected, BlueprintCallable)
-// Parameters:
-// bool                                    bEnable                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::BP_SetButtonEnable(bool bEnable)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "BP_SetButtonEnable");
-
-	Params::WidgetGeneralWindow_BP_SetButtonEnable Parms{};
-
-	Parms.bEnable = bEnable;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.BP_SetLeftButtonEnable
-// (Final, Native, Protected, BlueprintCallable)
-// Parameters:
-// bool                                    bEnable                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::BP_SetLeftButtonEnable(bool bEnable)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "BP_SetLeftButtonEnable");
-
-	Params::WidgetGeneralWindow_BP_SetLeftButtonEnable Parms{};
-
-	Parms.bEnable = bEnable;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.BP_SetRightButtonEnable
-// (Final, Native, Protected, BlueprintCallable)
-// Parameters:
-// bool                                    bEnable                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::BP_SetRightButtonEnable(bool bEnable)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "BP_SetRightButtonEnable");
-
-	Params::WidgetGeneralWindow_BP_SetRightButtonEnable Parms{};
-
-	Parms.bEnable = bEnable;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.BP_SetupBackgroundBlur
-// (Final, Native, Protected, BlueprintCallable)
-// Parameters:
-// bool                                    bUserBlur                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::BP_SetupBackgroundBlur(bool bUserBlur)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "BP_SetupBackgroundBlur");
-
-	Params::WidgetGeneralWindow_BP_SetupBackgroundBlur Parms{};
-
-	Parms.bUserBlur = bUserBlur;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.BP_SetupButton
-// (Final, Native, Protected, HasOutParams, BlueprintCallable)
-// Parameters:
-// const struct FGeneralWindowText&        Text                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::BP_SetupButton(const struct FGeneralWindowText& Text)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "BP_SetupButton");
-
-	Params::WidgetGeneralWindow_BP_SetupButton Parms{};
-
-	Parms.Text = std::move(Text);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.BP_SetupLeftButton
-// (Final, Native, Protected, HasOutParams, BlueprintCallable)
-// Parameters:
-// const struct FGeneralWindowText&        Text                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::BP_SetupLeftButton(const struct FGeneralWindowText& Text)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "BP_SetupLeftButton");
-
-	Params::WidgetGeneralWindow_BP_SetupLeftButton Parms{};
-
-	Parms.Text = std::move(Text);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.BP_SetupRightButton
-// (Final, Native, Protected, HasOutParams, BlueprintCallable)
-// Parameters:
-// const struct FGeneralWindowText&        Text                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::BP_SetupRightButton(const struct FGeneralWindowText& Text)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "BP_SetupRightButton");
-
-	Params::WidgetGeneralWindow_BP_SetupRightButton Parms{};
-
-	Parms.Text = std::move(Text);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.BP_SetupTwoButton
-// (Final, Native, Protected, HasOutParams, BlueprintCallable)
-// Parameters:
-// const struct FGeneralWindowText&        leftText                                               (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-// const struct FGeneralWindowText&        rightText                                              (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::BP_SetupTwoButton(const struct FGeneralWindowText& leftText, const struct FGeneralWindowText& rightText)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "BP_SetupTwoButton");
-
-	Params::WidgetGeneralWindow_BP_SetupTwoButton Parms{};
-
-	Parms.leftText = std::move(leftText);
-	Parms.rightText = std::move(rightText);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.OnDecideButton
-// (Final, Native, Private)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::OnDecideButton(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "OnDecideButton");
-
-	Params::WidgetGeneralWindow_OnDecideButton Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.OnMouseEnterButton
-// (Final, Native, Private)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::OnMouseEnterButton(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "OnMouseEnterButton");
-
-	Params::WidgetGeneralWindow_OnMouseEnterButton Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.OnMouseLeaveButton
-// (Final, Native, Private)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::OnMouseLeaveButton(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "OnMouseLeaveButton");
-
-	Params::WidgetGeneralWindow_OnMouseLeaveButton Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.OnPressButton
-// (Final, Native, Private)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::OnPressButton(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "OnPressButton");
-
-	Params::WidgetGeneralWindow_OnPressButton Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.SetSubText
-// (Final, Native, Public, HasOutParams, BlueprintCallable)
-// Parameters:
-// const class FText&                      InText                                                 (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::SetSubText(const class FText& InText)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "SetSubText");
-
-	Params::WidgetGeneralWindow_SetSubText Parms{};
-
-	Parms.InText = std::move(InText);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.SetSubTextColorAndOpacity
-// (Final, Native, Public, HasDefaults, BlueprintCallable)
-// Parameters:
-// const struct FLinearColor&              Color                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::SetSubTextColorAndOpacity(const struct FLinearColor& Color)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "SetSubTextColorAndOpacity");
-
-	Params::WidgetGeneralWindow_SetSubTextColorAndOpacity Parms{};
-
-	Parms.Color = std::move(Color);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.SetSubTextVisibility
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// ESlateVisibility                        InVisibility                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::SetSubTextVisibility(ESlateVisibility InVisibility)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "SetSubTextVisibility");
-
-	Params::WidgetGeneralWindow_SetSubTextVisibility Parms{};
-
-	Parms.InVisibility = InVisibility;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.SetTextMainVisibility
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// ESlateVisibility                        InVisibility                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::SetTextMainVisibility(ESlateVisibility InVisibility)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "SetTextMainVisibility");
-
-	Params::WidgetGeneralWindow_SetTextMainVisibility Parms{};
-
-	Parms.InVisibility = InVisibility;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.SetTextVisibility
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// ESlateVisibility                        InVisibility                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetGeneralWindow::SetTextVisibility(ESlateVisibility InVisibility)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "SetTextVisibility");
-
-	Params::WidgetGeneralWindow_SetTextVisibility Parms{};
-
-	Parms.InVisibility = InVisibility;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.BP_GetButtonCount
-// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-int32 UWidgetGeneralWindow::BP_GetButtonCount() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "BP_GetButtonCount");
-
-	Params::WidgetGeneralWindow_BP_GetButtonCount Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.BP_GetLeftOfTwoButtons
-// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// class UWidgetButton*                    ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UWidgetButton* UWidgetGeneralWindow::BP_GetLeftOfTwoButtons() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "BP_GetLeftOfTwoButtons");
-
-	Params::WidgetGeneralWindow_BP_GetLeftOfTwoButtons Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.BP_GetOneButton
-// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// class UWidgetButton*                    ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UWidgetButton* UWidgetGeneralWindow::BP_GetOneButton() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "BP_GetOneButton");
-
-	Params::WidgetGeneralWindow_BP_GetOneButton Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function UIFramework.WidgetGeneralWindow.BP_GetRightOfTwoButtons
-// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// class UWidgetButton*                    ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UWidgetButton* UWidgetGeneralWindow::BP_GetRightOfTwoButtons() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindow", "BP_GetRightOfTwoButtons");
-
-	Params::WidgetGeneralWindow_BP_GetRightOfTwoButtons Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function UIFramework.WidgetGeneralWindowFrame.SetupBaseWidgets
-// (Final, Native, Public, BlueprintCallable)
-
-void UWidgetGeneralWindowFrame::SetupBaseWidgets()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetGeneralWindowFrame", "SetupBaseWidgets");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
 
 	Func->FunctionFlags = Flgs;
 }
@@ -2191,124 +1346,20 @@ bool UAppWidgetWork::IsFadingOut() const
 }
 
 
-// Function UIFramework.WidgetSubMenu.Close
+// Function UIFramework.WidgetButton.PressThisButton
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
-// bool                                    useCloseAnimation                                      (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    useCloseSE                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetSubMenu::Close(bool useCloseAnimation, bool useCloseSE)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "Close");
-
-	Params::WidgetSubMenu_Close Parms{};
-
-	Parms.useCloseAnimation = useCloseAnimation;
-	Parms.useCloseSE = useCloseSE;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetSubMenu.GetOffsetPosition
-// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure)
-// Parameters:
-// struct FVector2D                        ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-struct FVector2D UWidgetSubMenu::GetOffsetPosition()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "GetOffsetPosition");
-
-	Params::WidgetSubMenu_GetOffsetPosition Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function UIFramework.WidgetSubMenu.IsCloseable
-// (Final, Native, Protected, BlueprintCallable)
-// Parameters:
-// const struct FFocusEvent&               InFocusEvent                                           (Parm, NoDestructor, NativeAccessSpecifierPublic)
-
-void UWidgetSubMenu::IsCloseable(const struct FFocusEvent& InFocusEvent)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "IsCloseable");
-
-	Params::WidgetSubMenu_IsCloseable Parms{};
-
-	Parms.InFocusEvent = std::move(InFocusEvent);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetSubMenu.IsOpenSubMenu
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-bool UWidgetSubMenu::IsOpenSubMenu()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "IsOpenSubMenu");
-
-	Params::WidgetSubMenu_IsOpenSubMenu Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function UIFramework.WidgetSubMenu.OnDecideListButtonEvent
-// (Final, Native, Private)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UWidgetSubMenu::OnDecideListButtonEvent(class UAppWidget* Widget, EWidgetInputType inputType)
+void UWidgetButton::PressThisButton(EWidgetInputType inputType)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "OnDecideListButtonEvent");
+		Func = Class->GetFunction("WidgetButton", "PressThisButton");
 
-	Params::WidgetSubMenu_OnDecideListButtonEvent Parms{};
+	Params::WidgetButton_PressThisButton Parms{};
 
-	Parms.Widget = Widget;
 	Parms.inputType = inputType;
 
 	auto Flgs = Func->FunctionFlags;
@@ -2320,277 +1371,15 @@ void UWidgetSubMenu::OnDecideListButtonEvent(class UAppWidget* Widget, EWidgetIn
 }
 
 
-// Function UIFramework.WidgetSubMenu.OnHoveredChangedEvent
-// (Final, Native, Private)
-// Parameters:
-// class UObject*                          Item                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    bHovered                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetSubMenu::OnHoveredChangedEvent(class UObject* Item, bool bHovered)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "OnHoveredChangedEvent");
-
-	Params::WidgetSubMenu_OnHoveredChangedEvent Parms{};
-
-	Parms.Item = Item;
-	Parms.bHovered = bHovered;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetSubMenu.OnReceivedItemSelectionChangedEvent
-// (Final, Native, Private)
-// Parameters:
-// class UObject*                          Item                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetSubMenu::OnReceivedItemSelectionChangedEvent(class UObject* Item)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "OnReceivedItemSelectionChangedEvent");
-
-	Params::WidgetSubMenu_OnReceivedItemSelectionChangedEvent Parms{};
-
-	Parms.Item = Item;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetSubMenu.OnSubMenuCancel
-// (Final, Native, Private)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetSubMenu::OnSubMenuCancel(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "OnSubMenuCancel");
-
-	Params::WidgetSubMenu_OnSubMenuCancel Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetSubMenu.Open
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// class UWidgetBase*                      Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    useOpenSE                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetSubMenu::Open(class UWidgetBase* Widget, bool useOpenSE)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "Open");
-
-	Params::WidgetSubMenu_Open Parms{};
-
-	Parms.Widget = Widget;
-	Parms.useOpenSE = useOpenSE;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetSubMenu.OpenWithInputParam
-// (Final, Native, Public)
-// Parameters:
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UWidgetBase*                      Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    useOpenSE                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetSubMenu::OpenWithInputParam(EWidgetInputType inputType, class UWidgetBase* Widget, bool useOpenSE)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "OpenWithInputParam");
-
-	Params::WidgetSubMenu_OpenWithInputParam Parms{};
-
-	Parms.inputType = inputType;
-	Parms.Widget = Widget;
-	Parms.useOpenSE = useOpenSE;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetSubMenu.SetButtonTexts
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const TArray<class FText>&              texts                                                  (Parm, ZeroConstructor, NativeAccessSpecifierPublic)
-
-void UWidgetSubMenu::SetButtonTexts(const TArray<class FText>& texts)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "SetButtonTexts");
-
-	Params::WidgetSubMenu_SetButtonTexts Parms{};
-
-	Parms.texts = std::move(texts);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetSubMenu.SetFocusListViewItem
-// (Final, Native, Protected, BlueprintCallable)
-// Parameters:
-// int32                                   itemIndex                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetSubMenu::SetFocusListViewItem(int32 itemIndex)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "SetFocusListViewItem");
-
-	Params::WidgetSubMenu_SetFocusListViewItem Parms{};
-
-	Parms.itemIndex = itemIndex;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetSubMenu.SetOffsetPosition
-// (Final, Native, Public, HasOutParams, HasDefaults, BlueprintCallable)
-// Parameters:
-// const struct FVector2D&                 Pos                                                    (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetSubMenu::SetOffsetPosition(const struct FVector2D& Pos)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "SetOffsetPosition");
-
-	Params::WidgetSubMenu_SetOffsetPosition Parms{};
-
-	Parms.Pos = std::move(Pos);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetSubMenu.SetSubMenuInfo
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const TArray<struct FSubMenuInfo>&      SubMenuInfo                                            (Parm, ZeroConstructor, NativeAccessSpecifierPublic)
-// bool                                    Update                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetSubMenu::SetSubMenuInfo(const TArray<struct FSubMenuInfo>& SubMenuInfo, bool Update)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "SetSubMenuInfo");
-
-	Params::WidgetSubMenu_SetSubMenuInfo Parms{};
-
-	Parms.SubMenuInfo = std::move(SubMenuInfo);
-	Parms.Update = Update;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetSubMenu.SwitchArrowDirection
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// bool                                    bRight                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetSubMenu::SwitchArrowDirection(bool bRight)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "SwitchArrowDirection");
-
-	Params::WidgetSubMenu_SwitchArrowDirection Parms{};
-
-	Parms.bRight = bRight;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetSubMenu.UpdateSubMenuInfo
+// Function UIFramework.WidgetButton.ResetShortcutKey
 // (Final, Native, Public, BlueprintCallable)
 
-void UWidgetSubMenu::UpdateSubMenuInfo()
+void UWidgetButton::ResetShortcutKey()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "UpdateSubMenuInfo");
+		Func = Class->GetFunction("WidgetButton", "ResetShortcutKey");
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -2601,19 +1390,21 @@ void UWidgetSubMenu::UpdateSubMenuInfo()
 }
 
 
-// Function UIFramework.WidgetSubMenu.GetButtonTexts
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Function UIFramework.WidgetButton.SetEnableDragDrop
+// (Final, Native, Public, BlueprintCallable)
 // Parameters:
-// TArray<class FText>                     ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
+// const bool                              bDragDrop                                              (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-TArray<class FText> UWidgetSubMenu::GetButtonTexts() const
+void UWidgetButton::SetEnableDragDrop(const bool bDragDrop)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "GetButtonTexts");
+		Func = Class->GetFunction("WidgetButton", "SetEnableDragDrop");
 
-	Params::WidgetSubMenu_GetButtonTexts Parms{};
+	Params::WidgetButton_SetEnableDragDrop Parms{};
+
+	Parms.bDragDrop = bDragDrop;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -2621,24 +1412,260 @@ TArray<class FText> UWidgetSubMenu::GetButtonTexts() const
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
 }
 
 
-// Function UIFramework.WidgetSubMenu.GetSubMenuInfo
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Function UIFramework.WidgetButton.SetOnlyPlayShortcutAtomCue
+// (Final, Native, Public, BlueprintCallable)
 // Parameters:
-// const TArray<struct FSubMenuInfo>       ReturnValue                                            (ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
+// bool                                    flag                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-const TArray<struct FSubMenuInfo> UWidgetSubMenu::GetSubMenuInfo() const
+void UWidgetButton::SetOnlyPlayShortcutAtomCue(bool flag)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetSubMenu", "GetSubMenuInfo");
+		Func = Class->GetFunction("WidgetButton", "SetOnlyPlayShortcutAtomCue");
 
-	Params::WidgetSubMenu_GetSubMenuInfo Parms{};
+	Params::WidgetButton_SetOnlyPlayShortcutAtomCue Parms{};
+
+	Parms.flag = flag;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetButton.SetPlayNegativeAnimationShortcut
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// bool                                    bPlay                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetButton::SetPlayNegativeAnimationShortcut(bool bPlay)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetButton", "SetPlayNegativeAnimationShortcut");
+
+	Params::WidgetButton_SetPlayNegativeAnimationShortcut Parms{};
+
+	Parms.bPlay = bPlay;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetButton.StopDefaultAnimation
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const bool                              bAllChildren                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetButton::StopDefaultAnimation(const bool bAllChildren)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetButton", "StopDefaultAnimation");
+
+	Params::WidgetButton_StopDefaultAnimation Parms{};
+
+	Parms.bAllChildren = bAllChildren;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetButton.StopFocusAnimation
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const bool                              bAllChildren                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetButton::StopFocusAnimation(const bool bAllChildren)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetButton", "StopFocusAnimation");
+
+	Params::WidgetButton_StopFocusAnimation Parms{};
+
+	Parms.bAllChildren = bAllChildren;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetButton.StopIdleAnimation
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const bool                              bAllChildren                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetButton::StopIdleAnimation(const bool bAllChildren)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetButton", "StopIdleAnimation");
+
+	Params::WidgetButton_StopIdleAnimation Parms{};
+
+	Parms.bAllChildren = bAllChildren;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetButton.StopNegativeAnimation
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const bool                              bAllChildren                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetButton::StopNegativeAnimation(const bool bAllChildren)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetButton", "StopNegativeAnimation");
+
+	Params::WidgetButton_StopNegativeAnimation Parms{};
+
+	Parms.bAllChildren = bAllChildren;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetButton.StopPressAnimation
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const bool                              bAllChildren                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetButton::StopPressAnimation(const bool bAllChildren)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetButton", "StopPressAnimation");
+
+	Params::WidgetButton_StopPressAnimation Parms{};
+
+	Parms.bAllChildren = bAllChildren;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetButton.StopReleaseAnimation
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const bool                              bAllChildren                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetButton::StopReleaseAnimation(const bool bAllChildren)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetButton", "StopReleaseAnimation");
+
+	Params::WidgetButton_StopReleaseAnimation Parms{};
+
+	Parms.bAllChildren = bAllChildren;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetButton.UpdateButtonText
+// (Native, Event, Public, BlueprintCallable, BlueprintEvent)
+
+void UWidgetButton::UpdateButtonText()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetButton", "UpdateButtonText");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetButton.UpdateShortcutKey
+// (Final, Native, Public, BlueprintCallable)
+
+void UWidgetButton::UpdateShortcutKey()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetButton", "UpdateShortcutKey");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetButton.IsEnableDragDrop
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+bool UWidgetButton::IsEnableDragDrop() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetButton", "IsEnableDragDrop");
+
+	Params::WidgetButton_IsEnableDragDrop Parms{};
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -2772,6 +1799,431 @@ void UCustomMultiLineEditableText::CustomHandleOnTextCommitted(const class FText
 }
 
 
+// Function UIFramework.WidgetText.GetDynamicFontMaterial
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// class UMaterialInstanceDynamic*         ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UMaterialInstanceDynamic* UWidgetText::GetDynamicFontMaterial()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetText", "GetDynamicFontMaterial");
+
+	Params::WidgetText_GetDynamicFontMaterial Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function UIFramework.WidgetText.GetDynamicOutlineMaterial
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// class UMaterialInstanceDynamic*         ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UMaterialInstanceDynamic* UWidgetText::GetDynamicOutlineMaterial()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetText", "GetDynamicOutlineMaterial");
+
+	Params::WidgetText_GetDynamicOutlineMaterial Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function UIFramework.WidgetText.SetAutoWrapText
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// bool                                    InAutoTextWrap                                         (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetText::SetAutoWrapText(bool InAutoTextWrap)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetText", "SetAutoWrapText");
+
+	Params::WidgetText_SetAutoWrapText Parms{};
+
+	Parms.InAutoTextWrap = InAutoTextWrap;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetText.SetFont
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const struct FSlateFontInfo&            InFontInfo                                             (Parm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetText::SetFont(const struct FSlateFontInfo& InFontInfo)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetText", "SetFont");
+
+	Params::WidgetText_SetFont Parms{};
+
+	Parms.InFontInfo = std::move(InFontInfo);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetText.SetLineHeightPercentage
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const float                             InLineHeightPercentage                                 (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetText::SetLineHeightPercentage(const float InLineHeightPercentage)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetText", "SetLineHeightPercentage");
+
+	Params::WidgetText_SetLineHeightPercentage Parms{};
+
+	Parms.InLineHeightPercentage = InLineHeightPercentage;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetText.SetMargin
+// (Final, Native, Public, HasOutParams, BlueprintCallable)
+// Parameters:
+// const struct FMargin&                   InMargin                                               (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+
+void UWidgetText::SetMargin(const struct FMargin& InMargin)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetText", "SetMargin");
+
+	Params::WidgetText_SetMargin Parms{};
+
+	Parms.InMargin = std::move(InMargin);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetText.SetMinDesiredWidth
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// float                                   InMinDesiredWidth                                      (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetText::SetMinDesiredWidth(float InMinDesiredWidth)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetText", "SetMinDesiredWidth");
+
+	Params::WidgetText_SetMinDesiredWidth Parms{};
+
+	Parms.InMinDesiredWidth = InMinDesiredWidth;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetText.SetOpacity
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// float                                   InOpacity                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetText::SetOpacity(float InOpacity)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetText", "SetOpacity");
+
+	Params::WidgetText_SetOpacity Parms{};
+
+	Parms.InOpacity = InOpacity;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetText.SetShadowColorAndOpacity
+// (Final, Native, Public, HasDefaults, BlueprintCallable)
+// Parameters:
+// const struct FLinearColor&              InShadowColorAndOpacity                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetText::SetShadowColorAndOpacity(const struct FLinearColor& InShadowColorAndOpacity)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetText", "SetShadowColorAndOpacity");
+
+	Params::WidgetText_SetShadowColorAndOpacity Parms{};
+
+	Parms.InShadowColorAndOpacity = std::move(InShadowColorAndOpacity);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetText.SetShadowOffset
+// (Final, Native, Public, HasDefaults, BlueprintCallable)
+// Parameters:
+// const struct FVector2D&                 InShadowOffset                                         (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetText::SetShadowOffset(const struct FVector2D& InShadowOffset)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetText", "SetShadowOffset");
+
+	Params::WidgetText_SetShadowOffset Parms{};
+
+	Parms.InShadowOffset = std::move(InShadowOffset);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetText.SetStrikeBrush
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const struct FSlateBrush&               InStrikeBrush                                          (Parm, NativeAccessSpecifierPublic)
+
+void UWidgetText::SetStrikeBrush(const struct FSlateBrush& InStrikeBrush)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetText", "SetStrikeBrush");
+
+	Params::WidgetText_SetStrikeBrush Parms{};
+
+	Parms.InStrikeBrush = std::move(InStrikeBrush);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetText.SetText
+// (Native, Public, BlueprintCallable)
+// Parameters:
+// const class FText&                      InText                                                 (Parm, NativeAccessSpecifierPublic)
+
+void UWidgetText::SetText(const class FText& InText)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetText", "SetText");
+
+	Params::WidgetText_SetText Parms{};
+
+	Parms.InText = std::move(InText);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetText.SetTextColorAndOpacity
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const struct FSlateColor&               InColorAndOpacity                                      (Parm, NativeAccessSpecifierPublic)
+
+void UWidgetText::SetTextColorAndOpacity(const struct FSlateColor& InColorAndOpacity)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetText", "SetTextColorAndOpacity");
+
+	Params::WidgetText_SetTextColorAndOpacity Parms{};
+
+	Parms.InColorAndOpacity = std::move(InColorAndOpacity);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetText.SetTextTransformPolicy
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// ETextTransformPolicy                    InTransformPolicy                                      (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetText::SetTextTransformPolicy(ETextTransformPolicy InTransformPolicy)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetText", "SetTextTransformPolicy");
+
+	Params::WidgetText_SetTextTransformPolicy Parms{};
+
+	Parms.InTransformPolicy = InTransformPolicy;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetText.SetWrapTextAt
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const float                             InWrapTextAt                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetText::SetWrapTextAt(const float InWrapTextAt)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetText", "SetWrapTextAt");
+
+	Params::WidgetText_SetWrapTextAt Parms{};
+
+	Parms.InWrapTextAt = InWrapTextAt;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetText.GetFont
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// const struct FSlateFontInfo             ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+const struct FSlateFontInfo UWidgetText::GetFont() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetText", "GetFont");
+
+	Params::WidgetText_GetFont Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function UIFramework.WidgetText.GetText
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// class FText                             ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+
+class FText UWidgetText::GetText() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetText", "GetText");
+
+	Params::WidgetText_GetText Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
 // Function UIFramework.ClippingWidget.SetupDispClippingMask
 // (Final, Native, Protected)
 
@@ -2807,285 +2259,6 @@ void UClippingWidget::Update()
 	UObject::ProcessEvent(Func, nullptr);
 
 	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetWindowFrame.OnButtonAddedToFocusEvent
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetWindowFrame::OnButtonAddedToFocusEvent(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetWindowFrame", "OnButtonAddedToFocusEvent");
-
-	Params::WidgetWindowFrame_OnButtonAddedToFocusEvent Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetWindowFrame.OnButtonDecideEvent
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetWindowFrame::OnButtonDecideEvent(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetWindowFrame", "OnButtonDecideEvent");
-
-	Params::WidgetWindowFrame_OnButtonDecideEvent Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetWindowFrame.OnButtonOnLongDecideEvent
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetWindowFrame::OnButtonOnLongDecideEvent(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetWindowFrame", "OnButtonOnLongDecideEvent");
-
-	Params::WidgetWindowFrame_OnButtonOnLongDecideEvent Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetWindowFrame.OnButtonPressEvent
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetWindowFrame::OnButtonPressEvent(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetWindowFrame", "OnButtonPressEvent");
-
-	Params::WidgetWindowFrame_OnButtonPressEvent Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetWindowFrame.OnButtonRemovedFromFocusEvent
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetWindowFrame::OnButtonRemovedFromFocusEvent(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetWindowFrame", "OnButtonRemovedFromFocusEvent");
-
-	Params::WidgetWindowFrame_OnButtonRemovedFromFocusEvent Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetWindowFrame.ReplaceBase1Slot
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// class UNamedSlot*                       Source                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetWindowFrame::ReplaceBase1Slot(class UNamedSlot* Source)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetWindowFrame", "ReplaceBase1Slot");
-
-	Params::WidgetWindowFrame_ReplaceBase1Slot Parms{};
-
-	Parms.Source = Source;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetWindowFrame.ReplaceBase2Slot
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// class UNamedSlot*                       Source                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetWindowFrame::ReplaceBase2Slot(class UNamedSlot* Source)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetWindowFrame", "ReplaceBase2Slot");
-
-	Params::WidgetWindowFrame_ReplaceBase2Slot Parms{};
-
-	Parms.Source = Source;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetWindowFrame.ReplaceContentsSlot
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// class UNamedSlot*                       Source                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetWindowFrame::ReplaceContentsSlot(class UNamedSlot* Source)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetWindowFrame", "ReplaceContentsSlot");
-
-	Params::WidgetWindowFrame_ReplaceContentsSlot Parms{};
-
-	Parms.Source = Source;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetWindowFrame.SetupBaseWidgets
-// (Final, Native, Protected, BlueprintCallable)
-
-void UWidgetWindowFrame::SetupBaseWidgets()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetWindowFrame", "SetupBaseWidgets");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetWindowFrame.GetButtonCount
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// uint8                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-uint8 UWidgetWindowFrame::GetButtonCount() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetWindowFrame", "GetButtonCount");
-
-	Params::WidgetWindowFrame_GetButtonCount Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function UIFramework.WidgetWindowFrame.GetWindowSize
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// float                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-float UWidgetWindowFrame::GetWindowSize() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetWindowFrame", "GetWindowSize");
-
-	Params::WidgetWindowFrame_GetWindowSize Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
 }
 
 
@@ -4113,21 +3286,21 @@ void UWidgetBackground::BP_Open()
 }
 
 
-// Function UIFramework.WidgetButton.PressThisButton
-// (Final, Native, Public, BlueprintCallable)
+// Function UIFramework.WidgetLocalizeLayoutItem.SetText
+// (Final, Native, Public, HasOutParams, BlueprintCallable)
 // Parameters:
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FText&                      Text                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 
-void UWidgetButton::PressThisButton(EWidgetInputType inputType)
+void UWidgetLocalizeLayoutItem::SetText(const class FText& Text)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetButton", "PressThisButton");
+		Func = Class->GetFunction("WidgetLocalizeLayoutItem", "SetText");
 
-	Params::WidgetButton_PressThisButton Parms{};
+	Params::WidgetLocalizeLayoutItem_SetText Parms{};
 
-	Parms.inputType = inputType;
+	Parms.Text = std::move(Text);
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -4135,313 +3308,6 @@ void UWidgetButton::PressThisButton(EWidgetInputType inputType)
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetButton.ResetShortcutKey
-// (Final, Native, Public, BlueprintCallable)
-
-void UWidgetButton::ResetShortcutKey()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetButton", "ResetShortcutKey");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetButton.SetEnableDragDrop
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const bool                              bDragDrop                                              (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetButton::SetEnableDragDrop(const bool bDragDrop)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetButton", "SetEnableDragDrop");
-
-	Params::WidgetButton_SetEnableDragDrop Parms{};
-
-	Parms.bDragDrop = bDragDrop;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetButton.SetOnlyPlayShortcutAtomCue
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// bool                                    flag                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetButton::SetOnlyPlayShortcutAtomCue(bool flag)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetButton", "SetOnlyPlayShortcutAtomCue");
-
-	Params::WidgetButton_SetOnlyPlayShortcutAtomCue Parms{};
-
-	Parms.flag = flag;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetButton.SetPlayNegativeAnimationShortcut
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// bool                                    bPlay                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetButton::SetPlayNegativeAnimationShortcut(bool bPlay)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetButton", "SetPlayNegativeAnimationShortcut");
-
-	Params::WidgetButton_SetPlayNegativeAnimationShortcut Parms{};
-
-	Parms.bPlay = bPlay;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetButton.StopDefaultAnimation
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const bool                              bAllChildren                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetButton::StopDefaultAnimation(const bool bAllChildren)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetButton", "StopDefaultAnimation");
-
-	Params::WidgetButton_StopDefaultAnimation Parms{};
-
-	Parms.bAllChildren = bAllChildren;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetButton.StopFocusAnimation
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const bool                              bAllChildren                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetButton::StopFocusAnimation(const bool bAllChildren)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetButton", "StopFocusAnimation");
-
-	Params::WidgetButton_StopFocusAnimation Parms{};
-
-	Parms.bAllChildren = bAllChildren;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetButton.StopIdleAnimation
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const bool                              bAllChildren                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetButton::StopIdleAnimation(const bool bAllChildren)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetButton", "StopIdleAnimation");
-
-	Params::WidgetButton_StopIdleAnimation Parms{};
-
-	Parms.bAllChildren = bAllChildren;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetButton.StopNegativeAnimation
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const bool                              bAllChildren                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetButton::StopNegativeAnimation(const bool bAllChildren)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetButton", "StopNegativeAnimation");
-
-	Params::WidgetButton_StopNegativeAnimation Parms{};
-
-	Parms.bAllChildren = bAllChildren;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetButton.StopPressAnimation
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const bool                              bAllChildren                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetButton::StopPressAnimation(const bool bAllChildren)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetButton", "StopPressAnimation");
-
-	Params::WidgetButton_StopPressAnimation Parms{};
-
-	Parms.bAllChildren = bAllChildren;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetButton.StopReleaseAnimation
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const bool                              bAllChildren                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetButton::StopReleaseAnimation(const bool bAllChildren)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetButton", "StopReleaseAnimation");
-
-	Params::WidgetButton_StopReleaseAnimation Parms{};
-
-	Parms.bAllChildren = bAllChildren;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetButton.UpdateButtonText
-// (Native, Event, Public, BlueprintCallable, BlueprintEvent)
-
-void UWidgetButton::UpdateButtonText()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetButton", "UpdateButtonText");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetButton.UpdateShortcutKey
-// (Final, Native, Public, BlueprintCallable)
-
-void UWidgetButton::UpdateShortcutKey()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetButton", "UpdateShortcutKey");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetButton.IsEnableDragDrop
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-bool UWidgetButton::IsEnableDragDrop() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetButton", "IsEnableDragDrop");
-
-	Params::WidgetButton_IsEnableDragDrop Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
 }
 
 
@@ -4549,75 +3415,87 @@ class UWidgetBase* AWidgetCreator::GetWidgetInstance() const
 }
 
 
-// Function UIFramework.WidgetScrollBar.OnSelectedKnob
-// (Final, Native, Private)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// Function UIFramework.WidgetGeneralWindowBase.Close
+// (Final, Native, Public, BlueprintCallable)
 
-void UWidgetScrollBar::OnSelectedKnob(class UAppWidget* Widget, EWidgetInputType inputType)
+void UWidgetGeneralWindowBase::Close()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetScrollBar", "OnSelectedKnob");
-
-	Params::WidgetScrollBar_OnSelectedKnob Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
+		Func = Class->GetFunction("WidgetGeneralWindowBase", "Close");
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
 
-	UObject::ProcessEvent(Func, &Parms);
+	UObject::ProcessEvent(Func, nullptr);
 
 	Func->FunctionFlags = Flgs;
 }
 
 
-// Function UIFramework.WidgetScrollBar.OnUnselectedKnob
-// (Final, Native, Private)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// Function UIFramework.WidgetGeneralWindowBase.OnClose
+// (Event, Public, BlueprintEvent)
 
-void UWidgetScrollBar::OnUnselectedKnob(class UAppWidget* Widget, EWidgetInputType inputType)
+void UWidgetGeneralWindowBase::OnClose()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetScrollBar", "OnUnselectedKnob");
+		Func = Class->GetFunction("WidgetGeneralWindowBase", "OnClose");
 
-	Params::WidgetScrollBar_OnUnselectedKnob Parms{};
+	UObject::ProcessEvent(Func, nullptr);
+}
 
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
+
+// Function UIFramework.WidgetGeneralWindowBase.OnOpen
+// (Event, Public, BlueprintEvent)
+
+void UWidgetGeneralWindowBase::OnOpen()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindowBase", "OnOpen");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function UIFramework.WidgetGeneralWindowBase.Open
+// (Final, Native, Public, BlueprintCallable)
+
+void UWidgetGeneralWindowBase::Open()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindowBase", "Open");
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
 
-	UObject::ProcessEvent(Func, &Parms);
+	UObject::ProcessEvent(Func, nullptr);
 
 	Func->FunctionFlags = Flgs;
 }
 
 
-// Function UIFramework.WidgetScrollBar.SetKnobSizeScale
+// Function UIFramework.WidgetGeneralWindowBase.SetTag
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
-// float                                   Scale                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    Tag                                                    (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UWidgetScrollBar::SetKnobSizeScale(float Scale)
+void UWidgetGeneralWindowBase::SetTag(const class FString& Tag)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetScrollBar", "SetKnobSizeScale");
+		Func = Class->GetFunction("WidgetGeneralWindowBase", "SetTag");
 
-	Params::WidgetScrollBar_SetKnobSizeScale Parms{};
+	Params::WidgetGeneralWindowBase_SetTag Parms{};
 
-	Parms.Scale = Scale;
+	Parms.Tag = std::move(Tag);
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -4628,21 +3506,21 @@ void UWidgetScrollBar::SetKnobSizeScale(float Scale)
 }
 
 
-// Function UIFramework.WidgetScrollBar.SetProgress
-// (Final, Native, Public, BlueprintCallable)
+// Function UIFramework.WidgetGeneralWindowBase.SetText
+// (Final, Native, Public, HasOutParams, BlueprintCallable)
 // Parameters:
-// float                                   value                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FText&                      InText                                                 (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 
-void UWidgetScrollBar::SetProgress(float value)
+void UWidgetGeneralWindowBase::SetText(const class FText& InText)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetScrollBar", "SetProgress");
+		Func = Class->GetFunction("WidgetGeneralWindowBase", "SetText");
 
-	Params::WidgetScrollBar_SetProgress Parms{};
+	Params::WidgetGeneralWindowBase_SetText Parms{};
 
-	Parms.value = value;
+	Parms.InText = std::move(InText);
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -4650,6 +3528,156 @@ void UWidgetScrollBar::SetProgress(float value)
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindowBase.SetTextStyleSet
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// class UDataTable*                       textStyleSet                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindowBase::SetTextStyleSet(class UDataTable* textStyleSet)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindowBase", "SetTextStyleSet");
+
+	Params::WidgetGeneralWindowBase_SetTextStyleSet Parms{};
+
+	Parms.textStyleSet = textStyleSet;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindowBase.SetupHeaderText
+// (Final, Native, Public, HasOutParams, BlueprintCallable)
+// Parameters:
+// const class FText&                      InText                                                 (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindowBase::SetupHeaderText(const class FText& InText)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindowBase", "SetupHeaderText");
+
+	Params::WidgetGeneralWindowBase_SetupHeaderText Parms{};
+
+	Parms.InText = std::move(InText);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindowBase.SetWindowPosition
+// (Final, Native, Public, HasOutParams, HasDefaults, BlueprintCallable)
+// Parameters:
+// const struct FVector2D&                 windowPosition                                         (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindowBase::SetWindowPosition(const struct FVector2D& windowPosition)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindowBase", "SetWindowPosition");
+
+	Params::WidgetGeneralWindowBase_SetWindowPosition Parms{};
+
+	Parms.windowPosition = std::move(windowPosition);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindowBase.SetWindowSize
+// (Final, Native, Public, HasOutParams, HasDefaults, BlueprintCallable)
+// Parameters:
+// const struct FVector2D&                 windowSize                                             (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindowBase::SetWindowSize(const struct FVector2D& windowSize)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindowBase", "SetWindowSize");
+
+	Params::WidgetGeneralWindowBase_SetWindowSize Parms{};
+
+	Parms.windowSize = std::move(windowSize);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindowBase.GetWindowPosition
+// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// struct FVector2D                        ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+struct FVector2D UWidgetGeneralWindowBase::GetWindowPosition() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindowBase", "GetWindowPosition");
+
+	Params::WidgetGeneralWindowBase_GetWindowPosition Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function UIFramework.WidgetGeneralWindowBase.GetWindowSize
+// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// struct FVector2D                        ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+struct FVector2D UWidgetGeneralWindowBase::GetWindowSize() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindowBase", "GetWindowSize");
+
+	Params::WidgetGeneralWindowBase_GetWindowSize Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
 }
 
 
@@ -5194,6 +4222,31 @@ void UWidgetGeneralSelectiveWindow::SetupList()
 }
 
 
+// Function UIFramework.WidgetGeneralSelectiveWindow.GetListKey
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// TArray<struct FKey>                     ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
+
+TArray<struct FKey> UWidgetGeneralSelectiveWindow::GetListKey() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralSelectiveWindow", "GetListKey");
+
+	Params::WidgetGeneralSelectiveWindow_GetListKey Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
 // Function UIFramework.WidgetGeneralSelectiveWindow.GetListText
 // (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
 // Parameters:
@@ -5247,43 +4300,554 @@ class UWidgetButton* UWidgetGeneralSelectiveWindow::GetTwoButtons(bool inLeft) c
 }
 
 
-// Function UIFramework.WidgetPopUpWindow.CloseEnd
+// Function UIFramework.WidgetGeneralWindow.BP_FocusButton
 // (Final, Native, Protected, BlueprintCallable)
+// Parameters:
+// bool                                    bLeft                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UWidgetPopUpWindow::CloseEnd()
+void UWidgetGeneralWindow::BP_FocusButton(bool bLeft)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetPopUpWindow", "CloseEnd");
+		Func = Class->GetFunction("WidgetGeneralWindow", "BP_FocusButton");
+
+	Params::WidgetGeneralWindow_BP_FocusButton Parms{};
+
+	Parms.bLeft = bLeft;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
 
-	UObject::ProcessEvent(Func, nullptr);
+	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
 }
 
 
-// Function UIFramework.WidgetPopUpWindow.OnPressBlockBG
-// (Final, Native, Protected, HasOutParams)
+// Function UIFramework.WidgetGeneralWindow.BP_SetButtonEnable
+// (Final, Native, Protected, BlueprintCallable)
 // Parameters:
-// const struct FGeometry&                 MyGeometry                                             (Parm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
-// const struct FPointerEvent&             MouseEvent                                             (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-// struct FEventReply                      ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+// bool                                    bEnable                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-struct FEventReply UWidgetPopUpWindow::OnPressBlockBG(const struct FGeometry& MyGeometry, const struct FPointerEvent& MouseEvent)
+void UWidgetGeneralWindow::BP_SetButtonEnable(bool bEnable)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetPopUpWindow", "OnPressBlockBG");
+		Func = Class->GetFunction("WidgetGeneralWindow", "BP_SetButtonEnable");
 
-	Params::WidgetPopUpWindow_OnPressBlockBG Parms{};
+	Params::WidgetGeneralWindow_BP_SetButtonEnable Parms{};
 
-	Parms.MyGeometry = std::move(MyGeometry);
-	Parms.MouseEvent = std::move(MouseEvent);
+	Parms.bEnable = bEnable;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.BP_SetLeftButtonEnable
+// (Final, Native, Protected, BlueprintCallable)
+// Parameters:
+// bool                                    bEnable                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindow::BP_SetLeftButtonEnable(bool bEnable)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "BP_SetLeftButtonEnable");
+
+	Params::WidgetGeneralWindow_BP_SetLeftButtonEnable Parms{};
+
+	Parms.bEnable = bEnable;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.BP_SetRightButtonEnable
+// (Final, Native, Protected, BlueprintCallable)
+// Parameters:
+// bool                                    bEnable                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindow::BP_SetRightButtonEnable(bool bEnable)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "BP_SetRightButtonEnable");
+
+	Params::WidgetGeneralWindow_BP_SetRightButtonEnable Parms{};
+
+	Parms.bEnable = bEnable;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.BP_SetupBackgroundBlur
+// (Final, Native, Protected, BlueprintCallable)
+// Parameters:
+// bool                                    bUserBlur                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindow::BP_SetupBackgroundBlur(bool bUserBlur)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "BP_SetupBackgroundBlur");
+
+	Params::WidgetGeneralWindow_BP_SetupBackgroundBlur Parms{};
+
+	Parms.bUserBlur = bUserBlur;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.BP_SetupButton
+// (Final, Native, Protected, HasOutParams, BlueprintCallable)
+// Parameters:
+// const struct FGeneralWindowText&        Text                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindow::BP_SetupButton(const struct FGeneralWindowText& Text)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "BP_SetupButton");
+
+	Params::WidgetGeneralWindow_BP_SetupButton Parms{};
+
+	Parms.Text = std::move(Text);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.BP_SetupLeftButton
+// (Final, Native, Protected, HasOutParams, BlueprintCallable)
+// Parameters:
+// const struct FGeneralWindowText&        Text                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindow::BP_SetupLeftButton(const struct FGeneralWindowText& Text)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "BP_SetupLeftButton");
+
+	Params::WidgetGeneralWindow_BP_SetupLeftButton Parms{};
+
+	Parms.Text = std::move(Text);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.BP_SetupRightButton
+// (Final, Native, Protected, HasOutParams, BlueprintCallable)
+// Parameters:
+// const struct FGeneralWindowText&        Text                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindow::BP_SetupRightButton(const struct FGeneralWindowText& Text)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "BP_SetupRightButton");
+
+	Params::WidgetGeneralWindow_BP_SetupRightButton Parms{};
+
+	Parms.Text = std::move(Text);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.BP_SetupTwoButton
+// (Final, Native, Protected, HasOutParams, BlueprintCallable)
+// Parameters:
+// const struct FGeneralWindowText&        leftText                                               (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+// const struct FGeneralWindowText&        rightText                                              (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindow::BP_SetupTwoButton(const struct FGeneralWindowText& leftText, const struct FGeneralWindowText& rightText)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "BP_SetupTwoButton");
+
+	Params::WidgetGeneralWindow_BP_SetupTwoButton Parms{};
+
+	Parms.leftText = std::move(leftText);
+	Parms.rightText = std::move(rightText);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.OnDecideButton
+// (Final, Native, Private)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindow::OnDecideButton(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "OnDecideButton");
+
+	Params::WidgetGeneralWindow_OnDecideButton Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.OnMouseEnterButton
+// (Final, Native, Private)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindow::OnMouseEnterButton(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "OnMouseEnterButton");
+
+	Params::WidgetGeneralWindow_OnMouseEnterButton Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.OnMouseLeaveButton
+// (Final, Native, Private)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindow::OnMouseLeaveButton(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "OnMouseLeaveButton");
+
+	Params::WidgetGeneralWindow_OnMouseLeaveButton Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.OnPressButton
+// (Final, Native, Private)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindow::OnPressButton(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "OnPressButton");
+
+	Params::WidgetGeneralWindow_OnPressButton Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.SetSubText
+// (Final, Native, Public, HasOutParams, BlueprintCallable)
+// Parameters:
+// const class FText&                      InText                                                 (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindow::SetSubText(const class FText& InText)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "SetSubText");
+
+	Params::WidgetGeneralWindow_SetSubText Parms{};
+
+	Parms.InText = std::move(InText);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.SetSubTextColorAndOpacity
+// (Final, Native, Public, HasDefaults, BlueprintCallable)
+// Parameters:
+// const struct FLinearColor&              Color                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindow::SetSubTextColorAndOpacity(const struct FLinearColor& Color)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "SetSubTextColorAndOpacity");
+
+	Params::WidgetGeneralWindow_SetSubTextColorAndOpacity Parms{};
+
+	Parms.Color = std::move(Color);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.SetSubTextVisibility
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// ESlateVisibility                        InVisibility                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindow::SetSubTextVisibility(ESlateVisibility InVisibility)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "SetSubTextVisibility");
+
+	Params::WidgetGeneralWindow_SetSubTextVisibility Parms{};
+
+	Parms.InVisibility = InVisibility;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.SetTextMainVisibility
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// ESlateVisibility                        InVisibility                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindow::SetTextMainVisibility(ESlateVisibility InVisibility)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "SetTextMainVisibility");
+
+	Params::WidgetGeneralWindow_SetTextMainVisibility Parms{};
+
+	Parms.InVisibility = InVisibility;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.SetTextVisibility
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// ESlateVisibility                        InVisibility                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetGeneralWindow::SetTextVisibility(ESlateVisibility InVisibility)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "SetTextVisibility");
+
+	Params::WidgetGeneralWindow_SetTextVisibility Parms{};
+
+	Parms.InVisibility = InVisibility;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.BP_GetButtonCount
+// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+int32 UWidgetGeneralWindow::BP_GetButtonCount() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "BP_GetButtonCount");
+
+	Params::WidgetGeneralWindow_BP_GetButtonCount Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.BP_GetLeftOfTwoButtons
+// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// class UWidgetButton*                    ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UWidgetButton* UWidgetGeneralWindow::BP_GetLeftOfTwoButtons() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "BP_GetLeftOfTwoButtons");
+
+	Params::WidgetGeneralWindow_BP_GetLeftOfTwoButtons Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.BP_GetOneButton
+// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// class UWidgetButton*                    ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UWidgetButton* UWidgetGeneralWindow::BP_GetOneButton() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "BP_GetOneButton");
+
+	Params::WidgetGeneralWindow_BP_GetOneButton Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function UIFramework.WidgetGeneralWindow.BP_GetRightOfTwoButtons
+// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// class UWidgetButton*                    ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UWidgetButton* UWidgetGeneralWindow::BP_GetRightOfTwoButtons() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindow", "BP_GetRightOfTwoButtons");
+
+	Params::WidgetGeneralWindow_BP_GetRightOfTwoButtons Parms{};
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -5445,6 +5009,25 @@ void UWidgetGeneralVerticalMultipleButtonWindow::SetupButtonList()
 }
 
 
+// Function UIFramework.WidgetGeneralWindowFrame.SetupBaseWidgets
+// (Final, Native, Public, BlueprintCallable)
+
+void UWidgetGeneralWindowFrame::SetupBaseWidgets()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetGeneralWindowFrame", "SetupBaseWidgets");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
 // Function UIFramework.WidgetLocalizeLayout.SetText
 // (Final, Native, Public, HasOutParams, BlueprintCallable)
 // Parameters:
@@ -5462,31 +5045,6 @@ void UWidgetLocalizeLayout::SetText(const class FText& Source, const class FText
 
 	Parms.Source = std::move(Source);
 	Parms.Format = std::move(Format);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetLocalizeLayoutItem.SetText
-// (Final, Native, Public, HasOutParams, BlueprintCallable)
-// Parameters:
-// const class FText&                      Text                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-void UWidgetLocalizeLayoutItem::SetText(const class FText& Text)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetLocalizeLayoutItem", "SetText");
-
-	Params::WidgetLocalizeLayoutItem_SetText Parms{};
-
-	Parms.Text = std::move(Text);
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -5594,6 +5152,234 @@ const TArray<class UWidget*> UWidgetMatrixSelection::BP_GetElemets(TSubclassOf<c
 	Params::WidgetMatrixSelection_BP_GetElemets Parms{};
 
 	Parms.elementType = elementType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function UIFramework.WidgetPopUpWindow.CloseEnd
+// (Final, Native, Protected, BlueprintCallable)
+
+void UWidgetPopUpWindow::CloseEnd()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetPopUpWindow", "CloseEnd");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetPopUpWindow.OnPressBlockBG
+// (Final, Native, Protected, HasOutParams)
+// Parameters:
+// const struct FGeometry&                 MyGeometry                                             (Parm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+// const struct FPointerEvent&             MouseEvent                                             (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+// struct FEventReply                      ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+
+struct FEventReply UWidgetPopUpWindow::OnPressBlockBG(const struct FGeometry& MyGeometry, const struct FPointerEvent& MouseEvent)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetPopUpWindow", "OnPressBlockBG");
+
+	Params::WidgetPopUpWindow_OnPressBlockBG Parms{};
+
+	Parms.MyGeometry = std::move(MyGeometry);
+	Parms.MouseEvent = std::move(MouseEvent);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function UIFramework.WidgetScrollBar.OnSelectedKnob
+// (Final, Native, Private)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetScrollBar::OnSelectedKnob(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetScrollBar", "OnSelectedKnob");
+
+	Params::WidgetScrollBar_OnSelectedKnob Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetScrollBar.OnUnselectedKnob
+// (Final, Native, Private)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetScrollBar::OnUnselectedKnob(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetScrollBar", "OnUnselectedKnob");
+
+	Params::WidgetScrollBar_OnUnselectedKnob Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetScrollBar.SetKnobSizeScale
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// float                                   Scale                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetScrollBar::SetKnobSizeScale(float Scale)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetScrollBar", "SetKnobSizeScale");
+
+	Params::WidgetScrollBar_SetKnobSizeScale Parms{};
+
+	Parms.Scale = Scale;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetScrollBar.SetProgress
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// float                                   value                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetScrollBar::SetProgress(float value)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetScrollBar", "SetProgress");
+
+	Params::WidgetScrollBar_SetProgress Parms{};
+
+	Parms.value = value;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetScrollText.BP_SetActive
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// bool                                    val                                                    (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetScrollText::BP_SetActive(bool val)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetScrollText", "BP_SetActive");
+
+	Params::WidgetScrollText_BP_SetActive Parms{};
+
+	Parms.val = val;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetScrollText.Update
+// (Final, Native, Public)
+// Parameters:
+// float                                   DeltaTime                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetScrollText::Update(float DeltaTime)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetScrollText", "Update");
+
+	Params::WidgetScrollText_Update Parms{};
+
+	Parms.DeltaTime = DeltaTime;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetScrollText.BP_GetActive
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+bool UWidgetScrollText::BP_GetActive() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetScrollText", "BP_GetActive");
+
+	Params::WidgetScrollText_BP_GetActive Parms{};
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -6056,6 +5842,491 @@ void UWidgetStatics::SetSpriteToMaterial(class UMaterialInstanceDynamic* Materia
 }
 
 
+// Function UIFramework.WidgetSubMenu.Close
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// bool                                    useCloseAnimation                                      (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    useCloseSE                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetSubMenu::Close(bool useCloseAnimation, bool useCloseSE)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "Close");
+
+	Params::WidgetSubMenu_Close Parms{};
+
+	Parms.useCloseAnimation = useCloseAnimation;
+	Parms.useCloseSE = useCloseSE;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetSubMenu.GetOffsetPosition
+// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure)
+// Parameters:
+// struct FVector2D                        ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+struct FVector2D UWidgetSubMenu::GetOffsetPosition()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "GetOffsetPosition");
+
+	Params::WidgetSubMenu_GetOffsetPosition Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function UIFramework.WidgetSubMenu.IsCloseable
+// (Final, Native, Protected, BlueprintCallable)
+// Parameters:
+// const struct FFocusEvent&               InFocusEvent                                           (Parm, NoDestructor, NativeAccessSpecifierPublic)
+
+void UWidgetSubMenu::IsCloseable(const struct FFocusEvent& InFocusEvent)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "IsCloseable");
+
+	Params::WidgetSubMenu_IsCloseable Parms{};
+
+	Parms.InFocusEvent = std::move(InFocusEvent);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetSubMenu.IsOpenSubMenu
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+bool UWidgetSubMenu::IsOpenSubMenu()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "IsOpenSubMenu");
+
+	Params::WidgetSubMenu_IsOpenSubMenu Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function UIFramework.WidgetSubMenu.OnDecideListButtonEvent
+// (Final, Native, Private)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetSubMenu::OnDecideListButtonEvent(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "OnDecideListButtonEvent");
+
+	Params::WidgetSubMenu_OnDecideListButtonEvent Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetSubMenu.OnHoveredChangedEvent
+// (Final, Native, Private)
+// Parameters:
+// class UObject*                          Item                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    bHovered                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetSubMenu::OnHoveredChangedEvent(class UObject* Item, bool bHovered)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "OnHoveredChangedEvent");
+
+	Params::WidgetSubMenu_OnHoveredChangedEvent Parms{};
+
+	Parms.Item = Item;
+	Parms.bHovered = bHovered;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetSubMenu.OnReceivedItemSelectionChangedEvent
+// (Final, Native, Private)
+// Parameters:
+// class UObject*                          Item                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetSubMenu::OnReceivedItemSelectionChangedEvent(class UObject* Item)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "OnReceivedItemSelectionChangedEvent");
+
+	Params::WidgetSubMenu_OnReceivedItemSelectionChangedEvent Parms{};
+
+	Parms.Item = Item;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetSubMenu.OnSubMenuCancel
+// (Final, Native, Private)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetSubMenu::OnSubMenuCancel(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "OnSubMenuCancel");
+
+	Params::WidgetSubMenu_OnSubMenuCancel Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetSubMenu.Open
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// class UWidgetBase*                      Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    useOpenSE                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetSubMenu::Open(class UWidgetBase* Widget, bool useOpenSE)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "Open");
+
+	Params::WidgetSubMenu_Open Parms{};
+
+	Parms.Widget = Widget;
+	Parms.useOpenSE = useOpenSE;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetSubMenu.OpenWithInputParam
+// (Final, Native, Public)
+// Parameters:
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UWidgetBase*                      Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    useOpenSE                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetSubMenu::OpenWithInputParam(EWidgetInputType inputType, class UWidgetBase* Widget, bool useOpenSE)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "OpenWithInputParam");
+
+	Params::WidgetSubMenu_OpenWithInputParam Parms{};
+
+	Parms.inputType = inputType;
+	Parms.Widget = Widget;
+	Parms.useOpenSE = useOpenSE;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetSubMenu.SetButtonTexts
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const TArray<class FText>&              texts                                                  (Parm, ZeroConstructor, NativeAccessSpecifierPublic)
+
+void UWidgetSubMenu::SetButtonTexts(const TArray<class FText>& texts)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "SetButtonTexts");
+
+	Params::WidgetSubMenu_SetButtonTexts Parms{};
+
+	Parms.texts = std::move(texts);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetSubMenu.SetFocusListViewItem
+// (Final, Native, Protected, BlueprintCallable)
+// Parameters:
+// int32                                   itemIndex                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetSubMenu::SetFocusListViewItem(int32 itemIndex)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "SetFocusListViewItem");
+
+	Params::WidgetSubMenu_SetFocusListViewItem Parms{};
+
+	Parms.itemIndex = itemIndex;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetSubMenu.SetOffsetPosition
+// (Final, Native, Public, HasOutParams, HasDefaults, BlueprintCallable)
+// Parameters:
+// const struct FVector2D&                 Pos                                                    (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetSubMenu::SetOffsetPosition(const struct FVector2D& Pos)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "SetOffsetPosition");
+
+	Params::WidgetSubMenu_SetOffsetPosition Parms{};
+
+	Parms.Pos = std::move(Pos);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetSubMenu.SetSubMenuInfo
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const TArray<struct FSubMenuInfo>&      SubMenuInfo                                            (Parm, ZeroConstructor, NativeAccessSpecifierPublic)
+// bool                                    Update                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetSubMenu::SetSubMenuInfo(const TArray<struct FSubMenuInfo>& SubMenuInfo, bool Update)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "SetSubMenuInfo");
+
+	Params::WidgetSubMenu_SetSubMenuInfo Parms{};
+
+	Parms.SubMenuInfo = std::move(SubMenuInfo);
+	Parms.Update = Update;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetSubMenu.SwitchArrowDirection
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// bool                                    bRight                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetSubMenu::SwitchArrowDirection(bool bRight)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "SwitchArrowDirection");
+
+	Params::WidgetSubMenu_SwitchArrowDirection Parms{};
+
+	Parms.bRight = bRight;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetSubMenu.SwitchArrowDirectionVertical
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const bool                              bTop                                                   (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetSubMenu::SwitchArrowDirectionVertical(const bool bTop)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "SwitchArrowDirectionVertical");
+
+	Params::WidgetSubMenu_SwitchArrowDirectionVertical Parms{};
+
+	Parms.bTop = bTop;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetSubMenu.UpdateSubMenuInfo
+// (Final, Native, Public, BlueprintCallable)
+
+void UWidgetSubMenu::UpdateSubMenuInfo()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "UpdateSubMenuInfo");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetSubMenu.GetButtonTexts
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// TArray<class FText>                     ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
+
+TArray<class FText> UWidgetSubMenu::GetButtonTexts() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "GetButtonTexts");
+
+	Params::WidgetSubMenu_GetButtonTexts Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function UIFramework.WidgetSubMenu.GetSubMenuInfo
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// const TArray<struct FSubMenuInfo>       ReturnValue                                            (ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+const TArray<struct FSubMenuInfo> UWidgetSubMenu::GetSubMenuInfo() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetSubMenu", "GetSubMenuInfo");
+
+	Params::WidgetSubMenu_GetSubMenuInfo Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
 // Function UIFramework.WidgetSubMenuEntry.UpdateDisplay
 // (Native, Event, Public, BlueprintCallable, BlueprintEvent)
 // Parameters:
@@ -6081,21 +6352,156 @@ void UWidgetSubMenuEntry::UpdateDisplay(class UWidgetSubMenuObject* Object)
 }
 
 
-// Function UIFramework.CustomTextBlock.SetLineHeightPercentage
+// Function UIFramework.WidgetWindowFrame.OnButtonAddedToFocusEvent
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetWindowFrame::OnButtonAddedToFocusEvent(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetWindowFrame", "OnButtonAddedToFocusEvent");
+
+	Params::WidgetWindowFrame_OnButtonAddedToFocusEvent Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetWindowFrame.OnButtonDecideEvent
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetWindowFrame::OnButtonDecideEvent(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetWindowFrame", "OnButtonDecideEvent");
+
+	Params::WidgetWindowFrame_OnButtonDecideEvent Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetWindowFrame.OnButtonOnLongDecideEvent
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetWindowFrame::OnButtonOnLongDecideEvent(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetWindowFrame", "OnButtonOnLongDecideEvent");
+
+	Params::WidgetWindowFrame_OnButtonOnLongDecideEvent Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetWindowFrame.OnButtonPressEvent
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetWindowFrame::OnButtonPressEvent(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetWindowFrame", "OnButtonPressEvent");
+
+	Params::WidgetWindowFrame_OnButtonPressEvent Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetWindowFrame.OnButtonRemovedFromFocusEvent
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetWindowFrame::OnButtonRemovedFromFocusEvent(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetWindowFrame", "OnButtonRemovedFromFocusEvent");
+
+	Params::WidgetWindowFrame_OnButtonRemovedFromFocusEvent Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function UIFramework.WidgetWindowFrame.ReplaceBase1Slot
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
-// const float                             InLineHeightPercentage                                 (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UNamedSlot*                       Source                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UCustomTextBlock::SetLineHeightPercentage(const float InLineHeightPercentage)
+void UWidgetWindowFrame::ReplaceBase1Slot(class UNamedSlot* Source)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("CustomTextBlock", "SetLineHeightPercentage");
+		Func = Class->GetFunction("WidgetWindowFrame", "ReplaceBase1Slot");
 
-	Params::CustomTextBlock_SetLineHeightPercentage Parms{};
+	Params::WidgetWindowFrame_ReplaceBase1Slot Parms{};
 
-	Parms.InLineHeightPercentage = InLineHeightPercentage;
+	Parms.Source = Source;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -6106,46 +6512,21 @@ void UCustomTextBlock::SetLineHeightPercentage(const float InLineHeightPercentag
 }
 
 
-// Function UIFramework.CustomTextBlock.SetMargin
-// (Final, Native, Public, HasOutParams, BlueprintCallable)
-// Parameters:
-// const struct FMargin&                   InMargin                                               (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
-
-void UCustomTextBlock::SetMargin(const struct FMargin& InMargin)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("CustomTextBlock", "SetMargin");
-
-	Params::CustomTextBlock_SetMargin Parms{};
-
-	Parms.InMargin = std::move(InMargin);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.CustomTextBlock.SetWrapTextAt
+// Function UIFramework.WidgetWindowFrame.ReplaceBase2Slot
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
-// const float                             InWrapTextAt                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UNamedSlot*                       Source                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UCustomTextBlock::SetWrapTextAt(const float InWrapTextAt)
+void UWidgetWindowFrame::ReplaceBase2Slot(class UNamedSlot* Source)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("CustomTextBlock", "SetWrapTextAt");
+		Func = Class->GetFunction("WidgetWindowFrame", "ReplaceBase2Slot");
 
-	Params::CustomTextBlock_SetWrapTextAt Parms{};
+	Params::WidgetWindowFrame_ReplaceBase2Slot Parms{};
 
-	Parms.InWrapTextAt = InWrapTextAt;
+	Parms.Source = Source;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -6156,71 +6537,21 @@ void UCustomTextBlock::SetWrapTextAt(const float InWrapTextAt)
 }
 
 
-// Function UIFramework.WidgetText.GetDynamicFontMaterial
+// Function UIFramework.WidgetWindowFrame.ReplaceContentsSlot
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
-// class UMaterialInstanceDynamic*         ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UNamedSlot*                       Source                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-class UMaterialInstanceDynamic* UWidgetText::GetDynamicFontMaterial()
+void UWidgetWindowFrame::ReplaceContentsSlot(class UNamedSlot* Source)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetText", "GetDynamicFontMaterial");
+		Func = Class->GetFunction("WidgetWindowFrame", "ReplaceContentsSlot");
 
-	Params::WidgetText_GetDynamicFontMaterial Parms{};
+	Params::WidgetWindowFrame_ReplaceContentsSlot Parms{};
 
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function UIFramework.WidgetText.GetDynamicOutlineMaterial
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// class UMaterialInstanceDynamic*         ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UMaterialInstanceDynamic* UWidgetText::GetDynamicOutlineMaterial()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetText", "GetDynamicOutlineMaterial");
-
-	Params::WidgetText_GetDynamicOutlineMaterial Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function UIFramework.WidgetText.SetAutoWrapText
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// bool                                    InAutoTextWrap                                         (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetText::SetAutoWrapText(bool InAutoTextWrap)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetText", "SetAutoWrapText");
-
-	Params::WidgetText_SetAutoWrapText Parms{};
-
-	Parms.InAutoTextWrap = InAutoTextWrap;
+	Parms.Source = Source;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -6231,319 +6562,38 @@ void UWidgetText::SetAutoWrapText(bool InAutoTextWrap)
 }
 
 
-// Function UIFramework.WidgetText.SetFont
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const struct FSlateFontInfo&            InFontInfo                                             (Parm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// Function UIFramework.WidgetWindowFrame.SetupBaseWidgets
+// (Final, Native, Protected, BlueprintCallable)
 
-void UWidgetText::SetFont(const struct FSlateFontInfo& InFontInfo)
+void UWidgetWindowFrame::SetupBaseWidgets()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetText", "SetFont");
-
-	Params::WidgetText_SetFont Parms{};
-
-	Parms.InFontInfo = std::move(InFontInfo);
+		Func = Class->GetFunction("WidgetWindowFrame", "SetupBaseWidgets");
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
 
-	UObject::ProcessEvent(Func, &Parms);
+	UObject::ProcessEvent(Func, nullptr);
 
 	Func->FunctionFlags = Flgs;
 }
 
 
-// Function UIFramework.WidgetText.SetLineHeightPercentage
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const float                             InLineHeightPercentage                                 (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetText::SetLineHeightPercentage(const float InLineHeightPercentage)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetText", "SetLineHeightPercentage");
-
-	Params::WidgetText_SetLineHeightPercentage Parms{};
-
-	Parms.InLineHeightPercentage = InLineHeightPercentage;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetText.SetMargin
-// (Final, Native, Public, HasOutParams, BlueprintCallable)
-// Parameters:
-// const struct FMargin&                   InMargin                                               (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
-
-void UWidgetText::SetMargin(const struct FMargin& InMargin)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetText", "SetMargin");
-
-	Params::WidgetText_SetMargin Parms{};
-
-	Parms.InMargin = std::move(InMargin);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetText.SetMinDesiredWidth
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// float                                   InMinDesiredWidth                                      (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetText::SetMinDesiredWidth(float InMinDesiredWidth)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetText", "SetMinDesiredWidth");
-
-	Params::WidgetText_SetMinDesiredWidth Parms{};
-
-	Parms.InMinDesiredWidth = InMinDesiredWidth;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetText.SetOpacity
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// float                                   InOpacity                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetText::SetOpacity(float InOpacity)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetText", "SetOpacity");
-
-	Params::WidgetText_SetOpacity Parms{};
-
-	Parms.InOpacity = InOpacity;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetText.SetShadowColorAndOpacity
-// (Final, Native, Public, HasDefaults, BlueprintCallable)
-// Parameters:
-// const struct FLinearColor&              InShadowColorAndOpacity                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetText::SetShadowColorAndOpacity(const struct FLinearColor& InShadowColorAndOpacity)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetText", "SetShadowColorAndOpacity");
-
-	Params::WidgetText_SetShadowColorAndOpacity Parms{};
-
-	Parms.InShadowColorAndOpacity = std::move(InShadowColorAndOpacity);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetText.SetShadowOffset
-// (Final, Native, Public, HasDefaults, BlueprintCallable)
-// Parameters:
-// const struct FVector2D&                 InShadowOffset                                         (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetText::SetShadowOffset(const struct FVector2D& InShadowOffset)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetText", "SetShadowOffset");
-
-	Params::WidgetText_SetShadowOffset Parms{};
-
-	Parms.InShadowOffset = std::move(InShadowOffset);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetText.SetStrikeBrush
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const struct FSlateBrush&               InStrikeBrush                                          (Parm, NativeAccessSpecifierPublic)
-
-void UWidgetText::SetStrikeBrush(const struct FSlateBrush& InStrikeBrush)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetText", "SetStrikeBrush");
-
-	Params::WidgetText_SetStrikeBrush Parms{};
-
-	Parms.InStrikeBrush = std::move(InStrikeBrush);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetText.SetText
-// (Native, Public, BlueprintCallable)
-// Parameters:
-// const class FText&                      InText                                                 (Parm, NativeAccessSpecifierPublic)
-
-void UWidgetText::SetText(const class FText& InText)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetText", "SetText");
-
-	Params::WidgetText_SetText Parms{};
-
-	Parms.InText = std::move(InText);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetText.SetTextColorAndOpacity
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const struct FSlateColor&               InColorAndOpacity                                      (Parm, NativeAccessSpecifierPublic)
-
-void UWidgetText::SetTextColorAndOpacity(const struct FSlateColor& InColorAndOpacity)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetText", "SetTextColorAndOpacity");
-
-	Params::WidgetText_SetTextColorAndOpacity Parms{};
-
-	Parms.InColorAndOpacity = std::move(InColorAndOpacity);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetText.SetTextTransformPolicy
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// ETextTransformPolicy                    InTransformPolicy                                      (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetText::SetTextTransformPolicy(ETextTransformPolicy InTransformPolicy)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetText", "SetTextTransformPolicy");
-
-	Params::WidgetText_SetTextTransformPolicy Parms{};
-
-	Parms.InTransformPolicy = InTransformPolicy;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetText.SetWrapTextAt
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const float                             InWrapTextAt                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetText::SetWrapTextAt(const float InWrapTextAt)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetText", "SetWrapTextAt");
-
-	Params::WidgetText_SetWrapTextAt Parms{};
-
-	Parms.InWrapTextAt = InWrapTextAt;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function UIFramework.WidgetText.GetFont
+// Function UIFramework.WidgetWindowFrame.GetButtonCount
 // (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
 // Parameters:
-// const struct FSlateFontInfo             ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// uint8                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-const struct FSlateFontInfo UWidgetText::GetFont() const
+uint8 UWidgetWindowFrame::GetButtonCount() const
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetText", "GetFont");
+		Func = Class->GetFunction("WidgetWindowFrame", "GetButtonCount");
 
-	Params::WidgetText_GetFont Parms{};
+	Params::WidgetWindowFrame_GetButtonCount Parms{};
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -6556,19 +6606,19 @@ const struct FSlateFontInfo UWidgetText::GetFont() const
 }
 
 
-// Function UIFramework.WidgetText.GetText
+// Function UIFramework.WidgetWindowFrame.GetWindowSize
 // (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
 // Parameters:
-// class FText                             ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+// float                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-class FText UWidgetText::GetText() const
+float UWidgetWindowFrame::GetWindowSize() const
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetText", "GetText");
+		Func = Class->GetFunction("WidgetWindowFrame", "GetWindowSize");
 
-	Params::WidgetText_GetText Parms{};
+	Params::WidgetWindowFrame_GetWindowSize Parms{};
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;

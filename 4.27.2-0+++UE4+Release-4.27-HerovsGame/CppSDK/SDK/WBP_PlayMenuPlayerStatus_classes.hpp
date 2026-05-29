@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<UWBP_PlayMenuPlayerStatus_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_PlayMenuPlayerStatus_C;
 
 SDK_NAMESPACE_END

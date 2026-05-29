@@ -44,6 +44,5 @@ public:
 		return GetDefaultObjImpl<UWBP_PlayMenu_LeaveSquad_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_PlayMenu_LeaveSquad_C;
 
 SDK_NAMESPACE_END

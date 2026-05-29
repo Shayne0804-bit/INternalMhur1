@@ -62,6 +62,15 @@ public:
 	struct FFOscillator                           Z;                                                 // 0x0018(0x000C)(Edit, BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 };
 
+// ScriptStruct GameplayCameras.PerlinNoiseShaker
+// 0x0008 (0x0008 - 0x0000)
+struct FPerlinNoiseShaker final
+{
+public:
+	float                                         Amplitude;                                         // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         Frequency;                                         // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
 // ScriptStruct GameplayCameras.ROscillator
 // 0x0024 (0x0024 - 0x0000)
 struct FROscillator final
@@ -70,15 +79,6 @@ public:
 	struct FFOscillator                           Pitch;                                             // 0x0000(0x000C)(Edit, BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 	struct FFOscillator                           Yaw;                                               // 0x000C(0x000C)(Edit, BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 	struct FFOscillator                           Roll;                                              // 0x0018(0x000C)(Edit, BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct GameplayCameras.PerlinNoiseShaker
-// 0x0008 (0x0008 - 0x0000)
-struct FPerlinNoiseShaker final
-{
-public:
-	float                                         Amplitude;                                         // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         Frequency;                                         // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct GameplayCameras.WaveOscillator

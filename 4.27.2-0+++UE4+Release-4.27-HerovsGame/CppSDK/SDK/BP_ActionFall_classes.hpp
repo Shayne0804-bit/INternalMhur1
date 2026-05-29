@@ -10,20 +10,21 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionFall.BP_ActionFall_C
-// 0x0010 (0x0280 - 0x0270)
+// 0x0010 (0x0288 - 0x0278)
 class UBP_ActionFall_C final : public UActionNormalBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0270(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	float                                         BlendInTime;                                       // 0x0278(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0278(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	float                                         BlendInTime;                                       // 0x0280(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          bRequestInheritSpeedSlide;                         // 0x0284(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
 
 public:
 	void ExecuteUbergraph_BP_ActionFall(int32 EntryPoint);
@@ -33,6 +34,7 @@ public:
 	void BP_OnEndAction(const class FName& nextAction);
 	void BP_OnBeginAction(const class FName& prevAction);
 	void BP_ActionMain();
+	void RequestInheritSpeedSlide();
 
 	bool BP_IsEnableShiftAction(const class FName& nextAction) const;
 

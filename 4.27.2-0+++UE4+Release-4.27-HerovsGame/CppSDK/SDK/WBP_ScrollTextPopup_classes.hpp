@@ -30,7 +30,7 @@ public:
 	class UTextBlock*                             TitleTextBlock;                                    // 0x0398(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 	class UWBP_EmptyWindow_C*                     WBP_EmptyWindow;                                   // 0x03A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 	class FText                                   TitleText;                                         // 0x03A8(0x0018)(Edit, BlueprintVisible, BlueprintReadOnly)
-	class FText                                   scrollText;                                        // 0x03C0(0x0018)(Edit, BlueprintVisible, BlueprintReadOnly)
+	class FText                                   ScrollText;                                        // 0x03C0(0x0018)(Edit, BlueprintVisible, BlueprintReadOnly)
 	TMulticastInlineDelegate<void()>              PopupCloseDelegate;                                // 0x03D8(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
 
 public:
@@ -58,6 +58,5 @@ public:
 		return GetDefaultObjImpl<UWBP_ScrollTextPopup_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_ScrollTextPopup_C;
 
 SDK_NAMESPACE_END

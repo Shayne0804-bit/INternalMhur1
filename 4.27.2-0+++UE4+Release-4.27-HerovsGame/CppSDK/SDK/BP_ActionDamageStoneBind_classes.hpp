@@ -10,19 +10,19 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
 #include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionDamageStoneBind.BP_ActionDamageStoneBind_C
-// 0x0010 (0x0280 - 0x0270)
+// 0x0010 (0x0318 - 0x0308)
 class UBP_ActionDamageStoneBind_C final : public UActionDamageBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0270(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	int32                                         uniqueLevel;                                       // 0x0278(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0308(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	int32                                         uniqueLevel;                                       // 0x0310(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
 	void ExecuteUbergraph_BP_ActionDamageStoneBind(int32 EntryPoint);

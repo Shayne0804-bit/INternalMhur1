@@ -38,6 +38,7 @@ public:
 	void BndEvt__WBP_RankEventRewardsTab__EmptyWindow_K2Node_ComponentBoundEvent_1_OnWindowEventDelegate__DelegateSignature();
 	void BndEvt__WBP_RankEventRewardsTab_WBP_ReturnButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
 	void CloseOwnLevel();
+	struct FEventReply OnAnalogValueChanged(const struct FGeometry& MyGeometry, const struct FAnalogInputEvent& InAnalogInputEvent);
 
 public:
 	static class UClass* StaticClass()
@@ -53,6 +54,5 @@ public:
 		return GetDefaultObjImpl<UWBP_RankEventRewardsTab_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_RankEventRewardsTab_C;
 
 SDK_NAMESPACE_END

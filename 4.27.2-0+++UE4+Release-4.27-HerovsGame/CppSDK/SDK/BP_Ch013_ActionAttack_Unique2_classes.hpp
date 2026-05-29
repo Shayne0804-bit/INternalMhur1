@@ -10,49 +10,70 @@
 
 #include "Basic.hpp"
 
+#include "GameModule_structs.hpp"
+#include "CommonModule_structs.hpp"
+#include "Engine_structs.hpp"
 #include "InGameModule_structs.hpp"
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
-#include "CommonModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch013_ActionAttack_Unique2.BP_Ch013_ActionAttack_Unique2_C
-// 0x0040 (0x04E0 - 0x04A0)
+// 0x0068 (0x0550 - 0x04E8)
 class UBP_Ch013_ActionAttack_Unique2_C final : public UActionAttackBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	class UParticleSystemComponent*               EffectPtr;                                         // 0x04A8(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	TMulticastInlineDelegate<void()>              PredicateLine;                                     // 0x04B0(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
-	class UPredictionLineComponent*               WorkPrediction;                                    // 0x04C0(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         AttackTime;                                        // 0x04C8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         StartSpeed;                                        // 0x04CC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         StartSpan;                                         // 0x04D0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         EndSpan;                                           // 0x04D4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          IsHit;                                             // 0x04D8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          IsMoveStart;                                       // 0x04D9(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04E8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	class UParticleSystemComponent*               EffectPtr;                                         // 0x04F0(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	TMulticastInlineDelegate<void()>              PredicateLine;                                     // 0x04F8(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
+	class UPredictionLineComponent*               WorkPrediction;                                    // 0x0508(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         LPAttackTime;                                      // 0x0510(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         LPStartSpeedInit;                                  // 0x0514(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         LPStartSpeedLast;                                  // 0x0518(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         LPStartSpeedSpan;                                  // 0x051C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         LPEndSpeedLast;                                    // 0x0520(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         LPEndSpeedSpan;                                    // 0x0524(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          IsHit;                                             // 0x0528(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          IsMoveStart;                                       // 0x0529(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_52A[0x6];                                      // 0x052A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 AttackParamKey;                                    // 0x0530(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, HasGetValueTypeHash)
+	float                                         LPHitContinuableTime;                              // 0x0540(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         LPHitSpeedFixFearSpeed;                            // 0x0544(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         LPHitSpeedFixNearSpeed;                            // 0x0548(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         LPHitSpeedFixRange;                                // 0x054C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
-	void LoadParam();
-	void BP_OnBeginActionAttackAir(const class FName& prevAction);
-	void BP_OnChangeAttackPhaseAir(int32 nextPhase);
-	void BP_OnChangeAttackPhaseAirForRemote(int32 nextPhase);
-	void BP_OnBeginActionAttackGround(const class FName& prevAction);
-	void BP_OnChangeAttackPhaseGround(int32 nextPhase);
-	void BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase);
-	void BP_OnBeginAction(const class FName& prevAction);
-	void BP_OnEndAction(const class FName& nextAction);
-	void BP_OnLoadParams(const class FName& ActionName, int32 uniqueLevel);
-	void BP_ActionRemote();
-	void BP_ActionMain();
-	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
-	void BP_OnLandingAir();
-	void BP_OnLandingGround();
-	void BP_OnLeaveGroundEvent();
-	void BP_OnHitAttackEvent(const struct FVector& HitLocation, class FName projectileName, class FName damageParamName, class ACharacterBattle* hitCharacter, float damageValue);
 	void ExecuteUbergraph_BP_Ch013_ActionAttack_Unique2(int32 EntryPoint);
+	void BP_OnLoadParams(const class FName& ActionName, int32 uniqueLevel);
+	void BP_OnEndAction(const class FName& nextAction);
+	void BP_OnBeginAction(const class FName& prevAction);
+	void BP_ActionMain();
+	void BP_ActionRemote();
+	void BP_OnChangeAttackPhaseForRemote(int32 nextPhase);
+	void BP_OnChangeAttackPhase(int32 nextPhase);
+	void BP_OnLeaveGroundEvent();
+	void BP_OnLandingGround();
+	void BP_OnLandingAir();
+	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
+	void BP_OnHitAttackEvent(const struct FVector& HitLocation, class FName projectileName, class FName damageParamName, class ACharacterBattle* hitCharacter, float damageValue);
+	void LoadParam();
+	void ReloadParams();
+	bool isOnGround();
+	float GetAttackParamAsFloatFromRoot(const class FString& paramPath, bool IsUseLevel);
+	int32 GetAttackParamAsIntFromRoot(const class FString& paramPath, bool IsUseLevel);
+	bool GetAttackParamAsBoolFromRoot(const class FString& paramPath, bool IsUseLevel);
+	class FString GetAttackParamAsStringFromRoot(const class FString& paramPath, bool IsUseLevel);
+	class FString AppendAttackParamPath(const class FString& Parent, const class FString& Child);
+	float GetAttackParamAsFloat(const class FString& ParentPath, const class FString& ParamName, bool IsUseLevel);
+	int32 GetAttackParamAsInt(const class FString& ParentPath, const class FString& ParamName, bool IsUseLevel);
+	bool GetAttackParamAsBool(const class FString& ParentPath, const class FString& ParamName, bool IsUseLevel);
+	class FString GetAttackParamAsString(const class FString& ParentPath, const class FString& ParamName, bool IsUseLevel);
+	struct FVector GetAttackParamAsVector(const class FString& ParentPath, const class FString& ParamName, bool IsUseLevel);
+	void ShiftAttackPhase(uint8 nextPhase);
+	void OnLoopExpandFromHit();
+	float GetMoveSpeed();
+	struct FVector GetOwnerLocation();
 
 public:
 	static class UClass* StaticClass()

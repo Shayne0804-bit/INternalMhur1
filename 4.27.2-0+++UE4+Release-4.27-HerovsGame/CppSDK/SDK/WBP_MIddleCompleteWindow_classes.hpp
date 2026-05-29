@@ -55,6 +55,5 @@ public:
 		return GetDefaultObjImpl<UWBP_MIddleCompleteWindow_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_MIddleCompleteWindow_C;
 
 SDK_NAMESPACE_END

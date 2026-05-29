@@ -10,19 +10,19 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionDamageInvolved.BP_ActionDamageInvolved_C
-// 0x0008 (0x0288 - 0x0280)
+// 0x0008 (0x0320 - 0x0318)
 class UBP_ActionDamageInvolved_C final : public UActionDamageInvolved
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0280(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0318(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
 
 public:
 	void ExecuteUbergraph_BP_ActionDamageInvolved(int32 EntryPoint);
@@ -30,7 +30,7 @@ public:
 	void BP_ActionRemote();
 	void BP_OnLandingEvent();
 	void BP_ActionMain();
-	void DecideAnimation(EAnimationId* AnimationId);
+	void DecideAnimation(EAnimationId* animationId);
 
 public:
 	static class UClass* StaticClass()

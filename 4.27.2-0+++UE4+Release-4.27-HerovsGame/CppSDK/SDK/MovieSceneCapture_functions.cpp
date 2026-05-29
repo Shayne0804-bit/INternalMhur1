@@ -66,6 +66,231 @@ bool UMovieSceneCaptureProtocolBase::IsCapturing() const
 }
 
 
+// Function MovieSceneCapture.MovieSceneCapture.GetAudioCaptureProtocol
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// class UMovieSceneCaptureProtocolBase*   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UMovieSceneCaptureProtocolBase* UMovieSceneCapture::GetAudioCaptureProtocol()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("MovieSceneCapture", "GetAudioCaptureProtocol");
+
+	Params::MovieSceneCapture_GetAudioCaptureProtocol Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function MovieSceneCapture.MovieSceneCapture.GetImageCaptureProtocol
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// class UMovieSceneCaptureProtocolBase*   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UMovieSceneCaptureProtocolBase* UMovieSceneCapture::GetImageCaptureProtocol()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("MovieSceneCapture", "GetImageCaptureProtocol");
+
+	Params::MovieSceneCapture_GetImageCaptureProtocol Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function MovieSceneCapture.MovieSceneCapture.SetAudioCaptureProtocolType
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// TSubclassOf<class UMovieSceneCaptureProtocolBase>ProtocolType                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UMovieSceneCapture::SetAudioCaptureProtocolType(TSubclassOf<class UMovieSceneCaptureProtocolBase> ProtocolType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("MovieSceneCapture", "SetAudioCaptureProtocolType");
+
+	Params::MovieSceneCapture_SetAudioCaptureProtocolType Parms{};
+
+	Parms.ProtocolType = ProtocolType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function MovieSceneCapture.MovieSceneCapture.SetImageCaptureProtocolType
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// TSubclassOf<class UMovieSceneCaptureProtocolBase>ProtocolType                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UMovieSceneCapture::SetImageCaptureProtocolType(TSubclassOf<class UMovieSceneCaptureProtocolBase> ProtocolType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("MovieSceneCapture", "SetImageCaptureProtocolType");
+
+	Params::MovieSceneCapture_SetImageCaptureProtocolType Parms{};
+
+	Parms.ProtocolType = ProtocolType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function MovieSceneCapture.MovieSceneCaptureEnvironment.FindAudioCaptureProtocol
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// class UMovieSceneAudioCaptureProtocolBase*ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UMovieSceneAudioCaptureProtocolBase* UMovieSceneCaptureEnvironment::FindAudioCaptureProtocol()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("MovieSceneCaptureEnvironment", "FindAudioCaptureProtocol");
+
+	Params::MovieSceneCaptureEnvironment_FindAudioCaptureProtocol Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function MovieSceneCapture.MovieSceneCaptureEnvironment.FindImageCaptureProtocol
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// class UMovieSceneImageCaptureProtocolBase*ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UMovieSceneImageCaptureProtocolBase* UMovieSceneCaptureEnvironment::FindImageCaptureProtocol()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("MovieSceneCaptureEnvironment", "FindImageCaptureProtocol");
+
+	Params::MovieSceneCaptureEnvironment_FindImageCaptureProtocol Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function MovieSceneCapture.MovieSceneCaptureEnvironment.GetCaptureElapsedTime
+// (Final, Native, Static, Public, BlueprintCallable, BlueprintPure)
+// Parameters:
+// float                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+float UMovieSceneCaptureEnvironment::GetCaptureElapsedTime()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("MovieSceneCaptureEnvironment", "GetCaptureElapsedTime");
+
+	Params::MovieSceneCaptureEnvironment_GetCaptureElapsedTime Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function MovieSceneCapture.MovieSceneCaptureEnvironment.GetCaptureFrameNumber
+// (Final, Native, Static, Public, BlueprintCallable, BlueprintPure)
+// Parameters:
+// int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+int32 UMovieSceneCaptureEnvironment::GetCaptureFrameNumber()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("MovieSceneCaptureEnvironment", "GetCaptureFrameNumber");
+
+	Params::MovieSceneCaptureEnvironment_GetCaptureFrameNumber Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function MovieSceneCapture.MovieSceneCaptureEnvironment.IsCaptureInProgress
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+bool UMovieSceneCaptureEnvironment::IsCaptureInProgress()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("MovieSceneCaptureEnvironment", "IsCaptureInProgress");
+
+	Params::MovieSceneCaptureEnvironment_IsCaptureInProgress Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
 // Function MovieSceneCapture.UserDefinedCaptureProtocol.OnBeginFinalize
 // (Event, Protected, BlueprintEvent)
 
@@ -459,231 +684,6 @@ void UUserDefinedImageCaptureProtocol::WriteImageToDisk(const struct FCapturedPi
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
-}
-
-
-// Function MovieSceneCapture.MovieSceneCapture.GetAudioCaptureProtocol
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// class UMovieSceneCaptureProtocolBase*   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UMovieSceneCaptureProtocolBase* UMovieSceneCapture::GetAudioCaptureProtocol()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("MovieSceneCapture", "GetAudioCaptureProtocol");
-
-	Params::MovieSceneCapture_GetAudioCaptureProtocol Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function MovieSceneCapture.MovieSceneCapture.GetImageCaptureProtocol
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// class UMovieSceneCaptureProtocolBase*   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UMovieSceneCaptureProtocolBase* UMovieSceneCapture::GetImageCaptureProtocol()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("MovieSceneCapture", "GetImageCaptureProtocol");
-
-	Params::MovieSceneCapture_GetImageCaptureProtocol Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function MovieSceneCapture.MovieSceneCapture.SetAudioCaptureProtocolType
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// TSubclassOf<class UMovieSceneCaptureProtocolBase>ProtocolType                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UMovieSceneCapture::SetAudioCaptureProtocolType(TSubclassOf<class UMovieSceneCaptureProtocolBase> ProtocolType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("MovieSceneCapture", "SetAudioCaptureProtocolType");
-
-	Params::MovieSceneCapture_SetAudioCaptureProtocolType Parms{};
-
-	Parms.ProtocolType = ProtocolType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function MovieSceneCapture.MovieSceneCapture.SetImageCaptureProtocolType
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// TSubclassOf<class UMovieSceneCaptureProtocolBase>ProtocolType                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UMovieSceneCapture::SetImageCaptureProtocolType(TSubclassOf<class UMovieSceneCaptureProtocolBase> ProtocolType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("MovieSceneCapture", "SetImageCaptureProtocolType");
-
-	Params::MovieSceneCapture_SetImageCaptureProtocolType Parms{};
-
-	Parms.ProtocolType = ProtocolType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function MovieSceneCapture.MovieSceneCaptureEnvironment.FindAudioCaptureProtocol
-// (Final, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// class UMovieSceneAudioCaptureProtocolBase*ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UMovieSceneAudioCaptureProtocolBase* UMovieSceneCaptureEnvironment::FindAudioCaptureProtocol()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("MovieSceneCaptureEnvironment", "FindAudioCaptureProtocol");
-
-	Params::MovieSceneCaptureEnvironment_FindAudioCaptureProtocol Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function MovieSceneCapture.MovieSceneCaptureEnvironment.FindImageCaptureProtocol
-// (Final, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// class UMovieSceneImageCaptureProtocolBase*ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UMovieSceneImageCaptureProtocolBase* UMovieSceneCaptureEnvironment::FindImageCaptureProtocol()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("MovieSceneCaptureEnvironment", "FindImageCaptureProtocol");
-
-	Params::MovieSceneCaptureEnvironment_FindImageCaptureProtocol Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function MovieSceneCapture.MovieSceneCaptureEnvironment.GetCaptureElapsedTime
-// (Final, Native, Static, Public, BlueprintCallable, BlueprintPure)
-// Parameters:
-// float                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-float UMovieSceneCaptureEnvironment::GetCaptureElapsedTime()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("MovieSceneCaptureEnvironment", "GetCaptureElapsedTime");
-
-	Params::MovieSceneCaptureEnvironment_GetCaptureElapsedTime Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function MovieSceneCapture.MovieSceneCaptureEnvironment.GetCaptureFrameNumber
-// (Final, Native, Static, Public, BlueprintCallable, BlueprintPure)
-// Parameters:
-// int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-int32 UMovieSceneCaptureEnvironment::GetCaptureFrameNumber()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("MovieSceneCaptureEnvironment", "GetCaptureFrameNumber");
-
-	Params::MovieSceneCaptureEnvironment_GetCaptureFrameNumber Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function MovieSceneCapture.MovieSceneCaptureEnvironment.IsCaptureInProgress
-// (Final, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-bool UMovieSceneCaptureEnvironment::IsCaptureInProgress()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("MovieSceneCaptureEnvironment", "IsCaptureInProgress");
-
-	Params::MovieSceneCaptureEnvironment_IsCaptureInProgress Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
 }
 
 

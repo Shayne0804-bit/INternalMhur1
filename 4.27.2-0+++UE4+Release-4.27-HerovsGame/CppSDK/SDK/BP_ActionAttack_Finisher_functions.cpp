@@ -293,4 +293,25 @@ void UBP_ActionAttack_Finisher_C::RequestEndAction()
 }
 
 
+// Function BP_ActionAttack_Finisher.BP_ActionAttack_Finisher_C.GetSafetyGroundLocation
+// (Public, HasOutParams, HasDefaults, BlueprintCallable, BlueprintEvent)
+// Parameters:
+// struct FVector*                         Location                                               (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_ActionAttack_Finisher_C::GetSafetyGroundLocation(struct FVector* Location)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_ActionAttack_Finisher_C", "GetSafetyGroundLocation");
+
+	Params::BP_ActionAttack_Finisher_C_GetSafetyGroundLocation Parms{};
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	if (Location != nullptr)
+		*Location = std::move(Parms.Location);
+}
+
+
 SDK_NAMESPACE_END

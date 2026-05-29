@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ASL_LoginBonusBuyWindow_C>();
 	}
 };
-DUMPER7_ASSERTS_ASL_LoginBonusBuyWindow_C;
 
 SDK_NAMESPACE_END

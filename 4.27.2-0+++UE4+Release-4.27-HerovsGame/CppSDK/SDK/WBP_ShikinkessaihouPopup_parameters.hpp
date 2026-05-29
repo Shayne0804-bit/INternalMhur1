@@ -36,7 +36,6 @@ public:
 	class FText                                   CallFunc_Conv_StringToText_ReturnValue;            // 0x0068(0x0018)()
 	TDelegate<void(int32 requestId)>              K2Node_CreateDelegate_OutputDelegate_1;            // 0x0080(0x0010)(ZeroConstructor, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_ShikinkessaihouPopup_C_ExecuteUbergraph_WBP_ShikinkessaihouPopup;
 
 // Function WBP_ShikinkessaihouPopup.WBP_ShikinkessaihouPopup_C.OnLoadCompleteEvent
 // 0x0004 (0x0004 - 0x0000)
@@ -45,7 +44,6 @@ struct WBP_ShikinkessaihouPopup_C_OnLoadCompleteEvent final
 public:
 	int32                                         requestId_0;                                       // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_ShikinkessaihouPopup_C_OnLoadCompleteEvent;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

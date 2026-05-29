@@ -36,26 +36,6 @@ void UBP_CC_Rule_Respawned_C::ExecuteUbergraph_BP_CC_Rule_Respawned(int32 EntryP
 }
 
 
-// Function BP_CC_Rule_Respawned.BP_CC_Rule_Respawned_C.BP_OnUpdateIntervalValue
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// float                                   value                                                  (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UBP_CC_Rule_Respawned_C::BP_OnUpdateIntervalValue(float value)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_CC_Rule_Respawned_C", "BP_OnUpdateIntervalValue");
-
-	Params::BP_CC_Rule_Respawned_C_BP_OnUpdateIntervalValue Parms{};
-
-	Parms.value = value;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
 // Function BP_CC_Rule_Respawned.BP_CC_Rule_Respawned_C.BP_OnEndCondition
 // (Event, Protected, BlueprintEvent)
 
@@ -81,6 +61,26 @@ void UBP_CC_Rule_Respawned_C::BP_OnBeginCondition()
 		Func = Class->GetFunction("BP_CC_Rule_Respawned_C", "BP_OnBeginCondition");
 
 	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function BP_CC_Rule_Respawned.BP_CC_Rule_Respawned_C.BP_OnUpdateIntervalValue
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// float                                   value                                                  (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_CC_Rule_Respawned_C::BP_OnUpdateIntervalValue(float value)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_CC_Rule_Respawned_C", "BP_OnUpdateIntervalValue");
+
+	Params::BP_CC_Rule_Respawned_C_BP_OnUpdateIntervalValue Parms{};
+
+	Parms.value = value;
+
+	UObject::ProcessEvent(Func, &Parms);
 }
 
 

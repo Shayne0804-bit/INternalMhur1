@@ -41,6 +41,5 @@ public:
 		return GetDefaultObjImpl<ASL_Setting_C>();
 	}
 };
-DUMPER7_ASSERTS_ASL_Setting_C;
 
 SDK_NAMESPACE_END

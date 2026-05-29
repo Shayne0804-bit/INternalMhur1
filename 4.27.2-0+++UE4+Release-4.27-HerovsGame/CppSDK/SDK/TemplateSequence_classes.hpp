@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
-#include "CinematicCamera_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "CoreUObject_classes.hpp"
+#include "CinematicCamera_structs.hpp"
 #include "MovieScene_structs.hpp"
 #include "MovieScene_classes.hpp"
 #include "Engine_structs.hpp"

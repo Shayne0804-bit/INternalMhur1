@@ -21,7 +21,6 @@ struct WBP_ChatButton_C_OnAnimationFinished final
 public:
 	const class UWidgetAnimation*                 Animation;                                         // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_ChatButton_C_OnAnimationFinished;
 
 // Function WBP_ChatButton.WBP_ChatButton_C.ExecuteUbergraph_WBP_ChatButton
 // 0x0018 (0x0018 - 0x0000)
@@ -33,7 +32,6 @@ public:
 	const class UWidgetAnimation*                 K2Node_Event_Animation;                            // 0x0008(0x0008)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_EqualEqual_ObjectObject_ReturnValue;      // 0x0010(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_ChatButton_C_ExecuteUbergraph_WBP_ChatButton;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

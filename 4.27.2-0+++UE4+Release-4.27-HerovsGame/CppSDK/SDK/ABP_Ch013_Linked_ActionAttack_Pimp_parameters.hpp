@@ -17,39 +17,6 @@
 SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
-// Function ABP_Ch013_Linked_ActionAttack_Pimp.ABP_Ch013_Linked_ActionAttack_Pimp_C.ActionCustom
-// 0x0020 (0x0020 - 0x0000)
-struct ABP_Ch013_Linked_ActionAttack_Pimp_C_ActionCustom final
-{
-public:
-	struct FPoseLink                              InPose;                                            // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, NoDestructor)
-	struct FPoseLink                              ActionCustom_0;                                    // 0x0010(0x0010)(Parm, OutParm, NoDestructor)
-};
-
-// Function ABP_Ch013_Linked_ActionAttack_Pimp.ABP_Ch013_Linked_ActionAttack_Pimp_C.AnimGraph
-// 0x0010 (0x0010 - 0x0000)
-struct ABP_Ch013_Linked_ActionAttack_Pimp_C_AnimGraph final
-{
-public:
-	struct FPoseLink                              AnimGraph_0;                                       // 0x0000(0x0010)(Parm, OutParm, NoDestructor)
-};
-
-// Function ABP_Ch013_Linked_ActionAttack_Pimp.ABP_Ch013_Linked_ActionAttack_Pimp_C.BlueprintUpdateAnimation
-// 0x0004 (0x0004 - 0x0000)
-struct ABP_Ch013_Linked_ActionAttack_Pimp_C_BlueprintUpdateAnimation final
-{
-public:
-	float                                         DeltaTimeX;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-
-// Function ABP_Ch013_Linked_ActionAttack_Pimp.ABP_Ch013_Linked_ActionAttack_Pimp_C.BP_EventOnHit
-// 0x000C (0x000C - 0x0000)
-struct ABP_Ch013_Linked_ActionAttack_Pimp_C_BP_EventOnHit final
-{
-public:
-	struct FVector                                HitLocation;                                       // 0x0000(0x000C)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-
 // Function ABP_Ch013_Linked_ActionAttack_Pimp.ABP_Ch013_Linked_ActionAttack_Pimp_C.ExecuteUbergraph_ABP_Ch013_Linked_ActionAttack_Pimp
 // 0x001C (0x001C - 0x0000)
 struct ABP_Ch013_Linked_ActionAttack_Pimp_C_ExecuteUbergraph_ABP_Ch013_Linked_ActionAttack_Pimp final
@@ -62,6 +29,30 @@ public:
 	float                                         CallFunc_Multiply_FloatFloat_ReturnValue;          // 0x0018(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
 
+// Function ABP_Ch013_Linked_ActionAttack_Pimp.ABP_Ch013_Linked_ActionAttack_Pimp_C.BP_EventOnHit
+// 0x000C (0x000C - 0x0000)
+struct ABP_Ch013_Linked_ActionAttack_Pimp_C_BP_EventOnHit final
+{
+public:
+	struct FVector                                HitLocation;                                       // 0x0000(0x000C)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function ABP_Ch013_Linked_ActionAttack_Pimp.ABP_Ch013_Linked_ActionAttack_Pimp_C.BlueprintUpdateAnimation
+// 0x0004 (0x0004 - 0x0000)
+struct ABP_Ch013_Linked_ActionAttack_Pimp_C_BlueprintUpdateAnimation final
+{
+public:
+	float                                         DeltaTimeX;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function ABP_Ch013_Linked_ActionAttack_Pimp.ABP_Ch013_Linked_ActionAttack_Pimp_C.AnimGraph
+// 0x0010 (0x0010 - 0x0000)
+struct ABP_Ch013_Linked_ActionAttack_Pimp_C_AnimGraph final
+{
+public:
+	struct FPoseLink                              AnimGraph_0;                                       // 0x0000(0x0010)(Parm, OutParm, NoDestructor)
+};
+
 // Function ABP_Ch013_Linked_ActionAttack_Pimp.ABP_Ch013_Linked_ActionAttack_Pimp_C.NagaraBlend
 // 0x0038 (0x0038 - 0x0000)
 struct ABP_Ch013_Linked_ActionAttack_Pimp_C_NagaraBlend final
@@ -72,6 +63,15 @@ public:
 	float                                         UpperWeights;                                      // 0x0020(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FPoseLink                              NagaraBlend_0;                                     // 0x0028(0x0010)(Parm, OutParm, NoDestructor)
+};
+
+// Function ABP_Ch013_Linked_ActionAttack_Pimp.ABP_Ch013_Linked_ActionAttack_Pimp_C.ActionCustom
+// 0x0020 (0x0020 - 0x0000)
+struct ABP_Ch013_Linked_ActionAttack_Pimp_C_ActionCustom final
+{
+public:
+	struct FPoseLink                              InPose;                                            // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, NoDestructor)
+	struct FPoseLink                              ActionCustom_0;                                    // 0x0010(0x0010)(Parm, OutParm, NoDestructor)
 };
 
 SDK_PARAM_NAMESPACE_END

@@ -49,6 +49,5 @@ public:
 		return GetDefaultObjImpl<UWBP_CustomizePanel_HasMyAd_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_CustomizePanel_HasMyAd_C;
 
 SDK_NAMESPACE_END

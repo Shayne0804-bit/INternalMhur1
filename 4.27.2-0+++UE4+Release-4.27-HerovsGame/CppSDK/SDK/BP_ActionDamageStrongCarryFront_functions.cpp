@@ -101,9 +101,9 @@ void UBP_ActionDamageStrongCarryFront_C::BP_ActionMain()
 // Function BP_ActionDamageStrongCarryFront.BP_ActionDamageStrongCarryFront_C.DecideAnimationId
 // (Private, HasOutParams, BlueprintCallable, BlueprintEvent, BlueprintPure)
 // Parameters:
-// EAnimationId*                           AnimationId                                            (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// EAnimationId*                           animationId                                            (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UBP_ActionDamageStrongCarryFront_C::DecideAnimationId(EAnimationId* AnimationId)
+void UBP_ActionDamageStrongCarryFront_C::DecideAnimationId(EAnimationId* animationId)
 {
 	static class UFunction* Func = nullptr;
 
@@ -114,8 +114,8 @@ void UBP_ActionDamageStrongCarryFront_C::DecideAnimationId(EAnimationId* Animati
 
 	UObject::ProcessEvent(Func, &Parms);
 
-	if (AnimationId != nullptr)
-		*AnimationId = Parms.AnimationId;
+	if (animationId != nullptr)
+		*animationId = Parms.animationId;
 }
 
 

@@ -10,18 +10,18 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
 #include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionAttack_PickUpItem.BP_ActionAttack_PickUpItem_C
-// 0x0008 (0x04A8 - 0x04A0)
+// 0x0008 (0x04F0 - 0x04E8)
 class UBP_ActionAttack_PickUpItem_C final : public UActionAttackBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04E8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
 
 public:
 	void ExecuteUbergraph_BP_ActionAttack_PickUpItem(int32 EntryPoint);

@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<UABP_Variation_C>();
 	}
 };
-DUMPER7_ASSERTS_UABP_Variation_C;
 
 SDK_NAMESPACE_END

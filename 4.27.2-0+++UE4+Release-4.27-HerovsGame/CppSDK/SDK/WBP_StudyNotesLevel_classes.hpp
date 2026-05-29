@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<UWBP_StudyNotesLevel_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_StudyNotesLevel_C;
 
 SDK_NAMESPACE_END

@@ -105,6 +105,5 @@ public:
 		return GetDefaultObjImpl<UWBP_GashaPickUpDetail_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_GashaPickUpDetail_C;
 
 SDK_NAMESPACE_END

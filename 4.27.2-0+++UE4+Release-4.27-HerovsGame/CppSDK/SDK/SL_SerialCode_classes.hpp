@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ASL_SerialCode_C>();
 	}
 };
-DUMPER7_ASSERTS_ASL_SerialCode_C;
 
 SDK_NAMESPACE_END

@@ -10,19 +10,18 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
 #include "Engine_structs.hpp"
-#include "CommonModule_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionDyingIdle.BP_ActionDyingIdle_C
-// 0x0008 (0x0278 - 0x0270)
+// 0x0008 (0x0280 - 0x0278)
 class UBP_ActionDyingIdle_C final : public UActionNormalBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0270(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0278(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
 
 public:
 	void ExecuteUbergraph_BP_ActionDyingIdle(int32 EntryPoint);
@@ -31,8 +30,6 @@ public:
 	void UpdateMoveDirection();
 	void UpdateSpeedRate();
 	void UpdateCharacterDirection();
-	void EnableUnique3();
-	void DisableUnique3();
 
 	bool BP_IsEnableShiftAction(const class FName& nextAction) const;
 

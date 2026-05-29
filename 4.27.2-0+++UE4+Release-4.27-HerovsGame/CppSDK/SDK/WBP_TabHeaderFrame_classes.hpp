@@ -36,6 +36,5 @@ public:
 		return GetDefaultObjImpl<UWBP_TabHeaderFrame_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_TabHeaderFrame_C;
 
 SDK_NAMESPACE_END

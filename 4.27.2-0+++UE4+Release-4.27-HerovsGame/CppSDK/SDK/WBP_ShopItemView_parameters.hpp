@@ -31,7 +31,6 @@ public:
 	bool                                          K2Node_Event_bShow;                                // 0x00E0(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	ESlateVisibility                              K2Node_Select_Default;                             // 0x00E1(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_ShopItemView_C_ExecuteUbergraph_WBP_ShopItemView;
 
 // Function WBP_ShopItemView.WBP_ShopItemView_C.OnSetBgTexture
 // 0x00E0 (0x00E0 - 0x0000)
@@ -41,7 +40,6 @@ public:
 	struct FSlateBrush                            bgSlateBrush;                                      // 0x0000(0x00D0)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ReferenceParm)
 	bool                                          bShow;                                             // 0x00D0(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_ShopItemView_C_OnSetBgTexture;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

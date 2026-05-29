@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "UMG_structs.hpp"
 #include "SlateCore_structs.hpp"
+#include "UMG_structs.hpp"
 #include "InputCore_structs.hpp"
 #include "UIFramework_structs.hpp"
 
@@ -80,7 +80,6 @@ public:
 	class AWBP_StaffRollMoviePlayer_C*            CallFunc_Array_Get_Item_1;                         // 0x0198(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_NotEqual_IntInt_ReturnValue;              // 0x01A0(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_ExecuteUbergraph_WBP_StaffRollWidget;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.ActivateReturnButton
 // 0x0008 (0x0008 - 0x0000)
@@ -89,7 +88,6 @@ struct WBP_StaffRollWidget_C_ActivateReturnButton final
 public:
 	class UCanvasPanel*                           _invisiblePanel_0;                                 // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_ActivateReturnButton;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.BndEvt__WBP_StaffRollWidget__ForwardButton_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -99,7 +97,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_BndEvt__WBP_StaffRollWidget__ForwardButton_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.UnActivateReturnButton
 // 0x0008 (0x0008 - 0x0000)
@@ -108,7 +105,6 @@ struct WBP_StaffRollWidget_C_UnActivateReturnButton final
 public:
 	class UCanvasPanel*                           _invisiblePanel_0;                                 // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_UnActivateReturnButton;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.BndEvt__WBP_StaffRollWidget_WBP_StaffrollButton_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -118,7 +114,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_BndEvt__WBP_StaffRollWidget_WBP_StaffrollButton_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.BndEvt__WBP_StaffRollWidget_WBP_StaffrollButton_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -128,7 +123,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_BndEvt__WBP_StaffRollWidget_WBP_StaffrollButton_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.BndEvt__WBP_StaffRollWidget__ForwardButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -138,7 +132,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_BndEvt__WBP_StaffRollWidget__ForwardButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.BndEvt__WBP_StaffRollWidget__ForwardButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -148,7 +141,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_BndEvt__WBP_StaffRollWidget__ForwardButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.OnAnimationStarted
 // 0x0008 (0x0008 - 0x0000)
@@ -157,7 +149,6 @@ struct WBP_StaffRollWidget_C_OnAnimationStarted final
 public:
 	const class UWidgetAnimation*                 Animation;                                         // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_OnAnimationStarted;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.BndEvt__WBP_StaffRollWidget_WBP_ReturnButton_K2Node_ComponentBoundEvent_10_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -167,7 +158,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_BndEvt__WBP_StaffRollWidget_WBP_ReturnButton_K2Node_ComponentBoundEvent_10_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.OnAnimationFinished
 // 0x0008 (0x0008 - 0x0000)
@@ -176,7 +166,6 @@ struct WBP_StaffRollWidget_C_OnAnimationFinished final
 public:
 	const class UWidgetAnimation*                 Animation;                                         // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_OnAnimationFinished;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.FadeImage_MovieStartEvent
 // 0x0008 (0x0008 - 0x0000)
@@ -185,7 +174,6 @@ struct WBP_StaffRollWidget_C_FadeImage_MovieStartEvent final
 public:
 	class UImage*                                 FadeImage_0;                                       // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_FadeImage_MovieStartEvent;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.Tick
 // 0x003C (0x003C - 0x0000)
@@ -195,7 +183,6 @@ public:
 	struct FGeometry                              MyGeometry;                                        // 0x0000(0x0038)(BlueprintVisible, BlueprintReadOnly, Parm, IsPlainOldData, NoDestructor)
 	float                                         InDeltaTime;                                       // 0x0038(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_Tick;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.SetItemScrollSpeed
 // 0x0008 (0x0008 - 0x0000)
@@ -205,7 +192,6 @@ public:
 	float                                         NewParam;                                          // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_Less_FloatFloat_ReturnValue;              // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_SetItemScrollSpeed;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.RemoveViewportItem
 // 0x0018 (0x0018 - 0x0000)
@@ -217,7 +203,6 @@ public:
 	class UStaffRollCell*                         CallFunc_Array_Get_Item;                           // 0x0008(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UStaffRollCell*                         CallFunc_Array_Get_Item_1;                         // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_RemoveViewportItem;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.OnAnalogValueChanged
 // 0x0300 (0x0300 - 0x0000)
@@ -240,7 +225,6 @@ public:
 	uint8                                         Pad_246[0x2];                                      // 0x0246(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FEventReply                            CallFunc_Unhandled_ReturnValue;                    // 0x0248(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_OnAnalogValueChanged;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.PlayStaffRollAnimation
 // 0x0010 (0x0010 - 0x0000)
@@ -250,7 +234,6 @@ public:
 	class UMediaSource*                           CallFunc_BP_GetStartAnimation_ReturnValue;         // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_OpenSource_ReturnValue;                   // 0x0008(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_PlayStaffRollAnimation;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.OnKeyDown
 // 0x0378 (0x0378 - 0x0000)
@@ -274,7 +257,6 @@ public:
 	struct FEventReply                            CallFunc_Unhandled_ReturnValue_1;                  // 0x0208(0x00B8)()
 	struct FEventReply                            CallFunc_Unhandled_ReturnValue_2;                  // 0x02C0(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_OnKeyDown;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.PlayShadowAnimation
 // 0x0010 (0x0010 - 0x0000)
@@ -285,7 +267,6 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UUMGSequencePlayer*                     CallFunc_PlayAnimation_ReturnValue;                // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_PlayShadowAnimation;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.OnMouseMove
 // 0x0218 (0x0218 - 0x0000)
@@ -297,7 +278,6 @@ public:
 	struct FEventReply                            ReturnValue;                                       // 0x00A8(0x00B8)(Parm, OutParm, ReturnParm)
 	struct FEventReply                            CallFunc_Unhandled_ReturnValue;                    // 0x0160(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_OnMouseMove;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.OnMouseButtonDown
 // 0x0218 (0x0218 - 0x0000)
@@ -309,7 +289,6 @@ public:
 	struct FEventReply                            ReturnValue;                                       // 0x00A8(0x00B8)(Parm, OutParm, ReturnParm)
 	struct FEventReply                            CallFunc_Unhandled_ReturnValue;                    // 0x0160(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_OnMouseButtonDown;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.OnMouseWheel
 // 0x0230 (0x0230 - 0x0000)
@@ -326,7 +305,6 @@ public:
 	struct FEventReply                            CallFunc_Unhandled_ReturnValue;                    // 0x0170(0x00B8)()
 	float                                         CallFunc_Add_FloatFloat_ReturnValue;               // 0x0228(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_OnMouseWheel;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.OnKeyUp
 // 0x02B8 (0x02B8 - 0x0000)
@@ -347,7 +325,6 @@ public:
 	struct FEventReply                            CallFunc_Unhandled_ReturnValue;                    // 0x0148(0x00B8)()
 	struct FEventReply                            CallFunc_Unhandled_ReturnValue_1;                  // 0x0200(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_OnKeyUp;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.SequenceEvent__ENTRYPOINTWBP_StaffRollWidget_0
 // 0x0008 (0x0008 - 0x0000)
@@ -356,7 +333,6 @@ struct WBP_StaffRollWidget_C_SequenceEvent__ENTRYPOINTWBP_StaffRollWidget_0 fina
 public:
 	class UCanvasPanel*                           _invisiblePanel_0;                                 // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_SequenceEvent__ENTRYPOINTWBP_StaffRollWidget_0;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.SequenceEvent__ENTRYPOINTWBP_StaffRollWidget_1
 // 0x0008 (0x0008 - 0x0000)
@@ -365,7 +341,6 @@ struct WBP_StaffRollWidget_C_SequenceEvent__ENTRYPOINTWBP_StaffRollWidget_1 fina
 public:
 	class UCanvasPanel*                           _invisiblePanel_0;                                 // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_SequenceEvent__ENTRYPOINTWBP_StaffRollWidget_1;
 
 // Function WBP_StaffRollWidget.WBP_StaffRollWidget_C.SequenceEvent__ENTRYPOINTWBP_StaffRollWidget_2
 // 0x0008 (0x0008 - 0x0000)
@@ -374,7 +349,6 @@ struct WBP_StaffRollWidget_C_SequenceEvent__ENTRYPOINTWBP_StaffRollWidget_2 fina
 public:
 	class UImage*                                 FadeImage_0;                                       // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollWidget_C_SequenceEvent__ENTRYPOINTWBP_StaffRollWidget_2;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

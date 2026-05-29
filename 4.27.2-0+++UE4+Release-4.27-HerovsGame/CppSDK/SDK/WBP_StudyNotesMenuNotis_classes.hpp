@@ -43,6 +43,5 @@ public:
 		return GetDefaultObjImpl<UWBP_StudyNotesMenuNotis_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_StudyNotesMenuNotis_C;
 
 SDK_NAMESPACE_END

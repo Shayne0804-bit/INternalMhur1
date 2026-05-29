@@ -11,9 +11,9 @@
 #include "Basic.hpp"
 
 #include "Slate_structs.hpp"
+#include "CoreUObject_structs.hpp"
 #include "SlateCore_structs.hpp"
 #include "MoviePlayer_structs.hpp"
-#include "CoreUObject_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -145,18 +145,6 @@ public:
 	struct FSlateBrush                            BorderBackground;                                  // 0x0020(0x00D0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
 
-// ScriptStruct AsyncLoadingScreen.ImageSequenceSettings
-// 0x0020 (0x0020 - 0x0000)
-struct FImageSequenceSettings final
-{
-public:
-	TArray<class UTexture2D*>                     Images;                                            // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
-	struct FVector2D                              Scale;                                             // 0x0010(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         interval;                                          // 0x0018(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bPlayReverse;                                      // 0x001C(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
 // ScriptStruct AsyncLoadingScreen.TextAppearance
 // 0x00A0 (0x00A0 - 0x0000)
 struct FTextAppearance final
@@ -168,6 +156,60 @@ public:
 	struct FLinearColor                           ShadowColorAndOpacity;                             // 0x0088(0x0010)(Edit, BlueprintVisible, ZeroConstructor, Config, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	ETextJustify                                  Justification;                                     // 0x0098(0x0001)(Edit, BlueprintVisible, ZeroConstructor, Config, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_99[0x7];                                       // 0x0099(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct AsyncLoadingScreen.LoadingCompleteTextSettings
+// 0x00D8 (0x00D8 - 0x0000)
+struct FLoadingCompleteTextSettings final
+{
+public:
+	class FText                                   LoadingCompleteText;                               // 0x0000(0x0018)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
+	struct FTextAppearance                        Appearance;                                        // 0x0018(0x00A0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
+	struct FWidgetAlignment                       Alignment;                                         // 0x00B8(0x0002)(Edit, BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
+	uint8                                         Pad_BA[0x2];                                       // 0x00BA(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FMargin                                Padding;                                           // 0x00BC(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+	bool                                          bFadeInOutAnim;                                    // 0x00CC(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_CD[0x3];                                       // 0x00CD(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	float                                         AnimationSpeed;                                    // 0x00D0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_D4[0x4];                                       // 0x00D4(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct AsyncLoadingScreen.BackgroundSettings
+// 0x0038 (0x0038 - 0x0000)
+struct FBackgroundSettings final
+{
+public:
+	TArray<struct FSoftObjectPath>                Images;                                            // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
+	EStretch                                      ImageStretch;                                      // 0x0010(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FMargin                                Padding;                                           // 0x0014(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+	struct FLinearColor                           BackgroundColor;                                   // 0x0024(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bSetDisplayBackgroundManually;                     // 0x0034(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_35[0x3];                                       // 0x0035(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct AsyncLoadingScreen.TipSettings
+// 0x00B8 (0x00B8 - 0x0000)
+struct FTipSettings final
+{
+public:
+	TArray<class FText>                           TipText;                                           // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
+	struct FTextAppearance                        Appearance;                                        // 0x0010(0x00A0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
+	float                                         TipWrapAt;                                         // 0x00B0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bSetDisplayTipTextManually;                        // 0x00B4(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_B5[0x3];                                       // 0x00B5(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct AsyncLoadingScreen.ImageSequenceSettings
+// 0x0020 (0x0020 - 0x0000)
+struct FImageSequenceSettings final
+{
+public:
+	TArray<class UTexture2D*>                     Images;                                            // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
+	struct FVector2D                              Scale;                                             // 0x0010(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         interval;                                          // 0x0018(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bPlayReverse;                                      // 0x001C(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct AsyncLoadingScreen.ThrobberSettings
@@ -219,48 +261,6 @@ public:
 	struct FWidgetAlignment                       LoadingIconAlignment;                              // 0x02C2(0x0002)(Edit, BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 	float                                         space;                                             // 0x02C4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_2C8[0x8];                                      // 0x02C8(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct AsyncLoadingScreen.LoadingCompleteTextSettings
-// 0x00D8 (0x00D8 - 0x0000)
-struct FLoadingCompleteTextSettings final
-{
-public:
-	class FText                                   LoadingCompleteText;                               // 0x0000(0x0018)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
-	struct FTextAppearance                        Appearance;                                        // 0x0018(0x00A0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
-	struct FWidgetAlignment                       Alignment;                                         // 0x00B8(0x0002)(Edit, BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
-	uint8                                         Pad_BA[0x2];                                       // 0x00BA(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FMargin                                Padding;                                           // 0x00BC(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
-	bool                                          bFadeInOutAnim;                                    // 0x00CC(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_CD[0x3];                                       // 0x00CD(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	float                                         AnimationSpeed;                                    // 0x00D0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_D4[0x4];                                       // 0x00D4(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct AsyncLoadingScreen.BackgroundSettings
-// 0x0038 (0x0038 - 0x0000)
-struct FBackgroundSettings final
-{
-public:
-	TArray<struct FSoftObjectPath>                Images;                                            // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
-	EStretch                                      ImageStretch;                                      // 0x0010(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FMargin                                Padding;                                           // 0x0014(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
-	struct FLinearColor                           BackgroundColor;                                   // 0x0024(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bSetDisplayBackgroundManually;                     // 0x0034(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_35[0x3];                                       // 0x0035(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct AsyncLoadingScreen.TipSettings
-// 0x00B8 (0x00B8 - 0x0000)
-struct FTipSettings final
-{
-public:
-	TArray<class FText>                           TipText;                                           // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
-	struct FTextAppearance                        Appearance;                                        // 0x0010(0x00A0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
-	float                                         TipWrapAt;                                         // 0x00B0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bSetDisplayTipTextManually;                        // 0x00B4(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_B5[0x3];                                       // 0x00B5(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct AsyncLoadingScreen.ALoadingScreenSettings

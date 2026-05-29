@@ -43,6 +43,5 @@ public:
 		return GetDefaultObjImpl<UWBP_StaffRollBgMovie_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_StaffRollBgMovie_C;
 
 SDK_NAMESPACE_END

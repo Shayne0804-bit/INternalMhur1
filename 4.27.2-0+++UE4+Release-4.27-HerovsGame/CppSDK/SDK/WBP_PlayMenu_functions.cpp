@@ -952,6 +952,20 @@ void UWBP_PlayMenu_C::BndEvt__WBP_PlayMenu_WBP_PlayMenu_DebugMyRoom_5_K2Node_Com
 }
 
 
+// Function WBP_PlayMenu.WBP_PlayMenu_C.BndEvt__WBP_PlayMenu__playMenuBattleStartWidget_K2Node_ComponentBoundEvent_22_BattleStartPressDelegate__DelegateSignature
+// (BlueprintEvent)
+
+void UWBP_PlayMenu_C::BndEvt__WBP_PlayMenu__playMenuBattleStartWidget_K2Node_ComponentBoundEvent_22_BattleStartPressDelegate__DelegateSignature()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_PlayMenu_C", "BndEvt__WBP_PlayMenu__playMenuBattleStartWidget_K2Node_ComponentBoundEvent_22_BattleStartPressDelegate__DelegateSignature");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
 // Function WBP_PlayMenu.WBP_PlayMenu_C.ExecuteUbergraph_WBP_PlayMenu
 // (Final, UbergraphFunction, HasDefaults)
 // Parameters:

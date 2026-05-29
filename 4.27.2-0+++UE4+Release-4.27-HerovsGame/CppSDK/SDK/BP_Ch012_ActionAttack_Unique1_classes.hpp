@@ -10,37 +10,37 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_structs.hpp"
-#include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "CommonModule_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "InGameModule_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch012_ActionAttack_Unique1.BP_Ch012_ActionAttack_Unique1_C
-// 0x0010 (0x04B0 - 0x04A0)
+// 0x0010 (0x04F8 - 0x04E8)
 class UBP_Ch012_ActionAttack_Unique1_C final : public UActionAttackBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	float                                         BlendIn;                                           // 0x04A8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         AnimSpeed;                                         // 0x04AC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04E8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	float                                         BlendIn;                                           // 0x04F0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         AnimSpeed;                                         // 0x04F4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
-	void SetAnimSpeedParam();
-	void BP_OnLoadParams(const class FName& ActionName, int32 uniqueLevel);
-	void BP_OnEndAction(const class FName& nextAction);
-	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
-	void BP_OnChangeAttackPhase(int32 nextPhase);
-	void BP_ActionRemote();
-	void BP_OnChangeAttackPhaseForRemote(int32 nextPhase);
-	void BP_OnBeginAction(const class FName& prevAction);
-	void BP_OnBeginAimingMode();
-	void BP_OnEndAimingMode();
-	void BP_ActionMain();
 	void ExecuteUbergraph_BP_Ch012_ActionAttack_Unique1(int32 EntryPoint);
+	void BP_ActionMain();
+	void BP_OnEndAimingMode();
+	void BP_OnBeginAimingMode();
+	void BP_OnBeginAction(const class FName& prevAction);
+	void BP_OnChangeAttackPhaseForRemote(int32 nextPhase);
+	void BP_ActionRemote();
+	void BP_OnChangeAttackPhase(int32 nextPhase);
+	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
+	void BP_OnEndAction(const class FName& nextAction);
+	void BP_OnLoadParams(const class FName& ActionName, int32 uniqueLevel);
+	void SetAnimSpeedParam();
 
 	bool BP_IsEnableShiftAction(const class FName& nextAction) const;
 

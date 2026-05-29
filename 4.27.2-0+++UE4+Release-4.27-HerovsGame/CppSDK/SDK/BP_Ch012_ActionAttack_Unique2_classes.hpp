@@ -10,46 +10,47 @@
 
 #include "Basic.hpp"
 
+#include "CommonModule_structs.hpp"
+#include "Engine_structs.hpp"
 #include "InGameModule_structs.hpp"
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
-#include "CommonModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch012_ActionAttack_Unique2.BP_Ch012_ActionAttack_Unique2_C
-// 0x0018 (0x04B8 - 0x04A0)
+// 0x0020 (0x0508 - 0x04E8)
 class UBP_Ch012_ActionAttack_Unique2_C final : public UActionAttackBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	bool                                          bHoldButton;                                       // 0x04A8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_4A9[0x3];                                      // 0x04A9(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	float                                         maxButtonHoldSeconds;                              // 0x04AC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	int32                                         CurrentLevel;                                      // 0x04B0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         DashLoopTime;                                      // 0x04B4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04E8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	bool                                          bHoldButton;                                       // 0x04F0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_4F1[0x3];                                      // 0x04F1(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	float                                         maxButtonHoldSeconds;                              // 0x04F4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         CurrentLevel;                                      // 0x04F8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         DashLoopTime;                                      // 0x04FC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UBP_Ch012_Unique2_Param_C*              EndParam;                                          // 0x0500(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
-	void SetSuperArmor(bool enable);
-	void BP_OnBeginActionAttackAir(const class FName& prevAction);
-	void BP_OnChangeAttackPhaseAir(int32 nextPhase);
-	void BP_OnChangeAttackPhaseAirForRemote(int32 nextPhase);
-	void BP_OnBeginActionAttackGround(const class FName& prevAction);
-	void BP_OnChangeAttackPhaseGround(int32 nextPhase);
-	void BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase);
-	void BP_OnBeginAction(const class FName& prevAction);
-	void BP_OnLoadParams(const class FName& ActionName, int32 uniqueLevel);
-	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
-	void BP_OnLandingAir();
-	void BP_OnLandingGround();
-	void BP_OnEndAction(const class FName& nextAction);
-	void BP_OnLeaveGroundEvent();
-	void BP_ActionRemote();
-	void BP_ActionMain();
-	void BP_OnHitAttackEvent(const struct FVector& HitLocation, class FName projectileName, class FName damageParamName, class ACharacterBattle* hitCharacter, float damageValue);
-	void BP_OnHitAttackEventAir(const struct FVector& HitLocation, class FName projectileName, class FName damageParamName, class ACharacterBattle* hitCharacter);
 	void ExecuteUbergraph_BP_Ch012_ActionAttack_Unique2(int32 EntryPoint);
+	void BP_OnHitAttackEventAir(const struct FVector& HitLocation, class FName projectileName, class FName damageParamName, class ACharacterBattle* hitCharacter);
+	void BP_OnHitAttackEvent(const struct FVector& HitLocation, class FName projectileName, class FName damageParamName, class ACharacterBattle* hitCharacter, float damageValue);
+	void BP_ActionMain();
+	void BP_ActionRemote();
+	void BP_OnLeaveGroundEvent();
+	void BP_OnEndAction(const class FName& nextAction);
+	void BP_OnLandingGround();
+	void BP_OnLandingAir();
+	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
+	void BP_OnLoadParams(const class FName& ActionName, int32 uniqueLevel);
+	void BP_OnBeginAction(const class FName& prevAction);
+	void BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase);
+	void BP_OnChangeAttackPhaseGround(int32 nextPhase);
+	void BP_OnBeginActionAttackGround(const class FName& prevAction);
+	void BP_OnChangeAttackPhaseAirForRemote(int32 nextPhase);
+	void BP_OnChangeAttackPhaseAir(int32 nextPhase);
+	void BP_OnBeginActionAttackAir(const class FName& prevAction);
+	void SetSuperArmor(bool enable);
 
 public:
 	static class UClass* StaticClass()

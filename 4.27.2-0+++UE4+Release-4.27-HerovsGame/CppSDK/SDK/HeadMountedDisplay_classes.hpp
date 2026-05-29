@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
-#include "Engine_classes.hpp"
 #include "InputCore_structs.hpp"
 #include "HeadMountedDisplay_structs.hpp"
+#include "Engine_classes.hpp"
 
 
 SDK_NAMESPACE_START
@@ -47,7 +47,7 @@ public:
 };
 
 // Class HeadMountedDisplay.VRNotificationsComponent
-// 0x0090 (0x0140 - 0x00B0)
+// 0x00B0 (0x0160 - 0x00B0)
 class UVRNotificationsComponent : public UActorComponent
 {
 public:
@@ -60,6 +60,8 @@ public:
 	TMulticastInlineDelegate<void()>              HMDPutOnHeadDelegate;                              // 0x0110(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
 	TMulticastInlineDelegate<void()>              HMDRemovedFromHeadDelegate;                        // 0x0120(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
 	TMulticastInlineDelegate<void()>              VRControllerRecenteredDelegate;                    // 0x0130(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              XRTrackingOriginChangedDelegate;                   // 0x0140(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              XRPlayAreaChangedDelegate;                         // 0x0150(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
 
 public:
 	static class UClass* StaticClass()
@@ -90,7 +92,7 @@ public:
 	static bool EnableHMD(bool bEnable);
 	static void EnableLowPersistenceMode(bool bEnable);
 	static TArray<struct FXRDeviceId> EnumerateTrackedDevices(const class FName SystemId, EXRTrackedDeviceType DeviceType);
-	static bool GetControllerTransformForTime(class UObject* WorldContext, const int32 ControllerIndex, const class FName MotionSource, const struct FTimespan& Time, bool* bTimeWasUsed, struct FRotator* Orientation, struct FVector* Position, bool* bProvidedLinearVelocity, struct FVector* LinearVelocity, bool* bProvidedAngularVelocity, struct FVector* AngularVelocityRadPerSec);
+	static bool GetControllerTransformForTime(class UObject* WorldContext, const int32 ControllerIndex, const class FName MotionSource, const struct FTimespan& Time, bool* bTimeWasUsed, struct FRotator* Orientation, struct FVector* Position, bool* bProvidedLinearVelocity, struct FVector* LinearVelocity, bool* bProvidedAngularVelocity, struct FVector* AngularVelocityRadPerSec, bool* bProvidedLinearAcceleration, struct FVector* LinearAcceleration);
 	static void GetDevicePose(const struct FXRDeviceId& XRDeviceId, bool* bIsTracked, struct FRotator* Orientation, bool* bHasPositionalTracking, struct FVector* Position);
 	static void GetDeviceWorldPose(class UObject* WorldContext, const struct FXRDeviceId& XRDeviceId, bool* bIsTracked, struct FRotator* Orientation, bool* bHasPositionalTracking, struct FVector* Position);
 	static void GetHMDData(class UObject* WorldContext, struct FXRHMDData* HMDData);
@@ -101,9 +103,11 @@ public:
 	static void GetOrientationAndPosition(struct FRotator* DeviceRotation, struct FVector* DevicePosition);
 	static float GetPixelDensity();
 	static struct FVector2D GetPlayAreaBounds(EHMDTrackingOrigin Origin);
+	static bool GetPlayAreaRect(struct FTransform* OutTransform, struct FVector2D* OutRect);
 	static void GetPositionalTrackingCameraParameters(struct FVector* CameraOrigin, struct FRotator* CameraRotation, float* HFOV, float* VFOV, float* CameraDistance, float* NearPlane, float* FarPlane);
 	static float GetScreenPercentage();
 	static EHMDTrackingOrigin GetTrackingOrigin();
+	static bool GetTrackingOriginTransform(EHMDTrackingOrigin Origin, struct FTransform* OutTransform);
 	static void GetTrackingSensorParameters(struct FVector* Origin, struct FRotator* Rotation, float* LeftFOV, float* RightFOV, float* TopFOV, float* BottomFOV, float* Distance, float* NearPlane, float* FarPlane, bool* IsActive, int32 Index_0);
 	static struct FTransform GetTrackingToWorldTransform(class UObject* WorldContext);
 	static class FString GetVersionString();

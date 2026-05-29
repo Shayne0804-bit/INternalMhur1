@@ -10,55 +10,55 @@
 
 #include "Basic.hpp"
 
+#include "CommonModule_structs.hpp"
+#include "Engine_structs.hpp"
 #include "InGameModule_structs.hpp"
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
-#include "CommonModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch023_ActionAttack_Unique2.BP_Ch023_ActionAttack_Unique2_C
-// 0x0068 (0x0508 - 0x04A0)
+// 0x0068 (0x0550 - 0x04E8)
 class UBP_Ch023_ActionAttack_Unique2_C final : public UActionAttackBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	class UParticleSystemComponent*               EffectPtr;                                         // 0x04A8(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          IsWaitShot;                                        // 0x04B0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_4B1[0x3];                                      // 0x04B1(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	float                                         BulletSpeed;                                       // 0x04B4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         SimulateTime;                                      // 0x04B8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         Gravity;                                           // 0x04BC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         hitRadius;                                         // 0x04C0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         ShotAngle;                                         // 0x04C4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          IsEnablePredicateLine;                             // 0x04C8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_4C9[0x7];                                      // 0x04C9(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UPredictionLineComponent*               WorkPrediction;                                    // 0x04D0(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         hoveringMoveSpeed;                                 // 0x04D8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         hoveringFallSpeed;                                 // 0x04DC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         hoveringDuration;                                  // 0x04E0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_4E4[0x4];                                      // 0x04E4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class UParticleSystem*                        SpearEmitterL1;                                    // 0x04E8(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UParticleSystem*                        SpearEmitterL2;                                    // 0x04F0(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UParticleSystem*                        SpearEmitterL3;                                    // 0x04F8(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          IsShot;                                            // 0x0500(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04E8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	class UParticleSystemComponent*               EffectPtr;                                         // 0x04F0(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          IsWaitShot;                                        // 0x04F8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_4F9[0x3];                                      // 0x04F9(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	float                                         BulletSpeed;                                       // 0x04FC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         SimulateTime;                                      // 0x0500(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         Gravity;                                           // 0x0504(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         hitRadius;                                         // 0x0508(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         ShotAngle;                                         // 0x050C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          IsEnablePredicateLine;                             // 0x0510(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_511[0x7];                                      // 0x0511(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UPredictionLineComponent*               WorkPrediction;                                    // 0x0518(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         hoveringMoveSpeed;                                 // 0x0520(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         hoveringFallSpeed;                                 // 0x0524(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         hoveringDuration;                                  // 0x0528(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_52C[0x4];                                      // 0x052C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class UParticleSystem*                        SpearEmitterL1;                                    // 0x0530(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UParticleSystem*                        SpearEmitterL2;                                    // 0x0538(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UParticleSystem*                        SpearEmitterL3;                                    // 0x0540(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          IsShot;                                            // 0x0548(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
 
 public:
-	void GetEmitterAtCurrentLevel(class UParticleSystem** Emitter);
-	void GetShotVector(float value, struct FVector* ShotVector);
-	void BP_ActionMain();
-	void BP_OnBeginAction(const class FName& prevAction);
-	void BP_OnEndAction(const class FName& nextAction);
-	void BP_OnLoadParams(const class FName& ActionName, int32 uniqueLevel);
-	void BP_ActionRemote();
-	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
-	void BP_OnChangeAttackPhase(int32 nextPhase);
-	void BP_OnChangeAttackPhaseForRemote(int32 nextPhase);
-	void OnMoveHovering();
-	void BP_OnAngleRangeOutAir();
-	void BP_OnLandingAir();
 	void ExecuteUbergraph_BP_Ch023_ActionAttack_Unique2(int32 EntryPoint);
+	void BP_OnLandingAir();
+	void BP_OnAngleRangeOutAir();
+	void OnMoveHovering();
+	void BP_OnChangeAttackPhaseForRemote(int32 nextPhase);
+	void BP_OnChangeAttackPhase(int32 nextPhase);
+	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
+	void BP_ActionRemote();
+	void BP_OnLoadParams(const class FName& ActionName, int32 uniqueLevel);
+	void BP_OnEndAction(const class FName& nextAction);
+	void BP_OnBeginAction(const class FName& prevAction);
+	void BP_ActionMain();
+	void GetShotvector(float value, struct FVector* ShotVector);
+	void GetEmitterAtCurrentLevel(class UParticleSystem** Emitter);
 
 	bool BP_IsEnableShiftAction(const class FName& nextAction) const;
 

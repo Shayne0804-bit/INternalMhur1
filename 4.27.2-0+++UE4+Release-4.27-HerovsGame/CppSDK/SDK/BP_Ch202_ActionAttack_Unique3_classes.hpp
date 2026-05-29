@@ -10,49 +10,50 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_structs.hpp"
-#include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
-#include "CoreUObject_structs.hpp"
 #include "CommonModule_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "InGameModule_structs.hpp"
+#include "InGameModule_classes.hpp"
+#include "CoreUObject_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch202_ActionAttack_Unique3.BP_Ch202_ActionAttack_Unique3_C
-// 0x00B8 (0x0560 - 0x04A8)
+// 0x00C0 (0x05B0 - 0x04F0)
 class UBP_Ch202_ActionAttack_Unique3_C final : public UCh202ActionAttackBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	struct FVector                                StartLocation;                                     // 0x04B0(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FVector                                TargetForward;                                     // 0x04BC(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FVector                                TargetUp;                                          // 0x04C8(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          bEnableDerivation;                                 // 0x04D4(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          bChaseTargetGround;                                // 0x04D5(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          bEnableDSmash;                                     // 0x04D6(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          bHitMagazine;                                      // 0x04D7(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          bLockOnTargetFailed;                               // 0x04D8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_4D9[0x3];                                      // 0x04D9(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         TraceIndex;                                        // 0x04DC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FVector                                CurrentIndexLocation;                              // 0x04E0(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         ElapsedTime;                                       // 0x04EC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         U3MoveSpeed;                                       // 0x04F0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          bValidTargetVector;                                // 0x04F4(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_4F5[0x3];                                      // 0x04F5(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<EObjectTypeQuery>                      Object_Types;                                      // 0x04F8(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
-	class ACharacterBattle*                       ChaseTargetChara;                                  // 0x0508(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnTemplate, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	TArray<struct FVector>                        ChaseLocations;                                    // 0x0510(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
-	struct FVector                                ChaseTargetLocation;                               // 0x0520(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FVector                                ChaseTargetStartLocation;                          // 0x052C(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UProjectileGeneratorDataAsset*          ProjectileAsset;                                   // 0x0538(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class ACharacterBattle*                       LastChaseTargetChara;                              // 0x0540(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnTemplate, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         buttonHoldTime;                                    // 0x0548(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          bSearchEnd;                                        // 0x054C(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_54D[0x3];                                      // 0x054D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FVector                                CurrentIndexLocationDir;                           // 0x0550(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	int32                                         MapHitCount;                                       // 0x055C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04F0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	struct FVector                                StartLocation;                                     // 0x04F8(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FVector                                TargetForward;                                     // 0x0504(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FVector                                TargetUp;                                          // 0x0510(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          bEnableDerivation;                                 // 0x051C(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          bChaseTargetGround;                                // 0x051D(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          bEnableDSmash;                                     // 0x051E(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          bHitMagazine;                                      // 0x051F(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          bLockOnTargetFailed;                               // 0x0520(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_521[0x3];                                      // 0x0521(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         TraceIndex;                                        // 0x0524(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FVector                                CurrentIndexLocation;                              // 0x0528(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         ElapsedTime;                                       // 0x0534(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         U3MoveSpeed;                                       // 0x0538(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          bValidTargetVector;                                // 0x053C(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_53D[0x3];                                      // 0x053D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<EObjectTypeQuery>                      Object_Types;                                      // 0x0540(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
+	class ACharacterBattle*                       ChaseTargetChara;                                  // 0x0550(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnTemplate, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	TArray<struct FVector>                        ChaseLocations;                                    // 0x0558(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
+	struct FVector                                ChaseTargetLocation;                               // 0x0568(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FVector                                ChaseTargetStartLocation;                          // 0x0574(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UProjectileGeneratorDataAsset*          ProjectileAsset;                                   // 0x0580(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class ACharacterBattle*                       LastChaseTargetChara;                              // 0x0588(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnTemplate, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         buttonHoldTime;                                    // 0x0590(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          bSearchEnd;                                        // 0x0594(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_595[0x3];                                      // 0x0595(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FVector                                CurrentIndexLocationDir;                           // 0x0598(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         MapHitCount;                                       // 0x05A4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          IsFirstPlayerLockOnedForRemote;                    // 0x05A8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
 
 public:
 	void ExecuteUbergraph_BP_Ch202_ActionAttack_Unique3(int32 EntryPoint);
@@ -79,6 +80,7 @@ public:
 	void BP_OnChangeAttackPhaseForRemote(int32 nextPhase);
 	void BP_OnChangeAttackPhase(int32 nextPhase);
 	void TickTargetTraceMove();
+	void BP_OnRecieveActionPing(int32 ping);
 	void AnimID_Unique3_0(EAnimationId* animId);
 	void AnimID_Unique3_1(EAnimationId* animId);
 	void AnimID_Unique3_2(EAnimationId* animId);
@@ -121,6 +123,7 @@ public:
 	void CalcCurrentIndexLocationDir(struct FVector* NewParam);
 	void IsMoveMapHit(bool* bMapHit);
 	void ForceEnd();
+	void SetFirstPlayerLockOnedForRemote(bool IsLockOned);
 
 public:
 	static class UClass* StaticClass()
@@ -136,6 +139,5 @@ public:
 		return GetDefaultObjImpl<UBP_Ch202_ActionAttack_Unique3_C>();
 	}
 };
-DUMPER7_ASSERTS_UBP_Ch202_ActionAttack_Unique3_C;
 
 SDK_NAMESPACE_END

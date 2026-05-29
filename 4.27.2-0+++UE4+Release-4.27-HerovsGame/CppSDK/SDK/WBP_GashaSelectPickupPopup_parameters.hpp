@@ -29,7 +29,6 @@ public:
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UGashaDatabaseWork*                     CallFunc_GetGameInstanceSubsystem_ReturnValue_1;   // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_GashaSelectPickupPopup_C_ExecuteUbergraph_WBP_GashaSelectPickupPopup;
 
 // Function WBP_GashaSelectPickupPopup.WBP_GashaSelectPickupPopup_C.BndEvt__WBP_GashaSelectPickupPopup__leftbutton_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -39,7 +38,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_GashaSelectPickupPopup_C_BndEvt__WBP_GashaSelectPickupPopup__leftbutton_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

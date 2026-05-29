@@ -15,22 +15,22 @@
 
 SDK_NAMESPACE_START
 
-// Class AudioExtensions.SoundModulatorBase
+// Class AudioExtensions.SoundfieldEndpointSettingsBase
 // 0x0000 (0x0028 - 0x0028)
-class USoundModulatorBase final : public UObject
+class USoundfieldEndpointSettingsBase final : public UObject
 {
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("SoundModulatorBase")
+		STATIC_CLASS_IMPL("SoundfieldEndpointSettingsBase")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"SoundModulatorBase")
+		STATIC_NAME_IMPL(L"SoundfieldEndpointSettingsBase")
 	}
-	static class USoundModulatorBase* GetDefaultObj()
+	static class USoundfieldEndpointSettingsBase* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<USoundModulatorBase>();
+		return GetDefaultObjImpl<USoundfieldEndpointSettingsBase>();
 	}
 };
 
@@ -148,22 +148,22 @@ public:
 	}
 };
 
-// Class AudioExtensions.SoundfieldEndpointSettingsBase
+// Class AudioExtensions.SoundModulatorBase
 // 0x0000 (0x0028 - 0x0028)
-class USoundfieldEndpointSettingsBase final : public UObject
+class USoundModulatorBase final : public UObject
 {
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("SoundfieldEndpointSettingsBase")
+		STATIC_CLASS_IMPL("SoundModulatorBase")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"SoundfieldEndpointSettingsBase")
+		STATIC_NAME_IMPL(L"SoundModulatorBase")
 	}
-	static class USoundfieldEndpointSettingsBase* GetDefaultObj()
+	static class USoundModulatorBase* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<USoundfieldEndpointSettingsBase>();
+		return GetDefaultObjImpl<USoundModulatorBase>();
 	}
 };
 

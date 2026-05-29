@@ -36,6 +36,5 @@ public:
 		return GetDefaultObjImpl<UWBP_BattleRule_RankRewardListTop_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_BattleRule_RankRewardListTop_C;
 
 SDK_NAMESPACE_END

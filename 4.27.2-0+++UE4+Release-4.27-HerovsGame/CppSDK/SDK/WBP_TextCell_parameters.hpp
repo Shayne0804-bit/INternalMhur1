@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "SlateCore_structs.hpp"
 #include "CoreUObject_structs.hpp"
+#include "SlateCore_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -48,7 +48,6 @@ public:
 	class UStaffRollWidget*                       CallFunc_Array_Get_Item;                           // 0x00C8(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_GetDipNumberLines_ReturnValue;            // 0x00D0(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TextCell_C_ExecuteUbergraph_WBP_TextCell;
 
 // Function WBP_TextCell.WBP_TextCell_C.StartMove_1
 // 0x0018 (0x0018 - 0x0000)
@@ -58,7 +57,6 @@ public:
 	class FString                                 Name_0;                                            // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, HasGetValueTypeHash)
 	float                                         Speed;                                             // 0x0010(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TextCell_C_StartMove_1;
 
 // Function WBP_TextCell.WBP_TextCell_C.OnListItemObjectSet
 // 0x0008 (0x0008 - 0x0000)
@@ -67,7 +65,6 @@ struct WBP_TextCell_C_OnListItemObjectSet final
 public:
 	class UObject*                                ListItemObject;                                    // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TextCell_C_OnListItemObjectSet;
 
 // Function WBP_TextCell.WBP_TextCell_C.Tick
 // 0x003C (0x003C - 0x0000)
@@ -77,7 +74,6 @@ public:
 	struct FGeometry                              MyGeometry;                                        // 0x0000(0x0038)(BlueprintVisible, BlueprintReadOnly, Parm, IsPlainOldData, NoDestructor)
 	float                                         InDeltaTime;                                       // 0x0038(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TextCell_C_Tick;
 
 // Function WBP_TextCell.WBP_TextCell_C.BP_OnItemSelectionChanged
 // 0x0001 (0x0001 - 0x0000)
@@ -86,7 +82,6 @@ struct WBP_TextCell_C_BP_OnItemSelectionChanged final
 public:
 	bool                                          bIsSelected;                                       // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TextCell_C_BP_OnItemSelectionChanged;
 
 // Function WBP_TextCell.WBP_TextCell_C.BP_OnItemExpansionChanged
 // 0x0001 (0x0001 - 0x0000)
@@ -95,7 +90,6 @@ struct WBP_TextCell_C_BP_OnItemExpansionChanged final
 public:
 	bool                                          bIsExpanded;                                       // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TextCell_C_BP_OnItemExpansionChanged;
 
 // Function WBP_TextCell.WBP_TextCell_C.CheckCellEnd
 // 0x0008 (0x0008 - 0x0000)
@@ -107,7 +101,6 @@ public:
 	bool                                          CallFunc_LessEqual_FloatFloat_ReturnValue;         // 0x0005(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_GreaterEqual_FloatFloat_ReturnValue;      // 0x0006(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TextCell_C_CheckCellEnd;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

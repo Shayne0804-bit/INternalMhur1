@@ -10,21 +10,21 @@
 
 #include "Basic.hpp"
 
+#include "CommonModule_structs.hpp"
+#include "Engine_structs.hpp"
 #include "InGameModule_structs.hpp"
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
-#include "CommonModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch017_ActionAttack_Unique3.BP_Ch017_ActionAttack_Unique3_C
-// 0x0010 (0x04B0 - 0x04A0)
+// 0x0010 (0x04F8 - 0x04E8)
 class UBP_Ch017_ActionAttack_Unique3_C final : public UActionAttackBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	float                                         LoopTime;                                          // 0x04A8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04E8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	float                                         LoopTime;                                          // 0x04F0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
 	void ExecuteUbergraph_BP_Ch017_ActionAttack_Unique3(int32 EntryPoint);
@@ -55,6 +55,5 @@ public:
 		return GetDefaultObjImpl<UBP_Ch017_ActionAttack_Unique3_C>();
 	}
 };
-DUMPER7_ASSERTS_UBP_Ch017_ActionAttack_Unique3_C;
 
 SDK_NAMESPACE_END

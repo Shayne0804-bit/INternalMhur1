@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ASL_TOS_AboutDataUsage_C>();
 	}
 };
-DUMPER7_ASSERTS_ASL_TOS_AboutDataUsage_C;
 
 SDK_NAMESPACE_END

@@ -10,26 +10,26 @@
 
 #include "Basic.hpp"
 
+#include "Engine_structs.hpp"
 #include "InGameModule_structs.hpp"
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch202_ActionAttack_Melee.BP_Ch202_ActionAttack_Melee_C
-// 0x0030 (0x04D8 - 0x04A8)
+// 0x0030 (0x0520 - 0x04F0)
 class UBP_Ch202_ActionAttack_Melee_C final : public UCh202ActionAttackBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	int32                                         hitCount;                                          // 0x04B0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          bAttackHit;                                        // 0x04B4(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_4B5[0x3];                                      // 0x04B5(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	class ACharacterBattle*                       HitChara;                                          // 0x04B8(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnTemplate, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	TArray<bool>                                  bLevelUpFlag;                                      // 0x04C0(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
-	bool                                          bEnableNotifyA;                                    // 0x04D0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          bEnableJumpBeginAirAttack;                         // 0x04D1(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04F0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	int32                                         hitCount;                                          // 0x04F8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          bAttackHit;                                        // 0x04FC(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_4FD[0x3];                                      // 0x04FD(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	class ACharacterBattle*                       HitChara;                                          // 0x0500(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnTemplate, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	TArray<bool>                                  bLevelUpFlag;                                      // 0x0508(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
+	bool                                          bEnableNotifyA;                                    // 0x0518(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          bEnableJumpBeginAirAttack;                         // 0x0519(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
 
 public:
 	void ExecuteUbergraph_BP_Ch202_ActionAttack_Melee(int32 EntryPoint);
@@ -69,6 +69,5 @@ public:
 		return GetDefaultObjImpl<UBP_Ch202_ActionAttack_Melee_C>();
 	}
 };
-DUMPER7_ASSERTS_UBP_Ch202_ActionAttack_Melee_C;
 
 SDK_NAMESPACE_END

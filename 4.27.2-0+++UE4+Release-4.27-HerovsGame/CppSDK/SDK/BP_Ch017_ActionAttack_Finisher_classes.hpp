@@ -16,7 +16,7 @@
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch017_ActionAttack_Finisher.BP_Ch017_ActionAttack_Finisher_C
-// 0x0000 (0x04F0 - 0x04F0)
+// 0x0000 (0x0538 - 0x0538)
 class UBP_Ch017_ActionAttack_Finisher_C final : public UBP_ActionAttack_Finisher_C
 {
 public:
@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<UBP_Ch017_ActionAttack_Finisher_C>();
 	}
 };
-DUMPER7_ASSERTS_UBP_Ch017_ActionAttack_Finisher_C;
 
 SDK_NAMESPACE_END

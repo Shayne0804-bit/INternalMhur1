@@ -11,14 +11,14 @@
 #include "Basic.hpp"
 
 #include "BykingUnrealModule_structs.hpp"
-#include "InGameModule_classes.hpp"
 #include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_CC_PlusUltra.BP_CC_PlusUltra_C
-// 0x0018 (0x0168 - 0x0150)
+// 0x0020 (0x0170 - 0x0150)
 class UBP_CC_PlusUltra_C final : public UCharacterConditionBase
 {
 public:
@@ -28,6 +28,8 @@ public:
 	uint8                                         Pad_15A[0x2];                                      // 0x015A(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         AttackAdjustRate;                                  // 0x015C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         Ch023Var1Param;                                    // 0x0160(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_164[0x4];                                      // 0x0164(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class UBP_PlusUltraBuffParams_C*              BuffParams;                                        // 0x0168(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
 	void ExecuteUbergraph_BP_CC_PlusUltra(int32 EntryPoint);
@@ -38,6 +40,8 @@ public:
 	void BP_OnEndCondition();
 	void BP_OnChangeConditionLevel(int32 oldLevel, int32 newLevel);
 	void BroadcastRollSlotUniqueSkill();
+
+	bool IsStrengthPlusCharacter() const;
 
 public:
 	static class UClass* StaticClass()

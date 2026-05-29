@@ -55,22 +55,22 @@ public:
 	}
 };
 
-// Class LiveLinkInterface.LiveLinkAnimationRole
+// Class LiveLinkInterface.LiveLinkTransformRole
 // 0x0000 (0x0028 - 0x0028)
-class ULiveLinkAnimationRole final : public ULiveLinkBasicRole
+class ULiveLinkTransformRole : public ULiveLinkBasicRole
 {
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("LiveLinkAnimationRole")
+		STATIC_CLASS_IMPL("LiveLinkTransformRole")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"LiveLinkAnimationRole")
+		STATIC_NAME_IMPL(L"LiveLinkTransformRole")
 	}
-	static class ULiveLinkAnimationRole* GetDefaultObj()
+	static class ULiveLinkTransformRole* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<ULiveLinkAnimationRole>();
+		return GetDefaultObjImpl<ULiveLinkTransformRole>();
 	}
 };
 
@@ -131,44 +131,6 @@ public:
 	}
 };
 
-// Class LiveLinkInterface.LiveLinkTransformRole
-// 0x0000 (0x0028 - 0x0028)
-class ULiveLinkTransformRole : public ULiveLinkBasicRole
-{
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("LiveLinkTransformRole")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"LiveLinkTransformRole")
-	}
-	static class ULiveLinkTransformRole* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<ULiveLinkTransformRole>();
-	}
-};
-
-// Class LiveLinkInterface.LiveLinkCameraRole
-// 0x0000 (0x0028 - 0x0028)
-class ULiveLinkCameraRole final : public ULiveLinkTransformRole
-{
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("LiveLinkCameraRole")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"LiveLinkCameraRole")
-	}
-	static class ULiveLinkCameraRole* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<ULiveLinkCameraRole>();
-	}
-};
-
 // Class LiveLinkInterface.LiveLinkVirtualSubject
 // 0x0138 (0x0160 - 0x0028)
 class ULiveLinkVirtualSubject : public UObject
@@ -193,6 +155,25 @@ public:
 	static class ULiveLinkVirtualSubject* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<ULiveLinkVirtualSubject>();
+	}
+};
+
+// Class LiveLinkInterface.LiveLinkFramePreProcessor
+// 0x0000 (0x0028 - 0x0028)
+class ULiveLinkFramePreProcessor : public UObject
+{
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("LiveLinkFramePreProcessor")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"LiveLinkFramePreProcessor")
+	}
+	static class ULiveLinkFramePreProcessor* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<ULiveLinkFramePreProcessor>();
 	}
 };
 
@@ -222,44 +203,41 @@ public:
 	}
 };
 
-// Class LiveLinkInterface.LiveLinkCurveRemapSettings
-// 0x0050 (0x00F0 - 0x00A0)
-class ULiveLinkCurveRemapSettings final : public ULiveLinkSourceSettings
+// Class LiveLinkInterface.LiveLinkAnimationRole
+// 0x0000 (0x0028 - 0x0028)
+class ULiveLinkAnimationRole final : public ULiveLinkBasicRole
 {
-public:
-	struct FLiveLinkCurveConversionSettings       CurveConversionSettings;                           // 0x00A0(0x0050)(Edit, Config, NativeAccessSpecifierPublic)
-
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("LiveLinkCurveRemapSettings")
+		STATIC_CLASS_IMPL("LiveLinkAnimationRole")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"LiveLinkCurveRemapSettings")
+		STATIC_NAME_IMPL(L"LiveLinkAnimationRole")
 	}
-	static class ULiveLinkCurveRemapSettings* GetDefaultObj()
+	static class ULiveLinkAnimationRole* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<ULiveLinkCurveRemapSettings>();
+		return GetDefaultObjImpl<ULiveLinkAnimationRole>();
 	}
 };
 
-// Class LiveLinkInterface.LiveLinkFramePreProcessor
+// Class LiveLinkInterface.LiveLinkCameraRole
 // 0x0000 (0x0028 - 0x0028)
-class ULiveLinkFramePreProcessor : public UObject
+class ULiveLinkCameraRole final : public ULiveLinkTransformRole
 {
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("LiveLinkFramePreProcessor")
+		STATIC_CLASS_IMPL("LiveLinkCameraRole")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"LiveLinkFramePreProcessor")
+		STATIC_NAME_IMPL(L"LiveLinkCameraRole")
 	}
-	static class ULiveLinkFramePreProcessor* GetDefaultObj()
+	static class ULiveLinkCameraRole* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<ULiveLinkFramePreProcessor>();
+		return GetDefaultObjImpl<ULiveLinkCameraRole>();
 	}
 };
 
@@ -279,6 +257,28 @@ public:
 	static class ULiveLinkController* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<ULiveLinkController>();
+	}
+};
+
+// Class LiveLinkInterface.LiveLinkCurveRemapSettings
+// 0x0050 (0x00F0 - 0x00A0)
+class ULiveLinkCurveRemapSettings final : public ULiveLinkSourceSettings
+{
+public:
+	struct FLiveLinkCurveConversionSettings       CurveConversionSettings;                           // 0x00A0(0x0050)(Edit, Config, NativeAccessSpecifierPublic)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("LiveLinkCurveRemapSettings")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"LiveLinkCurveRemapSettings")
+	}
+	static class ULiveLinkCurveRemapSettings* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<ULiveLinkCurveRemapSettings>();
 	}
 };
 

@@ -37,6 +37,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Emblem_3_28_S_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Emblem_3_28_S_C;
 
 SDK_NAMESPACE_END

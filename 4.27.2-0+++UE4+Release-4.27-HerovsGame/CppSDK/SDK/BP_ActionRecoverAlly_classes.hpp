@@ -10,20 +10,20 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionRecoverAlly.BP_ActionRecoverAlly_C
-// 0x0010 (0x0288 - 0x0278)
+// 0x0010 (0x0290 - 0x0280)
 class UBP_ActionRecoverAlly_C final : public UActionRecoverAlly
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0278(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	bool                                          bCrouchStart;                                      // 0x0280(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0280(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	bool                                          bCrouchStart;                                      // 0x0288(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
 
 public:
 	void ExecuteUbergraph_BP_ActionRecoverAlly(int32 EntryPoint);

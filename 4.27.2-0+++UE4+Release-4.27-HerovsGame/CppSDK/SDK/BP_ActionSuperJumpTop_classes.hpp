@@ -11,20 +11,20 @@
 #include "Basic.hpp"
 
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionSuperJumpTop.BP_ActionSuperJumpTop_C
-// 0x0018 (0x0288 - 0x0270)
+// 0x0018 (0x0290 - 0x0278)
 class UBP_ActionSuperJumpTop_C final : public UActionNormalBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0270(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	struct FVector                                JumpPadNormal;                                     // 0x0278(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0278(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	struct FVector                                JumpPadNormal;                                     // 0x0280(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
 	void ExecuteUbergraph_BP_ActionSuperJumpTop(int32 EntryPoint);

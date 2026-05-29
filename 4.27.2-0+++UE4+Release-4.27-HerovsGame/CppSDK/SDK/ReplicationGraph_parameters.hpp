@@ -31,7 +31,7 @@ public:
 struct ReplicationGraphDebugActor_ServerPrintAllActorInfo final
 {
 public:
-	class FString                                 str;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 Str;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function ReplicationGraph.ReplicationGraphDebugActor.ServerSetConditionalActorBreakpoint

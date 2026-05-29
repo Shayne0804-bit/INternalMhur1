@@ -146,29 +146,15 @@ void UBP_ActionDyingMove_C::UpdateCharacterDirection()
 }
 
 
-// Function BP_ActionDyingMove.BP_ActionDyingMove_C.EnableUnique3
+// Function BP_ActionDyingMove.BP_ActionDyingMove_C.UpdateRootMotionScale
 // (Public, BlueprintCallable, BlueprintEvent)
 
-void UBP_ActionDyingMove_C::EnableUnique3()
+void UBP_ActionDyingMove_C::UpdateRootMotionScale()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("BP_ActionDyingMove_C", "EnableUnique3");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function BP_ActionDyingMove.BP_ActionDyingMove_C.DisableUnique3
-// (Public, BlueprintCallable, BlueprintEvent)
-
-void UBP_ActionDyingMove_C::DisableUnique3()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_ActionDyingMove_C", "DisableUnique3");
+		Func = Class->GetFunction("BP_ActionDyingMove_C", "UpdateRootMotionScale");
 
 	UObject::ProcessEvent(Func, nullptr);
 }

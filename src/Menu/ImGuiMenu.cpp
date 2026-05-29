@@ -1718,10 +1718,12 @@ namespace ImGuiMenu
                     if (selected_variation_index >= 0 && selected_variation_index < (int)all_variation_ids.size())
                     {
                         SDK::EVariationCharacterId variationCharId = all_variation_ids[selected_variation_index];
+                        auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(variationCharId);
                         
                         if (InGameHack_ApplyToTeam(
                             (unsigned char)g_SelectedTeamId,
-                            variationCharId,
+                            (int32_t)characterId,
+                            variationId,
                             uniqueLevelTeam,
                             uniqueLevelTeam,
                             uniqueLevelTeam,
@@ -1815,9 +1817,11 @@ namespace ImGuiMenu
                 if (selected_variation_index_all >= 0 && selected_variation_index_all < (int)all_variation_ids_all.size())
                 {
                     SDK::EVariationCharacterId variationCharId = all_variation_ids_all[selected_variation_index_all];
+                    auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(variationCharId);
                     
                     int appliedCount = InGameHack_ApplyToAllControllers(
-                        variationCharId,
+                        (int)characterId,
+                        (int)variationId,
                         uniqueLevelApplyAll,
                         uniqueLevelApplyAll,
                         uniqueLevelApplyAll,
@@ -2094,84 +2098,87 @@ namespace ImGuiMenu
             ImGui::EndPopup();
         }
 
-        // ===== SEASON PASS RANK INFO =====
-        if (ImGui::CollapsingHeader("SEASON PASS INFO", ImGuiTreeNodeFlags_None))
+        // ===== SEASON PASS RANK INFO ===== (HIDDEN)
+        if (false)  // Hidden section
         {
-            ImGui::Spacing();
-            ImGui::TextColored(g_Colors.textSecondary, "View and log your current season pass rank.");
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
-
-            static int lastRank = -1;
-            static bool rankFetched = false;
-
-            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
-            if (ImGui::Button("FETCH CURRENT RANK", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
+            if (ImGui::CollapsingHeader("SEASON PASS INFO", ImGuiTreeNodeFlags_None))
             {
-                lastRank = InGameHack_GetCurrentSeasonPassRank();
-                rankFetched = true;
-            }
-            ImGui::PopStyleColor();
+                ImGui::Spacing();
+                ImGui::TextColored(g_Colors.textSecondary, "View and log your current season pass rank.");
+                ImGui::Spacing();
+                ImGui::Separator();
+                ImGui::Spacing();
 
-            ImGui::Spacing();
+                static int lastRank = -1;
+                static bool rankFetched = false;
 
-            if (rankFetched)
-            {
-                if (lastRank > 0)
+                ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
+                if (ImGui::Button("FETCH CURRENT RANK", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
                 {
-                    ImGui::TextColored(g_Colors.success, "Current Season Pass Rank: %d", lastRank);
-                    ImGui::TextColored(g_Colors.textSecondary, "Logged to: C:/Temp/SeasonPassRank.log");
+                    lastRank = InGameHack_GetCurrentSeasonPassRank();
+                    rankFetched = true;
                 }
-                else if (lastRank == 0)
+                ImGui::PopStyleColor();
+
+                ImGui::Spacing();
+
+                if (rankFetched)
                 {
-                    ImGui::TextColored(g_Colors.warning, "Season Pass Rank: 0 (default value)");
-                    ImGui::TextColored(g_Colors.textSecondary, "Check if season pass data is available.");
+                    if (lastRank > 0)
+                    {
+                        ImGui::TextColored(g_Colors.success, "Current Season Pass Rank: %d", lastRank);
+                        ImGui::TextColored(g_Colors.textSecondary, "Logged to: C:/Temp/SeasonPassRank.log");
+                    }
+                    else if (lastRank == 0)
+                    {
+                        ImGui::TextColored(g_Colors.warning, "Season Pass Rank: 0 (default value)");
+                        ImGui::TextColored(g_Colors.textSecondary, "Check if season pass data is available.");
+                    }
+                    else
+                    {
+                        ImGui::TextColored(g_Colors.danger, "Failed to fetch rank");
+                    }
                 }
-                else
+
+                ImGui::Spacing();
+                ImGui::Separator();
+                ImGui::Spacing();
+                ImGui::TextColored(g_Colors.textSecondary, "Add REAL EXP to your Season Pass (memory modification)");
+                ImGui::Spacing();
+
+                static int expCount = 1;
+                static int seasonTypeIndex = 0;
+                const char* seasonTypes[] = { "SeasonLicense", "SpecialLicense" };
+
+                ImGui::SetNextItemWidth(150);
+                ImGui::SliderInt("EXP Count (x100)##ExpCount", &expCount, 1, 100);
+                ImGui::TextColored(g_Colors.textSecondary, "Total EXP to add: %d", expCount * 100);
+
+                ImGui::Spacing();
+                ImGui::SetNextItemWidth(150);
+                ImGui::Combo("Season Type##ExpType", &seasonTypeIndex, seasonTypes, IM_ARRAYSIZE(seasonTypes));
+
+                ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
+                if (ImGui::Button("ADD SEASON PASS EXP (REAL)", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
                 {
-                    ImGui::TextColored(g_Colors.danger, "Failed to fetch rank");
+                    // 0 = SeasonLicense, 1 = SpecialLicense
+                    SDK::ESeasonType type = (seasonTypeIndex == 0) ? static_cast<SDK::ESeasonType>(0) : static_cast<SDK::ESeasonType>(1);
+                    bool result = InGameHack_IncreaseSeasonPassExp(type, expCount);
+                    
+                    if (result)
+                    {
+                        Logger::LogInfo("[Menu] REAL EXP added - check C:/Temp/SeasonPassExp.log");
+                    }
+                    else
+                    {
+                        Logger::LogError("[Menu] Failed to add EXP (widget may not be initialized)");
+                    }
                 }
-            }
-
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
-            ImGui::TextColored(g_Colors.textSecondary, "Add REAL EXP to your Season Pass (memory modification)");
-            ImGui::Spacing();
-
-            static int expCount = 1;
-            static int seasonTypeIndex = 0;
-            const char* seasonTypes[] = { "SeasonLicense", "SpecialLicense" };
-
-            ImGui::SetNextItemWidth(150);
-            ImGui::SliderInt("EXP Count (x100)##ExpCount", &expCount, 1, 100);
-            ImGui::TextColored(g_Colors.textSecondary, "Total EXP to add: %d", expCount * 100);
-
-            ImGui::Spacing();
-            ImGui::SetNextItemWidth(150);
-            ImGui::Combo("Season Type##ExpType", &seasonTypeIndex, seasonTypes, IM_ARRAYSIZE(seasonTypes));
-
-            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
-            if (ImGui::Button("ADD SEASON PASS EXP (REAL)", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
-            {
-                // 0 = SeasonLicense, 1 = SpecialLicense
-                SDK::ESeasonType type = (seasonTypeIndex == 0) ? static_cast<SDK::ESeasonType>(0) : static_cast<SDK::ESeasonType>(1);
-                bool result = InGameHack_IncreaseSeasonPassExp(type, expCount);
+                ImGui::PopStyleColor();
                 
-                if (result)
-                {
-                    Logger::LogInfo("[Menu] REAL EXP added - check C:/Temp/SeasonPassExp.log");
-                }
-                else
-                {
-                    Logger::LogError("[Menu] Failed to add EXP (widget may not be initialized)");
-                }
+                ImGui::TextColored(g_Colors.success, "Modifies _prevSeasonExp directly in memory");
+                ImGui::TextColored(g_Colors.textSecondary, "EXP persists in current session. Check C:/Temp/SeasonPassExp.log");
             }
-            ImGui::PopStyleColor();
-            
-            ImGui::TextColored(g_Colors.success, "Modifies _prevSeasonExp directly in memory");
-            ImGui::TextColored(g_Colors.textSecondary, "EXP persists in current session. Check C:/Temp/SeasonPassExp.log");
         }
 
         // ===== PLAYER NAME CHANGE =====
@@ -2243,73 +2250,76 @@ namespace ImGuiMenu
             ImGui::EndPopup();
         }
 
-        // ===== BUY LICENSE EXP =====
-        ImGui::Spacing();
-        ImGui::Separator();
-        ImGui::Spacing();
-
-        static bool g_BuyLicenseExpOpen = true;
-        if (ImGui::CollapsingHeader("BUY LICENSE EXP", &g_BuyLicenseExpOpen))
+        // ===== BUY LICENSE EXP ===== (HIDDEN)
+        if (false)  // Hidden section
         {
-            ImGui::TextColored(g_Colors.textSecondary, "Purchase License Exp from backend");
             ImGui::Spacing();
             ImGui::Separator();
             ImGui::Spacing();
 
-            // Buy License Exp amount slider
-            ImGui::SliderInt("License Exp Amount##BuyLicense", &g_HackSettings.BuyLicenseExpCount, 1, 10000, "%d");
-            ImGui::Spacing();
-
-            // Buy License Exp button
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.6f, 0.2f, 0.8f));
-            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.0f, 0.8f, 0.3f, 1.0f));
-            if (ImGui::Button("BUY LICENSE EXP", ImVec2(-1, 35)))
+            static bool g_BuyLicenseExpOpen = true;
+            if (ImGui::CollapsingHeader("BUY LICENSE EXP", &g_BuyLicenseExpOpen))
             {
-                if (InGameHack_BuyLicenseExp(g_HackSettings.BuyLicenseExpCount))
+                ImGui::TextColored(g_Colors.textSecondary, "Purchase License Exp from backend");
+                ImGui::Spacing();
+                ImGui::Separator();
+                ImGui::Spacing();
+
+                // Buy License Exp amount slider
+                ImGui::SliderInt("License Exp Amount##BuyLicense", &g_HackSettings.BuyLicenseExpCount, 1, 10000, "%d");
+                ImGui::Spacing();
+
+                // Buy License Exp button
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.6f, 0.2f, 0.8f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.0f, 0.8f, 0.3f, 1.0f));
+                if (ImGui::Button("BUY LICENSE EXP", ImVec2(-1, 35)))
                 {
-                    Logger::LogInfo("[MENU] Buying " + std::to_string(g_HackSettings.BuyLicenseExpCount) + " License Exp");
-                    ImGui::OpenPopup("BuyLicenseExpSuccess");
+                    if (InGameHack_BuyLicenseExp(g_HackSettings.BuyLicenseExpCount))
+                    {
+                        Logger::LogInfo("[MENU] Buying " + std::to_string(g_HackSettings.BuyLicenseExpCount) + " License Exp");
+                        ImGui::OpenPopup("BuyLicenseExpSuccess");
+                    }
+                    else
+                    {
+                        Logger::LogError("[MENU] Failed to buy License Exp");
+                        ImGui::OpenPopup("BuyLicenseExpFailed");
+                    }
                 }
-                else
+                ImGui::PopStyleColor(2);
+
+                ImGui::Spacing();
+                ImGui::TextColored(g_Colors.textSecondary, "Request sent to backend server");
+            }
+
+            // Success popup - Buy License Exp
+            if (ImGui::BeginPopupModal("BuyLicenseExpSuccess", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+            {
+                ImGui::TextColored(g_Colors.success, "License Exp purchase requested!");
+                ImGui::TextColored(g_Colors.textSecondary, "Amount: %d", g_HackSettings.BuyLicenseExpCount);
+                ImGui::Spacing();
+                
+                if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
                 {
-                    Logger::LogError("[MENU] Failed to buy License Exp");
-                    ImGui::OpenPopup("BuyLicenseExpFailed");
+                    ImGui::CloseCurrentPopup();
                 }
+                
+                ImGui::EndPopup();
             }
-            ImGui::PopStyleColor(2);
 
-            ImGui::Spacing();
-            ImGui::TextColored(g_Colors.textSecondary, "Request sent to backend server");
-        }
-
-        // Success popup - Buy License Exp
-        if (ImGui::BeginPopupModal("BuyLicenseExpSuccess", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-        {
-            ImGui::TextColored(g_Colors.success, "License Exp purchase requested!");
-            ImGui::TextColored(g_Colors.textSecondary, "Amount: %d", g_HackSettings.BuyLicenseExpCount);
-            ImGui::Spacing();
-            
-            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
+            // Failed popup - Buy License Exp
+            if (ImGui::BeginPopupModal("BuyLicenseExpFailed", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
             {
-                ImGui::CloseCurrentPopup();
+                ImGui::TextColored(g_Colors.danger, "Failed to purchase License Exp.");
+                ImGui::TextColored(g_Colors.textSecondary, "Check game state and try again.");
+                ImGui::Spacing();
+                
+                if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
+                {
+                    ImGui::CloseCurrentPopup();
+                }
+                
+                ImGui::EndPopup();
             }
-            
-            ImGui::EndPopup();
-        }
-
-        // Failed popup - Buy License Exp
-        if (ImGui::BeginPopupModal("BuyLicenseExpFailed", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-        {
-            ImGui::TextColored(g_Colors.danger, "Failed to purchase License Exp.");
-            ImGui::TextColored(g_Colors.textSecondary, "Check game state and try again.");
-            ImGui::Spacing();
-            
-            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
-            {
-                ImGui::CloseCurrentPopup();
-            }
-            
-            ImGui::EndPopup();
         }
     }
 

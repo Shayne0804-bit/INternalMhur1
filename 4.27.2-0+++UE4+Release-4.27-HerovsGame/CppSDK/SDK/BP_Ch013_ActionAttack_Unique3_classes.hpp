@@ -10,45 +10,45 @@
 
 #include "Basic.hpp"
 
+#include "GameModule_structs.hpp"
+#include "CommonModule_structs.hpp"
+#include "Engine_structs.hpp"
 #include "InGameModule_structs.hpp"
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
-#include "CommonModule_structs.hpp"
-#include "GameModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch013_ActionAttack_Unique3.BP_Ch013_ActionAttack_Unique3_C
-// 0x0010 (0x04B0 - 0x04A0)
+// 0x0010 (0x04F8 - 0x04E8)
 class UBP_Ch013_ActionAttack_Unique3_C final : public UActionAttackBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	bool                                          SuperAmor;                                         // 0x04A8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          IsAttackEnd;                                       // 0x04A9(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          IsGround;                                          // 0x04AA(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04E8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	bool                                          SuperAmor;                                         // 0x04F0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          IsAttackEnd;                                       // 0x04F1(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          IsGround;                                          // 0x04F2(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
 
 public:
-	void LoadParam();
-	void BP_OnBeginActionAttackAir(const class FName& prevAction);
-	void BP_OnChangeAttackPhaseAir(int32 nextPhase);
-	void BP_OnChangeAttackPhaseAirForRemote(int32 nextPhase);
-	void BP_OnBeginActionAttackGround(const class FName& prevAction);
-	void BP_OnChangeAttackPhaseGround(int32 nextPhase);
-	void BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase);
-	void BP_OnBeginAction(const class FName& prevAction);
-	void BP_OnLoadParams(const class FName& ActionName, int32 uniqueLevel);
-	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
-	void BP_OnEndAction(const class FName& nextAction);
-	void BP_ActionMain();
-	void BP_ActionRemote();
-	void BP_OnLandingAir();
-	void BP_OnLandingGround();
-	void BP_OnLeaveGroundEvent();
-	void AttackClient(int32 nextPhase);
-	void AttackRemote(int32 nextPhase);
 	void ExecuteUbergraph_BP_Ch013_ActionAttack_Unique3(int32 EntryPoint);
+	void AttackRemote(int32 nextPhase);
+	void AttackClient(int32 nextPhase);
+	void BP_OnLeaveGroundEvent();
+	void BP_OnLandingGround();
+	void BP_OnLandingAir();
+	void BP_ActionRemote();
+	void BP_ActionMain();
+	void BP_OnEndAction(const class FName& nextAction);
+	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
+	void BP_OnLoadParams(const class FName& ActionName, int32 uniqueLevel);
+	void BP_OnBeginAction(const class FName& prevAction);
+	void BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase);
+	void BP_OnChangeAttackPhaseGround(int32 nextPhase);
+	void BP_OnBeginActionAttackGround(const class FName& prevAction);
+	void BP_OnChangeAttackPhaseAirForRemote(int32 nextPhase);
+	void BP_OnChangeAttackPhaseAir(int32 nextPhase);
+	void BP_OnBeginActionAttackAir(const class FName& prevAction);
+	void LoadParam();
 
 public:
 	static class UClass* StaticClass()

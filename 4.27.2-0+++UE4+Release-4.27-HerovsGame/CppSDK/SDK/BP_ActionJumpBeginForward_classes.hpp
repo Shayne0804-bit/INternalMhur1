@@ -10,20 +10,20 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionJumpBeginForward.BP_ActionJumpBeginForward_C
-// 0x0010 (0x0280 - 0x0270)
+// 0x0010 (0x0288 - 0x0278)
 class UBP_ActionJumpBeginForward_C final : public UActionNormalBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0270(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	float                                         HoldTime;                                          // 0x0278(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0278(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	float                                         HoldTime;                                          // 0x0280(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
 	void ExecuteUbergraph_BP_ActionJumpBeginForward(int32 EntryPoint);

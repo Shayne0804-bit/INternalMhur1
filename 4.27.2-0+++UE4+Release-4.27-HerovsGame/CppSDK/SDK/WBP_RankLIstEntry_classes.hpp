@@ -16,12 +16,12 @@
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_RankLIstEntry.WBP_RankLIstEntry_C
-// 0x0010 (0x03A8 - 0x0398)
+// 0x0010 (0x03A0 - 0x0390)
 class UWBP_RankLIstEntry_C final : public URankLIstEntry
 {
 public:
-	class UImage*                                 Image;                                             // 0x0398(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 Image_43;                                          // 0x03A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 Image;                                             // 0x0390(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 Image_43;                                          // 0x0398(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 
 public:
 	static class UClass* StaticClass()
@@ -37,6 +37,5 @@ public:
 		return GetDefaultObjImpl<UWBP_RankLIstEntry_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_RankLIstEntry_C;
 
 SDK_NAMESPACE_END

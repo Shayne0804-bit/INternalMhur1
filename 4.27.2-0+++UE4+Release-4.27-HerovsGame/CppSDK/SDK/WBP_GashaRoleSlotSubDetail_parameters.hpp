@@ -33,7 +33,6 @@ public:
 	int32                                         CallFunc_Array_Add_ReturnValue_10;                 // 0x002C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         CallFunc_Array_Add_ReturnValue_11;                 // 0x0030(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_GashaRoleSlotSubDetail_C_ExecuteUbergraph_WBP_GashaRoleSlotSubDetail;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

@@ -760,12 +760,88 @@ enum class EWebApiCacheKey : uint8
 	EWebApiCacheKey_MAX                      = 48,
 };
 
-// ScriptStruct BackendSubsystem.NormalAttack
-// 0x0008 (0x0008 - 0x0000)
-struct alignas(0x04) FNormalAttack final
+// ScriptStruct BackendSubsystem.DbMyRoomPartsDataParam
+// 0x0008 (0x0060 - 0x0058)
+struct FDbMyRoomPartsDataParam final : public FMasterDataMyRoom
 {
 public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	bool                                          bDefaultParts;                                     // 0x0058(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_59[0x7];                                       // 0x0059(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.DbMyRoomCharacterDataParam
+// 0x0030 (0x0030 - 0x0000)
+struct FDbMyRoomCharacterDataParam final
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         code;                                              // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         CostumeCode;                                       // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         Aura;                                              // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<int32>                                 Appeals;                                           // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
+	int32                                         Rotation;                                          // 0x0028(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         ViewTarget;                                        // 0x002C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbMyRoomDataParam
+// 0x0230 (0x0230 - 0x0000)
+struct FDbMyRoomDataParam final
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FMasterDataMyRoom                      code;                                              // 0x0008(0x0058)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
+	struct FDbMyRoomPartsDataParam                LightCode;                                         // 0x0060(0x0060)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
+	struct FDbMyRoomPartsDataParam                TypeACode;                                         // 0x00C0(0x0060)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
+	struct FDbMyRoomPartsDataParam                TypeBCode;                                         // 0x0120(0x0060)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
+	struct FDbMyRoomPartsDataParam                TypeCCode;                                         // 0x0180(0x0060)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
+	TMap<int32, struct FDbMyRoomCharacterDataParam> Character;                                       // 0x01E0(0x0050)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.CatalogIdPs4
+// 0x0020 (0x0020 - 0x0000)
+struct FCatalogIdPs4 final
+{
+public:
+	class FString                                 ProductLabel;                                      // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 SkuLabel;                                          // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.CatalogOption
+// 0x0040 (0x0040 - 0x0000)
+struct FCatalogOption final
+{
+public:
+	class FString                                 Is_hcristal;                                       // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 Is_prolicense;                                     // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 Charged;                                           // 0x0020(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 Free;                                              // 0x0030(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbCatalogData
+// 0x00D8 (0x00D8 - 0x0000)
+struct FDbCatalogData final
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 catalogId;                                         // 0x0008(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FCatalogIdPs4                          CatalogIdPs4;                                      // 0x0018(0x0020)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	class FString                                 Name;                                              // 0x0038(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 Caption;                                           // 0x0048(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 Image;                                             // 0x0058(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 RegularPrice;                                      // 0x0068(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 CurrentPrice;                                      // 0x0078(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 Option;                                            // 0x0088(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FCatalogOption                         CatalogOption;                                     // 0x0098(0x0040)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.PhaseResult
+// 0x0060 (0x0060 - 0x0000)
+struct FPhaseResult final
+{
+public:
+	class FString                                 playerId;                                          // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TMap<EResultType, int32>                      Result;                                            // 0x0010(0x0050)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.KpiBattleLog
@@ -808,16 +884,6 @@ public:
 	uint8                                         Pad_2E4[0x4];                                      // 0x02E4(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// ScriptStruct BackendSubsystem.DbBattleParam
-// 0x00B8 (0x00B8 - 0x0000)
-struct FDbBattleParam final
-{
-public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 gameId;                                            // 0x0008(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_18[0xA0];                                      // 0x0018(0x00A0)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
 // ScriptStruct BackendSubsystem.WebApiArg
 // 0x0050 (0x0050 - 0x0000)
 struct FWebApiArg final
@@ -826,79 +892,6 @@ public:
 	uint8                                         Pad_0[0x38];                                       // 0x0000(0x0038)(Fixing Size After Last Property [ Dumper-7 ])
 	class UObject*                                ObjectValue;                                       // 0x0038(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_40[0x10];                                      // 0x0040(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct BackendSubsystem.DbsRoleSlotTipsRankingParam
-// 0x0008 (0x0008 - 0x0000)
-struct FDbsRoleSlotTipsRankingParam final
-{
-public:
-	int32                                         code;                                              // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         Rank;                                              // 0x0004(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbsRoleSlotTipsRankingData
-// 0x0010 (0x0010 - 0x0000)
-struct FDbsRoleSlotTipsRankingData final
-{
-public:
-	TArray<struct FDbsRoleSlotTipsRankingParam>   Data;                                              // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbsRoleSlotTipsRankingAbilityData
-// 0x0050 (0x0050 - 0x0000)
-struct FDbsRoleSlotTipsRankingAbilityData final
-{
-public:
-	TMap<EMdAbilityType, struct FDbsRoleSlotTipsRankingData> AbilityRanking;                         // 0x0000(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbsRoleSlotTipsSkillSlotRankingData
-// 0x0058 (0x0058 - 0x0000)
-struct FDbsRoleSlotTipsSkillSlotRankingData final
-{
-public:
-	int32                                         CostumeCode;                                       // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TMap<EMdCharacterAssign, struct FDbsRoleSlotTipsRankingAbilityData> AssignRanking;               // 0x0008(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DominationCharacter
-// 0x01A0 (0x01A0 - 0x0000)
-struct alignas(0x08) FDominationCharacter final
-{
-public:
-	uint8                                         Pad_0[0x1A0];                                      // 0x0000(0x01A0)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct BackendSubsystem.KpiDominationBattleLog
-// 0x00C0 (0x00C0 - 0x0000)
-struct FKpiDominationBattleLog final
-{
-public:
-	class FString                                 StartMatchData;                                    // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 EndMatchDate;                                      // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bCrossPlaying;                                     // 0x0020(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bDisconnect;                                       // 0x0021(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_22[0x2];                                       // 0x0022(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         AuraVisibleInBattle;                               // 0x0024(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         MatchingTime;                                      // 0x0028(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         NamePlateCode;                                     // 0x002C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         BattleEndTimePoint;                                // 0x0030(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bExtension;                                        // 0x0034(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_35[0x3];                                       // 0x0035(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         ExtensionPointDiff;                                // 0x0038(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         ScoreLevel;                                        // 0x003C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         ResultScorePointTotal;                             // 0x0040(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         StartBase;                                         // 0x0044(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         StartPortalA;                                      // 0x0048(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         StartPortalB;                                      // 0x004C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         KOScore;                                           // 0x0050(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         KOAssistScore;                                     // 0x0054(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         DamageScore;                                       // 0x0058(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5C[0x4];                                       // 0x005C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FDominationCharacter>           Characters;                                        // 0x0060(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
-	TMap<int32, int32>                            Items;                                             // 0x0070(0x0050)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbsRoleSlotType
@@ -952,90 +945,21 @@ public:
 	struct FDbsRoleSlotEffect                     Effect;                                            // 0x0068(0x0130)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 };
 
-// ScriptStruct BackendSubsystem.DbMyRoomPartsDataParam
-// 0x0008 (0x0060 - 0x0058)
-struct FDbMyRoomPartsDataParam final : public FMasterDataMyRoom
+// ScriptStruct BackendSubsystem.DbsCostumeRoleSlotParam
+// 0x0248 (0x0248 - 0x0000)
+struct FDbsCostumeRoleSlotParam final
 {
 public:
-	bool                                          bDefaultParts;                                     // 0x0058(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_59[0x7];                                       // 0x0059(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct BackendSubsystem.DbMyRoomCharacterDataParam
-// 0x0030 (0x0030 - 0x0000)
-struct FDbMyRoomCharacterDataParam final
-{
-public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         code;                                              // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         CostumeCode;                                       // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         Aura;                                              // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<int32>                                 Appeals;                                           // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
-	int32                                         Rotation;                                          // 0x0028(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         ViewTarget;                                        // 0x002C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbMyRoomDataParam
-// 0x0230 (0x0230 - 0x0000)
-struct FDbMyRoomDataParam final
-{
-public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FMasterDataMyRoom                      code;                                              // 0x0008(0x0058)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
-	struct FDbMyRoomPartsDataParam                LightCode;                                         // 0x0060(0x0060)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
-	struct FDbMyRoomPartsDataParam                TypeACode;                                         // 0x00C0(0x0060)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
-	struct FDbMyRoomPartsDataParam                TypeBCode;                                         // 0x0120(0x0060)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
-	struct FDbMyRoomPartsDataParam                TypeCCode;                                         // 0x0180(0x0060)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
-	TMap<int32, struct FDbMyRoomCharacterDataParam> Character;                                       // 0x01E0(0x0050)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.BillBoardLike
-// 0x0028 (0x0028 - 0x0000)
-struct FBillBoardLike final
-{
-public:
-	class FString                                 playerId;                                          // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         LikeCount;                                         // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	ELikeType                                     LikeType;                                          // 0x0014(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 SentPlayerId;                                      // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbBattleRecordParam
-// 0x00E0 (0x00E0 - 0x0000)
-struct FDbBattleRecordParam final
-{
-public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FMasterDataSeason                      season;                                            // 0x0008(0x0040)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FMasterDataRankExp                     Rank;                                              // 0x0048(0x0040)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	int32                                         MatchCount;                                        // 0x0088(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         WinCount;                                          // 0x008C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         WinSurvive;                                        // 0x0090(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         TotalDamage;                                       // 0x0094(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         BestDamage;                                        // 0x0098(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         AverageDamage;                                     // 0x009C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         KillCount;                                         // 0x00A0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         KilledCount;                                       // 0x00A4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         KillRatio;                                         // 0x00A8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         KillAssistCount;                                   // 0x00AC(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         RecoveryAssistCount;                               // 0x00B0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         CooperateActionCount;                              // 0x00B4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         MatchBestPoint;                                    // 0x00B8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         MatchAveragePoint;                                 // 0x00BC(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         RescueCount;                                       // 0x00C0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         AssaultCount;                                      // 0x00C4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         DestroyCount;                                      // 0x00C8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         BillboardChartRank;                                // 0x00CC(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         TotalPoint;                                        // 0x00D0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         TotalLikeCount;                                    // 0x00D4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         TotalPvCount;                                      // 0x00D8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_DC[0x4];                                       // 0x00DC(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	struct FMasterDataCustomizeCostume            Costume;                                           // 0x0000(0x00D8)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FMasterDataRoleSlotPattern             RoleSlotPattern;                                   // 0x00D8(0x0148)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	int32                                         UnlockedRoleSlot;                                  // 0x0220(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_224[0x4];                                      // 0x0224(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FDbsRoleSlot>                   SlotList;                                          // 0x0228(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<struct FDbsRoleSlot>                   SkillList;                                         // 0x0238(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbPackItemParam
-// 0x0520 (0x0520 - 0x0000)
+// 0x0528 (0x0528 - 0x0000)
 struct FDbPackItemParam
 {
 public:
@@ -1050,31 +974,31 @@ public:
 	struct FMasterDataCustomizeVoice              CustomizeVoice;                                    // 0x02D8(0x0080)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 	struct FMasterDataMyAdParts                   MyAdParts;                                         // 0x0358(0x0048)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 	struct FMasterDataVariation                   Variation;                                         // 0x03A0(0x0070)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FMasterDataNameplateBg                 NameplateBg;                                       // 0x0410(0x0028)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FMasterDataMyRoom                      MyRoom;                                            // 0x0438(0x0058)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	int32                                         code;                                              // 0x0490(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_494[0x4];                                      // 0x0494(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<class FText>                           Name;                                              // 0x0498(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	class FText                                   Description;                                       // 0x04A8(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	class FString                                 AssetName;                                         // 0x04C0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FText                                   ObtainFrom;                                        // 0x04D0(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	class FText                                   DisplayName;                                       // 0x04E8(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	class FText                                   MultilineDisplayName;                              // 0x0500(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	int32                                         Quantity;                                          // 0x0518(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_51C[0x4];                                      // 0x051C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	struct FMasterDataNameplateBg                 NameplateBg;                                       // 0x0410(0x0030)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FMasterDataMyRoom                      MyRoom;                                            // 0x0440(0x0058)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	int32                                         code;                                              // 0x0498(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_49C[0x4];                                      // 0x049C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<class FText>                           Name;                                              // 0x04A0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	class FText                                   Description;                                       // 0x04B0(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	class FString                                 AssetName;                                         // 0x04C8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FText                                   ObtainFrom;                                        // 0x04D8(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	class FText                                   DisplayName;                                       // 0x04F0(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	class FText                                   MultilineDisplayName;                              // 0x0508(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	int32                                         Quantity;                                          // 0x0520(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_524[0x4];                                      // 0x0524(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct BackendSubsystem.DbRandomPackItemParam
-// 0x0008 (0x0528 - 0x0520)
+// 0x0008 (0x0530 - 0x0528)
 struct FDbRandomPackItemParam final : public FDbPackItemParam
 {
 public:
-	int32                                         ItemGetNum;                                        // 0x0520(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         ItemRarityRate;                                    // 0x0524(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         ItemGetNum;                                        // 0x0528(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         ItemRarityRate;                                    // 0x052C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbItemCategoryParam
-// 0x05C8 (0x05C8 - 0x0000)
+// 0x05D0 (0x05D0 - 0x0000)
 struct FDbItemCategoryParam
 {
 public:
@@ -1091,306 +1015,44 @@ public:
 	struct FMasterDataPack                        Pack;                                              // 0x03A0(0x0048)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 	TArray<struct FDbPackItemParam>               PackItems;                                         // 0x03E8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 	struct FMasterDataVariation                   Variation;                                         // 0x03F8(0x0070)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FMasterDataNameplateBg                 NameplateBg;                                       // 0x0468(0x0028)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FMasterDataMyRoom                      MyRoom;                                            // 0x0490(0x0058)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FMasterDataRandomPack                  RandomPack;                                        // 0x04E8(0x0048)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	TArray<struct FDbRandomPackItemParam>         RandomPackItems;                                   // 0x0530(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	int32                                         code;                                              // 0x0540(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_544[0x4];                                      // 0x0544(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<class FText>                           Name;                                              // 0x0548(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	class FText                                   Description;                                       // 0x0558(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	class FString                                 AssetName;                                         // 0x0570(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FText                                   ObtainFrom;                                        // 0x0580(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	class FText                                   DisplayName;                                       // 0x0598(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	class FText                                   MultilineDisplayName;                              // 0x05B0(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbCustomMatchingBaseParam
-// 0x0008 (0x0008 - 0x0000)
-struct alignas(0x08) FDbCustomMatchingBaseParam
-{
-public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct BackendSubsystem.DbCustomMatchingMemberParam
-// 0x0068 (0x0070 - 0x0008)
-struct FDbCustomMatchingMemberParam final : public FDbCustomMatchingBaseParam
-{
-public:
-	class FString                                 ID;                                                // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         platform;                                          // 0x0018(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 platformPlayerId;                                  // 0x0020(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         PlayerRank;                                        // 0x0030(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 PlayerName;                                        // 0x0038(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 PlatformPlayerName;                                // 0x0048(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         NamePlateCode;                                     // 0x0058(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bBattleReady;                                      // 0x005C(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bLeader;                                           // 0x005D(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bMySelf;                                           // 0x005E(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bHost;                                             // 0x005F(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_60[0x10];                                      // 0x0060(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct BackendSubsystem.DbAdPartParam
-// 0x0000 (0x0048 - 0x0048)
-struct FDbAdPartParam final : public FMasterDataMyAdParts
-{
-};
-
-// ScriptStruct BackendSubsystem.DbItemStockParam
-// 0x0010 (0x05D8 - 0x05C8)
-struct FDbItemStockParam final : public FDbItemCategoryParam
-{
-public:
-	int32                                         Quantity;                                          // 0x05C8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5CC[0x4];                                      // 0x05CC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDateTime                              ExpireAt;                                          // 0x05D0(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FMasterDataNameplateBg                 NameplateBg;                                       // 0x0468(0x0030)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FMasterDataMyRoom                      MyRoom;                                            // 0x0498(0x0058)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FMasterDataRandomPack                  RandomPack;                                        // 0x04F0(0x0048)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	TArray<struct FDbRandomPackItemParam>         RandomPackItems;                                   // 0x0538(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	int32                                         code;                                              // 0x0548(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_54C[0x4];                                      // 0x054C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<class FText>                           Name;                                              // 0x0550(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	class FText                                   Description;                                       // 0x0560(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	class FString                                 AssetName;                                         // 0x0578(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FText                                   ObtainFrom;                                        // 0x0588(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	class FText                                   DisplayName;                                       // 0x05A0(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	class FText                                   MultilineDisplayName;                              // 0x05B8(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbsCustomizeItemParam
-// 0x0008 (0x05D0 - 0x05C8)
+// 0x0008 (0x05D8 - 0x05D0)
 struct FDbsCustomizeItemParam : public FDbItemCategoryParam
 {
 public:
-	uint8                                         Pad_5C8[0x1];                                      // 0x05C8(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
-	bool                                          bUnlocked;                                         // 0x05C9(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bEquipped;                                         // 0x05CA(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bFavorite;                                         // 0x05CB(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EBuyCustomizeStatus                           eBuyStatus;                                        // 0x05CC(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5CD[0x3];                                      // 0x05CD(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct BackendSubsystem.DbsVariationParam
-// 0x0000 (0x05D0 - 0x05D0)
-struct FDbsVariationParam final : public FDbsCustomizeItemParam
-{
-};
-
-// ScriptStruct BackendSubsystem.DbMyRoomPresetDataParam
-// 0x0240 (0x0240 - 0x0000)
-struct FDbMyRoomPresetDataParam final
-{
-public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         presetNo;                                          // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDbMyRoomDataParam                     MyRoomData;                                        // 0x0010(0x0230)(NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbGuildSearchCondition
-// 0x0030 (0x0030 - 0x0000)
-struct FDbGuildSearchCondition final
-{
-public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 GuildName;                                         // 0x0008(0x0010)(BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 guildId;                                           // 0x0018(0x0010)(BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EGuildPolicy                                  Policy;                                            // 0x0028(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EGuildJoinRule                                JoinRule;                                          // 0x0029(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EGuildSearchLevelRange                        LevelRange;                                        // 0x002A(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EGuildSearchMemberRange                       MemberCount;                                       // 0x002B(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bDefault;                                          // 0x002C(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_2D[0x3];                                       // 0x002D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct BackendSubsystem.DbBillboardVoterParam
-// 0x0128 (0x0128 - 0x0000)
-struct FDbBillboardVoterParam final
-{
-public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	ELikeType                                     ELikeType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 playerId;                                          // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         platform;                                          // 0x0020(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 PlayerName;                                        // 0x0028(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 PlatformPlayerName;                                // 0x0038(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         playerNamePlateCode;                               // 0x0048(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_4C[0x4];                                       // 0x004C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 platformPlayerId;                                  // 0x0050(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FMasterDataCharacter                   Character;                                         // 0x0060(0x00B8)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDateTime                              SentLikeAt;                                        // 0x0118(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         TodayLikedPlayerCount;                             // 0x0120(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         TodayPoint;                                        // 0x0124(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbBillboardChartParam
-// 0x0020 (0x0020 - 0x0000)
-struct FDbBillboardChartParam final
-{
-public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         Total;                                             // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         TodayTotal;                                        // 0x000C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TArray<struct FDbBillboardVoterParam>         VoterList;                                         // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbLeaderboardLikeType
-// 0x0002 (0x0002 - 0x0000)
-struct FDbLeaderboardLikeType final
-{
-public:
-	uint8                                         Pad_0[0x2];                                        // 0x0000(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct BackendSubsystem.DbsEmblemParam
-// 0x0000 (0x05D0 - 0x05D0)
-struct FDbsEmblemParam final : public FDbsCustomizeItemParam
-{
-};
-
-// ScriptStruct BackendSubsystem.DbSeasonPassRewardParam
-// 0x0008 (0x05D0 - 0x05C8)
-struct FDbSeasonPassRewardParam final : public FDbItemCategoryParam
-{
-public:
-	bool                                          bReceived;                                         // 0x05C8(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5C9[0x3];                                      // 0x05C9(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         Quantity;                                          // 0x05CC(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbExchangeItemCategoryParam
-// 0x0008 (0x05D0 - 0x05C8)
-struct FDbExchangeItemCategoryParam final : public FDbItemCategoryParam
-{
-public:
-	int32                                         Quantity;                                          // 0x05C8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5CC[0x4];                                      // 0x05CC(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct BackendSubsystem.DbSeasonPassParam
-// 0x0BB0 (0x0C10 - 0x0060)
-struct FDbSeasonPassParam final : public FMasterDataSeasonPassExp
-{
-public:
-	struct FDbSeasonPassRewardParam               FreeItem;                                          // 0x0060(0x05D0)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TArray<struct FDbExchangeItemCategoryParam>   ExItems;                                           // 0x0630(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	struct FDbSeasonPassRewardParam               PremiumItem;                                       // 0x0640(0x05D0)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.ResultData
-// 0x0088 (0x0088 - 0x0000)
-struct FResultData final
-{
-public:
-	class FString                                 playerId;                                          // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         Exp;                                               // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         RankPoint;                                         // 0x0014(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         SeasonPassPoint;                                   // 0x0018(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         Coin;                                              // 0x001C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         GuildPoint;                                        // 0x0020(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         LiveTimeSecond;                                    // 0x0024(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         Rank;                                              // 0x0028(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bWin;                                              // 0x002C(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_2D[0x3];                                       // 0x002D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         bLive;                                             // 0x0030(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         Damage;                                            // 0x0034(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         KillCount;                                         // 0x0038(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         DeathCount;                                        // 0x003C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         KillAssistCount;                                   // 0x0040(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         HealAssistCount;                                   // 0x0044(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         CoopActionCount;                                   // 0x0048(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         Point;                                             // 0x004C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         RescueCount;                                       // 0x0050(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         BrokeCount;                                        // 0x0054(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         LevelUpCount;                                      // 0x0058(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         PickedItemCount;                                   // 0x005C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         ItemSupportCount;                                  // 0x0060(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         AssaultCount;                                      // 0x0064(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         MemberHeal;                                        // 0x0068(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         MemberReviveCount;                                 // 0x006C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         SecureBaseCount;                                   // 0x0070(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         BaseDefenseSecond;                                 // 0x0074(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TArray<int32>                                 ScoreTableCodeList;                                // 0x0078(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbResearchNoteRewardBaseParam
-// 0x0018 (0x0018 - 0x0000)
-struct alignas(0x08) FDbResearchNoteRewardBaseParam
-{
-public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	EItemCategory                                 eCategory;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         ItemCode;                                          // 0x000C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         ItemNum;                                           // 0x0010(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct BackendSubsystem.DbResearchNoteRewardParam
-// 0x0008 (0x0020 - 0x0018)
-struct FDbResearchNoteRewardParam final : public FDbResearchNoteRewardBaseParam
-{
-public:
-	int32                                         Level;                                             // 0x0018(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bReceived;                                         // 0x001C(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct BackendSubsystem.DbResearchNoteRewardListParam
-// 0x0078 (0x0078 - 0x0000)
-struct FDbResearchNoteRewardListParam final
-{
-public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         researchNoteGrade;                                 // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         researchLevel;                                     // 0x000C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         researchExp;                                       // 0x0010(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FDbResearchNoteRewardParam>     baseRewards;                                       // 0x0018(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	TArray<struct FDbResearchNoteRewardParam>     achievementRewards;                                // 0x0028(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	TArray<struct FDbResearchNoteRewardBaseParam> receiveRewards;                                    // 0x0038(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	uint8                                         Pad_48[0x30];                                      // 0x0048(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct BackendSubsystem.PenaltyData
-// 0x0028 (0x0028 - 0x0000)
-struct FPenaltyData final
-{
-public:
-	class FString                                 playerId;                                          // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EMdPenaltyType                                ReasonType;                                        // 0x0010(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 ReporterPlayerId;                                  // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.PhaseResult
-// 0x0060 (0x0060 - 0x0000)
-struct FPhaseResult final
-{
-public:
-	class FString                                 playerId;                                          // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TMap<EResultType, int32>                      Result;                                            // 0x0010(0x0050)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbsCostumeRoleSlotParam
-// 0x0248 (0x0248 - 0x0000)
-struct FDbsCostumeRoleSlotParam final
-{
-public:
-	struct FMasterDataCustomizeCostume            Costume;                                           // 0x0000(0x00D8)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FMasterDataRoleSlotPattern             RoleSlotPattern;                                   // 0x00D8(0x0148)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	int32                                         UnlockedRoleSlot;                                  // 0x0220(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_224[0x4];                                      // 0x0224(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FDbsRoleSlot>                   SlotList;                                          // 0x0228(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	TArray<struct FDbsRoleSlot>                   SkillList;                                         // 0x0238(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5D0[0x1];                                      // 0x05D0(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
+	bool                                          bUnlocked;                                         // 0x05D1(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bEquipped;                                         // 0x05D2(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bFavorite;                                         // 0x05D3(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EBuyCustomizeStatus                           eBuyStatus;                                        // 0x05D4(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5D5[0x3];                                      // 0x05D5(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct BackendSubsystem.DbsCostumeParam
-// 0x0258 (0x0828 - 0x05D0)
+// 0x0258 (0x0830 - 0x05D8)
 struct FDbsCostumeParam final : public FDbsCustomizeItemParam
 {
 public:
-	int32                                         UnlockedAuraLevel;                                 // 0x05D0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         SettingAuraLevel;                                  // 0x05D4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bLoaded;                                           // 0x05D8(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bRoleslotCostumeFlg;                               // 0x05D9(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5DA[0x6];                                      // 0x05DA(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDbsCostumeRoleSlotParam               RoleSlotParam;                                     // 0x05E0(0x0248)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	int32                                         UnlockedAuraLevel;                                 // 0x05D8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         SettingAuraLevel;                                  // 0x05DC(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bLoaded;                                           // 0x05E0(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bRoleslotCostumeFlg;                               // 0x05E1(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5E2[0x6];                                      // 0x05E2(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDbsCostumeRoleSlotParam               RoleSlotParam;                                     // 0x05E8(0x0248)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbsCostumeRoleSlotRankingParam
@@ -1411,35 +1073,82 @@ public:
 struct FDbsCostumeRoleSlotRankingData final
 {
 public:
-	TArray<struct FDbsCostumeRoleSlotRankingParam> list;                                             // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<struct FDbsCostumeRoleSlotRankingParam> List;                                             // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbsVoiceParam
-// 0x0000 (0x05D0 - 0x05D0)
+// 0x0000 (0x05D8 - 0x05D8)
 struct FDbsVoiceParam final : public FDbsCustomizeItemParam
 {
 };
 
 // ScriptStruct BackendSubsystem.DbsAppealParam
-// 0x0000 (0x05D0 - 0x05D0)
+// 0x0000 (0x05D8 - 0x05D8)
 struct FDbsAppealParam final : public FDbsCustomizeItemParam
 {
 };
 
+// ScriptStruct BackendSubsystem.DbsEmblemParam
+// 0x0000 (0x05D8 - 0x05D8)
+struct FDbsEmblemParam final : public FDbsCustomizeItemParam
+{
+};
+
+// ScriptStruct BackendSubsystem.DbsVariationParam
+// 0x0000 (0x05D8 - 0x05D8)
+struct FDbsVariationParam final : public FDbsCustomizeItemParam
+{
+};
+
 // ScriptStruct BackendSubsystem.DbPresetParam
-// 0x0850 (0x0850 - 0x0000)
+// 0x0858 (0x0858 - 0x0000)
 struct FDbPresetParam final
 {
 public:
 	int32                                         no;                                                // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDbItemCategoryParam                   Costume;                                           // 0x0008(0x05C8)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         auraLevel;                                         // 0x05D0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5D4[0x4];                                      // 0x05D4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FDbItemCategoryParam>           voices;                                            // 0x05D8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	TArray<struct FDbItemCategoryParam>           Appeals;                                           // 0x05E8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	TArray<struct FDbItemCategoryParam>           Emblems;                                           // 0x05F8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	struct FDbsCostumeRoleSlotParam               RoleSlot;                                          // 0x0608(0x0248)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbItemCategoryParam                   Costume;                                           // 0x0008(0x05D0)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         auraLevel;                                         // 0x05D8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5DC[0x4];                                      // 0x05DC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FDbItemCategoryParam>           voices;                                            // 0x05E0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<struct FDbItemCategoryParam>           Appeals;                                           // 0x05F0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<struct FDbItemCategoryParam>           Emblems;                                           // 0x0600(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	struct FDbsCostumeRoleSlotParam               RoleSlot;                                          // 0x0610(0x0248)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbsRoleSlotTipsRankingParam
+// 0x0008 (0x0008 - 0x0000)
+struct FDbsRoleSlotTipsRankingParam final
+{
+public:
+	int32                                         code;                                              // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         Rank;                                              // 0x0004(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbsRoleSlotTipsRankingData
+// 0x0010 (0x0010 - 0x0000)
+struct FDbsRoleSlotTipsRankingData final
+{
+public:
+	TArray<struct FDbsRoleSlotTipsRankingParam>   Data;                                              // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbsRoleSlotTipsRankingAbilityData
+// 0x0050 (0x0050 - 0x0000)
+struct FDbsRoleSlotTipsRankingAbilityData final
+{
+public:
+	TMap<EMdAbilityType, struct FDbsRoleSlotTipsRankingData> AbilityRanking;                         // 0x0000(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbsRoleSlotTipsSkillSlotRankingData
+// 0x0058 (0x0058 - 0x0000)
+struct FDbsRoleSlotTipsSkillSlotRankingData final
+{
+public:
+	int32                                         CostumeCode;                                       // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TMap<EMdCharacterAssign, struct FDbsRoleSlotTipsRankingAbilityData> AssignRanking;               // 0x0008(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbsRoleSlotTipsSkillSlotRanking
@@ -1466,7 +1175,7 @@ public:
 };
 
 // ScriptStruct BackendSubsystem.DbMyCharacterParam
-// 0x2060 (0x23A0 - 0x0340)
+// 0x2088 (0x23C8 - 0x0340)
 struct FDbMyCharacterParam final : public FDbCharacterParam
 {
 public:
@@ -1482,42 +1191,78 @@ public:
 	int32                                         PresetUnlockPrice;                                 // 0x03AC(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FDbsCostumeRoleSlotRankingData         RoleSlotRankings;                                  // 0x03B0(0x0010)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 	struct FDbsRoleSlotTipsSkillSlotRanking       SkillSlotRankings;                                 // 0x03C0(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	uint8                                         Pad_410[0x1F90];                                   // 0x0410(0x1F90)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_410[0x1FB8];                                   // 0x0410(0x1FB8)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// ScriptStruct BackendSubsystem.DbCharactersParam
-// 0x4338 (0x4338 - 0x0000)
-struct FDbCharactersParam final
+// ScriptStruct BackendSubsystem.DominationCharacter
+// 0x01A0 (0x01A0 - 0x0000)
+struct alignas(0x08) FDominationCharacter final
 {
 public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         CurrentCharacterCode;                              // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_C[0xC];                                        // 0x000C(0x000C)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FDbMyCharacterParam>            PlayableCharacters;                                // 0x0018(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	bool                                          bNgWordCheckErrorName;                             // 0x0028(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_29[0x430F];                                    // 0x0029(0x430F)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_0[0x1A0];                                      // 0x0000(0x01A0)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// ScriptStruct BackendSubsystem.SaveCustomizeRoleSlotData
-// 0x000C (0x000C - 0x0000)
-struct FSaveCustomizeRoleSlotData final
+// ScriptStruct BackendSubsystem.KpiDominationBattleLog
+// 0x00C0 (0x00C0 - 0x0000)
+struct FKpiDominationBattleLog final
 {
 public:
-	int32                                         slotNo;                                            // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         SlotLevel;                                         // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         TipCode;                                           // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 StartMatchData;                                    // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 EndMatchDate;                                      // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bCrossPlaying;                                     // 0x0020(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bDisconnect;                                       // 0x0021(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_22[0x2];                                       // 0x0022(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         AuraVisibleInBattle;                               // 0x0024(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         MatchingTime;                                      // 0x0028(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         NamePlateCode;                                     // 0x002C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         BattleEndTimePoint;                                // 0x0030(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bExtension;                                        // 0x0034(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_35[0x3];                                       // 0x0035(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         ExtensionPointDiff;                                // 0x0038(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         ScoreLevel;                                        // 0x003C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         ResultScorePointTotal;                             // 0x0040(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         StartBase;                                         // 0x0044(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         StartPortalA;                                      // 0x0048(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         StartPortalB;                                      // 0x004C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         KOScore;                                           // 0x0050(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         KOAssistScore;                                     // 0x0054(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         DamageScore;                                       // 0x0058(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5C[0x4];                                       // 0x005C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FDominationCharacter>           Characters;                                        // 0x0060(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
+	TMap<int32, int32>                            Items;                                             // 0x0070(0x0050)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
 
-// ScriptStruct BackendSubsystem.SaveCustomizeData
-// 0x0038 (0x0038 - 0x0000)
-struct FSaveCustomizeData final
+// ScriptStruct BackendSubsystem.DbMissionParam
+// 0x0698 (0x0758 - 0x00C0)
+struct FDbMissionParam final : public FMasterDataMission
 {
 public:
-	class FString                                 playerId;                                          // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         VariationCode;                                     // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         CostumeCode;                                       // 0x0014(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TArray<struct FSaveCustomizeRoleSlotData>     SlotList;                                          // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
-	TArray<struct FSaveCustomizeRoleSlotData>     SkillList;                                         // 0x0028(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
+	struct FDbItemCategoryParam                   RewardItem;                                        // 0x00C0(0x05D0)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         Progress;                                          // 0x0690(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         StarPoint;                                         // 0x0694(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EMissionAchievementStatus                     eAchievementStatus;                                // 0x0698(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_699[0x7];                                      // 0x0699(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FMasterDataCharacter                   Character;                                         // 0x06A0(0x00B8)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbMissionCategoryParam
+// 0x00C8 (0x00C8 - 0x0000)
+struct FDbMissionCategoryParam final
+{
+public:
+	uint8                                         Pad_0[0xC];                                        // 0x0000(0x000C)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         Achieved;                                          // 0x000C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         Star;                                              // 0x0010(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDateTime                              ExpireAt;                                          // 0x0018(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FMasterDataEvent                       Event;                                             // 0x0020(0x0098)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	TArray<struct FDbMissionParam>                Missions;                                          // 0x00B8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbAdPartParam
+// 0x0000 (0x0048 - 0x0048)
+struct FDbAdPartParam final : public FMasterDataMyAdParts
+{
 };
 
 // ScriptStruct BackendSubsystem.DbRankingDataParam
@@ -1557,6 +1302,123 @@ public:
 	TArray<struct FDbRankingDataParam>            RankLIst;                                          // 0x00A0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 };
 
+// ScriptStruct BackendSubsystem.DbItemStockParam
+// 0x0010 (0x05E0 - 0x05D0)
+struct FDbItemStockParam final : public FDbItemCategoryParam
+{
+public:
+	int32                                         Quantity;                                          // 0x05D0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5D4[0x4];                                      // 0x05D4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDateTime                              ExpireAt;                                          // 0x05D8(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbMyRoomPresetDataParam
+// 0x0240 (0x0240 - 0x0000)
+struct FDbMyRoomPresetDataParam final
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         presetNo;                                          // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDbMyRoomDataParam                     MyRoomData;                                        // 0x0010(0x0230)(NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbChatParam
+// 0x0068 (0x0068 - 0x0000)
+struct alignas(0x08) FDbChatParam final
+{
+public:
+	uint8                                         Pad_0[0x68];                                       // 0x0000(0x0068)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.DbGuildSearchCondition
+// 0x0030 (0x0030 - 0x0000)
+struct FDbGuildSearchCondition final
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 GuildName;                                         // 0x0008(0x0010)(BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 guildId;                                           // 0x0018(0x0010)(BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EGuildPolicy                                  Policy;                                            // 0x0028(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EGuildJoinRule                                JoinRule;                                          // 0x0029(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EGuildSearchLevelRange                        LevelRange;                                        // 0x002A(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EGuildSearchMemberRange                       MemberCount;                                       // 0x002B(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bDefault;                                          // 0x002C(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_2D[0x3];                                       // 0x002D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.DbSpecialEffectItem
+// 0x05D0 (0x0610 - 0x0040)
+struct FDbSpecialEffectItem final : public FMasterDataMSpecialEffect
+{
+public:
+	struct FDbItemCategoryParam                   Item;                                              // 0x0040(0x05D0)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbLeaderboardLikeType
+// 0x0002 (0x0002 - 0x0000)
+struct FDbLeaderboardLikeType final
+{
+public:
+	uint8                                         Pad_0[0x2];                                        // 0x0000(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.ResultData
+// 0x0088 (0x0088 - 0x0000)
+struct FResultData final
+{
+public:
+	class FString                                 playerId;                                          // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         Exp;                                               // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         RankPoint;                                         // 0x0014(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         SeasonPassPoint;                                   // 0x0018(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         Coin;                                              // 0x001C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         GuildPoint;                                        // 0x0020(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         LiveTimeSecond;                                    // 0x0024(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         Rank;                                              // 0x0028(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bWin;                                              // 0x002C(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_2D[0x3];                                       // 0x002D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         bLive;                                             // 0x0030(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         Damage;                                            // 0x0034(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         KillCount;                                         // 0x0038(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         DeathCount;                                        // 0x003C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         KillAssistCount;                                   // 0x0040(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         HealAssistCount;                                   // 0x0044(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         CoopActionCount;                                   // 0x0048(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         Point;                                             // 0x004C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         RescueCount;                                       // 0x0050(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         BrokeCount;                                        // 0x0054(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         LevelUpCount;                                      // 0x0058(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         PickedItemCount;                                   // 0x005C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         ItemSupportCount;                                  // 0x0060(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         AssaultCount;                                      // 0x0064(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         MemberHeal;                                        // 0x0068(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         MemberReviveCount;                                 // 0x006C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         SecureBaseCount;                                   // 0x0070(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         BaseDefenseSecond;                                 // 0x0074(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<int32>                                 ScoreTableCodeList;                                // 0x0078(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.IdleStateSetting
+// 0x0008 (0x0010 - 0x0008)
+struct FIdleStateSetting final : public FTableRowBase
+{
+public:
+	int32                                         Type;                                              // 0x0008(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.PenaltyData
+// 0x0028 (0x0028 - 0x0000)
+struct FPenaltyData final
+{
+public:
+	class FString                                 playerId;                                          // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EMdPenaltyType                                ReasonType;                                        // 0x0010(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 ReporterPlayerId;                                  // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
 // ScriptStruct BackendSubsystem.DbRankingResult
 // 0x0118 (0x0170 - 0x0058)
 struct FDbRankingResult final : public FMasterDataMRanking
@@ -1570,39 +1432,106 @@ public:
 	uint8                                         Pad_16D[0x3];                                      // 0x016D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// ScriptStruct BackendSubsystem.DbRankingResult_Response
-// 0x0018 (0x0018 - 0x0000)
-struct alignas(0x08) FDbRankingResult_Response final
+// ScriptStruct BackendSubsystem.BillBoardLike
+// 0x0028 (0x0028 - 0x0000)
+struct FBillBoardLike final
 {
 public:
-	uint8                                         Pad_0[0x18];                                       // 0x0000(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	class FString                                 playerId;                                          // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         LikeCount;                                         // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	ELikeType                                     LikeType;                                          // 0x0014(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 SentPlayerId;                                      // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// ScriptStruct BackendSubsystem.DbRankingsParam
-// 0x03A8 (0x03A8 - 0x0000)
-struct FDbRankingsParam final
+// ScriptStruct BackendSubsystem.DbBillboardVoterParam
+// 0x0128 (0x0128 - 0x0000)
+struct FDbBillboardVoterParam final
 {
 public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDbRankingParam                        BillboardChart;                                    // 0x0008(0x00B0)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbRankingParam                        Mvp;                                               // 0x00B8(0x00B0)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbRankingParam                        GuildTop;                                          // 0x0168(0x00B0)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbRankingParam                        GuildElite;                                        // 0x0218(0x00B0)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	TArray<struct FDbRankingParam>                EventList;                                         // 0x02C8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	TArray<struct FDbRankingResult>               Results;                                           // 0x02D8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	TArray<struct FDbRankingResult_Response>      ResponseSaveResults;                               // 0x02E8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	uint8                                         Pad_2F8[0xB0];                                     // 0x02F8(0x00B0)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	ELikeType                                     ELikeType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 playerId;                                          // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         platform;                                          // 0x0020(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 PlayerName;                                        // 0x0028(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 PlatformPlayerName;                                // 0x0038(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         playerNamePlateCode;                               // 0x0048(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4C[0x4];                                       // 0x004C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 platformPlayerId;                                  // 0x0050(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FMasterDataCharacter                   Character;                                         // 0x0060(0x00B8)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDateTime                              SentLikeAt;                                        // 0x0118(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         TodayLikedPlayerCount;                             // 0x0120(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         TodayPoint;                                        // 0x0124(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// ScriptStruct BackendSubsystem.DbCustomMatchingMemberParamList
-// 0x0020 (0x0020 - 0x0000)
-struct FDbCustomMatchingMemberParamList final
+// ScriptStruct BackendSubsystem.DbsRoleSlotTip
+// 0x02D8 (0x02D8 - 0x0000)
+struct FDbsRoleSlotTip final
+{
+public:
+	struct FMasterDataCurrency                    Currency;                                          // 0x0000(0x0068)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	int32                                         code;                                              // 0x0068(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         Num;                                               // 0x006C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         VariationCode;                                     // 0x0070(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bUnlocked;                                         // 0x0074(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_75[0x3];                                       // 0x0075(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDbsRoleSlotEffect                     SlotEffect;                                        // 0x0078(0x0130)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbsRoleSlotEffect                     SkillEffect;                                       // 0x01A8(0x0130)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbBattleRecordParam
+// 0x00E0 (0x00E0 - 0x0000)
+struct FDbBattleRecordParam final
 {
 public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         CustomSquadNo;                                     // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FDbCustomMatchingMemberParam>   CustomMatchingMember;                              // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
+	struct FMasterDataSeason                      season;                                            // 0x0008(0x0040)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FMasterDataRankExp                     Rank;                                              // 0x0048(0x0040)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	int32                                         MatchCount;                                        // 0x0088(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         WinCount;                                          // 0x008C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         WinSurvive;                                        // 0x0090(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         TotalDamage;                                       // 0x0094(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         BestDamage;                                        // 0x0098(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         AverageDamage;                                     // 0x009C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         KillCount;                                         // 0x00A0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         KilledCount;                                       // 0x00A4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         KillRatio;                                         // 0x00A8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         KillAssistCount;                                   // 0x00AC(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         RecoveryAssistCount;                               // 0x00B0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         CooperateActionCount;                              // 0x00B4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         MatchBestPoint;                                    // 0x00B8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         MatchAveragePoint;                                 // 0x00BC(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         RescueCount;                                       // 0x00C0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         AssaultCount;                                      // 0x00C4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         DestroyCount;                                      // 0x00C8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         BillboardChartRank;                                // 0x00CC(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         TotalPoint;                                        // 0x00D0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         TotalLikeCount;                                    // 0x00D4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         TotalPvCount;                                      // 0x00D8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_DC[0x4];                                       // 0x00DC(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.DbBattleRecordsParam
+// 0x0138 (0x0138 - 0x0000)
+struct FDbBattleRecordsParam final
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDbBattleRecordParam                   Total;                                             // 0x0008(0x00E0)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	TMap<int32, struct FDbBattleRecordParam>      Seasons;                                           // 0x00E8(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.PopupData
+// 0x0038 (0x00A8 - 0x0070)
+struct FPopupData final : public FMasterDataMPopup
+{
+public:
+	class FText                                   TitleText;                                         // 0x0070(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	class FText                                   MessageText;                                       // 0x0088(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	int32                                         ViewNum;                                           // 0x00A0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         RemainNum;                                         // 0x00A4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbAdDataParam
@@ -1634,17 +1563,215 @@ public:
 	uint8                                         Pad_FC[0x4];                                       // 0x00FC(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// ScriptStruct BackendSubsystem.DbAdParam
-// 0x0070 (0x0070 - 0x0000)
-struct FDbAdParam final
+// ScriptStruct BackendSubsystem.DbItemRankSpecialEffectData
+// 0x05E8 (0x05E8 - 0x0000)
+struct FDbItemRankSpecialEffectData final
 {
 public:
-	uint8                                         Pad_0[0x18];                                       // 0x0000(0x0018)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         UnlockedAdSpaceCount;                              // 0x0018(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_0[0x10];                                       // 0x0000(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDbItemCategoryParam                   effectItem;                                        // 0x0010(0x05D0)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         EffectValue;                                       // 0x05E0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         ItemNum;                                           // 0x05E4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbItemRankSpecialEffect
+// 0x0038 (0x0038 - 0x0000)
+struct FDbItemRankSpecialEffect final
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         _allSpecialEffectPoint;                            // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FDbItemRankSpecialEffectData>   _specialEffectItemList;                            // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	uint8                                         Pad_20[0x18];                                      // 0x0020(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.DbPlayerParam
+// 0x0C88 (0x0C88 - 0x0000)
+struct FDbPlayerParam
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 ID;                                                // 0x0008(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         platform;                                          // 0x0018(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FDbAdDataParam>                 adList;                                            // 0x0020(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	TArray<struct FDbAdDataParam>                 MainMenAdList;                                     // 0x0030(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	uint8                                         Pad_40[0x30];                                      // 0x0040(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	class FString                                 platformPlayerId;                                  // 0x0020(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<struct FMasterDataEmblem>              Emblems;                                           // 0x0030(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	class FString                                 PlayerName;                                        // 0x0040(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_50[0x8];                                       // 0x0050(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FMasterDataNameplateBg                 NamePlate;                                         // 0x0058(0x0030)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	class FString                                 PlatformPlayerName;                                // 0x0088(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 Profile;                                           // 0x0098(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FMasterDataCharacter                   Character;                                         // 0x00A8(0x00B8)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	int32                                         VariationCode;                                     // 0x0160(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_164[0x4];                                      // 0x0164(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FMasterDataCustomizeCostume            Costume;                                           // 0x0168(0x00D8)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbsCostumeRoleSlotParam               RoleSlot;                                          // 0x0240(0x0248)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	int32                                         auraLevel;                                         // 0x0488(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         AuraDisplayTarget;                                 // 0x048C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         AuraDisplayArea;                                   // 0x0490(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         Level;                                             // 0x0494(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         LevelExp;                                          // 0x0498(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_49C[0x4];                                      // 0x049C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FMasterDataRankExp                     Rank;                                              // 0x04A0(0x0040)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	int32                                         RankPoint;                                         // 0x04E0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4E4[0x4];                                      // 0x04E4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDateTime                              LastLoginDateTime;                                 // 0x04E8(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EFriendStatus                                 EFriendStatus;                                     // 0x04F0(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bOnline;                                           // 0x04F1(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4F2[0x2];                                      // 0x04F2(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         BillboardRank;                                     // 0x04F4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         BillboardPoint;                                    // 0x04F8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         BillboardTodayPoint;                               // 0x04FC(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bHideBattleRecord;                                 // 0x0500(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_501[0x7];                                      // 0x0501(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDbBattleRecordsParam                  BattleRecords;                                     // 0x0508(0x0138)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbAdDataParam                         Ad;                                                // 0x0640(0x0100)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	int32                                         guildEmblemCode;                                   // 0x0740(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_744[0x4];                                      // 0x0744(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 guildId;                                           // 0x0748(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 guildSearchId;                                     // 0x0758(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 GuildName;                                         // 0x0768(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 guildProfile;                                      // 0x0778(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         LikeRemains;                                       // 0x0788(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         researchLevel;                                     // 0x078C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bCosmosBlock;                                      // 0x0790(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bPlatformBlock;                                    // 0x0791(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bPlatformMute;                                     // 0x0792(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_793[0x5];                                      // 0x0793(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDbItemRankSpecialEffect               ItemRankSpecialEffect;                             // 0x0798(0x0038)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	TMap<int32, struct FPopupData>                PopupData;                                         // 0x07D0(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbMyRoomDataParam                     MyRoom;                                            // 0x0820(0x0230)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbMyRoomDataParam                     SnapShotMyRoom;                                    // 0x0A50(0x0230)(NativeAccessSpecifierPublic)
+	int32                                         myRoomLikeCount;                                   // 0x0C80(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         MyRoomRemainLikeNum;                               // 0x0C84(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbSquadMemberParam
+// 0x01E0 (0x0E68 - 0x0C88)
+struct FDbSquadMemberParam final : public FDbPlayerParam
+{
+public:
+	bool                                          bSquadLeader;                                      // 0x0C88(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bSquadJoin;                                        // 0x0C89(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bMatchingStart;                                    // 0x0C8A(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bSelectedFirstCharacter;                           // 0x0C8B(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bBattleReady;                                      // 0x0C8C(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bVoiceChatEnabled;                                 // 0x0C8D(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bEnabledCrossPlay;                                 // 0x0C8E(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_C8F[0x1];                                      // 0x0C8F(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         battleSequence;                                    // 0x0C90(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bCpuPlayer;                                        // 0x0C94(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bKickedCpuPlayer;                                  // 0x0C95(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_C96[0x2];                                      // 0x0C96(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         MatchingRakCode;                                   // 0x0C98(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         MatchingSurvivalPower;                             // 0x0C9C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         Priority;                                          // 0x0CA0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_CA4[0x4];                                      // 0x0CA4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<int32>                                 favoriteCharaIdList;                               // 0x0CA8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	uint8                                         Pad_CB8[0x10];                                     // 0x0CB8(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FMasterDataCharacter                   Character2nd;                                      // 0x0CC8(0x00B8)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	int32                                         VariationCode2nd;                                  // 0x0D80(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_D84[0x4];                                      // 0x0D84(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FMasterDataCustomizeCostume            Costume2nd;                                        // 0x0D88(0x00D8)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	int32                                         AuraLevel2nd;                                      // 0x0E60(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_E64[0x4];                                      // 0x0E64(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.SaveCustomizeRoleSlotData
+// 0x000C (0x000C - 0x0000)
+struct FSaveCustomizeRoleSlotData final
+{
+public:
+	int32                                         slotNo;                                            // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         SlotLevel;                                         // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         TipCode;                                           // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.SaveCustomizeData
+// 0x0038 (0x0038 - 0x0000)
+struct FSaveCustomizeData final
+{
+public:
+	class FString                                 playerId;                                          // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         VariationCode;                                     // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         CostumeCode;                                       // 0x0014(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<struct FSaveCustomizeRoleSlotData>     SlotList;                                          // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<struct FSaveCustomizeRoleSlotData>     SkillList;                                         // 0x0028(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbChatLogParam
+// 0x0080 (0x0080 - 0x0000)
+struct FDbChatLogParam final
+{
+public:
+	class FString                                 Text;                                              // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 PlayerName;                                        // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 PlatformName;                                      // 0x0020(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 playerId;                                          // 0x0030(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 OnlineId;                                          // 0x0040(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bSelf;                                             // 0x0050(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_51[0x3];                                       // 0x0051(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         platform;                                          // 0x0054(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 CosmosPlayerName;                                  // 0x0058(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         playerNamePlateCode;                               // 0x0068(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_6C[0x4];                                       // 0x006C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDateTime                              Time;                                              // 0x0070(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_78[0x8];                                       // 0x0078(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.DbCustomMatchingBaseParam
+// 0x0008 (0x0008 - 0x0000)
+struct alignas(0x08) FDbCustomMatchingBaseParam
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.DbCustomMatchingMemberParam
+// 0x0078 (0x0080 - 0x0008)
+struct FDbCustomMatchingMemberParam final : public FDbCustomMatchingBaseParam
+{
+public:
+	class FString                                 ID;                                                // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         platform;                                          // 0x0018(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 platformPlayerId;                                  // 0x0020(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         PlayerRank;                                        // 0x0030(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 PlayerName;                                        // 0x0038(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 PlatformPlayerName;                                // 0x0048(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         NamePlateCode;                                     // 0x0058(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bBattleReady;                                      // 0x005C(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bLeader;                                           // 0x005D(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bMySelf;                                           // 0x005E(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bHost;                                             // 0x005F(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_60[0x10];                                      // 0x0060(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 CustomPlayerName;                                  // 0x0070(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbCustomMatchingMemberParamList
+// 0x0020 (0x0020 - 0x0000)
+struct FDbCustomMatchingMemberParamList final
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         CustomSquadNo;                                     // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FDbCustomMatchingMemberParam>   CustomMatchingMember;                              // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbCharactersParam
+// 0x4388 (0x4388 - 0x0000)
+struct FDbCharactersParam final
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         CurrentCharacterCode;                              // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_C[0xC];                                        // 0x000C(0x000C)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FDbMyCharacterParam>            PlayableCharacters;                                // 0x0018(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	bool                                          bNgWordCheckErrorName;                             // 0x0028(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_29[0x435F];                                    // 0x0029(0x435F)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct BackendSubsystem.KpiLobbyLog
@@ -1673,38 +1800,21 @@ public:
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// ScriptStruct BackendSubsystem.DbsRoleSlotTip
-// 0x02D8 (0x02D8 - 0x0000)
-struct FDbsRoleSlotTip final
+// ScriptStruct BackendSubsystem.DbPlayerListCharactersParam
+// 0x0010 (0x0010 - 0x0000)
+struct FDbPlayerListCharactersParam final
 {
 public:
-	struct FMasterDataCurrency                    Currency;                                          // 0x0000(0x0068)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	int32                                         code;                                              // 0x0068(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         Num;                                               // 0x006C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         VariationCode;                                     // 0x0070(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bUnlocked;                                         // 0x0074(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_75[0x3];                                       // 0x0075(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDbsRoleSlotEffect                     SlotEffect;                                        // 0x0078(0x0130)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbsRoleSlotEffect                     SkillEffect;                                       // 0x01A8(0x0130)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	TArray<struct FDbMyCharacterParam>            Customizes;                                        // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 };
 
-// ScriptStruct BackendSubsystem.DbSpecialLicenseParam
-// 0x05D0 (0x0600 - 0x0030)
-struct FDbSpecialLicenseParam final : public FMasterDataSpecialLicense
+// ScriptStruct BackendSubsystem.DbExchangeItemCategoryParam
+// 0x0008 (0x05D8 - 0x05D0)
+struct FDbExchangeItemCategoryParam final : public FDbItemCategoryParam
 {
 public:
-	struct FDbItemCategoryParam                   Reward;                                            // 0x0030(0x05C8)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bReceived;                                         // 0x05F8(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5F9[0x7];                                      // 0x05F9(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct BackendSubsystem.IdleStateSetting
-// 0x0008 (0x0010 - 0x0008)
-struct FIdleStateSetting final : public FTableRowBase
-{
-public:
-	int32                                         Type;                                              // 0x0008(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	int32                                         Quantity;                                          // 0x05D0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5D4[0x4];                                      // 0x05D4(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct BackendSubsystem.DbDropParam
@@ -1719,12 +1829,57 @@ public:
 	TArray<struct FDbExchangeItemCategoryParam>   ExItems;                                           // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 };
 
-// ScriptStruct BackendSubsystem.RoleSlot
-// 0x000C (0x000C - 0x0000)
-struct alignas(0x04) FRoleSlot final
+// ScriptStruct BackendSubsystem.DbSeasonPassRewardParam
+// 0x0008 (0x05D8 - 0x05D0)
+struct FDbSeasonPassRewardParam final : public FDbItemCategoryParam
 {
 public:
-	uint8                                         Pad_0[0xC];                                        // 0x0000(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	bool                                          bReceived;                                         // 0x05D0(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5D1[0x3];                                      // 0x05D1(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         Quantity;                                          // 0x05D4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbSeasonPassParam
+// 0x0BC0 (0x0C20 - 0x0060)
+struct FDbSeasonPassParam final : public FMasterDataSeasonPassExp
+{
+public:
+	struct FDbSeasonPassRewardParam               FreeItem;                                          // 0x0060(0x05D8)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<struct FDbExchangeItemCategoryParam>   ExItems;                                           // 0x0638(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	struct FDbSeasonPassRewardParam               PremiumItem;                                       // 0x0648(0x05D8)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbSpecialLicenseParam
+// 0x05D8 (0x0608 - 0x0030)
+struct FDbSpecialLicenseParam final : public FMasterDataSpecialLicense
+{
+public:
+	struct FDbItemCategoryParam                   Reward;                                            // 0x0030(0x05D0)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bReceived;                                         // 0x0600(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_601[0x7];                                      // 0x0601(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.DbAdParam
+// 0x0070 (0x0070 - 0x0000)
+struct FDbAdParam final
+{
+public:
+	uint8                                         Pad_0[0x18];                                       // 0x0000(0x0018)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         UnlockedAdSpaceCount;                              // 0x0018(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FDbAdDataParam>                 adList;                                            // 0x0020(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<struct FDbAdDataParam>                 MainMenAdList;                                     // 0x0030(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	uint8                                         Pad_40[0x30];                                      // 0x0040(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.DbBattleParam
+// 0x00B8 (0x00B8 - 0x0000)
+struct FDbBattleParam final
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 gameId;                                            // 0x0008(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_18[0xA0];                                      // 0x0018(0x00A0)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct BackendSubsystem.DbBonusParam
@@ -1736,42 +1891,15 @@ public:
 	uint8                                         Pad_5C[0x4];                                       // 0x005C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// ScriptStruct BackendSubsystem.DbBattleRecordsParam
-// 0x0138 (0x0138 - 0x0000)
-struct FDbBattleRecordsParam final
+// ScriptStruct BackendSubsystem.DbBillboardChartParam
+// 0x0020 (0x0020 - 0x0000)
+struct FDbBillboardChartParam final
 {
 public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDbBattleRecordParam                   Total;                                             // 0x0008(0x00E0)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	TMap<int32, struct FDbBattleRecordParam>      Seasons;                                           // 0x00E8(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbChatParam
-// 0x0068 (0x0068 - 0x0000)
-struct alignas(0x08) FDbChatParam final
-{
-public:
-	uint8                                         Pad_0[0x68];                                       // 0x0000(0x0068)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct BackendSubsystem.DbChatLogParam
-// 0x0080 (0x0080 - 0x0000)
-struct FDbChatLogParam final
-{
-public:
-	class FString                                 Text;                                              // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 PlayerName;                                        // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 PlatformName;                                      // 0x0020(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 playerId;                                          // 0x0030(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 OnlineId;                                          // 0x0040(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bSelf;                                             // 0x0050(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_51[0x3];                                       // 0x0051(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         platform;                                          // 0x0054(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 CosmosPlayerName;                                  // 0x0058(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         playerNamePlateCode;                               // 0x0068(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_6C[0x4];                                       // 0x006C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDateTime                              Time;                                              // 0x0070(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_78[0x8];                                       // 0x0078(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	int32                                         Total;                                             // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         TodayTotal;                                        // 0x000C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<struct FDbBillboardVoterParam>         VoterList;                                         // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.SendRoleSlot
@@ -1783,11 +1911,11 @@ public:
 };
 
 // ScriptStruct BackendSubsystem.DbsNamePlateParam
-// 0x0008 (0x05D8 - 0x05D0)
+// 0x0008 (0x05E0 - 0x05D8)
 struct FDbsNamePlateParam final : public FDbsCustomizeItemParam
 {
 public:
-	struct FDateTime                              ObtainingDate;                                     // 0x05D0(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FDateTime                              ObtainingDate;                                     // 0x05D8(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbsRoleSlotTipsRankingAssignData
@@ -1807,19 +1935,11 @@ public:
 };
 
 // ScriptStruct BackendSubsystem.DbEventDropItem
-// 0x05C8 (0x0610 - 0x0048)
+// 0x05D0 (0x0618 - 0x0048)
 struct FDbEventDropItem final : public FMasterDataMRandomItemWin
 {
 public:
-	struct FDbItemCategoryParam                   Item;                                              // 0x0048(0x05C8)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbSpecialEffectItem
-// 0x05C8 (0x0608 - 0x0040)
-struct FDbSpecialEffectItem final : public FMasterDataMSpecialEffect
-{
-public:
-	struct FDbItemCategoryParam                   Item;                                              // 0x0040(0x05C8)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FDbItemCategoryParam                   Item;                                              // 0x0048(0x05D0)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbEventParam
@@ -2006,53 +2126,6 @@ public:
 	uint8                                         Pad_1D0[0x20];                                     // 0x01D0(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// ScriptStruct BackendSubsystem.DbItemRankSpecialEffectData
-// 0x05E0 (0x05E0 - 0x0000)
-struct FDbItemRankSpecialEffectData final
-{
-public:
-	uint8                                         Pad_0[0x10];                                       // 0x0000(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDbItemCategoryParam                   effectItem;                                        // 0x0010(0x05C8)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         EffectValue;                                       // 0x05D8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         ItemNum;                                           // 0x05DC(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbItemRankSpecialEffect
-// 0x0038 (0x0038 - 0x0000)
-struct FDbItemRankSpecialEffect final
-{
-public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         _allSpecialEffectPoint;                            // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FDbItemRankSpecialEffectData>   _specialEffectItemList;                            // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	uint8                                         Pad_20[0x18];                                      // 0x0020(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct BackendSubsystem.DbSoundDevice
-// 0x0028 (0x0028 - 0x0000)
-struct FDbSoundDevice final
-{
-public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 ID;                                                // 0x0008(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 Name;                                              // 0x0018(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbSoundSettingParam
-// 0x0048 (0x0048 - 0x0000)
-struct FDbSoundSettingParam final
-{
-public:
-	bool                                          bVoiceChat;                                        // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         VoiceChatVolume;                                   // 0x0004(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TArray<struct FDbSoundDevice>                 InputDeviceList;                                   // 0x0008(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	TArray<struct FDbSoundDevice>                 OutputDeviceList;                                  // 0x0018(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	class FString                                 inputDeviceId;                                     // 0x0028(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 outputDeviceId;                                    // 0x0038(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
 // ScriptStruct BackendSubsystem.DbInventoryParam
 // 0x0020 (0x0020 - 0x0000)
 struct FDbInventoryParam final
@@ -2063,20 +2136,20 @@ public:
 };
 
 // ScriptStruct BackendSubsystem.DbLoginBonusItem
-// 0x05F0 (0x05F0 - 0x0000)
+// 0x05F8 (0x05F8 - 0x0000)
 struct FDbLoginBonusItem final
 {
 public:
 	int32                                         day;                                               // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FDateTime                              Date;                                              // 0x0008(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FDbItemCategoryParam                   Item;                                              // 0x0010(0x05C8)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         count;                                             // 0x05D8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bReceived;                                         // 0x05DC(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EGetProgressStatus                            GetProgressStatus;                                 // 0x05DD(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bToday;                                            // 0x05DE(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5DF[0x1];                                      // 0x05DF(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FDbExchangeItemCategoryParam>   ExItems;                                           // 0x05E0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	struct FDbItemCategoryParam                   Item;                                              // 0x0010(0x05D0)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         count;                                             // 0x05E0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bReceived;                                         // 0x05E4(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EGetProgressStatus                            GetProgressStatus;                                 // 0x05E5(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bToday;                                            // 0x05E6(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5E7[0x1];                                      // 0x05E7(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FDbExchangeItemCategoryParam>   ExItems;                                           // 0x05E8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbLoginBonus
@@ -2102,87 +2175,13 @@ public:
 	uint8                                         Pad_10[0x60];                                      // 0x0010(0x0060)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// ScriptStruct BackendSubsystem.DbShopItemParam
-// 0x0720 (0x07E8 - 0x00C8)
-struct FDbShopItemParam final : public FMasterDataShopItem
-{
-public:
-	struct FDbItemCategoryParam                   ProductItem;                                       // 0x00C8(0x05C8)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FMasterDataCurrency                    Currency1Info;                                     // 0x0690(0x0068)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FMasterDataCurrency                    Currency2Info;                                     // 0x06F8(0x0068)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FMasterDataCurrency                    Currency3Info;                                     // 0x0760(0x0068)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	int32                                         PurchasedCount;                                    // 0x07C8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         RemainCount;                                       // 0x07CC(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         DiscountRate;                                      // 0x07D0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_7D4[0x14];                                     // 0x07D4(0x0014)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct BackendSubsystem.DbShopParam
-// 0x0148 (0x0178 - 0x0030)
-struct FDbShopParam final : public FMasterDataShop
-{
-public:
-	TArray<struct FDbShopItemParam>               ShopItemList;                                      // 0x0030(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	struct FMasterDataCurrency                    DisplayCurrency1;                                  // 0x0040(0x0068)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FMasterDataCurrency                    DisplayCurrency2;                                  // 0x00A8(0x0068)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FMasterDataCurrency                    DisplayCurrency3;                                  // 0x0110(0x0068)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.CatalogIdPs4
-// 0x0020 (0x0020 - 0x0000)
-struct FCatalogIdPs4 final
-{
-public:
-	class FString                                 ProductLabel;                                      // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 SkuLabel;                                          // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.CatalogOption
-// 0x0040 (0x0040 - 0x0000)
-struct FCatalogOption final
-{
-public:
-	class FString                                 Is_hcristal;                                       // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 Is_prolicense;                                     // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 Charged;                                           // 0x0020(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 Free;                                              // 0x0030(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbCatalogData
-// 0x00D8 (0x00D8 - 0x0000)
-struct FDbCatalogData final
-{
-public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 catalogId;                                         // 0x0008(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FCatalogIdPs4                          CatalogIdPs4;                                      // 0x0018(0x0020)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	class FString                                 Name;                                              // 0x0038(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 Caption;                                           // 0x0048(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 Image;                                             // 0x0058(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 RegularPrice;                                      // 0x0068(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 CurrentPrice;                                      // 0x0078(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 Option;                                            // 0x0088(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FCatalogOption                         CatalogOption;                                     // 0x0098(0x0040)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbShopsParam
-// 0x0078 (0x0078 - 0x0000)
-struct FDbShopsParam final
-{
-public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	TMap<int32, struct FDbShopParam>              Shops;                                             // 0x0008(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	TArray<struct FDbCatalogData>                 Catalog;                                           // 0x0058(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	uint8                                         Pad_68[0x10];                                      // 0x0068(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
 // ScriptStruct BackendSubsystem.DbStepItemInfo
-// 0x0008 (0x05D0 - 0x05C8)
+// 0x0008 (0x05D8 - 0x05D0)
 struct FDbStepItemInfo final : public FDbItemCategoryParam
 {
 public:
-	int32                                         PickupSelectCode;                                  // 0x05C8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5CC[0x4];                                      // 0x05CC(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	int32                                         PickupSelectCode;                                  // 0x05D0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5D4[0x4];                                      // 0x05D4(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct BackendSubsystem.DbPaymentInfo
@@ -2215,30 +2214,30 @@ public:
 };
 
 // ScriptStruct BackendSubsystem.DbLotteryResultItem
-// 0x0620 (0x0620 - 0x0000)
+// 0x0628 (0x0628 - 0x0000)
 struct FDbLotteryResultItem final
 {
 public:
 	class FString                                 ConfigId;                                          // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FDbItemCategoryParam                   Item;                                              // 0x0010(0x05C8)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         Rarity;                                            // 0x05D8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         count;                                             // 0x05DC(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         Mileage;                                           // 0x05E0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bReplaced;                                         // 0x05E4(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bResetBox;                                         // 0x05E5(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5E6[0x2];                                      // 0x05E6(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         CountInBox;                                        // 0x05E8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         RemainInBox;                                       // 0x05EC(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         Rate;                                              // 0x05F0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bPickUp;                                           // 0x05F4(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bCanResetFlg;                                      // 0x05F5(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5F6[0x2];                                      // 0x05F6(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         AuraStep;                                          // 0x05F8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          slotUnlockItemFlag;                                // 0x05FC(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          skillLevelUpItemFlag;                              // 0x05FD(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FDbItemCategoryParam                   Item;                                              // 0x0010(0x05D0)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         Rarity;                                            // 0x05E0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         count;                                             // 0x05E4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         Mileage;                                           // 0x05E8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bReplaced;                                         // 0x05EC(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bResetBox;                                         // 0x05ED(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5EE[0x2];                                      // 0x05EE(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         CountInBox;                                        // 0x05F0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         RemainInBox;                                       // 0x05F4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         Rate;                                              // 0x05F8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bPickUp;                                           // 0x05FC(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bCanResetFlg;                                      // 0x05FD(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5FE[0x2];                                      // 0x05FE(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FDbExchangeItemCategoryParam>   ExItems;                                           // 0x0600(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	TArray<struct FDbExchangeItemCategoryParam>   AddItems;                                          // 0x0610(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	int32                                         AuraStep;                                          // 0x0600(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          slotUnlockItemFlag;                                // 0x0604(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          skillLevelUpItemFlag;                              // 0x0605(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_606[0x2];                                      // 0x0606(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FDbExchangeItemCategoryParam>   ExItems;                                           // 0x0608(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<struct FDbExchangeItemCategoryParam>   AddItems;                                          // 0x0618(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbRates
@@ -2253,17 +2252,17 @@ public:
 };
 
 // ScriptStruct BackendSubsystem.DbMileageItem
-// 0x0040 (0x0608 - 0x05C8)
+// 0x0040 (0x0610 - 0x05D0)
 struct FDbMileageItem final : public FDbItemCategoryParam
 {
 public:
-	class FString                                 ExchangeItemId;                                    // 0x05C8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         Quantity;                                          // 0x05D8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         NowItemNum;                                        // 0x05DC(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         NowAuraStep;                                       // 0x05E0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5E4[0x4];                                      // 0x05E4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FDbExchangeItemCategoryParam>   ExItems;                                           // 0x05E8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	TArray<struct FDbExchangeItemCategoryParam>   AddItems;                                          // 0x05F8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	class FString                                 ExchangeItemId;                                    // 0x05D0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         Quantity;                                          // 0x05E0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         NowItemNum;                                        // 0x05E4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         NowAuraStep;                                       // 0x05E8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5EC[0x4];                                      // 0x05EC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FDbExchangeItemCategoryParam>   ExItems;                                           // 0x05F0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<struct FDbExchangeItemCategoryParam>   AddItems;                                          // 0x0600(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbMileageInfo
@@ -2328,16 +2327,16 @@ public:
 };
 
 // ScriptStruct BackendSubsystem.DbLotteryExpiredConvert
-// 0x05E0 (0x05E0 - 0x0000)
+// 0x05E8 (0x05E8 - 0x0000)
 struct FDbLotteryExpiredConvert final
 {
 public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         code;                                              // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Point;                                             // 0x000C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FDbItemCategoryParam                   Item;                                              // 0x0010(0x05C8)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         itemCount;                                         // 0x05D8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5DC[0x4];                                      // 0x05DC(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	struct FDbItemCategoryParam                   Item;                                              // 0x0010(0x05D0)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         itemCount;                                         // 0x05E0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5E4[0x4];                                      // 0x05E4(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct BackendSubsystem.DbLotteriesParam
@@ -2353,42 +2352,27 @@ public:
 	uint8                                         Pad_B8[0x170];                                     // 0x00B8(0x0170)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// ScriptStruct BackendSubsystem.DbSeasonParam
-// 0x0090 (0x00D0 - 0x0040)
-struct FDbSeasonParam final : public FMasterDataSeason
-{
-public:
-	ESeasonPassRank                               SeasonPassRank;                                    // 0x0040(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_41[0x3];                                       // 0x0041(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         SeasonRank;                                        // 0x0044(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         SeasonRankExp;                                     // 0x0048(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_4C[0x8];                                       // 0x004C(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         StockCount;                                        // 0x0054(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TArray<struct FDbSeasonPassParam>             ranks;                                             // 0x0058(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	uint8                                         Pad_68[0x68];                                      // 0x0068(0x0068)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
 // ScriptStruct BackendSubsystem.DbTicketParam
-// 0x0008 (0x05D0 - 0x05C8)
+// 0x0008 (0x05D8 - 0x05D0)
 struct FDbTicketParam final : public FDbItemCategoryParam
 {
 public:
-	int32                                         count;                                             // 0x05C8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5CC[0x4];                                      // 0x05CC(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	int32                                         count;                                             // 0x05D0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5D4[0x4];                                      // 0x05D4(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct BackendSubsystem.DbLotteryHistory
-// 0x05E8 (0x05E8 - 0x0000)
+// 0x05F0 (0x05F0 - 0x0000)
 struct FDbLotteryHistory final
 {
 public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         code;                                              // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDbItemCategoryParam                   Item;                                              // 0x0010(0x05C8)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         itemCount;                                         // 0x05D8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5DC[0x4];                                      // 0x05DC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDateTime                              ReceivedAt;                                        // 0x05E0(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FDbItemCategoryParam                   Item;                                              // 0x0010(0x05D0)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         itemCount;                                         // 0x05E0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5E4[0x4];                                      // 0x05E4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDateTime                              ReceivedAt;                                        // 0x05E8(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbDebugCustomMatchingMemberParamList
@@ -2410,7 +2394,7 @@ struct FDbDebugCustomMatchingParam final
 {
 public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FDbDebugCustomMatchingMemberParamList> list;                                       // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<struct FDbDebugCustomMatchingMemberParamList> List;                                       // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbGameModeParam
@@ -2430,111 +2414,8 @@ public:
 	struct FMasterDataBattleStage                 BattleStage;                                       // 0x00F8(0x0068)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 };
 
-// ScriptStruct BackendSubsystem.PopupData
-// 0x0038 (0x00A8 - 0x0070)
-struct FPopupData final : public FMasterDataMPopup
-{
-public:
-	class FText                                   TitleText;                                         // 0x0070(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	class FText                                   MessageText;                                       // 0x0088(0x0018)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	int32                                         ViewNum;                                           // 0x00A0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         RemainNum;                                         // 0x00A4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbPlayerParam
-// 0x0C80 (0x0C80 - 0x0000)
-struct FDbPlayerParam
-{
-public:
-	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 ID;                                                // 0x0008(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         platform;                                          // 0x0018(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 platformPlayerId;                                  // 0x0020(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TArray<struct FMasterDataEmblem>              Emblems;                                           // 0x0030(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	class FString                                 PlayerName;                                        // 0x0040(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_50[0x8];                                       // 0x0050(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FMasterDataNameplateBg                 NamePlate;                                         // 0x0058(0x0028)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	class FString                                 PlatformPlayerName;                                // 0x0080(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 Profile;                                           // 0x0090(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FMasterDataCharacter                   Character;                                         // 0x00A0(0x00B8)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	int32                                         VariationCode;                                     // 0x0158(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_15C[0x4];                                      // 0x015C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FMasterDataCustomizeCostume            Costume;                                           // 0x0160(0x00D8)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbsCostumeRoleSlotParam               RoleSlot;                                          // 0x0238(0x0248)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	int32                                         auraLevel;                                         // 0x0480(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         AuraDisplayTarget;                                 // 0x0484(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         AuraDisplayArea;                                   // 0x0488(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         Level;                                             // 0x048C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         LevelExp;                                          // 0x0490(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_494[0x4];                                      // 0x0494(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FMasterDataRankExp                     Rank;                                              // 0x0498(0x0040)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	int32                                         RankPoint;                                         // 0x04D8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_4DC[0x4];                                      // 0x04DC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDateTime                              LastLoginDateTime;                                 // 0x04E0(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EFriendStatus                                 EFriendStatus;                                     // 0x04E8(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bOnline;                                           // 0x04E9(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_4EA[0x2];                                      // 0x04EA(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         BillboardRank;                                     // 0x04EC(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         BillboardPoint;                                    // 0x04F0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         BillboardTodayPoint;                               // 0x04F4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bHideBattleRecord;                                 // 0x04F8(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_4F9[0x7];                                      // 0x04F9(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDbBattleRecordsParam                  BattleRecords;                                     // 0x0500(0x0138)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbAdDataParam                         Ad;                                                // 0x0638(0x0100)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	int32                                         guildEmblemCode;                                   // 0x0738(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_73C[0x4];                                      // 0x073C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 guildId;                                           // 0x0740(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 guildSearchId;                                     // 0x0750(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 GuildName;                                         // 0x0760(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 guildProfile;                                      // 0x0770(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         LikeRemains;                                       // 0x0780(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         researchLevel;                                     // 0x0784(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bCosmosBlock;                                      // 0x0788(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bPlatformBlock;                                    // 0x0789(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bPlatformMute;                                     // 0x078A(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_78B[0x5];                                      // 0x078B(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDbItemRankSpecialEffect               ItemRankSpecialEffect;                             // 0x0790(0x0038)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	TMap<int32, struct FPopupData>                PopupData;                                         // 0x07C8(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbMyRoomDataParam                     MyRoom;                                            // 0x0818(0x0230)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbMyRoomDataParam                     SnapShotMyRoom;                                    // 0x0A48(0x0230)(NativeAccessSpecifierPublic)
-	int32                                         myRoomLikeCount;                                   // 0x0C78(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         MyRoomRemainLikeNum;                               // 0x0C7C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbSquadMemberParam
-// 0x01E0 (0x0E60 - 0x0C80)
-struct FDbSquadMemberParam final : public FDbPlayerParam
-{
-public:
-	bool                                          bSquadLeader;                                      // 0x0C80(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bSquadJoin;                                        // 0x0C81(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bMatchingStart;                                    // 0x0C82(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bSelectedFirstCharacter;                           // 0x0C83(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bBattleReady;                                      // 0x0C84(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bVoiceChatEnabled;                                 // 0x0C85(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bEnabledCrossPlay;                                 // 0x0C86(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_C87[0x1];                                      // 0x0C87(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         battleSequence;                                    // 0x0C88(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bCpuPlayer;                                        // 0x0C8C(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bKickedCpuPlayer;                                  // 0x0C8D(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_C8E[0x2];                                      // 0x0C8E(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         MatchingRakCode;                                   // 0x0C90(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         MatchingSurvivalPower;                             // 0x0C94(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         Priority;                                          // 0x0C98(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_C9C[0x4];                                      // 0x0C9C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<int32>                                 favoriteCharaIdList;                               // 0x0CA0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	uint8                                         Pad_CB0[0x10];                                     // 0x0CB0(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FMasterDataCharacter                   Character2nd;                                      // 0x0CC0(0x00B8)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	int32                                         VariationCode2nd;                                  // 0x0D78(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_D7C[0x4];                                      // 0x0D7C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FMasterDataCustomizeCostume            Costume2nd;                                        // 0x0D80(0x00D8)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	int32                                         AuraLevel2nd;                                      // 0x0E58(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_E5C[0x4];                                      // 0x0E5C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
 // ScriptStruct BackendSubsystem.DbMatchingSquadInfoParam
-// 0x1130 (0x1130 - 0x0000)
+// 0x1138 (0x1138 - 0x0000)
 struct FDbMatchingSquadInfoParam final
 {
 public:
@@ -2555,7 +2436,7 @@ public:
 	uint8                                         Pad_84[0x4];                                       // 0x0084(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FDbMyRoomDataParam                     MyRoomData;                                        // 0x0088(0x0230)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 	int32                                         HostMyRoomLike;                                    // 0x02B8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_2BC[0xE74];                                    // 0x02BC(0x0E74)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_2BC[0xE7C];                                    // 0x02BC(0x0E7C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct BackendSubsystem.DbInvitingInfoParam
@@ -2577,7 +2458,7 @@ public:
 };
 
 // ScriptStruct BackendSubsystem.DbCustomMatchingRoomParam
-// 0x0008 (0x0010 - 0x0008)
+// 0x0018 (0x0020 - 0x0008)
 struct FDbCustomMatchingRoomParam final : public FDbCustomMatchingBaseParam
 {
 public:
@@ -2585,11 +2466,12 @@ public:
 	bool                                          bHiddenIdFlag;                                     // 0x000C(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          bAllowAllChat;                                     // 0x000D(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          bEnableCrossPlay;                                  // 0x000E(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_F[0x1];                                        // 0x000F(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	bool                                          bAllowChangePlayerName;                            // 0x000F(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<class FString>                         CustomSquadNameList;                               // 0x0010(0x0010)(BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbMatchingParam
-// 0x2490 (0x2490 - 0x0000)
+// 0x24B0 (0x24B0 - 0x0000)
 struct FDbMatchingParam final
 {
 public:
@@ -2600,28 +2482,28 @@ public:
 	TMap<class FString, class FString>            MyUserData;                                        // 0x0060(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 	TMap<class FString, class FString>            SdpData;                                           // 0x00B0(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 	TMap<class FString, class FString>            SquadData;                                         // 0x0100(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbMatchingSquadInfoParam              MySquadInfo;                                       // 0x0150(0x1130)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbMatchingSquadInfoParam              FetchedSquadInfo;                                  // 0x1280(0x1130)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	class FString                                 FetchedSquadConnectionServerHost;                  // 0x23B0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         FetchedSquadConnectionServerPort;                  // 0x23C0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_23C4[0x4];                                     // 0x23C4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 DedicatedServerHost;                               // 0x23C8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         DedicatedServerPort;                               // 0x23D8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_23DC[0x4];                                     // 0x23DC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FDbInvitingInfoParam>           InvitingList;                                      // 0x23E0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	uint8                                         Pad_23F0[0x5];                                     // 0x23F0(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
-	bool                                          bHost;                                             // 0x23F5(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bBattleReady;                                      // 0x23F6(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bEnableCustomMatchVoiceChat;                       // 0x23F7(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FDbCustomMatchingRoomParam             RoomData;                                          // 0x23F8(0x0010)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
-	TArray<struct FDbCustomMatchingMemberParamList> TeamDataList;                                    // 0x2408(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
-	TArray<struct FDbCustomMatchingMemberParamList> StandbyList;                                     // 0x2418(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
-	TArray<struct FDbCustomMatchingMemberParamList> ObserverList;                                    // 0x2428(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
-	class FString                                 customRoomKey;                                     // 0x2438(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 customRoomId;                                      // 0x2448(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TArray<class FString>                         CustomMatchingResult;                              // 0x2458(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	bool                                          bCustomKicked;                                     // 0x2468(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_2469[0x27];                                    // 0x2469(0x0027)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	struct FDbMatchingSquadInfoParam              MySquadInfo;                                       // 0x0150(0x1138)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbMatchingSquadInfoParam              FetchedSquadInfo;                                  // 0x1288(0x1138)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	class FString                                 FetchedSquadConnectionServerHost;                  // 0x23C0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         FetchedSquadConnectionServerPort;                  // 0x23D0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_23D4[0x4];                                     // 0x23D4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 DedicatedServerHost;                               // 0x23D8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         DedicatedServerPort;                               // 0x23E8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_23EC[0x4];                                     // 0x23EC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FDbInvitingInfoParam>           InvitingList;                                      // 0x23F0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	uint8                                         Pad_2400[0x5];                                     // 0x2400(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
+	bool                                          bHost;                                             // 0x2405(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bBattleReady;                                      // 0x2406(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bEnableCustomMatchVoiceChat;                       // 0x2407(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FDbCustomMatchingRoomParam             RoomData;                                          // 0x2408(0x0020)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
+	TArray<struct FDbCustomMatchingMemberParamList> TeamDataList;                                    // 0x2428(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<struct FDbCustomMatchingMemberParamList> StandbyList;                                     // 0x2438(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<struct FDbCustomMatchingMemberParamList> ObserverList;                                    // 0x2448(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
+	class FString                                 customRoomKey;                                     // 0x2458(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 customRoomId;                                      // 0x2468(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<class FString>                         CustomMatchingResult;                              // 0x2478(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	bool                                          bCustomKicked;                                     // 0x2488(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_2489[0x27];                                    // 0x2489(0x0027)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct BackendSubsystem.DbMissionsParam
@@ -2641,33 +2523,6 @@ public:
 	EMdMissionCategory                            eCategory;                                         // 0x0000(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         eventCode;                                         // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbMissionParam
-// 0x0690 (0x0750 - 0x00C0)
-struct FDbMissionParam final : public FMasterDataMission
-{
-public:
-	struct FDbItemCategoryParam                   RewardItem;                                        // 0x00C0(0x05C8)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         Progress;                                          // 0x0688(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         StarPoint;                                         // 0x068C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EMissionAchievementStatus                     eAchievementStatus;                                // 0x0690(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_691[0x7];                                      // 0x0691(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FMasterDataCharacter                   Character;                                         // 0x0698(0x00B8)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct BackendSubsystem.DbMissionCategoryParam
-// 0x00C8 (0x00C8 - 0x0000)
-struct FDbMissionCategoryParam final
-{
-public:
-	uint8                                         Pad_0[0xC];                                        // 0x0000(0x000C)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         Achieved;                                          // 0x000C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         Star;                                              // 0x0010(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDateTime                              ExpireAt;                                          // 0x0018(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FMasterDataEvent                       Event;                                             // 0x0020(0x0098)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	TArray<struct FDbMissionParam>                Missions;                                          // 0x00B8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbNoticeInfoBaseParam
@@ -2719,32 +2574,32 @@ public:
 };
 
 // ScriptStruct BackendSubsystem.DbNoticeOpenedNoticeParam
-// 0x0098 (0x0660 - 0x05C8)
+// 0x0098 (0x0668 - 0x05D0)
 struct FDbNoticeOpenedNoticeParam final : public FDbItemCategoryParam
 {
 public:
-	class FString                                 noticeId;                                          // 0x05C8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 MessageTitle;                                      // 0x05D8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 MessageText;                                       // 0x05E8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         platform;                                          // 0x05F8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5FC[0x4];                                      // 0x05FC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 playerId;                                          // 0x0600(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 PlayerName;                                        // 0x0610(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 CosmosName;                                        // 0x0620(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 PlatformId;                                        // 0x0630(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 guildId;                                           // 0x0640(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 GuildName;                                         // 0x0650(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 noticeId;                                          // 0x05D0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 MessageTitle;                                      // 0x05E0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 MessageText;                                       // 0x05F0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         platform;                                          // 0x0600(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_604[0x4];                                      // 0x0604(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 playerId;                                          // 0x0608(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 PlayerName;                                        // 0x0618(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 CosmosName;                                        // 0x0628(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 PlatformId;                                        // 0x0638(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 guildId;                                           // 0x0648(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 GuildName;                                         // 0x0658(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbInformationReceivedItemParam
-// 0x0028 (0x05F0 - 0x05C8)
+// 0x0028 (0x05F8 - 0x05D0)
 struct FDbInformationReceivedItemParam final : public FDbItemCategoryParam
 {
 public:
-	int32                                         Quantity;                                          // 0x05C8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5CC[0x4];                                      // 0x05CC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FDbExchangeItemCategoryParam>   ExItems;                                           // 0x05D0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	TArray<struct FDbExchangeItemCategoryParam>   AddItems;                                          // 0x05E0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	int32                                         Quantity;                                          // 0x05D0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5D4[0x4];                                      // 0x05D4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FDbExchangeItemCategoryParam>   ExItems;                                           // 0x05D8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<struct FDbExchangeItemCategoryParam>   AddItems;                                          // 0x05E8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbRecommendNoticeParam
@@ -2794,14 +2649,6 @@ public:
 	uint8                                         Pad_131[0x7];                                      // 0x0131(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// ScriptStruct BackendSubsystem.DbPlayerListCharactersParam
-// 0x0010 (0x0010 - 0x0000)
-struct FDbPlayerListCharactersParam final
-{
-public:
-	TArray<struct FDbMyCharacterParam>            Customizes;                                        // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-};
-
 // ScriptStruct BackendSubsystem.DbPlayerListParam
 // 0x07B8 (0x07B8 - 0x0000)
 struct FDbPlayerListParam final
@@ -2829,38 +2676,39 @@ public:
 };
 
 // ScriptStruct BackendSubsystem.DbMyPlayerParam
-// 0x04F0 (0x1170 - 0x0C80)
+// 0x04F0 (0x1178 - 0x0C88)
 struct FDbMyPlayerParam final : public FDbPlayerParam
 {
 public:
-	TMap<ECurrencyType, int32>                    Currencies;                                        // 0x0C80(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	TArray<struct FDbsRoleSlotTip>                RoleSlotTips;                                      // 0x0CD0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	struct FDbsRoleSlotTipsRankingAssignData      RoleSlotTipsRankings;                              // 0x0CE0(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	TArray<struct FDbsNamePlateParam>             NamePlates;                                        // 0x0D30(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	ETutorialStepNo                               eTutorialStatus;                                   // 0x0D40(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_D41[0x3];                                      // 0x0D41(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         LevelPoint;                                        // 0x0D44(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FDbInventoryParam                      Inventory;                                         // 0x0D48(0x0020)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbAdParam                             MyAd;                                              // 0x0D68(0x0070)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbGalleryParam                        Gallery;                                           // 0x0DD8(0x0028)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbLoginBonusListParam                 LoginBonus;                                        // 0x0E00(0x0070)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	int32                                         RentalPoint;                                       // 0x0E70(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_E74[0x4];                                      // 0x0E74(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDbResultBeforeBattleParam             ResultBeforeBattle;                                // 0x0E78(0x0060)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDateTime                              LimitEndTime;                                      // 0x0ED8(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bNgWordCheckErrorName;                             // 0x0EE0(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bDuplicatesCheckErrorName;                         // 0x0EE1(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_EE2[0x6];                                      // 0x0EE2(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDateTime                              SerialCodeUnlockTime;                              // 0x0EE8(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_EF0[0x20];                                     // 0x0EF0(0x0020)(Fixing Size After Last Property [ Dumper-7 ])
-	bool                                          bSeasonPassRemindFlg;                              // 0x0F10(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bSpecialPassRemindFlg;                             // 0x0F11(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bPastSeasonRemindFlg;                              // 0x0F12(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_F13[0x5];                                      // 0x0F13(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FDbMyRoomPresetDataParam>       MyRoomPresets;                                     // 0x0F18(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
-	struct FDbMyRoomPresetDataParam               SnapShotMyRoomPreset;                              // 0x0F28(0x0240)(NativeAccessSpecifierPublic)
-	int32                                         UnlockedMyRoomPresetNo;                            // 0x1168(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         MyRoomPresetUnlockPrice;                           // 0x116C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TMap<ECurrencyType, int32>                    Currencies;                                        // 0x0C88(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	TArray<struct FDbsRoleSlotTip>                RoleSlotTips;                                      // 0x0CD8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	struct FDbsRoleSlotTipsRankingAssignData      RoleSlotTipsRankings;                              // 0x0CE8(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	TArray<struct FDbsNamePlateParam>             NamePlates;                                        // 0x0D38(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	ETutorialStepNo                               eTutorialStatus;                                   // 0x0D48(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_D49[0x3];                                      // 0x0D49(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         LevelPoint;                                        // 0x0D4C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FDbInventoryParam                      Inventory;                                         // 0x0D50(0x0020)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbAdParam                             MyAd;                                              // 0x0D70(0x0070)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbGalleryParam                        Gallery;                                           // 0x0DE0(0x0028)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbLoginBonusListParam                 LoginBonus;                                        // 0x0E08(0x0070)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	int32                                         RentalPoint;                                       // 0x0E78(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_E7C[0x4];                                      // 0x0E7C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDbResultBeforeBattleParam             ResultBeforeBattle;                                // 0x0E80(0x0060)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDateTime                              LimitEndTime;                                      // 0x0EE0(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         LimitNameChangeCount;                              // 0x0EE8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bNgWordCheckErrorName;                             // 0x0EEC(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bDuplicatesCheckErrorName;                         // 0x0EED(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_EEE[0x2];                                      // 0x0EEE(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDateTime                              SerialCodeUnlockTime;                              // 0x0EF0(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_EF8[0x20];                                     // 0x0EF8(0x0020)(Fixing Size After Last Property [ Dumper-7 ])
+	bool                                          bSeasonPassRemindFlg;                              // 0x0F18(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bSpecialPassRemindFlg;                             // 0x0F19(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bPastSeasonRemindFlg;                              // 0x0F1A(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_F1B[0x5];                                      // 0x0F1B(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FDbMyRoomPresetDataParam>       MyRoomPresets;                                     // 0x0F20(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	struct FDbMyRoomPresetDataParam               SnapShotMyRoomPreset;                              // 0x0F30(0x0240)(NativeAccessSpecifierPublic)
+	int32                                         UnlockedMyRoomPresetNo;                            // 0x1170(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         MyRoomPresetUnlockPrice;                           // 0x1174(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbpLotteryRateSheet
@@ -2870,6 +2718,69 @@ struct FDbpLotteryRateSheet final
 public:
 	TArray<struct FDbLotteryResultItem>           RateList;                                          // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FDbLotteryResultItem>           HighRarityCommitmentRateList;                      // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbRankingResult_Response
+// 0x0018 (0x0018 - 0x0000)
+struct alignas(0x08) FDbRankingResult_Response final
+{
+public:
+	uint8                                         Pad_0[0x18];                                       // 0x0000(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.DbRankingsParam
+// 0x03A8 (0x03A8 - 0x0000)
+struct FDbRankingsParam final
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDbRankingParam                        BillboardChart;                                    // 0x0008(0x00B0)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbRankingParam                        Mvp;                                               // 0x00B8(0x00B0)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbRankingParam                        GuildTop;                                          // 0x0168(0x00B0)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbRankingParam                        GuildElite;                                        // 0x0218(0x00B0)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	TArray<struct FDbRankingParam>                EventList;                                         // 0x02C8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<struct FDbRankingResult>               Results;                                           // 0x02D8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<struct FDbRankingResult_Response>      ResponseSaveResults;                               // 0x02E8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	uint8                                         Pad_2F8[0xB0];                                     // 0x02F8(0x00B0)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.DbResearchNoteRewardBaseParam
+// 0x0018 (0x0018 - 0x0000)
+struct alignas(0x08) FDbResearchNoteRewardBaseParam
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	EItemCategory                                 eCategory;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         ItemCode;                                          // 0x000C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         ItemNum;                                           // 0x0010(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.DbResearchNoteRewardParam
+// 0x0008 (0x0020 - 0x0018)
+struct FDbResearchNoteRewardParam final : public FDbResearchNoteRewardBaseParam
+{
+public:
+	int32                                         Level;                                             // 0x0018(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bReceived;                                         // 0x001C(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.DbResearchNoteRewardListParam
+// 0x0078 (0x0078 - 0x0000)
+struct FDbResearchNoteRewardListParam final
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         researchNoteGrade;                                 // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         researchLevel;                                     // 0x000C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         researchExp;                                       // 0x0010(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FDbResearchNoteRewardParam>     baseRewards;                                       // 0x0018(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<struct FDbResearchNoteRewardParam>     achievementRewards;                                // 0x0028(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<struct FDbResearchNoteRewardBaseParam> receiveRewards;                                    // 0x0038(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	uint8                                         Pad_48[0x30];                                      // 0x0048(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct BackendSubsystem.DbRoleSlotEffectParam
@@ -2892,6 +2803,21 @@ public:
 	struct FDbRoleSlotEffectParam                 _slotEffectParam;                                  // 0x0008(0x0138)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 	struct FDbRoleSlotEffectParam                 _slotSubEffectParam;                               // 0x0140(0x0138)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 	struct FDbRoleSlotEffectParam                 _uniqueEffectParam;                                // 0x0278(0x0138)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbSeasonParam
+// 0x0090 (0x00D0 - 0x0040)
+struct FDbSeasonParam final : public FMasterDataSeason
+{
+public:
+	ESeasonPassRank                               SeasonPassRank;                                    // 0x0040(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_41[0x3];                                       // 0x0041(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         SeasonRank;                                        // 0x0044(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         SeasonRankExp;                                     // 0x0048(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4C[0x8];                                       // 0x004C(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         StockCount;                                        // 0x0054(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<struct FDbSeasonPassParam>             ranks;                                             // 0x0058(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	uint8                                         Pad_68[0x68];                                      // 0x0068(0x0068)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct BackendSubsystem.DbMatchingRegionSettingParam
@@ -2927,6 +2853,30 @@ public:
 	uint8                                         Pad_61[0x7];                                       // 0x0061(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
+// ScriptStruct BackendSubsystem.DbSoundDevice
+// 0x0028 (0x0028 - 0x0000)
+struct FDbSoundDevice final
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 ID;                                                // 0x0008(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 Name;                                              // 0x0018(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbSoundSettingParam
+// 0x0048 (0x0048 - 0x0000)
+struct FDbSoundSettingParam final
+{
+public:
+	bool                                          bVoiceChat;                                        // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         VoiceChatVolume;                                   // 0x0004(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<struct FDbSoundDevice>                 InputDeviceList;                                   // 0x0008(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<struct FDbSoundDevice>                 OutputDeviceList;                                  // 0x0018(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	class FString                                 inputDeviceId;                                     // 0x0028(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 outputDeviceId;                                    // 0x0038(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
 // ScriptStruct BackendSubsystem.DbSettingParam
 // 0x00E8 (0x00E8 - 0x0000)
 struct FDbSettingParam final
@@ -2941,14 +2891,51 @@ public:
 	int32                                         freeHeroCrystal;                                   // 0x00E4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
+// ScriptStruct BackendSubsystem.DbShopItemParam
+// 0x0728 (0x07F0 - 0x00C8)
+struct FDbShopItemParam final : public FMasterDataShopItem
+{
+public:
+	struct FDbItemCategoryParam                   ProductItem;                                       // 0x00C8(0x05D0)(BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FMasterDataCurrency                    Currency1Info;                                     // 0x0698(0x0068)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FMasterDataCurrency                    Currency2Info;                                     // 0x0700(0x0068)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FMasterDataCurrency                    Currency3Info;                                     // 0x0768(0x0068)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	int32                                         PurchasedCount;                                    // 0x07D0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         RemainCount;                                       // 0x07D4(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         DiscountRate;                                      // 0x07D8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_7DC[0x14];                                     // 0x07DC(0x0014)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.DbShopParam
+// 0x0148 (0x0178 - 0x0030)
+struct FDbShopParam final : public FMasterDataShop
+{
+public:
+	TArray<struct FDbShopItemParam>               ShopItemList;                                      // 0x0030(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	struct FMasterDataCurrency                    DisplayCurrency1;                                  // 0x0040(0x0068)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FMasterDataCurrency                    DisplayCurrency2;                                  // 0x00A8(0x0068)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FMasterDataCurrency                    DisplayCurrency3;                                  // 0x0110(0x0068)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BackendSubsystem.DbShopsParam
+// 0x0078 (0x0078 - 0x0000)
+struct FDbShopsParam final
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	TMap<int32, struct FDbShopParam>              Shops;                                             // 0x0008(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	TArray<struct FDbCatalogData>                 Catalog;                                           // 0x0058(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	uint8                                         Pad_68[0x10];                                      // 0x0068(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
 // ScriptStruct BackendSubsystem.DbShopReceivedItem
-// 0x0018 (0x05E0 - 0x05C8)
+// 0x0018 (0x05E8 - 0x05D0)
 struct FDbShopReceivedItem final : public FDbItemCategoryParam
 {
 public:
-	int32                                         PurchaseNum;                                       // 0x05C8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5CC[0x4];                                      // 0x05CC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FDbExchangeItemCategoryParam>   ExItems;                                           // 0x05D0(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
+	int32                                         PurchaseNum;                                       // 0x05D0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5D4[0x4];                                      // 0x05D4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FDbExchangeItemCategoryParam>   ExItems;                                           // 0x05D8(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct BackendSubsystem.DbShopReceivedItemParam
@@ -2961,12 +2948,12 @@ public:
 };
 
 // ScriptStruct BackendSubsystem.DbSpecialLicenseReward
-// 0x0008 (0x05D0 - 0x05C8)
+// 0x0008 (0x05D8 - 0x05D0)
 struct FDbSpecialLicenseReward final : public FDbItemCategoryParam
 {
 public:
-	int32                                         count;                                             // 0x05C8(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5CC[0x4];                                      // 0x05CC(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	int32                                         count;                                             // 0x05D0(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5D4[0x4];                                      // 0x05D4(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct BackendSubsystem.DbSpecialLicenseListParam
@@ -2987,6 +2974,14 @@ public:
 	TArray<struct FDbSpecialLicenseReward>        LastRewardsList;                                   // 0x0078(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 	bool                                          bViewResult;                                       // 0x0088(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_89[0x17];                                      // 0x0089(0x0017)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.RoleSlot
+// 0x000C (0x000C - 0x0000)
+struct alignas(0x04) FRoleSlot final
+{
+public:
+	uint8                                         Pad_0[0xC];                                        // 0x0000(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct BackendSubsystem.Voice
@@ -3027,6 +3022,14 @@ struct alignas(0x04) FSkill final
 {
 public:
 	uint8                                         Pad_0[0xC];                                        // 0x0000(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BackendSubsystem.NormalAttack
+// 0x0008 (0x0008 - 0x0000)
+struct alignas(0x04) FNormalAttack final
+{
+public:
+	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct BackendSubsystem.WebApiCacheSetting

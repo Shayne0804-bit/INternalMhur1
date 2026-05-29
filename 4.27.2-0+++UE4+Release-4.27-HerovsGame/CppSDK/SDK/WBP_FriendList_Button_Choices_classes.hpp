@@ -17,19 +17,19 @@
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_FriendList_Button_Choices.WBP_FriendList_Button_Choices_C
-// 0x0058 (0x06A8 - 0x0650)
+// 0x0058 (0x06F0 - 0x0698)
 class UWBP_FriendList_Button_Choices_C final : public USettingButtonChoicesWidget
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0650(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	class UProgressBar*                           bgBody;                                            // 0x0658(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 leftArrow;                                         // 0x0660(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 RightArrow;                                        // 0x0668(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 UnSelect;                                          // 0x0670(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class FText                                   categoriesText;                                    // 0x0678(0x0018)(Edit, BlueprintVisible)
-	TArray<class FText>                           selectArray;                                       // 0x0690(0x0010)(Edit, BlueprintVisible)
-	int32                                         defaultIndex;                                      // 0x06A0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	int32                                         Selected_Index;                                    // 0x06A4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0698(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	class UProgressBar*                           bgBody;                                            // 0x06A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 leftArrow;                                         // 0x06A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 RightArrow;                                        // 0x06B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 UnSelect;                                          // 0x06B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class FText                                   categoriesText;                                    // 0x06C0(0x0018)(Edit, BlueprintVisible)
+	TArray<class FText>                           selectArray;                                       // 0x06D8(0x0010)(Edit, BlueprintVisible)
+	int32                                         defaultIndex;                                      // 0x06E8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         Selected_Index;                                    // 0x06EC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
 	void ExecuteUbergraph_WBP_FriendList_Button_Choices(int32 EntryPoint);
@@ -52,6 +52,5 @@ public:
 		return GetDefaultObjImpl<UWBP_FriendList_Button_Choices_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_FriendList_Button_Choices_C;
 
 SDK_NAMESPACE_END

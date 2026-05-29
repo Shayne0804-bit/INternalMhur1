@@ -10,11 +10,11 @@
 
 #include "Basic.hpp"
 
+#include "GameModule_classes.hpp"
 #include "Engine_structs.hpp"
 #include "AnimGraphRuntime_structs.hpp"
 #include "AnimBlueprintNodes_structs.hpp"
 #include "KawaiiPhysics_structs.hpp"
-#include "GameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
@@ -81,6 +81,5 @@ public:
 		return GetDefaultObjImpl<UABP_Ch202_EqE1_00_C>();
 	}
 };
-DUMPER7_ASSERTS_UABP_Ch202_EqE1_00_C;
 
 SDK_NAMESPACE_END

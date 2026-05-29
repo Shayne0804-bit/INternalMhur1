@@ -17,6 +17,80 @@
 SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.DoCustomNavigation_up
+// 0x0010 (0x0010 - 0x0000)
+struct WBP_PlayMenuShortcutList_C_DoCustomNavigation_up final
+{
+public:
+	EUINavigation                                 Navigation_0;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UWidget*                                ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.DoCustomNavigation_left
+// 0x0010 (0x0010 - 0x0000)
+struct WBP_PlayMenuShortcutList_C_DoCustomNavigation_left final
+{
+public:
+	EUINavigation                                 Navigation_0;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UWidget*                                ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.SetListFocus
+// 0x0003 (0x0003 - 0x0000)
+struct WBP_PlayMenuShortcutList_C_SetListFocus final
+{
+public:
+	EUINavigation                                 DirectionToEnter;                                  // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_SwitchEnum_CmpSuccess;                      // 0x0001(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_IsVisible_ReturnValue;                    // 0x0002(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+};
+
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList_WBP_IconSubMenu_K2Node_ComponentBoundEvent_15_OnDecideSubMenuDelegate__DelegateSignature
+// 0x0004 (0x0004 - 0x0000)
+struct WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList_WBP_IconSubMenu_K2Node_ComponentBoundEvent_15_OnDecideSubMenuDelegate__DelegateSignature final
+{
+public:
+	int32                                         Index_0;                                           // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList_MenuButton_IconEntry_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature
+// 0x0010 (0x0010 - 0x0000)
+struct WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList_MenuButton_IconEntry_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList__contactNoticeIconEntryWidget_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature
+// 0x0010 (0x0010 - 0x0000)
+struct WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList__contactNoticeIconEntryWidget_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList__squadButton_IconEntry_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature
+// 0x0010 (0x0010 - 0x0000)
+struct WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList__squadButton_IconEntry_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList_WBP_PlayMenu_MissionIconEntry_TEST_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
+// 0x0010 (0x0010 - 0x0000)
+struct WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList_WBP_PlayMenu_MissionIconEntry_TEST_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
 // Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.ExecuteUbergraph_WBP_PlayMenuShortcutList
 // 0x0050 (0x0050 - 0x0000)
 struct WBP_PlayMenuShortcutList_C_ExecuteUbergraph_WBP_PlayMenuShortcutList final
@@ -38,89 +112,6 @@ public:
 	class UAppWidget*                             K2Node_ComponentBoundEvent_widget;                 // 0x0040(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType;              // 0x0048(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_PlayMenuShortcutList_C_ExecuteUbergraph_WBP_PlayMenuShortcutList;
-
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList_WBP_PlayMenu_MissionIconEntry_TEST_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
-// 0x0010 (0x0010 - 0x0000)
-struct WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList_WBP_PlayMenu_MissionIconEntry_TEST_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-DUMPER7_ASSERTS_WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList_WBP_PlayMenu_MissionIconEntry_TEST_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature;
-
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList__squadButton_IconEntry_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature
-// 0x0010 (0x0010 - 0x0000)
-struct WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList__squadButton_IconEntry_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-DUMPER7_ASSERTS_WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList__squadButton_IconEntry_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature;
-
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList__contactNoticeIconEntryWidget_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature
-// 0x0010 (0x0010 - 0x0000)
-struct WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList__contactNoticeIconEntryWidget_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-DUMPER7_ASSERTS_WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList__contactNoticeIconEntryWidget_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature;
-
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList_MenuButton_IconEntry_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature
-// 0x0010 (0x0010 - 0x0000)
-struct WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList_MenuButton_IconEntry_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-DUMPER7_ASSERTS_WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList_MenuButton_IconEntry_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature;
-
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList_WBP_IconSubMenu_K2Node_ComponentBoundEvent_15_OnDecideSubMenuDelegate__DelegateSignature
-// 0x0004 (0x0004 - 0x0000)
-struct WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList_WBP_IconSubMenu_K2Node_ComponentBoundEvent_15_OnDecideSubMenuDelegate__DelegateSignature final
-{
-public:
-	int32                                         Index_0;                                           // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-DUMPER7_ASSERTS_WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList_WBP_IconSubMenu_K2Node_ComponentBoundEvent_15_OnDecideSubMenuDelegate__DelegateSignature;
-
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.SetListFocus
-// 0x0003 (0x0003 - 0x0000)
-struct WBP_PlayMenuShortcutList_C_SetListFocus final
-{
-public:
-	EUINavigation                                 DirectionToEnter;                                  // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_SwitchEnum_CmpSuccess;                      // 0x0001(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	bool                                          CallFunc_IsVisible_ReturnValue;                    // 0x0002(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-};
-DUMPER7_ASSERTS_WBP_PlayMenuShortcutList_C_SetListFocus;
-
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.DoCustomNavigation_left
-// 0x0010 (0x0010 - 0x0000)
-struct WBP_PlayMenuShortcutList_C_DoCustomNavigation_left final
-{
-public:
-	EUINavigation                                 Navigation_0;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UWidget*                                ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-DUMPER7_ASSERTS_WBP_PlayMenuShortcutList_C_DoCustomNavigation_left;
-
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.DoCustomNavigation_up
-// 0x0010 (0x0010 - 0x0000)
-struct WBP_PlayMenuShortcutList_C_DoCustomNavigation_up final
-{
-public:
-	EUINavigation                                 Navigation_0;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UWidget*                                ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-DUMPER7_ASSERTS_WBP_PlayMenuShortcutList_C_DoCustomNavigation_up;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

@@ -36,6 +36,26 @@ void UBP_ActionDamageStrongAddHit_C::ExecuteUbergraph_BP_ActionDamageStrongAddHi
 }
 
 
+// Function BP_ActionDamageStrongAddHit.BP_ActionDamageStrongAddHit_C.BP_OnRecieveActionPing
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// int32                                   ping                                                   (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_ActionDamageStrongAddHit_C::BP_OnRecieveActionPing(int32 ping)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_ActionDamageStrongAddHit_C", "BP_OnRecieveActionPing");
+
+	Params::BP_ActionDamageStrongAddHit_C_BP_OnRecieveActionPing Parms{};
+
+	Parms.ping = ping;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
 // Function BP_ActionDamageStrongAddHit.BP_ActionDamageStrongAddHit_C.BP_OnEndAction
 // (Event, Protected, HasOutParams, BlueprintEvent)
 // Parameters:
@@ -121,9 +141,9 @@ void UBP_ActionDamageStrongAddHit_C::BP_ActionMain()
 // Function BP_ActionDamageStrongAddHit.BP_ActionDamageStrongAddHit_C.DecideAnimationId
 // (Private, HasOutParams, HasDefaults, BlueprintCallable, BlueprintEvent, BlueprintPure)
 // Parameters:
-// EAnimationId*                           AnimationId                                            (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// EAnimationId*                           animationId                                            (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UBP_ActionDamageStrongAddHit_C::DecideAnimationId(EAnimationId* AnimationId)
+void UBP_ActionDamageStrongAddHit_C::DecideAnimationId(EAnimationId* animationId)
 {
 	static class UFunction* Func = nullptr;
 
@@ -134,8 +154,8 @@ void UBP_ActionDamageStrongAddHit_C::DecideAnimationId(EAnimationId* AnimationId
 
 	UObject::ProcessEvent(Func, &Parms);
 
-	if (AnimationId != nullptr)
-		*AnimationId = Parms.AnimationId;
+	if (animationId != nullptr)
+		*animationId = Parms.animationId;
 }
 
 

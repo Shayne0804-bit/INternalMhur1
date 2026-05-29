@@ -17,7 +17,7 @@
 SDK_NAMESPACE_START
 
 // Function BP_Ch017_ActionAttack_Special.BP_Ch017_ActionAttack_Special_C.ExecuteUbergraph_BP_Ch017_ActionAttack_Special
-// (Final, UbergraphFunction)
+// (Final, UbergraphFunction, HasDefaults)
 // Parameters:
 // int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
@@ -252,20 +252,6 @@ void UBP_Ch017_ActionAttack_Special_C::CustomEventAttackClient(int32 nextPhase)
 }
 
 
-// Function BP_Ch017_ActionAttack_Special.BP_Ch017_ActionAttack_Special_C.BP_ActionAttackMainGround
-// (Event, Protected, BlueprintEvent)
-
-void UBP_Ch017_ActionAttack_Special_C::BP_ActionAttackMainGround()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch017_ActionAttack_Special_C", "BP_ActionAttackMainGround");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
 // Function BP_Ch017_ActionAttack_Special.BP_Ch017_ActionAttack_Special_C.BP_OnNotificationAttackDedicatedEvent
 // (Event, Protected, BlueprintEvent)
 // Parameters:
@@ -286,20 +272,6 @@ void UBP_Ch017_ActionAttack_Special_C::BP_OnNotificationAttackDedicatedEvent(EAt
 }
 
 
-// Function BP_Ch017_ActionAttack_Special.BP_Ch017_ActionAttack_Special_C.BP_ActionAttackRemoteGround
-// (Event, Protected, BlueprintEvent)
-
-void UBP_Ch017_ActionAttack_Special_C::BP_ActionAttackRemoteGround()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch017_ActionAttack_Special_C", "BP_ActionAttackRemoteGround");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
 // Function BP_Ch017_ActionAttack_Special.BP_Ch017_ActionAttack_Special_C.BP_OnEndAction
 // (Event, Protected, HasOutParams, BlueprintEvent)
 // Parameters:
@@ -317,6 +289,34 @@ void UBP_Ch017_ActionAttack_Special_C::BP_OnEndAction(const class FName& nextAct
 	Parms.nextAction = nextAction;
 
 	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_Ch017_ActionAttack_Special.BP_Ch017_ActionAttack_Special_C.BP_ActionAttackMainGround
+// (Event, Protected, BlueprintEvent)
+
+void UBP_Ch017_ActionAttack_Special_C::BP_ActionAttackMainGround()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch017_ActionAttack_Special_C", "BP_ActionAttackMainGround");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function BP_Ch017_ActionAttack_Special.BP_Ch017_ActionAttack_Special_C.BP_ActionAttackRemoteGround
+// (Event, Protected, BlueprintEvent)
+
+void UBP_Ch017_ActionAttack_Special_C::BP_ActionAttackRemoteGround()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch017_ActionAttack_Special_C", "BP_ActionAttackRemoteGround");
+
+	UObject::ProcessEvent(Func, nullptr);
 }
 
 
@@ -359,6 +359,26 @@ void UBP_Ch017_ActionAttack_Special_C::BP_OnLoadParams(const class FName& Action
 	Parms.uniqueLevel = uniqueLevel;
 
 	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_Ch017_ActionAttack_Special.BP_Ch017_ActionAttack_Special_C.BP_IsLaunchAttack
+// (Event, Protected, HasOutParams, BlueprintCallable, BlueprintEvent, Const)
+// Parameters:
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
+
+bool UBP_Ch017_ActionAttack_Special_C::BP_IsLaunchAttack() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch017_ActionAttack_Special_C", "BP_IsLaunchAttack");
+
+	Params::BP_Ch017_ActionAttack_Special_C_BP_IsLaunchAttack Parms{};
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	return Parms.ReturnValue;
 }
 
 

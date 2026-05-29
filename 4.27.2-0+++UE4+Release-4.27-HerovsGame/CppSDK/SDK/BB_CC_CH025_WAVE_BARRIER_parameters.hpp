@@ -10,11 +10,11 @@
 
 #include "Basic.hpp"
 
-#include "CoreUObject_structs.hpp"
 #include "FCh025V2_U3_BarrierParam_structs.hpp"
+#include "InGameModule_structs.hpp"
+#include "CoreUObject_structs.hpp"
 #include "GameModule_structs.hpp"
 #include "CommonModule_structs.hpp"
-#include "InGameModule_structs.hpp"
 
 
 SDK_NAMESPACE_START

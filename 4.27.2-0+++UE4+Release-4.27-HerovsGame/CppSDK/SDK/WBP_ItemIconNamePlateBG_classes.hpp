@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<UWBP_ItemIconNamePlateBG_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_ItemIconNamePlateBG_C;
 
 SDK_NAMESPACE_END

@@ -44,6 +44,5 @@ public:
 		return GetDefaultObjImpl<UWBP_GashaHistory_listItem_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_GashaHistory_listItem_C;
 
 SDK_NAMESPACE_END

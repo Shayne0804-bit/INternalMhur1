@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
-#include "CinematicCamera_structs.hpp"
-#include "CoreUObject_structs.hpp"
 #include "Engine_structs.hpp"
+#include "CoreUObject_structs.hpp"
+#include "CinematicCamera_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -221,14 +221,6 @@ public:
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// ScriptStruct DatasmithContent.DatasmithAssetImportOptions
-// 0x0008 (0x0008 - 0x0000)
-struct FDatasmithAssetImportOptions final
-{
-public:
-	class FName                                   PackagePath;                                       // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
 // ScriptStruct DatasmithContent.DatasmithStaticMeshImportOptions
 // 0x0004 (0x0004 - 0x0000)
 struct FDatasmithStaticMeshImportOptions final
@@ -238,6 +230,14 @@ public:
 	EDatasmithImportLightmapMax                   MaxLightmapResolution;                             // 0x0001(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          bGenerateLightmapUVs;                              // 0x0002(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          bRemoveDegenerates;                                // 0x0003(0x0001)(BlueprintVisible, ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct DatasmithContent.DatasmithAssetImportOptions
+// 0x0008 (0x0008 - 0x0000)
+struct FDatasmithAssetImportOptions final
+{
+public:
+	class FName                                   PackagePath;                                       // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct DatasmithContent.DatasmithImportBaseOptions

@@ -31,7 +31,6 @@ public:
 	class UCharacterConditionControlComponent*    CallFunc_BP_GetConditionControlComponent_ReturnValue; // 0x0030(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_BP_IsValidCondition_ReturnValue;          // 0x0038(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_ANS_Ch202ArmMaterial_C_Received_NotifyBegin;
 
 // Function ANS_Ch202ArmMaterial.ANS_Ch202ArmMaterial_C.Received_NotifyEnd
 // 0x0040 (0x0040 - 0x0000)
@@ -49,7 +48,6 @@ public:
 	class UCharacterConditionControlComponent*    CallFunc_BP_GetConditionControlComponent_ReturnValue; // 0x0030(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_BP_IsValidCondition_ReturnValue;          // 0x0038(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_ANS_Ch202ArmMaterial_C_Received_NotifyEnd;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

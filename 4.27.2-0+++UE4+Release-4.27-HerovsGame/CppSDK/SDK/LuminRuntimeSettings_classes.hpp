@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
+#include "CoreUObject_classes.hpp"
 #include "LuminRuntimeSettings_structs.hpp"
 #include "Engine_structs.hpp"
-#include "CoreUObject_classes.hpp"
 
 
 SDK_NAMESPACE_START

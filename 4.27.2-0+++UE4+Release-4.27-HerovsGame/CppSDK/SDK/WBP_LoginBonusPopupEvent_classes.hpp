@@ -62,6 +62,5 @@ public:
 		return GetDefaultObjImpl<UWBP_LoginBonusPopupEvent_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_LoginBonusPopupEvent_C;
 
 SDK_NAMESPACE_END

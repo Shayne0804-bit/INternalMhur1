@@ -10,11 +10,11 @@
 
 #include "Basic.hpp"
 
-#include "InputCore_structs.hpp"
-#include "CoreUObject_structs.hpp"
-#include "Engine_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "InputCore_structs.hpp"
+#include "Engine_structs.hpp"
 #include "OutGameModule_classes.hpp"
+#include "CoreUObject_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -61,6 +61,5 @@ public:
 		return GetDefaultObjImpl<UWBP_PlayMenu_IconEntry_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_PlayMenu_IconEntry_C;
 
 SDK_NAMESPACE_END

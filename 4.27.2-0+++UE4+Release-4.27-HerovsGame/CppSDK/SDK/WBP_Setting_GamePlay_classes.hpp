@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "SlateCore_structs.hpp"
 #include "Engine_structs.hpp"
+#include "SlateCore_structs.hpp"
 #include "OutGameModule_classes.hpp"
 #include "UIFramework_structs.hpp"
 
@@ -19,26 +19,26 @@
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_Setting_GamePlay.WBP_Setting_GamePlay_C
-// 0x0068 (0x0648 - 0x05E0)
+// 0x0068 (0x0510 - 0x04A8)
 class UWBP_Setting_GamePlay_C final : public UGamePlaySettingWidget
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x05E0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	class UWBP_Setting_Button_Slider_C*           _dashCameraSensitivityX;                           // 0x05E8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Slider_C*           _dashCameraSensitivityY;                           // 0x05F0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_AdjustText_C*                      _tipsNotesText;                                    // 0x05F8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 balloon_1;                                         // 0x0600(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 hatsume;                                           // 0x0608(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 listBG_bottom;                                     // 0x0610(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 listBG_up;                                         // 0x0618(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Choices_C*          Play_Server;                                       // 0x0620(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	TArray<class FString>                         Select_Array;                                      // 0x0628(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
-	TMulticastInlineDelegate<void()>              FocusSaveButton;                                   // 0x0638(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	class UWBP_Setting_Button_Slider_C*           _dashCameraSensitivityX;                           // 0x04B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Slider_C*           _dashCameraSensitivityY;                           // 0x04B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_AdjustText_C*                      _tipsNotesText;                                    // 0x04C0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 balloon_1;                                         // 0x04C8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 hatsume;                                           // 0x04D0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 listBG_bottom;                                     // 0x04D8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 listBG_up;                                         // 0x04E0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Choices_C*          Play_Server;                                       // 0x04E8(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	TArray<class FString>                         Select_Array;                                      // 0x04F0(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
+	TMulticastInlineDelegate<void()>              FocusSaveButton;                                   // 0x0500(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
 
 public:
 	void ExecuteUbergraph_WBP_Setting_GamePlay(int32 EntryPoint);
+	void BndEvt__WBP_Setting_GamePlay__loadingMyRoom_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
 	void BndEvt__WBP_Setting_GamePlay__auraDispType_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_GamePlay__cameraDirection_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
 	void BndEvt__WBP_Setting_GamePlay__notification_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
 	void Construct();
 	void PreConstruct(bool IsDesignTime);
@@ -59,6 +59,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Setting_GamePlay_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Setting_GamePlay_C;
 
 SDK_NAMESPACE_END

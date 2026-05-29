@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
-#include "UMG_structs.hpp"
-#include "SlateCore_structs.hpp"
 #include "InputCore_structs.hpp"
+#include "SlateCore_structs.hpp"
+#include "UMG_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -44,7 +44,6 @@ public:
 	class FString                                 CallFunc_Conv_FloatToString_ReturnValue;           // 0x0078(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 	class FString                                 CallFunc_Concat_StrStr_ReturnValue_1;              // 0x0088(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SelectiveWindow_C_ExecuteUbergraph_WBP_SelectiveWindow;
 
 // Function WBP_SelectiveWindow.WBP_SelectiveWindow_C.BP_OnItemClicked_TextListView
 // 0x0008 (0x0008 - 0x0000)
@@ -53,7 +52,6 @@ struct WBP_SelectiveWindow_C_BP_OnItemClicked_TextListView final
 public:
 	class UObject*                                Item;                                              // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SelectiveWindow_C_BP_OnItemClicked_TextListView;
 
 // Function WBP_SelectiveWindow.WBP_SelectiveWindow_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -62,7 +60,6 @@ struct WBP_SelectiveWindow_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_SelectiveWindow_C_PreConstruct;
 
 // Function WBP_SelectiveWindow.WBP_SelectiveWindow_C.BP_OnEntryGenerated_ListView
 // 0x0008 (0x0008 - 0x0000)
@@ -71,7 +68,6 @@ struct WBP_SelectiveWindow_C_BP_OnEntryGenerated_ListView final
 public:
 	class UUserWidget*                            Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SelectiveWindow_C_BP_OnEntryGenerated_ListView;
 
 // Function WBP_SelectiveWindow.WBP_SelectiveWindow_C.BP_OnItemSelectionChanged_TextListView
 // 0x0010 (0x0010 - 0x0000)
@@ -81,7 +77,6 @@ public:
 	class UObject*                                Item;                                              // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          bIsSelected;                                       // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_SelectiveWindow_C_BP_OnItemSelectionChanged_TextListView;
 
 // Function WBP_SelectiveWindow.WBP_SelectiveWindow_C.OnKeyDown
 // 0x0200 (0x0200 - 0x0000)
@@ -96,7 +91,6 @@ public:
 	uint8                                         Pad_141[0x7];                                      // 0x0141(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FEventReply                            K2Node_MakeStruct_EventReply;                      // 0x0148(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_SelectiveWindow_C_OnKeyDown;
 
 // Function WBP_SelectiveWindow.WBP_SelectiveWindow_C.testGetDisplayItem
 // 0x0088 (0x0088 - 0x0000)
@@ -133,7 +127,6 @@ public:
 	int32                                         CallFunc_Add_IntInt_ReturnValue_2;                 // 0x007C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_Greater_IntInt_ReturnValue;               // 0x0080(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_SelectiveWindow_C_testGetDisplayItem;
 
 // Function WBP_SelectiveWindow.WBP_SelectiveWindow_C.On_DisableInput_MouseButtonDown_0
 // 0x0220 (0x0220 - 0x0000)
@@ -146,10 +139,9 @@ public:
 	struct FEventReply                            CallFunc_Handled_ReturnValue;                      // 0x0160(0x00B8)()
 	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue;                  // 0x0218(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SelectiveWindow_C_On_DisableInput_MouseButtonDown_0;
 
 // Function WBP_SelectiveWindow.WBP_SelectiveWindow_C.DoCustomNavigation_ListView
-// 0x0068 (0x0068 - 0x0000)
+// 0x0058 (0x0058 - 0x0000)
 struct WBP_SelectiveWindow_C_DoCustomNavigation_ListView final
 {
 public:
@@ -161,22 +153,20 @@ public:
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue;                  // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UObject*                                CallFunc_BP_GetSelectedItem_ReturnValue;           // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	TArray<class FText>                           CallFunc_GetListText_ReturnValue;                  // 0x0028(0x0010)(ReferenceParm)
-	class UWBP_SelectiveWindow_Entry_C*           K2Node_DynamicCast_AsWBP_Selective_Window_Entry;   // 0x0038(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x0040(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_41[0x3];                                       // 0x0041(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         CallFunc_Array_Length_ReturnValue;                 // 0x0044(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	int32                                         CallFunc_Subtract_IntInt_ReturnValue;              // 0x0048(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	int32                                         CallFunc_Add_IntInt_ReturnValue;                   // 0x004C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_Less_IntInt_ReturnValue;                  // 0x0050(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_51[0x7];                                       // 0x0051(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UWBP_SelectiveWindow_Entry_C*           K2Node_DynamicCast_AsWBP_Selective_Window_Entry_1; // 0x0058(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_DynamicCast_bSuccess_1;                     // 0x0060(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	bool                                          CallFunc_Greater_IntInt_ReturnValue;               // 0x0061(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_62[0x2];                                       // 0x0062(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         CallFunc_Subtract_IntInt_ReturnValue_1;            // 0x0064(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UWBP_SelectiveWindow_Entry_C*           K2Node_DynamicCast_AsWBP_Selective_Window_Entry;   // 0x0028(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x0030(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_31[0x3];                                       // 0x0031(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         CallFunc_GetNumItems_ReturnValue;                  // 0x0034(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         CallFunc_Subtract_IntInt_ReturnValue;              // 0x0038(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         CallFunc_Add_IntInt_ReturnValue;                   // 0x003C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_Less_IntInt_ReturnValue;                  // 0x0040(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_41[0x7];                                       // 0x0041(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UWBP_SelectiveWindow_Entry_C*           K2Node_DynamicCast_AsWBP_Selective_Window_Entry_1; // 0x0048(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_DynamicCast_bSuccess_1;                     // 0x0050(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_Greater_IntInt_ReturnValue;               // 0x0051(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_52[0x2];                                       // 0x0052(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         CallFunc_Subtract_IntInt_ReturnValue_1;            // 0x0054(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SelectiveWindow_C_DoCustomNavigation_ListView;
 
 // Function WBP_SelectiveWindow.WBP_SelectiveWindow_C.SetStartSelectedIndex
 // 0x0008 (0x0008 - 0x0000)
@@ -186,7 +176,6 @@ public:
 	int32                                         newIndex;                                          // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         CallFunc_Add_IntInt_ReturnValue;                   // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SelectiveWindow_C_SetStartSelectedIndex;
 
 // Function WBP_SelectiveWindow.WBP_SelectiveWindow_C.UpdateTextListView
 // 0x0004 (0x0004 - 0x0000)
@@ -195,7 +184,6 @@ struct WBP_SelectiveWindow_C_UpdateTextListView final
 public:
 	int32                                         newIndex;                                          // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SelectiveWindow_C_UpdateTextListView;
 
 // Function WBP_SelectiveWindow.WBP_SelectiveWindow_C.GetStartSelectedIndex
 // 0x0010 (0x0010 - 0x0000)
@@ -208,7 +196,6 @@ public:
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         CallFunc_SelectInt_ReturnValue;                    // 0x000C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SelectiveWindow_C_GetStartSelectedIndex;
 
 // Function WBP_SelectiveWindow.WBP_SelectiveWindow_C.OnMouseButtonDown
 // 0x0218 (0x0218 - 0x0000)
@@ -220,36 +207,49 @@ public:
 	struct FEventReply                            ReturnValue;                                       // 0x00A8(0x00B8)(Parm, OutParm, ReturnParm)
 	struct FEventReply                            K2Node_MakeStruct_EventReply;                      // 0x0160(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_SelectiveWindow_C_OnMouseButtonDown;
 
 // Function WBP_SelectiveWindow.WBP_SelectiveWindow_C.SetupList_Internal
-// 0x00C0 (0x00C0 - 0x0000)
+// 0x0120 (0x0120 - 0x0000)
 struct WBP_SelectiveWindow_C_SetupList_Internal final
 {
 public:
-	class UWBP_SelectiveWindow_Entry_C*           CallFunc_Create_ReturnValue;                       // 0x0000(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	int32                                         Temp_int_Variable;                                 // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class FText                                   CallFunc_Conv_IntToText_ReturnValue;               // 0x0010(0x0018)()
-	bool                                          CallFunc_Less_IntInt_ReturnValue;                  // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_29[0x3];                                       // 0x0029(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         CallFunc_Add_IntInt_ReturnValue;                   // 0x002C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	TDelegate<void(class UObject* Item)>          K2Node_CreateDelegate_OutputDelegate;              // 0x0030(0x0010)(ZeroConstructor, NoDestructor)
-	TDelegate<void(class UObject* Item, bool bIsSelected)> K2Node_CreateDelegate_OutputDelegate_1;   // 0x0040(0x0010)(ZeroConstructor, NoDestructor)
-	TDelegate<void(class UUserWidget* Widget)>    K2Node_CreateDelegate_OutputDelegate_2;            // 0x0050(0x0010)(ZeroConstructor, NoDestructor)
-	class FText                                   Temp_text_Variable;                                // 0x0060(0x0018)()
-	TArray<class FText>                           CallFunc_GetListText_ReturnValue;                  // 0x0078(0x0010)(ReferenceParm)
-	TArray<class FText>                           CallFunc_GetListText_ReturnValue_1;                // 0x0088(0x0010)(ReferenceParm)
-	int32                                         CallFunc_Array_Length_ReturnValue;                 // 0x0098(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	int32                                         CallFunc_Subtract_IntInt_ReturnValue;              // 0x009C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	int32                                         CallFunc_Subtract_IntInt_ReturnValue_1;            // 0x00A0(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_LessEqual_IntInt_ReturnValue;             // 0x00A4(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	bool                                          CallFunc_GreaterEqual_IntInt_ReturnValue;          // 0x00A5(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	bool                                          CallFunc_BooleanOR_ReturnValue;                    // 0x00A6(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	bool                                          Temp_bool_Variable;                                // 0x00A7(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	class FText                                   K2Node_Select_Default;                             // 0x00A8(0x0018)()
+	TArray<class FText>                           CallFunc_GetListText_ReturnValue;                  // 0x0000(0x0010)(ReferenceParm)
+	int32                                         CallFunc_Array_Length_ReturnValue;                 // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         CallFunc_GetNumItems_ReturnValue;                  // 0x0014(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_Greater_IntInt_ReturnValue;               // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_19[0x3];                                       // 0x0019(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         Temp_int_Variable;                                 // 0x001C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class FText                                   CallFunc_Conv_IntToText_ReturnValue;               // 0x0020(0x0018)()
+	bool                                          CallFunc_Less_IntInt_ReturnValue;                  // 0x0038(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_39[0x3];                                       // 0x0039(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         CallFunc_Add_IntInt_ReturnValue;                   // 0x003C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UWBP_SelectiveWindow_Entry_C*           CallFunc_Create_ReturnValue;                       // 0x0040(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class FText                                   Temp_text_Variable;                                // 0x0048(0x0018)()
+	bool                                          Temp_bool_Variable;                                // 0x0060(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_61[0x7];                                       // 0x0061(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FKey>                           CallFunc_GetListKey_ReturnValue;                   // 0x0068(0x0010)(ReferenceParm)
+	class UWBP_SelectiveWindow_Entry_C*           CallFunc_Create_ReturnValue_1;                     // 0x0078(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	TArray<struct FKey>                           CallFunc_GetListKey_ReturnValue_1;                 // 0x0080(0x0010)(ReferenceParm)
+	int32                                         CallFunc_Array_Length_ReturnValue_1;               // 0x0090(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         CallFunc_Subtract_IntInt_ReturnValue;              // 0x0094(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         Temp_int_Variable_1;                               // 0x0098(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_LessEqual_IntInt_ReturnValue;             // 0x009C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_9D[0x3];                                       // 0x009D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         CallFunc_Add_IntInt_ReturnValue_1;                 // 0x00A0(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	TDelegate<void(class UObject* Item)>          K2Node_CreateDelegate_OutputDelegate;              // 0x00A4(0x0010)(ZeroConstructor, NoDestructor)
+	TDelegate<void(class UObject* Item, bool bIsSelected)> K2Node_CreateDelegate_OutputDelegate_1;   // 0x00B4(0x0010)(ZeroConstructor, NoDestructor)
+	TDelegate<void(class UUserWidget* Widget)>    K2Node_CreateDelegate_OutputDelegate_2;            // 0x00C4(0x0010)(ZeroConstructor, NoDestructor)
+	uint8                                         Pad_D4[0x4];                                       // 0x00D4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<class FText>                           CallFunc_GetListText_ReturnValue_1;                // 0x00D8(0x0010)(ReferenceParm)
+	class FText                                   K2Node_Select_Default;                             // 0x00E8(0x0018)()
+	TArray<class FText>                           CallFunc_GetListText_ReturnValue_2;                // 0x0100(0x0010)(ReferenceParm)
+	int32                                         CallFunc_Array_Length_ReturnValue_2;               // 0x0110(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         CallFunc_Subtract_IntInt_ReturnValue_1;            // 0x0114(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         CallFunc_Subtract_IntInt_ReturnValue_2;            // 0x0118(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_LessEqual_IntInt_ReturnValue_1;           // 0x011C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_GreaterEqual_IntInt_ReturnValue;          // 0x011D(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_BooleanOR_ReturnValue;                    // 0x011E(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_SelectiveWindow_C_SetupList_Internal;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

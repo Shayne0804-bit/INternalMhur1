@@ -36,6 +36,46 @@ void UWBP_CustomMatchSelect_C::ExecuteUbergraph_WBP_CustomMatchSelect(int32 Entr
 }
 
 
+// Function WBP_CustomMatchSelect.WBP_CustomMatchSelect_C.BndEvt__WBP_CustomMatchSelect_CreateCustomRoomDetail_K2Node_ComponentBoundEvent_7_OnChangeEditButton__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// bool                                    bAllowEdit                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+
+void UWBP_CustomMatchSelect_C::BndEvt__WBP_CustomMatchSelect_CreateCustomRoomDetail_K2Node_ComponentBoundEvent_7_OnChangeEditButton__DelegateSignature(bool bAllowEdit)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_CustomMatchSelect_C", "BndEvt__WBP_CustomMatchSelect_CreateCustomRoomDetail_K2Node_ComponentBoundEvent_7_OnChangeEditButton__DelegateSignature");
+
+	Params::WBP_CustomMatchSelect_C_BndEvt__WBP_CustomMatchSelect_CreateCustomRoomDetail_K2Node_ComponentBoundEvent_7_OnChangeEditButton__DelegateSignature Parms{};
+
+	Parms.bAllowEdit = bAllowEdit;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_CustomMatchSelect.WBP_CustomMatchSelect_C.BndEvt__WBP_CustomMatchSelect_CreateCustomRoomDetail_K2Node_ComponentBoundEvent_6_OnChangeHiddenButton__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// bool                                    bHidden                                                (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+
+void UWBP_CustomMatchSelect_C::BndEvt__WBP_CustomMatchSelect_CreateCustomRoomDetail_K2Node_ComponentBoundEvent_6_OnChangeHiddenButton__DelegateSignature(bool bHidden)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_CustomMatchSelect_C", "BndEvt__WBP_CustomMatchSelect_CreateCustomRoomDetail_K2Node_ComponentBoundEvent_6_OnChangeHiddenButton__DelegateSignature");
+
+	Params::WBP_CustomMatchSelect_C_BndEvt__WBP_CustomMatchSelect_CreateCustomRoomDetail_K2Node_ComponentBoundEvent_6_OnChangeHiddenButton__DelegateSignature Parms{};
+
+	Parms.bHidden = bHidden;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
 // Function WBP_CustomMatchSelect.WBP_CustomMatchSelect_C.CloseWindow
 // (Event, Protected, BlueprintCallable, BlueprintEvent)
 
@@ -47,26 +87,6 @@ void UWBP_CustomMatchSelect_C::CloseWindow()
 		Func = Class->GetFunction("WBP_CustomMatchSelect_C", "CloseWindow");
 
 	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function WBP_CustomMatchSelect.WBP_CustomMatchSelect_C.BndEvt__WBP_CustomMatchSelect_WBP_CustomMatchDetail_K2Node_ComponentBoundEvent_5_OnChangeCheckButton__DelegateSignature
-// (BlueprintEvent)
-// Parameters:
-// bool                                    check                                                  (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
-
-void UWBP_CustomMatchSelect_C::BndEvt__WBP_CustomMatchSelect_WBP_CustomMatchDetail_K2Node_ComponentBoundEvent_5_OnChangeCheckButton__DelegateSignature(bool check)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_CustomMatchSelect_C", "BndEvt__WBP_CustomMatchSelect_WBP_CustomMatchDetail_K2Node_ComponentBoundEvent_5_OnChangeCheckButton__DelegateSignature");
-
-	Params::WBP_CustomMatchSelect_C_BndEvt__WBP_CustomMatchSelect_WBP_CustomMatchDetail_K2Node_ComponentBoundEvent_5_OnChangeCheckButton__DelegateSignature Parms{};
-
-	Parms.check = check;
-
-	UObject::ProcessEvent(Func, &Parms);
 }
 
 

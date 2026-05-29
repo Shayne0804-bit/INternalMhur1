@@ -29,7 +29,6 @@ public:
 	uint8                                         Pad_29[0x3];                                       // 0x0029(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	TDelegate<void()>                             K2Node_CreateDelegate_OutputDelegate;              // 0x002C(0x0010)(ZeroConstructor, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_GashaSuggestVoiceCutIn_C_ExecuteUbergraph_WBP_GashaSuggestVoiceCutIn;
 
 // Function WBP_GashaSuggestVoiceCutIn.WBP_GashaSuggestVoiceCutIn_C.SetMainMenuLRInoperable
 // 0x0020 (0x0020 - 0x0000)
@@ -40,7 +39,6 @@ public:
 	class UWBP_MainMenu_C*                        CallFunc_Array_Get_Item;                           // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_IsValid_ReturnValue;                      // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_GashaSuggestVoiceCutIn_C_SetMainMenuLRInoperable;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

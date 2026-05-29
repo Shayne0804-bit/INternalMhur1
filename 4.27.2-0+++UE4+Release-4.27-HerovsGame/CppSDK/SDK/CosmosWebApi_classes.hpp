@@ -53,7 +53,6 @@ public:
 	uint8                                         Pad_38[0x78];                                      // 0x0038(0x0078)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
-	static void GetCommonResponse(class UNetMessage* Data, struct FCosmosResponseHeader* RespHeader, struct FCosmosCommonResponseParam* RespParam);
 	static void GetSysAgreeKpiResponse(class UNetMessage* Data, struct FCosmosResponseHeader* RespHeader, struct FCosmosCommonResponseParam* RespParam);
 	static void GetSysCheckNgwordResponse(class UNetMessage* Data, struct FCosmosResponseHeader* RespHeader, struct FCosmosCommonResponseParam* RespParam);
 	static void GetSysCheckNgwordV2Response(class UNetMessage* Data, struct FCosmosResponseHeader* RespHeader, struct FCosmosCommonResponseParam* RespParam);
@@ -70,10 +69,7 @@ public:
 	static void GetUserGetTrackingNumResponse(class UNetMessage* Data, struct FCosmosResponseHeader* RespHeader, struct FCosmosUserGetTrackingNumResponseParam* RespParam);
 	static void GetUserLinkBnidResponse(class UNetMessage* Data, struct FCosmosResponseHeader* RespHeader, struct FCosmosUserLinkBnidResponseParam* RespParam);
 	static void GetUserLoginV2Response(class UNetMessage* Data, struct FCosmosResponseHeader* RespHeader, struct FCosmosUserLoginV2ResponseParam* RespParam);
-	static class UWebApiConnect* Initialize(class UObject* WorldContextObject, class UWebApiData* InWebApiData, const class FString& BaseUrl, bool bInHasHash, float LimitSec, int32 LocalUserId);
 
-	void SetHashKey(class UObject* WorldContextObject, const class FString& HashKey);
-	class UWebApiConnect* SetHeader(class UObject* WorldContextObject, const class FString& TitleCd, const class FString& UserId, const class FString& session, int32 platform);
 	class UWebApiConnect* SysAgreeKpi(class UObject* WorldContextObject, int32 agreeFlg);
 	class UWebApiConnect* SysCheckNgword(class UObject* WorldContextObject, const class FString& word, const class FString& Language, int32 checkType);
 	class UWebApiConnect* SysCheckNgwordV2(class UObject* WorldContextObject, const class FString& word, const class FString& Language, int32 checkType);
@@ -499,6 +495,28 @@ public:
 	static class UCosmosProfileGetPlayerNameChangeLimitTimeMessage* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UCosmosProfileGetPlayerNameChangeLimitTimeMessage>();
+	}
+};
+
+// Class CosmosWebApi.CosmosProfileReducePlayerNameChangeLimitTimeMessage
+// 0x0010 (0x00C0 - 0x00B0)
+class UCosmosProfileReducePlayerNameChangeLimitTimeMessage final : public UWebApiConnect
+{
+public:
+	uint8                                         Pad_B0[0x10];                                      // 0x00B0(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("CosmosProfileReducePlayerNameChangeLimitTimeMessage")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"CosmosProfileReducePlayerNameChangeLimitTimeMessage")
+	}
+	static class UCosmosProfileReducePlayerNameChangeLimitTimeMessage* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UCosmosProfileReducePlayerNameChangeLimitTimeMessage>();
 	}
 };
 
@@ -2589,6 +2607,28 @@ public:
 	static class UCosmosRandompackLotteryRandomPackMessage* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UCosmosRandompackLotteryRandomPackMessage>();
+	}
+};
+
+// Class CosmosWebApi.CosmosSerialGetSerialCodeIsCheckableMessage
+// 0x0010 (0x00C0 - 0x00B0)
+class UCosmosSerialGetSerialCodeIsCheckableMessage final : public UWebApiConnect
+{
+public:
+	uint8                                         Pad_B0[0x10];                                      // 0x00B0(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("CosmosSerialGetSerialCodeIsCheckableMessage")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"CosmosSerialGetSerialCodeIsCheckableMessage")
+	}
+	static class UCosmosSerialGetSerialCodeIsCheckableMessage* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UCosmosSerialGetSerialCodeIsCheckableMessage>();
 	}
 };
 

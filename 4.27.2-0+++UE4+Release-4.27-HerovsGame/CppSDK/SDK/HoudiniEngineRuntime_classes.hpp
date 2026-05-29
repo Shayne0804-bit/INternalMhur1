@@ -14,8 +14,8 @@
 #include "CoreUObject_classes.hpp"
 #include "Engine_structs.hpp"
 #include "Engine_classes.hpp"
-#include "PhysicsCore_structs.hpp"
 #include "HoudiniEngineRuntime_structs.hpp"
+#include "PhysicsCore_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -2446,7 +2446,7 @@ public:
 class UHoudiniStaticMeshComponent final : public UMeshComponent
 {
 public:
-	class UHoudiniStaticMesh*                     Mesh;                                              // 0x0478(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UHoudiniStaticMesh*                     mesh;                                              // 0x0478(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 	struct FBox                                   LocalBounds;                                       // 0x0480(0x001C)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, NativeAccessSpecifierProtected)
 	bool                                          bHoudiniIconVisible;                               // 0x049C(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 	uint8                                         Pad_49D[0x3];                                      // 0x049D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])

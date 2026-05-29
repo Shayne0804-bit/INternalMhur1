@@ -10,10 +10,10 @@
 
 #include "Basic.hpp"
 
+#include "GameModule_structs.hpp"
 #include "Engine_structs.hpp"
 #include "OutGameModule_structs.hpp"
 #include "OutGameModule_classes.hpp"
-#include "GameModule_structs.hpp"
 #include "UIFramework_structs.hpp"
 
 
@@ -40,12 +40,17 @@ public:
 	bool                                          bBack;                                             // 0x0428(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
 	bool                                          bSwitchTab;                                        // 0x0429(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
 	bool                                          bOpenKeyConfigSelectWindow;                        // 0x042A(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          bCheckPreset;                                      // 0x042B(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
 
 public:
 	void ExecuteUbergraph_WBP_Setting_Top(int32 EntryPoint);
+	void BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_ComponentBoundEvent_23_OnCheckSavePresetPopupDelegate__DelegateSignature();
+	void BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_ComponentBoundEvent_19_OnOpenKeyConfigPopupDelegate__DelegateSignature(EKeyConfigCommandListType listType);
 	void PreConstruct(bool IsDesignTime);
-	void BndEvt__WBP_Setting_Top_WBP_Setting_GamePlay_K2Node_ComponentBoundEvent_6_OnCrossPlayXboxPopupDelegate__DelegateSignature();
+	void BndEvt__WBP_Setting_Top__resetCheckPopup_K2Node_ComponentBoundEvent_14_OnWindowEventDelegate__DelegateSignature();
+	void BndEvt__WBP_Setting_Top__savedPopup_K2Node_ComponentBoundEvent_8_OnWindowEventDelegate__DelegateSignature();
 	void Construct();
+	void BndEvt__WBP_Setting_Top_WBP_Setting_GamePlay_K2Node_ComponentBoundEvent_6_OnCrossPlayXboxPopupDelegate__DelegateSignature();
 	void BndEvt__WBP_Setting_Top_WBP_Setting_Observer_K2Node_ComponentBoundEvent_2_OpenKeyConfigPopup__DelegateSignature(EKeyConfigCommandListType listType, EKeyConfigurableCommand curCommand);
 	void BndEvt__WBP_Setting_Top_WBP_Setting_Observer_K2Node_ComponentBoundEvent_0_FocusSaveButton__DelegateSignature();
 	void BndEvt__WBP_Setting_Top__parentalPopup_K2Node_ComponentBoundEvent_28_OnWindowInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton);
@@ -56,13 +61,13 @@ public:
 	void BndEvt__WBP_Setting_Top__parentalPopup_K2Node_ComponentBoundEvent_1_OnWindowEventDelegate__DelegateSignature();
 	void BndEvt__WBP_Setting_Top__resetCheckPopup_K2Node_ComponentBoundEvent_20_OnWindowEventDelegate__DelegateSignature();
 	void BndEvt__WBP_Setting_Top_WBP_ReturnButton_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
+	void BndEvt__WBP_Setting_Top_WBP_ReturnButton_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
 	void BndEvt__WBP_Setting_Top_WBP_Setting_Sound_K2Node_ComponentBoundEvent_18_OnParentalControlPopupDelegate__DelegateSignature();
 	void BndEvt__WBP_Setting_Top__resetButton_K2Node_ComponentBoundEvent_17_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
 	void BndEvt__WBP_Setting_Top__saveButton_K2Node_ComponentBoundEvent_16_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
 	void BndEvt__WBP_Setting_Top_WBP_Setting_GamePlay_K2Node_ComponentBoundEvent_15_FocusSaveButton__DelegateSignature();
 	void BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_ComponentBoundEvent_10_FocusResetButton__DelegateSignature();
 	void BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_ComponentBoundEvent_9_FocusSaveButton__DelegateSignature();
-	void BndEvt__WBP_Setting_Top_WBP_ReturnButton_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
 	void BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_ComponentBoundEvent_6_OpenKeyConfigPopup__DelegateSignature(EKeyConfigCommandListType listType, EKeyConfigurableCommand curCommand);
 	void BndEvt__WBP_Setting_Top_SelectWindow_K2Node_ComponentBoundEvent_4_OnWindowInputEventDelegate__DelegateSignature(int32 selectindex, class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton);
 	void BndEvt__WBP_Setting_Top__savedPopup_K2Node_ComponentBoundEvent_13_OnWindowEventDelegate__DelegateSignature();
@@ -73,6 +78,7 @@ public:
 	void SetupSelectiveWindow(EKeyConfigCommandListType listType, EKeyConfigurableCommand curCommand);
 	void SetupSelectiveWindowForTextList(int32 startIndex);
 	void SetupObserverSelectiveWindow(EKeyConfigCommandListType listType, EKeyConfigurableCommand curCommand);
+	void SetupPadButtonSelectiveWindow(EKeyConfigCommandListType listType);
 
 public:
 	static class UClass* StaticClass()
@@ -88,6 +94,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Setting_Top_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Setting_Top_C;
 
 SDK_NAMESPACE_END

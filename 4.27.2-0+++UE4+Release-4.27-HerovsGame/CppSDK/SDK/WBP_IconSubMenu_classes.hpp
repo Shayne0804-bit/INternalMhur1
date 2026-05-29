@@ -52,6 +52,5 @@ public:
 		return GetDefaultObjImpl<UWBP_IconSubMenu_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_IconSubMenu_C;
 
 SDK_NAMESPACE_END

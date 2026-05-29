@@ -66,6 +66,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Gasha_OfferRatio_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Gasha_OfferRatio_C;
 
 SDK_NAMESPACE_END

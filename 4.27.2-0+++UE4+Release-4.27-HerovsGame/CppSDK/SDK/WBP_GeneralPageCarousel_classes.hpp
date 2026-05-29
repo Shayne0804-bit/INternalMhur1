@@ -40,6 +40,5 @@ public:
 		return GetDefaultObjImpl<UWBP_GeneralPageCarousel_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_GeneralPageCarousel_C;
 
 SDK_NAMESPACE_END

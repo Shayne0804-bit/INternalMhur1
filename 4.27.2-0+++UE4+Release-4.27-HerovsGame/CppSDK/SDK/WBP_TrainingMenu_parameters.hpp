@@ -116,7 +116,6 @@ public:
 	class UWidget*                                CallFunc_Training_SettingNavigation_ReturnValue;   // 0x01B8(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UWidget*                                CallFunc_Training_Setting2Navigation_ReturnValue;  // 0x01C0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_ExecuteUbergraph_WBP_TrainingMenu;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.BndEvt__WBP_TrainingMenu_CloseButton_K2Node_ComponentBoundEvent_13_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -126,7 +125,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_BndEvt__WBP_TrainingMenu_CloseButton_K2Node_ComponentBoundEvent_13_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.BndEvt__WBP_TrainingMenu_WBP_TrainingSetting_K2Node_ComponentBoundEvent_14_OnFocusDelegate__DelegateSignature
 // 0x0008 (0x0008 - 0x0000)
@@ -135,7 +133,6 @@ struct WBP_TrainingMenu_C_BndEvt__WBP_TrainingMenu_WBP_TrainingSetting_K2Node_Co
 public:
 	class UWBP_TrainingSetting_C*                 SettingWidget;                                     // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_BndEvt__WBP_TrainingMenu_WBP_TrainingSetting_K2Node_ComponentBoundEvent_14_OnFocusDelegate__DelegateSignature;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.BndEvt__WBP_TrainingMenu_WBP_TrainingSetting_2_K2Node_ComponentBoundEvent_16_OnFocusDelegate__DelegateSignature
 // 0x0008 (0x0008 - 0x0000)
@@ -144,7 +141,6 @@ struct WBP_TrainingMenu_C_BndEvt__WBP_TrainingMenu_WBP_TrainingSetting_2_K2Node_
 public:
 	class UWBP_TrainingSetting_2_C*               SettingWidget;                                     // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_BndEvt__WBP_TrainingMenu_WBP_TrainingSetting_2_K2Node_ComponentBoundEvent_16_OnFocusDelegate__DelegateSignature;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.BndEvt__WBP_TrainingMenu_CharacterSubMenu_K2Node_ComponentBoundEvent_10_OnDecideSubMenuDelegate__DelegateSignature
 // 0x0004 (0x0004 - 0x0000)
@@ -153,7 +149,6 @@ struct WBP_TrainingMenu_C_BndEvt__WBP_TrainingMenu_CharacterSubMenu_K2Node_Compo
 public:
 	int32                                         Index_0;                                           // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_BndEvt__WBP_TrainingMenu_CharacterSubMenu_K2Node_ComponentBoundEvent_10_OnDecideSubMenuDelegate__DelegateSignature;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.SetLeaderMode
 // 0x0001 (0x0001 - 0x0000)
@@ -162,7 +157,6 @@ struct WBP_TrainingMenu_C_SetLeaderMode final
 public:
 	bool                                          bEnable;                                           // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_SetLeaderMode;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.OnFocusEvent_Setting
 // 0x0008 (0x0008 - 0x0000)
@@ -171,7 +165,6 @@ struct WBP_TrainingMenu_C_OnFocusEvent_Setting final
 public:
 	class UWBP_TrainingSetting_C*                 SettingWidget;                                     // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_OnFocusEvent_Setting;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.BndEvt__WBP_TrainingMenu_DecideButton_K2Node_ComponentBoundEvent_6_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -181,7 +174,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_BndEvt__WBP_TrainingMenu_DecideButton_K2Node_ComponentBoundEvent_6_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.BndEvt__WBP_TrainingMenu_CloseButton_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -191,7 +183,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_BndEvt__WBP_TrainingMenu_CloseButton_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.BndEvt__WBP_TrainingMenu_DecideButton_K2Node_ComponentBoundEvent_12_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -201,7 +192,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_BndEvt__WBP_TrainingMenu_DecideButton_K2Node_ComponentBoundEvent_12_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.OnFocusEvent_Character
 // 0x0008 (0x0008 - 0x0000)
@@ -210,7 +200,6 @@ struct WBP_TrainingMenu_C_OnFocusEvent_Character final
 public:
 	class UWBP_TrainingCharacter_C*               CharacterWidget;                                   // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_OnFocusEvent_Character;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -219,7 +208,6 @@ struct WBP_TrainingMenu_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_PreConstruct;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.OnCancelEvent
 // 0x0010 (0x0010 - 0x0000)
@@ -229,7 +217,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_OnCancelEvent;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.BndEvt__WBP_TrainingMenu__CharacterPlayer_K2Node_ComponentBoundEvent_3_OnChangeTabDelegate__DelegateSignature
 // 0x0008 (0x0008 - 0x0000)
@@ -239,7 +226,6 @@ public:
 	int32                                         focusIndex;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          bLeft;                                             // 0x0004(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_BndEvt__WBP_TrainingMenu__CharacterPlayer_K2Node_ComponentBoundEvent_3_OnChangeTabDelegate__DelegateSignature;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.BndEvt__WBP_TrainingMenu__CharacterCPU3_K2Node_ComponentBoundEvent_2_OnChangeTabDelegate__DelegateSignature
 // 0x0008 (0x0008 - 0x0000)
@@ -249,7 +235,6 @@ public:
 	int32                                         focusIndex;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          bLeft;                                             // 0x0004(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_BndEvt__WBP_TrainingMenu__CharacterCPU3_K2Node_ComponentBoundEvent_2_OnChangeTabDelegate__DelegateSignature;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.BndEvt__WBP_TrainingMenu__CharacterCPU2_K2Node_ComponentBoundEvent_1_OnChangeTabDelegate__DelegateSignature
 // 0x0008 (0x0008 - 0x0000)
@@ -259,7 +244,6 @@ public:
 	int32                                         focusIndex;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          bLeft;                                             // 0x0004(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_BndEvt__WBP_TrainingMenu__CharacterCPU2_K2Node_ComponentBoundEvent_1_OnChangeTabDelegate__DelegateSignature;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.BndEvt__WBP_TrainingMenu__CharacterCPU1_K2Node_ComponentBoundEvent_0_OnChangeTabDelegate__DelegateSignature
 // 0x0008 (0x0008 - 0x0000)
@@ -269,7 +253,6 @@ public:
 	int32                                         focusIndex;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          bLeft;                                             // 0x0004(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_BndEvt__WBP_TrainingMenu__CharacterCPU1_K2Node_ComponentBoundEvent_0_OnChangeTabDelegate__DelegateSignature;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.UpdateFocusView_Character
 // 0x0018 (0x0018 - 0x0000)
@@ -284,7 +267,6 @@ public:
 	bool                                          CallFunc_NotEqual_ObjectObject_ReturnValue;        // 0x0013(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_IsValid_ReturnValue_3;                    // 0x0014(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_UpdateFocusView_Character;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.UpdateFocusView_Setting
 // 0x0020 (0x0020 - 0x0000)
@@ -300,7 +282,6 @@ public:
 	bool                                          CallFunc_IsValid_ReturnValue_3;                    // 0x001B(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_NotEqual_ObjectObject_ReturnValue;        // 0x001C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_UpdateFocusView_Setting;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.UpdateFocusView_Setting_2
 // 0x0028 (0x0028 - 0x0000)
@@ -317,7 +298,6 @@ public:
 	bool                                          CallFunc_IsValid_ReturnValue_3;                    // 0x0023(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_NotEqual_ObjectObject_ReturnValue;        // 0x0024(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_UpdateFocusView_Setting_2;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.SetPlayerCharacter
 // 0x0014 (0x0014 - 0x0000)
@@ -331,7 +311,6 @@ public:
 	int32                                         Level2;                                            // 0x000C(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         Level3;                                            // 0x0010(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_SetPlayerCharacter;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.SetAiCharacter
 // 0x0038 (0x0038 - 0x0000)
@@ -353,7 +332,6 @@ public:
 	uint8                                         Pad_2D[0x3];                                       // 0x002D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWBP_TrainingCharacter_C*               K2Node_Select_Default;                             // 0x0030(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_SetAiCharacter;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.SetSetting
 // 0x0008 (0x0008 - 0x0000)
@@ -363,7 +341,6 @@ public:
 	int32                                         damageTypeIndex;                                   // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          bFriendlyFireEnable;                               // 0x0004(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_SetSetting;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.SetSetting2
 // 0x0001 (0x0001 - 0x0000)
@@ -372,7 +349,6 @@ struct WBP_TrainingMenu_C_SetSetting2 final
 public:
 	bool                                          bFastReloadEnable;                                 // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_SetSetting2;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.SetFocusCharacter
 // 0x0010 (0x0010 - 0x0000)
@@ -382,7 +358,6 @@ public:
 	class UWBP_TrainingCharacter_C*               Character;                                         // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_IsValid_ReturnValue;                      // 0x0008(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_SetFocusCharacter;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.Training SettingNavigation
 // 0x0010 (0x0010 - 0x0000)
@@ -393,7 +368,6 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWidget*                                ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_Training_SettingNavigation;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.Training Setting2Navigation
 // 0x0010 (0x0010 - 0x0000)
@@ -404,7 +378,6 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWidget*                                ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_Training_Setting2Navigation;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.CPUDownFocusNavigation
 // 0x0010 (0x0010 - 0x0000)
@@ -415,7 +388,6 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWidget*                                ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_CPUDownFocusNavigation;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.DoCustomNavigation_Character
 // 0x0028 (0x0028 - 0x0000)
@@ -430,7 +402,6 @@ public:
 	class UWidget*                                CallFunc_Training_Setting2Navigation_ReturnValue;  // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_EqualEqual_ObjectObject_ReturnValue_1;    // 0x0020(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_DoCustomNavigation_Character;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.SettingUpFocusNavigation
 // 0x0010 (0x0010 - 0x0000)
@@ -441,7 +412,6 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWidget*                                ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_SettingUpFocusNavigation;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.Setting2UpFocusNavigation
 // 0x0010 (0x0010 - 0x0000)
@@ -452,7 +422,6 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWidget*                                ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_Setting2UpFocusNavigation;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.Setting2DownFocusNavigation
 // 0x0010 (0x0010 - 0x0000)
@@ -463,7 +432,6 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWidget*                                ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_Setting2DownFocusNavigation;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.ReceivedOpenChartacterDetail
 // 0x00B8 (0x00B8 - 0x0000)
@@ -472,7 +440,6 @@ struct WBP_TrainingMenu_C_ReceivedOpenChartacterDetail final
 public:
 	struct FMasterDataCharacter                   characterMasterData;                               // 0x0000(0x00B8)(Edit, BlueprintVisible)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_ReceivedOpenChartacterDetail;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.OpenCharacterMenu
 // 0x0008 (0x0008 - 0x0000)
@@ -481,7 +448,6 @@ struct WBP_TrainingMenu_C_OpenCharacterMenu final
 public:
 	class UTrainingCharacterWidget*               CharacterWidget;                                   // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_OpenCharacterMenu;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.CloseSubMenu
 // 0x0008 (0x0008 - 0x0000)
@@ -490,7 +456,6 @@ struct WBP_TrainingMenu_C_CloseSubMenu final
 public:
 	class ULevelLoaderWork*                       CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_CloseSubMenu;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.GetPlayerCharacter
 // 0x0028 (0x0028 - 0x0000)
@@ -510,7 +475,6 @@ public:
 	uint8                                         Pad_21[0x3];                                       // 0x0021(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         CallFunc_GetCharacterId_skillVariationCode;        // 0x0024(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_GetPlayerCharacter;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.GetAiCharacter
 // 0x0050 (0x0050 - 0x0000)
@@ -539,7 +503,6 @@ public:
 	uint8                                         Pad_44[0x4];                                       // 0x0044(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWBP_TrainingCharacter_C*               K2Node_Select_Default;                             // 0x0048(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_GetAiCharacter;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.GetSetting
 // 0x0010 (0x0010 - 0x0000)
@@ -552,7 +515,6 @@ public:
 	int32                                         CallFunc_GetDamageIndex_Index;                     // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_GetFrinedlyFire_ReturnValue;              // 0x000C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_GetSetting;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.GetSetting2
 // 0x0002 (0x0002 - 0x0000)
@@ -562,7 +524,6 @@ public:
 	bool                                          bFastReloadEnable;                                 // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_GetFastReload_ReturnValue;                // 0x0001(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_GetSetting2;
 
 // Function WBP_TrainingMenu.WBP_TrainingMenu_C.GetIsChange
 // 0x000C (0x000C - 0x0000)
@@ -582,7 +543,6 @@ public:
 	bool                                          CallFunc_BooleanOR_ReturnValue_3;                  // 0x000A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_BooleanOR_ReturnValue_4;                  // 0x000B(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingMenu_C_GetIsChange;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

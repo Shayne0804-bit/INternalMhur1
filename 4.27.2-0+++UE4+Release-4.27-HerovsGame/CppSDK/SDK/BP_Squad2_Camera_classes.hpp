@@ -16,7 +16,7 @@
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Squad2_Camera.BP_Squad2_Camera_C
-// 0x0000 (0x0308 - 0x0308)
+// 0x0000 (0x0358 - 0x0358)
 class ABP_Squad2_Camera_C final : public ACameraActorOutGame
 {
 public:
@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ABP_Squad2_Camera_C>();
 	}
 };
-DUMPER7_ASSERTS_ABP_Squad2_Camera_C;
 
 SDK_NAMESPACE_END

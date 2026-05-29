@@ -47,6 +47,5 @@ public:
 		return GetDefaultObjImpl<UWBP_ItemRankUpWidget_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_ItemRankUpWidget_C;
 
 SDK_NAMESPACE_END

@@ -48,6 +48,5 @@ public:
 		return GetDefaultObjImpl<UWBP_GashaSelectPickupPopup_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_GashaSelectPickupPopup_C;
 
 SDK_NAMESPACE_END

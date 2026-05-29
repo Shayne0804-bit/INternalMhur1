@@ -16,21 +16,195 @@
 
 SDK_NAMESPACE_START
 
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.ExecuteUbergraph_WBP_PlayMenuShortcutList
-// (Final, UbergraphFunction)
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.DoCustomNavigation_up
+// (Public, HasOutParams, BlueprintCallable, BlueprintEvent)
 // Parameters:
-// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// EUINavigation                           Navigation_0                                           (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// class UWidget*                          ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UWBP_PlayMenuShortcutList_C::ExecuteUbergraph_WBP_PlayMenuShortcutList(int32 EntryPoint)
+class UWidget* UWBP_PlayMenuShortcutList_C::DoCustomNavigation_up(EUINavigation Navigation_0)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "ExecuteUbergraph_WBP_PlayMenuShortcutList");
+		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "DoCustomNavigation_up");
 
-	Params::WBP_PlayMenuShortcutList_C_ExecuteUbergraph_WBP_PlayMenuShortcutList Parms{};
+	Params::WBP_PlayMenuShortcutList_C_DoCustomNavigation_up Parms{};
 
-	Parms.EntryPoint = EntryPoint;
+	Parms.Navigation_0 = Navigation_0;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	return Parms.ReturnValue;
+}
+
+
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.SetupSubMenuText
+// (Public, BlueprintCallable, BlueprintEvent)
+
+void UWBP_PlayMenuShortcutList_C::SetupSubMenuText()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "SetupSubMenuText");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.DoCustomNavigation_left
+// (Public, HasOutParams, BlueprintCallable, BlueprintEvent)
+// Parameters:
+// EUINavigation                           Navigation_0                                           (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// class UWidget*                          ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+class UWidget* UWBP_PlayMenuShortcutList_C::DoCustomNavigation_left(EUINavigation Navigation_0)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "DoCustomNavigation_left");
+
+	Params::WBP_PlayMenuShortcutList_C_DoCustomNavigation_left Parms{};
+
+	Parms.Navigation_0 = Navigation_0;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	return Parms.ReturnValue;
+}
+
+
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.SetListFocus
+// (Public, BlueprintCallable, BlueprintEvent)
+// Parameters:
+// EUINavigation                           DirectionToEnter                                       (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_PlayMenuShortcutList_C::SetListFocus(EUINavigation DirectionToEnter)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "SetListFocus");
+
+	Params::WBP_PlayMenuShortcutList_C_SetListFocus Parms{};
+
+	Parms.DirectionToEnter = DirectionToEnter;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList_WBP_IconSubMenu_K2Node_ComponentBoundEvent_15_OnDecideSubMenuDelegate__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// int32                                   Index_0                                                (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_PlayMenuShortcutList_C::BndEvt__WBP_PlayMenuShortcutList_WBP_IconSubMenu_K2Node_ComponentBoundEvent_15_OnDecideSubMenuDelegate__DelegateSignature(int32 Index_0)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "BndEvt__WBP_PlayMenuShortcutList_WBP_IconSubMenu_K2Node_ComponentBoundEvent_15_OnDecideSubMenuDelegate__DelegateSignature");
+
+	Params::WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList_WBP_IconSubMenu_K2Node_ComponentBoundEvent_15_OnDecideSubMenuDelegate__DelegateSignature Parms{};
+
+	Parms.Index_0 = Index_0;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.Construct
+// (BlueprintCosmetic, Event, Public, BlueprintEvent)
+
+void UWBP_PlayMenuShortcutList_C::Construct()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "Construct");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList_MenuButton_IconEntry_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// EWidgetInputType                        inputType                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_PlayMenuShortcutList_C::BndEvt__WBP_PlayMenuShortcutList_MenuButton_IconEntry_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "BndEvt__WBP_PlayMenuShortcutList_MenuButton_IconEntry_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature");
+
+	Params::WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList_MenuButton_IconEntry_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList__contactNoticeIconEntryWidget_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// EWidgetInputType                        inputType                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_PlayMenuShortcutList_C::BndEvt__WBP_PlayMenuShortcutList__contactNoticeIconEntryWidget_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "BndEvt__WBP_PlayMenuShortcutList__contactNoticeIconEntryWidget_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature");
+
+	Params::WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList__contactNoticeIconEntryWidget_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.OnAddToScreen
+// (BlueprintCosmetic, Event, Public, BlueprintEvent)
+
+void UWBP_PlayMenuShortcutList_C::OnAddToScreen()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "OnAddToScreen");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList__squadButton_IconEntry_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// EWidgetInputType                        inputType                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_PlayMenuShortcutList_C::BndEvt__WBP_PlayMenuShortcutList__squadButton_IconEntry_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "BndEvt__WBP_PlayMenuShortcutList__squadButton_IconEntry_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature");
+
+	Params::WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList__squadButton_IconEntry_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
 
 	UObject::ProcessEvent(Func, &Parms);
 }
@@ -58,197 +232,23 @@ void UWBP_PlayMenuShortcutList_C::BndEvt__WBP_PlayMenuShortcutList_WBP_PlayMenu_
 }
 
 
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList__squadButton_IconEntry_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature
-// (BlueprintEvent)
+// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.ExecuteUbergraph_WBP_PlayMenuShortcutList
+// (Final, UbergraphFunction)
 // Parameters:
-// class UAppWidget*                       Widget                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-// EWidgetInputType                        inputType                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UWBP_PlayMenuShortcutList_C::BndEvt__WBP_PlayMenuShortcutList__squadButton_IconEntry_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType)
+void UWBP_PlayMenuShortcutList_C::ExecuteUbergraph_WBP_PlayMenuShortcutList(int32 EntryPoint)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "BndEvt__WBP_PlayMenuShortcutList__squadButton_IconEntry_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature");
+		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "ExecuteUbergraph_WBP_PlayMenuShortcutList");
 
-	Params::WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList__squadButton_IconEntry_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature Parms{};
+	Params::WBP_PlayMenuShortcutList_C_ExecuteUbergraph_WBP_PlayMenuShortcutList Parms{};
 
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
+	Parms.EntryPoint = EntryPoint;
 
 	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.OnAddToScreen
-// (BlueprintCosmetic, Event, Public, BlueprintEvent)
-
-void UWBP_PlayMenuShortcutList_C::OnAddToScreen()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "OnAddToScreen");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList__contactNoticeIconEntryWidget_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature
-// (BlueprintEvent)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-// EWidgetInputType                        inputType                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UWBP_PlayMenuShortcutList_C::BndEvt__WBP_PlayMenuShortcutList__contactNoticeIconEntryWidget_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "BndEvt__WBP_PlayMenuShortcutList__contactNoticeIconEntryWidget_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature");
-
-	Params::WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList__contactNoticeIconEntryWidget_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList_MenuButton_IconEntry_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature
-// (BlueprintEvent)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-// EWidgetInputType                        inputType                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UWBP_PlayMenuShortcutList_C::BndEvt__WBP_PlayMenuShortcutList_MenuButton_IconEntry_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "BndEvt__WBP_PlayMenuShortcutList_MenuButton_IconEntry_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature");
-
-	Params::WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList_MenuButton_IconEntry_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.Construct
-// (BlueprintCosmetic, Event, Public, BlueprintEvent)
-
-void UWBP_PlayMenuShortcutList_C::Construct()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "Construct");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.BndEvt__WBP_PlayMenuShortcutList_WBP_IconSubMenu_K2Node_ComponentBoundEvent_15_OnDecideSubMenuDelegate__DelegateSignature
-// (BlueprintEvent)
-// Parameters:
-// int32                                   Index_0                                                (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UWBP_PlayMenuShortcutList_C::BndEvt__WBP_PlayMenuShortcutList_WBP_IconSubMenu_K2Node_ComponentBoundEvent_15_OnDecideSubMenuDelegate__DelegateSignature(int32 Index_0)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "BndEvt__WBP_PlayMenuShortcutList_WBP_IconSubMenu_K2Node_ComponentBoundEvent_15_OnDecideSubMenuDelegate__DelegateSignature");
-
-	Params::WBP_PlayMenuShortcutList_C_BndEvt__WBP_PlayMenuShortcutList_WBP_IconSubMenu_K2Node_ComponentBoundEvent_15_OnDecideSubMenuDelegate__DelegateSignature Parms{};
-
-	Parms.Index_0 = Index_0;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.SetListFocus
-// (Public, BlueprintCallable, BlueprintEvent)
-// Parameters:
-// EUINavigation                           DirectionToEnter                                       (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UWBP_PlayMenuShortcutList_C::SetListFocus(EUINavigation DirectionToEnter)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "SetListFocus");
-
-	Params::WBP_PlayMenuShortcutList_C_SetListFocus Parms{};
-
-	Parms.DirectionToEnter = DirectionToEnter;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.DoCustomNavigation_left
-// (Public, HasOutParams, BlueprintCallable, BlueprintEvent)
-// Parameters:
-// EUINavigation                           Navigation_0                                           (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-// class UWidget*                          ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-class UWidget* UWBP_PlayMenuShortcutList_C::DoCustomNavigation_left(EUINavigation Navigation_0)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "DoCustomNavigation_left");
-
-	Params::WBP_PlayMenuShortcutList_C_DoCustomNavigation_left Parms{};
-
-	Parms.Navigation_0 = Navigation_0;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	return Parms.ReturnValue;
-}
-
-
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.SetupSubMenuText
-// (Public, BlueprintCallable, BlueprintEvent)
-
-void UWBP_PlayMenuShortcutList_C::SetupSubMenuText()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "SetupSubMenuText");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C.DoCustomNavigation_up
-// (Public, HasOutParams, BlueprintCallable, BlueprintEvent)
-// Parameters:
-// EUINavigation                           Navigation_0                                           (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-// class UWidget*                          ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-class UWidget* UWBP_PlayMenuShortcutList_C::DoCustomNavigation_up(EUINavigation Navigation_0)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenuShortcutList_C", "DoCustomNavigation_up");
-
-	Params::WBP_PlayMenuShortcutList_C_DoCustomNavigation_up Parms{};
-
-	Parms.Navigation_0 = Navigation_0;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	return Parms.ReturnValue;
 }
 
 

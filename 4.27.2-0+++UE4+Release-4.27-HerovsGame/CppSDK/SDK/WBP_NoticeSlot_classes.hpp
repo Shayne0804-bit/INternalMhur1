@@ -46,6 +46,5 @@ public:
 		return GetDefaultObjImpl<UWBP_NoticeSlot_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_NoticeSlot_C;
 
 SDK_NAMESPACE_END

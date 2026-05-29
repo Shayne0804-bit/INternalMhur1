@@ -59,6 +59,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Contact_Top_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Contact_Top_C;
 
 SDK_NAMESPACE_END

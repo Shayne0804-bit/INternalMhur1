@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
+#include "SlateCore_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "UMG_structs.hpp"
-#include "SlateCore_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -37,7 +37,6 @@ public:
 	class FText                                   CallFunc_Conv_IntToText_ReturnValue_1;             // 0x0078(0x0018)()
 	ESlateVisibility                              K2Node_Select_Default;                             // 0x0090(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_CommonSortText_C_ExecuteUbergraph_WBP_CommonSortText;
 
 // Function WBP_CommonSortText.WBP_CommonSortText_C.SetSortTextHidden
 // 0x0001 (0x0001 - 0x0000)
@@ -46,7 +45,6 @@ struct WBP_CommonSortText_C_SetSortTextHidden final
 public:
 	bool                                          textHidden;                                        // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_CommonSortText_C_SetSortTextHidden;
 
 // Function WBP_CommonSortText.WBP_CommonSortText_C.SetTextCount
 // 0x0008 (0x0008 - 0x0000)
@@ -56,7 +54,6 @@ public:
 	int32                                         Num;                                               // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         Max;                                               // 0x0004(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_CommonSortText_C_SetTextCount;
 
 // Function WBP_CommonSortText.WBP_CommonSortText_C.SetTextColor
 // 0x0010 (0x0010 - 0x0000)
@@ -65,7 +62,6 @@ struct WBP_CommonSortText_C_SetTextColor final
 public:
 	struct FLinearColor                           TextColor;                                         // 0x0000(0x0010)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_CommonSortText_C_SetTextColor;
 
 // Function WBP_CommonSortText.WBP_CommonSortText_C.SetSortText
 // 0x0018 (0x0018 - 0x0000)
@@ -74,7 +70,6 @@ struct WBP_CommonSortText_C_SetSortText final
 public:
 	class FText                                   sortText;                                          // 0x0000(0x0018)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ReferenceParm)
 };
-DUMPER7_ASSERTS_WBP_CommonSortText_C_SetSortText;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

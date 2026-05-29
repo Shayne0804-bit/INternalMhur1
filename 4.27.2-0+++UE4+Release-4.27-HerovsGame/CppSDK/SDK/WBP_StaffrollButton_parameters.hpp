@@ -23,7 +23,6 @@ public:
 	bool                                          CallFunc_IsValid_ReturnValue;                      // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          K2Node_Event_IsDesignTime;                         // 0x0005(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_StaffrollButton_C_ExecuteUbergraph_WBP_StaffrollButton;
 
 // Function WBP_StaffrollButton.WBP_StaffrollButton_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -32,7 +31,6 @@ struct WBP_StaffrollButton_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_StaffrollButton_C_PreConstruct;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

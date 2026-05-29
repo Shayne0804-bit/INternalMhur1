@@ -10,34 +10,34 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_structs.hpp"
-#include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "CommonModule_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "InGameModule_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch013_ActionAttack_Special.BP_Ch013_ActionAttack_Special_C
-// 0x0010 (0x04E0 - 0x04D0)
+// 0x0010 (0x0528 - 0x0518)
 class UBP_Ch013_ActionAttack_Special_C final : public UCh013_ActionAttack_Special
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04D0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	bool                                          EndFlag;                                           // 0x04D8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0518(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	bool                                          EndFlag;                                           // 0x0520(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
 
 public:
-	bool IsActivePlusUltraAction(class ACharacterBase* Target);
-	void BP_OnBeginAction(const class FName& prevAction);
-	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
-	void BP_OnEndAction(const class FName& nextAction);
-	void BP_ActionMain();
-	void BP_ActionRemote();
-	void BP_OnLoadParams(const class FName& ActionName, int32 uniqueLevel);
-	void BP_OnRecieveActionPings(const TArray<int32>& pings);
-	void BP_OnBeginCondition(ECharacterConditionId ID, int32 Level, float value, class APlayerStateBattle* instigatedPlayer);
 	void ExecuteUbergraph_BP_Ch013_ActionAttack_Special(int32 EntryPoint);
+	void BP_OnBeginCondition(ECharacterConditionId ID, int32 Level, float value, class APlayerStateBattle* instigatedPlayer);
+	void BP_OnRecieveActionPings(const TArray<int32>& pings);
+	void BP_OnLoadParams(const class FName& ActionName, int32 uniqueLevel);
+	void BP_ActionRemote();
+	void BP_ActionMain();
+	void BP_OnEndAction(const class FName& nextAction);
+	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
+	void BP_OnBeginAction(const class FName& prevAction);
+	bool IsActivePlusUltraAction(class ACharacterBase* Target);
 
 	bool BP_IsEnableShiftAction(const class FName& nextAction) const;
 

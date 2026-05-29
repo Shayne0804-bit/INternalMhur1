@@ -12,8 +12,8 @@
 
 #include "CommonModule_structs.hpp"
 #include "GameModule_structs.hpp"
-#include "InGameModule_structs.hpp"
 #include "CoreUObject_structs.hpp"
+#include "InGameModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -82,7 +82,6 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_1; // 0x0110(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_BP_IsImpersonator_ReturnValue;            // 0x0118(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Unique1_C_ExecuteUbergraph_BP_Ch202_ActionAttack_Unique1;
 
 // Function BP_Ch202_ActionAttack_Unique1.BP_Ch202_ActionAttack_Unique1_C.BP_OnBeginActionAttackAir
 // 0x0008 (0x0008 - 0x0000)
@@ -91,7 +90,6 @@ struct BP_Ch202_ActionAttack_Unique1_C_BP_OnBeginActionAttackAir final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Unique1_C_BP_OnBeginActionAttackAir;
 
 // Function BP_Ch202_ActionAttack_Unique1.BP_Ch202_ActionAttack_Unique1_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -100,7 +98,6 @@ struct BP_Ch202_ActionAttack_Unique1_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Unique1_C_BP_OnEndAction;
 
 // Function BP_Ch202_ActionAttack_Unique1.BP_Ch202_ActionAttack_Unique1_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -109,7 +106,6 @@ struct BP_Ch202_ActionAttack_Unique1_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Unique1_C_BP_OnBeginAction;
 
 // Function BP_Ch202_ActionAttack_Unique1.BP_Ch202_ActionAttack_Unique1_C.BP_OnNotificationAttackDedicatedEvent
 // 0x0001 (0x0001 - 0x0000)
@@ -118,7 +114,6 @@ struct BP_Ch202_ActionAttack_Unique1_C_BP_OnNotificationAttackDedicatedEvent fin
 public:
 	EAttackDedicatedEventId                       ID;                                                // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Unique1_C_BP_OnNotificationAttackDedicatedEvent;
 
 // Function BP_Ch202_ActionAttack_Unique1.BP_Ch202_ActionAttack_Unique1_C.BP_OnChangeAttackPhaseForRemote
 // 0x0004 (0x0004 - 0x0000)
@@ -127,7 +122,6 @@ struct BP_Ch202_ActionAttack_Unique1_C_BP_OnChangeAttackPhaseForRemote final
 public:
 	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Unique1_C_BP_OnChangeAttackPhaseForRemote;
 
 // Function BP_Ch202_ActionAttack_Unique1.BP_Ch202_ActionAttack_Unique1_C.BP_OnChangeAttackPhase
 // 0x0004 (0x0004 - 0x0000)
@@ -136,7 +130,6 @@ struct BP_Ch202_ActionAttack_Unique1_C_BP_OnChangeAttackPhase final
 public:
 	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Unique1_C_BP_OnChangeAttackPhase;
 
 // Function BP_Ch202_ActionAttack_Unique1.BP_Ch202_ActionAttack_Unique1_C.BP_OnLoadParams
 // 0x0028 (0x0028 - 0x0000)
@@ -153,7 +146,6 @@ public:
 	int32                                         CallFunc_BP_GetCurrentUniqueLevel_ReturnValue;     // 0x001C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         CallFunc_BP_GetAttackVariationNo_ReturnValue;      // 0x0020(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Unique1_C_BP_OnLoadParams;
 
 // Function BP_Ch202_ActionAttack_Unique1.BP_Ch202_ActionAttack_Unique1_C.AnimID_Unique1_0
 // 0x0003 (0x0003 - 0x0000)
@@ -164,7 +156,6 @@ public:
 	bool                                          CallFunc_IsLaunchGround_ReturnValue;               // 0x0001(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	EAnimationId                                  CallFunc_SelectAnimationIDFromGroundOrAir_ReturnValue; // 0x0002(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Unique1_C_AnimID_Unique1_0;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

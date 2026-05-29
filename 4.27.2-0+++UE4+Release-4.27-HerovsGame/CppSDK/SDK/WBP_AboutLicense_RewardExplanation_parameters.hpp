@@ -22,7 +22,6 @@ public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_Event_IsDesignTime;                         // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_AboutLicense_RewardExplanation_C_ExecuteUbergraph_WBP_AboutLicense_RewardExplanation;
 
 // Function WBP_AboutLicense_RewardExplanation.WBP_AboutLicense_RewardExplanation_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -31,7 +30,6 @@ struct WBP_AboutLicense_RewardExplanation_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_AboutLicense_RewardExplanation_C_PreConstruct;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

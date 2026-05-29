@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ASL_BrowserTrans_C>();
 	}
 };
-DUMPER7_ASSERTS_ASL_BrowserTrans_C;
 
 SDK_NAMESPACE_END

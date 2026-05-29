@@ -45,6 +45,5 @@ public:
 		return GetDefaultObjImpl<UWBP_RecommendGuildRequeset_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_RecommendGuildRequeset_C;
 
 SDK_NAMESPACE_END

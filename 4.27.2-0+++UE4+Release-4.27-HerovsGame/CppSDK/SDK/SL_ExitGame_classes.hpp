@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ASL_ExitGame_C>();
 	}
 };
-DUMPER7_ASSERTS_ASL_ExitGame_C;
 
 SDK_NAMESPACE_END

@@ -10,8 +10,9 @@
 
 #include "Basic.hpp"
 
-#include "GameModule_structs.hpp"
 #include "OutGameModule_structs.hpp"
+#include "GameModule_structs.hpp"
+#include "InputCore_structs.hpp"
 #include "UIFramework_structs.hpp"
 
 
@@ -19,82 +20,96 @@ SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
 // Function WBP_Setting_Top.WBP_Setting_Top_C.ExecuteUbergraph_WBP_Setting_Top
-// 0x0158 (0x0158 - 0x0000)
+// 0x0180 (0x0180 - 0x0000)
 struct WBP_Setting_Top_C_ExecuteUbergraph_WBP_Setting_Top final
 {
 public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_IsOpenPopup_ReturnValue;                  // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	bool                                          CallFunc_BP_IsSavedActiveTab_ReturnValue;          // 0x0005(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	ESettingSaveStatusType                        CallFunc_BP_SaveAndApplyActiveTab_ReturnValue;     // 0x0006(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x0007(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_BP_IsSavedActiveTab_ReturnValue;          // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	ESettingSaveStatusType                        CallFunc_BP_SaveAndApplyActiveTab_ReturnValue;     // 0x0005(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x0006(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_7[0x1];                                        // 0x0007(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 CallFunc_GetCurrentLevelName_ReturnValue;          // 0x0008(0x0010)(ZeroConstructor, HasGetValueTypeHash)
-	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_10;              // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_10;           // 0x0020(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_StartsWith_ReturnValue;                   // 0x0021(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_22[0x6];                                       // 0x0022(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue;                  // 0x0028(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_StartsWith_ReturnValue;                   // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_10;              // 0x0020(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_10;           // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_29[0x7];                                       // 0x0029(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_9;               // 0x0030(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_9;            // 0x0038(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	uint8                                         Pad_39[0x7];                                       // 0x0039(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UGameSequenceWork*                      CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x0040(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_BP_IsOpenNetworkErrorWindow_ReturnValue;  // 0x0048(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_49[0x3];                                       // 0x0049(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         K2Node_ComponentBoundEvent_selectindex;            // 0x004C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue;                  // 0x0040(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         K2Node_ComponentBoundEvent_selectindex;            // 0x0048(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_4C[0x4];                                       // 0x004C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_8;               // 0x0050(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_8;            // 0x0058(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_ComponentBoundEvent_leftButton_4;           // 0x0059(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	EKeyConfigCommandListType                     K2Node_ComponentBoundEvent_ListType_1;             // 0x005A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EKeyConfigCommandListType                     K2Node_ComponentBoundEvent_listType_2;             // 0x005A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EKeyConfigurableCommand                       K2Node_ComponentBoundEvent_curCommand_1;           // 0x005B(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	uint8                                         Pad_5C[0x4];                                       // 0x005C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 CallFunc_GetCurrentLevelName_ReturnValue_1;        // 0x0060(0x0010)(ZeroConstructor, HasGetValueTypeHash)
-	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_7;               // 0x0070(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_7;            // 0x0078(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_StartsWith_ReturnValue_1;                 // 0x0079(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_7A[0x6];                                       // 0x007A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_6;               // 0x0080(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_6;            // 0x0088(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_89[0x7];                                       // 0x0089(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue_1;                // 0x0090(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_5;               // 0x0098(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_5;            // 0x00A0(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_A1[0x7];                                       // 0x00A1(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_4;               // 0x00A8(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_4;            // 0x00B0(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_B1[0x7];                                       // 0x00B1(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue_2;                // 0x00B8(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UGameSequenceWork*                      CallFunc_GetGameInstanceSubsystem_ReturnValue_1;   // 0x00C0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_BP_IsOpenNetworkErrorWindow_ReturnValue_1; // 0x00C8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_StartsWith_ReturnValue_1;                 // 0x0070(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_71[0x7];                                       // 0x0071(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_7;               // 0x0078(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_7;            // 0x0080(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_81[0x7];                                       // 0x0081(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue_1;                // 0x0088(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_6;               // 0x0090(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_6;            // 0x0098(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_99[0x7];                                       // 0x0099(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_5;               // 0x00A0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_5;            // 0x00A8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_A9[0x7];                                       // 0x00A9(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_4;               // 0x00B0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_4;            // 0x00B8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_B9[0x7];                                       // 0x00B9(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UGameSequenceWork*                      CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x00C0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_BP_IsOpenNetworkErrorWindow_ReturnValue;  // 0x00C8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	uint8                                         Pad_C9[0x7];                                       // 0x00C9(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAppWidgetWork*                         CallFunc_GetGameInstanceSubsystem_ReturnValue_2;   // 0x00D0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UAppWidgetWork*                         CallFunc_GetGameInstanceSubsystem_ReturnValue_3;   // 0x00D8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_3;               // 0x00E0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_3;            // 0x00E8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_ComponentBoundEvent_leftButton_3;           // 0x00E9(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_3;               // 0x00D0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_3;            // 0x00D8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_ComponentBoundEvent_leftButton_3;           // 0x00D9(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_DA[0x6];                                       // 0x00DA(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_2;               // 0x00E0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_2;            // 0x00E8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_ComponentBoundEvent_leftButton_2;           // 0x00E9(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	uint8                                         Pad_EA[0x6];                                       // 0x00EA(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_2;               // 0x00F0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_2;            // 0x00F8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_ComponentBoundEvent_leftButton_2;           // 0x00F9(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_1;               // 0x00F0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_1;            // 0x00F8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_ComponentBoundEvent_leftButton_1;           // 0x00F9(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	uint8                                         Pad_FA[0x6];                                       // 0x00FA(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_1;               // 0x0100(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_1;            // 0x0108(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_ComponentBoundEvent_leftButton_1;           // 0x0109(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	class UAppWidget*                             K2Node_ComponentBoundEvent_widget;                 // 0x0100(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType;              // 0x0108(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_ComponentBoundEvent_leftButton;             // 0x0109(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	uint8                                         Pad_10A[0x6];                                      // 0x010A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAppWidget*                             K2Node_ComponentBoundEvent_widget;                 // 0x0110(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType;              // 0x0118(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_ComponentBoundEvent_leftButton;             // 0x0119(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_11A[0x2];                                      // 0x011A(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	TDelegate<void()>                             K2Node_CreateDelegate_OutputDelegate;              // 0x011C(0x0010)(ZeroConstructor, NoDestructor)
-	struct FOnFadeFinished                        K2Node_MakeStruct_OnFadeFinished;                  // 0x012C(0x0010)(NoDestructor, ContainsInstancedReference)
-	uint8                                         Pad_13C[0x4];                                      // 0x013C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class UGameSequenceWork*                      CallFunc_GetGameInstanceSubsystem_ReturnValue_4;   // 0x0140(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue_3;                // 0x0148(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EKeyConfigCommandListType                     K2Node_ComponentBoundEvent_ListType;               // 0x0150(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EKeyConfigurableCommand                       K2Node_ComponentBoundEvent_curCommand;             // 0x0151(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_Event_IsDesignTime;                         // 0x0152(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	bool                                          CallFunc_IsOpenPopup_ReturnValue_1;                // 0x0153(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	class UGameSequenceWork*                      CallFunc_GetGameInstanceSubsystem_ReturnValue_1;   // 0x0110(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UAppWidgetWork*                         CallFunc_GetGameInstanceSubsystem_ReturnValue_2;   // 0x0118(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_BP_IsOpenNetworkErrorWindow_ReturnValue_1; // 0x0120(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_121[0x7];                                      // 0x0121(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue_2;                // 0x0128(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue_3;                // 0x0130(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EKeyConfigCommandListType                     K2Node_ComponentBoundEvent_listType_1;             // 0x0138(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EKeyConfigurableCommand                       K2Node_ComponentBoundEvent_curCommand;             // 0x0139(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_IsOpenPopup_ReturnValue;                  // 0x013A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_IsOpenPopup_ReturnValue_1;                // 0x013B(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_IsOpenPopup_ReturnValue_2;                // 0x013C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_13D[0x3];                                      // 0x013D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAppWidgetWork*                         CallFunc_GetGameInstanceSubsystem_ReturnValue_3;   // 0x0140(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue_4;                // 0x0148(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UGameSequenceWork*                      CallFunc_GetGameInstanceSubsystem_ReturnValue_4;   // 0x0150(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	TDelegate<void()>                             K2Node_CreateDelegate_OutputDelegate;              // 0x0158(0x0010)(ZeroConstructor, NoDestructor)
+	struct FOnFadeFinished                        K2Node_MakeStruct_OnFadeFinished;                  // 0x0168(0x0010)(NoDestructor, ContainsInstancedReference)
+	bool                                          K2Node_Event_IsDesignTime;                         // 0x0178(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	EKeyConfigCommandListType                     K2Node_ComponentBoundEvent_listType;               // 0x0179(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Setting_Top_C_ExecuteUbergraph_WBP_Setting_Top;
+
+// Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_ComponentBoundEvent_19_OnOpenKeyConfigPopupDelegate__DelegateSignature
+// 0x0001 (0x0001 - 0x0000)
+struct WBP_Setting_Top_C_BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_ComponentBoundEvent_19_OnOpenKeyConfigPopupDelegate__DelegateSignature final
+{
+public:
+	EKeyConfigCommandListType                     listType;                                          // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
 
 // Function WBP_Setting_Top.WBP_Setting_Top_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -103,7 +118,6 @@ struct WBP_Setting_Top_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Top_C_PreConstruct;
 
 // Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top_WBP_Setting_Observer_K2Node_ComponentBoundEvent_2_OpenKeyConfigPopup__DelegateSignature
 // 0x0002 (0x0002 - 0x0000)
@@ -113,7 +127,6 @@ public:
 	EKeyConfigCommandListType                     listType;                                          // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EKeyConfigurableCommand                       curCommand;                                        // 0x0001(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Setting_Top_C_BndEvt__WBP_Setting_Top_WBP_Setting_Observer_K2Node_ComponentBoundEvent_2_OpenKeyConfigPopup__DelegateSignature;
 
 // Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top__parentalPopup_K2Node_ComponentBoundEvent_28_OnWindowInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -124,7 +137,6 @@ public:
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          leftButton;                                        // 0x0009(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Top_C_BndEvt__WBP_Setting_Top__parentalPopup_K2Node_ComponentBoundEvent_28_OnWindowInputEventDelegate__DelegateSignature;
 
 // Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top__savedPopup_K2Node_ComponentBoundEvent_26_OnWindowInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -135,7 +147,6 @@ public:
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          leftButton;                                        // 0x0009(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Top_C_BndEvt__WBP_Setting_Top__savedPopup_K2Node_ComponentBoundEvent_26_OnWindowInputEventDelegate__DelegateSignature;
 
 // Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top__resetCheckPopup_K2Node_ComponentBoundEvent_24_OnWindowInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -146,7 +157,6 @@ public:
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          leftButton;                                        // 0x0009(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Top_C_BndEvt__WBP_Setting_Top__resetCheckPopup_K2Node_ComponentBoundEvent_24_OnWindowInputEventDelegate__DelegateSignature;
 
 // Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top__saveCheckPopup_K2Node_ComponentBoundEvent_22_OnWindowInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -157,7 +167,6 @@ public:
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          leftButton;                                        // 0x0009(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Top_C_BndEvt__WBP_Setting_Top__saveCheckPopup_K2Node_ComponentBoundEvent_22_OnWindowInputEventDelegate__DelegateSignature;
 
 // Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top_WBP_ReturnButton_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -167,27 +176,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Setting_Top_C_BndEvt__WBP_Setting_Top_WBP_ReturnButton_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature;
-
-// Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top__resetButton_K2Node_ComponentBoundEvent_17_OnInputEventDelegate__DelegateSignature
-// 0x0010 (0x0010 - 0x0000)
-struct WBP_Setting_Top_C_BndEvt__WBP_Setting_Top__resetButton_K2Node_ComponentBoundEvent_17_OnInputEventDelegate__DelegateSignature final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-DUMPER7_ASSERTS_WBP_Setting_Top_C_BndEvt__WBP_Setting_Top__resetButton_K2Node_ComponentBoundEvent_17_OnInputEventDelegate__DelegateSignature;
-
-// Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top__saveButton_K2Node_ComponentBoundEvent_16_OnInputEventDelegate__DelegateSignature
-// 0x0010 (0x0010 - 0x0000)
-struct WBP_Setting_Top_C_BndEvt__WBP_Setting_Top__saveButton_K2Node_ComponentBoundEvent_16_OnInputEventDelegate__DelegateSignature final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-DUMPER7_ASSERTS_WBP_Setting_Top_C_BndEvt__WBP_Setting_Top__saveButton_K2Node_ComponentBoundEvent_16_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top_WBP_ReturnButton_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -197,7 +185,24 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Setting_Top_C_BndEvt__WBP_Setting_Top_WBP_ReturnButton_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature;
+
+// Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top__resetButton_K2Node_ComponentBoundEvent_17_OnInputEventDelegate__DelegateSignature
+// 0x0010 (0x0010 - 0x0000)
+struct WBP_Setting_Top_C_BndEvt__WBP_Setting_Top__resetButton_K2Node_ComponentBoundEvent_17_OnInputEventDelegate__DelegateSignature final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top__saveButton_K2Node_ComponentBoundEvent_16_OnInputEventDelegate__DelegateSignature
+// 0x0010 (0x0010 - 0x0000)
+struct WBP_Setting_Top_C_BndEvt__WBP_Setting_Top__saveButton_K2Node_ComponentBoundEvent_16_OnInputEventDelegate__DelegateSignature final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
 
 // Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_ComponentBoundEvent_6_OpenKeyConfigPopup__DelegateSignature
 // 0x0002 (0x0002 - 0x0000)
@@ -207,7 +212,6 @@ public:
 	EKeyConfigCommandListType                     listType;                                          // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EKeyConfigurableCommand                       curCommand;                                        // 0x0001(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Setting_Top_C_BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_ComponentBoundEvent_6_OpenKeyConfigPopup__DelegateSignature;
 
 // Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top_SelectWindow_K2Node_ComponentBoundEvent_4_OnWindowInputEventDelegate__DelegateSignature
 // 0x0018 (0x0018 - 0x0000)
@@ -220,7 +224,6 @@ public:
 	EWidgetInputType                              inputType;                                         // 0x0010(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          leftButton;                                        // 0x0011(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Top_C_BndEvt__WBP_Setting_Top_SelectWindow_K2Node_ComponentBoundEvent_4_OnWindowInputEventDelegate__DelegateSignature;
 
 // Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top_WBP_CancelButton_K2Node_ComponentBoundEvent_12_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -230,7 +233,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Setting_Top_C_BndEvt__WBP_Setting_Top_WBP_CancelButton_K2Node_ComponentBoundEvent_12_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top_WBP_SaveButton_K2Node_ComponentBoundEvent_11_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -240,7 +242,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Setting_Top_C_BndEvt__WBP_Setting_Top_WBP_SaveButton_K2Node_ComponentBoundEvent_11_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_Setting_Top.WBP_Setting_Top_C.SetupSelectiveWindow
 // 0x0068 (0x0068 - 0x0000)
@@ -252,11 +253,11 @@ public:
 	uint8                                         Pad_2[0x2];                                        // 0x0002(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         startIndex;                                        // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	TArray<class FText>                           commandStringArray;                                // 0x0008(0x0010)(Edit, BlueprintVisible)
-	int32                                         Temp_int_Array_Index_Variable;                     // 0x0018(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	int32                                         Temp_int_Loop_Counter_Variable;                    // 0x001C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         Temp_int_Loop_Counter_Variable;                    // 0x0018(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         Temp_int_Array_Index_Variable;                     // 0x001C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         CallFunc_Add_IntInt_ReturnValue;                   // 0x0020(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<EKeyConfigurableCommand>               CallFunc_GetCommandList_commandList;               // 0x0028(0x0010)(ReferenceParm)
+	TArray<EKeyConfigurableCommand>               CallFunc_GetCommandList_ReturnValue;               // 0x0028(0x0010)(ReferenceParm)
 	EKeyConfigurableCommand                       CallFunc_Array_Get_Item;                           // 0x0038(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x0039(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	uint8                                         Pad_3A[0x6];                                       // 0x003A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
@@ -265,7 +266,6 @@ public:
 	int32                                         CallFunc_Array_Length_ReturnValue;                 // 0x005C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_Less_IntInt_ReturnValue;                  // 0x0060(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Top_C_SetupSelectiveWindow;
 
 // Function WBP_Setting_Top.WBP_Setting_Top_C.SetupSelectiveWindowForTextList
 // 0x0004 (0x0004 - 0x0000)
@@ -274,7 +274,6 @@ struct WBP_Setting_Top_C_SetupSelectiveWindowForTextList final
 public:
 	int32                                         startIndex;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Setting_Top_C_SetupSelectiveWindowForTextList;
 
 // Function WBP_Setting_Top.WBP_Setting_Top_C.SetupObserverSelectiveWindow
 // 0x0068 (0x0068 - 0x0000)
@@ -300,7 +299,18 @@ public:
 	class FText                                   CallFunc_GetActionNameSettingText_ReturnValue;     // 0x0048(0x0018)()
 	int32                                         CallFunc_Array_Add_ReturnValue;                    // 0x0060(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Setting_Top_C_SetupObserverSelectiveWindow;
+
+// Function WBP_Setting_Top.WBP_Setting_Top_C.SetupPadButtonSelectiveWindow
+// 0x0028 (0x0028 - 0x0000)
+struct WBP_Setting_Top_C_SetupPadButtonSelectiveWindow final
+{
+public:
+	EKeyConfigCommandListType                     listType;                                          // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         startIndex;                                        // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	TArray<class FText>                           commandStringArray;                                // 0x0008(0x0010)(Edit, BlueprintVisible)
+	TArray<struct FKey>                           CallFunc_GetPadCommandList_ReturnValue;            // 0x0018(0x0010)(ReferenceParm)
+};
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

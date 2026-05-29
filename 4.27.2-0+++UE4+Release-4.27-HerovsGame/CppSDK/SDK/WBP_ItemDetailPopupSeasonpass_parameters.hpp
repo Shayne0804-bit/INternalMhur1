@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "SlateCore_structs.hpp"
 #include "OutGameModule_structs.hpp"
+#include "SlateCore_structs.hpp"
 #include "UIFramework_structs.hpp"
 
 
@@ -29,7 +29,6 @@ public:
 	class UAppWidget*                             K2Node_ComponentBoundEvent_widget;                 // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType;              // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_ItemDetailPopupSeasonpass_C_ExecuteUbergraph_WBP_ItemDetailPopupSeasonpass;
 
 // Function WBP_ItemDetailPopupSeasonpass.WBP_ItemDetailPopupSeasonpass_C.BndEvt__WBP_ItemDetailPopupSeasonpass__provisionRatio_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -39,7 +38,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_ItemDetailPopupSeasonpass_C_BndEvt__WBP_ItemDetailPopupSeasonpass__provisionRatio_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_ItemDetailPopupSeasonpass.WBP_ItemDetailPopupSeasonpass_C.DoCustomNavigation_0
 // 0x0048 (0x0048 - 0x0000)
@@ -58,7 +56,6 @@ public:
 	ESeasonType                                   CallFunc_GetCurrentTabType_ReturnValue;            // 0x0040(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x0041(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_ItemDetailPopupSeasonpass_C_DoCustomNavigation_0;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

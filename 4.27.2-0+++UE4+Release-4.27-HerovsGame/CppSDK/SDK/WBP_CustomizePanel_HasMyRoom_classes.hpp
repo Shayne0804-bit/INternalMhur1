@@ -39,6 +39,5 @@ public:
 		return GetDefaultObjImpl<UWBP_CustomizePanel_HasMyRoom_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_CustomizePanel_HasMyRoom_C;
 
 SDK_NAMESPACE_END

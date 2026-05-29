@@ -10,25 +10,25 @@
 
 #include "Basic.hpp"
 
+#include "CommonModule_structs.hpp"
+#include "Engine_structs.hpp"
 #include "InGameModule_structs.hpp"
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
-#include "CommonModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch017_ActionAttack_Special.BP_Ch017_ActionAttack_Special_C
-// 0x0018 (0x04C0 - 0x04A8)
+// 0x0018 (0x0508 - 0x04F0)
 class UBP_Ch017_ActionAttack_Special_C final : public UActionAttackSpecialBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	float                                         LoadWaitTime;                                      // 0x04B0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          bRecoveryDying;                                    // 0x04B4(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          bCompleteReoerDyingAutority;                       // 0x04B5(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_4B6[0x2];                                      // 0x04B6(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	float                                         InvincibleTime;                                    // 0x04B8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04F0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	float                                         LoadWaitTime;                                      // 0x04F8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          bRecoveryDying;                                    // 0x04FC(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          bCompleteReoerDyingAutority;                       // 0x04FD(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_4FE[0x2];                                      // 0x04FE(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	float                                         InvincibleTime;                                    // 0x0500(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
 	void ExecuteUbergraph_BP_Ch017_ActionAttack_Special(int32 EntryPoint);
@@ -44,12 +44,14 @@ public:
 	void BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase);
 	void CustomEventAttackRemote(int32 nextPhase);
 	void CustomEventAttackClient(int32 nextPhase);
-	void BP_ActionAttackMainGround();
 	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
-	void BP_ActionAttackRemoteGround();
 	void BP_OnEndAction(const class FName& nextAction);
+	void BP_ActionAttackMainGround();
+	void BP_ActionAttackRemoteGround();
 	void BP_OnBeginAction(const class FName& prevAction);
 	void BP_OnLoadParams(const class FName& ActionName, int32 uniqueLevel);
+
+	bool BP_IsLaunchAttack() const;
 
 public:
 	static class UClass* StaticClass()
@@ -65,6 +67,5 @@ public:
 		return GetDefaultObjImpl<UBP_Ch017_ActionAttack_Special_C>();
 	}
 };
-DUMPER7_ASSERTS_UBP_Ch017_ActionAttack_Special_C;
 
 SDK_NAMESPACE_END

@@ -118,34 +118,6 @@ void UBP_ActionDyingIdle_C::UpdateCharacterDirection()
 }
 
 
-// Function BP_ActionDyingIdle.BP_ActionDyingIdle_C.EnableUnique3
-// (Public, BlueprintCallable, BlueprintEvent)
-
-void UBP_ActionDyingIdle_C::EnableUnique3()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_ActionDyingIdle_C", "EnableUnique3");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function BP_ActionDyingIdle.BP_ActionDyingIdle_C.DisableUnique3
-// (Public, BlueprintCallable, BlueprintEvent)
-
-void UBP_ActionDyingIdle_C::DisableUnique3()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_ActionDyingIdle_C", "DisableUnique3");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
 // Function BP_ActionDyingIdle.BP_ActionDyingIdle_C.BP_IsEnableShiftAction
 // (Event, Protected, HasOutParams, BlueprintCallable, BlueprintEvent, Const)
 // Parameters:

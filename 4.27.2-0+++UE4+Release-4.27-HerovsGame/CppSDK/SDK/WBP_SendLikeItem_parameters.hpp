@@ -28,7 +28,6 @@ public:
 	uint8                                         Pad_39[0x3];                                       // 0x0039(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class FName                                   CallFunc_Conv_StringToName_ReturnValue;            // 0x003C(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SendLikeItem_C_ExecuteUbergraph_WBP_SendLikeItem;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
@@ -26,6 +26,7 @@ public:
 
 public:
 	void ExecuteUbergraph_BP_CC_SpecialSeal(int32 EntryPoint);
+	void BP_OnAgainCondition();
 	void BP_OnBootDamage(const struct FDamageInfo& Info, ECharacterConditionId receivedConditionId);
 	void BP_OnUpdateIntervalValue(float value);
 	void BP_OnHiddenCondition();

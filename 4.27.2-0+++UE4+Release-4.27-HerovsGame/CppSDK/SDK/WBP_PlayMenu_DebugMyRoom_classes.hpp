@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
-#include "SlateCore_structs.hpp"
 #include "Engine_structs.hpp"
 #include "UIFramework_classes.hpp"
+#include "SlateCore_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -46,6 +46,5 @@ public:
 		return GetDefaultObjImpl<UWBP_PlayMenu_DebugMyRoom_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_PlayMenu_DebugMyRoom_C;
 
 SDK_NAMESPACE_END

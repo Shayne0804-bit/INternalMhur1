@@ -10,13 +10,13 @@
 
 #include "Basic.hpp"
 
-#include "SlateCore_structs.hpp"
 #include "Engine_structs.hpp"
 #include "MasterDataModule_structs.hpp"
+#include "SlateCore_structs.hpp"
 #include "OutGameModule_classes.hpp"
-#include "BackendSubsystem_structs.hpp"
 #include "UMG_structs.hpp"
 #include "UIFramework_structs.hpp"
+#include "BackendSubsystem_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -75,6 +75,5 @@ public:
 		return GetDefaultObjImpl<UWBP_PlayMenuHamburgerMenu_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_PlayMenuHamburgerMenu_C;
 
 SDK_NAMESPACE_END

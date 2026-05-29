@@ -32,7 +32,6 @@ public:
 	bool                                          CallFunc_EqualEqual_ObjectObject_ReturnValue;      // 0x0038(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_IsValid_ReturnValue;                      // 0x0039(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Finisher_C_ExecuteUbergraph_BP_Ch202_ActionAttack_Finisher;
 
 // Function BP_Ch202_ActionAttack_Finisher.BP_Ch202_ActionAttack_Finisher_C.BP_OnHitAttackEvent
 // 0x0030 (0x0030 - 0x0000)
@@ -46,7 +45,6 @@ public:
 	class ACharacterBattle*                       hitCharacter;                                      // 0x0020(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         damageValue;                                       // 0x0028(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Finisher_C_BP_OnHitAttackEvent;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

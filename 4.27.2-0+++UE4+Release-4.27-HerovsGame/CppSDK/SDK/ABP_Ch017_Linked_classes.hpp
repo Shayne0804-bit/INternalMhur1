@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
-#include "AnimGraphRuntime_structs.hpp"
 #include "Engine_structs.hpp"
 #include "Engine_classes.hpp"
+#include "AnimGraphRuntime_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -57,6 +57,5 @@ public:
 		return GetDefaultObjImpl<UABP_Ch017_Linked_C>();
 	}
 };
-DUMPER7_ASSERTS_UABP_Ch017_Linked_C;
 
 SDK_NAMESPACE_END

@@ -48,7 +48,7 @@ public:
 struct FMovieSceneGeometryCacheSectionTemplate final : public FMovieSceneEvalTemplate
 {
 public:
-	struct FMovieSceneGeometryCacheSectionTemplateParameters Params;                                 // 0x0020(0x0048)(NativeAccessSpecifierPublic)
+	struct FMovieSceneGeometryCacheSectionTemplateParameters params;                                 // 0x0020(0x0048)(NativeAccessSpecifierPublic)
 };
 
 SDK_NAMESPACE_END

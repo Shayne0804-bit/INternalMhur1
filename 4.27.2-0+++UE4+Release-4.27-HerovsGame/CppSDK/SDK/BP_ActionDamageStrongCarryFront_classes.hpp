@@ -10,19 +10,19 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionDamageStrongCarryFront.BP_ActionDamageStrongCarryFront_C
-// 0x0008 (0x02C0 - 0x02B8)
+// 0x0008 (0x0358 - 0x0350)
 class UBP_ActionDamageStrongCarryFront_C final : public UActionDamageStrongCarryFront
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x02B8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0350(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
 
 public:
 	void ExecuteUbergraph_BP_ActionDamageStrongCarryFront(int32 EntryPoint);
@@ -30,7 +30,7 @@ public:
 	void BP_OnLandingEvent();
 	void BP_OnBeginAction(const class FName& prevAction);
 	void BP_ActionMain();
-	void DecideAnimationId(EAnimationId* AnimationId);
+	void DecideAnimationId(EAnimationId* animationId);
 	float GetCharacterBattleZ();
 	float GetCharacterBattleTime();
 

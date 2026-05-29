@@ -57,6 +57,5 @@ public:
 		return GetDefaultObjImpl<UWBP_PaidCoinsWindow_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_PaidCoinsWindow_C;
 
 SDK_NAMESPACE_END

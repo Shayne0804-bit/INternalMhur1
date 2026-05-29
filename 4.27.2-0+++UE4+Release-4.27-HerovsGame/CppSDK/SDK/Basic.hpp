@@ -45,10 +45,6 @@
 SDK_NAMESPACE_START
 
 using namespace UC;
-using uint8  = uint8_t;
-using uint16 = uint16_t;
-using uint32 = uint32_t;
-using int32  = int32_t;
 
 #include "../NameCollisions.inl"
 
@@ -59,11 +55,11 @@ using int32  = int32_t;
 */
 namespace Offsets
 {
-	constexpr int32 GObjects          = 0x06B40250;
-	constexpr int32 AppendString      = 0x01808870;
-	constexpr int32 GNames            = 0x06B03F00;
-	constexpr int32 GWorld            = 0x06C8CD10;
-	constexpr int32 ProcessEvent      = 0x019F76A0;
+	constexpr int32 GObjects          = 0x06C77FD0;
+	constexpr int32 AppendString      = 0x0183E700;
+	constexpr int32 GNames            = 0x06C3BC80;
+	constexpr int32 GWorld            = 0x06DC5380;
+	constexpr int32 ProcessEvent      = 0x01A2D380;
 	constexpr int32 ProcessEventIdx   = 0x00000044;
 }
 

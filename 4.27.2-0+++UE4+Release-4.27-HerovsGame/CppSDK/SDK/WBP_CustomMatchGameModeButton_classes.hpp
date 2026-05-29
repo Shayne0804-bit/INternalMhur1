@@ -49,6 +49,5 @@ public:
 		return GetDefaultObjImpl<UWBP_CustomMatchGameModeButton_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_CustomMatchGameModeButton_C;
 
 SDK_NAMESPACE_END

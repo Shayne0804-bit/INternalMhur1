@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<UWBP_CommonSortPopup_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_CommonSortPopup_C;
 
 SDK_NAMESPACE_END

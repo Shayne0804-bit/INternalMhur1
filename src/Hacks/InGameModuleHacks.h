@@ -183,7 +183,7 @@ bool InGameHack_ApplyPlayerConfiguration(int characterId, int variationId, int u
  * @param costumeAuraType - Costume aura type (0-5)
  * @return Number of characters successfully changed (0 if failed or no characters found)
  */
-int InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType);
+int InGameHack_ApplyToAllControllers(int characterId, int variationId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType);
 
 /**
  * Get ALL UNIQUE TEAM IDs present in the current match
@@ -231,7 +231,7 @@ std::vector<SDK::ACharacterBattle*> InGameHack_GetCharactersByTeamId(unsigned ch
  * @param costumeAuraType - Costume aura type (0-5)
  * @return true if at least one character was modified, false otherwise
  */
-bool InGameHack_ApplyToTeam(unsigned char teamId, SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType);
+bool InGameHack_ApplyToTeam(unsigned char teamId, int characterId, int variationId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType);
 
 /**
  * Copy skills from the nearest enemy character to the local player
@@ -294,6 +294,17 @@ bool InGameHack_IteratePlayersViaGameStateTraining();
  * Must be called after configuring player via OnSetPlayerCharacter
  */
 bool InGameHack_DecideTraining();
+
+// ============================================================================
+// ROLLSLOT SKILL FUNCTIONS
+// ============================================================================
+
+/**
+ * Test: Launch Ch101 RollSlot Unique Skill
+ * Tests the RollSlot skill activation system with detailed logging to C:\temp\rollslot_launch.log
+ * @return true if skill was launched successfully
+ */
+bool InGameHack_LaunchCh101RollSlotSkill();
 
 // ============================================
 // RECOVERY & INVINCIBILITY HACKS

@@ -26,9 +26,9 @@ public:
 	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0448(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
 	class UWBP_GashaLoadingList_C*                _GashaLoadingBannerList;                           // 0x0450(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 	class UWBP_GashaLoadingView_C*                _GashaLoadingMainView;                             // 0x0458(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 Image;                                             // 0x0460(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 Image_87;                                          // 0x0468(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class USafeZone*                              SafeZone_0;                                        // 0x0470(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UCustomSafeZone*                        CustomSafeZone_0;                                  // 0x0460(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 Image;                                             // 0x0468(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 Image_87;                                          // 0x0470(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 	class UWBP_Background_C*                      WBP_Background;                                    // 0x0478(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 	class UWBP_Background_C*                      WBP_Background_207;                                // 0x0480(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 	class UWBP_charaOperation_C*                  WBP_charaOperation;                                // 0x0488(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
@@ -38,16 +38,16 @@ public:
 	class UWBP_TutorialIcon_C*                    WBP_TutorialIcon;                                  // 0x04A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 
 public:
-	void ExecuteUbergraph_WBP_Gasha(int32 EntryPoint);
-	void OnSetMainMenuLREnable(bool bEmable);
-	void OnOpenStepPopup(int32 stepValue, int32 stepMax, int32 rotValue, int32 rotMax);
-	void BndEvt__WBP_Gasha__prevGashaWindow_K2Node_ComponentBoundEvent_3_gashaPickupChange__DelegateSignature(int32 Add);
-	void BndEvt__WBP_Gasha__nextGashaWindow_K2Node_ComponentBoundEvent_2_gashaPickupChange__DelegateSignature(int32 Add);
-	void BndEvt__WBP_Gasha__debugRunWindowButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void OnSetShowLoading(bool bShow);
-	void BndEvt__WBP_Gasha__debugWindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void OnAddToScreen();
 	void SetMainMenuLREnable(bool bEmable);
+	void OnAddToScreen();
+	void BndEvt__WBP_Gasha__debugWindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
+	void OnSetShowLoading(bool bShow);
+	void BndEvt__WBP_Gasha__debugRunWindowButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
+	void BndEvt__WBP_Gasha__nextGashaWindow_K2Node_ComponentBoundEvent_2_gashaPickupChange__DelegateSignature(int32 Add);
+	void BndEvt__WBP_Gasha__prevGashaWindow_K2Node_ComponentBoundEvent_3_gashaPickupChange__DelegateSignature(int32 Add);
+	void OnOpenStepPopup(int32 stepValue, int32 stepMax, int32 rotValue, int32 rotMax);
+	void OnSetMainMenuLREnable(bool bEmable);
+	void ExecuteUbergraph_WBP_Gasha(int32 EntryPoint);
 
 public:
 	static class UClass* StaticClass()
@@ -63,6 +63,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Gasha_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Gasha_C;
 
 SDK_NAMESPACE_END

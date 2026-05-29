@@ -86,6 +86,15 @@ public:
 	EGooglePADErrorCode                           ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
+// Function GooglePAD.GooglePADFunctionLibrary.GetShowConfirmationDialogStatus
+// 0x0002 (0x0002 - 0x0000)
+struct GooglePADFunctionLibrary_GetShowConfirmationDialogStatus final
+{
+public:
+	EGooglePADConfirmationDialogStatus            Status;                                            // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EGooglePADErrorCode                           ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
 // Function GooglePAD.GooglePADFunctionLibrary.GetStorageMethod
 // 0x0008 (0x0008 - 0x0000)
 struct GooglePADFunctionLibrary_GetStorageMethod final
@@ -154,6 +163,14 @@ public:
 // Function GooglePAD.GooglePADFunctionLibrary.ShowCellularDataConfirmation
 // 0x0001 (0x0001 - 0x0000)
 struct GooglePADFunctionLibrary_ShowCellularDataConfirmation final
+{
+public:
+	EGooglePADErrorCode                           ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GooglePAD.GooglePADFunctionLibrary.ShowConfirmationDialog
+// 0x0001 (0x0001 - 0x0000)
+struct GooglePADFunctionLibrary_ShowConfirmationDialog final
 {
 public:
 	EGooglePADErrorCode                           ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)

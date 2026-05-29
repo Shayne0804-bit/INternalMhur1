@@ -16,7 +16,7 @@
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch013Default.BP_Ch013Default_C
-// 0x0000 (0x0CC0 - 0x0CC0)
+// 0x0000 (0x0CF0 - 0x0CF0)
 class ABP_Ch013Default_C final : public ABP_CharacterBattleDefault_C
 {
 public:

@@ -58,11 +58,11 @@ public:
 };
 
 // Class AntiCheatModule.AntiCheatPlayerController
-// 0x0008 (0x0578 - 0x0570)
+// 0x0008 (0x0588 - 0x0580)
 class AAntiCheatPlayerController : public APlayerController
 {
 public:
-	uint8                                         Pad_570[0x8];                                      // 0x0570(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_580[0x8];                                      // 0x0580(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	void SendAntiCheatMessageClientInternal(const TArray<int8>& message);

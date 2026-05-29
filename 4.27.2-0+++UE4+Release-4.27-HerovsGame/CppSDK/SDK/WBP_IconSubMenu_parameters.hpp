@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "UMG_structs.hpp"
 #include "SlateCore_structs.hpp"
+#include "UMG_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -35,7 +35,6 @@ public:
 	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue_2;                // 0x0050(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FFocusEvent                            K2Node_Event_InFocusEvent;                         // 0x0058(0x0008)(NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_IconSubMenu_C_ExecuteUbergraph_WBP_IconSubMenu;
 
 // Function WBP_IconSubMenu.WBP_IconSubMenu_C.OnRemovedFromFocusPath
 // 0x0008 (0x0008 - 0x0000)
@@ -44,7 +43,6 @@ struct WBP_IconSubMenu_C_OnRemovedFromFocusPath final
 public:
 	struct FFocusEvent                            InFocusEvent;                                      // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_IconSubMenu_C_OnRemovedFromFocusPath;
 
 // Function WBP_IconSubMenu.WBP_IconSubMenu_C.WindowClose
 // 0x0001 (0x0001 - 0x0000)
@@ -53,7 +51,6 @@ struct WBP_IconSubMenu_C_WindowClose final
 public:
 	bool                                          useSe;                                             // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_IconSubMenu_C_WindowClose;
 
 // Function WBP_IconSubMenu.WBP_IconSubMenu_C.OnOpen_Event_0
 // 0x0001 (0x0001 - 0x0000)
@@ -62,7 +59,6 @@ struct WBP_IconSubMenu_C_OnOpen_Event_0 final
 public:
 	bool                                          useSe;                                             // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_IconSubMenu_C_OnOpen_Event_0;
 
 // Function WBP_IconSubMenu.WBP_IconSubMenu_C.On_BlockBG_MouseButtonDown_0
 // 0x0220 (0x0220 - 0x0000)
@@ -75,7 +71,6 @@ public:
 	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue;                  // 0x0160(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FEventReply                            K2Node_MakeStruct_EventReply;                      // 0x0168(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_IconSubMenu_C_On_BlockBG_MouseButtonDown_0;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

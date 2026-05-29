@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
-#include "CoreUObject_structs.hpp"
 #include "Engine_structs.hpp"
 #include "OutGameModule_classes.hpp"
+#include "CoreUObject_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -45,6 +45,5 @@ public:
 		return GetDefaultObjImpl<UWBP_PlayMenuBattleRule_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_PlayMenuBattleRule_C;
 
 SDK_NAMESPACE_END

@@ -46,6 +46,5 @@ public:
 		return GetDefaultObjImpl<UWBP_EventRankList_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_EventRankList_C;
 
 SDK_NAMESPACE_END

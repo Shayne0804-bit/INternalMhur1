@@ -10,15 +10,15 @@
 
 #include "Basic.hpp"
 
-#include "CoreUObject_structs.hpp"
 #include "InGameModule_structs.hpp"
+#include "CoreUObject_structs.hpp"
 
 
 SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
 // Function BP_Ch202_ActionAttack_Melee.BP_Ch202_ActionAttack_Melee_C.ExecuteUbergraph_BP_Ch202_ActionAttack_Melee
-// 0x03A0 (0x03A0 - 0x0000)
+// 0x03B8 (0x03B8 - 0x0000)
 struct BP_Ch202_ActionAttack_Melee_C_ExecuteUbergraph_BP_Ch202_ActionAttack_Melee final
 {
 public:
@@ -102,77 +102,81 @@ public:
 	class AActor*                                 CallFunc_GetAttackLaunchTargetCustom_actor;        // 0x01D8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_MakeVector_ReturnValue;                   // 0x01E0(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_GetChaseSpeedA_speed;                     // 0x01EC(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FAttackChaseInfo                       K2Node_MakeStruct_AttackChaseInfo;                 // 0x01F0(0x0038)(NoDestructor)
-	class UCharacterAttackComponent*              CallFunc_BP_GetAttackComponent_ReturnValue_14;     // 0x0228(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class FName                                   K2Node_Event_prevAction_1;                         // 0x0230(0x0008)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue_4;  // 0x0238(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	int32                                         K2Node_Event_nextPhase_1;                          // 0x0240(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_SwitchInteger_CmpSuccess_2;                 // 0x0244(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_245[0x3];                                      // 0x0245(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         K2Node_Event_nextPhase;                            // 0x0248(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         CallFunc_MakeLiteralByte_ReturnValue_6;            // 0x024C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_SwitchInteger_CmpSuccess_3;                 // 0x024D(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_24E[0x2];                                      // 0x024E(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue_8;            // 0x0250(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         CallFunc_MakeLiteralByte_ReturnValue_7;            // 0x0258(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         CallFunc_MakeLiteralByte_ReturnValue_8;            // 0x0259(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_25A[0x6];                                      // 0x025A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
-	class UCharacterAttackComponent*              CallFunc_BP_GetAttackComponent_ReturnValue_15;     // 0x0260(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         CallFunc_ToFrameTime_ReturnValue_3;                // 0x0268(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_26C[0x4];                                      // 0x026C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_5; // 0x0270(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FVector                                CallFunc_GetActorForwardVector_ReturnValue;        // 0x0278(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_284[0x4];                                      // 0x0284(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue_5;  // 0x0288(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue_9;            // 0x0290(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue_10;           // 0x0298(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_6; // 0x02A0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue_6;  // 0x02A8(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FVector                                CallFunc_GetActorForwardVector_ReturnValue_1;      // 0x02B0(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_2BC[0x4];                                      // 0x02BC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class UCharacterAttackComponent*              CallFunc_BP_GetAttackComponent_ReturnValue_16;     // 0x02C0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_BP_IsEnableAttackLanding_ReturnValue;     // 0x02C8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_2C9[0x3];                                      // 0x02C9(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FVector                                K2Node_Event_hitLocation;                          // 0x02CC(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class FName                                   K2Node_Event_projectileName;                       // 0x02D8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class FName                                   K2Node_Event_damageParamName;                      // 0x02E0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class ACharacterBattle*                       K2Node_Event_hitCharacter;                         // 0x02E8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         K2Node_Event_damageValue;                          // 0x02F0(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_SwitchName_CmpSuccess;                      // 0x02F4(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_2F5[0x3];                                      // 0x02F5(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue_7;  // 0x02F8(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue_11;           // 0x0300(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         CallFunc_MakeLiteralByte_ReturnValue_9;            // 0x0308(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_309[0x7];                                      // 0x0309(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UCharacterState*                        CallFunc_BP_GetOwnerState_ReturnValue_1;           // 0x0310(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_IsLaunchGround_ReturnValue;               // 0x0318(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_319[0x7];                                      // 0x0319(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue_8;  // 0x0320(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UCharacterState*                        CallFunc_BP_GetOwnerState_ReturnValue_2;           // 0x0328(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_IsLaunchGround_ReturnValue_1;             // 0x0330(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	bool                                          CallFunc_IsLaunchGround_ReturnValue_2;             // 0x0331(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_332[0x6];                                      // 0x0332(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
-	class UCharacterState*                        CallFunc_BP_GetOwnerState_ReturnValue_3;           // 0x0338(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         CallFunc_MakeLiteralByte_ReturnValue_10;           // 0x0340(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_341[0x7];                                      // 0x0341(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UCharacterAttackComponent*              CallFunc_BP_GetAttackComponent_ReturnValue_17;     // 0x0348(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue_9;  // 0x0350(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_7; // 0x0358(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UCharacterAttackComponent*              CallFunc_BP_GetAttackComponent_ReturnValue_18;     // 0x0360(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	int32                                         CallFunc_Add_IntInt_ReturnValue;                   // 0x0368(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         CallFunc_Conv_IntToByte_ReturnValue_1;             // 0x036C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_LessEqual_ByteByte_ReturnValue_1;         // 0x036D(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_36E[0x2];                                      // 0x036E(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FAttackPitchRotationInfo               K2Node_MakeStruct_AttackPitchRotationInfo;         // 0x0370(0x001C)(NoDestructor)
-	class FName                                   K2Node_Event_prevAction;                           // 0x038C(0x0008)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_ChaseStart_ReturnValue;                   // 0x0394(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         CallFunc_MakeLiteralByte_ReturnValue_11;           // 0x0395(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EAttackLaunchType                             CallFunc_GetCurrentLaunchType_ReturnValue;         // 0x0396(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x0397(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	bool                                          CallFunc_IsActionFromJumpBegin_ReturnValue;        // 0x0398(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	bool                                          CallFunc_BooleanOR_ReturnValue;                    // 0x0399(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	struct FAttackChaseInfo                       K2Node_MakeStruct_AttackChaseInfo;                 // 0x01F0(0x003C)(NoDestructor)
+	uint8                                         Pad_22C[0x4];                                      // 0x022C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class UCharacterAttackComponent*              CallFunc_BP_GetAttackComponent_ReturnValue_14;     // 0x0230(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class FName                                   K2Node_Event_prevAction_1;                         // 0x0238(0x0008)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue_4;  // 0x0240(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         K2Node_Event_nextPhase_1;                          // 0x0248(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_SwitchInteger_CmpSuccess_2;                 // 0x024C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_24D[0x3];                                      // 0x024D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         K2Node_Event_nextPhase;                            // 0x0250(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         CallFunc_MakeLiteralByte_ReturnValue_6;            // 0x0254(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_SwitchInteger_CmpSuccess_3;                 // 0x0255(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_256[0x2];                                      // 0x0256(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue_8;            // 0x0258(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         CallFunc_MakeLiteralByte_ReturnValue_7;            // 0x0260(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         CallFunc_MakeLiteralByte_ReturnValue_8;            // 0x0261(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_262[0x6];                                      // 0x0262(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
+	class UCharacterAttackComponent*              CallFunc_BP_GetAttackComponent_ReturnValue_15;     // 0x0268(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         CallFunc_ToFrameTime_ReturnValue_3;                // 0x0270(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_274[0x4];                                      // 0x0274(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_5; // 0x0278(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FVector                                CallFunc_GetActorForwardVector_ReturnValue;        // 0x0280(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_28C[0x4];                                      // 0x028C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue_5;  // 0x0290(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue_9;            // 0x0298(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue_10;           // 0x02A0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_6; // 0x02A8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue_6;  // 0x02B0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FVector                                CallFunc_GetActorForwardVector_ReturnValue_1;      // 0x02B8(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_2C4[0x4];                                      // 0x02C4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_7; // 0x02C8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         CallFunc_BP_GetVariationNo_ReturnValue;            // 0x02D0(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_SwitchInteger_CmpSuccess_4;                 // 0x02D4(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_2D5[0x3];                                      // 0x02D5(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	class UCharacterAttackComponent*              CallFunc_BP_GetAttackComponent_ReturnValue_16;     // 0x02D8(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_BP_IsEnableAttackLanding_ReturnValue;     // 0x02E0(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_2E1[0x3];                                      // 0x02E1(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FVector                                K2Node_Event_hitLocation;                          // 0x02E4(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class FName                                   K2Node_Event_projectileName;                       // 0x02F0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class FName                                   K2Node_Event_damageParamName;                      // 0x02F8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class ACharacterBattle*                       K2Node_Event_hitCharacter;                         // 0x0300(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         K2Node_Event_damageValue;                          // 0x0308(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_SwitchName_CmpSuccess;                      // 0x030C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_30D[0x3];                                      // 0x030D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue_7;  // 0x0310(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue_11;           // 0x0318(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         CallFunc_MakeLiteralByte_ReturnValue_9;            // 0x0320(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_321[0x7];                                      // 0x0321(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UCharacterState*                        CallFunc_BP_GetOwnerState_ReturnValue_1;           // 0x0328(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_IsLaunchGround_ReturnValue;               // 0x0330(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_331[0x7];                                      // 0x0331(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue_8;  // 0x0338(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UCharacterState*                        CallFunc_BP_GetOwnerState_ReturnValue_2;           // 0x0340(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_IsLaunchGround_ReturnValue_1;             // 0x0348(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_IsLaunchGround_ReturnValue_2;             // 0x0349(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_34A[0x6];                                      // 0x034A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
+	class UCharacterState*                        CallFunc_BP_GetOwnerState_ReturnValue_3;           // 0x0350(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         CallFunc_MakeLiteralByte_ReturnValue_10;           // 0x0358(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_359[0x7];                                      // 0x0359(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UCharacterAttackComponent*              CallFunc_BP_GetAttackComponent_ReturnValue_17;     // 0x0360(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue_9;  // 0x0368(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_8; // 0x0370(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UCharacterAttackComponent*              CallFunc_BP_GetAttackComponent_ReturnValue_18;     // 0x0378(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         CallFunc_Add_IntInt_ReturnValue;                   // 0x0380(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         CallFunc_Conv_IntToByte_ReturnValue_1;             // 0x0384(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_LessEqual_ByteByte_ReturnValue_1;         // 0x0385(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_386[0x2];                                      // 0x0386(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FAttackPitchRotationInfo               K2Node_MakeStruct_AttackPitchRotationInfo;         // 0x0388(0x001C)(NoDestructor)
+	class FName                                   K2Node_Event_prevAction;                           // 0x03A4(0x0008)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_ChaseStart_ReturnValue;                   // 0x03AC(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         CallFunc_MakeLiteralByte_ReturnValue_11;           // 0x03AD(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EAttackLaunchType                             CallFunc_GetCurrentLaunchType_ReturnValue;         // 0x03AE(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x03AF(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_IsActionFromJumpBegin_ReturnValue;        // 0x03B0(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_BooleanOR_ReturnValue;                    // 0x03B1(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Melee_C_ExecuteUbergraph_BP_Ch202_ActionAttack_Melee;
 
 // Function BP_Ch202_ActionAttack_Melee.BP_Ch202_ActionAttack_Melee_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -181,7 +185,6 @@ struct BP_Ch202_ActionAttack_Melee_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Melee_C_BP_OnBeginAction;
 
 // Function BP_Ch202_ActionAttack_Melee.BP_Ch202_ActionAttack_Melee_C.BP_OnHitAttackEvent
 // 0x0030 (0x0030 - 0x0000)
@@ -195,7 +198,6 @@ public:
 	class ACharacterBattle*                       hitCharacter;                                      // 0x0020(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         damageValue;                                       // 0x0028(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Melee_C_BP_OnHitAttackEvent;
 
 // Function BP_Ch202_ActionAttack_Melee.BP_Ch202_ActionAttack_Melee_C.BP_OnChangeAttackPhaseGroundForRemote
 // 0x0004 (0x0004 - 0x0000)
@@ -204,7 +206,6 @@ struct BP_Ch202_ActionAttack_Melee_C_BP_OnChangeAttackPhaseGroundForRemote final
 public:
 	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Melee_C_BP_OnChangeAttackPhaseGroundForRemote;
 
 // Function BP_Ch202_ActionAttack_Melee.BP_Ch202_ActionAttack_Melee_C.BP_OnChangeAttackPhaseGround
 // 0x0004 (0x0004 - 0x0000)
@@ -213,7 +214,6 @@ struct BP_Ch202_ActionAttack_Melee_C_BP_OnChangeAttackPhaseGround final
 public:
 	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Melee_C_BP_OnChangeAttackPhaseGround;
 
 // Function BP_Ch202_ActionAttack_Melee.BP_Ch202_ActionAttack_Melee_C.BP_OnBeginActionAttackGround
 // 0x0008 (0x0008 - 0x0000)
@@ -222,7 +222,6 @@ struct BP_Ch202_ActionAttack_Melee_C_BP_OnBeginActionAttackGround final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Melee_C_BP_OnBeginActionAttackGround;
 
 // Function BP_Ch202_ActionAttack_Melee.BP_Ch202_ActionAttack_Melee_C.BP_OnChangeAttackPhaseAirForRemote
 // 0x0004 (0x0004 - 0x0000)
@@ -231,7 +230,6 @@ struct BP_Ch202_ActionAttack_Melee_C_BP_OnChangeAttackPhaseAirForRemote final
 public:
 	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Melee_C_BP_OnChangeAttackPhaseAirForRemote;
 
 // Function BP_Ch202_ActionAttack_Melee.BP_Ch202_ActionAttack_Melee_C.BP_OnChangeAttackPhaseAir
 // 0x0004 (0x0004 - 0x0000)
@@ -240,7 +238,6 @@ struct BP_Ch202_ActionAttack_Melee_C_BP_OnChangeAttackPhaseAir final
 public:
 	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Melee_C_BP_OnChangeAttackPhaseAir;
 
 // Function BP_Ch202_ActionAttack_Melee.BP_Ch202_ActionAttack_Melee_C.BP_OnBeginActionAttackAir
 // 0x0008 (0x0008 - 0x0000)
@@ -249,7 +246,6 @@ struct BP_Ch202_ActionAttack_Melee_C_BP_OnBeginActionAttackAir final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Melee_C_BP_OnBeginActionAttackAir;
 
 // Function BP_Ch202_ActionAttack_Melee.BP_Ch202_ActionAttack_Melee_C.BP_OnNotificationAttackDedicatedEvent
 // 0x0001 (0x0001 - 0x0000)
@@ -258,7 +254,6 @@ struct BP_Ch202_ActionAttack_Melee_C_BP_OnNotificationAttackDedicatedEvent final
 public:
 	EAttackDedicatedEventId                       ID;                                                // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Melee_C_BP_OnNotificationAttackDedicatedEvent;
 
 // Function BP_Ch202_ActionAttack_Melee.BP_Ch202_ActionAttack_Melee_C.GetMoveDirection
 // 0x0028 (0x0028 - 0x0000)
@@ -270,7 +265,6 @@ public:
 	class UCharacterCommandComponent*             CallFunc_BP_GetOwnerCommand_ReturnValue;           // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_BP_GetMoveDirection_ReturnValue;          // 0x0018(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Melee_C_GetMoveDirection;
 
 // Function BP_Ch202_ActionAttack_Melee.BP_Ch202_ActionAttack_Melee_C.InitAttack
 // 0x0010 (0x0010 - 0x0000)
@@ -281,7 +275,6 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue;    // 0x0008(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Melee_C_InitAttack;
 
 // Function BP_Ch202_ActionAttack_Melee.BP_Ch202_ActionAttack_Melee_C.MeleeFinishEvent
 // 0x0020 (0x0020 - 0x0000)
@@ -294,7 +287,6 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue;   // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_Ch202_MeleeFinishHit_performed;           // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Melee_C_MeleeFinishEvent;
 
 // Function BP_Ch202_ActionAttack_Melee.BP_Ch202_ActionAttack_Melee_C.Brake Transition By AttackAction
 // 0x0038 (0x0038 - 0x0000)
@@ -312,7 +304,6 @@ public:
 	class FName                                   CallFunc_BP_GetPrevActionNameFromLayer_ReturnValue; // 0x002C(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_NotEqual_NameName_ReturnValue;            // 0x0034(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Melee_C_Brake_Transition_By_AttackAction;
 
 // Function BP_Ch202_ActionAttack_Melee.BP_Ch202_ActionAttack_Melee_C.Clear Level Up Flag
 // 0x0018 (0x0018 - 0x0000)
@@ -327,7 +318,6 @@ public:
 	int32                                         CallFunc_Array_Length_ReturnValue;                 // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_Less_IntInt_ReturnValue;                  // 0x0014(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Melee_C_Clear_Level_Up_Flag;
 
 // Function BP_Ch202_ActionAttack_Melee.BP_Ch202_ActionAttack_Melee_C.GetChaseSpeedA
 // 0x0060 (0x0060 - 0x0000)
@@ -354,7 +344,6 @@ public:
 	struct FVector                                CallFunc_K2_GetActorLocation_ReturnValue_1;        // 0x0050(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_Vector_Distance_ReturnValue;              // 0x005C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch202_ActionAttack_Melee_C_GetChaseSpeedA;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

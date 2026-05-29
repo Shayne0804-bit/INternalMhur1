@@ -36,6 +36,5 @@ public:
 		return GetDefaultObjImpl<UWBP_TextCellParts_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_TextCellParts_C;
 
 SDK_NAMESPACE_END

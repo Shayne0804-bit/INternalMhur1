@@ -17,7 +17,7 @@
 SDK_NAMESPACE_START
 
 // Function WBP_SerialCode.WBP_SerialCode_C.ExecuteUbergraph_WBP_SerialCode
-// (Final, UbergraphFunction)
+// (Final, UbergraphFunction, HasDefaults)
 // Parameters:
 // int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
@@ -31,6 +31,78 @@ void UWBP_SerialCode_C::ExecuteUbergraph_WBP_SerialCode(int32 EntryPoint)
 	Params::WBP_SerialCode_C_ExecuteUbergraph_WBP_SerialCode Parms{};
 
 	Parms.EntryPoint = EntryPoint;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_SerialCode.WBP_SerialCode_C.BndEvt__WBP_SerialCode__SerialCode_InputText_3_K2Node_ComponentBoundEvent_7_OnChangeText__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// const class FText&                      Text                                                   (BlueprintVisible, BlueprintReadOnly, Parm)
+// bool                                    bSendable                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+// ETextCommit                             CommitMethod                                           (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_SerialCode_C::BndEvt__WBP_SerialCode__SerialCode_InputText_3_K2Node_ComponentBoundEvent_7_OnChangeText__DelegateSignature(const class FText& Text, bool bSendable, ETextCommit CommitMethod)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_SerialCode_C", "BndEvt__WBP_SerialCode__SerialCode_InputText_3_K2Node_ComponentBoundEvent_7_OnChangeText__DelegateSignature");
+
+	Params::WBP_SerialCode_C_BndEvt__WBP_SerialCode__SerialCode_InputText_3_K2Node_ComponentBoundEvent_7_OnChangeText__DelegateSignature Parms{};
+
+	Parms.Text = std::move(Text);
+	Parms.bSendable = bSendable;
+	Parms.CommitMethod = CommitMethod;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_SerialCode.WBP_SerialCode_C.BndEvt__WBP_SerialCode__SerialCode_InputText_2_K2Node_ComponentBoundEvent_6_OnChangeText__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// const class FText&                      Text                                                   (BlueprintVisible, BlueprintReadOnly, Parm)
+// bool                                    bSendable                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+// ETextCommit                             CommitMethod                                           (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_SerialCode_C::BndEvt__WBP_SerialCode__SerialCode_InputText_2_K2Node_ComponentBoundEvent_6_OnChangeText__DelegateSignature(const class FText& Text, bool bSendable, ETextCommit CommitMethod)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_SerialCode_C", "BndEvt__WBP_SerialCode__SerialCode_InputText_2_K2Node_ComponentBoundEvent_6_OnChangeText__DelegateSignature");
+
+	Params::WBP_SerialCode_C_BndEvt__WBP_SerialCode__SerialCode_InputText_2_K2Node_ComponentBoundEvent_6_OnChangeText__DelegateSignature Parms{};
+
+	Parms.Text = std::move(Text);
+	Parms.bSendable = bSendable;
+	Parms.CommitMethod = CommitMethod;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_SerialCode.WBP_SerialCode_C.BndEvt__WBP_SerialCode__SerialCode_InputText_1_K2Node_ComponentBoundEvent_5_OnChangeText__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// const class FText&                      Text                                                   (BlueprintVisible, BlueprintReadOnly, Parm)
+// bool                                    bSendable                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+// ETextCommit                             CommitMethod                                           (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_SerialCode_C::BndEvt__WBP_SerialCode__SerialCode_InputText_1_K2Node_ComponentBoundEvent_5_OnChangeText__DelegateSignature(const class FText& Text, bool bSendable, ETextCommit CommitMethod)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_SerialCode_C", "BndEvt__WBP_SerialCode__SerialCode_InputText_1_K2Node_ComponentBoundEvent_5_OnChangeText__DelegateSignature");
+
+	Params::WBP_SerialCode_C_BndEvt__WBP_SerialCode__SerialCode_InputText_1_K2Node_ComponentBoundEvent_5_OnChangeText__DelegateSignature Parms{};
+
+	Parms.Text = std::move(Text);
+	Parms.bSendable = bSendable;
+	Parms.CommitMethod = CommitMethod;
 
 	UObject::ProcessEvent(Func, &Parms);
 }

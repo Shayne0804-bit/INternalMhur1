@@ -36,6 +36,5 @@ public:
 		return GetDefaultObjImpl<UWBP_MyAd_8_100107_S_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_MyAd_8_100107_S_C;
 
 SDK_NAMESPACE_END

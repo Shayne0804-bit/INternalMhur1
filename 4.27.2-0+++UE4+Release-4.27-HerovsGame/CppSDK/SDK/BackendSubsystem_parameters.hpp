@@ -32,12 +32,12 @@ public:
 };
 
 // Function BackendSubsystem.DbpDedicatedServer.GetPlayer
-// 0x0C90 (0x0C90 - 0x0000)
+// 0x0C98 (0x0C98 - 0x0000)
 struct DbpDedicatedServer_GetPlayer final
 {
 public:
 	class FString                                 playerId;                                          // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FDbPlayerParam                         ReturnValue;                                       // 0x0010(0x0C80)(Parm, OutParm, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FDbPlayerParam                         ReturnValue;                                       // 0x0010(0x0C88)(Parm, OutParm, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function BackendSubsystem.DbpDedicatedServer.GetPlayerList
@@ -512,6 +512,24 @@ public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
+// Function BackendSubsystem.BackendSubsystem.CheckEnableSerialCode
+// 0x0004 (0x0004 - 0x0000)
+struct BackendSubsystem_CheckEnableSerialCode final
+{
+public:
+	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function BackendSubsystem.BackendSubsystem.CheckEnableSerialCodeImpl
+// 0x0018 (0x0018 - 0x0000)
+struct BackendSubsystem_CheckEnableSerialCodeImpl final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FWebApiArg>                     args;                                              // 0x0008(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
 // Function BackendSubsystem.BackendSubsystem.CheckFavoriteName
 // 0x0018 (0x0018 - 0x0000)
 struct BackendSubsystem_CheckFavoriteName final
@@ -530,6 +548,14 @@ public:
 	int32                                         requestId;                                         // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FWebApiArg>                     args;                                              // 0x0008(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function BackendSubsystem.BackendSubsystem.CheckFilterProfanityCommand
+// 0x0010 (0x0010 - 0x0000)
+struct BackendSubsystem_CheckFilterProfanityCommand final
+{
+public:
+	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
 // Function BackendSubsystem.BackendSubsystem.CheckGuildName
@@ -591,6 +617,26 @@ public:
 // Function BackendSubsystem.BackendSubsystem.CheckLimitTimePlayerNameImpl
 // 0x0018 (0x0018 - 0x0000)
 struct BackendSubsystem_CheckLimitTimePlayerNameImpl final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FWebApiArg>                     args;                                              // 0x0008(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function BackendSubsystem.BackendSubsystem.CheckNGWord
+// 0x0018 (0x0018 - 0x0000)
+struct BackendSubsystem_CheckNGWord final
+{
+public:
+	class FString                                 checkedName;                                       // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         ReturnValue;                                       // 0x0010(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function BackendSubsystem.BackendSubsystem.CheckNGWordImpl
+// 0x0018 (0x0018 - 0x0000)
+struct BackendSubsystem_CheckNGWordImpl final
 {
 public:
 	int32                                         requestId;                                         // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -706,14 +752,16 @@ public:
 };
 
 // Function BackendSubsystem.BackendSubsystem.CreateCustomMatchRoomID
-// 0x000C (0x000C - 0x0000)
+// 0x0010 (0x0010 - 0x0000)
 struct BackendSubsystem_CreateCustomMatchRoomID final
 {
 public:
 	bool                                          bHiddenIdFlag;                                     // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         playModeCode;                                      // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bAllowChangePlayerName;                            // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         ReturnValue;                                       // 0x000C(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function BackendSubsystem.BackendSubsystem.CreateCustomMatchRoomIDImpl
@@ -3410,6 +3458,24 @@ public:
 	TArray<int32>                                 ranks;                                             // 0x0018(0x0010)(Parm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
 
+// Function BackendSubsystem.BackendSubsystem.ReducePlayerNameChangeLimitTime
+// 0x0004 (0x0004 - 0x0000)
+struct BackendSubsystem_ReducePlayerNameChangeLimitTime final
+{
+public:
+	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function BackendSubsystem.BackendSubsystem.ReducePlayerNameChangeLimitTimeImpl
+// 0x0018 (0x0018 - 0x0000)
+struct BackendSubsystem_ReducePlayerNameChangeLimitTimeImpl final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FWebApiArg>                     args;                                              // 0x0008(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
 // Function BackendSubsystem.BackendSubsystem.RegisterMissionProgress
 // 0x000C (0x000C - 0x0000)
 struct BackendSubsystem_RegisterMissionProgress final
@@ -3470,6 +3536,22 @@ public:
 // Function BackendSubsystem.BackendSubsystem.ResetDedicatedServerCommand
 // 0x0010 (0x0010 - 0x0000)
 struct BackendSubsystem_ResetDedicatedServerCommand final
+{
+public:
+	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function BackendSubsystem.BackendSubsystem.ResetFilterProfanityCommand
+// 0x0010 (0x0010 - 0x0000)
+struct BackendSubsystem_ResetFilterProfanityCommand final
+{
+public:
+	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function BackendSubsystem.BackendSubsystem.ResetForceFakePlatformCommand
+// 0x0010 (0x0010 - 0x0000)
+struct BackendSubsystem_ResetForceFakePlatformCommand final
 {
 public:
 	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
@@ -4156,6 +4238,14 @@ public:
 	class FString                                 platform;                                          // 0x0020(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
+// Function BackendSubsystem.BackendSubsystem.SetCustomMatchCustomNameCommand
+// 0x0010 (0x0010 - 0x0000)
+struct BackendSubsystem_SetCustomMatchCustomNameCommand final
+{
+public:
+	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
 // Function BackendSubsystem.BackendSubsystem.SetCustomRoomMember
 // 0x0018 (0x0018 - 0x0000)
 struct BackendSubsystem_SetCustomRoomMember final
@@ -4180,6 +4270,16 @@ struct BackendSubsystem_SetCustomRoomMemberData final
 {
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function BackendSubsystem.BackendSubsystem.SetCustomRoomMemberData_CustomName
+// 0x0018 (0x0018 - 0x0000)
+struct BackendSubsystem_SetCustomRoomMemberData_CustomName final
+{
+public:
+	class FString                                 myCustomName;                                      // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // Function BackendSubsystem.BackendSubsystem.SetCustomRoomSettings
@@ -4217,6 +4317,14 @@ public:
 // Function BackendSubsystem.BackendSubsystem.SetFakeNetScoreCommand
 // 0x0010 (0x0010 - 0x0000)
 struct BackendSubsystem_SetFakeNetScoreCommand final
+{
+public:
+	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function BackendSubsystem.BackendSubsystem.SetForceFakeSengakujiWebAPICommand
+// 0x0010 (0x0010 - 0x0000)
+struct BackendSubsystem_SetForceFakeSengakujiWebAPICommand final
 {
 public:
 	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
@@ -4502,13 +4610,14 @@ public:
 };
 
 // Function BackendSubsystem.BackendSubsystem.UnlockCustomizeCostumeRoleSlot
-// 0x000C (0x000C - 0x0000)
+// 0x0010 (0x0010 - 0x0000)
 struct BackendSubsystem_UnlockCustomizeCostumeRoleSlot final
 {
 public:
 	int32                                         CharacterCode;                                     // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         CostumeCode;                                       // 0x0004(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         unlockNum;                                         // 0x0008(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         ReturnValue;                                       // 0x000C(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function BackendSubsystem.BackendSubsystem.UnlockCustomizeCostumeRoleSlotImpl
@@ -6247,11 +6356,11 @@ public:
 };
 
 // Function BackendSubsystem.DbpCharacterCustomize.GetEquippedCostume
-// 0x0828 (0x0828 - 0x0000)
+// 0x0830 (0x0830 - 0x0000)
 struct DbpCharacterCustomize_GetEquippedCostume final
 {
 public:
-	struct FDbsCostumeParam                       ReturnValue;                                       // 0x0000(0x0828)(Parm, OutParm, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FDbsCostumeParam                       ReturnValue;                                       // 0x0000(0x0830)(Parm, OutParm, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function BackendSubsystem.DbpCharacterCustomize.GetEquippedCostumeRoleSlot
@@ -6263,11 +6372,11 @@ public:
 };
 
 // Function BackendSubsystem.DbpCharacterCustomize.GetEquippedVariation
-// 0x05D0 (0x05D0 - 0x0000)
+// 0x05D8 (0x05D8 - 0x0000)
 struct DbpCharacterCustomize_GetEquippedVariation final
 {
 public:
-	struct FDbsVariationParam                     ReturnValue;                                       // 0x0000(0x05D0)(Parm, OutParm, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FDbsVariationParam                     ReturnValue;                                       // 0x0000(0x05D8)(Parm, OutParm, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function BackendSubsystem.DbpCharacterCustomize.GetPresets
@@ -6346,13 +6455,13 @@ public:
 };
 
 // Function BackendSubsystem.DbpCharacterCustomize.GetCharacter
-// 0x23A8 (0x23A8 - 0x0000)
+// 0x23D0 (0x23D0 - 0x0000)
 struct DbpCharacterCustomize_GetCharacter final
 {
 public:
-	struct FDbMyCharacterParam                    Character;                                         // 0x0000(0x23A0)(Parm, OutParm, NativeAccessSpecifierPublic)
-	bool                                          ReturnValue;                                       // 0x23A0(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_23A1[0x7];                                     // 0x23A1(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	struct FDbMyCharacterParam                    Character;                                         // 0x0000(0x23C8)(Parm, OutParm, NativeAccessSpecifierPublic)
+	bool                                          ReturnValue;                                       // 0x23C8(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_23C9[0x7];                                     // 0x23C9(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // Function BackendSubsystem.DbpCharacterCustomize.GetCharacterCode
@@ -6808,7 +6917,7 @@ public:
 struct DbpLoginBonus_GetLoginBonusList final
 {
 public:
-	struct FDbLoginBonusListParam                 list;                                              // 0x0000(0x0070)(Parm, OutParm, NativeAccessSpecifierPublic)
+	struct FDbLoginBonusListParam                 List;                                              // 0x0000(0x0070)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
 
 // Function BackendSubsystem.DbpLoginBonus.GetReceivedDailyBonusItemList
@@ -7188,12 +7297,12 @@ public:
 };
 
 // Function BackendSubsystem.DbpMainMenu.GetSquadMember
-// 0x0C90 (0x0C90 - 0x0000)
+// 0x0C98 (0x0C98 - 0x0000)
 struct DbpMainMenu_GetSquadMember final
 {
 public:
 	class FString                                 playerId;                                          // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FDbPlayerParam                         ReturnValue;                                       // 0x0010(0x0C80)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FDbPlayerParam                         ReturnValue;                                       // 0x0010(0x0C88)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function BackendSubsystem.DbpMainMenu.GetSquadMemberCount
@@ -7682,12 +7791,12 @@ public:
 };
 
 // Function BackendSubsystem.DbpPlayerList.GetPlayer
-// 0x0C90 (0x0C90 - 0x0000)
+// 0x0C98 (0x0C98 - 0x0000)
 struct DbpPlayerList_GetPlayer final
 {
 public:
 	class FString                                 playerId;                                          // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FDbPlayerParam                         ReturnValue;                                       // 0x0010(0x0C80)(Parm, OutParm, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FDbPlayerParam                         ReturnValue;                                       // 0x0010(0x0C88)(Parm, OutParm, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function BackendSubsystem.DbpPlayerList.GetPlayerList
@@ -8329,13 +8438,13 @@ public:
 };
 
 // Function BackendSubsystem.DbpShopList.GetShopItem
-// 0x07F0 (0x07F0 - 0x0000)
+// 0x07F8 (0x07F8 - 0x0000)
 struct DbpShopList_GetShopItem final
 {
 public:
 	int32                                         shopCode;                                          // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         shopItemCode;                                      // 0x0004(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FDbShopItemParam                       ReturnValue;                                       // 0x0008(0x07E8)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
+	struct FDbShopItemParam                       ReturnValue;                                       // 0x0008(0x07F0)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
 // Function BackendSubsystem.MasterDataCache.Clear
@@ -8828,13 +8937,13 @@ public:
 };
 
 // Function BackendSubsystem.MasterDataCache.GetNameplateBg
-// 0x0030 (0x0030 - 0x0000)
+// 0x0038 (0x0038 - 0x0000)
 struct MasterDataCache_GetNameplateBg final
 {
 public:
 	int32                                         code;                                              // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FMasterDataNameplateBg                 masterData;                                        // 0x0008(0x0028)(Parm, OutParm, NativeAccessSpecifierPublic)
+	struct FMasterDataNameplateBg                 masterData;                                        // 0x0008(0x0030)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
 
 // Function BackendSubsystem.MasterDataCache.GetPack
@@ -8878,13 +8987,13 @@ public:
 };
 
 // Function BackendSubsystem.MasterDataCache.GetPlayMenuMenulist
-// 0x0050 (0x0050 - 0x0000)
+// 0x0058 (0x0058 - 0x0000)
 struct MasterDataCache_GetPlayMenuMenulist final
 {
 public:
 	int32                                         code;                                              // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FMasterDataPlayMenuMenulist            masterData;                                        // 0x0008(0x0048)(Parm, OutParm, NativeAccessSpecifierPublic)
+	struct FMasterDataPlayMenuMenulist            masterData;                                        // 0x0008(0x0050)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
 
 // Function BackendSubsystem.MasterDataCache.GetPlayMode

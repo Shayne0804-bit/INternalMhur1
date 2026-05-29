@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "UMG_structs.hpp"
 #include "SlateCore_structs.hpp"
+#include "UMG_structs.hpp"
 #include "UIFramework_structs.hpp"
 
 
@@ -43,7 +43,6 @@ public:
 	class UAppWidgetWork*                         CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x0070(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x0078(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_PlayMenuHamburgerMenuListL_C_ExecuteUbergraph_WBP_PlayMenuHamburgerMenuListL;
 
 // Function WBP_PlayMenuHamburgerMenuListL.WBP_PlayMenuHamburgerMenuListL_C.SetWidgetEnableEvent
 // 0x0001 (0x0001 - 0x0000)
@@ -52,7 +51,6 @@ struct WBP_PlayMenuHamburgerMenuListL_C_SetWidgetEnableEvent final
 public:
 	bool                                          enable;                                            // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_PlayMenuHamburgerMenuListL_C_SetWidgetEnableEvent;
 
 // Function WBP_PlayMenuHamburgerMenuListL.WBP_PlayMenuHamburgerMenuListL_C.OnMouseMove
 // 0x0160 (0x0160 - 0x0000)
@@ -63,7 +61,6 @@ public:
 	struct FPointerEvent                          MouseEvent;                                        // 0x0038(0x0070)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ReferenceParm)
 	struct FEventReply                            ReturnValue;                                       // 0x00A8(0x00B8)(Parm, OutParm, ReturnParm)
 };
-DUMPER7_ASSERTS_WBP_PlayMenuHamburgerMenuListL_C_OnMouseMove;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

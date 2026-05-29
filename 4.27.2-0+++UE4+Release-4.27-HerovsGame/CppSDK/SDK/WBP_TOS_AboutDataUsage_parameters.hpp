@@ -40,7 +40,6 @@ public:
 	uint8                                         CallFunc_Conv_IntToByte_ReturnValue_1;             // 0x0058(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	uint8                                         CallFunc_GetValidValue_ReturnValue_1;              // 0x0059(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TOS_AboutDataUsage_C_ExecuteUbergraph_WBP_TOS_AboutDataUsage;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

@@ -410,6 +410,26 @@ void UBP_Ch202_ActionAttack_Unique3_C::TickTargetTraceMove()
 }
 
 
+// Function BP_Ch202_ActionAttack_Unique3.BP_Ch202_ActionAttack_Unique3_C.BP_OnRecieveActionPing
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// int32                                   ping                                                   (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_Ch202_ActionAttack_Unique3_C::BP_OnRecieveActionPing(int32 ping)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch202_ActionAttack_Unique3_C", "BP_OnRecieveActionPing");
+
+	Params::BP_Ch202_ActionAttack_Unique3_C_BP_OnRecieveActionPing Parms{};
+
+	Parms.ping = ping;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
 // Function BP_Ch202_ActionAttack_Unique3.BP_Ch202_ActionAttack_Unique3_C.AnimID_Unique3_0
 // (Public, HasOutParams, BlueprintCallable, BlueprintEvent, BlueprintPure)
 // Parameters:
@@ -1227,6 +1247,26 @@ void UBP_Ch202_ActionAttack_Unique3_C::ForceEnd()
 		Func = Class->GetFunction("BP_Ch202_ActionAttack_Unique3_C", "ForceEnd");
 
 	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function BP_Ch202_ActionAttack_Unique3.BP_Ch202_ActionAttack_Unique3_C.SetFirstPlayerLockOnedForRemote
+// (Public, BlueprintCallable, BlueprintEvent)
+// Parameters:
+// bool                                    IsLockOned                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+
+void UBP_Ch202_ActionAttack_Unique3_C::SetFirstPlayerLockOnedForRemote(bool IsLockOned)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch202_ActionAttack_Unique3_C", "SetFirstPlayerLockOnedForRemote");
+
+	Params::BP_Ch202_ActionAttack_Unique3_C_SetFirstPlayerLockOnedForRemote Parms{};
+
+	Parms.IsLockOned = IsLockOned;
+
+	UObject::ProcessEvent(Func, &Parms);
 }
 
 

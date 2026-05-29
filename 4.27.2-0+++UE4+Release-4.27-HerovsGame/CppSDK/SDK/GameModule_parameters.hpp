@@ -10,33 +10,33 @@
 
 #include "Basic.hpp"
 
-#include "UMG_structs.hpp"
 #include "BackendSubsystem_structs.hpp"
-#include "SlateCore_structs.hpp"
-#include "Engine_structs.hpp"
-#include "Slate_structs.hpp"
-#include "CriWareRuntime_structs.hpp"
-#include "CommonModule_structs.hpp"
-#include "GameModule_structs.hpp"
-#include "DevelopMenu_structs.hpp"
 #include "CoreUObject_structs.hpp"
-#include "UIFramework_structs.hpp"
-#include "InputCore_structs.hpp"
-#include "MasterDataModule_structs.hpp"
+#include "Slate_structs.hpp"
 #include "GameplayTags_structs.hpp"
+#include "SlateCore_structs.hpp"
+#include "CommonModule_structs.hpp"
+#include "InputCore_structs.hpp"
+#include "Engine_structs.hpp"
+#include "GameModule_structs.hpp"
+#include "CriWareRuntime_structs.hpp"
+#include "UIFramework_structs.hpp"
+#include "UMG_structs.hpp"
+#include "MasterDataModule_structs.hpp"
+#include "DevelopMenu_structs.hpp"
 
 
 SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
 // Function GameModule.AchievementWork.OnAddItem
-// 0x05D0 (0x05D0 - 0x0000)
+// 0x05D8 (0x05D8 - 0x0000)
 struct AchievementWork_OnAddItem final
 {
 public:
-	struct FDbItemCategoryParam                   Item;                                              // 0x0000(0x05C8)(ConstParm, Parm, OutParm, ReferenceParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         Quantity;                                          // 0x05C8(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5CC[0x4];                                      // 0x05CC(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	struct FDbItemCategoryParam                   Item;                                              // 0x0000(0x05D0)(ConstParm, Parm, OutParm, ReferenceParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         Quantity;                                          // 0x05D0(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5D4[0x4];                                      // 0x05D4(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // Function GameModule.AchievementWork.SetSendLike
@@ -101,6 +101,16 @@ struct AdjustTextWidget_BP_SetTextColorAndOpacity final
 {
 public:
 	struct FSlateColor                            InColorAndOpacity;                                 // 0x0000(0x0028)(Parm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.AlternativeAnimationProvider.TryGetAlternativeMontage
+// 0x0010 (0x0010 - 0x0000)
+struct AlternativeAnimationProvider_TryGetAlternativeMontage final
+{
+public:
+	EAnimationId                                  animationId;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAnimMontage*                           ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.Animation.BP_AnimationBlendingOutStartedDelegate
@@ -285,6 +295,18 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         PlayRate;                                          // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         BlendInTime;                                       // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.Animation.BP_PlayAnimationMontage
+// 0x0018 (0x0018 - 0x0000)
+struct Animation_BP_PlayAnimationMontage final
+{
+public:
+	class UAnimMontage*                           Montage;                                           // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         PlayRate;                                          // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         BlendInTime;                                       // 0x000C(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EAnimationId                                  partsAnimationId;                                  // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // Function GameModule.Animation.BP_PlayAnimationNagara
@@ -763,7 +785,7 @@ struct BPActorUtilityComponent_BP_SpawnEmitterVertex final
 {
 public:
 	class UParticleSystem*                        EmitterTemplate;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class USkeletalMeshComponent*                 Mesh;                                              // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class USkeletalMeshComponent*                 mesh;                                              // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UCustomParticleSystemComponent*         ReturnValue;                                       // 0x0010(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
@@ -1031,6 +1053,38 @@ public:
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
+// Function GameModule.ScoreComponentBase.OnCompletedSendKpi
+// 0x0004 (0x0004 - 0x0000)
+struct ScoreComponentBase_OnCompletedSendKpi final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ScoreComponentBase.OnCompletedSendRentalPointList
+// 0x0004 (0x0004 - 0x0000)
+struct ScoreComponentBase_OnCompletedSendRentalPointList final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ScoreComponentBase.OnCompletedSendSaveCustomizeData
+// 0x0004 (0x0004 - 0x0000)
+struct ScoreComponentBase_OnCompletedSendSaveCustomizeData final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ScoreComponentBase.OnCompletedSendViolationReport
+// 0x0004 (0x0004 - 0x0000)
+struct ScoreComponentBase_OnCompletedSendViolationReport final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
 // Function GameModule.CharacterStateBase.BP_IsOnGround
 // 0x0001 (0x0001 - 0x0000)
 struct CharacterStateBase_BP_IsOnGround final
@@ -1045,6 +1099,59 @@ struct CharacterVoiceComponent_OnAudioFinishedEvent final
 {
 public:
 	class UAtomComponent*                         AtomComponent;                                     // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.RoleSlotStatics.GetCostumeRoleSlotParam
+// 0x0258 (0x0258 - 0x0000)
+struct RoleSlotStatics_GetCostumeRoleSlotParam final
+{
+public:
+	int32                                         CostumeCode;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDbsCostumeRoleSlotParam               outParam;                                          // 0x0008(0x0248)(Parm, OutParm, NativeAccessSpecifierPublic)
+	bool                                          ReturnValue;                                       // 0x0250(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_251[0x7];                                      // 0x0251(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.RoleSlotStatics.GetRoleSlotCharacterNameText
+// 0x0020 (0x0020 - 0x0000)
+struct RoleSlotStatics_GetRoleSlotCharacterNameText final
+{
+public:
+	int32                                         VariationCode;                                     // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class FText                                   ReturnValue;                                       // 0x0008(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.RoleSlotStatics.GetRoleSlotDataText
+// 0x0020 (0x0020 - 0x0000)
+struct RoleSlotStatics_GetRoleSlotDataText final
+{
+public:
+	int32                                         VariationCode;                                     // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class FText                                   ReturnValue;                                       // 0x0008(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.RoleSlotStatics.GetRoleSlotEffect
+// 0x0020 (0x0020 - 0x0000)
+struct RoleSlotStatics_GetRoleSlotEffect final
+{
+public:
+	int32                                         VariationCode;                                     // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bSkillFlag;                                        // 0x0004(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	class FText                                   ReturnValue;                                       // 0x0008(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.RoleSlotStatics.GetRoleSlotTip
+// 0x02E0 (0x02E0 - 0x0000)
+struct RoleSlotStatics_GetRoleSlotTip final
+{
+public:
+	int32                                         VariationCode;                                     // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FDbsRoleSlotTip                        ReturnValue;                                       // 0x0008(0x02D8)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.ChatMute.Close
@@ -1075,16 +1182,6 @@ public:
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// Function GameModule.PrimaryAssetTutorial.BP_GetPopupWorld
-// 0x0030 (0x0030 - 0x0000)
-struct PrimaryAssetTutorial_BP_GetPopupWorld final
-{
-public:
-	ETutorialPopupScene                           Type;                                              // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	TSoftObjectPtr<class UWorld>                  ReturnValue;                                       // 0x0008(0x0028)(Parm, OutParm, ReturnParm, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
 // Function GameModule.ChatStatusWidget.OnVCBeginTalk
 // 0x0010 (0x0010 - 0x0000)
 struct ChatStatusWidget_OnVCBeginTalk final
@@ -1107,55 +1204,6 @@ struct ChatStatusWidget_OnVCEndTalk final
 {
 public:
 	class FString                                 uniqueNetId;                                       // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SupplyBaseDataAsset.GetActionGuideText
-// 0x0018 (0x0018 - 0x0000)
-struct SupplyBaseDataAsset_GetActionGuideText final
-{
-public:
-	class FText                                   ReturnValue;                                       // 0x0000(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SupplyBaseDataAsset.GetDescriptionText
-// 0x0020 (0x0020 - 0x0000)
-struct SupplyBaseDataAsset_GetDescriptionText final
-{
-public:
-	const class UObject*                          WorldContext;                                      // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FText                                   ReturnValue;                                       // 0x0008(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SupplyBaseDataAsset.GetDisplayNameText
-// 0x0018 (0x0018 - 0x0000)
-struct SupplyBaseDataAsset_GetDisplayNameText final
-{
-public:
-	class FText                                   ReturnValue;                                       // 0x0000(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SupplyBaseDataAsset.GetFieldPopUpWidgetColorCurve
-// 0x0008 (0x0008 - 0x0000)
-struct SupplyBaseDataAsset_GetFieldPopUpWidgetColorCurve final
-{
-public:
-	class UCurveLinearColor*                      ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SupplyBaseDataAsset.GetIconPaperSprite
-// 0x0008 (0x0008 - 0x0000)
-struct SupplyBaseDataAsset_GetIconPaperSprite final
-{
-public:
-	class UPaperSprite*                           ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SupplyBaseDataAsset.GetIconPaperSprite2
-// 0x0008 (0x0008 - 0x0000)
-struct SupplyBaseDataAsset_GetIconPaperSprite2 final
-{
-public:
-	class UPaperSprite*                           ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.Cheat.SetTrophy
@@ -1222,177 +1270,6 @@ public:
 	bool                                          bView;                                             // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.SoundStatics.GetCharacterDedicatedVoiceCharacterCodeList
-// 0x0068 (0x0068 - 0x0000)
-struct SoundStatics_GetCharacterDedicatedVoiceCharacterCodeList final
-{
-public:
-	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         inCharacterCode;                                   // 0x0008(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TSet<int32>                                   outCharacterCodeSet;                               // 0x0010(0x0050)(Parm, OutParm, NativeAccessSpecifierPublic)
-	bool                                          bInBattle;                                         // 0x0060(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_61[0x7];                                       // 0x0061(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.SoundStatics.GetCharacterDedicatedVoiceCueName
-// 0x0038 (0x0038 - 0x0000)
-struct SoundStatics_GetCharacterDedicatedVoiceCueName final
-{
-public:
-	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         inCharacterCode;                                   // 0x0008(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         inVsCharacterCode;                                 // 0x000C(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bInDedicated;                                      // 0x0010(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bInVillain;                                        // 0x0011(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_12[0x6];                                       // 0x0012(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 inFormatString;                                    // 0x0018(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 outSoundString;                                    // 0x0028(0x0010)(Parm, OutParm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SoundStatics.GetCharacterDedicatedVoiceCueNameAuto
-// 0x0030 (0x0030 - 0x0000)
-struct SoundStatics_GetCharacterDedicatedVoiceCueNameAuto final
-{
-public:
-	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	ECharacterId                                  inCharacterId;                                     // 0x0008(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	ECharacterId                                  inVsCharacterId;                                   // 0x0009(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 inFormatString;                                    // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 outSoundString;                                    // 0x0020(0x0010)(Parm, OutParm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SoundStatics.GetCueByName
-// 0x0018 (0x0018 - 0x0000)
-struct SoundStatics_GetCueByName final
-{
-public:
-	class FString                                 CueName;                                           // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class USoundAtomCue*                          ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SoundStatics.PlayCharacterDedicatedVoice
-// 0x0030 (0x0030 - 0x0000)
-struct SoundStatics_PlayCharacterDedicatedVoice final
-{
-public:
-	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         inCharacterCode;                                   // 0x0008(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         inVsCharacterCode;                                 // 0x000C(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bInDedicated;                                      // 0x0010(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bInVillain;                                        // 0x0011(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_12[0x6];                                       // 0x0012(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 inFormatString;                                    // 0x0018(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UAtomComponent*                         ReturnValue;                                       // 0x0028(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SoundStatics.PlayCharacterDedicatedVoiceAuto
-// 0x0028 (0x0028 - 0x0000)
-struct SoundStatics_PlayCharacterDedicatedVoiceAuto final
-{
-public:
-	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	ECharacterId                                  inCharacterId;                                     // 0x0008(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	ECharacterId                                  inVsCharacterId;                                   // 0x0009(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 inFormatString;                                    // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UAtomComponent*                         ReturnValue;                                       // 0x0020(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SoundStatics.PlayMusic
-// 0x0018 (0x0018 - 0x0000)
-struct SoundStatics_PlayMusic final
-{
-public:
-	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class USoundAtomCue*                          Sound;                                             // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UAtomComponent*                         ReturnValue;                                       // 0x0010(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SoundStatics.PlaySound2D
-// 0x0018 (0x0018 - 0x0000)
-struct SoundStatics_PlaySound2D final
-{
-public:
-	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class USoundAtomCue*                          Sound;                                             // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UAtomComponent*                         ReturnValue;                                       // 0x0010(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SoundStatics.PlaySound2DByName
-// 0x0020 (0x0020 - 0x0000)
-struct SoundStatics_PlaySound2DByName final
-{
-public:
-	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 CueName;                                           // 0x0008(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UAtomComponent*                         ReturnValue;                                       // 0x0018(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SoundStatics.PlaySoundAtLocation
-// 0x0060 (0x0060 - 0x0000)
-struct SoundStatics_PlaySoundAtLocation final
-{
-public:
-	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 CueName;                                           // 0x0008(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FVector                                Location;                                          // 0x0018(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FRotator                               Rotation;                                          // 0x0024(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, NativeAccessSpecifierPublic)
-	float                                         volumeMultiplier;                                  // 0x0030(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         pitchMultiplier;                                   // 0x0034(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         StartTime;                                         // 0x0038(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_3C[0x4];                                       // 0x003C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class USoundAttenuation*                      AttenuationSettings;                               // 0x0040(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class USoundConcurrency*                      ConcurrencySettings;                               // 0x0048(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bAutoDestroy;                                      // 0x0050(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_51[0x7];                                       // 0x0051(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAtomComponent*                         ReturnValue;                                       // 0x0058(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SoundStatics.PlaySoundAttached
-// 0x0068 (0x0068 - 0x0000)
-struct SoundStatics_PlaySoundAttached final
-{
-public:
-	class FString                                 CueName;                                           // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class USceneComponent*                        AttachToComponent;                                 // 0x0010(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FName                                   AttachPointName;                                   // 0x0018(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FVector                                Location;                                          // 0x0020(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FRotator                               Rotation;                                          // 0x002C(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, NativeAccessSpecifierPublic)
-	EAttachLocation                               LocationType;                                      // 0x0038(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bStopWhenAttachedToDestroyed;                      // 0x0039(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_3A[0x2];                                       // 0x003A(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	float                                         volumeMultiplier;                                  // 0x003C(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         pitchMultiplier;                                   // 0x0040(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         StartTime;                                         // 0x0044(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class USoundAttenuation*                      AttenuationSettings;                               // 0x0048(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class USoundConcurrency*                      ConcurrencySettings;                               // 0x0050(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bAutoDestroy;                                      // 0x0058(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_59[0x7];                                       // 0x0059(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAtomComponent*                         ReturnValue;                                       // 0x0060(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SoundStatics.PlayVoice2D
-// 0x0018 (0x0018 - 0x0000)
-struct SoundStatics_PlayVoice2D final
-{
-public:
-	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class USoundAtomCue*                          Sound;                                             // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UAtomComponent*                         ReturnValue;                                       // 0x0010(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SoundStatics.PlayVoice2DByName
-// 0x0020 (0x0020 - 0x0000)
-struct SoundStatics_PlayVoice2DByName final
-{
-public:
-	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 CueName;                                           // 0x0008(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UAtomComponent*                         ReturnValue;                                       // 0x0018(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
 // Function GameModule.CheckButtonWidget.OnDecideEvent
 // 0x0010 (0x0010 - 0x0000)
 struct CheckButtonWidget_OnDecideEvent final
@@ -1436,44 +1313,23 @@ public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.ProfileDisplayData.BP_getAD
-// 0x0078 (0x0078 - 0x0000)
-struct ProfileDisplayData_BP_getAD final
+// Function GameModule.PrimaryAssetLoginBonusLogo.BP_GetPaperSpriteLogo
+// 0x0018 (0x0018 - 0x0000)
+struct PrimaryAssetLoginBonusLogo_BP_GetPaperSpriteLogo final
 {
 public:
-	struct FMyADDisplayData                       ReturnValue;                                       // 0x0000(0x0078)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
+	class FString                                 Key;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UPaperSprite*                           ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.ProfileDisplayData.BP_getEmblem
-// 0x000C (0x000C - 0x0000)
-struct ProfileDisplayData_BP_getEmblem final
+// Function GameModule.PrimaryAssetTutorial.BP_GetPopupWorld
+// 0x0030 (0x0030 - 0x0000)
+struct PrimaryAssetTutorial_BP_GetPopupWorld final
 {
 public:
-	struct FEmblemDisplayData                     ReturnValue;                                       // 0x0000(0x000C)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProfileDisplayData.BP_getGuild
-// 0x0050 (0x0050 - 0x0000)
-struct ProfileDisplayData_BP_getGuild final
-{
-public:
-	struct FGuildDisplayData                      ReturnValue;                                       // 0x0000(0x0050)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProfileDisplayData.BP_getPlayer
-// 0x00F0 (0x00F0 - 0x0000)
-struct ProfileDisplayData_BP_getPlayer final
-{
-public:
-	struct FPlayerDisplayData                     ReturnValue;                                       // 0x0000(0x00F0)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProfileDisplayData.BP_GetPlayerId
-// 0x0010 (0x0010 - 0x0000)
-struct ProfileDisplayData_BP_GetPlayerId final
-{
-public:
-	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	ETutorialPopupScene                           Type;                                              // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	TSoftObjectPtr<class UWorld>                  ReturnValue;                                       // 0x0008(0x0028)(Parm, OutParm, ReturnParm, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.CustomAdjustText.AddLineIndentList
@@ -1482,6 +1338,18 @@ struct CustomAdjustText_AddLineIndentList final
 {
 public:
 	struct FLineIndentInfo                        lineIndent;                                        // 0x0000(0x000C)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.CustomAdjustText.GetReplaceWidget
+// 0x0030 (0x0030 - 0x0000)
+struct CustomAdjustText_GetReplaceWidget final
+{
+public:
+	TArray<class UWidget*>                        outReplaceWidget;                                  // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
+	class FText                                   Text;                                              // 0x0010(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+	bool                                          bForceSetup;                                       // 0x0028(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          ReturnValue;                                       // 0x0029(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_2A[0x6];                                       // 0x002A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // Function GameModule.CustomAdjustText.SetCheckAutoSize
@@ -1601,15 +1469,6 @@ public:
 	TArray<struct FCustomText>                    ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.CustomAdjustText.GetReplaceWidget
-// 0x0028 (0x0028 - 0x0000)
-struct CustomAdjustText_GetReplaceWidget final
-{
-public:
-	class FText                                   Text;                                              // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-	TArray<class UWidget*>                        ReturnValue;                                       // 0x0018(0x0010)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, ContainsInstancedReference, NativeAccessSpecifierPublic)
-};
-
 // Function GameModule.CustomAdjustText.GetText
 // 0x0018 (0x0018 - 0x0000)
 struct CustomAdjustText_GetText final
@@ -1626,14 +1485,24 @@ public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.CustomAdjustText.IsAdjustStr
-// 0x0018 (0x0018 - 0x0000)
-struct CustomAdjustText_IsAdjustStr final
+// Function GameModule.PrimaryAssetStaffrollAnimation.BP_GetMovieMaterial
+// 0x0010 (0x0010 - 0x0000)
+struct PrimaryAssetStaffrollAnimation_BP_GetMovieMaterial final
 {
 public:
-	class FString                                 str;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	int32                                         Index_0;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class UMaterial*                              ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.PrimaryAssetStaffrollAnimation.BP_GetMovieTexture
+// 0x0010 (0x0010 - 0x0000)
+struct PrimaryAssetStaffrollAnimation_BP_GetMovieTexture final
+{
+public:
+	int32                                         Index_0;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class UTexture*                               ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.CustomInputKey.AddCustomInputKey
@@ -1886,49 +1755,6 @@ public:
 	struct FVector2D                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.ProfileDisplayPlayerCardWidget.BP_Setup
-// 0x00F0 (0x00F0 - 0x0000)
-struct ProfileDisplayPlayerCardWidget_BP_Setup final
-{
-public:
-	struct FPlayerDisplayData                     Data;                                              // 0x0000(0x00F0)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProfileShowLevel.DisableInputLoadProfileLevel
-// 0x0008 (0x0008 - 0x0000)
-struct ProfileShowLevel_DisableInputLoadProfileLevel final
-{
-public:
-	class UWidgetBase*                            Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProfileShowLevel.EnableInputLoadProfileLevel
-// 0x0008 (0x0008 - 0x0000)
-struct ProfileShowLevel_EnableInputLoadProfileLevel final
-{
-public:
-	class UWidgetBase*                            Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProfileShowLevel.GetLevelStreamingDynamic
-// 0x0008 (0x0008 - 0x0000)
-struct ProfileShowLevel_GetLevelStreamingDynamic final
-{
-public:
-	class ULevelStreamingDynamic*                 ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProfileShowLevel.OpenProfile
-// 0x0010 (0x0010 - 0x0000)
-struct ProfileShowLevel_OpenProfile final
-{
-public:
-	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          inGame;                                            // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          ReturnValue;                                       // 0x0009(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
 // Function GameModule.CustomInputTextBox.BP_CheckCommit
 // 0x0010 (0x0010 - 0x0000)
 struct CustomInputTextBox_BP_CheckCommit final
@@ -1988,32 +1814,6 @@ struct CustomInputTextBox_BP_GetFirstFocus final
 {
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProfileDisplayRoleSlotWidget.GenerateData
-// 0x0010 (0x0010 - 0x0000)
-struct ProfileDisplayRoleSlotWidget_GenerateData final
-{
-public:
-	const class UProfileDisplayData*              _data;                                             // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          mySelf;                                            // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.ProfileDisplayRoleSlotWidget.OnLoadedCostumeImage
-// 0x0008 (0x0008 - 0x0000)
-struct ProfileDisplayRoleSlotWidget_OnLoadedCostumeImage final
-{
-public:
-	class UPaperSprite*                           Sprite;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProfileDisplayRoleSlotWidget.OnLoadedRarityImage
-// 0x0008 (0x0008 - 0x0000)
-struct ProfileDisplayRoleSlotWidget_OnLoadedRarityImage final
-{
-public:
-	class UTexture2D*                             Sprite;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.CustomMatchDatabaseWork.BP_SetCustomMatch
@@ -2113,13 +1913,44 @@ public:
 	class UParticleSystemComponent*               PSystem;                                           // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.ProfileDisplayManager.BP_RequesetLoad
-// 0x0030 (0x0030 - 0x0000)
-struct ProfileDisplayManager_BP_RequesetLoad final
+// Function GameModule.ProfileDisplayData.BP_getAD
+// 0x0078 (0x0078 - 0x0000)
+struct ProfileDisplayData_BP_getAD final
 {
 public:
-	TSoftObjectPtr<class UWorld>                  _level;                                            // 0x0000(0x0028)(Parm, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class ULevelStreamingDynamic*                 ReturnValue;                                       // 0x0028(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FMyADDisplayData                       ReturnValue;                                       // 0x0000(0x0078)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProfileDisplayData.BP_getEmblem
+// 0x000C (0x000C - 0x0000)
+struct ProfileDisplayData_BP_getEmblem final
+{
+public:
+	struct FEmblemDisplayData                     ReturnValue;                                       // 0x0000(0x000C)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProfileDisplayData.BP_getGuild
+// 0x0050 (0x0050 - 0x0000)
+struct ProfileDisplayData_BP_getGuild final
+{
+public:
+	struct FGuildDisplayData                      ReturnValue;                                       // 0x0000(0x0050)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProfileDisplayData.BP_getPlayer
+// 0x00F0 (0x00F0 - 0x0000)
+struct ProfileDisplayData_BP_getPlayer final
+{
+public:
+	struct FPlayerDisplayData                     ReturnValue;                                       // 0x0000(0x00F0)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProfileDisplayData.BP_GetPlayerId
+// 0x0010 (0x0010 - 0x0000)
+struct ProfileDisplayData_BP_GetPlayerId final
+{
+public:
+	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.DotScrollBarItemWidget.OnSelect
@@ -2129,6 +1960,243 @@ struct DotScrollBarItemWidget_OnSelect final
 public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.DotScrollBarWidget.OnFocusListItem
+// 0x0010 (0x0010 - 0x0000)
+struct DotScrollBarWidget_OnFocusListItem final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.DotScrollBarWidget.OnItemScrolledIntoView
+// 0x0010 (0x0010 - 0x0000)
+struct DotScrollBarWidget_OnItemScrolledIntoView final
+{
+public:
+	class UObject*                                Item;                                              // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UUserWidget*                            Widget;                                            // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.DotScrollBarWidget.OnListViewScrolled
+// 0x0008 (0x0008 - 0x0000)
+struct DotScrollBarWidget_OnListViewScrolled final
+{
+public:
+	float                                         ItemOffset;                                        // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         DistanceRemaining;                                 // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.DotScrollBarWidget.OnPressArrow
+// 0x0010 (0x0010 - 0x0000)
+struct DotScrollBarWidget_OnPressArrow final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.DotScrollBarWidget.OnPressDot
+// 0x0010 (0x0010 - 0x0000)
+struct DotScrollBarWidget_OnPressDot final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.EmblemDisplayWidget.BP_GetBodyCanvasPanel
+// 0x0008 (0x0008 - 0x0000)
+struct EmblemDisplayWidget_BP_GetBodyCanvasPanel final
+{
+public:
+	class UCanvasPanel*                           ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.EmblemDisplayWidget.OnLoadedImage
+// 0x0008 (0x0008 - 0x0000)
+struct EmblemDisplayWidget_OnLoadedImage final
+{
+public:
+	TSubclassOf<class UWidgetBase>                WidgetClass;                                       // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProfileShowLevel.DisableInputLoadProfileLevel
+// 0x0008 (0x0008 - 0x0000)
+struct ProfileShowLevel_DisableInputLoadProfileLevel final
+{
+public:
+	class UWidgetBase*                            Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProfileShowLevel.EnableInputLoadProfileLevel
+// 0x0008 (0x0008 - 0x0000)
+struct ProfileShowLevel_EnableInputLoadProfileLevel final
+{
+public:
+	class UWidgetBase*                            Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProfileShowLevel.GetLevelStreamingDynamic
+// 0x0008 (0x0008 - 0x0000)
+struct ProfileShowLevel_GetLevelStreamingDynamic final
+{
+public:
+	class ULevelStreamingDynamic*                 ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProfileShowLevel.OpenProfile
+// 0x0010 (0x0010 - 0x0000)
+struct ProfileShowLevel_OpenProfile final
+{
+public:
+	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          inGame;                                            // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          ReturnValue;                                       // 0x0009(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.FadeWidget.BP_StartFade
+// 0x0001 (0x0001 - 0x0000)
+struct FadeWidget_BP_StartFade final
+{
+public:
+	bool                                          bNext;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.FadeWidget.StartFade
+// 0x0001 (0x0001 - 0x0000)
+struct FadeWidget_StartFade final
+{
+public:
+	bool                                          bNext;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.FocusAnimationWidget.SetFocusOffsets
+// 0x0010 (0x0010 - 0x0000)
+struct FocusAnimationWidget_SetFocusOffsets final
+{
+public:
+	struct FMargin                                Offsets;                                           // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.FocusAnimationWidget.SetViewArrowDown
+// 0x0001 (0x0001 - 0x0000)
+struct FocusAnimationWidget_SetViewArrowDown final
+{
+public:
+	bool                                          bView;                                             // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.FocusAnimationWidget.SetViewArrowLeft
+// 0x0001 (0x0001 - 0x0000)
+struct FocusAnimationWidget_SetViewArrowLeft final
+{
+public:
+	bool                                          bView;                                             // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.FocusAnimationWidget.SetViewArrowRight
+// 0x0001 (0x0001 - 0x0000)
+struct FocusAnimationWidget_SetViewArrowRight final
+{
+public:
+	bool                                          bView;                                             // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.FocusAnimationWidget.SetViewArrowUp
+// 0x0001 (0x0001 - 0x0000)
+struct FocusAnimationWidget_SetViewArrowUp final
+{
+public:
+	bool                                          bView;                                             // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.FocusAnimationWidget.SetViewFocus
+// 0x0001 (0x0001 - 0x0000)
+struct FocusAnimationWidget_SetViewFocus final
+{
+public:
+	bool                                          bView;                                             // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.FontCheckWidget.CopyErrorCode
+// 0x0010 (0x0010 - 0x0000)
+struct FontCheckWidget_CopyErrorCode final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.FontCheckWidget.OpenSwitchFontMenu
+// 0x0010 (0x0010 - 0x0000)
+struct FontCheckWidget_OpenSwitchFontMenu final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.FontCheckWidget.PasteEndCode
+// 0x0010 (0x0010 - 0x0000)
+struct FontCheckWidget_PasteEndCode final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.FontCheckWidget.PasteStartCode
+// 0x0010 (0x0010 - 0x0000)
+struct FontCheckWidget_PasteStartCode final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.FontCheckWidget.SwitchFont
+// 0x0004 (0x0004 - 0x0000)
+struct FontCheckWidget_SwitchFont final
+{
+public:
+	int32                                         idx;                                               // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.FontCheckWidget.UpdateEndCode
+// 0x0018 (0x0018 - 0x0000)
+struct FontCheckWidget_UpdateEndCode final
+{
+public:
+	class FText                                   Text;                                              // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.FontCheckWidget.UpdateStartCode
+// 0x0018 (0x0018 - 0x0000)
+struct FontCheckWidget_UpdateStartCode final
+{
+public:
+	class FText                                   Text;                                              // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.FontCheckWidget.UpdateView
+// 0x0010 (0x0010 - 0x0000)
+struct FontCheckWidget_UpdateView final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
@@ -2278,253 +2346,14 @@ public:
 	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.DotScrollBarWidget.OnFocusListItem
+// Function GameModule.ReturnButtonWidget.OnPressButton
 // 0x0010 (0x0010 - 0x0000)
-struct DotScrollBarWidget_OnFocusListItem final
+struct ReturnButtonWidget_OnPressButton final
 {
 public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.DotScrollBarWidget.OnItemScrolledIntoView
-// 0x0010 (0x0010 - 0x0000)
-struct DotScrollBarWidget_OnItemScrolledIntoView final
-{
-public:
-	class UObject*                                Item;                                              // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UUserWidget*                            Widget;                                            // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.DotScrollBarWidget.OnListViewScrolled
-// 0x0008 (0x0008 - 0x0000)
-struct DotScrollBarWidget_OnListViewScrolled final
-{
-public:
-	float                                         ItemOffset;                                        // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         DistanceRemaining;                                 // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.DotScrollBarWidget.OnPressArrow
-// 0x0010 (0x0010 - 0x0000)
-struct DotScrollBarWidget_OnPressArrow final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.DotScrollBarWidget.OnPressDot
-// 0x0010 (0x0010 - 0x0000)
-struct DotScrollBarWidget_OnPressDot final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.EmblemDisplayWidget.BP_GetBodyCanvasPanel
-// 0x0008 (0x0008 - 0x0000)
-struct EmblemDisplayWidget_BP_GetBodyCanvasPanel final
-{
-public:
-	class UCanvasPanel*                           ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.EmblemDisplayWidget.OnLoadedImage
-// 0x0008 (0x0008 - 0x0000)
-struct EmblemDisplayWidget_OnLoadedImage final
-{
-public:
-	TSubclassOf<class UWidgetBase>                WidgetClass;                                       // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.FadeWidget.BP_StartFade
-// 0x0001 (0x0001 - 0x0000)
-struct FadeWidget_BP_StartFade final
-{
-public:
-	bool                                          bNext;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.FadeWidget.StartFade
-// 0x0001 (0x0001 - 0x0000)
-struct FadeWidget_StartFade final
-{
-public:
-	bool                                          bNext;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProfileDisplayViolationReportWidget.BP_GetTargetName
-// 0x0010 (0x0010 - 0x0000)
-struct ProfileDisplayViolationReportWidget_BP_GetTargetName final
-{
-public:
-	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnCancelBlockListAddPopupWindow
-// 0x0010 (0x0010 - 0x0000)
-struct ProfileDisplayViolationReportWidget_OnCancelBlockListAddPopupWindow final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnCancelCheckRemoveFriendPopupWindow
-// 0x0010 (0x0010 - 0x0000)
-struct ProfileDisplayViolationReportWidget_OnCancelCheckRemoveFriendPopupWindow final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnCancelCheckRemoveFriendWindow
-// 0x0010 (0x0010 - 0x0000)
-struct ProfileDisplayViolationReportWidget_OnCancelCheckRemoveFriendWindow final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnCancelPopupWindow
-// 0x0010 (0x0010 - 0x0000)
-struct ProfileDisplayViolationReportWidget_OnCancelPopupWindow final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnDecideBlockListAddPopupWindow
-// 0x0010 (0x0010 - 0x0000)
-struct ProfileDisplayViolationReportWidget_OnDecideBlockListAddPopupWindow final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          leftButton;                                        // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnDecideCheckRemoveFriendPopupWindow
-// 0x0010 (0x0010 - 0x0000)
-struct ProfileDisplayViolationReportWidget_OnDecideCheckRemoveFriendPopupWindow final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          leftButton;                                        // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnDecideCheckRemoveFriendWindow
-// 0x0010 (0x0010 - 0x0000)
-struct ProfileDisplayViolationReportWidget_OnDecideCheckRemoveFriendWindow final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          leftButton;                                        // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnDecidePopupWindow
-// 0x0010 (0x0010 - 0x0000)
-struct ProfileDisplayViolationReportWidget_OnDecidePopupWindow final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          leftButton;                                        // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnDecideSelectWindow
-// 0x0018 (0x0018 - 0x0000)
-struct ProfileDisplayViolationReportWidget_OnDecideSelectWindow final
-{
-public:
-	int32                                         selectindex;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAppWidget*                             Widget;                                            // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          leftButton;                                        // 0x0011(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_12[0x6];                                       // 0x0012(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnFinishFetchDataCommonEvent
-// 0x0004 (0x0004 - 0x0000)
-struct ProfileDisplayViolationReportWidget_OnFinishFetchDataCommonEvent final
-{
-public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnFinishFetchDataEvent
-// 0x0004 (0x0004 - 0x0000)
-struct ProfileDisplayViolationReportWidget_OnFinishFetchDataEvent final
-{
-public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.FocusAnimationWidget.SetFocusOffsets
-// 0x0010 (0x0010 - 0x0000)
-struct FocusAnimationWidget_SetFocusOffsets final
-{
-public:
-	struct FMargin                                Offsets;                                           // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.FocusAnimationWidget.SetViewArrowDown
-// 0x0001 (0x0001 - 0x0000)
-struct FocusAnimationWidget_SetViewArrowDown final
-{
-public:
-	bool                                          bView;                                             // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.FocusAnimationWidget.SetViewArrowLeft
-// 0x0001 (0x0001 - 0x0000)
-struct FocusAnimationWidget_SetViewArrowLeft final
-{
-public:
-	bool                                          bView;                                             // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.FocusAnimationWidget.SetViewArrowRight
-// 0x0001 (0x0001 - 0x0000)
-struct FocusAnimationWidget_SetViewArrowRight final
-{
-public:
-	bool                                          bView;                                             // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.FocusAnimationWidget.SetViewArrowUp
-// 0x0001 (0x0001 - 0x0000)
-struct FocusAnimationWidget_SetViewArrowUp final
-{
-public:
-	bool                                          bView;                                             // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.FocusAnimationWidget.SetViewFocus
-// 0x0001 (0x0001 - 0x0000)
-struct FocusAnimationWidget_SetViewFocus final
-{
-public:
-	bool                                          bView;                                             // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.GameEffectSubsystem.BP_SpawnEmitterAtLocation
@@ -2566,14 +2395,6 @@ public:
 	class UParticleSystemComponent*               particle;                                          // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.RoleSlotMainItemIconWidget.OnLoadedIconImage
-// 0x0008 (0x0008 - 0x0000)
-struct RoleSlotMainItemIconWidget_OnLoadedIconImage final
-{
-public:
-	class UPaperSprite*                           Sprite;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
 // Function GameModule.GameOption.BP_GetButtonGuideImgId
 // 0x0020 (0x0020 - 0x0000)
 struct GameOption_BP_GetButtonGuideImgId final
@@ -2584,6 +2405,14 @@ public:
 	bool                                          IsDesignTime;                                      // 0x0009(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 ReturnValue;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.GameOption.AddUsedCharacterToList
+// 0x0010 (0x0010 - 0x0000)
+struct GameOption_AddUsedCharacterToList final
+{
+public:
+	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.GameOption.BP_GetCustomCommandName
@@ -2794,6 +2623,14 @@ public:
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
+// Function GameModule.GameOption.DeleteUsedCharacterToList
+// 0x0010 (0x0010 - 0x0000)
+struct GameOption_DeleteUsedCharacterToList final
+{
+public:
+	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
 // Function GameModule.GameOption.GetGamePadKeyConfigOnCommand
 // 0x0050 (0x0050 - 0x0000)
 struct GameOption_GetGamePadKeyConfigOnCommand final
@@ -2926,6 +2763,14 @@ public:
 // Function GameModule.GameOption.ResetTermsOfServiceFlagCmd
 // 0x0010 (0x0010 - 0x0000)
 struct GameOption_ResetTermsOfServiceFlagCmd final
+{
+public:
+	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.GameOption.ResetUsedCharacterListCmd
+// 0x0010 (0x0010 - 0x0000)
+struct GameOption_ResetUsedCharacterListCmd final
 {
 public:
 	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
@@ -3178,6 +3023,211 @@ struct GameOption_IsMinimapRightSide final
 {
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProfileDisplayViolationReportWidget.BP_GetTargetName
+// 0x0010 (0x0010 - 0x0000)
+struct ProfileDisplayViolationReportWidget_BP_GetTargetName final
+{
+public:
+	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnCancelBlockListAddPopupWindow
+// 0x0010 (0x0010 - 0x0000)
+struct ProfileDisplayViolationReportWidget_OnCancelBlockListAddPopupWindow final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnCancelCheckRemoveFriendPopupWindow
+// 0x0010 (0x0010 - 0x0000)
+struct ProfileDisplayViolationReportWidget_OnCancelCheckRemoveFriendPopupWindow final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnCancelCheckRemoveFriendWindow
+// 0x0010 (0x0010 - 0x0000)
+struct ProfileDisplayViolationReportWidget_OnCancelCheckRemoveFriendWindow final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnCancelPopupWindow
+// 0x0010 (0x0010 - 0x0000)
+struct ProfileDisplayViolationReportWidget_OnCancelPopupWindow final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnDecideBlockListAddPopupWindow
+// 0x0010 (0x0010 - 0x0000)
+struct ProfileDisplayViolationReportWidget_OnDecideBlockListAddPopupWindow final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          leftButton;                                        // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnDecideCheckRemoveFriendPopupWindow
+// 0x0010 (0x0010 - 0x0000)
+struct ProfileDisplayViolationReportWidget_OnDecideCheckRemoveFriendPopupWindow final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          leftButton;                                        // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnDecideCheckRemoveFriendWindow
+// 0x0010 (0x0010 - 0x0000)
+struct ProfileDisplayViolationReportWidget_OnDecideCheckRemoveFriendWindow final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          leftButton;                                        // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnDecidePopupWindow
+// 0x0010 (0x0010 - 0x0000)
+struct ProfileDisplayViolationReportWidget_OnDecidePopupWindow final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          leftButton;                                        // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnDecideSelectWindow
+// 0x0018 (0x0018 - 0x0000)
+struct ProfileDisplayViolationReportWidget_OnDecideSelectWindow final
+{
+public:
+	int32                                         selectindex;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAppWidget*                             Widget;                                            // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          leftButton;                                        // 0x0011(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_12[0x6];                                       // 0x0012(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnFinishFetchDataCommonEvent
+// 0x0004 (0x0004 - 0x0000)
+struct ProfileDisplayViolationReportWidget_OnFinishFetchDataCommonEvent final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnFinishFetchDataEvent
+// 0x0004 (0x0004 - 0x0000)
+struct ProfileDisplayViolationReportWidget_OnFinishFetchDataEvent final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.RankImage.GetEventRank
+// 0x0004 (0x0004 - 0x0000)
+struct RankImage_GetEventRank final
+{
+public:
+	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.RankImage.GetRank
+// 0x0004 (0x0004 - 0x0000)
+struct RankImage_GetRank final
+{
+public:
+	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.RankImage.SetEventRank
+// 0x0004 (0x0004 - 0x0000)
+struct RankImage_SetEventRank final
+{
+public:
+	int32                                         Rank;                                              // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.RankImage.SetEventRankFB
+// 0x0008 (0x0008 - 0x0000)
+struct RankImage_SetEventRankFB final
+{
+public:
+	const class UPaperFlipbook*                   fb;                                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.RankImage.SetEventRankFBIdx
+// 0x0010 (0x0010 - 0x0000)
+struct RankImage_SetEventRankFBIdx final
+{
+public:
+	const class UPaperFlipbook*                   fb;                                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         idx;                                               // 0x0008(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.RankImage.SetEventRankIdx
+// 0x0004 (0x0004 - 0x0000)
+struct RankImage_SetEventRankIdx final
+{
+public:
+	int32                                         idx;                                               // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.RankImage.SetRank
+// 0x0004 (0x0004 - 0x0000)
+struct RankImage_SetRank final
+{
+public:
+	int32                                         Rank;                                              // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.RankImage.SetRankFB
+// 0x0008 (0x0008 - 0x0000)
+struct RankImage_SetRankFB final
+{
+public:
+	const class UPaperFlipbook*                   fb;                                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.RankImage.SetRankFBIdx
+// 0x0010 (0x0010 - 0x0000)
+struct RankImage_SetRankFBIdx final
+{
+public:
+	const class UPaperFlipbook*                   fb;                                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         idx;                                               // 0x0008(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.RankImage.SetRankIdx
+// 0x0004 (0x0004 - 0x0000)
+struct RankImage_SetRankIdx final
+{
+public:
+	int32                                         idx;                                               // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.GameSequenceWork.IsRankMatchByModeCategory
@@ -4136,21 +4186,12 @@ public:
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// Function GameModule.SendLikeInterface.SendLikeImage
-// 0x0001 (0x0001 - 0x0000)
-struct SendLikeInterface_SendLikeImage final
+// Function GameModule.RoleSlotMainSkillWidget.OnLoadedRoleIconSet
+// 0x0008 (0x0008 - 0x0000)
+struct RoleSlotMainSkillWidget_OnLoadedRoleIconSet final
 {
 public:
-	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SendLikeInterface.SetSendLikeButtonEnable
-// 0x0002 (0x0002 - 0x0000)
-struct SendLikeInterface_SetSendLikeButtonEnable final
-{
-public:
-	bool                                          inEnable;                                          // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UTexture2D*                             Texture;                                           // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.GashaDatabaseWork.GetStringTableHistory
@@ -4552,70 +4593,116 @@ public:
 	bool                                          B;                                                 // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.ScoreComponentBase.OnCompletedSendKpi
-// 0x0004 (0x0004 - 0x0000)
-struct ScoreComponentBase_OnCompletedSendKpi final
+// Function GameModule.ProjectileGeneratorGame.BP_GetBaseDB
+// 0x00C8 (0x00C8 - 0x0000)
+struct ProjectileGeneratorGame_BP_GetBaseDB final
 {
 public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FGeneratorIndexData                    ReturnValue;                                       // 0x0000(0x00C8)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.ScoreComponentBase.OnCompletedSendRentalPointList
-// 0x0004 (0x0004 - 0x0000)
-struct ScoreComponentBase_OnCompletedSendRentalPointList final
+// Function GameModule.ProjectileGeneratorGame.BP_GetLevelDB
+// 0x00A0 (0x00A0 - 0x0000)
+struct ProjectileGeneratorGame_BP_GetLevelDB final
 {
 public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FGeneratorIndexLevelData               ReturnValue;                                       // 0x0000(0x00A0)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.ScoreComponentBase.OnCompletedSendSaveCustomizeData
-// 0x0004 (0x0004 - 0x0000)
-struct ScoreComponentBase_OnCompletedSendSaveCustomizeData final
+// Function GameModule.ProjectileGeneratorGame.GetCharacterID
+// 0x0001 (0x0001 - 0x0000)
+struct ProjectileGeneratorGame_GetCharacterID final
 {
 public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	ECharacterId                                  ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.ScoreComponentBase.OnCompletedSendViolationReport
-// 0x0004 (0x0004 - 0x0000)
-struct ScoreComponentBase_OnCompletedSendViolationReport final
+// Function GameModule.ProjectileGeneratorGame.GetInitDirection
+// 0x000C (0x000C - 0x0000)
+struct ProjectileGeneratorGame_GetInitDirection final
 {
 public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FVector                                ReturnValue;                                       // 0x0000(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.ScoreComponent.OnCompletedSendDropAchievement
-// 0x0004 (0x0004 - 0x0000)
-struct ScoreComponent_OnCompletedSendDropAchievement final
+// Function GameModule.ProjectileGeneratorGame.GetInitLocation
+// 0x000C (0x000C - 0x0000)
+struct ProjectileGeneratorGame_GetInitLocation final
 {
 public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FVector                                ReturnValue;                                       // 0x0000(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.ScoreComponent.OnCompletedSendMission
-// 0x0004 (0x0004 - 0x0000)
-struct ScoreComponent_OnCompletedSendMission final
+// Function GameModule.ProjectileGeneratorGame.GetInitQuat
+// 0x0010 (0x0010 - 0x0000)
+struct ProjectileGeneratorGame_GetInitQuat final
 {
 public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FQuat                                  ReturnValue;                                       // 0x0000(0x0010)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.ScoreComponent.OnCompletedSendUserResult
-// 0x0004 (0x0004 - 0x0000)
-struct ScoreComponent_OnCompletedSendUserResult final
+// Function GameModule.ProjectileGeneratorGame.GetInitScale
+// 0x000C (0x000C - 0x0000)
+struct ProjectileGeneratorGame_GetInitScale final
 {
 public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FVector                                ReturnValue;                                       // 0x0000(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.ScoreComponent.OnSystemError
-// 0x0014 (0x0014 - 0x0000)
-struct ScoreComponent_OnSystemError final
+// Function GameModule.ProjectileGeneratorGame.GetInitTarget
+// 0x000C (0x000C - 0x0000)
+struct ProjectileGeneratorGame_GetInitTarget final
 {
 public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FName                                   Key;                                               // 0x0004(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FName                                   message;                                           // 0x000C(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FVector                                ReturnValue;                                       // 0x0000(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProjectileGeneratorGame.GetInitTransform
+// 0x0030 (0x0030 - 0x0000)
+struct ProjectileGeneratorGame_GetInitTransform final
+{
+public:
+	struct FTransform                             ReturnValue;                                       // 0x0000(0x0030)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProjectileGeneratorGame.GetIsProjectileCreatorMode
+// 0x0001 (0x0001 - 0x0000)
+struct ProjectileGeneratorGame_GetIsProjectileCreatorMode final
+{
+public:
+	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProjectileGeneratorGame.GetLevel
+// 0x0004 (0x0004 - 0x0000)
+struct ProjectileGeneratorGame_GetLevel final
+{
+public:
+	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProjectileGeneratorGame.GetLockonActor
+// 0x0008 (0x0008 - 0x0000)
+struct ProjectileGeneratorGame_GetLockonActor final
+{
+public:
+	class AActor*                                 ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProjectileGeneratorGame.GetParent
+// 0x0008 (0x0008 - 0x0000)
+struct ProjectileGeneratorGame_GetParent final
+{
+public:
+	class UPrimitiveComponent*                    ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProjectileGeneratorGame.GetSocketName
+// 0x0008 (0x0008 - 0x0000)
+struct ProjectileGeneratorGame_GetSocketName final
+{
+public:
+	class FName                                   ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.HerovsControlChannel.OnErrorForDedicatedServer
@@ -4636,44 +4723,12 @@ public:
 	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.SkillVariationListItemWidget.OnSetEquip
-// 0x0001 (0x0001 - 0x0000)
-struct SkillVariationListItemWidget_OnSetEquip final
+// Function GameModule.ScoreComponentCustomMatch.OnCompletedSendResultData
+// 0x0004 (0x0004 - 0x0000)
+struct ScoreComponentCustomMatch_OnCompletedSendResultData final
 {
 public:
-	bool                                          bEquip;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SkillVariationListItemWidget.OnSetHave
-// 0x0001 (0x0001 - 0x0000)
-struct SkillVariationListItemWidget_OnSetHave final
-{
-public:
-	bool                                          bHave;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SkillVariationListItemWidget.OnSetHowToGetText
-// 0x0018 (0x0018 - 0x0000)
-struct SkillVariationListItemWidget_OnSetHowToGetText final
-{
-public:
-	class FText                                   howToGetText;                                      // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SkillVariationListItemWidget.OnSetName
-// 0x0018 (0x0018 - 0x0000)
-struct SkillVariationListItemWidget_OnSetName final
-{
-public:
-	class FText                                   nameText;                                          // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SkillVariationListItemWidget.OnSetRarity
-// 0x0001 (0x0001 - 0x0000)
-struct SkillVariationListItemWidget_OnSetRarity final
-{
-public:
-	EMdRarity                                     Rarity;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.HerovsGameInstance.BP_GetDipSelectedLanguage
@@ -4748,6 +4803,30 @@ public:
 	TArray<class FString>                         keywordList;                                       // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
+// Function GameModule.RoleSlotMainTipsIconWidget.BP_SetCurrencyCode
+// 0x0004 (0x0004 - 0x0000)
+struct RoleSlotMainTipsIconWidget_BP_SetCurrencyCode final
+{
+public:
+	int32                                         code;                                              // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.RoleSlotMainTipsIconWidget.BP_SetVariationCode
+// 0x0004 (0x0004 - 0x0000)
+struct RoleSlotMainTipsIconWidget_BP_SetVariationCode final
+{
+public:
+	int32                                         code;                                              // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.RoleSlotCostumeWidget.OnLoadedCostumeImage
+// 0x0008 (0x0008 - 0x0000)
+struct RoleSlotCostumeWidget_OnLoadedCostumeImage final
+{
+public:
+	class UPaperSprite*                           Sprite;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
 // Function GameModule.HerovsGameState.GetGameModeType
 // 0x0001 (0x0001 - 0x0000)
 struct HerovsGameState_GetGameModeType final
@@ -4762,14 +4841,6 @@ struct HerovsGameState_IsLocalCharacterReady final
 {
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.RoleWidget.OnSetRole
-// 0x0001 (0x0001 - 0x0000)
-struct RoleWidget_OnSetRole final
-{
-public:
-	EMdAbilityType                                abilityType;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.HerovsPlayerState.BP_SetIsKing
@@ -4810,6 +4881,14 @@ struct HerovsPlayerState_BP_GetPlayerId final
 {
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.HerovsPlayerState.BP_GetSpawnCharacterId
+// 0x0001 (0x0001 - 0x0000)
+struct HerovsPlayerState_BP_GetSpawnCharacterId final
+{
+public:
+	ECharacterId                                  ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.HerovsPlayerState.BP_GetSquadId
@@ -4882,42 +4961,6 @@ public:
 	class UPaperSprite*                           ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.SkillVariationDetailWidget.OnAnalogValueScroll
-// 0x0040 (0x0040 - 0x0000)
-struct SkillVariationDetailWidget_OnAnalogValueScroll final
-{
-public:
-	struct FAnalogInputEvent                      InAnalogEvent;                                     // 0x0000(0x0040)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SkillVariationDetailWidget.OnDecideButtonEvent
-// 0x0010 (0x0010 - 0x0000)
-struct SkillVariationDetailWidget_OnDecideButtonEvent final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.SkillVariationDetailWidget.OnSetAbilityList
-// 0x0008 (0x0008 - 0x0000)
-struct SkillVariationDetailWidget_OnSetAbilityList final
-{
-public:
-	ECharacterId                                  characterId;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         variationNo;                                       // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SkillVariationDetailWidget.OnSetHowToGetText
-// 0x0018 (0x0018 - 0x0000)
-struct SkillVariationDetailWidget_OnSetHowToGetText final
-{
-public:
-	class FText                                   howToGetText;                                      // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
 // Function GameModule.JsonUtilityFunction.ExportObjectAsJson
 // 0x0018 (0x0018 - 0x0000)
 struct JsonUtilityFunction_ExportObjectAsJson final
@@ -4938,70 +4981,12 @@ public:
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// Function GameModule.SkillVariationWidget.OnDecideSkillVariationListItemObject
-// 0x0008 (0x0008 - 0x0000)
-struct SkillVariationWidget_OnDecideSkillVariationListItemObject final
-{
-public:
-	class USkillVariationListItemObject*          itemObject;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SkillVariationWidget.OnFocusSkillVariationListItemObject
-// 0x0008 (0x0008 - 0x0000)
-struct SkillVariationWidget_OnFocusSkillVariationListItemObject final
-{
-public:
-	class USkillVariationListItemObject*          itemObject;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SkillVariationWidget.OnLoadComplete
-// 0x0004 (0x0004 - 0x0000)
-struct SkillVariationWidget_OnLoadComplete final
-{
-public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SkillVariationWidget.OnSetAbilityList
-// 0x0008 (0x0008 - 0x0000)
-struct SkillVariationWidget_OnSetAbilityList final
-{
-public:
-	ECharacterId                                  characterId;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         variationNo;                                       // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SkillVariationWidget.OnShowLoadingIcon
-// 0x0001 (0x0001 - 0x0000)
-struct SkillVariationWidget_OnShowLoadingIcon final
-{
-public:
-	bool                                          bShow;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SkillVariationWidget.OnUpdateComplete
-// 0x0004 (0x0004 - 0x0000)
-struct SkillVariationWidget_OnUpdateComplete final
-{
-public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
 // Function GameModule.LoadTransitionWidget.UpdateBgTexture
 // 0x0004 (0x0004 - 0x0000)
 struct LoadTransitionWidget_UpdateBgTexture final
 {
 public:
 	int32                                         code;                                              // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SkillDerivedTypeWidget.GetUniqueButtonList
-// 0x0010 (0x0010 - 0x0000)
-struct SkillDerivedTypeWidget_GetUniqueButtonList final
-{
-public:
-	TArray<class UPlatformRichTextBlock*>         uniqueButtonList;                                  // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.MaterialControlComponent.BP_HiddenMaterial
@@ -5206,6 +5191,38 @@ public:
 	EMaterialOverWriteType                        overWriteType;                                     // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
+// Function GameModule.SendLikeButtonWidget.BP_GetRemainSendLikeCount
+// 0x0004 (0x0004 - 0x0000)
+struct SendLikeButtonWidget_BP_GetRemainSendLikeCount final
+{
+public:
+	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SendLikeButtonWidget.BP_UpdateSendLikeCount
+// 0x0001 (0x0001 - 0x0000)
+struct SendLikeButtonWidget_BP_UpdateSendLikeCount final
+{
+public:
+	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SendLikeButtonWidget.BP_GetRemainsSendLikeCount
+// 0x0004 (0x0004 - 0x0000)
+struct SendLikeButtonWidget_BP_GetRemainsSendLikeCount final
+{
+public:
+	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SendLikeButtonWidget.BP_GetSendLikeCounter
+// 0x0004 (0x0004 - 0x0000)
+struct SendLikeButtonWidget_BP_GetSendLikeCounter final
+{
+public:
+	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
 // Function GameModule.MultipleDigitsWidget.BP_SetDisplayNumber
 // 0x0008 (0x0008 - 0x0000)
 struct MultipleDigitsWidget_BP_SetDisplayNumber final
@@ -5216,14 +5233,12 @@ public:
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// Function GameModule.TextChatEntryWidget.SetMessage
-// 0x0010 (0x0010 - 0x0000)
-struct TextChatEntryWidget_SetMessage final
+// Function GameModule.TextChatButtonGuide.SetGaugePercent
+// 0x0004 (0x0004 - 0x0000)
+struct TextChatButtonGuide_SetGaugePercent final
 {
 public:
-	class UTextChatListObject*                    obj;                                               // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          isSTT;                                             // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	float                                         value;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.PlayerNameWidgetBase.Copy
@@ -5416,105 +5431,70 @@ public:
 	class FString                                 Name_0;                                            // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
+// Function GameModule.SquadJoinWidget.OnPlayerRequestErrorEvent
+// 0x0014 (0x0014 - 0x0000)
+struct SquadJoinWidget_OnPlayerRequestErrorEvent final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FName                                   Key;                                               // 0x0004(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FName                                   message;                                           // 0x000C(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SquadJoinWidget.OnSelectMessageCloseWindow
+// 0x0010 (0x0010 - 0x0000)
+struct SquadJoinWidget_OnSelectMessageCloseWindow final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          leftButton;                                        // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.SquadJoinWidget.OnSelectMessageDecideWindow
+// 0x0010 (0x0010 - 0x0000)
+struct SquadJoinWidget_OnSelectMessageDecideWindow final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          leftButton;                                        // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.SquadJoinWidget.OnSelectWindowSetting
+// 0x0001 (0x0001 - 0x0000)
+struct SquadJoinWidget_OnSelectWindowSetting final
+{
+public:
+	bool                                          leader;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SquadJoinWidget.OnSystemErrorEvent
+// 0x0014 (0x0014 - 0x0000)
+struct SquadJoinWidget_OnSystemErrorEvent final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FName                                   Key;                                               // 0x0004(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FName                                   message;                                           // 0x000C(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SquadJoinWidget.OnUpdateCompleteEvent
+// 0x0004 (0x0004 - 0x0000)
+struct SquadJoinWidget_OnUpdateCompleteEvent final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
 // Function GameModule.NamePlateBgImage.OnLoadedIconImage
 // 0x0008 (0x0008 - 0x0000)
 struct NamePlateBgImage_OnLoadedIconImage final
 {
 public:
 	class UPaperSprite*                           Sprite;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatListWidget.BP_AddNewTextItem
-// 0x0018 (0x0018 - 0x0000)
-struct TextChatListWidget_BP_AddNewTextItem final
-{
-public:
-	class FText                                   Text;                                              // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatListWidget.BP_CallTextChatRecieveEvent
-// 0x0008 (0x0008 - 0x0000)
-struct TextChatListWidget_BP_CallTextChatRecieveEvent final
-{
-public:
-	const class UTextChatListObject*              chatObject;                                        // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatListWidget.BP_CheckUnreadMessage
-// 0x0008 (0x0008 - 0x0000)
-struct TextChatListWidget_BP_CheckUnreadMessage final
-{
-public:
-	class UTextChatListObject*                    message;                                           // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatListWidget.BP_GetUserName
-// 0x0030 (0x0030 - 0x0000)
-struct TextChatListWidget_BP_GetUserName final
-{
-public:
-	class FString                                 playerId;                                          // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 Name_0;                                            // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 ReturnValue;                                       // 0x0020(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatListWidget.BP_IsUnreadMessage
-// 0x0001 (0x0001 - 0x0000)
-struct TextChatListWidget_BP_IsUnreadMessage final
-{
-public:
-	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatListWidget.BP_UpdateArray
-// 0x0008 (0x0008 - 0x0000)
-struct TextChatListWidget_BP_UpdateArray final
-{
-public:
-	class UTextChatListObject*                    chatObject;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatListWidget.GetScrollSpeedRate
-// 0x0014 (0x0014 - 0x0000)
-struct TextChatListWidget_GetScrollSpeedRate final
-{
-public:
-	float                                         analogValue;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         defaultSpeedRate;                                  // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         maxSpeedRate;                                      // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         addSpeedRate;                                      // 0x000C(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         ReturnValue;                                       // 0x0010(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatListWidget.ReceiveSTTMessage
-// 0x0030 (0x0030 - 0x0000)
-struct TextChatListWidget_ReceiveSTTMessage final
-{
-public:
-	class FString                                 platformPlayerId;                                  // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 DisplayName;                                       // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 message;                                           // 0x0020(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatListWidget.SetUpNewMessage
-// 0x0038 (0x0038 - 0x0000)
-struct TextChatListWidget_SetUpNewMessage final
-{
-public:
-	class FString                                 playerId;                                          // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 Name_0;                                            // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 message;                                           // 0x0020(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bLock;                                             // 0x0030(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          isSTT;                                             // 0x0031(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_32[0x6];                                       // 0x0032(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.TextChatListWidget.TextToSpeech
-// 0x0008 (0x0008 - 0x0000)
-struct TextChatListWidget_TextToSpeech final
-{
-public:
-	class UTextChatListObject*                    obj;                                               // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.PlayerNameTextBase.SetFont
@@ -5557,6 +5537,24 @@ public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
+// Function GameModule.SkillVariationListWidget.OnChangedMainMenu
+// 0x0004 (0x0004 - 0x0000)
+struct SkillVariationListWidget_OnChangedMainMenu final
+{
+public:
+	int32                                         Index_0;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SkillVariationListWidget.OnDecideEvent
+// 0x0010 (0x0010 - 0x0000)
+struct SkillVariationListWidget_OnDecideEvent final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
 // Function GameModule.NamePlateText.SetIconSize
 // 0x0004 (0x0004 - 0x0000)
 struct NamePlateText_SetIconSize final
@@ -5587,38 +5585,6 @@ struct NamePlateText_SetSpace final
 {
 public:
 	float                                         space;                                             // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TeamCommentaryMessageWidget.OnChangeBattleSequence
-// 0x0001 (0x0001 - 0x0000)
-struct TeamCommentaryMessageWidget_OnChangeBattleSequence final
-{
-public:
-	EBattleStartSequenceType                      Sequence;                                          // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TeamCommentaryMessageWidget.OnRequestMessage
-// 0x0001 (0x0001 - 0x0000)
-struct TeamCommentaryMessageWidget_OnRequestMessage final
-{
-public:
-	ETeamCommentaryMessage                        MessageType;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TeamCommentaryMessageWidget.OnSquadNumChanged
-// 0x0004 (0x0004 - 0x0000)
-struct TeamCommentaryMessageWidget_OnSquadNumChanged final
-{
-public:
-	int32                                         SquadNum;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TeamCommentaryMessageWidget.SetMessageEnable
-// 0x0001 (0x0001 - 0x0000)
-struct TeamCommentaryMessageWidget_SetMessageEnable final
-{
-public:
-	bool                                          enable;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.NetworkWork.BP_GetSquadMemberIdList
@@ -5750,22 +5716,6 @@ public:
 	TMap<class FString, bool>                     ReturnValue;                                       // 0x0000(0x0050)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TextSpeechBalloonWidget.SetText
-// 0x0018 (0x0018 - 0x0000)
-struct TextSpeechBalloonWidget_SetText final
-{
-public:
-	class FText                                   Text;                                              // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextSpeechBalloonWidget.GetText
-// 0x0018 (0x0018 - 0x0000)
-struct TextSpeechBalloonWidget_GetText final
-{
-public:
-	class FText                                   ReturnValue;                                       // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
 // Function GameModule.NoticeDatabaseWork.LoadAllNotice
 // 0x0004 (0x0004 - 0x0000)
 struct NoticeDatabaseWork_LoadAllNotice final
@@ -5788,6 +5738,127 @@ struct NoticeDatabaseWork_OnNoticeUpdatedEvent final
 {
 public:
 	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWindowWidget.AnimStart
+// 0x0008 (0x0008 - 0x0000)
+struct TextChatWindowWidget_AnimStart final
+{
+public:
+	class UWidgetAnimation*                       anim;                                              // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWindowWidget.BP_CheckParentControl
+// 0x0001 (0x0001 - 0x0000)
+struct TextChatWindowWidget_BP_CheckParentControl final
+{
+public:
+	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWindowWidget.BP_PlaySoundCloseWindow
+// 0x0001 (0x0001 - 0x0000)
+struct TextChatWindowWidget_BP_PlaySoundCloseWindow final
+{
+public:
+	bool                                          isPlaySound;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWindowWidget.BP_SetActiveFocus
+// 0x0001 (0x0001 - 0x0000)
+struct TextChatWindowWidget_BP_SetActiveFocus final
+{
+public:
+	bool                                          isFocusable;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWindowWidget.BP_SetActiveSendButton
+// 0x0001 (0x0001 - 0x0000)
+struct TextChatWindowWidget_BP_SetActiveSendButton final
+{
+public:
+	bool                                          isSendable;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWindowWidget.BP_SetNoticeVisibility
+// 0x0001 (0x0001 - 0x0000)
+struct TextChatWindowWidget_BP_SetNoticeVisibility final
+{
+public:
+	ESlateVisibility                              value;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWindowWidget.BP_WindowClose
+// 0x0001 (0x0001 - 0x0000)
+struct TextChatWindowWidget_BP_WindowClose final
+{
+public:
+	bool                                          bPlaySound;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWindowWidget.BP_WindowOpen
+// 0x0001 (0x0001 - 0x0000)
+struct TextChatWindowWidget_BP_WindowOpen final
+{
+public:
+	bool                                          bPlaySound;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWindowWidget.OnCommitChangeText
+// 0x0002 (0x0002 - 0x0000)
+struct TextChatWindowWidget_OnCommitChangeText final
+{
+public:
+	bool                                          IsEmpty;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _isFirstFocus;                                     // 0x0001(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWindowWidget.SetActiveFocus
+// 0x0001 (0x0001 - 0x0000)
+struct TextChatWindowWidget_SetActiveFocus final
+{
+public:
+	bool                                          isFocusable;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWindowWidget.SetActiveSendButton
+// 0x0001 (0x0001 - 0x0000)
+struct TextChatWindowWidget_SetActiveSendButton final
+{
+public:
+	bool                                          isSendable;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWindowWidget.SetInputShortCut
+// 0x0001 (0x0001 - 0x0000)
+struct TextChatWindowWidget_SetInputShortCut final
+{
+public:
+	bool                                          value;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWindowWidget.SetNoticeVisibility
+// 0x0001 (0x0001 - 0x0000)
+struct TextChatWindowWidget_SetNoticeVisibility final
+{
+public:
+	ESlateVisibility                              value;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWindowWidget.WindowClose
+// 0x0001 (0x0001 - 0x0000)
+struct TextChatWindowWidget_WindowClose final
+{
+public:
+	bool                                          bPlaySound;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWindowWidget.WindowOpen
+// 0x0001 (0x0001 - 0x0000)
+struct TextChatWindowWidget_WindowOpen final
+{
+public:
+	bool                                          bPlaySound;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.NoticeWindowWidget.CreateButtonTileView
@@ -5833,90 +5904,150 @@ public:
 	TArray<class FString>                         ReturnValue;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TrainingMenuCommonWidget.OpenCharacterInfo
-// 0x0001 (0x0001 - 0x0000)
-struct TrainingMenuCommonWidget_OpenCharacterInfo final
-{
-public:
-	bool                                          bOutgame;                                          // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatWidget.BP_SetNoticeVisibility
-// 0x0001 (0x0001 - 0x0000)
-struct TextChatWidget_BP_SetNoticeVisibility final
-{
-public:
-	ESlateVisibility                              value;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatWidget.GetChatIcon
-// 0x0008 (0x0008 - 0x0000)
-struct TextChatWidget_GetChatIcon final
-{
-public:
-	class UTextChatIcon*                          ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatWidget.OnDecideObserver
-// 0x0010 (0x0010 - 0x0000)
-struct TextChatWidget_OnDecideObserver final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          isLeftButton;                                      // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.TextChatWidget.OnDecideParentEvent
-// 0x0010 (0x0010 - 0x0000)
-struct TextChatWidget_OnDecideParentEvent final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          isLeftButton;                                      // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.TextChatWidget.SetNoticeVisibility
-// 0x0001 (0x0001 - 0x0000)
-struct TextChatWidget_SetNoticeVisibility final
-{
-public:
-	ESlateVisibility                              value;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatWidget.SetValueButtonGuide
+// Function GameModule.TextChatIcon.LoopAnimation
 // 0x0004 (0x0004 - 0x0000)
-struct TextChatWidget_SetValueButtonGuide final
+struct TextChatIcon_LoopAnimation final
 {
 public:
-	float                                         value;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         DeltaTime;                                         // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TextChatWidget.UpdatePopUpPivot
+// Function GameModule.TextChatIcon.OnPressButton
+// 0x0010 (0x0010 - 0x0000)
+struct TextChatIcon_OnPressButton final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.StaticDataManager.AsyncLoadPermanentDataAsset
+// 0x0001 (0x0001 - 0x0000)
+struct StaticDataManager_AsyncLoadPermanentDataAsset final
+{
+public:
+	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.StaticDataManager.GetAbilityArtColorInfo
+// 0x0170 (0x0170 - 0x0000)
+struct StaticDataManager_GetAbilityArtColorInfo final
+{
+public:
+	EMdAbilityType                                abilityType;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FAbilityArtColorInfo                   ReturnValue;                                       // 0x0008(0x0168)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.StaticDataManager.GetAbilityDurationOnValue
+// 0x0018 (0x0018 - 0x0000)
+struct StaticDataManager_GetAbilityDurationOnValue final
+{
+public:
+	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EMdAbilityType                                abilityType;                                       // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         Level;                                             // 0x000C(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         ReturnValue;                                       // 0x0010(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.StaticDataManager.GetCustomMatchTeamBorderColorInfo
+// 0x0014 (0x0014 - 0x0000)
+struct StaticDataManager_GetCustomMatchTeamBorderColorInfo final
+{
+public:
+	uint8                                         TeamId;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FCustomMatchTeamColorInfo              ReturnValue;                                       // 0x0004(0x0010)(Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.StaticDataManager.GetCustomMatchTeamBorderColorInfoList
+// 0x0050 (0x0050 - 0x0000)
+struct StaticDataManager_GetCustomMatchTeamBorderColorInfoList final
+{
+public:
+	TMap<uint8, struct FCustomMatchTeamColorInfo> ReturnValue;                                       // 0x0000(0x0050)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.StaticDataManager.GetDominateBattleColorInfo
+// 0x0080 (0x0080 - 0x0000)
+struct StaticDataManager_GetDominateBattleColorInfo final
+{
+public:
+	struct FDominateBattleColorInfo               ReturnValue;                                       // 0x0000(0x0080)(Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.StaticDataManager.GetGimmickDataAsset
+// 0x0018 (0x0018 - 0x0000)
+struct StaticDataManager_GetGimmickDataAsset final
+{
+public:
+	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FName                                   gimmickId;                                         // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UGimmickBaseDataAsset*                  ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.StaticDataManager.GetHudResourceDataAsset
+// 0x0010 (0x0010 - 0x0000)
+struct StaticDataManager_GetHudResourceDataAsset final
+{
+public:
+	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UHudResource*                           ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.StaticDataManager.GetLeadersTeamBorderColorInfo
+// 0x0064 (0x0064 - 0x0000)
+struct StaticDataManager_GetLeadersTeamBorderColorInfo final
+{
+public:
+	ELeadersBattleTeamType                        TeamColor;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FLeadersTeamColorInfo                  ReturnValue;                                       // 0x0004(0x0060)(Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.StaticDataManager.GetPermanentDataAsset
 // 0x0008 (0x0008 - 0x0000)
-struct TextChatWidget_UpdatePopUpPivot final
+struct StaticDataManager_GetPermanentDataAsset final
 {
 public:
-	struct FVector2D                              Pivot;                                             // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UPrimaryAssetPermanent*                 ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TextChatWidget.WindowClose
-// 0x0001 (0x0001 - 0x0000)
-struct TextChatWidget_WindowClose final
+// Function GameModule.StaticDataManager.GetSupplyBaseDataAsset
+// 0x0018 (0x0018 - 0x0000)
+struct StaticDataManager_GetSupplyBaseDataAsset final
 {
 public:
-	bool                                          bPlaySound;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FName                                   supplyId;                                          // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class USupplyBaseDataAsset*                   ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TextChatWidget.WindowOpen
-// 0x0001 (0x0001 - 0x0000)
-struct TextChatWidget_WindowOpen final
+// Function GameModule.StaticDataManager.GetSupplyParticleColorInfo
+// 0x0008 (0x0008 - 0x0000)
+struct StaticDataManager_GetSupplyParticleColorInfo final
 {
 public:
-	bool                                          bPlaySound;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class USupplyArtInfoDataAsset*                ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.StaticDataManager.LoadHudResourceDataAsset
+// 0x0008 (0x0008 - 0x0000)
+struct StaticDataManager_LoadHudResourceDataAsset final
+{
+public:
+	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProfileDisplayPlayerCardWidget.BP_Setup
+// 0x00F0 (0x00F0 - 0x0000)
+struct ProfileDisplayPlayerCardWidget_BP_Setup final
+{
+public:
+	struct FPlayerDisplayData                     Data;                                              // 0x0000(0x00F0)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.PlatformAssetLibrary.GetCurrentPlatformAssetBasePath
@@ -6005,14 +6136,6 @@ public:
 	class FString                                 ReturnValue;                                       // 0x0018(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TutorialTipsImageWidget.OnReceivedChangedImageIndexEvent
-// 0x0004 (0x0004 - 0x0000)
-struct TutorialTipsImageWidget_OnReceivedChangedImageIndexEvent final
-{
-public:
-	int32                                         Index_0;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
 // Function GameModule.PlatformIcon.BP_UpdateIcon
 // 0x0001 (0x0001 - 0x0000)
 struct PlatformIcon_BP_UpdateIcon final
@@ -6021,36 +6144,39 @@ public:
 	EPlatform                                     displayPlatform;                                   // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.YesNoWidget.NoEvent
+// Function GameModule.ProfileDisplayRoleSlotWidget.GenerateData
 // 0x0010 (0x0010 - 0x0000)
-struct YesNoWidget_NoEvent final
+struct ProfileDisplayRoleSlotWidget_GenerateData final
 {
 public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	const class UProfileDisplayData*              _data;                                             // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          mySelf;                                            // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// Function GameModule.YesNoWidget.YesEvent
-// 0x0010 (0x0010 - 0x0000)
-struct YesNoWidget_YesEvent final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.WaitNetworkMessage.Setup
+// Function GameModule.ProfileDisplayRoleSlotWidget.OnLoadedCostumeImage
 // 0x0008 (0x0008 - 0x0000)
-struct WaitNetworkMessage_Setup final
+struct ProfileDisplayRoleSlotWidget_OnLoadedCostumeImage final
 {
 public:
-	EWaitMessageType                              Type;                                              // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          backImage;                                         // 0x0001(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          backBlur;                                          // 0x0002(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          focusFlag;                                         // 0x0003(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         stateSetting;                                      // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UPaperSprite*                           Sprite;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProfileDisplayRoleSlotWidget.OnLoadedRarityImage
+// 0x0008 (0x0008 - 0x0000)
+struct ProfileDisplayRoleSlotWidget_OnLoadedRarityImage final
+{
+public:
+	class UTexture2D*                             Sprite;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ProfileDisplayManager.BP_RequesetLoad
+// 0x0030 (0x0030 - 0x0000)
+struct ProfileDisplayManager_BP_RequesetLoad final
+{
+public:
+	TSoftObjectPtr<class UWorld>                  _level;                                            // 0x0000(0x0028)(Parm, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class ULevelStreamingDynamic*                 ReturnValue;                                       // 0x0028(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.PlayerControllerGame.ClientKickBegin
@@ -6075,22 +6201,6 @@ struct PlayerControllerGame_ServerFlipDevMenu final
 {
 public:
 	TArray<struct FDevelopMenuItemData>           menuItemsData;                                     // 0x0000(0x0010)(ConstParm, Parm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TutorialMessageWidget.ChangeSizeTutorialMessageWindow
-// 0x0001 (0x0001 - 0x0000)
-struct TutorialMessageWidget_ChangeSizeTutorialMessageWindow final
-{
-public:
-	bool                                          condition;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TutorialMessageWidget.SetTutorialMessageWidget
-// 0x0018 (0x0018 - 0x0000)
-struct TutorialMessageWidget_SetTutorialMessageWidget final
-{
-public:
-	class FText                                   message;                                           // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.PlayerDatabaseWork.BP_GetColorPaletteColor
@@ -6124,13 +6234,13 @@ public:
 };
 
 // Function GameModule.PlayerDatabaseWork.AddItem
-// 0x05D0 (0x05D0 - 0x0000)
+// 0x05D8 (0x05D8 - 0x0000)
 struct PlayerDatabaseWork_AddItem final
 {
 public:
-	struct FDbItemCategoryParam                   Item;                                              // 0x0000(0x05C8)(ConstParm, Parm, OutParm, ReferenceParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         Quantity;                                          // 0x05C8(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5CC[0x4];                                      // 0x05CC(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	struct FDbItemCategoryParam                   Item;                                              // 0x0000(0x05D0)(ConstParm, Parm, OutParm, ReferenceParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         Quantity;                                          // 0x05D0(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5D4[0x4];                                      // 0x05D4(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // Function GameModule.PlayerDatabaseWork.AsyncLoadPrimaryAssetItemIcon
@@ -6989,38 +7099,6 @@ public:
 	float                                         space;                                             // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.ResultDatabaseWork.OnLoadedBattleReward
-// 0x0004 (0x0004 - 0x0000)
-struct ResultDatabaseWork_OnLoadedBattleReward final
-{
-public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ResultDatabaseWork.OnLoadedEventRankReward
-// 0x0004 (0x0004 - 0x0000)
-struct ResultDatabaseWork_OnLoadedEventRankReward final
-{
-public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ResultDatabaseWork.OnLoadedRankMatchReward
-// 0x0004 (0x0004 - 0x0000)
-struct ResultDatabaseWork_OnLoadedRankMatchReward final
-{
-public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ResultDatabaseWork.OnLoadedSpecialLicenseReward
-// 0x0004 (0x0004 - 0x0000)
-struct ResultDatabaseWork_OnLoadedSpecialLicenseReward final
-{
-public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
 // Function GameModule.PlayerNameText.OnSetPlayerNameScale
 // 0x0010 (0x0010 - 0x0000)
 struct PlayerNameText_OnSetPlayerNameScale final
@@ -7132,6 +7210,68 @@ public:
 	class UWidget*                                parentWidget;                                      // 0x0010(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
+// Function GameModule.TutorialTipsWidget.BP_OnReceivedCloseButtonDecidedEvent
+// 0x0010 (0x0010 - 0x0000)
+struct TutorialTipsWidget_BP_OnReceivedCloseButtonDecidedEvent final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.TutorialTipsWidget.NextButtonTileView
+// 0x0001 (0x0001 - 0x0000)
+struct TutorialTipsWidget_NextButtonTileView final
+{
+public:
+	bool                                          NotMaxNext;                                        // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TutorialTipsWidget.OnChangeBattleSequence
+// 0x0001 (0x0001 - 0x0000)
+struct TutorialTipsWidget_OnChangeBattleSequence final
+{
+public:
+	EBattleStartSequenceType                      Sequence;                                          // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TutorialTipsWidget.OnChangeLevel
+// 0x0010 (0x0010 - 0x0000)
+struct TutorialTipsWidget_OnChangeLevel final
+{
+public:
+	class ULevel*                                 level_p;                                           // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UWorld*                                 world_p;                                           // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TutorialTipsWidget.OnReceivedCloseButtonDecidedEvent
+// 0x0010 (0x0010 - 0x0000)
+struct TutorialTipsWidget_OnReceivedCloseButtonDecidedEvent final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.TutorialTipsWidget.PrevButtonTileView
+// 0x0001 (0x0001 - 0x0000)
+struct TutorialTipsWidget_PrevButtonTileView final
+{
+public:
+	bool                                          NotMinPrev;                                        // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TutorialTipsWidget.SplitStringByCarriageReturn
+// 0x0020 (0x0020 - 0x0000)
+struct TutorialTipsWidget_SplitStringByCarriageReturn final
+{
+public:
+	class FString                                 message;                                           // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<class FString>                         ReturnValue;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
+};
+
 // Function GameModule.PrimaryAssetAvatarCreateImage.BP_GetImageTexture
 // 0x0020 (0x0020 - 0x0000)
 struct PrimaryAssetAvatarCreateImage_BP_GetImageTexture final
@@ -7143,108 +7283,16 @@ public:
 	class UTexture2D*                             ReturnValue;                                       // 0x0018(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.ProjectileGeneratorGame.BP_GetBaseDB
-// 0x00C8 (0x00C8 - 0x0000)
-struct ProjectileGeneratorGame_BP_GetBaseDB final
-{
-public:
-	struct FGeneratorIndexData                    ReturnValue;                                       // 0x0000(0x00C8)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProjectileGeneratorGame.BP_GetLevelDB
-// 0x00A0 (0x00A0 - 0x0000)
-struct ProjectileGeneratorGame_BP_GetLevelDB final
-{
-public:
-	struct FGeneratorIndexLevelData               ReturnValue;                                       // 0x0000(0x00A0)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProjectileGeneratorGame.GetCharacterID
-// 0x0001 (0x0001 - 0x0000)
-struct ProjectileGeneratorGame_GetCharacterID final
-{
-public:
-	ECharacterId                                  ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProjectileGeneratorGame.GetInitDirection
-// 0x000C (0x000C - 0x0000)
-struct ProjectileGeneratorGame_GetInitDirection final
-{
-public:
-	struct FVector                                ReturnValue;                                       // 0x0000(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProjectileGeneratorGame.GetInitLocation
-// 0x000C (0x000C - 0x0000)
-struct ProjectileGeneratorGame_GetInitLocation final
-{
-public:
-	struct FVector                                ReturnValue;                                       // 0x0000(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProjectileGeneratorGame.GetInitQuat
-// 0x0010 (0x0010 - 0x0000)
-struct ProjectileGeneratorGame_GetInitQuat final
-{
-public:
-	struct FQuat                                  ReturnValue;                                       // 0x0000(0x0010)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProjectileGeneratorGame.GetInitScale
-// 0x000C (0x000C - 0x0000)
-struct ProjectileGeneratorGame_GetInitScale final
-{
-public:
-	struct FVector                                ReturnValue;                                       // 0x0000(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProjectileGeneratorGame.GetInitTarget
-// 0x000C (0x000C - 0x0000)
-struct ProjectileGeneratorGame_GetInitTarget final
-{
-public:
-	struct FVector                                ReturnValue;                                       // 0x0000(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProjectileGeneratorGame.GetInitTransform
-// 0x0030 (0x0030 - 0x0000)
-struct ProjectileGeneratorGame_GetInitTransform final
-{
-public:
-	struct FTransform                             ReturnValue;                                       // 0x0000(0x0030)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProjectileGeneratorGame.GetIsProjectileCreatorMode
-// 0x0001 (0x0001 - 0x0000)
-struct ProjectileGeneratorGame_GetIsProjectileCreatorMode final
-{
-public:
-	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProjectileGeneratorGame.GetLevel
-// 0x0004 (0x0004 - 0x0000)
-struct ProjectileGeneratorGame_GetLevel final
-{
-public:
-	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProjectileGeneratorGame.GetLockonActor
+// Function GameModule.WaitNetworkMessage.Setup
 // 0x0008 (0x0008 - 0x0000)
-struct ProjectileGeneratorGame_GetLockonActor final
+struct WaitNetworkMessage_Setup final
 {
 public:
-	class AActor*                                 ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ProjectileGeneratorGame.GetSocketName
-// 0x0008 (0x0008 - 0x0000)
-struct ProjectileGeneratorGame_GetSocketName final
-{
-public:
-	class FName                                   ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWaitMessageType                              Type;                                              // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          backImage;                                         // 0x0001(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          backBlur;                                          // 0x0002(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          focusFlag;                                         // 0x0003(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         stateSetting;                                      // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.PrimaryAssetCharacterGUI.BP_GetPaperSprite
@@ -7327,6 +7375,22 @@ public:
 	ESceneCaptureTypeId                           Type;                                              // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1[0xF];                                        // 0x0001(0x000F)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FTransform                             outOffset;                                         // 0x0010(0x0030)(Parm, OutParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.WidgetNetWorkNotation.OnMatchingRegionEvent
+// 0x0004 (0x0004 - 0x0000)
+struct WidgetNetWorkNotation_OnMatchingRegionEvent final
+{
+public:
+	int32                                         regionCode;                                        // 0x0000(0x0004)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.WidgetNetWorkNotation.OnVoiceChatChangeStatus
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetNetWorkNotation_OnVoiceChatChangeStatus final
+{
+public:
+	EVoiceChatSystemStatus                        Status;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.PrimaryAssetGashaImage.BP_GetPaperSpriteBanner
@@ -7439,6 +7503,26 @@ public:
 	TSoftObjectPtr<class UTexture2D>              ReturnValue;                                       // 0x0008(0x0028)(Parm, OutParm, ReturnParm, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
+// Function GameModule.YesNoWidget.NoEvent
+// 0x0010 (0x0010 - 0x0000)
+struct YesNoWidget_NoEvent final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.YesNoWidget.YesEvent
+// 0x0010 (0x0010 - 0x0000)
+struct YesNoWidget_YesEvent final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
 // Function GameModule.PrimaryAssetLicense.BP_GetTextureL
 // 0x0018 (0x0018 - 0x0000)
 struct PrimaryAssetLicense_BP_GetTextureL final
@@ -7473,35 +7557,6 @@ struct PrimaryAssetLicense_BP_TextureS final
 public:
 	class FString                                 Key;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UPaperSprite*                           ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.PrimaryAssetLoginBonusLogo.BP_GetPaperSpriteLogo
-// 0x0018 (0x0018 - 0x0000)
-struct PrimaryAssetLoginBonusLogo_BP_GetPaperSpriteLogo final
-{
-public:
-	class FString                                 Key;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UPaperSprite*                           ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.PrimaryAssetStaffrollAnimation.BP_GetMovieMaterial
-// 0x0010 (0x0010 - 0x0000)
-struct PrimaryAssetStaffrollAnimation_BP_GetMovieMaterial final
-{
-public:
-	int32                                         Index_0;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class UMaterial*                              ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.PrimaryAssetStaffrollAnimation.BP_GetMovieTexture
-// 0x0010 (0x0010 - 0x0000)
-struct PrimaryAssetStaffrollAnimation_BP_GetMovieTexture final
-{
-public:
-	int32                                         Index_0;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class UTexture*                               ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.PrimaryAssetStaffrollLogo.BP_GetPaperSpriteLogo
@@ -7752,152 +7807,151 @@ public:
 	uint8                                         Pad_BC[0x4];                                       // 0x00BC(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// Function GameModule.ReturnButtonWidget.OnPressButton
-// 0x0010 (0x0010 - 0x0000)
-struct ReturnButtonWidget_OnPressButton final
+// Function GameModule.ResultDatabaseWork.OnLoadedBattleReward
+// 0x0004 (0x0004 - 0x0000)
+struct ResultDatabaseWork_OnLoadedBattleReward final
 {
 public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.RoleSlotCostumeWidget.OnLoadedCostumeImage
+// Function GameModule.ResultDatabaseWork.OnLoadedEventRankReward
+// 0x0004 (0x0004 - 0x0000)
+struct ResultDatabaseWork_OnLoadedEventRankReward final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ResultDatabaseWork.OnLoadedRankMatchReward
+// 0x0004 (0x0004 - 0x0000)
+struct ResultDatabaseWork_OnLoadedRankMatchReward final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ResultDatabaseWork.OnLoadedSpecialLicenseReward
+// 0x0004 (0x0004 - 0x0000)
+struct ResultDatabaseWork_OnLoadedSpecialLicenseReward final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.RoleSlotMainItemIconWidget.OnLoadedIconImage
 // 0x0008 (0x0008 - 0x0000)
-struct RoleSlotCostumeWidget_OnLoadedCostumeImage final
+struct RoleSlotMainItemIconWidget_OnLoadedIconImage final
 {
 public:
 	class UPaperSprite*                           Sprite;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.RoleSlotMainSkillWidget.OnLoadedRoleIconSet
-// 0x0008 (0x0008 - 0x0000)
-struct RoleSlotMainSkillWidget_OnLoadedRoleIconSet final
+// Function GameModule.RoleWidget.OnSetRole
+// 0x0001 (0x0001 - 0x0000)
+struct RoleWidget_OnSetRole final
 {
 public:
-	class UTexture2D*                             Texture;                                           // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EMdAbilityType                                abilityType;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.RoleSlotMainTipsIconWidget.BP_SetCurrencyCode
+// Function GameModule.ScoreComponent.OnCompletedSendDropAchievement
 // 0x0004 (0x0004 - 0x0000)
-struct RoleSlotMainTipsIconWidget_BP_SetCurrencyCode final
-{
-public:
-	int32                                         code;                                              // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.RoleSlotMainTipsIconWidget.BP_SetVariationCode
-// 0x0004 (0x0004 - 0x0000)
-struct RoleSlotMainTipsIconWidget_BP_SetVariationCode final
-{
-public:
-	int32                                         code;                                              // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.RoleSlotStatics.GetCostumeRoleSlotParam
-// 0x0258 (0x0258 - 0x0000)
-struct RoleSlotStatics_GetCostumeRoleSlotParam final
-{
-public:
-	int32                                         CostumeCode;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDbsCostumeRoleSlotParam               outParam;                                          // 0x0008(0x0248)(Parm, OutParm, NativeAccessSpecifierPublic)
-	bool                                          ReturnValue;                                       // 0x0250(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_251[0x7];                                      // 0x0251(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.RoleSlotStatics.GetRoleSlotCharacterNameText
-// 0x0020 (0x0020 - 0x0000)
-struct RoleSlotStatics_GetRoleSlotCharacterNameText final
-{
-public:
-	int32                                         VariationCode;                                     // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class FText                                   ReturnValue;                                       // 0x0008(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.RoleSlotStatics.GetRoleSlotDataText
-// 0x0020 (0x0020 - 0x0000)
-struct RoleSlotStatics_GetRoleSlotDataText final
-{
-public:
-	int32                                         VariationCode;                                     // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class FText                                   ReturnValue;                                       // 0x0008(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.RoleSlotStatics.GetRoleSlotEffect
-// 0x0020 (0x0020 - 0x0000)
-struct RoleSlotStatics_GetRoleSlotEffect final
-{
-public:
-	int32                                         VariationCode;                                     // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bSkillFlag;                                        // 0x0004(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	class FText                                   ReturnValue;                                       // 0x0008(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.RoleSlotStatics.GetRoleSlotTip
-// 0x02E0 (0x02E0 - 0x0000)
-struct RoleSlotStatics_GetRoleSlotTip final
-{
-public:
-	int32                                         VariationCode;                                     // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDbsRoleSlotTip                        ReturnValue;                                       // 0x0008(0x02D8)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.ScoreComponentCustomMatch.OnCompletedSendResultData
-// 0x0004 (0x0004 - 0x0000)
-struct ScoreComponentCustomMatch_OnCompletedSendResultData final
+struct ScoreComponent_OnCompletedSendDropAchievement final
 {
 public:
 	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.SendLikeButtonWidget.BP_GetRemainSendLikeCount
+// Function GameModule.ScoreComponent.OnCompletedSendMission
 // 0x0004 (0x0004 - 0x0000)
-struct SendLikeButtonWidget_BP_GetRemainSendLikeCount final
+struct ScoreComponent_OnCompletedSendMission final
 {
 public:
-	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.SendLikeButtonWidget.BP_UpdateSendLikeCount
+// Function GameModule.ScoreComponent.OnCompletedSendUserResult
+// 0x0004 (0x0004 - 0x0000)
+struct ScoreComponent_OnCompletedSendUserResult final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.ScoreComponent.OnSystemError
+// 0x0014 (0x0014 - 0x0000)
+struct ScoreComponent_OnSystemError final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FName                                   Key;                                               // 0x0004(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FName                                   message;                                           // 0x000C(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SendLikeInterface.SendLikeImage
 // 0x0001 (0x0001 - 0x0000)
-struct SendLikeButtonWidget_BP_UpdateSendLikeCount final
+struct SendLikeInterface_SendLikeImage final
 {
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.SendLikeButtonWidget.BP_GetRemainsSendLikeCount
-// 0x0004 (0x0004 - 0x0000)
-struct SendLikeButtonWidget_BP_GetRemainsSendLikeCount final
+// Function GameModule.SendLikeInterface.SetSendLikeButtonEnable
+// 0x0002 (0x0002 - 0x0000)
+struct SendLikeInterface_SetSendLikeButtonEnable final
 {
 public:
-	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          inEnable;                                          // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.SendLikeButtonWidget.BP_GetSendLikeCounter
-// 0x0004 (0x0004 - 0x0000)
-struct SendLikeButtonWidget_BP_GetSendLikeCounter final
+// Function GameModule.SengakujiInputArea.OnMoveControllerSG
+// 0x00A8 (0x00A8 - 0x0000)
+struct SengakujiInputArea_OnMoveControllerSG final
 {
 public:
-	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FGeometry                              Geometry;                                          // 0x0000(0x0038)(ConstParm, Parm, OutParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+	struct FPointerEvent                          touchEvent;                                        // 0x0038(0x0070)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.SkillVariationListWidget.OnChangedMainMenu
-// 0x0004 (0x0004 - 0x0000)
-struct SkillVariationListWidget_OnChangedMainMenu final
+// Function GameModule.SengakujiInputArea.PressControllerSG
+// 0x00A8 (0x00A8 - 0x0000)
+struct SengakujiInputArea_PressControllerSG final
 {
 public:
-	int32                                         Index_0;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FGeometry                              Geometry;                                          // 0x0000(0x0038)(ConstParm, Parm, OutParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+	struct FPointerEvent                          touchEvent;                                        // 0x0038(0x0070)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.SkillVariationListWidget.OnDecideEvent
+// Function GameModule.SengakujiInputArea.ReleaseControllerSG
+// 0x00A8 (0x00A8 - 0x0000)
+struct SengakujiInputArea_ReleaseControllerSG final
+{
+public:
+	struct FGeometry                              Geometry;                                          // 0x0000(0x0038)(ConstParm, Parm, OutParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+	struct FPointerEvent                          touchEvent;                                        // 0x0038(0x0070)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SkillDerivedTypeWidget.GetUniqueButtonList
 // 0x0010 (0x0010 - 0x0000)
-struct SkillVariationListWidget_OnDecideEvent final
+struct SkillDerivedTypeWidget_GetUniqueButtonList final
+{
+public:
+	TArray<class UPlatformRichTextBlock*>         uniqueButtonList;                                  // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SkillVariationDetailWidget.OnAnalogValueScroll
+// 0x0040 (0x0040 - 0x0000)
+struct SkillVariationDetailWidget_OnAnalogValueScroll final
+{
+public:
+	struct FAnalogInputEvent                      InAnalogEvent;                                     // 0x0000(0x0040)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SkillVariationDetailWidget.OnDecideButtonEvent
+// 0x0010 (0x0010 - 0x0000)
+struct SkillVariationDetailWidget_OnDecideButtonEvent final
 {
 public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -7905,207 +7959,373 @@ public:
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// Function GameModule.SquadJoinWidget.OnPlayerRequestErrorEvent
-// 0x0014 (0x0014 - 0x0000)
-struct SquadJoinWidget_OnPlayerRequestErrorEvent final
+// Function GameModule.SkillVariationDetailWidget.OnSetAbilityList
+// 0x0008 (0x0008 - 0x0000)
+struct SkillVariationDetailWidget_OnSetAbilityList final
 {
 public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FName                                   Key;                                               // 0x0004(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FName                                   message;                                           // 0x000C(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SquadJoinWidget.OnSelectMessageCloseWindow
-// 0x0010 (0x0010 - 0x0000)
-struct SquadJoinWidget_OnSelectMessageCloseWindow final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          leftButton;                                        // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.SquadJoinWidget.OnSelectMessageDecideWindow
-// 0x0010 (0x0010 - 0x0000)
-struct SquadJoinWidget_OnSelectMessageDecideWindow final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          leftButton;                                        // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.SquadJoinWidget.OnSelectWindowSetting
-// 0x0001 (0x0001 - 0x0000)
-struct SquadJoinWidget_OnSelectWindowSetting final
-{
-public:
-	bool                                          leader;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SquadJoinWidget.OnSystemErrorEvent
-// 0x0014 (0x0014 - 0x0000)
-struct SquadJoinWidget_OnSystemErrorEvent final
-{
-public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FName                                   Key;                                               // 0x0004(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FName                                   message;                                           // 0x000C(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.SquadJoinWidget.OnUpdateCompleteEvent
-// 0x0004 (0x0004 - 0x0000)
-struct SquadJoinWidget_OnUpdateCompleteEvent final
-{
-public:
-	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.StaticDataManager.AsyncLoadPermanentDataAsset
-// 0x0001 (0x0001 - 0x0000)
-struct StaticDataManager_AsyncLoadPermanentDataAsset final
-{
-public:
-	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.StaticDataManager.GetAbilityArtColorInfo
-// 0x0170 (0x0170 - 0x0000)
-struct StaticDataManager_GetAbilityArtColorInfo final
-{
-public:
-	EMdAbilityType                                abilityType;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FAbilityArtColorInfo                   ReturnValue;                                       // 0x0008(0x0168)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.StaticDataManager.GetAbilityDurationOnValue
-// 0x0018 (0x0018 - 0x0000)
-struct StaticDataManager_GetAbilityDurationOnValue final
-{
-public:
-	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EMdAbilityType                                abilityType;                                       // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         Level;                                             // 0x000C(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         ReturnValue;                                       // 0x0010(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.StaticDataManager.GetCustomMatchTeamBorderColorInfo
-// 0x0014 (0x0014 - 0x0000)
-struct StaticDataManager_GetCustomMatchTeamBorderColorInfo final
-{
-public:
-	uint8                                         TeamId;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	ECharacterId                                  characterId;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FCustomMatchTeamColorInfo              ReturnValue;                                       // 0x0004(0x0010)(Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
+	int32                                         variationNo;                                       // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.StaticDataManager.GetCustomMatchTeamBorderColorInfoList
-// 0x0050 (0x0050 - 0x0000)
-struct StaticDataManager_GetCustomMatchTeamBorderColorInfoList final
-{
-public:
-	TMap<uint8, struct FCustomMatchTeamColorInfo> ReturnValue;                                       // 0x0000(0x0050)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.StaticDataManager.GetDominateBattleColorInfo
-// 0x0080 (0x0080 - 0x0000)
-struct StaticDataManager_GetDominateBattleColorInfo final
-{
-public:
-	struct FDominateBattleColorInfo               ReturnValue;                                       // 0x0000(0x0080)(Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.StaticDataManager.GetGimmickDataAsset
+// Function GameModule.SkillVariationDetailWidget.OnSetHowToGetText
 // 0x0018 (0x0018 - 0x0000)
-struct StaticDataManager_GetGimmickDataAsset final
+struct SkillVariationDetailWidget_OnSetHowToGetText final
 {
 public:
-	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FName                                   gimmickId;                                         // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UGimmickBaseDataAsset*                  ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FText                                   howToGetText;                                      // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.StaticDataManager.GetHudResourceDataAsset
-// 0x0010 (0x0010 - 0x0000)
-struct StaticDataManager_GetHudResourceDataAsset final
+// Function GameModule.SkillVariationListItemWidget.OnSetEquip
+// 0x0001 (0x0001 - 0x0000)
+struct SkillVariationListItemWidget_OnSetEquip final
 {
 public:
-	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UHudResource*                           ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bEquip;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.StaticDataManager.GetLeadersTeamBorderColorInfo
-// 0x0064 (0x0064 - 0x0000)
-struct StaticDataManager_GetLeadersTeamBorderColorInfo final
+// Function GameModule.SkillVariationListItemWidget.OnSetHave
+// 0x0001 (0x0001 - 0x0000)
+struct SkillVariationListItemWidget_OnSetHave final
 {
 public:
-	ELeadersBattleTeamType                        TeamColor;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bHave;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SkillVariationListItemWidget.OnSetHowToGetText
+// 0x0018 (0x0018 - 0x0000)
+struct SkillVariationListItemWidget_OnSetHowToGetText final
+{
+public:
+	class FText                                   howToGetText;                                      // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SkillVariationListItemWidget.OnSetName
+// 0x0018 (0x0018 - 0x0000)
+struct SkillVariationListItemWidget_OnSetName final
+{
+public:
+	class FText                                   nameText;                                          // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SkillVariationListItemWidget.OnSetRarity
+// 0x0001 (0x0001 - 0x0000)
+struct SkillVariationListItemWidget_OnSetRarity final
+{
+public:
+	EMdRarity                                     Rarity;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SkillVariationWidget.OnDecideSkillVariationListItemObject
+// 0x0008 (0x0008 - 0x0000)
+struct SkillVariationWidget_OnDecideSkillVariationListItemObject final
+{
+public:
+	class USkillVariationListItemObject*          itemObject;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SkillVariationWidget.OnFocusSkillVariationListItemObject
+// 0x0008 (0x0008 - 0x0000)
+struct SkillVariationWidget_OnFocusSkillVariationListItemObject final
+{
+public:
+	class USkillVariationListItemObject*          itemObject;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SkillVariationWidget.OnLoadComplete
+// 0x0004 (0x0004 - 0x0000)
+struct SkillVariationWidget_OnLoadComplete final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SkillVariationWidget.OnSetAbilityList
+// 0x0008 (0x0008 - 0x0000)
+struct SkillVariationWidget_OnSetAbilityList final
+{
+public:
+	ECharacterId                                  characterId;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FLeadersTeamColorInfo                  ReturnValue;                                       // 0x0004(0x0060)(Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
+	int32                                         variationNo;                                       // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.StaticDataManager.GetPermanentDataAsset
-// 0x0008 (0x0008 - 0x0000)
-struct StaticDataManager_GetPermanentDataAsset final
+// Function GameModule.SkillVariationWidget.OnShowLoadingIcon
+// 0x0001 (0x0001 - 0x0000)
+struct SkillVariationWidget_OnShowLoadingIcon final
 {
 public:
-	class UPrimaryAssetPermanent*                 ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bShow;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.StaticDataManager.GetSupplyBaseDataAsset
+// Function GameModule.SkillVariationWidget.OnUpdateComplete
+// 0x0004 (0x0004 - 0x0000)
+struct SkillVariationWidget_OnUpdateComplete final
+{
+public:
+	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SoundStatics.GetCharacterDedicatedVoiceCharacterCodeList
+// 0x0068 (0x0068 - 0x0000)
+struct SoundStatics_GetCharacterDedicatedVoiceCharacterCodeList final
+{
+public:
+	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         inCharacterCode;                                   // 0x0008(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TSet<int32>                                   outCharacterCodeSet;                               // 0x0010(0x0050)(Parm, OutParm, NativeAccessSpecifierPublic)
+	bool                                          bInBattle;                                         // 0x0060(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_61[0x7];                                       // 0x0061(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.SoundStatics.GetCharacterDedicatedVoiceCueName
+// 0x0038 (0x0038 - 0x0000)
+struct SoundStatics_GetCharacterDedicatedVoiceCueName final
+{
+public:
+	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         inCharacterCode;                                   // 0x0008(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         inVsCharacterCode;                                 // 0x000C(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bInDedicated;                                      // 0x0010(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bInVillain;                                        // 0x0011(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_12[0x6];                                       // 0x0012(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 inFormatString;                                    // 0x0018(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 outSoundString;                                    // 0x0028(0x0010)(Parm, OutParm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SoundStatics.GetCharacterDedicatedVoiceCueNameAuto
+// 0x0030 (0x0030 - 0x0000)
+struct SoundStatics_GetCharacterDedicatedVoiceCueNameAuto final
+{
+public:
+	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	ECharacterId                                  inCharacterId;                                     // 0x0008(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	ECharacterId                                  inVsCharacterId;                                   // 0x0009(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 inFormatString;                                    // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 outSoundString;                                    // 0x0020(0x0010)(Parm, OutParm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SoundStatics.GetCueByName
 // 0x0018 (0x0018 - 0x0000)
-struct StaticDataManager_GetSupplyBaseDataAsset final
+struct SoundStatics_GetCueByName final
+{
+public:
+	class FString                                 CueName;                                           // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class USoundAtomCue*                          ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SoundStatics.PlayCharacterDedicatedVoice
+// 0x0030 (0x0030 - 0x0000)
+struct SoundStatics_PlayCharacterDedicatedVoice final
 {
 public:
 	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FName                                   supplyId;                                          // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class USupplyBaseDataAsset*                   ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         inCharacterCode;                                   // 0x0008(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         inVsCharacterCode;                                 // 0x000C(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bInDedicated;                                      // 0x0010(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bInVillain;                                        // 0x0011(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_12[0x6];                                       // 0x0012(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 inFormatString;                                    // 0x0018(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UAtomComponent*                         ReturnValue;                                       // 0x0028(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.StaticDataManager.GetSupplyParticleColorInfo
-// 0x0008 (0x0008 - 0x0000)
-struct StaticDataManager_GetSupplyParticleColorInfo final
-{
-public:
-	class USupplyArtInfoDataAsset*                ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.StaticDataManager.LoadHudResourceDataAsset
-// 0x0008 (0x0008 - 0x0000)
-struct StaticDataManager_LoadHudResourceDataAsset final
+// Function GameModule.SoundStatics.PlayCharacterDedicatedVoiceAuto
+// 0x0028 (0x0028 - 0x0000)
+struct SoundStatics_PlayCharacterDedicatedVoiceAuto final
 {
 public:
 	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	ECharacterId                                  inCharacterId;                                     // 0x0008(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	ECharacterId                                  inVsCharacterId;                                   // 0x0009(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 inFormatString;                                    // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UAtomComponent*                         ReturnValue;                                       // 0x0020(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TextChatButtonGuide.SetGaugePercent
-// 0x0004 (0x0004 - 0x0000)
-struct TextChatButtonGuide_SetGaugePercent final
+// Function GameModule.SoundStatics.PlayMusic
+// 0x0018 (0x0018 - 0x0000)
+struct SoundStatics_PlayMusic final
 {
 public:
-	float                                         value;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class USoundAtomCue*                          Sound;                                             // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UAtomComponent*                         ReturnValue;                                       // 0x0010(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TextChatIcon.LoopAnimation
-// 0x0004 (0x0004 - 0x0000)
-struct TextChatIcon_LoopAnimation final
+// Function GameModule.SoundStatics.PlaySound2D
+// 0x0018 (0x0018 - 0x0000)
+struct SoundStatics_PlaySound2D final
 {
 public:
-	float                                         DeltaTime;                                         // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class USoundAtomCue*                          Sound;                                             // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UAtomComponent*                         ReturnValue;                                       // 0x0010(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TextChatIcon.OnPressButton
+// Function GameModule.SoundStatics.PlaySound2DByName
+// 0x0020 (0x0020 - 0x0000)
+struct SoundStatics_PlaySound2DByName final
+{
+public:
+	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 CueName;                                           // 0x0008(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UAtomComponent*                         ReturnValue;                                       // 0x0018(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SoundStatics.PlaySoundAtLocation
+// 0x0060 (0x0060 - 0x0000)
+struct SoundStatics_PlaySoundAtLocation final
+{
+public:
+	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 CueName;                                           // 0x0008(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FVector                                Location;                                          // 0x0018(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FRotator                               Rotation;                                          // 0x0024(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, NativeAccessSpecifierPublic)
+	float                                         volumeMultiplier;                                  // 0x0030(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         pitchMultiplier;                                   // 0x0034(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         StartTime;                                         // 0x0038(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_3C[0x4];                                       // 0x003C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class USoundAttenuation*                      AttenuationSettings;                               // 0x0040(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class USoundConcurrency*                      ConcurrencySettings;                               // 0x0048(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bAutoDestroy;                                      // 0x0050(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_51[0x7];                                       // 0x0051(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAtomComponent*                         ReturnValue;                                       // 0x0058(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SoundStatics.PlaySoundAttached
+// 0x0068 (0x0068 - 0x0000)
+struct SoundStatics_PlaySoundAttached final
+{
+public:
+	class FString                                 CueName;                                           // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class USceneComponent*                        AttachToComponent;                                 // 0x0010(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FName                                   AttachPointName;                                   // 0x0018(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FVector                                Location;                                          // 0x0020(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FRotator                               Rotation;                                          // 0x002C(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, NativeAccessSpecifierPublic)
+	EAttachLocation                               LocationType;                                      // 0x0038(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bStopWhenAttachedToDestroyed;                      // 0x0039(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_3A[0x2];                                       // 0x003A(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	float                                         volumeMultiplier;                                  // 0x003C(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         pitchMultiplier;                                   // 0x0040(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         StartTime;                                         // 0x0044(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class USoundAttenuation*                      AttenuationSettings;                               // 0x0048(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class USoundConcurrency*                      ConcurrencySettings;                               // 0x0050(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bAutoDestroy;                                      // 0x0058(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_59[0x7];                                       // 0x0059(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAtomComponent*                         ReturnValue;                                       // 0x0060(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SoundStatics.PlayVoice2D
+// 0x0018 (0x0018 - 0x0000)
+struct SoundStatics_PlayVoice2D final
+{
+public:
+	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class USoundAtomCue*                          Sound;                                             // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UAtomComponent*                         ReturnValue;                                       // 0x0010(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SoundStatics.PlayVoice2DByName
+// 0x0020 (0x0020 - 0x0000)
+struct SoundStatics_PlayVoice2DByName final
+{
+public:
+	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 CueName;                                           // 0x0008(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UAtomComponent*                         ReturnValue;                                       // 0x0018(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SupplyBaseDataAsset.GetActionGuideText
+// 0x0018 (0x0018 - 0x0000)
+struct SupplyBaseDataAsset_GetActionGuideText final
+{
+public:
+	class FText                                   ReturnValue;                                       // 0x0000(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SupplyBaseDataAsset.GetDescriptionText
+// 0x0020 (0x0020 - 0x0000)
+struct SupplyBaseDataAsset_GetDescriptionText final
+{
+public:
+	const class UObject*                          WorldContext;                                      // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FText                                   ReturnValue;                                       // 0x0008(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SupplyBaseDataAsset.GetDisplayNameText
+// 0x0018 (0x0018 - 0x0000)
+struct SupplyBaseDataAsset_GetDisplayNameText final
+{
+public:
+	class FText                                   ReturnValue;                                       // 0x0000(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SupplyBaseDataAsset.GetFieldPopUpWidgetColorCurve
+// 0x0008 (0x0008 - 0x0000)
+struct SupplyBaseDataAsset_GetFieldPopUpWidgetColorCurve final
+{
+public:
+	class UCurveLinearColor*                      ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SupplyBaseDataAsset.GetIconPaperSprite
+// 0x0008 (0x0008 - 0x0000)
+struct SupplyBaseDataAsset_GetIconPaperSprite final
+{
+public:
+	class UPaperSprite*                           ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.SupplyBaseDataAsset.GetIconPaperSprite2
+// 0x0008 (0x0008 - 0x0000)
+struct SupplyBaseDataAsset_GetIconPaperSprite2 final
+{
+public:
+	class UPaperSprite*                           ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TeamCommentaryMessageWidget.OnChangeBattleSequence
+// 0x0001 (0x0001 - 0x0000)
+struct TeamCommentaryMessageWidget_OnChangeBattleSequence final
+{
+public:
+	EBattleStartSequenceType                      Sequence;                                          // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TeamCommentaryMessageWidget.OnRequestMessage
+// 0x0001 (0x0001 - 0x0000)
+struct TeamCommentaryMessageWidget_OnRequestMessage final
+{
+public:
+	ETeamCommentaryMessage                        MessageType;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TeamCommentaryMessageWidget.OnSquadNumChanged
+// 0x0004 (0x0004 - 0x0000)
+struct TeamCommentaryMessageWidget_OnSquadNumChanged final
+{
+public:
+	int32                                         SquadNum;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TeamCommentaryMessageWidget.SetMessageEnable
+// 0x0001 (0x0001 - 0x0000)
+struct TeamCommentaryMessageWidget_SetMessageEnable final
+{
+public:
+	bool                                          enable;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatEntryWidget.SetMessage
 // 0x0010 (0x0010 - 0x0000)
-struct TextChatIcon_OnPressButton final
+struct TextChatEntryWidget_SetMessage final
 {
 public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UTextChatListObject*                    obj;                                               // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          isSTT;                                             // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
@@ -8199,6 +8419,99 @@ struct TextChatListObject_BP_GetPlayerId final
 {
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatListWidget.BP_AddNewTextItem
+// 0x0018 (0x0018 - 0x0000)
+struct TextChatListWidget_BP_AddNewTextItem final
+{
+public:
+	class FText                                   Text;                                              // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatListWidget.BP_CallTextChatRecieveEvent
+// 0x0008 (0x0008 - 0x0000)
+struct TextChatListWidget_BP_CallTextChatRecieveEvent final
+{
+public:
+	const class UTextChatListObject*              chatObject;                                        // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatListWidget.BP_CheckUnreadMessage
+// 0x0008 (0x0008 - 0x0000)
+struct TextChatListWidget_BP_CheckUnreadMessage final
+{
+public:
+	class UTextChatListObject*                    message;                                           // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatListWidget.BP_GetUserName
+// 0x0030 (0x0030 - 0x0000)
+struct TextChatListWidget_BP_GetUserName final
+{
+public:
+	class FString                                 playerId;                                          // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 Name_0;                                            // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 ReturnValue;                                       // 0x0020(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatListWidget.BP_IsUnreadMessage
+// 0x0001 (0x0001 - 0x0000)
+struct TextChatListWidget_BP_IsUnreadMessage final
+{
+public:
+	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatListWidget.BP_UpdateArray
+// 0x0008 (0x0008 - 0x0000)
+struct TextChatListWidget_BP_UpdateArray final
+{
+public:
+	class UTextChatListObject*                    chatObject;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatListWidget.GetScrollSpeedRate
+// 0x0014 (0x0014 - 0x0000)
+struct TextChatListWidget_GetScrollSpeedRate final
+{
+public:
+	float                                         analogValue;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         defaultSpeedRate;                                  // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         maxSpeedRate;                                      // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         addSpeedRate;                                      // 0x000C(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         ReturnValue;                                       // 0x0010(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatListWidget.ReceiveSTTMessage
+// 0x0030 (0x0030 - 0x0000)
+struct TextChatListWidget_ReceiveSTTMessage final
+{
+public:
+	class FString                                 platformPlayerId;                                  // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 DisplayName;                                       // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 message;                                           // 0x0020(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatListWidget.SetUpNewMessage
+// 0x0038 (0x0038 - 0x0000)
+struct TextChatListWidget_SetUpNewMessage final
+{
+public:
+	class FString                                 playerId;                                          // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 Name_0;                                            // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 message;                                           // 0x0020(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bLock;                                             // 0x0030(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          isSTT;                                             // 0x0031(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_32[0x6];                                       // 0x0032(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function GameModule.TextChatListWidget.TextToSpeech
+// 0x0008 (0x0008 - 0x0000)
+struct TextChatListWidget_TextToSpeech final
+{
+public:
+	class UTextChatListObject*                    obj;                                               // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.TextChatSubsystem.BP_CallTextChatRecieveEvent
@@ -8387,125 +8700,98 @@ public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TextChatWindowWidget.AnimStart
+// Function GameModule.TextChatWidget.BP_SetNoticeVisibility
+// 0x0001 (0x0001 - 0x0000)
+struct TextChatWidget_BP_SetNoticeVisibility final
+{
+public:
+	ESlateVisibility                              value;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWidget.GetChatIcon
 // 0x0008 (0x0008 - 0x0000)
-struct TextChatWindowWidget_AnimStart final
+struct TextChatWidget_GetChatIcon final
 {
 public:
-	class UWidgetAnimation*                       anim;                                              // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UTextChatIcon*                          ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TextChatWindowWidget.BP_CheckParentControl
-// 0x0001 (0x0001 - 0x0000)
-struct TextChatWindowWidget_BP_CheckParentControl final
+// Function GameModule.TextChatWidget.OnDecideObserver
+// 0x0010 (0x0010 - 0x0000)
+struct TextChatWidget_OnDecideObserver final
 {
 public:
-	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          isLeftButton;                                      // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// Function GameModule.TextChatWindowWidget.BP_PlaySoundCloseWindow
-// 0x0001 (0x0001 - 0x0000)
-struct TextChatWindowWidget_BP_PlaySoundCloseWindow final
+// Function GameModule.TextChatWidget.OnDecideParentEvent
+// 0x0010 (0x0010 - 0x0000)
+struct TextChatWidget_OnDecideParentEvent final
 {
 public:
-	bool                                          isPlaySound;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          isLeftButton;                                      // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// Function GameModule.TextChatWindowWidget.BP_SetActiveFocus
+// Function GameModule.TextChatWidget.SetNoticeVisibility
 // 0x0001 (0x0001 - 0x0000)
-struct TextChatWindowWidget_BP_SetActiveFocus final
-{
-public:
-	bool                                          isFocusable;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatWindowWidget.BP_SetActiveSendButton
-// 0x0001 (0x0001 - 0x0000)
-struct TextChatWindowWidget_BP_SetActiveSendButton final
-{
-public:
-	bool                                          isSendable;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatWindowWidget.BP_SetNoticeVisibility
-// 0x0001 (0x0001 - 0x0000)
-struct TextChatWindowWidget_BP_SetNoticeVisibility final
+struct TextChatWidget_SetNoticeVisibility final
 {
 public:
 	ESlateVisibility                              value;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TextChatWindowWidget.BP_WindowClose
+// Function GameModule.TextChatWidget.SetValueButtonGuide
+// 0x0004 (0x0004 - 0x0000)
+struct TextChatWidget_SetValueButtonGuide final
+{
+public:
+	float                                         value;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWidget.UpdatePopUpPivot
+// 0x0008 (0x0008 - 0x0000)
+struct TextChatWidget_UpdatePopUpPivot final
+{
+public:
+	struct FVector2D                              Pivot;                                             // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function GameModule.TextChatWidget.WindowClose
 // 0x0001 (0x0001 - 0x0000)
-struct TextChatWindowWidget_BP_WindowClose final
+struct TextChatWidget_WindowClose final
 {
 public:
 	bool                                          bPlaySound;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TextChatWindowWidget.BP_WindowOpen
+// Function GameModule.TextChatWidget.WindowOpen
 // 0x0001 (0x0001 - 0x0000)
-struct TextChatWindowWidget_BP_WindowOpen final
+struct TextChatWidget_WindowOpen final
 {
 public:
 	bool                                          bPlaySound;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TextChatWindowWidget.OnCommitChangeText
-// 0x0002 (0x0002 - 0x0000)
-struct TextChatWindowWidget_OnCommitChangeText final
+// Function GameModule.TextSpeechBalloonWidget.SetText
+// 0x0018 (0x0018 - 0x0000)
+struct TextSpeechBalloonWidget_SetText final
 {
 public:
-	bool                                          IsEmpty;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _isFirstFocus;                                     // 0x0001(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FText                                   Text;                                              // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TextChatWindowWidget.SetActiveFocus
-// 0x0001 (0x0001 - 0x0000)
-struct TextChatWindowWidget_SetActiveFocus final
+// Function GameModule.TextSpeechBalloonWidget.GetText
+// 0x0018 (0x0018 - 0x0000)
+struct TextSpeechBalloonWidget_GetText final
 {
 public:
-	bool                                          isFocusable;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatWindowWidget.SetActiveSendButton
-// 0x0001 (0x0001 - 0x0000)
-struct TextChatWindowWidget_SetActiveSendButton final
-{
-public:
-	bool                                          isSendable;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatWindowWidget.SetInputShortCut
-// 0x0001 (0x0001 - 0x0000)
-struct TextChatWindowWidget_SetInputShortCut final
-{
-public:
-	bool                                          value;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatWindowWidget.SetNoticeVisibility
-// 0x0001 (0x0001 - 0x0000)
-struct TextChatWindowWidget_SetNoticeVisibility final
-{
-public:
-	ESlateVisibility                              value;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatWindowWidget.WindowClose
-// 0x0001 (0x0001 - 0x0000)
-struct TextChatWindowWidget_WindowClose final
-{
-public:
-	bool                                          bPlaySound;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TextChatWindowWidget.WindowOpen
-// 0x0001 (0x0001 - 0x0000)
-struct TextChatWindowWidget_WindowOpen final
-{
-public:
-	bool                                          bPlaySound;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FText                                   ReturnValue;                                       // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.TimeWidget.BP_UpdateTimerText
@@ -8524,66 +8810,36 @@ public:
 	struct FTimespan                              remainingTime;                                     // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TutorialTipsWidget.BP_OnReceivedCloseButtonDecidedEvent
-// 0x0010 (0x0010 - 0x0000)
-struct TutorialTipsWidget_BP_OnReceivedCloseButtonDecidedEvent final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.TutorialTipsWidget.NextButtonTileView
+// Function GameModule.TrainingMenuCommonWidget.OpenCharacterInfo
 // 0x0001 (0x0001 - 0x0000)
-struct TutorialTipsWidget_NextButtonTileView final
+struct TrainingMenuCommonWidget_OpenCharacterInfo final
 {
 public:
-	bool                                          NotMaxNext;                                        // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bOutgame;                                          // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TutorialTipsWidget.OnChangeBattleSequence
+// Function GameModule.TutorialMessageWidget.ChangeSizeTutorialMessageWindow
 // 0x0001 (0x0001 - 0x0000)
-struct TutorialTipsWidget_OnChangeBattleSequence final
+struct TutorialMessageWidget_ChangeSizeTutorialMessageWindow final
 {
 public:
-	EBattleStartSequenceType                      Sequence;                                          // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          condition;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TutorialTipsWidget.OnChangeLevel
-// 0x0010 (0x0010 - 0x0000)
-struct TutorialTipsWidget_OnChangeLevel final
+// Function GameModule.TutorialMessageWidget.SetTutorialMessageWidget
+// 0x0018 (0x0018 - 0x0000)
+struct TutorialMessageWidget_SetTutorialMessageWidget final
 {
 public:
-	class ULevel*                                 level_p;                                           // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UWorld*                                 world_p;                                           // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FText                                   message;                                           // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
-// Function GameModule.TutorialTipsWidget.OnReceivedCloseButtonDecidedEvent
-// 0x0010 (0x0010 - 0x0000)
-struct TutorialTipsWidget_OnReceivedCloseButtonDecidedEvent final
+// Function GameModule.TutorialTipsImageWidget.OnReceivedChangedImageIndexEvent
+// 0x0004 (0x0004 - 0x0000)
+struct TutorialTipsImageWidget_OnReceivedChangedImageIndexEvent final
 {
 public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function GameModule.TutorialTipsWidget.PrevButtonTileView
-// 0x0001 (0x0001 - 0x0000)
-struct TutorialTipsWidget_PrevButtonTileView final
-{
-public:
-	bool                                          NotMinPrev;                                        // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.TutorialTipsWidget.SplitStringByCarriageReturn
-// 0x0020 (0x0020 - 0x0000)
-struct TutorialTipsWidget_SplitStringByCarriageReturn final
-{
-public:
-	class FString                                 message;                                           // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TArray<class FString>                         ReturnValue;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
+	int32                                         Index_0;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.WaitNetworkAnimationWidget.SetMessagesText
@@ -8664,22 +8920,6 @@ struct WidgetAnalogInputComponent_GetVirtualCursorPosition final
 {
 public:
 	struct FVector2D                              ReturnValue;                                       // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.WidgetNetWorkNotation.OnMatchingRegionEvent
-// 0x0004 (0x0004 - 0x0000)
-struct WidgetNetWorkNotation_OnMatchingRegionEvent final
-{
-public:
-	int32                                         regionCode;                                        // 0x0000(0x0004)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function GameModule.WidgetNetWorkNotation.OnVoiceChatChangeStatus
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetNetWorkNotation_OnVoiceChatChangeStatus final
-{
-public:
-	EVoiceChatSystemStatus                        Status;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function GameModule.WidgetSafeGeneralWindow.BP_IsEnableClickedBlockBG

@@ -15,7 +15,7 @@ SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
 // Function BP_CC_SuperArmor_For_RollSlot.BP_CC_SuperArmor_For_RollSlot_C.ExecuteUbergraph_BP_CC_SuperArmor_For_RollSlot
-// 0x0068 (0x0068 - 0x0000)
+// 0x0070 (0x0070 - 0x0000)
 struct BP_CC_SuperArmor_For_RollSlot_C_ExecuteUbergraph_BP_CC_SuperArmor_For_RollSlot final
 {
 public:
@@ -33,10 +33,13 @@ public:
 	bool                                          CallFunc_BP_IsValidCondition_ReturnValue_1;        // 0x0040(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	uint8                                         Pad_41[0x7];                                       // 0x0041(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_3; // 0x0048(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_BooleanOR_ReturnValue;                    // 0x0050(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_51[0x7];                                       // 0x0051(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_4; // 0x0050(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterMaterialControlComponent*     CallFunc_BP_GetCharacterMaterialControl_ReturnValue_1; // 0x0058(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_Not_PreBool_ReturnValue;                  // 0x0060(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	class UCharacterConditionControlComponent*    CallFunc_BP_GetConditionControlComponent_ReturnValue_2; // 0x0060(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_BP_IsValidCondition_ReturnValue_2;        // 0x0068(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_BooleanOR_ReturnValue;                    // 0x0069(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_BooleanOR_ReturnValue_1;                  // 0x006A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_Not_PreBool_ReturnValue;                  // 0x006B(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
 
 // Function BP_CC_SuperArmor_For_RollSlot.BP_CC_SuperArmor_For_RollSlot_C.BP_OnUpdateIntervalValue

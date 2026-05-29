@@ -27,9 +27,9 @@ public:
 	class UWBP_ChatButton_C*                      WBP_ChatButton;                                    // 0x03B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 
 public:
-	void ExecuteUbergraph_WBP_Event(int32 EntryPoint);
-	void OnRemoveFromParent();
 	void OnAddToScreen();
+	void OnRemoveFromParent();
+	void ExecuteUbergraph_WBP_Event(int32 EntryPoint);
 
 public:
 	static class UClass* StaticClass()
@@ -45,6 +45,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Event_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Event_C;
 
 SDK_NAMESPACE_END

@@ -36,19 +36,61 @@ void UWBP_CustomMatchDetail_C::ExecuteUbergraph_WBP_CustomMatchDetail(int32 Entr
 }
 
 
-// Function WBP_CustomMatchDetail.WBP_CustomMatchDetail_C.BndEvt__WBP_CustomMatchDetail_WBP_CheckButton_K2Node_ComponentBoundEvent_2_OnChangeStateDelegate__DelegateSignature
-// (BlueprintEvent)
+// Function WBP_CustomMatchDetail.WBP_CustomMatchDetail_C.FocusWindowButton
+// (BlueprintCallable, BlueprintEvent)
 // Parameters:
-// bool                                    bCheck                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+// class UAppWidget*                       Widget                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// EWidgetInputType                        inputType                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UWBP_CustomMatchDetail_C::BndEvt__WBP_CustomMatchDetail_WBP_CheckButton_K2Node_ComponentBoundEvent_2_OnChangeStateDelegate__DelegateSignature(bool bCheck)
+void UWBP_CustomMatchDetail_C::FocusWindowButton(class UAppWidget* Widget, EWidgetInputType inputType)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_CustomMatchDetail_C", "BndEvt__WBP_CustomMatchDetail_WBP_CheckButton_K2Node_ComponentBoundEvent_2_OnChangeStateDelegate__DelegateSignature");
+		Func = Class->GetFunction("WBP_CustomMatchDetail_C", "FocusWindowButton");
 
-	Params::WBP_CustomMatchDetail_C_BndEvt__WBP_CustomMatchDetail_WBP_CheckButton_K2Node_ComponentBoundEvent_2_OnChangeStateDelegate__DelegateSignature Parms{};
+	Params::WBP_CustomMatchDetail_C_FocusWindowButton Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_CustomMatchDetail.WBP_CustomMatchDetail_C.BndEvt__WBP_CustomMatchDetail_WBP_CustomMatchDetail_HiddeButton_K2Node_ComponentBoundEvent_3_OnChangeStateDelegate__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// bool                                    bCheck                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+
+void UWBP_CustomMatchDetail_C::BndEvt__WBP_CustomMatchDetail_WBP_CustomMatchDetail_HiddeButton_K2Node_ComponentBoundEvent_3_OnChangeStateDelegate__DelegateSignature(bool bCheck)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_CustomMatchDetail_C", "BndEvt__WBP_CustomMatchDetail_WBP_CustomMatchDetail_HiddeButton_K2Node_ComponentBoundEvent_3_OnChangeStateDelegate__DelegateSignature");
+
+	Params::WBP_CustomMatchDetail_C_BndEvt__WBP_CustomMatchDetail_WBP_CustomMatchDetail_HiddeButton_K2Node_ComponentBoundEvent_3_OnChangeStateDelegate__DelegateSignature Parms{};
+
+	Parms.bCheck = bCheck;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_CustomMatchDetail.WBP_CustomMatchDetail_C.BndEvt__WBP_CustomMatchDetail_WBP_CustomMatchDetail_EditButton_K2Node_ComponentBoundEvent_1_OnChangeStateDelegate__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// bool                                    bCheck                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+
+void UWBP_CustomMatchDetail_C::BndEvt__WBP_CustomMatchDetail_WBP_CustomMatchDetail_EditButton_K2Node_ComponentBoundEvent_1_OnChangeStateDelegate__DelegateSignature(bool bCheck)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_CustomMatchDetail_C", "BndEvt__WBP_CustomMatchDetail_WBP_CustomMatchDetail_EditButton_K2Node_ComponentBoundEvent_1_OnChangeStateDelegate__DelegateSignature");
+
+	Params::WBP_CustomMatchDetail_C_BndEvt__WBP_CustomMatchDetail_WBP_CustomMatchDetail_EditButton_K2Node_ComponentBoundEvent_1_OnChangeStateDelegate__DelegateSignature Parms{};
 
 	Parms.bCheck = bCheck;
 

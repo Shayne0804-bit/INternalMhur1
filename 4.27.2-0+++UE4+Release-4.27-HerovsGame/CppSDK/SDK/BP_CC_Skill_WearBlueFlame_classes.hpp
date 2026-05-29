@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
 #include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
@@ -29,6 +29,7 @@ public:
 
 public:
 	void ExecuteUbergraph_BP_CC_Skill_WearBlueFlame(int32 EntryPoint);
+	void BP_ReceiveConditionPing(int32 Index_0, float value);
 	void BP_OnChangeConditionLevel(int32 oldLevel, int32 newLevel);
 	void EndOpticalDazzlePaint();
 	void BeginOpticalDazzlePaint();

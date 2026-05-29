@@ -32,7 +32,6 @@ public:
 	int32                                         CallFunc_BP_GetNeedCoinNum_ReturnValue;            // 0x0014(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	ECurrencyType                                 CallFunc_BP_GetNeedCoinType_ReturnValue;           // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_LoginBonusBuyWindow_C_ExecuteUbergraph_WBP_LoginBonusBuyWindow;
 
 // Function WBP_LoginBonusBuyWindow.WBP_LoginBonusBuyWindow_C.BndEvt__WBP_LoginBonusBuyWindow__shoppingWidget_K2Node_ComponentBoundEvent_2_OnWindowInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -43,7 +42,6 @@ public:
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          leftButton;                                        // 0x0009(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_LoginBonusBuyWindow_C_BndEvt__WBP_LoginBonusBuyWindow__shoppingWidget_K2Node_ComponentBoundEvent_2_OnWindowInputEventDelegate__DelegateSignature;
 
 // Function WBP_LoginBonusBuyWindow.WBP_LoginBonusBuyWindow_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -52,7 +50,6 @@ struct WBP_LoginBonusBuyWindow_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_LoginBonusBuyWindow_C_PreConstruct;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

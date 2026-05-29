@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ASL_TOS_PrivacyPolicy_C>();
 	}
 };
-DUMPER7_ASSERTS_ASL_TOS_PrivacyPolicy_C;
 
 SDK_NAMESPACE_END

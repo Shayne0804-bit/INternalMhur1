@@ -10,18 +10,18 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
 #include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionDamageKnockDown.BP_ActionDamageKnockDown_C
-// 0x0008 (0x0278 - 0x0270)
+// 0x0008 (0x0310 - 0x0308)
 class UBP_ActionDamageKnockDown_C final : public UActionDamageBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0270(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0308(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
 
 public:
 	void ExecuteUbergraph_BP_ActionDamageKnockDown(int32 EntryPoint);

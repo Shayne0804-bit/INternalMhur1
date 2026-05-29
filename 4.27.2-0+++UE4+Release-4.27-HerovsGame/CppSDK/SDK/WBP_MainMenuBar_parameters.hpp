@@ -18,30 +18,29 @@ SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
 // Function WBP_MainMenuBar.WBP_MainMenuBar_C.UpdateNotice
-// 0x11F0 (0x11F0 - 0x0000)
+// 0x11F8 (0x11F8 - 0x0000)
 struct WBP_MainMenuBar_C_UpdateNotice final
 {
 public:
-	struct FDbMyPlayerParam                       NewLocalVar_1;                                     // 0x0000(0x1170)(Edit, BlueprintVisible, HasGetValueTypeHash)
-	class FText                                   NewLocalVar_0;                                     // 0x1170(0x0018)(Edit, BlueprintVisible)
-	int32                                         Temp_int_Array_Index_Variable;                     // 0x1188(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_118C[0x4];                                     // 0x118C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class UBackendSubsystem*                      CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x1190(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UDatabaseParams*                        CallFunc_GetDatabaseParams_ReturnValue;            // 0x1198(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	TArray<class UUserWidget*>                    CallFunc_GetDisplayedEntryWidgets_ReturnValue;     // 0x11A0(0x0010)(ConstParm, ReferenceParm, ContainsInstancedReference)
-	class UUserWidget*                            CallFunc_Array_Get_Item;                           // 0x11B0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UMainMenuBarListEntryWidget*            K2Node_DynamicCast_AsMain_Menu_Bar_List_Entry_Widget; // 0x11B8(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x11C0(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_11C1[0x3];                                     // 0x11C1(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         CallFunc_Array_Length_ReturnValue;                 // 0x11C4(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class FText                                   CallFunc_GetText_ReturnValue;                      // 0x11C8(0x0018)()
-	int32                                         Temp_int_Loop_Counter_Variable;                    // 0x11E0(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_EqualEqual_TextText_ReturnValue;          // 0x11E4(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	bool                                          CallFunc_Less_IntInt_ReturnValue;                  // 0x11E5(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_11E6[0x2];                                     // 0x11E6(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         CallFunc_Add_IntInt_ReturnValue;                   // 0x11E8(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FDbMyPlayerParam                       NewLocalVar_1;                                     // 0x0000(0x1178)(Edit, BlueprintVisible, HasGetValueTypeHash)
+	class FText                                   NewLocalVar_0;                                     // 0x1178(0x0018)(Edit, BlueprintVisible)
+	int32                                         Temp_int_Array_Index_Variable;                     // 0x1190(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_1194[0x4];                                     // 0x1194(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class UBackendSubsystem*                      CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x1198(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UDatabaseParams*                        CallFunc_GetDatabaseParams_ReturnValue;            // 0x11A0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	TArray<class UUserWidget*>                    CallFunc_GetDisplayedEntryWidgets_ReturnValue;     // 0x11A8(0x0010)(ConstParm, ReferenceParm, ContainsInstancedReference)
+	class UUserWidget*                            CallFunc_Array_Get_Item;                           // 0x11B8(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UMainMenuBarListEntryWidget*            K2Node_DynamicCast_AsMain_Menu_Bar_List_Entry_Widget; // 0x11C0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x11C8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_11C9[0x3];                                     // 0x11C9(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         CallFunc_Array_Length_ReturnValue;                 // 0x11CC(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class FText                                   CallFunc_GetText_ReturnValue;                      // 0x11D0(0x0018)()
+	int32                                         Temp_int_Loop_Counter_Variable;                    // 0x11E8(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_EqualEqual_TextText_ReturnValue;          // 0x11EC(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_Less_IntInt_ReturnValue;                  // 0x11ED(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_11EE[0x2];                                     // 0x11EE(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         CallFunc_Add_IntInt_ReturnValue;                   // 0x11F0(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_MainMenuBar_C_UpdateNotice;
 
 // Function WBP_MainMenuBar.WBP_MainMenuBar_C.SetListObject
 // 0x0060 (0x0060 - 0x0000)
@@ -62,7 +61,6 @@ public:
 	class FText                                   CallFunc_Array_Get_Item_2;                         // 0x0040(0x0018)()
 	class UMainMenuBarListEntryObject*            CallFunc_SpawnObject_ReturnValue;                  // 0x0058(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_MainMenuBar_C_SetListObject;
 
 // Function WBP_MainMenuBar.WBP_MainMenuBar_C.BndEvt__WBP_MainMenuBar__generalButtonLeft_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -72,7 +70,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_MainMenuBar_C_BndEvt__WBP_MainMenuBar__generalButtonLeft_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_MainMenuBar.WBP_MainMenuBar_C.ExecuteUbergraph_WBP_MainMenuBar
 // 0x0030 (0x0030 - 0x0000)
@@ -87,7 +84,6 @@ public:
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UGameSequenceWork*                      CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x0028(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_MainMenuBar_C_ExecuteUbergraph_WBP_MainMenuBar;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

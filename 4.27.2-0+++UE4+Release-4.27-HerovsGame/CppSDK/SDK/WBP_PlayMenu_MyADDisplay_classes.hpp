@@ -39,6 +39,5 @@ public:
 		return GetDefaultObjImpl<UWBP_PlayMenu_MyADDisplay_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_PlayMenu_MyADDisplay_C;
 
 SDK_NAMESPACE_END

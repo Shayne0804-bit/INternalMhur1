@@ -36,26 +36,6 @@ void UWBP_TextChatList_C::ExecuteUbergraph_WBP_TextChatList(int32 EntryPoint)
 }
 
 
-// Function WBP_TextChatList.WBP_TextChatList_C.PreConstruct
-// (BlueprintCosmetic, Event, Public, BlueprintEvent)
-// Parameters:
-// bool                                    IsDesignTime                                           (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
-
-void UWBP_TextChatList_C::PreConstruct(bool IsDesignTime)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_TextChatList_C", "PreConstruct");
-
-	Params::WBP_TextChatList_C_PreConstruct Parms{};
-
-	Parms.IsDesignTime = IsDesignTime;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
 // Function WBP_TextChatList.WBP_TextChatList_C.Construct
 // (BlueprintCosmetic, Event, Public, BlueprintEvent)
 
@@ -93,6 +73,26 @@ void UWBP_TextChatList_C::SetUpNewMessage(const class FString& playerId, const c
 	Parms.message = std::move(message);
 	Parms.bLock = bLock;
 	Parms.isSTT = isSTT;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_TextChatList.WBP_TextChatList_C.PreConstruct
+// (BlueprintCosmetic, Event, Public, BlueprintEvent)
+// Parameters:
+// bool                                    IsDesignTime                                           (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+
+void UWBP_TextChatList_C::PreConstruct(bool IsDesignTime)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_TextChatList_C", "PreConstruct");
+
+	Params::WBP_TextChatList_C_PreConstruct Parms{};
+
+	Parms.IsDesignTime = IsDesignTime;
 
 	UObject::ProcessEvent(Func, &Parms);
 }

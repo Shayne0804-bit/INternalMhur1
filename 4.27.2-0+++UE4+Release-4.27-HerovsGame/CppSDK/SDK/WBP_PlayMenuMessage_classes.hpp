@@ -41,6 +41,5 @@ public:
 		return GetDefaultObjImpl<UWBP_PlayMenuMessage_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_PlayMenuMessage_C;
 
 SDK_NAMESPACE_END

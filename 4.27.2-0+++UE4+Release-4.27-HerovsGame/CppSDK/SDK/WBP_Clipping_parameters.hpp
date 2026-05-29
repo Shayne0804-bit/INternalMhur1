@@ -16,6 +16,23 @@
 SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
+// Function WBP_Clipping.WBP_Clipping_C.ExecuteUbergraph_WBP_Clipping
+// 0x0008 (0x0008 - 0x0000)
+struct WBP_Clipping_C_ExecuteUbergraph_WBP_Clipping final
+{
+public:
+	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_Event_IsDesignTime;                         // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+};
+
+// Function WBP_Clipping.WBP_Clipping_C.PreConstruct
+// 0x0001 (0x0001 - 0x0000)
+struct WBP_Clipping_C_PreConstruct final
+{
+public:
+	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+};
+
 // Function WBP_Clipping.WBP_Clipping_C.Setup
 // 0x0038 (0x0038 - 0x0000)
 struct WBP_Clipping_C_Setup final
@@ -34,23 +51,6 @@ public:
 	bool                                          CallFunc_EqualEqual_ObjectObject_ReturnValue;      // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	uint8                                         Pad_29[0x7];                                       // 0x0029(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class URetainerBox*                           K2Node_Select_Default_1;                           // 0x0030(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-
-// Function WBP_Clipping.WBP_Clipping_C.PreConstruct
-// 0x0001 (0x0001 - 0x0000)
-struct WBP_Clipping_C_PreConstruct final
-{
-public:
-	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
-};
-
-// Function WBP_Clipping.WBP_Clipping_C.ExecuteUbergraph_WBP_Clipping
-// 0x0008 (0x0008 - 0x0000)
-struct WBP_Clipping_C_ExecuteUbergraph_WBP_Clipping final
-{
-public:
-	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_Event_IsDesignTime;                         // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
 
 SDK_PARAM_NAMESPACE_END

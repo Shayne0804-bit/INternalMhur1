@@ -11,11 +11,11 @@
 #include "Basic.hpp"
 
 #include "SlateCore_structs.hpp"
-#include "BackendSubsystem_structs.hpp"
 #include "UMG_structs.hpp"
 #include "InputCore_structs.hpp"
 #include "MasterDataModule_structs.hpp"
 #include "UIFramework_structs.hpp"
+#include "BackendSubsystem_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -58,7 +58,6 @@ public:
 	TSoftObjectPtr<class UWorld>                  K2Node_Select_Default;                             // 0x00A8(0x0028)(HasGetValueTypeHash)
 	class UBGMSubsystem*                          CallFunc_GetGameInstanceSubsystem_ReturnValue_1;   // 0x00D0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_PlayMenuHamburgerMenu_C_ExecuteUbergraph_WBP_PlayMenuHamburgerMenu;
 
 // Function WBP_PlayMenuHamburgerMenu.WBP_PlayMenuHamburgerMenu_C.BndEvt__WBP_PlayMenuHamburgerMenu_WBP_WindowButton_K2Node_ComponentBoundEvent_7_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -68,7 +67,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_PlayMenuHamburgerMenu_C_BndEvt__WBP_PlayMenuHamburgerMenu_WBP_WindowButton_K2Node_ComponentBoundEvent_7_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_PlayMenuHamburgerMenu.WBP_PlayMenuHamburgerMenu_C.OnButtonSelectEvent
 // 0x0002 (0x0002 - 0x0000)
@@ -78,7 +76,6 @@ public:
 	EMdPlayMenuHamburgerMenuList                  Type;                                              // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          useFade;                                           // 0x0001(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_PlayMenuHamburgerMenu_C_OnButtonSelectEvent;
 
 // Function WBP_PlayMenuHamburgerMenu.WBP_PlayMenuHamburgerMenu_C.OntileViewNavigationUp
 // 0x0004 (0x0004 - 0x0000)
@@ -87,7 +84,6 @@ struct WBP_PlayMenuHamburgerMenu_C_OntileViewNavigationUp final
 public:
 	int32                                         currentIndex;                                      // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_PlayMenuHamburgerMenu_C_OntileViewNavigationUp;
 
 // Function WBP_PlayMenuHamburgerMenu.WBP_PlayMenuHamburgerMenu_C.RunFunction
 // 0x0010 (0x0010 - 0x0000)
@@ -98,7 +94,6 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UGameSequenceWork*                      CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_PlayMenuHamburgerMenu_C_RunFunction;
 
 // Function WBP_PlayMenuHamburgerMenu.WBP_PlayMenuHamburgerMenu_C.LargeIconDownNavigation
 // 0x0038 (0x0038 - 0x0000)
@@ -115,7 +110,6 @@ public:
 	class UPlayMenuHamburgerListEntryObject*      K2Node_DynamicCast_AsPlay_Menu_Hamburger_List_Entry_Object; // 0x0028(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x0030(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_PlayMenuHamburgerMenu_C_LargeIconDownNavigation;
 
 // Function WBP_PlayMenuHamburgerMenu.WBP_PlayMenuHamburgerMenu_C.DebugCustomNavigation
 // 0x0028 (0x0028 - 0x0000)
@@ -131,7 +125,6 @@ public:
 	uint8                                         Pad_1A[0x6];                                       // 0x001A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	class UObject*                                CallFunc_GetItemAt_ReturnValue_1;                  // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_PlayMenuHamburgerMenu_C_DebugCustomNavigation;
 
 // Function WBP_PlayMenuHamburgerMenu.WBP_PlayMenuHamburgerMenu_C.OnKeyDown
 // 0x02B8 (0x02B8 - 0x0000)
@@ -147,7 +140,6 @@ public:
 	struct FEventReply                            CallFunc_OnKeyDown_ReturnValue;                    // 0x0148(0x00B8)()
 	struct FEventReply                            CallFunc_Unhandled_ReturnValue;                    // 0x0200(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_PlayMenuHamburgerMenu_C_OnKeyDown;
 
 // Function WBP_PlayMenuHamburgerMenu.WBP_PlayMenuHamburgerMenu_C.LargeIconLRNavigation
 // 0x0028 (0x0028 - 0x0000)
@@ -163,7 +155,6 @@ public:
 	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x0020(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_SetNextLargeIconFocus_ReturnValue;        // 0x0021(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_PlayMenuHamburgerMenu_C_LargeIconLRNavigation;
 
 // Function WBP_PlayMenuHamburgerMenu.WBP_PlayMenuHamburgerMenu_C.Init
 // 0x0020 (0x0020 - 0x0000)
@@ -174,7 +165,6 @@ public:
 	class UWBP_PlayMenu_C*                        CallFunc_Array_Get_Item;                           // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_IsValid_ReturnValue;                      // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_PlayMenuHamburgerMenu_C_Init;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

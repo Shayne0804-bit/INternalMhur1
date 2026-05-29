@@ -36,6 +36,20 @@ void UBP_CC_SpecialSeal_C::ExecuteUbergraph_BP_CC_SpecialSeal(int32 EntryPoint)
 }
 
 
+// Function BP_CC_SpecialSeal.BP_CC_SpecialSeal_C.BP_OnAgainCondition
+// (Event, Protected, BlueprintEvent)
+
+void UBP_CC_SpecialSeal_C::BP_OnAgainCondition()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_CC_SpecialSeal_C", "BP_OnAgainCondition");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
 // Function BP_CC_SpecialSeal.BP_CC_SpecialSeal_C.BP_OnBootDamage
 // (Event, Protected, HasOutParams, BlueprintEvent)
 // Parameters:

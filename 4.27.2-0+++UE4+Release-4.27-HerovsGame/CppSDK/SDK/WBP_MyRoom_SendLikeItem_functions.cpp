@@ -16,6 +16,20 @@
 
 SDK_NAMESPACE_START
 
+// Function WBP_MyRoom_SendLikeItem.WBP_MyRoom_SendLikeItem_C.Construct
+// (BlueprintCosmetic, Event, Public, BlueprintEvent)
+
+void UWBP_MyRoom_SendLikeItem_C::Construct()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_MyRoom_SendLikeItem_C", "Construct");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
 // Function WBP_MyRoom_SendLikeItem.WBP_MyRoom_SendLikeItem_C.ExecuteUbergraph_WBP_MyRoom_SendLikeItem
 // (Final, UbergraphFunction)
 // Parameters:
@@ -33,20 +47,6 @@ void UWBP_MyRoom_SendLikeItem_C::ExecuteUbergraph_WBP_MyRoom_SendLikeItem(int32 
 	Parms.EntryPoint = EntryPoint;
 
 	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function WBP_MyRoom_SendLikeItem.WBP_MyRoom_SendLikeItem_C.Construct
-// (BlueprintCosmetic, Event, Public, BlueprintEvent)
-
-void UWBP_MyRoom_SendLikeItem_C::Construct()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_MyRoom_SendLikeItem_C", "Construct");
-
-	UObject::ProcessEvent(Func, nullptr);
 }
 
 

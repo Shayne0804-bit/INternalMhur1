@@ -14,8 +14,16 @@
 SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
+// Function WBP_Background.WBP_Background_C.PreConstruct
+// 0x0001 (0x0001 - 0x0000)
+struct WBP_Background_C_PreConstruct final
+{
+public:
+	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+};
+
 // Function WBP_Background.WBP_Background_C.ExecuteUbergraph_WBP_Background
-// 0x0020 (0x0020 - 0x0000)
+// 0x0028 (0x0028 - 0x0000)
 struct WBP_Background_C_ExecuteUbergraph_WBP_Background final
 {
 public:
@@ -26,8 +34,8 @@ public:
 	bool                                          CallFunc_IsValid_ReturnValue_1;                    // 0x0010(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue_1;                // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_Event_IsDesignTime;                         // 0x0020(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Background_C_ExecuteUbergraph_WBP_Background;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

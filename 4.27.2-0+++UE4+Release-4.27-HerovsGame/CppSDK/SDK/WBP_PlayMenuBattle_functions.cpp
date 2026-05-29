@@ -16,85 +16,26 @@
 
 SDK_NAMESPACE_START
 
-// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.ExecuteUbergraph_WBP_PlayMenuBattle
-// (Final, UbergraphFunction)
+// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.CancelButtonNavigation
+// (Public, HasOutParams, BlueprintCallable, BlueprintEvent)
 // Parameters:
-// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// EUINavigation                           Navigation_0                                           (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// class UWidget*                          ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UWBP_PlayMenuBattle_C::ExecuteUbergraph_WBP_PlayMenuBattle(int32 EntryPoint)
+class UWidget* UWBP_PlayMenuBattle_C::CancelButtonNavigation(EUINavigation Navigation_0)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenuBattle_C", "ExecuteUbergraph_WBP_PlayMenuBattle");
+		Func = Class->GetFunction("WBP_PlayMenuBattle_C", "CancelButtonNavigation");
 
-	Params::WBP_PlayMenuBattle_C_ExecuteUbergraph_WBP_PlayMenuBattle Parms{};
+	Params::WBP_PlayMenuBattle_C_CancelButtonNavigation Parms{};
 
-	Parms.EntryPoint = EntryPoint;
+	Parms.Navigation_0 = Navigation_0;
 
 	UObject::ProcessEvent(Func, &Parms);
-}
 
-
-// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.OnLevelHidden_イベント_0
-// (BlueprintCallable, BlueprintEvent)
-
-void UWBP_PlayMenuBattle_C::OnLevelHidden_イベント_0()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenuBattle_C", "OnLevelHidden_イベント_0");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.CallCustomMatchMenu
-// (Event, Public, BlueprintEvent)
-
-void UWBP_PlayMenuBattle_C::CallCustomMatchMenu()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenuBattle_C", "CallCustomMatchMenu");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.CallTrainingMenu
-// (Event, Public, BlueprintEvent)
-
-void UWBP_PlayMenuBattle_C::CallTrainingMenu()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenuBattle_C", "CallTrainingMenu");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.PreConstruct
-// (BlueprintCosmetic, Event, Public, BlueprintEvent)
-// Parameters:
-// bool                                    IsDesignTime                                           (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
-
-void UWBP_PlayMenuBattle_C::PreConstruct(bool IsDesignTime)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenuBattle_C", "PreConstruct");
-
-	Params::WBP_PlayMenuBattle_C_PreConstruct Parms{};
-
-	Parms.IsDesignTime = IsDesignTime;
-
-	UObject::ProcessEvent(Func, &Parms);
+	return Parms.ReturnValue;
 }
 
 
@@ -118,26 +59,85 @@ void UWBP_PlayMenuBattle_C::Out_Navigation(EUINavigation Navigation_0)
 }
 
 
-// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.CancelButtonNavigation
-// (Public, HasOutParams, BlueprintCallable, BlueprintEvent)
+// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.PreConstruct
+// (BlueprintCosmetic, Event, Public, BlueprintEvent)
 // Parameters:
-// EUINavigation                           Navigation_0                                           (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-// class UWidget*                          ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// bool                                    IsDesignTime                                           (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 
-class UWidget* UWBP_PlayMenuBattle_C::CancelButtonNavigation(EUINavigation Navigation_0)
+void UWBP_PlayMenuBattle_C::PreConstruct(bool IsDesignTime)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenuBattle_C", "CancelButtonNavigation");
+		Func = Class->GetFunction("WBP_PlayMenuBattle_C", "PreConstruct");
 
-	Params::WBP_PlayMenuBattle_C_CancelButtonNavigation Parms{};
+	Params::WBP_PlayMenuBattle_C_PreConstruct Parms{};
 
-	Parms.Navigation_0 = Navigation_0;
+	Parms.IsDesignTime = IsDesignTime;
 
 	UObject::ProcessEvent(Func, &Parms);
+}
 
-	return Parms.ReturnValue;
+
+// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.CallTrainingMenu
+// (Event, Public, BlueprintEvent)
+
+void UWBP_PlayMenuBattle_C::CallTrainingMenu()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_PlayMenuBattle_C", "CallTrainingMenu");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.CallCustomMatchMenu
+// (Event, Public, BlueprintEvent)
+
+void UWBP_PlayMenuBattle_C::CallCustomMatchMenu()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_PlayMenuBattle_C", "CallCustomMatchMenu");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.OnLevelHidden_イベント_0
+// (BlueprintCallable, BlueprintEvent)
+
+void UWBP_PlayMenuBattle_C::OnLevelHidden_イベント_0()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_PlayMenuBattle_C", "OnLevelHidden_イベント_0");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.ExecuteUbergraph_WBP_PlayMenuBattle
+// (Final, UbergraphFunction)
+// Parameters:
+// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_PlayMenuBattle_C::ExecuteUbergraph_WBP_PlayMenuBattle(int32 EntryPoint)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_PlayMenuBattle_C", "ExecuteUbergraph_WBP_PlayMenuBattle");
+
+	Params::WBP_PlayMenuBattle_C_ExecuteUbergraph_WBP_PlayMenuBattle Parms{};
+
+	Parms.EntryPoint = EntryPoint;
+
+	UObject::ProcessEvent(Func, &Parms);
 }
 
 

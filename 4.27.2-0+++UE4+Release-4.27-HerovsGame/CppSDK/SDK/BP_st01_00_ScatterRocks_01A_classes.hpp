@@ -16,11 +16,11 @@
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_st01_00_ScatterRocks_01A.BP_st01_00_ScatterRocks_01A_C
-// 0x0008 (0x03D0 - 0x03C8)
+// 0x0008 (0x03E8 - 0x03E0)
 class ABP_st01_00_ScatterRocks_01A_C final : public ABgProp
 {
 public:
-	class UStaticMeshComponent*                   SM_st01_00_concreteblock01C;                       // 0x03C8(0x0008)(BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData, NonTransactional, NoDestructor, HasGetValueTypeHash)
+	class UStaticMeshComponent*                   SM_st01_00_concreteblock01C;                       // 0x03E0(0x0008)(BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData, NonTransactional, NoDestructor, HasGetValueTypeHash)
 
 public:
 	static class UClass* StaticClass()

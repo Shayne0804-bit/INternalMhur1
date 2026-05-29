@@ -10,19 +10,19 @@
 
 #include "Basic.hpp"
 
+#include "Engine_structs.hpp"
 #include "InGameModule_structs.hpp"
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionWallCrawl.BP_ActionWallCrawl_C
-// 0x0008 (0x0280 - 0x0278)
+// 0x0008 (0x0288 - 0x0280)
 class UBP_ActionWallCrawl_C final : public UActionWallCrawl
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0278(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0280(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
 
 public:
 	void ExecuteUbergraph_BP_ActionWallCrawl(int32 EntryPoint);

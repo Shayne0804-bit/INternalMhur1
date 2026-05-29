@@ -10,8 +10,9 @@
 
 #include "Basic.hpp"
 
-#include "UMG_structs.hpp"
+#include "CoreUObject_structs.hpp"
 #include "SlateCore_structs.hpp"
+#include "UMG_structs.hpp"
 #include "InputCore_structs.hpp"
 
 
@@ -19,21 +20,22 @@ SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
 // Function WBP_Setting_Button_Slider.WBP_Setting_Button_Slider_C.ExecuteUbergraph_WBP_Setting_Button_Slider
-// 0x0058 (0x0058 - 0x0000)
+// 0x0078 (0x0078 - 0x0000)
 struct WBP_Setting_Button_Slider_C_ExecuteUbergraph_WBP_Setting_Button_Slider final
 {
 public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_Event_IsDesignTime;                         // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FGeometry                              K2Node_Event_MyGeometry;                           // 0x0008(0x0038)(IsPlainOldData, NoDestructor)
-	float                                         K2Node_Event_InDeltaTime;                          // 0x0040(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FFocusEvent                            K2Node_Event_InFocusEvent;                         // 0x0044(0x0008)(NoDestructor)
-	bool                                          CallFunc_IsFocusCauseNotCleared_ReturnValue;       // 0x004C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_4D[0x3];                                       // 0x004D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue;                  // 0x0050(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FLinearColor                           K2Node_MakeStruct_LinearColor;                     // 0x0004(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FLinearColor                           K2Node_MakeStruct_LinearColor_1;                   // 0x0014(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_Event_IsDesignTime;                         // 0x0024(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_25[0x3];                                       // 0x0025(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FGeometry                              K2Node_Event_MyGeometry;                           // 0x0028(0x0038)(IsPlainOldData, NoDestructor)
+	float                                         K2Node_Event_InDeltaTime;                          // 0x0060(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FFocusEvent                            K2Node_Event_InFocusEvent;                         // 0x0064(0x0008)(NoDestructor)
+	bool                                          CallFunc_IsFocusCauseNotCleared_ReturnValue;       // 0x006C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_6D[0x3];                                       // 0x006D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue;                  // 0x0070(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Slider_C_ExecuteUbergraph_WBP_Setting_Button_Slider;
 
 // Function WBP_Setting_Button_Slider.WBP_Setting_Button_Slider_C.OnFocusLost
 // 0x0008 (0x0008 - 0x0000)
@@ -42,7 +44,6 @@ struct WBP_Setting_Button_Slider_C_OnFocusLost final
 public:
 	struct FFocusEvent                            InFocusEvent;                                      // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Slider_C_OnFocusLost;
 
 // Function WBP_Setting_Button_Slider.WBP_Setting_Button_Slider_C.Tick
 // 0x003C (0x003C - 0x0000)
@@ -52,7 +53,6 @@ public:
 	struct FGeometry                              MyGeometry;                                        // 0x0000(0x0038)(BlueprintVisible, BlueprintReadOnly, Parm, IsPlainOldData, NoDestructor)
 	float                                         InDeltaTime;                                       // 0x0038(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Slider_C_Tick;
 
 // Function WBP_Setting_Button_Slider.WBP_Setting_Button_Slider_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -61,7 +61,6 @@ struct WBP_Setting_Button_Slider_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Slider_C_PreConstruct;
 
 // Function WBP_Setting_Button_Slider.WBP_Setting_Button_Slider_C.OnKeyUp
 // 0x0210 (0x0210 - 0x0000)
@@ -80,7 +79,6 @@ public:
 	uint8                                         Pad_152[0x6];                                      // 0x0152(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FEventReply                            K2Node_MakeStruct_EventReply;                      // 0x0158(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Slider_C_OnKeyUp;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

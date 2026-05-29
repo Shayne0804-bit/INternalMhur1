@@ -42,6 +42,5 @@ public:
 		return GetDefaultObjImpl<UWBP_LoginBonusBannerIcon_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_LoginBonusBannerIcon_C;
 
 SDK_NAMESPACE_END

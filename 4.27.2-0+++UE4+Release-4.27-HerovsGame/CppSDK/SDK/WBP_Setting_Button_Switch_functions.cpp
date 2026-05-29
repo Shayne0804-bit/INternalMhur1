@@ -36,6 +36,20 @@ void UWBP_Setting_Button_Switch_C::ExecuteUbergraph_WBP_Setting_Button_Switch(in
 }
 
 
+// Function WBP_Setting_Button_Switch.WBP_Setting_Button_Switch_C.OnInitialized
+// (BlueprintCosmetic, Event, Public, BlueprintEvent)
+
+void UWBP_Setting_Button_Switch_C::OnInitialized()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_Setting_Button_Switch_C", "OnInitialized");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
 // Function WBP_Setting_Button_Switch.WBP_Setting_Button_Switch_C.OnFocusLost
 // (BlueprintCosmetic, Event, Public, BlueprintEvent)
 // Parameters:

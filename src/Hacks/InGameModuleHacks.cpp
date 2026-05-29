@@ -33,8 +33,8 @@ extern "C" const char* SDK_GetPlayerName(void* PlayerState);  // Get player name
 // ============================================
 
 // Offsets for PlayerState (from Basic.cpp)
-#define OFFSET_PLAYERSTATE 0x240          // AActor::PlayerState
-#define OFFSET_PLAYERSTATE_IFDYING 1400   // Dying flag at +1400
+#define OFFSET_PLAYERSTATE 0x6E0          // AActor::PlayerState
+#define OFFSET_PLAYERSTATE_IFDYING 1416   // Dying flag at +1400
 
 /**
  * Check if a character is dying using PlayerState offset
@@ -1330,7 +1330,7 @@ bool InGameHack_ApplyPlayerConfiguration(int characterId, int variationId, int u
  * Uses SDK method call directly (not ProcessEvent)
  * Returns: number of characters changed (0 if failed or no characters found)
  */
-int InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType)
+int InGameHack_ApplyToAllControllers(int characterId, int variationId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType)
 {
     // Check if in valid battle mode first
     if (!IsValidBattleMode())
@@ -1364,25 +1364,10 @@ int InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharact
             return 0;
         }
 
-        // DECODE EVariationCharacterId into (characterId, variationId)
-        auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(variationCharacterId);
-        
-        // Create character data with ALL parameters FILLED
-        SDK::FInGameBattleCharacterData characterData;
-        characterData._characterId = characterId;
-        characterData._variationId = variationId;
-        characterData._skillVariationCode = variationId;  // Default skill variation
-        characterData._technique1Level = unique1;
-        characterData._technique2Level = unique2;
-        characterData._technique3Level = unique3;
-        characterData._costumeCode = costumeCode;
-        characterData._costumeAuraType = costumeAuraType;
-        // emoteCodes, voiceCodes, roleSlot use defaults (empty arrays/struct)
-
         // Open log file for getter data
         std::ofstream debugFile("C:\\temp\\ApplyToAll_GetterData.txt", std::ios::trunc);
         debugFile << "=== ApplyToAll Getter Data Log ===" << std::endl;
-        debugFile << "Requested Change - CharId: " << (int)characterId << ", Variation: " << variationId << std::endl;
+        debugFile << "Requested Change - CharId: " << characterId << ", Variation: " << variationId << std::endl;
         debugFile << "Technique Levels: " << unique1 << ", " << unique2 << ", " << unique3 << std::endl;
         debugFile << "Costume: " << costumeCode << ", Aura: " << costumeAuraType << std::endl;
         debugFile << "\n--- Player Data Retrieved via Getters ---\n" << std::endl;
@@ -1412,8 +1397,26 @@ int InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharact
                           << ", Variation=" << currentVariationNo 
                           << ", Costume=" << currentCostumeCode << std::endl;
 
+                // Set the variation on the target character BEFORE RPC so server sees it
+                int32_t originalVariation = targetCharacter->_variationNo;
+                targetCharacter->_variationNo = variationId;
+
+                // Create character data
+                SDK::FInGameBattleCharacterData changeData = {};
+                *(int*)&changeData._characterId = 1;
+                changeData._variationId = 0;
+                changeData._skillVariationCode = (2 * 100) + 0;
+                changeData._technique1Level = unique1;
+                changeData._technique2Level = unique2;
+                changeData._technique3Level = unique3;
+                changeData._costumeCode = costumeCode;
+                changeData._costumeAuraType = costumeAuraType;
+
                 // Call LOCAL controller's ChangeCharacter_OnServer for THIS character
-                battlePC->ChangeCharacter_OnServer(targetCharacter, characterData);
+                battlePC->ChangeCharacter_OnServer(targetCharacter, changeData);
+
+                // Restore original (server will have synced the new variant)
+                targetCharacter->_variationNo = originalVariation;
                 appliedCount++;
             }
             catch (...)
@@ -1456,7 +1459,7 @@ int InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharact
  * Apply player configuration to ALL characters in a specific team
  * Uses same exploit as ApplyToAllControllers but filters by team ID
  */
-bool InGameHack_ApplyToTeam(unsigned char teamId, SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType)
+bool InGameHack_ApplyToTeam(unsigned char teamId, int characterId, int variationId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType)
 {
     // Check if in valid battle mode first
     if (!IsValidBattleMode())
@@ -1491,15 +1494,10 @@ bool InGameHack_ApplyToTeam(unsigned char teamId, SDK::EVariationCharacterId var
         }
 
         // Create character data once with ALL parameters FILLED
-        SDK::FInGameBattleCharacterData characterData;
-        
-        // DECODE EVariationCharacterId into (characterId, variationId)
-        auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(variationCharacterId);
-        
-        // Use decoded ECharacterId and variation index in struct fields
-        characterData._characterId = characterId;
+        SDK::FInGameBattleCharacterData characterData = {};
+        *(int*)&characterData._characterId = characterId;
         characterData._variationId = variationId;
-        characterData._skillVariationCode = 0;  // Default skill variation
+        characterData._skillVariationCode = ((characterId + 1) * 100) + variationId;
         characterData._technique1Level = unique1;
         characterData._technique2Level = unique2;
         characterData._technique3Level = unique3;
@@ -2057,23 +2055,19 @@ bool InGameHack_SetInvincible()
         float fixTime = 10.0f;          // Fixed duration
         float maxTime = 120.0f;         // Maximum duration
         bool enableEffect = true;       // Show effects
-        bool projectileThrough = true;  // Projectiles pass through
-        bool slipDamageThrough = true;  // Slip damage passes through
-        bool activedTransparent = true; // Make player transparent
+        // Create FInvincibleData structure
+        SDK::FInvincibleData invincibleData;
+        invincibleData._lifeTime = maxTime;
+        invincibleData._fixedLifeTime = fixTime;
+        invincibleData._bProjectileThrough = true;
+        invincibleData._bSlipDamageThrough = true;
+        invincibleData._bFromTransparent = true;
+        invincibleData._bEnableEffect = enableEffect;
+        invincibleData._bRep = true;
+        // invincibleData._ignoreClearAction and _tags are already initialized to empty by constructor
 
-        // Create empty attack ID array (constructor creates empty array)
-        SDK::TArray<SDK::EAttackId> ignoreClearAction;
-
-        // Call SetInvincible_Server
-        playerStateBattle->SetInvincible_Server(
-            fixTime,
-            maxTime,
-            enableEffect,
-            projectileThrough,
-            slipDamageThrough,
-            activedTransparent,
-            ignoreClearAction
-        );
+        // Call SetInvincible_Server with FInvincibleData
+        playerStateBattle->SetInvincible_Server(invincibleData);
 
         return true;
     }
@@ -2155,7 +2149,8 @@ bool InGameHack_RebuildMyself()
             0,                               // subLevel
             nullptr,                         // instigatedPlayer
             0,                               // damageActionSerialNo
-            false                            // bTimeOverwrite
+            false,                           // bTimeOverwrite
+            nullptr                          // rpcInstigator
         );
 
         Logger::LogInfo("[COMBAT] RebuildMyself executed successfully");
@@ -2224,7 +2219,8 @@ bool InGameHack_CH202TransMission()
             5,                               // subLevel
             nullptr,                         // instigatedPlayer
             0,                               // damageActionSerialNo
-            false                            // bTimeOverwrite
+            false,                           // bTimeOverwrite
+            nullptr                          // rpcInstigator
         );
 
         Logger::LogInfo("[COMBAT] CH202TransMission executed successfully");
@@ -2293,7 +2289,8 @@ bool InGameHack_Unbreakable()
             0,                               // subLevel
             nullptr,                         // instigatedPlayer
             0,                               // damageActionSerialNo
-            false                            // bTimeOverwrite
+            false,                           // bTimeOverwrite
+            nullptr                          // rpcInstigator
         );
 
         return true;
@@ -2761,12 +2758,13 @@ bool InGameHack_CH011AbyssDarkBody()
             (SDK::ECharacterConditionId)94,  // CH011_ABYSS_DARK_BODY = 95
             5,                               // Level
             50.0f,                           // span
-            50,                            // value
+            50,                              // value
             0.1f,                            // interval
             5,                               // subLevel
             nullptr,                         // instigatedPlayer
             0,                               // damageActionSerialNo
-            false                            // bTimeOverwrite                           // bTimeOverwrite
+            false,                           // bTimeOverwrite
+            nullptr                          // rpcInstigator
         );
 
         return true;

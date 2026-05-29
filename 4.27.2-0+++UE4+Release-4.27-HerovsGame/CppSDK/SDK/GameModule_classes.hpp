@@ -12,25 +12,25 @@
 
 #include "UIFramework_structs.hpp"
 #include "UIFramework_classes.hpp"
-#include "BykingUnrealModule_structs.hpp"
-#include "BykingUnrealModule_classes.hpp"
+#include "Slate_structs.hpp"
+#include "GameplayTags_structs.hpp"
+#include "SlateCore_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "CoreUObject_classes.hpp"
-#include "Slate_structs.hpp"
-#include "SlateCore_structs.hpp"
-#include "Engine_structs.hpp"
-#include "Engine_classes.hpp"
 #include "CommonModule_structs.hpp"
 #include "CommonModule_classes.hpp"
 #include "GameModule_structs.hpp"
+#include "InputCore_structs.hpp"
+#include "Engine_structs.hpp"
+#include "Engine_classes.hpp"
+#include "MasterDataModule_structs.hpp"
+#include "BykingUnrealModule_structs.hpp"
+#include "BykingUnrealModule_classes.hpp"
 #include "CriWareRuntime_structs.hpp"
 #include "CriWareRuntime_classes.hpp"
-#include "MasterDataModule_structs.hpp"
-#include "InputCore_structs.hpp"
-#include "BackendSubsystem_structs.hpp"
 #include "UMG_structs.hpp"
 #include "UMG_classes.hpp"
-#include "GameplayTags_structs.hpp"
+#include "BackendSubsystem_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -268,6 +268,37 @@ public:
 	}
 };
 
+// Class GameModule.AlternativeAnimationProvider
+// 0x0000 (0x0000 - 0x0000)
+class IAlternativeAnimationProvider final
+{
+public:
+	class UAnimMontage* TryGetAlternativeMontage(EAnimationId animationId) const;
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("AlternativeAnimationProvider")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"AlternativeAnimationProvider")
+	}
+	static class IAlternativeAnimationProvider* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<IAlternativeAnimationProvider>();
+	}
+
+	class UObject* AsUObject()
+	{
+		return reinterpret_cast<UObject*>(this);
+	}
+	const class UObject* AsUObject() const
+	{
+		return reinterpret_cast<const UObject*>(this);
+	}
+};
+
 // Class GameModule.AN_FaceTurn
 // 0x0008 (0x0048 - 0x0040)
 class UAN_FaceTurn final : public UAN_CharacterBase
@@ -368,6 +399,7 @@ public:
 	void BP_PlayAnimationAsync(ECharacterId charaId, class FName ID, EAnimationSlot Slot, float PlayRate, float BlendInTime, float BlendOutTime);
 	void BP_PlayAnimationEmote(int32 emoteCode, float PlayRate, float BlendInTime);
 	void BP_PlayAnimationFace(EAnimationId ID, float PlayRate, float BlendInTime);
+	void BP_PlayAnimationMontage(class UAnimMontage* Montage, float PlayRate, float BlendInTime, EAnimationId partsAnimationId);
 	void BP_PlayAnimationNagara(EAnimationId ID, float PlayRate, float BlendInTime);
 	void BP_PlayAnimationNagaraDamage(EAnimationId ID, float PlayRate, float BlendInTime);
 	void BP_PlayAnimationNagaraGuard(EAnimationId ID, float PlayRate, float BlendInTime);
@@ -614,6 +646,28 @@ public:
 	}
 };
 
+// Class GameModule.AssetDownloadWork
+// 0x0090 (0x00C0 - 0x0030)
+class UAssetDownloadWork final : public UGameInstanceSubsystem
+{
+public:
+	uint8                                         Pad_30[0x90];                                      // 0x0030(0x0090)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("AssetDownloadWork")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"AssetDownloadWork")
+	}
+	static class UAssetDownloadWork* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UAssetDownloadWork>();
+	}
+};
+
 // Class GameModule.AsyncSaveGameOption
 // 0x0060 (0x0090 - 0x0030)
 class UAsyncSaveGameOption final : public UBlueprintAsyncActionBase
@@ -769,7 +823,7 @@ class UBPActorUtilityComponent : public UActorComponent
 public:
 	class UCustomParticleSystemComponent* BP_SpawnEmitterAtLocation(class UParticleSystem* EmitterTemplate, const struct FTransform& SpawnTransform, bool bAutoDestroy);
 	class UCustomParticleSystemComponent* BP_SpawnEmitterAttached(class UParticleSystem* EmitterTemplate, class USceneComponent* AttachToComponent, class FName AttachPointName, const struct FVector& Location, const struct FRotator& Rotation, EAttachLocation LocationType, bool bAutoDestroy);
-	class UCustomParticleSystemComponent* BP_SpawnEmitterVertex(class UParticleSystem* EmitterTemplate, class USkeletalMeshComponent* Mesh);
+	class UCustomParticleSystemComponent* BP_SpawnEmitterVertex(class UParticleSystem* EmitterTemplate, class USkeletalMeshComponent* mesh);
 
 	bool BP_IsAvatar(ECharacterId characterId) const;
 
@@ -843,50 +897,50 @@ public:
 };
 
 // Class GameModule.CharacterGame
-// 0x01C8 (0x0530 - 0x0368)
+// 0x01B8 (0x0540 - 0x0388)
 class ACharacterGame : public ACharacterBase
 {
 public:
-	ECharacterId                                  _characterId;                                      // 0x0368(0x0001)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_369[0x7];                                      // 0x0369(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	uint32                                        _costumeCode;                                      // 0x0370(0x0004)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         _costumeAuraType;                                  // 0x0374(0x0001)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	EGameOptionAuraDispType                       _costumeAuraDisplayTarget;                         // 0x0375(0x0001)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	EGameOptionAuraAreaType                       _costumeAuraDisplayArea;                           // 0x0376(0x0001)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         _variationNo;                                      // 0x0377(0x0001)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	ECharacterFlags                               _characterFlags;                                   // 0x0378(0x0004)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	bool                                          _bImpersonator;                                    // 0x037C(0x0001)(Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_37D[0x13];                                     // 0x037D(0x0013)(Fixing Size After Last Property [ Dumper-7 ])
-	class UOutlineSkeletalMeshComponent*          _outerMesh;                                        // 0x0390(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UPrimaryAssetCharacter*                 _primaryAsset;                                     // 0x0398(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	struct FCostumeRoleSlotParam                  _roleSlots;                                        // 0x03A0(0x0028)(Net, Protected, NativeAccessSpecifierProtected)
-	uint8                                         Pad_3C8[0x8];                                      // 0x03C8(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAnimation*                             _animation;                                        // 0x03D0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	TArray<int32>                                 _emoteCodes;                                       // 0x03D8(0x0010)(Net, ZeroConstructor, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_3E8[0x38];                                     // 0x03E8(0x0038)(Fixing Size After Last Property [ Dumper-7 ])
-	class ACharacterGame*                         _characterDefaultObject;                           // 0x0420(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UCharacterStateBase*                    _characterStateBase;                               // 0x0428(0x0008)(Edit, ExportObject, ZeroConstructor, Transient, EditConst, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	TMulticastInlineDelegate<void()>              OnSetupMaterialDelegate;                           // 0x0430(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	class UMaterialControlComponent*              _materialControlComponent;                         // 0x0440(0x0008)(Edit, ExportObject, ZeroConstructor, Transient, EditConst, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	TArray<int8>                                  _costumeColors;                                    // 0x0448(0x0010)(Net, ZeroConstructor, NativeAccessSpecifierPrivate)
-	class UMaterialInterface*                     _plusUltraOutlineMaterial;                         // 0x0458(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UMaterialInterface*                     _outlineMaterialFriend;                            // 0x0460(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UMaterialInterface*                     _outlineMaterialEnemy;                             // 0x0468(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UMaterialInterface*                     _outlineMaterialNPC;                               // 0x0470(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UMaterialInterface*                     _outlineMaterialAimSearch;                         // 0x0478(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	TArray<class UMaterialInterface*>             _outlineMaterialsLeader;                           // 0x0480(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPrivate)
-	TArray<class UMaterialInterface*>             _outLineMaterialObserver;                          // 0x0490(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPrivate)
-	TArray<class UMaterialInterface*>             _outlineMaterials;                                 // 0x04A0(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPrivate)
-	class UCharacterAvatarComponent*              _avatarComponent;                                  // 0x04B0(0x0008)(ExportObject, Net, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	TArray<uint16>                                _accessoryIds;                                     // 0x04B8(0x0010)(Net, ZeroConstructor, NativeAccessSpecifierPrivate)
-	class UAccessory*                             _accessory;                                        // 0x04C8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	TArray<struct FAccessaryEffectRegistData>     _accessoryEffectList;                              // 0x04D0(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPrivate)
-	class UBPActorUtilityComponent*               _bpUtilityComponent;                               // 0x04E0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	TArray<int32>                                 _voiceCodes;                                       // 0x04E8(0x0010)(Net, ZeroConstructor, NativeAccessSpecifierPrivate)
-	class UAtomSoundObject*                       _soundObject;                                      // 0x04F8(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UCharacterVoiceComponent*               _voiceComponent;                                   // 0x0500(0x0008)(ExportObject, ZeroConstructor, Transient, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UCharacterTimeDilationComponent*        _timeDilationComponent;                            // 0x0508(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_510[0x20];                                     // 0x0510(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	ECharacterId                                  _characterId;                                      // 0x0388(0x0001)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_389[0x7];                                      // 0x0389(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	uint32                                        _costumeCode;                                      // 0x0390(0x0004)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         _costumeAuraType;                                  // 0x0394(0x0001)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	EGameOptionAuraDispType                       _costumeAuraDisplayTarget;                         // 0x0395(0x0001)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	EGameOptionAuraAreaType                       _costumeAuraDisplayArea;                           // 0x0396(0x0001)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         _variationNo;                                      // 0x0397(0x0001)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	ECharacterFlags                               _characterFlags;                                   // 0x0398(0x0004)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	bool                                          _bImpersonator;                                    // 0x039C(0x0001)(Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_39D[0x13];                                     // 0x039D(0x0013)(Fixing Size After Last Property [ Dumper-7 ])
+	class UOutlineSkeletalMeshComponent*          _outerMesh;                                        // 0x03B0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UPrimaryAssetCharacter*                 _primaryAsset;                                     // 0x03B8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	struct FCostumeRoleSlotParam                  _roleSlots;                                        // 0x03C0(0x0028)(Net, Protected, NativeAccessSpecifierProtected)
+	uint8                                         Pad_3E8[0x8];                                      // 0x03E8(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAnimation*                             _animation;                                        // 0x03F0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	TArray<int32>                                 _emoteCodes;                                       // 0x03F8(0x0010)(Net, ZeroConstructor, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_408[0x28];                                     // 0x0408(0x0028)(Fixing Size After Last Property [ Dumper-7 ])
+	class ACharacterGame*                         _characterDefaultObject;                           // 0x0430(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCharacterStateBase*                    _characterStateBase;                               // 0x0438(0x0008)(Edit, ExportObject, ZeroConstructor, Transient, EditConst, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	TMulticastInlineDelegate<void()>              OnSetupMaterialDelegate;                           // 0x0440(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	class UMaterialControlComponent*              _materialControlComponent;                         // 0x0450(0x0008)(Edit, ExportObject, ZeroConstructor, Transient, EditConst, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	TArray<int8>                                  _costumeColors;                                    // 0x0458(0x0010)(Net, ZeroConstructor, NativeAccessSpecifierPrivate)
+	class UMaterialInterface*                     _plusUltraOutlineMaterial;                         // 0x0468(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UMaterialInterface*                     _outlineMaterialFriend;                            // 0x0470(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UMaterialInterface*                     _outlineMaterialEnemy;                             // 0x0478(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UMaterialInterface*                     _outlineMaterialNPC;                               // 0x0480(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UMaterialInterface*                     _outlineMaterialAimSearch;                         // 0x0488(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	TArray<class UMaterialInterface*>             _outlineMaterialsLeader;                           // 0x0490(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPrivate)
+	TArray<class UMaterialInterface*>             _outLineMaterialObserver;                          // 0x04A0(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPrivate)
+	TArray<class UMaterialInterface*>             _outlineMaterials;                                 // 0x04B0(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPrivate)
+	class UCharacterAvatarComponent*              _avatarComponent;                                  // 0x04C0(0x0008)(ExportObject, Net, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TArray<uint16>                                _accessoryIds;                                     // 0x04C8(0x0010)(Net, ZeroConstructor, NativeAccessSpecifierPrivate)
+	class UAccessory*                             _accessory;                                        // 0x04D8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	TArray<struct FAccessaryEffectRegistData>     _accessoryEffectList;                              // 0x04E0(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPrivate)
+	class UBPActorUtilityComponent*               _bpUtilityComponent;                               // 0x04F0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	TArray<int32>                                 _voiceCodes;                                       // 0x04F8(0x0010)(Net, ZeroConstructor, NativeAccessSpecifierPrivate)
+	class UAtomSoundObject*                       _soundObject;                                      // 0x0508(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UCharacterVoiceComponent*               _voiceComponent;                                   // 0x0510(0x0008)(ExportObject, ZeroConstructor, Transient, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UCharacterTimeDilationComponent*        _timeDilationComponent;                            // 0x0518(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_520[0x20];                                     // 0x0520(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	void BP_ChangeAnimBlueprint(class UClass* animBPClass);
@@ -1287,6 +1341,36 @@ public:
 	}
 };
 
+// Class GameModule.ScoreComponentBase
+// 0x0178 (0x01A0 - 0x0028)
+class UScoreComponentBase : public UObject
+{
+public:
+	uint8                                         Pad_28[0x150];                                     // 0x0028(0x0150)(Fixing Size After Last Property [ Dumper-7 ])
+	class AHerovsGameMode*                        _gameMode;                                         // 0x0178(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_180[0x20];                                     // 0x0180(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void OnCompletedSendKpi(int32 requestId);
+	void OnCompletedSendRentalPointList(int32 requestId);
+	void OnCompletedSendSaveCustomizeData(int32 requestId);
+	void OnCompletedSendViolationReport(int32 requestId);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ScoreComponentBase")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ScoreComponentBase")
+	}
+	static class UScoreComponentBase* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UScoreComponentBase>();
+	}
+};
+
 // Class GameModule.CharacterSoundComponent
 // 0x0010 (0x1250 - 0x1240)
 class UCharacterSoundComponent : public UAtomComponent
@@ -1339,6 +1423,57 @@ public:
 	}
 };
 
+// Class GameModule.PrimaryAssetBase
+// 0x0030 (0x0060 - 0x0030)
+class UPrimaryAssetBase : public UPrimaryDataAsset
+{
+public:
+	struct FPrimaryAssetType                      _assetType;                                        // 0x0030(0x0008)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<TSoftObjectPtr<class UObject>>         _explicitAssets;                                   // 0x0038(0x0010)(Edit, ZeroConstructor, UObjectWrapper, NativeAccessSpecifierPublic)
+	TArray<TSoftClassPtr<class UClass>>           _explicitBlueprints;                               // 0x0048(0x0010)(Edit, ZeroConstructor, UObjectWrapper, NativeAccessSpecifierPublic)
+	uint8                                         _bLabelAssetsInMyDirectory : 1;                    // 0x0058(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Edit, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
+	uint8                                         Pad_59[0x7];                                       // 0x0059(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("PrimaryAssetBase")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"PrimaryAssetBase")
+	}
+	static class UPrimaryAssetBase* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UPrimaryAssetBase>();
+	}
+};
+
+// Class GameModule.PrimaryAssetNoticeImage
+// 0x0140 (0x01A0 - 0x0060)
+class UPrimaryAssetNoticeImage final : public UPrimaryAssetBase
+{
+public:
+	TMap<int32, TSoftObjectPtr<class UPaperSprite>> _noticeImage;                                    // 0x0060(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
+	TMap<int32, TSoftObjectPtr<class UMaterialInterface>> _noticeMaterial;                           // 0x00B0(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
+	TMap<class FString, TSoftObjectPtr<class UPaperSprite>> _gashaLogo;                              // 0x0100(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
+	TMap<class FString, TSoftObjectPtr<class UPaperSprite>> _campaignLogo;                           // 0x0150(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("PrimaryAssetNoticeImage")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"PrimaryAssetNoticeImage")
+	}
+	static class UPrimaryAssetNoticeImage* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UPrimaryAssetNoticeImage>();
+	}
+};
+
 // Class GameModule.TimeDilationComponent
 // 0x0018 (0x00C8 - 0x00B0)
 class UTimeDilationComponent : public UActorComponent
@@ -1380,6 +1515,39 @@ public:
 	}
 };
 
+// Class GameModule.SendLikeItemWidget
+// 0x0040 (0x03B0 - 0x0370)
+class USendLikeItemWidget : public UWidgetBase
+{
+public:
+	class UOverlay*                               _baseScaleWidget;                                  // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _sendLikeImage;                                    // 0x0378(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	float                                         _lifeTime;                                         // 0x0380(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	float                                         _maxAngle;                                         // 0x0384(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	float                                         _minimumAngle;                                     // 0x0388(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	struct FVector2D                              _basescale;                                        // 0x038C(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	float                                         _maxScaleRate;                                     // 0x0394(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	float                                         _minimumScaleRate;                                 // 0x0398(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_39C[0x14];                                     // 0x039C(0x0014)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void UpdateOpenAnimParam();
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("SendLikeItemWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"SendLikeItemWidget")
+	}
+	static class USendLikeItemWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<USendLikeItemWidget>();
+	}
+};
+
 // Class GameModule.CharacterVoiceComponent
 // 0x0030 (0x1270 - 0x1240)
 class UCharacterVoiceComponent : public UAtomComponent
@@ -1404,33 +1572,6 @@ public:
 	static class UCharacterVoiceComponent* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UCharacterVoiceComponent>();
-	}
-};
-
-// Class GameModule.SpecialActionWidget
-// 0x0048 (0x03B8 - 0x0370)
-class USpecialActionWidget final : public UWidgetBase
-{
-public:
-	class UTextBlock*                             _nameText;                                         // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class FText                                   _noneNameText;                                     // 0x0378(0x0018)(Edit, DisableEditOnInstance, NativeAccessSpecifierPrivate)
-	class UTextBlock*                             _infoText;                                         // 0x0390(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class FText                                   _noneInfoText;                                     // 0x0398(0x0018)(Edit, DisableEditOnInstance, NativeAccessSpecifierPrivate)
-	int32                                         _specialActionIndex;                               // 0x03B0(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_3B4[0x4];                                      // 0x03B4(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("SpecialActionWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"SpecialActionWidget")
-	}
-	static class USpecialActionWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<USpecialActionWidget>();
 	}
 };
 
@@ -1459,9 +1600,35 @@ public:
 	}
 };
 
+// Class GameModule.RoleSlotStatics
+// 0x0000 (0x0028 - 0x0028)
+class URoleSlotStatics final : public UBlueprintFunctionLibrary
+{
+public:
+	static bool GetCostumeRoleSlotParam(int32 CostumeCode, struct FDbsCostumeRoleSlotParam* outParam);
+	static class FText GetRoleSlotCharacterNameText(const int32 VariationCode);
+	static class FText GetRoleSlotDataText(const int32 VariationCode);
+	static class FText GetRoleSlotEffect(const int32 VariationCode, const bool bSkillFlag);
+	static struct FDbsRoleSlotTip GetRoleSlotTip(const int32 VariationCode);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("RoleSlotStatics")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"RoleSlotStatics")
+	}
+	static class URoleSlotStatics* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<URoleSlotStatics>();
+	}
+};
+
 // Class GameModule.ChatMute
-// 0x1DA8 (0x2118 - 0x0370)
-class UChatMute : public UWidgetBase
+// 0x1DB8 (0x2128 - 0x0370)
+class UChatMute final : public UWidgetBase
 {
 public:
 	bool                                          _bOpenWindow;                                      // 0x0370(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -1469,17 +1636,17 @@ public:
 	TArray<class UPlatformWidgetButton*>          _buttonArray;                                      // 0x0378(0x0010)(BlueprintVisible, ExportObject, ZeroConstructor, ContainsInstancedReference, Protected, NativeAccessSpecifierProtected)
 	uint8                                         Pad_388[0x10];                                     // 0x0388(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
 	class UPlatformWidgetButton*                  _closeButton;                                      // 0x0398(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_3A0[0xE98];                                    // 0x03A0(0x0E98)(Fixing Size After Last Property [ Dumper-7 ])
-	class UCanvasPanel*                           _memberPanelOne;                                   // 0x1238(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UPlatformWidgetButton*                  _memberButtonOne;                                  // 0x1240(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UChatMuteIcon*                          _memberChatIconOne;                                // 0x1248(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UPlayerName*                            _memberTextOne;                                    // 0x1250(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_1258[0xE98];                                   // 0x1258(0x0E98)(Fixing Size After Last Property [ Dumper-7 ])
-	class UCanvasPanel*                           _memberPanelTwo;                                   // 0x20F0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UPlatformWidgetButton*                  _memberButtonTwo;                                  // 0x20F8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UChatMuteIcon*                          _memberChatIconTwo;                                // 0x2100(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UPlayerName*                            _memberTextTwo;                                    // 0x2108(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetAnimation*                       Ani_Start;                                         // 0x2110(0x0008)(BlueprintVisible, ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_3A0[0xEA0];                                    // 0x03A0(0x0EA0)(Fixing Size After Last Property [ Dumper-7 ])
+	class UCanvasPanel*                           _memberPanelOne;                                   // 0x1240(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UPlatformWidgetButton*                  _memberButtonOne;                                  // 0x1248(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UChatMuteIcon*                          _memberChatIconOne;                                // 0x1250(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UPlayerName*                            _memberTextOne;                                    // 0x1258(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_1260[0xEA0];                                   // 0x1260(0x0EA0)(Fixing Size After Last Property [ Dumper-7 ])
+	class UCanvasPanel*                           _memberPanelTwo;                                   // 0x2100(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UPlatformWidgetButton*                  _memberButtonTwo;                                  // 0x2108(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UChatMuteIcon*                          _memberChatIconTwo;                                // 0x2110(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UPlayerName*                            _memberTextTwo;                                    // 0x2118(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetAnimation*                       Ani_Start;                                         // 0x2120(0x0008)(BlueprintVisible, ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 
 public:
 	void BP_Open();
@@ -1502,61 +1669,9 @@ public:
 	}
 };
 
-// Class GameModule.PrimaryAssetBase
-// 0x0030 (0x0060 - 0x0030)
-class UPrimaryAssetBase : public UPrimaryDataAsset
-{
-public:
-	struct FPrimaryAssetType                      _assetType;                                        // 0x0030(0x0008)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TArray<TSoftObjectPtr<class UObject>>         _explicitAssets;                                   // 0x0038(0x0010)(Edit, ZeroConstructor, UObjectWrapper, NativeAccessSpecifierPublic)
-	TArray<TSoftClassPtr<class UClass>>           _explicitBlueprints;                               // 0x0048(0x0010)(Edit, ZeroConstructor, UObjectWrapper, NativeAccessSpecifierPublic)
-	uint8                                         _bLabelAssetsInMyDirectory : 1;                    // 0x0058(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Edit, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
-	uint8                                         Pad_59[0x7];                                       // 0x0059(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("PrimaryAssetBase")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"PrimaryAssetBase")
-	}
-	static class UPrimaryAssetBase* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UPrimaryAssetBase>();
-	}
-};
-
-// Class GameModule.PrimaryAssetTutorial
-// 0x00A0 (0x0100 - 0x0060)
-class UPrimaryAssetTutorial final : public UPrimaryAssetBase
-{
-public:
-	TMap<ETutorialPopupScene, TSoftObjectPtr<class UWorld>> _popupSubLevel;                          // 0x0060(0x0050)(Edit, DisableEditOnInstance, UObjectWrapper, NativeAccessSpecifierPrivate)
-	TMap<ETutorialPopupScene, ETutorialPopupScene> _popupSceneBundle;                                // 0x00B0(0x0050)(Edit, DisableEditOnInstance, NativeAccessSpecifierPrivate)
-
-public:
-	TSoftObjectPtr<class UWorld> BP_GetPopupWorld(ETutorialPopupScene Type);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("PrimaryAssetTutorial")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"PrimaryAssetTutorial")
-	}
-	static class UPrimaryAssetTutorial* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UPrimaryAssetTutorial>();
-	}
-};
-
 // Class GameModule.ChatMuteIcon
 // 0x0020 (0x0390 - 0x0370)
-class UChatMuteIcon : public UWidgetBase
+class UChatMuteIcon final : public UWidgetBase
 {
 public:
 	class UImage*                                 _mute;                                             // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -1576,6 +1691,28 @@ public:
 	static class UChatMuteIcon* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UChatMuteIcon>();
+	}
+};
+
+// Class GameModule.PrimaryAssetMyRoomImage
+// 0x0050 (0x00B0 - 0x0060)
+class UPrimaryAssetMyRoomImage final : public UPrimaryAssetBase
+{
+public:
+	TMap<int32, TSoftObjectPtr<class UTexture2D>> _myRoomBgThumb;                                    // 0x0060(0x0050)(Edit, DisableEditOnInstance, EditConst, Protected, UObjectWrapper, NativeAccessSpecifierProtected)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("PrimaryAssetMyRoomImage")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"PrimaryAssetMyRoomImage")
+	}
+	static class UPrimaryAssetMyRoomImage* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UPrimaryAssetMyRoomImage>();
 	}
 };
 
@@ -1610,44 +1747,6 @@ public:
 	}
 };
 
-// Class GameModule.SupplyBaseDataAsset
-// 0x0090 (0x00F0 - 0x0060)
-class USupplyBaseDataAsset : public UPrimaryAssetBase
-{
-public:
-	EInteractActionType                           _interactActionType;                               // 0x0060(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FName                                   _supplyId;                                         // 0x0064(0x0008)(Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_6C[0x4];                                       // 0x006C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	TSoftObjectPtr<class UPaperSprite>            _iconPaperSprite;                                  // 0x0070(0x0028)(Edit, DisableEditOnInstance, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TSoftObjectPtr<class UPaperSprite>            _iconPaperSprite2;                                 // 0x0098(0x0028)(Edit, DisableEditOnInstance, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TSoftObjectPtr<class UCurveLinearColor>       _fieldPopUpWidgetColorCurve;                       // 0x00C0(0x0028)(Edit, DisableEditOnInstance, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         _maxStackNum;                                      // 0x00E8(0x0004)(Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	ESupplyType                                   _supplyType;                                       // 0x00EC(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_ED[0x3];                                       // 0x00ED(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	class FText GetActionGuideText() const;
-	class FText GetDescriptionText(const class UObject* WorldContext) const;
-	class FText GetDisplayNameText() const;
-	class UCurveLinearColor* GetFieldPopUpWidgetColorCurve() const;
-	class UPaperSprite* GetIconPaperSprite() const;
-	class UPaperSprite* GetIconPaperSprite2() const;
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("SupplyBaseDataAsset")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"SupplyBaseDataAsset")
-	}
-	static class USupplyBaseDataAsset* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<USupplyBaseDataAsset>();
-	}
-};
-
 // Class GameModule.Cheat
 // 0x0000 (0x0088 - 0x0088)
 class UCheat : public UCheatManager
@@ -1673,6 +1772,28 @@ public:
 	static class UCheat* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UCheat>();
+	}
+};
+
+// Class GameModule.PrimaryAssetSgFirstDownload
+// 0x0010 (0x0070 - 0x0060)
+class UPrimaryAssetSgFirstDownload final : public UPrimaryAssetBase
+{
+public:
+	TArray<TSoftObjectPtr<class UObject>>         AssetArray;                                        // 0x0060(0x0010)(Edit, ZeroConstructor, UObjectWrapper, NativeAccessSpecifierPublic)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("PrimaryAssetSgFirstDownload")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"PrimaryAssetSgFirstDownload")
+	}
+	static class UPrimaryAssetSgFirstDownload* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UPrimaryAssetSgFirstDownload>();
 	}
 };
 
@@ -1769,43 +1890,9 @@ public:
 	}
 };
 
-// Class GameModule.SoundStatics
-// 0x0000 (0x0028 - 0x0028)
-class USoundStatics : public UBlueprintFunctionLibrary
-{
-public:
-	static void GetCharacterDedicatedVoiceCharacterCodeList(const class UObject* WorldContextObject, const int32 inCharacterCode, TSet<int32>* outCharacterCodeSet, bool bInBattle);
-	static void GetCharacterDedicatedVoiceCueName(const class UObject* WorldContextObject, const int32 inCharacterCode, const int32 inVsCharacterCode, const bool bInDedicated, const bool bInVillain, const class FString& inFormatString, class FString* outSoundString);
-	static void GetCharacterDedicatedVoiceCueNameAuto(const class UObject* WorldContextObject, const ECharacterId inCharacterId, const ECharacterId inVsCharacterId, const class FString& inFormatString, class FString* outSoundString);
-	static class USoundAtomCue* GetCueByName(const class FString& CueName);
-	static class UAtomComponent* PlayCharacterDedicatedVoice(const class UObject* WorldContextObject, const int32 inCharacterCode, const int32 inVsCharacterCode, const bool bInDedicated, const bool bInVillain, const class FString& inFormatString);
-	static class UAtomComponent* PlayCharacterDedicatedVoiceAuto(const class UObject* WorldContextObject, const ECharacterId inCharacterId, const ECharacterId inVsCharacterId, const class FString& inFormatString);
-	static class UAtomComponent* PlayMusic(const class UObject* WorldContextObject, class USoundAtomCue* Sound);
-	static class UAtomComponent* PlaySound2D(const class UObject* WorldContextObject, class USoundAtomCue* Sound);
-	static class UAtomComponent* PlaySound2DByName(const class UObject* WorldContextObject, const class FString& CueName);
-	static class UAtomComponent* PlaySoundAtLocation(const class UObject* WorldContextObject, const class FString& CueName, const struct FVector& Location, const struct FRotator& Rotation, float volumeMultiplier, float pitchMultiplier, float StartTime, class USoundAttenuation* AttenuationSettings, class USoundConcurrency* ConcurrencySettings, bool bAutoDestroy);
-	static class UAtomComponent* PlaySoundAttached(const class FString& CueName, class USceneComponent* AttachToComponent, class FName AttachPointName, const struct FVector& Location, const struct FRotator& Rotation, EAttachLocation LocationType, bool bStopWhenAttachedToDestroyed, float volumeMultiplier, float pitchMultiplier, float StartTime, class USoundAttenuation* AttenuationSettings, class USoundConcurrency* ConcurrencySettings, bool bAutoDestroy);
-	static class UAtomComponent* PlayVoice2D(const class UObject* WorldContextObject, class USoundAtomCue* Sound);
-	static class UAtomComponent* PlayVoice2DByName(const class UObject* WorldContextObject, const class FString& CueName);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("SoundStatics")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"SoundStatics")
-	}
-	static class USoundStatics* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<USoundStatics>();
-	}
-};
-
 // Class GameModule.CheckButtonWidget
 // 0x0070 (0x07D0 - 0x0760)
-class UCheckButtonWidget final : public UPlatformWidgetButton
+class UCheckButtonWidget : public UPlatformWidgetButton
 {
 public:
 	TMulticastInlineDelegate<void(bool bCheck)>   OnChangeCheckDelegate;                             // 0x0760(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -1844,9 +1931,32 @@ public:
 	}
 };
 
+// Class GameModule.PrimaryAssetPopup
+// 0x00A0 (0x0100 - 0x0060)
+class UPrimaryAssetPopup final : public UPrimaryAssetBase
+{
+public:
+	TMap<class FString, TSoftObjectPtr<class UPaperSprite>> _popupTitleImageList;                    // 0x0060(0x0050)(Edit, DisableEditOnInstance, EditConst, Protected, UObjectWrapper, NativeAccessSpecifierProtected)
+	TMap<int32, TSoftObjectPtr<class UPaperSprite>> _popupMessageImageList;                          // 0x00B0(0x0050)(Edit, DisableEditOnInstance, EditConst, Protected, UObjectWrapper, NativeAccessSpecifierProtected)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("PrimaryAssetPopup")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"PrimaryAssetPopup")
+	}
+	static class UPrimaryAssetPopup* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UPrimaryAssetPopup>();
+	}
+};
+
 // Class GameModule.ClipboardCopyButtonWidget
 // 0x0038 (0x0798 - 0x0760)
-class UClipboardCopyButtonWidget final : public UPlatformWidgetButton
+class UClipboardCopyButtonWidget : public UPlatformWidgetButton
 {
 public:
 	uint8                                         Pad_760[0x10];                                     // 0x0760(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
@@ -1867,28 +1977,6 @@ public:
 	static class UClipboardCopyButtonWidget* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UClipboardCopyButtonWidget>();
-	}
-};
-
-// Class GameModule.PrimaryAssetSupplyAbility
-// 0x0050 (0x00B0 - 0x0060)
-class UPrimaryAssetSupplyAbility final : public UPrimaryAssetBase
-{
-public:
-	TMap<class FString, TSoftObjectPtr<class USupplyBaseDataAsset>> _dataAssets;                     // 0x0060(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("PrimaryAssetSupplyAbility")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"PrimaryAssetSupplyAbility")
-	}
-	static class UPrimaryAssetSupplyAbility* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UPrimaryAssetSupplyAbility>();
 	}
 };
 
@@ -1916,6 +2004,35 @@ public:
 	}
 };
 
+// Class GameModule.PrimaryAssetLoginBonusLogo
+// 0x0190 (0x01F0 - 0x0060)
+class UPrimaryAssetLoginBonusLogo final : public UPrimaryAssetBase
+{
+public:
+	TMap<class FString, TSoftObjectPtr<class UPaperSprite>> _logo;                                   // 0x0060(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
+	TMap<class FString, TSoftObjectPtr<class UPaperSprite>> _bg;                                     // 0x00B0(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
+	TMap<class FString, TSoftObjectPtr<class UPaperSprite>> _banner;                                 // 0x0100(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
+	TMap<class FString, TSoftObjectPtr<class UPaperSprite>> _bannerLogo;                             // 0x0150(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
+	TMap<class FString, struct FTransform>        _logoOffset;                                       // 0x01A0(0x0050)(Edit, DisableEditOnInstance, NativeAccessSpecifierPrivate)
+
+public:
+	class UPaperSprite* BP_GetPaperSpriteLogo(const class FString& Key) const;
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("PrimaryAssetLoginBonusLogo")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"PrimaryAssetLoginBonusLogo")
+	}
+	static class UPrimaryAssetLoginBonusLogo* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UPrimaryAssetLoginBonusLogo>();
+	}
+};
+
 // Class GameModule.CommandDipControl
 // 0x0000 (0x0030 - 0x0030)
 class UCommandDipControl final : public UEngineSubsystem
@@ -1932,32 +2049,6 @@ public:
 	static class UCommandDipControl* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UCommandDipControl>();
-	}
-};
-
-// Class GameModule.ProfileDisplayPopupGeneralWindow
-// 0x0028 (0x0440 - 0x0418)
-class UProfileDisplayPopupGeneralWindow final : public UAppWidget
-{
-public:
-	class UWidgetGeneralWindow*                   _popupWindow;                                      // 0x0418(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UNamePlate*                             _namePlate;                                        // 0x0420(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UPlayerDatabaseWork*                    _playerDatabaseWork;                               // 0x0428(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UGameSequenceWork*                      _gameSequenceWork;                                 // 0x0430(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UBackendSubsystem*                      _backendSubsystem;                                 // 0x0438(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ProfileDisplayPopupGeneralWindow")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ProfileDisplayPopupGeneralWindow")
-	}
-	static class UProfileDisplayPopupGeneralWindow* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UProfileDisplayPopupGeneralWindow>();
 	}
 };
 
@@ -1980,6 +2071,29 @@ public:
 	static class UConditionObserver* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UConditionObserver>();
+	}
+};
+
+// Class GameModule.PrimaryAssetSgDownloadWidget
+// 0x0020 (0x0080 - 0x0060)
+class UPrimaryAssetSgDownloadWidget final : public UPrimaryAssetBase
+{
+public:
+	class FString                                 targetFolderPath;                                  // 0x0060(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<TSoftObjectPtr<class UObject>>         AssetPathArray;                                    // 0x0070(0x0010)(Edit, ZeroConstructor, UObjectWrapper, NativeAccessSpecifierPublic)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("PrimaryAssetSgDownloadWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"PrimaryAssetSgDownloadWidget")
+	}
+	static class UPrimaryAssetSgDownloadWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UPrimaryAssetSgDownloadWidget>();
 	}
 };
 
@@ -2030,40 +2144,6 @@ public:
 	}
 };
 
-// Class GameModule.ProfileDisplayData
-// 0x01D8 (0x0200 - 0x0028)
-class UProfileDisplayData final : public UObject
-{
-public:
-	class FString                                 _playerId;                                         // 0x0028(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	struct FPlayerDisplayData                     _player;                                           // 0x0038(0x00F0)(NativeAccessSpecifierPrivate)
-	struct FGuildDisplayData                      _guild;                                            // 0x0128(0x0050)(NativeAccessSpecifierPrivate)
-	struct FEmblemDisplayData                     _emblem;                                           // 0x0178(0x000C)(NoDestructor, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_184[0x4];                                      // 0x0184(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FMyADDisplayData                       _ad;                                               // 0x0188(0x0078)(NativeAccessSpecifierPrivate)
-
-public:
-	const struct FMyADDisplayData BP_getAD() const;
-	const struct FEmblemDisplayData BP_getEmblem() const;
-	const struct FGuildDisplayData BP_getGuild() const;
-	const struct FPlayerDisplayData BP_getPlayer() const;
-	class FString BP_GetPlayerId() const;
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ProfileDisplayData")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ProfileDisplayData")
-	}
-	static class UProfileDisplayData* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UProfileDisplayData>();
-	}
-};
-
 // Class GameModule.ConfettiUnit
 // 0x00C8 (0x0438 - 0x0370)
 class UConfettiUnit final : public UWidgetBase
@@ -2094,14 +2174,40 @@ public:
 	}
 };
 
+// Class GameModule.PrimaryAssetTutorial
+// 0x00A0 (0x0100 - 0x0060)
+class UPrimaryAssetTutorial final : public UPrimaryAssetBase
+{
+public:
+	TMap<ETutorialPopupScene, TSoftObjectPtr<class UWorld>> _popupSubLevel;                          // 0x0060(0x0050)(Edit, DisableEditOnInstance, UObjectWrapper, NativeAccessSpecifierPrivate)
+	TMap<ETutorialPopupScene, ETutorialPopupScene> _popupSceneBundle;                                // 0x00B0(0x0050)(Edit, DisableEditOnInstance, NativeAccessSpecifierPrivate)
+
+public:
+	TSoftObjectPtr<class UWorld> BP_GetPopupWorld(ETutorialPopupScene Type);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("PrimaryAssetTutorial")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"PrimaryAssetTutorial")
+	}
+	static class UPrimaryAssetTutorial* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UPrimaryAssetTutorial>();
+	}
+};
+
 // Class GameModule.CountAnnounceWidget
-// 0x0010 (0x0380 - 0x0370)
+// 0x0020 (0x0390 - 0x0370)
 class UCountAnnounceWidget : public UWidgetBase
 {
 public:
 	EAnnounceType                                 _announceType;                                     // 0x0370(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_371[0x7];                                      // 0x0371(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAdjustTextWidget*                      _textWidget;                                       // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_371[0x17];                                     // 0x0371(0x0017)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAdjustTextWidget*                      _textWidget;                                       // 0x0388(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 
 public:
 	void SetDisplay();
@@ -2121,30 +2227,8 @@ public:
 	}
 };
 
-// Class GameModule.PrimaryAssetStudyNotes
-// 0x0050 (0x00B0 - 0x0060)
-class UPrimaryAssetStudyNotes final : public UPrimaryAssetBase
-{
-public:
-	TMap<int32, struct FStudyNotesAssetData>      _gradeAssetList;                                   // 0x0060(0x0050)(Edit, DisableEditOnInstance, EditConst, Protected, NativeAccessSpecifierProtected)
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("PrimaryAssetStudyNotes")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"PrimaryAssetStudyNotes")
-	}
-	static class UPrimaryAssetStudyNotes* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UPrimaryAssetStudyNotes>();
-	}
-};
-
 // Class GameModule.CustomAdjustText
-// 0x0318 (0x0688 - 0x0370)
+// 0x02D0 (0x0640 - 0x0370)
 class UCustomAdjustText : public UWidgetBase
 {
 public:
@@ -2153,25 +2237,25 @@ public:
 	uint8                                         Pad_3C4[0x4];                                      // 0x03C4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UVerticalBox*                           _verticalBox;                                      // 0x03C8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 	class FText                                   _text;                                             // 0x03D0(0x0018)(Edit, Protected, NativeAccessSpecifierProtected)
-	uint8                                         Pad_3E8[0x8];                                      // 0x03E8(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FCustomText>                    _customTextList;                                   // 0x03F0(0x0010)(Edit, ZeroConstructor, ContainsInstancedReference, Protected, NativeAccessSpecifierProtected)
-	struct FSlateColor                            _textColorAndOpacity;                              // 0x0400(0x0028)(Edit, Protected, NativeAccessSpecifierProtected)
-	struct FSlateFontInfo                         _font;                                             // 0x0428(0x0058)(Edit, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	ETextJustify                                  _justification;                                    // 0x0480(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_481[0x7];                                      // 0x0481(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	TMap<class FString, struct FTextOffsetsInfo>  _adjustStrList;                                    // 0x0488(0x0050)(Edit, Protected, NativeAccessSpecifierProtected)
-	TMap<class FString, struct FTextWidgetInfo>   _replaceWidgetList;                                // 0x04D8(0x0050)(Edit, ContainsInstancedReference, Protected, NativeAccessSpecifierProtected)
-	TMap<class UObject*, float>                   _fontOffsetsList;                                  // 0x0528(0x0050)(Edit, Protected, NativeAccessSpecifierProtected)
-	TArray<struct FLineIndentInfo>                _lineIndentList;                                   // 0x0578(0x0010)(Edit, ZeroConstructor, Protected, NativeAccessSpecifierProtected)
-	float                                         _lineBreakSpace;                                   // 0x0588(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	struct FTextScrollInfo                        _scrollData;                                       // 0x058C(0x0014)(Edit, NoDestructor, Protected, NativeAccessSpecifierProtected)
-	uint8                                         Pad_5A0[0x10];                                     // 0x05A0(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
-	bool                                          _bUpdateScale;                                     // 0x05B0(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	bool                                          _bCheckAutoSize;                                   // 0x05B1(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_5B2[0xD6];                                     // 0x05B2(0x00D6)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_3E8[0x20];                                     // 0x03E8(0x0020)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FCustomText>                    _customTextList;                                   // 0x0408(0x0010)(Edit, ZeroConstructor, ContainsInstancedReference, Protected, NativeAccessSpecifierProtected)
+	uint8                                         Pad_418[0x10];                                     // 0x0418(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FSlateColor                            _textColorAndOpacity;                              // 0x0428(0x0028)(Edit, Protected, NativeAccessSpecifierProtected)
+	struct FSlateFontInfo                         _font;                                             // 0x0450(0x0058)(Edit, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	ETextJustify                                  _justification;                                    // 0x04A8(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_4A9[0x7];                                      // 0x04A9(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	TMap<class FString, struct FTextWidgetInfo>   _replaceWidgetList;                                // 0x04B0(0x0050)(Edit, ContainsInstancedReference, Protected, NativeAccessSpecifierProtected)
+	TArray<struct FLineIndentInfo>                _lineIndentList;                                   // 0x0500(0x0010)(Edit, ZeroConstructor, Protected, NativeAccessSpecifierProtected)
+	float                                         _lineBreakSpace;                                   // 0x0510(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	struct FTextScrollInfo                        _scrollData;                                       // 0x0514(0x0014)(Edit, NoDestructor, Protected, NativeAccessSpecifierProtected)
+	uint8                                         Pad_528[0x10];                                     // 0x0528(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
+	bool                                          _bUpdateScale;                                     // 0x0538(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          _bCheckAutoSize;                                   // 0x0539(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_53A[0x106];                                    // 0x053A(0x0106)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	void AddLineIndentList(const struct FLineIndentInfo& lineIndent);
+	bool GetReplaceWidget(TArray<class UWidget*>* outReplaceWidget, const class FText& Text, const bool bForceSetup);
 	void SetCheckAutoSize(const bool bCheckAutoSize);
 	void SetCustomText(const TArray<struct FCustomText>& textList);
 	void SetFont(const struct FSlateFontInfo& Font);
@@ -2187,10 +2271,8 @@ public:
 	void SetVisibilityReplaceWidget(const class FText& Text, const ESlateVisibility SetVisibility_0);
 
 	TArray<struct FCustomText> GetCustomText() const;
-	TArray<class UWidget*> GetReplaceWidget(const class FText& Text) const;
 	class FText GetText() const;
 	bool GetUpdateScale() const;
-	bool IsAdjustStr(const class FString& str) const;
 
 public:
 	static class UClass* StaticClass()
@@ -2204,6 +2286,34 @@ public:
 	static class UCustomAdjustText* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UCustomAdjustText>();
+	}
+};
+
+// Class GameModule.PrimaryAssetStaffrollAnimation
+// 0x00B0 (0x0110 - 0x0060)
+class UPrimaryAssetStaffrollAnimation final : public UPrimaryAssetBase
+{
+public:
+	TMap<class FString, TSoftObjectPtr<class UTexture>> _movieTexture;                               // 0x0060(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
+	TMap<class FString, TSoftObjectPtr<class UMaterial>> _movieMaterial;                             // 0x00B0(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_100[0x10];                                     // 0x0100(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	class UMaterial* BP_GetMovieMaterial(int32 Index_0) const;
+	class UTexture* BP_GetMovieTexture(int32 Index_0) const;
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("PrimaryAssetStaffrollAnimation")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"PrimaryAssetStaffrollAnimation")
+	}
+	static class UPrimaryAssetStaffrollAnimation* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UPrimaryAssetStaffrollAnimation>();
 	}
 };
 
@@ -2261,48 +2371,6 @@ public:
 	}
 };
 
-// Class GameModule.ProfileDisplayPlayerCardWidget
-// 0x0178 (0x04E8 - 0x0370)
-class UProfileDisplayPlayerCardWidget final : public UWidgetBase
-{
-public:
-	uint8                                         Pad_370[0xF0];                                     // 0x0370(0x00F0)(Fixing Size After Last Property [ Dumper-7 ])
-	class UNamePlate*                             _namePlate;                                        // 0x0460(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UAdjustTextWidget*                      _playerName;                                       // 0x0468(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextBlock*                             _introduction_1;                                   // 0x0470(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextBlock*                             _introduction_2;                                   // 0x0478(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UProfileDisplayRankWidget*              _profileRank;                                      // 0x0480(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _playerRankImage;                                  // 0x0488(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UCanvasPanel*                           _rankProgressCanvasPanel;                          // 0x0490(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UHorizontalBox*                         _rankLevelProgressNum;                             // 0x0498(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UProgressBar*                           _rankProgressImage;                                // 0x04A0(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetText*                            _nowRankText;                                      // 0x04A8(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetText*                            _maxRankText;                                      // 0x04B0(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextBlock*                             _playerLevel;                                      // 0x04B8(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UCanvasPanel*                           _levelProgressCanvasPanel;                         // 0x04C0(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UHorizontalBox*                         _levelProgressNum;                                 // 0x04C8(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UProgressBar*                           _levelProgressImage;                               // 0x04D0(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetText*                            _nowLevelText;                                     // 0x04D8(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetText*                            _maxLevelText;                                     // 0x04E0(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-
-public:
-	void BP_Setup(const struct FPlayerDisplayData& Data);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ProfileDisplayPlayerCardWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ProfileDisplayPlayerCardWidget")
-	}
-	static class UProfileDisplayPlayerCardWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UProfileDisplayPlayerCardWidget>();
-	}
-};
-
 // Class GameModule.LocalPlayerInstanceSubsystem
 // 0x0008 (0x0038 - 0x0030)
 class ULocalPlayerInstanceSubsystem final : public UGameInstanceSubsystem
@@ -2325,6 +2393,29 @@ public:
 	}
 };
 
+// Class GameModule.PrimaryAssetSgDownloadLevel
+// 0x0020 (0x0080 - 0x0060)
+class UPrimaryAssetSgDownloadLevel final : public UPrimaryAssetBase
+{
+public:
+	class FString                                 targetFolderPath;                                  // 0x0060(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<TSoftObjectPtr<class UObject>>         AssetPathArray;                                    // 0x0070(0x0010)(Edit, ZeroConstructor, UObjectWrapper, NativeAccessSpecifierPublic)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("PrimaryAssetSgDownloadLevel")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"PrimaryAssetSgDownloadLevel")
+	}
+	static class UPrimaryAssetSgDownloadLevel* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UPrimaryAssetSgDownloadLevel>();
+	}
+};
+
 // Class GameModule.LocalPlayerWork
 // 0x0000 (0x0030 - 0x0030)
 class ULocalPlayerWork final : public ULocalPlayerSubsystem
@@ -2341,39 +2432,6 @@ public:
 	static class ULocalPlayerWork* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<ULocalPlayerWork>();
-	}
-};
-
-// Class GameModule.ProfileShowLevel
-// 0x0030 (0x0058 - 0x0028)
-class UProfileShowLevel final : public UObject
-{
-public:
-	TMulticastInlineDelegate<void()>              OnSubLevelShownEvent;                              // 0x0028(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              OnSubLevelHiddenEvent;                             // 0x0038(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	class ULevelStreamingDynamic*                 _levelStreamingDynamic;                            // 0x0048(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetBase*                            _widget;                                           // 0x0050(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-
-public:
-	void DisableInputLoadProfileLevel(class UWidgetBase* Widget);
-	void EnableInputLoadProfileLevel(class UWidgetBase* Widget);
-	class ULevelStreamingDynamic* GetLevelStreamingDynamic();
-	void OnSubLevelHidden();
-	void OnSubLevelShown();
-	bool OpenProfile(const class UObject* WorldContextObject, bool inGame);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ProfileShowLevel")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ProfileShowLevel")
-	}
-	static class UProfileShowLevel* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UProfileShowLevel>();
 	}
 };
 
@@ -2425,6 +2483,28 @@ public:
 	}
 };
 
+// Class GameModule.PrimaryAssetSupplyAbility
+// 0x0050 (0x00B0 - 0x0060)
+class UPrimaryAssetSupplyAbility final : public UPrimaryAssetBase
+{
+public:
+	TMap<class FString, TSoftObjectPtr<class USupplyBaseDataAsset>> _dataAssets;                     // 0x0060(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("PrimaryAssetSupplyAbility")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"PrimaryAssetSupplyAbility")
+	}
+	static class UPrimaryAssetSupplyAbility* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UPrimaryAssetSupplyAbility>();
+	}
+};
+
 // Class GameModule.CustomLineDrawer
 // 0x0028 (0x01F0 - 0x01C8)
 class UCustomLineDrawer final : public UWidgetDrawPrimitive
@@ -2451,47 +2531,12 @@ public:
 	}
 };
 
-// Class GameModule.ProfileDisplayRoleSlotWidget
-// 0x0040 (0x03B0 - 0x0370)
-class UProfileDisplayRoleSlotWidget final : public UWidgetBase
-{
-public:
-	class UGameSequenceWork*                      _gameSequenceWork;                                 // 0x0370(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UPlayerDatabaseWork*                    _playerDatabaseWork;                               // 0x0378(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UBackendSubsystem*                      _backendSubsystem;                                 // 0x0380(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URetainerBox*                           _costumeImageMain;                                 // 0x0388(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _rarityImage;                                      // 0x0390(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _costumeImage;                                     // 0x0398(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UAdjustTextWidget*                      _costumeText;                                      // 0x03A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	bool                                          bMySelfFlag;                                       // 0x03A8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_3A9[0x7];                                      // 0x03A9(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void GenerateData(const class UProfileDisplayData* _data, bool mySelf);
-	void OnLoadedCostumeImage(class UPaperSprite* Sprite);
-	void OnLoadedRarityImage(class UTexture2D* Sprite);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ProfileDisplayRoleSlotWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ProfileDisplayRoleSlotWidget")
-	}
-	static class UProfileDisplayRoleSlotWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UProfileDisplayRoleSlotWidget>();
-	}
-};
-
 // Class GameModule.CustomMatchDatabaseWork
-// 0x0190 (0x01C0 - 0x0030)
+// 0x0208 (0x0238 - 0x0030)
 class UCustomMatchDatabaseWork final : public UGameInstanceSubsystem
 {
 public:
-	uint8                                         Pad_30[0x190];                                     // 0x0030(0x0190)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_30[0x208];                                     // 0x0030(0x0208)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	void BP_SetCustomMatch(bool bCustomMatch);
@@ -2521,8 +2566,34 @@ public:
 	}
 };
 
+// Class GameModule.ProfileDisplayPopupGeneralWindow
+// 0x0028 (0x0440 - 0x0418)
+class UProfileDisplayPopupGeneralWindow final : public UAppWidget
+{
+public:
+	class UWidgetGeneralWindow*                   _popupWindow;                                      // 0x0418(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UNamePlate*                             _namePlate;                                        // 0x0420(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UPlayerDatabaseWork*                    _playerDatabaseWork;                               // 0x0428(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UGameSequenceWork*                      _gameSequenceWork;                                 // 0x0430(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UBackendSubsystem*                      _backendSubsystem;                                 // 0x0438(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ProfileDisplayPopupGeneralWindow")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ProfileDisplayPopupGeneralWindow")
+	}
+	static class UProfileDisplayPopupGeneralWindow* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UProfileDisplayPopupGeneralWindow>();
+	}
+};
+
 // Class GameModule.CustomParticleSystemComponent
-// 0x00F0 (0x07A0 - 0x06B0)
+// 0x0120 (0x07D0 - 0x06B0)
 class UCustomParticleSystemComponent : public UParticleSystemComponent
 {
 public:
@@ -2538,19 +2609,18 @@ public:
 	class UCurveFloat*                            _fadeOutCurve;                                     // 0x06C0(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   _fadeOutParamName;                                 // 0x06C8(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          _bPlayHorizon;                                     // 0x06D0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bIsPlayEffect;                                    // 0x06D1(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bFreeCameraEnable;                                // 0x06D2(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bEnableDestroyedDeactivate;                       // 0x06D3(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bRelactiveScale;                                  // 0x06D4(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_6D5[0x3];                                      // 0x06D5(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	bool                                          _bFreeCameraEnable;                                // 0x06D1(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _bEnableDestroyedDeactivate;                       // 0x06D2(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _bRelactiveScale;                                  // 0x06D3(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_6D4[0x4];                                      // 0x06D4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class ACharacterGame*                         _ownerCharacter;                                   // 0x06D8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	class UMeshComponent*                         _attachMesh;                                       // 0x06E0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_6E8[0x90];                                     // 0x06E8(0x0090)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FTimerHandle                           _fadeInHandle;                                     // 0x0778(0x0008)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	struct FTimerHandle                           _fadeOutHandle;                                    // 0x0780(0x0008)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	struct FTimerHandle                           _attachLocateHandle;                               // 0x0788(0x0008)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	struct FTimerHandle                           _updateDetachTimer;                                // 0x0790(0x0008)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UWorld*                                 _currentWorld;                                     // 0x0798(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_6E8[0xC0];                                     // 0x06E8(0x00C0)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FTimerHandle                           _fadeInHandle;                                     // 0x07A8(0x0008)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	struct FTimerHandle                           _fadeOutHandle;                                    // 0x07B0(0x0008)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	struct FTimerHandle                           _attachLocateHandle;                               // 0x07B8(0x0008)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	struct FTimerHandle                           _updateDetachTimer;                                // 0x07C0(0x0008)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UWorld*                                 _currentWorld;                                     // 0x07C8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 
 public:
 	void BP_SetOwnerCharacter(class ACharacterGame* inOwnerCharacter);
@@ -2575,34 +2645,6 @@ public:
 	}
 };
 
-// Class GameModule.ProfileDisplayManager
-// 0x0088 (0x02A8 - 0x0220)
-class AProfileDisplayManager final : public AActor
-{
-public:
-	TMulticastInlineDelegate<void()>              _onFinishSetupEventDispatcher;                     // 0x0220(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TSoftObjectPtr<class UWorld>                  _friendRequestLevel;                               // 0x0230(0x0028)(Edit, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	TSoftObjectPtr<class UWorld>                  _guildRequesetLevel;                               // 0x0258(0x0028)(Edit, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	TSoftObjectPtr<class UWorld>                  _violationReportLevel;                             // 0x0280(0x0028)(Edit, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-
-public:
-	class ULevelStreamingDynamic* BP_RequesetLoad(TSoftObjectPtr<class UWorld> _level);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ProfileDisplayManager")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ProfileDisplayManager")
-	}
-	static class AProfileDisplayManager* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<AProfileDisplayManager>();
-	}
-};
-
 // Class GameModule.DamageAttenuationManager
 // 0x0050 (0x0080 - 0x0030)
 class UDamageAttenuationManager final : public UEngineSubsystem
@@ -2623,6 +2665,40 @@ public:
 	static class UDamageAttenuationManager* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UDamageAttenuationManager>();
+	}
+};
+
+// Class GameModule.ProfileDisplayData
+// 0x01D8 (0x0200 - 0x0028)
+class UProfileDisplayData final : public UObject
+{
+public:
+	class FString                                 _playerId;                                         // 0x0028(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	struct FPlayerDisplayData                     _player;                                           // 0x0038(0x00F0)(NativeAccessSpecifierPrivate)
+	struct FGuildDisplayData                      _guild;                                            // 0x0128(0x0050)(NativeAccessSpecifierPrivate)
+	struct FEmblemDisplayData                     _emblem;                                           // 0x0178(0x000C)(NoDestructor, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_184[0x4];                                      // 0x0184(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FMyADDisplayData                       _ad;                                               // 0x0188(0x0078)(NativeAccessSpecifierPrivate)
+
+public:
+	const struct FMyADDisplayData BP_getAD() const;
+	const struct FEmblemDisplayData BP_getEmblem() const;
+	const struct FGuildDisplayData BP_getGuild() const;
+	const struct FPlayerDisplayData BP_getPlayer() const;
+	class FString BP_GetPlayerId() const;
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ProfileDisplayData")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ProfileDisplayData")
+	}
+	static class UProfileDisplayData* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UProfileDisplayData>();
 	}
 };
 
@@ -2650,78 +2726,6 @@ public:
 	static class UDotScrollBarItemWidget* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UDotScrollBarItemWidget>();
-	}
-};
-
-// Class GameModule.ProfileDisplayOfferWidget
-// 0x00F8 (0x0510 - 0x0418)
-class UProfileDisplayOfferWidget final : public UAppWidget
-{
-public:
-	uint8                                         Pad_418[0x18];                                     // 0x0418(0x0018)(Fixing Size After Last Property [ Dumper-7 ])
-	class UWidgetButton*                          _listOpenButton;                                   // 0x0430(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class USendLikeButtonWidget*                  _sendLikeButton;                                   // 0x0438(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UOverlay*                               _platformProfileButtonOverlay;                     // 0x0440(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetButton*                          _platformProfileButton;                            // 0x0448(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UOverlay*                               _rankProfileButtonOverlay;                         // 0x0450(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetButton*                          _rankProfileButton;                                // 0x0458(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UCanvasPanel*                           _window;                                           // 0x0460(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UClippingWidget*                        _selectedCharacter;                                // 0x0468(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UOverlay*                               _showMyRoomButtonOverlay;                          // 0x0470(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetButton*                          _showMyRoomButton;                                 // 0x0478(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UMyRoomLikeTextWidget*                  _myRoomLike;                                       // 0x0480(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UProfileDisplayWidget*                  _profileDisplay;                                   // 0x0488(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UProfileDisplayWidget*                  _profileDisplayNoneRoleSlot;                       // 0x0490(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UProfileDisplayRoleSlotWidget*          _roleSlotList;                                     // 0x0498(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UProfileRankListWidget*                 _profileRankDisplay;                               // 0x04A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class ULoadIconWidget*                        _networkLoadingIcon;                               // 0x04A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	bool                                          bMySelf;                                           // 0x04B0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	bool                                          bPreview;                                          // 0x04B1(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_4B2[0x2];                                      // 0x04B2(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	float                                         _nonValidRoleSlotCharacterOffsetLeft;              // 0x04B4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_4B8[0x8];                                      // 0x04B8(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	class UProfileDisplayCharacterWidget*         _characterImage;                                   // 0x04C0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	TSoftObjectPtr<class UWorld>                  _myRoomPreviewLevel;                               // 0x04C8(0x0028)(Edit, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	TMulticastInlineDelegate<void()>              onFinishFetchDataEventDelegate;                    // 0x04F0(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
-	TMulticastInlineDelegate<void()>              onFinishUpdateWebApiErrorEventDelegate;            // 0x0500(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
-
-public:
-	void BP_OnChangeTab(bool bSelectedProfile);
-	void BP_OnTryChangeTab();
-	class UWidget* DoCustomListNavigation_ListOpenButton(EUINavigation uiNavigation);
-	class UWidget* DoCustomListNavigation_MyRoomPreviewButton(EUINavigation uiNavigation);
-	class UWidget* DoCustomListNavigation_PlatformProfileButton(EUINavigation uiNavigation);
-	class UWidget* DoCustomListNavigation_RankProfileButton(EUINavigation uiNavigation);
-	class UWidget* DoCustomListNavigation_SendLikeButton(EUINavigation uiNavigation);
-	void MyRoomPreviewFadeOutFinished();
-	void NextProfileCharacterCmd(const TArray<class FString>& args);
-	void NextProfileCostumeCmd(const TArray<class FString>& args);
-	void OnDecidePlatformProfileButton(class UAppWidget* Widget, EWidgetInputType inputType);
-	void OnDecideRankProfileButton(class UAppWidget* Widget, EWidgetInputType inputType);
-	void OnDecideShowMyRoomButton(class UAppWidget* Widget, EWidgetInputType inputType);
-	void OnFinishedNoticeWindow();
-	void OnFinishFetchDataEvent();
-	void OnFinishReceivedOnLoadCompleteEvent();
-	void OnPlayerRequestErrorEvent(int32 requestId, const class FName Key, const class FName message);
-	void OnReceivedCloseWebApiErrorWindow();
-	void ReceivedOnLoadCompleteEvent(int32 requestId);
-	void SetProfileCharacterCmd(const TArray<class FString>& args);
-	void SetProfileCostumeAuraCmd(const TArray<class FString>& args);
-	void SetProfileCostumeCmd(const TArray<class FString>& args);
-	void UpdateAfterFetchData();
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ProfileDisplayOfferWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ProfileDisplayOfferWidget")
-	}
-	static class UProfileDisplayOfferWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UProfileDisplayOfferWidget>();
 	}
 };
 
@@ -2783,6 +2787,28 @@ public:
 	}
 };
 
+// Class GameModule.PrimaryAssetStudyNotes
+// 0x0050 (0x00B0 - 0x0060)
+class UPrimaryAssetStudyNotes final : public UPrimaryAssetBase
+{
+public:
+	TMap<int32, struct FStudyNotesAssetData>      _gradeAssetList;                                   // 0x0060(0x0050)(Edit, DisableEditOnInstance, EditConst, Protected, NativeAccessSpecifierProtected)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("PrimaryAssetStudyNotes")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"PrimaryAssetStudyNotes")
+	}
+	static class UPrimaryAssetStudyNotes* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UPrimaryAssetStudyNotes>();
+	}
+};
+
 // Class GameModule.EditorOnlyStatics
 // 0x0000 (0x0028 - 0x0028)
 class UEditorOnlyStatics final : public UBlueprintFunctionLibrary
@@ -2802,28 +2828,9 @@ public:
 	}
 };
 
-// Class GameModule.RibbonAdjustComponent
-// 0x0000 (0x00B0 - 0x00B0)
-class URibbonAdjustComponent final : public UActorComponent
-{
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("RibbonAdjustComponent")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"RibbonAdjustComponent")
-	}
-	static class URibbonAdjustComponent* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<URibbonAdjustComponent>();
-	}
-};
-
 // Class GameModule.EmblemBaseWidget
 // 0x0000 (0x0370 - 0x0370)
-class UEmblemBaseWidget final : public UWidgetBase
+class UEmblemBaseWidget : public UWidgetBase
 {
 public:
 	static class UClass* StaticClass()
@@ -2842,7 +2849,7 @@ public:
 
 // Class GameModule.EmblemDisplayWidget
 // 0x0058 (0x03C8 - 0x0370)
-class UEmblemDisplayWidget final : public UWidgetBase
+class UEmblemDisplayWidget : public UWidgetBase
 {
 public:
 	int32                                         _code;                                             // 0x0370(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -2881,33 +2888,6 @@ public:
 	}
 };
 
-// Class GameModule.GeneratorData
-// 0x0130 (0x0158 - 0x0028)
-class UGeneratorData final : public UObject
-{
-public:
-	class FString                                 Parent;                                            // 0x0028(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FHashID                                FileHash;                                          // 0x0038(0x0004)(NoDestructor, NativeAccessSpecifierPublic)
-	ECharacterId                                  charaId;                                           // 0x003C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_3D[0x3];                                       // 0x003D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FGeneratorIndexData                    base;                                              // 0x0040(0x00C8)(NativeAccessSpecifierPublic)
-	TMap<uint32, struct FGeneratorIndexData>      genTbl;                                            // 0x0108(0x0050)(NativeAccessSpecifierPublic)
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("GeneratorData")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"GeneratorData")
-	}
-	static class UGeneratorData* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UGeneratorData>();
-	}
-};
-
 // Class GameModule.EventSequenceWork
 // 0x0008 (0x0038 - 0x0030)
 class UEventSequenceWork final : public UGameInstanceSubsystem
@@ -2927,6 +2907,39 @@ public:
 	static class UEventSequenceWork* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UEventSequenceWork>();
+	}
+};
+
+// Class GameModule.ProfileShowLevel
+// 0x0030 (0x0058 - 0x0028)
+class UProfileShowLevel final : public UObject
+{
+public:
+	TMulticastInlineDelegate<void()>              OnSubLevelShownEvent;                              // 0x0028(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              OnSubLevelHiddenEvent;                             // 0x0038(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	class ULevelStreamingDynamic*                 _levelStreamingDynamic;                            // 0x0048(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetBase*                            _widget;                                           // 0x0050(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+
+public:
+	void DisableInputLoadProfileLevel(class UWidgetBase* Widget);
+	void EnableInputLoadProfileLevel(class UWidgetBase* Widget);
+	class ULevelStreamingDynamic* GetLevelStreamingDynamic();
+	void OnSubLevelHidden();
+	void OnSubLevelShown();
+	bool OpenProfile(const class UObject* WorldContextObject, bool inGame);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ProfileShowLevel")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ProfileShowLevel")
+	}
+	static class UProfileShowLevel* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UProfileShowLevel>();
 	}
 };
 
@@ -2959,70 +2972,6 @@ public:
 	static class UFadeWidget* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UFadeWidget>();
-	}
-};
-
-// Class GameModule.ProfileDisplayViolationReportWidget
-// 0x00A8 (0x04C0 - 0x0418)
-class UProfileDisplayViolationReportWidget final : public UAppWidget
-{
-public:
-	class UWidgetGeneralSelectiveWindow*          _selectWindow;                                     // 0x0418(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UNamePlateText*                         _selectWindowNamePlateText;                        // 0x0420(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetGeneralWindow*                   _popupWindow;                                      // 0x0428(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetGeneralWindow*                   _popupBlockListAddCheckWindow;                     // 0x0430(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UProfileDisplayPopupGeneralWindow*      _popupCheckRemoveFriendWindow;                     // 0x0438(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetGeneralWindow*                   _removeFriendPopupWindow;                          // 0x0440(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UNamePlateText*                         _removeFriendPopupNamePlateText;                   // 0x0448(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	EMdPenaltyType                                _penaltyReportType;                                // 0x0450(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_451[0x27];                                     // 0x0451(0x0027)(Fixing Size After Last Property [ Dumper-7 ])
-	class UPlayerDatabaseWork*                    _playerDatabaseWork;                               // 0x0478(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UGameSequenceWork*                      _gameSequenceWork;                                 // 0x0480(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UBackendSubsystem*                      _backendSubsystem;                                 // 0x0488(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_490[0x30];                                     // 0x0490(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void BP_Cancel();
-	void BP_CloseLevel();
-	class FString BP_GetTargetName();
-	void BP_RequestReport();
-	void BP_RequestReportInGame();
-	void OnCancelBlockListAddPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType);
-	void OnCancelCheckRemoveFriendPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType);
-	void OnCancelCheckRemoveFriendWindow(class UAppWidget* Widget, EWidgetInputType inputType);
-	void OnCancelPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType);
-	void OnClickedBlockBGBlockListAddPopupWindow();
-	void OnClickedBlockBGCheckRemoveFriendWindow();
-	void OnClickedBlockBGPopupWindow();
-	void OnClickedCheckRemoveFriendBlockBGPopupWindow();
-	void OnClosedBlockListAddPopupWindow();
-	void OnClosedCheckRemoveFriendPopupWindow();
-	void OnClosedCheckRemoveFriendWindow();
-	void OnClosedPopupWindow();
-	void OnClosedSelectWindow();
-	void OnDecideBlockListAddPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton);
-	void OnDecideCheckRemoveFriendPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton);
-	void OnDecideCheckRemoveFriendWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton);
-	void OnDecidePopupWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton);
-	void OnDecideSelectWindow(int32 selectindex, class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton);
-	void OnFinishFetchDataCommonEvent(int32 requestId);
-	void OnFinishFetchDataEvent(int32 requestId);
-	void OnReceivedFinish();
-	void OnReceivedFinishAddBlockList();
-	void OnReceivedFinishRemoveFriend();
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ProfileDisplayViolationReportWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ProfileDisplayViolationReportWidget")
-	}
-	static class UProfileDisplayViolationReportWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UProfileDisplayViolationReportWidget>();
 	}
 };
 
@@ -3076,6 +3025,195 @@ public:
 	}
 };
 
+// Class GameModule.FontCheckItemWidget
+// 0x0008 (0x07A0 - 0x0798)
+class UFontCheckItemWidget final : public UClipboardCopyButtonWidget
+{
+public:
+	class UTextBlock*                             _textWidget;                                       // 0x0798(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("FontCheckItemWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"FontCheckItemWidget")
+	}
+	static class UFontCheckItemWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UFontCheckItemWidget>();
+	}
+};
+
+// Class GameModule.FontCheckLineWidget
+// 0x0020 (0x0390 - 0x0370)
+class UFontCheckLineWidget final : public UWidgetBase
+{
+public:
+	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	class UHorizontalBox*                         _itemBox;                                          // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _startCodeText;                                    // 0x0380(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UFontCheckLineObject*                   _itemObject;                                       // 0x0388(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("FontCheckLineWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"FontCheckLineWidget")
+	}
+	static class UFontCheckLineWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UFontCheckLineWidget>();
+	}
+};
+
+// Class GameModule.FontCheckLineObject
+// 0x0008 (0x0030 - 0x0028)
+class UFontCheckLineObject final : public UObject
+{
+public:
+	class UFont*                                  _fontObject;                                       // 0x0028(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("FontCheckLineObject")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"FontCheckLineObject")
+	}
+	static class UFontCheckLineObject* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UFontCheckLineObject>();
+	}
+};
+
+// Class GameModule.FontCheckWidget
+// 0x0090 (0x0400 - 0x0370)
+class UFontCheckWidget final : public UWidgetBase
+{
+public:
+	class UPlatformWidgetButton*                  _switchFontButton;                                 // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UClipboardCopyButtonWidget*             _fontCopyButton;                                   // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetSubMenu*                         _fontMenu;                                         // 0x0380(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_388[0x10];                                     // 0x0388(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
+	class UCustomEditableTextBox*                 _startCodeText;                                    // 0x0398(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetButton*                          _startCodePasteButton;                             // 0x03A0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_3A8[0x10];                                     // 0x03A8(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
+	class UCustomEditableTextBox*                 _endCodeText;                                      // 0x03B8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetButton*                          _endCodePasteButton;                               // 0x03C0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_3C8[0x10];                                     // 0x03C8(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
+	class UPlatformWidgetButton*                  _updateButton;                                     // 0x03D8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _noticeUpdateImage;                                // 0x03E0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UPlatformWidgetButton*                  _errorTextButton;                                  // 0x03E8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UClipboardCopyButtonWidget*             _errorTextCopyButton;                              // 0x03F0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCustomListView*                        _textList;                                         // 0x03F8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+
+public:
+	void CopyErrorCode(class UAppWidget* Widget, const EWidgetInputType inputType);
+	void OpenSwitchFontMenu(class UAppWidget* Widget, const EWidgetInputType inputType);
+	void PasteEndCode(class UAppWidget* Widget, const EWidgetInputType inputType);
+	void PasteStartCode(class UAppWidget* Widget, const EWidgetInputType inputType);
+	void SwitchFont(const int32 idx);
+	void UpdateEndCode(const class FText& Text);
+	void UpdateStartCode(const class FText& Text);
+	void UpdateView(class UAppWidget* Widget, const EWidgetInputType inputType);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("FontCheckWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"FontCheckWidget")
+	}
+	static class UFontCheckWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UFontCheckWidget>();
+	}
+};
+
+// Class GameModule.ProfileDisplayOfferWidget
+// 0x0108 (0x0520 - 0x0418)
+class UProfileDisplayOfferWidget final : public UAppWidget
+{
+public:
+	TMulticastInlineDelegate<void()>              OnDecideShowMyRoomButtonEvent;                     // 0x0418(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	uint8                                         Pad_428[0x18];                                     // 0x0428(0x0018)(Fixing Size After Last Property [ Dumper-7 ])
+	class UWidgetButton*                          _listOpenButton;                                   // 0x0440(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class USendLikeButtonWidget*                  _sendLikeButton;                                   // 0x0448(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UOverlay*                               _platformProfileButtonOverlay;                     // 0x0450(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetButton*                          _platformProfileButton;                            // 0x0458(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UOverlay*                               _rankProfileButtonOverlay;                         // 0x0460(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetButton*                          _rankProfileButton;                                // 0x0468(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCanvasPanel*                           _window;                                           // 0x0470(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UClippingWidget*                        _selectedCharacter;                                // 0x0478(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UOverlay*                               _showMyRoomButtonOverlay;                          // 0x0480(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetButton*                          _showMyRoomButton;                                 // 0x0488(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UMyRoomLikeTextWidget*                  _myRoomLike;                                       // 0x0490(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UProfileDisplayWidget*                  _profileDisplay;                                   // 0x0498(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UProfileDisplayWidget*                  _profileDisplayNoneRoleSlot;                       // 0x04A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UProfileDisplayRoleSlotWidget*          _roleSlotList;                                     // 0x04A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UProfileRankListWidget*                 _profileRankDisplay;                               // 0x04B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class ULoadIconWidget*                        _networkLoadingIcon;                               // 0x04B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          bMySelf;                                           // 0x04C0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          bPreview;                                          // 0x04C1(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_4C2[0x2];                                      // 0x04C2(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	float                                         _nonValidRoleSlotCharacterOffsetLeft;              // 0x04C4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_4C8[0x8];                                      // 0x04C8(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	class UProfileDisplayCharacterWidget*         _characterImage;                                   // 0x04D0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TSoftObjectPtr<class UWorld>                  _myRoomPreviewLevel;                               // 0x04D8(0x0028)(Edit, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TMulticastInlineDelegate<void()>              onFinishFetchDataEventDelegate;                    // 0x0500(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
+	TMulticastInlineDelegate<void()>              onFinishUpdateWebApiErrorEventDelegate;            // 0x0510(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
+
+public:
+	void BP_OnChangeTab(bool bSelectedProfile);
+	void BP_OnTryChangeTab();
+	void BP_SetFocusListOpenButton();
+	class UWidget* DoCustomListNavigation_ListOpenButton(EUINavigation uiNavigation);
+	class UWidget* DoCustomListNavigation_MyRoomPreviewButton(EUINavigation uiNavigation);
+	class UWidget* DoCustomListNavigation_PlatformProfileButton(EUINavigation uiNavigation);
+	class UWidget* DoCustomListNavigation_RankProfileButton(EUINavigation uiNavigation);
+	class UWidget* DoCustomListNavigation_SendLikeButton(EUINavigation uiNavigation);
+	void MyRoomPreviewFadeOutFinished();
+	void NextProfileCharacterCmd(const TArray<class FString>& args);
+	void NextProfileCostumeCmd(const TArray<class FString>& args);
+	void OnDecidePlatformProfileButton(class UAppWidget* Widget, EWidgetInputType inputType);
+	void OnDecideRankProfileButton(class UAppWidget* Widget, EWidgetInputType inputType);
+	void OnDecideShowMyRoomButton(class UAppWidget* Widget, EWidgetInputType inputType);
+	void OnFinishedNoticeWindow();
+	void OnFinishFetchDataEvent();
+	void OnFinishReceivedOnLoadCompleteEvent();
+	void OnPlayerRequestErrorEvent(int32 requestId, const class FName Key, const class FName message);
+	void OnReceivedCloseWebApiErrorWindow();
+	void ReceivedOnLoadCompleteEvent(int32 requestId);
+	void SetProfileCharacterCmd(const TArray<class FString>& args);
+	void SetProfileCostumeAuraCmd(const TArray<class FString>& args);
+	void SetProfileCostumeCmd(const TArray<class FString>& args);
+	void UpdateAfterFetchData();
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ProfileDisplayOfferWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ProfileDisplayOfferWidget")
+	}
+	static class UProfileDisplayOfferWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UProfileDisplayOfferWidget>();
+	}
+};
+
 // Class GameModule.FiniteState
 // 0x0008 (0x0030 - 0x0028)
 class UFiniteState : public UObject
@@ -3123,6 +3261,38 @@ public:
 	}
 };
 
+// Class GameModule.ReturnButtonWidget
+// 0x0028 (0x0538 - 0x0510)
+class UReturnButtonWidget : public UWidgetButton
+{
+public:
+	bool                                          _bColumnType;                                      // 0x0510(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          _bCloseText;                                       // 0x0511(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          _bUsePressAtomCue;                                 // 0x0512(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_513[0x5];                                      // 0x0513(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
+	class USoundAtomCue*                          _pressAtomCue;                                     // 0x0518(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UCanvasPanel*                           _linePanel;                                        // 0x0520(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UCanvasPanel*                           _columnPanel;                                      // 0x0528(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UWidgetSwitcher*                        _columnSwitcher;                                   // 0x0530(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+
+public:
+	void OnPressButton(class UAppWidget* Widget, EWidgetInputType inputType);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ReturnButtonWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ReturnButtonWidget")
+	}
+	static class UReturnButtonWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UReturnButtonWidget>();
+	}
+};
+
 // Class GameModule.GameEffectSubsystem
 // 0x00C0 (0x00F0 - 0x0030)
 class UGameEffectSubsystem final : public UEngineSubsystem
@@ -3153,43 +3323,9 @@ public:
 	}
 };
 
-// Class GameModule.RoleSlotMainItemIconWidget
-// 0x0060 (0x02C0 - 0x0260)
-class URoleSlotMainItemIconWidget final : public UImage
-{
-public:
-	class FString                                 _itemCategory;                                     // 0x0260(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	int32                                         _itemCategoryCode;                                 // 0x0270(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	EItemCategory                                 _itemCategoryEnum;                                 // 0x0274(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_275[0x3];                                      // 0x0275(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         _itemId;                                           // 0x0278(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	bool                                          _bIsSmall;                                         // 0x027C(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	bool                                          _bSyncLoad;                                        // 0x027D(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_27E[0x2];                                      // 0x027E(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	TSoftObjectPtr<class UPaperSprite>            _spriteSoftPtr;                                    // 0x0280(0x0028)(Edit, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_2A8[0x18];                                     // 0x02A8(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void OnLoadedIconImage(class UPaperSprite* Sprite);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("RoleSlotMainItemIconWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"RoleSlotMainItemIconWidget")
-	}
-	static class URoleSlotMainItemIconWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<URoleSlotMainItemIconWidget>();
-	}
-};
-
 // Class GameModule.SaveGameOption
-// 0x0840 (0x0868 - 0x0028)
-class USaveGameOption final : public USaveGame
+// 0x0888 (0x08B0 - 0x0028)
+class USaveGameOption : public USaveGame
 {
 public:
 	float                                         _gamePadCameraYawRate;                             // 0x0028(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -3218,10 +3354,10 @@ public:
 	bool                                          _bMiniMapRotation;                                 // 0x0065(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          _bAimAssist;                                       // 0x0066(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          _bDashHold;                                        // 0x0067(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bSquatHold;                                       // 0x0068(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bAimHold;                                         // 0x0069(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bGyroOperation;                                   // 0x006A(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_6B[0x1];                                       // 0x006B(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
+	bool                                          _bLevelUpShortcut;                                 // 0x0068(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _bSquatHold;                                       // 0x0069(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _bAimHold;                                         // 0x006A(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _bGyroOperation;                                   // 0x006B(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         _gyroYawRate;                                      // 0x006C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         _gyroPitchRate;                                    // 0x0070(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         _aimMagnification;                                 // 0x0074(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -3325,52 +3461,58 @@ public:
 	TArray<struct FInputActionKeyMapping>         _keyboardObserverActionMappings;                   // 0x02D0(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
 	TArray<struct FInputAxisKeyMapping>           _keyboardObserverMoveAxisMappings;                 // 0x02E0(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
 	class FString                                 _trackingNumber;                                   // 0x02F0(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bAgreeFreeTextInput_TextChat;                     // 0x0300(0x0001)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bAgreeFreeTextInput_GuildChat;                    // 0x0301(0x0001)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bAgreeObserver_TextChat;                          // 0x0302(0x0001)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_303[0x1];                                      // 0x0303(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         _guildLevel;                                       // 0x0304(0x0004)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 _guildSearchId;                                    // 0x0308(0x0010)(Edit, ZeroConstructor, EditConst, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bGuildBlock;                                      // 0x0318(0x0001)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bGuildNameConsent;                                // 0x0319(0x0001)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bGuildProfileConsent;                             // 0x031A(0x0001)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_31B[0x5];                                      // 0x031B(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
-	TSet<int32>                                   _loadShopItems;                                    // 0x0320(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
-	TSet<int32>                                   _viewedShopItems;                                  // 0x0370(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
-	TMap<int32, EGameOptionCharacterUnlockStatus> _characterUnLockMaps;                              // 0x03C0(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
-	TMap<int32, EGameOptionCharacterUnlockStatus> _variationUnLockMaps;                              // 0x0410(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
-	TArray<int32>                                 _favoriteImageList;                                // 0x0460(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
-	struct FDateTime                              _bExitRoomDateTime;                                // 0x0470(0x0008)(Edit, ZeroConstructor, EditConst, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 _customMatchRoomKey;                               // 0x0478(0x0010)(Edit, ZeroConstructor, EditConst, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TMap<uint8, int32>                            _favoriteCharacters;                               // 0x0488(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
-	TMap<int32, struct FFavoriteRoleSlotData>     _favoriteRoleSlot;                                 // 0x04D8(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
-	TMap<EKeyConfigurableCommand, struct FKey>    _gamePadActionMappingsOnCommand;                   // 0x0528(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
-	TMap<EKeyConfigurableCommand, struct FKey>    _keyboardActionMappingOnCommand;                   // 0x0578(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
-	TMap<EKeyConfigurableCommand, struct FKey>    _keyboardMoveAxisMappingOnCommand;                 // 0x05C8(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
-	TMap<EKeyConfigurableCommand, struct FKey>    _gamePadObserverActionMappingsOnCommand;           // 0x0618(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
-	TMap<EKeyConfigurableCommand, struct FKey>    _gamePadObserverMoveAxisMappingsOnCommand;         // 0x0668(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
-	TMap<EKeyConfigurableCommand, struct FKey>    _keyboardObserverActionMappingOnCommand;           // 0x06B8(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
-	TMap<EKeyConfigurableCommand, struct FKey>    _keyboardObserverMoveAxisMappingOnCommand;         // 0x0708(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
-	TArray<struct FWheelCommandStruct>            _saveGameCustomHudCommands;                        // 0x0758(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
-	TMap<struct FMissionCategory, struct FViewMissionListData> _viewMissionList;                     // 0x0768(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
-	struct FDateTime                              _rankSpecialEffectExpireAt;                        // 0x07B8(0x0008)(Edit, ZeroConstructor, EditConst, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TArray<struct FSaveItemData>                  _rankSpecialEffectValidList;                       // 0x07C0(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
-	TArray<struct FEventSpecialEffectData>        _eventSpecialEffectCostumeUnlockedList;            // 0x07D0(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
-	float                                         _observerFreeSensitivityX;                         // 0x07E0(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         _observerFreeSensitivityY;                         // 0x07E4(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         _observerAccelSpeed;                               // 0x07E8(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         _observerSlowSpeed;                                // 0x07EC(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bObserverPlayerStatusHold;                        // 0x07F0(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_7F1[0x7];                                      // 0x07F1(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FKey>                           _keyToAccelerate;                                  // 0x07F8(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
-	TArray<struct FKey>                           _keyToSlowDown;                                    // 0x0808(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
-	TArray<int32>                                 _viewNamePlateList;                                // 0x0818(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
-	int32                                         _loginMonth;                                       // 0x0828(0x0004)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	int32                                         _loginDay;                                         // 0x082C(0x0004)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TArray<int32>                                 _loadedMyRoomList;                                 // 0x0830(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
-	struct FDateTime                              _reconnectLimit;                                   // 0x0840(0x0008)(Edit, ZeroConstructor, EditConst, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 _serverAddress;                                    // 0x0848(0x0010)(Edit, ZeroConstructor, EditConst, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 _hash;                                             // 0x0858(0x0010)(Edit, ZeroConstructor, EditConst, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 _trackingSengakujiNumber;                          // 0x0300(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 _trackingSengakujiToken;                           // 0x0310(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _bAgreeFreeTextInput_TextChat;                     // 0x0320(0x0001)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _bAgreeFreeTextInput_GuildChat;                    // 0x0321(0x0001)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _bAgreeObserver_TextChat;                          // 0x0322(0x0001)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_323[0x1];                                      // 0x0323(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         _guildLevel;                                       // 0x0324(0x0004)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 _guildSearchId;                                    // 0x0328(0x0010)(Edit, ZeroConstructor, EditConst, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _bGuildBlock;                                      // 0x0338(0x0001)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _bGuildNameConsent;                                // 0x0339(0x0001)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _bGuildProfileConsent;                             // 0x033A(0x0001)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_33B[0x5];                                      // 0x033B(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
+	TSet<int32>                                   _loadShopItems;                                    // 0x0340(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
+	TSet<int32>                                   _viewedShopItems;                                  // 0x0390(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
+	TMap<int32, EGameOptionCharacterUnlockStatus> _characterUnLockMaps;                              // 0x03E0(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
+	TMap<int32, EGameOptionCharacterUnlockStatus> _variationUnLockMaps;                              // 0x0430(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
+	TArray<int32>                                 _favoriteImageList;                                // 0x0480(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
+	struct FDateTime                              _bExitRoomDateTime;                                // 0x0490(0x0008)(Edit, ZeroConstructor, EditConst, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 _customMatchRoomKey;                               // 0x0498(0x0010)(Edit, ZeroConstructor, EditConst, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TMap<uint8, int32>                            _favoriteCharacters;                               // 0x04A8(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
+	ECharacterSort                                _characterSort;                                    // 0x04F8(0x0001)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4F9[0x7];                                      // 0x04F9(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<int32>                                 _usedCharacters;                                   // 0x0500(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
+	TMap<int32, struct FFavoriteRoleSlotData>     _favoriteRoleSlot;                                 // 0x0510(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
+	TMap<EKeyConfigurableCommand, struct FKey>    _gamePadActionMappingsOnCommand;                   // 0x0560(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
+	TMap<EKeyConfigurableCommand, struct FKey>    _keyboardActionMappingOnCommand;                   // 0x05B0(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
+	TMap<EKeyConfigurableCommand, struct FKey>    _keyboardMoveAxisMappingOnCommand;                 // 0x0600(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
+	TMap<EKeyConfigurableCommand, struct FKey>    _gamePadObserverActionMappingsOnCommand;           // 0x0650(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
+	TMap<EKeyConfigurableCommand, struct FKey>    _gamePadObserverMoveAxisMappingsOnCommand;         // 0x06A0(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
+	TMap<EKeyConfigurableCommand, struct FKey>    _keyboardObserverActionMappingOnCommand;           // 0x06F0(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
+	TMap<EKeyConfigurableCommand, struct FKey>    _keyboardObserverMoveAxisMappingOnCommand;         // 0x0740(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
+	TArray<struct FWheelCommandStruct>            _saveGameCustomHudCommands;                        // 0x0790(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
+	TMap<struct FMissionCategory, struct FViewMissionListData> _viewMissionList;                     // 0x07A0(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
+	struct FDateTime                              _rankSpecialEffectExpireAt;                        // 0x07F0(0x0008)(Edit, ZeroConstructor, EditConst, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<struct FSaveItemData>                  _rankSpecialEffectValidList;                       // 0x07F8(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
+	TArray<struct FEventSpecialEffectData>        _eventSpecialEffectCostumeUnlockedList;            // 0x0808(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
+	float                                         _observerFreeSensitivityX;                         // 0x0818(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         _observerFreeSensitivityY;                         // 0x081C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         _observerAccelSpeed;                               // 0x0820(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         _observerSlowSpeed;                                // 0x0824(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _bObserverPlayerStatusHold;                        // 0x0828(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_829[0x7];                                      // 0x0829(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FKey>                           _keyToAccelerate;                                  // 0x0830(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
+	TArray<struct FKey>                           _keyToSlowDown;                                    // 0x0840(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
+	TArray<int32>                                 _viewNamePlateList;                                // 0x0850(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
+	int32                                         _loginMonth;                                       // 0x0860(0x0004)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         _loginDay;                                         // 0x0864(0x0004)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<int32>                                 _loadedMyRoomList;                                 // 0x0868(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
+	struct FDateTime                              _reconnectLimit;                                   // 0x0878(0x0008)(Edit, ZeroConstructor, EditConst, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 _serverAddress;                                    // 0x0880(0x0010)(Edit, ZeroConstructor, EditConst, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 _hash;                                             // 0x0890(0x0010)(Edit, ZeroConstructor, EditConst, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<struct FInputPreset>                   _inputPresets;                                     // 0x08A0(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
 
 public:
 	static class UClass* StaticClass()
@@ -3387,19 +3529,51 @@ public:
 	}
 };
 
+// Class GameModule.GeneratorData
+// 0x0130 (0x0158 - 0x0028)
+class UGeneratorData final : public UObject
+{
+public:
+	class FString                                 Parent;                                            // 0x0028(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FHashID                                FileHash;                                          // 0x0038(0x0004)(NoDestructor, NativeAccessSpecifierPublic)
+	ECharacterId                                  charaId;                                           // 0x003C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_3D[0x3];                                       // 0x003D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FGeneratorIndexData                    base;                                              // 0x0040(0x00C8)(NativeAccessSpecifierPublic)
+	TMap<uint32, struct FGeneratorIndexData>      genTbl;                                            // 0x0108(0x0050)(NativeAccessSpecifierPublic)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("GeneratorData")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"GeneratorData")
+	}
+	static class UGeneratorData* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UGeneratorData>();
+	}
+};
+
 // Class GameModule.GameOption
-// 0x0210 (0x0240 - 0x0030)
+// 0x0248 (0x0278 - 0x0030)
 class UGameOption final : public UGameInstanceSubsystem
 {
 public:
 	class USaveGameOption*                        _optionData;                                       // 0x0030(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 	uint8                                         Pad_38[0x118];                                     // 0x0038(0x0118)(Fixing Size After Last Property [ Dumper-7 ])
 	class USaveGameOption*                        _gameOptionDefault;                                // 0x0150(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_158[0xE8];                                     // 0x0158(0x00E8)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_158[0x28];                                     // 0x0158(0x0028)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FInputPreset>                   _dummyPresets;                                     // 0x0180(0x0010)(ZeroConstructor, NativeAccessSpecifierPrivate)
+	int32                                         _maxPresetNum;                                     // 0x0190(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	int32                                         _currentPresetIndex;                               // 0x0194(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_198[0xE0];                                     // 0x0198(0x00E0)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	static class FString BP_GetButtonGuideImgId(const class UObject* WorldContextObject, const EKeyConfigurableCommand Command, const bool IsDesignTime);
 
+	void AddUsedCharacterToList(const TArray<class FString>& args);
 	class FName BP_GetCustomCommandName(int32 Index_0, int32 page);
 	void BP_SaveAndApplyGamePadAction(const EKeyConfigurableCommand Command, const struct FKey& Key);
 	void BP_SaveAndApplyGamePadObserverAction(const EKeyConfigurableCommand Command, const struct FKey& Key);
@@ -3424,6 +3598,7 @@ public:
 	void BP_SetPadPlay(bool bPad);
 	void BP_SetShopItem(const TSet<int32>& shopItems);
 	bool BP_SetViewShopItem(int32 shopItem);
+	void DeleteUsedCharacterToList(const TArray<class FString>& args);
 	TMap<EKeyConfigurableCommand, struct FKey> GetGamePadKeyConfigOnCommand();
 	TMap<EKeyConfigurableCommand, struct FKey> GetGamePadObserverAxisKeyConfigOnCommand();
 	TMap<EKeyConfigurableCommand, struct FKey> GetGamePadObserverKeyConfigOnCommand();
@@ -3443,6 +3618,7 @@ public:
 	void ResetPrivacyPolicyFlagCmd(const TArray<class FString>& args);
 	void ResetSaveGameOptionCmd(const TArray<class FString>& args);
 	void ResetTermsOfServiceFlagCmd(const TArray<class FString>& args);
+	void ResetUsedCharacterListCmd(const TArray<class FString>& args);
 	void SetAuraAreaType(EGameOptionAuraAreaType AreaType);
 	void SetAuraDispType(EGameOptionAuraDispType dispType);
 	void SetCameraAcclerationType(ECameraAccelerationType accelerationType);
@@ -3522,6 +3698,70 @@ public:
 	}
 };
 
+// Class GameModule.ProfileDisplayViolationReportWidget
+// 0x00A8 (0x04C0 - 0x0418)
+class UProfileDisplayViolationReportWidget final : public UAppWidget
+{
+public:
+	class UWidgetGeneralSelectiveWindow*          _selectWindow;                                     // 0x0418(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UNamePlateText*                         _selectWindowNamePlateText;                        // 0x0420(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetGeneralWindow*                   _popupWindow;                                      // 0x0428(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetGeneralWindow*                   _popupBlockListAddCheckWindow;                     // 0x0430(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UProfileDisplayPopupGeneralWindow*      _popupCheckRemoveFriendWindow;                     // 0x0438(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetGeneralWindow*                   _removeFriendPopupWindow;                          // 0x0440(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UNamePlateText*                         _removeFriendPopupNamePlateText;                   // 0x0448(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	EMdPenaltyType                                _penaltyReportType;                                // 0x0450(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_451[0x27];                                     // 0x0451(0x0027)(Fixing Size After Last Property [ Dumper-7 ])
+	class UPlayerDatabaseWork*                    _playerDatabaseWork;                               // 0x0478(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UGameSequenceWork*                      _gameSequenceWork;                                 // 0x0480(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UBackendSubsystem*                      _backendSubsystem;                                 // 0x0488(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_490[0x30];                                     // 0x0490(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void BP_Cancel();
+	void BP_CloseLevel();
+	class FString BP_GetTargetName();
+	void BP_RequestReport();
+	void BP_RequestReportInGame();
+	void OnCancelBlockListAddPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType);
+	void OnCancelCheckRemoveFriendPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType);
+	void OnCancelCheckRemoveFriendWindow(class UAppWidget* Widget, EWidgetInputType inputType);
+	void OnCancelPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType);
+	void OnClickedBlockBGBlockListAddPopupWindow();
+	void OnClickedBlockBGCheckRemoveFriendWindow();
+	void OnClickedBlockBGPopupWindow();
+	void OnClickedCheckRemoveFriendBlockBGPopupWindow();
+	void OnClosedBlockListAddPopupWindow();
+	void OnClosedCheckRemoveFriendPopupWindow();
+	void OnClosedCheckRemoveFriendWindow();
+	void OnClosedPopupWindow();
+	void OnClosedSelectWindow();
+	void OnDecideBlockListAddPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton);
+	void OnDecideCheckRemoveFriendPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton);
+	void OnDecideCheckRemoveFriendWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton);
+	void OnDecidePopupWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton);
+	void OnDecideSelectWindow(int32 selectindex, class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton);
+	void OnFinishFetchDataCommonEvent(int32 requestId);
+	void OnFinishFetchDataEvent(int32 requestId);
+	void OnReceivedFinish();
+	void OnReceivedFinishAddBlockList();
+	void OnReceivedFinishRemoveFriend();
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ProfileDisplayViolationReportWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ProfileDisplayViolationReportWidget")
+	}
+	static class UProfileDisplayViolationReportWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UProfileDisplayViolationReportWidget>();
+	}
+};
+
 // Class GameModule.OpenSettingParam
 // 0x0018 (0x0040 - 0x0028)
 class UOpenSettingParam final : public UObject
@@ -3569,8 +3809,52 @@ public:
 	}
 };
 
+// Class GameModule.RankImage
+// 0x0050 (0x03C0 - 0x0370)
+class URankImage : public UWidgetBase
+{
+public:
+	class UImage*                                 _icon;                                             // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _countText;                                        // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UScaleBox*                              _scaleBox;                                         // 0x0380(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	struct FVector2D                              _imageSize;                                        // 0x0388(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          _bFillSize;                                        // 0x0390(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_391[0x7];                                      // 0x0391(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UPaperFlipbook*                         _rankFB;                                           // 0x0398(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UPaperFlipbook*                         _eventRankFB;                                      // 0x03A0(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	struct FVector2D                              _rankOffsets;                                      // 0x03A8(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	struct FVector2D                              _eventRankOffsets;                                 // 0x03B0(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_3B8[0x8];                                      // 0x03B8(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	int32 GetEventRank();
+	int32 GetRank();
+	void SetEventRank(const int32 Rank);
+	void SetEventRankFB(const class UPaperFlipbook* fb);
+	void SetEventRankFBIdx(const class UPaperFlipbook* fb, const int32 idx);
+	void SetEventRankIdx(const int32 idx);
+	void SetRank(const int32 Rank);
+	void SetRankFB(const class UPaperFlipbook* fb);
+	void SetRankFBIdx(const class UPaperFlipbook* fb, const int32 idx);
+	void SetRankIdx(const int32 idx);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("RankImage")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"RankImage")
+	}
+	static class URankImage* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<URankImage>();
+	}
+};
+
 // Class GameModule.GameSequenceWork
-// 0x0D50 (0x0D80 - 0x0030)
+// 0x0D60 (0x0D90 - 0x0030)
 class UGameSequenceWork final : public UGameInstanceSubsystem
 {
 public:
@@ -3578,96 +3862,96 @@ public:
 	TMulticastInlineDelegate<void()>              _onDecideFavoriteRoleSlot;                         // 0x0038(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
 	TMulticastInlineDelegate<void()>              _onShortcutMenuNoticeUpdate;                       // 0x0048(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
 	class UProfileDisplayData*                    _profileDisplayData;                               // 0x0058(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_60[0x88];                                      // 0x0060(0x0088)(Fixing Size After Last Property [ Dumper-7 ])
-	TMulticastInlineDelegate<void()>              _onWebApiError;                                    // 0x00E8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(bool LoginCompleted)> _onLoginRequestFinished;                     // 0x00F8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	uint8                                         Pad_108[0x40];                                     // 0x0108(0x0040)(Fixing Size After Last Property [ Dumper-7 ])
-	class UPrimaryAssetNetworkWaitIcon*           _primaryAssetNetworkWaitIcon;                      // 0x0148(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	TMulticastInlineDelegate<void()>              OnErrorWindowClosedDelegate;                       // 0x0150(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              OnPopupGeneralWindowClosedDelegate;                // 0x0160(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              OnErrorWindowOpenDelegate;                         // 0x0170(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	uint8                                         Pad_180[0x48];                                     // 0x0180(0x0048)(Fixing Size After Last Property [ Dumper-7 ])
-	class UDataTable*                             _networkErrorDT;                                   // 0x01C8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	TMap<class FName, struct FNetworkError>       _networkErrorCacheMap;                             // 0x01D0(0x0050)(NativeAccessSpecifierPrivate)
-	TSubclassOf<class UWidgetBase>                _netWorkErrorWidgetClass;                          // 0x0220(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	TSubclassOf<class UWidgetBase>                _networkWaitngWidgetClass;                         // 0x0228(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	TSubclassOf<class UWidgetBase>                _popupAnnounceWidgetClass;                         // 0x0230(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	TSubclassOf<class UWidgetBase>                _teamCommentaryMessageWidgetClass;                 // 0x0238(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UNetworkErrorWidget*                    _netWorkErrorWidget;                               // 0x0240(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UWaitNetworkMessage*                    _networkWaitingWidget;                             // 0x0248(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_250[0x8];                                      // 0x0250(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	class UTeamCommentaryMessageWidget*           _teamCommentaryMessageWidget;                      // 0x0258(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UNetworkErrorWidget*                    _popupGeneralWidget;                               // 0x0260(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UCountAnnounceWidget*                   _popupAnnounceWidget;                              // 0x0268(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	TMulticastInlineDelegate<void()>              _onUpdateTutorial;                                 // 0x0270(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	uint8                                         Pad_280[0x78];                                     // 0x0280(0x0078)(Fixing Size After Last Property [ Dumper-7 ])
-	TSubclassOf<class UChatMemberWidget>          _chatMemberWidgetClass;                            // 0x02F8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UChatMemberWidget*                      _chatMemberWidget;                                 // 0x0300(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_308[0x8];                                      // 0x0308(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 _debugCustomServerPort;                            // 0x0310(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 _debugCustomServerAddress;                         // 0x0320(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 _dedicatedServerAddress;                           // 0x0330(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_340[0x18];                                     // 0x0340(0x0018)(Fixing Size After Last Property [ Dumper-7 ])
-	TMulticastInlineDelegate<void(EBattleStartSequenceType Sequence)> _onChangeBattleSequence;       // 0x0358(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
-	TMulticastInlineDelegate<void(EBattleStartSequenceType SequenceType)> _onBattleSequenceCancel;   // 0x0368(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
-	TMulticastInlineDelegate<void()>              _onCancelVisualLobbySearch;                        // 0x0378(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
-	TMulticastInlineDelegate<void()>              _onUpdateCharacterComplete;                        // 0x0388(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_398[0x58];                                     // 0x0398(0x0058)(Fixing Size After Last Property [ Dumper-7 ])
-	float                                         _sequenceTimer;                                    // 0x03F0(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	bool                                          _bSoloBattleSequence;                              // 0x03F4(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	bool                                          _bBattleWaitAutoTimerStop;                         // 0x03F5(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_3F6[0x22];                                     // 0x03F6(0x0022)(Fixing Size After Last Property [ Dumper-7 ])
-	TMulticastInlineDelegate<void()>              _onGetPingTimerEvent;                              // 0x0418(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_428[0x18];                                     // 0x0428(0x0018)(Fixing Size After Last Property [ Dumper-7 ])
-	TMulticastInlineDelegate<void(bool unread)>   _onSetNoticeUnreadFlag;                            // 0x0440(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_450[0x40];                                     // 0x0450(0x0040)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         _gameRuleListIndex;                                // 0x0490(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	int32                                         _gameTutorialStep;                                 // 0x0494(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_498[0x8];                                      // 0x0498(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 _cpuList;                                          // 0x04A0(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	TMulticastInlineDelegate<void()>              _onChangeBattleRule;                               // 0x04B0(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_4C0[0x48];                                     // 0x04C0(0x0048)(Fixing Size After Last Property [ Dumper-7 ])
-	TMulticastInlineDelegate<void(bool bNewVisibility)> OnChangedVisibilityMainMenuDelegate;         // 0x0508(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              UpdateMainMenuTabDelegate;                         // 0x0518(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(int32 Index)>   OnChangedMainMenuDelegate;                         // 0x0528(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	uint8                                         Pad_538[0x40];                                     // 0x0538(0x0040)(Fixing Size After Last Property [ Dumper-7 ])
-	TMulticastInlineDelegate<void()>              OnSubLevelHiddenDelegate;                          // 0x0578(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              _onTokushoAndSettlementCloseDelegate;              // 0x0588(0x0010)(ZeroConstructor, InstancedReference, BlueprintCallable, NativeAccessSpecifierPublic)
-	uint8                                         Pad_598[0x20];                                     // 0x0598(0x0020)(Fixing Size After Last Property [ Dumper-7 ])
-	class ULevelStreamingDynamic*                 _mainMenuTabSubLevelStreamingDynamic;              // 0x05B8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	TSoftObjectPtr<class UWorld>                  _mainMenuTabLevel;                                 // 0x05C0(0x0028)(Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class ULevelStreamingDynamic*                 _openSubLevelStreamingDynamic;                     // 0x05E8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	TArray<class ULevelStreamingDynamic*>         _openSubLevelStreamingDynamicArray;                // 0x05F0(0x0010)(ZeroConstructor, Protected, NativeAccessSpecifierProtected)
-	uint8                                         Pad_600[0x20];                                     // 0x0600(0x0020)(Fixing Size After Last Property [ Dumper-7 ])
-	TMap<int32, struct FGameplayTag>              _mainMenuMapping;                                  // 0x0620(0x0050)(Protected, NativeAccessSpecifierProtected)
-	TMulticastInlineDelegate<void(ETutorialPopupScene Scene)> OnSubLevelHiddenTutorialDelegate;      // 0x0670(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, Protected, NativeAccessSpecifierProtected)
-	uint8                                         Pad_680[0x8];                                      // 0x0680(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	TMulticastInlineDelegate<void()>              _onSortieStartTimerEnds;                           // 0x0688(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              _onAllMemberReady;                                 // 0x0698(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              _onLeftSortieStartTimerDelegate;                   // 0x06A8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	uint8                                         Pad_6B8[0x150];                                    // 0x06B8(0x0150)(Fixing Size After Last Property [ Dumper-7 ])
-	class UListViewEntryObjectBase*               _randomPackObj;                                    // 0x0808(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	TMulticastInlineDelegate<void()>              _onItemGetListCloseDelegate;                       // 0x0810(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              _onItemDetailSubLevelCloseDelegate;                // 0x0820(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, BlueprintCallable, NativeAccessSpecifierPublic)
-	class UPrimaryAssetGallery*                   _primaryAssetGallery;                              // 0x0830(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_838[0x10];                                     // 0x0838(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
-	class UPrimaryAssetGuild*                     _primaryAssetGuild;                                // 0x0848(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_850[0x38];                                     // 0x0850(0x0038)(Fixing Size After Last Property [ Dumper-7 ])
-	class UPrimaryAssetLoginBonusLogo*            _primaryAssetLoginBonusLogo;                       // 0x0888(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_890[0x8];                                      // 0x0890(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	TSoftObjectPtr<class UPrimaryAssetLoginBonusLogo> _paLoginBonusImagePtr;                         // 0x0898(0x0028)(UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_8C0[0x68];                                     // 0x08C0(0x0068)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAtomComponent*                         _loginBonusVoice;                                  // 0x0928(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UPrimaryAssetEvent*                     _primaryAssetEvent;                                // 0x0930(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_938[0x8];                                      // 0x0938(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	class UPrimaryAssetBriefing*                  _primaryAssetBriefing;                             // 0x0940(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_948[0x1];                                      // 0x0948(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
-	bool                                          _bIsMasterDataInitializeComplete;                  // 0x0949(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_94A[0x33E];                                    // 0x094A(0x033E)(Fixing Size After Last Property [ Dumper-7 ])
-	class UPrimaryAssetNoticeImage*               _primaryAssetNotice;                               // 0x0C88(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_C90[0xC8];                                     // 0x0C90(0x00C8)(Fixing Size After Last Property [ Dumper-7 ])
-	class UPrimaryDataAsset*                      _primaryAssetsStageInfo;                           // 0x0D58(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_D60[0x20];                                     // 0x0D60(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_60[0x98];                                      // 0x0060(0x0098)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void()>              _onWebApiError;                                    // 0x00F8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(bool LoginCompleted)> _onLoginRequestFinished;                     // 0x0108(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	uint8                                         Pad_118[0x40];                                     // 0x0118(0x0040)(Fixing Size After Last Property [ Dumper-7 ])
+	class UPrimaryAssetNetworkWaitIcon*           _primaryAssetNetworkWaitIcon;                      // 0x0158(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TMulticastInlineDelegate<void()>              OnErrorWindowClosedDelegate;                       // 0x0160(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              OnPopupGeneralWindowClosedDelegate;                // 0x0170(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              OnErrorWindowOpenDelegate;                         // 0x0180(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	uint8                                         Pad_190[0x48];                                     // 0x0190(0x0048)(Fixing Size After Last Property [ Dumper-7 ])
+	class UDataTable*                             _networkErrorDT;                                   // 0x01D8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	TMap<class FName, struct FNetworkError>       _networkErrorCacheMap;                             // 0x01E0(0x0050)(NativeAccessSpecifierPrivate)
+	TSubclassOf<class UWidgetBase>                _netWorkErrorWidgetClass;                          // 0x0230(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	TSubclassOf<class UWidgetBase>                _networkWaitngWidgetClass;                         // 0x0238(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	TSubclassOf<class UWidgetBase>                _popupAnnounceWidgetClass;                         // 0x0240(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	TSubclassOf<class UWidgetBase>                _teamCommentaryMessageWidgetClass;                 // 0x0248(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UNetworkErrorWidget*                    _netWorkErrorWidget;                               // 0x0250(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UWaitNetworkMessage*                    _networkWaitingWidget;                             // 0x0258(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_260[0x8];                                      // 0x0260(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	class UTeamCommentaryMessageWidget*           _teamCommentaryMessageWidget;                      // 0x0268(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UNetworkErrorWidget*                    _popupGeneralWidget;                               // 0x0270(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UCountAnnounceWidget*                   _popupAnnounceWidget;                              // 0x0278(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	TMulticastInlineDelegate<void()>              _onUpdateTutorial;                                 // 0x0280(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	uint8                                         Pad_290[0x78];                                     // 0x0290(0x0078)(Fixing Size After Last Property [ Dumper-7 ])
+	TSubclassOf<class UChatMemberWidget>          _chatMemberWidgetClass;                            // 0x0308(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UChatMemberWidget*                      _chatMemberWidget;                                 // 0x0310(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_318[0x8];                                      // 0x0318(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 _debugCustomServerPort;                            // 0x0320(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 _debugCustomServerAddress;                         // 0x0330(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 _dedicatedServerAddress;                           // 0x0340(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_350[0x18];                                     // 0x0350(0x0018)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void(EBattleStartSequenceType Sequence)> _onChangeBattleSequence;       // 0x0368(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
+	TMulticastInlineDelegate<void(EBattleStartSequenceType SequenceType)> _onBattleSequenceCancel;   // 0x0378(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
+	TMulticastInlineDelegate<void()>              _onCancelVisualLobbySearch;                        // 0x0388(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
+	TMulticastInlineDelegate<void()>              _onUpdateCharacterComplete;                        // 0x0398(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_3A8[0x58];                                     // 0x03A8(0x0058)(Fixing Size After Last Property [ Dumper-7 ])
+	float                                         _sequenceTimer;                                    // 0x0400(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	bool                                          _bSoloBattleSequence;                              // 0x0404(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	bool                                          _bBattleWaitAutoTimerStop;                         // 0x0405(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_406[0x22];                                     // 0x0406(0x0022)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void()>              _onGetPingTimerEvent;                              // 0x0428(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_438[0x18];                                     // 0x0438(0x0018)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void(bool unread)>   _onSetNoticeUnreadFlag;                            // 0x0450(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_460[0x40];                                     // 0x0460(0x0040)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         _gameRuleListIndex;                                // 0x04A0(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	int32                                         _gameTutorialStep;                                 // 0x04A4(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_4A8[0x8];                                      // 0x04A8(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 _cpuList;                                          // 0x04B0(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	TMulticastInlineDelegate<void()>              _onChangeBattleRule;                               // 0x04C0(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_4D0[0x48];                                     // 0x04D0(0x0048)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void(bool bNewVisibility)> OnChangedVisibilityMainMenuDelegate;         // 0x0518(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              UpdateMainMenuTabDelegate;                         // 0x0528(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(int32 Index)>   OnChangedMainMenuDelegate;                         // 0x0538(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	uint8                                         Pad_548[0x40];                                     // 0x0548(0x0040)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void()>              OnSubLevelHiddenDelegate;                          // 0x0588(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              _onTokushoAndSettlementCloseDelegate;              // 0x0598(0x0010)(ZeroConstructor, InstancedReference, BlueprintCallable, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5A8[0x20];                                     // 0x05A8(0x0020)(Fixing Size After Last Property [ Dumper-7 ])
+	class ULevelStreamingDynamic*                 _mainMenuTabSubLevelStreamingDynamic;              // 0x05C8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TSoftObjectPtr<class UWorld>                  _mainMenuTabLevel;                                 // 0x05D0(0x0028)(Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class ULevelStreamingDynamic*                 _openSubLevelStreamingDynamic;                     // 0x05F8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TArray<class ULevelStreamingDynamic*>         _openSubLevelStreamingDynamicArray;                // 0x0600(0x0010)(ZeroConstructor, Protected, NativeAccessSpecifierProtected)
+	uint8                                         Pad_610[0x20];                                     // 0x0610(0x0020)(Fixing Size After Last Property [ Dumper-7 ])
+	TMap<int32, struct FGameplayTag>              _mainMenuMapping;                                  // 0x0630(0x0050)(Protected, NativeAccessSpecifierProtected)
+	TMulticastInlineDelegate<void(ETutorialPopupScene Scene)> OnSubLevelHiddenTutorialDelegate;      // 0x0680(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, Protected, NativeAccessSpecifierProtected)
+	uint8                                         Pad_690[0x8];                                      // 0x0690(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void()>              _onSortieStartTimerEnds;                           // 0x0698(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              _onAllMemberReady;                                 // 0x06A8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              _onLeftSortieStartTimerDelegate;                   // 0x06B8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	uint8                                         Pad_6C8[0x150];                                    // 0x06C8(0x0150)(Fixing Size After Last Property [ Dumper-7 ])
+	class UListViewEntryObjectBase*               _randomPackObj;                                    // 0x0818(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	TMulticastInlineDelegate<void()>              _onItemGetListCloseDelegate;                       // 0x0820(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              _onItemDetailSubLevelCloseDelegate;                // 0x0830(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, BlueprintCallable, NativeAccessSpecifierPublic)
+	class UPrimaryAssetGallery*                   _primaryAssetGallery;                              // 0x0840(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_848[0x10];                                     // 0x0848(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
+	class UPrimaryAssetGuild*                     _primaryAssetGuild;                                // 0x0858(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_860[0x38];                                     // 0x0860(0x0038)(Fixing Size After Last Property [ Dumper-7 ])
+	class UPrimaryAssetLoginBonusLogo*            _primaryAssetLoginBonusLogo;                       // 0x0898(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_8A0[0x8];                                      // 0x08A0(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	TSoftObjectPtr<class UPrimaryAssetLoginBonusLogo> _paLoginBonusImagePtr;                         // 0x08A8(0x0028)(UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_8D0[0x68];                                     // 0x08D0(0x0068)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAtomComponent*                         _loginBonusVoice;                                  // 0x0938(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UPrimaryAssetEvent*                     _primaryAssetEvent;                                // 0x0940(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_948[0x8];                                      // 0x0948(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	class UPrimaryAssetBriefing*                  _primaryAssetBriefing;                             // 0x0950(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_958[0x1];                                      // 0x0958(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
+	bool                                          _bIsMasterDataInitializeComplete;                  // 0x0959(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_95A[0x33E];                                    // 0x095A(0x033E)(Fixing Size After Last Property [ Dumper-7 ])
+	class UPrimaryAssetNoticeImage*               _primaryAssetNotice;                               // 0x0C98(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_CA0[0xC8];                                     // 0x0CA0(0x00C8)(Fixing Size After Last Property [ Dumper-7 ])
+	class UPrimaryDataAsset*                      _primaryAssetsStageInfo;                           // 0x0D68(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_D70[0x20];                                     // 0x0D70(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	static bool IsRankMatchByModeCategory(const EPlayModeModeCategory Category);
@@ -3841,25 +4125,6 @@ public:
 	}
 };
 
-// Class GameModule.RoleSlotListWidget
-// 0x0000 (0x0370 - 0x0370)
-class URoleSlotListWidget : public UWidgetBase
-{
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("RoleSlotListWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"RoleSlotListWidget")
-	}
-	static class URoleSlotListWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<URoleSlotListWidget>();
-	}
-};
-
 // Class GameModule.GameStatics
 // 0x0000 (0x0028 - 0x0028)
 class UGameStatics final : public UBlueprintFunctionLibrary
@@ -3893,6 +4158,86 @@ public:
 	}
 };
 
+// Class GameModule.RoleSlotMainSkillWidget
+// 0x0210 (0x0768 - 0x0558)
+class URoleSlotMainSkillWidget final : public UWidgetButtonDetails
+{
+public:
+	struct FLinearColor                           _normalBackImageLockedColor;                       // 0x0558(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	struct FLinearColor                           _normalBackImageUnLockedColor;                     // 0x0568(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          _bUniqueOnDesign;                                  // 0x0578(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_579[0x3];                                      // 0x0579(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         _slotNumberOnDesign;                               // 0x057C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          _bDisplayLineOnDesign;                             // 0x0580(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_581[0x7];                                      // 0x0581(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UFocusAnimationWidget*                  _focusAnimationWidget;                             // 0x0588(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _line;                                             // 0x0590(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetSwitcher*                        _skillslotSwitcher;                                // 0x0598(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _normalBackImage;                                  // 0x05A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _normalRoleColorImage;                             // 0x05A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _normalLevelCapRelease;                            // 0x05B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UAdjustTextWidget*                      _normalLockText;                                   // 0x05B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetSwitcher*                        _normalHeroVillainSwitcher;                        // 0x05C0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _normalHeroMark;                                   // 0x05C8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _normalHeroText_2;                                 // 0x05D0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _normalVillainMark;                                // 0x05D8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _normalVillainText_2;                              // 0x05E0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCanvasPanel*                           _normalLockPanel;                                  // 0x05E8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _lockBlackBack;                                    // 0x05F0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UHorizontalBox*                         _lockDisplay;                                      // 0x05F8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UHorizontalBox*                         _unlockDisplay;                                    // 0x0600(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _uniqueRoleColorImage;                             // 0x0608(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetSwitcher*                        _uniqueHeroVillainSwitcher;                        // 0x0610(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _uniqueHeroMark_1;                                 // 0x0618(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _uniqueHeroMark_2;                                 // 0x0620(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _uniqueHeroText_2;                                 // 0x0628(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _uniqueVillainMark_1;                              // 0x0630(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _uniqueVillainMark_2;                              // 0x0638(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _uniqueVillainText_2;                              // 0x0640(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCanvasPanel*                           _uniqueLockPanel;                                  // 0x0648(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UAdjustTextWidget*                      _uniqueLockText;                                   // 0x0650(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UAdjustTextWidget*                      _uniqueLockSubText;                                // 0x0658(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UAdjustTextWidget*                      _skillText;                                        // 0x0660(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UAdjustTextWidget*                      _noSetText;                                        // 0x0668(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _roleIcon;                                         // 0x0670(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _faceBase;                                         // 0x0678(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class URoleSlotMainTipsIconWidget*            _faceIcon;                                         // 0x0680(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCanvasPanel*                           _faceCanvas;                                       // 0x0688(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UHorizontalBox*                         _levelAll;                                         // 0x0690(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _levelText;                                        // 0x0698(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _levelNumber;                                      // 0x06A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _levelLimitIcon;                                   // 0x06A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _slotNumberText;                                   // 0x06B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UOverlay*                               _unlockButtonOverlay;                              // 0x06B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UPlatformWidgetButton*                  _unlockButton;                                     // 0x06C0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UOverlay*                               _rankingOverlay;                                   // 0x06C8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetSwitcher*                        _rankingSwitcher;                                  // 0x06D0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _ranking4thNumberText;                             // 0x06D8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _rankingNumberText;                                // 0x06E0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _activeCursor;                                     // 0x06E8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _disable;                                          // 0x06F0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _check;                                            // 0x06F8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UAdjustTextWidget*                      _notApplicableText;                                // 0x0700(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_708[0x60];                                     // 0x0708(0x0060)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void OnLoadedRoleIconSet(class UTexture2D* Texture);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("RoleSlotMainSkillWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"RoleSlotMainSkillWidget")
+	}
+	static class URoleSlotMainSkillWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<URoleSlotMainSkillWidget>();
+	}
+};
+
 // Class GameModule.GashaSuggestParam
 // 0x02D0 (0x02F8 - 0x0028)
 class UGashaSuggestParam final : public UObject
@@ -3920,38 +4265,6 @@ public:
 	static class UGashaSuggestParam* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UGashaSuggestParam>();
-	}
-};
-
-// Class GameModule.SendLikeInterface
-// 0x0000 (0x0000 - 0x0000)
-class ISendLikeInterface final
-{
-public:
-	bool SendLikeImage();
-	bool SetSendLikeButtonEnable(bool inEnable);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("SendLikeInterface")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"SendLikeInterface")
-	}
-	static class ISendLikeInterface* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<ISendLikeInterface>();
-	}
-
-	class UObject* AsUObject()
-	{
-		return reinterpret_cast<UObject*>(this);
-	}
-	const class UObject* AsUObject() const
-	{
-		return reinterpret_cast<const UObject*>(this);
 	}
 };
 
@@ -4075,43 +4388,27 @@ public:
 	}
 };
 
-// Class GameModule.RoleSlotMainWidget
-// 0x00D8 (0x0448 - 0x0370)
-class URoleSlotMainWidget final : public UWidgetBase
+// Class GameModule.RoleSkillItemBase
+// 0x0018 (0x0388 - 0x0370)
+class URoleSkillItemBase : public UWidgetBase
 {
 public:
-	uint8                                         Pad_370[0x48];                                     // 0x0370(0x0048)(Fixing Size After Last Property [ Dumper-7 ])
-	class UCanvasPanel*                           _uniqueSkillTop01;                                 // 0x03B8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UVerticalBox*                           _normalSkill0105;                                  // 0x03C0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URoleSlotMainSkillWidget*               _uniqueSkill01;                                    // 0x03C8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URoleSlotMainSkillWidget*               _normalSkill01;                                    // 0x03D0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URoleSlotMainSkillWidget*               _normalSkill02;                                    // 0x03D8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URoleSlotMainSkillWidget*               _normalSkill03;                                    // 0x03E0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URoleSlotMainSkillWidget*               _normalSkill04;                                    // 0x03E8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URoleSlotMainSkillWidget*               _normalSkill05;                                    // 0x03F0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UCanvasPanel*                           _uniqueSkillTop02;                                 // 0x03F8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UVerticalBox*                           _normalSkill0610;                                  // 0x0400(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URoleSlotMainSkillWidget*               _uniqueSkill02;                                    // 0x0408(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URoleSlotMainSkillWidget*               _normalSkill06;                                    // 0x0410(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URoleSlotMainSkillWidget*               _normalSkill07;                                    // 0x0418(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URoleSlotMainSkillWidget*               _normalSkill08;                                    // 0x0420(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URoleSlotMainSkillWidget*               _normalSkill09;                                    // 0x0428(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URoleSlotMainSkillWidget*               _normalSkill10;                                    // 0x0430(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	struct FVector2D                              _leftPosition;                                     // 0x0438(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	struct FVector2D                              _rightPosition;                                    // 0x0440(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _roleSlotBG;                                       // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _roleSlotSkill;                                    // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_380[0x8];                                      // 0x0380(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("RoleSlotMainWidget")
+		STATIC_CLASS_IMPL("RoleSkillItemBase")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"RoleSlotMainWidget")
+		STATIC_NAME_IMPL(L"RoleSkillItemBase")
 	}
-	static class URoleSlotMainWidget* GetDefaultObj()
+	static class URoleSkillItemBase* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<URoleSlotMainWidget>();
+		return GetDefaultObjImpl<URoleSkillItemBase>();
 	}
 };
 
@@ -4136,6 +4433,51 @@ public:
 		return GetDefaultObjImpl<UGimmickBaseDataAsset>();
 	}
 };
+
+// Class GameModule.ProjectileGeneratorGame
+// 0x0130 (0x0350 - 0x0220)
+#pragma pack(push, 0x1)
+class alignas(0x10) AProjectileGeneratorGame : public AActor
+{
+public:
+	struct FGeneratorGameRep                      _gameRep;                                          // 0x0220(0x0050)(BlueprintVisible, BlueprintReadOnly, Net, NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
+	uint8                                         Pad_270[0xA0];                                     // 0x0270(0x00A0)(Fixing Size After Last Property [ Dumper-7 ])
+	class AActor*                                 _lockonActor;                                      // 0x0310(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_318[0x30];                                     // 0x0318(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void OnSpawnInitParams();
+
+	const struct FGeneratorIndexData BP_GetBaseDB() const;
+	const struct FGeneratorIndexLevelData BP_GetLevelDB() const;
+	ECharacterId GetCharacterID() const;
+	const struct FVector GetInitDirection() const;
+	const struct FVector GetInitLocation() const;
+	const struct FQuat GetInitQuat() const;
+	const struct FVector GetInitScale() const;
+	const struct FVector GetInitTarget() const;
+	const struct FTransform GetInitTransform() const;
+	bool GetIsProjectileCreatorMode() const;
+	int32 GetLevel() const;
+	class AActor* GetLockonActor() const;
+	class UPrimitiveComponent* GetParent() const;
+	class FName GetSocketName() const;
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ProjectileGeneratorGame")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ProjectileGeneratorGame")
+	}
+	static class AProjectileGeneratorGame* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<AProjectileGeneratorGame>();
+	}
+};
+#pragma pack(pop)
 
 // Class GameModule.HeroProjectileMovementComponent
 // 0x0078 (0x0128 - 0x00B0)
@@ -4171,43 +4513,9 @@ public:
 	}
 };
 
-// Class GameModule.RoleSlotFaceIconWidget
-// 0x0068 (0x03D8 - 0x0370)
-class URoleSlotFaceIconWidget final : public UWidgetBase
-{
-public:
-	class UWidgetSwitcher*                        _skillslotSwitcher;                                // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _normalRoleColorImage;                             // 0x0378(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetSwitcher*                        _normalHeroVillainSwitcher;                        // 0x0380(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _normalHeroMark;                                   // 0x0388(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _normalVillainMark;                                // 0x0390(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _uniqueRoleColorImage;                             // 0x0398(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetSwitcher*                        _uniqueHeroVillainSwitcher;                        // 0x03A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _uniqueHeroMark_1;                                 // 0x03A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextBlock*                             _uniqueHeroText_2;                                 // 0x03B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _uniqueVillainMark_1;                              // 0x03B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextBlock*                             _uniqueVillainText_2;                              // 0x03C0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _faceBase;                                         // 0x03C8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URoleSlotMainTipsIconWidget*            _faceIcon;                                         // 0x03D0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("RoleSlotFaceIconWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"RoleSlotFaceIconWidget")
-	}
-	static class URoleSlotFaceIconWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<URoleSlotFaceIconWidget>();
-	}
-};
-
 // Class GameModule.HeroRuntimeVirtualTextureVolume
 // 0x0018 (0x0238 - 0x0220)
-class AHeroRuntimeVirtualTextureVolume : public AActor
+class AHeroRuntimeVirtualTextureVolume final : public AActor
 {
 public:
 	class URuntimeVirtualTextureComponent*        VirtualTextureComponent;                           // 0x0220(0x0008)(Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, EditConst, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -4225,6 +4533,25 @@ public:
 	static class AHeroRuntimeVirtualTextureVolume* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<AHeroRuntimeVirtualTextureVolume>();
+	}
+};
+
+// Class GameModule.RoleSlotListItemWidget
+// 0x0000 (0x0370 - 0x0370)
+class URoleSlotListItemWidget final : public UWidgetBase
+{
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("RoleSlotListItemWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"RoleSlotListItemWidget")
+	}
+	static class URoleSlotListItemWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<URoleSlotListItemWidget>();
 	}
 };
 
@@ -4247,64 +4574,6 @@ public:
 	static class UHerovsAssetManager* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UHerovsAssetManager>();
-	}
-};
-
-// Class GameModule.ScoreComponentBase
-// 0x0178 (0x01A0 - 0x0028)
-class UScoreComponentBase : public UObject
-{
-public:
-	uint8                                         Pad_28[0x150];                                     // 0x0028(0x0150)(Fixing Size After Last Property [ Dumper-7 ])
-	class AHerovsGameMode*                        _gameMode;                                         // 0x0178(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_180[0x20];                                     // 0x0180(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void OnCompletedSendKpi(int32 requestId);
-	void OnCompletedSendRentalPointList(int32 requestId);
-	void OnCompletedSendSaveCustomizeData(int32 requestId);
-	void OnCompletedSendViolationReport(int32 requestId);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ScoreComponentBase")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ScoreComponentBase")
-	}
-	static class UScoreComponentBase* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UScoreComponentBase>();
-	}
-};
-
-// Class GameModule.ScoreComponent
-// 0x01A8 (0x0348 - 0x01A0)
-class UScoreComponent final : public UScoreComponentBase
-{
-public:
-	uint8                                         Pad_1A0[0x1A8];                                    // 0x01A0(0x01A8)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void OnCompletedSendDropAchievement(int32 requestId);
-	void OnCompletedSendMission(int32 requestId);
-	void OnCompletedSendUserResult(int32 requestId);
-	void OnSystemError(int32 requestId, const class FName Key, const class FName message);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ScoreComponent")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ScoreComponent")
-	}
-	static class UScoreComponent* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UScoreComponent>();
 	}
 };
 
@@ -4335,6 +4604,31 @@ public:
 	}
 };
 
+// Class GameModule.ScoreComponentCustomMatch
+// 0x0008 (0x01A8 - 0x01A0)
+class UScoreComponentCustomMatch final : public UScoreComponentBase
+{
+public:
+	uint8                                         Pad_1A0[0x8];                                      // 0x01A0(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void OnCompletedSendResultData(int32 requestId);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ScoreComponentCustomMatch")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ScoreComponentCustomMatch")
+	}
+	static class UScoreComponentCustomMatch* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UScoreComponentCustomMatch>();
+	}
+};
+
 // Class GameModule.HerovsDataManagerSubsystem
 // 0x01E0 (0x0210 - 0x0030)
 class UHerovsDataManagerSubsystem final : public UEngineSubsystem
@@ -4357,43 +4651,8 @@ public:
 	}
 };
 
-// Class GameModule.SkillVariationListItemWidget
-// 0x0048 (0x07A8 - 0x0760)
-class USkillVariationListItemWidget final : public UPlatformWidgetButton
-{
-public:
-	uint8                                         Pad_760[0x8];                                      // 0x0760(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	class URoleWidget*                            _roleWidget;                                       // 0x0768(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _variationIcon;                                    // 0x0770(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class USkillVariationListWidget*              _skillVariationListWidget;                         // 0x0778(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class USkillVariationListItemObject*          _skillVariationListItemObject;                     // 0x0780(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	struct FKey                                   _goToGashaKey;                                     // 0x0788(0x0018)(Edit, DisableEditOnInstance, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_7A0[0x8];                                      // 0x07A0(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void OnSetEquip(bool bEquip);
-	void OnSetHave(bool bHave);
-	void OnSetHowToGetText(const class FText& howToGetText);
-	void OnSetName(const class FText& nameText);
-	void OnSetRarity(EMdRarity Rarity);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("SkillVariationListItemWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"SkillVariationListItemWidget")
-	}
-	static class USkillVariationListItemWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<USkillVariationListItemWidget>();
-	}
-};
-
 // Class GameModule.HerovsGameInstance
-// 0x01E8 (0x0390 - 0x01A8)
+// 0x0238 (0x03E0 - 0x01A8)
 class UHerovsGameInstance final : public UGameInstance
 {
 public:
@@ -4402,7 +4661,8 @@ public:
 	uint8                                         Pad_2A8[0x50];                                     // 0x02A8(0x0050)(Fixing Size After Last Property [ Dumper-7 ])
 	TMulticastInlineDelegate<void(bool bActive)>  _onChangeSteamOverrayActive;                       // 0x02F8(0x0010)(ZeroConstructor, InstancedReference, NativeAccessSpecifierPublic)
 	TMulticastInlineDelegate<void(const class FString& orderId, bool bAuthorized)> _onMicroTxnAuthorizationResponse; // 0x0308(0x0010)(ZeroConstructor, InstancedReference, NativeAccessSpecifierPublic)
-	uint8                                         Pad_318[0x78];                                     // 0x0318(0x0078)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_318[0x78];                                     // 0x0318(0x0078)(Fixing Size After Last Property [ Dumper-7 ])
+	TMap<struct FUniqueNetIdKey, struct FPendingLogoutPlayerData> _pendingLogoutPlayerList;          // 0x0390(0x0050)(NativeAccessSpecifierPrivate)
 
 public:
 	static void SetNeverRenderFocusRule();
@@ -4438,12 +4698,53 @@ public:
 	}
 };
 
+// Class GameModule.RoleSlotMainTipsIconWidget
+// 0x0088 (0x03F8 - 0x0370)
+class URoleSlotMainTipsIconWidget final : public UWidgetBase
+{
+public:
+	bool                                          _bSkillIconDisplay;                                // 0x0370(0x0001)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_371[0x7];                                      // 0x0371(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class URoleSkillItemBase*                     _skillImage;                                       // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetAnimation*                       _ani_Change1;                                      // 0x0380(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCanvasPanel*                           _iconImagePanel;                                   // 0x0388(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UScaleBox*                              _iconImageScaleBoxPanel;                           // 0x0390(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UImage*                                 _baseImage;                                        // 0x0398(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UImage*                                 _iconImage;                                        // 0x03A0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UImage*                                 _roleImage;                                        // 0x03A8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class URoleSlotMainItemIconWidget*            _iconCurrency;                                     // 0x03B0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class URichTextBlock*                         _iconCurrencyTextImage;                            // 0x03B8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UImage*                                 _iconFrameHero;                                    // 0x03C0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UImage*                                 _iconFrameVillain;                                 // 0x03C8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UTextBlock*                             _numText;                                          // 0x03D0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_3D8[0x20];                                     // 0x03D8(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void BP_Reset();
+	void BP_SetCurrencyCode(int32 code);
+	void BP_SetVariationCode(int32 code);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("RoleSlotMainTipsIconWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"RoleSlotMainTipsIconWidget")
+	}
+	static class URoleSlotMainTipsIconWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<URoleSlotMainTipsIconWidget>();
+	}
+};
+
 // Class GameModule.HerovsGameMode
-// 0x0038 (0x0348 - 0x0310)
+// 0x0038 (0x0340 - 0x0308)
 class AHerovsGameMode : public AGameModeCommon
 {
 public:
-	uint8                                         Pad_310[0x38];                                     // 0x0310(0x0038)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_308[0x38];                                     // 0x0308(0x0038)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	static class UClass* StaticClass()
@@ -4457,34 +4758,6 @@ public:
 	static class AHerovsGameMode* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<AHerovsGameMode>();
-	}
-};
-
-// Class GameModule.SendLikeWidget
-// 0x0038 (0x03A8 - 0x0370)
-class USendLikeWidget final : public UWidgetBase
-{
-public:
-	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	class UCanvasPanel*                           _sendLikePanel;                                    // 0x0378(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	TSubclassOf<class USendLikeItemWidget>        _sendLikeClass;                                    // 0x0380(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	struct FVector2D                              _minimumAnchor;                                    // 0x0388(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	struct FVector2D                              _maxAnchor;                                        // 0x0390(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	bool                                          _RandomAnchor;                                     // 0x0398(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_399[0xF];                                      // 0x0399(0x000F)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("SendLikeWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"SendLikeWidget")
-	}
-	static class USendLikeWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<USendLikeWidget>();
 	}
 };
 
@@ -4504,6 +4777,34 @@ public:
 	static class AHerovsGameSession* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<AHerovsGameSession>();
+	}
+};
+
+// Class GameModule.RoleSlotCostumeWidget
+// 0x0020 (0x0390 - 0x0370)
+class URoleSlotCostumeWidget final : public UWidgetBase
+{
+public:
+	class UCanvasPanel*                           _imagePanel;                                       // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _costumeImage;                                     // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetSwitcher*                        _raritySwitcher;                                   // 0x0380(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class URoleSlotCostumeAuraWidget*             _auraWidget;                                       // 0x0388(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+
+public:
+	void OnLoadedCostumeImage(class UPaperSprite* Sprite);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("RoleSlotCostumeWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"RoleSlotCostumeWidget")
+	}
+	static class URoleSlotCostumeWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<URoleSlotCostumeWidget>();
 	}
 };
 
@@ -4551,38 +4852,8 @@ public:
 	}
 };
 
-// Class GameModule.RoleWidget
-// 0x0020 (0x0390 - 0x0370)
-class URoleWidget final : public UWidgetBase
-{
-public:
-	class UImage*                                 _roleIconImage;                                    // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UTextBlock*                             _roleNameText;                                     // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UTextBlock*                             _roleDescriptionText;                              // 0x0380(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	bool                                          _bShowText;                                        // 0x0388(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	EMdAbilityType                                _previewAbilityTypeColor;                          // 0x0389(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_38A[0x6];                                      // 0x038A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void OnSetRole(EMdAbilityType abilityType);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("RoleWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"RoleWidget")
-	}
-	static class URoleWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<URoleWidget>();
-	}
-};
-
 // Class GameModule.HerovsPlayerState
-// 0x0070 (0x0390 - 0x0320)
+// 0x0080 (0x03A0 - 0x0320)
 class AHerovsPlayerState : public APlayerStateCommon
 {
 public:
@@ -4599,14 +4870,15 @@ public:
 	uint8                                         _spawnVariationNo;                                 // 0x034C(0x0001)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 	uint8                                         Pad_34D[0x3];                                      // 0x034D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 _cosmosPlayerName;                                 // 0x0350(0x0010)(Net, ZeroConstructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	int32                                         _playerNamePlateCode;                              // 0x0360(0x0004)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	EPlatform                                     _platform;                                         // 0x0364(0x0001)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	bool                                          _bFullSquad;                                       // 0x0365(0x0001)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_366[0x2];                                      // 0x0366(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         _squadMatchingPower;                               // 0x0368(0x0004)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	int32                                         _playerRankCode;                                   // 0x036C(0x0004)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	int32                                         _playerRankPoint;                                  // 0x0370(0x0004)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_374[0x1C];                                     // 0x0374(0x001C)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	class FString                                 _customPlayerName;                                 // 0x0360(0x0010)(Net, ZeroConstructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	int32                                         _playerNamePlateCode;                              // 0x0370(0x0004)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	EPlatform                                     _platform;                                         // 0x0374(0x0001)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          _bFullSquad;                                       // 0x0375(0x0001)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_376[0x2];                                      // 0x0376(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         _squadMatchingPower;                               // 0x0378(0x0004)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	int32                                         _playerRankCode;                                   // 0x037C(0x0004)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	int32                                         _playerRankPoint;                                  // 0x0380(0x0004)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_384[0x1C];                                     // 0x0384(0x001C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	void BP_SetIsKing(bool bKing);
@@ -4617,6 +4889,7 @@ public:
 
 	bool BP_GetIsKing() const;
 	int32 BP_GetPlayerId() const;
+	ECharacterId BP_GetSpawnCharacterId() const;
 	int32 BP_GetSquadId() const;
 	int32 BP_GetTeamId() const;
 	const struct FUniqueNetIdRepl BP_GetUniqueId() const;
@@ -4684,35 +4957,6 @@ public:
 	}
 };
 
-// Class GameModule.SkillVariationDetailWidget
-// 0x0018 (0x0388 - 0x0370)
-class USkillVariationDetailWidget final : public UWidgetBase
-{
-public:
-	class UPlatformWidgetButton*                  _goToGashaButton;                                  // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	TMulticastInlineDelegate<void()>              OnDecideGoToGashaButtonDelegate;                   // 0x0378(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-
-public:
-	void OnAnalogValueScroll(const struct FAnalogInputEvent& InAnalogEvent);
-	void OnDecideButtonEvent(class UAppWidget* Widget, EWidgetInputType inputType);
-	void OnSetAbilityList(ECharacterId characterId, int32 variationNo);
-	void OnSetHowToGetText(const class FText& howToGetText);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("SkillVariationDetailWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"SkillVariationDetailWidget")
-	}
-	static class USkillVariationDetailWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<USkillVariationDetailWidget>();
-	}
-};
-
 // Class GameModule.InGameDataManagerSubsystem
 // 0x0008 (0x0038 - 0x0030)
 class UInGameDataManagerSubsystem final : public UEngineSubsystem
@@ -4732,6 +4976,32 @@ public:
 	static class UInGameDataManagerSubsystem* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UInGameDataManagerSubsystem>();
+	}
+};
+
+// Class GameModule.SkillDerivedWidget
+// 0x0020 (0x0390 - 0x0370)
+class USkillDerivedWidget final : public UWidgetBase
+{
+public:
+	class USkillDerivedTypeWidget*                _skillDerivedType;                                 // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UCustomTextBlock*                       _descriptionText;                                  // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UAbilityLevelListWidget*                _levelList;                                        // 0x0380(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	float                                         _descriptionWrapTextAt;                            // 0x0388(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_38C[0x4];                                      // 0x038C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("SkillDerivedWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"SkillDerivedWidget")
+	}
+	static class USkillDerivedWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<USkillDerivedWidget>();
 	}
 };
 
@@ -4755,34 +5025,6 @@ public:
 	static class UJsonUtilityFunction* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UJsonUtilityFunction>();
-	}
-};
-
-// Class GameModule.SupplyArtInfoDataAsset
-// 0x0260 (0x0290 - 0x0030)
-class USupplyArtInfoDataAsset final : public UPrimaryDataAsset
-{
-public:
-	TMap<EMdAbilityType, struct FAbilityArtColorInfo> _abilityArtColorsInfo;                         // 0x0030(0x0050)(Edit, NativeAccessSpecifierPublic)
-	TMap<ESupplyType, struct FSupplyParticleColorInfo> _supplyArtColorsInfo;                         // 0x0080(0x0050)(Edit, NativeAccessSpecifierPublic)
-	TMap<ELeadersBattleTeamType, struct FLeadersTeamColorInfo> _leadersTeamColorsInfo;               // 0x00D0(0x0050)(Edit, NativeAccessSpecifierPublic)
-	TMap<uint8, struct FCustomMatchTeamColorInfo> _customMatchTeamColorsInfo;                        // 0x0120(0x0050)(Edit, NativeAccessSpecifierPublic)
-	TMap<uint8, struct FCustomMatchTeamColorInfo> _customMatchCombinedTeamColorsInfo;                // 0x0170(0x0050)(Edit, NativeAccessSpecifierPublic)
-	TMap<uint8, struct FCustomMatchTeamColorInfo> _customMatchRoomCombinedTeamColorsInfo;            // 0x01C0(0x0050)(Edit, NativeAccessSpecifierPublic)
-	struct FDominateBattleColorInfo               _dominateColorInfo;                                // 0x0210(0x0080)(Edit, NoDestructor, NativeAccessSpecifierPublic)
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("SupplyArtInfoDataAsset")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"SupplyArtInfoDataAsset")
-	}
-	static class USupplyArtInfoDataAsset* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<USupplyArtInfoDataAsset>();
 	}
 };
 
@@ -4827,42 +5069,6 @@ public:
 	static class ULambdaWrapper* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<ULambdaWrapper>();
-	}
-};
-
-// Class GameModule.SkillVariationWidget
-// 0x0020 (0x0390 - 0x0370)
-class USkillVariationWidget final : public UWidgetBase
-{
-public:
-	class USkillVariationListWidget*              _skillVariationListWidget;                         // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class USkillVariationListItemObject*          _selectItemObject;                                 // 0x0378(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_380[0xC];                                      // 0x0380(0x000C)(Fixing Size After Last Property [ Dumper-7 ])
-	bool                                          _bTrainingMode;                                    // 0x038C(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_38D[0x3];                                      // 0x038D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void CloseLevel();
-	void OnDecideGoToGashaButtonEvent();
-	void OnDecideSkillVariationListItemObject(class USkillVariationListItemObject* itemObject);
-	void OnFocusSkillVariationListItemObject(class USkillVariationListItemObject* itemObject);
-	void OnLoadComplete(int32 requestId);
-	void OnSetAbilityList(ECharacterId characterId, int32 variationNo);
-	void OnShowLoadingIcon(bool bShow);
-	void OnUpdateComplete(int32 requestId);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("SkillVariationWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"SkillVariationWidget")
-	}
-	static class USkillVariationWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<USkillVariationWidget>();
 	}
 };
 
@@ -4929,32 +5135,6 @@ public:
 	}
 };
 
-// Class GameModule.SkillDerivedTypeWidget
-// 0x0010 (0x0380 - 0x0370)
-class USkillDerivedTypeWidget final : public UWidgetBase
-{
-public:
-	class UTextBlock*                             _skillDerivedTypeText;                             // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UWidgetSwitcher*                        _widgetSwitcher;                                   // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-
-public:
-	void GetUniqueButtonList(TArray<class UPlatformRichTextBlock*>* uniqueButtonList);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("SkillDerivedTypeWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"SkillDerivedTypeWidget")
-	}
-	static class USkillDerivedTypeWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<USkillDerivedTypeWidget>();
-	}
-};
-
 // Class GameModule.LocalPlayerGame
 // 0x0000 (0x0258 - 0x0258)
 class ULocalPlayerGame final : public ULocalPlayer
@@ -4971,6 +5151,28 @@ public:
 	static class ULocalPlayerGame* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<ULocalPlayerGame>();
+	}
+};
+
+// Class GameModule.SengakujiPlayerInputSubsystem
+// 0x01C8 (0x01F8 - 0x0030)
+class USengakujiPlayerInputSubsystem final : public ULocalPlayerSubsystem
+{
+public:
+	uint8                                         Pad_30[0x1C8];                                     // 0x0030(0x01C8)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("SengakujiPlayerInputSubsystem")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"SengakujiPlayerInputSubsystem")
+	}
+	static class USengakujiPlayerInputSubsystem* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<USengakujiPlayerInputSubsystem>();
 	}
 };
 
@@ -5042,6 +5244,29 @@ public:
 	}
 };
 
+// Class GameModule.ParticleSpawnRateCtrl
+// 0x0028 (0x00D8 - 0x00B0)
+class UParticleSpawnRateCtrl final : public UActorComponent
+{
+public:
+	class UCustomParticleSystemComponent*         _owner;                                            // 0x00B0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_B8[0x20];                                      // 0x00B8(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ParticleSpawnRateCtrl")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ParticleSpawnRateCtrl")
+	}
+	static class UParticleSpawnRateCtrl* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UParticleSpawnRateCtrl>();
+	}
+};
+
 // Class GameModule.MaterialDataCache
 // 0x0110 (0x0138 - 0x0028)
 class UMaterialDataCache final : public UObject
@@ -5063,33 +5288,6 @@ public:
 	static class UMaterialDataCache* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UMaterialDataCache>();
-	}
-};
-
-// Class GameModule.TextChatIconAnker
-// 0x0010 (0x0380 - 0x0370)
-class UTextChatIconAnker : public UWidgetBase
-{
-public:
-	struct FVector2D                              _pos;                                              // 0x0370(0x0008)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _rightPlacement;                                   // 0x0378(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_379[0x7];                                      // 0x0379(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void SetIconPosition();
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("TextChatIconAnker")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"TextChatIconAnker")
-	}
-	static class UTextChatIconAnker* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UTextChatIconAnker>();
 	}
 };
 
@@ -5118,6 +5316,28 @@ public:
 	const class UObject* AsUObject() const
 	{
 		return reinterpret_cast<const UObject*>(this);
+	}
+};
+
+// Class GameModule.SkillVariationListItemObject
+// 0x0058 (0x0080 - 0x0028)
+class USkillVariationListItemObject final : public UObject
+{
+public:
+	uint8                                         Pad_28[0x58];                                      // 0x0028(0x0058)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("SkillVariationListItemObject")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"SkillVariationListItemObject")
+	}
+	static class USkillVariationListItemObject* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<USkillVariationListItemObject>();
 	}
 };
 
@@ -5171,6 +5391,44 @@ public:
 	}
 };
 
+// Class GameModule.SendLikeButtonWidget
+// 0x0050 (0x03C0 - 0x0370)
+class USendLikeButtonWidget : public UWidgetBase
+{
+public:
+	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void()>              OnMaxCountEventDelegate;                           // 0x0378(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(int32 Counter, int32 remainsCounter)> OnUpdateCountEventDelegate;  // 0x0388(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	int32                                         _maxSendLikeCount;                                 // 0x0398(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_39C[0x4];                                      // 0x039C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class UWidgetButton*                          _button;                                           // 0x03A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_3A8[0x10];                                     // 0x03A8(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
+	class UPlayerDatabaseWork*                    _playerDatabaseWork;                               // 0x03B8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+
+public:
+	int32 BP_GetRemainSendLikeCount();
+	bool BP_UpdateSendLikeCount();
+	void ClearFocus();
+	void SetupSendLikeCounter();
+
+	int32 BP_GetRemainsSendLikeCount() const;
+	int32 BP_GetSendLikeCounter() const;
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("SendLikeButtonWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"SendLikeButtonWidget")
+	}
+	static class USendLikeButtonWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<USendLikeButtonWidget>();
+	}
+};
+
 // Class GameModule.MissionListPresenter
 // 0x0008 (0x0250 - 0x0248)
 class AMissionListPresenter final : public AWidgetCreator
@@ -5195,7 +5453,7 @@ public:
 
 // Class GameModule.MultipleDigitsWidget
 // 0x0040 (0x03B0 - 0x0370)
-class UMultipleDigitsWidget final : public UWidgetBase
+class UMultipleDigitsWidget : public UWidgetBase
 {
 public:
 	uint8                                         _animPlayBelowNum;                                 // 0x0370(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -5233,9 +5491,31 @@ public:
 	}
 };
 
+// Class GameModule.SoundResource
+// 0x0050 (0x00B0 - 0x0060)
+class USoundResource final : public UPrimaryAssetBase
+{
+public:
+	TMap<class FName, class FString>              _cueSheetMap;                                      // 0x0060(0x0050)(Edit, EditConst, NativeAccessSpecifierPrivate)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("SoundResource")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"SoundResource")
+	}
+	static class USoundResource* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<USoundResource>();
+	}
+};
+
 // Class GameModule.MyADBaseWidget
 // 0x0018 (0x0388 - 0x0370)
-class UMyADBaseWidget final : public UWidgetBase
+class UMyADBaseWidget : public UWidgetBase
 {
 public:
 	class UMaterialInterface*                     _effectMaterial;                                   // 0x0370(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -5257,38 +5537,9 @@ public:
 	}
 };
 
-// Class GameModule.TextChatEntryWidget
-// 0x0030 (0x03A0 - 0x0370)
-class UTextChatEntryWidget : public UWidgetBase
-{
-public:
-	uint8                                         Pad_370[0x10];                                     // 0x0370(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
-	class UTextBlock*                             _chatText;                                         // 0x0380(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextBlock*                             _systemText;                                       // 0x0388(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UPlayerName*                            _name;                                             // 0x0390(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UPlayerName*                            _Sname;                                            // 0x0398(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-
-public:
-	void SetMessage(class UTextChatListObject* obj, bool isSTT);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("TextChatEntryWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"TextChatEntryWidget")
-	}
-	static class UTextChatEntryWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UTextChatEntryWidget>();
-	}
-};
-
 // Class GameModule.MyRoomLikeTextWidget
 // 0x0010 (0x0380 - 0x0370)
-class UMyRoomLikeTextWidget final : public UWidgetBase
+class UMyRoomLikeTextWidget : public UWidgetBase
 {
 public:
 	class UTextBlock*                             _numText;                                          // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -5306,6 +5557,36 @@ public:
 	static class UMyRoomLikeTextWidget* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UMyRoomLikeTextWidget>();
+	}
+};
+
+// Class GameModule.TextChatButtonGuide
+// 0x0020 (0x0390 - 0x0370)
+class UTextChatButtonGuide : public UWidgetBase
+{
+public:
+	class UPlatformRichTextBlock*                 _buttonGuide;                                      // 0x0370(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _holdGauge;                                        // 0x0378(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UHorizontalBox*                         _optionBox;                                        // 0x0380(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextChatIcon*                          _iconImage;                                        // 0x0388(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+
+public:
+	void BP_PlayMessageAnimation();
+	void PlayMessageAnimation();
+	void SetGaugePercent(float value);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("TextChatButtonGuide")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"TextChatButtonGuide")
+	}
+	static class UTextChatButtonGuide* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UTextChatButtonGuide>();
 	}
 };
 
@@ -5359,33 +5640,6 @@ public:
 	}
 };
 
-// Class GameModule.TrackingNumberSubsystem
-// 0x0018 (0x0048 - 0x0030)
-class UTrackingNumberSubsystem final : public UGameInstanceSubsystem
-{
-public:
-	TSubclassOf<class UWidgetBase>                _trackingNumberWidgetClass;                        // 0x0030(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UTrackingNumberWidget*                  _trackingNumberWidget;                             // 0x0038(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_40[0x8];                                       // 0x0040(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void CreateTrackingNumber();
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("TrackingNumberSubsystem")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"TrackingNumberSubsystem")
-	}
-	static class UTrackingNumberSubsystem* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UTrackingNumberSubsystem>();
-	}
-};
-
 // Class GameModule.NamePlate
 // 0x0170 (0x06E8 - 0x0578)
 class UNamePlate : public UPlayerNameWidgetBase
@@ -5427,6 +5681,58 @@ public:
 	}
 };
 
+// Class GameModule.SquadJoinWidget
+// 0x0150 (0x04C0 - 0x0370)
+class USquadJoinWidget : public UWidgetBase
+{
+public:
+	TMulticastInlineDelegate<void()>              _onClosedDelegate;                                 // 0x0370(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	class UWidgetGeneralWindow*                   _selectMessageWindow;                              // 0x0380(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UWidgetGeneralWindow*                   _closeWindow;                                      // 0x0388(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FText                                   _leaderIsSquadJoinedTitleText;                     // 0x0390(0x0018)(Edit, BlueprintVisible, Protected, NativeAccessSpecifierProtected)
+	struct FGeneralWindowText                     _leaderIsSquadJoinedLeftText;                      // 0x03A8(0x0028)(Edit, BlueprintVisible, Protected, NativeAccessSpecifierProtected)
+	struct FGeneralWindowText                     _leaderIsSquadJoinedRightText;                     // 0x03D0(0x0028)(Edit, BlueprintVisible, Protected, NativeAccessSpecifierProtected)
+	class FText                                   _memberIsSquadJoinedTitleText;                     // 0x03F8(0x0018)(Edit, BlueprintVisible, Protected, NativeAccessSpecifierProtected)
+	struct FGeneralWindowText                     _memberIsSquadJoinedLeftText;                      // 0x0410(0x0028)(Edit, BlueprintVisible, Protected, NativeAccessSpecifierProtected)
+	struct FGeneralWindowText                     _memberIsSquadJoinedRightText;                     // 0x0438(0x0028)(Edit, BlueprintVisible, Protected, NativeAccessSpecifierProtected)
+	class FText                                   _joinErrorText;                                    // 0x0460(0x0018)(Edit, BlueprintVisible, Protected, NativeAccessSpecifierProtected)
+	class FString                                 _joinSquadId;                                      // 0x0478(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class FString                                 _joinSquadPassword;                                // 0x0488(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class FString                                 _invitationId;                                     // 0x0498(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class FString                                 _noticeId;                                         // 0x04A8(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_4B8[0x8];                                      // 0x04B8(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void OnClosedWindow();
+	void OnCloseLevel();
+	void OnCloseMessageClosedWindow();
+	void OnPlayerRequestErrorEvent(int32 requestId, const class FName Key, const class FName message);
+	void OnSelectMessageClosedWindow();
+	void OnSelectMessageCloseWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton);
+	void OnSelectMessageDecideWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton);
+	void OnSelectWindowSetting(bool leader);
+	void OnSystemErrorEvent(int32 requestId, const class FName Key, const class FName message);
+	void OnTeamUpJoinByInvitationEvent();
+	void OnTeamUpJoinEvent();
+	void OnTeamUpLeaveEvent();
+	void OnTeamUpUpdatedEvent();
+	void OnUpdateCompleteEvent(int32 requestId);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("SquadJoinWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"SquadJoinWidget")
+	}
+	static class USquadJoinWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<USquadJoinWidget>();
+	}
+};
+
 // Class GameModule.NamePlateBgImage
 // 0x0040 (0x02A0 - 0x0260)
 class UNamePlateBgImage final : public UImage
@@ -5434,9 +5740,8 @@ class UNamePlateBgImage final : public UImage
 public:
 	uint8                                         Pad_260[0x20];                                     // 0x0260(0x0020)(Fixing Size After Last Property [ Dumper-7 ])
 	bool                                          _bSyncLoad;                                        // 0x0280(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_281[0xF];                                      // 0x0281(0x000F)(Fixing Size After Last Property [ Dumper-7 ])
-	class UObject*                                _resourceObject;                                   // 0x0290(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_298[0x8];                                      // 0x0298(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_281[0x17];                                     // 0x0281(0x0017)(Fixing Size After Last Property [ Dumper-7 ])
+	class UObject*                                _resourceObject;                                   // 0x0298(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 
 public:
 	void OnLoadedIconImage(class UPaperSprite* Sprite);
@@ -5453,48 +5758,6 @@ public:
 	static class UNamePlateBgImage* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UNamePlateBgImage>();
-	}
-};
-
-// Class GameModule.TextChatListWidget
-// 0x0030 (0x03A0 - 0x0370)
-class UTextChatListWidget : public UWidgetBase
-{
-public:
-	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<class UTextChatListObject*>            _UnreadObjects;                                    // 0x0378(0x0010)(Edit, BlueprintVisible, ZeroConstructor, Protected, NativeAccessSpecifierProtected)
-	uint8                                         Pad_388[0x10];                                     // 0x0388(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
-	class UCustomListView*                        _chatList;                                         // 0x0398(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-
-public:
-	void BP_AddNewTextItem(const class FText& Text);
-	void BP_CallTextChatIconEvent();
-	void BP_CallTextChatRecieveEvent(const class UTextChatListObject* chatObject);
-	void BP_CheckUnreadMessage(class UTextChatListObject* message);
-	class FString BP_GetUserName(const class FString& playerId, const class FString& Name_0);
-	bool BP_IsUnreadMessage();
-	void BP_ManagementChatItems();
-	void BP_UpdateArray(class UTextChatListObject* chatObject);
-	void ClearEvent();
-	float GetScrollSpeedRate(float analogValue, float defaultSpeedRate, float maxSpeedRate, float addSpeedRate);
-	void ReceiveSTTMessage(const class FString& platformPlayerId, const class FString& DisplayName, const class FString& message);
-	void ScrollBottom();
-	void SetUpNewMessage(const class FString& playerId, const class FString& Name_0, const class FString& message, const bool bLock, const bool isSTT);
-	void TextToSpeech(class UTextChatListObject* obj);
-	void UpdateList();
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("TextChatListWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"TextChatListWidget")
-	}
-	static class UTextChatListWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UTextChatListWidget>();
 	}
 };
 
@@ -5533,9 +5796,40 @@ public:
 	}
 };
 
+// Class GameModule.SkillVariationListWidget
+// 0x0070 (0x03E0 - 0x0370)
+class USkillVariationListWidget final : public UWidgetBase
+{
+public:
+	class UListView*                              _listView;                                         // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class USkillVariationListItemObject*          _equipItemObject;                                  // 0x0378(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_380[0x38];                                     // 0x0380(0x0038)(Fixing Size After Last Property [ Dumper-7 ])
+	TSoftObjectPtr<class UWorld>                  _shopPopupLevel;                                   // 0x03B8(0x0028)(Edit, DisableEditOnInstance, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+
+public:
+	void OnChangedMainMenu(int32 Index_0);
+	void OnDecideEvent(class UAppWidget* Widget, EWidgetInputType inputType);
+	void OnSubLevelHidden();
+	void OnSubLevelShown();
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("SkillVariationListWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"SkillVariationListWidget")
+	}
+	static class USkillVariationListWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<USkillVariationListWidget>();
+	}
+};
+
 // Class GameModule.NamePlateText
 // 0x0010 (0x0640 - 0x0630)
-class UNamePlateText final : public UPlayerNameTextBase
+class UNamePlateText : public UPlayerNameTextBase
 {
 public:
 	float                                         _size;                                             // 0x0630(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -5561,38 +5855,6 @@ public:
 	static class UNamePlateText* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UNamePlateText>();
-	}
-};
-
-// Class GameModule.TeamCommentaryMessageWidget
-// 0x0030 (0x03A0 - 0x0370)
-class UTeamCommentaryMessageWidget : public UWidgetBase
-{
-public:
-	TSubclassOf<class UUserWidget>                _messageBaseWidget;                                // 0x0370(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UVerticalBox*                           _messageItemBox;                                   // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_380[0x20];                                     // 0x0380(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void OnChangeBattleSequence(EBattleStartSequenceType Sequence);
-	void OnNoticeUpdatedEvent();
-	void OnRequestMessage(ETeamCommentaryMessage MessageType);
-	void OnSquadNumChanged(int32 SquadNum);
-	void OnTeamUpUpdatedEvent();
-	void SetMessageEnable(bool enable);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("TeamCommentaryMessageWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"TeamCommentaryMessageWidget")
-	}
-	static class UTeamCommentaryMessageWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UTeamCommentaryMessageWidget>();
 	}
 };
 
@@ -5625,6 +5887,34 @@ public:
 	static class UNetworkErrorWidget* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UNetworkErrorWidget>();
+	}
+};
+
+// Class GameModule.TeamCommentaryMessageItemWidget
+// 0x0078 (0x03E8 - 0x0370)
+class UTeamCommentaryMessageItemWidget : public UWidgetBase
+{
+public:
+	TMulticastInlineDelegate<void()>              _onMessageClosedDelegate;                          // 0x0370(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMap<ETeamCommentaryMessage, class FText>     _textMessageMap;                                   // 0x0380(0x0050)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	class UTextBlock*                             _textBlockMessage;                                 // 0x03D0(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_3D8[0x10];                                     // 0x03D8(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void OnDrawTimeout();
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("TeamCommentaryMessageItemWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"TeamCommentaryMessageItemWidget")
+	}
+	static class UTeamCommentaryMessageItemWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UTeamCommentaryMessageItemWidget>();
 	}
 };
 
@@ -5711,36 +6001,6 @@ public:
 	}
 };
 
-// Class GameModule.TextSpeechBalloonWidget
-// 0x0028 (0x0398 - 0x0370)
-class UTextSpeechBalloonWidget final : public UWidgetBase
-{
-public:
-	class FText                                   _viewText;                                         // 0x0370(0x0018)(Edit, Protected, NativeAccessSpecifierProtected)
-	class UTextBlock*                             _text;                                             // 0x0388(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetAnimation*                       _aniOpen;                                          // 0x0390(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-
-public:
-	void Open();
-	void SetText(const class FText& Text);
-
-	const class FText GetText() const;
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("TextSpeechBalloonWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"TextSpeechBalloonWidget")
-	}
-	static class UTextSpeechBalloonWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UTextSpeechBalloonWidget>();
-	}
-};
-
 // Class GameModule.NoticeDatabaseWork
 // 0x0018 (0x0048 - 0x0030)
 class UNoticeDatabaseWork final : public UGameInstanceSubsystem
@@ -5766,6 +6026,91 @@ public:
 	static class UNoticeDatabaseWork* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UNoticeDatabaseWork>();
+	}
+};
+
+// Class GameModule.TextChatWindowWidget
+// 0x0170 (0x04E0 - 0x0370)
+class UTextChatWindowWidget : public UWidgetBase
+{
+public:
+	uint8                                         Pad_370[0x48];                                     // 0x0370(0x0048)(Fixing Size After Last Property [ Dumper-7 ])
+	float                                         _animationSpeed;                                   // 0x03B8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_3BC[0x4];                                      // 0x03BC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class UWidgetAnimation*                       _animOpen;                                         // 0x03C0(0x0008)(BlueprintVisible, ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetAnimation*                       _animClose;                                        // 0x03C8(0x0008)(BlueprintVisible, ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetAnimation*                       _animOpenR;                                        // 0x03D0(0x0008)(BlueprintVisible, ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetAnimation*                       _animCloseR;                                       // 0x03D8(0x0008)(BlueprintVisible, ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetAnimation*                       _currentPlayAnimation;                             // 0x03E0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TMulticastInlineDelegate<void()>              _OnEventDispather;                                 // 0x03E8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              _OnOpenConsentEventDispather;                      // 0x03F8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              _OnCloseConsentEventDispather;                     // 0x0408(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              _OnUpdateEntryDispather;                           // 0x0418(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              _onBGVisiblitySetEvent;                            // 0x0428(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              _onBGHiddenSetEvent;                               // 0x0438(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              _onOpenParentalControlEventDispather;              // 0x0448(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	bool                                          _bOpenWindow;                                      // 0x0458(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          _bIsPopupOpen;                                     // 0x0459(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_45A[0x36];                                     // 0x045A(0x0036)(Fixing Size After Last Property [ Dumper-7 ])
+	class UPlatformWidgetButton*                  _dummyButton;                                      // 0x0490(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextChatListWidget*                    _teamTextChatList;                                 // 0x0498(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UPlatformRichTextBlock*                 _inputIcon;                                        // 0x04A0(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UPlatformRichTextBlock*                 _closeIcon;                                        // 0x04A8(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UHorizontalBox*                         _buttonGuideBox;                                   // 0x04B0(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCanvasPanel*                           _textWindow;                                       // 0x04B8(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCanvasPanel*                           _focusPanel;                                       // 0x04C0(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCustomInputTextBox*                    _inputTextBox;                                     // 0x04C8(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	float                                         _wheelScrollSpeed;                                 // 0x04D0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	float                                         _scrollSpeed;                                      // 0x04D4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_4D8[0x8];                                      // 0x04D8(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void AnimStart(class UWidgetAnimation* anim);
+	void BP_CallCloseConsentEvent();
+	void BP_CallFinishEvent();
+	void BP_CallHiddenEventDispatcher();
+	void BP_CallOpenConsentEvent();
+	void BP_CallOpenParentalControlEvent();
+	void BP_CallVisibleEventDispatcher();
+	bool BP_CheckParentControl();
+	void BP_ClearFocus();
+	void BP_PlayCloseAnimation();
+	void BP_PlayOpenAnimation();
+	void BP_PlaySoundCloseWindow(bool isPlaySound);
+	void BP_SendMessage();
+	void BP_SetActiveFocus(bool isFocusable);
+	void BP_SetActiveSendButton(bool isSendable);
+	void BP_SetFocusInputTextBox();
+	void BP_SetNoticeVisibility(ESlateVisibility value);
+	void BP_WindowClose(bool bPlaySound);
+	void BP_WindowOpen(bool bPlaySound);
+	void ChangeControllerEvent();
+	void ClearText();
+	void FinishCloseAnimation();
+	void FinishOpenAnimation();
+	void OnCommitChangeText(bool IsEmpty, bool _isFirstFocus);
+	void RemoveInputShortCutKeyboardEvent();
+	void SetActiveFocus(bool isFocusable);
+	void SetActiveSendButton(bool isSendable);
+	void SetFocusInputTextBox();
+	void SetInputShortCut(bool value);
+	void SetInputShortCutKeyboardEvent();
+	void SetNoticeVisibility(ESlateVisibility value);
+	void WindowClose(bool bPlaySound);
+	void WindowOpen(bool bPlaySound);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("TextChatWindowWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"TextChatWindowWidget")
+	}
+	static class UTextChatWindowWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UTextChatWindowWidget>();
 	}
 };
 
@@ -5805,36 +6150,6 @@ public:
 	}
 };
 
-// Class GameModule.UMGTemporaryNotification
-// 0x0040 (0x03B0 - 0x0370)
-class UUMGTemporaryNotification : public UWidgetBase
-{
-public:
-	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	float                                         _lifeTime;                                         // 0x0378(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_37C[0x4];                                      // 0x037C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class UWidgetAnimation*                       Ani_Notification;                                  // 0x0380(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_388[0x28];                                     // 0x0388(0x0028)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void Activate();
-	void Deactivate();
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("UMGTemporaryNotification")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"UMGTemporaryNotification")
-	}
-	static class UUMGTemporaryNotification* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UUMGTemporaryNotification>();
-	}
-};
-
 // Class GameModule.NoticeWindowWidgetListEntryObject
 // 0x0020 (0x0050 - 0x0030)
 class UNoticeWindowWidgetListEntryObject final : public UListViewEntryObjectBase
@@ -5858,9 +6173,52 @@ public:
 	}
 };
 
+// Class GameModule.TextChatIcon
+// 0x0060 (0x0570 - 0x0510)
+class UTextChatIcon : public UWidgetButton
+{
+public:
+	TMulticastInlineDelegate<void()>              _UpdateArray;                                      // 0x0510(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, Protected, NativeAccessSpecifierProtected)
+	uint8                                         Pad_520[0x10];                                     // 0x0520(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void(const float DeltaTime)> _messageRecieveDelegate;                   // 0x0530(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, Protected, NativeAccessSpecifierProtected)
+	uint8                                         Pad_540[0x10];                                     // 0x0540(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
+	class UImage*                                 _icon;                                             // 0x0550(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UImage*                                 _notice;                                           // 0x0558(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UWidgetAnimation*                       _anim_reception;                                   // 0x0560(0x0008)(BlueprintVisible, ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _showIngame;                                       // 0x0568(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_569[0x7];                                      // 0x0569(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void BP_PlayMessageAnimation();
+	void BP_StartAnimation();
+	void BP_StopAnimation();
+	void BP_StopMessageAnimation();
+	void BP_UpdateIconNotice();
+	void LoopAnimation(const float DeltaTime);
+	void OnPressButton(class UAppWidget* Widget, EWidgetInputType inputType);
+	void PlayMessageAnimation();
+	void StopMessageAnimation();
+	void UpdateArray();
+	void UpdateIconNotice();
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("TextChatIcon")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"TextChatIcon")
+	}
+	static class UTextChatIcon* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UTextChatIcon>();
+	}
+};
+
 // Class GameModule.NumberWidget
 // 0x0100 (0x0470 - 0x0370)
-class UNumberWidget final : public UWidgetBase
+class UNumberWidget : public UWidgetBase
 {
 public:
 	uint8                                         _dispNum;                                          // 0x0370(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -5889,32 +6247,6 @@ public:
 	}
 };
 
-// Class GameModule.TrainingMenuCommonWidget
-// 0x0050 (0x0468 - 0x0418)
-class UTrainingMenuCommonWidget final : public UAppWidget
-{
-public:
-	TSoftObjectPtr<class UWorld>                  _characterInfoInGamePopupLevel;                    // 0x0418(0x0028)(Edit, DisableEditOnInstance, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	TSoftObjectPtr<class UWorld>                  _characterInfoOutGamePopupLevel;                   // 0x0440(0x0028)(Edit, DisableEditOnInstance, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-
-public:
-	void OpenCharacterInfo(bool bOutgame);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("TrainingMenuCommonWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"TrainingMenuCommonWidget")
-	}
-	static class UTrainingMenuCommonWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UTrainingMenuCommonWidget>();
-	}
-};
-
 // Class GameModule.ObserverPawn
 // 0x0008 (0x02B0 - 0x02A8)
 class AObserverPawn final : public ASpectatorPawn
@@ -5934,6 +6266,54 @@ public:
 	static class AObserverPawn* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<AObserverPawn>();
+	}
+};
+
+// Class GameModule.StaticDataManager
+// 0x01D0 (0x01F8 - 0x0028)
+class UStaticDataManager final : public UObject
+{
+public:
+	TSoftObjectPtr<class UPrimaryAssetPermanent>  _permanentAsset;                                   // 0x0028(0x0028)(Edit, Config, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_50[0x10];                                      // 0x0050(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
+	TSoftObjectPtr<class UHudResource>            _hudResource;                                      // 0x0060(0x0028)(Edit, Config, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	TSoftObjectPtr<class UCurveVector>            _damageUICurve;                                    // 0x0088(0x0028)(Edit, Config, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_B0[0x8];                                       // 0x00B0(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	TMap<EMdAbilityType, TSoftObjectPtr<class UCurveFloat>> _abilityCurveOnLevel;                    // 0x00B8(0x0050)(Edit, Config, UObjectWrapper, NativeAccessSpecifierPublic)
+	TSoftObjectPtr<class USupplyArtInfoDataAsset> _daSupplyArtColorInfo;                             // 0x0108(0x0028)(Edit, Config, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TSoftObjectPtr<class UCurveFloat>             _treeFireMatFloatCurve;                            // 0x0130(0x0028)(Edit, Config, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TSoftObjectPtr<class UCurveFloat>             _treeFreezeMatFloatCurve;                          // 0x0158(0x0028)(Edit, Config, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TSoftClassPtr<class UClass>                   _winnerOverheadWidgetComponent;                    // 0x0180(0x0028)(Edit, Config, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TSoftClassPtr<class UClass>                   _characterActingComponent;                         // 0x01A8(0x0028)(Edit, Config, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TSoftObjectPtr<class USoundResource>          _soundResource;                                    // 0x01D0(0x0028)(Edit, Config, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+
+public:
+	static bool AsyncLoadPermanentDataAsset();
+	static const struct FAbilityArtColorInfo GetAbilityArtColorInfo(EMdAbilityType abilityType);
+	static float GetAbilityDurationOnValue(const class UObject* WorldContextObject, EMdAbilityType abilityType, int32 Level);
+	static struct FCustomMatchTeamColorInfo GetCustomMatchTeamBorderColorInfo(uint8 TeamId);
+	static TMap<uint8, struct FCustomMatchTeamColorInfo> GetCustomMatchTeamBorderColorInfoList();
+	static struct FDominateBattleColorInfo GetDominateBattleColorInfo();
+	static class UGimmickBaseDataAsset* GetGimmickDataAsset(const class UObject* WorldContextObject, class FName gimmickId);
+	static class UHudResource* GetHudResourceDataAsset(const class UObject* WorldContextObject);
+	static struct FLeadersTeamColorInfo GetLeadersTeamBorderColorInfo(ELeadersBattleTeamType TeamColor);
+	static class UPrimaryAssetPermanent* GetPermanentDataAsset();
+	static class USupplyBaseDataAsset* GetSupplyBaseDataAsset(const class UObject* WorldContextObject, class FName supplyId);
+	static class USupplyArtInfoDataAsset* GetSupplyParticleColorInfo();
+	static void LoadHudResourceDataAsset(const class UObject* WorldContextObject);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("StaticDataManager")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"StaticDataManager")
+	}
+	static class UStaticDataManager* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UStaticDataManager>();
 	}
 };
 
@@ -6004,60 +6384,6 @@ public:
 	}
 };
 
-// Class GameModule.TextChatWidget
-// 0x00B8 (0x0428 - 0x0370)
-class UTextChatWidget : public UWidgetBase
-{
-public:
-	bool                                          _bOpenWindow;                                      // 0x0370(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_371[0x7];                                      // 0x0371(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UTextChatWindowWidget*                  _textChatWindow;                                   // 0x0378(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UTextChatButtonGuide*                   _buttonGuide;                                      // 0x0380(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UWidgetGeneralWindow*                   _observerWindow;                                   // 0x0388(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetGeneralWindow*                   _parentalControlWindow;                            // 0x0390(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UCanvasPanel*                           _messagePanel;                                     // 0x0398(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UHorizontalBox*                         _messageBox;                                       // 0x03A0(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UCanvasPanel*                           _icon;                                             // 0x03A8(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UCanvasPanel*                           _message;                                          // 0x03B0(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	TMap<ETextChatIngameState, class UTextChatIconAnker*> ankerMap;                                  // 0x03B8(0x0050)(Edit, BlueprintVisible, ExportObject, ContainsInstancedReference, Protected, NativeAccessSpecifierProtected)
-	uint8                                         Pad_408[0x8];                                      // 0x0408(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	class UTextChatIconAnker*                     _chatAnker_Inventory;                              // 0x0410(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextChatIconAnker*                     _chatAnker_Observer;                               // 0x0418(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextChatIconAnker*                     _chatAnker_Ingame;                                 // 0x0420(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-
-public:
-	void BP_SetNoticeVisibility(ESlateVisibility value);
-	void CloseObserverWindowEvent();
-	void CreateAnkerMap();
-	class UTextChatIcon* GetChatIcon();
-	void OnCloseObserver();
-	void OnCloseParentEvent();
-	void OnDecideObserver(class UAppWidget* Widget, EWidgetInputType inputType, bool isLeftButton);
-	void OnDecideParentEvent(class UAppWidget* Widget, EWidgetInputType inputType, bool isLeftButton);
-	void OnOpenObserver();
-	void OnOpenParent();
-	void SetNoticeVisibility(ESlateVisibility value);
-	void SetValueButtonGuide(float value);
-	void SetVisibilityMessageCanvas();
-	void UpdatePopUpPivot(const struct FVector2D& Pivot);
-	void WindowClose(bool bPlaySound);
-	void WindowOpen(bool bPlaySound);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("TextChatWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"TextChatWidget")
-	}
-	static class UTextChatWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UTextChatWidget>();
-	}
-};
-
 // Class GameModule.PlatformAssetInterface
 // 0x0000 (0x0000 - 0x0000)
 class IPlatformAssetInterface final
@@ -6089,6 +6415,48 @@ public:
 	}
 };
 
+// Class GameModule.ProfileDisplayPlayerCardWidget
+// 0x0178 (0x04E8 - 0x0370)
+class UProfileDisplayPlayerCardWidget final : public UWidgetBase
+{
+public:
+	uint8                                         Pad_370[0xF0];                                     // 0x0370(0x00F0)(Fixing Size After Last Property [ Dumper-7 ])
+	class UNamePlate*                             _namePlate;                                        // 0x0460(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UAdjustTextWidget*                      _playerName;                                       // 0x0468(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _introduction_1;                                   // 0x0470(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _introduction_2;                                   // 0x0478(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UProfileDisplayRankWidget*              _profileRank;                                      // 0x0480(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _playerRankImage;                                  // 0x0488(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCanvasPanel*                           _rankProgressCanvasPanel;                          // 0x0490(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UHorizontalBox*                         _rankLevelProgressNum;                             // 0x0498(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UProgressBar*                           _rankProgressImage;                                // 0x04A0(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetText*                            _nowRankText;                                      // 0x04A8(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetText*                            _maxRankText;                                      // 0x04B0(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _playerLevel;                                      // 0x04B8(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCanvasPanel*                           _levelProgressCanvasPanel;                         // 0x04C0(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UHorizontalBox*                         _levelProgressNum;                                 // 0x04C8(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UProgressBar*                           _levelProgressImage;                               // 0x04D0(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetText*                            _nowLevelText;                                     // 0x04D8(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetText*                            _maxLevelText;                                     // 0x04E0(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+
+public:
+	void BP_Setup(const struct FPlayerDisplayData& Data);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ProfileDisplayPlayerCardWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ProfileDisplayPlayerCardWidget")
+	}
+	static class UProfileDisplayPlayerCardWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UProfileDisplayPlayerCardWidget>();
+	}
+};
+
 // Class GameModule.PlatformAssetLibrary
 // 0x0000 (0x0028 - 0x0028)
 class UPlatformAssetLibrary final : public UBlueprintFunctionLibrary
@@ -6116,32 +6484,6 @@ public:
 	static class UPlatformAssetLibrary* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UPlatformAssetLibrary>();
-	}
-};
-
-// Class GameModule.TutorialTipsImageWidget
-// 0x0010 (0x0428 - 0x0418)
-class UTutorialTipsImageWidget final : public UAppWidget
-{
-public:
-	class UTutorialTipsWidget*                    _tutorialTipsWidget;                               // 0x0418(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UWidgetSwitcher*                        _imageSwitcher;                                    // 0x0420(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-public:
-	void OnReceivedChangedImageIndexEvent(int32 Index_0);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("TutorialTipsImageWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"TutorialTipsImageWidget")
-	}
-	static class UTutorialTipsImageWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UTutorialTipsImageWidget>();
 	}
 };
 
@@ -6177,6 +6519,28 @@ public:
 	}
 };
 
+// Class GameModule.TutorialTipsPlatformImageWidget
+// 0x0010 (0x0428 - 0x0418)
+class UTutorialTipsPlatformImageWidget final : public UAppWidget
+{
+public:
+	TArray<EPlatform>                             _showPlatforms;                                    // 0x0418(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, Protected, NativeAccessSpecifierProtected)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("TutorialTipsPlatformImageWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"TutorialTipsPlatformImageWidget")
+	}
+	static class UTutorialTipsPlatformImageWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UTutorialTipsPlatformImageWidget>();
+	}
+};
+
 // Class GameModule.PlatformIcon
 // 0x0028 (0x0398 - 0x0370)
 class UPlatformIcon : public UWidgetBase
@@ -6201,37 +6565,6 @@ public:
 	static class UPlatformIcon* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UPlatformIcon>();
-	}
-};
-
-// Class GameModule.YesNoWidget
-// 0x0030 (0x03A0 - 0x0370)
-class UYesNoWidget final : public UWidgetBase
-{
-public:
-	TMulticastInlineDelegate<void(class UAppWidget* Widget, EWidgetInputType inputType)> _yesDelegate; // 0x0370(0x0010)(BlueprintVisible, ZeroConstructor, InstancedReference, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(class UAppWidget* Widget, EWidgetInputType inputType)> _noDelegate; // 0x0380(0x0010)(BlueprintVisible, ZeroConstructor, InstancedReference, NativeAccessSpecifierPublic)
-	class UWidgetButton*                          _yesButton;                                        // 0x0390(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetButton*                          _noButton;                                         // 0x0398(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-
-public:
-	void AddYesButton();
-	void NoEvent(class UAppWidget* Widget, EWidgetInputType inputType);
-	void RemoveYesButton();
-	void YesEvent(class UAppWidget* Widget, EWidgetInputType inputType);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("YesNoWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"YesNoWidget")
-	}
-	static class UYesNoWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UYesNoWidget>();
 	}
 };
 
@@ -6290,6 +6623,41 @@ public:
 	}
 };
 
+// Class GameModule.ProfileDisplayRoleSlotWidget
+// 0x0040 (0x03B0 - 0x0370)
+class UProfileDisplayRoleSlotWidget final : public UWidgetBase
+{
+public:
+	class UGameSequenceWork*                      _gameSequenceWork;                                 // 0x0370(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UPlayerDatabaseWork*                    _playerDatabaseWork;                               // 0x0378(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UBackendSubsystem*                      _backendSubsystem;                                 // 0x0380(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class URetainerBox*                           _costumeImageMain;                                 // 0x0388(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _rarityImage;                                      // 0x0390(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _costumeImage;                                     // 0x0398(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UAdjustTextWidget*                      _costumeText;                                      // 0x03A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          bMySelfFlag;                                       // 0x03A8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_3A9[0x7];                                      // 0x03A9(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void GenerateData(const class UProfileDisplayData* _data, bool mySelf);
+	void OnLoadedCostumeImage(class UPaperSprite* Sprite);
+	void OnLoadedRarityImage(class UTexture2D* Sprite);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ProfileDisplayRoleSlotWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ProfileDisplayRoleSlotWidget")
+	}
+	static class UProfileDisplayRoleSlotWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UProfileDisplayRoleSlotWidget>();
+	}
+};
+
 // Class GameModule.PlatformRichTextImageDecorator
 // 0x0000 (0x02A0 - 0x02A0)
 class UPlatformRichTextImageDecorator final : public URichTextImageDecoratorForPlatform
@@ -6306,41 +6674,6 @@ public:
 	static class UPlatformRichTextImageDecorator* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UPlatformRichTextImageDecorator>();
-	}
-};
-
-// Class GameModule.WaitNetworkMessage
-// 0x0050 (0x03C0 - 0x0370)
-class UWaitNetworkMessage : public UWidgetBase
-{
-public:
-	class UImage*                                 _backImage;                                        // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UCanvasPanel*                           _loadIconCanvas;                                   // 0x0378(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextBlock*                             _messageText;                                      // 0x0380(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetGeneralEmptyWindow*              _generalEmptyWindow;                               // 0x0388(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UNamedSlot*                             _imageSlot;                                        // 0x0390(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UCanvasPanel*                           _dialogMessagePanel;                               // 0x0398(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetButton*                          _emptyButton;                                      // 0x03A0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetSwitcher*                        _localizationSwitcher;                             // 0x03A8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _highlight;                                        // 0x03B0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_3B8[0x8];                                      // 0x03B8(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void OnCloseEvent();
-	void Setup(EWaitMessageType Type, bool backImage, bool backBlur, bool focusFlag, int32 stateSetting);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("WaitNetworkMessage")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"WaitNetworkMessage")
-	}
-	static class UWaitNetworkMessage* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UWaitNetworkMessage>();
 	}
 };
 
@@ -6369,17 +6702,45 @@ public:
 	}
 };
 
+// Class GameModule.ProfileDisplayManager
+// 0x0088 (0x02A8 - 0x0220)
+class AProfileDisplayManager final : public AActor
+{
+public:
+	TMulticastInlineDelegate<void()>              _onFinishSetupEventDispatcher;                     // 0x0220(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TSoftObjectPtr<class UWorld>                  _friendRequestLevel;                               // 0x0230(0x0028)(Edit, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TSoftObjectPtr<class UWorld>                  _guildRequesetLevel;                               // 0x0258(0x0028)(Edit, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TSoftObjectPtr<class UWorld>                  _violationReportLevel;                             // 0x0280(0x0028)(Edit, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+
+public:
+	class ULevelStreamingDynamic* BP_RequesetLoad(TSoftObjectPtr<class UWorld> _level);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ProfileDisplayManager")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ProfileDisplayManager")
+	}
+	static class AProfileDisplayManager* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<AProfileDisplayManager>();
+	}
+};
+
 // Class GameModule.PlayerControllerGame
-// 0x00B0 (0x0628 - 0x0578)
+// 0x00B0 (0x0638 - 0x0588)
 class APlayerControllerGame : public ABumPlayerController
 {
 public:
-	uint8                                         Pad_578[0x30];                                     // 0x0578(0x0030)(Fixing Size After Last Property [ Dumper-7 ])
-	class UWidgetAnalogInputComponent*            _widgetAnalogInputComponent;                       // 0x05A8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UGameSequenceWork*                      _gameSequenceWork;                                 // 0x05B0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class FString                                 _netId;                                            // 0x05B8(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UInputComponent*                        _developInputComponent;                            // 0x05C8(0x0008)(ExportObject, ZeroConstructor, Transient, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_5D0[0x58];                                     // 0x05D0(0x0058)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_588[0x30];                                     // 0x0588(0x0030)(Fixing Size After Last Property [ Dumper-7 ])
+	class UWidgetAnalogInputComponent*            _widgetAnalogInputComponent;                       // 0x05B8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UGameSequenceWork*                      _gameSequenceWork;                                 // 0x05C0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class FString                                 _netId;                                            // 0x05C8(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UInputComponent*                        _developInputComponent;                            // 0x05D8(0x0008)(ExportObject, ZeroConstructor, Transient, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_5E0[0x58];                                     // 0x05E0(0x0058)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	void BP_FlipDevMenuInternal();
@@ -6407,34 +6768,8 @@ public:
 	}
 };
 
-// Class GameModule.TutorialMessageWidget
-// 0x0008 (0x0420 - 0x0418)
-class UTutorialMessageWidget final : public UAppWidget
-{
-public:
-	class URichTextBlock*                         _messageRichText;                                  // 0x0418(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-public:
-	void ChangeSizeTutorialMessageWindow(bool condition);
-	void SetTutorialMessageWidget(const class FText& message);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("TutorialMessageWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"TutorialMessageWidget")
-	}
-	static class UTutorialMessageWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UTutorialMessageWidget>();
-	}
-};
-
 // Class GameModule.PlayerDatabaseWork
-// 0x0DB8 (0x0DE8 - 0x0030)
+// 0x0DC0 (0x0DF0 - 0x0030)
 class UPlayerDatabaseWork final : public UGameInstanceSubsystem
 {
 public:
@@ -6464,19 +6799,20 @@ public:
 	TMulticastInlineDelegate<void()>              OnChangedMainMenuAdvertiseDelegate;                // 0x02E8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
 	uint8                                         Pad_2F8[0x290];                                    // 0x02F8(0x0290)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FTimerHandle                           _rentalRecoveryHandle;                             // 0x0588(0x0008)(NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	TMulticastInlineDelegate<void()>              OnChangedFriendParamStatusDelegate;                // 0x0590(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(const class FString& ID, EFriendStatus Status)> OnChangedFriendStatusDelegate; // 0x05A0(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5B0[0x400];                                    // 0x05B0(0x0400)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FFriendInfo>                    _searchFriendInfo;                                 // 0x09B0(0x0010)(ZeroConstructor, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_9C0[0x8];                                      // 0x09C0(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	class UPrimaryAssetItemIcon*                  _primaryAssetItemIcon;                             // 0x09C8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	TSoftObjectPtr<class UPrimaryAssetItemIcon>   _primaryAssetItemIconPtr;                          // 0x09D0(0x0028)(UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_9F8[0x38];                                     // 0x09F8(0x0038)(Fixing Size After Last Property [ Dumper-7 ])
-	TMulticastInlineDelegate<void(int32 Index, int32 code, int32 cost)> _onUseCurrencySelectDelegate; // 0x0A30(0x0010)(ZeroConstructor, InstancedReference, BlueprintCallable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              _onUseCurrencyCancelDelegate;                      // 0x0A40(0x0010)(ZeroConstructor, InstancedReference, BlueprintCallable, NativeAccessSpecifierPublic)
-	uint8                                         Pad_A50[0x358];                                    // 0x0A50(0x0358)(Fixing Size After Last Property [ Dumper-7 ])
-	TMulticastInlineDelegate<void()>              OnChangedWheelCommandDelegate;                     // 0x0DA8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	uint8                                         Pad_DB8[0x30];                                     // 0x0DB8(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	struct FTimerHandle                           _changedMyADDisplayHandle;                         // 0x0590(0x0008)(NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TMulticastInlineDelegate<void()>              OnChangedFriendParamStatusDelegate;                // 0x0598(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(const class FString& ID, EFriendStatus Status)> OnChangedFriendStatusDelegate; // 0x05A8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5B8[0x400];                                    // 0x05B8(0x0400)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FFriendInfo>                    _searchFriendInfo;                                 // 0x09B8(0x0010)(ZeroConstructor, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_9C8[0x8];                                      // 0x09C8(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	class UPrimaryAssetItemIcon*                  _primaryAssetItemIcon;                             // 0x09D0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	TSoftObjectPtr<class UPrimaryAssetItemIcon>   _primaryAssetItemIconPtr;                          // 0x09D8(0x0028)(UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_A00[0x38];                                     // 0x0A00(0x0038)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void(int32 Index, int32 code, int32 cost)> _onUseCurrencySelectDelegate; // 0x0A38(0x0010)(ZeroConstructor, InstancedReference, BlueprintCallable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              _onUseCurrencyCancelDelegate;                      // 0x0A48(0x0010)(ZeroConstructor, InstancedReference, BlueprintCallable, NativeAccessSpecifierPublic)
+	uint8                                         Pad_A58[0x358];                                    // 0x0A58(0x0358)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void()>              OnChangedWheelCommandDelegate;                     // 0x0DB0(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	uint8                                         Pad_DC0[0x30];                                     // 0x0DC0(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	static struct FLinearColor BP_GetColorPaletteColor(EAvatarColorParts parts, int32 Index_0);
@@ -6601,6 +6937,38 @@ public:
 	}
 };
 
+// Class GameModule.TranslationWidget
+// 0x0140 (0x04B0 - 0x0370)
+class UTranslationWidget final : public UWidgetBase
+{
+public:
+	TMap<EMdLocalization, class FText>            _translationList;                                  // 0x0370(0x0050)(Edit, Protected, NativeAccessSpecifierProtected)
+	class FText                                   _localizeText;                                     // 0x03C0(0x0018)(Edit, Protected, NativeAccessSpecifierProtected)
+	float                                         _spaceSize;                                        // 0x03D8(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_3DC[0x4];                                      // 0x03DC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FSlateFontInfo                         _mainTextFont;                                     // 0x03E0(0x0058)(Edit, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	struct FSlateFontInfo                         _subTextFont;                                      // 0x0438(0x0058)(Edit, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          _bLayoutKeep;                                      // 0x0490(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_491[0x7];                                      // 0x0491(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAdjustTextWidget*                      _mainTextWidget;                                   // 0x0498(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UAdjustTextWidget*                      _subTextWidget;                                    // 0x04A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class USpacer*                                _spacer;                                           // 0x04A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("TranslationWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"TranslationWidget")
+	}
+	static class UTranslationWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UTranslationWidget>();
+	}
+};
+
 // Class GameModule.PlayerName
 // 0x01A8 (0x0720 - 0x0578)
 class UPlayerName : public UPlayerNameWidgetBase
@@ -6647,34 +7015,6 @@ public:
 	}
 };
 
-// Class GameModule.ResultDatabaseWork
-// 0x0060 (0x0090 - 0x0030)
-class UResultDatabaseWork final : public UGameInstanceSubsystem
-{
-public:
-	uint8                                         Pad_30[0x60];                                      // 0x0030(0x0060)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void OnLoadedBattleReward(int32 requestId);
-	void OnLoadedEventRankReward(int32 requestId);
-	void OnLoadedRankMatchReward(int32 requestId);
-	void OnLoadedSpecialLicenseReward(int32 requestId);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ResultDatabaseWork")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ResultDatabaseWork")
-	}
-	static class UResultDatabaseWork* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UResultDatabaseWork>();
-	}
-};
-
 // Class GameModule.PlayerNameText
 // 0x0110 (0x0740 - 0x0630)
 class UPlayerNameText final : public UPlayerNameTextBase
@@ -6708,6 +7048,28 @@ public:
 	static class UPlayerNameText* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UPlayerNameText>();
+	}
+};
+
+// Class GameModule.WheelItemIconsDrawer
+// 0x00A0 (0x0268 - 0x01C8)
+class UWheelItemIconsDrawer final : public UWidgetDrawPrimitive
+{
+public:
+	uint8                                         Pad_1C8[0xA0];                                     // 0x01C8(0x00A0)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("WheelItemIconsDrawer")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"WheelItemIconsDrawer")
+	}
+	static class UWheelItemIconsDrawer* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UWheelItemIconsDrawer>();
 	}
 };
 
@@ -6783,6 +7145,64 @@ public:
 	}
 };
 
+// Class GameModule.TutorialTipsWidget
+// 0x0128 (0x0540 - 0x0418)
+class UTutorialTipsWidget final : public UAppWidget
+{
+public:
+	class UTileView*                              _buttonTileView;                                   // 0x0418(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UWidgetSwitcher*                        _buttonSwitcher;                                   // 0x0420(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UWidgetButton*                          _closeButton;                                      // 0x0428(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UWidgetButton*                          _nextButton;                                       // 0x0430(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UWidgetButton*                          _leftButton;                                       // 0x0438(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UWidgetButton*                          _rightButton;                                      // 0x0440(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UTextBlock*                             _titleMessageWidget;                               // 0x0448(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UTutorialMessageWidget*                 _messageWidget;                                    // 0x0450(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UWidgetGeneralEmptyWindow*              _emptyWindow;                                      // 0x0458(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UNamedSlot*                             _imageSlot;                                        // 0x0460(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FText                                   _titleMessage;                                     // 0x0468(0x0018)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
+	bool                                          _bDisplayTitleMessageWidget;                       // 0x0480(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_481[0x7];                                      // 0x0481(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class FText                                   _message;                                          // 0x0488(0x0018)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
+	bool                                          _bDisplayMessageWidget;                            // 0x04A0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _bRequesetVoice;                                   // 0x04A1(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _bUseTutorialMessage;                              // 0x04A2(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4A3[0x5];                                      // 0x04A3(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<class FText>                           _tutorialMessage;                                  // 0x04A8(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<class FText>                           _subTitleList;                                     // 0x04B8(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPublic)
+	class UAdjustTextWidget*                      _subTitle;                                         // 0x04C8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(int32 Index)>   OnChangedImageIndexDelegate;                       // 0x04D0(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, BlueprintCallable, NativeAccessSpecifierPublic)
+	TMap<ETutorialPopupScene, class UWidget*>     _imageStartInfo;                                   // 0x04E0(0x0050)(Edit, BlueprintVisible, ExportObject, ContainsInstancedReference, Protected, NativeAccessSpecifierProtected)
+	uint8                                         Pad_530[0x10];                                     // 0x0530(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void BP_OnReceivedCloseButtonDecidedEvent(class UAppWidget* Widget, EWidgetInputType inputType);
+	void HideRightLeftButton();
+	void NextButtonTileView(const bool NotMaxNext);
+	void OnChangeBattleSequence(EBattleStartSequenceType Sequence);
+	void OnChangeLevel(class ULevel* level_p, class UWorld* world_p);
+	void OnReceivedCloseButtonDecidedEvent(class UAppWidget* Widget, EWidgetInputType inputType);
+	void OnReceivedClosedEmptyWindowEvent();
+	void OnReceivedOpenedEmptyWindowEvent();
+	void OnReceivedOpenedEmptyWindowEventAutoPlay();
+	void PrevButtonTileView(const bool NotMinPrev);
+	TArray<class FString> SplitStringByCarriageReturn(const class FString& message);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("TutorialTipsWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"TutorialTipsWidget")
+	}
+	static class UTutorialTipsWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UTutorialTipsWidget>();
+	}
+};
+
 // Class GameModule.PrimaryAssetAccessory
 // 0x0078 (0x00D8 - 0x0060)
 class UPrimaryAssetAccessory final : public UPrimaryAssetBase
@@ -6807,31 +7227,6 @@ public:
 	static class UPrimaryAssetAccessory* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UPrimaryAssetAccessory>();
-	}
-};
-
-// Class GameModule.RoleSlotCostumeAuraWidget
-// 0x0010 (0x0380 - 0x0370)
-class URoleSlotCostumeAuraWidget final : public UWidgetBase
-{
-public:
-	bool                                          _bUnLockedAura;                                    // 0x0370(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	ECurrencyType                                 _type;                                             // 0x0371(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_372[0x6];                                      // 0x0372(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
-	class URichTextBlock*                         _imageText;                                        // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("RoleSlotCostumeAuraWidget")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"RoleSlotCostumeAuraWidget")
-	}
-	static class URoleSlotCostumeAuraWidget* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<URoleSlotCostumeAuraWidget>();
 	}
 };
 
@@ -6870,6 +7265,28 @@ public:
 	}
 };
 
+// Class GameModule.TrackingNumberWidget
+// 0x0008 (0x0378 - 0x0370)
+class UTrackingNumberWidget : public UWidgetBase
+{
+public:
+	class UTextBlock*                             _trackingNumberText;                               // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("TrackingNumberWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"TrackingNumberWidget")
+	}
+	static class UTrackingNumberWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UTrackingNumberWidget>();
+	}
+};
+
 // Class GameModule.PrimaryAssetBgTree
 // 0x00A8 (0x0108 - 0x0060)
 class UPrimaryAssetBgTree final : public UPrimaryAssetBase
@@ -6897,50 +7314,6 @@ public:
 	}
 };
 
-// Class GameModule.ProjectileGeneratorGame
-// 0x0130 (0x0350 - 0x0220)
-#pragma pack(push, 0x1)
-class alignas(0x10) AProjectileGeneratorGame : public AActor
-{
-public:
-	struct FGeneratorGameRep                      _gameRep;                                          // 0x0220(0x0050)(BlueprintVisible, BlueprintReadOnly, Net, NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
-	uint8                                         Pad_270[0xA0];                                     // 0x0270(0x00A0)(Fixing Size After Last Property [ Dumper-7 ])
-	class AActor*                                 _lockonActor;                                      // 0x0310(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_318[0x30];                                     // 0x0318(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void OnSpawnInitParams();
-
-	const struct FGeneratorIndexData BP_GetBaseDB() const;
-	const struct FGeneratorIndexLevelData BP_GetLevelDB() const;
-	ECharacterId GetCharacterID() const;
-	const struct FVector GetInitDirection() const;
-	const struct FVector GetInitLocation() const;
-	const struct FQuat GetInitQuat() const;
-	const struct FVector GetInitScale() const;
-	const struct FVector GetInitTarget() const;
-	const struct FTransform GetInitTransform() const;
-	bool GetIsProjectileCreatorMode() const;
-	int32 GetLevel() const;
-	class AActor* GetLockonActor() const;
-	class FName GetSocketName() const;
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ProjectileGeneratorGame")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ProjectileGeneratorGame")
-	}
-	static class AProjectileGeneratorGame* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<AProjectileGeneratorGame>();
-	}
-};
-#pragma pack(pop)
-
 // Class GameModule.PrimaryAssetBriefing
 // 0x0068 (0x00C8 - 0x0060)
 class UPrimaryAssetBriefing final : public UPrimaryAssetBase
@@ -6963,6 +7336,41 @@ public:
 	static class UPrimaryAssetBriefing* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UPrimaryAssetBriefing>();
+	}
+};
+
+// Class GameModule.WaitNetworkMessage
+// 0x0050 (0x03C0 - 0x0370)
+class UWaitNetworkMessage : public UWidgetBase
+{
+public:
+	class UImage*                                 _backImage;                                        // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCanvasPanel*                           _loadIconCanvas;                                   // 0x0378(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _messageText;                                      // 0x0380(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetGeneralEmptyWindow*              _generalEmptyWindow;                               // 0x0388(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UNamedSlot*                             _imageSlot;                                        // 0x0390(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCanvasPanel*                           _dialogMessagePanel;                               // 0x0398(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetButton*                          _emptyButton;                                      // 0x03A0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetSwitcher*                        _localizationSwitcher;                             // 0x03A8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _highlight;                                        // 0x03B0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_3B8[0x8];                                      // 0x03B8(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void OnCloseEvent();
+	void Setup(EWaitMessageType Type, bool backImage, bool backBlur, bool focusFlag, int32 stateSetting);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("WaitNetworkMessage")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"WaitNetworkMessage")
+	}
+	static class UWaitNetworkMessage* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UWaitNetworkMessage>();
 	}
 };
 
@@ -7083,6 +7491,39 @@ public:
 	}
 };
 
+// Class GameModule.WidgetNetWorkNotation
+// 0x00C0 (0x04D8 - 0x0418)
+class UWidgetNetWorkNotation : public UAppWidget
+{
+public:
+	class UTextBlock*                             _text;                                             // 0x0418(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_420[0xB0];                                     // 0x0420(0x00B0)(Fixing Size After Last Property [ Dumper-7 ])
+	class UDbpSetting*                            _setting;                                          // 0x04D0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+
+public:
+	void OnChangedCurrentPlayMode();
+	void OnGetPingTimerEvent();
+	void OnMatchingRegionEvent(const int32& regionCode);
+	void OnReadyForPlayEvent();
+	void OnTeamUpUpdatedEvent();
+	void OnVoiceChatChangeStatus(EVoiceChatSystemStatus Status);
+	void OnWaitForLoginEvent();
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("WidgetNetWorkNotation")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"WidgetNetWorkNotation")
+	}
+	static class UWidgetNetWorkNotation* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UWidgetNetWorkNotation>();
+	}
+};
+
 // Class GameModule.PrimaryAssetCostume
 // 0x00E0 (0x0140 - 0x0060)
 class UPrimaryAssetCostume final : public UPrimaryAssetBase
@@ -7130,6 +7571,36 @@ public:
 	static class UPrimaryAssetDamageAttenuation* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UPrimaryAssetDamageAttenuation>();
+	}
+};
+
+// Class GameModule.UMGTemporaryNotification
+// 0x0040 (0x03B0 - 0x0370)
+class UUMGTemporaryNotification : public UWidgetBase
+{
+public:
+	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	float                                         _lifeTime;                                         // 0x0378(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_37C[0x4];                                      // 0x037C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class UWidgetAnimation*                       Ani_Notification;                                  // 0x0380(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_388[0x28];                                     // 0x0388(0x0028)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void Activate();
+	void Deactivate();
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("UMGTemporaryNotification")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"UMGTemporaryNotification")
+	}
+	static class UUMGTemporaryNotification* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UUMGTemporaryNotification>();
 	}
 };
 
@@ -7208,11 +7679,12 @@ public:
 };
 
 // Class GameModule.PrimaryAssetGameOption
-// 0x0008 (0x0068 - 0x0060)
+// 0x0010 (0x0070 - 0x0060)
 class UPrimaryAssetGameOption final : public UPrimaryAssetBase
 {
 public:
 	TSubclassOf<class USaveGameOption>            _optionDefault;                                    // 0x0060(0x0008)(Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TSubclassOf<class USaveGameOption>            _sgOptionDefault;                                  // 0x0068(0x0008)(Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
 public:
 	static class UClass* StaticClass()
@@ -7372,6 +7844,37 @@ public:
 	}
 };
 
+// Class GameModule.YesNoWidget
+// 0x0030 (0x03A0 - 0x0370)
+class UYesNoWidget final : public UWidgetBase
+{
+public:
+	TMulticastInlineDelegate<void(class UAppWidget* Widget, EWidgetInputType inputType)> _yesDelegate; // 0x0370(0x0010)(BlueprintVisible, ZeroConstructor, InstancedReference, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(class UAppWidget* Widget, EWidgetInputType inputType)> _noDelegate; // 0x0380(0x0010)(BlueprintVisible, ZeroConstructor, InstancedReference, NativeAccessSpecifierPublic)
+	class UWidgetButton*                          _yesButton;                                        // 0x0390(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetButton*                          _noButton;                                         // 0x0398(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+
+public:
+	void AddYesButton();
+	void NoEvent(class UAppWidget* Widget, EWidgetInputType inputType);
+	void RemoveYesButton();
+	void YesEvent(class UAppWidget* Widget, EWidgetInputType inputType);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("YesNoWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"YesNoWidget")
+	}
+	static class UYesNoWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UYesNoWidget>();
+	}
+};
+
 // Class GameModule.PrimaryAssetLicense
 // 0x0140 (0x01A0 - 0x0060)
 class UPrimaryAssetLicense final : public UPrimaryAssetBase
@@ -7403,35 +7906,6 @@ public:
 	}
 };
 
-// Class GameModule.PrimaryAssetLoginBonusLogo
-// 0x0190 (0x01F0 - 0x0060)
-class UPrimaryAssetLoginBonusLogo final : public UPrimaryAssetBase
-{
-public:
-	TMap<class FString, TSoftObjectPtr<class UPaperSprite>> _logo;                                   // 0x0060(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
-	TMap<class FString, TSoftObjectPtr<class UPaperSprite>> _bg;                                     // 0x00B0(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
-	TMap<class FString, TSoftObjectPtr<class UPaperSprite>> _banner;                                 // 0x0100(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
-	TMap<class FString, TSoftObjectPtr<class UPaperSprite>> _bannerLogo;                             // 0x0150(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
-	TMap<class FString, struct FTransform>        _logoOffset;                                       // 0x01A0(0x0050)(Edit, DisableEditOnInstance, NativeAccessSpecifierPrivate)
-
-public:
-	class UPaperSprite* BP_GetPaperSpriteLogo(const class FString& Key) const;
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("PrimaryAssetLoginBonusLogo")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"PrimaryAssetLoginBonusLogo")
-	}
-	static class UPrimaryAssetLoginBonusLogo* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UPrimaryAssetLoginBonusLogo>();
-	}
-};
-
 // Class GameModule.PrimaryAssetMyRoom
 // 0x0058 (0x00B8 - 0x0060)
 class UPrimaryAssetMyRoom final : public UPrimaryAssetBase
@@ -7456,28 +7930,6 @@ public:
 	}
 };
 
-// Class GameModule.PrimaryAssetMyRoomImage
-// 0x0050 (0x00B0 - 0x0060)
-class UPrimaryAssetMyRoomImage final : public UPrimaryAssetBase
-{
-public:
-	TMap<int32, TSoftObjectPtr<class UTexture2D>> _myRoomBgThumb;                                    // 0x0060(0x0050)(Edit, DisableEditOnInstance, EditConst, Protected, UObjectWrapper, NativeAccessSpecifierProtected)
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("PrimaryAssetMyRoomImage")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"PrimaryAssetMyRoomImage")
-	}
-	static class UPrimaryAssetMyRoomImage* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UPrimaryAssetMyRoomImage>();
-	}
-};
-
 // Class GameModule.PrimaryAssetNetworkWaitIcon
 // 0x00A0 (0x0100 - 0x0060)
 class UPrimaryAssetNetworkWaitIcon final : public UPrimaryAssetBase
@@ -7498,31 +7950,6 @@ public:
 	static class UPrimaryAssetNetworkWaitIcon* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UPrimaryAssetNetworkWaitIcon>();
-	}
-};
-
-// Class GameModule.PrimaryAssetNoticeImage
-// 0x0140 (0x01A0 - 0x0060)
-class UPrimaryAssetNoticeImage final : public UPrimaryAssetBase
-{
-public:
-	TMap<int32, TSoftObjectPtr<class UPaperSprite>> _noticeImage;                                    // 0x0060(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
-	TMap<int32, TSoftObjectPtr<class UMaterialInterface>> _noticeMaterial;                           // 0x00B0(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
-	TMap<class FString, TSoftObjectPtr<class UPaperSprite>> _gashaLogo;                              // 0x0100(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
-	TMap<class FString, TSoftObjectPtr<class UPaperSprite>> _campaignLogo;                           // 0x0150(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("PrimaryAssetNoticeImage")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"PrimaryAssetNoticeImage")
-	}
-	static class UPrimaryAssetNoticeImage* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UPrimaryAssetNoticeImage>();
 	}
 };
 
@@ -7553,54 +7980,95 @@ public:
 	}
 };
 
-// Class GameModule.PrimaryAssetPopup
-// 0x00A0 (0x0100 - 0x0060)
-class UPrimaryAssetPopup final : public UPrimaryAssetBase
+// Class GameModule.PrimaryAssetSgDownloadDataAsset
+// 0x0020 (0x0080 - 0x0060)
+class UPrimaryAssetSgDownloadDataAsset final : public UPrimaryAssetBase
 {
 public:
-	TMap<class FString, TSoftObjectPtr<class UPaperSprite>> _popupTitleImageList;                    // 0x0060(0x0050)(Edit, DisableEditOnInstance, EditConst, Protected, UObjectWrapper, NativeAccessSpecifierProtected)
-	TMap<int32, TSoftObjectPtr<class UPaperSprite>> _popupMessageImageList;                          // 0x00B0(0x0050)(Edit, DisableEditOnInstance, EditConst, Protected, UObjectWrapper, NativeAccessSpecifierProtected)
+	class FString                                 targetFolderPath;                                  // 0x0060(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<TSoftObjectPtr<class UObject>>         AssetPathArray;                                    // 0x0070(0x0010)(Edit, ZeroConstructor, UObjectWrapper, NativeAccessSpecifierPublic)
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("PrimaryAssetPopup")
+		STATIC_CLASS_IMPL("PrimaryAssetSgDownloadDataAsset")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"PrimaryAssetPopup")
+		STATIC_NAME_IMPL(L"PrimaryAssetSgDownloadDataAsset")
 	}
-	static class UPrimaryAssetPopup* GetDefaultObj()
+	static class UPrimaryAssetSgDownloadDataAsset* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UPrimaryAssetPopup>();
+		return GetDefaultObjImpl<UPrimaryAssetSgDownloadDataAsset>();
 	}
 };
 
-// Class GameModule.PrimaryAssetStaffrollAnimation
-// 0x00B0 (0x0110 - 0x0060)
-class UPrimaryAssetStaffrollAnimation final : public UPrimaryAssetBase
+// Class GameModule.PrimaryAssetSgDownloadOther
+// 0x0020 (0x0080 - 0x0060)
+class UPrimaryAssetSgDownloadOther final : public UPrimaryAssetBase
 {
 public:
-	TMap<class FString, TSoftObjectPtr<class UTexture>> _movieTexture;                               // 0x0060(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
-	TMap<class FString, TSoftObjectPtr<class UMaterial>> _movieMaterial;                             // 0x00B0(0x0050)(Edit, DisableEditOnInstance, EditConst, UObjectWrapper, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_100[0x10];                                     // 0x0100(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	class UMaterial* BP_GetMovieMaterial(int32 Index_0) const;
-	class UTexture* BP_GetMovieTexture(int32 Index_0) const;
+	class FString                                 targetFolderPath;                                  // 0x0060(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TArray<TSoftObjectPtr<class UObject>>         AssetPathArray;                                    // 0x0070(0x0010)(Edit, ZeroConstructor, UObjectWrapper, NativeAccessSpecifierPublic)
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("PrimaryAssetStaffrollAnimation")
+		STATIC_CLASS_IMPL("PrimaryAssetSgDownloadOther")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"PrimaryAssetStaffrollAnimation")
+		STATIC_NAME_IMPL(L"PrimaryAssetSgDownloadOther")
 	}
-	static class UPrimaryAssetStaffrollAnimation* GetDefaultObj()
+	static class UPrimaryAssetSgDownloadOther* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UPrimaryAssetStaffrollAnimation>();
+		return GetDefaultObjImpl<UPrimaryAssetSgDownloadOther>();
+	}
+};
+
+// Class GameModule.PrimaryAssetSgDuplicate
+// 0x0030 (0x0090 - 0x0060)
+class UPrimaryAssetSgDuplicate final : public UPrimaryAssetBase
+{
+public:
+	TArray<class FString>                         ContainFolderNames;                                // 0x0060(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPublic)
+	TArray<TSoftObjectPtr<class UObject>>         AssetArray;                                        // 0x0070(0x0010)(Edit, ZeroConstructor, UObjectWrapper, NativeAccessSpecifierPublic)
+	TArray<struct FSoftObjectPath>                AssetPathArray;                                    // 0x0080(0x0010)(ZeroConstructor, NativeAccessSpecifierPrivate)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("PrimaryAssetSgDuplicate")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"PrimaryAssetSgDuplicate")
+	}
+	static class UPrimaryAssetSgDuplicate* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UPrimaryAssetSgDuplicate>();
+	}
+};
+
+// Class GameModule.PrimaryAssetSgInApp
+// 0x0010 (0x0070 - 0x0060)
+class UPrimaryAssetSgInApp final : public UPrimaryAssetBase
+{
+public:
+	TArray<TSoftObjectPtr<class UObject>>         AssetArray;                                        // 0x0060(0x0010)(Edit, ZeroConstructor, UObjectWrapper, NativeAccessSpecifierPublic)
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("PrimaryAssetSgInApp")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"PrimaryAssetSgInApp")
+	}
+	static class UPrimaryAssetSgInApp* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UPrimaryAssetSgInApp>();
 	}
 };
 
@@ -7705,7 +8173,7 @@ public:
 
 // Class GameModule.ProfileDisplayEmblemWidget
 // 0x0020 (0x0390 - 0x0370)
-class UProfileDisplayEmblemWidget final : public UWidgetBase
+class UProfileDisplayEmblemWidget : public UWidgetBase
 {
 public:
 	bool                                          _bSmall;                                           // 0x0370(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -8016,671 +8484,710 @@ public:
 	}
 };
 
-// Class GameModule.ReturnButtonWidget
-// 0x0028 (0x0538 - 0x0510)
-class UReturnButtonWidget final : public UWidgetButton
+// Class GameModule.ResultDatabaseWork
+// 0x0060 (0x0090 - 0x0030)
+class UResultDatabaseWork final : public UGameInstanceSubsystem
 {
 public:
-	bool                                          _bColumnType;                                      // 0x0510(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	bool                                          _bCloseText;                                       // 0x0511(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	bool                                          _bUsePressAtomCue;                                 // 0x0512(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_513[0x5];                                      // 0x0513(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
-	class USoundAtomCue*                          _pressAtomCue;                                     // 0x0518(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UCanvasPanel*                           _linePanel;                                        // 0x0520(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UCanvasPanel*                           _columnPanel;                                      // 0x0528(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UWidgetSwitcher*                        _columnSwitcher;                                   // 0x0530(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_30[0x60];                                      // 0x0030(0x0060)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
-	void OnPressButton(class UAppWidget* Widget, EWidgetInputType inputType);
+	void OnLoadedBattleReward(int32 requestId);
+	void OnLoadedEventRankReward(int32 requestId);
+	void OnLoadedRankMatchReward(int32 requestId);
+	void OnLoadedSpecialLicenseReward(int32 requestId);
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("ReturnButtonWidget")
+		STATIC_CLASS_IMPL("ResultDatabaseWork")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"ReturnButtonWidget")
+		STATIC_NAME_IMPL(L"ResultDatabaseWork")
 	}
-	static class UReturnButtonWidget* GetDefaultObj()
+	static class UResultDatabaseWork* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UReturnButtonWidget>();
+		return GetDefaultObjImpl<UResultDatabaseWork>();
 	}
 };
 
-// Class GameModule.RoleSkillItemBase
-// 0x0018 (0x0388 - 0x0370)
-class URoleSkillItemBase : public UWidgetBase
+// Class GameModule.RibbonAdjustComponent
+// 0x0000 (0x00B0 - 0x00B0)
+class URibbonAdjustComponent final : public UActorComponent
 {
 public:
-	class UImage*                                 _roleSlotBG;                                       // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _roleSlotSkill;                                    // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_380[0x8];                                      // 0x0380(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("RibbonAdjustComponent")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"RibbonAdjustComponent")
+	}
+	static class URibbonAdjustComponent* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<URibbonAdjustComponent>();
+	}
+};
+
+// Class GameModule.RoleSlotCostumeAuraWidget
+// 0x0010 (0x0380 - 0x0370)
+class URoleSlotCostumeAuraWidget final : public UWidgetBase
+{
+public:
+	bool                                          _bUnLockedAura;                                    // 0x0370(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	ECurrencyType                                 _type;                                             // 0x0371(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_372[0x6];                                      // 0x0372(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
+	class URichTextBlock*                         _imageText;                                        // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("RoleSkillItemBase")
+		STATIC_CLASS_IMPL("RoleSlotCostumeAuraWidget")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"RoleSkillItemBase")
+		STATIC_NAME_IMPL(L"RoleSlotCostumeAuraWidget")
 	}
-	static class URoleSkillItemBase* GetDefaultObj()
+	static class URoleSlotCostumeAuraWidget* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<URoleSkillItemBase>();
+		return GetDefaultObjImpl<URoleSlotCostumeAuraWidget>();
 	}
 };
 
-// Class GameModule.RoleSlotCostumeWidget
-// 0x0020 (0x0390 - 0x0370)
-class URoleSlotCostumeWidget final : public UWidgetBase
+// Class GameModule.RoleSlotFaceIconWidget
+// 0x0068 (0x03D8 - 0x0370)
+class URoleSlotFaceIconWidget final : public UWidgetBase
 {
 public:
-	class UCanvasPanel*                           _imagePanel;                                       // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _costumeImage;                                     // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetSwitcher*                        _raritySwitcher;                                   // 0x0380(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URoleSlotCostumeAuraWidget*             _auraWidget;                                       // 0x0388(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-
-public:
-	void OnLoadedCostumeImage(class UPaperSprite* Sprite);
+	class UWidgetSwitcher*                        _skillslotSwitcher;                                // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _normalRoleColorImage;                             // 0x0378(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetSwitcher*                        _normalHeroVillainSwitcher;                        // 0x0380(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _normalHeroMark;                                   // 0x0388(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _normalVillainMark;                                // 0x0390(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _uniqueRoleColorImage;                             // 0x0398(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetSwitcher*                        _uniqueHeroVillainSwitcher;                        // 0x03A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _uniqueHeroMark_1;                                 // 0x03A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _uniqueHeroText_2;                                 // 0x03B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _uniqueVillainMark_1;                              // 0x03B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _uniqueVillainText_2;                              // 0x03C0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _faceBase;                                         // 0x03C8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class URoleSlotMainTipsIconWidget*            _faceIcon;                                         // 0x03D0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("RoleSlotCostumeWidget")
+		STATIC_CLASS_IMPL("RoleSlotFaceIconWidget")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"RoleSlotCostumeWidget")
+		STATIC_NAME_IMPL(L"RoleSlotFaceIconWidget")
 	}
-	static class URoleSlotCostumeWidget* GetDefaultObj()
+	static class URoleSlotFaceIconWidget* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<URoleSlotCostumeWidget>();
+		return GetDefaultObjImpl<URoleSlotFaceIconWidget>();
 	}
 };
 
-// Class GameModule.RoleSlotListItemWidget
+// Class GameModule.RoleSlotListWidget
 // 0x0000 (0x0370 - 0x0370)
-class URoleSlotListItemWidget : public UWidgetBase
+class URoleSlotListWidget final : public UWidgetBase
 {
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("RoleSlotListItemWidget")
+		STATIC_CLASS_IMPL("RoleSlotListWidget")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"RoleSlotListItemWidget")
+		STATIC_NAME_IMPL(L"RoleSlotListWidget")
 	}
-	static class URoleSlotListItemWidget* GetDefaultObj()
+	static class URoleSlotListWidget* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<URoleSlotListItemWidget>();
+		return GetDefaultObjImpl<URoleSlotListWidget>();
 	}
 };
 
-// Class GameModule.RoleSlotMainSkillWidget
-// 0x01A8 (0x0700 - 0x0558)
-class URoleSlotMainSkillWidget final : public UWidgetButtonDetails
+// Class GameModule.RoleSlotMainItemIconWidget
+// 0x0060 (0x02C0 - 0x0260)
+class URoleSlotMainItemIconWidget final : public UImage
 {
 public:
-	struct FLinearColor                           _normalBackImageLockedColor;                       // 0x0558(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	struct FLinearColor                           _normalBackImageUnLockedColor;                     // 0x0568(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UFocusAnimationWidget*                  _focusAnimationWidget;                             // 0x0578(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _line;                                             // 0x0580(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetSwitcher*                        _skillslotSwitcher;                                // 0x0588(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _normalBackImage;                                  // 0x0590(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _normalRoleColorImage;                             // 0x0598(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UCanvasPanel*                           _normalLockPanel;                                  // 0x05A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _normalLevelCapRelease;                            // 0x05A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UAdjustTextWidget*                      _normalLockText;                                   // 0x05B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetSwitcher*                        _normalHeroVillainSwitcher;                        // 0x05B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _normalHeroMark;                                   // 0x05C0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextBlock*                             _normalHeroText_2;                                 // 0x05C8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _normalVillainMark;                                // 0x05D0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextBlock*                             _normalVillainText_2;                              // 0x05D8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _uniqueRoleColorImage;                             // 0x05E0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetSwitcher*                        _uniqueHeroVillainSwitcher;                        // 0x05E8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _uniqueHeroMark_1;                                 // 0x05F0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _uniqueHeroMark_2;                                 // 0x05F8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextBlock*                             _uniqueHeroText_2;                                 // 0x0600(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _uniqueVillainMark_1;                              // 0x0608(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _uniqueVillainMark_2;                              // 0x0610(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextBlock*                             _uniqueVillainText_2;                              // 0x0618(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UCanvasPanel*                           _uniqueLockPanel;                                  // 0x0620(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UAdjustTextWidget*                      _uniqueLockText;                                   // 0x0628(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UAdjustTextWidget*                      _uniqueLockSubText;                                // 0x0630(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UAdjustTextWidget*                      _skillText;                                        // 0x0638(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UAdjustTextWidget*                      _noSetText;                                        // 0x0640(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _roleIcon;                                         // 0x0648(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _faceBase;                                         // 0x0650(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URoleSlotMainTipsIconWidget*            _faceIcon;                                         // 0x0658(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UCanvasPanel*                           _faceCanvas;                                       // 0x0660(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UHorizontalBox*                         _levelAll;                                         // 0x0668(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextBlock*                             _levelText;                                        // 0x0670(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextBlock*                             _levelNumber;                                      // 0x0678(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _levelLimitIcon;                                   // 0x0680(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextBlock*                             _slotNumberText;                                   // 0x0688(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UOverlay*                               _unlockButtonOverlay;                              // 0x0690(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UPlatformWidgetButton*                  _unlockButton;                                     // 0x0698(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _activeCursor;                                     // 0x06A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _disable;                                          // 0x06A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _check;                                            // 0x06B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UAdjustTextWidget*                      _notApplicableText;                                // 0x06B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_6C0[0x40];                                     // 0x06C0(0x0040)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	class FString                                 _itemCategory;                                     // 0x0260(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	int32                                         _itemCategoryCode;                                 // 0x0270(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	EItemCategory                                 _itemCategoryEnum;                                 // 0x0274(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_275[0x3];                                      // 0x0275(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         _itemId;                                           // 0x0278(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	bool                                          _bIsSmall;                                         // 0x027C(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	bool                                          _bSyncLoad;                                        // 0x027D(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_27E[0x2];                                      // 0x027E(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	TSoftObjectPtr<class UPaperSprite>            _spriteSoftPtr;                                    // 0x0280(0x0028)(Edit, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_2A8[0x18];                                     // 0x02A8(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
-	void OnLoadedRoleIconSet(class UTexture2D* Texture);
+	void OnLoadedIconImage(class UPaperSprite* Sprite);
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("RoleSlotMainSkillWidget")
+		STATIC_CLASS_IMPL("RoleSlotMainItemIconWidget")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"RoleSlotMainSkillWidget")
+		STATIC_NAME_IMPL(L"RoleSlotMainItemIconWidget")
 	}
-	static class URoleSlotMainSkillWidget* GetDefaultObj()
+	static class URoleSlotMainItemIconWidget* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<URoleSlotMainSkillWidget>();
+		return GetDefaultObjImpl<URoleSlotMainItemIconWidget>();
 	}
 };
 
-// Class GameModule.RoleSlotMainTipsIconWidget
-// 0x0088 (0x03F8 - 0x0370)
-class URoleSlotMainTipsIconWidget final : public UWidgetBase
+// Class GameModule.RoleSlotMainWidget
+// 0x00E0 (0x0450 - 0x0370)
+class URoleSlotMainWidget final : public UWidgetBase
 {
 public:
-	bool                                          _bSkillIconDisplay;                                // 0x0370(0x0001)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_371[0x7];                                      // 0x0371(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class URoleSkillItemBase*                     _skillImage;                                       // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetAnimation*                       _ani_Change1;                                      // 0x0380(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UCanvasPanel*                           _iconImagePanel;                                   // 0x0388(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UScaleBox*                              _iconImageScaleBoxPanel;                           // 0x0390(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UImage*                                 _baseImage;                                        // 0x0398(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UImage*                                 _iconImage;                                        // 0x03A0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UImage*                                 _roleImage;                                        // 0x03A8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class URoleSlotMainItemIconWidget*            _iconCurrency;                                     // 0x03B0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class URichTextBlock*                         _iconCurrencyTextImage;                            // 0x03B8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UImage*                                 _iconFrameHero;                                    // 0x03C0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UImage*                                 _iconFrameVillain;                                 // 0x03C8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UTextBlock*                             _numText;                                          // 0x03D0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_3D8[0x20];                                     // 0x03D8(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void BP_Reset();
-	void BP_SetCurrencyCode(int32 code);
-	void BP_SetVariationCode(int32 code);
+	uint8                                         Pad_370[0x48];                                     // 0x0370(0x0048)(Fixing Size After Last Property [ Dumper-7 ])
+	class UCanvasPanel*                           _uniqueSkillTop01;                                 // 0x03B8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UVerticalBox*                           _normalSkill0105;                                  // 0x03C0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class URoleSlotMainSkillWidget*               _uniqueSkill01;                                    // 0x03C8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class URoleSlotMainSkillWidget*               _normalSkill01;                                    // 0x03D0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class URoleSlotMainSkillWidget*               _normalSkill02;                                    // 0x03D8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class URoleSlotMainSkillWidget*               _normalSkill03;                                    // 0x03E0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class URoleSlotMainSkillWidget*               _normalSkill04;                                    // 0x03E8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class URoleSlotMainSkillWidget*               _normalSkill05;                                    // 0x03F0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCanvasPanel*                           _uniqueSkillTop02;                                 // 0x03F8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UVerticalBox*                           _normalSkill0610;                                  // 0x0400(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class URoleSlotMainSkillWidget*               _uniqueSkill02;                                    // 0x0408(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class URoleSlotMainSkillWidget*               _normalSkill06;                                    // 0x0410(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class URoleSlotMainSkillWidget*               _normalSkill07;                                    // 0x0418(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class URoleSlotMainSkillWidget*               _normalSkill08;                                    // 0x0420(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class URoleSlotMainSkillWidget*               _normalSkill09;                                    // 0x0428(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class URoleSlotMainSkillWidget*               _normalSkill10;                                    // 0x0430(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	struct FVector2D                              _leftPosition;                                     // 0x0438(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	struct FVector2D                              _rightPosition;                                    // 0x0440(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          _bLeftUniqueDisplay;                               // 0x0448(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          _bRightUniqueDisplay;                              // 0x0449(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          _bLeftNormalDisplay;                               // 0x044A(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          _bRightNormalDisplay;                              // 0x044B(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          _bDisplayLineOnDesign;                             // 0x044C(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_44D[0x3];                                      // 0x044D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("RoleSlotMainTipsIconWidget")
+		STATIC_CLASS_IMPL("RoleSlotMainWidget")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"RoleSlotMainTipsIconWidget")
+		STATIC_NAME_IMPL(L"RoleSlotMainWidget")
 	}
-	static class URoleSlotMainTipsIconWidget* GetDefaultObj()
+	static class URoleSlotMainWidget* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<URoleSlotMainTipsIconWidget>();
+		return GetDefaultObjImpl<URoleSlotMainWidget>();
 	}
 };
 
-// Class GameModule.RoleSlotStatics
-// 0x0000 (0x0028 - 0x0028)
-class URoleSlotStatics final : public UBlueprintFunctionLibrary
+// Class GameModule.RoleWidget
+// 0x0020 (0x0390 - 0x0370)
+class URoleWidget final : public UWidgetBase
 {
 public:
-	static bool GetCostumeRoleSlotParam(int32 CostumeCode, struct FDbsCostumeRoleSlotParam* outParam);
-	static class FText GetRoleSlotCharacterNameText(const int32 VariationCode);
-	static class FText GetRoleSlotDataText(const int32 VariationCode);
-	static class FText GetRoleSlotEffect(const int32 VariationCode, const bool bSkillFlag);
-	static struct FDbsRoleSlotTip GetRoleSlotTip(const int32 VariationCode);
+	class UImage*                                 _roleIconImage;                                    // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UTextBlock*                             _roleNameText;                                     // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UTextBlock*                             _roleDescriptionText;                              // 0x0380(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	bool                                          _bShowText;                                        // 0x0388(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	EMdAbilityType                                _previewAbilityTypeColor;                          // 0x0389(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_38A[0x6];                                      // 0x038A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void OnSetRole(EMdAbilityType abilityType);
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("RoleSlotStatics")
+		STATIC_CLASS_IMPL("RoleWidget")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"RoleSlotStatics")
+		STATIC_NAME_IMPL(L"RoleWidget")
 	}
-	static class URoleSlotStatics* GetDefaultObj()
+	static class URoleWidget* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<URoleSlotStatics>();
+		return GetDefaultObjImpl<URoleWidget>();
 	}
 };
 
-// Class GameModule.ScoreComponentCustomMatch
-// 0x0008 (0x01A8 - 0x01A0)
-class UScoreComponentCustomMatch final : public UScoreComponentBase
+// Class GameModule.ScoreComponent
+// 0x01A8 (0x0348 - 0x01A0)
+class UScoreComponent final : public UScoreComponentBase
 {
 public:
-	uint8                                         Pad_1A0[0x8];                                      // 0x01A0(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_1A0[0x1A8];                                    // 0x01A0(0x01A8)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
-	void OnCompletedSendResultData(int32 requestId);
+	void OnCompletedSendDropAchievement(int32 requestId);
+	void OnCompletedSendMission(int32 requestId);
+	void OnCompletedSendUserResult(int32 requestId);
+	void OnSystemError(int32 requestId, const class FName Key, const class FName message);
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("ScoreComponentCustomMatch")
+		STATIC_CLASS_IMPL("ScoreComponent")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"ScoreComponentCustomMatch")
+		STATIC_NAME_IMPL(L"ScoreComponent")
 	}
-	static class UScoreComponentCustomMatch* GetDefaultObj()
+	static class UScoreComponent* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UScoreComponentCustomMatch>();
+		return GetDefaultObjImpl<UScoreComponent>();
 	}
 };
 
-// Class GameModule.SendLikeItemWidget
-// 0x0040 (0x03B0 - 0x0370)
-class USendLikeItemWidget final : public UWidgetBase
+// Class GameModule.SendLikeInterface
+// 0x0000 (0x0000 - 0x0000)
+class ISendLikeInterface final
 {
 public:
-	class UOverlay*                               _baseScaleWidget;                                  // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _sendLikeImage;                                    // 0x0378(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	float                                         _lifeTime;                                         // 0x0380(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	float                                         _maxAngle;                                         // 0x0384(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	float                                         _minimumAngle;                                     // 0x0388(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	struct FVector2D                              _basescale;                                        // 0x038C(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	float                                         _maxScaleRate;                                     // 0x0394(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	float                                         _minimumScaleRate;                                 // 0x0398(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_39C[0x14];                                     // 0x039C(0x0014)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void UpdateOpenAnimParam();
+	bool SendLikeImage();
+	bool SetSendLikeButtonEnable(bool inEnable);
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("SendLikeItemWidget")
+		STATIC_CLASS_IMPL("SendLikeInterface")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"SendLikeItemWidget")
+		STATIC_NAME_IMPL(L"SendLikeInterface")
 	}
-	static class USendLikeItemWidget* GetDefaultObj()
+	static class ISendLikeInterface* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<USendLikeItemWidget>();
+		return GetDefaultObjImpl<ISendLikeInterface>();
+	}
+
+	class UObject* AsUObject()
+	{
+		return reinterpret_cast<UObject*>(this);
+	}
+	const class UObject* AsUObject() const
+	{
+		return reinterpret_cast<const UObject*>(this);
 	}
 };
 
-// Class GameModule.SendLikeButtonWidget
-// 0x0050 (0x03C0 - 0x0370)
-class USendLikeButtonWidget : public UWidgetBase
+// Class GameModule.SendLikeWidget
+// 0x0038 (0x03A8 - 0x0370)
+class USendLikeWidget : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	TMulticastInlineDelegate<void()>              OnMaxCountEventDelegate;                           // 0x0378(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(int32 counter, int32 remainsCounter)> OnUpdateCountEventDelegate;  // 0x0388(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	int32                                         _maxSendLikeCount;                                 // 0x0398(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_39C[0x4];                                      // 0x039C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class UWidgetButton*                          _button;                                           // 0x03A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_3A8[0x10];                                     // 0x03A8(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
-	class UPlayerDatabaseWork*                    _playerDatabaseWork;                               // 0x03B8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-
-public:
-	int32 BP_GetRemainSendLikeCount();
-	bool BP_UpdateSendLikeCount();
-	void ClearFocus();
-	void SetupSendLikeCounter();
-
-	int32 BP_GetRemainsSendLikeCount() const;
-	int32 BP_GetSendLikeCounter() const;
+	class UCanvasPanel*                           _sendLikePanel;                                    // 0x0378(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TSubclassOf<class USendLikeItemWidget>        _sendLikeClass;                                    // 0x0380(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	struct FVector2D                              _minimumAnchor;                                    // 0x0388(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	struct FVector2D                              _maxAnchor;                                        // 0x0390(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	bool                                          _RandomAnchor;                                     // 0x0398(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_399[0xF];                                      // 0x0399(0x000F)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("SendLikeButtonWidget")
+		STATIC_CLASS_IMPL("SendLikeWidget")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"SendLikeButtonWidget")
+		STATIC_NAME_IMPL(L"SendLikeWidget")
 	}
-	static class USendLikeButtonWidget* GetDefaultObj()
+	static class USendLikeWidget* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<USendLikeButtonWidget>();
+		return GetDefaultObjImpl<USendLikeWidget>();
 	}
 };
 
-// Class GameModule.SkillDerivedWidget
+// Class GameModule.SengakujiInputArea
+// 0x0078 (0x0180 - 0x0108)
+class USengakujiInputArea final : public UWidget
+{
+public:
+	uint8                                         Pad_108[0x10];                                     // 0x0108(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FKey                                   _key;                                              // 0x0118(0x0018)(Edit, BlueprintVisible, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _bShortTapAction;                                  // 0x0130(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_131[0x4F];                                     // 0x0131(0x004F)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void OnMoveControllerSG(const struct FGeometry& Geometry, const struct FPointerEvent& touchEvent);
+	void PressControllerSG(const struct FGeometry& Geometry, const struct FPointerEvent& touchEvent);
+	void ReleaseControllerSG(const struct FGeometry& Geometry, const struct FPointerEvent& touchEvent);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("SengakujiInputArea")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"SengakujiInputArea")
+	}
+	static class USengakujiInputArea* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<USengakujiInputArea>();
+	}
+};
+
+// Class GameModule.SkillDerivedTypeWidget
+// 0x0010 (0x0380 - 0x0370)
+class USkillDerivedTypeWidget final : public UWidgetBase
+{
+public:
+	class UTextBlock*                             _skillDerivedTypeText;                             // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UWidgetSwitcher*                        _widgetSwitcher;                                   // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+
+public:
+	void GetUniqueButtonList(TArray<class UPlatformRichTextBlock*>* uniqueButtonList);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("SkillDerivedTypeWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"SkillDerivedTypeWidget")
+	}
+	static class USkillDerivedTypeWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<USkillDerivedTypeWidget>();
+	}
+};
+
+// Class GameModule.SkillVariationDetailWidget
+// 0x0018 (0x0388 - 0x0370)
+class USkillVariationDetailWidget final : public UWidgetBase
+{
+public:
+	class UPlatformWidgetButton*                  _goToGashaButton;                                  // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	TMulticastInlineDelegate<void()>              OnDecideGoToGashaButtonDelegate;                   // 0x0378(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+
+public:
+	void OnAnalogValueScroll(const struct FAnalogInputEvent& InAnalogEvent);
+	void OnDecideButtonEvent(class UAppWidget* Widget, EWidgetInputType inputType);
+	void OnSetAbilityList(ECharacterId characterId, int32 variationNo);
+	void OnSetHowToGetText(const class FText& howToGetText);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("SkillVariationDetailWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"SkillVariationDetailWidget")
+	}
+	static class USkillVariationDetailWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<USkillVariationDetailWidget>();
+	}
+};
+
+// Class GameModule.SkillVariationListItemWidget
+// 0x0048 (0x07A8 - 0x0760)
+class USkillVariationListItemWidget final : public UPlatformWidgetButton
+{
+public:
+	uint8                                         Pad_760[0x8];                                      // 0x0760(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	class URoleWidget*                            _roleWidget;                                       // 0x0768(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UImage*                                 _variationIcon;                                    // 0x0770(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class USkillVariationListWidget*              _skillVariationListWidget;                         // 0x0778(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class USkillVariationListItemObject*          _skillVariationListItemObject;                     // 0x0780(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	struct FKey                                   _goToGashaKey;                                     // 0x0788(0x0018)(Edit, DisableEditOnInstance, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_7A0[0x8];                                      // 0x07A0(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void OnSetEquip(bool bEquip);
+	void OnSetHave(bool bHave);
+	void OnSetHowToGetText(const class FText& howToGetText);
+	void OnSetName(const class FText& nameText);
+	void OnSetRarity(EMdRarity Rarity);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("SkillVariationListItemWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"SkillVariationListItemWidget")
+	}
+	static class USkillVariationListItemWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<USkillVariationListItemWidget>();
+	}
+};
+
+// Class GameModule.SkillVariationWidget
 // 0x0020 (0x0390 - 0x0370)
-class USkillDerivedWidget final : public UWidgetBase
+class USkillVariationWidget final : public UWidgetBase
 {
 public:
-	class USkillDerivedTypeWidget*                _skillDerivedType;                                 // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UCustomTextBlock*                       _descriptionText;                                  // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UAbilityLevelListWidget*                _levelList;                                        // 0x0380(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	float                                         _descriptionWrapTextAt;                            // 0x0388(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_38C[0x4];                                      // 0x038C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	class USkillVariationListWidget*              _skillVariationListWidget;                         // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class USkillVariationListItemObject*          _selectItemObject;                                 // 0x0378(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_380[0xC];                                      // 0x0380(0x000C)(Fixing Size After Last Property [ Dumper-7 ])
+	bool                                          _bTrainingMode;                                    // 0x038C(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_38D[0x3];                                      // 0x038D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void CloseLevel();
+	void OnDecideGoToGashaButtonEvent();
+	void OnDecideSkillVariationListItemObject(class USkillVariationListItemObject* itemObject);
+	void OnFocusSkillVariationListItemObject(class USkillVariationListItemObject* itemObject);
+	void OnLoadComplete(int32 requestId);
+	void OnSetAbilityList(ECharacterId characterId, int32 variationNo);
+	void OnShowLoadingIcon(bool bShow);
+	void OnUpdateComplete(int32 requestId);
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("SkillDerivedWidget")
+		STATIC_CLASS_IMPL("SkillVariationWidget")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"SkillDerivedWidget")
+		STATIC_NAME_IMPL(L"SkillVariationWidget")
 	}
-	static class USkillDerivedWidget* GetDefaultObj()
+	static class USkillVariationWidget* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<USkillDerivedWidget>();
+		return GetDefaultObjImpl<USkillVariationWidget>();
 	}
 };
 
-// Class GameModule.SkillVariationListItemObject
-// 0x0058 (0x0080 - 0x0028)
-class USkillVariationListItemObject final : public UObject
+// Class GameModule.SoundStatics
+// 0x0000 (0x0028 - 0x0028)
+class USoundStatics : public UBlueprintFunctionLibrary
 {
 public:
-	uint8                                         Pad_28[0x58];                                      // 0x0028(0x0058)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	static void GetCharacterDedicatedVoiceCharacterCodeList(const class UObject* WorldContextObject, const int32 inCharacterCode, TSet<int32>* outCharacterCodeSet, bool bInBattle);
+	static void GetCharacterDedicatedVoiceCueName(const class UObject* WorldContextObject, const int32 inCharacterCode, const int32 inVsCharacterCode, const bool bInDedicated, const bool bInVillain, const class FString& inFormatString, class FString* outSoundString);
+	static void GetCharacterDedicatedVoiceCueNameAuto(const class UObject* WorldContextObject, const ECharacterId inCharacterId, const ECharacterId inVsCharacterId, const class FString& inFormatString, class FString* outSoundString);
+	static class USoundAtomCue* GetCueByName(const class FString& CueName);
+	static class UAtomComponent* PlayCharacterDedicatedVoice(const class UObject* WorldContextObject, const int32 inCharacterCode, const int32 inVsCharacterCode, const bool bInDedicated, const bool bInVillain, const class FString& inFormatString);
+	static class UAtomComponent* PlayCharacterDedicatedVoiceAuto(const class UObject* WorldContextObject, const ECharacterId inCharacterId, const ECharacterId inVsCharacterId, const class FString& inFormatString);
+	static class UAtomComponent* PlayMusic(const class UObject* WorldContextObject, class USoundAtomCue* Sound);
+	static class UAtomComponent* PlaySound2D(const class UObject* WorldContextObject, class USoundAtomCue* Sound);
+	static class UAtomComponent* PlaySound2DByName(const class UObject* WorldContextObject, const class FString& CueName);
+	static class UAtomComponent* PlaySoundAtLocation(const class UObject* WorldContextObject, const class FString& CueName, const struct FVector& Location, const struct FRotator& Rotation, float volumeMultiplier, float pitchMultiplier, float StartTime, class USoundAttenuation* AttenuationSettings, class USoundConcurrency* ConcurrencySettings, bool bAutoDestroy);
+	static class UAtomComponent* PlaySoundAttached(const class FString& CueName, class USceneComponent* AttachToComponent, class FName AttachPointName, const struct FVector& Location, const struct FRotator& Rotation, EAttachLocation LocationType, bool bStopWhenAttachedToDestroyed, float volumeMultiplier, float pitchMultiplier, float StartTime, class USoundAttenuation* AttenuationSettings, class USoundConcurrency* ConcurrencySettings, bool bAutoDestroy);
+	static class UAtomComponent* PlayVoice2D(const class UObject* WorldContextObject, class USoundAtomCue* Sound);
+	static class UAtomComponent* PlayVoice2DByName(const class UObject* WorldContextObject, const class FString& CueName);
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("SkillVariationListItemObject")
+		STATIC_CLASS_IMPL("SoundStatics")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"SkillVariationListItemObject")
+		STATIC_NAME_IMPL(L"SoundStatics")
 	}
-	static class USkillVariationListItemObject* GetDefaultObj()
+	static class USoundStatics* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<USkillVariationListItemObject>();
+		return GetDefaultObjImpl<USoundStatics>();
 	}
 };
 
-// Class GameModule.SkillVariationListWidget
-// 0x0070 (0x03E0 - 0x0370)
-class USkillVariationListWidget final : public UWidgetBase
+// Class GameModule.SpecialActionWidget
+// 0x0048 (0x03B8 - 0x0370)
+class USpecialActionWidget final : public UWidgetBase
 {
 public:
-	class UListView*                              _listView;                                         // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class USkillVariationListItemObject*          _equipItemObject;                                  // 0x0378(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_380[0x38];                                     // 0x0380(0x0038)(Fixing Size After Last Property [ Dumper-7 ])
-	TSoftObjectPtr<class UWorld>                  _shopPopupLevel;                                   // 0x03B8(0x0028)(Edit, DisableEditOnInstance, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-
-public:
-	void OnChangedMainMenu(int32 Index_0);
-	void OnDecideEvent(class UAppWidget* Widget, EWidgetInputType inputType);
-	void OnSubLevelHidden();
-	void OnSubLevelShown();
+	class UTextBlock*                             _nameText;                                         // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class FText                                   _noneNameText;                                     // 0x0378(0x0018)(Edit, DisableEditOnInstance, NativeAccessSpecifierPrivate)
+	class UTextBlock*                             _infoText;                                         // 0x0390(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class FText                                   _noneInfoText;                                     // 0x0398(0x0018)(Edit, DisableEditOnInstance, NativeAccessSpecifierPrivate)
+	int32                                         _specialActionIndex;                               // 0x03B0(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_3B4[0x4];                                      // 0x03B4(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("SkillVariationListWidget")
+		STATIC_CLASS_IMPL("SpecialActionWidget")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"SkillVariationListWidget")
+		STATIC_NAME_IMPL(L"SpecialActionWidget")
 	}
-	static class USkillVariationListWidget* GetDefaultObj()
+	static class USpecialActionWidget* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<USkillVariationListWidget>();
+		return GetDefaultObjImpl<USpecialActionWidget>();
 	}
 };
 
-// Class GameModule.SoundResource
-// 0x0050 (0x00B0 - 0x0060)
-class USoundResource final : public UPrimaryAssetBase
+// Class GameModule.SupplyArtInfoDataAsset
+// 0x0260 (0x0290 - 0x0030)
+class USupplyArtInfoDataAsset final : public UPrimaryDataAsset
 {
 public:
-	TMap<class FName, class FString>              _cueSheetMap;                                      // 0x0060(0x0050)(Edit, EditConst, NativeAccessSpecifierPrivate)
+	TMap<EMdAbilityType, struct FAbilityArtColorInfo> _abilityArtColorsInfo;                         // 0x0030(0x0050)(Edit, NativeAccessSpecifierPublic)
+	TMap<ESupplyType, struct FSupplyParticleColorInfo> _supplyArtColorsInfo;                         // 0x0080(0x0050)(Edit, NativeAccessSpecifierPublic)
+	TMap<ELeadersBattleTeamType, struct FLeadersTeamColorInfo> _leadersTeamColorsInfo;               // 0x00D0(0x0050)(Edit, NativeAccessSpecifierPublic)
+	TMap<uint8, struct FCustomMatchTeamColorInfo> _customMatchTeamColorsInfo;                        // 0x0120(0x0050)(Edit, NativeAccessSpecifierPublic)
+	TMap<uint8, struct FCustomMatchTeamColorInfo> _customMatchCombinedTeamColorsInfo;                // 0x0170(0x0050)(Edit, NativeAccessSpecifierPublic)
+	TMap<uint8, struct FCustomMatchTeamColorInfo> _customMatchRoomCombinedTeamColorsInfo;            // 0x01C0(0x0050)(Edit, NativeAccessSpecifierPublic)
+	struct FDominateBattleColorInfo               _dominateColorInfo;                                // 0x0210(0x0080)(Edit, NoDestructor, NativeAccessSpecifierPublic)
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("SoundResource")
+		STATIC_CLASS_IMPL("SupplyArtInfoDataAsset")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"SoundResource")
+		STATIC_NAME_IMPL(L"SupplyArtInfoDataAsset")
 	}
-	static class USoundResource* GetDefaultObj()
+	static class USupplyArtInfoDataAsset* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<USoundResource>();
+		return GetDefaultObjImpl<USupplyArtInfoDataAsset>();
 	}
 };
 
-// Class GameModule.ParticleSpawnRateCtrl
-// 0x0028 (0x00D8 - 0x00B0)
-class UParticleSpawnRateCtrl final : public UActorComponent
+// Class GameModule.SupplyBaseDataAsset
+// 0x0090 (0x00F0 - 0x0060)
+class USupplyBaseDataAsset : public UPrimaryAssetBase
 {
 public:
-	class UCustomParticleSystemComponent*         _owner;                                            // 0x00B0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_B8[0x20];                                      // 0x00B8(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	EInteractActionType                           _interactActionType;                               // 0x0060(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FName                                   _supplyId;                                         // 0x0064(0x0008)(Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_6C[0x4];                                       // 0x006C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	TSoftObjectPtr<class UPaperSprite>            _iconPaperSprite;                                  // 0x0070(0x0028)(Edit, DisableEditOnInstance, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TSoftObjectPtr<class UPaperSprite>            _iconPaperSprite2;                                 // 0x0098(0x0028)(Edit, DisableEditOnInstance, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TSoftObjectPtr<class UCurveLinearColor>       _fieldPopUpWidgetColorCurve;                       // 0x00C0(0x0028)(Edit, DisableEditOnInstance, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int32                                         _maxStackNum;                                      // 0x00E8(0x0004)(Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	ESupplyType                                   _supplyType;                                       // 0x00EC(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_ED[0x3];                                       // 0x00ED(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	class FText GetActionGuideText() const;
+	class FText GetDescriptionText(const class UObject* WorldContext) const;
+	class FText GetDisplayNameText() const;
+	class UCurveLinearColor* GetFieldPopUpWidgetColorCurve() const;
+	class UPaperSprite* GetIconPaperSprite() const;
+	class UPaperSprite* GetIconPaperSprite2() const;
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("ParticleSpawnRateCtrl")
+		STATIC_CLASS_IMPL("SupplyBaseDataAsset")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"ParticleSpawnRateCtrl")
+		STATIC_NAME_IMPL(L"SupplyBaseDataAsset")
 	}
-	static class UParticleSpawnRateCtrl* GetDefaultObj()
+	static class USupplyBaseDataAsset* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UParticleSpawnRateCtrl>();
+		return GetDefaultObjImpl<USupplyBaseDataAsset>();
 	}
 };
 
-// Class GameModule.SquadJoinWidget
-// 0x0150 (0x04C0 - 0x0370)
-class USquadJoinWidget : public UWidgetBase
+// Class GameModule.TeamCommentaryMessageWidget
+// 0x0030 (0x03A0 - 0x0370)
+class UTeamCommentaryMessageWidget : public UWidgetBase
 {
 public:
-	TMulticastInlineDelegate<void()>              _onClosedDelegate;                                 // 0x0370(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	class UWidgetGeneralWindow*                   _selectMessageWindow;                              // 0x0380(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UWidgetGeneralWindow*                   _closeWindow;                                      // 0x0388(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FText                                   _leaderIsSquadJoinedTitleText;                     // 0x0390(0x0018)(Edit, BlueprintVisible, Protected, NativeAccessSpecifierProtected)
-	struct FGeneralWindowText                     _leaderIsSquadJoinedLeftText;                      // 0x03A8(0x0028)(Edit, BlueprintVisible, Protected, NativeAccessSpecifierProtected)
-	struct FGeneralWindowText                     _leaderIsSquadJoinedRightText;                     // 0x03D0(0x0028)(Edit, BlueprintVisible, Protected, NativeAccessSpecifierProtected)
-	class FText                                   _memberIsSquadJoinedTitleText;                     // 0x03F8(0x0018)(Edit, BlueprintVisible, Protected, NativeAccessSpecifierProtected)
-	struct FGeneralWindowText                     _memberIsSquadJoinedLeftText;                      // 0x0410(0x0028)(Edit, BlueprintVisible, Protected, NativeAccessSpecifierProtected)
-	struct FGeneralWindowText                     _memberIsSquadJoinedRightText;                     // 0x0438(0x0028)(Edit, BlueprintVisible, Protected, NativeAccessSpecifierProtected)
-	class FText                                   _joinErrorText;                                    // 0x0460(0x0018)(Edit, BlueprintVisible, Protected, NativeAccessSpecifierProtected)
-	class FString                                 _joinSquadId;                                      // 0x0478(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class FString                                 _joinSquadPassword;                                // 0x0488(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class FString                                 _invitationId;                                     // 0x0498(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class FString                                 _noticeId;                                         // 0x04A8(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_4B8[0x8];                                      // 0x04B8(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	TSubclassOf<class UUserWidget>                _messageBaseWidget;                                // 0x0370(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UVerticalBox*                           _messageItemBox;                                   // 0x0378(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_380[0x20];                                     // 0x0380(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
-	void OnClosedWindow();
-	void OnCloseLevel();
-	void OnCloseMessageClosedWindow();
-	void OnPlayerRequestErrorEvent(int32 requestId, const class FName Key, const class FName message);
-	void OnSelectMessageClosedWindow();
-	void OnSelectMessageCloseWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton);
-	void OnSelectMessageDecideWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton);
-	void OnSelectWindowSetting(bool leader);
-	void OnSystemErrorEvent(int32 requestId, const class FName Key, const class FName message);
-	void OnTeamUpJoinByInvitationEvent();
-	void OnTeamUpJoinEvent();
-	void OnTeamUpLeaveEvent();
+	void OnChangeBattleSequence(EBattleStartSequenceType Sequence);
+	void OnNoticeUpdatedEvent();
+	void OnRequestMessage(ETeamCommentaryMessage MessageType);
+	void OnSquadNumChanged(int32 SquadNum);
 	void OnTeamUpUpdatedEvent();
-	void OnUpdateCompleteEvent(int32 requestId);
+	void SetMessageEnable(bool enable);
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("SquadJoinWidget")
+		STATIC_CLASS_IMPL("TeamCommentaryMessageWidget")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"SquadJoinWidget")
+		STATIC_NAME_IMPL(L"TeamCommentaryMessageWidget")
 	}
-	static class USquadJoinWidget* GetDefaultObj()
+	static class UTeamCommentaryMessageWidget* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<USquadJoinWidget>();
+		return GetDefaultObjImpl<UTeamCommentaryMessageWidget>();
 	}
 };
 
-// Class GameModule.StaticDataManager
-// 0x01D0 (0x01F8 - 0x0028)
-class UStaticDataManager final : public UObject
+// Class GameModule.TextChatEntryWidget
+// 0x0058 (0x03C8 - 0x0370)
+class UTextChatEntryWidget : public UWidgetBase
 {
 public:
-	TSoftObjectPtr<class UPrimaryAssetPermanent>  _permanentAsset;                                   // 0x0028(0x0028)(Edit, Config, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_50[0x10];                                      // 0x0050(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
-	TSoftObjectPtr<class UHudResource>            _hudResource;                                      // 0x0060(0x0028)(Edit, Config, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	TSoftObjectPtr<class UCurveVector>            _damageUICurve;                                    // 0x0088(0x0028)(Edit, Config, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_B0[0x8];                                       // 0x00B0(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	TMap<EMdAbilityType, TSoftObjectPtr<class UCurveFloat>> _abilityCurveOnLevel;                    // 0x00B8(0x0050)(Edit, Config, UObjectWrapper, NativeAccessSpecifierPublic)
-	TSoftObjectPtr<class USupplyArtInfoDataAsset> _daSupplyArtColorInfo;                             // 0x0108(0x0028)(Edit, Config, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TSoftObjectPtr<class UCurveFloat>             _treeFireMatFloatCurve;                            // 0x0130(0x0028)(Edit, Config, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TSoftObjectPtr<class UCurveFloat>             _treeFreezeMatFloatCurve;                          // 0x0158(0x0028)(Edit, Config, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TSoftClassPtr<class UClass>                   _winnerOverheadWidgetComponent;                    // 0x0180(0x0028)(Edit, Config, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	TSoftClassPtr<class UClass>                   _characterActingComponent;                         // 0x01A8(0x0028)(Edit, Config, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	TSoftObjectPtr<class USoundResource>          _soundResource;                                    // 0x01D0(0x0028)(Edit, Config, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_370[0x10];                                     // 0x0370(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
+	class UTextBlock*                             _chatText;                                         // 0x0380(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _systemText;                                       // 0x0388(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UPlayerName*                            _name;                                             // 0x0390(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UPlayerName*                            _Sname;                                            // 0x0398(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_3A0[0x28];                                     // 0x03A0(0x0028)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
-	static bool AsyncLoadPermanentDataAsset();
-	static const struct FAbilityArtColorInfo GetAbilityArtColorInfo(EMdAbilityType abilityType);
-	static float GetAbilityDurationOnValue(const class UObject* WorldContextObject, EMdAbilityType abilityType, int32 Level);
-	static struct FCustomMatchTeamColorInfo GetCustomMatchTeamBorderColorInfo(uint8 TeamId);
-	static TMap<uint8, struct FCustomMatchTeamColorInfo> GetCustomMatchTeamBorderColorInfoList();
-	static struct FDominateBattleColorInfo GetDominateBattleColorInfo();
-	static class UGimmickBaseDataAsset* GetGimmickDataAsset(const class UObject* WorldContextObject, class FName gimmickId);
-	static class UHudResource* GetHudResourceDataAsset(const class UObject* WorldContextObject);
-	static struct FLeadersTeamColorInfo GetLeadersTeamBorderColorInfo(ELeadersBattleTeamType TeamColor);
-	static class UPrimaryAssetPermanent* GetPermanentDataAsset();
-	static class USupplyBaseDataAsset* GetSupplyBaseDataAsset(const class UObject* WorldContextObject, class FName supplyId);
-	static class USupplyArtInfoDataAsset* GetSupplyParticleColorInfo();
-	static void LoadHudResourceDataAsset(const class UObject* WorldContextObject);
+	void SetMessage(class UTextChatListObject* obj, bool isSTT);
+	void UpdateUserName();
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("StaticDataManager")
+		STATIC_CLASS_IMPL("TextChatEntryWidget")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"StaticDataManager")
+		STATIC_NAME_IMPL(L"TextChatEntryWidget")
 	}
-	static class UStaticDataManager* GetDefaultObj()
+	static class UTextChatEntryWidget* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UStaticDataManager>();
+		return GetDefaultObjImpl<UTextChatEntryWidget>();
 	}
 };
 
-// Class GameModule.TeamCommentaryMessageItemWidget
-// 0x0078 (0x03E8 - 0x0370)
-class UTeamCommentaryMessageItemWidget : public UWidgetBase
+// Class GameModule.TextChatIconAnker
+// 0x0010 (0x0380 - 0x0370)
+class UTextChatIconAnker : public UWidgetBase
 {
 public:
-	TMulticastInlineDelegate<void()>              _onMessageClosedDelegate;                          // 0x0370(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMap<ETeamCommentaryMessage, class FText>     _textMessageMap;                                   // 0x0380(0x0050)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	class UTextBlock*                             _textBlockMessage;                                 // 0x03D0(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_3D8[0x10];                                     // 0x03D8(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	struct FVector2D                              _pos;                                              // 0x0370(0x0008)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _rightPlacement;                                   // 0x0378(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EGameModeType                                 _gameModeType;                                     // 0x0379(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	ETextChatIngameState                          _inGameState;                                      // 0x037A(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_37B[0x5];                                      // 0x037B(0x0005)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
-	void OnDrawTimeout();
+	void SetIconPosition();
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("TeamCommentaryMessageItemWidget")
+		STATIC_CLASS_IMPL("TextChatIconAnker")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"TeamCommentaryMessageItemWidget")
+		STATIC_NAME_IMPL(L"TextChatIconAnker")
 	}
-	static class UTeamCommentaryMessageItemWidget* GetDefaultObj()
+	static class UTextChatIconAnker* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UTeamCommentaryMessageItemWidget>();
-	}
-};
-
-// Class GameModule.TextChatButtonGuide
-// 0x0020 (0x0390 - 0x0370)
-class UTextChatButtonGuide : public UWidgetBase
-{
-public:
-	class UPlatformRichTextBlock*                 _buttonGuide;                                      // 0x0370(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UImage*                                 _holdGauge;                                        // 0x0378(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UHorizontalBox*                         _optionBox;                                        // 0x0380(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextChatIcon*                          _iconImage;                                        // 0x0388(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-
-public:
-	void BP_PlayMessageAnimation();
-	void PlayMessageAnimation();
-	void SetGaugePercent(float value);
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("TextChatButtonGuide")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"TextChatButtonGuide")
-	}
-	static class UTextChatButtonGuide* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UTextChatButtonGuide>();
-	}
-};
-
-// Class GameModule.TextChatIcon
-// 0x0060 (0x0570 - 0x0510)
-class UTextChatIcon : public UWidgetButton
-{
-public:
-	TMulticastInlineDelegate<void()>              _UpdateArray;                                      // 0x0510(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, Protected, NativeAccessSpecifierProtected)
-	uint8                                         Pad_520[0x10];                                     // 0x0520(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
-	TMulticastInlineDelegate<void(const float DeltaTime)> _messageRecieveDelegate;                   // 0x0530(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, Protected, NativeAccessSpecifierProtected)
-	uint8                                         Pad_540[0x10];                                     // 0x0540(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
-	class UImage*                                 _icon;                                             // 0x0550(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UImage*                                 _notice;                                           // 0x0558(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UWidgetAnimation*                       _anim_reception;                                   // 0x0560(0x0008)(BlueprintVisible, ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _showIngame;                                       // 0x0568(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_569[0x7];                                      // 0x0569(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void BP_PlayMessageAnimation();
-	void BP_StartAnimation();
-	void BP_StopAnimation();
-	void BP_StopMessageAnimation();
-	void BP_UpdateIconNotice();
-	void LoopAnimation(const float DeltaTime);
-	void OnPressButton(class UAppWidget* Widget, EWidgetInputType inputType);
-	void PlayMessageAnimation();
-	void StopMessageAnimation();
-	void UpdateArray();
-	void UpdateIconNotice();
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("TextChatIcon")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"TextChatIcon")
-	}
-	static class UTextChatIcon* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UTextChatIcon>();
+		return GetDefaultObjImpl<UTextChatIconAnker>();
 	}
 };
 
 // Class GameModule.TextChatListObject
-// 0x0080 (0x00A8 - 0x0028)
+// 0x0090 (0x00B8 - 0x0028)
 class UTextChatListObject final : public UObject
 {
 public:
-	uint8                                         Pad_28[0x80];                                      // 0x0028(0x0080)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_28[0x90];                                      // 0x0028(0x0090)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	bool BP_GetAlreadyRead();
@@ -8708,6 +9215,48 @@ public:
 	static class UTextChatListObject* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UTextChatListObject>();
+	}
+};
+
+// Class GameModule.TextChatListWidget
+// 0x0030 (0x03A0 - 0x0370)
+class UTextChatListWidget : public UWidgetBase
+{
+public:
+	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<class UTextChatListObject*>            _UnreadObjects;                                    // 0x0378(0x0010)(Edit, BlueprintVisible, ZeroConstructor, Protected, NativeAccessSpecifierProtected)
+	uint8                                         Pad_388[0x10];                                     // 0x0388(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
+	class UCustomListView*                        _chatList;                                         // 0x0398(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+
+public:
+	void BP_AddNewTextItem(const class FText& Text);
+	void BP_CallTextChatIconEvent();
+	void BP_CallTextChatRecieveEvent(const class UTextChatListObject* chatObject);
+	void BP_CheckUnreadMessage(class UTextChatListObject* message);
+	class FString BP_GetUserName(const class FString& playerId, const class FString& Name_0);
+	bool BP_IsUnreadMessage();
+	void BP_ManagementChatItems();
+	void BP_UpdateArray(class UTextChatListObject* chatObject);
+	void ClearEvent();
+	float GetScrollSpeedRate(float analogValue, float defaultSpeedRate, float maxSpeedRate, float addSpeedRate);
+	void ReceiveSTTMessage(const class FString& platformPlayerId, const class FString& DisplayName, const class FString& message);
+	void ScrollBottom();
+	void SetUpNewMessage(const class FString& playerId, const class FString& Name_0, const class FString& message, const bool bLock, const bool isSTT);
+	void TextToSpeech(class UTextChatListObject* obj);
+	void UpdateList();
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("TextChatListWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"TextChatListWidget")
+	}
+	static class UTextChatListWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UTextChatListWidget>();
 	}
 };
 
@@ -8781,87 +9330,86 @@ public:
 	}
 };
 
-// Class GameModule.TextChatWindowWidget
-// 0x0160 (0x04D0 - 0x0370)
-class UTextChatWindowWidget : public UWidgetBase
+// Class GameModule.TextChatWidget
+// 0x0078 (0x03E8 - 0x0370)
+class UTextChatWidget : public UWidgetBase
 {
 public:
-	uint8                                         Pad_370[0x48];                                     // 0x0370(0x0048)(Fixing Size After Last Property [ Dumper-7 ])
-	float                                         _animationSpeed;                                   // 0x03B8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_3BC[0x4];                                      // 0x03BC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class UWidgetAnimation*                       _animOpen;                                         // 0x03C0(0x0008)(BlueprintVisible, ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetAnimation*                       _animClose;                                        // 0x03C8(0x0008)(BlueprintVisible, ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetAnimation*                       _animOpenR;                                        // 0x03D0(0x0008)(BlueprintVisible, ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetAnimation*                       _animCloseR;                                       // 0x03D8(0x0008)(BlueprintVisible, ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UWidgetAnimation*                       _currentPlayAnimation;                             // 0x03E0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	TMulticastInlineDelegate<void()>              _OnEventDispather;                                 // 0x03E8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              _OnOpenConsentEventDispather;                      // 0x03F8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              _OnCloseConsentEventDispather;                     // 0x0408(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              _onBGVisiblitySetEvent;                            // 0x0418(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              _onBGHiddenSetEvent;                               // 0x0428(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              _onOpenParentalControlEventDispather;              // 0x0438(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	bool                                          _bOpenWindow;                                      // 0x0448(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	bool                                          _bIsPopupOpen;                                     // 0x0449(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_44A[0x36];                                     // 0x044A(0x0036)(Fixing Size After Last Property [ Dumper-7 ])
-	class UPlatformWidgetButton*                  _dummyButton;                                      // 0x0480(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UTextChatListWidget*                    _teamTextChatList;                                 // 0x0488(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UPlatformRichTextBlock*                 _inputIcon;                                        // 0x0490(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UPlatformRichTextBlock*                 _closeIcon;                                        // 0x0498(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UHorizontalBox*                         _buttonGuideBox;                                   // 0x04A0(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UCanvasPanel*                           _textWindow;                                       // 0x04A8(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UCanvasPanel*                           _focusPanel;                                       // 0x04B0(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UCustomInputTextBox*                    _inputTextBox;                                     // 0x04B8(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	float                                         _wheelScrollSpeed;                                 // 0x04C0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	float                                         _scrollSpeed;                                      // 0x04C4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_4C8[0x8];                                      // 0x04C8(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	bool                                          _bOpenWindow;                                      // 0x0370(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_371[0x7];                                      // 0x0371(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UTextChatWindowWidget*                  _textChatWindow;                                   // 0x0378(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UTextChatButtonGuide*                   _buttonGuide;                                      // 0x0380(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UWidgetGeneralWindow*                   _observerWindow;                                   // 0x0388(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetGeneralWindow*                   _parentalControlWindow;                            // 0x0390(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCanvasPanel*                           _messagePanel;                                     // 0x0398(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UHorizontalBox*                         _messageBox;                                       // 0x03A0(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCanvasPanel*                           _icon;                                             // 0x03A8(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UCanvasPanel*                           _message;                                          // 0x03B0(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TArray<class UTextChatIconAnker*>             _ankerMap;                                         // 0x03B8(0x0010)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, ContainsInstancedReference, Protected, NativeAccessSpecifierProtected)
+	class UCanvasPanel*                           _ankerPanel;                                       // 0x03C8(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextChatIconAnker*                     _chatAnker_Inventory;                              // 0x03D0(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextChatIconAnker*                     _chatAnker_Observer;                               // 0x03D8(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UTextChatIconAnker*                     _chatAnker_Ingame;                                 // 0x03E0(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 
 public:
-	void AnimStart(class UWidgetAnimation* anim);
-	void BP_CallCloseConsentEvent();
-	void BP_CallFinishEvent();
-	void BP_CallHiddenEventDispatcher();
-	void BP_CallOpenConsentEvent();
-	void BP_CallOpenParentalControlEvent();
-	void BP_CallVisibleEventDispatcher();
-	bool BP_CheckParentControl();
-	void BP_ClearFocus();
-	void BP_PlayCloseAnimation();
-	void BP_PlayOpenAnimation();
-	void BP_PlaySoundCloseWindow(bool isPlaySound);
-	void BP_SendMessage();
-	void BP_SetActiveFocus(bool isFocusable);
-	void BP_SetActiveSendButton(bool isSendable);
-	void BP_SetFocusInputTextBox();
 	void BP_SetNoticeVisibility(ESlateVisibility value);
-	void BP_WindowClose(bool bPlaySound);
-	void BP_WindowOpen(bool bPlaySound);
-	void ChangeControllerEvent();
-	void ClearText();
-	void FinishCloseAnimation();
-	void FinishOpenAnimation();
-	void OnCommitChangeText(bool IsEmpty, bool _isFirstFocus);
-	void RemoveInputShortCutKeyboardEvent();
-	void SetActiveFocus(bool isFocusable);
-	void SetActiveSendButton(bool isSendable);
-	void SetFocusInputTextBox();
-	void SetInputShortCut(bool value);
-	void SetInputShortCutKeyboardEvent();
+	void CloseObserverWindowEvent();
+	class UTextChatIcon* GetChatIcon();
+	void OnCloseObserver();
+	void OnCloseParentEvent();
+	void OnDecideObserver(class UAppWidget* Widget, EWidgetInputType inputType, bool isLeftButton);
+	void OnDecideParentEvent(class UAppWidget* Widget, EWidgetInputType inputType, bool isLeftButton);
+	void OnOpenObserver();
+	void OnOpenParent();
 	void SetNoticeVisibility(ESlateVisibility value);
+	void SetValueButtonGuide(float value);
+	void SetVisibilityMessageCanvas();
+	void UpdatePopUpPivot(const struct FVector2D& Pivot);
 	void WindowClose(bool bPlaySound);
 	void WindowOpen(bool bPlaySound);
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("TextChatWindowWidget")
+		STATIC_CLASS_IMPL("TextChatWidget")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"TextChatWindowWidget")
+		STATIC_NAME_IMPL(L"TextChatWidget")
 	}
-	static class UTextChatWindowWidget* GetDefaultObj()
+	static class UTextChatWidget* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UTextChatWindowWidget>();
+		return GetDefaultObjImpl<UTextChatWidget>();
+	}
+};
+
+// Class GameModule.TextSpeechBalloonWidget
+// 0x0028 (0x0398 - 0x0370)
+class UTextSpeechBalloonWidget : public UWidgetBase
+{
+public:
+	class FText                                   _viewText;                                         // 0x0370(0x0018)(Edit, Protected, NativeAccessSpecifierProtected)
+	class UTextBlock*                             _text;                                             // 0x0388(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	class UWidgetAnimation*                       _aniOpen;                                          // 0x0390(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+
+public:
+	void Open();
+	void SetText(const class FText& Text);
+
+	const class FText GetText() const;
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("TextSpeechBalloonWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"TextSpeechBalloonWidget")
+	}
+	static class UTextSpeechBalloonWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UTextSpeechBalloonWidget>();
 	}
 };
 
@@ -8900,137 +9448,127 @@ public:
 	}
 };
 
-// Class GameModule.TrackingNumberWidget
-// 0x0008 (0x0378 - 0x0370)
-class UTrackingNumberWidget : public UWidgetBase
+// Class GameModule.TrackingNumberSubsystem
+// 0x0018 (0x0048 - 0x0030)
+class UTrackingNumberSubsystem final : public UGameInstanceSubsystem
 {
 public:
-	class UTextBlock*                             _trackingNumberText;                               // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TSubclassOf<class UWidgetBase>                _trackingNumberWidgetClass;                        // 0x0030(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UTrackingNumberWidget*                  _trackingNumberWidget;                             // 0x0038(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_40[0x8];                                       // 0x0040(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	void CreateTrackingNumber();
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("TrackingNumberWidget")
+		STATIC_CLASS_IMPL("TrackingNumberSubsystem")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"TrackingNumberWidget")
+		STATIC_NAME_IMPL(L"TrackingNumberSubsystem")
 	}
-	static class UTrackingNumberWidget* GetDefaultObj()
+	static class UTrackingNumberSubsystem* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UTrackingNumberWidget>();
+		return GetDefaultObjImpl<UTrackingNumberSubsystem>();
 	}
 };
 
-// Class GameModule.TranslationWidget
-// 0x0140 (0x04B0 - 0x0370)
-class UTranslationWidget final : public UWidgetBase
+// Class GameModule.TrainingMenuCommonWidget
+// 0x0050 (0x0468 - 0x0418)
+class UTrainingMenuCommonWidget : public UAppWidget
 {
 public:
-	TMap<EMdLocalization, class FText>            _translationList;                                  // 0x0370(0x0050)(Edit, Protected, NativeAccessSpecifierProtected)
-	class FText                                   _localizeText;                                     // 0x03C0(0x0018)(Edit, Protected, NativeAccessSpecifierProtected)
-	float                                         _spaceSize;                                        // 0x03D8(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_3DC[0x4];                                      // 0x03DC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FSlateFontInfo                         _mainTextFont;                                     // 0x03E0(0x0058)(Edit, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	struct FSlateFontInfo                         _subTextFont;                                      // 0x0438(0x0058)(Edit, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	bool                                          _bLayoutKeep;                                      // 0x0490(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_491[0x7];                                      // 0x0491(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAdjustTextWidget*                      _mainTextWidget;                                   // 0x0498(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class UAdjustTextWidget*                      _subTextWidget;                                    // 0x04A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class USpacer*                                _spacer;                                           // 0x04A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TSoftObjectPtr<class UWorld>                  _characterInfoInGamePopupLevel;                    // 0x0418(0x0028)(Edit, DisableEditOnInstance, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TSoftObjectPtr<class UWorld>                  _characterInfoOutGamePopupLevel;                   // 0x0440(0x0028)(Edit, DisableEditOnInstance, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+
+public:
+	void OpenCharacterInfo(bool bOutgame);
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("TranslationWidget")
+		STATIC_CLASS_IMPL("TrainingMenuCommonWidget")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"TranslationWidget")
+		STATIC_NAME_IMPL(L"TrainingMenuCommonWidget")
 	}
-	static class UTranslationWidget* GetDefaultObj()
+	static class UTrainingMenuCommonWidget* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UTranslationWidget>();
+		return GetDefaultObjImpl<UTrainingMenuCommonWidget>();
 	}
 };
 
-// Class GameModule.TutorialTipsPlatformImageWidget
+// Class GameModule.TutorialMessageWidget
+// 0x0008 (0x0420 - 0x0418)
+class UTutorialMessageWidget final : public UAppWidget
+{
+public:
+	class URichTextBlock*                         _messageRichText;                                  // 0x0418(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+public:
+	void ChangeSizeTutorialMessageWindow(bool condition);
+	void SetTutorialMessageWidget(const class FText& message);
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("TutorialMessageWidget")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"TutorialMessageWidget")
+	}
+	static class UTutorialMessageWidget* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UTutorialMessageWidget>();
+	}
+};
+
+// Class GameModule.TutorialTipsImageWidget
 // 0x0010 (0x0428 - 0x0418)
-class UTutorialTipsPlatformImageWidget final : public UAppWidget
+class UTutorialTipsImageWidget final : public UAppWidget
 {
 public:
-	TArray<EPlatform>                             _showPlatforms;                                    // 0x0418(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, Protected, NativeAccessSpecifierProtected)
+	class UTutorialTipsWidget*                    _tutorialTipsWidget;                               // 0x0418(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UWidgetSwitcher*                        _imageSwitcher;                                    // 0x0420(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+public:
+	void OnReceivedChangedImageIndexEvent(int32 Index_0);
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("TutorialTipsPlatformImageWidget")
+		STATIC_CLASS_IMPL("TutorialTipsImageWidget")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"TutorialTipsPlatformImageWidget")
+		STATIC_NAME_IMPL(L"TutorialTipsImageWidget")
 	}
-	static class UTutorialTipsPlatformImageWidget* GetDefaultObj()
+	static class UTutorialTipsImageWidget* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UTutorialTipsPlatformImageWidget>();
+		return GetDefaultObjImpl<UTutorialTipsImageWidget>();
 	}
 };
 
-// Class GameModule.TutorialTipsWidget
-// 0x0128 (0x0540 - 0x0418)
-class UTutorialTipsWidget final : public UAppWidget
+// Class GameModule.UIMultiPlatformTagDefine
+// 0x0000 (0x0028 - 0x0028)
+class UUIMultiPlatformTagDefine final : public UObject
 {
-public:
-	class UTileView*                              _buttonTileView;                                   // 0x0418(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UWidgetSwitcher*                        _buttonSwitcher;                                   // 0x0420(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UWidgetButton*                          _closeButton;                                      // 0x0428(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UWidgetButton*                          _nextButton;                                       // 0x0430(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UWidgetButton*                          _leftButton;                                       // 0x0438(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UWidgetButton*                          _rightButton;                                      // 0x0440(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UTextBlock*                             _titleMessageWidget;                               // 0x0448(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UTutorialMessageWidget*                 _messageWidget;                                    // 0x0450(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UWidgetGeneralEmptyWindow*              _emptyWindow;                                      // 0x0458(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class UNamedSlot*                             _imageSlot;                                        // 0x0460(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FText                                   _titleMessage;                                     // 0x0468(0x0018)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
-	bool                                          _bDisplayTitleMessageWidget;                       // 0x0480(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_481[0x7];                                      // 0x0481(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class FText                                   _message;                                          // 0x0488(0x0018)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
-	bool                                          _bDisplayMessageWidget;                            // 0x04A0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bRequesetVoice;                                   // 0x04A1(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bUseTutorialMessage;                              // 0x04A2(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_4A3[0x5];                                      // 0x04A3(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<class FText>                           _tutorialMessage;                                  // 0x04A8(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
-	TArray<class FText>                           _subTitleList;                                     // 0x04B8(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPublic)
-	class UAdjustTextWidget*                      _subTitle;                                         // 0x04C8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(int32 Index)>   OnChangedImageIndexDelegate;                       // 0x04D0(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, BlueprintCallable, NativeAccessSpecifierPublic)
-	TMap<ETutorialPopupScene, class UWidget*>     _imageStartInfo;                                   // 0x04E0(0x0050)(Edit, BlueprintVisible, ExportObject, ContainsInstancedReference, Protected, NativeAccessSpecifierProtected)
-	uint8                                         Pad_530[0x10];                                     // 0x0530(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	void BP_OnReceivedCloseButtonDecidedEvent(class UAppWidget* Widget, EWidgetInputType inputType);
-	void HideRightLeftButton();
-	void NextButtonTileView(const bool NotMaxNext);
-	void OnChangeBattleSequence(EBattleStartSequenceType Sequence);
-	void OnChangeLevel(class ULevel* level_p, class UWorld* world_p);
-	void OnReceivedCloseButtonDecidedEvent(class UAppWidget* Widget, EWidgetInputType inputType);
-	void OnReceivedClosedEmptyWindowEvent();
-	void OnReceivedOpenedEmptyWindowEvent();
-	void OnReceivedOpenedEmptyWindowEventAutoPlay();
-	void PrevButtonTileView(const bool NotMinPrev);
-	TArray<class FString> SplitStringByCarriageReturn(const class FString& message);
-
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("TutorialTipsWidget")
+		STATIC_CLASS_IMPL("UIMultiPlatformTagDefine")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"TutorialTipsWidget")
+		STATIC_NAME_IMPL(L"UIMultiPlatformTagDefine")
 	}
-	static class UTutorialTipsWidget* GetDefaultObj()
+	static class UUIMultiPlatformTagDefine* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UTutorialTipsWidget>();
+		return GetDefaultObjImpl<UUIMultiPlatformTagDefine>();
 	}
 };
 
@@ -9062,7 +9600,7 @@ public:
 
 // Class GameModule.WheelCommonParts
 // 0x01B0 (0x0520 - 0x0370)
-class UWheelCommonParts : public UWidgetBase
+class UWheelCommonParts final : public UWidgetBase
 {
 public:
 	TMulticastInlineDelegate<void(bool bActive)>  OnChangedActivateStickInputDelegate;               // 0x0370(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -9124,28 +9662,6 @@ public:
 	}
 };
 
-// Class GameModule.WheelItemIconsDrawer
-// 0x00A0 (0x0268 - 0x01C8)
-class UWheelItemIconsDrawer final : public UWidgetDrawPrimitive
-{
-public:
-	uint8                                         Pad_1C8[0xA0];                                     // 0x01C8(0x00A0)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("WheelItemIconsDrawer")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"WheelItemIconsDrawer")
-	}
-	static class UWheelItemIconsDrawer* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UWheelItemIconsDrawer>();
-	}
-};
-
 // Class GameModule.WidgetAnalogInputComponent
 // 0x0080 (0x0130 - 0x00B0)
 class UWidgetAnalogInputComponent final : public UActorComponent
@@ -9184,39 +9700,6 @@ public:
 	static class UWidgetAnalogInputComponent* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UWidgetAnalogInputComponent>();
-	}
-};
-
-// Class GameModule.WidgetNetWorkNotation
-// 0x00C0 (0x04D8 - 0x0418)
-class UWidgetNetWorkNotation : public UAppWidget
-{
-public:
-	class UTextBlock*                             _text;                                             // 0x0418(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_420[0xB0];                                     // 0x0420(0x00B0)(Fixing Size After Last Property [ Dumper-7 ])
-	class UDbpSetting*                            _setting;                                          // 0x04D0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-
-public:
-	void OnChangedCurrentPlayMode();
-	void OnGetPingTimerEvent();
-	void OnMatchingRegionEvent(const int32& regionCode);
-	void OnReadyForPlayEvent();
-	void OnTeamUpUpdatedEvent();
-	void OnVoiceChatChangeStatus(EVoiceChatSystemStatus Status);
-	void OnWaitForLoginEvent();
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("WidgetNetWorkNotation")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"WidgetNetWorkNotation")
-	}
-	static class UWidgetNetWorkNotation* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UWidgetNetWorkNotation>();
 	}
 };
 

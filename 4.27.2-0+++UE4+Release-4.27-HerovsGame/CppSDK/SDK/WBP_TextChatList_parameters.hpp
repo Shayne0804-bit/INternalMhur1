@@ -15,43 +15,32 @@ SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
 // Function WBP_TextChatList.WBP_TextChatList_C.ExecuteUbergraph_WBP_TextChatList
-// 0x00D0 (0x00D0 - 0x0000)
+// 0x00B8 (0x00B8 - 0x0000)
 struct WBP_TextChatList_C_ExecuteUbergraph_WBP_TextChatList final
 {
 public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	TDelegate<void(const class FString& playerId, const class FString& DisplayName, const class FString& message, const bool bBlock)> K2Node_CreateDelegate_OutputDelegate; // 0x0004(0x0010)(ZeroConstructor, NoDestructor)
-	bool                                          K2Node_Event_IsDesignTime;                         // 0x0014(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 K2Node_Event_PlayerId;                             // 0x0018(0x0010)(ZeroConstructor, HasGetValueTypeHash)
-	class FString                                 K2Node_Event_Name;                                 // 0x0028(0x0010)(ZeroConstructor, HasGetValueTypeHash)
-	class FString                                 K2Node_Event_Message;                              // 0x0038(0x0010)(ZeroConstructor, HasGetValueTypeHash)
-	bool                                          K2Node_Event_Block;                                // 0x0048(0x0001)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor)
-	bool                                          K2Node_Event_isSTT;                                // 0x0049(0x0001)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_4A[0x6];                                       // 0x004A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
-	class UTextChatListObject*                    CallFunc_SpawnObject_ReturnValue;                  // 0x0050(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_Not_PreBool_ReturnValue;                  // 0x0058(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_59[0x7];                                       // 0x0059(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 CallFunc_BP_GetUserName_ReturnValue;               // 0x0060(0x0010)(ZeroConstructor, HasGetValueTypeHash)
-	class FString                                 K2Node_CustomEvent_playerId;                       // 0x0070(0x0010)(ZeroConstructor, HasGetValueTypeHash)
-	class FString                                 K2Node_CustomEvent_displayName;                    // 0x0080(0x0010)(ZeroConstructor, HasGetValueTypeHash)
-	class FString                                 K2Node_CustomEvent_message;                        // 0x0090(0x0010)(ZeroConstructor, HasGetValueTypeHash)
-	bool                                          K2Node_CustomEvent_bBlock;                         // 0x00A0(0x0001)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_A1[0x7];                                       // 0x00A1(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UTextChatSubsystem*                     CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x00A8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UTextChatSubsystem*                     CallFunc_GetGameInstanceSubsystem_ReturnValue_1;   // 0x00B0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UBackendSubsystem*                      CallFunc_GetGameInstanceSubsystem_ReturnValue_2;   // 0x00B8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_IsRecieveBlockMessage_ReturnValue;        // 0x00C0(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_C1[0x7];                                       // 0x00C1(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UBackendSubsystem*                      CallFunc_GetGameInstanceSubsystem_ReturnValue_3;   // 0x00C8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-
-// Function WBP_TextChatList.WBP_TextChatList_C.PreConstruct
-// 0x0001 (0x0001 - 0x0000)
-struct WBP_TextChatList_C_PreConstruct final
-{
-public:
-	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class UBackendSubsystem*                      CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x0018(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UTextChatListObject*                    CallFunc_SpawnObject_ReturnValue;                  // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class FString                                 K2Node_Event_PlayerId;                             // 0x0028(0x0010)(ZeroConstructor, HasGetValueTypeHash)
+	class FString                                 K2Node_Event_Name;                                 // 0x0038(0x0010)(ZeroConstructor, HasGetValueTypeHash)
+	class FString                                 K2Node_Event_Message;                              // 0x0048(0x0010)(ZeroConstructor, HasGetValueTypeHash)
+	bool                                          K2Node_Event_Block;                                // 0x0058(0x0001)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          K2Node_Event_isSTT;                                // 0x0059(0x0001)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          K2Node_Event_IsDesignTime;                         // 0x005A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_Not_PreBool_ReturnValue;                  // 0x005B(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_5C[0x4];                                       // 0x005C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 K2Node_CustomEvent_playerId;                       // 0x0060(0x0010)(ZeroConstructor, HasGetValueTypeHash)
+	class FString                                 K2Node_CustomEvent_displayName;                    // 0x0070(0x0010)(ZeroConstructor, HasGetValueTypeHash)
+	class FString                                 K2Node_CustomEvent_message;                        // 0x0080(0x0010)(ZeroConstructor, HasGetValueTypeHash)
+	bool                                          K2Node_CustomEvent_bBlock;                         // 0x0090(0x0001)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_91[0x7];                                       // 0x0091(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UTextChatSubsystem*                     CallFunc_GetGameInstanceSubsystem_ReturnValue_1;   // 0x0098(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UTextChatSubsystem*                     CallFunc_GetGameInstanceSubsystem_ReturnValue_2;   // 0x00A0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UBackendSubsystem*                      CallFunc_GetGameInstanceSubsystem_ReturnValue_3;   // 0x00A8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_IsRecieveBlockMessage_ReturnValue;        // 0x00B0(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
 
 // Function WBP_TextChatList.WBP_TextChatList_C.SetUpNewMessage
@@ -64,6 +53,14 @@ public:
 	class FString                                 message;                                           // 0x0020(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, HasGetValueTypeHash)
 	bool                                          bLock;                                             // 0x0030(0x0001)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          isSTT;                                             // 0x0031(0x0001)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+};
+
+// Function WBP_TextChatList.WBP_TextChatList_C.PreConstruct
+// 0x0001 (0x0001 - 0x0000)
+struct WBP_TextChatList_C_PreConstruct final
+{
+public:
+	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
 
 // Function WBP_TextChatList.WBP_TextChatList_C.OnTeamUpChatReceivedEventDispatcherEvent

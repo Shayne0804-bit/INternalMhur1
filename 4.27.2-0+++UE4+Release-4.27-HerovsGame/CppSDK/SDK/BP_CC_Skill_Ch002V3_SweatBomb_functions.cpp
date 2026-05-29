@@ -36,6 +36,34 @@ void UBP_CC_Skill_Ch002V3_SweatBomb_C::ExecuteUbergraph_BP_CC_Skill_Ch002V3_Swea
 }
 
 
+// Function BP_CC_Skill_Ch002V3_SweatBomb.BP_CC_Skill_Ch002V3_SweatBomb_C.ClearCache
+// (BlueprintCallable, BlueprintEvent)
+
+void UBP_CC_Skill_Ch002V3_SweatBomb_C::ClearCache()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_CC_Skill_Ch002V3_SweatBomb_C", "ClearCache");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function BP_CC_Skill_Ch002V3_SweatBomb.BP_CC_Skill_Ch002V3_SweatBomb_C.ClearConditionDelay
+// (BlueprintCallable, BlueprintEvent)
+
+void UBP_CC_Skill_Ch002V3_SweatBomb_C::ClearConditionDelay()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_CC_Skill_Ch002V3_SweatBomb_C", "ClearConditionDelay");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
 // Function BP_CC_Skill_Ch002V3_SweatBomb.BP_CC_Skill_Ch002V3_SweatBomb_C.ResetDamageGate
 // (BlueprintCallable, BlueprintEvent)
 
@@ -97,6 +125,55 @@ void UBP_CC_Skill_Ch002V3_SweatBomb_C::BP_OnBootDamage(const struct FDamageInfo&
 	Parms.receivedConditionId = receivedConditionId;
 
 	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_CC_Skill_Ch002V3_SweatBomb.BP_CC_Skill_Ch002V3_SweatBomb_C.BP_IsEnableChangeCondition
+// (Event, Protected, HasOutParams, BlueprintCallable, BlueprintEvent, Const)
+// Parameters:
+// int32                                   Level                                                  (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// float                                   span                                                   (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// float                                   value                                                  (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// float                                   interval                                               (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
+
+bool UBP_CC_Skill_Ch002V3_SweatBomb_C::BP_IsEnableChangeCondition(int32 Level, float span, float value, float interval) const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_CC_Skill_Ch002V3_SweatBomb_C", "BP_IsEnableChangeCondition");
+
+	Params::BP_CC_Skill_Ch002V3_SweatBomb_C_BP_IsEnableChangeCondition Parms{};
+
+	Parms.Level = Level;
+	Parms.span = span;
+	Parms.value = value;
+	Parms.interval = interval;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	return Parms.ReturnValue;
+}
+
+
+// Function BP_CC_Skill_Ch002V3_SweatBomb.BP_CC_Skill_Ch002V3_SweatBomb_C.IsConditioning
+// (Public, HasOutParams, BlueprintCallable, BlueprintEvent, BlueprintPure, Const)
+// Parameters:
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
+
+bool UBP_CC_Skill_Ch002V3_SweatBomb_C::IsConditioning() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_CC_Skill_Ch002V3_SweatBomb_C", "IsConditioning");
+
+	Params::BP_CC_Skill_Ch002V3_SweatBomb_C_IsConditioning Parms{};
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	return Parms.ReturnValue;
 }
 
 

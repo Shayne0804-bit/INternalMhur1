@@ -10,10 +10,10 @@
 
 #include "Basic.hpp"
 
+#include "GameModule_classes.hpp"
+#include "Engine_structs.hpp"
 #include "SlateCore_structs.hpp"
 #include "Slate_structs.hpp"
-#include "Engine_structs.hpp"
-#include "GameModule_classes.hpp"
 #include "UIFramework_structs.hpp"
 #include "BackendSubsystem_structs.hpp"
 

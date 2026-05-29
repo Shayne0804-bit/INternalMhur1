@@ -30,7 +30,6 @@ public:
 	class FString                                 CallFunc_GetCurrentLanguage_ReturnValue;           // 0x0020(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 	bool                                          CallFunc_NotEqual_StrStr_ReturnValue;              // 0x0030(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_LoginBonusPopupDaily_C_ExecuteUbergraph_WBP_LoginBonusPopupDaily;
 
 // Function WBP_LoginBonusPopupDaily.WBP_LoginBonusPopupDaily_C.BndEvt__WBP_LoginBonus_Daily__tokushoButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -40,7 +39,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_LoginBonusPopupDaily_C_BndEvt__WBP_LoginBonus_Daily__tokushoButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

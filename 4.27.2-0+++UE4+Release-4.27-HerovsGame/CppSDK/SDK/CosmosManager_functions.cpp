@@ -168,6 +168,31 @@ void UCosmosManager::OnCustomMatchingRoomDataEvent(const struct FCosmosGetCustom
 }
 
 
+// Function CosmosManager.CosmosManager.OnCustomMatchingUserNameDuplicatedEvent
+// (Final, Native, Public, HasOutParams)
+// Parameters:
+// const struct FCosmosUserNameDuplicatedNotify&E                                                      (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UCosmosManager::OnCustomMatchingUserNameDuplicatedEvent(const struct FCosmosUserNameDuplicatedNotify& E)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("CosmosManager", "OnCustomMatchingUserNameDuplicatedEvent");
+
+	Params::CosmosManager_OnCustomMatchingUserNameDuplicatedEvent Parms{};
+
+	Parms.E = std::move(E);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
 // Function CosmosManager.CosmosManager.OnCustomRoomReadiedEvent
 // (Final, Native, Public, HasOutParams)
 // Parameters:

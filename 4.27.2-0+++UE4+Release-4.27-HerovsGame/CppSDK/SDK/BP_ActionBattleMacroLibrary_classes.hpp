@@ -16,7 +16,7 @@
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionBattleMacroLibrary.BP_ActionBattleMacroLibrary_C
-// 0x0000 (0x0268 - 0x0268)
+// 0x0000 (0x0270 - 0x0270)
 class UBP_ActionBattleMacroLibrary_C final : public UActionBattleBase
 {
 public:

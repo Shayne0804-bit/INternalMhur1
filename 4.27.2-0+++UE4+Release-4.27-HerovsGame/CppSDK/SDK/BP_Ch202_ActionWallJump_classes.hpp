@@ -10,19 +10,19 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
 #include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch202_ActionWallJump.BP_Ch202_ActionWallJump_C
-// 0x0010 (0x0280 - 0x0270)
+// 0x0010 (0x0288 - 0x0278)
 class UBP_Ch202_ActionWallJump_C final : public UActionNormalBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0270(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	class UCh202Params*                           Ch202Params;                                       // 0x0278(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0278(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	class UCh202Params*                           Ch202Params;                                       // 0x0280(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
 	void ExecuteUbergraph_BP_Ch202_ActionWallJump(int32 EntryPoint);
@@ -48,6 +48,5 @@ public:
 		return GetDefaultObjImpl<UBP_Ch202_ActionWallJump_C>();
 	}
 };
-DUMPER7_ASSERTS_UBP_Ch202_ActionWallJump_C;
 
 SDK_NAMESPACE_END

@@ -12,73 +12,73 @@
 
 #include "InGameModule_structs.hpp"
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "GameModule_structs.hpp"
 #include "CommonModule_structs.hpp"
+#include "Engine_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch013_ActionAttack_Unique1.BP_Ch013_ActionAttack_Unique1_C
-// 0x0068 (0x0508 - 0x04A0)
+// 0x0068 (0x0550 - 0x04E8)
 class UBP_Ch013_ActionAttack_Unique1_C final : public UActionAttackBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	bool                                          IsKickHit;                                         // 0x04A8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          IsProjectileHit;                                   // 0x04A9(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_4AA[0x6];                                      // 0x04AA(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
-	class ACharacterBattle*                       pHitCharacter;                                     // 0x04B0(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnTemplate, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          pull;                                              // 0x04B8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	EAttackHitResult                              HitType;                                           // 0x04B9(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_4BA[0x2];                                      // 0x04BA(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FVector                                StartCharacterLocation;                            // 0x04BC(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FVector                                HitLocation;                                       // 0x04C8(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         Load_KickMaxTime;                                  // 0x04D4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         Load_KickSpeed;                                    // 0x04D8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FVector                                WallNormalDirection;                               // 0x04DC(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         TempSpeed;                                         // 0x04E8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FVector                                TempMoveDir;                                       // 0x04EC(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          IsWallHit;                                         // 0x04F8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          IsProjectileCharacterHit;                          // 0x04F9(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          IsWallClimeKicked;                                 // 0x04FA(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_4FB[0x1];                                      // 0x04FB(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
-	float                                         Load_WallClimeKick_Angle;                          // 0x04FC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         Load_WallClimeKick_SpeedV;                         // 0x0500(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         Load_WallClimeKick_SpeedH;                         // 0x0504(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04E8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	bool                                          IsKickHit;                                         // 0x04F0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          IsProjectileHit;                                   // 0x04F1(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_4F2[0x6];                                      // 0x04F2(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
+	class ACharacterBattle*                       pHitCharacter;                                     // 0x04F8(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnTemplate, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          pull;                                              // 0x0500(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	EAttackHitResult                              HitType;                                           // 0x0501(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_502[0x2];                                      // 0x0502(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FVector                                StartCharacterLocation;                            // 0x0504(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FVector                                HitLocation;                                       // 0x0510(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         Load_KickMaxTime;                                  // 0x051C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         Load_KickSpeed;                                    // 0x0520(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FVector                                WallNormalDirection;                               // 0x0524(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         TempSpeed;                                         // 0x0530(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FVector                                TempMoveDir;                                       // 0x0534(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          IsWallHit;                                         // 0x0540(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          IsProjectileCharacterHit;                          // 0x0541(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          IsWallClimeKicked;                                 // 0x0542(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_543[0x1];                                      // 0x0543(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
+	float                                         Load_WallClimeKick_Angle;                          // 0x0544(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         Load_WallClimeKick_SpeedV;                         // 0x0548(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         Load_WallClimeKick_SpeedH;                         // 0x054C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
-	bool IsTouchKickableAny(struct FVector* TouchNormal);
-	void TurnAllToDirection(const struct FVector& Direction, float Time);
-	float CalcCargeTime();
-	struct FVector ToHitLoationDirection();
-	bool IsTouchKickableGround(struct FVector* TouchNormal);
-	bool IsTouchKickableWall(struct FVector* TouchNormal);
-	float GetKickableWallNormalAngle();
-	bool IsNearHitLocation();
-	bool IsWallClimeKick();
-	void DispImpersonationBone();
-	void GetDotDegree(const struct FVector& Vec1, const struct FVector& Vec2, float* degree);
-	void GetHitTargetLocation(struct FVector* NewParam);
-	void LoadParam();
-	void Initialize();
-	void CheckAttackPhaseEqual(int32 CheckPhase, bool* Equal);
-	void BP_ActionMain();
-	void BP_OnBeginAction(const class FName& prevAction);
-	void BP_OnBeginAimingMode();
-	void BP_OnEndAimingMode();
-	void BP_OnEndAction(const class FName& nextAction);
-	void BP_OnLoadParams(const class FName& ActionName, int32 uniqueLevel);
-	void BP_ActionRemote();
-	void BP_OnHitProjectileEvent(EAttackId projectileAttackId, EAttackHitResult Type, const struct FVector& Location, class AActor* hitActor);
-	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
-	void BP_OnHitAttackEvent(const struct FVector& HitLocation_0, class FName projectileName, class FName damageParamName, class ACharacterBattle* hitCharacter, float damageValue);
-	void BP_OnChangeAttackPhase(int32 nextPhase);
-	void BP_OnChangeAttackPhaseForRemote(int32 nextPhase);
-	void PostSpawnProjectileBullet(class ABullet* spawnedBullet);
-	void PostSpawnProjectileBulletForRemote(class ABullet* spawnedBullet);
 	void ExecuteUbergraph_BP_Ch013_ActionAttack_Unique1(int32 EntryPoint);
+	void PostSpawnProjectileBulletForRemote(class ABullet* spawnedBullet);
+	void PostSpawnProjectileBullet(class ABullet* spawnedBullet);
+	void BP_OnChangeAttackPhaseForRemote(int32 nextPhase);
+	void BP_OnChangeAttackPhase(int32 nextPhase);
+	void BP_OnHitAttackEvent(const struct FVector& HitLocation_0, class FName projectileName, class FName damageParamName, class ACharacterBattle* hitCharacter, float damageValue);
+	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
+	void BP_OnHitProjectileEvent(EAttackId projectileAttackId, EAttackHitResult Type, const struct FVector& Location, class AActor* hitActor);
+	void BP_ActionRemote();
+	void BP_OnLoadParams(const class FName& ActionName, int32 uniqueLevel);
+	void BP_OnEndAction(const class FName& nextAction);
+	void BP_OnEndAimingMode();
+	void BP_OnBeginAimingMode();
+	void BP_OnBeginAction(const class FName& prevAction);
+	void BP_ActionMain();
+	void CheckAttackPhaseEqual(int32 CheckPhase, bool* Equal);
+	void Initialize();
+	void LoadParam();
+	void GetHitTargetLocation(struct FVector* NewParam);
+	void GetDotDegree(const struct FVector& Vec1, const struct FVector& Vec2, float* Degree);
+	void DispImpersonationBone();
+	bool IsWallClimeKick();
+	bool IsNearHitLocation();
+	float GetKickableWallNormalAngle();
+	bool IsTouchKickableWall(struct FVector* TouchNormal);
+	bool IsTouchKickableGround(struct FVector* TouchNormal);
+	struct FVector ToHitLoationDirection();
+	float CalcCargeTime();
+	void TurnAllToDirection(const struct FVector& Direction, float Time);
+	bool IsTouchKickableAny(struct FVector* TouchNormal);
 
 	bool BP_IsEnableShiftAction(const class FName& nextAction) const;
 

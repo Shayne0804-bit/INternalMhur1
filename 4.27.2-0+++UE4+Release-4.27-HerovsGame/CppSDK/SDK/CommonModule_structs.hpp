@@ -114,7 +114,7 @@ enum class ECharacterNormalSlotBuffType : uint8
 };
 
 // Enum CommonModule.EVariationCharacterId
-// NumValues: 0x004E
+// NumValues: 0x0050
 enum class EVariationCharacterId : uint8
 {
 	UNDEF                                    = 0,
@@ -184,21 +184,23 @@ enum class EVariationCharacterId : uint8
 	Ch105_Variation1                         = 64,
 	Ch109_Variation0                         = 65,
 	Ch109_Variation1                         = 66,
-	Ch114_Variation0                         = 67,
-	Ch114_Variation1                         = 68,
-	Ch115_Variation0                         = 69,
-	Ch115_Variation1                         = 70,
-	Ch200_Variation0                         = 71,
-	Ch200_Variation1                         = 72,
-	Ch201_Variation0                         = 73,
-	Ch201_Variation1                         = 74,
-	Ch202_Variation0                         = 75,
-	Ch202_Variation1                         = 76,
-	MAX                                      = 77,
+	Ch111_Variation0                         = 67,
+	Ch111_Variation1                         = 68,
+	Ch114_Variation0                         = 69,
+	Ch114_Variation1                         = 70,
+	Ch115_Variation0                         = 71,
+	Ch115_Variation1                         = 72,
+	Ch200_Variation0                         = 73,
+	Ch200_Variation1                         = 74,
+	Ch201_Variation0                         = 75,
+	Ch201_Variation1                         = 76,
+	Ch202_Variation0                         = 77,
+	Ch202_Variation1                         = 78,
+	MAX                                      = 79,
 };
 
 // Enum CommonModule.ECharacterId
-// NumValues: 0x002E
+// NumValues: 0x002F
 enum class ECharacterId : uint8
 {
 	UNDEF                                    = 0,
@@ -235,18 +237,19 @@ enum class ECharacterId : uint8
 	Ch104                                    = 31,
 	Ch105                                    = 32,
 	Ch109                                    = 33,
-	Ch114                                    = 34,
-	Ch115                                    = 35,
-	Ch200                                    = 36,
-	Ch201                                    = 37,
-	Ch202                                    = 38,
-	Ch501                                    = 39,
-	Ch502                                    = 40,
-	Ch503                                    = 41,
-	Ch512                                    = 42,
-	Ch513                                    = 43,
-	Ch999                                    = 44,
-	MAX                                      = 45,
+	Ch111                                    = 34,
+	Ch114                                    = 35,
+	Ch115                                    = 36,
+	Ch200                                    = 37,
+	Ch201                                    = 38,
+	Ch202                                    = 39,
+	Ch501                                    = 40,
+	Ch502                                    = 41,
+	Ch503                                    = 42,
+	Ch512                                    = 43,
+	Ch513                                    = 44,
+	Ch999                                    = 45,
+	MAX                                      = 46,
 };
 
 // Enum CommonModule.ERegion

@@ -367,9 +367,11 @@ TArray<struct FXRDeviceId> UHeadMountedDisplayFunctionLibrary::EnumerateTrackedD
 // struct FVector*                         LinearVelocity                                         (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // bool*                                   bProvidedAngularVelocity                               (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // struct FVector*                         AngularVelocityRadPerSec                               (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool*                                   bProvidedLinearAcceleration                            (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// struct FVector*                         LinearAcceleration                                     (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-bool UHeadMountedDisplayFunctionLibrary::GetControllerTransformForTime(class UObject* WorldContext, const int32 ControllerIndex, const class FName MotionSource, const struct FTimespan& Time, bool* bTimeWasUsed, struct FRotator* Orientation, struct FVector* Position, bool* bProvidedLinearVelocity, struct FVector* LinearVelocity, bool* bProvidedAngularVelocity, struct FVector* AngularVelocityRadPerSec)
+bool UHeadMountedDisplayFunctionLibrary::GetControllerTransformForTime(class UObject* WorldContext, const int32 ControllerIndex, const class FName MotionSource, const struct FTimespan& Time, bool* bTimeWasUsed, struct FRotator* Orientation, struct FVector* Position, bool* bProvidedLinearVelocity, struct FVector* LinearVelocity, bool* bProvidedAngularVelocity, struct FVector* AngularVelocityRadPerSec, bool* bProvidedLinearAcceleration, struct FVector* LinearAcceleration)
 {
 	static class UFunction* Func = nullptr;
 
@@ -410,6 +412,12 @@ bool UHeadMountedDisplayFunctionLibrary::GetControllerTransformForTime(class UOb
 
 	if (AngularVelocityRadPerSec != nullptr)
 		*AngularVelocityRadPerSec = std::move(Parms.AngularVelocityRadPerSec);
+
+	if (bProvidedLinearAcceleration != nullptr)
+		*bProvidedLinearAcceleration = Parms.bProvidedLinearAcceleration;
+
+	if (LinearAcceleration != nullptr)
+		*LinearAcceleration = std::move(Parms.LinearAcceleration);
 
 	return Parms.ReturnValue;
 }
@@ -717,6 +725,39 @@ struct FVector2D UHeadMountedDisplayFunctionLibrary::GetPlayAreaBounds(EHMDTrack
 }
 
 
+// Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetPlayAreaRect
+// (Final, Native, Static, Public, HasOutParams, HasDefaults, BlueprintCallable)
+// Parameters:
+// struct FTransform*                      OutTransform                                           (Parm, OutParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+// struct FVector2D*                       OutRect                                                (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+bool UHeadMountedDisplayFunctionLibrary::GetPlayAreaRect(struct FTransform* OutTransform, struct FVector2D* OutRect)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("HeadMountedDisplayFunctionLibrary", "GetPlayAreaRect");
+
+	Params::HeadMountedDisplayFunctionLibrary_GetPlayAreaRect Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	if (OutTransform != nullptr)
+		*OutTransform = std::move(Parms.OutTransform);
+
+	if (OutRect != nullptr)
+		*OutRect = std::move(Parms.OutRect);
+
+	return Parms.ReturnValue;
+}
+
+
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetPositionalTrackingCameraParameters
 // (Final, Native, Static, Public, HasOutParams, HasDefaults, BlueprintCallable, BlueprintPure)
 // Parameters:
@@ -812,6 +853,38 @@ EHMDTrackingOrigin UHeadMountedDisplayFunctionLibrary::GetTrackingOrigin()
 	GetDefaultObj()->ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetTrackingOriginTransform
+// (Final, Native, Static, Public, HasOutParams, HasDefaults, BlueprintCallable)
+// Parameters:
+// EHMDTrackingOrigin                      Origin                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// struct FTransform*                      OutTransform                                           (Parm, OutParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+bool UHeadMountedDisplayFunctionLibrary::GetTrackingOriginTransform(EHMDTrackingOrigin Origin, struct FTransform* OutTransform)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("HeadMountedDisplayFunctionLibrary", "GetTrackingOriginTransform");
+
+	Params::HeadMountedDisplayFunctionLibrary_GetTrackingOriginTransform Parms{};
+
+	Parms.Origin = Origin;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	if (OutTransform != nullptr)
+		*OutTransform = std::move(Parms.OutTransform);
 
 	return Parms.ReturnValue;
 }

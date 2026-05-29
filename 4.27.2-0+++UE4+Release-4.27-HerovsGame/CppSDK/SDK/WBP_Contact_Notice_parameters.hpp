@@ -26,7 +26,6 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWidget*                                ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Contact_Notice_C_DoCustomNavigation_Right;
 
 // Function WBP_Contact_Notice.WBP_Contact_Notice_C.DoCustomNavigation_left
 // 0x0010 (0x0010 - 0x0000)
@@ -37,7 +36,6 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWidget*                                ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Contact_Notice_C_DoCustomNavigation_left;
 
 // Function WBP_Contact_Notice.WBP_Contact_Notice_C.UpdateList
 // 0x0018 (0x0018 - 0x0000)
@@ -48,7 +46,6 @@ public:
 	int32                                         CallFunc_Array_Length_ReturnValue;                 // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_Greater_IntInt_ReturnValue;               // 0x0014(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Contact_Notice_C_UpdateList;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

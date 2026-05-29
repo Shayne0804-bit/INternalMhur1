@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "Engine_structs.hpp"
 #include "GameModule_classes.hpp"
+#include "Engine_structs.hpp"
 #include "UIFramework_structs.hpp"
 
 
@@ -44,6 +44,5 @@ public:
 		return GetDefaultObjImpl<UWBP_HiddenIcon_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_HiddenIcon_C;
 
 SDK_NAMESPACE_END

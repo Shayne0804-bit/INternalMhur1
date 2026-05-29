@@ -66,6 +66,14 @@ public:
 	struct FCosmosGetCustomRoomDataResponse       E;                                                 // 0x0000(0x0078)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
+// Function CosmosManager.CosmosManager.OnCustomMatchingUserNameDuplicatedEvent
+// 0x0070 (0x0070 - 0x0000)
+struct CosmosManager_OnCustomMatchingUserNameDuplicatedEvent final
+{
+public:
+	struct FCosmosUserNameDuplicatedNotify        E;                                                 // 0x0000(0x0070)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
 // Function CosmosManager.CosmosManager.OnCustomRoomReadiedEvent
 // 0x0038 (0x0038 - 0x0000)
 struct CosmosManager_OnCustomRoomReadiedEvent final

@@ -100,4 +100,29 @@ void UWBP_RankEventRewardsTab_C::CloseOwnLevel()
 }
 
 
+// Function WBP_RankEventRewardsTab.WBP_RankEventRewardsTab_C.OnAnalogValueChanged
+// (Event, Public, HasOutParams, HasDefaults, BlueprintCallable, BlueprintEvent)
+// Parameters:
+// const struct FGeometry&                 MyGeometry                                             (BlueprintVisible, BlueprintReadOnly, Parm, IsPlainOldData, NoDestructor)
+// const struct FAnalogInputEvent&         InAnalogInputEvent                                     (BlueprintVisible, BlueprintReadOnly, Parm)
+// struct FEventReply                      ReturnValue                                            (Parm, OutParm, ReturnParm)
+
+struct FEventReply UWBP_RankEventRewardsTab_C::OnAnalogValueChanged(const struct FGeometry& MyGeometry, const struct FAnalogInputEvent& InAnalogInputEvent)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_RankEventRewardsTab_C", "OnAnalogValueChanged");
+
+	Params::WBP_RankEventRewardsTab_C_OnAnalogValueChanged Parms{};
+
+	Parms.MyGeometry = std::move(MyGeometry);
+	Parms.InAnalogInputEvent = std::move(InAnalogInputEvent);
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	return Parms.ReturnValue;
+}
+
+
 SDK_NAMESPACE_END

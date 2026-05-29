@@ -11,37 +11,37 @@
 #include "Basic.hpp"
 
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "CoreUObject_structs.hpp"
+#include "Engine_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C
-// 0x0030 (0x04D8 - 0x04A8)
+// 0x0030 (0x0520 - 0x04F0)
 class UBP_Ch023_ActionAttack_Special_C final : public UActionAttackSpecialBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	struct FVector                                jumpDirection;                                     // 0x04B0(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         jumpSeconds;                                       // 0x04BC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         forwardJumpSeconds;                                // 0x04C0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         InitialSpeed;                                      // 0x04C4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         LastSpeed;                                         // 0x04C8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         AccelSpan;                                         // 0x04CC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         turnRate;                                          // 0x04D0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04F0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	struct FVector                                jumpDirection;                                     // 0x04F8(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         jumpSeconds;                                       // 0x0504(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         forwardJumpSeconds;                                // 0x0508(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         InitialSpeed;                                      // 0x050C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         LastSpeed;                                         // 0x0510(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         AccelSpan;                                         // 0x0514(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         turnRate;                                          // 0x0518(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
-	void BP_ActionMain();
-	void BP_OnBeginActionAttackGround(const class FName& prevAction);
-	void BP_OnChangeAttackPhaseGround(int32 nextPhase);
-	void BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase);
-	void BP_OnEndAction(const class FName& nextAction);
-	void BP_OnBeginActionAttackAir(const class FName& prevAction);
-	void BP_OnChangeAttackPhaseAir(int32 nextPhase);
-	void CustomEventAttackClient(int32 nextPhase);
-	void BP_OnChangeAttackPhaseAirForRemote(int32 nextPhase);
 	void ExecuteUbergraph_BP_Ch023_ActionAttack_Special(int32 EntryPoint);
+	void BP_OnChangeAttackPhaseAirForRemote(int32 nextPhase);
+	void CustomEventAttackClient(int32 nextPhase);
+	void BP_OnChangeAttackPhaseAir(int32 nextPhase);
+	void BP_OnBeginActionAttackAir(const class FName& prevAction);
+	void BP_OnEndAction(const class FName& nextAction);
+	void BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase);
+	void BP_OnChangeAttackPhaseGround(int32 nextPhase);
+	void BP_OnBeginActionAttackGround(const class FName& prevAction);
+	void BP_ActionMain();
 
 public:
 	static class UClass* StaticClass()

@@ -36,6 +36,28 @@ void UBP_CC_Skill_WearBlueFlame_C::ExecuteUbergraph_BP_CC_Skill_WearBlueFlame(in
 }
 
 
+// Function BP_CC_Skill_WearBlueFlame.BP_CC_Skill_WearBlueFlame_C.BP_ReceiveConditionPing
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// int32                                   Index_0                                                (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// float                                   value                                                  (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_CC_Skill_WearBlueFlame_C::BP_ReceiveConditionPing(int32 Index_0, float value)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_CC_Skill_WearBlueFlame_C", "BP_ReceiveConditionPing");
+
+	Params::BP_CC_Skill_WearBlueFlame_C_BP_ReceiveConditionPing Parms{};
+
+	Parms.Index_0 = Index_0;
+	Parms.value = value;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
 // Function BP_CC_Skill_WearBlueFlame.BP_CC_Skill_WearBlueFlame_C.BP_OnChangeConditionLevel
 // (Event, Protected, BlueprintEvent)
 // Parameters:

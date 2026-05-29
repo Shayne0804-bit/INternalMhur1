@@ -16,23 +16,17 @@
 
 SDK_NAMESPACE_START
 
-// Function WBP_Customize.WBP_Customize_C.ExecuteUbergraph_WBP_Customize
-// (Final, UbergraphFunction)
-// Parameters:
-// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// Function WBP_Customize.WBP_Customize_C.OnAddToScreen
+// (BlueprintCosmetic, Event, Public, BlueprintEvent)
 
-void UWBP_Customize_C::ExecuteUbergraph_WBP_Customize(int32 EntryPoint)
+void UWBP_Customize_C::OnAddToScreen()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Customize_C", "ExecuteUbergraph_WBP_Customize");
+		Func = Class->GetFunction("WBP_Customize_C", "OnAddToScreen");
 
-	Params::WBP_Customize_C_ExecuteUbergraph_WBP_Customize Parms{};
-
-	Parms.EntryPoint = EntryPoint;
-
-	UObject::ProcessEvent(Func, &Parms);
+	UObject::ProcessEvent(Func, nullptr);
 }
 
 
@@ -50,17 +44,23 @@ void UWBP_Customize_C::OnRemoveFromParent()
 }
 
 
-// Function WBP_Customize.WBP_Customize_C.OnAddToScreen
-// (BlueprintCosmetic, Event, Public, BlueprintEvent)
+// Function WBP_Customize.WBP_Customize_C.ExecuteUbergraph_WBP_Customize
+// (Final, UbergraphFunction)
+// Parameters:
+// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UWBP_Customize_C::OnAddToScreen()
+void UWBP_Customize_C::ExecuteUbergraph_WBP_Customize(int32 EntryPoint)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Customize_C", "OnAddToScreen");
+		Func = Class->GetFunction("WBP_Customize_C", "ExecuteUbergraph_WBP_Customize");
 
-	UObject::ProcessEvent(Func, nullptr);
+	Params::WBP_Customize_C_ExecuteUbergraph_WBP_Customize Parms{};
+
+	Parms.EntryPoint = EntryPoint;
+
+	UObject::ProcessEvent(Func, &Parms);
 }
 
 

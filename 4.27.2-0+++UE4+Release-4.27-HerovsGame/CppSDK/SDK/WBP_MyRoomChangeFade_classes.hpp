@@ -41,6 +41,5 @@ public:
 		return GetDefaultObjImpl<UWBP_MyRoomChangeFade_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_MyRoomChangeFade_C;
 
 SDK_NAMESPACE_END

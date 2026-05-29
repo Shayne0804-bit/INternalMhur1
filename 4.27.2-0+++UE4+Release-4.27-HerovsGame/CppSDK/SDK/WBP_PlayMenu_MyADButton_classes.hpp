@@ -24,8 +24,8 @@ public:
 	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0518(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
 
 public:
-	void ExecuteUbergraph_WBP_PlayMenu_MyADButton(int32 EntryPoint);
 	void OnInitialized();
+	void ExecuteUbergraph_WBP_PlayMenu_MyADButton(int32 EntryPoint);
 
 public:
 	static class UClass* StaticClass()
@@ -41,6 +41,5 @@ public:
 		return GetDefaultObjImpl<UWBP_PlayMenu_MyADButton_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_PlayMenu_MyADButton_C;
 
 SDK_NAMESPACE_END

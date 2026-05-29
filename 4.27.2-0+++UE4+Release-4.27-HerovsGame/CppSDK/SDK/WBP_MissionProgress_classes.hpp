@@ -44,6 +44,5 @@ public:
 		return GetDefaultObjImpl<UWBP_MissionProgress_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_MissionProgress_C;
 
 SDK_NAMESPACE_END

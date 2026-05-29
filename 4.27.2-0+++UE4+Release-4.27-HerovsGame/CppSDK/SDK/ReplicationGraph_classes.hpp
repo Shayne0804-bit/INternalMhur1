@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 #include "Engine_classes.hpp"
-#include "CoreUObject_classes.hpp"
 #include "ReplicationGraph_structs.hpp"
+#include "CoreUObject_classes.hpp"
 
 
 SDK_NAMESPACE_START
@@ -363,7 +363,7 @@ public:
 public:
 	void ClientCellInfo(const struct FVector& CellLocation, const struct FVector& CellExtent, const TArray<class AActor*>& Actors);
 	void ServerCellInfo();
-	void ServerPrintAllActorInfo(const class FString& str);
+	void ServerPrintAllActorInfo(const class FString& Str);
 	void ServerPrintCullDistances();
 	void ServerSetConditionalActorBreakpoint(class AActor* Actor);
 	void ServerSetCullDistanceForClass(class UClass* Class_0, float CullDistance);

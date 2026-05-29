@@ -31,7 +31,6 @@ public:
 	TSoftObjectPtr<class UTexture2D>              CallFunc_Map_Find_Value_1;                         // 0x0038(0x0028)(HasGetValueTypeHash)
 	bool                                          CallFunc_Map_Find_ReturnValue_1;                   // 0x0060(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_EventBannerTitle_C_ExecuteUbergraph_WBP_EventBannerTitle;
 
 // Function WBP_EventBannerTitle.WBP_EventBannerTitle_C.BP_UpdateImage
 // 0x0001 (0x0001 - 0x0000)
@@ -40,7 +39,6 @@ struct WBP_EventBannerTitle_C_BP_UpdateImage final
 public:
 	EEventCategory                                Category;                                          // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_EventBannerTitle_C_BP_UpdateImage;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

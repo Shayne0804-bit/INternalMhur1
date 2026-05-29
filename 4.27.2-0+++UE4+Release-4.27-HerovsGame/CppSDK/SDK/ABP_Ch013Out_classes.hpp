@@ -24,11 +24,11 @@ public:
 	struct FPointerToUberGraphFrame               UberGraphFrame_ABP_Ch013Out_C;                     // 0x1790(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
 
 public:
-	void OnPlayerCharacterSelectedIdle();
-	void OnPlayerCharacterIdle();
-	void BlueprintInitializeAnimation();
-	void OnSetupMaterialDelegate();
 	void ExecuteUbergraph_ABP_Ch013Out(int32 EntryPoint);
+	void OnSetupMaterialDelegate();
+	void BlueprintInitializeAnimation();
+	void OnPlayerCharacterIdle();
+	void OnPlayerCharacterSelectedIdle();
 
 public:
 	static class UClass* StaticClass()

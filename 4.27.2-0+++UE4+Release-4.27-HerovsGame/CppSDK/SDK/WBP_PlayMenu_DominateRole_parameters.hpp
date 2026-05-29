@@ -47,7 +47,6 @@ public:
 	TDelegate<void()>                             K2Node_CreateDelegate_OutputDelegate_1;            // 0x0060(0x0010)(ZeroConstructor, NoDestructor)
 	struct FTimerHandle                           CallFunc_K2_SetTimerDelegate_ReturnValue_1;        // 0x0070(0x0008)(NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_PlayMenu_DominateRole_C_ExecuteUbergraph_WBP_PlayMenu_DominateRole;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

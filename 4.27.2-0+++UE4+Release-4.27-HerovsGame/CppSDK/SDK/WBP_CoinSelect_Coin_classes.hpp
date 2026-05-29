@@ -16,12 +16,12 @@
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_CoinSelect_Coin.WBP_CoinSelect_Coin_C
-// 0x0010 (0x0438 - 0x0428)
+// 0x0010 (0x0440 - 0x0430)
 class UWBP_CoinSelect_Coin_C final : public UCoinWidget
 {
 public:
-	class UCanvasPanel*                           _window;                                           // 0x0428(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 backImage;                                         // 0x0430(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UCanvasPanel*                           _window;                                           // 0x0430(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 backImage;                                         // 0x0438(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 
 public:
 	static class UClass* StaticClass()
@@ -37,6 +37,5 @@ public:
 		return GetDefaultObjImpl<UWBP_CoinSelect_Coin_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_CoinSelect_Coin_C;
 
 SDK_NAMESPACE_END

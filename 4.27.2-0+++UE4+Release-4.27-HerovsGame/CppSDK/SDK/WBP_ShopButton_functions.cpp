@@ -16,26 +16,6 @@
 
 SDK_NAMESPACE_START
 
-// Function WBP_ShopButton.WBP_ShopButton_C.ExecuteUbergraph_WBP_ShopButton
-// (Final, UbergraphFunction)
-// Parameters:
-// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UWBP_ShopButton_C::ExecuteUbergraph_WBP_ShopButton(int32 EntryPoint)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_ShopButton_C", "ExecuteUbergraph_WBP_ShopButton");
-
-	Params::WBP_ShopButton_C_ExecuteUbergraph_WBP_ShopButton Parms{};
-
-	Parms.EntryPoint = EntryPoint;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
 // Function WBP_ShopButton.WBP_ShopButton_C.PreConstruct
 // (BlueprintCosmetic, Event, Public, BlueprintEvent)
 // Parameters:
@@ -51,6 +31,26 @@ void UWBP_ShopButton_C::PreConstruct(bool IsDesignTime)
 	Params::WBP_ShopButton_C_PreConstruct Parms{};
 
 	Parms.IsDesignTime = IsDesignTime;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_ShopButton.WBP_ShopButton_C.ExecuteUbergraph_WBP_ShopButton
+// (Final, UbergraphFunction)
+// Parameters:
+// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_ShopButton_C::ExecuteUbergraph_WBP_ShopButton(int32 EntryPoint)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_ShopButton_C", "ExecuteUbergraph_WBP_ShopButton");
+
+	Params::WBP_ShopButton_C_ExecuteUbergraph_WBP_ShopButton Parms{};
+
+	Parms.EntryPoint = EntryPoint;
 
 	UObject::ProcessEvent(Func, &Parms);
 }

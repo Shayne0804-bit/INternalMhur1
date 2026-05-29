@@ -244,9 +244,11 @@ public:
 };
 
 // ScriptStruct CosmosManager.CosmosCustomMatchingSquadMember
-// 0x0000 (0x00C0 - 0x00C0)
+// 0x0010 (0x00D0 - 0x00C0)
 struct FCosmosCustomMatchingSquadMember final : public FCosmosMatchingSquadMember
 {
+public:
+	class FString                                 CustomMatchName;                                   // 0x00C0(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct CosmosManager.CosmosCustomMatchingSquad

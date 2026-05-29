@@ -16,7 +16,7 @@
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionGrabbed.BP_ActionGrabbed_C
-// 0x0000 (0x0270 - 0x0270)
+// 0x0000 (0x0278 - 0x0278)
 class UBP_ActionGrabbed_C final : public UActionGrabbed
 {
 public:

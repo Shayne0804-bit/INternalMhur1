@@ -27,7 +27,6 @@ public:
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         CallFunc_Add_IntInt_ReturnValue;                   // 0x0018(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_GashaLoadingList_C_ExecuteUbergraph_WBP_GashaLoadingList;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

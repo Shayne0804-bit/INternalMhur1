@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "VoiceChatModule_structs.hpp"
 #include "SlateCore_structs.hpp"
+#include "VoiceChatModule_structs.hpp"
 
 
 SDK_NAMESPACE_START

@@ -11,14 +11,24 @@
 #include "Basic.hpp"
 
 #include "AIModule_structs.hpp"
-#include "CoreUObject_structs.hpp"
 #include "GameplayTags_structs.hpp"
+#include "CoreUObject_structs.hpp"
 #include "GameplayTasks_structs.hpp"
 #include "Engine_structs.hpp"
 
 
 SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
+
+// Function AIModule.AIAsyncTaskBlueprintProxy.OnMoveCompleted
+// 0x0008 (0x0008 - 0x0000)
+struct AIAsyncTaskBlueprintProxy_OnMoveCompleted final
+{
+public:
+	struct FAIRequestID                           requestId;                                         // 0x0000(0x0004)(Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EPathFollowingResult                          MovementResult;                                    // 0x0004(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
 
 // Function AIModule.AIBlueprintHelperLibrary.CreateMoveToProxyObject
 // 0x0038 (0x0038 - 0x0000)
@@ -189,96 +199,6 @@ public:
 	bool                                          bUnlockMovement;                                   // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          UnlockAILogic;                                     // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function AIModule.BTService_BlueprintBase.ReceiveActivation
-// 0x0008 (0x0008 - 0x0000)
-struct BTService_BlueprintBase_ReceiveActivation final
-{
-public:
-	class AActor*                                 OwnerActor;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function AIModule.BTService_BlueprintBase.ReceiveActivationAI
-// 0x0010 (0x0010 - 0x0000)
-struct BTService_BlueprintBase_ReceiveActivationAI final
-{
-public:
-	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function AIModule.BTService_BlueprintBase.ReceiveDeactivation
-// 0x0008 (0x0008 - 0x0000)
-struct BTService_BlueprintBase_ReceiveDeactivation final
-{
-public:
-	class AActor*                                 OwnerActor;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function AIModule.BTService_BlueprintBase.ReceiveDeactivationAI
-// 0x0010 (0x0010 - 0x0000)
-struct BTService_BlueprintBase_ReceiveDeactivationAI final
-{
-public:
-	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function AIModule.BTService_BlueprintBase.ReceiveSearchStart
-// 0x0008 (0x0008 - 0x0000)
-struct BTService_BlueprintBase_ReceiveSearchStart final
-{
-public:
-	class AActor*                                 OwnerActor;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function AIModule.BTService_BlueprintBase.ReceiveSearchStartAI
-// 0x0010 (0x0010 - 0x0000)
-struct BTService_BlueprintBase_ReceiveSearchStartAI final
-{
-public:
-	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function AIModule.BTService_BlueprintBase.ReceiveTick
-// 0x0010 (0x0010 - 0x0000)
-struct BTService_BlueprintBase_ReceiveTick final
-{
-public:
-	class AActor*                                 OwnerActor;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         DeltaSeconds;                                      // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function AIModule.BTService_BlueprintBase.ReceiveTickAI
-// 0x0018 (0x0018 - 0x0000)
-struct BTService_BlueprintBase_ReceiveTickAI final
-{
-public:
-	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         DeltaSeconds;                                      // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function AIModule.BTService_BlueprintBase.IsServiceActive
-// 0x0001 (0x0001 - 0x0000)
-struct BTService_BlueprintBase_IsServiceActive final
-{
-public:
-	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function AIModule.AIAsyncTaskBlueprintProxy.OnMoveCompleted
-// 0x0008 (0x0008 - 0x0000)
-struct AIAsyncTaskBlueprintProxy_OnMoveCompleted final
-{
-public:
-	struct FAIRequestID                           requestId;                                         // 0x0000(0x0004)(Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EPathFollowingResult                          MovementResult;                                    // 0x0004(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // Function AIModule.AIController.ClaimTaskResource
@@ -1440,6 +1360,86 @@ struct BTFunctionLibrary_StopUsingExternalEvent final
 {
 public:
 	class UBTNode*                                NodeOwner;                                         // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function AIModule.BTService_BlueprintBase.ReceiveActivation
+// 0x0008 (0x0008 - 0x0000)
+struct BTService_BlueprintBase_ReceiveActivation final
+{
+public:
+	class AActor*                                 OwnerActor;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function AIModule.BTService_BlueprintBase.ReceiveActivationAI
+// 0x0010 (0x0010 - 0x0000)
+struct BTService_BlueprintBase_ReceiveActivationAI final
+{
+public:
+	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function AIModule.BTService_BlueprintBase.ReceiveDeactivation
+// 0x0008 (0x0008 - 0x0000)
+struct BTService_BlueprintBase_ReceiveDeactivation final
+{
+public:
+	class AActor*                                 OwnerActor;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function AIModule.BTService_BlueprintBase.ReceiveDeactivationAI
+// 0x0010 (0x0010 - 0x0000)
+struct BTService_BlueprintBase_ReceiveDeactivationAI final
+{
+public:
+	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function AIModule.BTService_BlueprintBase.ReceiveSearchStart
+// 0x0008 (0x0008 - 0x0000)
+struct BTService_BlueprintBase_ReceiveSearchStart final
+{
+public:
+	class AActor*                                 OwnerActor;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function AIModule.BTService_BlueprintBase.ReceiveSearchStartAI
+// 0x0010 (0x0010 - 0x0000)
+struct BTService_BlueprintBase_ReceiveSearchStartAI final
+{
+public:
+	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function AIModule.BTService_BlueprintBase.ReceiveTick
+// 0x0010 (0x0010 - 0x0000)
+struct BTService_BlueprintBase_ReceiveTick final
+{
+public:
+	class AActor*                                 OwnerActor;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         DeltaSeconds;                                      // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function AIModule.BTService_BlueprintBase.ReceiveTickAI
+// 0x0018 (0x0018 - 0x0000)
+struct BTService_BlueprintBase_ReceiveTickAI final
+{
+public:
+	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         DeltaSeconds;                                      // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function AIModule.BTService_BlueprintBase.IsServiceActive
+// 0x0001 (0x0001 - 0x0000)
+struct BTService_BlueprintBase_IsServiceActive final
+{
+public:
+	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function AIModule.BTTask_BlueprintBase.FinishExecute

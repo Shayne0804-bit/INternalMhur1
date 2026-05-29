@@ -11,11 +11,11 @@
 #include "Basic.hpp"
 
 #include "UIFramework_structs.hpp"
-#include "InputCore_structs.hpp"
-#include "CoreUObject_structs.hpp"
 #include "Slate_structs.hpp"
-#include "SlateCore_structs.hpp"
 #include "GameplayTags_structs.hpp"
+#include "SlateCore_structs.hpp"
+#include "CoreUObject_structs.hpp"
+#include "InputCore_structs.hpp"
 #include "UMG_structs.hpp"
 
 
@@ -154,28 +154,28 @@ public:
 	class FName                                   ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetScrollText.BP_SetActive
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetScrollText_BP_SetActive final
-{
-public:
-	bool                                          val;                                               // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetScrollText.Update
+// Function UIFramework.CustomTextBlock.SetLineHeightPercentage
 // 0x0004 (0x0004 - 0x0000)
-struct WidgetScrollText_Update final
+struct CustomTextBlock_SetLineHeightPercentage final
 {
 public:
-	float                                         DeltaTime;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         InLineHeightPercentage;                            // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetScrollText.BP_GetActive
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetScrollText_BP_GetActive final
+// Function UIFramework.CustomTextBlock.SetMargin
+// 0x0010 (0x0010 - 0x0000)
+struct CustomTextBlock_SetMargin final
 {
 public:
-	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FMargin                                InMargin;                                          // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.CustomTextBlock.SetWrapTextAt
+// 0x0004 (0x0004 - 0x0000)
+struct CustomTextBlock_SetWrapTextAt final
+{
+public:
+	float                                         InWrapTextAt;                                      // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function UIFramework.CustomListView.AddScrollOffset
@@ -196,255 +196,6 @@ public:
 	float                                         defaultSpeedRate;                                  // 0x0044(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         maxSpeedRate;                                      // 0x0048(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         addSpeedRate;                                      // 0x004C(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindowBase.SetTag
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetGeneralWindowBase_SetTag final
-{
-public:
-	class FString                                 Tag;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindowBase.SetText
-// 0x0018 (0x0018 - 0x0000)
-struct WidgetGeneralWindowBase_SetText final
-{
-public:
-	class FText                                   InText;                                            // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindowBase.SetTextStyleSet
-// 0x0008 (0x0008 - 0x0000)
-struct WidgetGeneralWindowBase_SetTextStyleSet final
-{
-public:
-	class UDataTable*                             textStyleSet;                                      // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindowBase.SetupHeaderText
-// 0x0018 (0x0018 - 0x0000)
-struct WidgetGeneralWindowBase_SetupHeaderText final
-{
-public:
-	class FText                                   InText;                                            // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindowBase.SetWindowPosition
-// 0x0008 (0x0008 - 0x0000)
-struct WidgetGeneralWindowBase_SetWindowPosition final
-{
-public:
-	struct FVector2D                              windowPosition;                                    // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindowBase.SetWindowSize
-// 0x0008 (0x0008 - 0x0000)
-struct WidgetGeneralWindowBase_SetWindowSize final
-{
-public:
-	struct FVector2D                              windowSize;                                        // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindowBase.GetWindowPosition
-// 0x0008 (0x0008 - 0x0000)
-struct WidgetGeneralWindowBase_GetWindowPosition final
-{
-public:
-	struct FVector2D                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindowBase.GetWindowSize
-// 0x0008 (0x0008 - 0x0000)
-struct WidgetGeneralWindowBase_GetWindowSize final
-{
-public:
-	struct FVector2D                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.BP_FocusButton
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetGeneralWindow_BP_FocusButton final
-{
-public:
-	bool                                          bLeft;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.BP_SetButtonEnable
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetGeneralWindow_BP_SetButtonEnable final
-{
-public:
-	bool                                          bEnable;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.BP_SetLeftButtonEnable
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetGeneralWindow_BP_SetLeftButtonEnable final
-{
-public:
-	bool                                          bEnable;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.BP_SetRightButtonEnable
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetGeneralWindow_BP_SetRightButtonEnable final
-{
-public:
-	bool                                          bEnable;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.BP_SetupBackgroundBlur
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetGeneralWindow_BP_SetupBackgroundBlur final
-{
-public:
-	bool                                          bUserBlur;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.BP_SetupButton
-// 0x0028 (0x0028 - 0x0000)
-struct WidgetGeneralWindow_BP_SetupButton final
-{
-public:
-	struct FGeneralWindowText                     Text;                                              // 0x0000(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.BP_SetupLeftButton
-// 0x0028 (0x0028 - 0x0000)
-struct WidgetGeneralWindow_BP_SetupLeftButton final
-{
-public:
-	struct FGeneralWindowText                     Text;                                              // 0x0000(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.BP_SetupRightButton
-// 0x0028 (0x0028 - 0x0000)
-struct WidgetGeneralWindow_BP_SetupRightButton final
-{
-public:
-	struct FGeneralWindowText                     Text;                                              // 0x0000(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.BP_SetupTwoButton
-// 0x0050 (0x0050 - 0x0000)
-struct WidgetGeneralWindow_BP_SetupTwoButton final
-{
-public:
-	struct FGeneralWindowText                     leftText;                                          // 0x0000(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-	struct FGeneralWindowText                     rightText;                                         // 0x0028(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.OnDecideButton
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetGeneralWindow_OnDecideButton final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function UIFramework.WidgetGeneralWindow.OnMouseEnterButton
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetGeneralWindow_OnMouseEnterButton final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function UIFramework.WidgetGeneralWindow.OnMouseLeaveButton
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetGeneralWindow_OnMouseLeaveButton final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function UIFramework.WidgetGeneralWindow.OnPressButton
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetGeneralWindow_OnPressButton final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function UIFramework.WidgetGeneralWindow.SetSubText
-// 0x0018 (0x0018 - 0x0000)
-struct WidgetGeneralWindow_SetSubText final
-{
-public:
-	class FText                                   InText;                                            // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.SetSubTextColorAndOpacity
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetGeneralWindow_SetSubTextColorAndOpacity final
-{
-public:
-	struct FLinearColor                           Color;                                             // 0x0000(0x0010)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.SetSubTextVisibility
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetGeneralWindow_SetSubTextVisibility final
-{
-public:
-	ESlateVisibility                              InVisibility;                                      // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.SetTextMainVisibility
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetGeneralWindow_SetTextMainVisibility final
-{
-public:
-	ESlateVisibility                              InVisibility;                                      // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.SetTextVisibility
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetGeneralWindow_SetTextVisibility final
-{
-public:
-	ESlateVisibility                              InVisibility;                                      // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.BP_GetButtonCount
-// 0x0004 (0x0004 - 0x0000)
-struct WidgetGeneralWindow_BP_GetButtonCount final
-{
-public:
-	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.BP_GetLeftOfTwoButtons
-// 0x0008 (0x0008 - 0x0000)
-struct WidgetGeneralWindow_BP_GetLeftOfTwoButtons final
-{
-public:
-	class UWidgetButton*                          ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.BP_GetOneButton
-// 0x0008 (0x0008 - 0x0000)
-struct WidgetGeneralWindow_BP_GetOneButton final
-{
-public:
-	class UWidgetButton*                          ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetGeneralWindow.BP_GetRightOfTwoButtons
-// 0x0008 (0x0008 - 0x0000)
-struct WidgetGeneralWindow_BP_GetRightOfTwoButtons final
-{
-public:
-	class UWidgetButton*                          ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function UIFramework.AppWidgetWork.BP_CreateWidget
@@ -658,155 +409,92 @@ public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetSubMenu.Close
-// 0x0002 (0x0002 - 0x0000)
-struct WidgetSubMenu_Close final
-{
-public:
-	bool                                          useCloseAnimation;                                 // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          useCloseSE;                                        // 0x0001(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetSubMenu.GetOffsetPosition
-// 0x0008 (0x0008 - 0x0000)
-struct WidgetSubMenu_GetOffsetPosition final
-{
-public:
-	struct FVector2D                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetSubMenu.IsCloseable
-// 0x0008 (0x0008 - 0x0000)
-struct WidgetSubMenu_IsCloseable final
-{
-public:
-	struct FFocusEvent                            InFocusEvent;                                      // 0x0000(0x0008)(Parm, NoDestructor, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetSubMenu.IsOpenSubMenu
+// Function UIFramework.WidgetButton.PressThisButton
 // 0x0001 (0x0001 - 0x0000)
-struct WidgetSubMenu_IsOpenSubMenu final
-{
-public:
-	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetSubMenu.OnDecideListButtonEvent
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetSubMenu_OnDecideListButtonEvent final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function UIFramework.WidgetSubMenu.OnHoveredChangedEvent
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetSubMenu_OnHoveredChangedEvent final
-{
-public:
-	class UObject*                                Item;                                              // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bHovered;                                          // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function UIFramework.WidgetSubMenu.OnReceivedItemSelectionChangedEvent
-// 0x0008 (0x0008 - 0x0000)
-struct WidgetSubMenu_OnReceivedItemSelectionChangedEvent final
-{
-public:
-	class UObject*                                Item;                                              // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetSubMenu.OnSubMenuCancel
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetSubMenu_OnSubMenuCancel final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function UIFramework.WidgetSubMenu.Open
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetSubMenu_Open final
-{
-public:
-	class UWidgetBase*                            Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          useOpenSE;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function UIFramework.WidgetSubMenu.OpenWithInputParam
-// 0x0018 (0x0018 - 0x0000)
-struct WidgetSubMenu_OpenWithInputParam final
+struct WidgetButton_PressThisButton final
 {
 public:
 	EWidgetInputType                              inputType;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UWidgetBase*                            Widget;                                            // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          useOpenSE;                                         // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// Function UIFramework.WidgetSubMenu.SetButtonTexts
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetSubMenu_SetButtonTexts final
-{
-public:
-	TArray<class FText>                           texts;                                             // 0x0000(0x0010)(Parm, ZeroConstructor, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetSubMenu.SetFocusListViewItem
-// 0x0004 (0x0004 - 0x0000)
-struct WidgetSubMenu_SetFocusListViewItem final
-{
-public:
-	int32                                         itemIndex;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetSubMenu.SetOffsetPosition
-// 0x0008 (0x0008 - 0x0000)
-struct WidgetSubMenu_SetOffsetPosition final
-{
-public:
-	struct FVector2D                              Pos;                                               // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetSubMenu.SetSubMenuInfo
-// 0x0018 (0x0018 - 0x0000)
-struct WidgetSubMenu_SetSubMenuInfo final
-{
-public:
-	TArray<struct FSubMenuInfo>                   SubMenuInfo;                                       // 0x0000(0x0010)(Parm, ZeroConstructor, NativeAccessSpecifierPublic)
-	bool                                          Update;                                            // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function UIFramework.WidgetSubMenu.SwitchArrowDirection
+// Function UIFramework.WidgetButton.SetEnableDragDrop
 // 0x0001 (0x0001 - 0x0000)
-struct WidgetSubMenu_SwitchArrowDirection final
+struct WidgetButton_SetEnableDragDrop final
 {
 public:
-	bool                                          bRight;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bDragDrop;                                         // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetSubMenu.GetButtonTexts
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetSubMenu_GetButtonTexts final
+// Function UIFramework.WidgetButton.SetOnlyPlayShortcutAtomCue
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetButton_SetOnlyPlayShortcutAtomCue final
 {
 public:
-	TArray<class FText>                           ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
+	bool                                          flag;                                              // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetSubMenu.GetSubMenuInfo
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetSubMenu_GetSubMenuInfo final
+// Function UIFramework.WidgetButton.SetPlayNegativeAnimationShortcut
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetButton_SetPlayNegativeAnimationShortcut final
 {
 public:
-	TArray<struct FSubMenuInfo>                   ReturnValue;                                       // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
+	bool                                          bPlay;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetButton.StopDefaultAnimation
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetButton_StopDefaultAnimation final
+{
+public:
+	bool                                          bAllChildren;                                      // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetButton.StopFocusAnimation
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetButton_StopFocusAnimation final
+{
+public:
+	bool                                          bAllChildren;                                      // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetButton.StopIdleAnimation
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetButton_StopIdleAnimation final
+{
+public:
+	bool                                          bAllChildren;                                      // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetButton.StopNegativeAnimation
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetButton_StopNegativeAnimation final
+{
+public:
+	bool                                          bAllChildren;                                      // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetButton.StopPressAnimation
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetButton_StopPressAnimation final
+{
+public:
+	bool                                          bAllChildren;                                      // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetButton.StopReleaseAnimation
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetButton_StopReleaseAnimation final
+{
+public:
+	bool                                          bAllChildren;                                      // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetButton.IsEnableDragDrop
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetButton_IsEnableDragDrop final
+{
+public:
+	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function UIFramework.CustomMultiLineEditableText.BP_CheckFirstFocus
@@ -843,94 +531,140 @@ public:
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// Function UIFramework.WidgetWindowFrame.OnButtonAddedToFocusEvent
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetWindowFrame_OnButtonAddedToFocusEvent final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function UIFramework.WidgetWindowFrame.OnButtonDecideEvent
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetWindowFrame_OnButtonDecideEvent final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function UIFramework.WidgetWindowFrame.OnButtonOnLongDecideEvent
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetWindowFrame_OnButtonOnLongDecideEvent final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function UIFramework.WidgetWindowFrame.OnButtonPressEvent
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetWindowFrame_OnButtonPressEvent final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function UIFramework.WidgetWindowFrame.OnButtonRemovedFromFocusEvent
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetWindowFrame_OnButtonRemovedFromFocusEvent final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// Function UIFramework.WidgetWindowFrame.ReplaceBase1Slot
+// Function UIFramework.WidgetText.GetDynamicFontMaterial
 // 0x0008 (0x0008 - 0x0000)
-struct WidgetWindowFrame_ReplaceBase1Slot final
+struct WidgetText_GetDynamicFontMaterial final
 {
 public:
-	class UNamedSlot*                             Source;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UMaterialInstanceDynamic*               ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetWindowFrame.ReplaceBase2Slot
+// Function UIFramework.WidgetText.GetDynamicOutlineMaterial
 // 0x0008 (0x0008 - 0x0000)
-struct WidgetWindowFrame_ReplaceBase2Slot final
+struct WidgetText_GetDynamicOutlineMaterial final
 {
 public:
-	class UNamedSlot*                             Source;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UMaterialInstanceDynamic*               ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetWindowFrame.ReplaceContentsSlot
-// 0x0008 (0x0008 - 0x0000)
-struct WidgetWindowFrame_ReplaceContentsSlot final
-{
-public:
-	class UNamedSlot*                             Source;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetWindowFrame.GetButtonCount
+// Function UIFramework.WidgetText.SetAutoWrapText
 // 0x0001 (0x0001 - 0x0000)
-struct WidgetWindowFrame_GetButtonCount final
+struct WidgetText_SetAutoWrapText final
 {
 public:
-	uint8                                         ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          InAutoTextWrap;                                    // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetWindowFrame.GetWindowSize
-// 0x0004 (0x0004 - 0x0000)
-struct WidgetWindowFrame_GetWindowSize final
+// Function UIFramework.WidgetText.SetFont
+// 0x0058 (0x0058 - 0x0000)
+struct WidgetText_SetFont final
 {
 public:
-	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FSlateFontInfo                         InFontInfo;                                        // 0x0000(0x0058)(Parm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetText.SetLineHeightPercentage
+// 0x0004 (0x0004 - 0x0000)
+struct WidgetText_SetLineHeightPercentage final
+{
+public:
+	float                                         InLineHeightPercentage;                            // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetText.SetMargin
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetText_SetMargin final
+{
+public:
+	struct FMargin                                InMargin;                                          // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetText.SetMinDesiredWidth
+// 0x0004 (0x0004 - 0x0000)
+struct WidgetText_SetMinDesiredWidth final
+{
+public:
+	float                                         InMinDesiredWidth;                                 // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetText.SetOpacity
+// 0x0004 (0x0004 - 0x0000)
+struct WidgetText_SetOpacity final
+{
+public:
+	float                                         InOpacity;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetText.SetShadowColorAndOpacity
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetText_SetShadowColorAndOpacity final
+{
+public:
+	struct FLinearColor                           InShadowColorAndOpacity;                           // 0x0000(0x0010)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetText.SetShadowOffset
+// 0x0008 (0x0008 - 0x0000)
+struct WidgetText_SetShadowOffset final
+{
+public:
+	struct FVector2D                              InShadowOffset;                                    // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetText.SetStrikeBrush
+// 0x00D0 (0x00D0 - 0x0000)
+struct WidgetText_SetStrikeBrush final
+{
+public:
+	struct FSlateBrush                            InStrikeBrush;                                     // 0x0000(0x00D0)(Parm, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetText.SetText
+// 0x0018 (0x0018 - 0x0000)
+struct WidgetText_SetText final
+{
+public:
+	class FText                                   InText;                                            // 0x0000(0x0018)(Parm, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetText.SetTextColorAndOpacity
+// 0x0028 (0x0028 - 0x0000)
+struct WidgetText_SetTextColorAndOpacity final
+{
+public:
+	struct FSlateColor                            InColorAndOpacity;                                 // 0x0000(0x0028)(Parm, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetText.SetTextTransformPolicy
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetText_SetTextTransformPolicy final
+{
+public:
+	ETextTransformPolicy                          InTransformPolicy;                                 // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetText.SetWrapTextAt
+// 0x0004 (0x0004 - 0x0000)
+struct WidgetText_SetWrapTextAt final
+{
+public:
+	float                                         InWrapTextAt;                                      // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetText.GetFont
+// 0x0058 (0x0058 - 0x0000)
+struct WidgetText_GetFont final
+{
+public:
+	struct FSlateFontInfo                         ReturnValue;                                       // 0x0000(0x0058)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetText.GetText
+// 0x0018 (0x0018 - 0x0000)
+struct WidgetText_GetText final
+{
+public:
+	class FText                                   ReturnValue;                                       // 0x0000(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
 
 // Function UIFramework.CustomEditableTextBox.BP_CheckFirstFocus
@@ -1256,92 +990,12 @@ public:
 	bool                                          inVisible;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetButton.PressThisButton
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetButton_PressThisButton final
+// Function UIFramework.WidgetLocalizeLayoutItem.SetText
+// 0x0018 (0x0018 - 0x0000)
+struct WidgetLocalizeLayoutItem_SetText final
 {
 public:
-	EWidgetInputType                              inputType;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetButton.SetEnableDragDrop
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetButton_SetEnableDragDrop final
-{
-public:
-	bool                                          bDragDrop;                                         // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetButton.SetOnlyPlayShortcutAtomCue
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetButton_SetOnlyPlayShortcutAtomCue final
-{
-public:
-	bool                                          flag;                                              // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetButton.SetPlayNegativeAnimationShortcut
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetButton_SetPlayNegativeAnimationShortcut final
-{
-public:
-	bool                                          bPlay;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetButton.StopDefaultAnimation
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetButton_StopDefaultAnimation final
-{
-public:
-	bool                                          bAllChildren;                                      // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetButton.StopFocusAnimation
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetButton_StopFocusAnimation final
-{
-public:
-	bool                                          bAllChildren;                                      // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetButton.StopIdleAnimation
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetButton_StopIdleAnimation final
-{
-public:
-	bool                                          bAllChildren;                                      // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetButton.StopNegativeAnimation
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetButton_StopNegativeAnimation final
-{
-public:
-	bool                                          bAllChildren;                                      // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetButton.StopPressAnimation
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetButton_StopPressAnimation final
-{
-public:
-	bool                                          bAllChildren;                                      // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetButton.StopReleaseAnimation
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetButton_StopReleaseAnimation final
-{
-public:
-	bool                                          bAllChildren;                                      // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetButton.IsEnableDragDrop
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetButton_IsEnableDragDrop final
-{
-public:
-	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FText                                   Text;                                              // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
 // Function UIFramework.WidgetButtonDetails.OnDecided
@@ -1380,40 +1034,68 @@ public:
 	class UWidgetBase*                            ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetScrollBar.OnSelectedKnob
+// Function UIFramework.WidgetGeneralWindowBase.SetTag
 // 0x0010 (0x0010 - 0x0000)
-struct WidgetScrollBar_OnSelectedKnob final
+struct WidgetGeneralWindowBase_SetTag final
 {
 public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	class FString                                 Tag;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetScrollBar.OnUnselectedKnob
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetScrollBar_OnUnselectedKnob final
+// Function UIFramework.WidgetGeneralWindowBase.SetText
+// 0x0018 (0x0018 - 0x0000)
+struct WidgetGeneralWindowBase_SetText final
 {
 public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	class FText                                   InText;                                            // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetScrollBar.SetKnobSizeScale
-// 0x0004 (0x0004 - 0x0000)
-struct WidgetScrollBar_SetKnobSizeScale final
+// Function UIFramework.WidgetGeneralWindowBase.SetTextStyleSet
+// 0x0008 (0x0008 - 0x0000)
+struct WidgetGeneralWindowBase_SetTextStyleSet final
 {
 public:
-	float                                         Scale;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UDataTable*                             textStyleSet;                                      // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetScrollBar.SetProgress
-// 0x0004 (0x0004 - 0x0000)
-struct WidgetScrollBar_SetProgress final
+// Function UIFramework.WidgetGeneralWindowBase.SetupHeaderText
+// 0x0018 (0x0018 - 0x0000)
+struct WidgetGeneralWindowBase_SetupHeaderText final
 {
 public:
-	float                                         value;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FText                                   InText;                                            // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindowBase.SetWindowPosition
+// 0x0008 (0x0008 - 0x0000)
+struct WidgetGeneralWindowBase_SetWindowPosition final
+{
+public:
+	struct FVector2D                              windowPosition;                                    // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindowBase.SetWindowSize
+// 0x0008 (0x0008 - 0x0000)
+struct WidgetGeneralWindowBase_SetWindowSize final
+{
+public:
+	struct FVector2D                              windowSize;                                        // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindowBase.GetWindowPosition
+// 0x0008 (0x0008 - 0x0000)
+struct WidgetGeneralWindowBase_GetWindowPosition final
+{
+public:
+	struct FVector2D                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindowBase.GetWindowSize
+// 0x0008 (0x0008 - 0x0000)
+struct WidgetGeneralWindowBase_GetWindowSize final
+{
+public:
+	struct FVector2D                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function UIFramework.WidgetGeneralEmptyWindow.BP_ChangeBackgroundBlurVisibility
@@ -1523,6 +1205,14 @@ public:
 	int32                                         Index_0;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
+// Function UIFramework.WidgetGeneralSelectiveWindow.GetListKey
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetGeneralSelectiveWindow_GetListKey final
+{
+public:
+	TArray<struct FKey>                           ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
+};
+
 // Function UIFramework.WidgetGeneralSelectiveWindow.GetListText
 // 0x0010 (0x0010 - 0x0000)
 struct WidgetGeneralSelectiveWindow_GetListText final
@@ -1541,14 +1231,189 @@ public:
 	class UWidgetButton*                          ReturnValue;                                       // 0x0008(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetPopUpWindow.OnPressBlockBG
-// 0x0160 (0x0160 - 0x0000)
-struct WidgetPopUpWindow_OnPressBlockBG final
+// Function UIFramework.WidgetGeneralWindow.BP_FocusButton
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetGeneralWindow_BP_FocusButton final
 {
 public:
-	struct FGeometry                              MyGeometry;                                        // 0x0000(0x0038)(Parm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
-	struct FPointerEvent                          MouseEvent;                                        // 0x0038(0x0070)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-	struct FEventReply                            ReturnValue;                                       // 0x00A8(0x00B8)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+	bool                                          bLeft;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindow.BP_SetButtonEnable
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetGeneralWindow_BP_SetButtonEnable final
+{
+public:
+	bool                                          bEnable;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindow.BP_SetLeftButtonEnable
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetGeneralWindow_BP_SetLeftButtonEnable final
+{
+public:
+	bool                                          bEnable;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindow.BP_SetRightButtonEnable
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetGeneralWindow_BP_SetRightButtonEnable final
+{
+public:
+	bool                                          bEnable;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindow.BP_SetupBackgroundBlur
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetGeneralWindow_BP_SetupBackgroundBlur final
+{
+public:
+	bool                                          bUserBlur;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindow.BP_SetupButton
+// 0x0028 (0x0028 - 0x0000)
+struct WidgetGeneralWindow_BP_SetupButton final
+{
+public:
+	struct FGeneralWindowText                     Text;                                              // 0x0000(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindow.BP_SetupLeftButton
+// 0x0028 (0x0028 - 0x0000)
+struct WidgetGeneralWindow_BP_SetupLeftButton final
+{
+public:
+	struct FGeneralWindowText                     Text;                                              // 0x0000(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindow.BP_SetupRightButton
+// 0x0028 (0x0028 - 0x0000)
+struct WidgetGeneralWindow_BP_SetupRightButton final
+{
+public:
+	struct FGeneralWindowText                     Text;                                              // 0x0000(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindow.BP_SetupTwoButton
+// 0x0050 (0x0050 - 0x0000)
+struct WidgetGeneralWindow_BP_SetupTwoButton final
+{
+public:
+	struct FGeneralWindowText                     leftText;                                          // 0x0000(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+	struct FGeneralWindowText                     rightText;                                         // 0x0028(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindow.OnDecideButton
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetGeneralWindow_OnDecideButton final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function UIFramework.WidgetGeneralWindow.OnMouseEnterButton
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetGeneralWindow_OnMouseEnterButton final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function UIFramework.WidgetGeneralWindow.OnMouseLeaveButton
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetGeneralWindow_OnMouseLeaveButton final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function UIFramework.WidgetGeneralWindow.OnPressButton
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetGeneralWindow_OnPressButton final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function UIFramework.WidgetGeneralWindow.SetSubText
+// 0x0018 (0x0018 - 0x0000)
+struct WidgetGeneralWindow_SetSubText final
+{
+public:
+	class FText                                   InText;                                            // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindow.SetSubTextColorAndOpacity
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetGeneralWindow_SetSubTextColorAndOpacity final
+{
+public:
+	struct FLinearColor                           Color;                                             // 0x0000(0x0010)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindow.SetSubTextVisibility
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetGeneralWindow_SetSubTextVisibility final
+{
+public:
+	ESlateVisibility                              InVisibility;                                      // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindow.SetTextMainVisibility
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetGeneralWindow_SetTextMainVisibility final
+{
+public:
+	ESlateVisibility                              InVisibility;                                      // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindow.SetTextVisibility
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetGeneralWindow_SetTextVisibility final
+{
+public:
+	ESlateVisibility                              InVisibility;                                      // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindow.BP_GetButtonCount
+// 0x0004 (0x0004 - 0x0000)
+struct WidgetGeneralWindow_BP_GetButtonCount final
+{
+public:
+	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindow.BP_GetLeftOfTwoButtons
+// 0x0008 (0x0008 - 0x0000)
+struct WidgetGeneralWindow_BP_GetLeftOfTwoButtons final
+{
+public:
+	class UWidgetButton*                          ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindow.BP_GetOneButton
+// 0x0008 (0x0008 - 0x0000)
+struct WidgetGeneralWindow_BP_GetOneButton final
+{
+public:
+	class UWidgetButton*                          ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetGeneralWindow.BP_GetRightOfTwoButtons
+// 0x0008 (0x0008 - 0x0000)
+struct WidgetGeneralWindow_BP_GetRightOfTwoButtons final
+{
+public:
+	class UWidgetButton*                          ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function UIFramework.WidgetGeneralVerticalMultipleButtonWindow.OnButtonAddedToFocusEvent
@@ -1610,14 +1475,6 @@ public:
 	class FText                                   Format;                                            // 0x0018(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetLocalizeLayoutItem.SetText
-// 0x0018 (0x0018 - 0x0000)
-struct WidgetLocalizeLayoutItem_SetText final
-{
-public:
-	class FText                                   Text;                                              // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
-
 // Function UIFramework.WidgetMatrixSelection.OnCancelElement
 // 0x0010 (0x0010 - 0x0000)
 struct WidgetMatrixSelection_OnCancelElement final
@@ -1655,6 +1512,76 @@ struct WidgetMatrixSelection_BP_GetElemets final
 public:
 	TSubclassOf<class UWidget>                    elementType;                                       // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<class UWidget*>                        ReturnValue;                                       // 0x0008(0x0010)(ConstParm, ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, ContainsInstancedReference, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetPopUpWindow.OnPressBlockBG
+// 0x0160 (0x0160 - 0x0000)
+struct WidgetPopUpWindow_OnPressBlockBG final
+{
+public:
+	struct FGeometry                              MyGeometry;                                        // 0x0000(0x0038)(Parm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+	struct FPointerEvent                          MouseEvent;                                        // 0x0038(0x0070)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+	struct FEventReply                            ReturnValue;                                       // 0x00A8(0x00B8)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetScrollBar.OnSelectedKnob
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetScrollBar_OnSelectedKnob final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function UIFramework.WidgetScrollBar.OnUnselectedKnob
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetScrollBar_OnUnselectedKnob final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function UIFramework.WidgetScrollBar.SetKnobSizeScale
+// 0x0004 (0x0004 - 0x0000)
+struct WidgetScrollBar_SetKnobSizeScale final
+{
+public:
+	float                                         Scale;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetScrollBar.SetProgress
+// 0x0004 (0x0004 - 0x0000)
+struct WidgetScrollBar_SetProgress final
+{
+public:
+	float                                         value;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetScrollText.BP_SetActive
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetScrollText_BP_SetActive final
+{
+public:
+	bool                                          val;                                               // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetScrollText.Update
+// 0x0004 (0x0004 - 0x0000)
+struct WidgetScrollText_Update final
+{
+public:
+	float                                         DeltaTime;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetScrollText.BP_GetActive
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetScrollText_BP_GetActive final
+{
+public:
+	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function UIFramework.WidgetStatics.BP_ConvertEngCountString
@@ -1817,6 +1744,165 @@ public:
 	class FString                                 ParameterName;                                     // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
+// Function UIFramework.WidgetSubMenu.Close
+// 0x0002 (0x0002 - 0x0000)
+struct WidgetSubMenu_Close final
+{
+public:
+	bool                                          useCloseAnimation;                                 // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          useCloseSE;                                        // 0x0001(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetSubMenu.GetOffsetPosition
+// 0x0008 (0x0008 - 0x0000)
+struct WidgetSubMenu_GetOffsetPosition final
+{
+public:
+	struct FVector2D                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetSubMenu.IsCloseable
+// 0x0008 (0x0008 - 0x0000)
+struct WidgetSubMenu_IsCloseable final
+{
+public:
+	struct FFocusEvent                            InFocusEvent;                                      // 0x0000(0x0008)(Parm, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetSubMenu.IsOpenSubMenu
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetSubMenu_IsOpenSubMenu final
+{
+public:
+	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetSubMenu.OnDecideListButtonEvent
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetSubMenu_OnDecideListButtonEvent final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function UIFramework.WidgetSubMenu.OnHoveredChangedEvent
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetSubMenu_OnHoveredChangedEvent final
+{
+public:
+	class UObject*                                Item;                                              // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bHovered;                                          // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function UIFramework.WidgetSubMenu.OnReceivedItemSelectionChangedEvent
+// 0x0008 (0x0008 - 0x0000)
+struct WidgetSubMenu_OnReceivedItemSelectionChangedEvent final
+{
+public:
+	class UObject*                                Item;                                              // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetSubMenu.OnSubMenuCancel
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetSubMenu_OnSubMenuCancel final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function UIFramework.WidgetSubMenu.Open
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetSubMenu_Open final
+{
+public:
+	class UWidgetBase*                            Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          useOpenSE;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function UIFramework.WidgetSubMenu.OpenWithInputParam
+// 0x0018 (0x0018 - 0x0000)
+struct WidgetSubMenu_OpenWithInputParam final
+{
+public:
+	EWidgetInputType                              inputType;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UWidgetBase*                            Widget;                                            // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          useOpenSE;                                         // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function UIFramework.WidgetSubMenu.SetButtonTexts
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetSubMenu_SetButtonTexts final
+{
+public:
+	TArray<class FText>                           texts;                                             // 0x0000(0x0010)(Parm, ZeroConstructor, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetSubMenu.SetFocusListViewItem
+// 0x0004 (0x0004 - 0x0000)
+struct WidgetSubMenu_SetFocusListViewItem final
+{
+public:
+	int32                                         itemIndex;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetSubMenu.SetOffsetPosition
+// 0x0008 (0x0008 - 0x0000)
+struct WidgetSubMenu_SetOffsetPosition final
+{
+public:
+	struct FVector2D                              Pos;                                               // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetSubMenu.SetSubMenuInfo
+// 0x0018 (0x0018 - 0x0000)
+struct WidgetSubMenu_SetSubMenuInfo final
+{
+public:
+	TArray<struct FSubMenuInfo>                   SubMenuInfo;                                       // 0x0000(0x0010)(Parm, ZeroConstructor, NativeAccessSpecifierPublic)
+	bool                                          Update;                                            // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function UIFramework.WidgetSubMenu.SwitchArrowDirection
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetSubMenu_SwitchArrowDirection final
+{
+public:
+	bool                                          bRight;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetSubMenu.SwitchArrowDirectionVertical
+// 0x0001 (0x0001 - 0x0000)
+struct WidgetSubMenu_SwitchArrowDirectionVertical final
+{
+public:
+	bool                                          bTop;                                              // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetSubMenu.GetButtonTexts
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetSubMenu_GetButtonTexts final
+{
+public:
+	TArray<class FText>                           ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetSubMenu.GetSubMenuInfo
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetSubMenu_GetSubMenuInfo final
+{
+public:
+	TArray<struct FSubMenuInfo>                   ReturnValue;                                       // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
+};
+
 // Function UIFramework.WidgetSubMenuEntry.UpdateDisplay
 // 0x0008 (0x0008 - 0x0000)
 struct WidgetSubMenuEntry_UpdateDisplay final
@@ -1825,164 +1911,94 @@ public:
 	class UWidgetSubMenuObject*                   Object;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.CustomTextBlock.SetLineHeightPercentage
-// 0x0004 (0x0004 - 0x0000)
-struct CustomTextBlock_SetLineHeightPercentage final
-{
-public:
-	float                                         InLineHeightPercentage;                            // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.CustomTextBlock.SetMargin
+// Function UIFramework.WidgetWindowFrame.OnButtonAddedToFocusEvent
 // 0x0010 (0x0010 - 0x0000)
-struct CustomTextBlock_SetMargin final
+struct WidgetWindowFrame_OnButtonAddedToFocusEvent final
 {
 public:
-	struct FMargin                                InMargin;                                          // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// Function UIFramework.CustomTextBlock.SetWrapTextAt
-// 0x0004 (0x0004 - 0x0000)
-struct CustomTextBlock_SetWrapTextAt final
+// Function UIFramework.WidgetWindowFrame.OnButtonDecideEvent
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetWindowFrame_OnButtonDecideEvent final
 {
 public:
-	float                                         InWrapTextAt;                                      // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// Function UIFramework.WidgetText.GetDynamicFontMaterial
+// Function UIFramework.WidgetWindowFrame.OnButtonOnLongDecideEvent
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetWindowFrame_OnButtonOnLongDecideEvent final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function UIFramework.WidgetWindowFrame.OnButtonPressEvent
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetWindowFrame_OnButtonPressEvent final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function UIFramework.WidgetWindowFrame.OnButtonRemovedFromFocusEvent
+// 0x0010 (0x0010 - 0x0000)
+struct WidgetWindowFrame_OnButtonRemovedFromFocusEvent final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function UIFramework.WidgetWindowFrame.ReplaceBase1Slot
 // 0x0008 (0x0008 - 0x0000)
-struct WidgetText_GetDynamicFontMaterial final
+struct WidgetWindowFrame_ReplaceBase1Slot final
 {
 public:
-	class UMaterialInstanceDynamic*               ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UNamedSlot*                             Source;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetText.GetDynamicOutlineMaterial
+// Function UIFramework.WidgetWindowFrame.ReplaceBase2Slot
 // 0x0008 (0x0008 - 0x0000)
-struct WidgetText_GetDynamicOutlineMaterial final
+struct WidgetWindowFrame_ReplaceBase2Slot final
 {
 public:
-	class UMaterialInstanceDynamic*               ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UNamedSlot*                             Source;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetText.SetAutoWrapText
+// Function UIFramework.WidgetWindowFrame.ReplaceContentsSlot
+// 0x0008 (0x0008 - 0x0000)
+struct WidgetWindowFrame_ReplaceContentsSlot final
+{
+public:
+	class UNamedSlot*                             Source;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function UIFramework.WidgetWindowFrame.GetButtonCount
 // 0x0001 (0x0001 - 0x0000)
-struct WidgetText_SetAutoWrapText final
+struct WidgetWindowFrame_GetButtonCount final
 {
 public:
-	bool                                          InAutoTextWrap;                                    // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function UIFramework.WidgetText.SetFont
-// 0x0058 (0x0058 - 0x0000)
-struct WidgetText_SetFont final
-{
-public:
-	struct FSlateFontInfo                         InFontInfo;                                        // 0x0000(0x0058)(Parm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetText.SetLineHeightPercentage
+// Function UIFramework.WidgetWindowFrame.GetWindowSize
 // 0x0004 (0x0004 - 0x0000)
-struct WidgetText_SetLineHeightPercentage final
+struct WidgetWindowFrame_GetWindowSize final
 {
 public:
-	float                                         InLineHeightPercentage;                            // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetText.SetMargin
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetText_SetMargin final
-{
-public:
-	struct FMargin                                InMargin;                                          // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetText.SetMinDesiredWidth
-// 0x0004 (0x0004 - 0x0000)
-struct WidgetText_SetMinDesiredWidth final
-{
-public:
-	float                                         InMinDesiredWidth;                                 // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetText.SetOpacity
-// 0x0004 (0x0004 - 0x0000)
-struct WidgetText_SetOpacity final
-{
-public:
-	float                                         InOpacity;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetText.SetShadowColorAndOpacity
-// 0x0010 (0x0010 - 0x0000)
-struct WidgetText_SetShadowColorAndOpacity final
-{
-public:
-	struct FLinearColor                           InShadowColorAndOpacity;                           // 0x0000(0x0010)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetText.SetShadowOffset
-// 0x0008 (0x0008 - 0x0000)
-struct WidgetText_SetShadowOffset final
-{
-public:
-	struct FVector2D                              InShadowOffset;                                    // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetText.SetStrikeBrush
-// 0x00D0 (0x00D0 - 0x0000)
-struct WidgetText_SetStrikeBrush final
-{
-public:
-	struct FSlateBrush                            InStrikeBrush;                                     // 0x0000(0x00D0)(Parm, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetText.SetText
-// 0x0018 (0x0018 - 0x0000)
-struct WidgetText_SetText final
-{
-public:
-	class FText                                   InText;                                            // 0x0000(0x0018)(Parm, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetText.SetTextColorAndOpacity
-// 0x0028 (0x0028 - 0x0000)
-struct WidgetText_SetTextColorAndOpacity final
-{
-public:
-	struct FSlateColor                            InColorAndOpacity;                                 // 0x0000(0x0028)(Parm, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetText.SetTextTransformPolicy
-// 0x0001 (0x0001 - 0x0000)
-struct WidgetText_SetTextTransformPolicy final
-{
-public:
-	ETextTransformPolicy                          InTransformPolicy;                                 // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetText.SetWrapTextAt
-// 0x0004 (0x0004 - 0x0000)
-struct WidgetText_SetWrapTextAt final
-{
-public:
-	float                                         InWrapTextAt;                                      // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetText.GetFont
-// 0x0058 (0x0058 - 0x0000)
-struct WidgetText_GetFont final
-{
-public:
-	struct FSlateFontInfo                         ReturnValue;                                       // 0x0000(0x0058)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function UIFramework.WidgetText.GetText
-// 0x0018 (0x0018 - 0x0000)
-struct WidgetText_GetText final
-{
-public:
-	class FText                                   ReturnValue;                                       // 0x0000(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 SDK_PARAM_NAMESPACE_END

@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "MasterDataModule_structs.hpp"
 #include "Engine_structs.hpp"
+#include "MasterDataModule_structs.hpp"
 #include "OutGameModule_classes.hpp"
 
 
@@ -46,6 +46,5 @@ public:
 		return GetDefaultObjImpl<UWBP_EventBannerTitle_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_EventBannerTitle_C;
 
 SDK_NAMESPACE_END

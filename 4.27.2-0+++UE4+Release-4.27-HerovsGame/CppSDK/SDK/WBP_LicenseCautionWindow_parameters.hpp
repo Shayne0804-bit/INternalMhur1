@@ -22,7 +22,6 @@ public:
 	class UWidgetButton*                          rightButton;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UWidgetButton*                          CallFunc_BP_GetRightOfTwoButtons_ReturnValue;      // 0x0008(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_LicenseCautionWindow_C_GetRightButton;
 
 // Function WBP_LicenseCautionWindow.WBP_LicenseCautionWindow_C.GetLeftButton
 // 0x0010 (0x0010 - 0x0000)
@@ -32,7 +31,6 @@ public:
 	class UWidgetButton*                          leftButton;                                        // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UWidgetButton*                          CallFunc_BP_GetLeftOfTwoButtons_ReturnValue;       // 0x0008(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_LicenseCautionWindow_C_GetLeftButton;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

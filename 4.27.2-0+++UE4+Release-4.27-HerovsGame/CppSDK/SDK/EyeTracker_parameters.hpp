@@ -17,13 +17,13 @@ SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
 // Function EyeTracker.EyeTrackerFunctionLibrary.GetGazeData
-// 0x002C (0x002C - 0x0000)
+// 0x0038 (0x0038 - 0x0000)
 struct EyeTrackerFunctionLibrary_GetGazeData final
 {
 public:
-	struct FEyeTrackerGazeData                    OutGazeData;                                       // 0x0000(0x0028)(Parm, OutParm, NoDestructor, NativeAccessSpecifierPublic)
-	bool                                          ReturnValue;                                       // 0x0028(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_29[0x3];                                       // 0x0029(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	struct FEyeTrackerGazeData                    OutGazeData;                                       // 0x0000(0x0034)(Parm, OutParm, NoDestructor, NativeAccessSpecifierPublic)
+	bool                                          ReturnValue;                                       // 0x0034(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_35[0x3];                                       // 0x0035(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // Function EyeTracker.EyeTrackerFunctionLibrary.GetStereoGazeData

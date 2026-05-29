@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "Engine_structs.hpp"
 #include "GameModule_classes.hpp"
+#include "Engine_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -26,9 +26,9 @@ public:
 
 public:
 	void ExecuteUbergraph_WBP_TextChatList(int32 EntryPoint);
-	void PreConstruct(bool IsDesignTime);
 	void Construct();
 	void SetUpNewMessage(const class FString& playerId, const class FString& Name_0, const class FString& message, const bool bLock, const bool isSTT);
+	void PreConstruct(bool IsDesignTime);
 	void ClearEvent();
 	void OnTeamUpChatReceivedEventDispatcherEvent(const class FString& playerId, const class FString& DisplayName, const class FString& message, const bool bBlock);
 	void AddItem(class UTextChatListObject* NewParam);

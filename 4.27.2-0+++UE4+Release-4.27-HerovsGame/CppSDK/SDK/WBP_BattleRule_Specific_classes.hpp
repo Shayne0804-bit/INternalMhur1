@@ -36,6 +36,5 @@ public:
 		return GetDefaultObjImpl<UWBP_BattleRule_Specific_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_BattleRule_Specific_C;
 
 SDK_NAMESPACE_END

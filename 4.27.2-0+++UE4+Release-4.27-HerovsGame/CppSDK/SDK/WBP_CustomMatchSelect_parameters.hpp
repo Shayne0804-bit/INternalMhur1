@@ -17,38 +17,43 @@ SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
 // Function WBP_CustomMatchSelect.WBP_CustomMatchSelect_C.ExecuteUbergraph_WBP_CustomMatchSelect
-// 0x0078 (0x0078 - 0x0000)
+// 0x0070 (0x0070 - 0x0000)
 struct WBP_CustomMatchSelect_C_ExecuteUbergraph_WBP_CustomMatchSelect final
 {
 public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class UBackendSubsystem*                      CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	TDelegate<void()>                             K2Node_CreateDelegate_OutputDelegate;              // 0x0010(0x0010)(ZeroConstructor, NoDestructor)
-	bool                                          CallFunc_IsSquadJoined_ReturnValue;                // 0x0020(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_21[0x3];                                       // 0x0021(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FOnFadeFinished                        K2Node_MakeStruct_OnFadeFinished;                  // 0x0024(0x0010)(NoDestructor, ContainsInstancedReference)
-	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	bool                                          K2Node_ComponentBoundEvent_bAllowEdit;             // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	TDelegate<void()>                             K2Node_CreateDelegate_OutputDelegate;              // 0x0008(0x0010)(ZeroConstructor, NoDestructor)
+	class UBackendSubsystem*                      CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x0018(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FOnFadeFinished                        K2Node_MakeStruct_OnFadeFinished;                  // 0x0020(0x0010)(NoDestructor, ContainsInstancedReference)
+	bool                                          CallFunc_IsSquadJoined_ReturnValue;                // 0x0030(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_31[0x7];                                       // 0x0031(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAppWidget*                             K2Node_ComponentBoundEvent_widget;                 // 0x0038(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType;              // 0x0040(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	uint8                                         Pad_41[0x7];                                       // 0x0041(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class ULevelStreaming*                        CallFunc_OpenLevel_LevelInstance;                  // 0x0048(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class FString                                 K2Node_ComponentBoundEvent_Id;                     // 0x0050(0x0010)(ZeroConstructor, HasGetValueTypeHash)
-	bool                                          K2Node_ComponentBoundEvent_check;                  // 0x0060(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_61[0x7];                                       // 0x0061(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAppWidgetWork*                         CallFunc_GetGameInstanceSubsystem_ReturnValue_1;   // 0x0068(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_Not_PreBool_ReturnValue;                  // 0x0070(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	class UAppWidgetWork*                         CallFunc_GetGameInstanceSubsystem_ReturnValue_1;   // 0x0060(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_ComponentBoundEvent_bHidden;                // 0x0068(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_Not_PreBool_ReturnValue;                  // 0x0069(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_CustomMatchSelect_C_ExecuteUbergraph_WBP_CustomMatchSelect;
 
-// Function WBP_CustomMatchSelect.WBP_CustomMatchSelect_C.BndEvt__WBP_CustomMatchSelect_WBP_CustomMatchDetail_K2Node_ComponentBoundEvent_5_OnChangeCheckButton__DelegateSignature
+// Function WBP_CustomMatchSelect.WBP_CustomMatchSelect_C.BndEvt__WBP_CustomMatchSelect_CreateCustomRoomDetail_K2Node_ComponentBoundEvent_7_OnChangeEditButton__DelegateSignature
 // 0x0001 (0x0001 - 0x0000)
-struct WBP_CustomMatchSelect_C_BndEvt__WBP_CustomMatchSelect_WBP_CustomMatchDetail_K2Node_ComponentBoundEvent_5_OnChangeCheckButton__DelegateSignature final
+struct WBP_CustomMatchSelect_C_BndEvt__WBP_CustomMatchSelect_CreateCustomRoomDetail_K2Node_ComponentBoundEvent_7_OnChangeEditButton__DelegateSignature final
 {
 public:
-	bool                                          check;                                             // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          bAllowEdit;                                        // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_CustomMatchSelect_C_BndEvt__WBP_CustomMatchSelect_WBP_CustomMatchDetail_K2Node_ComponentBoundEvent_5_OnChangeCheckButton__DelegateSignature;
+
+// Function WBP_CustomMatchSelect.WBP_CustomMatchSelect_C.BndEvt__WBP_CustomMatchSelect_CreateCustomRoomDetail_K2Node_ComponentBoundEvent_6_OnChangeHiddenButton__DelegateSignature
+// 0x0001 (0x0001 - 0x0000)
+struct WBP_CustomMatchSelect_C_BndEvt__WBP_CustomMatchSelect_CreateCustomRoomDetail_K2Node_ComponentBoundEvent_6_OnChangeHiddenButton__DelegateSignature final
+{
+public:
+	bool                                          bHidden;                                           // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+};
 
 // Function WBP_CustomMatchSelect.WBP_CustomMatchSelect_C.BndEvt__WBP_CustomMatchSelect_WBP_CustomMatchTenkey_K2Node_ComponentBoundEvent_4_DecideId__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -57,7 +62,6 @@ struct WBP_CustomMatchSelect_C_BndEvt__WBP_CustomMatchSelect_WBP_CustomMatchTenk
 public:
 	class FString                                 ID;                                                // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_CustomMatchSelect_C_BndEvt__WBP_CustomMatchSelect_WBP_CustomMatchTenkey_K2Node_ComponentBoundEvent_4_DecideId__DelegateSignature;
 
 // Function WBP_CustomMatchSelect.WBP_CustomMatchSelect_C.BndEvt__WBP_CustomMatchSelect_WBP_ReturnButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -67,7 +71,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_CustomMatchSelect_C_BndEvt__WBP_CustomMatchSelect_WBP_ReturnButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

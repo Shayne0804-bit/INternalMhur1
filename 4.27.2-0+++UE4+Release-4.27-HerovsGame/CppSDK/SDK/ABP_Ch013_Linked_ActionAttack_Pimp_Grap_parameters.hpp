@@ -17,6 +17,42 @@
 SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
+// Function ABP_Ch013_Linked_ActionAttack_Pimp_Grap.ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C.ExecuteUbergraph_ABP_Ch013_Linked_ActionAttack_Pimp_Grap
+// 0x001C (0x001C - 0x0000)
+struct ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C_ExecuteUbergraph_ABP_Ch013_Linked_ActionAttack_Pimp_Grap final
+{
+public:
+	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FVector                                K2Node_Event_hitLocation;                          // 0x0004(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         K2Node_Event_DeltaTimeX;                           // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         CallFunc_BP_GetBlendingAlpha_ReturnValue;          // 0x0014(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         CallFunc_Multiply_FloatFloat_ReturnValue;          // 0x0018(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function ABP_Ch013_Linked_ActionAttack_Pimp_Grap.ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C.BP_EventOnHit
+// 0x000C (0x000C - 0x0000)
+struct ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C_BP_EventOnHit final
+{
+public:
+	struct FVector                                HitLocation;                                       // 0x0000(0x000C)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function ABP_Ch013_Linked_ActionAttack_Pimp_Grap.ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C.BlueprintUpdateAnimation
+// 0x0004 (0x0004 - 0x0000)
+struct ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C_BlueprintUpdateAnimation final
+{
+public:
+	float                                         DeltaTimeX;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function ABP_Ch013_Linked_ActionAttack_Pimp_Grap.ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C.AnimGraph
+// 0x0010 (0x0010 - 0x0000)
+struct ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C_AnimGraph final
+{
+public:
+	struct FPoseLink                              AnimGraph_0;                                       // 0x0000(0x0010)(Parm, OutParm, NoDestructor)
+};
+
 // Function ABP_Ch013_Linked_ActionAttack_Pimp_Grap.ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C.NagaraBlend
 // 0x0038 (0x0038 - 0x0000)
 struct ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C_NagaraBlend final
@@ -29,14 +65,6 @@ public:
 	struct FPoseLink                              NagaraBlend_0;                                     // 0x0028(0x0010)(Parm, OutParm, NoDestructor)
 };
 
-// Function ABP_Ch013_Linked_ActionAttack_Pimp_Grap.ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C.AnimGraph
-// 0x0010 (0x0010 - 0x0000)
-struct ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C_AnimGraph final
-{
-public:
-	struct FPoseLink                              AnimGraph_0;                                       // 0x0000(0x0010)(Parm, OutParm, NoDestructor)
-};
-
 // Function ABP_Ch013_Linked_ActionAttack_Pimp_Grap.ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C.ActionCustom
 // 0x0020 (0x0020 - 0x0000)
 struct ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C_ActionCustom final
@@ -44,34 +72,6 @@ struct ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C_ActionCustom final
 public:
 	struct FPoseLink                              InPose;                                            // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, NoDestructor)
 	struct FPoseLink                              ActionCustom_0;                                    // 0x0010(0x0010)(Parm, OutParm, NoDestructor)
-};
-
-// Function ABP_Ch013_Linked_ActionAttack_Pimp_Grap.ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C.BlueprintUpdateAnimation
-// 0x0004 (0x0004 - 0x0000)
-struct ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C_BlueprintUpdateAnimation final
-{
-public:
-	float                                         DeltaTimeX;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-
-// Function ABP_Ch013_Linked_ActionAttack_Pimp_Grap.ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C.BP_EventOnHit
-// 0x000C (0x000C - 0x0000)
-struct ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C_BP_EventOnHit final
-{
-public:
-	struct FVector                                HitLocation;                                       // 0x0000(0x000C)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-
-// Function ABP_Ch013_Linked_ActionAttack_Pimp_Grap.ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C.ExecuteUbergraph_ABP_Ch013_Linked_ActionAttack_Pimp_Grap
-// 0x001C (0x001C - 0x0000)
-struct ABP_Ch013_Linked_ActionAttack_Pimp_Grap_C_ExecuteUbergraph_ABP_Ch013_Linked_ActionAttack_Pimp_Grap final
-{
-public:
-	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FVector                                K2Node_Event_hitLocation;                          // 0x0004(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         K2Node_Event_DeltaTimeX;                           // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         CallFunc_BP_GetBlendingAlpha_ReturnValue;          // 0x0014(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         CallFunc_Multiply_FloatFloat_ReturnValue;          // 0x0018(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
 
 SDK_PARAM_NAMESPACE_END

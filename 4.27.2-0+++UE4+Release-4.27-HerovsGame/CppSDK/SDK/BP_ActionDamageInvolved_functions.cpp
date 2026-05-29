@@ -101,9 +101,9 @@ void UBP_ActionDamageInvolved_C::BP_ActionMain()
 // Function BP_ActionDamageInvolved.BP_ActionDamageInvolved_C.DecideAnimation
 // (Private, HasOutParams, HasDefaults, BlueprintCallable, BlueprintEvent, BlueprintPure)
 // Parameters:
-// EAnimationId*                           AnimationId                                            (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// EAnimationId*                           animationId                                            (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UBP_ActionDamageInvolved_C::DecideAnimation(EAnimationId* AnimationId)
+void UBP_ActionDamageInvolved_C::DecideAnimation(EAnimationId* animationId)
 {
 	static class UFunction* Func = nullptr;
 
@@ -114,8 +114,8 @@ void UBP_ActionDamageInvolved_C::DecideAnimation(EAnimationId* AnimationId)
 
 	UObject::ProcessEvent(Func, &Parms);
 
-	if (AnimationId != nullptr)
-		*AnimationId = Parms.AnimationId;
+	if (animationId != nullptr)
+		*animationId = Parms.animationId;
 }
 
 

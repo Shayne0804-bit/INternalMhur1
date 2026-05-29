@@ -10,11 +10,11 @@
 
 #include "Basic.hpp"
 
-#include "AntiCheatModule_classes.hpp"
-#include "Engine_classes.hpp"
-#include "CoreUObject_classes.hpp"
-#include "DevelopMenu_structs.hpp"
 #include "CommonModule_structs.hpp"
+#include "Engine_classes.hpp"
+#include "DevelopMenu_structs.hpp"
+#include "AntiCheatModule_classes.hpp"
+#include "CoreUObject_classes.hpp"
 
 
 SDK_NAMESPACE_START
@@ -130,12 +130,9 @@ public:
 };
 
 // Class CommonModule.GameModeCommon
-// 0x0008 (0x0310 - 0x0308)
+// 0x0000 (0x0308 - 0x0308)
 class AGameModeCommon : public AAntiCheatGameMode
 {
-public:
-	class UAgonesComponent*                       _agonesSDK;                                        // 0x0308(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
 public:
 	static class UClass* StaticClass()
 	{

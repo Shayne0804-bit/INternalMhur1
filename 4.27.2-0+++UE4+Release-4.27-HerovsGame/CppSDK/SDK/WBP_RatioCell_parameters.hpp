@@ -21,7 +21,6 @@ struct WBP_RatioCell_C_ExecuteUbergraph_WBP_RatioCell final
 public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_RatioCell_C_ExecuteUbergraph_WBP_RatioCell;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

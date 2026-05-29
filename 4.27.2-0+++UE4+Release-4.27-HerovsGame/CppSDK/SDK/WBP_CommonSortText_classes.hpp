@@ -49,6 +49,5 @@ public:
 		return GetDefaultObjImpl<UWBP_CommonSortText_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_CommonSortText_C;
 
 SDK_NAMESPACE_END

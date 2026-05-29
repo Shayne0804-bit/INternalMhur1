@@ -36,6 +36,5 @@ public:
 		return GetDefaultObjImpl<UWBP_BattleRuleChoiceButton_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_BattleRuleChoiceButton_C;
 
 SDK_NAMESPACE_END

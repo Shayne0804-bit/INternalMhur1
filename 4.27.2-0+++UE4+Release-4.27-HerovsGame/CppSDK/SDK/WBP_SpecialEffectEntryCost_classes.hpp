@@ -36,6 +36,5 @@ public:
 		return GetDefaultObjImpl<UWBP_SpecialEffectEntryCost_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_SpecialEffectEntryCost_C;
 
 SDK_NAMESPACE_END

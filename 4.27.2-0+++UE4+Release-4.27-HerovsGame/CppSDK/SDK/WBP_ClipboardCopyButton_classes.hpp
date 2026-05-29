@@ -44,6 +44,5 @@ public:
 		return GetDefaultObjImpl<UWBP_ClipboardCopyButton_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_ClipboardCopyButton_C;
 
 SDK_NAMESPACE_END

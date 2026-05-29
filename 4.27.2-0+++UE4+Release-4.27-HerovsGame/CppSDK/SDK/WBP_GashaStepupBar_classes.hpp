@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "CoreUObject_structs.hpp"
 #include "Engine_structs.hpp"
+#include "CoreUObject_structs.hpp"
 #include "UIFramework_classes.hpp"
 
 
@@ -68,6 +68,5 @@ public:
 		return GetDefaultObjImpl<UWBP_GashaStepupBar_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_GashaStepupBar_C;
 
 SDK_NAMESPACE_END

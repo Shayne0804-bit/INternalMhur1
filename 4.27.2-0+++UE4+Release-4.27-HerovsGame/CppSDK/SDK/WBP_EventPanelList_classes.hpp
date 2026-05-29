@@ -42,6 +42,5 @@ public:
 		return GetDefaultObjImpl<UWBP_EventPanelList_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_EventPanelList_C;
 
 SDK_NAMESPACE_END

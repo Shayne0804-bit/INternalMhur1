@@ -16,7 +16,7 @@
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch003_Variation1_UniqueSkill.BP_Ch003_Variation1_UniqueSkill_C
-// 0x0000 (0x0430 - 0x0430)
+// 0x0000 (0x0438 - 0x0438)
 class UBP_Ch003_Variation1_UniqueSkill_C final : public UCh003_Var1_RollSlotUniqueSkill
 {
 public:

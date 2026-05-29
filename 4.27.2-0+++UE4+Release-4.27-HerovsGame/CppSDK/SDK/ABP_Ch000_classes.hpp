@@ -11,9 +11,9 @@
 #include "Basic.hpp"
 
 #include "AnimGraphRuntime_structs.hpp"
+#include "GameModule_classes.hpp"
 #include "Engine_structs.hpp"
 #include "AnimBlueprintNodes_structs.hpp"
-#include "GameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START

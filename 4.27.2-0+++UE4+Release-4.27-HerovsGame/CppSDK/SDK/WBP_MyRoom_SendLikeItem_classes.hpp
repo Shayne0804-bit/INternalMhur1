@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "Engine_structs.hpp"
 #include "GameModule_classes.hpp"
+#include "Engine_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -28,8 +28,8 @@ public:
 	class UImage*                                 _sendLikeImage_ef3;                                // 0x03D0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 
 public:
-	void ExecuteUbergraph_WBP_MyRoom_SendLikeItem(int32 EntryPoint);
 	void Construct();
+	void ExecuteUbergraph_WBP_MyRoom_SendLikeItem(int32 EntryPoint);
 
 public:
 	static class UClass* StaticClass()
@@ -45,6 +45,5 @@ public:
 		return GetDefaultObjImpl<UWBP_MyRoom_SendLikeItem_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_MyRoom_SendLikeItem_C;
 
 SDK_NAMESPACE_END

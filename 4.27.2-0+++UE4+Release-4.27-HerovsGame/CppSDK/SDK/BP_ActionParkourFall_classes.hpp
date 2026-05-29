@@ -10,25 +10,26 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
 #include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionParkourFall.BP_ActionParkourFall_C
-// 0x0008 (0x0278 - 0x0270)
+// 0x0008 (0x0280 - 0x0278)
 class UBP_ActionParkourFall_C final : public UActionNormalBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0270(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0278(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
 
 public:
 	void ExecuteUbergraph_BP_ActionParkourFall(int32 EntryPoint);
+	void BP_OnLandingEvent();
+	void BP_ActionMain();
+	void UpdateCo_Routine();
 	void BP_OnEndAction(const class FName& nextAction);
 	void BP_OnBeginAction(const class FName& prevAction);
-	void BP_ActionMain();
-	void BP_OnLandingEvent();
 
 	bool BP_IsEnableShiftAction(const class FName& nextAction) const;
 

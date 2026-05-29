@@ -37,6 +37,5 @@ public:
 		return GetDefaultObjImpl<UWBP_NoticeExplanationTimer_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_NoticeExplanationTimer_C;
 
 SDK_NAMESPACE_END

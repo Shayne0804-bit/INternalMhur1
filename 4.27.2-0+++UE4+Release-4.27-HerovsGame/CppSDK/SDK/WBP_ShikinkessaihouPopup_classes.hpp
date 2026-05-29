@@ -45,6 +45,5 @@ public:
 		return GetDefaultObjImpl<UWBP_ShikinkessaihouPopup_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_ShikinkessaihouPopup_C;
 
 SDK_NAMESPACE_END

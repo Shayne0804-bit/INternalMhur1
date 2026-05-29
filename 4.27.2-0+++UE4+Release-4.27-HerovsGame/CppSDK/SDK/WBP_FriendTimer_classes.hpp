@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<UWBP_FriendTimer_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_FriendTimer_C;
 
 SDK_NAMESPACE_END

@@ -34,7 +34,6 @@ public:
 	float                                         CallFunc_BreakVector2D_Y;                          // 0x003C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_Not_PreBool_ReturnValue;                  // 0x0040(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_FitButtonSizeSlot_C_ExecuteUbergraph_WBP_FitButtonSizeSlot;
 
 // Function WBP_FitButtonSizeSlot.WBP_FitButtonSizeSlot_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -43,7 +42,6 @@ struct WBP_FitButtonSizeSlot_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_FitButtonSizeSlot_C_PreConstruct;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

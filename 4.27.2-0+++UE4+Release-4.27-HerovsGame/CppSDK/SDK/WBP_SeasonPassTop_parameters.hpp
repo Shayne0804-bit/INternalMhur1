@@ -10,13 +10,13 @@
 
 #include "Basic.hpp"
 
-#include "UMG_structs.hpp"
 #include "BackendSubsystem_structs.hpp"
-#include "Engine_structs.hpp"
-#include "SlateCore_structs.hpp"
-#include "CoreUObject_structs.hpp"
-#include "UIFramework_structs.hpp"
 #include "OutGameModule_structs.hpp"
+#include "CoreUObject_structs.hpp"
+#include "SlateCore_structs.hpp"
+#include "UMG_structs.hpp"
+#include "Engine_structs.hpp"
+#include "UIFramework_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -32,7 +32,6 @@ public:
 	class UDbpSeason*                             CallFunc_GetSeasonData_ReturnValue;                // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_HasProLicense_ReturnValue;                // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_SetUpSeasonBunner;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.SetFromPushReturnLevel
 // 0x0030 (0x0030 - 0x0000)
@@ -46,7 +45,6 @@ public:
 	class FString                                 CallFunc_Conv_NameToString_ReturnValue;            // 0x0018(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 	bool                                          CallFunc_Contains_ReturnValue;                     // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_SetFromPushReturnLevel;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.SetUpShortCut
 // 0x0001 (0x0001 - 0x0000)
@@ -55,10 +53,9 @@ struct WBP_SeasonPassTop_C_SetUpShortCut final
 public:
 	bool                                          IsAddToViewport;                                   // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_SetUpShortCut;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.SetUpSpecialBunner
-// 0x0630 (0x0630 - 0x0000)
+// 0x0638 (0x0638 - 0x0000)
 struct WBP_SeasonPassTop_C_SetUpSpecialBunner final
 {
 public:
@@ -67,10 +64,9 @@ public:
 	TArray<struct FDbSpecialLicenseParam>         CallFunc_Map_Values_Values;                        // 0x0010(0x0010)(ReferenceParm)
 	int32                                         CallFunc_Array_LastIndex_ReturnValue;              // 0x0020(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FDbSpecialLicenseParam                 CallFunc_Array_Get_Item;                           // 0x0028(0x0600)()
-	bool                                          CallFunc_GreaterEqual_IntInt_ReturnValue;          // 0x0628(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	struct FDbSpecialLicenseParam                 CallFunc_Array_Get_Item;                           // 0x0028(0x0608)()
+	bool                                          CallFunc_GreaterEqual_IntInt_ReturnValue;          // 0x0630(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_SetUpSpecialBunner;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.SetUpSeasonImage
 // 0x0020 (0x0020 - 0x0000)
@@ -81,7 +77,6 @@ public:
 	class UPaperSprite*                           CallFunc_GetSeasonImage_ReturnValue;               // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	TScriptInterface<class ISlateTextureAtlasInterface> CallFunc_SetBrushFromAtlasInterface_AtlasRegion_CastInput; // 0x0010(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_SetUpSeasonImage;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.Navigation Season Switch Button
 // 0x0010 (0x0010 - 0x0000)
@@ -92,7 +87,6 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWidget*                                ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_Navigation_Season_Switch_Button;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.Navigation Receive Button 
 // 0x0020 (0x0020 - 0x0000)
@@ -106,7 +100,6 @@ public:
 	ESlateVisibility                              CallFunc_GetVisibility_ReturnValue;                // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x0019(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_Navigation_Receive_Button_;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.NavigationItemList
 // 0x0028 (0x0028 - 0x0000)
@@ -121,7 +114,6 @@ public:
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWidget*                                CallFunc_GetNavigationWidget_ReturnValue_1;        // 0x0020(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_NavigationItemList;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.NavigationBunnerButton
 // 0x0060 (0x0060 - 0x0000)
@@ -148,7 +140,6 @@ public:
 	class UWidget*                                CallFunc_GetActiveWidget_ReturnValue_1;            // 0x0050(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_EqualEqual_ObjectObject_ReturnValue_1;    // 0x0058(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_NavigationBunnerButton;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.CompleteRequset
 // 0x0168 (0x0168 - 0x0000)
@@ -180,7 +171,6 @@ public:
 	class FText                                   CallFunc_Format_ReturnValue;                       // 0x0140(0x0018)()
 	class FString                                 CallFunc_Conv_TextToString_ReturnValue;            // 0x0158(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_CompleteRequset;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.BndEvt__WBP_SeasonPass__licenseBannerButton_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -190,7 +180,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_BndEvt__WBP_SeasonPass__licenseBannerButton_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.BndEvt__WBP_SeasonPassTop__specialBannerButton_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -200,7 +189,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_BndEvt__WBP_SeasonPassTop__specialBannerButton_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.CompleteLoadSpecialLicense
 // 0x0004 (0x0004 - 0x0000)
@@ -209,7 +197,6 @@ struct WBP_SeasonPassTop_C_CompleteLoadSpecialLicense final
 public:
 	int32                                         requestId;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_CompleteLoadSpecialLicense;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.SetUpLicense_Event
 // 0x0001 (0x0001 - 0x0000)
@@ -218,7 +205,6 @@ struct WBP_SeasonPassTop_C_SetUpLicense_Event final
 public:
 	bool                                          isDataLoad;                                        // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_SetUpLicense_Event;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.BndEvt__WBP_SeasonPassTop_WBP_WindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -228,7 +214,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_BndEvt__WBP_SeasonPassTop_WBP_WindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.BndEvt__WBP_SeasonPassTop_WBP_WindowButton_1_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -238,7 +223,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_BndEvt__WBP_SeasonPassTop_WBP_WindowButton_1_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.BndEvt__WBP_SeasonPassTop__receiveButton_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -248,7 +232,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_BndEvt__WBP_SeasonPassTop__receiveButton_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.BndEvt__WBP_SeasonPassTop_PastRewardsButton_K2Node_ComponentBoundEvent_6_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -258,7 +241,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_BndEvt__WBP_SeasonPassTop_PastRewardsButton_K2Node_ComponentBoundEvent_6_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C._OnOpenBuyLicenseEventDispather_イベント_0
 // 0x0008 (0x0008 - 0x0000)
@@ -268,7 +250,6 @@ public:
 	int32                                         needRank;                                          // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EItemSeasonType                               season;                                            // 0x0004(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C__OnOpenBuyLicenseEventDispather_イベント_0;
 
 // Function WBP_SeasonPassTop.WBP_SeasonPassTop_C.ExecuteUbergraph_WBP_SeasonPassTop
 // 0x0140 (0x0140 - 0x0000)
@@ -328,7 +309,6 @@ public:
 	uint8                                         Pad_131[0x7];                                      // 0x0131(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class ULevelStreaming*                        CallFunc_OpenLevel_LevelInstance_4;                // 0x0138(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SeasonPassTop_C_ExecuteUbergraph_WBP_SeasonPassTop;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

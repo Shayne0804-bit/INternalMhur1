@@ -61,6 +61,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Shop_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Shop_C;
 
 SDK_NAMESPACE_END

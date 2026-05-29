@@ -16,7 +16,7 @@
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch017Default.BP_Ch017Default_C
-// 0x0000 (0x0CC0 - 0x0CC0)
+// 0x0000 (0x0CF0 - 0x0CF0)
 class ABP_Ch017Default_C final : public ABP_CharacterBattleDefault_C
 {
 public:
@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ABP_Ch017Default_C>();
 	}
 };
-DUMPER7_ASSERTS_ABP_Ch017Default_C;
 
 SDK_NAMESPACE_END

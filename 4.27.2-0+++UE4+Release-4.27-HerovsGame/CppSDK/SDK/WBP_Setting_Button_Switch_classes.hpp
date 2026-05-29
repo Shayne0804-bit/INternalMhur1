@@ -10,31 +10,31 @@
 
 #include "Basic.hpp"
 
-#include "Engine_structs.hpp"
 #include "OutGameModule_structs.hpp"
 #include "OutGameModule_classes.hpp"
+#include "Engine_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_Setting_Button_Switch.WBP_Setting_Button_Switch_C
-// 0x0078 (0x0640 - 0x05C8)
+// 0x0070 (0x0680 - 0x0610)
 class UWBP_Setting_Button_Switch_C final : public USettingButtonSwitchWidget
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x05C8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	class UProgressBar*                           bgBody;                                            // 0x05D0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 listBG_bottom;                                     // 0x05D8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 listBG_center;                                     // 0x05E0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 listBG_up;                                         // 0x05E8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class FText                                   leftText;                                          // 0x05F0(0x0018)(Edit, BlueprintVisible)
-	class FText                                   rightText;                                         // 0x0608(0x0018)(Edit, BlueprintVisible)
-	class FText                                   categoriesText;                                    // 0x0620(0x0018)(Edit, BlueprintVisible)
-	ESettingSwitchType                            DefaultValue;                                      // 0x0638(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	ESettingButtonBGType                          bgType;                                            // 0x0639(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0610(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	class UImage*                                 listBG_bottom;                                     // 0x0618(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 listBG_center;                                     // 0x0620(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 listBG_up;                                         // 0x0628(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class FText                                   leftText;                                          // 0x0630(0x0018)(Edit, BlueprintVisible)
+	class FText                                   rightText;                                         // 0x0648(0x0018)(Edit, BlueprintVisible)
+	class FText                                   categoriesText;                                    // 0x0660(0x0018)(Edit, BlueprintVisible)
+	ESettingSwitchType                            DefaultValue;                                      // 0x0678(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	ESettingButtonBGType                          bgType;                                            // 0x0679(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
 	void ExecuteUbergraph_WBP_Setting_Button_Switch(int32 EntryPoint);
+	void OnInitialized();
 	void OnFocusLost(const struct FFocusEvent& InFocusEvent);
 	void Tick(const struct FGeometry& MyGeometry, float InDeltaTime);
 	void Construct();
@@ -54,6 +54,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Setting_Button_Switch_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Setting_Button_Switch_C;
 
 SDK_NAMESPACE_END

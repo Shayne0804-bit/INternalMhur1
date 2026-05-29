@@ -44,7 +44,6 @@ public:
 	struct FLinearColor                           K2Node_CustomEvent_CurrentColor;                   // 0x0064(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	TDelegate<void()>                             K2Node_CreateDelegate_OutputDelegate_1;            // 0x0074(0x0010)(ZeroConstructor, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_GashaStepupPopup_C_ExecuteUbergraph_WBP_GashaStepupPopup;
 
 // Function WBP_GashaStepupPopup.WBP_GashaStepupPopup_C.PopupOpen
 // 0x0020 (0x0020 - 0x0000)
@@ -57,7 +56,6 @@ public:
 	int32                                         rotMax;                                            // 0x000C(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FLinearColor                           CurrentColor;                                      // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_GashaStepupPopup_C_PopupOpen;
 
 // Function WBP_GashaStepupPopup.WBP_GashaStepupPopup_C.BndEvt__WBP_GashaStepupPopup_WBP_WindowFrame_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -67,7 +65,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_GashaStepupPopup_C_BndEvt__WBP_GashaStepupPopup_WBP_WindowFrame_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

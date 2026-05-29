@@ -10,20 +10,12 @@
 
 #include "Basic.hpp"
 
-#include "AudioMixer_structs.hpp"
 #include "Engine_structs.hpp"
+#include "AudioMixer_structs.hpp"
 
 
 SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
-
-// Function AudioMixer.SubmixEffectSubmixEQPreset.SetSettings
-// 0x0010 (0x0010 - 0x0000)
-struct SubmixEffectSubmixEQPreset_SetSettings final
-{
-public:
-	struct FSubmixEffectSubmixEQSettings          InSettings;                                        // 0x0000(0x0010)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-};
 
 // Function AudioMixer.SynthComponent.SetLowPassFilterEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -75,28 +67,12 @@ public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function AudioMixer.SubmixEffectDynamicsProcessorPreset.SetAudioBus
-// 0x0008 (0x0008 - 0x0000)
-struct SubmixEffectDynamicsProcessorPreset_SetAudioBus final
+// Function AudioMixer.SubmixEffectSubmixEQPreset.SetSettings
+// 0x0010 (0x0010 - 0x0000)
+struct SubmixEffectSubmixEQPreset_SetSettings final
 {
 public:
-	class UAudioBus*                              AudioBus;                                          // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function AudioMixer.SubmixEffectDynamicsProcessorPreset.SetExternalSubmix
-// 0x0008 (0x0008 - 0x0000)
-struct SubmixEffectDynamicsProcessorPreset_SetExternalSubmix final
-{
-public:
-	class USoundSubmix*                           Submix;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// Function AudioMixer.SubmixEffectDynamicsProcessorPreset.SetSettings
-// 0x0060 (0x0060 - 0x0000)
-struct SubmixEffectDynamicsProcessorPreset_SetSettings final
-{
-public:
-	struct FSubmixEffectDynamicsProcessorSettings Settings_0;                                        // 0x0000(0x0060)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
+	struct FSubmixEffectSubmixEQSettings          InSettings;                                        // 0x0000(0x0010)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
 
 // Function AudioMixer.AudioMixerBlueprintLibrary.AddMasterSubmixEffect
@@ -741,6 +717,30 @@ public:
 	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// Function AudioMixer.SubmixEffectDynamicsProcessorPreset.SetAudioBus
+// 0x0008 (0x0008 - 0x0000)
+struct SubmixEffectDynamicsProcessorPreset_SetAudioBus final
+{
+public:
+	class UAudioBus*                              AudioBus;                                          // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function AudioMixer.SubmixEffectDynamicsProcessorPreset.SetExternalSubmix
+// 0x0008 (0x0008 - 0x0000)
+struct SubmixEffectDynamicsProcessorPreset_SetExternalSubmix final
+{
+public:
+	class USoundSubmix*                           Submix;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function AudioMixer.SubmixEffectDynamicsProcessorPreset.SetSettings
+// 0x0060 (0x0060 - 0x0000)
+struct SubmixEffectDynamicsProcessorPreset_SetSettings final
+{
+public:
+	struct FSubmixEffectDynamicsProcessorSettings Settings_0;                                        // 0x0000(0x0060)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
 
 // Function AudioMixer.SubmixEffectReverbPreset.SetSettings

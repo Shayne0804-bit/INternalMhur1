@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
-#include "Foliage_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "CoreUObject_classes.hpp"
+#include "Foliage_structs.hpp"
 #include "Engine_structs.hpp"
 #include "Engine_classes.hpp"
 
@@ -250,7 +250,7 @@ public:
 class UFoliageType_InstancedStaticMesh final : public UFoliageType
 {
 public:
-	class UStaticMesh*                            Mesh;                                              // 0x03B0(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UStaticMesh*                            mesh;                                              // 0x03B0(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<class UMaterialInterface*>             OverrideMaterials;                                 // 0x03B8(0x0010)(Edit, ZeroConstructor, AdvancedDisplay, NativeAccessSpecifierPublic)
 	TSubclassOf<class UFoliageInstancedStaticMeshComponent> ComponentClass;                          // 0x03C8(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 

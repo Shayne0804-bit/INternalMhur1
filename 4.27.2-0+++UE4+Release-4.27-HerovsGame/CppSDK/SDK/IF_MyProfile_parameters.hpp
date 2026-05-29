@@ -21,7 +21,6 @@ struct IF_MyProfile_C_IF_SetHiddenTopWidget final
 public:
 	bool                                          hidden;                                            // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_IF_MyProfile_C_IF_SetHiddenTopWidget;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

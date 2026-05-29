@@ -52,7 +52,6 @@ public:
 	int32                                         CallFunc_Array_Length_ReturnValue_1;               // 0x00C8(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_NotEqual_IntInt_ReturnValue_1;            // 0x00CC(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_StockListEntry_C_ExecuteUbergraph_WBP_StockListEntry;
 
 // Function WBP_StockListEntry.WBP_StockListEntry_C.OnAddedToFocusDelegateEvent
 // 0x0010 (0x0010 - 0x0000)
@@ -62,7 +61,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StockListEntry_C_OnAddedToFocusDelegateEvent;
 
 // Function WBP_StockListEntry.WBP_StockListEntry_C.BP_OnItemSelectionChanged
 // 0x0001 (0x0001 - 0x0000)
@@ -71,7 +69,6 @@ struct WBP_StockListEntry_C_BP_OnItemSelectionChanged final
 public:
 	bool                                          bIsSelected;                                       // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_StockListEntry_C_BP_OnItemSelectionChanged;
 
 // Function WBP_StockListEntry.WBP_StockListEntry_C.OnListItemObjectSet
 // 0x0008 (0x0008 - 0x0000)
@@ -80,7 +77,6 @@ struct WBP_StockListEntry_C_OnListItemObjectSet final
 public:
 	class UObject*                                ListItemObject;                                    // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StockListEntry_C_OnListItemObjectSet;
 
 // Function WBP_StockListEntry.WBP_StockListEntry_C.BP_OnItemExpansionChanged
 // 0x0001 (0x0001 - 0x0000)
@@ -89,7 +85,6 @@ struct WBP_StockListEntry_C_BP_OnItemExpansionChanged final
 public:
 	bool                                          bIsExpanded;                                       // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_StockListEntry_C_BP_OnItemExpansionChanged;
 
 // Function WBP_StockListEntry.WBP_StockListEntry_C.SetCanvasSize
 // 0x0030 (0x0030 - 0x0000)
@@ -106,7 +101,6 @@ public:
 	float                                         CallFunc_BreakVector2D_Y_1;                        // 0x0020(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector2D                              CallFunc_MakeVector2D_ReturnValue_1;               // 0x0024(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StockListEntry_C_SetCanvasSize;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END
