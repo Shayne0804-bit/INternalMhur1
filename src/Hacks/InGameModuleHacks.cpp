@@ -248,6 +248,10 @@ std::vector<SDK::EVariationCharacterId> GetAllVariationCharacterIds()
         SDK::EVariationCharacterId::Ch109_Variation0,
         SDK::EVariationCharacterId::Ch109_Variation1,
         
+        // Ch111: 2 variations
+        SDK::EVariationCharacterId::Ch111_Variation0,
+        SDK::EVariationCharacterId::Ch111_Variation1,
+        
         // Ch114: 2 variations
         SDK::EVariationCharacterId::Ch114_Variation0,
         SDK::EVariationCharacterId::Ch114_Variation1,
@@ -415,7 +419,10 @@ SDK::EVariationCharacterId GetVariationCharacterId(SDK::ECharacterId characterId
         // Ch109: 2 variations
         { {SDK::ECharacterId::Ch109, 0}, SDK::EVariationCharacterId::Ch109_Variation0 },
         { {SDK::ECharacterId::Ch109, 1}, SDK::EVariationCharacterId::Ch109_Variation1 },
-        
+
+        { {SDK::ECharacterId::Ch111, 0}, SDK::EVariationCharacterId::Ch109_Variation0 },
+        { {SDK::ECharacterId::Ch111, 1}, SDK::EVariationCharacterId::Ch109_Variation1 },
+
         // Ch114: 2 variations
         { {SDK::ECharacterId::Ch114, 0}, SDK::EVariationCharacterId::Ch114_Variation0 },
         { {SDK::ECharacterId::Ch114, 1}, SDK::EVariationCharacterId::Ch114_Variation1 },
@@ -489,6 +496,7 @@ std::vector<int32_t> GetVariationsForCharacter(SDK::ECharacterId characterId)
         { SDK::ECharacterId::Ch104, {0, 1} },
         { SDK::ECharacterId::Ch105, {0, 1} },
         { SDK::ECharacterId::Ch109, {0, 1} },
+        { SDK::ECharacterId::Ch111, {0, 1} },
         { SDK::ECharacterId::Ch114, {0, 1} },
         { SDK::ECharacterId::Ch115, {0, 1} },
         { SDK::ECharacterId::Ch200, {0, 1} },
@@ -541,97 +549,143 @@ std::vector<std::string> GetAllVariationNames()
     auto allIds = GetAllVariationCharacterIds();
     std::vector<std::string> names;
     
+    // Character code to name mapping
+    auto getCharacterName = [](const char* charCode) -> std::string {
+        if (strcmp(charCode, "Ch001") == 0) return "Izuku Midoriya";
+        if (strcmp(charCode, "Ch002") == 0) return "Katsuki Bakugo";
+        if (strcmp(charCode, "Ch003") == 0) return "Ochaco Uraraka";
+        if (strcmp(charCode, "Ch004") == 0) return "Shoto Todoroki";
+        if (strcmp(charCode, "Ch005") == 0) return "Tenya Iida";
+        if (strcmp(charCode, "Ch006") == 0) return "Tsuyu Asui";
+        if (strcmp(charCode, "Ch007") == 0) return "Denki Kaminari";
+        if (strcmp(charCode, "Ch008") == 0) return "Eijiro Kirishima";
+        if (strcmp(charCode, "Ch010") == 0) return "Momo Yaoyorozu";
+        if (strcmp(charCode, "Ch011") == 0) return "Fumikage Tokoyami";
+        if (strcmp(charCode, "Ch012") == 0) return "All Might";
+        if (strcmp(charCode, "Ch013") == 0) return "Shota Aizawa";
+        if (strcmp(charCode, "Ch015") == 0) return "Tomura Shigaraki";
+        if (strcmp(charCode, "Ch016") == 0) return "All For One";
+        if (strcmp(charCode, "Ch017") == 0) return "Dabi";
+        if (strcmp(charCode, "Ch018") == 0) return "Himiko Toga";
+        if (strcmp(charCode, "Ch023") == 0) return "Endeavor";
+        if (strcmp(charCode, "Ch024") == 0) return "Mirio Togata";
+        if (strcmp(charCode, "Ch025") == 0) return "Nejire Hado";
+        if (strcmp(charCode, "Ch026") == 0) return "Tamaki Amajiki";
+        if (strcmp(charCode, "Ch034") == 0) return "Overhaul";
+        if (strcmp(charCode, "Ch037") == 0) return "Twice";
+        if (strcmp(charCode, "Ch038") == 0) return "Mr Compress";
+        if (strcmp(charCode, "Ch043") == 0) return "Hawks";
+        if (strcmp(charCode, "Ch046") == 0) return "Itsuka Kendo";
+        if (strcmp(charCode, "Ch100") == 0) return "Mt. Lady";
+        if (strcmp(charCode, "Ch101") == 0) return "Cementoss";
+        if (strcmp(charCode, "Ch102") == 0) return "Ibara Shiozaki";
+        if (strcmp(charCode, "Ch103") == 0) return "Kurogiri";
+        if (strcmp(charCode, "Ch104") == 0) return "Neito Monoma";
+        if (strcmp(charCode, "Ch105") == 0) return "Hitoshi Shinso";
+        if (strcmp(charCode, "Ch109") == 0) return "Present Mic";
+        if (strcmp(charCode, "Ch111") == 0) return "Mirko";
+        if (strcmp(charCode, "Ch114") == 0) return "Star and Stripe";
+        if (strcmp(charCode, "Ch115") == 0) return "Lady Nagant";
+        if (strcmp(charCode, "Ch200") == 0) return "Armored All Might";
+        if (strcmp(charCode, "Ch201") == 0) return "All For One (Young)";
+        if (strcmp(charCode, "Ch202") == 0) return "Midoriya (OFA)";
+        return charCode;  // Fallback to code
+    };
+    
     for (auto id : allIds)
     {
         // Get character name and variation from enum value
-        const char* charName = nullptr;
+        const char* charCode = nullptr;
         int varIdx = 0;
         
-        // Map enum to character name and variation index
+        // Map enum to character code and variation index
         switch (id)
         {
-            case SDK::EVariationCharacterId::Ch001_Variation0: charName = "Ch001"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch001_Variation1: charName = "Ch001"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch002_Variation0: charName = "Ch002"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch002_Variation1: charName = "Ch002"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch002_Variation2: charName = "Ch002"; varIdx = 2; break;
-            case SDK::EVariationCharacterId::Ch003_Variation0: charName = "Ch003"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch003_Variation1: charName = "Ch003"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch004_Variation0: charName = "Ch004"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch004_Variation1: charName = "Ch004"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch005_Variation0: charName = "Ch005"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch005_Variation1: charName = "Ch005"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch006_Variation0: charName = "Ch006"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch006_Variation1: charName = "Ch006"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch007_Variation0: charName = "Ch007"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch007_Variation1: charName = "Ch007"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch008_Variation0: charName = "Ch008"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch008_Variation1: charName = "Ch008"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch010_Variation0: charName = "Ch010"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch010_Variation1: charName = "Ch010"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch011_Variation0: charName = "Ch011"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch011_Variation1: charName = "Ch011"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch012_Variation0: charName = "Ch012"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch012_Variation1: charName = "Ch012"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch013_Variation0: charName = "Ch013"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch013_Variation1: charName = "Ch013"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch015_Variation0: charName = "Ch015"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch015_Variation1: charName = "Ch015"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch015_Variation2: charName = "Ch015"; varIdx = 2; break;
-            case SDK::EVariationCharacterId::Ch016_Variation0: charName = "Ch016"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch016_Variation1: charName = "Ch016"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch017_Variation0: charName = "Ch017"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch017_Variation1: charName = "Ch017"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch018_Variation0: charName = "Ch018"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch018_Variation1: charName = "Ch018"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch023_Variation0: charName = "Ch023"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch023_Variation1: charName = "Ch023"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch024_Variation0: charName = "Ch024"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch024_Variation1: charName = "Ch024"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch025_Variation0: charName = "Ch025"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch025_Variation1: charName = "Ch025"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch026_Variation0: charName = "Ch026"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch026_Variation1: charName = "Ch026"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch034_Variation0: charName = "Ch034"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch034_Variation1: charName = "Ch034"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch037_Variation0: charName = "Ch037"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch037_Variation1: charName = "Ch037"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch038_Variation0: charName = "Ch038"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch038_Variation1: charName = "Ch038"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch043_Variation0: charName = "Ch043"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch043_Variation1: charName = "Ch043"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch046_Variation0: charName = "Ch046"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch046_Variation1: charName = "Ch046"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch100_Variation0: charName = "Ch100"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch100_Variation1: charName = "Ch100"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch101_Variation0: charName = "Ch101"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch101_Variation1: charName = "Ch101"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch102_Variation0: charName = "Ch102"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch102_Variation1: charName = "Ch102"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch103_Variation0: charName = "Ch103"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch103_Variation1: charName = "Ch103"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch104_Variation0: charName = "Ch104"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch104_Variation1: charName = "Ch104"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch105_Variation0: charName = "Ch105"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch105_Variation1: charName = "Ch105"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch109_Variation0: charName = "Ch109"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch109_Variation1: charName = "Ch109"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch114_Variation0: charName = "Ch114"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch114_Variation1: charName = "Ch114"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch115_Variation0: charName = "Ch115"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch115_Variation1: charName = "Ch115"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch200_Variation0: charName = "Ch200"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch200_Variation1: charName = "Ch200"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch201_Variation0: charName = "Ch201"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch201_Variation1: charName = "Ch201"; varIdx = 1; break;
-            case SDK::EVariationCharacterId::Ch202_Variation0: charName = "Ch202"; varIdx = 0; break;
-            case SDK::EVariationCharacterId::Ch202_Variation1: charName = "Ch202"; varIdx = 1; break;
-            default: charName = "Unknown"; break;
+            case SDK::EVariationCharacterId::Ch001_Variation0: charCode = "Ch001"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch001_Variation1: charCode = "Ch001"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch002_Variation0: charCode = "Ch002"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch002_Variation1: charCode = "Ch002"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch002_Variation2: charCode = "Ch002"; varIdx = 2; break;
+            case SDK::EVariationCharacterId::Ch003_Variation0: charCode = "Ch003"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch003_Variation1: charCode = "Ch003"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch004_Variation0: charCode = "Ch004"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch004_Variation1: charCode = "Ch004"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch005_Variation0: charCode = "Ch005"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch005_Variation1: charCode = "Ch005"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch006_Variation0: charCode = "Ch006"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch006_Variation1: charCode = "Ch006"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch007_Variation0: charCode = "Ch007"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch007_Variation1: charCode = "Ch007"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch008_Variation0: charCode = "Ch008"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch008_Variation1: charCode = "Ch008"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch010_Variation0: charCode = "Ch010"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch010_Variation1: charCode = "Ch010"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch011_Variation0: charCode = "Ch011"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch011_Variation1: charCode = "Ch011"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch012_Variation0: charCode = "Ch012"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch012_Variation1: charCode = "Ch012"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch013_Variation0: charCode = "Ch013"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch013_Variation1: charCode = "Ch013"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch015_Variation0: charCode = "Ch015"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch015_Variation1: charCode = "Ch015"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch015_Variation2: charCode = "Ch015"; varIdx = 2; break;
+            case SDK::EVariationCharacterId::Ch016_Variation0: charCode = "Ch016"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch016_Variation1: charCode = "Ch016"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch017_Variation0: charCode = "Ch017"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch017_Variation1: charCode = "Ch017"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch018_Variation0: charCode = "Ch018"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch018_Variation1: charCode = "Ch018"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch023_Variation0: charCode = "Ch023"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch023_Variation1: charCode = "Ch023"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch024_Variation0: charCode = "Ch024"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch024_Variation1: charCode = "Ch024"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch025_Variation0: charCode = "Ch025"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch025_Variation1: charCode = "Ch025"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch026_Variation0: charCode = "Ch026"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch026_Variation1: charCode = "Ch026"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch034_Variation0: charCode = "Ch034"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch034_Variation1: charCode = "Ch034"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch037_Variation0: charCode = "Ch037"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch037_Variation1: charCode = "Ch037"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch038_Variation0: charCode = "Ch038"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch038_Variation1: charCode = "Ch038"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch043_Variation0: charCode = "Ch043"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch043_Variation1: charCode = "Ch043"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch046_Variation0: charCode = "Ch046"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch046_Variation1: charCode = "Ch046"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch100_Variation0: charCode = "Ch100"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch100_Variation1: charCode = "Ch100"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch101_Variation0: charCode = "Ch101"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch101_Variation1: charCode = "Ch101"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch102_Variation0: charCode = "Ch102"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch102_Variation1: charCode = "Ch102"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch103_Variation0: charCode = "Ch103"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch103_Variation1: charCode = "Ch103"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch104_Variation0: charCode = "Ch104"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch104_Variation1: charCode = "Ch104"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch105_Variation0: charCode = "Ch105"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch105_Variation1: charCode = "Ch105"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch109_Variation0: charCode = "Ch109"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch109_Variation1: charCode = "Ch109"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch111_Variation0: charCode = "Ch111"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch111_Variation1: charCode = "Ch111"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch114_Variation0: charCode = "Ch114"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch114_Variation1: charCode = "Ch114"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch115_Variation0: charCode = "Ch115"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch115_Variation1: charCode = "Ch115"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch200_Variation0: charCode = "Ch200"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch200_Variation1: charCode = "Ch200"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch201_Variation0: charCode = "Ch201"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch201_Variation1: charCode = "Ch201"; varIdx = 1; break;
+            case SDK::EVariationCharacterId::Ch202_Variation0: charCode = "Ch202"; varIdx = 0; break;
+            case SDK::EVariationCharacterId::Ch202_Variation1: charCode = "Ch202"; varIdx = 1; break;
+            default: charCode = "Unknown"; break;
         }
         
-        if (charName)
+        if (charCode)
         {
-            names.push_back(std::string(charName) + "_Variation" + std::to_string(varIdx));
+            std::string displayName = getCharacterName(charCode) + " (Variation " + std::to_string(varIdx) + ")";
+            names.push_back(displayName);
         }
     }
     
@@ -779,6 +833,9 @@ std::pair<SDK::ECharacterId, int32_t> GetCharacterAndVariationFromVariationChara
         // Ch109: variations 0, 1
         case SDK::EVariationCharacterId::Ch109_Variation0: return {SDK::ECharacterId::Ch109, 0};
         case SDK::EVariationCharacterId::Ch109_Variation1: return {SDK::ECharacterId::Ch109, 1};
+
+        case SDK::EVariationCharacterId::Ch111_Variation0: return {SDK::ECharacterId::Ch111, 0};
+        case SDK::EVariationCharacterId::Ch111_Variation1: return {SDK::ECharacterId::Ch111, 1};
         
         // Ch114: variations 0, 1
         case SDK::EVariationCharacterId::Ch114_Variation0: return {SDK::ECharacterId::Ch114, 0};
@@ -818,7 +875,7 @@ std::pair<SDK::ECharacterId, int32_t> GetCharacterAndVariationFromIndex(int32_t 
         SDK::ECharacterId::Ch023, SDK::ECharacterId::Ch024, SDK::ECharacterId::Ch025, SDK::ECharacterId::Ch026,
         SDK::ECharacterId::Ch034, SDK::ECharacterId::Ch037, SDK::ECharacterId::Ch038, SDK::ECharacterId::Ch043,
         SDK::ECharacterId::Ch046, SDK::ECharacterId::Ch100, SDK::ECharacterId::Ch101, SDK::ECharacterId::Ch102,
-        SDK::ECharacterId::Ch103, SDK::ECharacterId::Ch104, SDK::ECharacterId::Ch105, SDK::ECharacterId::Ch109,
+        SDK::ECharacterId::Ch103, SDK::ECharacterId::Ch104, SDK::ECharacterId::Ch105, SDK::ECharacterId::Ch109, SDK::ECharacterId::Ch111,
         SDK::ECharacterId::Ch114, SDK::ECharacterId::Ch115, SDK::ECharacterId::Ch200, SDK::ECharacterId::Ch201,
         SDK::ECharacterId::Ch202
     };
@@ -1403,9 +1460,9 @@ int InGameHack_ApplyToAllControllers(int characterId, int variationId, int uniqu
 
                 // Create character data
                 SDK::FInGameBattleCharacterData changeData = {};
-                *(int*)&changeData._characterId = 1;
-                changeData._variationId = 0;
-                changeData._skillVariationCode = (2 * 100) + 0;
+                changeData._characterId = (SDK::ECharacterId)characterId;
+                changeData._variationId = variationId;
+                changeData._skillVariationCode = ((characterId + 1) * 100) + variationId;
                 changeData._technique1Level = unique1;
                 changeData._technique2Level = unique2;
                 changeData._technique3Level = unique3;
@@ -1447,6 +1504,184 @@ int InGameHack_ApplyToAllControllers(int characterId, int variationId, int uniqu
     catch (...)
     {
         Logger::LogError("[ApplyToAll] Unknown exception");
+        return 0;
+    }
+}
+
+// ============================================
+// GET ALL PLAYER NAMES
+// ============================================
+
+/**
+ * Get all player names on the map
+ * Returns vector with format: "PlayerName (CharacterClass)"
+ */
+std::vector<std::string> InGameHack_GetAllPlayerNames()
+{
+    std::vector<std::string> playerNames;
+    try
+    {
+        SDK::UWorld* world = SDK::UWorld::GetWorld();
+        if (!world || !world->PersistentLevel)
+            return playerNames;
+
+        // Loop over all actors to find characters with PlayerState
+        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
+        {
+            SDK::AActor* actor = world->PersistentLevel->Actors[i];
+            if (!actor || actor->IsDefaultObject())
+                continue;
+
+            if (!actor->IsA(SDK::ACharacterBattle::StaticClass()))
+                continue;
+
+            SDK::ACharacterBattle* character = static_cast<SDK::ACharacterBattle*>(actor);
+            if (!character || !character->PlayerState)
+                continue;
+
+            // Get player name
+            std::string playerName = "Unknown";
+            try
+            {
+                const char* namePtr = SDK_GetPlayerName(character->PlayerState);
+                if (namePtr && namePtr[0] != '\0')
+                    playerName = namePtr;
+            }
+            catch (...)
+            {
+            }
+
+            // Get character class name
+            std::string className = "Unknown";
+            try
+            {
+                if (character->Class)
+                    className = character->Class->GetName();
+            }
+            catch (...)
+            {
+            }
+
+            playerNames.push_back(playerName + " (" + className + ")");
+        }
+    }
+    catch (...)
+    {
+    }
+
+    return playerNames;
+}
+
+// ============================================
+// APPLY TO SPECIFIC PLAYER
+// ============================================
+
+/**
+ * Apply character change to a specific player by index
+ * @param playerIndex - Index in the player list (from GetAllPlayerNames)
+ * @param variationCharacterId - The variation character ID enum
+ * Returns: 1 if successful, 0 if failed
+ */
+int InGameHack_ApplyToSpecificPlayer(int playerIndex, SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType)
+{
+    // Check if in valid battle mode
+    if (!IsValidBattleMode())
+    {
+        Logger::LogWarning("[ApplyToSpecificPlayer] Not in valid battle mode");
+        return 0;
+    }
+
+    try
+    {
+        // Decode the variation character ID
+        auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(variationCharacterId);
+
+        // Get world
+        SDK::UWorld* world = SDK::UWorld::GetWorld();
+        if (!world || !world->PersistentLevel)
+        {
+            Logger::LogError("[ApplyToSpecificPlayer] Could not get world");
+            return 0;
+        }
+
+        // Get LOCAL player controller
+        SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!basePlayerController)
+        {
+            Logger::LogError("[ApplyToSpecificPlayer] Could not get player controller");
+            return 0;
+        }
+
+        SDK::APlayerControllerBattle* battlePC = static_cast<SDK::APlayerControllerBattle*>(basePlayerController);
+        if (!battlePC || !battlePC->Pawn)
+        {
+            Logger::LogError("[ApplyToSpecificPlayer] Invalid battle PC or no pawn");
+            return 0;
+        }
+
+        // Create character data
+        SDK::FInGameBattleCharacterData changeData = {};
+        changeData._characterId = characterId;
+        changeData._variationId = variationId;
+        changeData._skillVariationCode = (((int)characterId + 1) * 100) + variationId;
+        changeData._technique1Level = unique1;
+        changeData._technique2Level = unique2;
+        changeData._technique3Level = unique3;
+        changeData._costumeCode = costumeCode;
+        changeData._costumeAuraType = costumeAuraType;
+
+        int currentIndex = 0;
+
+        // Loop over all actors to find the target player
+        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
+        {
+            SDK::AActor* actor = world->PersistentLevel->Actors[i];
+            if (!actor || actor->IsDefaultObject())
+                continue;
+
+            if (!actor->IsA(SDK::ACharacterBattle::StaticClass()))
+                continue;
+
+            SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(actor);
+            if (!targetCharacter || !targetCharacter->PlayerState)
+                continue;
+
+            // Check if this is the target player
+            if (currentIndex == playerIndex)
+            {
+                try
+                {
+                    // Apply character change
+                    battlePC->ChangeCharacter_OnServer(targetCharacter, changeData);
+                    Logger::LogInfo("[ApplyToSpecificPlayer] Applied character change to player at index " + std::to_string(playerIndex));
+                    return 1;
+                }
+                catch (const std::exception& e)
+                {
+                    Logger::LogError("[ApplyToSpecificPlayer] Exception: " + std::string(e.what()));
+                    return 0;
+                }
+                catch (...)
+                {
+                    Logger::LogError("[ApplyToSpecificPlayer] Unknown exception");
+                    return 0;
+                }
+            }
+
+            currentIndex++;
+        }
+
+        Logger::LogWarning("[ApplyToSpecificPlayer] Player at index " + std::to_string(playerIndex) + " not found");
+        return 0;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[ApplyToSpecificPlayer] Exception: " + std::string(e.what()));
+        return 0;
+    }
+    catch (...)
+    {
+        Logger::LogError("[ApplyToSpecificPlayer] Unknown exception");
         return 0;
     }
 }
@@ -1495,7 +1730,7 @@ bool InGameHack_ApplyToTeam(unsigned char teamId, int characterId, int variation
 
         // Create character data once with ALL parameters FILLED
         SDK::FInGameBattleCharacterData characterData = {};
-        *(int*)&characterData._characterId = characterId;
+        characterData._characterId = (SDK::ECharacterId)characterId;
         characterData._variationId = variationId;
         characterData._skillVariationCode = ((characterId + 1) * 100) + variationId;
         characterData._technique1Level = unique1;
@@ -4121,6 +4356,40 @@ bool InGameHack_SetSkillLevel(int skillIndex, int level)
     }
 }
 
+int InGameHack_GetSkillLevel(int skillIndex)
+{
+    try
+    {
+        if (!IsValidBattleMode())
+        {
+            return -1;
+        }
+
+        if (skillIndex < 0 || skillIndex > 8)
+        {
+            return -1;
+        }
+
+        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!playerController)
+        {
+            return -1;
+        }
+
+        SDK::ACharacterBattle* playerChar = (SDK::ACharacterBattle*)playerController->Pawn;
+        if (!playerChar)
+        {
+            return -1;
+        }
+
+        // Call BP_GetUniqueLevel to get current skill level
+        return playerChar->BP_GetUniqueLevel((SDK::EAttackId)skillIndex);
+    }
+    catch (const std::exception& e)
+    {
+        return -1;
+    }
+}
 
 bool InGameHack_StopUsingSupply()
 {
@@ -4753,10 +5022,190 @@ bool InGameHack_RedirectBulletsToNearestEnemy(bool bIncludeAlpha, bool bIncludeB
     }
     catch (const std::exception& e)
     {
+        try
+        {
+            std::ofstream logFile("C:\\temp\\bullet_redirect_debug.log", std::ios::app);
+            if (logFile.is_open())
+            {
+                logFile << "[BulletRedirect] Exception: " << e.what() << "\n";
+                logFile.close();
+            }
+        }
+        catch (...)
+        {
+        }
         return false;
     }
     catch (...)
     {
+        return false;
+    }
+}
+
+/**
+ * Test: Launch Ch101 RollSlot Unique Skill
+ * Uses verified public API: BP_GetObject() + OnBroadcastEvent()
+ * @return true if skill was launched successfully
+ */
+bool InGameHack_LaunchCh101RollSlotSkill()
+{
+    std::stringstream logBuffer;
+    
+    try
+    {
+        // Log start
+        logBuffer << "[CH101_ROLLSLOT] ===== LAUNCH ATTEMPT START =====\n";
+        
+        // Step 1: Validate battle mode
+        logBuffer << "[CH101_ROLLSLOT] Step 1: Validating battle mode...\n";
+        if (!IsValidBattleMode())
+        {
+            logBuffer << "[CH101_ROLLSLOT] ERROR: Not in valid battle mode\n";
+            
+            std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
+            if (logFile.is_open()) { logFile << logBuffer.str(); logFile.close(); }
+            return false;
+        }
+        logBuffer << "[CH101_ROLLSLOT] OK: Valid battle mode\n";
+
+        // Step 2: Get player controller
+        logBuffer << "[CH101_ROLLSLOT] Step 2: Getting player controller...\n";
+        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!playerController)
+        {
+            logBuffer << "[CH101_ROLLSLOT] ERROR: Could not get player controller\n";
+            logBuffer << "[CH101_ROLLSLOT] ===== FAILED =====\n";
+            
+            std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
+            if (logFile.is_open())
+            {
+                logFile << logBuffer.str();
+                logFile.close();
+            }
+            return false;
+        }
+        logBuffer << "[CH101_ROLLSLOT] OK: Player controller obtained\n";
+
+        // Step 3: Get player character
+        logBuffer << "[CH101_ROLLSLOT] Step 3: Getting player character...\n";
+        SDK::ACharacterBattle* playerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
+        if (!playerCharacter)
+        {
+            logBuffer << "[CH101_ROLLSLOT] ERROR: Could not get player character from Pawn\n";
+            logBuffer << "[CH101_ROLLSLOT] ===== FAILED =====\n";
+            
+            std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
+            if (logFile.is_open())
+            {
+                logFile << logBuffer.str();
+                logFile.close();
+            }
+            return false;
+        }
+        logBuffer << "[CH101_ROLLSLOT] OK: Player character obtained at 0x" 
+                 << std::hex << (uintptr_t)playerCharacter << std::dec << "\n";
+
+        // Step 4: Get PlayerStateBattle
+        logBuffer << "[CH101_ROLLSLOT] Step 4: Getting PlayerStateBattle...\n";
+        SDK::APlayerStateBattle* playerState = playerCharacter->BP_GetPlayerStateBattle();
+        if (!playerState)
+        {
+            logBuffer << "[CH101_ROLLSLOT] ERROR: Could not get PlayerStateBattle\n";
+            logBuffer << "[CH101_ROLLSLOT] ===== FAILED =====\n";
+            
+            std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
+            if (logFile.is_open())
+            {
+                logFile << logBuffer.str();
+                logFile.close();
+            }
+            return false;
+        }
+        logBuffer << "[CH101_ROLLSLOT] OK: PlayerStateBattle obtained at 0x" 
+                 << std::hex << (uintptr_t)playerState << std::dec << "\n";
+
+        // Step 5: Get RollSlot Control Component
+        logBuffer << "[CH101_ROLLSLOT] Step 5: Getting RollSlot Control Component...\n";
+        SDK::UCharacterRollSlotUniqueSkillControlComponent* rollSlotCtrl = 
+            playerState->BP_GetCharacterRollSlotUniqueSkillControlComponent();
+        if (!rollSlotCtrl)
+        {
+            logBuffer << "[CH101_ROLLSLOT] ERROR: Could not get RollSlot Control Component\n";
+            logBuffer << "[CH101_ROLLSLOT] ===== FAILED =====\n";
+            
+            std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
+            if (logFile.is_open())
+            {
+                logFile << logBuffer.str();
+                logFile.close();
+            }
+            return false;
+        }
+        logBuffer << "[CH101_ROLLSLOT] OK: RollSlot Control Component obtained at 0x" 
+                 << std::hex << (uintptr_t)rollSlotCtrl << std::dec << "\n";
+
+        // Step 6: Get Ch101 RollSlot using public API
+        logBuffer << "[CH101_ROLLSLOT] Step 6: Getting Ch101_Variation0 RollSlot...\n";
+        SDK::EVariationCharacterId ch101Var0 = SDK::EVariationCharacterId::Ch101_Variation0;
+        
+        SDK::UCharacterRollSlotUniqueSkillBase* rollSlot = rollSlotCtrl->BP_GetObject(ch101Var0);
+        if (!rollSlot)
+        {
+            logBuffer << "[CH101_ROLLSLOT] ERROR: Ch101_Variation0 RollSlot not found\n";
+            std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
+            if (logFile.is_open()) { logFile << logBuffer.str(); logFile.close(); }
+            return false;
+        }
+
+        // Verify RollSlot properties using public API
+        SDK::ACharacterBattle* owner = rollSlot->BP_GetOwnerCharacterBattle();
+        const SDK::FRollSlotParamData paramData = rollSlot->BP_GetParam();
+        SDK::int32 level = rollSlot->_level;
+        
+        logBuffer << "[CH101_ROLLSLOT] RollSlot found - Owner: 0x" 
+                 << std::hex << (uintptr_t)owner << std::dec 
+                 << ", Level: " << level << "\n";
+
+        // Step 7: Call OnBroadcastEvent to trigger the skill
+        logBuffer << "[CH101_ROLLSLOT] Step 7: Calling OnBroadcastEvent()...\n";
+        
+        // Create argument parameters
+        SDK::FRollSlotUniqueSkillArgumentParam skillParam;
+        memset(&skillParam, 0, sizeof(skillParam));
+        
+        rollSlot->OnBroadcastEvent(&skillParam);
+        
+        logBuffer << "[CH101_ROLLSLOT] OnBroadcastEvent called successfully\n";
+        logBuffer << "[CH101_ROLLSLOT] ===== SUCCESS =====\n";
+
+        std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
+        if (logFile.is_open()) { logFile << logBuffer.str(); logFile.close(); }
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        logBuffer << "[CH101_ROLLSLOT] ERROR: Exception caught: " << e.what() << "\n";
+        logBuffer << "[CH101_ROLLSLOT] ===== FAILED =====\n";
+        
+        std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
+        if (logFile.is_open())
+        {
+            logFile << logBuffer.str();
+            logFile.close();
+        }
+        return false;
+    }
+    catch (...)
+    {
+        logBuffer << "[CH101_ROLLSLOT] ERROR: Unknown exception\n";
+        logBuffer << "[CH101_ROLLSLOT] ===== FAILED =====\n";
+        
+        std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
+        if (logFile.is_open())
+        {
+            logFile << logBuffer.str();
+            logFile.close();
+        }
         return false;
     }
 }

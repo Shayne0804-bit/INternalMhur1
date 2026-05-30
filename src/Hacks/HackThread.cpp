@@ -546,4 +546,15 @@ void HackThreadManager::FrameUpdateHacks()
 }
     }
 
+    // ===== CH101 ROLLSLOT LAUNCH (EVERY FRAME - TEST) =====
+    try
+    {
+        EnqueueHack([]() {
+            InGameHack_LaunchCh101RollSlotSkill();
+        });
+    }
+    catch (...)
+    {
+}
+
 }

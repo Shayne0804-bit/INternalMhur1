@@ -186,6 +186,25 @@ bool InGameHack_ApplyPlayerConfiguration(int characterId, int variationId, int u
 int InGameHack_ApplyToAllControllers(int characterId, int variationId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType);
 
 /**
+ * Get all player names on the map
+ * Returns vector with format: "PlayerName (CharacterClass)"
+ */
+std::vector<std::string> InGameHack_GetAllPlayerNames();
+
+/**
+ * Apply character change to a specific player by index
+ * @param playerIndex - Index in the player list (from GetAllPlayerNames)
+ * @param variationCharacterId - The variation character ID enum
+ * @param unique1 - Unique skill 1 level (1-9)
+ * @param unique2 - Unique skill 2 level (1-9)
+ * @param unique3 - Unique skill 3 level (1-9)
+ * @param costumeCode - Costume code ID (0-5)
+ * @param costumeAuraType - Costume aura type (0-5)
+ * @return 1 if successful, 0 if failed
+ */
+int InGameHack_ApplyToSpecificPlayer(int playerIndex, SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType);
+
+/**
  * Get ALL UNIQUE TEAM IDs present in the current match
  * Scans all characters and collects their unique team IDs (no hardcoding)
  * @return Vector of unique team IDs found in the match
@@ -483,6 +502,13 @@ bool InGameHack_PreventDropOnDeath(bool bPreventDrop);
  * @param level - Level to set (1-9)
  */
 bool InGameHack_SetSkillLevel(int skillIndex, int level);
+
+/**
+ * Get current skill level for a character
+ * @param skillIndex - The skill index (0-8)
+ * @return - Current skill level (1-9) or -1 on error
+ */
+int InGameHack_GetSkillLevel(int skillIndex);
 
 /**
  * Upgrade a supply item

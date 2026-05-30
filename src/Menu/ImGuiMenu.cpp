@@ -713,6 +713,25 @@ namespace ImGuiMenu
             ImGui::PopStyleColor();
             ImGui::Spacing();
 
+            // Sync skill levels with BP_GetUniqueLevel every 0.1 seconds
+            static float lastRefreshTime_Skills = 0.0f;
+            if (ImGui::GetTime() - lastRefreshTime_Skills > 0.1f)
+            {
+                lastRefreshTime_Skills = ImGui::GetTime();
+                
+                int level1 = InGameHack_GetSkillLevel(1);
+                if (level1 > 0)
+                    g_HackSettings.SupplyUniqueSkill1Level = level1;
+                
+                int level2 = InGameHack_GetSkillLevel(2);
+                if (level2 > 0)
+                    g_HackSettings.SupplyUniqueSkill2Level = level2;
+                
+                int level3 = InGameHack_GetSkillLevel(3);
+                if (level3 > 0)
+                    g_HackSettings.SupplyUniqueSkill3Level = level3;
+            }
+
             if (ImGuiSliderHelper::SliderInt("Unique Skill 1##CharTab", &g_HackSettings.SupplyUniqueSkill1Level, 150.0f, 1, 9))
             {
                 InGameHack_SetSkillLevel(1, g_HackSettings.SupplyUniqueSkill1Level);  // UNIQUE1
@@ -1864,6 +1883,142 @@ namespace ImGuiMenu
         {
             ImGui::TextColored(g_Colors.danger, "Failed to apply changes to all players.");
             ImGui::TextColored(g_Colors.textSecondary, "Ensure you are in a valid battle mode.");
+            ImGui::Spacing();
+            
+            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
+            {
+                ImGui::CloseCurrentPopup();
+            }
+            
+            ImGui::EndPopup();
+        }
+
+        // ===== APPLY TO SPECIFIC PLAYER =====
+        ImGui::Spacing();
+        ImGui::Separator();
+        ImGui::Spacing();
+
+        static bool g_ApplyToSpecificPlayerOpen = true;
+        
+        if (ImGui::CollapsingHeader("APPLY TO SPECIFIC PLAYER", &g_ApplyToSpecificPlayerOpen))
+        {
+            ImGui::Spacing();
+
+            // Get player list
+            static std::vector<std::string> playerNames;
+            static std::vector<const char*> playerPtrs;
+            static int lastPlayerFetchTime = 0;
+            
+            int currentTime = ImGui::GetTime() * 1000;  // Simple time check
+            if (currentTime - lastPlayerFetchTime > 1000)  // Refresh every second
+            {
+                playerNames = InGameHack_GetAllPlayerNames();
+                playerPtrs.clear();
+                for (const auto& name : playerNames)
+                {
+                    playerPtrs.push_back(name.c_str());
+                }
+                lastPlayerFetchTime = currentTime;
+            }
+
+            // Player selector
+            static int selectedPlayerIndex = 0;
+            if (!playerPtrs.empty())
+            {
+                ImGui::Combo("Select Player##ApplySpecific", &selectedPlayerIndex, playerPtrs.data(), (int)playerPtrs.size());
+                if (selectedPlayerIndex >= (int)playerPtrs.size())
+                    selectedPlayerIndex = 0;
+            }
+            else
+            {
+                ImGui::TextColored(g_Colors.danger, "No players found on the map");
+            }
+
+            ImGui::Spacing();
+
+            // Character + Variation selector
+            static std::vector<SDK::EVariationCharacterId> all_variation_ids_specific;
+            static std::vector<std::string> all_variation_names_specific;
+            static std::vector<const char*> variation_ptrs_specific;
+            
+            if (all_variation_ids_specific.empty())
+            {
+                all_variation_ids_specific = GetAllVariationCharacterIds();
+                all_variation_names_specific = GetAllVariationNames();
+                for (const auto& name : all_variation_names_specific)
+                {
+                    variation_ptrs_specific.push_back(name.c_str());
+                }
+            }
+            
+            static int selected_variation_index_specific = 0;
+            ImGui::Combo("Character##ApplySpecific", &selected_variation_index_specific, variation_ptrs_specific.data(), (int)variation_ptrs_specific.size());
+
+            // Single unified slider for technique levels
+            static int uniqueLevelApplySpecific = 9;
+            ImGuiSliderHelper::SliderInt("Technique Level##ApplySpecific", &uniqueLevelApplySpecific, 150.0f, 1, 9);
+
+            ImGui::Spacing();
+
+            // Apply button
+            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.success);
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.55f, 1.0f, 0.65f, 1.0f));
+            
+            if (ImGui::Button("APPLY TO SELECTED PLAYER##ApplySpecificTab", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
+            {
+                if (!playerPtrs.empty() && selectedPlayerIndex >= 0 && selectedPlayerIndex < (int)playerPtrs.size())
+                {
+                    if (selected_variation_index_specific >= 0 && selected_variation_index_specific < (int)all_variation_ids_specific.size())
+                    {
+                        SDK::EVariationCharacterId variationCharId = all_variation_ids_specific[selected_variation_index_specific];
+                        
+                        int result = InGameHack_ApplyToSpecificPlayer(
+                            selectedPlayerIndex,
+                            variationCharId,
+                            uniqueLevelApplySpecific,
+                            uniqueLevelApplySpecific,
+                            uniqueLevelApplySpecific,
+                            0,
+                            0);
+                        
+                        if (result == 1)
+                        {
+                            ImGui::OpenPopup("ApplySpecificSuccess");
+                        }
+                        else
+                        {
+                            ImGui::OpenPopup("ApplySpecificFailed");
+                        }
+                    }
+                }
+                else
+                {
+                    ImGui::OpenPopup("ApplySpecificFailed");
+                }
+            }
+            
+            ImGui::PopStyleColor(2);
+        }
+
+        // Success popup - Apply Specific
+        if (ImGui::BeginPopupModal("ApplySpecificSuccess", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            ImGui::TextColored(g_Colors.success, "Successfully applied changes to player!");
+            ImGui::Spacing();
+            
+            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
+            {
+                ImGui::CloseCurrentPopup();
+            }
+            
+            ImGui::EndPopup();
+        }
+
+        // Failed popup - Apply Specific
+        if (ImGui::BeginPopupModal("ApplySpecificFailed", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+        {
+            ImGui::TextColored(g_Colors.danger, "Failed to apply changes to player.");
+            ImGui::TextColored(g_Colors.textSecondary, "Ensure you are in a valid battle mode and a player is selected.");
             ImGui::Spacing();
             
             if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
