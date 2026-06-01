@@ -83,6 +83,10 @@ namespace ImGuiMenu
         bool CopySkillsSetCopySkill = false;  // Set copy skill flag
         bool CopySkillsUseOwnerCharacterLevel = false;  // Use owner character level
         
+        // Generate Projectile Hotkey
+        bool EnableGenerateProjectile = false;
+        HotkeySet GenerateProjectileKey = HotkeySet(0x47, 0x4000);  // KB: G, Gamepad: X
+        
         // Reload Adjust Rates
         float ReloadAdjustRate = 1.0f;                    // General reload rate (1.0 = normal)
         float ReloadAdjustRate_RollSlot = 1.0f;           // Reload rate for roll slot

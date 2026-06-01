@@ -585,6 +585,13 @@ void InGameHack_ProcessCharacterConditionAutoExecution(
 bool InGameHack_ChangePlayerName(const char* newName);
 
 /**
+ * Generate projectile in front of player (hardcoded: Ch010 PUSH_SPECIAL)
+ * Creates projectile at player location facing forward
+ * @return true if successful, false otherwise
+ */
+bool InGameHack_GenerateProjectileInFront();
+
+/**
  * Buy License Exp from backend subsystem
  * @param count - Number of License Exp to buy
  * @return true if successful, false otherwise

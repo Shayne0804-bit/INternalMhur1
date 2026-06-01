@@ -4,6 +4,7 @@
 #include "../Hooks/GameThreadHook.h"
 #include "../Hacks/InGameModuleHacks.h"
 #include "../Utils/Logger.h"
+#include "../Utils/CostumeHelper.h"
 #include <algorithm>
 #include "../SDK/SDKInit.h"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/CommonModule_structs.hpp"
@@ -639,24 +640,73 @@ namespace ImGuiMenu
             // Character + Variation selector
             static std::vector<SDK::EVariationCharacterId> all_variation_ids;
             static std::vector<std::string> all_variation_names;
-            static std::vector<const char*> variation_ptrs;
             
             if (all_variation_ids.empty())
             {
                 all_variation_ids = GetAllVariationCharacterIds();
                 all_variation_names = GetAllVariationNames();
+            }
+            
+            static int selected_variation_index = 0;
+            {
+                // Create pointers every frame to avoid dangling pointers
+                std::vector<const char*> variation_ptrs;
+                variation_ptrs.reserve(all_variation_names.size());
                 for (const auto& name : all_variation_names)
                 {
                     variation_ptrs.push_back(name.c_str());
                 }
+                ImGui::Combo("Character##CharTab", &selected_variation_index, variation_ptrs.data(), (int)variation_ptrs.size());
             }
-            
-            static int selected_variation_index = 0;
-            ImGui::Combo("Character##CharTab", &selected_variation_index, variation_ptrs.data(), (int)variation_ptrs.size());
 
             // Single unified slider for technique levels
             static int uniqueLevel = 9;
             ImGuiSliderHelper::SliderInt("Technique Level##CharTab", &uniqueLevel, 150.0f, 1, 9);
+
+            ImGui::Spacing();
+
+            // Costume selector for the selected character variation (Owner Swap)
+            static std::vector<int> availableCostumesOwner;
+            static std::vector<std::string> costumeDisplayNamesOwner;
+            static int lastCharacterVariationOwner = -1;
+            
+            // Update costume list when character changes
+            if (selected_variation_index != lastCharacterVariationOwner && 
+                selected_variation_index >= 0 && 
+                selected_variation_index < (int)all_variation_ids.size())
+            {
+                lastCharacterVariationOwner = selected_variation_index;
+                auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(all_variation_ids[selected_variation_index]);
+                
+                availableCostumesOwner = CostumeHelper::GetCostumesForCharacter((int)characterId);
+                costumeDisplayNamesOwner.clear();
+                costumeDisplayNamesOwner.reserve(availableCostumesOwner.size());
+                
+                for (size_t i = 0; i < availableCostumesOwner.size(); ++i)
+                {
+                    costumeDisplayNamesOwner.push_back(CostumeHelper::FormatCostumeName(availableCostumesOwner[i], i));
+                }
+            }
+
+            static int selectedCostumeIndexOwner = 0;
+            if (!costumeDisplayNamesOwner.empty())
+            {
+                // Create pointers every frame to avoid dangling pointers
+                std::vector<const char*> costumePtrsOwner;
+                costumePtrsOwner.reserve(costumeDisplayNamesOwner.size());
+                for (const auto& name : costumeDisplayNamesOwner)
+                {
+                    costumePtrsOwner.push_back(name.c_str());
+                }
+                
+                ImGui::Combo("Costume##CharTab", &selectedCostumeIndexOwner, costumePtrsOwner.data(), (int)costumePtrsOwner.size());
+                if (selectedCostumeIndexOwner >= (int)costumePtrsOwner.size())
+                    selectedCostumeIndexOwner = 0;
+            }
+            else
+            {
+                ImGui::TextColored(g_Colors.textSecondary, "Select a character to see available costumes");
+            }
 
             ImGui::Spacing();
 
@@ -671,13 +721,20 @@ namespace ImGuiMenu
                     SDK::EVariationCharacterId variationCharId = all_variation_ids[selected_variation_index];
                     auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(variationCharId);
                     
+                    // Get the selected costume code
+                    int selectedCostumeCodeOwner = 0;
+                    if (selectedCostumeIndexOwner >= 0 && selectedCostumeIndexOwner < (int)availableCostumesOwner.size())
+                    {
+                        selectedCostumeCodeOwner = availableCostumesOwner[selectedCostumeIndexOwner];
+                    }
+                    
                     InGameHack_ApplyPlayerConfiguration(
                         (int)characterId,
                         variationId,
                         uniqueLevel,
                         uniqueLevel,
                         uniqueLevel,
-                        0,
+                        selectedCostumeCodeOwner,
                         0,
                         0
                     );
@@ -1446,6 +1503,52 @@ namespace ImGuiMenu
             RenderAbilityHackMenu();
         }
 
+        // ===== PROJECTILE GENERATION SECTION =====
+        static bool g_ProjectileGenerationOpen = true;
+        if (ImGui::CollapsingHeader("PROJECTILE GENERATION", &g_ProjectileGenerationOpen, ImGuiTreeNodeFlags_None))
+        {
+            SectionHeader("Generate Projectile (Ch010 PUSH_SPECIAL)");
+
+            // Projectile Hotkey button
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 0.65f, 0.0f, 1.0f));
+            {
+                std::string hotkeyLabel = "[KB] " + GetKeyName(g_Settings.GenerateProjectileKey.Keyboard, 0) + 
+                                          " | [X] " + GetKeyName(g_Settings.GenerateProjectileKey.Xbox, 1) + 
+                                          " | [PS] " + GetKeyName(g_Settings.GenerateProjectileKey.PS4, 1);
+                if (ImGui::Button(hotkeyLabel.c_str(), ImVec2(-1, 0)))
+                {
+                    g_ListeningForHotkey = true;
+                    g_HotkeyListenStartTime = GetTickCount();
+                    g_CurrentHotkeyValue = 107;  // Special ID for projectile hotkey
+                }
+            }
+            ImGui::PopStyleColor();
+
+            ImGui::Spacing();
+
+            // Enable/Disable toggle
+            ImGuiHelper::ToggleSwitchLarge("Enable Projectile Generation", &g_Settings.EnableGenerateProjectile);
+            ImGui::SameLine();
+            ImGui::TextColored(g_Colors.accentColor, "(Use hotkey to generate)");
+
+            ImGui::Spacing();
+
+            // Manual trigger button
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 0.5f, 0.0f, 1.0f));
+            if (ImGui::Button("GENERATE NOW", ImVec2(-1, 0)))
+            {
+                if (InGameHack_GenerateProjectileInFront())
+                {
+                    Logger::LogInfo("[MENU] Projectile generated successfully");
+                }
+                else
+                {
+                    Logger::LogError("[MENU] Failed to generate projectile - ensure you are in battle");
+                }
+            }
+            ImGui::PopStyleColor();
+        }
+
         // ===== SUPPLY MANAGEMENT SECTION =====
         if (ImGui::CollapsingHeader("SUPPLY MANAGEMENT", &g_SupplyManagementOpen, ImGuiTreeNodeFlags_None))
         {
@@ -1695,24 +1798,73 @@ namespace ImGuiMenu
             // Character + Variation selector
             static std::vector<SDK::EVariationCharacterId> all_variation_ids;
             static std::vector<std::string> all_variation_names;
-            static std::vector<const char*> variation_ptrs;
             
             if (all_variation_ids.empty())
             {
                 all_variation_ids = GetAllVariationCharacterIds();
                 all_variation_names = GetAllVariationNames();
+            }
+            
+            static int selected_variation_index = 0;
+            {
+                // Create pointers every frame to avoid dangling pointers
+                std::vector<const char*> variation_ptrs;
+                variation_ptrs.reserve(all_variation_names.size());
                 for (const auto& name : all_variation_names)
                 {
                     variation_ptrs.push_back(name.c_str());
                 }
+                ImGui::Combo("Character", &selected_variation_index, variation_ptrs.data(), (int)variation_ptrs.size());
             }
-            
-            static int selected_variation_index = 0;
-            ImGui::Combo("Character", &selected_variation_index, variation_ptrs.data(), (int)variation_ptrs.size());
 
             // Single unified slider for technique levels
             static int uniqueLevelTeam = 9;
             ImGuiSliderHelper::SliderInt("Technique Level", &uniqueLevelTeam, 150.0f, 1, 9);
+
+            ImGui::Spacing();
+
+            // Costume selector for the selected character variation (Apply Team)
+            static std::vector<int> availableCostumesTeam;
+            static std::vector<std::string> costumeDisplayNamesTeam;
+            static int lastCharacterVariationTeam = -1;
+            
+            // Update costume list when character changes
+            if (selected_variation_index != lastCharacterVariationTeam && 
+                selected_variation_index >= 0 && 
+                selected_variation_index < (int)all_variation_ids.size())
+            {
+                lastCharacterVariationTeam = selected_variation_index;
+                auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(all_variation_ids[selected_variation_index]);
+                
+                availableCostumesTeam = CostumeHelper::GetCostumesForCharacter((int)characterId);
+                costumeDisplayNamesTeam.clear();
+                costumeDisplayNamesTeam.reserve(availableCostumesTeam.size());
+                
+                for (size_t i = 0; i < availableCostumesTeam.size(); ++i)
+                {
+                    costumeDisplayNamesTeam.push_back(CostumeHelper::FormatCostumeName(availableCostumesTeam[i], i));
+                }
+            }
+
+            static int selectedCostumeIndexTeam = 0;
+            if (!costumeDisplayNamesTeam.empty())
+            {
+                // Create pointers every frame to avoid dangling pointers
+                std::vector<const char*> costumePtrsTeam;
+                costumePtrsTeam.reserve(costumeDisplayNamesTeam.size());
+                for (const auto& name : costumeDisplayNamesTeam)
+                {
+                    costumePtrsTeam.push_back(name.c_str());
+                }
+                
+                ImGui::Combo("Costume##ApplyTeam", &selectedCostumeIndexTeam, costumePtrsTeam.data(), (int)costumePtrsTeam.size());
+                if (selectedCostumeIndexTeam >= (int)costumePtrsTeam.size())
+                    selectedCostumeIndexTeam = 0;
+            }
+            else
+            {
+                ImGui::TextColored(g_Colors.textSecondary, "Select a character to see available costumes");
+            }
 
             ImGui::Spacing();
 
@@ -1739,6 +1891,13 @@ namespace ImGuiMenu
                         SDK::EVariationCharacterId variationCharId = all_variation_ids[selected_variation_index];
                         auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(variationCharId);
                         
+                        // Get the selected costume code
+                        int selectedCostumeCodeTeam = 0;
+                        if (selectedCostumeIndexTeam >= 0 && selectedCostumeIndexTeam < (int)availableCostumesTeam.size())
+                        {
+                            selectedCostumeCodeTeam = availableCostumesTeam[selectedCostumeIndexTeam];
+                        }
+                        
                         if (InGameHack_ApplyToTeam(
                             (unsigned char)g_SelectedTeamId,
                             (int32_t)characterId,
@@ -1746,7 +1905,7 @@ namespace ImGuiMenu
                             uniqueLevelTeam,
                             uniqueLevelTeam,
                             uniqueLevelTeam,
-                            0,
+                            selectedCostumeCodeTeam,
                             0))
                         {
                             ImGui::OpenPopup("ApplyTeamSuccess");
@@ -1806,24 +1965,73 @@ namespace ImGuiMenu
             // Character + Variation selector - EXACTLY like APPLY TO TEAM
             static std::vector<SDK::EVariationCharacterId> all_variation_ids_all;
             static std::vector<std::string> all_variation_names_all;
-            static std::vector<const char*> variation_ptrs_all;
             
             if (all_variation_ids_all.empty())
             {
                 all_variation_ids_all = GetAllVariationCharacterIds();
                 all_variation_names_all = GetAllVariationNames();
+            }
+            
+            static int selected_variation_index_all = 0;
+            {
+                // Create pointers every frame to avoid dangling pointers
+                std::vector<const char*> variation_ptrs_all;
+                variation_ptrs_all.reserve(all_variation_names_all.size());
                 for (const auto& name : all_variation_names_all)
                 {
                     variation_ptrs_all.push_back(name.c_str());
                 }
+                ImGui::Combo("Character##ApplyAll", &selected_variation_index_all, variation_ptrs_all.data(), (int)variation_ptrs_all.size());
             }
-            
-            static int selected_variation_index_all = 0;
-            ImGui::Combo("Character##ApplyAll", &selected_variation_index_all, variation_ptrs_all.data(), (int)variation_ptrs_all.size());
 
             // Single unified slider for technique levels
             static int uniqueLevelApplyAll = 9;
             ImGuiSliderHelper::SliderInt("Technique Level##ApplyAll", &uniqueLevelApplyAll, 150.0f, 1, 9);
+
+            ImGui::Spacing();
+
+            // Costume selector for the selected character variation (Apply All)
+            static std::vector<int> availableCostumesAll;
+            static std::vector<std::string> costumeDisplayNamesAll;
+            static int lastCharacterVariationAll = -1;
+            
+            // Update costume list when character changes
+            if (selected_variation_index_all != lastCharacterVariationAll && 
+                selected_variation_index_all >= 0 && 
+                selected_variation_index_all < (int)all_variation_ids_all.size())
+            {
+                lastCharacterVariationAll = selected_variation_index_all;
+                auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(all_variation_ids_all[selected_variation_index_all]);
+                
+                availableCostumesAll = CostumeHelper::GetCostumesForCharacter((int)characterId);
+                costumeDisplayNamesAll.clear();
+                costumeDisplayNamesAll.reserve(availableCostumesAll.size());
+                
+                for (size_t i = 0; i < availableCostumesAll.size(); ++i)
+                {
+                    costumeDisplayNamesAll.push_back(CostumeHelper::FormatCostumeName(availableCostumesAll[i], i));
+                }
+            }
+
+            static int selectedCostumeIndexAll = 0;
+            if (!costumeDisplayNamesAll.empty())
+            {
+                // Create pointers every frame to avoid dangling pointers
+                std::vector<const char*> costumePtrsAll;
+                costumePtrsAll.reserve(costumeDisplayNamesAll.size());
+                for (const auto& name : costumeDisplayNamesAll)
+                {
+                    costumePtrsAll.push_back(name.c_str());
+                }
+                
+                ImGui::Combo("Costume##ApplyAll", &selectedCostumeIndexAll, costumePtrsAll.data(), (int)costumePtrsAll.size());
+                if (selectedCostumeIndexAll >= (int)costumePtrsAll.size())
+                    selectedCostumeIndexAll = 0;
+            }
+            else
+            {
+                ImGui::TextColored(g_Colors.textSecondary, "Select a character to see available costumes");
+            }
 
             ImGui::Spacing();
 
@@ -1838,13 +2046,20 @@ namespace ImGuiMenu
                     SDK::EVariationCharacterId variationCharId = all_variation_ids_all[selected_variation_index_all];
                     auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(variationCharId);
                     
+                    // Get the selected costume code
+                    int selectedCostumeCodeAll = 0;
+                    if (selectedCostumeIndexAll >= 0 && selectedCostumeIndexAll < (int)availableCostumesAll.size())
+                    {
+                        selectedCostumeCodeAll = availableCostumesAll[selectedCostumeIndexAll];
+                    }
+                    
                     int appliedCount = InGameHack_ApplyToAllControllers(
                         (int)characterId,
                         (int)variationId,
                         uniqueLevelApplyAll,
                         uniqueLevelApplyAll,
                         uniqueLevelApplyAll,
-                        0,
+                        selectedCostumeCodeAll,
                         0);
                     
                     g_LastAppliedCount = appliedCount;
@@ -1906,25 +2121,26 @@ namespace ImGuiMenu
 
             // Get player list
             static std::vector<std::string> playerNames;
-            static std::vector<const char*> playerPtrs;
             static int lastPlayerFetchTime = 0;
             
             int currentTime = ImGui::GetTime() * 1000;  // Simple time check
             if (currentTime - lastPlayerFetchTime > 1000)  // Refresh every second
             {
                 playerNames = InGameHack_GetAllPlayerNames();
-                playerPtrs.clear();
-                for (const auto& name : playerNames)
-                {
-                    playerPtrs.push_back(name.c_str());
-                }
                 lastPlayerFetchTime = currentTime;
             }
 
             // Player selector
             static int selectedPlayerIndex = 0;
-            if (!playerPtrs.empty())
+            if (!playerNames.empty())
             {
+                // Create pointers every frame to avoid dangling pointers
+                std::vector<const char*> playerPtrs;
+                playerPtrs.reserve(playerNames.size());
+                for (const auto& name : playerNames)
+                {
+                    playerPtrs.push_back(name.c_str());
+                }
                 ImGui::Combo("Select Player##ApplySpecific", &selectedPlayerIndex, playerPtrs.data(), (int)playerPtrs.size());
                 if (selectedPlayerIndex >= (int)playerPtrs.size())
                     selectedPlayerIndex = 0;
@@ -1939,24 +2155,73 @@ namespace ImGuiMenu
             // Character + Variation selector
             static std::vector<SDK::EVariationCharacterId> all_variation_ids_specific;
             static std::vector<std::string> all_variation_names_specific;
-            static std::vector<const char*> variation_ptrs_specific;
             
             if (all_variation_ids_specific.empty())
             {
                 all_variation_ids_specific = GetAllVariationCharacterIds();
                 all_variation_names_specific = GetAllVariationNames();
+            }
+            
+            static int selected_variation_index_specific = 0;
+            {
+                // Create pointers every frame to avoid dangling pointers
+                std::vector<const char*> variation_ptrs_specific;
+                variation_ptrs_specific.reserve(all_variation_names_specific.size());
                 for (const auto& name : all_variation_names_specific)
                 {
                     variation_ptrs_specific.push_back(name.c_str());
                 }
+                ImGui::Combo("Character##ApplySpecific", &selected_variation_index_specific, variation_ptrs_specific.data(), (int)variation_ptrs_specific.size());
             }
-            
-            static int selected_variation_index_specific = 0;
-            ImGui::Combo("Character##ApplySpecific", &selected_variation_index_specific, variation_ptrs_specific.data(), (int)variation_ptrs_specific.size());
 
             // Single unified slider for technique levels
             static int uniqueLevelApplySpecific = 9;
             ImGuiSliderHelper::SliderInt("Technique Level##ApplySpecific", &uniqueLevelApplySpecific, 150.0f, 1, 9);
+
+            ImGui::Spacing();
+
+            // Costume selector for the selected character variation
+            static std::vector<int> availableCostumes;
+            static std::vector<std::string> costumeDisplayNames;
+            static int lastCharacterVariation = -1;
+            
+            // Update costume list when character changes
+            if (selected_variation_index_specific != lastCharacterVariation && 
+                selected_variation_index_specific >= 0 && 
+                selected_variation_index_specific < (int)all_variation_ids_specific.size())
+            {
+                lastCharacterVariation = selected_variation_index_specific;
+                auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(all_variation_ids_specific[selected_variation_index_specific]);
+                
+                availableCostumes = CostumeHelper::GetCostumesForCharacter((int)characterId);
+                costumeDisplayNames.clear();
+                costumeDisplayNames.reserve(availableCostumes.size());
+                
+                for (size_t i = 0; i < availableCostumes.size(); ++i)
+                {
+                    costumeDisplayNames.push_back(CostumeHelper::FormatCostumeName(availableCostumes[i], i));
+                }
+            }
+
+            static int selectedCostumeIndex = 0;
+            if (!costumeDisplayNames.empty())
+            {
+                // Create pointers every frame to avoid dangling pointers
+                std::vector<const char*> costumePtrs;
+                costumePtrs.reserve(costumeDisplayNames.size());
+                for (const auto& name : costumeDisplayNames)
+                {
+                    costumePtrs.push_back(name.c_str());
+                }
+                
+                ImGui::Combo("Costume##ApplySpecific", &selectedCostumeIndex, costumePtrs.data(), (int)costumePtrs.size());
+                if (selectedCostumeIndex >= (int)costumePtrs.size())
+                    selectedCostumeIndex = 0;
+            }
+            else
+            {
+                ImGui::TextColored(g_Colors.textSecondary, "Select a character to see available costumes");
+            }
 
             ImGui::Spacing();
 
@@ -1966,11 +2231,18 @@ namespace ImGuiMenu
             
             if (ImGui::Button("APPLY TO SELECTED PLAYER##ApplySpecificTab", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
             {
-                if (!playerPtrs.empty() && selectedPlayerIndex >= 0 && selectedPlayerIndex < (int)playerPtrs.size())
+                if (!playerNames.empty() && selectedPlayerIndex >= 0 && selectedPlayerIndex < (int)playerNames.size())
                 {
                     if (selected_variation_index_specific >= 0 && selected_variation_index_specific < (int)all_variation_ids_specific.size())
                     {
                         SDK::EVariationCharacterId variationCharId = all_variation_ids_specific[selected_variation_index_specific];
+                        
+                        // Get the selected costume code
+                        int selectedCostumeCode = 0;
+                        if (selectedCostumeIndex >= 0 && selectedCostumeIndex < (int)availableCostumes.size())
+                        {
+                            selectedCostumeCode = availableCostumes[selectedCostumeIndex];
+                        }
                         
                         int result = InGameHack_ApplyToSpecificPlayer(
                             selectedPlayerIndex,
@@ -1978,7 +2250,7 @@ namespace ImGuiMenu
                             uniqueLevelApplySpecific,
                             uniqueLevelApplySpecific,
                             uniqueLevelApplySpecific,
-                            0,
+                            selectedCostumeCode,
                             0);
                         
                         if (result == 1)
@@ -2912,6 +3184,16 @@ return true;
                     {
                         g_Settings.CopySkillsFromNearestEnemyKey.Xbox = pressedKey;
                         g_Settings.CopySkillsFromNearestEnemyKey.PS4 = pressedKey;
+                    }
+                }
+                else if (hotkeyType == 107)  // GenerateProjectile hotkey (unified)
+                {
+                    if (inputType == 0)  // Keyboard
+                        g_Settings.GenerateProjectileKey.Keyboard = pressedKey;
+                    else  // Gamepad
+                    {
+                        g_Settings.GenerateProjectileKey.Xbox = pressedKey;
+                        g_Settings.GenerateProjectileKey.PS4 = pressedKey;
                     }
                 }
                 

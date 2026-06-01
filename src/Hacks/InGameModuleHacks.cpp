@@ -18,6 +18,8 @@
 #include <fstream>
 #include <chrono>
 #include <iomanip>
+#include <cstdio>
+#include <ctime>
 
 // ============================================
 // EXTERNAL DECLARATIONS FROM BASIC.CPP
@@ -108,6 +110,59 @@ bool IsValidBattleMode()
         Logger::LogError("[IsValidBattleMode] Unknown exception");
         return false;
     }
+}
+
+/**
+ * Validate if a pointer is safe to access
+ * Checks for NULL and obviously invalid addresses
+ */
+template<typename T>
+static inline bool IsValidPointer(T* ptr)
+{
+    if (!ptr) return false;
+    
+    // Check if address is obviously invalid (too low or misaligned)
+    uintptr_t addr = reinterpret_cast<uintptr_t>(ptr);
+    
+    // Reject addresses below 0x10000 (user space guard pages)
+    if (addr < 0x10000) return false;
+    
+    // Reject completely misaligned pointers (likely garbage)
+    if (addr & 0xF) return false;  // Should be 16-byte aligned for UE4 objects
+    
+    return true;
+}
+
+/**
+ * Safe getter for player pawn with validation
+ */
+static inline SDK::ACharacterBattle* GetPlayerCharacterBattle(SDK::APlayerController* playerController)
+{
+    if (!IsValidPointer(playerController)) return nullptr;
+    
+    SDK::APawn* pawn = playerController->Pawn;
+    if (!IsValidPointer(pawn)) return nullptr;
+    
+    SDK::ACharacterBattle* character = static_cast<SDK::ACharacterBattle*>(pawn);
+    if (!IsValidPointer(character)) return nullptr;
+    
+    return character;
+}
+
+/**
+ * Safe getter for player state with validation
+ */
+static inline SDK::APlayerStateBattle* GetPlayerStateBattle(SDK::APlayerController* playerController)
+{
+    if (!IsValidPointer(playerController)) return nullptr;
+    
+    SDK::APlayerState* playerState = playerController->PlayerState;
+    if (!IsValidPointer(playerState)) return nullptr;
+    
+    SDK::APlayerStateBattle* playerStateBattle = static_cast<SDK::APlayerStateBattle*>(playerState);
+    if (!IsValidPointer(playerStateBattle)) return nullptr;
+    
+    return playerStateBattle;
 }
 
 /**
@@ -944,22 +999,15 @@ bool InGameHack_TransformInto(
 {
 
     // Validate inputs
-    if (!playerController || !playerCharacter || !targetCharacter)
+    if (!IsValidPointer(playerController) || !IsValidPointer(playerCharacter) || !IsValidPointer(targetCharacter))
     {
         return false;
     }
 
     try
     {
-        // Get the player state from player controller
-        SDK::APlayerState* playerState = playerController->PlayerState;
-        if (!playerState)
-        {
-            return false;
-        }
-        
-        // Cast to APlayerStateBattle to access TransformControlComponent
-        SDK::APlayerStateBattle* playerStateBattle = static_cast<SDK::APlayerStateBattle*>(playerState);
+        // Get the player state with validation
+        SDK::APlayerStateBattle* playerStateBattle = GetPlayerStateBattle(playerController);
         if (!playerStateBattle)
         {
             return false;
@@ -967,7 +1015,7 @@ bool InGameHack_TransformInto(
         
         // Access the UTransformControlComponent from player state
         SDK::UTransformControlComponent* transformComponent = playerStateBattle->_transformControlComponent;
-        if (!transformComponent)
+        if (!IsValidPointer(transformComponent))
         {
             return false;
         }
@@ -998,8 +1046,8 @@ bool InGameHack_TransformIntoRandomESP()
             return false;
         }
         
-        // Get possessed pawn (player character)
-        SDK::ACharacterBattle* playerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
+        // Get possessed pawn (player character) with validation
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
         if (!playerCharacter)
         {
             return false;
@@ -1055,22 +1103,15 @@ bool InGameHack_DuplicateIntoImitation(
     float lifeTime)
 {
     // Validate inputs
-    if (!playerController || !playerCharacter || !targetCharacter)
+    if (!IsValidPointer(playerController) || !IsValidPointer(playerCharacter) || !IsValidPointer(targetCharacter))
     {
         return false;
     }
 
     try
     {
-        // Get the player state from player controller
-        SDK::APlayerState* playerState = playerController->PlayerState;
-        if (!playerState)
-        {
-            return false;
-        }
-        
-        // Cast to APlayerStateBattle to access DuplicateControlComponent
-        SDK::APlayerStateBattle* playerStateBattle = static_cast<SDK::APlayerStateBattle*>(playerState);
+        // Get the player state with validation
+        SDK::APlayerStateBattle* playerStateBattle = GetPlayerStateBattle(playerController);
         if (!playerStateBattle)
         {
             return false;
@@ -1078,7 +1119,7 @@ bool InGameHack_DuplicateIntoImitation(
         
         // Access the UDuplicateControlComponent from player state (offset 0x0C68)
         SDK::UDuplicateControlComponent* duplicateComponent = playerStateBattle->_duplicateControlComponent;
-        if (!duplicateComponent)
+        if (!IsValidPointer(duplicateComponent))
         {
             return false;
         }
@@ -1183,20 +1224,13 @@ bool InGameHack_SetReloadAdjustRate(float rate)
     {
         // Get player controller
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController)
+        if (!IsValidPointer(playerController))
         {
             return false;
         }
         
-        // Get player state
-        SDK::APlayerState* playerState = playerController->PlayerState;
-        if (!playerState)
-        {
-            return false;
-        }
-        
-        // Cast to APlayerStateBattle
-        SDK::APlayerStateBattle* playerStateBattle = static_cast<SDK::APlayerStateBattle*>(playerState);
+        // Get player state with validation
+        SDK::APlayerStateBattle* playerStateBattle = GetPlayerStateBattle(playerController);
         if (!playerStateBattle)
         {
             return false;
@@ -1204,7 +1238,7 @@ bool InGameHack_SetReloadAdjustRate(float rate)
         
         // Access BuffParam
         SDK::UBuffParam* buffParam = playerStateBattle->_buffParam;
-        if (!buffParam)
+        if (!IsValidPointer(buffParam))
         {
             return false;
         }
@@ -1235,20 +1269,13 @@ bool InGameHack_SetReloadAdjustRate_RollSlot(float rate)
     {
         // Get player controller
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController)
+        if (!IsValidPointer(playerController))
         {
             return false;
         }
         
-        // Get player state
-        SDK::APlayerState* playerState = playerController->PlayerState;
-        if (!playerState)
-        {
-            return false;
-        }
-        
-        // Cast to APlayerStateBattle
-        SDK::APlayerStateBattle* playerStateBattle = static_cast<SDK::APlayerStateBattle*>(playerState);
+        // Get player state with validation
+        SDK::APlayerStateBattle* playerStateBattle = GetPlayerStateBattle(playerController);
         if (!playerStateBattle)
         {
             return false;
@@ -1256,7 +1283,7 @@ bool InGameHack_SetReloadAdjustRate_RollSlot(float rate)
         
         // Access BuffParam
         SDK::UBuffParam* buffParam = playerStateBattle->_buffParam;
-        if (!buffParam)
+        if (!IsValidPointer(buffParam))
         {
             return false;
         }
@@ -1287,20 +1314,13 @@ bool InGameHack_SetReloadAdjustRate_WearBlueFlame(float rate)
     {
         // Get player controller
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController)
+        if (!IsValidPointer(playerController))
         {
             return false;
         }
         
-        // Get player state
-        SDK::APlayerState* playerState = playerController->PlayerState;
-        if (!playerState)
-        {
-            return false;
-        }
-        
-        // Cast to APlayerStateBattle
-        SDK::APlayerStateBattle* playerStateBattle = static_cast<SDK::APlayerStateBattle*>(playerState);
+        // Get player state with validation
+        SDK::APlayerStateBattle* playerStateBattle = GetPlayerStateBattle(playerController);
         if (!playerStateBattle)
         {
             return false;
@@ -1308,7 +1328,7 @@ bool InGameHack_SetReloadAdjustRate_WearBlueFlame(float rate)
         
         // Access BuffParam
         SDK::UBuffParam* buffParam = playerStateBattle->_buffParam;
-        if (!buffParam)
+        if (!IsValidPointer(buffParam))
         {
             return false;
         }
@@ -1333,22 +1353,26 @@ bool InGameHack_ApplyPlayerConfiguration(int characterId, int variationId, int u
     {
         // Get PlayerController
         SDK::APlayerController* baseController = SDK_GetPlayerController();
-        if (!baseController)
+        if (!IsValidPointer(baseController))
         {
-            Logger::LogError("[TRAINING] Could not get PlayerController");
+            Logger::LogError("[ApplyPlayerConfiguration] Could not get valid PlayerController");
             return false;
         }
         
         SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
-        if (!playerController)
+        if (!IsValidPointer(playerController))
         {
-            Logger::LogError("[TRAINING] Could not cast to APlayerControllerBattle");
+            Logger::LogError("[ApplyPlayerConfiguration] Could not cast to APlayerControllerBattle");
             return false;
         }
 
-        // Get current character pawn
-        SDK::APawn* currentPawn = playerController->Pawn;
-        SDK::ACharacterBattle* currentCharacter = static_cast<SDK::ACharacterBattle*>(currentPawn);
+        // Get current character pawn with validation
+        SDK::ACharacterBattle* currentCharacter = GetPlayerCharacterBattle(playerController);
+        if (!currentCharacter)
+        {
+            Logger::LogError("[ApplyPlayerConfiguration] Could not get player character");
+            return false;
+        }
 
         // Create character data structure
         SDK::FInGameBattleCharacterData characterData = {};
@@ -1367,12 +1391,12 @@ bool InGameHack_ApplyPlayerConfiguration(int characterId, int variationId, int u
     }
     catch (const std::exception& e)
     {
-        Logger::LogError("[TRAINING] Exception caught");
+        Logger::LogError("[ApplyPlayerConfiguration] Exception caught");
         return false;
     }
     catch (...)
     {
-        Logger::LogError("[TRAINING] Unknown exception");
+        Logger::LogError("[ApplyPlayerConfiguration] Unknown exception");
         return false;
     }
 }
@@ -1415,9 +1439,17 @@ int InGameHack_ApplyToAllControllers(int characterId, int variationId, int uniqu
         }
 
         SDK::APlayerControllerBattle* battlePC = static_cast<SDK::APlayerControllerBattle*>(basePlayerController);
-        if (!battlePC || !battlePC->Pawn)
+        if (!IsValidPointer(battlePC))
         {
-            Logger::LogError("[ApplyToAll] Invalid battle PC or no pawn");
+            Logger::LogError("[ApplyToAll] Invalid battle PC");
+            return 0;
+        }
+
+        // Get player pawn with validation
+        SDK::ACharacterBattle* playerPawn = GetPlayerCharacterBattle(battlePC);
+        if (!playerPawn)
+        {
+            Logger::LogError("[ApplyToAll] No valid player pawn");
             return 0;
         }
 
@@ -1436,11 +1468,13 @@ int InGameHack_ApplyToAllControllers(int characterId, int variationId, int uniqu
         {
             SDK::AActor* actor = world->PersistentLevel->Actors[i];
             
-            // Robust type check using IsA()
-            if (!actor || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
+            // Robust type check with pointer validation
+            if (!IsValidPointer(actor) || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
                 continue;
 
             SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(actor);
+            if (!IsValidPointer(targetCharacter))
+                continue;
 
             try
             {
@@ -1529,14 +1563,14 @@ std::vector<std::string> InGameHack_GetAllPlayerNames()
         for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
         {
             SDK::AActor* actor = world->PersistentLevel->Actors[i];
-            if (!actor || actor->IsDefaultObject())
+            if (!IsValidPointer(actor) || actor->IsDefaultObject())
                 continue;
 
             if (!actor->IsA(SDK::ACharacterBattle::StaticClass()))
                 continue;
 
             SDK::ACharacterBattle* character = static_cast<SDK::ACharacterBattle*>(actor);
-            if (!character || !character->PlayerState)
+            if (!IsValidPointer(character) || !IsValidPointer(character->PlayerState))
                 continue;
 
             // Get player name
@@ -1613,9 +1647,17 @@ int InGameHack_ApplyToSpecificPlayer(int playerIndex, SDK::EVariationCharacterId
         }
 
         SDK::APlayerControllerBattle* battlePC = static_cast<SDK::APlayerControllerBattle*>(basePlayerController);
-        if (!battlePC || !battlePC->Pawn)
+        if (!IsValidPointer(battlePC))
         {
-            Logger::LogError("[ApplyToSpecificPlayer] Invalid battle PC or no pawn");
+            Logger::LogError("[ApplyToSpecificPlayer] Invalid battle PC");
+            return 0;
+        }
+
+        // Verify player pawn exists
+        SDK::ACharacterBattle* playerPawn = GetPlayerCharacterBattle(battlePC);
+        if (!playerPawn)
+        {
+            Logger::LogError("[ApplyToSpecificPlayer] No valid player pawn");
             return 0;
         }
 
@@ -1636,14 +1678,14 @@ int InGameHack_ApplyToSpecificPlayer(int playerIndex, SDK::EVariationCharacterId
         for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
         {
             SDK::AActor* actor = world->PersistentLevel->Actors[i];
-            if (!actor || actor->IsDefaultObject())
+            if (!IsValidPointer(actor) || actor->IsDefaultObject())
                 continue;
 
             if (!actor->IsA(SDK::ACharacterBattle::StaticClass()))
                 continue;
 
             SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(actor);
-            if (!targetCharacter || !targetCharacter->PlayerState)
+            if (!IsValidPointer(targetCharacter) || !IsValidPointer(targetCharacter->PlayerState))
                 continue;
 
             // Check if this is the target player
@@ -1722,9 +1764,17 @@ bool InGameHack_ApplyToTeam(unsigned char teamId, int characterId, int variation
         }
 
         SDK::APlayerControllerBattle* battlePC = static_cast<SDK::APlayerControllerBattle*>(basePlayerController);
-        if (!battlePC || !battlePC->Pawn)
+        if (!IsValidPointer(battlePC))
         {
-            Logger::LogError("[ApplyToTeam] Invalid battle PC or no pawn");
+            Logger::LogError("[ApplyToTeam] Invalid battle PC");
+            return false;
+        }
+
+        // Verify player pawn exists
+        SDK::ACharacterBattle* playerPawn = GetPlayerCharacterBattle(battlePC);
+        if (!playerPawn)
+        {
+            Logger::LogError("[ApplyToTeam] No valid player pawn");
             return false;
         }
 
@@ -1746,11 +1796,13 @@ bool InGameHack_ApplyToTeam(unsigned char teamId, int characterId, int variation
         {
             SDK::AActor* actor = world->PersistentLevel->Actors[i];
             
-            // Robust type check using IsA()
-            if (!actor || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
+            // Robust type check with pointer validation
+            if (!IsValidPointer(actor) || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
                 continue;
 
             SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(actor);
+            if (!IsValidPointer(targetCharacter))
+                continue;
 
             // GET TARGET CHARACTER'S TEAM ID AND FILTER
             unsigned char characterTeamId = 255;
@@ -1826,13 +1878,18 @@ int InGameHack_CopySkillsFromNearestEnemy(bool bSetCopySkill, bool bUseOwnerChar
         }
 
         SDK::APlayerControllerBattle* battlePC = static_cast<SDK::APlayerControllerBattle*>(basePlayerController);
-        if (!battlePC || !battlePC->Pawn)
+        if (!IsValidPointer(battlePC))
         {
-            Logger::LogError("[CopySkillsFromNearestEnemy] Could not get valid battle controller or pawn");
+            Logger::LogError("[CopySkillsFromNearestEnemy] Could not get valid battle controller");
             return 0;
         }
 
-        SDK::ACharacterBattle* localCharacter = static_cast<SDK::ACharacterBattle*>(battlePC->Pawn);
+        SDK::ACharacterBattle* localCharacter = GetPlayerCharacterBattle(battlePC);
+        if (!localCharacter)
+        {
+            Logger::LogError("[CopySkillsFromNearestEnemy] Could not get player character");
+            return 0;
+        }
 
         // Get world
         SDK::UWorld* world = SDK::UWorld::GetWorld();
@@ -1913,6 +1970,13 @@ int InGameHack_CopySkillsFromCharacter(SDK::ACharacterBattle* masterCharacter, b
 
     try
     {
+        // Validate master character early
+        if (!IsValidPointer(masterCharacter) || masterCharacter->IsDefaultObject())
+        {
+            Logger::LogError("[CopySkillsFromCharacter] Invalid master character");
+            return 0;
+        }
+
         // Get local player controller and character
         SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
         if (!basePlayerController)
@@ -1922,18 +1986,16 @@ int InGameHack_CopySkillsFromCharacter(SDK::ACharacterBattle* masterCharacter, b
         }
 
         SDK::APlayerControllerBattle* battlePC = static_cast<SDK::APlayerControllerBattle*>(basePlayerController);
-        if (!battlePC || !battlePC->Pawn)
+        if (!IsValidPointer(battlePC))
         {
-            Logger::LogError("[CopySkillsFromCharacter] Could not get valid battle controller or pawn");
+            Logger::LogError("[CopySkillsFromCharacter] Could not get valid battle controller");
             return 0;
         }
 
-        SDK::ACharacterBattle* localCharacter = static_cast<SDK::ACharacterBattle*>(battlePC->Pawn);
-        
-        // Validate master character
-        if (!masterCharacter || masterCharacter->IsDefaultObject())
+        SDK::ACharacterBattle* localCharacter = GetPlayerCharacterBattle(battlePC);
+        if (!localCharacter)
         {
-            Logger::LogError("[CopySkillsFromCharacter] Invalid master character");
+            Logger::LogError("[CopySkillsFromCharacter] Could not get player character");
             return 0;
         }
 
@@ -1946,12 +2008,12 @@ int InGameHack_CopySkillsFromCharacter(SDK::ACharacterBattle* masterCharacter, b
 
         // Get the SkillManagementComponent from the LOCAL player
         SDK::USkillManagementComponent* skillMgmt = nullptr;
-        if (localCharacter->_skillManagementComponent)
+        if (IsValidPointer(localCharacter->_skillManagementComponent))
         {
             skillMgmt = localCharacter->_skillManagementComponent;
         }
         
-        if (!skillMgmt)
+        if (!IsValidPointer(skillMgmt))
         {
             Logger::LogError("[CopySkillsFromCharacter] Could not get SkillManagementComponent from local player");
             return 0;
@@ -2030,15 +2092,22 @@ int InGameHack_ChangeMyTeam()
 
         // Get player controller and character
         SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!basePlayerController || !basePlayerController->PlayerState)
+        if (!IsValidPointer(basePlayerController))
         {
-            Logger::LogError("[ChangeMyTeam] Could not get player controller or player state");
+            Logger::LogError("[ChangeMyTeam] Could not get valid player controller");
+            return 0;
+        }
+
+        // Get player state with validation
+        if (!IsValidPointer(basePlayerController->PlayerState))
+        {
+            Logger::LogError("[ChangeMyTeam] Could not get player state");
             return 0;
         }
 
         // Cast to HerovsPlayerState to access team functions
         SDK::AHerovsPlayerState* playerState = static_cast<SDK::AHerovsPlayerState*>(basePlayerController->PlayerState);
-        if (!playerState)
+        if (!IsValidPointer(playerState))
         {
             Logger::LogError("[ChangeMyTeam] Could not get HerovsPlayerState");
             return 0;
@@ -2071,6 +2140,8 @@ int InGameHack_ChangeMyTeam()
         for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
         {
             SDK::AActor* actor = world->PersistentLevel->Actors[i];
+            if (!IsValidPointer(actor))
+                continue;
             if (!actor || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
                 continue;
 
@@ -2155,29 +2226,36 @@ int InGameHack_ChangeMyTeamTo(unsigned char targetTeamId)
 
         // Get player controller and character
         SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!basePlayerController)
+        if (!IsValidPointer(basePlayerController))
         {
-            Logger::LogError("[ChangeMyTeamTo] Could not get player controller");
+            Logger::LogError("[ChangeMyTeamTo] Could not get valid player controller");
             return 0;
         }
 
         SDK::APlayerControllerBattle* battlePC = static_cast<SDK::APlayerControllerBattle*>(basePlayerController);
-        if (!battlePC || !battlePC->Pawn)
+        if (!IsValidPointer(battlePC))
         {
-            Logger::LogError("[ChangeMyTeamTo] Could not get valid battle controller or pawn");
+            Logger::LogError("[ChangeMyTeamTo] Could not get valid battle controller");
+            return 0;
+        }
+
+        // Get player character with validation
+        SDK::ACharacterBattle* localCharacter = GetPlayerCharacterBattle(battlePC);
+        if (!localCharacter)
+        {
+            Logger::LogError("[ChangeMyTeamTo] Could not get player character");
             return 0;
         }
 
         // Get player state
-        SDK::ACharacterBattle* localCharacter = static_cast<SDK::ACharacterBattle*>(battlePC->Pawn);
-        if (!localCharacter || !localCharacter->PlayerState)
+        if (!IsValidPointer(localCharacter->PlayerState))
         {
             Logger::LogError("[ChangeMyTeamTo] Could not get player state");
             return 0;
         }
 
         SDK::AHerovsPlayerState* playerState = static_cast<SDK::AHerovsPlayerState*>(localCharacter->PlayerState);
-        if (!playerState)
+        if (!IsValidPointer(playerState))
         {
             Logger::LogError("[ChangeMyTeamTo] Could not get HerovsPlayerState");
             return 0;
@@ -2226,16 +2304,14 @@ bool InGameHack_RecoverMe()
 
         // Get player controller
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController || !playerController->PlayerState)
+        if (!IsValidPointer(playerController))
             return false;
 
-        // Get player character
-        SDK::ACharacterBattle* playerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
-        if (!playerCharacter)
+        if (!IsValidPointer(playerController->PlayerState))
             return false;
 
-        // Recover player state
-        SDK::APlayerStateBattle* playerState = static_cast<SDK::APlayerStateBattle*>(playerController->PlayerState);
+        // Get player state with validation
+        SDK::APlayerStateBattle* playerState = GetPlayerStateBattle(playerController);
         if (!playerState)
             return false;
 
@@ -2243,10 +2319,13 @@ bool InGameHack_RecoverMe()
         if (!playerState->BP_IsDying())
             return false;  // Not dying, no need to recover
 
+        // Get player character with validation
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
+        if (!playerCharacter)
+            return false;
+
         playerCharacter->RecoverDyingAlly_ToServer(playerCharacter, true);
         return true;
-
-        return false;
     }
     catch (...)
     {
@@ -2275,12 +2354,12 @@ bool InGameHack_SetInvincible()
     try
     {
         SDK::APlayerController* playerControllerPtr = SDK_GetPlayerController();
-        if (!playerControllerPtr)
+        if (!IsValidPointer(playerControllerPtr))
         {
             return false;
         }
 
-        SDK::APlayerStateBattle* playerStateBattle = static_cast<SDK::APlayerStateBattle*>(playerControllerPtr->PlayerState);
+        SDK::APlayerStateBattle* playerStateBattle = GetPlayerStateBattle(playerControllerPtr);
         if (!playerStateBattle)
         {
             return false;
@@ -2332,44 +2411,36 @@ bool InGameHack_RebuildMyself()
         Logger::LogWarning("[RebuildMyself] Not in valid battle mode");
         return false;
     }
-    // Check if in valid battle mode first
-    if (!IsValidBattleMode())
-    {
-        Logger::LogWarning("[RebuildMyself] Not in valid battle mode");
-        return false;
-    }
 
     try
     {
         // Get player controller
         SDK::APlayerController* baseController = SDK_GetPlayerController();
-        if (!baseController)
+        if (!IsValidPointer(baseController))
         {
-            Logger::LogError("[COMBAT] Could not get PlayerController for RebuildMyself");
+            Logger::LogError("[RebuildMyself] Could not get valid PlayerController");
             return false;
         }
 
         // Cast to APlayerControllerBattle
         SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
-        if (!playerController)
+        if (!IsValidPointer(playerController))
         {
-            Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle");
+            Logger::LogError("[RebuildMyself] Could not cast to APlayerControllerBattle");
             return false;
         }
 
-        // Get the player's current character
-        SDK::APawn* pawn = playerController->Pawn;
-        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
-
+        // Get the player's current character with validation
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
         if (!playerCharacter)
         {
-            Logger::LogError("[COMBAT] Could not get player character");
+            Logger::LogError("[RebuildMyself] Could not get player character");
             return false;
         }
 
         // Get the condition control component
         auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
-        if (!conditionComponent)
+        if (!IsValidPointer(conditionComponent))
         {
             return false;
         }
@@ -2413,33 +2484,31 @@ bool InGameHack_CH202TransMission()
     {
         // Get player controller
         SDK::APlayerController* baseController = SDK_GetPlayerController();
-        if (!baseController)
+        if (!IsValidPointer(baseController))
         {
-            Logger::LogError("[COMBAT] Could not get PlayerController for CH202TransMission");
+            Logger::LogError("[CH202TransMission] Could not get valid PlayerController");
             return false;
         }
 
         // Cast to APlayerControllerBattle
         SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
-        if (!playerController)
+        if (!IsValidPointer(playerController))
         {
-            Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle");
+            Logger::LogError("[CH202TransMission] Could not cast to APlayerControllerBattle");
             return false;
         }
 
-        // Get the player's current character
-        SDK::APawn* pawn = playerController->Pawn;
-        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
-
+        // Get the player's current character with validation
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
         if (!playerCharacter)
         {
-            Logger::LogError("[COMBAT] Could not get player character");
+            Logger::LogError("[CH202TransMission] Could not get player character");
             return false;
         }
 
         // Get the condition control component
         auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
-        if (!conditionComponent)
+        if (!IsValidPointer(conditionComponent))
         {
             return false;
         }
@@ -2483,33 +2552,31 @@ bool InGameHack_Unbreakable()
     {
         // Get player controller
         SDK::APlayerController* baseController = SDK_GetPlayerController();
-        if (!baseController)
+        if (!IsValidPointer(baseController))
         {
-            Logger::LogError("[COMBAT] Could not get PlayerController for Unbreakable");
+            Logger::LogError("[Unbreakable] Could not get valid PlayerController");
             return false;
         }
 
         // Cast to APlayerControllerBattle
         SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
-        if (!playerController)
+        if (!IsValidPointer(playerController))
         {
-            Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle");
+            Logger::LogError("[Unbreakable] Could not cast to APlayerControllerBattle");
             return false;
         }
 
-        // Get the player's current character
-        SDK::APawn* pawn = playerController->Pawn;
-        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
-
+        // Get the player's current character with validation
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
         if (!playerCharacter)
         {
-            Logger::LogError("[COMBAT] Could not get player character");
+            Logger::LogError("[Unbreakable] Could not get player character");
             return false;
         }
 
         // Get the condition control component
         auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
-        if (!conditionComponent)
+        if (!IsValidPointer(conditionComponent))
         {
             return false;
         }
@@ -4316,37 +4383,36 @@ bool InGameHack_SetSkillLevel(int skillIndex, int level)
     {
         if (skillIndex < 0 || skillIndex > 8 || level < 1 || level > 9)
         {
-            
             return false;
         }
         
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController)
+        if (!IsValidPointer(playerController))
         {
-            
             return false;
         }
         
-        SDK::ACharacterBattle* playerChar = (SDK::ACharacterBattle*)playerController->Pawn;
-        if (!playerChar || !playerChar->PlayerState)
+        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
+        if (!playerChar)
         {
-        
             return false;
         }
         
-        SDK::APlayerStateBattle* playerState = (SDK::APlayerStateBattle*)playerChar->PlayerState;
+        SDK::APlayerStateBattle* playerState = GetPlayerStateBattle(playerController);
+        if (!playerState)
+        {
+            return false;
+        }
+        
         auto supplyHolderComp = playerState->_supplyHolderComponent;
-        
-        if (!supplyHolderComp)
+        if (!IsValidPointer(supplyHolderComp))
         {
-            
             return false;
         }
         
         // Call SetSkillLevel_ToServer with attack ID and level
         // EAttackId enum - skill index 0-8 maps to attack level
         supplyHolderComp->SetSkillLevel_ToServer((SDK::EAttackId)skillIndex, level);
-        
         
         return true;
     }
@@ -5144,38 +5210,41 @@ bool InGameHack_LaunchCh101RollSlotSkill()
         logBuffer << "[CH101_ROLLSLOT] OK: RollSlot Control Component obtained at 0x" 
                  << std::hex << (uintptr_t)rollSlotCtrl << std::dec << "\n";
 
-        // Step 6: Get Ch101 RollSlot using public API
-        logBuffer << "[CH101_ROLLSLOT] Step 6: Getting Ch101_Variation0 RollSlot...\n";
+        // Step 6: Try different approaches to activate RollSlot
+        logBuffer << "[CH101_ROLLSLOT] Step 6: Attempting multiple activation methods...\n";
+        
+        // Offset of _registerRollSlotUniqueSkillObjectList is 0x00D0
+        SDK::uint8* rollSlotCtrlPtr = (SDK::uint8*)rollSlotCtrl;
+        SDK::uint8* tMapPtr = rollSlotCtrlPtr + 0x00D0;
+        
+        logBuffer << "[CH101_ROLLSLOT] TMap address: 0x" << std::hex << (uintptr_t)tMapPtr << std::dec << "\n";
+        
+        // Method 1: Try BP_BroadcastByCharacterId with SetParam first
+        logBuffer << "[CH101_ROLLSLOT] Step 7a: Method 1 - SetParam + Broadcast\n";
         SDK::EVariationCharacterId ch101Var0 = SDK::EVariationCharacterId::Ch101_Variation0;
+        float refParam = 1.0f;  // Try with 1.0 instead of 0
+        SDK::int32 broadcastIndex = 0;
         
-        SDK::UCharacterRollSlotUniqueSkillBase* rollSlot = rollSlotCtrl->BP_GetObject(ch101Var0);
-        if (!rollSlot)
-        {
-            logBuffer << "[CH101_ROLLSLOT] ERROR: Ch101_Variation0 RollSlot not found\n";
-            std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
-            if (logFile.is_open()) { logFile << logBuffer.str(); logFile.close(); }
-            return false;
-        }
-
-        // Verify RollSlot properties using public API
-        SDK::ACharacterBattle* owner = rollSlot->BP_GetOwnerCharacterBattle();
-        const SDK::FRollSlotParamData paramData = rollSlot->BP_GetParam();
-        SDK::int32 level = rollSlot->_level;
-        
-        logBuffer << "[CH101_ROLLSLOT] RollSlot found - Owner: 0x" 
-                 << std::hex << (uintptr_t)owner << std::dec 
-                 << ", Level: " << level << "\n";
-
-        // Step 7: Call OnBroadcastEvent to trigger the skill
-        logBuffer << "[CH101_ROLLSLOT] Step 7: Calling OnBroadcastEvent()...\n";
-        
-        // Create argument parameters
+        // Set parameters first
         SDK::FRollSlotUniqueSkillArgumentParam skillParam;
         memset(&skillParam, 0, sizeof(skillParam));
+        skillParam._broadcastIndex = 0;
+        rollSlotCtrl->BP_SetParamByCharacterId(ch101Var0, skillParam);
         
-        rollSlot->OnBroadcastEvent(&skillParam);
+        // Then broadcast
+        rollSlotCtrl->BP_BroadcastByCharacterId(ch101Var0, refParam, broadcastIndex);
+        logBuffer << "[CH101_ROLLSLOT] BP_BroadcastByCharacterId completed\n";
         
-        logBuffer << "[CH101_ROLLSLOT] OnBroadcastEvent called successfully\n";
+        // Method 2: Try BP_BroadcastByTriggerType with StartBattleWithCooldown
+        logBuffer << "[CH101_ROLLSLOT] Step 7b: Method 2 - BroadcastByTriggerType\n";
+        SDK::ERollSlotTriggerType triggerType = SDK::ERollSlotTriggerType::StartBattleWithCooldown;
+        rollSlotCtrl->BP_BroadcastByTriggerType(triggerType, refParam, 0);
+        logBuffer << "[CH101_ROLLSLOT] BP_BroadcastByTriggerType completed\n";
+        
+        // Method 3: Try with DealDamage trigger
+        logBuffer << "[CH101_ROLLSLOT] Step 7c: Method 3 - DealDamage trigger\n";
+        rollSlotCtrl->BP_BroadcastByTriggerType(SDK::ERollSlotTriggerType::DealDamage, refParam, 0);
+        logBuffer << "[CH101_ROLLSLOT] DealDamage broadcast completed\n";
         logBuffer << "[CH101_ROLLSLOT] ===== SUCCESS =====\n";
 
         std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
@@ -5635,6 +5704,137 @@ bool InGameHack_BuyLicenseExp(int32_t count)
     catch (...)
     {
         Logger::LogError("[BuyLicenseExp] Unknown exception");
+        return false;
+    }
+}
+
+bool InGameHack_GenerateProjectileInFront()
+{
+    try
+    {
+        // Open debug log file
+        FILE* debugLog = nullptr;
+        fopen_s(&debugLog, "C:\\temp\\projectile_debug.log", "a");
+        if (debugLog)
+        {
+            fprintf(debugLog, "[%lld] === GenerateProjectile function called ===\n", (long long)time(nullptr));
+            fflush(debugLog);
+        }
+
+        // Get player controller
+        SDK::APlayerController* playerController = SDK_GetPlayerController();
+        if (debugLog) fprintf(debugLog, "[%lld] playerController = %p\n", (long long)time(nullptr), playerController);
+        if (!playerController)
+        {
+            Logger::LogError("[GenerateProjectile] No player controller found");
+            if (debugLog) {
+                fprintf(debugLog, "[%lld] ERROR: No player controller found\n", (long long)time(nullptr));
+                fclose(debugLog);
+            }
+            return false;
+        }
+
+        // Get player character
+        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
+        if (debugLog) fprintf(debugLog, "[%lld] playerChar = %p\n", (long long)time(nullptr), playerChar);
+        if (!playerChar)
+        {
+            Logger::LogError("[GenerateProjectile] No player character found");
+            if (debugLog) {
+                fprintf(debugLog, "[%lld] ERROR: No player character found\n", (long long)time(nullptr));
+                fclose(debugLog);
+            }
+            return false;
+        }
+
+        // Get the projectile replicator component from the character
+        SDK::UProjectileReplicateBattleComponent* projectileComp = playerChar->_projectileReplicator;
+        if (debugLog) fprintf(debugLog, "[%lld] projectileComp = %p\n", (long long)time(nullptr), projectileComp);
+        
+        if (!IsValidPointer(projectileComp))
+        {
+            Logger::LogError("[GenerateProjectile] No projectile replicator component found on player character");
+            if (debugLog) {
+                fprintf(debugLog, "[%lld] ERROR: No projectile replicator component found\n", (long long)time(nullptr));
+                fclose(debugLog);
+            }
+            return false;
+        }
+
+        // Get player location
+        SDK::FVector playerLocation = playerChar->K2_GetActorLocation();
+        if (debugLog) fprintf(debugLog, "[%lld] playerLocation = (%.2f, %.2f, %.2f)\n", (long long)time(nullptr), playerLocation.X, playerLocation.Y, playerLocation.Z);
+
+        // Build FProjectileGenerateRep structure with hardcoded Ch010 PUSH_SPECIAL parameters
+        SDK::FProjectileGenerateRep rep;
+        rep.Parent = playerChar;
+        rep.ParentComponent = nullptr;
+        rep.generatorDataID = 1;        // Try ID 1 instead of 0
+        rep.generatorDataIndexID = 0;
+        rep.targetLocate.X = playerLocation.X;
+        rep.targetLocate.Y = playerLocation.Y;
+        rep.targetLocate.Z = playerLocation.Z;
+        rep.initLocate.X = playerLocation.X;
+        rep.initLocate.Y = playerLocation.Y;
+        rep.initLocate.Z = playerLocation.Z;
+        rep.initScale.X = 100;
+        rep.initScale.Y = 100;
+        rep.initScale.Z = 100;
+        rep.initQuat.Pitch = 0;
+        rep.initQuat.Yaw = 0;
+        rep.initQuat.Roll = 0;
+        rep.genID = 1;                  // Try genID 1 instead of 0
+        rep.attachTime = 0.0f;
+        rep.socketIdx = -1;             // -1 for no socket
+        rep.serialID = 0;
+        rep.charaId = 10;               // Ch010
+        rep.AttachType = 0;
+        rep.Level = 0;                  // Reset to 0
+        rep.variationNo = 0;            // Default variation
+        rep.commandId = 19;             // PUSH_SPECIAL
+        rep.attackId = 6;               // SPECIAL attack type
+        rep.conditionID = 0;            // Normal condition
+        rep.attackSerial = 0;
+        rep.overrideDamageAdjustAdd = 0;
+        rep.overrideJsonIDX = -1;       // -1 for default JSON
+
+        if (debugLog) {
+            fprintf(debugLog, "[%lld] FProjectileGenerateRep initialized: charaId=%d, commandId=%d, attackId=%d\n",
+                (long long)time(nullptr), (int)rep.charaId, (int)rep.commandId, (int)rep.attackId);
+        }
+
+        // Call the RPC to send projectile generation to server
+        if (debugLog) fprintf(debugLog, "[%lld] Calling CreateGenerate_RPC...\n", (long long)time(nullptr));
+        projectileComp->CreateGenerate_RPC(rep);
+        if (debugLog) fprintf(debugLog, "[%lld] CreateGenerate_RPC returned\n", (long long)time(nullptr));
+        
+        Logger::LogInfo("[GenerateProjectile] Projectile generated successfully at Ch010 PUSH_SPECIAL");
+        if (debugLog) {
+            fprintf(debugLog, "[%lld] Projectile generation SUCCESS\n", (long long)time(nullptr));
+            fclose(debugLog);
+        }
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[GenerateProjectile] Exception: " + std::string(e.what()));
+        FILE* debugLog = nullptr;
+        fopen_s(&debugLog, "C:\\temp\\projectile_debug.log", "a");
+        if (debugLog) {
+            fprintf(debugLog, "[%lld] Exception: %s\n", (long long)time(nullptr), e.what());
+            fclose(debugLog);
+        }
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[GenerateProjectile] Unknown exception");
+        FILE* debugLog = nullptr;
+        fopen_s(&debugLog, "C:\\temp\\projectile_debug.log", "a");
+        if (debugLog) {
+            fprintf(debugLog, "[%lld] Unknown exception caught\n", (long long)time(nullptr));
+            fclose(debugLog);
+        }
         return false;
     }
 }

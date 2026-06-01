@@ -465,6 +465,55 @@ void HackThreadManager::FrameUpdateHacks()
 }
     }
 
+    // ===== GENERATE PROJECTILE HOTKEY =====
+    if (ImGuiMenu::g_Settings.EnableGenerateProjectile)
+    {
+        try
+        {
+            static bool lastGenerateProjectilePressed = false;
+            bool shouldGenerateProjectile = false;
+
+            if ((GetAsyncKeyState(ImGuiMenu::g_Settings.GenerateProjectileKey.Keyboard) & 0x8000) != 0)
+            {
+                shouldGenerateProjectile = true;
+            }
+
+            if (!shouldGenerateProjectile)
+            {
+                XINPUT_STATE xInputState = {};
+                for (DWORD i = 0; i < 4; i++)
+                {
+                    if (XInputGetState(i, &xInputState) == ERROR_SUCCESS)
+                    {
+                        if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.GenerateProjectileKey.Xbox) != 0)
+                        {
+                            shouldGenerateProjectile = true;
+                            break;
+                        }
+                        else if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.GenerateProjectileKey.PS4) != 0)
+                        {
+                            shouldGenerateProjectile = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Edge-triggered: Only execute on press (not held)
+            if (shouldGenerateProjectile && !lastGenerateProjectilePressed)
+            {
+                EnqueueHack([]() {
+                    InGameHack_GenerateProjectileInFront();
+                });
+            }
+
+            lastGenerateProjectilePressed = shouldGenerateProjectile;
+        }
+        catch (...)
+        {
+}
+    }
+
     // ===== RECOVERY ME (EVERY FRAME) =====
     if (ImGuiMenu::g_Settings.EnableRecoveryMe)
     {
