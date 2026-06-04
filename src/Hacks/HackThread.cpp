@@ -3,6 +3,7 @@
 #include "HackThread.h"
 
 #include "InGameModuleHacks.h"
+#include "Character_Changer.h"
 #include "../Menu/ImGuiMenu.h"
 #include <algorithm>
 #include <chrono>
@@ -605,5 +606,16 @@ void HackThreadManager::FrameUpdateHacks()
     catch (...)
     {
 }
+
+    // ===== CHARACTER CHANGER PERSISTENT MODE UPDATE =====
+    try
+    {
+        // Handle persistent character change modes (teammates/enemies/all)
+        Cheats::Tick();
+    }
+    catch (...)
+    {
+        // Silent fail - character change tick error
+    }
 
 }

@@ -124,6 +124,9 @@
     <ClCompile Include="src\Hacks\HackThread.cpp">
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
+    <ClCompile Include="src\Hacks\Character_Changer.cpp">
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

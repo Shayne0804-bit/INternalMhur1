@@ -3,6 +3,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "InGameModuleHacks.h"
+#include "Character_Changer.h"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/InGameModule_classes.hpp"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/OutGameModule_classes.hpp"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/GameModule_structs.hpp"
@@ -1351,42 +1352,16 @@ bool InGameHack_ApplyPlayerConfiguration(int characterId, int variationId, int u
 {
     try
     {
-        // Get PlayerController
-        SDK::APlayerController* baseController = SDK_GetPlayerController();
-        if (!IsValidPointer(baseController))
+        // Check if in valid battle mode first
+        if (!IsValidBattleMode())
         {
-            Logger::LogError("[ApplyPlayerConfiguration] Could not get valid PlayerController");
-            return false;
-        }
-        
-        SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
-        if (!IsValidPointer(playerController))
-        {
-            Logger::LogError("[ApplyPlayerConfiguration] Could not cast to APlayerControllerBattle");
+            Logger::LogWarning("[ApplyPlayerConfiguration] Not in valid battle mode");
             return false;
         }
 
-        // Get current character pawn with validation
-        SDK::ACharacterBattle* currentCharacter = GetPlayerCharacterBattle(playerController);
-        if (!currentCharacter)
-        {
-            Logger::LogError("[ApplyPlayerConfiguration] Could not get player character");
-            return false;
-        }
-
-        // Create character data structure
-        SDK::FInGameBattleCharacterData characterData = {};
-        characterData._characterId = (SDK::ECharacterId)characterId;
-        characterData._variationId = (SDK::int32)variationId;  // Variation ID (0-2 depending on character)
-        characterData._skillVariationCode = skillCode;         // Skill variation (0-5)
-        characterData._technique1Level = unique1;
-        characterData._technique2Level = unique2;
-        characterData._technique3Level = unique3;
-        characterData._costumeCode = costumeCode;
-        characterData._costumeAuraType = costumeAuraType;
-
-        // Call ChangeCharacter_OnServer
-        playerController->ChangeCharacter_OnServer(currentCharacter, characterData);
+        // Use Character_Changer API for self change - it handles the SDK enum mapping correctly
+        Cheats::ChangeCharacter(characterId, variationId);
+        Logger::LogInfo("[ApplyPlayerConfiguration] Applied character change to self");
         return true;
     }
     catch (const std::exception& e)
@@ -1445,90 +1420,10 @@ int InGameHack_ApplyToAllControllers(int characterId, int variationId, int uniqu
             return 0;
         }
 
-        // Get player pawn with validation
-        SDK::ACharacterBattle* playerPawn = GetPlayerCharacterBattle(battlePC);
-        if (!playerPawn)
-        {
-            Logger::LogError("[ApplyToAll] No valid player pawn");
-            return 0;
-        }
-
-        // Open log file for getter data
-        std::ofstream debugFile("C:\\temp\\ApplyToAll_GetterData.txt", std::ios::trunc);
-        debugFile << "=== ApplyToAll Getter Data Log ===" << std::endl;
-        debugFile << "Requested Change - CharId: " << characterId << ", Variation: " << variationId << std::endl;
-        debugFile << "Technique Levels: " << unique1 << ", " << unique2 << ", " << unique3 << std::endl;
-        debugFile << "Costume: " << costumeCode << ", Aura: " << costumeAuraType << std::endl;
-        debugFile << "\n--- Player Data Retrieved via Getters ---\n" << std::endl;
-
-        int appliedCount = 0;
-
-        // LOOP OVER ALL ACTORS - NO FILTERING, APPLY TO EVERYONE
-        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
-        {
-            SDK::AActor* actor = world->PersistentLevel->Actors[i];
-            
-            // Robust type check with pointer validation
-            if (!IsValidPointer(actor) || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
-                continue;
-
-            SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(actor);
-            if (!IsValidPointer(targetCharacter))
-                continue;
-
-            try
-            {
-                // ✅ RETRIEVE ACTUAL DATA from character via getters
-                int32_t currentVariationNo = targetCharacter->BP_GetVariationNo();
-                int32_t currentCostumeCode = targetCharacter->BP_GetCostumeCode();
-                SDK::ECharacterId currentCharacterId = targetCharacter->BP_GetCharacterId();
-
-                // Log to file
-                debugFile << "Actor " << i << ": CharId=" << (int)currentCharacterId 
-                          << ", Variation=" << currentVariationNo 
-                          << ", Costume=" << currentCostumeCode << std::endl;
-
-                // Set the variation on the target character BEFORE RPC so server sees it
-                int32_t originalVariation = targetCharacter->_variationNo;
-                targetCharacter->_variationNo = variationId;
-
-                // Create character data
-                SDK::FInGameBattleCharacterData changeData = {};
-                changeData._characterId = (SDK::ECharacterId)characterId;
-                changeData._variationId = variationId;
-                changeData._skillVariationCode = ((characterId + 1) * 100) + variationId;
-                changeData._technique1Level = unique1;
-                changeData._technique2Level = unique2;
-                changeData._technique3Level = unique3;
-                changeData._costumeCode = costumeCode;
-                changeData._costumeAuraType = costumeAuraType;
-
-                // Call LOCAL controller's ChangeCharacter_OnServer for THIS character
-                battlePC->ChangeCharacter_OnServer(targetCharacter, changeData);
-
-                // Restore original (server will have synced the new variant)
-                targetCharacter->_variationNo = originalVariation;
-                appliedCount++;
-            }
-            catch (...)
-            {
-                debugFile << "Actor " << i << ": ERROR retrieving data" << std::endl;
-                continue;
-            }
-        }
-
-        debugFile << "\n--- Summary ---" << std::endl;
-        debugFile << "Total applied: " << appliedCount << std::endl;
-        debugFile.close();
-
-        if (appliedCount == 0)
-        {
-            Logger::LogWarning("[ApplyToAll] No characters found to modify");
-            return 0;
-        }
-
-        Logger::LogInfo("[ApplyToAll] Applied character change to " + std::to_string(appliedCount) + " characters");
-        return appliedCount;
+        // Use Character_Changer to handle all players - it manages the SDK enum mapping correctly
+        Cheats::ChangeCharacterAllPlayers(characterId, variationId);
+        Logger::LogInfo("[ApplyToAll] Applied character change to all players");
+        return 1;
     }
     catch (const std::exception& e)
     {
@@ -1630,91 +1525,10 @@ int InGameHack_ApplyToSpecificPlayer(int playerIndex, SDK::EVariationCharacterId
         // Decode the variation character ID
         auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(variationCharacterId);
 
-        // Get world
-        SDK::UWorld* world = SDK::UWorld::GetWorld();
-        if (!world || !world->PersistentLevel)
-        {
-            Logger::LogError("[ApplyToSpecificPlayer] Could not get world");
-            return 0;
-        }
-
-        // Get LOCAL player controller
-        SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!basePlayerController)
-        {
-            Logger::LogError("[ApplyToSpecificPlayer] Could not get player controller");
-            return 0;
-        }
-
-        SDK::APlayerControllerBattle* battlePC = static_cast<SDK::APlayerControllerBattle*>(basePlayerController);
-        if (!IsValidPointer(battlePC))
-        {
-            Logger::LogError("[ApplyToSpecificPlayer] Invalid battle PC");
-            return 0;
-        }
-
-        // Verify player pawn exists
-        SDK::ACharacterBattle* playerPawn = GetPlayerCharacterBattle(battlePC);
-        if (!playerPawn)
-        {
-            Logger::LogError("[ApplyToSpecificPlayer] No valid player pawn");
-            return 0;
-        }
-
-        // Create character data
-        SDK::FInGameBattleCharacterData changeData = {};
-        changeData._characterId = characterId;
-        changeData._variationId = variationId;
-        changeData._skillVariationCode = (((int)characterId + 1) * 100) + variationId;
-        changeData._technique1Level = unique1;
-        changeData._technique2Level = unique2;
-        changeData._technique3Level = unique3;
-        changeData._costumeCode = costumeCode;
-        changeData._costumeAuraType = costumeAuraType;
-
-        int currentIndex = 0;
-
-        // Loop over all actors to find the target player
-        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
-        {
-            SDK::AActor* actor = world->PersistentLevel->Actors[i];
-            if (!IsValidPointer(actor) || actor->IsDefaultObject())
-                continue;
-
-            if (!actor->IsA(SDK::ACharacterBattle::StaticClass()))
-                continue;
-
-            SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(actor);
-            if (!IsValidPointer(targetCharacter) || !IsValidPointer(targetCharacter->PlayerState))
-                continue;
-
-            // Check if this is the target player
-            if (currentIndex == playerIndex)
-            {
-                try
-                {
-                    // Apply character change
-                    battlePC->ChangeCharacter_OnServer(targetCharacter, changeData);
-                    Logger::LogInfo("[ApplyToSpecificPlayer] Applied character change to player at index " + std::to_string(playerIndex));
-                    return 1;
-                }
-                catch (const std::exception& e)
-                {
-                    Logger::LogError("[ApplyToSpecificPlayer] Exception: " + std::string(e.what()));
-                    return 0;
-                }
-                catch (...)
-                {
-                    Logger::LogError("[ApplyToSpecificPlayer] Unknown exception");
-                    return 0;
-                }
-            }
-
-            currentIndex++;
-        }
-
-        Logger::LogWarning("[ApplyToSpecificPlayer] Player at index " + std::to_string(playerIndex) + " not found");
-        return 0;
+        // Use Character_Changer API which handles mapping correctly
+        Cheats::ChangeCharacterIndividual(playerIndex, (int)characterId, variationId);
+        Logger::LogInfo("[ApplyToSpecificPlayer] Applied character change to player at index " + std::to_string(playerIndex));
+        return 1;
     }
     catch (const std::exception& e)
     {
@@ -1747,14 +1561,6 @@ bool InGameHack_ApplyToTeam(unsigned char teamId, int characterId, int variation
 
     try
     {
-        // Get world
-        SDK::UWorld* world = SDK::UWorld::GetWorld();
-        if (!world || !world->PersistentLevel)
-        {
-            Logger::LogError("[ApplyToTeam] Could not get world");
-            return false;
-        }
-
         // Get LOCAL player controller and character
         SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
         if (!basePlayerController)
@@ -1778,63 +1584,22 @@ bool InGameHack_ApplyToTeam(unsigned char teamId, int characterId, int variation
             return false;
         }
 
-        // Create character data once with ALL parameters FILLED
-        SDK::FInGameBattleCharacterData characterData = {};
-        characterData._characterId = (SDK::ECharacterId)characterId;
-        characterData._variationId = variationId;
-        characterData._skillVariationCode = ((characterId + 1) * 100) + variationId;
-        characterData._technique1Level = unique1;
-        characterData._technique2Level = unique2;
-        characterData._technique3Level = unique3;
-        characterData._costumeCode = costumeCode;
-        characterData._costumeAuraType = costumeAuraType;
-
-        int appliedCount = 0;
-
-        // LOOP OVER ALL ACTORS - FILTER BY TEAM ID
-        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
+        // Get player's team ID
+        unsigned char myTeamId = playerPawn->BP_GetTeamId();
+        
+        // Use Character_Changer API which handles mapping correctly
+        if (teamId == myTeamId)
         {
-            SDK::AActor* actor = world->PersistentLevel->Actors[i];
-            
-            // Robust type check with pointer validation
-            if (!IsValidPointer(actor) || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
-                continue;
-
-            SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(actor);
-            if (!IsValidPointer(targetCharacter))
-                continue;
-
-            // GET TARGET CHARACTER'S TEAM ID AND FILTER
-            unsigned char characterTeamId = 255;
-            try {
-                characterTeamId = targetCharacter->BP_GetTeamId();
-            }
-            catch (...) {
-                continue;
-            }
-            
-            if (characterTeamId != teamId)
-                continue;  // Skip if not in target team
-
-            // Call LOCAL controller's ChangeCharacter_OnServer for THIS character (only if team matches)
-            try
-            {
-                battlePC->ChangeCharacter_OnServer(targetCharacter, characterData);
-                appliedCount++;
-            }
-            catch (...)
-            {
-                continue;
-            }
+            // Apply to teammates
+            Cheats::ChangeCharacterTeammatesOnly(characterId, variationId);
+            Logger::LogInfo("[ApplyToTeam] Applied character change to team (teammates)");
         }
-
-        if (appliedCount == 0)
+        else
         {
-            Logger::LogWarning("[ApplyToTeam] No characters found in team " + std::to_string(teamId));
-            return false;
+            // Apply to enemies
+            Cheats::ChangeCharacterEnemiesOnly(characterId, variationId);
+            Logger::LogInfo("[ApplyToTeam] Applied character change to team (enemies)");
         }
-
-        Logger::LogInfo("[ApplyToTeam] Applied character change to " + std::to_string(appliedCount) + " characters in team " + std::to_string(teamId));
         return true;
     }
     catch (const std::exception& e)
