@@ -10,6 +10,71 @@
 #include <Windows.h>
 #include <Xinput.h>
 
+namespace
+{
+    constexpr int XINPUT_LT_HOTKEY = 0x1F00;
+    constexpr int XINPUT_RT_HOTKEY = 0x2F00;
+    constexpr BYTE XINPUT_TRIGGER_THRESHOLD = 128;
+
+    struct GamepadSnapshot
+    {
+        XINPUT_STATE states[4]{};
+        bool connected[4]{};
+    };
+
+    bool IsKeyboardHotkeyPressed(int key)
+    {
+        if (key <= 0)
+            return false;
+
+        return (GetAsyncKeyState(key) & 0x8000) != 0;
+    }
+
+    GamepadSnapshot PollGamepads()
+    {
+        GamepadSnapshot snapshot{};
+
+        for (DWORD i = 0; i < 4; i++)
+        {
+            snapshot.connected[i] = (XInputGetState(i, &snapshot.states[i]) == ERROR_SUCCESS);
+        }
+
+        return snapshot;
+    }
+
+    bool IsGamepadHotkeyPressed(const GamepadSnapshot& snapshot, int key)
+    {
+        if (key <= 0)
+            return false;
+
+        for (DWORD i = 0; i < 4; i++)
+        {
+            if (!snapshot.connected[i])
+                continue;
+
+            const XINPUT_GAMEPAD& gamepad = snapshot.states[i].Gamepad;
+
+            if (key == XINPUT_LT_HOTKEY && gamepad.bLeftTrigger > XINPUT_TRIGGER_THRESHOLD)
+                return true;
+
+            if (key == XINPUT_RT_HOTKEY && gamepad.bRightTrigger > XINPUT_TRIGGER_THRESHOLD)
+                return true;
+
+            if ((gamepad.wButtons & key) != 0)
+                return true;
+        }
+
+        return false;
+    }
+
+    bool IsHotkeyPressed(const ImGuiMenu::HotkeySet& hotkey, const GamepadSnapshot& snapshot)
+    {
+        return IsKeyboardHotkeyPressed(hotkey.Keyboard) ||
+               IsGamepadHotkeyPressed(snapshot, hotkey.Xbox) ||
+               IsGamepadHotkeyPressed(snapshot, hotkey.PS4);
+    }
+}
+
 // ============================================================================
 // HACKTHREADMANAGER IMPLEMENTATION
 // ============================================================================
@@ -186,6 +251,28 @@ void HackThreadManager::FrameUpdateHacks()
     if (!m_isRunning.load())
         return;
 
+    if (!ImGuiMenu::g_Settings.EnableGlobal)
+        return;
+
+    const bool needsHotkeyPolling =
+        ImGuiMenu::g_Settings.EnableTransformIntoRandomESP ||
+        ImGuiMenu::g_Settings.EnableDuplicateIntoImitationRandomESP ||
+        ImGuiMenu::g_HackSettings.EnableInvincible ||
+        ImGuiMenu::g_Settings.EnableRebuildMyself ||
+        ImGuiMenu::g_Settings.EnableCopySkillsFromNearestEnemy ||
+        ImGuiMenu::g_Settings.EnableGenerateProjectile ||
+        ImGuiMenu::g_Settings.EnableBulletTP;
+    const GamepadSnapshot gamepadSnapshot = needsHotkeyPolling ? PollGamepads() : GamepadSnapshot{};
+
+    auto enqueueContinuousHack = [this](std::function<void()> hackFunction) -> bool
+    {
+        if (m_pendingTasks.load(std::memory_order_relaxed) != 0)
+            return false;
+
+        EnqueueHack(hackFunction);
+        return true;
+    };
+
     // ===== AUTO CLEAR CONDITIONS ON GAME MODE CHANGE =====
     // DISABLED: Function not yet implemented
     // try
@@ -208,30 +295,7 @@ void HackThreadManager::FrameUpdateHacks()
             static auto lastTransformTime = std::chrono::high_resolution_clock::now();
             const int TRANSFORM_COOLDOWN_MS = 100;
 
-            bool shouldTransform = false;
-            
-            // Check keyboard hotkey
-            if ((GetAsyncKeyState(ImGuiMenu::g_Settings.TransformIntoRandomESPKey.Keyboard) & 0x8000) != 0)
-            {
-                shouldTransform = true;
-            }
-            
-            // Check gamepad hotkeys
-            if (!shouldTransform)
-            {
-                XINPUT_STATE xInputState = {};
-                if (XInputGetState(0, &xInputState) == ERROR_SUCCESS)
-                {
-                    if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.TransformIntoRandomESPKey.Xbox) != 0)
-                    {
-                        shouldTransform = true;
-                    }
-                    else if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.TransformIntoRandomESPKey.PS4) != 0)
-                    {
-                        shouldTransform = true;
-                    }
-                }
-            }
+            bool shouldTransform = IsHotkeyPressed(ImGuiMenu::g_Settings.TransformIntoRandomESPKey, gamepadSnapshot);
             
             if (shouldTransform && !lastTransformPressed)
             {
@@ -263,30 +327,7 @@ void HackThreadManager::FrameUpdateHacks()
             static auto lastDuplicateImitationTime = std::chrono::high_resolution_clock::now();
             const int DUPLICATE_IMITATION_COOLDOWN_MS = 100;
 
-            bool shouldDuplicateImitation = false;
-            
-            // Check keyboard hotkey
-            if ((GetAsyncKeyState(ImGuiMenu::g_Settings.DuplicateIntoImitationRandomESPKey.Keyboard) & 0x8000) != 0)
-            {
-                shouldDuplicateImitation = true;
-            }
-            
-            // Check gamepad hotkeys
-            if (!shouldDuplicateImitation)
-            {
-                XINPUT_STATE xInputState = {};
-                if (XInputGetState(0, &xInputState) == ERROR_SUCCESS)
-                {
-                    if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.DuplicateIntoImitationRandomESPKey.Xbox) != 0)
-                    {
-                        shouldDuplicateImitation = true;
-                    }
-                    else if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.DuplicateIntoImitationRandomESPKey.PS4) != 0)
-                    {
-                        shouldDuplicateImitation = true;
-                    }
-                }
-            }
+            bool shouldDuplicateImitation = IsHotkeyPressed(ImGuiMenu::g_Settings.DuplicateIntoImitationRandomESPKey, gamepadSnapshot);
             
             if (shouldDuplicateImitation && !lastDuplicateImitationPressed)
             {
@@ -310,107 +351,71 @@ void HackThreadManager::FrameUpdateHacks()
     }
 
     // ===== SET INVINCIBLE HOTKEY =====
-    try
+    if (ImGuiMenu::g_HackSettings.EnableInvincible)
     {
-        static auto lastSetInvincibleTime = std::chrono::high_resolution_clock::now();
-        static bool lastSetInvinciblePressed = false;
-        const int SET_INVINCIBLE_COOLDOWN_MS = 500;
-
-        bool shouldSetInvincible = false;
-
-        if ((GetAsyncKeyState(ImGuiMenu::g_Settings.SetInvincibleKey.Keyboard) & 0x8000) != 0)
+        try
         {
-            shouldSetInvincible = true;
-        }
+            static auto lastSetInvincibleTime = std::chrono::high_resolution_clock::now();
+            static bool lastSetInvinciblePressed = false;
+            const int SET_INVINCIBLE_COOLDOWN_MS = 500;
 
-        if (!shouldSetInvincible)
-        {
-            XINPUT_STATE xInputState = {};
-            if (XInputGetState(0, &xInputState) == ERROR_SUCCESS)
+            bool shouldSetInvincible = IsHotkeyPressed(ImGuiMenu::g_Settings.SetInvincibleKey, gamepadSnapshot);
+
+            if (shouldSetInvincible && !lastSetInvinciblePressed)
             {
-                if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.SetInvincibleKey.Xbox) != 0)
+                auto now = std::chrono::high_resolution_clock::now();
+                auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastSetInvincibleTime).count();
+
+                if (elapsed >= SET_INVINCIBLE_COOLDOWN_MS)
                 {
-                    shouldSetInvincible = true;
-                }
-                else if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.SetInvincibleKey.PS4) != 0)
-                {
-                    shouldSetInvincible = true;
+                    EnqueueHack([]() {
+                        InGameHack_SetInvincible();
+                    });
+                    lastSetInvincibleTime = now;
                 }
             }
-        }
 
-        if (shouldSetInvincible && !lastSetInvinciblePressed)
+            lastSetInvinciblePressed = shouldSetInvincible;
+        }
+        catch (...)
         {
-            auto now = std::chrono::high_resolution_clock::now();
-            auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastSetInvincibleTime).count();
-
-            if (elapsed >= SET_INVINCIBLE_COOLDOWN_MS)
-            {
-                EnqueueHack([]() {
-                    InGameHack_SetInvincible();
-                });
-                lastSetInvincibleTime = now;
-            }
         }
-
-        lastSetInvinciblePressed = shouldSetInvincible;
-    }
-    catch (...)
-    {
 }
 
     // ===== REBUILD MYSELF HOTKEY =====
-    try
+    if (ImGuiMenu::g_Settings.EnableRebuildMyself)
     {
-        if (IsValidBattleMode())
+        try
         {
-            static auto lastRebuildMyselfTime = std::chrono::high_resolution_clock::now();
-            static bool lastRebuildMyselfPressed = false;
-            const int REBUILD_MYSELF_COOLDOWN_MS = 200;
-
-            bool shouldRebuildMyself = false;
-
-            if ((GetAsyncKeyState(ImGuiMenu::g_Settings.RebuildMyselfKey.Keyboard) & 0x8000) != 0)
+            if (IsValidBattleMode())
             {
-                shouldRebuildMyself = true;
-            }
+                static auto lastRebuildMyselfTime = std::chrono::high_resolution_clock::now();
+                static bool lastRebuildMyselfPressed = false;
+                const int REBUILD_MYSELF_COOLDOWN_MS = 200;
 
-            if (!shouldRebuildMyself)
-            {
-                XINPUT_STATE xInputState = {};
-                if (XInputGetState(0, &xInputState) == ERROR_SUCCESS)
+                bool shouldRebuildMyself = IsHotkeyPressed(ImGuiMenu::g_Settings.RebuildMyselfKey, gamepadSnapshot);
+
+                if (shouldRebuildMyself && !lastRebuildMyselfPressed)
                 {
-                    if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.RebuildMyselfKey.Xbox) != 0)
+                    auto now = std::chrono::high_resolution_clock::now();
+                    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastRebuildMyselfTime).count();
+
+                    if (elapsed >= REBUILD_MYSELF_COOLDOWN_MS)
                     {
-                        shouldRebuildMyself = true;
-                    }
-                    else if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.RebuildMyselfKey.PS4) != 0)
-                    {
-                        shouldRebuildMyself = true;
+                        EnqueueHack([]() {
+                            InGameHack_RebuildMyself();
+                        });
+                        lastRebuildMyselfTime = now;
                     }
                 }
+
+                lastRebuildMyselfPressed = shouldRebuildMyself;
             }
-
-            if (shouldRebuildMyself && !lastRebuildMyselfPressed)
-            {
-                auto now = std::chrono::high_resolution_clock::now();
-                auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastRebuildMyselfTime).count();
-
-                if (elapsed >= REBUILD_MYSELF_COOLDOWN_MS)
-                {
-                    EnqueueHack([]() {
-                        InGameHack_RebuildMyself();
-                    });
-                    lastRebuildMyselfTime = now;
-                }
-            }
-
-            lastRebuildMyselfPressed = shouldRebuildMyself;
+        }
+        catch (...)
+        {
         }
     }
-    catch (...)
-    {
-}
 
     // ===== COPY SKILLS FROM NEAREST ENEMY HOTKEY =====
     if (ImGuiMenu::g_Settings.EnableCopySkillsFromNearestEnemy)
@@ -421,28 +426,7 @@ void HackThreadManager::FrameUpdateHacks()
             static bool lastCopySkillsPressed = false;
             const int COPY_SKILLS_COOLDOWN_MS = 500;
 
-            bool shouldCopySkills = false;
-
-            if ((GetAsyncKeyState(ImGuiMenu::g_Settings.CopySkillsFromNearestEnemyKey.Keyboard) & 0x8000) != 0)
-            {
-                shouldCopySkills = true;
-            }
-
-            if (!shouldCopySkills)
-            {
-                XINPUT_STATE xInputState = {};
-                if (XInputGetState(0, &xInputState) == ERROR_SUCCESS)
-                {
-                    if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.CopySkillsFromNearestEnemyKey.Xbox) != 0)
-                    {
-                        shouldCopySkills = true;
-                    }
-                    else if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.CopySkillsFromNearestEnemyKey.PS4) != 0)
-                    {
-                        shouldCopySkills = true;
-                    }
-                }
-            }
+            bool shouldCopySkills = IsHotkeyPressed(ImGuiMenu::g_Settings.CopySkillsFromNearestEnemyKey, gamepadSnapshot);
 
             if (shouldCopySkills && !lastCopySkillsPressed)
             {
@@ -472,33 +456,7 @@ void HackThreadManager::FrameUpdateHacks()
         try
         {
             static bool lastGenerateProjectilePressed = false;
-            bool shouldGenerateProjectile = false;
-
-            if ((GetAsyncKeyState(ImGuiMenu::g_Settings.GenerateProjectileKey.Keyboard) & 0x8000) != 0)
-            {
-                shouldGenerateProjectile = true;
-            }
-
-            if (!shouldGenerateProjectile)
-            {
-                XINPUT_STATE xInputState = {};
-                for (DWORD i = 0; i < 4; i++)
-                {
-                    if (XInputGetState(i, &xInputState) == ERROR_SUCCESS)
-                    {
-                        if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.GenerateProjectileKey.Xbox) != 0)
-                        {
-                            shouldGenerateProjectile = true;
-                            break;
-                        }
-                        else if ((xInputState.Gamepad.wButtons & ImGuiMenu::g_Settings.GenerateProjectileKey.PS4) != 0)
-                        {
-                            shouldGenerateProjectile = true;
-                            break;
-                        }
-                    }
-                }
-            }
+            bool shouldGenerateProjectile = IsHotkeyPressed(ImGuiMenu::g_Settings.GenerateProjectileKey, gamepadSnapshot);
 
             // Edge-triggered: Only execute on press (not held)
             if (shouldGenerateProjectile && !lastGenerateProjectilePressed)
@@ -520,9 +478,7 @@ void HackThreadManager::FrameUpdateHacks()
     {
         try
         {
-            EnqueueHack([]() {
-                InGameHack_RecoverMe();
-            });
+            InGameHack_RecoverMe();
         }
         catch (...)
         {
@@ -534,9 +490,7 @@ void HackThreadManager::FrameUpdateHacks()
     {
         try
         {
-            EnqueueHack([]() {
-                InGameHack_RecoverDyingTeam();
-            });
+            InGameHack_RecoverDyingTeam();
         }
         catch (...)
         {
@@ -548,9 +502,7 @@ void HackThreadManager::FrameUpdateHacks()
     {
         try
         {
-            EnqueueHack([]() {
-                InGameHack_RecoverDyingAllESP();
-            });
+            InGameHack_RecoverDyingAllESP();
         }
         catch (...)
         {
@@ -568,9 +520,7 @@ void HackThreadManager::FrameUpdateHacks()
             // Validate index
             if (selectedIndex >= 0 && selectedIndex < (int)ImGuiMenu::g_CurrentTeamCharacters.size())
             {
-                EnqueueHack([selectedIndex]() {
-                    InGameHack_RecoverDyingSpecificTeamMember(selectedIndex);
-                });
+                InGameHack_RecoverDyingSpecificTeamMember(selectedIndex);
             }
         }
         catch (...)
@@ -583,29 +533,20 @@ void HackThreadManager::FrameUpdateHacks()
     {
         try
         {
-            // Always redirect bullets every frame (no hotkey required)
-            EnqueueHack([alpha = ImGuiMenu::g_Settings.BulletTP_IncludeAlpha,
-                        beta = ImGuiMenu::g_Settings.BulletTP_IncludeBeta,
-                        gamma = ImGuiMenu::g_Settings.BulletTP_IncludeGamma,
-                        special = ImGuiMenu::g_Settings.BulletTP_IncludeSpecial]() {
-                InGameHack_RedirectBulletsToNearestEnemy(alpha, beta, gamma, special);
-            });
+            if (!ImGuiMenu::IsVisible() && IsHotkeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey, gamepadSnapshot))
+            {
+                enqueueContinuousHack([alpha = ImGuiMenu::g_Settings.BulletTP_IncludeAlpha,
+                                      beta = ImGuiMenu::g_Settings.BulletTP_IncludeBeta,
+                                      gamma = ImGuiMenu::g_Settings.BulletTP_IncludeGamma,
+                                      special = ImGuiMenu::g_Settings.BulletTP_IncludeSpecial]() {
+                    InGameHack_RedirectBulletsToNearestEnemy(alpha, beta, gamma, special);
+                });
+            }
         }
         catch (...)
         {
 }
     }
-
-    // ===== CH101 ROLLSLOT LAUNCH (EVERY FRAME - TEST) =====
-    try
-    {
-        EnqueueHack([]() {
-            InGameHack_LaunchCh101RollSlotSkill();
-        });
-    }
-    catch (...)
-    {
-}
 
     // ===== CHARACTER CHANGER PERSISTENT MODE UPDATE =====
     try

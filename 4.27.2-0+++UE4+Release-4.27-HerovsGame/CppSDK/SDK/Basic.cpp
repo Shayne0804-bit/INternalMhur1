@@ -131,6 +131,25 @@ static const ImU32 ESP_OUTLINE_COLOR = IM_COL32(0, 0, 0, 255);    // Black outli
 static const float ESP_BOX_THICKNESS = 2.0f;
 static const size_t MAX_ESP_BOXES = 256; // Limit per frame to prevent memory spam
 
+static inline float SDK_ClampFloat(float value, float minValue, float maxValue)
+{
+	if (value < minValue) return minValue;
+	if (value > maxValue) return maxValue;
+	return value;
+}
+
+static inline float SDK_SnapPixel(float value)
+{
+	return std::floor(value + 0.5f);
+}
+
+static inline ImU32 SDK_ColorWithAlpha(ImU32 color, int alpha)
+{
+	ImVec4 rgba = ImGui::ColorConvertU32ToFloat4(color);
+	rgba.w = SDK_ClampFloat(static_cast<float>(alpha) / 255.0f, 0.0f, 1.0f);
+	return ImGui::GetColorU32(rgba);
+}
+
 // Double-buffered rectangle drawing (minimize lock duration)
 static std::vector<Rect2D> g_RectsToDraw;
 static std::vector<Rect2D> g_RectsToRender;
@@ -256,7 +275,7 @@ static inline bool IsAlly(uint8 otherTeamId)
 #define OFFSET_PLAYERSTATE_SHIELD 1900    // 0x76C - _guardPoint (was 0x75C)
 #define OFFSET_PLAYERSTATE_MAXSHIELD 1904 // 0x788 - _barrierPoint (was 0x760)
 #define OFFSET_PLAYERSTATE_PLUSULTRA 2432 // 0x980 - _plusUltraPoint (was 0x970)
-#define OFFSET_PLAYERSTATE_PLATFORM 868   // 0x364 - Platform enum (EPlatform) - TODO: find in new structure
+#define OFFSET_PLAYERSTATE_PLATFORM 0x374   // 0x364 - Platform enum (EPlatform) - TODO: find in new structure
 
 /**
  * @brief Check if character is downed (dying state)
@@ -404,12 +423,14 @@ static inline void DrawScreenRectangle(ImDrawList* drawlist, const Rect2D& rect)
 {
 	if (!drawlist) return;
 	
-	float minX = rect.minX;
-	float minY = rect.minY;
-	float maxX = rect.maxX;
-	float maxY = rect.maxY;
+	float minX = SDK_SnapPixel(rect.minX);
+	float minY = SDK_SnapPixel(rect.minY);
+	float maxX = SDK_SnapPixel(rect.maxX);
+	float maxY = SDK_SnapPixel(rect.maxY);
+	if (minX > maxX) std::swap(minX, maxX);
+	if (minY > maxY) std::swap(minY, maxY);
+
 	ImU32 color = rect.color;
-	float distance = rect.distance;
 	float health = rect.health;
 	float maxHealth = rect.maxHealth;
 	float guardPoint = rect.guardPoint;
@@ -419,61 +440,45 @@ static inline void DrawScreenRectangle(ImDrawList* drawlist, const Rect2D& rect)
 	bool isDying = rect.isDying;
 	uint8 platform = rect.platform;
 	
-	// Calculate corner size based on distance
-	float cornerSize = 15.0f;
-	if (distance < 10.0f) {
-		cornerSize = 35.0f;
-	} else if (distance < 30.0f) {
-		cornerSize = 25.0f;
+	float boxWidth = maxX - minX;
+	float boxHeight = maxY - minY;
+	if (boxWidth < 4.0f || boxHeight < 4.0f)
+		return;
+
+	const float shortestSide = boxWidth < boxHeight ? boxWidth : boxHeight;
+	float cornerSize = SDK_ClampFloat(shortestSide * 0.28f, 8.0f, 28.0f);
+	const float maxCornerSize = shortestSide * 0.45f;
+	if (cornerSize > maxCornerSize)
+		cornerSize = maxCornerSize;
+	const float thickness = SDK_ClampFloat(shortestSide * 0.035f, 1.35f, ESP_BOX_THICKNESS);
+	const ImU32 softColor = SDK_ColorWithAlpha(color, 45);
+	const ImU32 guideColor = SDK_ColorWithAlpha(color, 28);
+
+	drawlist->AddRectFilled(ImVec2(minX, minY), ImVec2(maxX, maxY), SDK_ColorWithAlpha(color, 10));
+	drawlist->AddRect(ImVec2(minX + 1.0f, minY + 1.0f), ImVec2(maxX - 1.0f, maxY - 1.0f), guideColor, 0.0f, 0, 1.0f);
+
+	// Clean colored corner box, sized from the projected box on screen.
+	// Top-left corner
+	drawlist->AddLine(ImVec2(minX, minY), ImVec2(minX + cornerSize, minY), color, thickness);
+	drawlist->AddLine(ImVec2(minX, minY), ImVec2(minX, minY + cornerSize), color, thickness);
+	// Top-right corner
+	drawlist->AddLine(ImVec2(maxX, minY), ImVec2(maxX - cornerSize, minY), color, thickness);
+	drawlist->AddLine(ImVec2(maxX, minY), ImVec2(maxX, minY + cornerSize), color, thickness);
+	// Bottom-left corner
+	drawlist->AddLine(ImVec2(minX, maxY), ImVec2(minX + cornerSize, maxY), color, thickness);
+	drawlist->AddLine(ImVec2(minX, maxY), ImVec2(minX, maxY - cornerSize), color, thickness);
+	// Bottom-right corner
+	drawlist->AddLine(ImVec2(maxX, maxY), ImVec2(maxX - cornerSize, maxY), color, thickness);
+	drawlist->AddLine(ImVec2(maxX, maxY), ImVec2(maxX, maxY - cornerSize), color, thickness);
+
+	if (boxHeight > 22.0f)
+	{
+		const float accentWidth = SDK_ClampFloat(boxWidth * 0.18f, 5.0f, 14.0f);
+		drawlist->AddLine(ImVec2(minX + boxWidth * 0.5f - accentWidth, minY), ImVec2(minX + boxWidth * 0.5f + accentWidth, minY), softColor, 1.0f);
+		drawlist->AddLine(ImVec2(minX + boxWidth * 0.5f - accentWidth, maxY), ImVec2(minX + boxWidth * 0.5f + accentWidth, maxY), softColor, 1.0f);
 	}
 	
-	const float offset = 2.0f;
-	
-	// Outline corners (8 line segments) - corners point INWARD to box
-	ImVec2 outlinePoints[8] = {
-		// Top-left corner - points INWARD (right and down)
-		ImVec2(minX - offset, minY - offset),
-		ImVec2(minX - offset + cornerSize, minY - offset),  // Points RIGHT (interior)
-		// Top-right corner - points INWARD (left and down)
-		ImVec2(maxX + offset, minY - offset),
-		ImVec2(maxX + offset - cornerSize, minY - offset),  // Points LEFT (interior)
-		// Bottom-right corner - points INWARD (left and up)
-		ImVec2(maxX + offset, maxY + offset),
-		ImVec2(maxX + offset - cornerSize, maxY + offset),  // Points LEFT (interior)
-		// Bottom-left corner - points INWARD (right and up)
-		ImVec2(minX - offset, maxY + offset),
-		ImVec2(minX - offset + cornerSize, maxY + offset),  // Points RIGHT (interior)
-	};
-	
-	// Draw outline - 4 segments
-	drawlist->AddLine(outlinePoints[0], outlinePoints[1], ESP_OUTLINE_COLOR, 3.0f);
-	drawlist->AddLine(ImVec2(minX - offset, minY - offset), ImVec2(minX - offset, minY - offset + cornerSize), ESP_OUTLINE_COLOR, 3.0f);
-	
-	drawlist->AddLine(outlinePoints[2], outlinePoints[3], ESP_OUTLINE_COLOR, 3.0f);
-	drawlist->AddLine(ImVec2(maxX + offset, minY - offset), ImVec2(maxX + offset, minY - offset + cornerSize), ESP_OUTLINE_COLOR, 3.0f);
-	
-	drawlist->AddLine(outlinePoints[4], outlinePoints[5], ESP_OUTLINE_COLOR, 3.0f);
-	drawlist->AddLine(ImVec2(maxX + offset, maxY + offset), ImVec2(maxX + offset, maxY + offset - cornerSize), ESP_OUTLINE_COLOR, 3.0f);
-	
-	drawlist->AddLine(outlinePoints[6], outlinePoints[7], ESP_OUTLINE_COLOR, 3.0f);
-	drawlist->AddLine(ImVec2(minX - offset, maxY + offset), ImVec2(minX - offset, maxY + offset - cornerSize), ESP_OUTLINE_COLOR, 3.0f);
-	
-	// Inner color corners - corners point INWARD to box
-	// Top-left corner
-	drawlist->AddLine(ImVec2(minX, minY), ImVec2(minX + cornerSize, minY), color, 2.0f);  // Horizontal RIGHT
-	drawlist->AddLine(ImVec2(minX, minY), ImVec2(minX, minY + cornerSize), color, 2.0f);  // Vertical DOWN
-	// Top-right corner
-	drawlist->AddLine(ImVec2(maxX, minY), ImVec2(maxX - cornerSize, minY), color, 2.0f);  // Horizontal LEFT
-	drawlist->AddLine(ImVec2(maxX, minY), ImVec2(maxX, minY + cornerSize), color, 2.0f);  // Vertical DOWN
-	// Bottom-left corner
-	drawlist->AddLine(ImVec2(minX, maxY), ImVec2(minX + cornerSize, maxY), color, 2.0f);  // Horizontal RIGHT
-	drawlist->AddLine(ImVec2(minX, maxY), ImVec2(minX, maxY - cornerSize), color, 2.0f);  // Vertical UP
-	// Bottom-right corner
-	drawlist->AddLine(ImVec2(maxX, maxY), ImVec2(maxX - cornerSize, maxY), color, 2.0f);  // Horizontal LEFT
-	drawlist->AddLine(ImVec2(maxX, maxY), ImVec2(maxX, maxY - cornerSize), color, 2.0f);  // Vertical UP
-	
 	// ===== DRAW HEALTH AND GUARD POINT BARS =====
-	float boxHeight = maxY - minY;
 	
 	// PU bar (LEFT side - INSIDE, before GP)
 	if (ImGuiMenu::g_Settings.ShowPU && plusUltra > 0.0f && maxPlusUltra > 0.0f)
@@ -581,17 +586,18 @@ extern "C" void SDK_DrawAllRectangles()
 	}
 }
 
-// Calculate font size based on distance (optimized for internal rendering)
-// Internal rendering needs larger font sizes than external (like zero1)
-// Base size 60f (2.4x zero1's 25f), max capped at 50f (2.5x zero1's 20f)
-// Formula: base * 100 / distance, capped at maxSize
+// Calculate font size based on distance without dropping into unreadable sub-pixel sizes.
 inline float CalculateFontSizeByDistance(float baseSize, float distanceCm)
 {
-	if (distanceCm <= 0.1f) return baseSize;  // Avoid division by zero
-	float fontSize = baseSize * 100.0f / distanceCm;  // distanceCm in UE4 cm units, like zero1
-	float maxSize = 60.0f;  // Match zero1's cap (20f)
-	if (fontSize > maxSize) fontSize = maxSize;
-	return fontSize;
+	const float maxSize = SDK_ClampFloat(baseSize * 0.36f, 18.0f, 22.0f);
+	const float minSize = 14.0f;
+
+	if (distanceCm <= 0.1f)
+		return maxSize;
+
+	const float distanceMeters = distanceCm * 0.01f;
+	const float fontSize = maxSize - (distanceMeters * 0.06f);
+	return SDK_ClampFloat(fontSize, minSize, maxSize);
 }
 
 // Draw all queued text labels (call from ImGui menu context after NewFrame)
@@ -616,16 +622,10 @@ extern "C" void SDK_DrawAllTextLabels()
 	ImFont* font = ImGui::GetFont();
 	if (!font) return;
 	
-	// 8-point outline offsets (same as zero1) - 3x3 grid without center
-	static const ImVec2 outlineOffsets[8] = {
-		ImVec2(-1, -1), ImVec2(0, -1), ImVec2(1, -1),
-		ImVec2(-1,  0),                ImVec2(1,  0),
-		ImVec2(-1,  1), ImVec2(0,  1), ImVec2(1,  1)
-	};
-	static const ImU32 outlineColor = IM_COL32(0, 0, 0, 255);      // Black outline
-	static const ImU32 bgColor = IM_COL32(0, 0, 0, 127);           // 50% black background
+	static const ImU32 bgColor = IM_COL32(6, 8, 13, 175);
+	static const ImU32 textColor = IM_COL32(245, 248, 255, 255);
 	
-	// Draw all text labels with zero1-style 8-point outline
+	// Draw all text labels with a compact panel instead of black text outlines.
 	for (const auto& label : g_TextToRender)
 	{
 		const char* textStr = label.text.c_str();
@@ -635,36 +635,29 @@ extern "C" void SDK_DrawAllTextLabels()
 		float fontSize;
 		if (label.isFixedSize)
 		{
-			fontSize = 55.0f;  // Fixed size for KOTA - always visible (like zero1)
+			fontSize = 55.0f;  // Fixed size for KOTA - always visible
 		}
 		else
 		{
-			fontSize = CalculateFontSizeByDistance(55.0f, label.distance);  // Base 25.0f like zero1, distance in cm
+			fontSize = CalculateFontSizeByDistance(55.0f, label.distance);
 		}
 		
 		// Calculate text size for background using dynamic font size
 		ImVec2 textSize = font->CalcTextSizeA(fontSize, FLT_MAX, -1.0f, textStr);
-		float padding = 2.0f;
-		float centerX = label.x - (textSize.x / 2.0f);  // Center horizontally
-		float centerY = label.y;
+		const float paddingX = 5.0f;
+		const float paddingY = 3.0f;
+		float centerX = SDK_SnapPixel(label.x - (textSize.x / 2.0f));
+		float centerY = SDK_SnapPixel(label.y);
 		
-		// STEP 1: Draw background rectangle (semi-transparent black)
-		ImVec2 bgMin = ImVec2(centerX - padding, centerY - padding);
-		ImVec2 bgMax = ImVec2(centerX + textSize.x + padding, centerY + textSize.y + padding);
-		drawlist->AddRectFilled(bgMin, bgMax, bgColor);
-		
-		// STEP 2: Draw 8-point outline (black text at each offset)
-		for (int i = 0; i < 8; i++)
-		{
-			drawlist->AddText(font, fontSize, 
-				ImVec2(centerX + outlineOffsets[i].x, centerY + outlineOffsets[i].y), 
-				outlineColor, textStr);
-		}
-		
-		// STEP 3: Draw main text (colored, on top)
+		ImVec2 bgMin = ImVec2(centerX - paddingX, centerY - paddingY);
+		ImVec2 bgMax = ImVec2(centerX + textSize.x + paddingX, centerY + textSize.y + paddingY);
+		drawlist->AddRectFilled(bgMin, bgMax, bgColor, 2.0f);
+		drawlist->AddRect(bgMin, bgMax, SDK_ColorWithAlpha(label.color, 125), 2.0f, 0, 1.0f);
+		drawlist->AddRectFilled(ImVec2(bgMin.x, bgMin.y), ImVec2(bgMin.x + 2.0f, bgMax.y), label.color, 2.0f);
+
 		drawlist->AddText(font, fontSize,
 			ImVec2(centerX, centerY),
-			label.color, textStr);
+			textColor, textStr);
 	}
 	
 	// Clear for next frame
@@ -1564,6 +1557,52 @@ extern "C" void* SDK_GetPlayerStateFromActor(void* Actor)
 	catch (...)
 	{
 		return nullptr;
+	}
+}
+
+extern "C" uint8 SDK_GetPlayerPlatform(void* PlayerState)
+{
+	if (!PlayerState) return 0;
+
+	try
+	{
+		return *(uint8*)((uintptr_t)PlayerState + OFFSET_PLAYERSTATE_PLATFORM);
+	}
+	catch (...)
+	{
+		return 0;
+	}
+}
+
+extern "C" const char* SDK_GetPlayerPublicName(void* PlayerState)
+{
+	if (!PlayerState) return "";
+
+	try
+	{
+		static thread_local char nameBuffer[128];
+		const void* PlayerNamePtr = (const void*)((uintptr_t)PlayerState + 0x0350);
+		return FStringToCString_Optimized(PlayerNamePtr, nameBuffer, sizeof(nameBuffer));
+	}
+	catch (...)
+	{
+		return "";
+	}
+}
+
+extern "C" const char* SDK_GetPlayerPrivateName(void* PlayerState)
+{
+	if (!PlayerState) return "";
+
+	try
+	{
+		static thread_local char nameBuffer[128];
+		const void* PlayerNamePrivatePtr = (const void*)((uintptr_t)PlayerState + 0x0300);
+		return FStringToCString_Optimized(PlayerNamePrivatePtr, nameBuffer, sizeof(nameBuffer));
+	}
+	catch (...)
+	{
+		return "";
 	}
 }
 
@@ -2784,50 +2823,53 @@ static void SDK_UpdateActorCache()
 			}
 		}
 		
-		// Extract skeletons ONLY for CharacterOutGame, CharacterBattle, and ChXXX (not NPCs)
+		const bool extractSkeletonData = true;
+
+		// Keep skeleton/bone data warm by default. The menu toggle only controls
+		// drawing; other systems can still consume cached skeleton data.
 		int skeletonCount = 0;
-		for (auto& cachedActor : newActorList)
+		if (extractSkeletonData)
 		{
-			// Filter: Only extract skeletons for playable characters, not NPCs
-			bool shouldExtractSkeleton = (cachedActor.ClassName == "CharacterOutGame" || 
-										   cachedActor.ClassName == "ACharacterOutGame" ||
-										   cachedActor.ClassName == "CharacterBattle" || 
-										   cachedActor.ClassName == "ACharacterBattle" ||
-										   cachedActor.ClassName == "SubCharacter");
-			
-			// Check for Ch001-Ch999 pattern
-			if (!shouldExtractSkeleton && cachedActor.ClassName.length() == 5)
+			for (auto& cachedActor : newActorList)
 			{
-				if (cachedActor.ClassName[0] == 'C' && cachedActor.ClassName[1] == 'h' &&
-					std::isdigit(cachedActor.ClassName[2]) && std::isdigit(cachedActor.ClassName[3]) && 
-					std::isdigit(cachedActor.ClassName[4]))
+				// Filter: Only extract skeletons for playable characters, not NPCs
+				bool shouldExtractSkeleton = (cachedActor.ClassName == "CharacterOutGame" ||
+											   cachedActor.ClassName == "ACharacterOutGame" ||
+											   cachedActor.ClassName == "CharacterBattle" ||
+											   cachedActor.ClassName == "ACharacterBattle" ||
+											   cachedActor.ClassName == "SubCharacter");
+				
+				// Check for Ch001-Ch999 pattern
+				if (!shouldExtractSkeleton && cachedActor.ClassName.length() == 5)
 				{
-					shouldExtractSkeleton = true;
-				}
-			}
-			
-			if (!shouldExtractSkeleton)
-				continue;  // Skip NPCs - no skeleton extraction needed
-			
-			if (cachedActor.ActorPtr)
-			{
-				try
-				{
-					cachedActor.Skeleton = SDK_GetBones(cachedActor.ActorPtr);
-					cachedActor.HasValidSkeleton = (cachedActor.Skeleton.Head.x > 0 && cachedActor.Skeleton.Head.y > 0);
-					
-					if (cachedActor.HasValidSkeleton)
+					if (cachedActor.ClassName[0] == 'C' && cachedActor.ClassName[1] == 'h' &&
+						std::isdigit(cachedActor.ClassName[2]) && std::isdigit(cachedActor.ClassName[3]) &&
+						std::isdigit(cachedActor.ClassName[4]))
 					{
-						skeletonCount++;
+						shouldExtractSkeleton = true;
 					}
 				}
-				catch (...)
+
+				if (!shouldExtractSkeleton)
+					continue;  // Skip NPCs - no skeleton extraction needed
+
+				if (cachedActor.ActorPtr)
 				{
-					// Skeleton extraction failed - leave HasValidSkeleton = false
-					cachedActor.HasValidSkeleton = false;
-					char debugMsg[256];
-					snprintf(debugMsg, sizeof(debugMsg), "[SKELETON ERROR] Exception extracting skeleton for %s", cachedActor.ClassName.c_str());
-					SkeletonDebugLog(debugMsg);
+					try
+					{
+						cachedActor.Skeleton = SDK_GetBones(cachedActor.ActorPtr);
+						cachedActor.HasValidSkeleton = (cachedActor.Skeleton.Head.x > 0 && cachedActor.Skeleton.Head.y > 0);
+						
+						if (cachedActor.HasValidSkeleton)
+						{
+							skeletonCount++;
+						}
+					}
+					catch (...)
+					{
+						// Skeleton extraction failed - leave HasValidSkeleton = false
+						cachedActor.HasValidSkeleton = false;
+					}
 				}
 			}
 		}
@@ -3277,7 +3319,10 @@ extern "C" void SDK_TestDeprojectScreenToWorld()
 
 // Aimbot target info
 struct AimbotTarget {
-	CachedActor* actor = nullptr;
+	AActor* actorPtr = nullptr;
+	std::string className;
+	FVector position = FVector(0, 0, 0);
+	bool isAlly = false;
 	ImVec2 headScreenPos = ImVec2(0, 0);
 	float distanceToCenter = FLT_MAX;
 	bool isValid = false;
@@ -3286,7 +3331,7 @@ struct AimbotTarget {
 // Global aimbot state
 static AimbotTarget g_CurrentAimbotTarget;
 static uint64_t g_LastAimbotTargetTime = 0;
-static CachedActor* g_LastAimbotTargetPtr = nullptr;  // For sticky targeting (Zero1 exact)
+static AActor* g_LastAimbotTargetPtr = nullptr;  // For sticky targeting (Zero1 exact)
 static FRotator g_LastAppliedAimAngles = FRotator(0, 0, 0);  // Track last applied rotation (not from controller)
 
 /**
@@ -3758,10 +3803,10 @@ static FVector GetBoneByIndex(const std::vector<FVector>& bonePositions, int bon
 /**
  * @brief Select target using given FOV settings (Aimbot or Silent Aim)
  * @param fovRadius FOV circle radius in pixels
- * @param stickyTargetPtr Pointer to sticky target (for next frame)
+ * @param stickyTargetPtr Actor pointer for sticky target (for next frame)
  * @return AimbotTarget with best target found
  */
-static AimbotTarget SelectTargetByFOV(float fovRadius, CachedActor*& stickyTargetPtr)
+static AimbotTarget SelectTargetByFOV(float fovRadius, AActor*& stickyTargetPtr)
 {
 	AimbotTarget bestTarget;
 	bestTarget.isValid = false;
@@ -3818,9 +3863,12 @@ static AimbotTarget SelectTargetByFOV(float fovRadius, CachedActor*& stickyTarge
 			continue;
 		
 		// STICKY TARGETING: Keep current target if still valid
-		if (stickyTargetPtr != nullptr && stickyTargetPtr == &cachedActor)
+		if (stickyTargetPtr != nullptr && stickyTargetPtr == cachedActor.ActorPtr)
 		{
-			bestTarget.actor = &cachedActor;
+			bestTarget.actorPtr = cachedActor.ActorPtr;
+			bestTarget.className = cachedActor.ClassName;
+			bestTarget.position = cachedActor.Position;
+			bestTarget.isAlly = cachedActor.IsAlly;
 			bestTarget.headScreenPos = headScreenPos;
 			bestTarget.distanceToCenter = distToCenter;
 			bestTarget.isValid = true;
@@ -3831,7 +3879,10 @@ static AimbotTarget SelectTargetByFOV(float fovRadius, CachedActor*& stickyTarge
 		if (distToCenter < closestDistance)
 		{
 			closestDistance = distToCenter;
-			bestTarget.actor = &cachedActor;
+			bestTarget.actorPtr = cachedActor.ActorPtr;
+			bestTarget.className = cachedActor.ClassName;
+			bestTarget.position = cachedActor.Position;
+			bestTarget.isAlly = cachedActor.IsAlly;
 			bestTarget.headScreenPos = headScreenPos;
 			bestTarget.distanceToCenter = distToCenter;
 			bestTarget.isValid = true;
@@ -3841,7 +3892,7 @@ static AimbotTarget SelectTargetByFOV(float fovRadius, CachedActor*& stickyTarge
 	// Update sticky target pointer for next frame
 	if (bestTarget.isValid)
 	{
-		stickyTargetPtr = bestTarget.actor;
+		stickyTargetPtr = bestTarget.actorPtr;
 	}
 	else
 	{
@@ -3871,7 +3922,7 @@ static AimbotTarget SelectAimbotTarget()
  * @brief Select best target for silent aim from cached actors
  * Uses Silent Aim settings and separate sticky target
  */
-static CachedActor* g_LastSilentAimTargetPtr = nullptr;  // Separate sticky target for silent aim
+static AActor* g_LastSilentAimTargetPtr = nullptr;  // Separate sticky target for silent aim
 
 static AimbotTarget SelectSilentAimTarget()
 {
@@ -3882,8 +3933,13 @@ static AimbotTarget SelectSilentAimTarget()
 	float screenCenterX = viewportX / 2.0f;
 	float screenCenterY = viewportY / 2.0f;
 	
-	// Use Aimbot FOV settings for BulletTP target selection
-	return SelectTargetByFOV(ImGuiMenu::g_Settings.AimbotFOVRadius, g_LastSilentAimTargetPtr);
+	return SelectTargetByFOV(ImGuiMenu::g_Settings.BulletTP_FOVRadius, g_LastSilentAimTargetPtr);
+}
+
+extern "C" SDK::AActor* SDK_GetBulletTPFOVTarget()
+{
+	AimbotTarget target = SelectSilentAimTarget();
+	return target.isValid ? target.actorPtr : nullptr;
 }
 
 /**
@@ -3891,33 +3947,7 @@ static AimbotTarget SelectSilentAimTarget()
  */
 static inline void BulletTPLog(const char* format, ...)
 {
-	try
-	{
-		va_list args;
-		va_start(args, format);
-		
-		// Format message
-		char buffer[512];
-		vsnprintf(buffer, sizeof(buffer), format, args);
-		va_end(args);
-		
-		// Write to file C:\temp\BulletTP_Debug.log
-		static std::ofstream logFile;
-		if (!logFile.is_open())
-		{
-			logFile.open("C:\\temp\\BulletTP_Debug.log", std::ios::app);
-		}
-		
-		if (logFile.is_open())
-		{
-			logFile << buffer << "\n";
-			logFile.flush();
-		}
-	}
-	catch (...)
-	{
-		// Silently fail if file write fails
-	}
+	(void)format;
 }
 
 /**
@@ -3978,7 +4008,7 @@ extern "C" void SDK_RunAimbot()
 		bool targetStillValid = false;
 		for (auto& actor : g_ActorsForRendering)
 		{
-			if (&actor == target.actor)
+			if (actor.ActorPtr == target.actorPtr)
 			{
 				targetStillValid = true;
 				break;
@@ -3996,20 +4026,20 @@ extern "C" void SDK_RunAimbot()
 	// (this prevents drift when player moves)
 	
 	// Get target bone world position (exact 3D position from skeleton)
-	if (!target.actor || !target.actor->ActorPtr)
+	if (!target.actorPtr)
 		return;
 	
 	// ANTI-CHEAT SAFETY: Validate target state before aiming (exactly like Zero1)
 	// Skip if target became downed since selection
-	if (IsCharacterDowned(target.actor->ActorPtr))
+	if (IsCharacterDowned(target.actorPtr))
 		return;
 	
 	// Skip if target became ally since selection (safety check)
-	if (target.actor->IsAlly)
+	if (target.isAlly)
 		return;
 	
 	// Get exact 3D bone positions using our skeleton extraction (EXACTLY LIKE ZERO1)
-	std::vector<FVector> bonePositions = SDK_GetBonePositions(target.actor->ActorPtr);
+	std::vector<FVector> bonePositions = SDK_GetBonePositions(target.actorPtr);
 	if (bonePositions.empty() || bonePositions.size() < 5)
 		return;
 	
@@ -4019,12 +4049,12 @@ extern "C" void SDK_RunAimbot()
 	// Fallback if head position is invalid
 	if (targetWorldPos.X == 0 && targetWorldPos.Y == 0 && targetWorldPos.Z == 0)
 	{
-		targetWorldPos = target.actor->Position;
+		targetWorldPos = target.position;
 		targetWorldPos.Z += 150.0f;  // Fallback offset
 	}
 	
 	// Get target velocity for prediction
-	FVector targetVelocity = target.actor->ActorPtr->GetVelocity();
+	FVector targetVelocity = target.actorPtr->GetVelocity();
 	
 	// Get local player velocity (Zero1 exact: MyMovement - player's own velocity)
 	// Use playerController's pawn/character to get local player velocity
@@ -4042,14 +4072,14 @@ extern "C" void SDK_RunAimbot()
 	
 	// Zero1 exact: Per-character bullet speeds (18k-25k UU/s typical)
 	// Read actual CharacterID and Variant from the target actor
-	if (!target.actor->ActorPtr || target.actor->ActorPtr->IsDefaultObject())
+	if (!target.actorPtr || target.actorPtr->IsDefaultObject())
 	{
 		g_LastAimbotTargetPtr = nullptr;
 		return;
 	}
 	
-	uint8_t charID = *(uint8_t*)(target.actor->ActorPtr + 0x0368);
-	uint8_t variant = *(uint8_t*)(target.actor->ActorPtr + 0x0377);
+	uint8_t charID = *(uint8_t*)(target.actorPtr + 0x0368);
+	uint8_t variant = *(uint8_t*)(target.actorPtr + 0x0377);
 	UHeroProjectileMovementComponent bulletSpeedComponent = GetBulletSpeed(charID, variant);
 	float bulletSpeed = bulletSpeedComponent.InitialSpeed;
 	if (bulletSpeed < 100.0f) bulletSpeed = 1000.0f;  // Safety fallback
@@ -4265,8 +4295,8 @@ extern "C" void SDK_RunSilentAim()
 	
 	char targetLog[256];
 	snprintf(targetLog, sizeof(targetLog), "[BulletTP] Target found: %s", 
-		target.actor ? target.actor->ClassName.c_str() : "NULL");
-	BulletTPLog("Target found: %s", target.actor ? target.actor->ClassName.c_str() : "NULL");
+		target.className.empty() ? "NULL" : target.className.c_str());
+	BulletTPLog("Target found: %s", target.className.empty() ? "NULL" : target.className.c_str());
 	
 	// Validate target still exists
 	{
@@ -4274,7 +4304,7 @@ extern "C" void SDK_RunSilentAim()
 		bool targetStillValid = false;
 		for (auto& actor : g_ActorsForRendering)
 		{
-			if (&actor == target.actor)
+			if (actor.ActorPtr == target.actorPtr)
 			{
 				targetStillValid = true;
 				break;
@@ -4289,20 +4319,20 @@ extern "C" void SDK_RunSilentAim()
 	}
 	
 	// Validate target state
-	if (IsCharacterDowned(target.actor->ActorPtr))
+	if (IsCharacterDowned(target.actorPtr))
 	{
 		BulletTPLog("ERROR: Target is downed");
 		return;
 	}
 	
-	if (target.actor->IsAlly)
+	if (target.isAlly)
 	{
 		BulletTPLog("ERROR: Target is ally");
 		return;
 	}
 	
 	// Get bone positions in world coordinates (NOT screen coordinates)
-	std::vector<FVector> bonePositions = SDK_GetBonePositions(target.actor->ActorPtr);
+	std::vector<FVector> bonePositions = SDK_GetBonePositions(target.actorPtr);
 	if (bonePositions.empty() || bonePositions.size() < 5)
 	{
 		char boneLog[256];
@@ -4323,7 +4353,7 @@ extern "C" void SDK_RunSilentAim()
 	// Fallback if bone position is invalid
 	if (targetBonePos.X == 0 && targetBonePos.Y == 0 && targetBonePos.Z == 0)
 	{
-		targetBonePos = target.actor->Position;
+		targetBonePos = target.position;
 		targetBonePos.Z += 150.0f;  // Approximate head height
 		BulletTPLog("Using fallback head position (invalid bone)");
 	}
@@ -4521,9 +4551,15 @@ extern "C" void SDK_DrawAimbotInfo()
  */
 extern "C" void SDK_RunTeleportToKota()
 {
+	static bool lastTeleportToKotaPressed = false;
+	static auto lastTeleportToKotaTime = std::chrono::high_resolution_clock::now();
+	const int TELEPORT_TO_KOTA_COOLDOWN_MS = 500;
+
 	// Check if teleport enabled
 	if (!ImGuiMenu::g_Settings.EnableTeleportToKota)
 	{
+		lastTeleportToKotaPressed = false;
+
 		// Log only occasionally to avoid spam
 		static int frameCounter = 0;
 		frameCounter++;
@@ -4553,9 +4589,25 @@ extern "C" void SDK_RunTeleportToKota()
 	bool hotKeyPressed = keyboardPressed || gamepadPressed;
 	if (!hotKeyPressed)
 	{
+		lastTeleportToKotaPressed = false;
 		return;  // Hotkey not pressed
 	}
-	
+
+	if (lastTeleportToKotaPressed)
+	{
+		return;
+	}
+
+	auto now = std::chrono::high_resolution_clock::now();
+	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastTeleportToKotaTime).count();
+	if (elapsed < TELEPORT_TO_KOTA_COOLDOWN_MS)
+	{
+		lastTeleportToKotaPressed = true;
+		return;
+	}
+
+	lastTeleportToKotaPressed = true;
+	lastTeleportToKotaTime = now;
 	
 	// Get player controller
 	APlayerController* playerController = SDK_GetPlayerController();

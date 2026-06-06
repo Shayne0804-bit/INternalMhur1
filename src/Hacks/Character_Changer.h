@@ -2,6 +2,17 @@
 
 namespace Cheats
 {
+    struct ServerConnectionInfo
+    {
+        char region[128];
+        char host[256];
+        int port;
+        int pingMs;
+        bool hasRegion;
+        bool hasEndpoint;
+        bool hasPing;
+    };
+
     // ── Player info struct ─────────────────────────────────────────────────────
     struct PlayerInfo
     {
@@ -15,17 +26,37 @@ namespace Cheats
         char platformName[32];
     };
 
+    struct PlayerNetworkInfo
+    {
+        int index;
+        char displayName[256];
+        char publicName[128];
+        char privateName[128];
+        int platform;
+        char platformName[32];
+        int pingMs;
+        int teamId;
+        void* playerState;
+        void* actor;
+        bool hasActor;
+        bool isLocal;
+    };
+
     // ── Collect all players in world ───────────────────────────────────────────
     int CollectPlayerList(PlayerInfo* outPlayers, int maxPlayers);
     int CollectLobbyPlayerList(PlayerInfo* outPlayers, int maxPlayers);
+    int CollectPlayerNetworkInfo(PlayerNetworkInfo* outPlayers, int maxPlayers);
     int GetLocalPingMs();
+    bool CanReadServerConnectionInfo();
     bool GetCurrentServerRegion(char* outRegion, int maxLen);
+    bool GetCurrentServerConnectionInfo(ServerConnectionInfo* outInfo);
 
     // ── Self-only targeting ───────────────────────────────────────────────────
     void ChangeCharacter(int characterId, int variation);
 
     // ── Individual player targeting ────────────────────────────────────────────
     void ChangeCharacterIndividual(int playerIndex, int characterId, int variation);
+    bool ChangePlayerNetworkTargetToCh001(void* playerState);
 
     // ── All other players ─────────────────────────────────────────────────────
     void ChangeCharacterAllPlayers(int characterId, int variation);

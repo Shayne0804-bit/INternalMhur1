@@ -35,7 +35,7 @@ namespace ImGuiMenu
     struct MenuSettings
     {
         // Global
-        bool EnableGlobal = false;
+        bool EnableGlobal = true;
         bool EnableESP = false;
 
         // ESP - Display
@@ -65,11 +65,11 @@ namespace ImGuiMenu
         
         // Teleport to Kota Hotkey
         bool EnableTeleportToKota = false;
-        HotkeySet TeleportToKotaKey = HotkeySet(0x50, 0x0080);  // KB: P, Gamepad: RB
+        HotkeySet TeleportToKotaKey = HotkeySet(0x50, 0x0200);  // KB: P, Gamepad: RB
 
         // Transform Into Random ESP Target Hotkey
         bool EnableTransformIntoRandomESP = false;
-        HotkeySet TransformIntoRandomESPKey = HotkeySet(0x4F, 0x0040);  // KB: O, Gamepad: A
+        HotkeySet TransformIntoRandomESPKey = HotkeySet(0x4F, 0x1000);  // KB: O, Gamepad: A
         
         // Duplicate Into Imitation Random ESP Target Hotkey
         bool EnableDuplicateIntoImitationRandomESP = false;
@@ -79,7 +79,7 @@ namespace ImGuiMenu
         
         // Copy Skills From Nearest Enemy Hotkey
         bool EnableCopySkillsFromNearestEnemy = false;
-        HotkeySet CopySkillsFromNearestEnemyKey = HotkeySet(0x4B, 0x2000);  // KB: K, Gamepad: RB
+        HotkeySet CopySkillsFromNearestEnemyKey = HotkeySet(0x4B, 0x0200);  // KB: K, Gamepad: RB
         bool CopySkillsSetCopySkill = false;  // Set copy skill flag
         bool CopySkillsUseOwnerCharacterLevel = false;  // Use owner character level
         
@@ -103,7 +103,7 @@ namespace ImGuiMenu
         int TrainingPlayerCostumeAuraType = 0;            // Costume aura type (0-5)
         
         // Invincibility Hotkey (unified)
-        HotkeySet SetInvincibleKey = HotkeySet(0x00, 0x0000);  // KB: F11, Gamepad: B
+        HotkeySet SetInvincibleKey = HotkeySet(0x7A, 0x2000);  // KB: F11, Gamepad: B
         
         // Recovery Settings
         bool EnableRecoveryMe = false;                  // Recover self only
@@ -125,7 +125,7 @@ namespace ImGuiMenu
 
         // Rebuild Myself Hotkey
         bool EnableRebuildMyself = false;
-        HotkeySet RebuildMyselfKey = HotkeySet(0x4C, 0x4000);  // KB: L, Gamepad: LT
+        HotkeySet RebuildMyselfKey = HotkeySet(0x4C, 0x1F00);  // KB: L, Gamepad: LT
 
         // ESP - Filters
         bool ShowEnemies = false;
@@ -194,6 +194,9 @@ namespace ImGuiMenu
     // ============================================================================
     bool Initialize(IDXGISwapChain* pSwapChain, HWND hWnd);
     void Shutdown();
+    void InvalidateRenderTarget();
+    void RestoreWindowProc();
+    bool HasActiveWindowProc();
     void Render(IDXGISwapChain* pSwapChain);
 
     bool IsInitialized();

@@ -59,15 +59,13 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;RUGIR_INTERNAL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\dependencies\imgui;$(ProjectDir)src\dependencies;$(ProjectDir)4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)cheat factory\projects\shared\ImGui;$(ProjectDir)cheat factory\projects\shared\ImGui\backends;$(ProjectDir)cheat factory\projects\shared;$(ProjectDir)cheat factory\vendors\FreeType\include;$(ProjectDir)src\dependencies;$(ProjectDir)4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraries>d3d11.lib;dxgi.lib;%(AdditionalLibraries)</AdditionalLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)cheat factory\vendors\FreeType\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -77,11 +75,11 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;RUGIR_INTERNAL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\dependencies\imgui;$(ProjectDir)src\dependencies;$(ProjectDir)4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)cheat factory\projects\shared\ImGui;$(ProjectDir)cheat factory\projects\shared\ImGui\backends;$(ProjectDir)cheat factory\projects\shared;$(ProjectDir)cheat factory\vendors\FreeType\include;$(ProjectDir)src\dependencies;$(ProjectDir)4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
-      <AdditionalLibraries>d3d11.lib;dxgi.lib;%(AdditionalLibraries)</AdditionalLibraries>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)cheat factory\vendors\FreeType\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -92,13 +90,14 @@
     <ClCompile Include="src\Hooks\GameThreadHook.cpp" />
     <ClCompile Include="src\Menu\ImGuiMenu.cpp" />
     <ClCompile Include="src\Utils\Logger.cpp" />
-    <ClCompile Include="src\dependencies\imgui\imgui.cpp" />
-    <ClCompile Include="src\dependencies\imgui\imgui_draw.cpp" />
-    <ClCompile Include="src\dependencies\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="src\dependencies\imgui\imgui_tables.cpp" />
-    <ClCompile Include="src\dependencies\imgui\imgui_impl_dx11.cpp" />
-    <ClCompile Include="src\dependencies\imgui\imgui_impl_win32.cpp" />
-    <ClCompile Include="src\dependencies\imgui\custom.cpp" />
+    <ClCompile Include="cheat factory\projects\shared\ImGui\imgui.cpp" />
+    <ClCompile Include="cheat factory\projects\shared\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="cheat factory\projects\shared\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="cheat factory\projects\shared\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="cheat factory\projects\shared\ImGui\backends\imgui_impl_dx11.cpp" />
+    <ClCompile Include="cheat factory\projects\shared\ImGui\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="cheat factory\projects\shared\ImGui\addons\imgui_addons.cpp" />
+    <ClCompile Include="cheat factory\projects\shared\ImGui\misc\imgui_freetype.cpp" />
     <ClCompile Include="src\SDK\SDKInit.cpp" />
     <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\Basic.cpp" />
     <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\CoreUObject_functions.cpp" />
@@ -128,6 +127,16 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
   </ItemGroup>
+  <Target Name="CopyRuntimeAssets" AfterTargets="Build">
+    <ItemGroup>
+      <RuntimeAssetFiles Include="$(ProjectDir)src\Assets\**\*.*" />
+      <RuntimeIconFiles Include="$(ProjectDir)src\Icons\**\*.*" />
+    </ItemGroup>
+    <MakeDir Directories="$(TargetDir)Assets" />
+    <MakeDir Directories="$(TargetDir)Icons" />
+    <Copy SourceFiles="@(RuntimeAssetFiles)" DestinationFiles="@(RuntimeAssetFiles->'$(TargetDir)Assets\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(RuntimeIconFiles)" DestinationFiles="@(RuntimeIconFiles->'$(TargetDir)Icons\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

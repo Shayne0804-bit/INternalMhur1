@@ -1,16 +1,22 @@
 #pragma once
+#include <atomic>
 
 namespace UnloadManager
 {
-    extern volatile bool g_UnloadRequested;
+    extern std::atomic_bool g_UnloadRequested;
 
     inline bool IsUnloadRequested()
     {
-        return g_UnloadRequested;
+        return g_UnloadRequested.load(std::memory_order_acquire);
     }
 
-    inline void RequestUnload()
+    inline bool RequestUnload()
     {
-        g_UnloadRequested = true;
+        bool expected = false;
+        return g_UnloadRequested.compare_exchange_strong(
+            expected,
+            true,
+            std::memory_order_acq_rel,
+            std::memory_order_acquire);
     }
 }

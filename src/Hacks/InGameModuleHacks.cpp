@@ -11,16 +11,52 @@
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/BackendSubsystem_classes.hpp"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/Basic.hpp"
 #include "../Utils/Logger.h"
+#include "../Utils/SafeMemory.h"
 #include "../Menu/ImGuiMenu.h"
 #include <set>
 #include <map>
 #include <cctype>
 #include <string>
+#include <sstream>
 #include <fstream>
 #include <chrono>
 #include <iomanip>
 #include <cstdio>
 #include <ctime>
+#include <Windows.h>
+
+namespace
+{
+    constexpr bool RUNTIME_FILE_DEBUG_LOGGING = false;
+    constexpr ULONGLONG BATTLE_MODE_CACHE_MS = 250;
+
+    static void WriteRuntimeDebugLog(const char* path, const std::string& message)
+    {
+        if constexpr (!RUNTIME_FILE_DEBUG_LOGGING)
+        {
+            (void)path;
+            (void)message;
+            return;
+        }
+
+        try
+        {
+            std::ofstream logFile(path, std::ios::app);
+            if (logFile.is_open())
+                logFile << message;
+        }
+        catch (...)
+        {
+        }
+    }
+}
+
+static inline BOOL SafeIsBadReadPtr(const void* ptr, UINT_PTR size)
+{
+    return !SafeMemory::IsReadable(ptr, static_cast<size_t>(size));
+}
+
+#define IsBadReadPtr SafeIsBadReadPtr
 
 // ============================================
 // EXTERNAL DECLARATIONS FROM BASIC.CPP
@@ -30,10 +66,58 @@
 extern "C" SDK::APlayerController* SDK_GetPlayerController();
 extern "C" SDK::AActor* SDK_GetRandomESPTarget();  // Returns random ACharacterBattle as AActor*
 extern "C" SDK::AActor* SDK_GetForwardESPTarget();  // Returns closest ACharacterBattle in front as AActor*
+extern "C" SDK::AActor* SDK_GetBulletTPFOVTarget();  // Returns closest valid BulletTP FOV target
 extern "C" const char* SDK_GetPlayerName(void* PlayerState);  // Get player name from PlayerState
 
 // UTILITY FUNCTIONS
 // ============================================
+
+static inline bool TryGetGameModeTypeSafe(SDK::AHerovsGameState* gameState, SDK::EGameModeType& modeType)
+{
+    if (!SafeMemory::IsReadable(gameState, sizeof(void*)))
+        return false;
+
+    __try
+    {
+        modeType = gameState->GetGameModeType();
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static inline bool TryGetObjectArrayCountSafe(SDK::TUObjectArray* gObjects, int32_t& objectCount)
+{
+    if (!SafeMemory::IsReadable(gObjects, sizeof(SDK::TUObjectArray)))
+        return false;
+
+    __try
+    {
+        objectCount = gObjects->Num();
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static inline SDK::UObject* GetObjectByIndexSafe(SDK::TUObjectArray* gObjects, int32_t index)
+{
+    if (!SafeMemory::IsReadable(gObjects, sizeof(SDK::TUObjectArray)))
+        return nullptr;
+
+    __try
+    {
+        return gObjects->GetByIndex(index);
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return nullptr;
+    }
+}
 
 // Offsets for PlayerState (from Basic.cpp)
 #define OFFSET_PLAYERSTATE 0x6E0          // AActor::PlayerState
@@ -45,15 +129,24 @@ extern "C" const char* SDK_GetPlayerName(void* PlayerState);  // Get player name
  */
 static inline bool IsCharacterDyingOffset(SDK::ACharacterBattle* Character)
 {
-    if (!Character) return false;
+    if (!SafeMemory::IsReadable(Character, sizeof(void*))) return false;
     try
     {
         // Read PlayerState pointer from Character
-        void* PlayerState = *(void**)((uintptr_t)Character + OFFSET_PLAYERSTATE);
-        if (!PlayerState) return false;
+        void* PlayerState = nullptr;
+        auto* playerStateAddress = reinterpret_cast<void**>((uintptr_t)Character + OFFSET_PLAYERSTATE);
+        if (!SafeMemory::TryRead(playerStateAddress, PlayerState) ||
+            !SafeMemory::IsReadable(PlayerState, OFFSET_PLAYERSTATE_IFDYING + sizeof(uint8_t)))
+        {
+            return false;
+        }
 
         // Check dying flag at offset 1400 (bit 2)
-        bool isDying = (*(uint8_t*)((uintptr_t)PlayerState + OFFSET_PLAYERSTATE_IFDYING) & 2) != 0;
+        uint8_t dyingFlags = 0;
+        if (!SafeMemory::TryRead(reinterpret_cast<uint8_t*>((uintptr_t)PlayerState + OFFSET_PLAYERSTATE_IFDYING), dyingFlags))
+            return false;
+
+        bool isDying = (dyingFlags & 2) != 0;
         return isDying;
     }
     catch (...)
@@ -69,47 +162,64 @@ static inline bool IsCharacterDyingOffset(SDK::ACharacterBattle* Character)
  */
 bool IsValidBattleMode()
 {
+    static ULONGLONG lastCheckTime = 0;
+    static bool hasCachedResult = false;
+    static bool cachedResult = false;
+
+    const ULONGLONG now = GetTickCount64();
+    if (hasCachedResult && (now - lastCheckTime) < BATTLE_MODE_CACHE_MS)
+        return cachedResult;
+
+    auto updateCache = [&](bool result) -> bool
+    {
+        cachedResult = result;
+        lastCheckTime = now;
+        hasCachedResult = true;
+        return result;
+    };
+
     try
     {
         // Get world
         SDK::UWorld* world = SDK::UWorld::GetWorld();
-        if (!world)
+        if (!SafeMemory::IsReadable(world, sizeof(void*)))
         {
-            Logger::LogError("[IsValidBattleMode] Could not get UWorld");
-            return false;
+            return updateCache(false);
         }
 
         // Get GameState
-        SDK::AHerovsGameState* gameState = static_cast<SDK::AHerovsGameState*>(world->GameState);
-        if (!gameState)
+        SDK::AGameStateBase* baseGameState = nullptr;
+        if (!SafeMemory::TryRead(&world->GameState, baseGameState))
         {
-            Logger::LogError("[IsValidBattleMode] Could not get AHerovsGameState");
-            return false;
+            return updateCache(false);
+        }
+
+        SDK::AHerovsGameState* gameState = static_cast<SDK::AHerovsGameState*>(baseGameState);
+        if (!SafeMemory::IsReadable(gameState, sizeof(void*)))
+        {
+            return updateCache(false);
         }
 
         // Get GameModeType using public method (no offsets)
-        SDK::EGameModeType modeType = gameState->GetGameModeType();
+        SDK::EGameModeType modeType{};
+        if (!TryGetGameModeTypeSafe(gameState, modeType))
+        {
+            return updateCache(false);
+        }
 
         // Check if valid battle mode (2-9) - cast to int for comparison
         int modeValue = (int)modeType;
         bool isValid = (modeValue >= 2 && modeValue <= 9);
-        
-        if (!isValid)
-        {
-            Logger::LogWarning("[IsValidBattleMode] Not in valid battle mode. Type: " + std::to_string(modeValue));
-        }
 
-        return isValid;
+        return updateCache(isValid);
     }
-    catch (const std::exception& e)
+    catch (const std::exception&)
     {
-        Logger::LogError("[IsValidBattleMode] Exception: " + std::string(e.what()));
-        return false;
+        return updateCache(false);
     }
     catch (...)
     {
-        Logger::LogError("[IsValidBattleMode] Unknown exception");
-        return false;
+        return updateCache(false);
     }
 }
 
@@ -120,18 +230,351 @@ bool IsValidBattleMode()
 template<typename T>
 static inline bool IsValidPointer(T* ptr)
 {
-    if (!ptr) return false;
-    
-    // Check if address is obviously invalid (too low or misaligned)
-    uintptr_t addr = reinterpret_cast<uintptr_t>(ptr);
-    
-    // Reject addresses below 0x10000 (user space guard pages)
-    if (addr < 0x10000) return false;
-    
-    // Reject completely misaligned pointers (likely garbage)
-    if (addr & 0xF) return false;  // Should be 16-byte aligned for UE4 objects
-    
+    return SafeMemory::IsReadable(ptr, sizeof(void*));
+}
+
+template<typename T>
+static inline bool SafeReadMember(const T* memberAddress, T& out)
+{
+    return SafeMemory::TryRead(memberAddress, out);
+}
+
+template<typename T>
+static inline bool SafeArrayCount(const UC::TArray<T>& array, int32_t& count, int32_t maxReasonableCount = 200000)
+{
+    if (!SafeMemory::IsReadable(&array, sizeof(array)))
+        return false;
+
+    int32_t num = 0;
+    int32_t max = 0;
+    const T* data = nullptr;
+
+    try
+    {
+        num = array.Num();
+        max = array.Max();
+        data = array.GetDataPtr();
+    }
+    catch (...)
+    {
+        return false;
+    }
+
+    if (num < 0 || max < num || num > maxReasonableCount)
+        return false;
+
+    if (num > 0 && !SafeMemory::IsReadable(data, sizeof(T) * static_cast<size_t>(num)))
+        return false;
+
+    count = num;
     return true;
+}
+
+template<typename T>
+static inline bool SafeArrayGet(const UC::TArray<T>& array, int32_t index, T& out, int32_t maxReasonableCount = 200000)
+{
+    int32_t count = 0;
+    if (!SafeArrayCount(array, count, maxReasonableCount) || index < 0 || index >= count)
+        return false;
+
+    const T* data = nullptr;
+    try
+    {
+        data = array.GetDataPtr();
+    }
+    catch (...)
+    {
+        return false;
+    }
+
+    if (!SafeMemory::IsReadable(data + index, sizeof(T)))
+        return false;
+
+    return SafeMemory::TryRead(data + index, out);
+}
+
+static inline SDK::ULevel* GetPersistentLevelSafe(SDK::UWorld* world)
+{
+    if (!IsValidPointer(world))
+        return nullptr;
+
+    SDK::ULevel* level = nullptr;
+    if (!SafeReadMember(&world->PersistentLevel, level) || !IsValidPointer(level))
+        return nullptr;
+
+    return level;
+}
+
+static inline bool GetWorldActorsCountSafe(SDK::UWorld* world, int32_t& count)
+{
+    SDK::ULevel* level = GetPersistentLevelSafe(world);
+    return level && SafeArrayCount(level->Actors, count, 50000);
+}
+
+static inline SDK::AActor* GetWorldActorSafe(SDK::UWorld* world, int32_t index)
+{
+    SDK::ULevel* level = GetPersistentLevelSafe(world);
+    if (!level)
+        return nullptr;
+
+    SDK::AActor* actor = nullptr;
+    if (!SafeArrayGet(level->Actors, index, actor, 50000) || !IsValidPointer(actor))
+        return nullptr;
+
+    return actor;
+}
+
+static inline SDK::APawn* GetPawnSafe(SDK::APlayerController* playerController)
+{
+    if (!IsValidPointer(playerController))
+        return nullptr;
+
+    SDK::APawn* pawn = nullptr;
+    if (!SafeReadMember(&playerController->Pawn, pawn) || !IsValidPointer(pawn))
+        return nullptr;
+
+    return pawn;
+}
+
+static inline SDK::APlayerState* GetControllerPlayerStateSafe(SDK::APlayerController* playerController)
+{
+    if (!IsValidPointer(playerController))
+        return nullptr;
+
+    SDK::APlayerState* playerState = nullptr;
+    if (!SafeReadMember(&playerController->PlayerState, playerState) || !IsValidPointer(playerState))
+        return nullptr;
+
+    return playerState;
+}
+
+static inline SDK::APlayerState* GetCharacterPlayerStateSafe(SDK::ACharacterBattle* character)
+{
+    if (!IsValidPointer(character))
+        return nullptr;
+
+    SDK::APlayerState* playerState = nullptr;
+    if (!SafeReadMember(&character->PlayerState, playerState) || !IsValidPointer(playerState))
+        return nullptr;
+
+    return playerState;
+}
+
+static inline SDK::AGameStateBase* GetGameStateSafe(SDK::UWorld* world)
+{
+    if (!IsValidPointer(world))
+        return nullptr;
+
+    SDK::AGameStateBase* gameState = nullptr;
+    if (!SafeReadMember(&world->GameState, gameState) || !IsValidPointer(gameState))
+        return nullptr;
+
+    return gameState;
+}
+
+static inline SDK::UBuffParam* GetBuffParamSafe(SDK::APlayerStateBattle* playerState)
+{
+    if (!IsValidPointer(playerState))
+        return nullptr;
+
+    SDK::UBuffParam* buffParam = nullptr;
+    if (!SafeReadMember(&playerState->_buffParam, buffParam) || !IsValidPointer(buffParam))
+        return nullptr;
+
+    return buffParam;
+}
+
+static inline SDK::USupplyHolderComponent* GetSupplyHolderComponentSafe(SDK::APlayerStateBattle* playerState)
+{
+    if (!IsValidPointer(playerState))
+        return nullptr;
+
+    SDK::USupplyHolderComponent* supplyHolderComp = nullptr;
+    if (!SafeReadMember(&playerState->_supplyHolderComponent, supplyHolderComp) || !IsValidPointer(supplyHolderComp))
+        return nullptr;
+
+    return supplyHolderComp;
+}
+
+static inline SDK::USkillManagementComponent* GetSkillManagementComponentSafe(SDK::ACharacterBattle* character)
+{
+    if (!IsValidPointer(character))
+        return nullptr;
+
+    SDK::USkillManagementComponent* skillComponent = nullptr;
+    if (!SafeReadMember(&character->_skillManagementComponent, skillComponent) || !IsValidPointer(skillComponent))
+        return nullptr;
+
+    return skillComponent;
+}
+
+static inline SDK::UProjectileReplicateBattleComponent* GetProjectileReplicatorSafe(SDK::ACharacterBattle* character)
+{
+    if (!IsValidPointer(character))
+        return nullptr;
+
+    SDK::UProjectileReplicateBattleComponent* projectileComp = nullptr;
+    if (!SafeReadMember(&character->_projectileReplicator, projectileComp) || !IsValidPointer(projectileComp))
+        return nullptr;
+
+    return projectileComp;
+}
+
+static inline SDK::UCharacterConditionControlComponent* GetConditionControlComponentSafe(SDK::ACharacterBattle* character)
+{
+    if (!IsValidPointer(character))
+        return nullptr;
+
+    SDK::UCharacterConditionControlComponent* conditionComponent = nullptr;
+    __try
+    {
+        conditionComponent = character->BP_GetConditionControlComponent();
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return nullptr;
+    }
+
+    if (!IsValidPointer(conditionComponent))
+        return nullptr;
+
+    return conditionComponent;
+}
+
+static inline SDK::APlayerStateBattle* GetPlayerStateBattleFromCharacterSafe(SDK::ACharacterBattle* character)
+{
+    SDK::APlayerState* playerState = GetCharacterPlayerStateSafe(character);
+    if (!playerState)
+        return nullptr;
+
+    SDK::APlayerStateBattle* battleState = static_cast<SDK::APlayerStateBattle*>(playerState);
+    if (!IsValidPointer(battleState))
+        return nullptr;
+
+    return battleState;
+}
+
+static inline SDK::UCharacterRollSlotUniqueSkillControlComponent* GetRollSlotControlComponentSafe(SDK::APlayerStateBattle* playerState)
+{
+    if (!IsValidPointer(playerState))
+        return nullptr;
+
+    SDK::UCharacterRollSlotUniqueSkillControlComponent* rollSlotCtrl = nullptr;
+    __try
+    {
+        rollSlotCtrl = playerState->BP_GetCharacterRollSlotUniqueSkillControlComponent();
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return nullptr;
+    }
+
+    if (!IsValidPointer(rollSlotCtrl))
+        return nullptr;
+
+    return rollSlotCtrl;
+}
+
+static inline bool IsObjectDefaultSafe(SDK::UObject* object)
+{
+    if (!IsValidPointer(object))
+        return true;
+
+    try
+    {
+        return object->IsDefaultObject();
+    }
+    catch (...)
+    {
+        return true;
+    }
+}
+
+static inline bool IsObjectAUnsafeGuarded(SDK::UObject* object, SDK::UClass* klass)
+{
+    if (!IsValidPointer(object) || !IsValidPointer(klass))
+        return false;
+
+    try
+    {
+        return object->IsA(klass);
+    }
+    catch (...)
+    {
+        return false;
+    }
+}
+
+static inline bool GetClassNameSafe(SDK::UObject* object, std::string& className)
+{
+    className = "Unknown";
+    if (!IsValidPointer(object))
+        return false;
+
+    SDK::UClass* objectClass = nullptr;
+    if (!SafeReadMember(&object->Class, objectClass) || !IsValidPointer(objectClass))
+        return false;
+
+    try
+    {
+        className = objectClass->GetName();
+        return !className.empty();
+    }
+    catch (...)
+    {
+        className = "Unknown";
+        return false;
+    }
+}
+
+static inline bool IsCharacterBattleClassName(const std::string& className)
+{
+    if (className == "CharacterBattle" || className == "ACharacterBattle")
+        return true;
+
+    return className.length() >= 5 &&
+           className[0] == 'C' &&
+           className[1] == 'h' &&
+           std::isdigit(static_cast<unsigned char>(className[2])) &&
+           std::isdigit(static_cast<unsigned char>(className[3])) &&
+           std::isdigit(static_cast<unsigned char>(className[4]));
+}
+
+static inline SDK::ACharacterBattle* ActorToCharacterBattleSafe(SDK::AActor* actor)
+{
+    if (!IsValidPointer(actor) || IsObjectDefaultSafe(actor))
+        return nullptr;
+
+    if (!IsObjectAUnsafeGuarded(actor, SDK::ACharacterBattle::StaticClass()))
+    {
+        std::string className;
+        if (!GetClassNameSafe(actor, className) || !IsCharacterBattleClassName(className))
+            return nullptr;
+    }
+
+    SDK::ACharacterBattle* character = static_cast<SDK::ACharacterBattle*>(actor);
+    if (!IsValidPointer(character) || !GetCharacterPlayerStateSafe(character))
+        return nullptr;
+
+    return character;
+}
+
+static inline std::string GetPlayerNameSafe(SDK::APlayerState* playerState)
+{
+    if (!IsValidPointer(playerState))
+        return "Unknown";
+
+    try
+    {
+        const char* namePtr = SDK_GetPlayerName(playerState);
+        if (SafeMemory::IsReadable(namePtr, 1) && namePtr[0] != '\0')
+            return namePtr;
+    }
+    catch (...)
+    {
+    }
+
+    return "Unknown";
 }
 
 /**
@@ -139,11 +582,9 @@ static inline bool IsValidPointer(T* ptr)
  */
 static inline SDK::ACharacterBattle* GetPlayerCharacterBattle(SDK::APlayerController* playerController)
 {
-    if (!IsValidPointer(playerController)) return nullptr;
-    
-    SDK::APawn* pawn = playerController->Pawn;
-    if (!IsValidPointer(pawn)) return nullptr;
-    
+    SDK::APawn* pawn = GetPawnSafe(playerController);
+    if (!pawn) return nullptr;
+
     SDK::ACharacterBattle* character = static_cast<SDK::ACharacterBattle*>(pawn);
     if (!IsValidPointer(character)) return nullptr;
     
@@ -155,11 +596,9 @@ static inline SDK::ACharacterBattle* GetPlayerCharacterBattle(SDK::APlayerContro
  */
 static inline SDK::APlayerStateBattle* GetPlayerStateBattle(SDK::APlayerController* playerController)
 {
-    if (!IsValidPointer(playerController)) return nullptr;
-    
-    SDK::APlayerState* playerState = playerController->PlayerState;
-    if (!IsValidPointer(playerState)) return nullptr;
-    
+    SDK::APlayerState* playerState = GetControllerPlayerStateSafe(playerController);
+    if (!playerState) return nullptr;
+
     SDK::APlayerStateBattle* playerStateBattle = static_cast<SDK::APlayerStateBattle*>(playerState);
     if (!IsValidPointer(playerStateBattle)) return nullptr;
     
@@ -1159,7 +1598,7 @@ bool InGameHack_DuplicateIntoImitationRandomESP(float spawnOffsetZ, float lifeTi
         }
         
         // Get possessed pawn (player character)
-        SDK::ACharacterBattle* playerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
         if (!playerCharacter)
         {
             return false;
@@ -1181,7 +1620,7 @@ bool InGameHack_DuplicateIntoImitationRandomESP(float spawnOffsetZ, float lifeTi
             }
             
             // Cast to ACharacterBattle
-            SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(targetActorPtr);
+            SDK::ACharacterBattle* targetCharacter = ActorToCharacterBattleSafe(targetActorPtr);
             if (!targetCharacter)
             {
                 continue;  // Try next duplicate
@@ -1238,7 +1677,7 @@ bool InGameHack_SetReloadAdjustRate(float rate)
         }
         
         // Access BuffParam
-        SDK::UBuffParam* buffParam = playerStateBattle->_buffParam;
+        SDK::UBuffParam* buffParam = GetBuffParamSafe(playerStateBattle);
         if (!IsValidPointer(buffParam))
         {
             return false;
@@ -1283,7 +1722,7 @@ bool InGameHack_SetReloadAdjustRate_RollSlot(float rate)
         }
         
         // Access BuffParam
-        SDK::UBuffParam* buffParam = playerStateBattle->_buffParam;
+        SDK::UBuffParam* buffParam = GetBuffParamSafe(playerStateBattle);
         if (!IsValidPointer(buffParam))
         {
             return false;
@@ -1328,7 +1767,7 @@ bool InGameHack_SetReloadAdjustRate_WearBlueFlame(float rate)
         }
         
         // Access BuffParam
-        SDK::UBuffParam* buffParam = playerStateBattle->_buffParam;
+        SDK::UBuffParam* buffParam = GetBuffParamSafe(playerStateBattle);
         if (!IsValidPointer(buffParam))
         {
             return false;
@@ -1399,7 +1838,8 @@ int InGameHack_ApplyToAllControllers(int characterId, int variationId, int uniqu
     {
         // Get world
         SDK::UWorld* world = SDK::UWorld::GetWorld();
-        if (!world || !world->PersistentLevel)
+        int32_t actorCount = 0;
+        if (!GetWorldActorsCountSafe(world, actorCount))
         {
             Logger::LogError("[ApplyToAll] Could not get world");
             return 0;
@@ -1407,7 +1847,7 @@ int InGameHack_ApplyToAllControllers(int characterId, int variationId, int uniqu
 
         // Get LOCAL player controller
         SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!basePlayerController)
+        if (!IsValidPointer(basePlayerController))
         {
             Logger::LogError("[ApplyToAll] Could not get player controller");
             return 0;
@@ -1451,45 +1891,24 @@ std::vector<std::string> InGameHack_GetAllPlayerNames()
     try
     {
         SDK::UWorld* world = SDK::UWorld::GetWorld();
-        if (!world || !world->PersistentLevel)
+        int32_t actorCount = 0;
+        if (!GetWorldActorsCountSafe(world, actorCount))
             return playerNames;
 
         // Loop over all actors to find characters with PlayerState
-        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
+        for (int i = 0; i < actorCount; i++)
         {
-            SDK::AActor* actor = world->PersistentLevel->Actors[i];
-            if (!IsValidPointer(actor) || actor->IsDefaultObject())
+            SDK::ACharacterBattle* character = ActorToCharacterBattleSafe(GetWorldActorSafe(world, i));
+            if (!character)
                 continue;
 
-            if (!actor->IsA(SDK::ACharacterBattle::StaticClass()))
+            SDK::APlayerState* playerState = GetCharacterPlayerStateSafe(character);
+            if (!playerState)
                 continue;
 
-            SDK::ACharacterBattle* character = static_cast<SDK::ACharacterBattle*>(actor);
-            if (!IsValidPointer(character) || !IsValidPointer(character->PlayerState))
-                continue;
-
-            // Get player name
-            std::string playerName = "Unknown";
-            try
-            {
-                const char* namePtr = SDK_GetPlayerName(character->PlayerState);
-                if (namePtr && namePtr[0] != '\0')
-                    playerName = namePtr;
-            }
-            catch (...)
-            {
-            }
-
-            // Get character class name
+            std::string playerName = GetPlayerNameSafe(playerState);
             std::string className = "Unknown";
-            try
-            {
-                if (character->Class)
-                    className = character->Class->GetName();
-            }
-            catch (...)
-            {
-            }
+            GetClassNameSafe(character, className);
 
             playerNames.push_back(playerName + " (" + className + ")");
         }
@@ -1636,7 +2055,7 @@ int InGameHack_CopySkillsFromNearestEnemy(bool bSetCopySkill, bool bUseOwnerChar
     {
         // Get local player controller and character
         SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!basePlayerController)
+        if (!IsValidPointer(basePlayerController))
         {
             Logger::LogError("[CopySkillsFromNearestEnemy] Could not get player controller");
             return 0;
@@ -1658,7 +2077,8 @@ int InGameHack_CopySkillsFromNearestEnemy(bool bSetCopySkill, bool bUseOwnerChar
 
         // Get world
         SDK::UWorld* world = SDK::UWorld::GetWorld();
-        if (!world || !world->PersistentLevel)
+        int32_t actorCount = 0;
+        if (!GetWorldActorsCountSafe(world, actorCount))
         {
             Logger::LogError("[CopySkillsFromNearestEnemy] Could not get world");
             return 0;
@@ -1667,21 +2087,18 @@ int InGameHack_CopySkillsFromNearestEnemy(bool bSetCopySkill, bool bUseOwnerChar
         // Find ALL enemies
         std::vector<SDK::ACharacterBattle*> enemies;
 
-        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
+        for (int i = 0; i < actorCount; i++)
         {
-            SDK::AActor* actor = world->PersistentLevel->Actors[i];
-            
-            if (!actor || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
+            SDK::ACharacterBattle* targetCharacter = ActorToCharacterBattleSafe(GetWorldActorSafe(world, i));
+            if (!targetCharacter)
                 continue;
-
-            SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(actor);
             
             // Skip if it's the local player
             if (targetCharacter == localCharacter)
                 continue;
 
             // Skip if character has no SkillManagementComponent
-            if (!targetCharacter->_skillManagementComponent)
+            if (!GetSkillManagementComponentSafe(targetCharacter))
                 continue;
 
             enemies.push_back(targetCharacter);
@@ -1698,7 +2115,7 @@ int InGameHack_CopySkillsFromNearestEnemy(bool bSetCopySkill, bool bUseOwnerChar
         SDK::ACharacterBattle* randomEnemy = enemies[randomIndex];
 
         // Final safety check
-        if (!randomEnemy || randomEnemy->IsDefaultObject() || !randomEnemy->_skillManagementComponent)
+        if (!IsValidPointer(randomEnemy) || IsObjectDefaultSafe(randomEnemy) || !GetSkillManagementComponentSafe(randomEnemy))
         {
             Logger::LogError("[CopySkillsFromNearestEnemy] Selected random enemy became invalid");
             return 0;
@@ -1736,7 +2153,7 @@ int InGameHack_CopySkillsFromCharacter(SDK::ACharacterBattle* masterCharacter, b
     try
     {
         // Validate master character early
-        if (!IsValidPointer(masterCharacter) || masterCharacter->IsDefaultObject())
+        if (!IsValidPointer(masterCharacter) || IsObjectDefaultSafe(masterCharacter))
         {
             Logger::LogError("[CopySkillsFromCharacter] Invalid master character");
             return 0;
@@ -1744,7 +2161,7 @@ int InGameHack_CopySkillsFromCharacter(SDK::ACharacterBattle* masterCharacter, b
 
         // Get local player controller and character
         SDK::APlayerController* basePlayerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!basePlayerController)
+        if (!IsValidPointer(basePlayerController))
         {
             Logger::LogError("[CopySkillsFromCharacter] Could not get player controller");
             return 0;
@@ -1772,11 +2189,7 @@ int InGameHack_CopySkillsFromCharacter(SDK::ACharacterBattle* masterCharacter, b
         }
 
         // Get the SkillManagementComponent from the LOCAL player
-        SDK::USkillManagementComponent* skillMgmt = nullptr;
-        if (IsValidPointer(localCharacter->_skillManagementComponent))
-        {
-            skillMgmt = localCharacter->_skillManagementComponent;
-        }
+        SDK::USkillManagementComponent* skillMgmt = GetSkillManagementComponentSafe(localCharacter);
         
         if (!IsValidPointer(skillMgmt))
         {
@@ -1785,14 +2198,14 @@ int InGameHack_CopySkillsFromCharacter(SDK::ACharacterBattle* masterCharacter, b
         }
 
         // Verify master character has a SkillManagementComponent before attempting to copy
-        if (!masterCharacter->_skillManagementComponent)
+        if (!GetSkillManagementComponentSafe(masterCharacter))
         {
             Logger::LogError("[CopySkillsFromCharacter] Master character has no SkillManagementComponent");
             return 0;
         }
 
         // Verify master character is still valid and not default object
-        if (masterCharacter->IsDefaultObject())
+        if (IsObjectDefaultSafe(masterCharacter))
         {
             Logger::LogError("[CopySkillsFromCharacter] Master character became invalid (default object)");
             return 0;
@@ -1806,7 +2219,7 @@ int InGameHack_CopySkillsFromCharacter(SDK::ACharacterBattle* masterCharacter, b
             Logger::LogInfo("[CopySkillsFromCharacter] Started copy mode");
 
             // Verify master character is STILL valid after starting copy mode
-            if (masterCharacter->IsDefaultObject())
+            if (IsObjectDefaultSafe(masterCharacter))
             {
                 Logger::LogError("[CopySkillsFromCharacter] Master character became invalid after starting copy mode");
                 return 0;
@@ -1863,15 +2276,8 @@ int InGameHack_ChangeMyTeam()
             return 0;
         }
 
-        // Get player state with validation
-        if (!IsValidPointer(basePlayerController->PlayerState))
-        {
-            Logger::LogError("[ChangeMyTeam] Could not get player state");
-            return 0;
-        }
-
         // Cast to HerovsPlayerState to access team functions
-        SDK::AHerovsPlayerState* playerState = static_cast<SDK::AHerovsPlayerState*>(basePlayerController->PlayerState);
+        SDK::AHerovsPlayerState* playerState = static_cast<SDK::AHerovsPlayerState*>(GetControllerPlayerStateSafe(basePlayerController));
         if (!IsValidPointer(playerState))
         {
             Logger::LogError("[ChangeMyTeam] Could not get HerovsPlayerState");
@@ -1894,7 +2300,8 @@ int InGameHack_ChangeMyTeam()
 
         // Get world to scan all characters and find available teams
         SDK::UWorld* world = SDK::UWorld::GetWorld();
-        if (!world || !world->PersistentLevel)
+        int32_t actorCount = 0;
+        if (!GetWorldActorsCountSafe(world, actorCount))
         {
             Logger::LogError("[ChangeMyTeam] Could not get world");
             return 0;
@@ -1902,15 +2309,11 @@ int InGameHack_ChangeMyTeam()
 
         // Collect all unique team IDs in the match
         std::vector<int> availableTeams;
-        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
+        for (int i = 0; i < actorCount; i++)
         {
-            SDK::AActor* actor = world->PersistentLevel->Actors[i];
-            if (!IsValidPointer(actor))
+            SDK::ACharacterBattle* character = ActorToCharacterBattleSafe(GetWorldActorSafe(world, i));
+            if (!character)
                 continue;
-            if (!actor || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
-                continue;
-
-            SDK::ACharacterBattle* character = static_cast<SDK::ACharacterBattle*>(actor);
             
             try
             {
@@ -2012,14 +2415,7 @@ int InGameHack_ChangeMyTeamTo(unsigned char targetTeamId)
             return 0;
         }
 
-        // Get player state
-        if (!IsValidPointer(localCharacter->PlayerState))
-        {
-            Logger::LogError("[ChangeMyTeamTo] Could not get player state");
-            return 0;
-        }
-
-        SDK::AHerovsPlayerState* playerState = static_cast<SDK::AHerovsPlayerState*>(localCharacter->PlayerState);
+        SDK::AHerovsPlayerState* playerState = static_cast<SDK::AHerovsPlayerState*>(GetCharacterPlayerStateSafe(localCharacter));
         if (!IsValidPointer(playerState))
         {
             Logger::LogError("[ChangeMyTeamTo] Could not get HerovsPlayerState");
@@ -2070,9 +2466,6 @@ bool InGameHack_RecoverMe()
         // Get player controller
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
         if (!IsValidPointer(playerController))
-            return false;
-
-        if (!IsValidPointer(playerController->PlayerState))
             return false;
 
         // Get player state with validation
@@ -2204,8 +2597,8 @@ bool InGameHack_RebuildMyself()
         }
 
         // Get the condition control component
-        auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
-        if (!IsValidPointer(conditionComponent))
+        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
+        if (!conditionComponent)
         {
             return false;
         }
@@ -2272,8 +2665,8 @@ bool InGameHack_CH202TransMission()
         }
 
         // Get the condition control component
-        auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
-        if (!IsValidPointer(conditionComponent))
+        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
+        if (!conditionComponent)
         {
             return false;
         }
@@ -2340,8 +2733,8 @@ bool InGameHack_Unbreakable()
         }
 
         // Get the condition control component
-        auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
-        if (!IsValidPointer(conditionComponent))
+        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
+        if (!conditionComponent)
         {
             return false;
         }
@@ -2379,7 +2772,7 @@ bool InGameHack_Unbreakable()
  */
 static inline unsigned char GetCharacterTeamId(SDK::ACharacterBattle* Character)
 {
-    if (!Character) return 255;  // Invalid
+    if (!IsValidPointer(Character)) return 255;  // Invalid
     try {
         // Use SDK function instead of offset reading
         return Character->BP_GetTeamId();
@@ -2402,12 +2795,12 @@ bool InGameHack_RecoverDyingTeam()
 
         // Get player controller
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController)
+        if (!IsValidPointer(playerController))
             return false;
 
         // Get player character and state
-        SDK::ACharacterBattle* playerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
-        if (!playerCharacter || !playerCharacter->PlayerState)
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
+        if (!playerCharacter || !GetCharacterPlayerStateSafe(playerCharacter))
             return false;
 
         // Get player's team ID
@@ -2417,25 +2810,26 @@ bool InGameHack_RecoverDyingTeam()
 
         int recoveredCount = 0;
         SDK::UWorld* world = SDK::UWorld::GetWorld();
-        if (!world || !world->PersistentLevel || world->PersistentLevel->Actors.Num() == 0)
+        int32_t actorCount = 0;
+        if (!GetWorldActorsCountSafe(world, actorCount) || actorCount == 0)
             return false;
 
         // Recover all team characters on map
-        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
+        for (int i = 0; i < actorCount; i++)
         {
             try
             {
-                SDK::AActor* actor = world->PersistentLevel->Actors[i];
+                SDK::AActor* actor = GetWorldActorSafe(world, i);
+                std::string className = "Unknown";
                 
                 // 1️⃣ Vérifie que l'acteur existe et n'est pas un default object
-                if (!actor || actor->IsDefaultObject())
+                if (!IsValidPointer(actor) || IsObjectDefaultSafe(actor))
                     continue;
 
                 // 2️⃣ Vérifie le classname (CharacterBattle ou Chxxx)
-                if (!actor->Class)
+                if (!GetClassNameSafe(actor, className))
                     continue;
 
-                std::string className = std::string(actor->Class->GetName());
                 bool isValidCharacter = (className == "CharacterBattle" || className == "ACharacterBattle");
                 
                 // Check for Chxxx pattern (Ch001-Ch999)
@@ -2453,7 +2847,7 @@ bool InGameHack_RecoverDyingTeam()
                 SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(actor);
                 
                 // 4️⃣ Récupère et vérifie le PlayerState
-                if (!targetCharacter || !targetCharacter->PlayerState)
+                if (!IsValidPointer(targetCharacter) || !GetCharacterPlayerStateSafe(targetCharacter))
                     continue;
 
                 // 5️⃣ Vérifie que le target est dans la même équipe
@@ -2505,15 +2899,15 @@ bool InGameHack_RecoverDyingSpecificTeamMember(int teamMemberIndex)
 
     // 2️⃣ Get player controller
     SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-    if (!playerController)
+    if (!IsValidPointer(playerController))
     {
         Logger::LogWarning("[RECOVER SPECIFIC] No player controller");
         return false;
     }
 
     // 3️⃣ Get player character
-    SDK::ACharacterBattle* playerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
-    if (!playerCharacter || !playerCharacter->PlayerState)
+    SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
+    if (!playerCharacter || !GetCharacterPlayerStateSafe(playerCharacter))
     {
         Logger::LogWarning("[RECOVER SPECIFIC] Player character not found");
         return false;
@@ -2521,7 +2915,7 @@ bool InGameHack_RecoverDyingSpecificTeamMember(int teamMemberIndex)
 
     // 4️⃣ Get target team member
     SDK::ACharacterBattle* targetCharacter = ImGuiMenu::g_CurrentTeamCharacters[teamMemberIndex];
-    if (!targetCharacter || targetCharacter->IsDefaultObject())
+    if (!IsValidPointer(targetCharacter) || IsObjectDefaultSafe(targetCharacter) || !GetCharacterPlayerStateSafe(targetCharacter))
     {
         Logger::LogWarning("[RECOVER SPECIFIC] Target character is invalid");
         return false;
@@ -2571,34 +2965,35 @@ bool InGameHack_RecoverDyingAllESP()
 
         // Get player controller and character
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController)
+        if (!IsValidPointer(playerController))
             return false;
 
-        SDK::ACharacterBattle* playerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
         if (!playerCharacter)
             return false;
 
         int recoveredCount = 0;
         SDK::UWorld* world = SDK::UWorld::GetWorld();
-        if (!world || !world->PersistentLevel || world->PersistentLevel->Actors.Num() == 0)
+        int32_t actorCount = 0;
+        if (!GetWorldActorsCountSafe(world, actorCount) || actorCount == 0)
             return false;
 
         // Recover ALL characters on the map
-        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
+        for (int i = 0; i < actorCount; i++)
         {
             try
             {
-                SDK::AActor* actor = world->PersistentLevel->Actors[i];
+                SDK::AActor* actor = GetWorldActorSafe(world, i);
+                std::string className = "Unknown";
                 
                 // 1️⃣ Vérifie que l'acteur existe et n'est pas un default object
-                if (!actor || actor->IsDefaultObject())
+                if (!IsValidPointer(actor) || IsObjectDefaultSafe(actor))
                     continue;
 
                 // 2️⃣ Vérifie le classname (CharacterBattle ou Chxxx)
-                if (!actor->Class)
+                if (!GetClassNameSafe(actor, className))
                     continue;
 
-                std::string className = std::string(actor->Class->GetName());
                 bool isValidCharacter = (className == "CharacterBattle" || className == "ACharacterBattle");
                 
                 // Check for Chxxx pattern (Ch001-Ch999)
@@ -2616,7 +3011,7 @@ bool InGameHack_RecoverDyingAllESP()
                 SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(actor);
                 
                 // 4️⃣ Récupère et vérifie le PlayerState
-                if (!targetCharacter || !targetCharacter->PlayerState)
+                if (!IsValidPointer(targetCharacter) || !GetCharacterPlayerStateSafe(targetCharacter))
                     continue;
 
                 // 5️⃣ Vérifie que le target est dying (using offset)
@@ -2655,7 +3050,7 @@ bool InGameHack_CompressionRegeneration()
     {
         // Get player controller
         SDK::APlayerController* baseController = SDK_GetPlayerController();
-        if (!baseController)
+        if (!IsValidPointer(baseController))
         {
             Logger::LogError("[COMBAT] Could not get PlayerController for CompressionRegeneration");
             return false;
@@ -2663,16 +3058,14 @@ bool InGameHack_CompressionRegeneration()
 
         // Cast to APlayerControllerBattle
         SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
-        if (!playerController)
+        if (!IsValidPointer(playerController))
         {
             Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle");
             return false;
         }
 
-        // Get the player's current character
-        SDK::APawn* pawn = playerController->Pawn;
-        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
-
+        // Get the player's current character with validation
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
         if (!playerCharacter)
         {
             Logger::LogError("[COMBAT] Could not get player character");
@@ -2680,7 +3073,7 @@ bool InGameHack_CompressionRegeneration()
         }
 
         // Get the condition control component
-        auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
+        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
         if (!conditionComponent)
         {
             return false;
@@ -2722,7 +3115,7 @@ bool InGameHack_CH024Transparent()
     {
         // Get player controller
         SDK::APlayerController* baseController = SDK_GetPlayerController();
-        if (!baseController)
+        if (!IsValidPointer(baseController))
         {
             Logger::LogError("[COMBAT] Could not get PlayerController for CH024Transparent");
             return false;
@@ -2730,16 +3123,14 @@ bool InGameHack_CH024Transparent()
 
         // Cast to APlayerControllerBattle
         SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
-        if (!playerController)
+        if (!IsValidPointer(playerController))
         {
             Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle");
             return false;
         }
 
-        // Get the player's current character
-        SDK::APawn* pawn = playerController->Pawn;
-        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
-
+        // Get the player's current character with validation
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
         if (!playerCharacter)
         {
             Logger::LogError("[COMBAT] Could not get player character");
@@ -2747,7 +3138,7 @@ bool InGameHack_CH024Transparent()
         }
 
         // Get the condition control component
-        auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
+        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
         if (!conditionComponent)
         {
             return false;
@@ -2789,7 +3180,7 @@ bool InGameHack_CH011AbyssDarkBody()
     {
         // Get player controller
         SDK::APlayerController* baseController = SDK_GetPlayerController();
-        if (!baseController)
+        if (!IsValidPointer(baseController))
         {
             Logger::LogError("[COMBAT] Could not get PlayerController for CH011AbyssDarkBody");
             return false;
@@ -2797,16 +3188,14 @@ bool InGameHack_CH011AbyssDarkBody()
 
         // Cast to APlayerControllerBattle
         SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
-        if (!playerController)
+        if (!IsValidPointer(playerController))
         {
             Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle");
             return false;
         }
 
-        // Get the player's current character
-        SDK::APawn* pawn = playerController->Pawn;
-        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
-
+        // Get the player's current character with validation
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
         if (!playerCharacter)
         {
             Logger::LogError("[COMBAT] Could not get player character");
@@ -2814,7 +3203,7 @@ bool InGameHack_CH011AbyssDarkBody()
         }
 
         // Get the condition control component
-        auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
+        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
         if (!conditionComponent)
         {
             return false;
@@ -2894,30 +3283,16 @@ static bool SetAbility(int abilityId, int level)
         }
 
         // Get the player's current character
-        SDK::APawn* pawn = playerController->Pawn;
-        if (!pawn || IsBadReadPtr(pawn, sizeof(void*)))
-        {
-            Logger::LogError("[COMBAT] Pawn pointer is invalid for Ability");
-            return false;
-        }
-
-        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
         if (!playerCharacter)
         {
             Logger::LogError("[COMBAT] Could not get player character for Ability");
             return false;
         }
 
-        // Validate character pointer
-        if (IsBadReadPtr(playerCharacter, sizeof(void*)))
-        {
-            Logger::LogError("[COMBAT] Character pointer is invalid for Ability");
-            return false;
-        }
-
         // Get the condition control component
-        auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
-        if (!conditionComponent || IsBadReadPtr(conditionComponent, sizeof(void*)))
+        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
+        if (!conditionComponent)
         {
             Logger::LogError("[COMBAT] Could not get or validate condition component for Ability");
             return false;
@@ -2996,30 +3371,16 @@ bool InGameHack_AbilityAttack(int level)
         }
 
         // Get the player's current character
-        SDK::APawn* pawn = playerController->Pawn;
-        if (!pawn || IsBadReadPtr(pawn, sizeof(void*)))
-        {
-            Logger::LogError("[COMBAT] Pawn pointer is invalid for AbilityAttack");
-            return false;
-        }
-
-        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
         if (!playerCharacter)
         {
             Logger::LogError("[COMBAT] Could not get player character for AbilityAttack");
             return false;
         }
 
-        // Validate character pointer
-        if (IsBadReadPtr(playerCharacter, sizeof(void*)))
-        {
-            Logger::LogError("[COMBAT] Character pointer is invalid for AbilityAttack");
-            return false;
-        }
-
         // Get the condition control component
-        auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
-        if (!conditionComponent || IsBadReadPtr(conditionComponent, sizeof(void*)))
+        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
+        if (!conditionComponent)
         {
             Logger::LogError("[COMBAT] Could not get or validate condition component for AbilityAttack");
             return false;
@@ -3099,30 +3460,16 @@ bool InGameHack_AbilityDurable(int level)
         }
 
         // Get the player's current character
-        SDK::APawn* pawn = playerController->Pawn;
-        if (!pawn || IsBadReadPtr(pawn, sizeof(void*)))
-        {
-            Logger::LogError("[COMBAT] Pawn pointer is invalid for AbilityDurable");
-            return false;
-        }
-
-        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
         if (!playerCharacter)
         {
             Logger::LogError("[COMBAT] Could not get player character for AbilityDurable");
             return false;
         }
 
-        // Validate character pointer
-        if (IsBadReadPtr(playerCharacter, sizeof(void*)))
-        {
-            Logger::LogError("[COMBAT] Character pointer is invalid for AbilityDurable");
-            return false;
-        }
-
         // Get the condition control component
-        auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
-        if (!conditionComponent || IsBadReadPtr(conditionComponent, sizeof(void*)))
+        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
+        if (!conditionComponent)
         {
             Logger::LogError("[COMBAT] Could not get or validate condition component for AbilityDurable");
             return false;
@@ -3202,30 +3549,16 @@ bool InGameHack_AbilityMovespeed(int level)
         }
 
         // Get the player's current character
-        SDK::APawn* pawn = playerController->Pawn;
-        if (!pawn || IsBadReadPtr(pawn, sizeof(void*)))
-        {
-            Logger::LogError("[COMBAT] Pawn pointer is invalid for AbilityMovespeed");
-            return false;
-        }
-
-        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
         if (!playerCharacter)
         {
             Logger::LogError("[COMBAT] Could not get player character for AbilityMovespeed");
             return false;
         }
 
-        // Validate character pointer
-        if (IsBadReadPtr(playerCharacter, sizeof(void*)))
-        {
-            Logger::LogError("[COMBAT] Character pointer is invalid for AbilityMovespeed");
-            return false;
-        }
-
         // Get the condition control component
-        auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
-        if (!conditionComponent || IsBadReadPtr(conditionComponent, sizeof(void*)))
+        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
+        if (!conditionComponent)
         {
             Logger::LogError("[COMBAT] Could not get or validate condition component for AbilityMovespeed");
             return false;
@@ -3305,30 +3638,16 @@ bool InGameHack_AbilityHeal(int level)
         }
 
         // Get the player's current character
-        SDK::APawn* pawn = playerController->Pawn;
-        if (!pawn || IsBadReadPtr(pawn, sizeof(void*)))
-        {
-            Logger::LogError("[COMBAT] Pawn pointer is invalid for AbilityHeal");
-            return false;
-        }
-
-        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
         if (!playerCharacter)
         {
             Logger::LogError("[COMBAT] Could not get player character for AbilityHeal");
             return false;
         }
 
-        // Validate character pointer
-        if (IsBadReadPtr(playerCharacter, sizeof(void*)))
-        {
-            Logger::LogError("[COMBAT] Character pointer is invalid for AbilityHeal");
-            return false;
-        }
-
         // Get the condition control component
-        auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
-        if (!conditionComponent || IsBadReadPtr(conditionComponent, sizeof(void*)))
+        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
+        if (!conditionComponent)
         {
             Logger::LogError("[COMBAT] Could not get or validate condition component for AbilityHeal");
             return false;
@@ -3408,30 +3727,16 @@ bool InGameHack_AbilityTechnique(int level)
         }
 
         // Get the player's current character
-        SDK::APawn* pawn = playerController->Pawn;
-        if (!pawn || IsBadReadPtr(pawn, sizeof(void*)))
-        {
-            Logger::LogError("[COMBAT] Pawn pointer is invalid for AbilityTechnique");
-            return false;
-        }
-
-        SDK::ACharacterBattle* playerCharacter = static_cast<SDK::ACharacterBattle*>(pawn);
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
         if (!playerCharacter)
         {
             Logger::LogError("[COMBAT] Could not get player character for AbilityTechnique");
             return false;
         }
 
-        // Validate character pointer
-        if (IsBadReadPtr(playerCharacter, sizeof(void*)))
-        {
-            Logger::LogError("[COMBAT] Character pointer is invalid for AbilityTechnique");
-            return false;
-        }
-
         // Get the condition control component
-        auto* conditionComponent = playerCharacter->BP_GetConditionControlComponent();
-        if (!conditionComponent || IsBadReadPtr(conditionComponent, sizeof(void*)))
+        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
+        if (!conditionComponent)
         {
             Logger::LogError("[COMBAT] Could not get or validate condition component for AbilityTechnique");
             return false;
@@ -3485,45 +3790,13 @@ std::vector<SDK::ACharacterBattle*> InGameHack_GetAllCharacterBattles()
     {
         // Try world iteration first
         SDK::UWorld* world = SDK::UWorld::GetWorld();
-        if (world && world->PersistentLevel && world->PersistentLevel->Actors.Num() > 0)
+        int32_t actorCount = 0;
+        if (GetWorldActorsCountSafe(world, actorCount))
         {
-            
-            for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
+            for (int i = 0; i < actorCount; i++)
             {
-                SDK::AActor* actor = world->PersistentLevel->Actors[i];
-                if (!actor)
-                    continue;
-                
-                std::string className = "Unknown";
-                try
-                {
-                    if (actor->Class)
-                    {
-                        className = actor->Class->GetName();
-                    }
-                }
-                catch (...)
-                {
-                    continue;
-                }
-                
-                // Check if this is ACharacterBattle or ChXXX pattern
-                bool isCharacterBattle = (className == "CharacterBattle" || className == "ACharacterBattle");
-                
-                // Check for Ch001-Ch999 pattern (any Chxxx)
-                bool isChxxx = false;
-                if (className.length() >= 5 && className[0] == 'C' && className[1] == 'h' &&
-                    std::isdigit(className[2]) && std::isdigit(className[3]) && std::isdigit(className[4]))
-                {
-                    isChxxx = true;
-                }
-                
-                if (!isCharacterBattle && !isChxxx)
-                    continue;
-                
-                // Cast to ACharacterBattle and check PlayerState
-                SDK::ACharacterBattle* character = static_cast<SDK::ACharacterBattle*>(actor);
-                if (!character || !character->PlayerState)
+                SDK::ACharacterBattle* character = ActorToCharacterBattleSafe(GetWorldActorSafe(world, i));
+                if (!character)
                     continue;
                 
                 // Add if not already in set
@@ -3546,8 +3819,8 @@ std::vector<SDK::ACharacterBattle*> InGameHack_GetAllCharacterBattles()
                 continue;
             }
             
-            SDK::ACharacterBattle* targetCharacter = static_cast<SDK::ACharacterBattle*>(targetActorPtr);
-            if (!targetCharacter || !targetCharacter->PlayerState)
+            SDK::ACharacterBattle* targetCharacter = ActorToCharacterBattleSafe(targetActorPtr);
+            if (!targetCharacter)
             {
                 continue;
             }
@@ -3582,7 +3855,7 @@ std::vector<std::string> InGameHack_GetCharacterNames()
         for (size_t idx = 0; idx < characters.size(); idx++)
         {
             auto* character = characters[idx];
-            if (!character)
+            if (!IsValidPointer(character))
             {
                 names.push_back("Unknown");
                 continue;
@@ -3590,40 +3863,10 @@ std::vector<std::string> InGameHack_GetCharacterNames()
             
             // Get character class name (ChXXX pattern)
             std::string charClassName = "Unknown";
-            try
-            {
-                if (character->Class)
-                {
-                    charClassName = character->Class->GetName();
-                }
-            }
-            catch (...)
-            {
-            }
+            GetClassNameSafe(character, charClassName);
             
             // Get player name from PlayerState
-            std::string playerName = "Unknown";
-            if (character->PlayerState)
-            {
-                try
-                {
-                    // Use SDK_GetPlayerName like in Basic.cpp
-                    const char* namePtr = SDK_GetPlayerName(character->PlayerState);
-                    if (namePtr && namePtr[0] != '\0')
-                    {
-                        playerName = namePtr;
-                    }
-                }
-                catch (const std::exception& e)
-                {
-                }
-                catch (...)
-                {
-                }
-            }
-            else
-            {
-            }
+            std::string playerName = GetPlayerNameSafe(GetCharacterPlayerStateSafe(character));
             
             // Format: "PlayerName (ChXXX)"
             std::string displayName = playerName + " (" + charClassName + ")";
@@ -3649,11 +3892,11 @@ std::vector<SDK::ACharacterBattle*> InGameHack_GetTeamCharacterBattles()
             return teamCharacters;
 
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController)
+        if (!IsValidPointer(playerController))
             return teamCharacters;
 
-        SDK::ACharacterBattle* playerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
-        if (!playerCharacter || !playerCharacter->PlayerState)
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
+        if (!playerCharacter || !GetCharacterPlayerStateSafe(playerCharacter))
             return teamCharacters;
 
         unsigned char playerTeamId = GetCharacterTeamId(playerCharacter);
@@ -3663,10 +3906,10 @@ std::vector<SDK::ACharacterBattle*> InGameHack_GetTeamCharacterBattles()
         auto characters = InGameHack_GetAllCharacterBattles();
         for (auto* character : characters)
         {
-            if (!character || character == playerCharacter || character->IsDefaultObject())
+            if (!IsValidPointer(character) || character == playerCharacter || IsObjectDefaultSafe(character))
                 continue;
 
-            if (!character->PlayerState || !character->Class)
+            if (!GetCharacterPlayerStateSafe(character))
                 continue;
 
             unsigned char targetTeamId = GetCharacterTeamId(character);
@@ -3692,29 +3935,16 @@ std::vector<std::string> InGameHack_GetTeamCharacterNames()
         auto teamCharacters = InGameHack_GetTeamCharacterBattles();
         for (auto* character : teamCharacters)
         {
-            if (!character)
+            if (!IsValidPointer(character))
             {
                 names.push_back("Unknown");
                 continue;
             }
 
-            std::string playerName = "Unknown";
-            if (character->PlayerState)
-            {
-                const char* namePtr = SDK_GetPlayerName(character->PlayerState);
-                if (namePtr && namePtr[0] != '\0')
-                    playerName = namePtr;
-            }
+            std::string playerName = GetPlayerNameSafe(GetCharacterPlayerStateSafe(character));
 
             std::string className = "Unknown";
-            if (character->Class)
-            {
-                try
-                {
-                    className = character->Class->GetName();
-                }
-                catch (...) {}
-            }
+            GetClassNameSafe(character, className);
 
             names.push_back(playerName + " (" + className + ")");
         }
@@ -3733,15 +3963,15 @@ bool InGameHack_RecoverDyingTeamMember(SDK::ACharacterBattle* target)
         if (!IsValidBattleMode())
             return false;
 
-        if (!target || target->IsDefaultObject() || !target->PlayerState)
+        if (!IsValidPointer(target) || IsObjectDefaultSafe(target) || !GetCharacterPlayerStateSafe(target))
             return false;
 
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController)
+        if (!IsValidPointer(playerController))
             return false;
 
-        SDK::ACharacterBattle* playerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
-        if (!playerCharacter || !playerCharacter->PlayerState)
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
+        if (!playerCharacter || !GetCharacterPlayerStateSafe(playerCharacter))
             return false;
 
         unsigned char playerTeamId = GetCharacterTeamId(playerCharacter);
@@ -3784,7 +4014,8 @@ void InGameHack_LogAllDamageAttenuationCurves()
         logFile << "Timestamp: " << std::time(nullptr) << "\n";
         logFile << "================================================\n\n";
         
-        if (!SDK::UObject::GObjects)
+        SDK::TUObjectArray* gObjects = SDK::UObject::GObjects.GetTypedPtr();
+        if (!SafeMemory::IsReadable(gObjects, sizeof(SDK::TUObjectArray)))
         {
             Logger::LogWarning("[CURVE] GObjects is null, cannot scan");
             logFile << "ERROR: GObjects is null, cannot scan\n";
@@ -3794,43 +4025,77 @@ void InGameHack_LogAllDamageAttenuationCurves()
 
         int32_t foundCount = 0;
         int32_t totalKeys = 0;
+        int32_t objectCount = 0;
+        if (!TryGetObjectArrayCountSafe(gObjects, objectCount))
+        {
+            Logger::LogWarning("[CURVE] GObjects count is unreadable, cannot scan");
+            logFile << "ERROR: GObjects count is unreadable, cannot scan\n";
+            logFile.close();
+            return;
+        }
+
+        if (objectCount <= 0 || objectCount > 2000000)
+        {
+            Logger::LogWarning("[CURVE] GObjects count is invalid: " + std::to_string(objectCount));
+            logFile << "ERROR: GObjects count is invalid: " << objectCount << "\n";
+            logFile.close();
+            return;
+        }
 
         // Scan all objects for UANS_Attack instances
-        for (int32_t i = 0; i < SDK::UObject::GObjects->Num(); ++i)
+        for (int32_t i = 0; i < objectCount; ++i)
         {
-            auto* obj = SDK::UObject::GObjects->GetByIndex(i);
-            if (!obj)
+            SDK::UObject* obj = GetObjectByIndexSafe(gObjects, i);
+
+            if (!IsValidPointer(obj))
                 continue;
 
             // Check class name to filter UANS_Attack objects
-            std::string className = std::string(obj->Class->GetName());
+            std::string className = "Unknown";
+            if (!GetClassNameSafe(obj, className))
+                continue;
             if (className != "ANS_Attack")
                 continue;
 
             // Cast to UANS_Attack
             auto* ansAttack = static_cast<SDK::UANS_Attack*>(obj);
-            if (!ansAttack || !ansAttack->_damageAttenuation)
+            if (!IsValidPointer(ansAttack))
+                continue;
+
+            SDK::UCurveFloat* damageAttenuation = nullptr;
+            if (!SafeReadMember(&ansAttack->_damageAttenuation, damageAttenuation) ||
+                !IsValidPointer(damageAttenuation))
                 continue;
 
             foundCount++;
 
             // Get object name
-            std::string objName = ansAttack->GetName();
+            std::string objName = "Unknown";
+            try
+            {
+                objName = ansAttack->GetName();
+            }
+            catch (...)
+            {
+                continue;
+            }
             
             // Log the curve pointer and class
             std::string logMsg = "[CURVE] #" + std::to_string(foundCount) + " - Name: " + objName +
-                          " | Curve Ptr: 0x" + std::to_string((uint64_t)ansAttack->_damageAttenuation);
+                          " | Curve Ptr: 0x" + std::to_string((uint64_t)damageAttenuation);
             Logger::LogInfo(logMsg);
             logFile << logMsg << "\n";
 
             // Log curve details
-            if (ansAttack->_damageAttenuation)
+            if (damageAttenuation)
             {
-                SDK::FRichCurve* curvePtr = &(ansAttack->_damageAttenuation->FloatCurve);
-                if (!curvePtr)
+                SDK::FRichCurve* curvePtr = &(damageAttenuation->FloatCurve);
+                if (!SafeMemory::IsReadable(curvePtr, sizeof(SDK::FRichCurve)))
                     continue;
 
-                int32_t numKeys = curvePtr->Keys.Num();
+                int32_t numKeys = 0;
+                if (!SafeArrayCount(curvePtr->Keys, numKeys, 4096))
+                    continue;
                 
                 std::string keysMsg = "[CURVE]   -> Keys: " + std::to_string(numKeys);
                 Logger::LogInfo(keysMsg);
@@ -3842,7 +4107,9 @@ void InGameHack_LogAllDamageAttenuationCurves()
                 {
                     for (int32_t keyIdx = 0; keyIdx < numKeys; ++keyIdx)
                     {
-                        SDK::FRichCurveKey& key = curvePtr->Keys[keyIdx];
+                        SDK::FRichCurveKey key{};
+                        if (!SafeArrayGet(curvePtr->Keys, keyIdx, key, 4096))
+                            continue;
                         
                         std::string keyMsg = "[CURVE]      Key[" + std::to_string(keyIdx) + "]: Time=" + 
                                       std::to_string(key.Time) + ", Value=" + std::to_string(key.value);
@@ -3880,12 +4147,12 @@ bool InGameHack_SetCharacterDying(SDK::ACharacterBattle* character)
 {
     try
     {
-        if (!character || !character->PlayerState)
+        if (!IsValidPointer(character) || !GetCharacterPlayerStateSafe(character))
         {
             return false;
         }
         
-        SDK::APlayerStateBattle* victimState = static_cast<SDK::APlayerStateBattle*>(character->PlayerState);
+        SDK::APlayerStateBattle* victimState = static_cast<SDK::APlayerStateBattle*>(GetCharacterPlayerStateSafe(character));
         if (!victimState)
         {
             return false;
@@ -3893,21 +4160,20 @@ bool InGameHack_SetCharacterDying(SDK::ACharacterBattle* character)
         
         // Get player character as aggriever
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController || !playerController->Pawn)
+        if (!IsValidPointer(playerController))
         {
             return false;
         }
         
-        SDK::ACharacterBattle* playerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
+        if (!playerCharacter)
+        {
+            return false;
+        }
         
         // Get game state
         SDK::UWorld* world = SDK::UWorld::GetWorld();
-        if (!world || !world->GameState)
-        {
-            return false;
-        }
-        
-        SDK::AGameStateBattle* gameState = (SDK::AGameStateBattle*)(world->GameState);
+        SDK::AGameStateBattle* gameState = static_cast<SDK::AGameStateBattle*>(GetGameStateSafe(world));
         if (!gameState)
         {
             return false;
@@ -3932,12 +4198,12 @@ bool InGameHack_KillCharacter(SDK::ACharacterBattle* victim, SDK::ACharacterBatt
 {
     try
     {
-        if (!victim || !victim->PlayerState)
+        if (!IsValidPointer(victim) || !GetCharacterPlayerStateSafe(victim))
         {
             return false;
         }
         
-        SDK::APlayerStateBattle* victimState = static_cast<SDK::APlayerStateBattle*>(victim->PlayerState);
+        SDK::APlayerStateBattle* victimState = static_cast<SDK::APlayerStateBattle*>(GetCharacterPlayerStateSafe(victim));
         if (!victimState)
         {
             return false;
@@ -3945,24 +4211,23 @@ bool InGameHack_KillCharacter(SDK::ACharacterBattle* victim, SDK::ACharacterBatt
         
         // If killer not specified, use player character
         SDK::ACharacterBattle* killerCharacter = killer;
-        if (!killerCharacter)
+        if (!IsValidPointer(killerCharacter))
         {
             SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-            if (!playerController || !playerController->Pawn)
+            if (!IsValidPointer(playerController))
             {
                 return false;
             }
-            killerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
+            killerCharacter = GetPlayerCharacterBattle(playerController);
         }
-        
-        // Get game state
-        SDK::UWorld* world = SDK::UWorld::GetWorld();
-        if (!world || !world->GameState)
+        if (!IsValidPointer(killerCharacter))
         {
             return false;
         }
         
-        SDK::AGameStateBattle* gameState = (SDK::AGameStateBattle*)(world->GameState);
+        // Get game state
+        SDK::UWorld* world = SDK::UWorld::GetWorld();
+        SDK::AGameStateBattle* gameState = static_cast<SDK::AGameStateBattle*>(GetGameStateSafe(world));
         if (!gameState)
         {
             return false;
@@ -4016,20 +4281,28 @@ bool InGameHack_SetInitTransMissionLevel(int levelIndex, int32_t newValue)
         }
 
         SDK::UCh202Params* ch202Params = SDK::UCh202Params::GetDefaultObj();
-        if (!ch202Params)
+        if (!IsValidPointer(ch202Params))
         {
             Logger::LogError("[CH202] Could not get UCh202Params default object");
             return false;
         }
 
-        int arraySize = ch202Params->unique3_initLevel.Num();
-        if (levelIndex >= arraySize)
+        int32_t arraySize = 0;
+        if (!SafeArrayCount(ch202Params->unique3_initLevel, arraySize, 64) ||
+            levelIndex >= arraySize)
         {
             Logger::LogError("[CH202] Init trans mission index out of range: " + std::to_string(levelIndex) + ", size=" + std::to_string(arraySize));
             return false;
         }
 
-        ch202Params->unique3_initLevel[levelIndex] = newValue;
+        UC::int32 safeNewValue = static_cast<UC::int32>(newValue);
+        auto* levelData = const_cast<UC::int32*>(ch202Params->unique3_initLevel.GetDataPtr());
+        if (!SafeMemory::TryWrite<UC::int32>(levelData + levelIndex, safeNewValue))
+        {
+            Logger::LogError("[CH202] Failed to write unique3_initLevel at index " + std::to_string(levelIndex));
+            return false;
+        }
+
         Logger::LogInfo("[CH202] Set unique3_initLevel[" + std::to_string(levelIndex) + "] = " + std::to_string(newValue));
         return true;
     }
@@ -4169,7 +4442,7 @@ bool InGameHack_SetSkillLevel(int skillIndex, int level)
             return false;
         }
         
-        auto supplyHolderComp = playerState->_supplyHolderComponent;
+        auto supplyHolderComp = GetSupplyHolderComponentSafe(playerState);
         if (!IsValidPointer(supplyHolderComp))
         {
             return false;
@@ -4202,12 +4475,12 @@ int InGameHack_GetSkillLevel(int skillIndex)
         }
 
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController)
+        if (!IsValidPointer(playerController))
         {
             return -1;
         }
 
-        SDK::ACharacterBattle* playerChar = (SDK::ACharacterBattle*)playerController->Pawn;
+        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
         if (!playerChar)
         {
             return -1;
@@ -4227,23 +4500,23 @@ bool InGameHack_StopUsingSupply()
     try
     {
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController)
+        if (!IsValidPointer(playerController))
         {
         
             return false;
         }
         
-        SDK::ACharacterBattle* playerChar = (SDK::ACharacterBattle*)playerController->Pawn;
-        if (!playerChar || !playerChar->PlayerState)
+        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
+        if (!playerChar)
         {
         
             return false;
         }
         
-        SDK::APlayerStateBattle* playerState = (SDK::APlayerStateBattle*)playerChar->PlayerState;
-        auto supplyHolderComp = playerState->_supplyHolderComponent;
+        SDK::APlayerStateBattle* playerState = static_cast<SDK::APlayerStateBattle*>(GetCharacterPlayerStateSafe(playerChar));
+        auto supplyHolderComp = GetSupplyHolderComponentSafe(playerState);
         
-        if (!supplyHolderComp)
+        if (!IsValidPointer(supplyHolderComp))
         {
         
             return false;
@@ -4279,54 +4552,60 @@ bool InGameHack_UpgradeSupply(int supplyIndex, int level)
 
         // Get player controller
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController)
+        if (!IsValidPointer(playerController))
         {
             return false;
         }
 
         // Get character
-        SDK::ACharacterBattle* playerChar = (SDK::ACharacterBattle*)playerController->Pawn;
-        if (!playerChar || !playerChar->PlayerState)
+        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
+        if (!playerChar)
         {
             return false;
         }
 
         // Get player state
-        SDK::APlayerStateBattle* playerState = (SDK::APlayerStateBattle*)playerChar->PlayerState;
+        SDK::APlayerStateBattle* playerState = static_cast<SDK::APlayerStateBattle*>(GetCharacterPlayerStateSafe(playerChar));
         if (!playerState)
         {
             return false;
         }
 
         // Get supply holder component
-        auto supplyHolderComp = playerState->_supplyHolderComponent;
-        if (!supplyHolderComp)
+        auto supplyHolderComp = GetSupplyHolderComponentSafe(playerState);
+        if (!IsValidPointer(supplyHolderComp))
         {
             return false;
         }
 
         // Get supply holder from inventory
-        if (supplyIndex < 0 || supplyIndex >= supplyHolderComp->_inventory.Num())
+        int32_t inventoryCount = 0;
+        if (!SafeArrayCount(supplyHolderComp->_inventory, inventoryCount, 64) ||
+            supplyIndex < 0 || supplyIndex >= inventoryCount)
         {
             return false;
         }
 
-        auto supplyHolder = supplyHolderComp->_inventory[supplyIndex];
-        if (!supplyHolder || supplyHolder->_supplies.Num() == 0)
+        SDK::USupplyHolder* supplyHolder = nullptr;
+        if (!SafeArrayGet(supplyHolderComp->_inventory, supplyIndex, supplyHolder, 64) ||
+            !IsValidPointer(supplyHolder))
         {
             return false;
         }
 
         // Get first supply
-        auto supply = supplyHolder->_supplies[0];
-        if (!supply)
+        int32_t suppliesCount = 0;
+        SDK::USupply* supply = nullptr;
+        if (!SafeArrayCount(supplyHolder->_supplies, suppliesCount, 64) || suppliesCount <= 0 ||
+            !SafeArrayGet(supplyHolder->_supplies, 0, supply, 64) ||
+            !IsValidPointer(supply))
         {
             return false;
         }
 
         // Get world
         SDK::UWorld* world = SDK::UWorld::GetWorld();
-        if (!world)
+        if (!IsValidPointer(world))
         {
             return false;
         }
@@ -4381,27 +4660,31 @@ bool InGameHack_ApplyTeamBuffs(float attackAdjust, float durableAdjust, float sp
     {
         // Get player controller
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController)
+        if (!IsValidPointer(playerController))
         {
             return false;
         }
 
         // Get character
-        SDK::ACharacterBattle* playerChar = (SDK::ACharacterBattle*)playerController->Pawn;
-        if (!playerChar || !playerChar->PlayerState)
+        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
+        if (!playerChar)
         {
             return false;
         }
 
         // Get player state
-        SDK::APlayerStateBattle* playerState = (SDK::APlayerStateBattle*)playerChar->PlayerState;
-        if (!playerState || !playerState->_buffParam)
+        SDK::APlayerStateBattle* playerState = static_cast<SDK::APlayerStateBattle*>(GetCharacterPlayerStateSafe(playerChar));
+        if (!playerState)
         {
             return false;
         }
 
         // Apply buffs directly using UBuffParam setters
-        auto buffParam = playerState->_buffParam;
+        auto buffParam = GetBuffParamSafe(playerState);
+        if (!IsValidPointer(buffParam))
+        {
+            return false;
+        }
 
         // Set attack adjust rate
         buffParam->BP_SetAttackAdjustRate(attackAdjust);
@@ -4419,8 +4702,9 @@ bool InGameHack_ApplyTeamBuffs(float attackAdjust, float durableAdjust, float sp
         buffParam->BP_SetReloadAdjustRate(reloadAdjust);
 
         // Send request to buff control component to notify server
-        auto buffComponent = playerChar->_buffControlComponent;
-        if (buffComponent)
+        SDK::UCharacterBuffControlCompnent* buffComponent = nullptr;
+        SafeReadMember(&playerChar->_buffControlComponent, buffComponent);
+        if (IsValidPointer(buffComponent))
         {
             buffComponent->RequestApplyTeamBuffs_ToServer();
         }
@@ -4462,21 +4746,18 @@ std::vector<unsigned char> InGameHack_GetAllTeamIds()
     {
         // Get world
         SDK::UWorld* world = SDK::UWorld::GetWorld();
-        if (!world || !world->PersistentLevel)
+        int32_t actorCount = 0;
+        if (!GetWorldActorsCountSafe(world, actorCount))
         {
             return teamIds;  // Empty
         }
 
         // Iterate through all actors
-        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
+        for (int i = 0; i < actorCount; i++)
         {
-            SDK::AActor* actor = world->PersistentLevel->Actors[i];
-            
-            // Check if actor is a character
-            if (!actor || actor->IsDefaultObject() || !actor->IsA(SDK::ACharacterBattle::StaticClass()))
+            SDK::ACharacterBattle* character = ActorToCharacterBattleSafe(GetWorldActorSafe(world, i));
+            if (!character)
                 continue;
-
-            SDK::ACharacterBattle* character = static_cast<SDK::ACharacterBattle*>(actor);
             
             // Get team ID
             try
@@ -4533,10 +4814,10 @@ std::vector<SDK::ACharacterBattle*> InGameHack_GetTeamCharactersByTeamId(unsigne
         auto allCharacters = InGameHack_GetAllCharacterBattles();
         for (auto* character : allCharacters)
         {
-            if (!character || character->IsDefaultObject())
+            if (!IsValidPointer(character) || IsObjectDefaultSafe(character))
                 continue;
 
-            if (!character->PlayerState)
+            if (!GetCharacterPlayerStateSafe(character))
                 continue;
 
             unsigned char characterTeamId = GetCharacterTeamId(character);
@@ -4567,19 +4848,13 @@ std::vector<std::string> InGameHack_GetTeamNamesByTeamId(unsigned char teamId)
         auto teamCharacters = InGameHack_GetTeamCharactersByTeamId(teamId);
         for (auto* character : teamCharacters)
         {
-            if (!character)
+            if (!IsValidPointer(character))
             {
                 names.push_back("Unknown");
                 continue;
             }
 
-            std::string playerName = "Unknown";
-            if (character->PlayerState)
-            {
-                const char* namePtr = SDK_GetPlayerName(character->PlayerState);
-                if (namePtr && namePtr[0] != '\0')
-                    playerName = namePtr;
-            }
+            std::string playerName = GetPlayerNameSafe(GetCharacterPlayerStateSafe(character));
 
             names.push_back(playerName);
         }
@@ -4601,10 +4876,10 @@ int InGameHack_GetMyTeamId()
     try
     {
         SDK::APlayerController* basePC = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!basePC || !basePC->PlayerState)
+        if (!IsValidPointer(basePC))
             return -1;
 
-        SDK::AHerovsPlayerState* myPlayerState = static_cast<SDK::AHerovsPlayerState*>(basePC->PlayerState);
+        SDK::AHerovsPlayerState* myPlayerState = static_cast<SDK::AHerovsPlayerState*>(GetControllerPlayerStateSafe(basePC));
         if (!myPlayerState)
             return -1;
 
@@ -4721,25 +4996,26 @@ bool InGameHack_RedirectBulletsToNearestEnemy(bool bIncludeAlpha, bool bIncludeB
 
         // Get world
         SDK::UWorld* world = SDK::UWorld::GetWorld();
-        if (!world || !world->PersistentLevel)
+        int32_t actorCount = 0;
+        if (!GetWorldActorsCountSafe(world, actorCount))
             return false;
 
         // Get player controller
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController)
+        if (!IsValidPointer(playerController))
             return false;
 
         // Get player character
-        SDK::ACharacterBattle* playerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
         if (!playerCharacter)
             return false;
 
-        // Get nearest forward target (closest enemy in front)
-        SDK::AActor* nearestEnemyPtr = SDK_GetForwardESPTarget();
+        // Get target strictly from the BulletTP FOV circle.
+        SDK::AActor* nearestEnemyPtr = SDK_GetBulletTPFOVTarget();
         if (!nearestEnemyPtr)
             return false;
 
-        SDK::ACharacterBattle* nearestEnemy = static_cast<SDK::ACharacterBattle*>(nearestEnemyPtr);
+        SDK::ACharacterBattle* nearestEnemy = ActorToCharacterBattleSafe(nearestEnemyPtr);
         if (!nearestEnemy)
             return false;
 
@@ -4751,16 +5027,16 @@ bool InGameHack_RedirectBulletsToNearestEnemy(bool bIncludeAlpha, bool bIncludeB
         int bulletsFiltered = 0;
 
         // Iterate through all actors to find and redirect bullets
-        for (int i = 0; i < world->PersistentLevel->Actors.Num(); i++)
+        for (int i = 0; i < actorCount; i++)
         {
-            SDK::AActor* actor = world->PersistentLevel->Actors[i];
+            SDK::AActor* actor = GetWorldActorSafe(world, i);
             
             // Check if actor is a bullet
-            if (!actor || actor->IsDefaultObject() || !actor->IsA(SDK::ABullet::StaticClass()))
+            if (!IsValidPointer(actor) || IsObjectDefaultSafe(actor) || !IsObjectAUnsafeGuarded(actor, SDK::ABullet::StaticClass()))
                 continue;
 
             SDK::ABullet* bullet = static_cast<SDK::ABullet*>(actor);
-            if (!bullet)
+            if (!IsValidPointer(bullet))
                 continue;
 
             totalBulletsFound++;
@@ -4771,23 +5047,8 @@ bool InGameHack_RedirectBulletsToNearestEnemy(bool bIncludeAlpha, bool bIncludeB
 
             // Get bullet class name
             std::string bulletClassName = "";
-            try
-            {
-                if (bullet->Class)
-                {
-                    bulletClassName = bullet->Class->GetName();
-                    if (bulletClassName.empty())
-                        continue;
-                }
-                else
-                {
-                    continue;
-                }
-            }
-            catch (...)
-            {
-                continue;  // Skip if we can't get class name
-            }
+            if (!GetClassNameSafe(bullet, bulletClassName))
+                continue;
 
             // CRITICAL: Skip melee attacks to prevent crash
             if (IsBulletMeleeAttack(bulletClassName))
@@ -4826,26 +5087,19 @@ bool InGameHack_RedirectBulletsToNearestEnemy(bool bIncludeAlpha, bool bIncludeB
         }
 
         // Log results for debugging
-        if (totalBulletsFound > 0 || redirectedCount > 0)
+        if constexpr (RUNTIME_FILE_DEBUG_LOGGING)
         {
-            // Write debug log to C:\temp\bullet_redirect_debug.log
-            try
+            if (totalBulletsFound > 0 || redirectedCount > 0)
             {
-                std::ofstream logFile("C:\\temp\\bullet_redirect_debug.log", std::ios::app);
-                if (logFile.is_open())
-                {
-                    logFile << "[BulletRedirect] Total Bullets: " << totalBulletsFound 
-                           << " | Filtered: " << bulletsFiltered 
-                           << " | Redirected: " << redirectedCount 
-                           << " | Filters(A:" << bIncludeAlpha 
-                           << " B:" << bIncludeBeta 
-                           << " G:" << bIncludeGamma 
-                           << " S:" << bIncludeSpecial << ")\n";
-                    logFile.close();
-                }
-            }
-            catch (...)
-            {
+                std::stringstream log;
+                log << "[BulletRedirect] Total Bullets: " << totalBulletsFound
+                    << " | Filtered: " << bulletsFiltered
+                    << " | Redirected: " << redirectedCount
+                    << " | Filters(A:" << bIncludeAlpha
+                    << " B:" << bIncludeBeta
+                    << " G:" << bIncludeGamma
+                    << " S:" << bIncludeSpecial << ")\n";
+                WriteRuntimeDebugLog("C:\\temp\\bullet_redirect_debug.log", log.str());
             }
         }
 
@@ -4853,17 +5107,10 @@ bool InGameHack_RedirectBulletsToNearestEnemy(bool bIncludeAlpha, bool bIncludeB
     }
     catch (const std::exception& e)
     {
-        try
+        if constexpr (RUNTIME_FILE_DEBUG_LOGGING)
         {
-            std::ofstream logFile("C:\\temp\\bullet_redirect_debug.log", std::ios::app);
-            if (logFile.is_open())
-            {
-                logFile << "[BulletRedirect] Exception: " << e.what() << "\n";
-                logFile.close();
-            }
-        }
-        catch (...)
-        {
+            WriteRuntimeDebugLog("C:\\temp\\bullet_redirect_debug.log",
+                std::string("[BulletRedirect] Exception: ") + e.what() + "\n");
         }
         return false;
     }
@@ -4881,6 +5128,11 @@ bool InGameHack_RedirectBulletsToNearestEnemy(bool bIncludeAlpha, bool bIncludeB
 bool InGameHack_LaunchCh101RollSlotSkill()
 {
     std::stringstream logBuffer;
+    auto flushRollSlotLog = [&]()
+    {
+        if constexpr (RUNTIME_FILE_DEBUG_LOGGING)
+            WriteRuntimeDebugLog("C:\\temp\\rollslot_launch.log", logBuffer.str());
+    };
     
     try
     {
@@ -4893,8 +5145,7 @@ bool InGameHack_LaunchCh101RollSlotSkill()
         {
             logBuffer << "[CH101_ROLLSLOT] ERROR: Not in valid battle mode\n";
             
-            std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
-            if (logFile.is_open()) { logFile << logBuffer.str(); logFile.close(); }
+            flushRollSlotLog();
             return false;
         }
         logBuffer << "[CH101_ROLLSLOT] OK: Valid battle mode\n";
@@ -4902,35 +5153,25 @@ bool InGameHack_LaunchCh101RollSlotSkill()
         // Step 2: Get player controller
         logBuffer << "[CH101_ROLLSLOT] Step 2: Getting player controller...\n";
         SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController)
+        if (!IsValidPointer(playerController))
         {
             logBuffer << "[CH101_ROLLSLOT] ERROR: Could not get player controller\n";
             logBuffer << "[CH101_ROLLSLOT] ===== FAILED =====\n";
             
-            std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
-            if (logFile.is_open())
-            {
-                logFile << logBuffer.str();
-                logFile.close();
-            }
+            flushRollSlotLog();
             return false;
         }
         logBuffer << "[CH101_ROLLSLOT] OK: Player controller obtained\n";
 
         // Step 3: Get player character
         logBuffer << "[CH101_ROLLSLOT] Step 3: Getting player character...\n";
-        SDK::ACharacterBattle* playerCharacter = (SDK::ACharacterBattle*)(playerController->Pawn);
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
         if (!playerCharacter)
         {
             logBuffer << "[CH101_ROLLSLOT] ERROR: Could not get player character from Pawn\n";
             logBuffer << "[CH101_ROLLSLOT] ===== FAILED =====\n";
             
-            std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
-            if (logFile.is_open())
-            {
-                logFile << logBuffer.str();
-                logFile.close();
-            }
+            flushRollSlotLog();
             return false;
         }
         logBuffer << "[CH101_ROLLSLOT] OK: Player character obtained at 0x" 
@@ -4938,18 +5179,13 @@ bool InGameHack_LaunchCh101RollSlotSkill()
 
         // Step 4: Get PlayerStateBattle
         logBuffer << "[CH101_ROLLSLOT] Step 4: Getting PlayerStateBattle...\n";
-        SDK::APlayerStateBattle* playerState = playerCharacter->BP_GetPlayerStateBattle();
+        SDK::APlayerStateBattle* playerState = GetPlayerStateBattleFromCharacterSafe(playerCharacter);
         if (!playerState)
         {
             logBuffer << "[CH101_ROLLSLOT] ERROR: Could not get PlayerStateBattle\n";
             logBuffer << "[CH101_ROLLSLOT] ===== FAILED =====\n";
             
-            std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
-            if (logFile.is_open())
-            {
-                logFile << logBuffer.str();
-                logFile.close();
-            }
+            flushRollSlotLog();
             return false;
         }
         logBuffer << "[CH101_ROLLSLOT] OK: PlayerStateBattle obtained at 0x" 
@@ -4957,19 +5193,13 @@ bool InGameHack_LaunchCh101RollSlotSkill()
 
         // Step 5: Get RollSlot Control Component
         logBuffer << "[CH101_ROLLSLOT] Step 5: Getting RollSlot Control Component...\n";
-        SDK::UCharacterRollSlotUniqueSkillControlComponent* rollSlotCtrl = 
-            playerState->BP_GetCharacterRollSlotUniqueSkillControlComponent();
+        SDK::UCharacterRollSlotUniqueSkillControlComponent* rollSlotCtrl = GetRollSlotControlComponentSafe(playerState);
         if (!rollSlotCtrl)
         {
             logBuffer << "[CH101_ROLLSLOT] ERROR: Could not get RollSlot Control Component\n";
             logBuffer << "[CH101_ROLLSLOT] ===== FAILED =====\n";
             
-            std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
-            if (logFile.is_open())
-            {
-                logFile << logBuffer.str();
-                logFile.close();
-            }
+            flushRollSlotLog();
             return false;
         }
         logBuffer << "[CH101_ROLLSLOT] OK: RollSlot Control Component obtained at 0x" 
@@ -5012,8 +5242,7 @@ bool InGameHack_LaunchCh101RollSlotSkill()
         logBuffer << "[CH101_ROLLSLOT] DealDamage broadcast completed\n";
         logBuffer << "[CH101_ROLLSLOT] ===== SUCCESS =====\n";
 
-        std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
-        if (logFile.is_open()) { logFile << logBuffer.str(); logFile.close(); }
+        flushRollSlotLog();
         return true;
     }
     catch (const std::exception& e)
@@ -5021,12 +5250,7 @@ bool InGameHack_LaunchCh101RollSlotSkill()
         logBuffer << "[CH101_ROLLSLOT] ERROR: Exception caught: " << e.what() << "\n";
         logBuffer << "[CH101_ROLLSLOT] ===== FAILED =====\n";
         
-        std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
-        if (logFile.is_open())
-        {
-            logFile << logBuffer.str();
-            logFile.close();
-        }
+        flushRollSlotLog();
         return false;
     }
     catch (...)
@@ -5034,12 +5258,7 @@ bool InGameHack_LaunchCh101RollSlotSkill()
         logBuffer << "[CH101_ROLLSLOT] ERROR: Unknown exception\n";
         logBuffer << "[CH101_ROLLSLOT] ===== FAILED =====\n";
         
-        std::ofstream logFile("C:\\temp\\rollslot_launch.log", std::ios::app);
-        if (logFile.is_open())
-        {
-            logFile << logBuffer.str();
-            logFile.close();
-        }
+        flushRollSlotLog();
         return false;
     }
 }
@@ -5053,24 +5272,13 @@ bool InGameHack_LaunchCh101RollSlotSkill()
  */
 static void LogToSeasonPassRankFile(const std::string& message)
 {
-    try
+    if constexpr (!RUNTIME_FILE_DEBUG_LOGGING)
     {
-        std::ofstream logFile("C:/Temp/SeasonPassRank.log", std::ios::app);
-        if (logFile.is_open())
-        {
-            auto now = std::chrono::system_clock::now();
-            auto time = std::chrono::system_clock::to_time_t(now);
-            auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()) % 1000;
-
-            std::stringstream timestamp;
-            timestamp << std::put_time(std::localtime(&time), "%Y-%m-%d %H:%M:%S")
-                     << "." << std::setfill('0') << std::setw(3) << ms.count();
-
-            logFile << "[" << timestamp.str() << "] " << message << "\n";
-            logFile.close();
-        }
+        (void)message;
+        return;
     }
-    catch (...) { }
+
+    WriteRuntimeDebugLog("C:/Temp/SeasonPassRank.log", message + "\n");
 }
 
 /**
@@ -5128,24 +5336,13 @@ int InGameHack_GetCurrentSeasonPassRank()
  */
 static void LogToSeasonPassFile(const std::string& message)
 {
-    try
+    if constexpr (!RUNTIME_FILE_DEBUG_LOGGING)
     {
-        std::ofstream logFile("C:/Temp/SeasonPassExp.log", std::ios::app);
-        if (logFile.is_open())
-        {
-            auto now = std::chrono::system_clock::now();
-            auto time = std::chrono::system_clock::to_time_t(now);
-            auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()) % 1000;
-
-            std::stringstream timestamp;
-            timestamp << std::put_time(std::localtime(&time), "%Y-%m-%d %H:%M:%S")
-                     << "." << std::setfill('0') << std::setw(3) << ms.count();
-
-            logFile << "[" << timestamp.str() << "] " << message << "\n";
-            logFile.close();
-        }
+        (void)message;
+        return;
     }
-    catch (...) { }
+
+    WriteRuntimeDebugLog("C:/Temp/SeasonPassExp.log", message + "\n");
 }
 
 /**
@@ -5477,19 +5674,14 @@ bool InGameHack_GenerateProjectileInFront()
 {
     try
     {
-        // Open debug log file
+        // Keep debug file logging disabled in runtime builds.
         FILE* debugLog = nullptr;
-        fopen_s(&debugLog, "C:\\temp\\projectile_debug.log", "a");
-        if (debugLog)
-        {
-            fprintf(debugLog, "[%lld] === GenerateProjectile function called ===\n", (long long)time(nullptr));
-            fflush(debugLog);
-        }
+        (void)debugLog;
 
         // Get player controller
         SDK::APlayerController* playerController = SDK_GetPlayerController();
         if (debugLog) fprintf(debugLog, "[%lld] playerController = %p\n", (long long)time(nullptr), playerController);
-        if (!playerController)
+        if (!IsValidPointer(playerController))
         {
             Logger::LogError("[GenerateProjectile] No player controller found");
             if (debugLog) {
@@ -5513,7 +5705,7 @@ bool InGameHack_GenerateProjectileInFront()
         }
 
         // Get the projectile replicator component from the character
-        SDK::UProjectileReplicateBattleComponent* projectileComp = playerChar->_projectileReplicator;
+        SDK::UProjectileReplicateBattleComponent* projectileComp = GetProjectileReplicatorSafe(playerChar);
         if (debugLog) fprintf(debugLog, "[%lld] projectileComp = %p\n", (long long)time(nullptr), projectileComp);
         
         if (!IsValidPointer(projectileComp))
@@ -5583,23 +5775,11 @@ bool InGameHack_GenerateProjectileInFront()
     catch (const std::exception& e)
     {
         Logger::LogError("[GenerateProjectile] Exception: " + std::string(e.what()));
-        FILE* debugLog = nullptr;
-        fopen_s(&debugLog, "C:\\temp\\projectile_debug.log", "a");
-        if (debugLog) {
-            fprintf(debugLog, "[%lld] Exception: %s\n", (long long)time(nullptr), e.what());
-            fclose(debugLog);
-        }
         return false;
     }
     catch (...)
     {
         Logger::LogError("[GenerateProjectile] Unknown exception");
-        FILE* debugLog = nullptr;
-        fopen_s(&debugLog, "C:\\temp\\projectile_debug.log", "a");
-        if (debugLog) {
-            fprintf(debugLog, "[%lld] Unknown exception caught\n", (long long)time(nullptr));
-            fclose(debugLog);
-        }
         return false;
     }
 }

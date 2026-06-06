@@ -27,8 +27,7 @@ return false;
 			std::stringstream ss;
 			ss << std::hex << ImageBase;
 // GObjects will be initialized by SDK as needed
-// Enumerate available character classes for spawn selector
-EnumerateAvailableCharacterClasses();
+// Character class enumeration is expensive; run it lazily only when the spawn selector asks for it.
 
 			g_SDKInitialized = true;
 return true;
@@ -357,6 +356,9 @@ return;
 	const std::vector<std::string>& GetAvailableCharacterClasses()
 	{
 		static std::vector<std::string> classNames;
+
+		if (g_AvailableClasses.empty())
+			EnumerateAvailableCharacterClasses();
 		
 		if (classNames.empty() && !g_AvailableClasses.empty())
 		{

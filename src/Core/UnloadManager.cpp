@@ -2,5 +2,5 @@
 
 namespace UnloadManager
 {
-    volatile bool g_UnloadRequested = false;
+    std::atomic_bool g_UnloadRequested{ false };
 }

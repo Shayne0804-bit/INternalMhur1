@@ -19,23 +19,24 @@ namespace ImGuiHelper
      * @param colorOff Color when toggle is OFF (background medium)
      * @return true if value changed
      */
-    inline bool ToggleSwitch(const char* label, bool* v, ImVec4 colorOn = ImVec4(0.65f, 0.35f, 0.95f, 1.0f), ImVec4 colorOff = ImVec4(0.12f, 0.10f, 0.18f, 1.0f))
+    inline bool ToggleSwitch(const char* label, bool* v)
     {
         ImDrawList* drawList = ImGui::GetWindowDrawList();
 
-        // Get current cursor position
+        ImVec4 colorOn = ImVec4(0.62f, 0.30f, 1.00f, 1.0f);
+        ImVec4 colorOff = ImVec4(0.06f, 0.05f, 0.09f, 1.0f);
+        ImVec4 glowColor = ImVec4(0.74f, 0.42f, 1.00f, 0.45f);
+
         ImVec2 pos = ImGui::GetCursorScreenPos();
-        ImVec2 size = ImVec2(32.0f, 16.0f);  // Toggle switch size (reduced)
+        ImVec2 size = ImVec2(40.0f, 20.0f);
         float radius = size.y * 0.5f;
 
-        // Create unique animation key for this toggle
         std::string animKey = std::string(label) + "##toggle";
         if (g_ToggleAnimations.find(animKey) == g_ToggleAnimations.end())
         {
             g_ToggleAnimations[animKey] = *v ? 1.0f : 0.0f;
         }
 
-        // Interactive area
         ImGui::InvisibleButton(label, size);
         bool toggled = false;
         if (ImGui::IsItemClicked())
@@ -44,29 +45,38 @@ namespace ImGuiHelper
             toggled = true;
         }
 
-        // Smooth animation
         float targetPos = *v ? 1.0f : 0.0f;
         g_ToggleAnimations[animKey] += (targetPos - g_ToggleAnimations[animKey]) * ANIMATION_SPEED;
 
-        // Draw background rectangle
         ImVec2 p_min = pos;
         ImVec2 p_max = ImVec2(pos.x + size.x, pos.y + size.y);
         ImU32 bgColor = ImGui::GetColorU32(*v ? colorOn : colorOff);
         drawList->AddRectFilled(p_min, p_max, bgColor, radius);
 
-        // Draw border
-        ImU32 borderColor = ImGui::GetColorU32(ImVec4(0.5f, 0.3f, 0.7f, 0.8f));
-        drawList->AddRect(p_min, p_max, borderColor, radius, 0, 1.5f);
+        // Glow effect when ON
+        if (*v)
+        {
+            ImU32 glowColorU32 = ImGui::GetColorU32(glowColor);
+            drawList->AddRect(p_min, p_max, glowColorU32, radius, 0, 2.0f);
+        }
+        else
+        {
+            // Border when OFF
+            ImU32 borderColor = ImGui::GetColorU32(ImVec4(0.20f, 0.15f, 0.32f, 1.0f));
+            drawList->AddRect(p_min, p_max, borderColor, radius, 0, 1.0f);
+        }
 
-        // Draw knob (circle)
+        // Knob - WHITE
         float knobX = pos.x + radius + (g_ToggleAnimations[animKey] * (size.x - 2 * radius));
         ImVec2 knobCenter = ImVec2(knobX, pos.y + radius);
-        ImU32 knobColor = ImGui::GetColorU32(ImVec4(0.95f, 0.95f, 0.95f, 1.0f));
-        drawList->AddCircleFilled(knobCenter, radius * 0.7f, knobColor, 16);
+        ImU32 knobColor = ImGui::GetColorU32(ImVec4(0.94f, 0.98f, 1.0f, 1.0f));
+        drawList->AddCircleFilled(knobCenter, radius * 0.65f, knobColor, 12);
 
-        // Display label after toggle
-        ImGui::SameLine();
-        ImGui::Text(label);
+        if (label && !(label[0] == '#' && label[1] == '#'))
+        {
+            ImGui::SameLine();
+            ImGui::Text("%s", label);
+        }
 
         return toggled;
     }
@@ -74,23 +84,24 @@ namespace ImGuiHelper
     /**
      * @brief Alternative: Larger, more visible toggle switch
      */
-    inline bool ToggleSwitchLarge(const char* label, bool* v, ImVec4 colorOn = ImVec4(0.65f, 0.35f, 0.95f, 1.0f), ImVec4 colorOff = ImVec4(0.12f, 0.10f, 0.18f, 1.0f))
+    inline bool ToggleSwitchLarge(const char* label, bool* v)
     {
         ImDrawList* drawList = ImGui::GetWindowDrawList();
 
-        // Get current cursor position
+        ImVec4 colorOn = ImVec4(0.62f, 0.30f, 1.00f, 1.0f);
+        ImVec4 colorOff = ImVec4(0.06f, 0.05f, 0.09f, 1.0f);
+        ImVec4 glowColor = ImVec4(0.74f, 0.42f, 1.00f, 0.45f);
+
         ImVec2 pos = ImGui::GetCursorScreenPos();
-        ImVec2 size = ImVec2(48.0f, 22.0f);  // Larger toggle switch size (reduced)
+        ImVec2 size = ImVec2(56.0f, 28.0f);
         float radius = size.y * 0.5f;
 
-        // Create unique animation key for this toggle
         std::string animKey = std::string(label) + "##toggle_large";
         if (g_ToggleAnimations.find(animKey) == g_ToggleAnimations.end())
         {
             g_ToggleAnimations[animKey] = *v ? 1.0f : 0.0f;
         }
 
-        // Interactive area
         ImGui::InvisibleButton(label, size);
         bool toggled = false;
         if (ImGui::IsItemClicked())
@@ -99,29 +110,38 @@ namespace ImGuiHelper
             toggled = true;
         }
 
-        // Smooth animation
         float targetPos = *v ? 1.0f : 0.0f;
         g_ToggleAnimations[animKey] += (targetPos - g_ToggleAnimations[animKey]) * ANIMATION_SPEED;
 
-        // Draw background rectangle
         ImVec2 p_min = pos;
         ImVec2 p_max = ImVec2(pos.x + size.x, pos.y + size.y);
         ImU32 bgColor = ImGui::GetColorU32(*v ? colorOn : colorOff);
         drawList->AddRectFilled(p_min, p_max, bgColor, radius);
 
-        // Draw border
-        ImU32 borderColor = ImGui::GetColorU32(ImVec4(0.5f, 0.3f, 0.7f, 0.8f));
-        drawList->AddRect(p_min, p_max, borderColor, radius, 0, 2.0f);
+        // Glow effect when ON
+        if (*v)
+        {
+            ImU32 glowColorU32 = ImGui::GetColorU32(glowColor);
+            drawList->AddRect(p_min, p_max, glowColorU32, radius, 0, 2.5f);
+        }
+        else
+        {
+            // Border when OFF
+            ImU32 borderColor = ImGui::GetColorU32(ImVec4(0.20f, 0.15f, 0.32f, 1.0f));
+            drawList->AddRect(p_min, p_max, borderColor, radius, 0, 1.5f);
+        }
 
-        // Draw knob (circle)
+        // Knob - WHITE
         float knobX = pos.x + radius + (g_ToggleAnimations[animKey] * (size.x - 2 * radius));
         ImVec2 knobCenter = ImVec2(knobX, pos.y + radius);
-        ImU32 knobColor = ImGui::GetColorU32(ImVec4(0.95f, 0.95f, 0.95f, 1.0f));
-        drawList->AddCircleFilled(knobCenter, radius * 0.8f, knobColor, 16);
+        ImU32 knobColor = ImGui::GetColorU32(ImVec4(0.94f, 0.98f, 1.0f, 1.0f));
+        drawList->AddCircleFilled(knobCenter, radius * 0.7f, knobColor, 14);
 
-        // Display label after toggle
-        ImGui::SameLine();
-        ImGui::Text(label);
+        if (label && !(label[0] == '#' && label[1] == '#'))
+        {
+            ImGui::SameLine();
+            ImGui::Text("%s", label);
+        }
 
         return toggled;
     }

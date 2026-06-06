@@ -4,14 +4,113 @@
 #include <fstream>
 #include "src/Core/Main.h"
 #include "src/Core/UnloadManager.h"
+#include "src/Hooks/D3D11Hook.h"
+#include "src/Hooks/GameThreadHook.h"
+#include "src/Hacks/HackThread.h"
+#include <atomic>
+#include <cstdint>
+
+#ifndef DO_NOT_INCLUDE_STR_CRYPTOR
+#define DO_NOT_INCLUDE_STR_CRYPTOR 0
+#endif
+#include "LibProt-main/LibProt-main/LibProt.h"
 
 // Global module handle for unload
 static HMODULE g_hModule = nullptr;
+static std::atomic_bool g_MainThreadRunning{ false };
+static std::atomic_bool g_LibProtInitialized{ false };
+
+static void ApplyLibProtProtection(HMODULE module)
+{
+    if (!module)
+        return;
+
+    bool expected = false;
+    if (!g_LibProtInitialized.compare_exchange_strong(
+        expected,
+        true,
+        std::memory_order_acq_rel,
+        std::memory_order_acquire))
+    {
+        return;
+    }
+
+    __try
+    {
+        void* moduleBase = reinterpret_cast<void*>(module);
+
+        // Keep exports/TLS and loader DllBase intact so the in-menu unload and
+        // FreeLibraryAndExitThread path continue to work after protection.
+        LibProt::CleanImportsAndExports(moduleBase, false, false);
+        LibProt::CleanPE(moduleBase);
+        LibProt::CleanImportsAndExports(moduleBase, false, false);
+        LibProt::DestroyEntryPoint(moduleBase, true);
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+    }
+}
+
+DWORD WINAPI UnloadThread(LPVOID lpParam)
+{
+    HMODULE module = reinterpret_cast<HMODULE>(lpParam);
+
+    for (int i = 0; i < 4000 && g_MainThreadRunning.load(std::memory_order_acquire); ++i)
+        Sleep(1);
+
+    try
+    {
+        HackThreadManager::GetInstance().Shutdown();
+    }
+    catch (...)
+    {
+    }
+
+    try
+    {
+        GameThreadHook::Shutdown();
+    }
+    catch (...)
+    {
+    }
+
+    try
+    {
+        D3D11Hook::RestoreHookOnly();
+    }
+    catch (...)
+    {
+    }
+
+    for (int i = 0; i < 5000 && !D3D11Hook::IsSafeToUnload(); ++i)
+        Sleep(1);
+
+    try
+    {
+        D3D11Hook::ReleaseResourcesForUnload();
+    }
+    catch (...)
+    {
+    }
+
+    for (int i = 0; i < 1000 && !D3D11Hook::IsSafeToUnload(); ++i)
+        Sleep(1);
+
+    Sleep(1000);
+
+    if (module)
+        FreeLibraryAndExitThread(module, 0);
+
+    ExitThread(0);
+    return 0;
+}
 
 // MainThread following Dumper-7 recommended pattern
 DWORD WINAPI MainThread(HMODULE Module)
 {
+    g_MainThreadRunning.store(true, std::memory_order_release);
     g_hModule = Module;
+    ApplyLibProtProtection(Module);
     
     /* Console completely disabled - no logging output */
     // AllocConsole removed - console window will not appear
@@ -20,6 +119,12 @@ DWORD WINAPI MainThread(HMODULE Module)
     
     /* Wait for game initialization */
     Sleep(3000);
+
+    if (UnloadManager::IsUnloadRequested())
+    {
+        g_MainThreadRunning.store(false, std::memory_order_release);
+        return 0;
+    }
 
     /* Initialize the SDK and menu silently */
     try
@@ -36,35 +141,7 @@ DWORD WINAPI MainThread(HMODULE Module)
         // Silent fail - no error output
     }
 
-    return 0;
-}
-
-// Thread function to completely unload the DLL
-DWORD WINAPI UnloadThread(LPVOID lpParam)
-{
-    // Wait for current render operations to finish
-    Sleep(1000);
-    
-    // Complete cleanup - remove all hooks and restore original state
-    try
-    {
-        Main::Shutdown();
-    }
-    catch (...)
-    {
-    }
-    
-    // Wait to ensure all cleanup is done
-    Sleep(500);
-    
-    // Don't unload the DLL forcefully - that causes game crash
-    // Instead, just clean up and let the VTable become a passthrough
-    // The game will continue to call HookedPresent, but it will just
-    // pass through to g_OriginalPresent without doing anything
-    
-    // Exit this thread
-    ExitThread(0);
-    
+    g_MainThreadRunning.store(false, std::memory_order_release);
     return 0;
 }
 
@@ -77,15 +154,12 @@ extern "C" __declspec(dllexport) bool DLL_IsUnloadRequested()
 // Extern function to request DLL unload - starts unload thread
 extern "C" __declspec(dllexport) void DLL_Unload()
 {
-    // Set flag to signal all components to unload
-    UnloadManager::RequestUnload();
-    
-    // Create a dedicated thread for unloading to avoid blocking game
-    HANDLE hThread = CreateThread(nullptr, 0, UnloadThread, nullptr, 0, nullptr);
+    if (!UnloadManager::RequestUnload())
+        return;
+
+    HANDLE hThread = CreateThread(nullptr, 0, UnloadThread, g_hModule, 0, nullptr);
     if (hThread)
-    {
         CloseHandle(hThread);
-    }
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
@@ -94,11 +168,17 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
     {
     case DLL_PROCESS_ATTACH:
     {
+        g_hModule = hModule;
+
         /* Disable thread library calls for performance */
         DisableThreadLibraryCalls(hModule);
         
         /* Create thread following Dumper-7 pattern */
-        CreateThread(0, 0, (LPTHREAD_START_ROUTINE)MainThread, hModule, 0, 0);
+        HANDLE hThread = CreateThread(0, 0, (LPTHREAD_START_ROUTINE)MainThread, hModule, 0, 0);
+        if (hThread)
+        {
+            CloseHandle(hThread);
+        }
         break;
     }
     case DLL_THREAD_ATTACH:
@@ -107,7 +187,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
     case DLL_PROCESS_DETACH:
     {
         /* Cleanup resources */
-        Main::Shutdown();
+        if (!UnloadManager::IsUnloadRequested())
+            Main::Shutdown();
         break;
     }
     }

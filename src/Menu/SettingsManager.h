@@ -203,6 +203,11 @@ namespace SettingsManager
 			file << "    \"CopySkillsSetCopySkill\": " << BoolToJson(menuSettings.CopySkillsSetCopySkill) << ",\n";
 			file << "    \"CopySkillsUseOwnerCharacterLevel\": " << BoolToJson(menuSettings.CopySkillsUseOwnerCharacterLevel) << ",\n";
 
+			// Generate Projectile
+			file << "    \"EnableGenerateProjectile\": " << BoolToJson(menuSettings.EnableGenerateProjectile) << ",\n";
+			file << "    \"GenerateProjectileKey_Keyboard\": " << IntToJson(menuSettings.GenerateProjectileKey.Keyboard) << ",\n";
+			file << "    \"GenerateProjectileKey_Xbox\": " << IntToJson(menuSettings.GenerateProjectileKey.Xbox) << ",\n";
+
 			// Reload Adjust Rates
 			file << "    \"ReloadAdjustRate\": " << FloatToJson(menuSettings.ReloadAdjustRate) << ",\n";
 			file << "    \"ReloadAdjustRate_RollSlot\": " << FloatToJson(menuSettings.ReloadAdjustRate_RollSlot) << ",\n";
@@ -282,7 +287,13 @@ namespace SettingsManager
 			file << "    \"CharacterCostumeAuraType\": " << IntToJson(hackSettings.CharacterCostumeAuraType) << ",\n";
 			file << "    \"SupplyUniqueSkill1Level\": " << IntToJson(hackSettings.SupplyUniqueSkill1Level) << ",\n";
 			file << "    \"SupplyUniqueSkill2Level\": " << IntToJson(hackSettings.SupplyUniqueSkill2Level) << ",\n";
-			file << "    \"SupplyUniqueSkill3Level\": " << IntToJson(hackSettings.SupplyUniqueSkill3Level) << "\n";
+			file << "    \"SupplyUniqueSkill3Level\": " << IntToJson(hackSettings.SupplyUniqueSkill3Level) << ",\n";
+			file << "    \"CharCondition_EnableDekuMode\": " << BoolToJson(hackSettings.CharCondition_EnableDekuMode) << ",\n";
+			file << "    \"CharCondition_EnableUnbreakable\": " << BoolToJson(hackSettings.CharCondition_EnableUnbreakable) << ",\n";
+			file << "    \"CharCondition_EnableCompressionRegen\": " << BoolToJson(hackSettings.CharCondition_EnableCompressionRegen) << ",\n";
+			file << "    \"CharCondition_EnableMirioMode\": " << BoolToJson(hackSettings.CharCondition_EnableMirioMode) << ",\n";
+			file << "    \"CharCondition_EnableTokoyamiMode\": " << BoolToJson(hackSettings.CharCondition_EnableTokoyamiMode) << ",\n";
+			file << "    \"BuyLicenseExpCount\": " << IntToJson(hackSettings.BuyLicenseExpCount) << "\n";
 			file << "  }\n";
 
 			file << "}\n";
@@ -333,6 +344,7 @@ namespace SettingsManager
 		emptyMenu.EnableCopySkillsFromNearestEnemy = false;
 		emptyMenu.CopySkillsSetCopySkill = false;
 		emptyMenu.CopySkillsUseOwnerCharacterLevel = false;
+		emptyMenu.EnableGenerateProjectile = false;
 		emptyMenu.EnableRecoveryMe = false;
 		emptyMenu.EnableRecoveryTeam = false;
 		emptyMenu.EnableRecoverySelectedTeam = false;
@@ -381,6 +393,7 @@ namespace SettingsManager
 		emptyMenu.TransformIntoRandomESPKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.DuplicateIntoImitationRandomESPKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.CopySkillsFromNearestEnemyKey = ImGuiMenu::HotkeySet(0, 0);
+		emptyMenu.GenerateProjectileKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.SetInvincibleKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.RebuildMyselfKey = ImGuiMenu::HotkeySet(0, 0);
 
@@ -412,6 +425,12 @@ namespace SettingsManager
 		emptyHack.SupplyUniqueSkill1Level = 1;  // Level - keep at 1
 		emptyHack.SupplyUniqueSkill2Level = 1;  // Level - keep at 1
 		emptyHack.SupplyUniqueSkill3Level = 1;  // Level - keep at 1
+		emptyHack.CharCondition_EnableDekuMode = false;
+		emptyHack.CharCondition_EnableUnbreakable = false;
+		emptyHack.CharCondition_EnableCompressionRegen = false;
+		emptyHack.CharCondition_EnableMirioMode = false;
+		emptyHack.CharCondition_EnableTokoyamiMode = false;
+		emptyHack.BuyLicenseExpCount = 100;
 
 		return SaveProfile(emptyMenu, emptyHack, "Default");
 	}
@@ -541,6 +560,11 @@ namespace SettingsManager
 			menuSettings.CopySkillsSetCopySkill = ExtractBool("CopySkillsSetCopySkill");
 			menuSettings.CopySkillsUseOwnerCharacterLevel = ExtractBool("CopySkillsUseOwnerCharacterLevel");
 
+			menuSettings.EnableGenerateProjectile = ExtractBool("EnableGenerateProjectile");
+			menuSettings.GenerateProjectileKey.Keyboard = ExtractInt("GenerateProjectileKey_Keyboard");
+			menuSettings.GenerateProjectileKey.Xbox = ExtractInt("GenerateProjectileKey_Xbox");
+			menuSettings.GenerateProjectileKey.PS4 = menuSettings.GenerateProjectileKey.Xbox;
+
 			menuSettings.ReloadAdjustRate = ExtractFloat("ReloadAdjustRate");
 			menuSettings.ReloadAdjustRate_RollSlot = ExtractFloat("ReloadAdjustRate_RollSlot");
 			menuSettings.ReloadAdjustRate_WearBlueFlame = ExtractFloat("ReloadAdjustRate_WearBlueFlame");
@@ -611,6 +635,12 @@ namespace SettingsManager
 			hackSettings.SupplyUniqueSkill1Level = ExtractInt("SupplyUniqueSkill1Level");
 			hackSettings.SupplyUniqueSkill2Level = ExtractInt("SupplyUniqueSkill2Level");
 			hackSettings.SupplyUniqueSkill3Level = ExtractInt("SupplyUniqueSkill3Level");
+			hackSettings.CharCondition_EnableDekuMode = ExtractBool("CharCondition_EnableDekuMode");
+			hackSettings.CharCondition_EnableUnbreakable = ExtractBool("CharCondition_EnableUnbreakable");
+			hackSettings.CharCondition_EnableCompressionRegen = ExtractBool("CharCondition_EnableCompressionRegen");
+			hackSettings.CharCondition_EnableMirioMode = ExtractBool("CharCondition_EnableMirioMode");
+			hackSettings.CharCondition_EnableTokoyamiMode = ExtractBool("CharCondition_EnableTokoyamiMode");
+			hackSettings.BuyLicenseExpCount = ExtractInt("BuyLicenseExpCount");
 
 			Logger::Log(Logger::LogLevel::Info, "[SettingsManager] Profile loaded: " + profileName);
 			return true;

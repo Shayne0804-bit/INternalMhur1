@@ -6,7 +6,9 @@
 #include <chrono>
 #include <cstring>
 #include <cstdarg>
+#include <atomic>
 #include <Windows.h>
+#include "../Core/UnloadManager.h"
 
 // Forward declarations
 namespace UE4 {
@@ -23,10 +25,15 @@ namespace GameThreadHook
 {
 	static bool g_Initialized = false;
 	static std::ofstream g_LogFile;
+	static constexpr bool GAME_THREAD_DEBUG_LOGGING = false;
+	static std::atomic<int> g_ProcessEventCallDepth(0);
 
 	// Logging helper
 	void Log(const char* format, ...)
 	{
+		if (!GAME_THREAD_DEBUG_LOGGING)
+			return;
+
 		if (!g_LogFile.is_open())
 		{
 			g_LogFile.open("c:\\temp\\gamethread.log", std::ios::app);
@@ -204,18 +211,62 @@ namespace GameThreadHook
 			return m_original_processevent;
 		}
 
+		void RestoreHook()
+		{
+			if (!m_class || !m_vtable || !m_vtable_cache)
+				return;
+
+			__try
+			{
+				uintptr_t** objectVTable = reinterpret_cast<uintptr_t**>(m_class);
+				if (objectVTable && *objectVTable == m_vtable_cache)
+				{
+					*objectVTable = m_vtable;
+					Log("[VMT] Restored original vtable for object: 0x%llX", m_class);
+				}
+			}
+			__except (EXCEPTION_EXECUTE_HANDLER)
+			{
+				Log("[VMT] Exception while restoring original vtable");
+			}
+		}
+
+		void NeutralizeHookNoFree()
+		{
+			if (m_vtable_cache && m_eventindex >= 0 && m_original_processevent)
+			{
+				m_vtable_cache[m_eventindex] = reinterpret_cast<uintptr_t>(m_original_processevent);
+			}
+
+			RestoreHook();
+		}
+
 		void FreeCache()
 		{
+			RestoreHook();
+
 			if (m_vtable_cache)
 			{
 				Log("[VMT] Freeing shadow vtable cache: 0x%llX", (uintptr_t)m_vtable_cache);
 				free(m_vtable_cache);
 				m_vtable_cache = nullptr;
 			}
+
+			m_vtable = nullptr;
+			m_vtablesize = -1;
+			m_eventindex = -1;
+			m_class = 0;
+			m_original_processevent = nullptr;
 		}
 
 		~ProcessEventInterceptor()
 		{
+			if (UnloadManager::IsUnloadRequested())
+			{
+				NeutralizeHookNoFree();
+				return;
+			}
+
 			FreeCache();
 		}
 	};
@@ -226,15 +277,18 @@ namespace GameThreadHook
 	// Hooked ProcessEvent function
 	void HookedProcessEvent(void* pThis, class UE4::UFunction* pFunction, void* pParams)
 	{
-		static int s_CallCount = 0;
-
-		s_CallCount++;
-
-		// Log every 100 calls to reduce spam
-		if (s_CallCount % 100 == 0)
+		struct ProcessEventScope
 		{
-			Log("[HOOK] ProcessEvent called (Call #%d) on object: 0x%llX", s_CallCount, (uintptr_t)pThis);
-		}
+			ProcessEventScope()
+			{
+				g_ProcessEventCallDepth.fetch_add(1, std::memory_order_acq_rel);
+			}
+
+			~ProcessEventScope()
+			{
+				g_ProcessEventCallDepth.fetch_sub(1, std::memory_order_acq_rel);
+			}
+		} processEventScope;
 
 		// Call original ProcessEvent
 		auto original = g_interceptor.GetOriginalProcessEvent();
@@ -318,7 +372,14 @@ namespace GameThreadHook
 	{
 		Log("[Shutdown] Shutting down GameThreadHook...");
 		SDKInit::Shutdown();
-		g_interceptor.FreeCache();
+		g_interceptor.NeutralizeHookNoFree();
+
+		for (int i = 0; i < 200 && g_ProcessEventCallDepth.load(std::memory_order_acquire) > 0; ++i)
+			Sleep(1);
+
+		if (!UnloadManager::IsUnloadRequested())
+			g_interceptor.FreeCache();
+
 		g_Initialized = false;
 		
 		if (g_LogFile.is_open())
