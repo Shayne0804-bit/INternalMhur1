@@ -632,6 +632,24 @@ bool InGameHack_BuyLicenseExp(int32_t count);
 bool InGameHack_AddSpecialLicenseExpLocal(int32_t exp);
 
 /**
+ * Send ReceiveLicense requests through BackendSubsystem for authorized backend idempotency testing.
+ * @param seasonCode - SeasonCode argument sent to ReceiveLicense.
+ * @param freeRank - Free reward rank to claim, or <=0 to leave the free list empty.
+ * @param premiumRank - Limited/premium reward rank to claim, or <=0 to leave the premium list empty.
+ * @param repeatCount - Number of immediate requests to send.
+ * @return true if at least one request id was returned.
+ */
+bool InGameHack_ReceiveLicenseClaimTest(int32_t seasonCode, int32_t freeRank, int32_t premiumRank, int32_t repeatCount);
+
+/**
+ * Send ReceiveSpecialLicense requests through BackendSubsystem for authorized backend idempotency testing.
+ * @param rank - Special license rank to claim.
+ * @param repeatCount - Number of immediate requests to send.
+ * @return true if at least one request id was returned.
+ */
+bool InGameHack_ReceiveSpecialLicenseClaimTest(int32_t rank, int32_t repeatCount);
+
+/**
  * Dump season pass and special license getter results to C:/Temp/season_license_getters.log.
  * @return true if the dump file was written, false otherwise.
  */

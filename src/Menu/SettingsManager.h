@@ -306,7 +306,13 @@ namespace SettingsManager
 			file << "    \"CharCondition_Interval\": " << FloatToJson(hackSettings.CharCondition_Interval) << ",\n";
 			file << "    \"CharCondition_SubLevel\": " << IntToJson(hackSettings.CharCondition_SubLevel) << ",\n";
 			file << "    \"CharCondition_TimeOverwrite\": " << BoolToJson(hackSettings.CharCondition_TimeOverwrite) << ",\n";
-			file << "    \"BuyLicenseExpCount\": " << IntToJson(hackSettings.BuyLicenseExpCount) << "\n";
+			file << "    \"BuyLicenseExpCount\": " << IntToJson(hackSettings.BuyLicenseExpCount) << ",\n";
+			file << "    \"LicenseClaimSeasonCode\": " << IntToJson(hackSettings.LicenseClaimSeasonCode) << ",\n";
+			file << "    \"LicenseClaimFreeRank\": " << IntToJson(hackSettings.LicenseClaimFreeRank) << ",\n";
+			file << "    \"LicenseClaimPremiumRank\": " << IntToJson(hackSettings.LicenseClaimPremiumRank) << ",\n";
+			file << "    \"LicenseClaimSpecialRank\": " << IntToJson(hackSettings.LicenseClaimSpecialRank) << ",\n";
+			file << "    \"LicenseClaimRepeatCount\": " << IntToJson(hackSettings.LicenseClaimRepeatCount) << ",\n";
+			file << "    \"LicenseClaimDelayMs\": " << IntToJson(hackSettings.LicenseClaimDelayMs) << "\n";
 			file << "  }\n";
 
 			file << "}\n";
@@ -457,6 +463,12 @@ namespace SettingsManager
 		emptyHack.CharCondition_SubLevel = 0;
 		emptyHack.CharCondition_TimeOverwrite = false;
 		emptyHack.BuyLicenseExpCount = 30000;
+		emptyHack.LicenseClaimSeasonCode = 1;
+		emptyHack.LicenseClaimFreeRank = 1;
+		emptyHack.LicenseClaimPremiumRank = 0;
+		emptyHack.LicenseClaimSpecialRank = 1;
+		emptyHack.LicenseClaimRepeatCount = 1;
+		emptyHack.LicenseClaimDelayMs = 1000;
 
 		return SaveProfile(emptyMenu, emptyHack, "Default");
 	}
@@ -721,7 +733,13 @@ namespace SettingsManager
 			hackSettings.CharCondition_Interval = ExtractFloatDefault("CharCondition_Interval", 0.0f);
 			hackSettings.CharCondition_SubLevel = ExtractIntDefault("CharCondition_SubLevel", 0);
 			hackSettings.CharCondition_TimeOverwrite = ExtractBool("CharCondition_TimeOverwrite");
-			hackSettings.BuyLicenseExpCount = ExtractInt("BuyLicenseExpCount");
+			hackSettings.BuyLicenseExpCount = ExtractIntDefault("BuyLicenseExpCount", 30000);
+			hackSettings.LicenseClaimSeasonCode = ExtractIntDefault("LicenseClaimSeasonCode", 1);
+			hackSettings.LicenseClaimFreeRank = ExtractIntDefault("LicenseClaimFreeRank", 1);
+			hackSettings.LicenseClaimPremiumRank = ExtractIntDefault("LicenseClaimPremiumRank", 0);
+			hackSettings.LicenseClaimSpecialRank = ExtractIntDefault("LicenseClaimSpecialRank", 1);
+			hackSettings.LicenseClaimRepeatCount = ExtractIntDefault("LicenseClaimRepeatCount", 1);
+			hackSettings.LicenseClaimDelayMs = ExtractIntDefault("LicenseClaimDelayMs", 1000);
 
 			Logger::Log(Logger::LogLevel::Info, "[SettingsManager] Profile loaded: " + profileName);
 			return true;

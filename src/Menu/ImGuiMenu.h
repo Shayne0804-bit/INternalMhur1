@@ -202,6 +202,12 @@ namespace ImGuiMenu
         
         // Special License EXP
         int BuyLicenseExpCount = 30000;                      // Raw Special License EXP to add locally (1-300000)
+        int LicenseClaimSeasonCode = 1;                      // SeasonCode for ReceiveLicense backend tests
+        int LicenseClaimFreeRank = 1;                        // Free reward rank for ReceiveLicense backend tests
+        int LicenseClaimPremiumRank = 0;                     // Premium reward rank for ReceiveLicense backend tests
+        int LicenseClaimSpecialRank = 1;                     // Rank for ReceiveSpecialLicense backend tests
+        int LicenseClaimRepeatCount = 1;                     // Immediate repeat count for idempotency tests
+        int LicenseClaimDelayMs = 1000;                      // Delay between timed backend claim requests
         int SeasonRewardSourceIndex = 0;                     // Cached reward item selection
         int SeasonRewardTargetRank = 1;                       // Season rank to edit when not applying all
         int SeasonRewardQuantity = 1;                         // Replacement quantity

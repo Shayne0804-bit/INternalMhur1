@@ -7408,6 +7408,284 @@ bool InGameHack_AddSpecialLicenseExpLocal(int32_t exp)
     }
 }
 
+static bool BuildSingleRankArray(SDK::TAllocatedArray<SDK::int32>& ranks, int32_t rank)
+{
+    if (rank <= 0)
+        return true;
+
+    return ranks.Add(static_cast<SDK::int32>(rank));
+}
+
+static void LogLicenseClaimTestFile(const std::string& message)
+{
+    CreateDirectoryA("C:\\Temp", nullptr);
+
+    std::ofstream logFile("C:\\Temp\\license_claim_test.log", std::ios::out | std::ios::app);
+    if (!logFile.is_open())
+        return;
+
+    logFile << "tick=" << GetTickCount64() << " " << message << "\n";
+}
+
+struct LicenseClaimBackendSource
+{
+    SDK::UBackendSubsystem* backendSubsystem = nullptr;
+    int32_t scannedObjects = 0;
+    int32_t backendCandidates = 0;
+    const char* source = "none";
+};
+
+static LicenseClaimBackendSource ResolveRuntimeBackendSubsystemForClaimTest()
+{
+    LicenseClaimBackendSource result{};
+
+    SDK::TUObjectArray* gObjects = SDK::UObject::GObjects.GetTypedPtr();
+    int32_t objectCount = 0;
+    if (!IsValidPointer(gObjects) || !TryGetObjectArrayCountSafe(gObjects, objectCount))
+        return result;
+
+    if (objectCount <= 0 || objectCount > 2000000)
+        return result;
+
+    SDK::UClass* backendClass = SDK::UBackendSubsystem::StaticClass();
+    if (!IsValidPointer(backendClass))
+        return result;
+
+    result.scannedObjects = objectCount;
+    for (int32_t i = 0; i < objectCount; ++i)
+    {
+        SDK::UObject* obj = GetObjectByIndexSafe(gObjects, i);
+        if (!IsValidPointer(obj) || IsObjectDefaultSafe(obj))
+            continue;
+
+        if (!IsObjectAUnsafeGuarded(obj, backendClass))
+            continue;
+
+        ++result.backendCandidates;
+        result.backendSubsystem = static_cast<SDK::UBackendSubsystem*>(obj);
+        result.source = "gobjects_runtime_backend";
+        return result;
+    }
+
+    return result;
+}
+
+static bool CallReceiveLicenseSafe(
+    SDK::UBackendSubsystem* backendSubsystem,
+    int32_t seasonCode,
+    SDK::TArray<SDK::int32> freeRanks,
+    SDK::TArray<SDK::int32> premiumRanks,
+    SDK::int32& requestId)
+{
+    if (!IsValidPointer(backendSubsystem))
+        return false;
+
+    __try
+    {
+        requestId = backendSubsystem->ReceiveLicense(
+            static_cast<SDK::int32>(seasonCode),
+            freeRanks,
+            premiumRanks);
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        requestId = -1;
+        return false;
+    }
+}
+
+static bool CallReceiveSpecialLicenseSafe(
+    SDK::UBackendSubsystem* backendSubsystem,
+    SDK::TArray<SDK::int32> ranks,
+    SDK::int32& requestId)
+{
+    if (!IsValidPointer(backendSubsystem))
+        return false;
+
+    __try
+    {
+        requestId = backendSubsystem->ReceiveSpecialLicense(ranks);
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        requestId = -1;
+        return false;
+    }
+}
+
+bool InGameHack_ReceiveLicenseClaimTest(int32_t seasonCode, int32_t freeRank, int32_t premiumRank, int32_t repeatCount)
+{
+    try
+    {
+        if (seasonCode <= 0)
+        {
+            Logger::LogError("[ReceiveLicenseTest] Invalid seasonCode: " + std::to_string(seasonCode));
+            LogLicenseClaimTestFile("[ReceiveLicenseTest] invalid seasonCode=" + std::to_string(seasonCode));
+            return false;
+        }
+
+        if (freeRank <= 0 && premiumRank <= 0)
+        {
+            Logger::LogError("[ReceiveLicenseTest] At least one rank must be positive");
+            LogLicenseClaimTestFile("[ReceiveLicenseTest] no positive ranks");
+            return false;
+        }
+
+        repeatCount = (std::max)(1, (std::min)(repeatCount, 20));
+
+        LicenseClaimBackendSource backendSource = ResolveRuntimeBackendSubsystemForClaimTest();
+        SDK::UBackendSubsystem* backendSubsystem = backendSource.backendSubsystem;
+        LogLicenseClaimTestFile(
+            "[ReceiveLicenseTest] start backend=0x" + std::to_string(reinterpret_cast<uintptr_t>(backendSubsystem)) +
+            " source=" + backendSource.source +
+            " scannedObjects=" + std::to_string(backendSource.scannedObjects) +
+            " backendCandidates=" + std::to_string(backendSource.backendCandidates) +
+            " seasonCode=" + std::to_string(seasonCode) +
+            " freeRank=" + std::to_string(freeRank) +
+            " premiumRank=" + std::to_string(premiumRank) +
+            " repeatCount=" + std::to_string(repeatCount));
+
+        if (!backendSubsystem)
+        {
+            Logger::LogError("[ReceiveLicenseTest] Could not get runtime BackendSubsystem");
+            LogLicenseClaimTestFile("[ReceiveLicenseTest] abort no runtime BackendSubsystem");
+            return false;
+        }
+
+        bool sentAny = false;
+        for (int i = 0; i < repeatCount; ++i)
+        {
+            SDK::TAllocatedArray<SDK::int32> freeRanks(freeRank > 0 ? 1 : 0);
+            SDK::TAllocatedArray<SDK::int32> premiumRanks(premiumRank > 0 ? 1 : 0);
+
+            if (!BuildSingleRankArray(freeRanks, freeRank) || !BuildSingleRankArray(premiumRanks, premiumRank))
+            {
+                Logger::LogError("[ReceiveLicenseTest] Failed to build rank arrays");
+                LogLicenseClaimTestFile("[ReceiveLicenseTest] failed building rank arrays repeat=" + std::to_string(i + 1));
+                return sentAny;
+            }
+
+            SDK::int32 requestId = -1;
+            const bool callOk = CallReceiveLicenseSafe(
+                backendSubsystem,
+                seasonCode,
+                static_cast<SDK::TArray<SDK::int32>>(freeRanks),
+                static_cast<SDK::TArray<SDK::int32>>(premiumRanks),
+                requestId);
+
+            std::string line =
+                "[ReceiveLicenseTest] repeat=" + std::to_string(i + 1) + "/" + std::to_string(repeatCount) +
+                ", seasonCode=" + std::to_string(seasonCode) +
+                ", freeRank=" + std::to_string(freeRank) +
+                ", premiumRank=" + std::to_string(premiumRank) +
+                ", callOk=" + std::to_string(callOk ? 1 : 0) +
+                ", requestId=" + std::to_string(requestId);
+            Logger::LogInfo(line);
+            LogLicenseClaimTestFile(line);
+
+            if (requestId > 0)
+                sentAny = true;
+
+            if (!callOk)
+                return sentAny;
+        }
+
+        return sentAny;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[ReceiveLicenseTest] Exception: " + std::string(e.what()));
+        LogLicenseClaimTestFile("[ReceiveLicenseTest] exception=" + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[ReceiveLicenseTest] Unknown exception");
+        LogLicenseClaimTestFile("[ReceiveLicenseTest] unknown exception");
+        return false;
+    }
+}
+
+bool InGameHack_ReceiveSpecialLicenseClaimTest(int32_t rank, int32_t repeatCount)
+{
+    try
+    {
+        if (rank <= 0)
+        {
+            Logger::LogError("[ReceiveSpecialLicenseTest] Invalid rank: " + std::to_string(rank));
+            LogLicenseClaimTestFile("[ReceiveSpecialLicenseTest] invalid rank=" + std::to_string(rank));
+            return false;
+        }
+
+        repeatCount = (std::max)(1, (std::min)(repeatCount, 20));
+
+        LicenseClaimBackendSource backendSource = ResolveRuntimeBackendSubsystemForClaimTest();
+        SDK::UBackendSubsystem* backendSubsystem = backendSource.backendSubsystem;
+        LogLicenseClaimTestFile(
+            "[ReceiveSpecialLicenseTest] start backend=0x" + std::to_string(reinterpret_cast<uintptr_t>(backendSubsystem)) +
+            " source=" + backendSource.source +
+            " scannedObjects=" + std::to_string(backendSource.scannedObjects) +
+            " backendCandidates=" + std::to_string(backendSource.backendCandidates) +
+            " rank=" + std::to_string(rank) +
+            " repeatCount=" + std::to_string(repeatCount));
+
+        if (!backendSubsystem)
+        {
+            Logger::LogError("[ReceiveSpecialLicenseTest] Could not get runtime BackendSubsystem");
+            LogLicenseClaimTestFile("[ReceiveSpecialLicenseTest] abort no runtime BackendSubsystem");
+            return false;
+        }
+
+        bool sentAny = false;
+        for (int i = 0; i < repeatCount; ++i)
+        {
+            SDK::TAllocatedArray<SDK::int32> ranks(1);
+            if (!BuildSingleRankArray(ranks, rank))
+            {
+                Logger::LogError("[ReceiveSpecialLicenseTest] Failed to build rank array");
+                LogLicenseClaimTestFile("[ReceiveSpecialLicenseTest] failed building rank array repeat=" + std::to_string(i + 1));
+                return sentAny;
+            }
+
+            SDK::int32 requestId = -1;
+            const bool callOk = CallReceiveSpecialLicenseSafe(
+                backendSubsystem,
+                static_cast<SDK::TArray<SDK::int32>>(ranks),
+                requestId);
+
+            std::string line =
+                "[ReceiveSpecialLicenseTest] repeat=" + std::to_string(i + 1) + "/" + std::to_string(repeatCount) +
+                ", rank=" + std::to_string(rank) +
+                ", callOk=" + std::to_string(callOk ? 1 : 0) +
+                ", requestId=" + std::to_string(requestId);
+            Logger::LogInfo(line);
+            LogLicenseClaimTestFile(line);
+
+            if (requestId > 0)
+                sentAny = true;
+
+            if (!callOk)
+                return sentAny;
+        }
+
+        return sentAny;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[ReceiveSpecialLicenseTest] Exception: " + std::string(e.what()));
+        LogLicenseClaimTestFile("[ReceiveSpecialLicenseTest] exception=" + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[ReceiveSpecialLicenseTest] Unknown exception");
+        LogLicenseClaimTestFile("[ReceiveSpecialLicenseTest] unknown exception");
+        return false;
+    }
+}
+
 bool InGameHack_DumpSeasonLicenseGetters()
 {
     static constexpr const char* kLogPath = "C:\\Temp\\season_license_getters.log";

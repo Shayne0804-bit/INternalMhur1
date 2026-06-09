@@ -115,6 +115,9 @@ namespace ImGuiMenu
     
     static bool g_Initialized = false;
     static bool g_Visible = true;
+    static bool g_LicenseSectionUnlocked = false;
+    static bool g_LicenseUnlockFailed = false;
+    static char g_LicenseUnlockBuffer[64] = {};
     static bool g_MenuHotkeyDown = false;
     static bool g_PlayerNetworkTableVisible = false;
     static bool g_PlayerNetworkTableHotkeyDown = false;
@@ -2318,6 +2321,74 @@ namespace ImGuiMenu
     static std::vector<SeasonRankRewardItemOption> g_CachedSeasonRewardItems;
     static bool g_SeasonRewardItemsLoaded = false;
 
+    struct TimedLicenseClaimTestState
+    {
+        bool active = false;
+        bool specialLicense = false;
+        int seasonCode = 1;
+        int freeRank = 1;
+        int premiumRank = 0;
+        int specialRank = 1;
+        int repeatTotal = 1;
+        int sentCount = 0;
+        int delayMs = 1000;
+        DWORD lastSendTick = 0;
+    };
+
+    static TimedLicenseClaimTestState g_TimedLicenseClaimTest;
+
+    static void StartTimedLicenseClaimTest(bool specialLicense)
+    {
+        g_TimedLicenseClaimTest.active = true;
+        g_TimedLicenseClaimTest.specialLicense = specialLicense;
+        g_TimedLicenseClaimTest.seasonCode = g_HackSettings.LicenseClaimSeasonCode;
+        g_TimedLicenseClaimTest.freeRank = g_HackSettings.LicenseClaimFreeRank;
+        g_TimedLicenseClaimTest.premiumRank = g_HackSettings.LicenseClaimPremiumRank;
+        g_TimedLicenseClaimTest.specialRank = g_HackSettings.LicenseClaimSpecialRank;
+        g_TimedLicenseClaimTest.repeatTotal = (std::max)(1, (std::min)(g_HackSettings.LicenseClaimRepeatCount, 20));
+        g_TimedLicenseClaimTest.sentCount = 0;
+        g_TimedLicenseClaimTest.delayMs = (std::max)(50, (std::min)(g_HackSettings.LicenseClaimDelayMs, 10000));
+        g_TimedLicenseClaimTest.lastSendTick = 0;
+    }
+
+    static void ProcessTimedLicenseClaimTest()
+    {
+        if (!g_TimedLicenseClaimTest.active)
+            return;
+
+        if (g_TimedLicenseClaimTest.sentCount >= g_TimedLicenseClaimTest.repeatTotal)
+        {
+            g_TimedLicenseClaimTest.active = false;
+            return;
+        }
+
+        const DWORD now = GetTickCount();
+        if (g_TimedLicenseClaimTest.lastSendTick != 0 &&
+            now - g_TimedLicenseClaimTest.lastSendTick < static_cast<DWORD>(g_TimedLicenseClaimTest.delayMs))
+        {
+            return;
+        }
+
+        if (g_TimedLicenseClaimTest.specialLicense)
+        {
+            InGameHack_ReceiveSpecialLicenseClaimTest(g_TimedLicenseClaimTest.specialRank, 1);
+        }
+        else
+        {
+            InGameHack_ReceiveLicenseClaimTest(
+                g_TimedLicenseClaimTest.seasonCode,
+                g_TimedLicenseClaimTest.freeRank,
+                g_TimedLicenseClaimTest.premiumRank,
+                1);
+        }
+
+        ++g_TimedLicenseClaimTest.sentCount;
+        g_TimedLicenseClaimTest.lastSendTick = now;
+
+        if (g_TimedLicenseClaimTest.sentCount >= g_TimedLicenseClaimTest.repeatTotal)
+            g_TimedLicenseClaimTest.active = false;
+    }
+
     static void RefreshSeasonRewardItemCache()
     {
         g_CachedSeasonRewardItems = InGameHack_GetSeasonRankRewardItemOptions();
@@ -2418,6 +2489,52 @@ namespace ImGuiMenu
                 g_HackSettings.SeasonRewardApplyAllRanks);
         }
         ImGui::EndGroup();
+    }
+
+    static void DrawLicenseBackendClaimTestControls()
+    {
+        SeparatorLabel("Backend claim tests");
+
+        ImAdd::SliderInt("Repeat count", &g_HackSettings.LicenseClaimRepeatCount, 1, 20, "%d");
+        ImAdd::SliderInt("Delay ms", &g_HackSettings.LicenseClaimDelayMs, 50, 10000, "%d");
+
+        ImAdd::SliderInt("Season code", &g_HackSettings.LicenseClaimSeasonCode, 1, 1000, "%d");
+        ImAdd::SliderInt("Free rank", &g_HackSettings.LicenseClaimFreeRank, 0, 200, "%d");
+        ImAdd::SliderInt("Premium rank", &g_HackSettings.LicenseClaimPremiumRank, 0, 200, "%d");
+        if (FullWidthButton("SEND RECEIVE LICENSE NOW"))
+        {
+            InGameHack_ReceiveLicenseClaimTest(
+                g_HackSettings.LicenseClaimSeasonCode,
+                g_HackSettings.LicenseClaimFreeRank,
+                g_HackSettings.LicenseClaimPremiumRank,
+                g_HackSettings.LicenseClaimRepeatCount);
+        }
+        if (FullWidthButton("START TIMED RECEIVE LICENSE"))
+            StartTimedLicenseClaimTest(false);
+
+        ImGui::Spacing();
+        ImAdd::SliderInt("Special rank", &g_HackSettings.LicenseClaimSpecialRank, 1, 200, "%d");
+        if (FullWidthButton("SEND RECEIVE SPECIAL LICENSE NOW"))
+        {
+            InGameHack_ReceiveSpecialLicenseClaimTest(
+                g_HackSettings.LicenseClaimSpecialRank,
+                g_HackSettings.LicenseClaimRepeatCount);
+        }
+        if (FullWidthButton("START TIMED RECEIVE SPECIAL LICENSE"))
+            StartTimedLicenseClaimTest(true);
+
+        if (g_TimedLicenseClaimTest.active)
+        {
+            ImGui::Spacing();
+            ImGui::TextColored(
+                g_Colors.warning,
+                "Timed test: %d/%d sent, delay %d ms",
+                g_TimedLicenseClaimTest.sentCount,
+                g_TimedLicenseClaimTest.repeatTotal,
+                g_TimedLicenseClaimTest.delayMs);
+            if (FullWidthButton("STOP TIMED CLAIM TEST"))
+                g_TimedLicenseClaimTest.active = false;
+        }
     }
 
     static void RefreshRecoveryTeamCache(bool force = false)
@@ -2560,6 +2677,61 @@ namespace ImGuiMenu
     static bool FullWidthButton(const char* label, float height)
     {
         return ImAdd::Button(label, ImVec2(ImGui::GetContentRegionAvail().x, height));
+    }
+
+    static unsigned int HashLicenseUnlockText(const char* text)
+    {
+        unsigned int hash = 2166136261u;
+        if (!text)
+            return hash;
+
+        for (const unsigned char* p = reinterpret_cast<const unsigned char*>(text); *p; ++p)
+        {
+            hash ^= *p;
+            hash *= 16777619u;
+        }
+
+        return hash;
+    }
+
+    static bool ValidateLicenseUnlockPassword()
+    {
+        constexpr unsigned int kHashPartA = 0x71A80B48u;
+        constexpr unsigned int kHashPartB = 0x54455255u;
+        return HashLicenseUnlockText(g_LicenseUnlockBuffer) == (kHashPartA ^ kHashPartB);
+    }
+
+    static void RenderProtectedAccessCard(float width)
+    {
+        if (BeginRugirCard("lobby-protected-access-page", "PROTECTED ACCESS", ImVec2(width, 0.0f)))
+        {
+            const bool submitted = ImGui::InputTextWithHint(
+                "##ProtectedAccessPassword",
+                "Password",
+                g_LicenseUnlockBuffer,
+                sizeof(g_LicenseUnlockBuffer),
+                ImGuiInputTextFlags_Password | ImGuiInputTextFlags_EnterReturnsTrue);
+
+            const bool unlockClicked = FullWidthButton("UNLOCK ACCESS");
+            if (submitted || unlockClicked)
+            {
+                if (ValidateLicenseUnlockPassword())
+                {
+                    g_LicenseSectionUnlocked = true;
+                    g_LicenseUnlockFailed = false;
+                }
+                else
+                {
+                    g_LicenseUnlockFailed = true;
+                }
+
+                std::memset(g_LicenseUnlockBuffer, 0, sizeof(g_LicenseUnlockBuffer));
+            }
+
+            if (g_LicenseUnlockFailed)
+                ImGui::TextColored(g_Colors.warning, "Invalid password.");
+        }
+        EndRugirCard();
     }
 
     static void RenderDllControlCard(float width)
@@ -3279,6 +3451,12 @@ namespace ImGuiMenu
             return;
         }
 
+        if (!g_LicenseSectionUnlocked)
+        {
+            RenderProtectedAccessCard(groupWidth);
+            return;
+        }
+
         if (BeginRugirCard("lobby-license-page", "SPECIAL LICENSE EXP", ImVec2(0.0f, 0.0f)))
         {
             ImAdd::SliderInt("Special License EXP", &g_HackSettings.BuyLicenseExpCount, 1, 300000, "%d");
@@ -3287,6 +3465,7 @@ namespace ImGuiMenu
             if (FullWidthButton("DUMP LICENSE GETTERS"))
                 InGameHack_DumpSeasonLicenseGetters();
 
+            DrawLicenseBackendClaimTestControls();
             DrawSeasonRankRewardReplacementControls();
         }
         EndRugirCard();
@@ -3430,7 +3609,16 @@ namespace ImGuiMenu
             { "Kota/Items", "K" },
         };
 
-        const Subtab lobbySubtabs[] =
+        const Subtab lobbySubtabsLocked[] =
+        {
+            { "Apply Team", "T" },
+            { "Apply All", "A" },
+            { "Specific", "S" },
+            { "Change Team", "C" },
+            { "Access", "A" },
+        };
+
+        const Subtab lobbySubtabsUnlocked[] =
         {
             { "Apply Team", "T" },
             { "Apply All", "A" },
@@ -3438,6 +3626,9 @@ namespace ImGuiMenu
             { "Change Team", "C" },
             { "License EXP", "L" },
         };
+
+        const Subtab* lobbySubtabs = g_LicenseSectionUnlocked ? lobbySubtabsUnlocked : lobbySubtabsLocked;
+        const int lobbySubtabCount = g_LicenseSectionUnlocked ? IM_ARRAYSIZE(lobbySubtabsUnlocked) : IM_ARRAYSIZE(lobbySubtabsLocked);
 
         const Subtab settingsSubtabs[] =
         {
@@ -3451,7 +3642,7 @@ namespace ImGuiMenu
             { "Aimbot", "A", aimbotSubtabs, IM_ARRAYSIZE(aimbotSubtabs) },
             { "Combat", "X", combatSubtabs, IM_ARRAYSIZE(combatSubtabs) },
             { "Hacks", "H", hacksSubtabs, IM_ARRAYSIZE(hacksSubtabs) },
-            { "Lobby", "L", lobbySubtabs, IM_ARRAYSIZE(lobbySubtabs) },
+            { "Lobby", "L", lobbySubtabs, lobbySubtabCount },
             { "Settings", "S", settingsSubtabs, IM_ARRAYSIZE(settingsSubtabs) },
         };
 
@@ -4083,6 +4274,7 @@ return true;
 
         // Update hotkey listener state every frame (Zero1 exact)
         UpdateHotkeyListener();
+        ProcessTimedLicenseClaimTest();
 
         if (HasPendingCharacterConditionAutoExecution())
         {
