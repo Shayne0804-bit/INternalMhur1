@@ -6,6 +6,7 @@
 #include <windows.h>
 #include <cstring>
 #include <wincodec.h>
+#include "EmbeddedImages.h"
 
 namespace IconLoader
 {
@@ -42,9 +43,12 @@ namespace IconLoader
             if (it != s_iconCache.end())
                 return it->second;
 
-            ID3D11ShaderResourceView* srv = nullptr;
+            ID3D11ShaderResourceView* srv = LoadEmbeddedImage(EmbeddedImages::FindCharacterIcon(characterId));
             for (const std::string& iconPath : GetIconFilePaths(characterId))
             {
+                if (srv)
+                    break;
+
                 srv = LoadPNGFromFile(iconPath.c_str());
                 if (srv)
                     break;
@@ -70,6 +74,11 @@ namespace IconLoader
         static ID3D11ShaderResourceView* LoadPNGFromFileExternal(const char* filePath)
         {
             return LoadPNGFromFile(filePath);
+        }
+
+        static ID3D11ShaderResourceView* LoadEmbeddedImageExternal(EmbeddedImages::ImageBytes image)
+        {
+            return LoadEmbeddedImage(image);
         }
 
         static std::string GetProjectRootPath()
@@ -173,6 +182,117 @@ namespace IconLoader
             paths.push_back(JoinPath("src\\Icons", fileName));
             return paths;
         }
+
+        static ID3D11ShaderResourceView* LoadEmbeddedImage(EmbeddedImages::ImageBytes image)
+        {
+            if (!image.data || image.size == 0 || image.size > MAXDWORD)
+                return nullptr;
+
+            return LoadPNGFromMemory(image.data, static_cast<DWORD>(image.size));
+        }
+
+        static ID3D11ShaderResourceView* LoadPNGFromMemory(const BYTE* bytes, DWORD byteCount)
+        {
+            if (!s_device || !s_deviceContext || !bytes || byteCount == 0)
+                return nullptr;
+
+            HRESULT comHr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+            bool shouldUninitializeCom = SUCCEEDED(comHr);
+
+            IWICImagingFactory* factory = nullptr;
+            IWICBitmapDecoder* decoder = nullptr;
+            IWICBitmapFrameDecode* frame = nullptr;
+            IWICFormatConverter* converter = nullptr;
+            IWICStream* stream = nullptr;
+            ID3D11Texture2D* texture = nullptr;
+            ID3D11ShaderResourceView* srv = nullptr;
+
+            HRESULT hr = CoCreateInstance(
+                CLSID_WICImagingFactory,
+                nullptr,
+                CLSCTX_INPROC_SERVER,
+                __uuidof(IWICImagingFactory),
+                (LPVOID*)&factory);
+
+            if (SUCCEEDED(hr) && factory)
+                hr = factory->CreateStream(&stream);
+            if (SUCCEEDED(hr) && stream)
+                hr = stream->InitializeFromMemory(const_cast<BYTE*>(bytes), byteCount);
+            if (SUCCEEDED(hr) && factory && stream)
+                hr = factory->CreateDecoderFromStream(stream, nullptr, WICDecodeMetadataCacheOnLoad, &decoder);
+            if (SUCCEEDED(hr) && decoder)
+                hr = decoder->GetFrame(0, &frame);
+            if (SUCCEEDED(hr) && factory)
+                hr = factory->CreateFormatConverter(&converter);
+            if (SUCCEEDED(hr) && converter && frame)
+            {
+                hr = converter->Initialize(
+                    frame,
+                    GUID_WICPixelFormat32bppRGBA,
+                    WICBitmapDitherTypeNone,
+                    nullptr,
+                    0.0,
+                    WICBitmapPaletteTypeCustom);
+            }
+
+            UINT width = 0;
+            UINT height = 0;
+            if (SUCCEEDED(hr) && converter)
+                hr = converter->GetSize(&width, &height);
+
+            if (SUCCEEDED(hr) && width > 0 && height > 0)
+            {
+                UINT stride = width * 4;
+                UINT dataSize = stride * height;
+                std::vector<BYTE> pixelData(dataSize);
+
+                hr = converter->CopyPixels(nullptr, stride, dataSize, pixelData.data());
+                if (SUCCEEDED(hr))
+                {
+                    D3D11_TEXTURE2D_DESC texDesc = {};
+                    texDesc.Width = width;
+                    texDesc.Height = height;
+                    texDesc.MipLevels = 1;
+                    texDesc.ArraySize = 1;
+                    texDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+                    texDesc.SampleDesc.Count = 1;
+                    texDesc.Usage = D3D11_USAGE_IMMUTABLE;
+                    texDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+
+                    D3D11_SUBRESOURCE_DATA initData = {};
+                    initData.pSysMem = pixelData.data();
+                    initData.SysMemPitch = stride;
+
+                    hr = s_device->CreateTexture2D(&texDesc, &initData, &texture);
+                    if (SUCCEEDED(hr) && texture)
+                    {
+                        D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+                        srvDesc.Format = texDesc.Format;
+                        srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+                        srvDesc.Texture2D.MipLevels = 1;
+                        hr = s_device->CreateShaderResourceView(texture, &srvDesc, &srv);
+                    }
+                }
+            }
+
+            if (texture)
+                texture->Release();
+            if (converter)
+                converter->Release();
+            if (frame)
+                frame->Release();
+            if (decoder)
+                decoder->Release();
+            if (stream)
+                stream->Release();
+            if (factory)
+                factory->Release();
+            if (shouldUninitializeCom)
+                CoUninitialize();
+
+            return SUCCEEDED(hr) ? srv : nullptr;
+        }
+
         static ID3D11ShaderResourceView* LoadPNGFromFile(const char* filePath)
         {
             if (!s_device || !s_deviceContext || !filePath || !filePath[0])

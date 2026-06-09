@@ -196,6 +196,16 @@ namespace D3D11Hook
 }
         }
 
+        try
+        {
+            InGameHack_SetInfiniteObjectsPatch(
+                ImGuiMenu::g_Settings.EnableGlobal &&
+                ImGuiMenu::g_Settings.EnableInfiniteObjects);
+        }
+        catch (...)
+        {
+}
+
         if (ImGuiMenu::g_Settings.EnableGlobal)
         {
         // Update the actor cache only when a feature actually consumes it.
@@ -465,6 +475,7 @@ swap->Release();
 
     void Shutdown()
     {
+        InGameHack_RestoreInfiniteObjectsPatch();
         RestorePresentHook();
 
         for (int i = 0; i < 200 && g_PresentCallDepth.load(std::memory_order_acquire) > 0; ++i)

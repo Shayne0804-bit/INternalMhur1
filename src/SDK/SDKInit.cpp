@@ -9,6 +9,20 @@ namespace SDKInit
 	bool g_SDKInitialized = false;
 	static std::vector<std::pair<std::string, UClass*>> g_AvailableClasses; // (ClassName, UClass pointer)
 
+	class NullLog
+	{
+	public:
+		bool is_open() const { return true; }
+		void close() {}
+		void flush() {}
+
+		template<typename T>
+		NullLog& operator<<(const T&)
+		{
+			return *this;
+		}
+	};
+
 	bool Initialize()
 	{
 		if (g_SDKInitialized)
@@ -63,7 +77,7 @@ return false;
 	{
 		try
 		{
-			std::ofstream log("c:\\temp\\pawns.log", std::ios::app);
+			NullLog log;
 			if (!log.is_open())
 			{
 return;
@@ -120,7 +134,7 @@ return;
 		try
 		{
 			// Log immediately to see if function is called at all
-std::ofstream log("c:\\temp\\spawn.log", std::ios::app);
+NullLog log;
 			if (!log.is_open())
 			{
 return nullptr;
@@ -279,7 +293,7 @@ return nullptr;
 	{
 g_AvailableClasses.clear();
 
-		std::ofstream log("c:\\temp\\class_enumeration.log", std::ios::app);
+		NullLog log;
 		if (!log.is_open())
 		{
 return;
@@ -373,7 +387,7 @@ return;
 
 	APlayerController* CreateNewPlayerController(UWorld* World)
 	{
-		std::ofstream log("c:\\temp\\spawn_by_class.log", std::ios::app);
+		NullLog log;
 		log << "[DEBUG] Attempting to create new PlayerController...\n";
 		log.flush();
 
@@ -444,7 +458,7 @@ return;
 
 	APawn* FindExistingCharacterBattle()
 	{
-		std::ofstream log("c:\\temp\\spawn_by_class.log", std::ios::app);
+		NullLog log;
 		log << "[DEBUG] Searching for existing CharacterBattle pawn...\n";
 		
 		try
@@ -494,7 +508,7 @@ return;
 	{
 		try
 		{
-std::ofstream log("c:\\temp\\spawn_by_class.log", std::ios::app);
+NullLog log;
 			if (!log.is_open())
 			{
 return nullptr;

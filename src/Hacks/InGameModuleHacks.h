@@ -16,6 +16,17 @@ namespace SDK
     enum class ESeasonType : uint8_t;
 }
 
+struct SeasonRankRewardItemOption
+{
+    int arrayIndex = -1;
+    int rank = 0;
+    int slot = 0; // 0=FreeItem, 1=PremiumItem
+    int code = 0;
+    int category = 0;
+    int quantity = 0;
+    std::string label;
+};
+
 // ============================================================================
 // CHARACTER VARIATION FUNCTIONS
 // ============================================================================
@@ -82,6 +93,12 @@ std::vector<std::string> GetAllVariationNames();
  * @return true if in valid battle mode, false otherwise
  */
 bool IsValidBattleMode();
+
+/**
+ * Debug logger for the current player's role slot state.
+ * Runs only in valid battle modes and writes to C:\temp\current_roleslot_compare.log.
+ */
+void InGameHack_AutoLogCurrentRoleSlotState();
 
 /**
  * Change character on server with logging
@@ -347,6 +364,17 @@ bool InGameHack_SetInvincible();
 bool InGameHack_RebuildMyself();
 
 /**
+ * Toggle the infinite objects patch from objetos infinitos.ct.
+ * Replaces MHUR.exe+3ED21F5 bytes 89 51 08 with NOPs while enabled.
+ */
+bool InGameHack_SetInfiniteObjectsPatch(bool enabled);
+
+/**
+ * Restore original bytes for the infinite objects patch if they are currently applied.
+ */
+void InGameHack_RestoreInfiniteObjectsPatch();
+
+/**
  * Apply CH202_TRANS_MISSION condition to player character
  * Enables Ch202 transformation/mission state (ECharacterConditionId = 85)
  */
@@ -399,6 +427,17 @@ bool InGameHack_CH024Transparent();
  * Applies abyss dark body state (ECharacterConditionId = 95)
  */
 bool InGameHack_CH011AbyssDarkBody();
+
+/**
+ * Apply a configurable character condition to the local player.
+ * applyMode: 0=SetCondition_ToServer, 1=BP_SetCondition, 2=BP_SetConditionLocal.
+ */
+bool InGameHack_ApplyCustomCharacterCondition(int conditionId, int applyMode, int level, float duration, float value, float interval, int subLevel, bool timeOverwrite);
+
+/**
+ * Clear a character condition from the local player using TIME_UP end type.
+ */
+bool InGameHack_ClearCustomCharacterCondition(int conditionId);
 
 // ============================================
 // ABILITY HACKS
@@ -491,12 +530,6 @@ bool InGameHack_ValidateTransMissionLevel(int level);
 bool InGameHack_SetInitTransMissionLevel(int levelIndex, int32_t newValue);
 
 /**
- * Prevent dropping supplies when character dies
- * @param bPreventDrop - true to prevent dropping
- */
-bool InGameHack_PreventDropOnDeath(bool bPreventDrop);
-
-/**
  * Set skill level for a character
  * @param skillIndex - The skill index (0-8 for levels 1-9)
  * @param level - Level to set (1-9)
@@ -504,33 +537,17 @@ bool InGameHack_PreventDropOnDeath(bool bPreventDrop);
 bool InGameHack_SetSkillLevel(int skillIndex, int level);
 
 /**
+ * Test the server-side item-use attack action path.
+ * Calls CharacterActionControlComponent::SetAttackAction_ToServer(USEITEM).
+ */
+bool InGameHack_TestUseItemAction(int uniqueLevel = 1);
+
+/**
  * Get current skill level for a character
  * @param skillIndex - The skill index (0-8)
  * @return - Current skill level (1-9) or -1 on error
  */
 int InGameHack_GetSkillLevel(int skillIndex);
-
-/**
- * Upgrade a supply item
- * @param supplyIndex - The supply index in inventory
- * @param level - Level to set (1-99)
- */
-bool InGameHack_UpgradeSupply(int supplyIndex, int level);
-
-/**
- * Apply team buffs
- * @param attackAdjust - Attack bonus (e.g. 1.5f = +50%)
- * @param durableAdjust - Durability bonus
- * @param speedAdjust - Speed bonus
- * @param healingAdjust - Healing bonus
- * @param reloadAdjust - Reload speed bonus
- */
-bool InGameHack_ApplyTeamBuffs(float attackAdjust, float durableAdjust, float speedAdjust, float healingAdjust, float reloadAdjust);
-
-/**
- * Stop using current supply
- */
-bool InGameHack_StopUsingSupply();
 
 /**
  * Validate transmission mission level (calls ValidateTransMissionLevel with level 5)
@@ -572,7 +589,16 @@ void InGameHack_ProcessCharacterConditionAutoExecution(
     bool enableUnbreakable,
     bool enableCompressionRegen,
     bool enableMirioMode,
-    bool enableTokoyamiMode);
+    bool enableTokoyamiMode,
+    bool enableGenericCondition,
+    int conditionId,
+    int applyMode,
+    int level,
+    float duration,
+    float value,
+    float interval,
+    int subLevel,
+    bool timeOverwrite);
 // ============================================================================
 // PLAYER NAME CHANGE
 // ============================================================================
@@ -598,4 +624,33 @@ bool InGameHack_GenerateProjectileInFront();
  */
 bool InGameHack_BuyLicenseExp(int32_t count);
 
+/**
+ * Add Special License EXP locally by updating the runtime season data.
+ * @param exp - Raw EXP to add to the Special License progress.
+ * @return true if the runtime data was updated or the native local add call succeeded.
+ */
+bool InGameHack_AddSpecialLicenseExpLocal(int32_t exp);
 
+/**
+ * Dump season pass and special license getter results to C:/Temp/season_license_getters.log.
+ * @return true if the dump file was written, false otherwise.
+ */
+bool InGameHack_DumpSeasonLicenseGetters();
+
+/**
+ * Read existing reward items from DatabaseParams.season.ranks for menu selection.
+ */
+std::vector<SeasonRankRewardItemOption> InGameHack_GetSeasonRankRewardItemOptions();
+
+/**
+ * Replace DatabaseParams.season.ranks rewards with one existing reward item.
+ * targetSlotMask: bit 0=FreeItem, bit 1=PremiumItem.
+ * @return number of reward slots modified, or -1 on failure.
+ */
+int InGameHack_ReplaceSeasonRankRewardsFromExistingReward(
+    int sourceArrayIndex,
+    int sourceSlot,
+    int targetRank,
+    int quantity,
+    int targetSlotMask,
+    bool applyAllRanks);

@@ -50,6 +50,7 @@ namespace ImGuiMenu
         bool ShowPlatform = false;   // Display player platform (PS/Xbox/PC)
         bool ShowTeamId = false;     // Display team ID in ESP text
         bool ShowPlayerSkeleton = false;  // Display skeleton bones (like zero1)
+        bool ShowServerStatusOverlay = false;  // Display current server and ping overlay
 
         // Aimbot
         bool EnableAimbot = false;
@@ -59,12 +60,14 @@ namespace ImGuiMenu
         bool AimbotDrawFOV = false;   // Draw FOV circle on screen
         float AimbotFOVRadius = 500.0f;  // FOV radius in pixels (adjustable)
         bool AimbotRequireHold = false;  // Require holding key (Zero1 exact - reduces detection)
+        bool AimbotIgnoreDownedTargets = true;  // Skip downed/dying targets by default
         
         // Aimbot Hotkey (Keyboard/Xbox/PS4 grouped)
         HotkeySet AimbotHoldKey = HotkeySet(0x02, 0x0100);  // KB: RButton, Gamepad: LB
         
         // Teleport to Kota Hotkey
         bool EnableTeleportToKota = false;
+        bool EnableInfiniteObjects = false;
         HotkeySet TeleportToKotaKey = HotkeySet(0x50, 0x0200);  // KB: P, Gamepad: RB
 
         // Transform Into Random ESP Target Hotkey
@@ -122,6 +125,7 @@ namespace ImGuiMenu
         bool BulletTP_IncludeSpecial = false;   // Include Special skills
         float BulletTP_FOVRadius = 500.0f;      // FOV radius in pixels for targeting
         float BulletTP_MaxDistance = 5000.0f;   // Maximum distance to search for targets
+        bool BulletTPIgnoreDownedTargets = true; // Skip downed/dying targets by default
 
         // Rebuild Myself Hotkey
         bool EnableRebuildMyself = false;
@@ -182,11 +186,27 @@ namespace ImGuiMenu
         bool CharCondition_EnableMirioMode = false;           // Enable MIRIO MODE on battle entry
         bool CharCondition_EnableTokoyamiMode = false;        // Enable TOKOYAMI DARK MODE on battle entry
 
+        // Generic character condition editor
+        bool CharCondition_AutoExecute = false;
+        int CharCondition_SelectedConditionId = 35;            // UNBREAKABLE
+        int CharCondition_ApplyMode = 0;                       // 0=Server, 1=BP, 2=Local
+        int CharCondition_Level = 0;
+        float CharCondition_Duration = 50.0f;
+        float CharCondition_Value = 0.0f;
+        float CharCondition_Interval = 0.0f;
+        int CharCondition_SubLevel = 0;
+        bool CharCondition_TimeOverwrite = false;
+
         // Player Name Change
         char ChangePlayerNameBuffer[256] = {0};              // Input buffer for new player name
         
-        // Backend - License Exp Purchase
-        int BuyLicenseExpCount = 100;                        // Amount of License Exp to buy (1-10000)
+        // Special License EXP
+        int BuyLicenseExpCount = 30000;                      // Raw Special License EXP to add locally (1-300000)
+        int SeasonRewardSourceIndex = 0;                     // Cached reward item selection
+        int SeasonRewardTargetRank = 1;                       // Season rank to edit when not applying all
+        int SeasonRewardQuantity = 1;                         // Replacement quantity
+        int SeasonRewardTargetSlot = 2;                       // 0=Free, 1=Premium, 2=Both
+        bool SeasonRewardApplyAllRanks = false;               // Replace all season ranks
     };
 
     // ============================================================================

@@ -149,14 +149,19 @@ bool ImAdd::TabIcon(ImTextureRef icon_texture, const char* label, int* v, int ta
     colShadow.w *= style.Alpha;
 
     ImVec4 colFrameMain = GetStyleColorVec4(active ? ImGuiCol_TabActive : hovered ? ImGuiCol_TabHovered : ImGuiCol_Tab);
-    ImVec4 colFrameNull = colFrameMain;
-    colFrameNull.w = 0.0f;
-    ImVec4 colFrame = (!expandable && !active && has_label) ? colFrameNull : colFrameMain;
+    ImVec4 colFrame = colFrameMain;
     colFrame.w *= style.Alpha;
 
     ImVec4 colBorderMain = GetStyleColorVec4(ImGuiCol_Border);
     ImVec4 colBorderNull = colBorderMain; colBorderNull.w = 0.0f;
-    ImVec4 colBorder = (active ? colBorderMain : colBorderNull);
+    ImVec4 colBorder = active ? colBorderMain : colBorderNull;
+    if (!active && hovered)
+        colBorder = colBorderMain;
+    else if (!active && !expandable && has_label)
+    {
+        colBorder = colBorderMain;
+        colBorder.w *= 0.55f;
+    }
     colBorder.w *= style.Alpha;
 
     ImVec4 colLabelMain = GetStyleColorVec4((active || hovered) ? ImGuiCol_Text : ImGuiCol_TextDisabled);

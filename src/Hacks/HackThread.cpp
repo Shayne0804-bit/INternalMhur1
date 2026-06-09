@@ -14,7 +14,16 @@ namespace
 {
     constexpr int XINPUT_LT_HOTKEY = 0x1F00;
     constexpr int XINPUT_RT_HOTKEY = 0x2F00;
+    constexpr int XINPUT_LEFT_STICK_UP_HOTKEY = 0x3001;
+    constexpr int XINPUT_LEFT_STICK_DOWN_HOTKEY = 0x3002;
+    constexpr int XINPUT_LEFT_STICK_LEFT_HOTKEY = 0x3003;
+    constexpr int XINPUT_LEFT_STICK_RIGHT_HOTKEY = 0x3004;
+    constexpr int XINPUT_RIGHT_STICK_UP_HOTKEY = 0x4001;
+    constexpr int XINPUT_RIGHT_STICK_DOWN_HOTKEY = 0x4002;
+    constexpr int XINPUT_RIGHT_STICK_LEFT_HOTKEY = 0x4003;
+    constexpr int XINPUT_RIGHT_STICK_RIGHT_HOTKEY = 0x4004;
     constexpr BYTE XINPUT_TRIGGER_THRESHOLD = 128;
+    constexpr SHORT XINPUT_STICK_THRESHOLD = 20000;
 
     struct GamepadSnapshot
     {
@@ -54,11 +63,75 @@ namespace
 
             const XINPUT_GAMEPAD& gamepad = snapshot.states[i].Gamepad;
 
-            if (key == XINPUT_LT_HOTKEY && gamepad.bLeftTrigger > XINPUT_TRIGGER_THRESHOLD)
-                return true;
+            if (key == XINPUT_LT_HOTKEY)
+            {
+                if (gamepad.bLeftTrigger > XINPUT_TRIGGER_THRESHOLD)
+                    return true;
+                continue;
+            }
 
-            if (key == XINPUT_RT_HOTKEY && gamepad.bRightTrigger > XINPUT_TRIGGER_THRESHOLD)
-                return true;
+            if (key == XINPUT_RT_HOTKEY)
+            {
+                if (gamepad.bRightTrigger > XINPUT_TRIGGER_THRESHOLD)
+                    return true;
+                continue;
+            }
+
+            if (key == XINPUT_LEFT_STICK_UP_HOTKEY)
+            {
+                if (gamepad.sThumbLY > XINPUT_STICK_THRESHOLD)
+                    return true;
+                continue;
+            }
+
+            if (key == XINPUT_LEFT_STICK_DOWN_HOTKEY)
+            {
+                if (gamepad.sThumbLY < -XINPUT_STICK_THRESHOLD)
+                    return true;
+                continue;
+            }
+
+            if (key == XINPUT_LEFT_STICK_LEFT_HOTKEY)
+            {
+                if (gamepad.sThumbLX < -XINPUT_STICK_THRESHOLD)
+                    return true;
+                continue;
+            }
+
+            if (key == XINPUT_LEFT_STICK_RIGHT_HOTKEY)
+            {
+                if (gamepad.sThumbLX > XINPUT_STICK_THRESHOLD)
+                    return true;
+                continue;
+            }
+
+            if (key == XINPUT_RIGHT_STICK_UP_HOTKEY)
+            {
+                if (gamepad.sThumbRY > XINPUT_STICK_THRESHOLD)
+                    return true;
+                continue;
+            }
+
+            if (key == XINPUT_RIGHT_STICK_DOWN_HOTKEY)
+            {
+                if (gamepad.sThumbRY < -XINPUT_STICK_THRESHOLD)
+                    return true;
+                continue;
+            }
+
+            if (key == XINPUT_RIGHT_STICK_LEFT_HOTKEY)
+            {
+                if (gamepad.sThumbRX < -XINPUT_STICK_THRESHOLD)
+                    return true;
+                continue;
+            }
+
+            if (key == XINPUT_RIGHT_STICK_RIGHT_HOTKEY)
+            {
+                if (gamepad.sThumbRX > XINPUT_STICK_THRESHOLD)
+                    return true;
+                continue;
+            }
 
             if ((gamepad.wButtons & key) != 0)
                 return true;
@@ -260,8 +333,7 @@ void HackThreadManager::FrameUpdateHacks()
         ImGuiMenu::g_HackSettings.EnableInvincible ||
         ImGuiMenu::g_Settings.EnableRebuildMyself ||
         ImGuiMenu::g_Settings.EnableCopySkillsFromNearestEnemy ||
-        ImGuiMenu::g_Settings.EnableGenerateProjectile ||
-        ImGuiMenu::g_Settings.EnableBulletTP;
+        ImGuiMenu::g_Settings.EnableGenerateProjectile;
     const GamepadSnapshot gamepadSnapshot = needsHotkeyPolling ? PollGamepads() : GamepadSnapshot{};
 
     auto enqueueContinuousHack = [this](std::function<void()> hackFunction) -> bool
@@ -533,7 +605,7 @@ void HackThreadManager::FrameUpdateHacks()
     {
         try
         {
-            if (!ImGuiMenu::IsVisible() && IsHotkeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey, gamepadSnapshot))
+            if (!ImGuiMenu::IsVisible())
             {
                 enqueueContinuousHack([alpha = ImGuiMenu::g_Settings.BulletTP_IncludeAlpha,
                                       beta = ImGuiMenu::g_Settings.BulletTP_IncludeBeta,

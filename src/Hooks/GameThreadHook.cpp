@@ -31,31 +31,7 @@ namespace GameThreadHook
 	// Logging helper
 	void Log(const char* format, ...)
 	{
-		if (!GAME_THREAD_DEBUG_LOGGING)
-			return;
-
-		if (!g_LogFile.is_open())
-		{
-			g_LogFile.open("c:\\temp\\gamethread.log", std::ios::app);
-		}
-
-		char buffer[1024];
-		va_list args;
-		va_start(args, format);
-		vsnprintf_s(buffer, sizeof(buffer), format, args);
-		va_end(args);
-
-		auto now = std::chrono::system_clock::now();
-		auto time = std::chrono::system_clock::to_time_t(now);
-		char timebuf[32];
-		ctime_s(timebuf, sizeof(timebuf), &time);
-		timebuf[strlen(timebuf) - 1] = '\0'; // Remove newline
-
-		g_LogFile << "[" << timebuf << "] " << buffer << std::endl;
-		g_LogFile.flush();
-
-		OutputDebugStringA(buffer);
-		OutputDebugStringA("\n");
+		(void)format;
 	}
 
 	// Utility to check valid pointer

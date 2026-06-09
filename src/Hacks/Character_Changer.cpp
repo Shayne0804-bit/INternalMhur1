@@ -1,6 +1,7 @@
 // SDK MUST come first
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/Basic.hpp"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/BackendSubsystem_classes.hpp"
+#include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/GameModule_classes.hpp"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/InGameModule_classes.hpp"
 #include "Character_Changer.h"
 #include "Character_Data.h"
@@ -10,6 +11,12 @@
 #include <chrono>
 #include <vector>
 #include <thread>
+#include <fstream>
+#include <iomanip>
+#include <sstream>
+#include <string>
+#include <ctime>
+#include <cstdint>
 #include <Windows.h>
 
 // Global variables from ImGuiMenu - used for character customization
@@ -233,7 +240,8 @@ namespace Cheats
     {
         __try
         {
-            SDK::TUObjectArray* objArray = SDK::UObject::GObjects.GetTypedPtr();
+            uintptr_t base = reinterpret_cast<uintptr_t>(GetModuleHandleA(nullptr));
+            SDK::TUObjectArray* objArray = reinterpret_cast<SDK::TUObjectArray*>(base + SDK::Offsets::GObjects);
             return SafeMemory::IsReadable(objArray, sizeof(SDK::TUObjectArray)) ? objArray : nullptr;
         }
         __except (EXCEPTION_EXECUTE_HANDLER)
@@ -353,6 +361,273 @@ namespace Cheats
     }
 
     // ── Build FInGameBattleCharacterData ──────────────────────────────────────
+    static bool TryGetCostumeRoleSlotParam(int costumeCode, SDK::FDbsCostumeRoleSlotParam* outParam)
+    {
+        if (!outParam)
+            return false;
+
+        __try
+        {
+            return SDK::URoleSlotStatics::GetCostumeRoleSlotParam(costumeCode, outParam);
+        }
+        __except (EXCEPTION_EXECUTE_HANDLER)
+        {
+            return false;
+        }
+    }
+
+    static bool FillRoleSlotWithGetterForChangeCharacter(SDK::FInGameBattleCharacterData& data)
+    {
+        if (data._costumeCode <= 0)
+            return false;
+
+        SDK::FDbsCostumeRoleSlotParam roleSlot{};
+        if (!TryGetCostumeRoleSlotParam(data._costumeCode, &roleSlot))
+            return false;
+
+        data._roleSlot = roleSlot;
+        return true;
+    }
+
+    static SDK::EVariationCharacterId GetRollSlotVariationIdForCharacter(int characterId, int variation)
+    {
+        int base = 0;
+        int maxVariation = 0;
+
+        switch (characterId)
+        {
+        case 1: base = 1; maxVariation = 1; break;
+        case 2: base = 3; maxVariation = 2; break;
+        case 3: base = 6; maxVariation = 1; break;
+        case 4: base = 8; maxVariation = 1; break;
+        case 5: base = 10; maxVariation = 1; break;
+        case 6: base = 12; maxVariation = 1; break;
+        case 7: base = 14; maxVariation = 1; break;
+        case 8: base = 16; maxVariation = 1; break;
+        case 10: base = 18; maxVariation = 1; break;
+        case 11: base = 20; maxVariation = 1; break;
+        case 12: base = 22; maxVariation = 1; break;
+        case 13: base = 24; maxVariation = 1; break;
+        case 15: base = 26; maxVariation = 2; break;
+        case 16: base = 29; maxVariation = 1; break;
+        case 17: base = 31; maxVariation = 1; break;
+        case 18: base = 33; maxVariation = 1; break;
+        case 23: base = 35; maxVariation = 1; break;
+        case 24: base = 37; maxVariation = 1; break;
+        case 25: base = 39; maxVariation = 1; break;
+        case 26: base = 41; maxVariation = 1; break;
+        case 34: base = 43; maxVariation = 1; break;
+        case 37: base = 45; maxVariation = 1; break;
+        case 38: base = 47; maxVariation = 1; break;
+        case 43: base = 49; maxVariation = 1; break;
+        case 46: base = 51; maxVariation = 1; break;
+        case 100: base = 53; maxVariation = 1; break;
+        case 101: base = 55; maxVariation = 1; break;
+        case 102: base = 57; maxVariation = 1; break;
+        case 103: base = 59; maxVariation = 1; break;
+        case 104: base = 61; maxVariation = 1; break;
+        case 105: base = 63; maxVariation = 1; break;
+        case 109: base = 65; maxVariation = 1; break;
+        case 111: base = 67; maxVariation = 1; break;
+        case 114: base = 69; maxVariation = 1; break;
+        case 115: base = 71; maxVariation = 1; break;
+        case 200: base = 73; maxVariation = 1; break;
+        case 201: base = 75; maxVariation = 1; break;
+        case 202: base = 77; maxVariation = 1; break;
+        default: return SDK::EVariationCharacterId::UNDEF;
+        }
+
+        if (variation < 0 || variation > maxVariation)
+            return SDK::EVariationCharacterId::UNDEF;
+
+        return static_cast<SDK::EVariationCharacterId>(base + variation);
+    }
+
+    static SDK::APlayerStateBattle* GetPlayerStateBattleFromTargetSafe(SDK::ACharacterBattle* targetCharacter)
+    {
+        if (IsBadReadPtr(targetCharacter, sizeof(SDK::ACharacterBattle)))
+            return nullptr;
+
+        SDK::APlayerStateBattle* battleState = nullptr;
+        __try
+        {
+            battleState = targetCharacter->BP_GetPlayerStateBattle();
+        }
+        __except (EXCEPTION_EXECUTE_HANDLER)
+        {
+            battleState = nullptr;
+        }
+
+        if (!IsBadReadPtr(battleState, sizeof(SDK::APlayerStateBattle)))
+            return battleState;
+
+        SDK::ACharacterGame* characterGame = reinterpret_cast<SDK::ACharacterGame*>(targetCharacter);
+        if (IsBadReadPtr(characterGame, sizeof(SDK::ACharacterGame)))
+            return nullptr;
+
+        SDK::APlayerState* playerState = characterGame->PlayerState;
+        if (IsBadReadPtr(playerState, sizeof(SDK::APlayerState)))
+            return nullptr;
+
+        if (!playerState->IsA(SDK::APlayerStateBattle::StaticClass()))
+            return nullptr;
+
+        battleState = static_cast<SDK::APlayerStateBattle*>(playerState);
+        return IsBadReadPtr(battleState, sizeof(SDK::APlayerStateBattle)) ? nullptr : battleState;
+    }
+
+    static SDK::UCharacterRollSlotUniqueSkillControlComponent* GetRollSlotControlComponentSafe(SDK::APlayerStateBattle* playerState)
+    {
+        if (IsBadReadPtr(playerState, sizeof(SDK::APlayerStateBattle)))
+            return nullptr;
+
+        SDK::UCharacterRollSlotUniqueSkillControlComponent* rollSlotCtrl = nullptr;
+        __try
+        {
+            rollSlotCtrl = playerState->BP_GetCharacterRollSlotUniqueSkillControlComponent();
+        }
+        __except (EXCEPTION_EXECUTE_HANDLER)
+        {
+            return nullptr;
+        }
+
+        return IsBadReadPtr(rollSlotCtrl, sizeof(SDK::UCharacterRollSlotUniqueSkillControlComponent)) ? nullptr : rollSlotCtrl;
+    }
+
+    static SDK::UCharacterRollSlotUniqueSkillBase* GetRegisteredRollSlotObjectSafe(
+        SDK::UCharacterRollSlotUniqueSkillControlComponent* rollSlotCtrl,
+        SDK::EVariationCharacterId id)
+    {
+        if (IsBadReadPtr(rollSlotCtrl, sizeof(SDK::UCharacterRollSlotUniqueSkillControlComponent)))
+            return nullptr;
+
+        SDK::UCharacterRollSlotUniqueSkillBase* rollSlotObject = nullptr;
+        __try
+        {
+            rollSlotObject = rollSlotCtrl->BP_GetObject(id);
+        }
+        __except (EXCEPTION_EXECUTE_HANDLER)
+        {
+            return nullptr;
+        }
+
+        return IsBadReadPtr(rollSlotObject, sizeof(SDK::UCharacterRollSlotUniqueSkillBase)) ? nullptr : rollSlotObject;
+    }
+
+    static int CountRegisteredRollSlots(
+        SDK::UCharacterRollSlotUniqueSkillControlComponent* rollSlotCtrl,
+        SDK::EVariationCharacterId desiredId,
+        SDK::UCharacterRollSlotUniqueSkillBase** desiredObject)
+    {
+        if (desiredObject)
+            *desiredObject = nullptr;
+
+        if (IsBadReadPtr(rollSlotCtrl, sizeof(SDK::UCharacterRollSlotUniqueSkillControlComponent)))
+            return 0;
+
+        int count = 0;
+        const int maxVariationId = static_cast<int>(SDK::EVariationCharacterId::MAX);
+        for (int rawId = 1; rawId < maxVariationId; ++rawId)
+        {
+            SDK::EVariationCharacterId id = static_cast<SDK::EVariationCharacterId>(rawId);
+            SDK::UCharacterRollSlotUniqueSkillBase* object = GetRegisteredRollSlotObjectSafe(rollSlotCtrl, id);
+            if (!object)
+                continue;
+
+            ++count;
+            if (desiredObject && id == desiredId)
+                *desiredObject = object;
+        }
+
+        return count;
+    }
+
+    static bool SetRollSlotParamByCharacterIdSafe(
+        SDK::UCharacterRollSlotUniqueSkillControlComponent* rollSlotCtrl,
+        SDK::EVariationCharacterId id,
+        const SDK::FRollSlotUniqueSkillArgumentParam& param)
+    {
+        if (IsBadReadPtr(rollSlotCtrl, sizeof(SDK::UCharacterRollSlotUniqueSkillControlComponent)))
+            return false;
+
+        __try
+        {
+            rollSlotCtrl->BP_SetParamByCharacterId(id, param);
+            return true;
+        }
+        __except (EXCEPTION_EXECUTE_HANDLER)
+        {
+            return false;
+        }
+    }
+
+    static bool BroadcastRollSlotByCharacterIdSafe(
+        SDK::UCharacterRollSlotUniqueSkillControlComponent* rollSlotCtrl,
+        SDK::EVariationCharacterId id)
+    {
+        if (IsBadReadPtr(rollSlotCtrl, sizeof(SDK::UCharacterRollSlotUniqueSkillControlComponent)))
+            return false;
+
+        __try
+        {
+            float refParam = 1.0f;
+            rollSlotCtrl->BP_BroadcastByCharacterId(id, refParam, 0);
+            return true;
+        }
+        __except (EXCEPTION_EXECUTE_HANDLER)
+        {
+            return false;
+        }
+    }
+
+    static bool ApplyTargetRegisteredRollSlot(SDK::ACharacterBattle* targetCharacter, int characterId, int variation)
+    {
+        SDK::EVariationCharacterId desiredId = GetRollSlotVariationIdForCharacter(characterId, variation);
+        if (desiredId == SDK::EVariationCharacterId::UNDEF)
+            return false;
+
+        SDK::APlayerStateBattle* targetPlayerState = GetPlayerStateBattleFromTargetSafe(targetCharacter);
+        SDK::UCharacterRollSlotUniqueSkillControlComponent* rollSlotCtrl = GetRollSlotControlComponentSafe(targetPlayerState);
+
+        SDK::UCharacterRollSlotUniqueSkillBase* desiredObject = GetRegisteredRollSlotObjectSafe(rollSlotCtrl, desiredId);
+        if (!desiredObject)
+            return false;
+
+        SDK::FRollSlotUniqueSkillArgumentParam param{};
+        param._broadcastIndex = 0;
+        param._targetCharacter = targetCharacter;
+
+        const bool setParam = SetRollSlotParamByCharacterIdSafe(rollSlotCtrl, desiredId, param);
+        const bool broadcast = setParam && BroadcastRollSlotByCharacterIdSafe(rollSlotCtrl, desiredId);
+
+        return setParam && broadcast;
+    }
+
+    template<typename T>
+    static int GetSafeArrayCount(const SDK::TArray<T>& array, int maxReasonableCount)
+    {
+        int count = 0;
+        const T* data = nullptr;
+
+        __try
+        {
+            count = array.Num();
+            data = array.GetDataPtr();
+        }
+        __except (EXCEPTION_EXECUTE_HANDLER)
+        {
+            return -1;
+        }
+
+        if (count < 0 || count > maxReasonableCount)
+            return -1;
+
+        if (count > 0 && !SafeMemory::IsReadable(data, sizeof(T) * static_cast<size_t>(count)))
+            return -1;
+
+        return count;
+    }
+
     static SDK::FInGameBattleCharacterData BuildData(
         int                  characterId,
         int                  variation,
@@ -480,7 +755,11 @@ namespace Cheats
             : static_cast<SDK::APlayerControllerBattle*>(myPC);
 
         if (!IsBadReadPtr(pcb, sizeof(SDK::APlayerControllerBattle)))
+        {
+            FillRoleSlotWithGetterForChangeCharacter(data);
+            ApplyTargetRegisteredRollSlot(CharPawn, characterId, variation);
             pcb->ChangeCharacter_OnServer(CharPawn, data);
+        }
     }
 
     // ── Collect all other player pawns ────────────────────────────────────────
@@ -539,9 +818,6 @@ namespace Cheats
             ApplyToActor(Actor, myPC, characterId, variation);
             std::this_thread::sleep_for(std::chrono::milliseconds(50));
             ++changed;
-            std::cout << "[CharChanger] Changed " << changed << "/"
-                << players.size() << " ID=" << characterId
-                << " var=" << variation << "\n";
         }
         return changed;
     }
@@ -573,9 +849,6 @@ namespace Cheats
                 ++changed;
             }
         }
-        std::cout << "[CharChanger] Changed " << changed << " enemies"
-            << " ID=" << characterId
-            << " var=" << variation << "\n";
         return changed;
     }
 
@@ -606,9 +879,6 @@ namespace Cheats
                 ++changed;
             }
         }
-        std::cout << "[CharChanger] Changed " << changed << " teammate(s)"
-            << " ID=" << characterId
-            << " var=" << variation << "\n";
         return changed;
     }
 
@@ -891,7 +1161,6 @@ namespace Cheats
     {
         if (!outInfo) return false;
         memset(outInfo, 0, sizeof(ServerConnectionInfo));
-        outInfo->port = 0;
         outInfo->pingMs = -1;
 
         if (!GetWorldSafe())
@@ -910,46 +1179,7 @@ namespace Cheats
 
         outInfo->hasRegion = GetCurrentServerRegion(outInfo->region, sizeof(outInfo->region));
 
-        __try
-        {
-            SDK::UBackendSubsystem* backendSubsystem = SDK::UBackendSubsystem::GetDefaultObj();
-            if (backendSubsystem && SafeMemory::IsReadable(backendSubsystem, sizeof(SDK::UBackendSubsystem)))
-            {
-                SDK::UDatabaseParams* dbParams = backendSubsystem->GetDatabaseParams();
-                if (dbParams && SafeMemory::IsReadable(dbParams, sizeof(SDK::UDatabaseParams)))
-                {
-                    SDK::UDbpMainMenu* mainMenu = dbParams->GetMainMenuData();
-                    if (mainMenu && SafeMemory::IsReadable(mainMenu, sizeof(SDK::UDbpMainMenu)))
-                    {
-                        SDK::FString host;
-                        int32_t port = 0;
-
-                        mainMenu->GetDedicatedServer(&host, &port);
-                        CopyFStringToChar(host, outInfo->host, sizeof(outInfo->host));
-
-                        if (outInfo->host[0] == '\0' || port <= 0)
-                        {
-                            host = SDK::FString();
-                            port = 0;
-                            mainMenu->GetFetchedSquadConnectionServer(&host, &port);
-                            CopyFStringToChar(host, outInfo->host, sizeof(outInfo->host));
-                        }
-
-                        if (outInfo->host[0] != '\0' && port > 0)
-                        {
-                            outInfo->port = port;
-                            outInfo->hasEndpoint = true;
-                        }
-                    }
-                }
-            }
-        }
-        __except (EXCEPTION_EXECUTE_HANDLER)
-        {
-            outInfo->hasEndpoint = false;
-        }
-
-        return outInfo->hasRegion || outInfo->hasEndpoint || outInfo->hasPing;
+        return outInfo->hasRegion || outInfo->hasPing;
     }
 
     void ChangeCharacterIndividual(int playerIndex, int characterId, int variation)
@@ -967,8 +1197,6 @@ namespace Cheats
         if (playerIndex < 0 || playerIndex >= (int)players.size()) return;
 
         ApplyToActor(players[playerIndex], myPC, characterId, variation);
-        std::cout << "[CharChanger] Changed player " << playerIndex
-            << " to ID=" << characterId << " var=" << variation << "\n";
     }
 
     bool ChangePlayerNetworkTargetToCh001(void* playerState)
@@ -993,11 +1221,9 @@ namespace Cheats
             if (CG->PlayerState != targetPS) continue;
 
             ApplyToActor(Actor, myPC, 502, 0);
-            std::cout << "[CharChanger] Network table button -> Ch001 var=0\n";
             return true;
         }
 
-        std::cout << "[CharChanger] Network table button failed: target actor not found\n";
         return false;
     }
 
@@ -1021,24 +1247,13 @@ namespace Cheats
             characterId, variation,
             static_cast<SDK::ACharacterGame*>(Pawn));
 
-        std::cout << "[CharChanger] INPUT characterId=" << characterId
-            << " SDK enum value=" << (int)data._characterId
-            << " chNum=" << chNum << "\n";
-
+        FillRoleSlotWithGetterForChangeCharacter(data);
         PCB->ChangeCharacter_OnServer(CB, data);
-
-        std::cout << "[CharChanger] Self -> ID=" << characterId
-            << " chNum=" << chNum
-            << " var=" << variation
-            << " costume=" << s_costumeCode << "\n";
     }
 
     void ChangeCharacterAllPlayers(int characterId, int variation)
     {
-        int changed = ApplyToAllOtherPlayers(characterId, variation);
-        std::cout << "[CharChanger] One-shot all -> " << changed
-            << " player(s) ID=" << characterId
-            << " var=" << variation << "\n";
+        ApplyToAllOtherPlayers(characterId, variation);
     }
 
     void ChangeCharacterAllPlayers_Start(int characterId, int variation)
@@ -1049,22 +1264,16 @@ namespace Cheats
         s_EnemiesOnlyActive = false;  // Disable enemies-only mode
         s_TeammatesOnlyActive = false;  // Disable teammates-only mode
         s_LastApplyTime = {};
-        std::cout << "[CharChanger] Persistent ALL PLAYERS ON -> ID=" << characterId
-            << " var=" << variation << "\n";
     }
 
     void ChangeCharacterAllPlayers_Stop()
     {
         s_AllPlayersActive = false;
-        std::cout << "[CharChanger] Persistent ALL PLAYERS OFF\n";
     }
 
     void ChangeCharacterEnemiesOnly(int characterId, int variation)
     {
-        int changed = ApplyToEnemiesOnly(characterId, variation);
-        std::cout << "[CharChanger] One-shot enemies -> " << changed
-            << " enemy(ies) ID=" << characterId
-            << " var=" << variation << "\n";
+        ApplyToEnemiesOnly(characterId, variation);
     }
 
     void ChangeCharacterEnemiesOnly_Start(int characterId, int variation)
@@ -1075,23 +1284,17 @@ namespace Cheats
         s_AllPlayersActive = false;  // Disable all-players mode
         s_TeammatesOnlyActive = false;  // Disable teammates-only mode
         s_LastApplyTime = {};
-        std::cout << "[CharChanger] Persistent ENEMIES ONLY ON -> ID=" << characterId
-            << " var=" << variation << "\n";
     }
 
     void ChangeCharacterEnemiesOnly_Stop()
     {
         s_EnemiesOnlyActive = false;
-        std::cout << "[CharChanger] Persistent ENEMIES ONLY OFF\n";
     }
 
     // ── Team swap functions (NEW) ────────────────────────────────────────────
     void ChangeCharacterTeammatesOnly(int characterId, int variation)
     {
-        int changed = ApplyToTeammatesOnly(characterId, variation);
-        std::cout << "[CharChanger] One-shot teammates -> " << changed
-            << " teammate(s) ID=" << characterId
-            << " var=" << variation << "\n";
+        ApplyToTeammatesOnly(characterId, variation);
     }
 
     void ChangeCharacterTeammatesOnly_Start(int characterId, int variation)
@@ -1102,14 +1305,11 @@ namespace Cheats
         s_AllPlayersActive = false;  // Disable all-players mode
         s_EnemiesOnlyActive = false;  // Disable enemies-only mode
         s_LastApplyTime = {};
-        std::cout << "[CharChanger] Persistent TEAM SWAP ON -> ID=" << characterId
-            << " var=" << variation << "\n";
     }
 
     void ChangeCharacterTeammatesOnly_Stop()
     {
         s_TeammatesOnlyActive = false;
-        std::cout << "[CharChanger] Persistent TEAM SWAP OFF\n";
     }
 
     bool IsTeammatesOnlyActive() { return s_TeammatesOnlyActive; }
@@ -1127,8 +1327,7 @@ namespace Cheats
             if (elapsed >= s_RetryIntervalSec)
             {
                 s_LastApplyTime = now;
-                int changed = ApplyToAllOtherPlayers(s_TargetId, s_TargetVariation);
-                std::cout << "[CharChanger] Tick all -> " << changed << " player(s)\n";
+                ApplyToAllOtherPlayers(s_TargetId, s_TargetVariation);
             }
         }
 
@@ -1140,8 +1339,7 @@ namespace Cheats
             if (elapsed >= s_RetryIntervalSec)
             {
                 s_LastApplyTime = now;
-                int changed = ApplyToEnemiesOnly(s_TargetId, s_TargetVariation);
-                std::cout << "[CharChanger] Tick enemies -> " << changed << " enemy(ies)\n";
+                ApplyToEnemiesOnly(s_TargetId, s_TargetVariation);
             }
         }
 
@@ -1153,8 +1351,7 @@ namespace Cheats
             if (elapsed >= s_RetryIntervalSec)
             {
                 s_LastApplyTime = now;
-                int changed = ApplyToTeammatesOnly(s_TargetId, s_TargetVariation);
-                std::cout << "[CharChanger] Tick teammates -> " << changed << " teammate(s)\n";
+                ApplyToTeammatesOnly(s_TargetId, s_TargetVariation);
             }
         }
     }
@@ -1192,7 +1389,6 @@ namespace Cheats
                 SpawnLocation
             );
 
-            std::cout << "[Cheats] Spawning Mud clone " << (i + 1) << "/" << numClones << "\n";
         }
     }
 

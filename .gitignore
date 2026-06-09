@@ -1,6 +1,69 @@
-# Build artifacts
+# Ignore everything by default. Re-allow only the files needed to build the DLL.
+*
+
+# Repository metadata
+!/.gitignore
+!/RUGIR-INTERNAL.sln
+!/RUGIR-INTERNAL.vcxproj
+
+# Root source files
+!DllEntry.cpp
+
+# Project source tree used by RUGIR-INTERNAL.vcxproj
+!src/
+!src/Core/
+!src/Core/**
+!src/Hooks/
+!src/Hooks/**
+!src/Hacks/
+!src/Hacks/**
+!src/Menu/
+!src/Menu/**
+!src/SDK/
+!src/SDK/**
+!src/Utils/
+!src/Utils/**
+
+# Generated UE SDK used by the DLL build
+!4.27.2-0+++UE4+Release-4.27-HerovsGame/
+!4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/
+!4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/**
+
+# ImGui files actually referenced by RUGIR-INTERNAL.vcxproj
+!cheat factory/
+!cheat factory/projects/
+!cheat factory/projects/shared/
+!cheat factory/projects/shared/ImGui/
+!cheat factory/projects/shared/ImGui/**
+
+# FreeType headers/library required by the vcxproj linker settings
+!cheat factory/vendors/
+!cheat factory/vendors/FreeType/
+!cheat factory/vendors/FreeType/include/
+!cheat factory/vendors/FreeType/include/**
+!cheat factory/vendors/FreeType/lib/
+!cheat factory/vendors/FreeType/lib/x64/
+!cheat factory/vendors/FreeType/lib/x64/freetype.lib
+
+# LibProt header included by DllEntry.cpp
+!LibProt-main/
+!LibProt-main/LibProt-main/
+!LibProt-main/LibProt-main/LibProt.h
+
+# Embedded menu font included by ImGuiMenu.cpp
+!Free ImGui/
+!Free ImGui/examples/
+!Free ImGui/examples/example_win32_directx11/
+!Free ImGui/examples/example_win32_directx11/Font.h
+
+# Always ignore generated/local artifacts even under re-allowed folders
 bin/
 obj/
+.vs/
+.vscode/
+*.vcxproj.user
+*.suo
+*.VC.db
 *.o
 *.obj
 *.dll
@@ -11,24 +74,18 @@ obj/
 *.ilk
 *.iobj
 *.ipdb
-
-# Visual Studio
-.vs/
-*.vcxproj.user
-*.VC.db
-
-# Temporary files
+*.log
 *.tmp
 *.temp
 *.swp
 *.swo
-
-# OS files
-.DS_Store
+*.rar
+*.zip
+*.7z
+*.CT
+*.jsonl
 Thumbs.db
+.DS_Store
 
-# IDE
-.vscode/
-
-# Dependencies cache
-*.suo
+# Required static library exception after the global *.lib ignore.
+!cheat factory/vendors/FreeType/lib/x64/freetype.lib

@@ -6,6 +6,7 @@
 #include "Character_Changer.h"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/InGameModule_classes.hpp"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/OutGameModule_classes.hpp"
+#include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/GameModule_classes.hpp"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/GameModule_structs.hpp"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/CommonModule_structs.hpp"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/BackendSubsystem_classes.hpp"
@@ -23,31 +24,87 @@
 #include <iomanip>
 #include <cstdio>
 #include <ctime>
+#include <algorithm>
+#include <cmath>
+#include <cstdint>
+#include <cstring>
+#include <mutex>
+#include <thread>
 #include <Windows.h>
 
 namespace
 {
     constexpr bool RUNTIME_FILE_DEBUG_LOGGING = false;
     constexpr ULONGLONG BATTLE_MODE_CACHE_MS = 250;
+    constexpr uintptr_t INFINITE_OBJECTS_PATCH_OFFSET = 0x3ED21F5;
+    constexpr size_t INFINITE_OBJECTS_PATCH_SIZE = 3;
+    constexpr BYTE INFINITE_OBJECTS_ORIGINAL_BYTES[INFINITE_OBJECTS_PATCH_SIZE] = { 0x89, 0x51, 0x08 };
+    constexpr BYTE INFINITE_OBJECTS_PATCH_BYTES[INFINITE_OBJECTS_PATCH_SIZE] = { 0x90, 0x90, 0x90 };
+
+    static std::mutex g_InfiniteObjectsPatchMutex;
+    static bool g_InfiniteObjectsPatchApplied = false;
+    static bool g_InfiniteObjectsMismatchLogged = false;
 
     static void WriteRuntimeDebugLog(const char* path, const std::string& message)
     {
-        if constexpr (!RUNTIME_FILE_DEBUG_LOGGING)
+        (void)path;
+        (void)message;
+    }
+
+    static BYTE* GetInfiniteObjectsPatchAddress()
+    {
+        HMODULE module = GetModuleHandleW(L"MHUR.exe");
+        if (!module)
+            module = GetModuleHandleW(nullptr);
+
+        if (!module)
+            return nullptr;
+
+        return reinterpret_cast<BYTE*>(reinterpret_cast<uintptr_t>(module) + INFINITE_OBJECTS_PATCH_OFFSET);
+    }
+
+    static bool PatchBytesMatch(const BYTE* address, const BYTE* expectedBytes)
+    {
+        if (!SafeMemory::IsReadable(address, INFINITE_OBJECTS_PATCH_SIZE))
+            return false;
+
+        __try
         {
-            (void)path;
-            (void)message;
-            return;
+            return std::memcmp(address, expectedBytes, INFINITE_OBJECTS_PATCH_SIZE) == 0;
+        }
+        __except (EXCEPTION_EXECUTE_HANDLER)
+        {
+            return false;
+        }
+    }
+
+    static bool WritePatchBytes(BYTE* address, const BYTE* bytes)
+    {
+        if (!address)
+            return false;
+
+        DWORD oldProtect = 0;
+        if (!VirtualProtect(address, INFINITE_OBJECTS_PATCH_SIZE, PAGE_EXECUTE_READWRITE, &oldProtect))
+            return false;
+
+        bool success = false;
+        __try
+        {
+            std::memcpy(address, bytes, INFINITE_OBJECTS_PATCH_SIZE);
+            success = true;
+        }
+        __except (EXCEPTION_EXECUTE_HANDLER)
+        {
+            success = false;
         }
 
-        try
-        {
-            std::ofstream logFile(path, std::ios::app);
-            if (logFile.is_open())
-                logFile << message;
-        }
-        catch (...)
-        {
-        }
+        DWORD unusedProtect = 0;
+        VirtualProtect(address, INFINITE_OBJECTS_PATCH_SIZE, oldProtect, &unusedProtect);
+
+        if (success)
+            FlushInstructionCache(GetCurrentProcess(), address, INFINITE_OBJECTS_PATCH_SIZE);
+
+        return success;
     }
 }
 
@@ -67,6 +124,7 @@ extern "C" SDK::APlayerController* SDK_GetPlayerController();
 extern "C" SDK::AActor* SDK_GetRandomESPTarget();  // Returns random ACharacterBattle as AActor*
 extern "C" SDK::AActor* SDK_GetForwardESPTarget();  // Returns closest ACharacterBattle in front as AActor*
 extern "C" SDK::AActor* SDK_GetBulletTPFOVTarget();  // Returns closest valid BulletTP FOV target
+extern "C" SDK::AActor* SDK_GetBulletTPFOVTargetWithPosition(SDK::FVector* OutTargetPosition);
 extern "C" const char* SDK_GetPlayerName(void* PlayerState);  // Get player name from PlayerState
 
 // UTILITY FUNCTIONS
@@ -239,6 +297,9 @@ static inline bool SafeReadMember(const T* memberAddress, T& out)
     return SafeMemory::TryRead(memberAddress, out);
 }
 
+static inline bool IsObjectDefaultSafe(SDK::UObject* object);
+static inline bool IsObjectAUnsafeGuarded(SDK::UObject* object, SDK::UClass* klass);
+
 template<typename T>
 static inline bool SafeArrayCount(const UC::TArray<T>& array, int32_t& count, int32_t maxReasonableCount = 200000)
 {
@@ -396,6 +457,79 @@ static inline SDK::USupplyHolderComponent* GetSupplyHolderComponentSafe(SDK::APl
     return supplyHolderComp;
 }
 
+static inline SDK::UCharacterActionControlComponent* GetActionControlComponentSafe(SDK::ACharacterBattle* character)
+{
+    if (!IsValidPointer(character))
+        return nullptr;
+
+    SDK::UCharacterActionControlComponent* actionControlComp = nullptr;
+    if (!SafeReadMember(&character->_actionControlComponent, actionControlComp) || !IsValidPointer(actionControlComp))
+        return nullptr;
+
+    return actionControlComp;
+}
+
+static inline bool IsNonNoneFName(const SDK::FName& name)
+{
+    return name.ComparisonIndex != 0;
+}
+
+static inline SDK::FName GetUseItemSupplyIdSafe(SDK::APlayerStateBattle* playerState)
+{
+    SDK::FName supplyId{};
+
+    SDK::USupplyHolderComponent* supplyHolderComp = GetSupplyHolderComponentSafe(playerState);
+    if (!IsValidPointer(supplyHolderComp))
+        return supplyId;
+
+    if (SafeReadMember(&supplyHolderComp->_shortCutSupplyId, supplyId) && IsNonNoneFName(supplyId))
+        return supplyId;
+
+    supplyId = SDK::FName();
+    if (SafeReadMember(&supplyHolderComp->_lastUsedSupplyId, supplyId) && IsNonNoneFName(supplyId))
+        return supplyId;
+
+    return SDK::FName();
+}
+
+static inline bool TrySetUseItemSupplyIdSafe(SDK::UActionAttackUseItem* useItemAction, const SDK::FName& supplyId)
+{
+    if (!IsValidPointer(useItemAction) || !IsNonNoneFName(supplyId))
+        return false;
+
+    __try
+    {
+        useItemAction->BP_SetSupplyId(supplyId);
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static inline SDK::FVector_NetQuantize100 GetActorLocationNetQuantize100Safe(SDK::ACharacterBattle* character)
+{
+    SDK::FVector_NetQuantize100 targetLocation{};
+
+    if (!IsValidPointer(character))
+        return targetLocation;
+
+    __try
+    {
+        SDK::FVector playerLocation = character->K2_GetActorLocation();
+        targetLocation.X = playerLocation.X;
+        targetLocation.Y = playerLocation.Y;
+        targetLocation.Z = playerLocation.Z;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        targetLocation = SDK::FVector_NetQuantize100();
+    }
+
+    return targetLocation;
+}
+
 static inline SDK::USkillManagementComponent* GetSkillManagementComponentSafe(SDK::ACharacterBattle* character)
 {
     if (!IsValidPointer(character))
@@ -473,6 +607,1619 @@ static inline SDK::UCharacterRollSlotUniqueSkillControlComponent* GetRollSlotCon
         return nullptr;
 
     return rollSlotCtrl;
+}
+
+static void WriteTogaRollSlotLog(const std::string& message)
+{
+    (void)message;
+}
+
+static void WriteCurrentRoleSlotLog(const std::string& message)
+{
+    (void)message;
+}
+
+static const char* AbilityTypeName(SDK::EMdAbilityType value)
+{
+    switch (value)
+    {
+    case SDK::EMdAbilityType::Invalid: return "Invalid";
+    case SDK::EMdAbilityType::Undef: return "Undef";
+    case SDK::EMdAbilityType::Power: return "Power";
+    case SDK::EMdAbilityType::Support: return "Support";
+    case SDK::EMdAbilityType::Speed: return "Speed";
+    case SDK::EMdAbilityType::Defense: return "Defense";
+    case SDK::EMdAbilityType::Technique: return "Technique";
+    case SDK::EMdAbilityType::Special: return "Special";
+    case SDK::EMdAbilityType::Max: return "Max";
+    default: return "Unknown";
+    }
+}
+
+static const char* CharacterAssignName(SDK::EMdCharacterAssign value)
+{
+    switch (value)
+    {
+    case SDK::EMdCharacterAssign::Invalid: return "Invalid";
+    case SDK::EMdCharacterAssign::Undef: return "Undef";
+    case SDK::EMdCharacterAssign::HERO: return "HERO";
+    case SDK::EMdCharacterAssign::VILLAIN: return "VILLAIN";
+    case SDK::EMdCharacterAssign::Max: return "Max";
+    default: return "Unknown";
+    }
+}
+
+static void AppendRoleSlotEffectMasterSummary(std::stringstream& ss, const std::string& indent, const char* name, const SDK::FMasterDataRoleSlotEffect& effect)
+{
+    ss << "\n" << indent << name << ":"
+       << "\n" << indent << "  code: " << effect.code
+       << "\n" << indent << "  nameKey: " << effect.Name
+       << "\n" << indent << "  descKey: " << effect.Description
+       << "\n" << indent << "  levelUpDescKey: " << effect.LevelUpDescription
+       << "\n" << indent << "  group: " << effect.GroupCode
+       << "\n" << indent << "  levels: [" << effect.Level1 << ", " << effect.Level2 << ", " << effect.Level3
+       << ", " << effect.Level4 << ", " << effect.Level5 << ", " << effect.Level6
+       << ", " << effect.Level7 << ", " << effect.Level8 << ", " << effect.Level9
+       << ", " << effect.Level10 << ", " << effect.Level11 << "]"
+       << "\n" << indent << "  subEffects: [" << effect.SubEffect1 << ", " << effect.SubEffect2 << ", " << effect.SubEffect3 << "]";
+}
+
+static void AppendRoleSlotTypeSummary(std::stringstream& ss, const std::string& indent, const SDK::FDbsRoleSlotType& type)
+{
+    ss << "\n" << indent << "type:"
+       << "\n" << indent << "  code: " << type.code
+       << "\n" << indent << "  targetRole: " << static_cast<int>(type.TargetRole)
+       << "\n" << indent << "  targetRoleName: " << AbilityTypeName(type.TargetRole)
+       << "\n" << indent << "  masterCode: " << type.RoleSlotType.code
+       << "\n" << indent << "  masterTargetRole: " << type.RoleSlotType.TargetRole
+       << "\n" << indent << "  masterTargetAssign: " << static_cast<int>(type.RoleSlotType.TargetAssign)
+       << "\n" << indent << "  masterTargetAssignName: " << CharacterAssignName(type.RoleSlotType.TargetAssign);
+}
+
+static void AppendRoleSlotEffectSummary(std::stringstream& ss, const std::string& indent, const SDK::FDbsRoleSlotEffect& effect)
+{
+    ss << "\n" << indent << "effect:"
+       << "\n" << indent << "  code: " << effect.code;
+    AppendRoleSlotEffectMasterSummary(ss, indent + "  ", "primary", effect.RoleSlotEffect);
+    AppendRoleSlotEffectMasterSummary(ss, indent + "  ", "secondary", effect.RoleSlotEffect2);
+}
+
+static void AppendRoleSlotEntrySummary(std::stringstream& ss, const std::string& indent, const std::string& label, const SDK::FDbsRoleSlot& slot)
+{
+    ss << "\n" << indent << label << ":"
+       << "\n" << indent << "  index: " << slot.Index
+       << "\n" << indent << "  level: " << slot.Level
+       << "\n" << indent << "  unique: " << (slot.UniqueSlot ? 1 : 0)
+       << "\n" << indent << "  initLevel: " << slot.InitLevel
+       << "\n" << indent << "  initLevelCap: " << slot.InitLevelCap
+       << "\n" << indent << "  maxLevel: " << slot.MaxLevel
+       << "\n" << indent << "  levelUpItem: " << slot.LevelUpItem
+       << "\n" << indent << "  levelUpItemNum: " << slot.LevelUpItemNum
+       << "\n" << indent << "  unlockedItem: " << slot.UnlockedItem
+       << "\n" << indent << "  unlockedItemNum: " << slot.UnlockedItemNum
+       << "\n" << indent << "  unlockedLevelCapUp: " << (slot.UnlockedLevelCapUp ? 1 : 0)
+       << "\n" << indent << "  tipCode: " << slot.TipCode;
+
+    AppendRoleSlotTypeSummary(ss, indent + "  ", slot.Type);
+    AppendRoleSlotEffectSummary(ss, indent + "  ", slot.Effect);
+}
+
+static void AppendCurrentRoleSlotArraySummary(std::stringstream& ss, const char* name, const SDK::TArray<SDK::FDbsRoleSlot>& array)
+{
+    int32_t count = 0;
+    if (!SafeArrayCount(array, count, 64))
+    {
+        ss << "\n  " << name << ":"
+           << "\n    count: -1";
+        return;
+    }
+
+    ss << "\n  " << name << ":"
+       << "\n    count: " << count;
+
+    if (count <= 0)
+        return;
+
+    ss << "\n    entries:";
+
+    for (int32_t i = 0; i < count; ++i)
+    {
+        SDK::FDbsRoleSlot slot{};
+        if (!SafeArrayGet(array, i, slot, 64))
+            break;
+
+        std::stringstream label;
+        label << name << "[" << i << "]";
+        AppendRoleSlotEntrySummary(ss, "      ", label.str(), slot);
+    }
+}
+
+static void AppendCurrentRoleSlotCostumeSummary(std::stringstream& ss, const SDK::FMasterDataCustomizeCostume& costume)
+{
+    ss << "\n  costume:"
+       << "\n    code: " << costume.code
+       << "\n    character: " << costume.Character
+       << "\n    group: " << costume.GroupCode
+       << "\n    rarity: " << static_cast<int>(costume.Rarity)
+       << "\n    shopItemCode: " << costume.shopItemCode
+       << "\n    descriptionKey: " << costume.Description
+       << "\n    obtainFromKey: " << costume.ObtainFrom
+       << "\n    baseNameKey: " << costume.BaseName
+       << "\n    subNameKey: " << costume.SubName
+       << "\n    seriesNormal: " << costume.SeriesNormal
+       << "\n    cpuEquip: " << costume.CpuEquip
+       << "\n    roleSlotPattern: " << costume.RoleSlotPattern
+       << "\n    roleSlots: [" << costume.RoleSlot1 << ", " << costume.RoleSlot2 << ", " << costume.RoleSlot3
+       << ", " << costume.RoleSlot4 << ", " << costume.RoleSlot5 << ", " << costume.RoleSlot6
+       << ", " << costume.RoleSlot7 << ", " << costume.RoleSlot8 << ", " << costume.RoleSlot9
+       << ", " << costume.RoleSlot10 << "]"
+       << "\n    uniqueRoleSlots: [" << costume.RoleSlotUnique1 << ", " << costume.RoleSlotUnique2 << "]";
+}
+
+struct RoleSlotPatternSlotDebug
+{
+    int initLevel;
+    int maxLevel;
+    int levelUpItem;
+    int levelUpItemNum;
+    int unlockedItem;
+    int unlockedItemNum;
+    int unlockedLevelCapUp;
+};
+
+static void AppendPatternSlotSummary(std::stringstream& ss, const std::string& indent, int index, const RoleSlotPatternSlotDebug& slot)
+{
+    ss << "\n" << indent << "slot" << index << ":"
+       << "\n" << indent << "  initLevel: " << slot.initLevel
+       << "\n" << indent << "  maxLevel: " << slot.maxLevel
+       << "\n" << indent << "  levelUpItem: " << slot.levelUpItem
+       << "\n" << indent << "  levelUpItemNum: " << slot.levelUpItemNum
+       << "\n" << indent << "  unlockedItem: " << slot.unlockedItem
+       << "\n" << indent << "  unlockedItemNum: " << slot.unlockedItemNum
+       << "\n" << indent << "  unlockedLevelCapUp: " << slot.unlockedLevelCapUp;
+}
+
+static void AppendCurrentRoleSlotPatternSummary(std::stringstream& ss, const SDK::FMasterDataRoleSlotPattern& pattern)
+{
+    const RoleSlotPatternSlotDebug slots[10] = {
+        { pattern.Slot1InitLevel, pattern.Slot1MaxLevel, pattern.Slot1LevelupItem, pattern.Slot1LevelupItemNum, pattern.Slot1UnlockedItem, pattern.Slot1UnlockedItemNum, pattern.Slot1UnlockedLevelCapUp },
+        { pattern.Slot2InitLevel, pattern.Slot2MaxLevel, pattern.Slot2LevelupItem, pattern.Slot2LevelupItemNum, pattern.Slot2UnlockedItem, pattern.Slot2UnlockedItemNum, pattern.Slot2UnlockedLevelCapUp },
+        { pattern.Slot3InitLevel, pattern.Slot3MaxLevel, pattern.Slot3LevelupItem, pattern.Slot3LevelupItemNum, pattern.Slot3UnlockedItem, pattern.Slot3UnlockedItemNum, pattern.Slot3UnlockedLevelCapUp },
+        { pattern.Slot4InitLevel, pattern.Slot4MaxLevel, pattern.Slot4LevelupItem, pattern.Slot4LevelupItemNum, pattern.Slot4UnlockedItem, pattern.Slot4UnlockedItemNum, pattern.Slot4UnlockedLevelCapUp },
+        { pattern.Slot5InitLevel, pattern.Slot5MaxLevel, pattern.Slot5LevelupItem, pattern.Slot5LevelupItemNum, pattern.Slot5UnlockedItem, pattern.Slot5UnlockedItemNum, pattern.Slot5UnlockedLevelCapUp },
+        { pattern.Slot6InitLevel, pattern.Slot6MaxLevel, pattern.Slot6LevelupItem, pattern.Slot6LevelupItemNum, pattern.Slot6UnlockedItem, pattern.Slot6UnlockedItemNum, pattern.Slot6UnlockedLevelCapUp },
+        { pattern.Slot7InitLevel, pattern.Slot7MaxLevel, pattern.Slot7LevelupItem, pattern.Slot7LevelupItemNum, pattern.Slot7UnlockedItem, pattern.Slot7UnlockedItemNum, pattern.Slot7UnlockedLevelCapUp },
+        { pattern.Slot8InitLevel, pattern.Slot8MaxLevel, pattern.Slot8LevelupItem, pattern.Slot8LevelupItemNum, pattern.Slot8UnlockedItem, pattern.Slot8UnlockedItemNum, pattern.Slot8UnlockedLevelCapUp },
+        { pattern.Slot9InitLevel, pattern.Slot9MaxLevel, pattern.Slot9LevelupItem, pattern.Slot9LevelupItemNum, pattern.Slot9UnlockedItem, pattern.Slot9UnlockedItemNum, pattern.Slot9UnlockedLevelCapUp },
+        { pattern.Slot10InitLevel, pattern.Slot10MaxLevel, pattern.Slot10LevelupItem, pattern.Slot10LevelupItemNum, pattern.Slot10UnlockedItem, pattern.Slot10UnlockedItemNum, pattern.Slot10UnlockedLevelCapUp },
+    };
+
+    ss << "\n  pattern:"
+       << "\n    code: " << pattern.code
+       << "\n    slotInitNum: " << pattern.SlotInitNum
+       << "\n    slots:";
+
+    for (int i = 0; i < 10; ++i)
+    {
+        AppendPatternSlotSummary(ss, "      ", i + 1, slots[i]);
+    }
+
+    ss << "\n    uniqueSlots:"
+       << "\n      uniqueSlot1:"
+       << "\n        initLevel: " << pattern.UniqueSlot1InitLevel
+       << "\n        initLevelCap: " << pattern.UniqueSlot1InitLevelCap
+       << "\n        levelUpItem: " << pattern.UniqueSlot1LevelupItem
+       << "\n        levelUpItemNum: " << pattern.UniqueSlot1LevelupItemNum
+       << "\n      uniqueSlot2:"
+       << "\n        initLevel: " << pattern.UniqueSlot2InitLevel
+       << "\n        initLevelCap: " << pattern.UniqueSlot2InitLevelCap
+       << "\n        levelUpItem: " << pattern.UniqueSlot2LevelupItem
+       << "\n        levelUpItemNum: " << pattern.UniqueSlot2LevelupItemNum;
+}
+
+static void AppendCurrentRoleSlotParamSummary(std::stringstream& ss, const char* label, const SDK::FDbsCostumeRoleSlotParam& param, int costumeCode, bool hasBoolResult, bool boolResult)
+{
+    ss << "\n\n=== " << label << " ===";
+
+    if (hasBoolResult)
+        ss << "\n  result: " << (boolResult ? 1 : 0);
+
+    ss << "\n  inputCostume: " << costumeCode
+       << "\n  unlockedRoleSlot: " << param.UnlockedRoleSlot;
+
+    AppendCurrentRoleSlotCostumeSummary(ss, param.Costume);
+    AppendCurrentRoleSlotPatternSummary(ss, param.RoleSlotPattern);
+
+    AppendCurrentRoleSlotArraySummary(ss, "slotList", param.SlotList);
+    AppendCurrentRoleSlotArraySummary(ss, "skillList", param.SkillList);
+}
+
+static SDK::UBackendSubsystem* GetBackendSubsystemSafe()
+{
+    __try
+    {
+        SDK::UBackendSubsystem* backendSubsystem = SDK::UBackendSubsystem::GetDefaultObj();
+        return IsValidPointer(backendSubsystem) ? backendSubsystem : nullptr;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return nullptr;
+    }
+}
+
+static SDK::UDatabaseParams* GetDatabaseParamsSafe(SDK::UBackendSubsystem* backendSubsystem)
+{
+    if (!IsValidPointer(backendSubsystem))
+        return nullptr;
+
+    __try
+    {
+        SDK::UDatabaseParams* dbParams = backendSubsystem->GetDatabaseParams();
+        return IsValidPointer(dbParams) ? dbParams : nullptr;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return nullptr;
+    }
+}
+
+static SDK::UDbpSeason* GetSeasonDataSafe(SDK::UDatabaseParams* dbParams)
+{
+    if (!IsValidPointer(dbParams))
+        return nullptr;
+
+    __try
+    {
+        SDK::UDbpSeason* seasonData = dbParams->GetSeasonData();
+        return IsValidPointer(seasonData) ? seasonData : nullptr;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return nullptr;
+    }
+}
+
+static SDK::UDatabaseParams* GetDatabaseParamsMemberSafe(SDK::UBackendSubsystem* backendSubsystem)
+{
+    if (!IsValidPointer(backendSubsystem))
+        return nullptr;
+
+    SDK::UDatabaseParams* dbParams = nullptr;
+    if (!SafeReadMember(&backendSubsystem->_params, dbParams))
+        return nullptr;
+
+    return IsValidPointer(dbParams) ? dbParams : nullptr;
+}
+
+static SDK::UDbpSeason* GetSeasonDataMemberSafe(SDK::UDatabaseParams* dbParams)
+{
+    if (!IsValidPointer(dbParams))
+        return nullptr;
+
+    SDK::UDbpSeason* seasonData = nullptr;
+    if (!SafeReadMember(&dbParams->_dbpSeason, seasonData))
+        return nullptr;
+
+    return IsValidPointer(seasonData) ? seasonData : nullptr;
+}
+
+struct SeasonLicenseDataSource
+{
+    SDK::UBackendSubsystem* backendSubsystem = nullptr;
+    SDK::UDatabaseParams* dbParams = nullptr;
+    SDK::UDbpSeason* seasonData = nullptr;
+    int32_t scannedObjects = 0;
+    int32_t backendCandidates = 0;
+    int32_t dbParamsCandidates = 0;
+    int32_t seasonCandidates = 0;
+    const char* dbParamsSource = "none";
+    const char* seasonDataSource = "none";
+};
+
+static bool TryScanSeasonLicenseDataSource(SeasonLicenseDataSource& source)
+{
+    SDK::TUObjectArray* gObjects = SDK::UObject::GObjects.GetTypedPtr();
+    int32_t objectCount = 0;
+    if (!IsValidPointer(gObjects) || !TryGetObjectArrayCountSafe(gObjects, objectCount))
+        return false;
+
+    if (objectCount <= 0 || objectCount > 2000000)
+        return false;
+
+    source.scannedObjects = objectCount;
+    SDK::UClass* backendClass = SDK::UBackendSubsystem::StaticClass();
+    SDK::UClass* dbParamsClass = SDK::UDatabaseParams::StaticClass();
+    SDK::UClass* seasonClass = SDK::UDbpSeason::StaticClass();
+
+    for (int32_t i = 0; i < objectCount; ++i)
+    {
+        SDK::UObject* obj = GetObjectByIndexSafe(gObjects, i);
+        if (!IsValidPointer(obj) || IsObjectDefaultSafe(obj))
+            continue;
+
+        if (IsObjectAUnsafeGuarded(obj, backendClass))
+        {
+            ++source.backendCandidates;
+            SDK::UBackendSubsystem* candidateBackend = static_cast<SDK::UBackendSubsystem*>(obj);
+            if (!source.backendSubsystem)
+                source.backendSubsystem = candidateBackend;
+
+            if (!source.dbParams)
+            {
+                SDK::UDatabaseParams* memberParams = GetDatabaseParamsMemberSafe(candidateBackend);
+                if (memberParams)
+                {
+                    source.dbParams = memberParams;
+                    source.dbParamsSource = "gobjects_backend_member";
+                }
+            }
+        }
+
+        if (IsObjectAUnsafeGuarded(obj, dbParamsClass))
+        {
+            ++source.dbParamsCandidates;
+            if (!source.dbParams)
+            {
+                source.dbParams = static_cast<SDK::UDatabaseParams*>(obj);
+                source.dbParamsSource = "gobjects_databaseparams";
+            }
+        }
+
+        if (IsObjectAUnsafeGuarded(obj, seasonClass))
+        {
+            ++source.seasonCandidates;
+            if (!source.seasonData)
+            {
+                source.seasonData = static_cast<SDK::UDbpSeason*>(obj);
+                source.seasonDataSource = "gobjects_dbpseason";
+            }
+        }
+
+        if (source.dbParams && !source.seasonData)
+        {
+            SDK::UDbpSeason* memberSeason = GetSeasonDataMemberSafe(source.dbParams);
+            if (memberSeason)
+            {
+                source.seasonData = memberSeason;
+                source.seasonDataSource = "databaseparams_member";
+            }
+        }
+
+        if (source.dbParams && source.seasonData && source.backendSubsystem)
+            return true;
+    }
+
+    return source.dbParams || source.seasonData || source.backendSubsystem;
+}
+
+static SeasonLicenseDataSource ResolveSeasonLicenseDataSource()
+{
+    SeasonLicenseDataSource source{};
+    source.backendSubsystem = GetBackendSubsystemSafe();
+    source.dbParams = GetDatabaseParamsSafe(source.backendSubsystem);
+    if (source.dbParams)
+        source.dbParamsSource = "backend_getter";
+
+    if (!source.dbParams)
+    {
+        source.dbParams = GetDatabaseParamsMemberSafe(source.backendSubsystem);
+        if (source.dbParams)
+            source.dbParamsSource = "backend_member";
+    }
+
+    source.seasonData = GetSeasonDataSafe(source.dbParams);
+    if (source.seasonData)
+        source.seasonDataSource = "databaseparams_getter";
+
+    if (!source.seasonData)
+    {
+        source.seasonData = GetSeasonDataMemberSafe(source.dbParams);
+        if (source.seasonData)
+            source.seasonDataSource = "databaseparams_member";
+    }
+
+    if (!source.dbParams || !source.seasonData)
+    {
+        SeasonLicenseDataSource scanned{};
+        if (TryScanSeasonLicenseDataSource(scanned))
+        {
+            source.scannedObjects = scanned.scannedObjects;
+            source.backendCandidates = scanned.backendCandidates;
+            source.dbParamsCandidates = scanned.dbParamsCandidates;
+            source.seasonCandidates = scanned.seasonCandidates;
+
+            if (!source.backendSubsystem && scanned.backendSubsystem)
+                source.backendSubsystem = scanned.backendSubsystem;
+
+            if (!source.dbParams && scanned.dbParams)
+            {
+                source.dbParams = scanned.dbParams;
+                source.dbParamsSource = scanned.dbParamsSource;
+            }
+
+            if (!source.seasonData && scanned.seasonData)
+            {
+                source.seasonData = scanned.seasonData;
+                source.seasonDataSource = scanned.seasonDataSource;
+            }
+
+            if (source.dbParams && !source.seasonData)
+            {
+                source.seasonData = GetSeasonDataSafe(source.dbParams);
+                if (source.seasonData)
+                    source.seasonDataSource = "scanned_databaseparams_getter";
+            }
+        }
+    }
+
+    return source;
+}
+
+static const char* SeasonPassRankName(SDK::ESeasonPassRank value)
+{
+    switch (value)
+    {
+    case SDK::ESeasonPassRank::Hero: return "Hero";
+    case SDK::ESeasonPassRank::Pro: return "Pro";
+    case SDK::ESeasonPassRank::Middle: return "Middle";
+    case SDK::ESeasonPassRank::Max: return "Max";
+    default: return "Unknown";
+    }
+}
+
+static const char* ItemCategoryName(SDK::EItemCategory value)
+{
+    switch (value)
+    {
+    case SDK::EItemCategory::Invalid: return "Invalid";
+    case SDK::EItemCategory::Character: return "Character";
+    case SDK::EItemCategory::Currency: return "Currency";
+    case SDK::EItemCategory::Emblem: return "Emblem";
+    case SDK::EItemCategory::CustomizeCostume: return "CustomizeCostume";
+    case SDK::EItemCategory::CustomizeAppeal: return "CustomizeAppeal";
+    case SDK::EItemCategory::CustomizeVoice: return "CustomizeVoice";
+    case SDK::EItemCategory::MyAdParts: return "MyAdParts";
+    case SDK::EItemCategory::Pack: return "Pack";
+    case SDK::EItemCategory::Variation: return "Variation";
+    case SDK::EItemCategory::ExperiencePoint: return "ExperiencePoint";
+    case SDK::EItemCategory::SeasonLicense: return "SeasonLicense";
+    case SDK::EItemCategory::NameplateBg: return "NameplateBg";
+    case SDK::EItemCategory::MyRoom: return "MyRoom";
+    case SDK::EItemCategory::RandomPack: return "RandomPack";
+    case SDK::EItemCategory::Max: return "Max";
+    default: return "Unknown";
+    }
+}
+
+static std::string SafeFStringToString(const SDK::FString& value)
+{
+    int32_t count = 0;
+    if (!SafeArrayCount(value, count, 4096))
+        return "";
+
+    try
+    {
+        return value.ToString();
+    }
+    catch (...)
+    {
+        return "";
+    }
+}
+
+static std::string SafeFTextToString(const SDK::FText& value)
+{
+    if (!SafeMemory::IsReadable(&value, sizeof(value)) ||
+        !SafeMemory::IsReadable(value.TextData, sizeof(SDK::FTextImpl::FTextData)))
+    {
+        return "";
+    }
+
+    return SafeFStringToString(value.TextData->TextSource);
+}
+
+static void AppendStringField(std::stringstream& ss, const std::string& indent, const char* label, const std::string& value)
+{
+    if (!value.empty())
+        ss << "\n" << indent << label << ": " << value;
+}
+
+static bool GetSeasonBoolGetterSafe(SDK::UDbpSeason* seasonData, int getterId, bool& outValue)
+{
+    if (!IsValidPointer(seasonData))
+        return false;
+
+    __try
+    {
+        switch (getterId)
+        {
+        case 0: outValue = seasonData->CanBuyProLicense(); return true;
+        case 1: outValue = seasonData->CanBuyProLicenseWithExp(); return true;
+        case 2: outValue = seasonData->HasMiddleLicense(); return true;
+        case 3: outValue = seasonData->HasProLicense(); return true;
+        default: return false;
+        }
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool GetSeasonIntGetterSafe(SDK::UDbpSeason* seasonData, int getterId, SDK::int32& outValue)
+{
+    if (!IsValidPointer(seasonData))
+        return false;
+
+    __try
+    {
+        switch (getterId)
+        {
+        case 0: outValue = seasonData->GetAvailableSpecialLicenseExpCount(); return true;
+        case 1: outValue = seasonData->GetDiscountProLicensePrice(); return true;
+        case 2: outValue = seasonData->GetHeroCrystal(); return true;
+        case 3: outValue = seasonData->GetLicensePrice(); return true;
+        case 4: outValue = seasonData->GetNextRankExp(); return true;
+        case 5: outValue = seasonData->GetProLicenseLightPrice(); return true;
+        case 6: outValue = seasonData->GetProLicensePrice(); return true;
+        case 7: outValue = seasonData->GetProLicensePriceWithExp(); return true;
+        case 8: outValue = seasonData->GetSpecialLicenseExp(); return true;
+        case 9: outValue = seasonData->GetSpecialLicenseExpPrice(); return true;
+        case 10: outValue = seasonData->GetSpecialLicenseMaxExp(); return true;
+        case 11: outValue = seasonData->GetSpecialLicenseRank(); return true;
+        default: return false;
+        }
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool GetSeasonInfoSafe(SDK::UDbpSeason* seasonData, SDK::FDbSeasonParam& outValue)
+{
+    if (!IsValidPointer(seasonData))
+        return false;
+
+    __try
+    {
+        outValue = seasonData->GetSeasonInfo();
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool GetSeasonRewardsSafe(SDK::UDbpSeason* seasonData, SDK::int32 rank, SDK::TArray<SDK::FDbSeasonPassParam>& outValue)
+{
+    if (!IsValidPointer(seasonData))
+        return false;
+
+    __try
+    {
+        outValue = seasonData->GetRewards(rank);
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool GetSeasonRewardRangeSafe(SDK::UDbpSeason* seasonData, SDK::int32 rankFrom, SDK::int32 rankTo, SDK::TArray<SDK::FDbSeasonPassParam>& outValue)
+{
+    if (!IsValidPointer(seasonData))
+        return false;
+
+    __try
+    {
+        outValue = seasonData->GetRewardRange(rankFrom, rankTo);
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool GetSpecialLicenseLastRewardsSafe(SDK::UDbpSeason* seasonData, SDK::TArray<SDK::FDbSpecialLicenseReward>& outValue)
+{
+    if (!IsValidPointer(seasonData))
+        return false;
+
+    __try
+    {
+        outValue = seasonData->GetSpecialLicenseLastRewards();
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool GetSpecialLicenseListSafe(SDK::UDbpSeason* seasonData, SDK::TMap<SDK::int32, SDK::FDbSpecialLicenseParam>& outValue)
+{
+    if (!IsValidPointer(seasonData))
+        return false;
+
+    __try
+    {
+        outValue = seasonData->GetSpecialLicenseList();
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool GetSeasonStockItemsSafe(SDK::UDbpSeason* seasonData, SDK::TMap<SDK::FDbItemCategoryParam, SDK::int32>& outValue)
+{
+    if (!IsValidPointer(seasonData))
+        return false;
+
+    __try
+    {
+        outValue = seasonData->GetStockItems();
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool GetDirectDbSeasonParamSafe(SDK::UDatabaseParams* dbParams, SDK::FDbSeasonParam& outValue)
+{
+    if (!IsValidPointer(dbParams))
+        return false;
+
+    __try
+    {
+        outValue = dbParams->season;
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool GetDirectDbSpecialLicenseSafe(SDK::UDatabaseParams* dbParams, SDK::FDbSpecialLicenseListParam& outValue)
+{
+    if (!IsValidPointer(dbParams))
+        return false;
+
+    __try
+    {
+        outValue = dbParams->SpecialLicense;
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool GetSeasonMasterSafe(SDK::int32 code, SDK::FMasterDataSeason& outValue)
+{
+    __try
+    {
+        SDK::UMasterDataCache::GetSeason(code, &outValue);
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool GetSeasonLicenseMasterSafe(SDK::int32 code, SDK::FMasterDataSeasonLicense& outValue)
+{
+    __try
+    {
+        SDK::UMasterDataCache::GetSeasonLicense(code, &outValue);
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool GetSpecialLicenseMasterSafe(SDK::int32 code, SDK::FMasterDataSpecialLicense& outValue)
+{
+    __try
+    {
+        SDK::UMasterDataCache::GetSpecialLicense(code, &outValue);
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static void AppendSeasonMasterSummary(std::stringstream& ss, const std::string& indent, const char* label, const SDK::FMasterDataSeason& season)
+{
+    ss << "\n" << indent << label << ":"
+       << "\n" << indent << "  code: " << season.code
+       << "\n" << indent << "  seasonPassGroup: " << season.SeasonPassGroup;
+    AppendStringField(ss, indent + "  ", "name", SafeFTextToString(season.Name));
+}
+
+static void AppendSeasonLicenseMasterSummary(std::stringstream& ss, const std::string& indent, const char* label, const SDK::FMasterDataSeasonLicense& license)
+{
+    ss << "\n" << indent << label << ":"
+       << "\n" << indent << "  code: " << license.code
+       << "\n" << indent << "  season: " << license.season
+       << "\n" << indent << "  type: " << license.Type;
+    AppendStringField(ss, indent + "  ", "name", SafeFStringToString(license.Name));
+    AppendStringField(ss, indent + "  ", "itemCategory", SafeFStringToString(license.itemCategory));
+}
+
+static void AppendSpecialLicenseMasterSummary(std::stringstream& ss, const std::string& indent, const char* label, const SDK::FMasterDataSpecialLicense& license)
+{
+    ss << "\n" << indent << label << ":"
+       << "\n" << indent << "  code: " << license.code
+       << "\n" << indent << "  rank: " << license.Rank
+       << "\n" << indent << "  exp: " << license.Exp
+       << "\n" << indent << "  itemCode: " << license.ItemCode
+       << "\n" << indent << "  quantity: " << license.Quantity;
+    AppendStringField(ss, indent + "  ", "itemCategory", SafeFStringToString(license.itemCategory));
+}
+
+static void AppendMasterDataCacheProbeSummary(std::stringstream& ss, int32_t limit)
+{
+    ss << "\n\n=== MasterDataCache fallback scan ==="
+       << "\nnotes: static master/config data only; player progress/received flags still require DbpSeason/DatabaseParams"
+       << "\nseasonCodeRange: 1..100"
+       << "\nseasonLicenseCodeRange: 1..1000"
+       << "\nspecialLicenseCodeRange: 1..1000"
+       << "\nloggedLimitPerType: " << limit;
+
+    int32_t loggedSeasons = 0;
+    ss << "\n\n--- MasterDataCache.GetSeason ---";
+    for (SDK::int32 code = 1; code <= 100 && loggedSeasons < limit; ++code)
+    {
+        SDK::FMasterDataSeason season{};
+        if (GetSeasonMasterSafe(code, season) && season.code > 0)
+        {
+            std::stringstream label;
+            label << "season[" << loggedSeasons << "]";
+            AppendSeasonMasterSummary(ss, "  ", label.str().c_str(), season);
+            ++loggedSeasons;
+        }
+    }
+    ss << "\n  logged: " << loggedSeasons;
+
+    int32_t loggedSeasonLicenses = 0;
+    ss << "\n\n--- MasterDataCache.GetSeasonLicense ---";
+    for (SDK::int32 code = 1; code <= 1000 && loggedSeasonLicenses < limit; ++code)
+    {
+        SDK::FMasterDataSeasonLicense license{};
+        if (GetSeasonLicenseMasterSafe(code, license) && license.code > 0)
+        {
+            std::stringstream label;
+            label << "seasonLicense[" << loggedSeasonLicenses << "]";
+            AppendSeasonLicenseMasterSummary(ss, "  ", label.str().c_str(), license);
+            ++loggedSeasonLicenses;
+        }
+    }
+    ss << "\n  logged: " << loggedSeasonLicenses;
+
+    int32_t loggedSpecialLicenses = 0;
+    ss << "\n\n--- MasterDataCache.GetSpecialLicense ---";
+    for (SDK::int32 code = 1; code <= 1000 && loggedSpecialLicenses < limit; ++code)
+    {
+        SDK::FMasterDataSpecialLicense license{};
+        if (GetSpecialLicenseMasterSafe(code, license) && license.code > 0)
+        {
+            std::stringstream label;
+            label << "specialLicense[" << loggedSpecialLicenses << "]";
+            AppendSpecialLicenseMasterSummary(ss, "  ", label.str().c_str(), license);
+            ++loggedSpecialLicenses;
+        }
+    }
+    ss << "\n  logged: " << loggedSpecialLicenses;
+}
+
+static void AppendItemCategoryParamSummary(std::stringstream& ss, const std::string& indent, const char* label, const SDK::FDbItemCategoryParam& item)
+{
+    ss << "\n" << indent << label << ":"
+       << "\n" << indent << "  category: " << ItemCategoryName(item.eCategory) << " (" << static_cast<int>(item.eCategory) << ")"
+       << "\n" << indent << "  code: " << item.code;
+    AppendStringField(ss, indent + "  ", "assetName", SafeFStringToString(item.AssetName));
+    AppendStringField(ss, indent + "  ", "displayName", SafeFTextToString(item.DisplayName));
+
+    if (item.eCategory == SDK::EItemCategory::SeasonLicense && item.code > 0)
+    {
+        SDK::FMasterDataSeasonLicense seasonLicense{};
+        if (GetSeasonLicenseMasterSafe(item.code, seasonLicense))
+            AppendSeasonLicenseMasterSummary(ss, indent + "  ", "seasonLicenseMaster", seasonLicense);
+        else
+            ss << "\n" << indent << "  seasonLicenseMaster: failed";
+    }
+}
+
+static void AppendSeasonPassRewardSummary(std::stringstream& ss, const std::string& indent, const char* label, const SDK::FDbSeasonPassRewardParam& reward)
+{
+    ss << "\n" << indent << label << ":"
+       << "\n" << indent << "  received: " << (reward.bReceived ? 1 : 0)
+       << "\n" << indent << "  quantity: " << reward.Quantity;
+    AppendItemCategoryParamSummary(ss, indent + "  ", "item", reward);
+}
+
+static void AppendExchangeItemSummary(std::stringstream& ss, const std::string& indent, const char* label, const SDK::FDbExchangeItemCategoryParam& item)
+{
+    ss << "\n" << indent << label << ":"
+       << "\n" << indent << "  quantity: " << item.Quantity;
+    AppendItemCategoryParamSummary(ss, indent + "  ", "item", item);
+}
+
+static void AppendSeasonPassParamSummary(std::stringstream& ss, const std::string& indent, const char* label, const SDK::FDbSeasonPassParam& reward)
+{
+    ss << "\n" << indent << label << ":"
+       << "\n" << indent << "  code: " << reward.code
+       << "\n" << indent << "  seasonRank: " << reward.SeasonRank
+       << "\n" << indent << "  exp: " << reward.Exp
+       << "\n" << indent << "  freeItemCode: " << reward.FreeItemCode
+       << "\n" << indent << "  freeQuantity: " << reward.FreeQuantity
+       << "\n" << indent << "  premiumItemCode: " << reward.PremiumItemCode
+       << "\n" << indent << "  premiumQuantity: " << reward.PremiumQuantity
+       << "\n" << indent << "  groupCode: " << reward.GroupCode;
+    AppendStringField(ss, indent + "  ", "freeItemCategory", SafeFStringToString(reward.FreeItemCategory));
+    AppendStringField(ss, indent + "  ", "premiumItemCategory", SafeFStringToString(reward.PremiumItemCategory));
+    AppendStringField(ss, indent + "  ", "note", SafeFStringToString(reward.Note));
+    AppendSeasonPassRewardSummary(ss, indent + "  ", "freeItem", reward.FreeItem);
+    AppendSeasonPassRewardSummary(ss, indent + "  ", "premiumItem", reward.PremiumItem);
+
+    int32_t exItemCount = 0;
+    if (SafeArrayCount(reward.ExItems, exItemCount, 512))
+    {
+        ss << "\n" << indent << "  exItemsCount: " << exItemCount;
+
+        const SDK::FDbExchangeItemCategoryParam* data = reward.ExItems.GetDataPtr();
+        const int32_t maxEntries = std::min<int32_t>(exItemCount, 10);
+        for (int32_t i = 0; data && i < maxEntries; ++i)
+        {
+            if (!SafeMemory::IsReadable(data + i, sizeof(SDK::FDbExchangeItemCategoryParam)))
+                break;
+
+            std::stringstream itemLabel;
+            itemLabel << "exItems[" << i << "]";
+            AppendExchangeItemSummary(ss, indent + "  ", itemLabel.str().c_str(), data[i]);
+        }
+    }
+    else
+    {
+        ss << "\n" << indent << "  exItemsCount: unreadable";
+    }
+}
+
+static void AppendSpecialLicenseParamSummary(std::stringstream& ss, const std::string& indent, const char* label, SDK::int32 mapKey, const SDK::FDbSpecialLicenseParam& license)
+{
+    ss << "\n" << indent << label << ":"
+       << "\n" << indent << "  mapKey: " << mapKey
+       << "\n" << indent << "  code: " << license.code
+       << "\n" << indent << "  rank: " << license.Rank
+       << "\n" << indent << "  exp: " << license.Exp
+       << "\n" << indent << "  itemCode: " << license.ItemCode
+       << "\n" << indent << "  quantity: " << license.Quantity
+       << "\n" << indent << "  received: " << (license.bReceived ? 1 : 0);
+    AppendStringField(ss, indent + "  ", "itemCategory", SafeFStringToString(license.itemCategory));
+    AppendItemCategoryParamSummary(ss, indent + "  ", "reward", license.Reward);
+
+    SDK::FMasterDataSpecialLicense master{};
+    if (GetSpecialLicenseMasterSafe(license.code, master))
+        AppendSpecialLicenseMasterSummary(ss, indent + "  ", "specialLicenseMaster", master);
+    else
+        ss << "\n" << indent << "  specialLicenseMaster: failed";
+}
+
+static void AppendSpecialLicenseRewardSummary(std::stringstream& ss, const std::string& indent, const char* label, const SDK::FDbSpecialLicenseReward& reward)
+{
+    ss << "\n" << indent << label << ":"
+       << "\n" << indent << "  count: " << reward.count;
+    AppendItemCategoryParamSummary(ss, indent + "  ", "item", reward);
+}
+
+static void AppendSeasonPassArraySummary(std::stringstream& ss, const char* label, const SDK::TArray<SDK::FDbSeasonPassParam>& rewards, int32_t limit)
+{
+    int32_t count = 0;
+    if (!SafeArrayCount(rewards, count, 4096))
+    {
+        ss << "\n\n=== " << label << " ==="
+           << "\n  count: unreadable";
+        return;
+    }
+
+    ss << "\n\n=== " << label << " ==="
+       << "\n  count: " << count
+       << "\n  loggedLimit: " << limit;
+
+    const SDK::FDbSeasonPassParam* data = rewards.GetDataPtr();
+    const int32_t maxEntries = std::min<int32_t>(count, limit);
+    for (int32_t i = 0; data && i < maxEntries; ++i)
+    {
+        if (!SafeMemory::IsReadable(data + i, sizeof(SDK::FDbSeasonPassParam)))
+            break;
+
+        std::stringstream entryLabel;
+        entryLabel << label << "[" << i << "]";
+        AppendSeasonPassParamSummary(ss, "  ", entryLabel.str().c_str(), data[i]);
+    }
+}
+
+static void AppendSpecialLicenseRewardArraySummary(std::stringstream& ss, const char* label, const SDK::TArray<SDK::FDbSpecialLicenseReward>& rewards, int32_t limit)
+{
+    int32_t count = 0;
+    if (!SafeArrayCount(rewards, count, 4096))
+    {
+        ss << "\n\n=== " << label << " ==="
+           << "\n  count: unreadable";
+        return;
+    }
+
+    ss << "\n\n=== " << label << " ==="
+       << "\n  count: " << count
+       << "\n  loggedLimit: " << limit;
+
+    const SDK::FDbSpecialLicenseReward* data = rewards.GetDataPtr();
+    const int32_t maxEntries = std::min<int32_t>(count, limit);
+    for (int32_t i = 0; data && i < maxEntries; ++i)
+    {
+        if (!SafeMemory::IsReadable(data + i, sizeof(SDK::FDbSpecialLicenseReward)))
+            break;
+
+        std::stringstream entryLabel;
+        entryLabel << label << "[" << i << "]";
+        AppendSpecialLicenseRewardSummary(ss, "  ", entryLabel.str().c_str(), data[i]);
+    }
+}
+
+static bool GetMapCountsForDump(const SDK::TMap<SDK::int32, SDK::FDbSpecialLicenseParam>& map, int32_t& count, int32_t& allocated)
+{
+    if (!SafeMemory::IsReadable(&map, sizeof(map)))
+        return false;
+
+    try
+    {
+        count = map.Num();
+        allocated = map.NumAllocated();
+        return count >= 0 && allocated >= count && allocated <= 4096;
+    }
+    catch (...)
+    {
+        return false;
+    }
+}
+
+static bool GetMapCountsForDump(const SDK::TMap<SDK::FDbItemCategoryParam, SDK::int32>& map, int32_t& count, int32_t& allocated)
+{
+    if (!SafeMemory::IsReadable(&map, sizeof(map)))
+        return false;
+
+    try
+    {
+        count = map.Num();
+        allocated = map.NumAllocated();
+        return count >= 0 && allocated >= count && allocated <= 4096;
+    }
+    catch (...)
+    {
+        return false;
+    }
+}
+
+struct SpecialLicenseProgressFields
+{
+    SDK::int32 currentRank = 0;
+    SDK::int32 currentExp = 0;
+    SDK::int32 totalExp = 0;
+    SDK::int32 nextExp = 0;
+    SDK::int32 maxExp = 0;
+};
+
+static bool CallAddSpecialLicenseExpSafe(SDK::UDbpSeason* seasonData, SDK::int32 exp)
+{
+    if (!IsValidPointer(seasonData))
+        return false;
+
+    __try
+    {
+        seasonData->AddSpecialLicenseExp(exp);
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool DidSpecialLicenseProgressChange(
+    const SDK::FDbSpecialLicenseListParam& before,
+    const SDK::FDbSpecialLicenseListParam& after)
+{
+    return before.TotalExp != after.TotalExp ||
+           before.CurrentExp != after.CurrentExp ||
+           before.CurrentRank != after.CurrentRank ||
+           before.NextExp != after.NextExp ||
+           before.MaxExp != after.MaxExp;
+}
+
+static bool CalculateSpecialLicenseProgressFields(
+    const SDK::FDbSpecialLicenseListParam& specialLicense,
+    SDK::int32 requestedTotalExp,
+    SpecialLicenseProgressFields& outFields)
+{
+    int32_t count = 0;
+    int32_t allocated = 0;
+    if (!GetMapCountsForDump(specialLicense.SpecialLicenseList, count, allocated) || count <= 0)
+        return false;
+
+    SDK::int32 totalExp = requestedTotalExp;
+    if (totalExp < 0)
+        totalExp = 0;
+
+    bool foundAny = false;
+    bool foundNext = false;
+    SDK::int32 bestRank = 0;
+    SDK::int32 bestThreshold = 0;
+    SDK::int32 nextThreshold = 0;
+    SDK::int32 maxThreshold = 0;
+    SDK::int32 maxRank = 0;
+
+    try
+    {
+        for (auto it = begin(specialLicense.SpecialLicenseList); it != end(specialLicense.SpecialLicenseList); ++it)
+        {
+            const SDK::FDbSpecialLicenseParam& param = it->Value();
+            const SDK::int32 threshold = param.Exp;
+            if (threshold <= 0)
+                continue;
+
+            SDK::int32 rank = param.Rank;
+            if (rank <= 0)
+                rank = it->Key();
+
+            foundAny = true;
+
+            if (threshold > maxThreshold)
+            {
+                maxThreshold = threshold;
+                maxRank = rank;
+            }
+
+            if (threshold <= totalExp)
+            {
+                if (threshold > bestThreshold || (threshold == bestThreshold && rank > bestRank))
+                {
+                    bestThreshold = threshold;
+                    bestRank = rank;
+                }
+            }
+            else if (!foundNext || threshold < nextThreshold)
+            {
+                foundNext = true;
+                nextThreshold = threshold;
+            }
+        }
+    }
+    catch (...)
+    {
+        return false;
+    }
+
+    if (!foundAny)
+        return false;
+
+    if (maxThreshold > 0 && totalExp > maxThreshold)
+    {
+        totalExp = maxThreshold;
+        bestThreshold = maxThreshold;
+        bestRank = maxRank;
+        foundNext = false;
+        nextThreshold = 0;
+    }
+
+    if (!foundNext)
+    {
+        try
+        {
+            for (auto it = begin(specialLicense.SpecialLicenseList); it != end(specialLicense.SpecialLicenseList); ++it)
+            {
+                const SDK::FDbSpecialLicenseParam& param = it->Value();
+                if (param.Exp > totalExp && (!foundNext || param.Exp < nextThreshold))
+                {
+                    foundNext = true;
+                    nextThreshold = param.Exp;
+                }
+            }
+        }
+        catch (...)
+        {
+            return false;
+        }
+    }
+
+    const SDK::int32 rankMaxExp = foundNext ? (nextThreshold - bestThreshold) : 0;
+    SDK::int32 currentExp = totalExp - bestThreshold;
+    if (currentExp < 0)
+        currentExp = totalExp;
+
+    outFields.currentRank = bestRank;
+    outFields.currentExp = currentExp;
+    outFields.totalExp = totalExp;
+    outFields.nextExp = foundNext ? (nextThreshold - totalExp) : 0;
+    outFields.maxExp = rankMaxExp > 0 ? rankMaxExp : 0;
+    return true;
+}
+
+static bool ApplySpecialLicenseProgressFields(
+    SDK::FDbSpecialLicenseListParam& specialLicense,
+    const SpecialLicenseProgressFields& fields)
+{
+    if (!SafeMemory::IsWritable(&specialLicense.CurrentRank, sizeof(SDK::int32) * 5))
+        return false;
+
+    __try
+    {
+        specialLicense.CurrentRank = fields.currentRank;
+        specialLicense.CurrentExp = fields.currentExp;
+        specialLicense.TotalExp = fields.totalExp;
+        specialLicense.NextExp = fields.nextExp;
+        specialLicense.MaxExp = fields.maxExp;
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static void AppendSpecialLicenseMapSummary(std::stringstream& ss, const char* label, const SDK::TMap<SDK::int32, SDK::FDbSpecialLicenseParam>& map, int32_t limit)
+{
+    int32_t count = 0;
+    int32_t allocated = 0;
+    if (!GetMapCountsForDump(map, count, allocated))
+    {
+        ss << "\n\n=== " << label << " ==="
+           << "\n  count: unreadable";
+        return;
+    }
+
+    ss << "\n\n=== " << label << " ==="
+       << "\n  count: " << count
+       << "\n  allocated: " << allocated
+       << "\n  loggedLimit: " << limit;
+
+    int32_t logged = 0;
+    try
+    {
+        for (auto it = begin(map); it != end(map) && logged < limit; ++it)
+        {
+            std::stringstream entryLabel;
+            entryLabel << label << "[" << logged << "]";
+            AppendSpecialLicenseParamSummary(ss, "  ", entryLabel.str().c_str(), it->Key(), it->Value());
+            ++logged;
+        }
+    }
+    catch (...)
+    {
+        ss << "\n  iteration: failed";
+    }
+
+    ss << "\n  logged: " << logged;
+}
+
+static void AppendDbSeasonParamSummary(std::stringstream& ss, const char* label, const SDK::FDbSeasonParam& seasonInfo, int32_t limit)
+{
+    ss << "\n\n=== " << label << " ==="
+       << "\ncode: " << seasonInfo.code
+       << "\nseasonPassGroup: " << seasonInfo.SeasonPassGroup
+       << "\nseasonPassRank: " << SeasonPassRankName(seasonInfo.SeasonPassRank) << " (" << static_cast<int>(seasonInfo.SeasonPassRank) << ")"
+       << "\nseasonRank: " << seasonInfo.SeasonRank
+       << "\nseasonRankExp: " << seasonInfo.SeasonRankExp
+       << "\nstockCount: " << seasonInfo.StockCount;
+    AppendStringField(ss, "", "name", SafeFTextToString(seasonInfo.Name));
+
+    int32_t rankListCount = 0;
+    if (SafeArrayCount(seasonInfo.ranks, rankListCount, 4096))
+        ss << "\nranksCount: " << rankListCount;
+    else
+        ss << "\nranksCount: unreadable";
+
+    AppendSeasonPassArraySummary(ss, "DatabaseParams.season.ranks", seasonInfo.ranks, limit);
+}
+
+static void AppendDbSpecialLicenseListParamSummary(std::stringstream& ss, const char* label, const SDK::FDbSpecialLicenseListParam& specialLicense, int32_t limit)
+{
+    ss << "\n\n=== " << label << " ==="
+       << "\ncurrentRank: " << specialLicense.CurrentRank
+       << "\ncurrentExp: " << specialLicense.CurrentExp
+       << "\ntotalExp: " << specialLicense.TotalExp
+       << "\nnextExp: " << specialLicense.NextExp
+       << "\nmaxExp: " << specialLicense.MaxExp
+       << "\nbuyExpPrice: " << specialLicense.BuyExpPrice
+       << "\nbuyExpCount: " << specialLicense.BuyExpCount
+       << "\nviewResult: " << (specialLicense.bViewResult ? 1 : 0);
+
+    AppendSpecialLicenseMapSummary(ss, "DatabaseParams.SpecialLicense.SpecialLicenseList", specialLicense.SpecialLicenseList, limit);
+    AppendSpecialLicenseRewardArraySummary(ss, "DatabaseParams.SpecialLicense.LastRewardsList", specialLicense.LastRewardsList, limit);
+}
+
+static SDK::FDbSeasonPassRewardParam* GetSeasonRankRewardSlot(SDK::FDbSeasonPassParam& rank, int slot)
+{
+    if (slot == 0)
+        return &rank.FreeItem;
+    if (slot == 1)
+        return &rank.PremiumItem;
+    return nullptr;
+}
+
+static const SDK::FDbSeasonPassRewardParam* GetSeasonRankRewardSlot(const SDK::FDbSeasonPassParam& rank, int slot)
+{
+    if (slot == 0)
+        return &rank.FreeItem;
+    if (slot == 1)
+        return &rank.PremiumItem;
+    return nullptr;
+}
+
+static bool IsUsableSeasonRewardItem(const SDK::FDbSeasonPassRewardParam& reward)
+{
+    return reward.code > 0 && reward.eCategory != SDK::EItemCategory::Invalid;
+}
+
+static std::string BuildSeasonRewardOptionLabel(const SDK::FDbSeasonPassParam& rank, int slot, const SDK::FDbSeasonPassRewardParam& reward)
+{
+    std::stringstream label;
+    label << "Rank " << rank.SeasonRank << " "
+          << (slot == 0 ? "Free" : "Premium") << " - "
+          << ItemCategoryName(reward.eCategory) << " #" << reward.code;
+
+    const std::string displayName = SafeFTextToString(reward.DisplayName);
+    if (!displayName.empty())
+        label << " - " << displayName;
+
+    if (reward.Quantity > 0)
+        label << " x" << reward.Quantity;
+
+    return label.str();
+}
+
+static bool GetWritableSeasonRanks(SDK::FDbSeasonPassParam*& outRanks, int32_t& outCount)
+{
+    outRanks = nullptr;
+    outCount = 0;
+
+    SeasonLicenseDataSource source = ResolveSeasonLicenseDataSource();
+    if (!IsValidPointer(source.dbParams))
+        return false;
+
+    int32_t count = 0;
+    if (!SafeArrayCount(source.dbParams->season.ranks, count, 4096))
+        return false;
+
+    if (count <= 0)
+        return false;
+
+    const SDK::FDbSeasonPassParam* constData = source.dbParams->season.ranks.GetDataPtr();
+    if (!constData)
+        return false;
+
+    const size_t bytes = sizeof(SDK::FDbSeasonPassParam) * static_cast<size_t>(count);
+    if (!SafeMemory::IsReadable(constData, bytes) || !SafeMemory::IsWritable(const_cast<SDK::FDbSeasonPassParam*>(constData), bytes))
+        return false;
+
+    outRanks = const_cast<SDK::FDbSeasonPassParam*>(constData);
+    outCount = count;
+    return true;
+}
+
+std::vector<SeasonRankRewardItemOption> InGameHack_GetSeasonRankRewardItemOptions()
+{
+    std::vector<SeasonRankRewardItemOption> options;
+
+    SDK::FDbSeasonPassParam* ranks = nullptr;
+    int32_t count = 0;
+    if (!GetWritableSeasonRanks(ranks, count))
+        return options;
+
+    for (int32_t i = 0; i < count; ++i)
+    {
+        if (!SafeMemory::IsReadable(ranks + i, sizeof(SDK::FDbSeasonPassParam)))
+            break;
+
+        const SDK::FDbSeasonPassParam& rank = ranks[i];
+        for (int slot = 0; slot < 2; ++slot)
+        {
+            const SDK::FDbSeasonPassRewardParam* reward = GetSeasonRankRewardSlot(rank, slot);
+            if (!reward || !IsUsableSeasonRewardItem(*reward))
+                continue;
+
+            SeasonRankRewardItemOption option{};
+            option.arrayIndex = static_cast<int>(i);
+            option.rank = rank.SeasonRank;
+            option.slot = slot;
+            option.code = reward->code;
+            option.category = static_cast<int>(reward->eCategory);
+            option.quantity = reward->Quantity;
+            option.label = BuildSeasonRewardOptionLabel(rank, slot, *reward);
+            options.push_back(option);
+        }
+    }
+
+    return options;
+}
+
+static void ApplySeasonRewardReplacement(
+    SDK::FDbSeasonPassParam& targetRank,
+    int targetSlot,
+    const SDK::FDbSeasonPassRewardParam& sourceReward,
+    const SDK::FString& sourceCategory,
+    int quantity)
+{
+    SDK::FDbSeasonPassRewardParam* targetReward = GetSeasonRankRewardSlot(targetRank, targetSlot);
+    if (!targetReward)
+        return;
+
+    const bool wasReceived = targetReward->bReceived;
+    *targetReward = sourceReward;
+    targetReward->bReceived = wasReceived;
+    targetReward->Quantity = quantity;
+
+    if (targetSlot == 0)
+    {
+        targetRank.FreeItemCategory = sourceCategory;
+        targetRank.FreeItemCode = sourceReward.code;
+        targetRank.FreeQuantity = quantity;
+    }
+    else
+    {
+        targetRank.PremiumItemCategory = sourceCategory;
+        targetRank.PremiumItemCode = sourceReward.code;
+        targetRank.PremiumQuantity = quantity;
+    }
+}
+
+int InGameHack_ReplaceSeasonRankRewardsFromExistingReward(
+    int sourceArrayIndex,
+    int sourceSlot,
+    int targetRank,
+    int quantity,
+    int targetSlotMask,
+    bool applyAllRanks)
+{
+    if (sourceSlot < 0 || sourceSlot > 1 || targetSlotMask == 0)
+        return -1;
+
+    if (quantity < 1)
+        quantity = 1;
+    else if (quantity > 999999)
+        quantity = 999999;
+
+    SDK::FDbSeasonPassParam* ranks = nullptr;
+    int32_t count = 0;
+    if (!GetWritableSeasonRanks(ranks, count))
+    {
+        Logger::LogError("[SeasonRankRewardReplace] Could not resolve writable DatabaseParams.season.ranks");
+        return -1;
+    }
+
+    if (sourceArrayIndex < 0 || sourceArrayIndex >= count)
+    {
+        Logger::LogError("[SeasonRankRewardReplace] Source reward index is out of range");
+        return -1;
+    }
+
+    const SDK::FDbSeasonPassRewardParam* sourceReward = nullptr;
+    const SDK::FString* sourceCategory = nullptr;
+    if (SafeMemory::IsReadable(ranks + sourceArrayIndex, sizeof(SDK::FDbSeasonPassParam)))
+    {
+        sourceReward = GetSeasonRankRewardSlot(ranks[sourceArrayIndex], sourceSlot);
+        if (sourceReward && IsUsableSeasonRewardItem(*sourceReward))
+        {
+            sourceCategory = sourceSlot == 0
+                ? &ranks[sourceArrayIndex].FreeItemCategory
+                : &ranks[sourceArrayIndex].PremiumItemCategory;
+        }
+    }
+
+    if (!sourceReward || !sourceCategory)
+    {
+        Logger::LogError("[SeasonRankRewardReplace] Source reward was not found");
+        return -1;
+    }
+
+    const SDK::FDbSeasonPassRewardParam sourceCopy = *sourceReward;
+    const SDK::FString sourceCategoryCopy = *sourceCategory;
+    int modified = 0;
+
+    for (int32_t i = 0; i < count; ++i)
+    {
+        if (!SafeMemory::IsWritable(ranks + i, sizeof(SDK::FDbSeasonPassParam)))
+            break;
+
+        if (!applyAllRanks && ranks[i].SeasonRank != targetRank)
+            continue;
+
+        for (int slot = 0; slot < 2; ++slot)
+        {
+            if ((targetSlotMask & (1 << slot)) == 0)
+                continue;
+
+            ApplySeasonRewardReplacement(ranks[i], slot, sourceCopy, sourceCategoryCopy, quantity);
+            ++modified;
+        }
+    }
+
+    Logger::LogInfo("[SeasonRankRewardReplace] Modified reward slots: " + std::to_string(modified));
+    return modified;
+}
+
+static void AppendStockItemsMapSummary(std::stringstream& ss, const char* label, const SDK::TMap<SDK::FDbItemCategoryParam, SDK::int32>& map, int32_t limit)
+{
+    int32_t count = 0;
+    int32_t allocated = 0;
+    if (!GetMapCountsForDump(map, count, allocated))
+    {
+        ss << "\n\n=== " << label << " ==="
+           << "\n  count: unreadable";
+        return;
+    }
+
+    ss << "\n\n=== " << label << " ==="
+       << "\n  count: " << count
+       << "\n  allocated: " << allocated
+       << "\n  loggedLimit: " << limit;
+
+    int32_t logged = 0;
+    try
+    {
+        for (auto it = begin(map); it != end(map) && logged < limit; ++it)
+        {
+            std::stringstream entryLabel;
+            entryLabel << label << "[" << logged << "]";
+            ss << "\n  " << entryLabel.str() << ":"
+               << "\n    stockCount: " << it->Value();
+            AppendItemCategoryParamSummary(ss, "    ", "item", it->Key());
+            ++logged;
+        }
+    }
+    catch (...)
+    {
+        ss << "\n  iteration: failed";
+    }
+
+    ss << "\n  logged: " << logged;
+}
+
+static SDK::UDbpCharacterCustomize* GetCharacterCustomizeDataSafe(SDK::UDatabaseParams* dbParams, int characterCode)
+{
+    if (!IsValidPointer(dbParams))
+        return nullptr;
+
+    __try
+    {
+        SDK::UDbpCharacterCustomize* customize = dbParams->GetCharacterCustomizeData(characterCode);
+        return IsValidPointer(customize) ? customize : nullptr;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return nullptr;
+    }
+}
+
+static bool GetEquippedCostumeRoleSlotSafe(SDK::UDbpCharacterCustomize* customize, SDK::FDbsCostumeRoleSlotParam& outParam)
+{
+    if (!IsValidPointer(customize))
+        return false;
+
+    __try
+    {
+        outParam = customize->GetEquippedCostumeRoleSlot();
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool GetDbpCostumeRoleSlotSafe(SDK::UDbpCharacterCustomize* customize, int costumeCode, SDK::FDbsCostumeRoleSlotParam& outParam)
+{
+    if (!IsValidPointer(customize))
+        return false;
+
+    __try
+    {
+        return customize->GetRoleSlot(costumeCode, &outParam);
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool GetStaticCostumeRoleSlotSafe(int costumeCode, SDK::FDbsCostumeRoleSlotParam& outParam)
+{
+    __try
+    {
+        return SDK::URoleSlotStatics::GetCostumeRoleSlotParam(costumeCode, &outParam);
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static std::string GetObjectNameSafe(SDK::UObject* object)
+{
+    if (!IsValidPointer(object))
+        return "null";
+
+    try
+    {
+        return object->GetName();
+    }
+    catch (...)
+    {
+        return "unreadable";
+    }
+}
+
+static std::string DescribeRollSlotState(SDK::APlayerStateBattle* playerState)
+{
+    std::stringstream ss;
+
+    SDK::UCharacterRollSlotUniqueSkillControlComponent* rollSlotCtrl = GetRollSlotControlComponentSafe(playerState);
+    ss << "rollSlotCtrl=0x" << std::hex << reinterpret_cast<uintptr_t>(rollSlotCtrl) << std::dec;
+    if (!rollSlotCtrl)
+        return ss.str();
+
+    int registeredCount = 0;
+    ss << " registered=[";
+
+    for (SDK::EVariationCharacterId id : GetAllVariationCharacterIds())
+    {
+        SDK::UCharacterRollSlotUniqueSkillBase* rollSlotObject = nullptr;
+        try
+        {
+            rollSlotObject = rollSlotCtrl->BP_GetObject(id);
+        }
+        catch (...)
+        {
+            rollSlotObject = nullptr;
+        }
+
+        if (!IsValidPointer(rollSlotObject))
+            continue;
+
+        if (registeredCount > 0)
+            ss << ", ";
+
+        ss << static_cast<int>(id)
+           << ":0x" << std::hex << reinterpret_cast<uintptr_t>(rollSlotObject) << std::dec
+           << ":" << GetObjectNameSafe(rollSlotObject);
+
+        registeredCount++;
+    }
+
+    ss << "] count=" << registeredCount;
+    return ss.str();
+}
+
+static void LogTogaTransformRollSlotState(const char* phase, SDK::APlayerController* playerController, SDK::ACharacterBattle* playerCharacter, const SDK::ACharacterBattle* targetCharacter)
+{
+    (void)phase;
+    (void)playerController;
+    (void)playerCharacter;
+    (void)targetCharacter;
 }
 
 static inline bool IsObjectDefaultSafe(SDK::UObject* object)
@@ -603,6 +2350,85 @@ static inline SDK::APlayerStateBattle* GetPlayerStateBattle(SDK::APlayerControll
     if (!IsValidPointer(playerStateBattle)) return nullptr;
     
     return playerStateBattle;
+}
+
+static int GetDatabaseCharacterCodeFromSDKId(int sdkCharacterId)
+{
+    switch (sdkCharacterId)
+    {
+    case 2: return 1;      // Izuku
+    case 3: return 2;      // Bakugo
+    case 4: return 3;      // Uraraka
+    case 5: return 4;      // Todoroki
+    case 6: return 5;      // Tenya
+    case 7: return 6;      // Tsuyu
+    case 8: return 7;      // Denki
+    case 9: return 8;      // Kirishima
+    case 10: return 10;    // Momo
+    case 11: return 11;    // Tokoyami
+    case 12: return 12;    // All Might
+    case 13: return 13;    // Aizawa
+    case 14: return 15;    // Shigaraki
+    case 15: return 16;    // All For One
+    case 16: return 17;    // Dabi
+    case 17: return 18;    // Toga
+    case 18: return 23;    // Endeavor
+    case 19: return 24;    // Mirio
+    case 20: return 25;    // Nejire
+    case 21: return 26;    // Tamaki
+    case 22: return 34;    // Overhaul
+    case 23: return 37;    // Twice
+    case 24: return 38;    // Mr. Compress
+    case 25: return 43;    // Hawks
+    case 26: return 46;    // Itsuka Kendo
+    case 27: return 100;   // Mt. Lady
+    case 28: return 101;   // Cementoss
+    case 29: return 102;   // Ibara
+    case 30: return 103;   // Kurogiri
+    case 31: return 104;   // Monoma
+    case 32: return 105;   // Shinso
+    case 33: return 109;   // Present Mic
+    case 34: return 111;   // Mirko
+    case 35: return 114;   // Star & Stripe
+    case 36: return 115;   // Lady Nagant
+    case 37: return 200;   // Armored All Might
+    case 38: return 201;   // Prime All For One
+    case 39: return 202;   // Deku Final
+    case 41: return 502;   // Kota
+    default: return sdkCharacterId;
+    }
+}
+
+static bool GetCurrentCharacterCustomizeSnapshot(
+    SDK::ACharacterBattle* character,
+    int& sdkCharacterId,
+    int& dbCharacterCode,
+    int& variationNo,
+    int& costumeCode)
+{
+    if (!IsValidPointer(character))
+        return false;
+
+    SDK::ACharacterGame* characterGame = static_cast<SDK::ACharacterGame*>(character);
+    if (!IsValidPointer(characterGame))
+        return false;
+
+    __try
+    {
+        sdkCharacterId = static_cast<int>(characterGame->BP_GetCharacterId());
+        dbCharacterCode = GetDatabaseCharacterCodeFromSDKId(sdkCharacterId);
+        variationNo = characterGame->BP_GetVariationNo();
+        costumeCode = characterGame->BP_GetCostumeCode();
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+void InGameHack_AutoLogCurrentRoleSlotState()
+{
 }
 
 /**
@@ -1459,10 +3285,10 @@ bool InGameHack_TransformInto(
         {
             return false;
         }
-        
+
         // Call the RPC function on the component
         transformComponent->TransformInto_RPC_ToServer(targetCharacter);
-        
+
         return true;
     }
     catch (...)
@@ -2632,6 +4458,63 @@ bool InGameHack_RebuildMyself()
     }
 }
 
+bool InGameHack_SetInfiniteObjectsPatch(bool enabled)
+{
+    std::lock_guard<std::mutex> lock(g_InfiniteObjectsPatchMutex);
+
+    BYTE* patchAddress = GetInfiniteObjectsPatchAddress();
+    if (!patchAddress)
+        return false;
+
+    if (!enabled)
+    {
+        if (!g_InfiniteObjectsPatchApplied)
+            return true;
+
+        if (!PatchBytesMatch(patchAddress, INFINITE_OBJECTS_PATCH_BYTES))
+        {
+            g_InfiniteObjectsPatchApplied = false;
+            return true;
+        }
+
+        const bool restored = WritePatchBytes(patchAddress, INFINITE_OBJECTS_ORIGINAL_BYTES);
+        if (restored)
+            g_InfiniteObjectsPatchApplied = false;
+
+        return restored;
+    }
+
+    if (PatchBytesMatch(patchAddress, INFINITE_OBJECTS_PATCH_BYTES))
+    {
+        g_InfiniteObjectsPatchApplied = true;
+        return true;
+    }
+
+    if (!PatchBytesMatch(patchAddress, INFINITE_OBJECTS_ORIGINAL_BYTES))
+    {
+        if (!g_InfiniteObjectsMismatchLogged)
+        {
+            Logger::LogWarning("[InfiniteObjects] Byte assertion failed at MHUR.exe+3ED21F5");
+            g_InfiniteObjectsMismatchLogged = true;
+        }
+        return false;
+    }
+
+    const bool patched = WritePatchBytes(patchAddress, INFINITE_OBJECTS_PATCH_BYTES);
+    if (patched)
+    {
+        g_InfiniteObjectsPatchApplied = true;
+        g_InfiniteObjectsMismatchLogged = false;
+    }
+
+    return patched;
+}
+
+void InGameHack_RestoreInfiniteObjectsPatch()
+{
+    (void)InGameHack_SetInfiniteObjectsPatch(false);
+}
+
 /**
  * Apply CH202_TRANS_MISSION condition to player character
  * Enables Ch202 transformation/mission state (ECharacterConditionId = 85)
@@ -3237,544 +5120,289 @@ bool InGameHack_CH011AbyssDarkBody()
     }
 }
 
+static bool IsAbilityConditionId(SDK::ECharacterConditionId id);
+static SDK::APlayerStateBattle* GetLocalInstigatedPlayerState(
+    SDK::APlayerControllerBattle* playerController,
+    SDK::ACharacterBattle* playerCharacter);
+
+bool InGameHack_ApplyCustomCharacterCondition(int conditionId, int applyMode, int level, float duration, float value, float interval, int subLevel, bool timeOverwrite)
+{
+    if (conditionId <= 0 || conditionId >= static_cast<int>(SDK::ECharacterConditionId::MAX))
+    {
+        Logger::LogError("[CharacterCondition] Invalid condition ID: " + std::to_string(conditionId));
+        return false;
+    }
+
+    try
+    {
+        SDK::APlayerController* baseController = SDK_GetPlayerController();
+        if (!IsValidPointer(baseController))
+        {
+            Logger::LogError("[CharacterCondition] Could not get valid PlayerController");
+            return false;
+        }
+
+        SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
+        if (!IsValidPointer(playerController))
+        {
+            Logger::LogError("[CharacterCondition] Could not cast to APlayerControllerBattle");
+            return false;
+        }
+
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
+        if (!playerCharacter)
+        {
+            Logger::LogError("[CharacterCondition] Could not get player character");
+            return false;
+        }
+
+        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
+        if (!conditionComponent)
+            return false;
+
+        SDK::ECharacterConditionId id = static_cast<SDK::ECharacterConditionId>(conditionId);
+        SDK::APlayerStateBattle* instigatedPlayer = nullptr;
+        if (IsAbilityConditionId(id))
+        {
+            if (!IsValidBattleMode())
+            {
+                Logger::LogError("[CharacterCondition] Ability condition blocked outside valid battle mode");
+                return false;
+            }
+
+            instigatedPlayer = GetLocalInstigatedPlayerState(playerController, playerCharacter);
+            if (!instigatedPlayer)
+            {
+                Logger::LogError("[CharacterCondition] Could not get local PlayerState for ability condition");
+                return false;
+            }
+
+            applyMode = 1;
+            value = value > 0.0f ? value : 1000.0f;
+            interval = interval > 0.0f ? interval : 0.1f;
+            subLevel = subLevel > 0 ? subLevel : level;
+        }
+
+        switch (applyMode)
+        {
+        case 1:
+            conditionComponent->BP_SetCondition(id, level, duration, value, interval, subLevel, instigatedPlayer, 0);
+            break;
+        case 2:
+            conditionComponent->BP_SetConditionLocal(id, level, duration, value, interval, subLevel, instigatedPlayer, 0);
+            break;
+        case 0:
+        default:
+            conditionComponent->SetCondition_ToServer(id, level, duration, value, interval, subLevel, instigatedPlayer, 0, timeOverwrite, nullptr);
+            break;
+        }
+
+        Logger::LogInfo("[CharacterCondition] Applied condition ID " + std::to_string(conditionId));
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[CharacterCondition] Exception applying condition: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[CharacterCondition] Unknown exception applying condition");
+        return false;
+    }
+}
+
+bool InGameHack_ClearCustomCharacterCondition(int conditionId)
+{
+    if (conditionId <= 0 || conditionId >= static_cast<int>(SDK::ECharacterConditionId::MAX))
+    {
+        Logger::LogError("[CharacterCondition] Invalid clear condition ID: " + std::to_string(conditionId));
+        return false;
+    }
+
+    try
+    {
+        SDK::APlayerController* baseController = SDK_GetPlayerController();
+        if (!IsValidPointer(baseController))
+        {
+            Logger::LogError("[CharacterCondition] Could not get valid PlayerController for clear");
+            return false;
+        }
+
+        SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
+        if (!IsValidPointer(playerController))
+        {
+            Logger::LogError("[CharacterCondition] Could not cast to APlayerControllerBattle for clear");
+            return false;
+        }
+
+        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
+        if (!playerCharacter)
+        {
+            Logger::LogError("[CharacterCondition] Could not get player character for clear");
+            return false;
+        }
+
+        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
+        if (!conditionComponent)
+            return false;
+
+        conditionComponent->ClearCondition_ToServer(
+            static_cast<SDK::ECharacterConditionId>(conditionId),
+            SDK::ECharacterConditionEndType::TIME_UP
+        );
+
+        Logger::LogInfo("[CharacterCondition] Cleared condition ID " + std::to_string(conditionId) + " with TIME_UP");
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[CharacterCondition] Exception clearing condition: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[CharacterCondition] Unknown exception clearing condition");
+        return false;
+    }
+}
+
 // ============================================
 // ABILITY HACKS
 // ============================================
 
-/**
- * Generic ability setter helper function
- */
-static bool SetAbility(int abilityId, int level)
+static bool IsAbilityConditionId(SDK::ECharacterConditionId id)
 {
-    try
+    return id >= SDK::ECharacterConditionId::ABILITY_ATTACK &&
+        id <= SDK::ECharacterConditionId::ABILITY_TECHNIQUE;
+}
+
+static SDK::APlayerStateBattle* GetLocalInstigatedPlayerState(
+    SDK::APlayerControllerBattle* playerController,
+    SDK::ACharacterBattle* playerCharacter)
+{
+    SDK::APlayerStateBattle* instigatedPlayer = GetPlayerStateBattle(playerController);
+    if (!IsValidPointer(instigatedPlayer))
+        instigatedPlayer = GetPlayerStateBattleFromCharacterSafe(playerCharacter);
+
+    return IsValidPointer(instigatedPlayer) ? instigatedPlayer : nullptr;
+}
+
+static bool CallBPSetConditionSafe(
+    SDK::UCharacterConditionControlComponent* conditionComponent,
+    SDK::ECharacterConditionId id,
+    int level,
+    float span,
+    float value,
+    float interval,
+    int subLevel,
+    SDK::APlayerStateBattle* instigatedPlayer,
+    int damageActionSerialNo)
+{
+    __try
     {
-        // Clamp level to 1-100
-        level = (level < 1) ? 1 : (level > 100) ? 100 : level;
-
-        // Get player controller
-        SDK::APlayerController* baseController = SDK_GetPlayerController();
-        if (!baseController)
-        {
-            Logger::LogError("[COMBAT] Could not get PlayerController for Ability");
-            return false;
-        }
-
-        // Validate controller pointer
-        try
-        {
-            if (!baseController || IsBadReadPtr(baseController, sizeof(void*)))
-            {
-                Logger::LogError("[COMBAT] PlayerController pointer is invalid for Ability");
-                return false;
-            }
-        }
-        catch (...)
-        {
-            Logger::LogError("[COMBAT] PlayerController validation failed for Ability");
-            return false;
-        }
-
-        // Cast to APlayerControllerBattle
-        SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
-        if (!playerController)
-        {
-            Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle for Ability");
-            return false;
-        }
-
-        // Get the player's current character
-        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
-        if (!playerCharacter)
-        {
-            Logger::LogError("[COMBAT] Could not get player character for Ability");
-            return false;
-        }
-
-        // Get the condition control component
-        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
-        if (!conditionComponent)
-        {
-            Logger::LogError("[COMBAT] Could not get or validate condition component for Ability");
-            return false;
-        }
-
-        // Call BP_SetCondition with ability ID, level 1-100, span 50 seconds
-        try
-        {
-            conditionComponent->BP_SetConditionLocal(
-                (SDK::ECharacterConditionId)abilityId,  // Ability ID (43-47)
-                level,                                   // Level (1-100)
-                500.0f,                                  // span: 50 seconds
-                1000.0f,                                 // value
-                0.1f,                                    // interval
-                level,                                   // subLevel
-                nullptr,                                 // instigatedPlayer
-                0                                        // damageActionSerialNo
-            );
-        }
-        catch (...)
-        {
-            Logger::LogError("[COMBAT] Exception calling BP_SetCondition for Ability");
-            return false;
-        }
-
+        conditionComponent->BP_SetCondition(
+            id,
+            level,
+            span,
+            value,
+            interval,
+            subLevel,
+            instigatedPlayer,
+            damageActionSerialNo
+        );
         return true;
     }
-    catch (const std::exception& e)
+    __except (EXCEPTION_EXECUTE_HANDLER)
     {
-        Logger::LogError("[COMBAT] Exception in SetAbility");
         return false;
     }
-    catch (...)
+}
+
+static bool ApplyAbilityCondition(SDK::ECharacterConditionId id, int level, const char* logName)
+{
+    if (!IsAbilityConditionId(id))
     {
-        Logger::LogError("[COMBAT] Unknown exception in SetAbility");
+        Logger::LogError(std::string("[COMBAT] Invalid ability condition for ") + logName);
         return false;
     }
+
+    if (!IsValidBattleMode())
+    {
+        Logger::LogError(std::string("[COMBAT] Not in valid battle mode for ") + logName);
+        return false;
+    }
+
+    level = std::clamp(level, 1, 100);
+
+    SDK::APlayerController* baseController = SDK_GetPlayerController();
+    if (!IsValidPointer(baseController))
+    {
+        Logger::LogError(std::string("[COMBAT] Could not get valid PlayerController for ") + logName);
+        return false;
+    }
+
+    SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
+    if (!IsValidPointer(playerController))
+    {
+        Logger::LogError(std::string("[COMBAT] Could not cast PlayerController for ") + logName);
+        return false;
+    }
+
+    SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
+    if (!IsValidPointer(playerCharacter) || IsObjectDefaultSafe(playerCharacter))
+    {
+        Logger::LogError(std::string("[COMBAT] Could not get valid player character for ") + logName);
+        return false;
+    }
+
+    auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
+    if (!conditionComponent)
+    {
+        Logger::LogError(std::string("[COMBAT] Could not get condition component for ") + logName);
+        return false;
+    }
+
+    SDK::APlayerStateBattle* instigatedPlayer = GetLocalInstigatedPlayerState(playerController, playerCharacter);
+    if (!instigatedPlayer)
+    {
+        Logger::LogError(std::string("[COMBAT] Could not get local PlayerState for ") + logName);
+        return false;
+    }
+
+    if (!CallBPSetConditionSafe(conditionComponent, id, level, 500.0f, 1000.0f, 0.1f, level, instigatedPlayer, 0))
+    {
+        Logger::LogError(std::string("[COMBAT] SEH exception calling BP_SetCondition for ") + logName);
+        return false;
+    }
+
+    Logger::LogInfo(std::string("[COMBAT] ") + logName + " applied with level " + std::to_string(level));
+    return true;
 }
 
 bool InGameHack_AbilityAttack(int level)
 {
-    try
-    {
-        // Clamp level to 1-100
-        level = (level < 1) ? 1 : (level > 100) ? 100 : level;
-
-        // Get player controller
-        SDK::APlayerController* baseController = SDK_GetPlayerController();
-        if (!baseController)
-        {
-            Logger::LogError("[COMBAT] Could not get PlayerController for AbilityAttack");
-            return false;
-        }
-
-        // Validate controller pointer
-        try
-        {
-            if (!baseController || IsBadReadPtr(baseController, sizeof(void*)))
-            {
-                Logger::LogError("[COMBAT] PlayerController pointer is invalid for AbilityAttack");
-                return false;
-            }
-        }
-        catch (...)
-        {
-            Logger::LogError("[COMBAT] PlayerController validation failed for AbilityAttack");
-            return false;
-        }
-
-        // Cast to APlayerControllerBattle
-        SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
-        if (!playerController)
-        {
-            Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle for AbilityAttack");
-            return false;
-        }
-
-        // Get the player's current character
-        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
-        if (!playerCharacter)
-        {
-            Logger::LogError("[COMBAT] Could not get player character for AbilityAttack");
-            return false;
-        }
-
-        // Get the condition control component
-        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
-        if (!conditionComponent)
-        {
-            Logger::LogError("[COMBAT] Could not get or validate condition component for AbilityAttack");
-            return false;
-        }
-
-        // Call BP_SetCondition for ABILITY_ATTACK (ID 43)
-        try
-        {
-            conditionComponent->BP_SetCondition(
-                (SDK::ECharacterConditionId)43,  // ABILITY_ATTACK = 43
-                level,                            // Level (1-100)
-                500.0f,                           // span: 50 seconds
-                1000.0f,                          // value
-                0.1f,                             // interval
-                level,                            // subLevel
-                nullptr,                          // instigatedPlayer
-                0                                 // damageActionSerialNo
-            );
-        }
-        catch (...)
-        {
-            Logger::LogError("[COMBAT] Exception calling BP_SetCondition for AbilityAttack");
-            return false;
-        }
-
-        Logger::LogInfo("[COMBAT] AbilityAttack applied with level " + std::to_string(level));
-        return true;
-    }
-    catch (const std::exception& e)
-    {
-        Logger::LogError("[COMBAT] Exception in AbilityAttack: " + std::string(e.what()));
-        return false;
-    }
-    catch (...)
-    {
-        Logger::LogError("[COMBAT] Unknown exception in AbilityAttack");
-        return false;
-    }
+    return ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_ATTACK, level, "AbilityAttack");
 }
 
 bool InGameHack_AbilityDurable(int level)
 {
-    try
-    {
-        // Clamp level to 1-100
-        level = (level < 1) ? 1 : (level > 100) ? 100 : level;
-
-        // Get player controller
-        SDK::APlayerController* baseController = SDK_GetPlayerController();
-        if (!baseController)
-        {
-            Logger::LogError("[COMBAT] Could not get PlayerController for AbilityDurable");
-            return false;
-        }
-
-        // Validate controller pointer
-        try
-        {
-            if (!baseController || IsBadReadPtr(baseController, sizeof(void*)))
-            {
-                Logger::LogError("[COMBAT] PlayerController pointer is invalid for AbilityDurable");
-                return false;
-            }
-        }
-        catch (...)
-        {
-            Logger::LogError("[COMBAT] PlayerController validation failed for AbilityDurable");
-            return false;
-        }
-
-        // Cast to APlayerControllerBattle
-        SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
-        if (!playerController)
-        {
-            Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle for AbilityDurable");
-            return false;
-        }
-
-        // Get the player's current character
-        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
-        if (!playerCharacter)
-        {
-            Logger::LogError("[COMBAT] Could not get player character for AbilityDurable");
-            return false;
-        }
-
-        // Get the condition control component
-        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
-        if (!conditionComponent)
-        {
-            Logger::LogError("[COMBAT] Could not get or validate condition component for AbilityDurable");
-            return false;
-        }
-
-        // Call BP_SetCondition for ABILITY_DURABLE (ID 44)
-        try
-        {
-            conditionComponent->BP_SetCondition(
-                (SDK::ECharacterConditionId)44,  // ABILITY_DURABLE = 44
-                level,                            // Level (1-100)
-                500.0f,                           // span: 50 seconds
-                1000.0f,                          // value
-                0.1f,                             // interval
-                level,                            // subLevel
-                nullptr,                          // instigatedPlayer
-                0                                 // damageActionSerialNo
-            );
-        }
-        catch (...)
-        {
-            Logger::LogError("[COMBAT] Exception calling BP_SetCondition for AbilityDurable");
-            return false;
-        }
-
-        Logger::LogInfo("[COMBAT] AbilityDurable applied with level " + std::to_string(level));
-        return true;
-    }
-    catch (const std::exception& e)
-    {
-        Logger::LogError("[COMBAT] Exception in AbilityDurable: " + std::string(e.what()));
-        return false;
-    }
-    catch (...)
-    {
-        Logger::LogError("[COMBAT] Unknown exception in AbilityDurable");
-        return false;
-    }
+    return ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_DURABLE, level, "AbilityDurable");
 }
 
 bool InGameHack_AbilityMovespeed(int level)
 {
-    try
-    {
-        // Clamp level to 1-100
-        level = (level < 1) ? 1 : (level > 100) ? 100 : level;
-
-        // Get player controller
-        SDK::APlayerController* baseController = SDK_GetPlayerController();
-        if (!baseController)
-        {
-            Logger::LogError("[COMBAT] Could not get PlayerController for AbilityMovespeed");
-            return false;
-        }
-
-        // Validate controller pointer
-        try
-        {
-            if (!baseController || IsBadReadPtr(baseController, sizeof(void*)))
-            {
-                Logger::LogError("[COMBAT] PlayerController pointer is invalid for AbilityMovespeed");
-                return false;
-            }
-        }
-        catch (...)
-        {
-            Logger::LogError("[COMBAT] PlayerController validation failed for AbilityMovespeed");
-            return false;
-        }
-
-        // Cast to APlayerControllerBattle
-        SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
-        if (!playerController)
-        {
-            Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle for AbilityMovespeed");
-            return false;
-        }
-
-        // Get the player's current character
-        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
-        if (!playerCharacter)
-        {
-            Logger::LogError("[COMBAT] Could not get player character for AbilityMovespeed");
-            return false;
-        }
-
-        // Get the condition control component
-        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
-        if (!conditionComponent)
-        {
-            Logger::LogError("[COMBAT] Could not get or validate condition component for AbilityMovespeed");
-            return false;
-        }
-
-        // Call BP_SetCondition for ABILITY_MOVESPEED (ID 45)
-        try
-        {
-            conditionComponent->BP_SetConditionLocal(
-                (SDK::ECharacterConditionId)45,  // ABILITY_MOVESPEED = 45
-                level,                            // Level (1-100)
-                500.0f,                           // span: 50 seconds
-                1000.0f,                          // value
-                0.1f,                             // interval
-                level,                            // subLevel
-                nullptr,                          // instigatedPlayer
-                0                                 // damageActionSerialNo
-            );
-        }
-        catch (...)
-        {
-            Logger::LogError("[COMBAT] Exception calling BP_SetCondition for AbilityMovespeed");
-            return false;
-        }
-
-        Logger::LogInfo("[COMBAT] AbilityMovespeed applied with level " + std::to_string(level));
-        return true;
-    }
-    catch (const std::exception& e)
-    {
-        Logger::LogError("[COMBAT] Exception in AbilityMovespeed: " + std::string(e.what()));
-        return false;
-    }
-    catch (...)
-    {
-        Logger::LogError("[COMBAT] Unknown exception in AbilityMovespeed");
-        return false;
-    }
+    return ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_MOVESPEED, level, "AbilityMovespeed");
 }
 
 bool InGameHack_AbilityHeal(int level)
 {
-    try
-    {
-        // Clamp level to 1-100
-        level = (level < 1) ? 1 : (level > 100) ? 100 : level;
-
-        // Get player controller
-        SDK::APlayerController* baseController = SDK_GetPlayerController();
-        if (!baseController)
-        {
-            Logger::LogError("[COMBAT] Could not get PlayerController for AbilityHeal");
-            return false;
-        }
-
-        // Validate controller pointer
-        try
-        {
-            if (!baseController || IsBadReadPtr(baseController, sizeof(void*)))
-            {
-                Logger::LogError("[COMBAT] PlayerController pointer is invalid for AbilityHeal");
-                return false;
-            }
-        }
-        catch (...)
-        {
-            Logger::LogError("[COMBAT] PlayerController validation failed for AbilityHeal");
-            return false;
-        }
-
-        // Cast to APlayerControllerBattle
-        SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
-        if (!playerController)
-        {
-            Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle for AbilityHeal");
-            return false;
-        }
-
-        // Get the player's current character
-        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
-        if (!playerCharacter)
-        {
-            Logger::LogError("[COMBAT] Could not get player character for AbilityHeal");
-            return false;
-        }
-
-        // Get the condition control component
-        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
-        if (!conditionComponent)
-        {
-            Logger::LogError("[COMBAT] Could not get or validate condition component for AbilityHeal");
-            return false;
-        }
-
-        // Call BP_SetCondition for ABILITY_HEAL (ID 46)
-        try
-        {
-            conditionComponent->BP_SetConditionLocal(
-                (SDK::ECharacterConditionId)46,  // ABILITY_HEAL = 46
-                level,                            // Level (1-100)
-                500.0f,                           // span: 50 seconds
-                1000.0f,                          // value
-                0.1f,                             // interval
-                level,                            // subLevel
-                nullptr,                          // instigatedPlayer
-                0                                 // damageActionSerialNo
-            );
-        }
-        catch (...)
-        {
-            Logger::LogError("[COMBAT] Exception calling BP_SetCondition for AbilityHeal");
-            return false;
-        }
-
-        Logger::LogInfo("[COMBAT] AbilityHeal applied with level " + std::to_string(level));
-        return true;
-    }
-    catch (const std::exception& e)
-    {
-        Logger::LogError("[COMBAT] Exception in AbilityHeal: " + std::string(e.what()));
-        return false;
-    }
-    catch (...)
-    {
-        Logger::LogError("[COMBAT] Unknown exception in AbilityHeal");
-        return false;
-    }
+    return ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_HEAL, level, "AbilityHeal");
 }
 
 bool InGameHack_AbilityTechnique(int level)
 {
-    try
-    {
-        // Clamp level to 1-100
-        level = (level < 1) ? 1 : (level > 100) ? 100 : level;
-
-        // Get player controller
-        SDK::APlayerController* baseController = SDK_GetPlayerController();
-        if (!baseController)
-        {
-            Logger::LogError("[COMBAT] Could not get PlayerController for AbilityTechnique");
-            return false;
-        }
-
-        // Validate controller pointer
-        try
-        {
-            if (!baseController || IsBadReadPtr(baseController, sizeof(void*)))
-            {
-                Logger::LogError("[COMBAT] PlayerController pointer is invalid for AbilityTechnique");
-                return false;
-            }
-        }
-        catch (...)
-        {
-            Logger::LogError("[COMBAT] PlayerController validation failed for AbilityTechnique");
-            return false;
-        }
-
-        // Cast to APlayerControllerBattle
-        SDK::APlayerControllerBattle* playerController = static_cast<SDK::APlayerControllerBattle*>(baseController);
-        if (!playerController)
-        {
-            Logger::LogError("[COMBAT] Could not cast to APlayerControllerBattle for AbilityTechnique");
-            return false;
-        }
-
-        // Get the player's current character
-        SDK::ACharacterBattle* playerCharacter = GetPlayerCharacterBattle(playerController);
-        if (!playerCharacter)
-        {
-            Logger::LogError("[COMBAT] Could not get player character for AbilityTechnique");
-            return false;
-        }
-
-        // Get the condition control component
-        auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
-        if (!conditionComponent)
-        {
-            Logger::LogError("[COMBAT] Could not get or validate condition component for AbilityTechnique");
-            return false;
-        }
-
-        // Call BP_SetCondition for ABILITY_TECHNIQUE (ID 47)
-        try
-        {
-            conditionComponent->BP_SetConditionLocal(
-                (SDK::ECharacterConditionId)47,  // ABILITY_TECHNIQUE = 47
-                level,                            // Level (1-100)
-                500.0f,                           // span: 50 seconds
-                1000.0f,                          // value
-                0.1f,                             // interval
-                level,                            // subLevel
-                nullptr,                          // instigatedPlayer
-                0                                 // damageActionSerialNo
-            );
-        }
-        catch (...)
-        {
-            Logger::LogError("[COMBAT] Exception calling BP_SetCondition for AbilityTechnique");
-            return false;
-        }
-
-        Logger::LogInfo("[COMBAT] AbilityTechnique applied with level " + std::to_string(level));
-        return true;
-    }
-    catch (const std::exception& e)
-    {
-        Logger::LogError("[COMBAT] Exception in AbilityTechnique: " + std::string(e.what()));
-        return false;
-    }
-    catch (...)
-    {
-        Logger::LogError("[COMBAT] Unknown exception in AbilityTechnique");
-        return false;
-    }
+    return ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_TECHNIQUE, level, "AbilityTechnique");
 }
 
 // ============================================
@@ -3996,6 +5624,8 @@ bool InGameHack_RecoverDyingTeamMember(SDK::ACharacterBattle* target)
 
 void InGameHack_LogAllDamageAttenuationCurves()
 {
+    return;
+
     try
     {
         // Créer le dossier c:\temp s'il n'existe pas
@@ -4377,44 +6007,6 @@ bool InGameHack_ModifySupplyMaxStack()
     }
 }
 
-// Global flag for preventing drops on death
-static bool g_bPreventDropOnDeath = false;
-
-bool InGameHack_PreventDropOnDeath(bool bPreventDrop)
-{
-    try
-    {
-        g_bPreventDropOnDeath = bPreventDrop;
-        
-        if (bPreventDrop)
-        {
-            
-        }
-        else
-        {
-            
-        }
-        
-        return true;
-    }
-    catch (const std::exception& e)
-    {
-        
-        return false;
-    }
-    catch (...)
-    {
-      
-        return false;
-    }
-}
-
-// Public function to check if drops should be prevented (called during death)
-bool InGameHack_ShouldPreventDropOnDeath()
-{
-    return g_bPreventDropOnDeath;
-}
-
 bool InGameHack_SetSkillLevel(int skillIndex, int level)
 {
     try
@@ -4460,6 +6052,93 @@ bool InGameHack_SetSkillLevel(int skillIndex, int level)
     }
 }
 
+bool InGameHack_TestUseItemAction(int uniqueLevel)
+{
+    try
+    {
+        if (!IsValidBattleMode())
+        {
+            Logger::LogWarning("[UseItemAction] Not in valid battle mode");
+            return false;
+        }
+
+        if (uniqueLevel < 0)
+            uniqueLevel = 0;
+
+        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!IsValidPointer(playerController))
+        {
+            Logger::LogError("[UseItemAction] Could not get PlayerController");
+            return false;
+        }
+
+        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
+        if (!IsValidPointer(playerChar))
+        {
+            Logger::LogError("[UseItemAction] Could not get player character");
+            return false;
+        }
+
+        SDK::APlayerStateBattle* playerState = GetPlayerStateBattle(playerController);
+        const SDK::FName supplyId = GetUseItemSupplyIdSafe(playerState);
+
+        SDK::UCharacterActionControlComponent* actionControl = GetActionControlComponentSafe(playerChar);
+        if (!IsValidPointer(actionControl))
+        {
+            Logger::LogError("[UseItemAction] Could not get CharacterActionControlComponent");
+            return false;
+        }
+
+        SDK::UActionAttackBase* aimingAction = nullptr;
+        if (SafeReadMember(&actionControl->_aimingAttackActionFunc, aimingAction) && IsValidPointer(aimingAction) &&
+            IsObjectAUnsafeGuarded(aimingAction, SDK::UActionAttackUseItem::StaticClass()))
+        {
+            auto* useItemAction = static_cast<SDK::UActionAttackUseItem*>(aimingAction);
+            if (TrySetUseItemSupplyIdSafe(useItemAction, supplyId))
+            {
+                Logger::LogInfo("[UseItemAction] BP_SetSupplyId called on current UseItem action instance");
+            }
+            else if (IsNonNoneFName(supplyId))
+            {
+                Logger::LogWarning("[UseItemAction] BP_SetSupplyId failed on current UseItem action instance");
+            }
+            else
+            {
+                Logger::LogInfo("[UseItemAction] Current UseItem action instance found, but no shortcut/last supply id is available");
+            }
+        }
+        else
+        {
+            Logger::LogInfo("[UseItemAction] No current UActionAttackUseItem instance found before RPC; sending server action only");
+        }
+
+        SDK::FVector_NetQuantize100 targetLocation = GetActorLocationNetQuantize100Safe(playerChar);
+
+        actionControl->SetAttackAction_ToServer(
+            SDK::EAttackId::USEITEM,
+            targetLocation,
+            nullptr,
+            uniqueLevel,
+            SDK::ECommandId::USEITEM,
+            true,
+            0,
+            SDK::EAttackBeginStateFlags::NONE);
+
+        Logger::LogInfo("[UseItemAction] SetAttackAction_ToServer(USEITEM) sent");
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[UseItemAction] Exception: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[UseItemAction] Unknown exception");
+        return false;
+    }
+}
+
 int InGameHack_GetSkillLevel(int skillIndex)
 {
     try
@@ -4492,232 +6171,6 @@ int InGameHack_GetSkillLevel(int skillIndex)
     catch (const std::exception& e)
     {
         return -1;
-    }
-}
-
-bool InGameHack_StopUsingSupply()
-{
-    try
-    {
-        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!IsValidPointer(playerController))
-        {
-        
-            return false;
-        }
-        
-        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
-        if (!playerChar)
-        {
-        
-            return false;
-        }
-        
-        SDK::APlayerStateBattle* playerState = static_cast<SDK::APlayerStateBattle*>(GetCharacterPlayerStateSafe(playerChar));
-        auto supplyHolderComp = GetSupplyHolderComponentSafe(playerState);
-        
-        if (!IsValidPointer(supplyHolderComp))
-        {
-        
-            return false;
-        }
-        
-        supplyHolderComp->OnStopUsing_ToServer();
-        return true;
-    }
-    catch (const std::exception& e)
-    {
-        
-        return false;
-    }
-    catch (...)
-    {
-        return false;
-    }
-}
-
-// ============================================
-// UPGRADE SUPPLY - MAXSTACKNUM
-// ============================================
-
-bool InGameHack_UpgradeSupply(int supplyIndex, int level)
-{
-    try
-    {
-        // Validate level range
-        if (level < 1 || level > 99)
-        {
-            return false;
-        }
-
-        // Get player controller
-        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!IsValidPointer(playerController))
-        {
-            return false;
-        }
-
-        // Get character
-        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
-        if (!playerChar)
-        {
-            return false;
-        }
-
-        // Get player state
-        SDK::APlayerStateBattle* playerState = static_cast<SDK::APlayerStateBattle*>(GetCharacterPlayerStateSafe(playerChar));
-        if (!playerState)
-        {
-            return false;
-        }
-
-        // Get supply holder component
-        auto supplyHolderComp = GetSupplyHolderComponentSafe(playerState);
-        if (!IsValidPointer(supplyHolderComp))
-        {
-            return false;
-        }
-
-        // Get supply holder from inventory
-        int32_t inventoryCount = 0;
-        if (!SafeArrayCount(supplyHolderComp->_inventory, inventoryCount, 64) ||
-            supplyIndex < 0 || supplyIndex >= inventoryCount)
-        {
-            return false;
-        }
-
-        SDK::USupplyHolder* supplyHolder = nullptr;
-        if (!SafeArrayGet(supplyHolderComp->_inventory, supplyIndex, supplyHolder, 64) ||
-            !IsValidPointer(supplyHolder))
-        {
-            return false;
-        }
-
-        // Get first supply
-        int32_t suppliesCount = 0;
-        SDK::USupply* supply = nullptr;
-        if (!SafeArrayCount(supplyHolder->_supplies, suppliesCount, 64) || suppliesCount <= 0 ||
-            !SafeArrayGet(supplyHolder->_supplies, 0, supply, 64) ||
-            !IsValidPointer(supply))
-        {
-            return false;
-        }
-
-        // Get world
-        SDK::UWorld* world = SDK::UWorld::GetWorld();
-        if (!IsValidPointer(world))
-        {
-            return false;
-        }
-
-        // Supply ID array
-        const char* supplyIds[] = {
-            "Su001", "Su002", "Su003", "Su004", "Su005", "Su006",
-            "Su007", "Su008", "Su009", "Su010", "Su011", "Su012",
-            "Su013", "Su014", "Su015", "Su016", "Su017", "Su018",
-            "Su019", "Su020", "Su021", "Su022", "Su023", "Su024",
-            "Su025", "Su026"
-        };
-
-        // Get supply ID string
-        const char* supplyIdStr = (supplyIndex < 26) ? supplyIds[supplyIndex] : supplyIds[0];
-
-        // Convert to wchar_t and then to FName
-        int len = strlen(supplyIdStr) + 1;
-        wchar_t* wstr = new wchar_t[len];
-        mbstowcs(wstr, supplyIdStr, len);
-        SDK::FName supplyFName = SDK::BasicFilesImplUtils::StringToName(wstr);
-        delete[] wstr;
-
-        // Get supply data asset
-        auto supplyAsset = SDK::UStaticDataManager::GetSupplyBaseDataAsset(world, supplyFName);
-        if (!supplyAsset)
-        {
-            return false;
-        }
-
-        // Set max stack num
-        supplyAsset->_maxStackNum = level;
-        return true;
-    }
-    catch (const std::exception& e)
-    {
-        return false;
-    }
-    catch (...)
-    {
-        return false;
-    }
-}
-
-// ============================================
-// APPLY TEAM BUFFS
-// ============================================
-
-bool InGameHack_ApplyTeamBuffs(float attackAdjust, float durableAdjust, float speedAdjust, float healingAdjust, float reloadAdjust)
-{
-    try
-    {
-        // Get player controller
-        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!IsValidPointer(playerController))
-        {
-            return false;
-        }
-
-        // Get character
-        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
-        if (!playerChar)
-        {
-            return false;
-        }
-
-        // Get player state
-        SDK::APlayerStateBattle* playerState = static_cast<SDK::APlayerStateBattle*>(GetCharacterPlayerStateSafe(playerChar));
-        if (!playerState)
-        {
-            return false;
-        }
-
-        // Apply buffs directly using UBuffParam setters
-        auto buffParam = GetBuffParamSafe(playerState);
-        if (!IsValidPointer(buffParam))
-        {
-            return false;
-        }
-
-        // Set attack adjust rate
-        buffParam->BP_SetAttackAdjustRate(attackAdjust);
-
-        // Set durable adjust rate
-        buffParam->BP_SetDurableAdjustRate(durableAdjust);
-
-        // Set speed (movement speed team role)
-        buffParam->BP_SetMoveSpeedAdjustRate_TeamRole(speedAdjust);
-
-        // Set healing adjust rate (direct modification)
-        buffParam->_healingAdjustRate_TeamRole = healingAdjust;
-
-        // Set reload adjust rate
-        buffParam->BP_SetReloadAdjustRate(reloadAdjust);
-
-        // Send request to buff control component to notify server
-        SDK::UCharacterBuffControlCompnent* buffComponent = nullptr;
-        SafeReadMember(&playerChar->_buffControlComponent, buffComponent);
-        if (IsValidPointer(buffComponent))
-        {
-            buffComponent->RequestApplyTeamBuffs_ToServer();
-        }
-
-        return true;
-    }
-    catch (const std::exception& e)
-    {
-        return false;
-    }
-    catch (...)
-    {
-        return false;
     }
 }
 
@@ -4973,10 +6426,150 @@ static inline bool IsBulletNonTeleportable(const std::string& bulletName)
     return false;
 }
 
+static inline bool IsFiniteVector(const SDK::FVector& value)
+{
+    return std::isfinite(value.X) && std::isfinite(value.Y) && std::isfinite(value.Z);
+}
+
+static inline float VectorLengthSquared(const SDK::FVector& value)
+{
+    return (value.X * value.X) + (value.Y * value.Y) + (value.Z * value.Z);
+}
+
+static inline SDK::FVector NormalizeVectorSafe(const SDK::FVector& value)
+{
+    const float lengthSquared = VectorLengthSquared(value);
+    if (lengthSquared <= 0.0001f || !std::isfinite(lengthSquared))
+        return SDK::FVector(0.0f, 0.0f, 0.0f);
+
+    const float length = std::sqrt(lengthSquared);
+    return SDK::FVector(value.X / length, value.Y / length, value.Z / length);
+}
+
+static inline SDK::FRotator RotatorFromDirection(const SDK::FVector& direction)
+{
+    constexpr float RadToDeg = 57.29577951308232f;
+    const float xyDistance = std::sqrt((direction.X * direction.X) + (direction.Y * direction.Y));
+    const float pitch = std::atan2(direction.Z, xyDistance) * RadToDeg;
+    const float yaw = std::atan2(direction.Y, direction.X) * RadToDeg;
+
+    return SDK::FRotator(pitch, yaw, 0.0f);
+}
+
+static inline float GetUsefulBulletSpeed(SDK::ABullet* bullet)
+{
+    constexpr float MinBulletTPSpeed = 30000.0f;
+    constexpr float MaxBulletTPSpeed = 120000.0f;
+
+    float speed = 0.0f;
+    try
+    {
+        const SDK::FVector currentVelocity = bullet->GetVelocity();
+        if (IsFiniteVector(currentVelocity))
+            speed = std::sqrt(VectorLengthSquared(currentVelocity));
+    }
+    catch (...)
+    {
+        speed = 0.0f;
+    }
+
+    if (speed < MinBulletTPSpeed)
+        speed = MinBulletTPSpeed;
+    if (speed > MaxBulletTPSpeed)
+        speed = MaxBulletTPSpeed;
+    return speed;
+}
+
+static inline bool RedirectBulletTowardTarget(SDK::ABullet* bullet, const SDK::FVector& targetPosition)
+{
+    if (!IsValidPointer(bullet) || !IsFiniteVector(targetPosition))
+        return false;
+
+    SDK::FVector bulletPosition = SDK::FVector(0.0f, 0.0f, 0.0f);
+    try
+    {
+        bulletPosition = bullet->K2_GetActorLocation();
+    }
+    catch (...)
+    {
+        return false;
+    }
+
+    if (!IsFiniteVector(bulletPosition))
+        return false;
+
+    SDK::FVector direction = NormalizeVectorSafe(targetPosition - bulletPosition);
+    if (direction.IsZero())
+        return false;
+
+    const SDK::FRotator targetRotation = RotatorFromDirection(direction);
+    const float speed = GetUsefulBulletSpeed(bullet);
+    const SDK::FVector redirectedVelocity = direction * speed;
+
+    // Start just before the target, then sweep through it so the projectile collision can fire.
+    const SDK::FVector impactStart = targetPosition - (direction * 120.0f);
+    const SDK::FVector impactEnd = targetPosition + (direction * 90.0f);
+
+    bool movedNearTarget = false;
+    bool sweptThroughTarget = false;
+
+    try
+    {
+        if (IsObjectAUnsafeGuarded(bullet, SDK::ACustomBullet::StaticClass()))
+        {
+            SDK::ACustomBullet* customBullet = static_cast<SDK::ACustomBullet*>(bullet);
+            customBullet->SetRotationFollowsVelocity(true);
+        }
+    }
+    catch (...)
+    {
+    }
+
+    try
+    {
+        bullet->BP_SetVelocity(redirectedVelocity);
+    }
+    catch (...)
+    {
+    }
+
+    try
+    {
+        bullet->K2_SetActorRotation(targetRotation, true);
+    }
+    catch (...)
+    {
+    }
+
+    try
+    {
+        movedNearTarget = bullet->K2_SetActorLocationAndRotation(impactStart, targetRotation, false, nullptr, true);
+        bullet->BP_SetVelocity(redirectedVelocity);
+        sweptThroughTarget = bullet->K2_SetActorLocationAndRotation(impactEnd, targetRotation, true, nullptr, false);
+        bullet->BP_SetVelocity(redirectedVelocity);
+    }
+    catch (...)
+    {
+        try
+        {
+            bullet->K2_TeleportTo(targetPosition, targetRotation);
+            bullet->BP_SetVelocity(redirectedVelocity);
+            return true;
+        }
+        catch (...)
+        {
+            return false;
+        }
+    }
+
+    return movedNearTarget || sweptThroughTarget;
+}
+
 /**
  * Redirect bullets to nearest enemy in front
  * Filters bullets by skill type (Alpha/Beta/Gamma/Special)
- * Uses K2_TeleportTo to redirect each bullet to enemy position
+ * Repositions bullets onto a short swept path through the target, then keeps
+ * their velocity aligned so hit validation is not tied to the original crosshair.
  * 
  * @param bIncludeAlpha - Include Alpha (Unique1) skills
  * @param bIncludeBeta - Include Beta (Unique2) skills
@@ -5010,17 +6603,20 @@ bool InGameHack_RedirectBulletsToNearestEnemy(bool bIncludeAlpha, bool bIncludeB
         if (!playerCharacter)
             return false;
 
-        // Get target strictly from the BulletTP FOV circle.
-        SDK::AActor* nearestEnemyPtr = SDK_GetBulletTPFOVTarget();
+        // Get target strictly from the BulletTP FOV circle and use the same
+        // cached 3D aim point as the aimbot, not the actor root location.
+        SDK::FVector targetPosition = SDK::FVector(0, 0, 0);
+        SDK::AActor* nearestEnemyPtr = SDK_GetBulletTPFOVTargetWithPosition(&targetPosition);
         if (!nearestEnemyPtr)
             return false;
 
         SDK::ACharacterBattle* nearestEnemy = ActorToCharacterBattleSafe(nearestEnemyPtr);
         if (!nearestEnemy)
             return false;
+        (void)nearestEnemy;
 
-        // Get nearest enemy position
-        SDK::FVector targetPosition = nearestEnemy->K2_GetActorLocation();
+        if (targetPosition.X == 0.0f && targetPosition.Y == 0.0f && targetPosition.Z == 0.0f)
+            return false;
 
         int redirectedCount = 0;
         int totalBulletsFound = 0;
@@ -5074,15 +6670,16 @@ bool InGameHack_RedirectBulletsToNearestEnemy(bool bIncludeAlpha, bool bIncludeB
 
             bulletsFiltered++;
 
-            // Redirect bullet to target position using K2_TeleportTo
+            // Redirect bullet trajectory to the cached aim point. A raw teleport
+            // only works reliably when the original crosshair path already hits.
             try
             {
-                bullet->K2_TeleportTo(targetPosition, SDK::FRotator(0, 0, 0));
-                redirectedCount++;
+                if (RedirectBulletTowardTarget(bullet, targetPosition))
+                    redirectedCount++;
             }
             catch (...)
             {
-                continue;  // Skip if teleport fails
+                continue;  // Skip if redirect fails
             }
         }
 
@@ -5439,7 +7036,16 @@ void InGameHack_ProcessCharacterConditionAutoExecution(
     bool enableUnbreakable,
     bool enableCompressionRegen,
     bool enableMirioMode,
-    bool enableTokoyamiMode)
+    bool enableTokoyamiMode,
+    bool enableGenericCondition,
+    int conditionId,
+    int applyMode,
+    int level,
+    float duration,
+    float value,
+    float interval,
+    int subLevel,
+    bool timeOverwrite)
 {
     // Static tracking of battle session state
     static bool wasInValidBattle = false;
@@ -5535,6 +7141,14 @@ void InGameHack_ProcessCharacterConditionAutoExecution(
                 // Auto-disable after execution
                 ImGuiMenu::g_HackSettings.CharCondition_EnableTokoyamiMode = false;
                 Logger::LogInfo("[AUTO-EXECUTE] TOKOYAMI DARK MODE disabled after execution");
+            }
+
+            if (enableGenericCondition)
+            {
+                Logger::LogInfo("[AUTO-EXECUTE] Executing generic character condition");
+                InGameHack_ApplyCustomCharacterCondition(conditionId, applyMode, level, duration, value, interval, subLevel, timeOverwrite);
+                ImGuiMenu::g_HackSettings.CharCondition_AutoExecute = false;
+                Logger::LogInfo("[AUTO-EXECUTE] Generic character condition disabled after execution");
             }
         }
     }
@@ -5670,57 +7284,351 @@ bool InGameHack_BuyLicenseExp(int32_t count)
     }
 }
 
+bool InGameHack_AddSpecialLicenseExpLocal(int32_t exp)
+{
+    try
+    {
+        if (exp <= 0 || exp > 10000000)
+        {
+            Logger::LogError("[SpecialLicenseExpLocal] Invalid exp: " + std::to_string(exp) + " (must be 1-10000000)");
+            return false;
+        }
+
+        SeasonLicenseDataSource source = ResolveSeasonLicenseDataSource();
+        if (!IsValidPointer(source.seasonData) && !IsValidPointer(source.dbParams))
+        {
+            Logger::LogError("[SpecialLicenseExpLocal] Could not resolve UDbpSeason or UDatabaseParams");
+            return false;
+        }
+
+        SDK::FDbSpecialLicenseListParam beforeDirect{};
+        const bool hasBeforeDirect = GetDirectDbSpecialLicenseSafe(source.dbParams, beforeDirect);
+
+        SDK::int32 beforeGetterExp = 0;
+        SDK::int32 beforeGetterRank = 0;
+        const bool hasBeforeGetterExp = GetSeasonIntGetterSafe(source.seasonData, 8, beforeGetterExp);
+        const bool hasBeforeGetterRank = GetSeasonIntGetterSafe(source.seasonData, 11, beforeGetterRank);
+
+        const bool nativeCalled = CallAddSpecialLicenseExpSafe(source.seasonData, static_cast<SDK::int32>(exp));
+
+        SDK::FDbSpecialLicenseListParam afterNativeDirect{};
+        const bool hasAfterNativeDirect = GetDirectDbSpecialLicenseSafe(source.dbParams, afterNativeDirect);
+
+        SDK::int32 afterNativeGetterExp = 0;
+        SDK::int32 afterNativeGetterRank = 0;
+        const bool hasAfterNativeGetterExp = GetSeasonIntGetterSafe(source.seasonData, 8, afterNativeGetterExp);
+        const bool hasAfterNativeGetterRank = GetSeasonIntGetterSafe(source.seasonData, 11, afterNativeGetterRank);
+
+        bool nativeChanged = false;
+        if (hasBeforeDirect && hasAfterNativeDirect && DidSpecialLicenseProgressChange(beforeDirect, afterNativeDirect))
+            nativeChanged = true;
+        if (hasBeforeGetterExp && hasAfterNativeGetterExp && beforeGetterExp != afterNativeGetterExp)
+            nativeChanged = true;
+        if (hasBeforeGetterRank && hasAfterNativeGetterRank && beforeGetterRank != afterNativeGetterRank)
+            nativeChanged = true;
+
+        bool directUpdated = false;
+        if (!nativeChanged && IsValidPointer(source.dbParams) && hasAfterNativeDirect)
+        {
+            SDK::FDbSpecialLicenseListParam& specialLicense = source.dbParams->SpecialLicense;
+
+            SDK::int64 targetTotalExp = static_cast<SDK::int64>(afterNativeDirect.TotalExp) + static_cast<SDK::int64>(exp);
+            if (targetTotalExp < 0)
+                targetTotalExp = 0;
+            if (targetTotalExp > 2147483647LL)
+                targetTotalExp = 2147483647LL;
+
+            SpecialLicenseProgressFields fields{};
+            if (CalculateSpecialLicenseProgressFields(afterNativeDirect, static_cast<SDK::int32>(targetTotalExp), fields))
+            {
+                directUpdated = ApplySpecialLicenseProgressFields(specialLicense, fields);
+                if (!directUpdated)
+                    Logger::LogError("[SpecialLicenseExpLocal] DatabaseParams.SpecialLicense fields are not writable");
+            }
+            else
+            {
+                Logger::LogError("[SpecialLicenseExpLocal] Could not calculate progress from SpecialLicenseList");
+            }
+        }
+
+        SDK::FDbSpecialLicenseListParam finalDirect{};
+        const bool hasFinalDirect = GetDirectDbSpecialLicenseSafe(source.dbParams, finalDirect);
+
+        SDK::int32 finalGetterExp = 0;
+        SDK::int32 finalGetterRank = 0;
+        const bool hasFinalGetterExp = GetSeasonIntGetterSafe(source.seasonData, 8, finalGetterExp);
+        const bool hasFinalGetterRank = GetSeasonIntGetterSafe(source.seasonData, 11, finalGetterRank);
+
+        std::stringstream log;
+        log << "[SpecialLicenseExpLocal] exp=" << exp
+            << ", nativeCalled=" << (nativeCalled ? 1 : 0)
+            << ", nativeChanged=" << (nativeChanged ? 1 : 0)
+            << ", directUpdated=" << (directUpdated ? 1 : 0)
+            << ", dbParamsSource=" << source.dbParamsSource
+            << ", seasonDataSource=" << source.seasonDataSource;
+
+        if (hasBeforeDirect)
+        {
+            log << ", beforeDirect(rank=" << beforeDirect.CurrentRank
+                << ", currentExp=" << beforeDirect.CurrentExp
+                << ", totalExp=" << beforeDirect.TotalExp
+                << ", nextExp=" << beforeDirect.NextExp
+                << ", maxExp=" << beforeDirect.MaxExp << ")";
+        }
+
+        if (hasFinalDirect)
+        {
+            log << ", finalDirect(rank=" << finalDirect.CurrentRank
+                << ", currentExp=" << finalDirect.CurrentExp
+                << ", totalExp=" << finalDirect.TotalExp
+                << ", nextExp=" << finalDirect.NextExp
+                << ", maxExp=" << finalDirect.MaxExp << ")";
+        }
+
+        if (hasBeforeGetterExp || hasBeforeGetterRank || hasFinalGetterExp || hasFinalGetterRank)
+        {
+            log << ", gettersBefore(rank=" << (hasBeforeGetterRank ? beforeGetterRank : -1)
+                << ", exp=" << (hasBeforeGetterExp ? beforeGetterExp : -1)
+                << "), gettersAfter(rank=" << (hasFinalGetterRank ? finalGetterRank : -1)
+                << ", exp=" << (hasFinalGetterExp ? finalGetterExp : -1) << ")";
+        }
+
+        Logger::LogInfo(log.str());
+        return nativeChanged || directUpdated || nativeCalled;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[SpecialLicenseExpLocal] Exception: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[SpecialLicenseExpLocal] Unknown exception");
+        return false;
+    }
+}
+
+bool InGameHack_DumpSeasonLicenseGetters()
+{
+    static constexpr const char* kLogPath = "C:\\Temp\\season_license_getters.log";
+    static constexpr int32_t kLogLimit = 25;
+
+    CreateDirectoryA("C:\\Temp", nullptr);
+
+    std::ofstream logFile(kLogPath, std::ios::out | std::ios::trunc);
+    if (!logFile.is_open())
+    {
+        Logger::LogError("[SeasonLicenseDump] Could not open C:\\Temp\\season_license_getters.log");
+        return false;
+    }
+
+    std::stringstream ss;
+    ss << "=== SEASON LICENSE GETTERS DUMP ==="
+       << "\ndumpVersion: season-license-v2-gobjects-masterdata"
+       << "\ncreatedTick: " << GetTickCount64()
+       << "\nlogLimit: " << kLogLimit;
+
+    SeasonLicenseDataSource source = ResolveSeasonLicenseDataSource();
+    SDK::UBackendSubsystem* backendSubsystem = source.backendSubsystem;
+    SDK::UDatabaseParams* dbParams = source.dbParams;
+    SDK::UDbpSeason* seasonData = source.seasonData;
+
+    ss << "\n\n=== POINTERS ==="
+       << "\nbackendSubsystem: 0x" << std::hex << reinterpret_cast<uintptr_t>(backendSubsystem)
+       << "\ndatabaseParams: 0x" << reinterpret_cast<uintptr_t>(dbParams)
+       << "\nseasonData: 0x" << reinterpret_cast<uintptr_t>(seasonData) << std::dec
+       << "\ndatabaseParamsSource: " << source.dbParamsSource
+       << "\nseasonDataSource: " << source.seasonDataSource
+       << "\nscannedObjects: " << source.scannedObjects
+       << "\nbackendCandidates: " << source.backendCandidates
+       << "\ndatabaseParamsCandidates: " << source.dbParamsCandidates
+       << "\ndbpSeasonCandidates: " << source.seasonCandidates;
+
+    if (IsValidPointer(dbParams))
+    {
+        SDK::FDbSeasonParam directSeasonInfo{};
+        if (GetDirectDbSeasonParamSafe(dbParams, directSeasonInfo))
+            AppendDbSeasonParamSummary(ss, "DatabaseParams.season direct field", directSeasonInfo, kLogLimit);
+        else
+            ss << "\n\n=== DatabaseParams.season direct field ==="
+               << "\nstatus: failed";
+
+        SDK::FDbSpecialLicenseListParam directSpecialLicense{};
+        if (GetDirectDbSpecialLicenseSafe(dbParams, directSpecialLicense))
+            AppendDbSpecialLicenseListParamSummary(ss, "DatabaseParams.SpecialLicense direct field", directSpecialLicense, kLogLimit);
+        else
+            ss << "\n\n=== DatabaseParams.SpecialLicense direct field ==="
+               << "\nstatus: failed";
+    }
+    else
+    {
+        ss << "\n\n=== DatabaseParams direct fields ==="
+           << "\nstatus: unavailable";
+    }
+
+    AppendMasterDataCacheProbeSummary(ss, kLogLimit);
+
+    if (!IsValidPointer(seasonData))
+    {
+        ss << "\n\nERROR: UDbpSeason is not available. Direct DatabaseParams and MasterDataCache sections above are the fallback result.";
+        logFile << ss.str() << "\n";
+        Logger::LogError("[SeasonLicenseDump] UDbpSeason unavailable");
+        return false;
+    }
+
+    ss << "\n\n=== BOOLEAN GETTERS ===";
+    const char* boolGetterNames[] = {
+        "CanBuyProLicense",
+        "CanBuyProLicenseWithExp",
+        "HasMiddleLicense",
+        "HasProLicense",
+    };
+
+    for (int i = 0; i < static_cast<int>(sizeof(boolGetterNames) / sizeof(boolGetterNames[0])); ++i)
+    {
+        bool value = false;
+        ss << "\n" << boolGetterNames[i] << ": ";
+        if (GetSeasonBoolGetterSafe(seasonData, i, value))
+            ss << (value ? 1 : 0);
+        else
+            ss << "failed";
+    }
+
+    ss << "\n\n=== INTEGER GETTERS ===";
+    const char* intGetterNames[] = {
+        "GetAvailableSpecialLicenseExpCount",
+        "GetDiscountProLicensePrice",
+        "GetHeroCrystal",
+        "GetLicensePrice",
+        "GetNextRankExp",
+        "GetProLicenseLightPrice",
+        "GetProLicensePrice",
+        "GetProLicensePriceWithExp",
+        "GetSpecialLicenseExp",
+        "GetSpecialLicenseExpPrice",
+        "GetSpecialLicenseMaxExp",
+        "GetSpecialLicenseRank",
+    };
+
+    for (int i = 0; i < static_cast<int>(sizeof(intGetterNames) / sizeof(intGetterNames[0])); ++i)
+    {
+        SDK::int32 value = 0;
+        ss << "\n" << intGetterNames[i] << ": ";
+        if (GetSeasonIntGetterSafe(seasonData, i, value))
+            ss << value;
+        else
+            ss << "failed";
+    }
+
+    SDK::FDbSeasonParam seasonInfo{};
+    SDK::int32 currentSeasonRank = 1;
+    if (GetSeasonInfoSafe(seasonData, seasonInfo))
+    {
+        currentSeasonRank = seasonInfo.SeasonRank > 0 ? seasonInfo.SeasonRank : 1;
+
+        ss << "\n\n=== GetSeasonInfo ==="
+           << "\ncode: " << seasonInfo.code
+           << "\nseasonPassGroup: " << seasonInfo.SeasonPassGroup
+           << "\nseasonPassRank: " << SeasonPassRankName(seasonInfo.SeasonPassRank) << " (" << static_cast<int>(seasonInfo.SeasonPassRank) << ")"
+           << "\nseasonRank: " << seasonInfo.SeasonRank
+           << "\nseasonRankExp: " << seasonInfo.SeasonRankExp
+           << "\nstockCount: " << seasonInfo.StockCount;
+        AppendStringField(ss, "", "name", SafeFTextToString(seasonInfo.Name));
+
+        int32_t rankListCount = 0;
+        if (SafeArrayCount(seasonInfo.ranks, rankListCount, 4096))
+            ss << "\nranksCount: " << rankListCount;
+        else
+            ss << "\nranksCount: unreadable";
+    }
+    else
+    {
+        ss << "\n\n=== GetSeasonInfo ==="
+           << "\nstatus: failed";
+    }
+
+    SDK::TArray<SDK::FDbSeasonPassParam> currentRankRewards;
+    if (GetSeasonRewardsSafe(seasonData, currentSeasonRank, currentRankRewards))
+    {
+        std::stringstream label;
+        label << "GetRewards(currentSeasonRank=" << currentSeasonRank << ")";
+        AppendSeasonPassArraySummary(ss, label.str().c_str(), currentRankRewards, kLogLimit);
+    }
+    else
+    {
+        ss << "\n\n=== GetRewards(currentSeasonRank=" << currentSeasonRank << ") ==="
+           << "\nstatus: failed";
+    }
+
+    SDK::TArray<SDK::FDbSeasonPassParam> firstRankRewards;
+    if (currentSeasonRank != 1 && GetSeasonRewardsSafe(seasonData, 1, firstRankRewards))
+        AppendSeasonPassArraySummary(ss, "GetRewards(rank=1)", firstRankRewards, kLogLimit);
+
+    SDK::TArray<SDK::FDbSeasonPassParam> rewardRange;
+    if (GetSeasonRewardRangeSafe(seasonData, 1, 10, rewardRange))
+        AppendSeasonPassArraySummary(ss, "GetRewardRange(1,10)", rewardRange, kLogLimit);
+    else
+        ss << "\n\n=== GetRewardRange(1,10) ==="
+           << "\nstatus: failed";
+
+    SDK::TArray<SDK::FDbSpecialLicenseReward> lastRewards;
+    if (GetSpecialLicenseLastRewardsSafe(seasonData, lastRewards))
+        AppendSpecialLicenseRewardArraySummary(ss, "GetSpecialLicenseLastRewards", lastRewards, kLogLimit);
+    else
+        ss << "\n\n=== GetSpecialLicenseLastRewards ==="
+           << "\nstatus: failed";
+
+    SDK::TMap<SDK::int32, SDK::FDbSpecialLicenseParam> specialLicenseList;
+    if (GetSpecialLicenseListSafe(seasonData, specialLicenseList))
+        AppendSpecialLicenseMapSummary(ss, "GetSpecialLicenseList", specialLicenseList, kLogLimit);
+    else
+        ss << "\n\n=== GetSpecialLicenseList ==="
+           << "\nstatus: failed";
+
+    SDK::TMap<SDK::FDbItemCategoryParam, SDK::int32> stockItems;
+    if (GetSeasonStockItemsSafe(seasonData, stockItems))
+        AppendStockItemsMapSummary(ss, "GetStockItems", stockItems, kLogLimit);
+    else
+        ss << "\n\n=== GetStockItems ==="
+           << "\nstatus: failed";
+
+    logFile << ss.str() << "\n";
+    logFile.close();
+
+    Logger::LogInfo("[SeasonLicenseDump] Wrote C:\\Temp\\season_license_getters.log");
+    return true;
+}
+
 bool InGameHack_GenerateProjectileInFront()
 {
     try
     {
-        // Keep debug file logging disabled in runtime builds.
-        FILE* debugLog = nullptr;
-        (void)debugLog;
-
         // Get player controller
         SDK::APlayerController* playerController = SDK_GetPlayerController();
-        if (debugLog) fprintf(debugLog, "[%lld] playerController = %p\n", (long long)time(nullptr), playerController);
         if (!IsValidPointer(playerController))
         {
             Logger::LogError("[GenerateProjectile] No player controller found");
-            if (debugLog) {
-                fprintf(debugLog, "[%lld] ERROR: No player controller found\n", (long long)time(nullptr));
-                fclose(debugLog);
-            }
             return false;
         }
 
         // Get player character
         SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
-        if (debugLog) fprintf(debugLog, "[%lld] playerChar = %p\n", (long long)time(nullptr), playerChar);
         if (!playerChar)
         {
             Logger::LogError("[GenerateProjectile] No player character found");
-            if (debugLog) {
-                fprintf(debugLog, "[%lld] ERROR: No player character found\n", (long long)time(nullptr));
-                fclose(debugLog);
-            }
             return false;
         }
 
         // Get the projectile replicator component from the character
         SDK::UProjectileReplicateBattleComponent* projectileComp = GetProjectileReplicatorSafe(playerChar);
-        if (debugLog) fprintf(debugLog, "[%lld] projectileComp = %p\n", (long long)time(nullptr), projectileComp);
-        
         if (!IsValidPointer(projectileComp))
         {
             Logger::LogError("[GenerateProjectile] No projectile replicator component found on player character");
-            if (debugLog) {
-                fprintf(debugLog, "[%lld] ERROR: No projectile replicator component found\n", (long long)time(nullptr));
-                fclose(debugLog);
-            }
             return false;
         }
 
         // Get player location
         SDK::FVector playerLocation = playerChar->K2_GetActorLocation();
-        if (debugLog) fprintf(debugLog, "[%lld] playerLocation = (%.2f, %.2f, %.2f)\n", (long long)time(nullptr), playerLocation.X, playerLocation.Y, playerLocation.Z);
 
         // Build FProjectileGenerateRep structure with hardcoded Ch010 PUSH_SPECIAL parameters
         SDK::FProjectileGenerateRep rep;
@@ -5755,21 +7663,10 @@ bool InGameHack_GenerateProjectileInFront()
         rep.overrideDamageAdjustAdd = 0;
         rep.overrideJsonIDX = -1;       // -1 for default JSON
 
-        if (debugLog) {
-            fprintf(debugLog, "[%lld] FProjectileGenerateRep initialized: charaId=%d, commandId=%d, attackId=%d\n",
-                (long long)time(nullptr), (int)rep.charaId, (int)rep.commandId, (int)rep.attackId);
-        }
-
         // Call the RPC to send projectile generation to server
-        if (debugLog) fprintf(debugLog, "[%lld] Calling CreateGenerate_RPC...\n", (long long)time(nullptr));
         projectileComp->CreateGenerate_RPC(rep);
-        if (debugLog) fprintf(debugLog, "[%lld] CreateGenerate_RPC returned\n", (long long)time(nullptr));
         
         Logger::LogInfo("[GenerateProjectile] Projectile generated successfully at Ch010 PUSH_SPECIAL");
-        if (debugLog) {
-            fprintf(debugLog, "[%lld] Projectile generation SUCCESS\n", (long long)time(nullptr));
-            fclose(debugLog);
-        }
         return true;
     }
     catch (const std::exception& e)

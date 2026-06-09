@@ -5,11 +5,8 @@ namespace Cheats
     struct ServerConnectionInfo
     {
         char region[128];
-        char host[256];
-        int port;
         int pingMs;
         bool hasRegion;
-        bool hasEndpoint;
         bool hasPing;
     };
 

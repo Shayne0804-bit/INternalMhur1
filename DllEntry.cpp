@@ -10,6 +10,14 @@
 #include <atomic>
 #include <cstdint>
 
+#ifndef RUGIR_ENABLE_UNLOAD
+#define RUGIR_ENABLE_UNLOAD 1
+#endif
+
+#ifndef RUGIR_FULL_PROTECTION
+#define RUGIR_FULL_PROTECTION 0
+#endif
+
 #ifndef DO_NOT_INCLUDE_STR_CRYPTOR
 #define DO_NOT_INCLUDE_STR_CRYPTOR 0
 #endif
@@ -39,18 +47,23 @@ static void ApplyLibProtProtection(HMODULE module)
     {
         void* moduleBase = reinterpret_cast<void*>(module);
 
+#if RUGIR_FULL_PROTECTION
+        LibProt::Initialize(moduleBase, true, true, true);
+#else
         // Keep exports/TLS and loader DllBase intact so the in-menu unload and
         // FreeLibraryAndExitThread path continue to work after protection.
         LibProt::CleanImportsAndExports(moduleBase, false, false);
         LibProt::CleanPE(moduleBase);
         LibProt::CleanImportsAndExports(moduleBase, false, false);
         LibProt::DestroyEntryPoint(moduleBase, true);
+#endif
     }
     __except (EXCEPTION_EXECUTE_HANDLER)
     {
     }
 }
 
+#if RUGIR_ENABLE_UNLOAD
 DWORD WINAPI UnloadThread(LPVOID lpParam)
 {
     HMODULE module = reinterpret_cast<HMODULE>(lpParam);
@@ -104,6 +117,7 @@ DWORD WINAPI UnloadThread(LPVOID lpParam)
     ExitThread(0);
     return 0;
 }
+#endif
 
 // MainThread following Dumper-7 recommended pattern
 DWORD WINAPI MainThread(HMODULE Module)
@@ -151,6 +165,7 @@ extern "C" __declspec(dllexport) bool DLL_IsUnloadRequested()
     return UnloadManager::IsUnloadRequested();
 }
 
+#if RUGIR_ENABLE_UNLOAD
 // Extern function to request DLL unload - starts unload thread
 extern "C" __declspec(dllexport) void DLL_Unload()
 {
@@ -161,6 +176,7 @@ extern "C" __declspec(dllexport) void DLL_Unload()
     if (hThread)
         CloseHandle(hThread);
 }
+#endif
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {

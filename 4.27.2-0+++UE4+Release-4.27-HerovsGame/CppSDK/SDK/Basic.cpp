@@ -21,6 +21,7 @@
 #include <chrono>
 #include <ctime>
 #include <iomanip>
+#include <cstring>
 #include "Basic.hpp"
 
 #include "CoreUObject_classes.hpp"
@@ -42,6 +43,94 @@
 
 
 SDK_NAMESPACE_START
+
+static inline bool SDK_IsReadableMemory(const void* ptr, size_t size = 1)
+{
+	if (!ptr)
+		return false;
+
+	uintptr_t current = reinterpret_cast<uintptr_t>(ptr);
+	if (current < 0x10000)
+		return false;
+
+	size_t remaining = (size == 0) ? 1 : size;
+	while (remaining > 0)
+	{
+		MEMORY_BASIC_INFORMATION mbi = {};
+		if (VirtualQuery(reinterpret_cast<const void*>(current), &mbi, sizeof(mbi)) != sizeof(mbi))
+			return false;
+
+		if (mbi.State != MEM_COMMIT || (mbi.Protect & PAGE_GUARD) || (mbi.Protect & PAGE_NOACCESS))
+			return false;
+
+		const uintptr_t regionEnd = reinterpret_cast<uintptr_t>(mbi.BaseAddress) + mbi.RegionSize;
+		if (regionEnd <= current)
+			return false;
+
+		const size_t available = static_cast<size_t>(regionEnd - current);
+		const size_t step = (available < remaining) ? available : remaining;
+		current += step;
+		remaining -= step;
+	}
+
+	return true;
+}
+
+static inline bool SDK_IsWritableMemory(void* ptr, size_t size = 1)
+{
+	if (!SDK_IsReadableMemory(ptr, size))
+		return false;
+
+	MEMORY_BASIC_INFORMATION mbi = {};
+	if (VirtualQuery(ptr, &mbi, sizeof(mbi)) != sizeof(mbi))
+		return false;
+
+	const DWORD protect = mbi.Protect & ~(PAGE_GUARD | PAGE_NOCACHE | PAGE_WRITECOMBINE);
+	return protect == PAGE_READWRITE ||
+	       protect == PAGE_WRITECOPY ||
+	       protect == PAGE_EXECUTE_READWRITE ||
+	       protect == PAGE_EXECUTE_WRITECOPY;
+}
+
+template <typename T>
+static inline bool SDK_TryReadMemory(const void* ptr, T& outValue)
+{
+	if (!SDK_IsReadableMemory(ptr, sizeof(T)))
+		return false;
+
+	std::memcpy(&outValue, ptr, sizeof(T));
+	return true;
+}
+
+template <typename T>
+static inline bool SDK_TryWriteMemory(void* ptr, const T& value)
+{
+	if (!SDK_IsWritableMemory(ptr, sizeof(T)))
+		return false;
+
+	std::memcpy(ptr, &value, sizeof(T));
+	return true;
+}
+
+static inline bool SDK_IsReadableActor(SDK::AActor* actor, size_t requiredBytes = sizeof(void*))
+{
+	return SDK_IsReadableMemory(actor, requiredBytes);
+}
+
+static inline FVector SDK_GetActorLocationSafe(SDK::AActor* actor, const FVector& fallback = FVector(0, 0, 0))
+{
+	if (!SDK_IsReadableActor(actor))
+		return fallback;
+
+	try
+	{
+		return actor->K2_GetActorLocation();
+	}
+	catch (...)
+	{
+		return fallback;
+	}
+}
 
 /* ============================================
    IMGUI CANVAS RESOLUTION OPTIMIZATION
@@ -131,6 +220,8 @@ static const ImU32 ESP_OUTLINE_COLOR = IM_COL32(0, 0, 0, 255);    // Black outli
 static const float ESP_BOX_THICKNESS = 2.0f;
 static const size_t MAX_ESP_BOXES = 256; // Limit per frame to prevent memory spam
 
+extern "C" void SDK_GetViewportSize(int32* OutX, int32* OutY);
+
 static inline float SDK_ClampFloat(float value, float minValue, float maxValue)
 {
 	if (value < minValue) return minValue;
@@ -148,6 +239,110 @@ static inline ImU32 SDK_ColorWithAlpha(ImU32 color, int alpha)
 	ImVec4 rgba = ImGui::ColorConvertU32ToFloat4(color);
 	rgba.w = SDK_ClampFloat(static_cast<float>(alpha) / 255.0f, 0.0f, 1.0f);
 	return ImGui::GetColorU32(rgba);
+}
+
+static inline bool SDK_IsZeroVector(const FVector& value)
+{
+	return value.X == 0.0f && value.Y == 0.0f && value.Z == 0.0f;
+}
+
+static inline bool SDK_IsFiniteVector(const FVector& value)
+{
+	return std::isfinite(value.X) && std::isfinite(value.Y) && std::isfinite(value.Z);
+}
+
+static inline bool SDK_IsSameVector(const FVector& a, const FVector& b, float tolerance = 1.0f)
+{
+	return std::fabs(a.X - b.X) <= tolerance &&
+	       std::fabs(a.Y - b.Y) <= tolerance &&
+	       std::fabs(a.Z - b.Z) <= tolerance;
+}
+
+static inline bool SDK_IsValidHeadWorldPosition(SDK::AActor* actor, const FVector& headWorldPosition)
+{
+	if (SDK_IsZeroVector(headWorldPosition) || !SDK_IsFiniteVector(headWorldPosition))
+		return false;
+
+	const FVector actorPosition = SDK_GetActorLocationSafe(actor);
+	if (!SDK_IsZeroVector(actorPosition) && SDK_IsSameVector(headWorldPosition, actorPosition))
+		return false;
+
+	return true;
+}
+
+static inline void SDK_GetOverlayViewportSize(float* OutX, float* OutY)
+{
+	float width = 0.0f;
+	float height = 0.0f;
+
+	if (ImGui::GetCurrentContext())
+	{
+		const ImVec2 displaySize = ImGui::GetIO().DisplaySize;
+		if (displaySize.x > 1.0f && displaySize.y > 1.0f)
+		{
+			width = displaySize.x;
+			height = displaySize.y;
+		}
+	}
+
+	if (width <= 1.0f || height <= 1.0f)
+	{
+		int32 viewportX = 0;
+		int32 viewportY = 0;
+		SDK_GetViewportSize(&viewportX, &viewportY);
+		width = static_cast<float>(viewportX);
+		height = static_cast<float>(viewportY);
+	}
+
+	if (OutX) *OutX = width;
+	if (OutY) *OutY = height;
+}
+
+static inline float SDK_GetEffectiveFovRadius(float radius)
+{
+	// FOV slider values are already in overlay pixels. Do not apply viewport
+	// scaling here, otherwise the visible circle no longer matches the setting.
+	return SDK_ClampFloat(radius, 1.0f, 10000.0f);
+}
+
+static inline void SDK_DrawFovCircle(ImDrawList* drawlist, const ImVec2& center, float radius, ImU32 color)
+{
+	if (!drawlist || radius <= 1.0f)
+		return;
+
+	constexpr int segments = 128;
+	constexpr float mainThickness = 4.0f;
+	const ImU32 shadowColor = IM_COL32(0, 0, 0, 170);
+
+	drawlist->AddCircle(center, radius + 1.0f, shadowColor, segments, mainThickness + 2.0f);
+	drawlist->AddCircle(center, radius, color, segments, mainThickness);
+	drawlist->AddCircle(center, radius - 1.0f, SDK_ColorWithAlpha(color, 95), segments, 1.25f);
+}
+
+static inline void SDK_AdjustProjectedScreenPosition(FVector2D* ScreenPosition)
+{
+	if (!ScreenPosition)
+		return;
+
+	int32 viewportX = 0;
+	int32 viewportY = 0;
+	SDK_GetViewportSize(&viewportX, &viewportY);
+	if (viewportX <= 0 || viewportY <= 0)
+		return;
+
+	float overlayX = 0.0f;
+	float overlayY = 0.0f;
+	SDK_GetOverlayViewportSize(&overlayX, &overlayY);
+	if (overlayX <= 1.0f || overlayY <= 1.0f)
+		return;
+
+	const float scaleX = overlayX / static_cast<float>(viewportX);
+	const float scaleY = overlayY / static_cast<float>(viewportY);
+	if (std::fabs(scaleX - 1.0f) > 0.001f || std::fabs(scaleY - 1.0f) > 0.001f)
+	{
+		ScreenPosition->X *= scaleX;
+		ScreenPosition->Y *= scaleY;
+	}
 }
 
 // Double-buffered rectangle drawing (minimize lock duration)
@@ -188,14 +383,17 @@ struct CachedActor {
 	// Skeleton (inline, not pointer - for thread-safe buffer swapping)
 	Bones Skeleton;             // Bones structure (direct, not pointer)
 	bool HasValidSkeleton = false;  // Is skeleton valid/extracted?
+	FVector HeadWorldPosition;  // Real 3D head bone position used by aimbot/BulletTP
+	bool HasValidHeadWorldPosition = false;
 	
 	// Constructor - Initialize all members
 	CachedActor() : ActorPtr(nullptr), IsMySelf(false), CharacterID(0), CostumeCode(-1),
 		Health(0.0f), MaxHealth(0.0f), GuardPoint(0.0f), MaxGuardPoint(0.0f),
 		TeamId(255), IsBot(false), IsAlly(false), Platform(0), CitizenType(0),
-		HasValidSkeleton(false)
+		HasValidSkeleton(false), HasValidHeadWorldPosition(false)
 	{
 		Position = FVector(0, 0, 0);
+		HeadWorldPosition = FVector(0, 0, 0);
 		// Skeleton is default-initialized (all ImVec2 set to 0,0)
 	}
 };
@@ -209,6 +407,34 @@ static std::mutex g_ActorCacheMutex;
 static std::vector<CachedActor> g_ItemsToProcess;  // Being filled by enumeration
 static std::vector<CachedActor> g_ItemsForRendering;  // Being read by render
 static std::mutex g_ItemsCacheMutex;
+
+static inline bool SDK_IsChxxxCharacterClassName(const std::string& className)
+{
+	size_t offset = 0;
+	if (className.length() == 6 && className[0] == 'A')
+		offset = 1;
+	else if (className.length() != 5)
+		return false;
+
+	return className[offset] == 'C' &&
+	       className[offset + 1] == 'h' &&
+	       std::isdigit(static_cast<unsigned char>(className[offset + 2])) &&
+	       std::isdigit(static_cast<unsigned char>(className[offset + 3])) &&
+	       std::isdigit(static_cast<unsigned char>(className[offset + 4]));
+}
+
+static inline bool SDK_IsBattleCharacterClassName(const std::string& className)
+{
+	if (className == "CharacterBattle" || className == "ACharacterBattle")
+		return true;
+
+	return SDK_IsChxxxCharacterClassName(className);
+}
+
+static inline bool SDK_IsOutGameCharacterClassName(const std::string& className)
+{
+	return className == "CharacterOutGame" || className == "ACharacterOutGame";
+}
 
 // Local player team identification (cached like zero1)
 static uint8 g_MyTeamId = 255;              // My team ID (255 = unknown)
@@ -283,20 +509,19 @@ static inline bool IsAlly(uint8 otherTeamId)
  */
 static inline bool IsCharacterDowned(AActor* Character)
 {
-	if (!Character) return false;
-	try {
-		// Read PlayerState pointer from Character  
-		void* PlayerState = *(void**)((uintptr_t)Character + OFFSET_PLAYERSTATE);
-		if (!PlayerState) return false;
-		
-		// Check if character is dying (downed/defeated)
-		// OFFSET_PLAYERSTATE_IFDYING = 1400, bit flag & 2 means dying
-		bool isDying = (*(uint8*)((uintptr_t)PlayerState + OFFSET_PLAYERSTATE_IFDYING) & 2) != 0;
-		return isDying;
-	}
-	catch (...) {
+	if (!SDK_IsReadableActor(Character, OFFSET_PLAYERSTATE + sizeof(void*)))
 		return false;
-	}
+
+	void* PlayerState = nullptr;
+	if (!SDK_TryReadMemory(reinterpret_cast<uint8*>(Character) + OFFSET_PLAYERSTATE, PlayerState) ||
+		!SDK_IsReadableMemory(PlayerState, OFFSET_PLAYERSTATE_IFDYING + sizeof(uint8)))
+		return false;
+
+	uint8 dyingFlags = 0;
+	if (!SDK_TryReadMemory(reinterpret_cast<uint8*>(PlayerState) + OFFSET_PLAYERSTATE_IFDYING, dyingFlags))
+		return false;
+
+	return (dyingFlags & 2) != 0;
 }
 
 static inline float GetCharacterHealth(AActor* Character)
@@ -672,6 +897,7 @@ extern "C" void SDK_DrawAllTextLabels()
 
 // Forward declaration for camera location (defined later)
 extern "C" FVector SDK_GetCameraLocation();
+static Bones SDK_GetBones(SDK::AActor* character, FVector* OutHeadWorldPosition = nullptr);
 
 // Draw all skeletal bones for ESP (like zero1)
 extern "C" void SDK_DrawAllSkeletons()
@@ -682,38 +908,44 @@ extern "C" void SDK_DrawAllSkeletons()
 	
 	// Get camera location for distance calculation
 	FVector CameraLoc = SDK_GetCameraLocation();
-	
-	// Draw skeleton for each cached actor
+
+	std::vector<CachedActor> actorsToRender;
 	{
 		std::lock_guard<std::mutex> lock(g_ActorCacheMutex);
+		actorsToRender = g_ActorsForRendering;
+	}
+	
+	// Draw skeleton for each cached actor
+	for (const auto& cachedActor : actorsToRender)
+	{
+		if (!cachedActor.ActorPtr)
+			continue;
 		
-		for (const auto& cachedActor : g_ActorsForRendering)
+		try
 		{
-			if (!cachedActor.HasValidSkeleton)
-				continue;  // No valid skeleton data
-			
 			// FILTER: Only draw skeletons for CharacterOutGame, CharacterBattle, and ChXXX
-			bool shouldDrawSkeleton = (cachedActor.ClassName == "CharacterOutGame" || 
-										cachedActor.ClassName == "ACharacterOutGame" ||
-										cachedActor.ClassName == "CharacterBattle" || 
-										cachedActor.ClassName == "ACharacterBattle" ||
-										cachedActor.ClassName == "SubCharacter");
-			
-			// Check for Ch001-Ch999 pattern
-			if (!shouldDrawSkeleton && cachedActor.ClassName.length() == 5)
-			{
-				if (cachedActor.ClassName[0] == 'C' && cachedActor.ClassName[1] == 'h' &&
-					std::isdigit(cachedActor.ClassName[2]) && std::isdigit(cachedActor.ClassName[3]) && 
-					std::isdigit(cachedActor.ClassName[4]))
-				{
-					shouldDrawSkeleton = true;
-				}
-			}
+			const bool shouldDrawSkeleton =
+				SDK_IsOutGameCharacterClassName(cachedActor.ClassName) ||
+				SDK_IsBattleCharacterClassName(cachedActor.ClassName) ||
+				cachedActor.ClassName == "SubCharacter";
 			
 			if (!shouldDrawSkeleton)
 				continue;  // Skip NPCs and other non-character actors
+
+			Bones frameSkeleton = SDK_GetBones(cachedActor.ActorPtr);
+			if (frameSkeleton.Head.x <= 0.0f || frameSkeleton.Head.y <= 0.0f)
+				continue;
+
+			FVector framePosition = cachedActor.Position;
+			try
+			{
+				framePosition = cachedActor.ActorPtr->K2_GetActorLocation();
+			}
+			catch (...)
+			{
+			}
 			
-			const Bones& bones = cachedActor.Skeleton;
+			const Bones& bones = frameSkeleton;
 			ImU32 skeletonColor = cachedActor.IsAlly ? 
 				IM_COL32(0, 150, 255, 255) :    // Cyan for team
 				IM_COL32(255, 0, 0, 255);       // Red for enemies
@@ -721,7 +953,8 @@ extern "C" void SDK_DrawAllSkeletons()
 			float thickness = 1.5f;  // Bone line thickness
 			
 			// Calculate distance from camera to actor
-			float distanceCm = CameraLoc.GetDistanceTo(cachedActor.Position);
+			float distanceCm = CameraLoc.GetDistanceTo(framePosition);
+			(void)distanceCm;
 			
 			// Head circle - fixed radius (default)
 			float headRadius = 4.0f;
@@ -758,6 +991,9 @@ extern "C" void SDK_DrawAllSkeletons()
 			drawlist->AddLine(bones.RClavicle, bones.RUpperArm, skeletonColor, thickness);
 			drawlist->AddLine(bones.RUpperArm, bones.RForeArm, skeletonColor, thickness);
 			drawlist->AddLine(bones.RForeArm, bones.RHand, skeletonColor, thickness);
+		}
+		catch (...)
+		{
 		}
 	}
 }
@@ -1251,7 +1487,11 @@ extern "C" bool SDK_ProjectWorldToScreen(const FVector& WorldPosition, FVector2D
 {
 	APlayerController* PC = SDK_GetPlayerController();
 	if (!PC || !OutScreenPosition) return false;
-	return UGameplayStatics::ProjectWorldToScreen(PC, WorldPosition, OutScreenPosition, false);
+	if (!UGameplayStatics::ProjectWorldToScreen(PC, WorldPosition, OutScreenPosition, true))
+		return false;
+
+	SDK_AdjustProjectedScreenPosition(OutScreenPosition);
+	return true;
 }
 
 // Deproject screen position to world (S2W)
@@ -1317,8 +1557,8 @@ extern "C" bool SDK_IsActorVisible(AActor* Actor)
 			return false;  // Behind camera
 
 		// Get viewport size
-		int32 ViewportX = 0, ViewportY = 0;
-		SDK_GetViewportSize(&ViewportX, &ViewportY);
+		float ViewportX = 0.0f, ViewportY = 0.0f;
+		SDK_GetOverlayViewportSize(&ViewportX, &ViewportY);
 
 		// Check if screen position is within viewport bounds (with small margin)
 		const float Margin = 50.0f;
@@ -2316,9 +2556,12 @@ static std::vector<FVector> SDK_GetBonePositions(SDK::AActor* character)
 }
 
 // Project bones to 2D and create Bones structure (like zero1)
-static Bones SDK_GetBones(SDK::AActor* character)
+static Bones SDK_GetBones(SDK::AActor* character, FVector* OutHeadWorldPosition)
 {
 	Bones bones = {};  // Default empty bones
+
+	if (OutHeadWorldPosition)
+		*OutHeadWorldPosition = FVector(0, 0, 0);
 	
 	if (!character)
 	{
@@ -2336,6 +2579,9 @@ static Bones SDK_GetBones(SDK::AActor* character)
 			SkeletonDebugLog("GetBones: Empty bone positions");
 			return bones;
 		}
+
+		if (OutHeadWorldPosition && bonePositions.size() > 4)
+			*OutHeadWorldPosition = bonePositions[4];
 		
 		ImVec2 screenSize = ImGui::GetIO().DisplaySize;
 		{
@@ -2642,6 +2888,28 @@ static void SDK_UpdateActorCache()
 		newActorList.reserve(100);  // Pre-allocate for typical count
 		newItemList.reserve(50);    // Pre-allocate for typical items count
 		
+		AActor* localPlayerPawn = nullptr;
+		try
+		{
+			APlayerController* playerController = SDK_GetPlayerController();
+			if (playerController)
+				localPlayerPawn = playerController->Pawn;
+
+			if (localPlayerPawn && SDK_IsReadableActor(localPlayerPawn, OFFSET_TEAMID + sizeof(uint16)))
+			{
+				const uint8 myTeam = GetCharacterTeamId(localPlayerPawn);
+				if (myTeam != 255)
+				{
+					g_MyTeamId = myTeam;
+					g_LastLocalPlayerCharacter = localPlayerPawn;
+				}
+			}
+		}
+		catch (...)
+		{
+			localPlayerPawn = nullptr;
+		}
+
 		for (int i = 0; i < AllActors.Num(); i++)
 		{
 			AActor* Actor = AllActors[i];
@@ -2687,18 +2955,10 @@ static void SDK_UpdateActorCache()
 				continue;
 			}
 			
-			// Filter: CharacterOutGame, CharacterBattle (including Chxxx), and NPCCitizen
-			bool isCharacter = (ClassName == "CharacterOutGame" || ClassName == "ACharacterOutGame" ||
-				ClassName == "CharacterBattle" || ClassName == "ACharacterBattle" ||
-				ClassName == "SubCharacter");
-			
-			// Check for Ch001-Ch999 pattern (any Chxxx)
-			bool isChxxx = false;
-			if (ClassName.length() == 5 && ClassName[0] == 'C' && ClassName[1] == 'h' &&
-				std::isdigit(ClassName[2]) && std::isdigit(ClassName[3]) && std::isdigit(ClassName[4]))
-			{
-				isChxxx = true;
-			}
+			const bool isOutGameCharacter = SDK_IsOutGameCharacterClassName(ClassName);
+			const bool isBattleCharacter = SDK_IsBattleCharacterClassName(ClassName);
+			const bool isSubCharacter = (ClassName == "SubCharacter");
+			const bool isCharacter = isOutGameCharacter || isBattleCharacter || isSubCharacter;
 			
 			bool isNPC = (ClassName == "NPCCitizen");
 			
@@ -2726,7 +2986,7 @@ static void SDK_UpdateActorCache()
 						   ClassName == "BP_AbilitySupplyBeta_C" ||   // Ability Card (B)
 						   ClassName == "BP_AbilitySupplyGamma_C");   // Ability Card (Y)
 			
-			if (!isCharacter && !isChxxx && !isNPC && !isItem)
+			if (!isCharacter && !isNPC && !isItem)
 				continue;
 			
 			// Cache this actor
@@ -2734,11 +2994,11 @@ static void SDK_UpdateActorCache()
 			cachedActor.ActorPtr = Actor;
 			cachedActor.ClassName = ClassName;
 			cachedActor.Position = Actor->K2_GetActorLocation();
-			cachedActor.IsMySelf = SDK_GetCharacterOutGameIsMySelf(Actor);
+			cachedActor.IsMySelf = (Actor == localPlayerPawn) || SDK_GetCharacterOutGameIsMySelf(Actor);
 			cachedActor.CitizenType = 0;
 			
 			// DETECT LOCAL PLAYER - Update cached team ID when we find ourselves
-			if (cachedActor.IsMySelf && (ClassName == "CharacterBattle" || ClassName == "ACharacterBattle"))
+			if (cachedActor.IsMySelf && isBattleCharacter)
 			{
 				uint8 myTeam = GetCharacterTeamId(Actor);
 				if (myTeam != 255)  // Valid team ID
@@ -2749,7 +3009,7 @@ static void SDK_UpdateActorCache()
 			}
 			
 			// Get character ID and costume (only for CharacterOutGame)
-			if (ClassName == "CharacterOutGame" || ClassName == "ACharacterOutGame")
+			if (isOutGameCharacter)
 			{
 				cachedActor.CharacterID = SDK_GetCharacterOutGameId(Actor);
 				cachedActor.CostumeCode = SDK_GetCharacterOutGameCostumeCode(Actor);
@@ -2761,7 +3021,7 @@ static void SDK_UpdateActorCache()
 				cachedActor.IsBot = false;
 				cachedActor.IsAlly = false;
 			}
-			else if (ClassName == "CharacterBattle" || ClassName == "ACharacterBattle")
+			else if (isBattleCharacter)
 			{
 				cachedActor.CharacterID = 0;
 				cachedActor.CostumeCode = -1;
@@ -2832,35 +3092,29 @@ static void SDK_UpdateActorCache()
 		{
 			for (auto& cachedActor : newActorList)
 			{
-				// Filter: Only extract skeletons for playable characters, not NPCs
-				bool shouldExtractSkeleton = (cachedActor.ClassName == "CharacterOutGame" ||
-											   cachedActor.ClassName == "ACharacterOutGame" ||
-											   cachedActor.ClassName == "CharacterBattle" ||
-											   cachedActor.ClassName == "ACharacterBattle" ||
-											   cachedActor.ClassName == "SubCharacter");
-				
-				// Check for Ch001-Ch999 pattern
-				if (!shouldExtractSkeleton && cachedActor.ClassName.length() == 5)
-				{
-					if (cachedActor.ClassName[0] == 'C' && cachedActor.ClassName[1] == 'h' &&
-						std::isdigit(cachedActor.ClassName[2]) && std::isdigit(cachedActor.ClassName[3]) &&
-						std::isdigit(cachedActor.ClassName[4]))
-					{
-						shouldExtractSkeleton = true;
-					}
-				}
-
+				// Extract bones for battle targets and lobby/outgame characters.
+				// Aimbot target selection remains battle-only below.
+				const bool shouldExtractSkeleton =
+					((SDK_IsBattleCharacterClassName(cachedActor.ClassName) &&
+					  cachedActor.TeamId != 255 &&
+					  !cachedActor.IsMySelf) ||
+					 SDK_IsOutGameCharacterClassName(cachedActor.ClassName));
 				if (!shouldExtractSkeleton)
-					continue;  // Skip NPCs - no skeleton extraction needed
+					continue;
 
 				if (cachedActor.ActorPtr)
 				{
 					try
 					{
-						cachedActor.Skeleton = SDK_GetBones(cachedActor.ActorPtr);
+						FVector headWorldPosition = FVector(0, 0, 0);
+						cachedActor.Skeleton = SDK_GetBones(cachedActor.ActorPtr, &headWorldPosition);
 						cachedActor.HasValidSkeleton = (cachedActor.Skeleton.Head.x > 0 && cachedActor.Skeleton.Head.y > 0);
+						cachedActor.HeadWorldPosition = headWorldPosition;
+						cachedActor.HasValidHeadWorldPosition =
+							cachedActor.HasValidSkeleton &&
+							SDK_IsValidHeadWorldPosition(cachedActor.ActorPtr, cachedActor.HeadWorldPosition);
 						
-						if (cachedActor.HasValidSkeleton)
+						if (cachedActor.HasValidSkeleton && cachedActor.HasValidHeadWorldPosition)
 						{
 							skeletonCount++;
 						}
@@ -2869,6 +3123,8 @@ static void SDK_UpdateActorCache()
 					{
 						// Skeleton extraction failed - leave HasValidSkeleton = false
 						cachedActor.HasValidSkeleton = false;
+						cachedActor.HeadWorldPosition = FVector(0, 0, 0);
+						cachedActor.HasValidHeadWorldPosition = false;
 					}
 				}
 			}
@@ -2925,38 +3181,29 @@ static void SDK_DrawCachedActors()
 			if (!Actor || Actor->IsDefaultObject())
 				continue;
 			
-			// Check if this is a ChXXX pattern (Ch001-Ch999)
-			bool isChxxx = false;
-			if (cachedActor.ClassName.length() == 5)
-			{
-				if (cachedActor.ClassName[0] == 'C' && cachedActor.ClassName[1] == 'h' &&
-					std::isdigit(cachedActor.ClassName[2]) && std::isdigit(cachedActor.ClassName[3]) && 
-					std::isdigit(cachedActor.ClassName[4]))
-				{
-					isChxxx = true;
-				}
-			}
+			const bool isOutGameCharacter = SDK_IsOutGameCharacterClassName(cachedActor.ClassName);
+			const bool isBattleCharacter = SDK_IsBattleCharacterClassName(cachedActor.ClassName);
 			
 			// Filter by actor type based on menu settings
-			if (cachedActor.ClassName == "CharacterOutGame" || cachedActor.ClassName == "ACharacterOutGame")
+			if (isOutGameCharacter)
 			{
 				// This is a lobby character (out of game)
 				if (!ImGuiMenu::g_Settings.ShowLobbyCharacters)
 					continue;
 			}
-			else if (cachedActor.ClassName == "CharacterBattle" || cachedActor.ClassName == "ACharacterBattle" || isChxxx)
+			else if (isBattleCharacter)
 			{
 				// This is a battle character (in game) - includes ChXXX patterns
 			}
 			
 			// Filter by actor type based on menu settings
-			if (cachedActor.ClassName == "CharacterOutGame" || cachedActor.ClassName == "ACharacterOutGame")
+			if (isOutGameCharacter)
 			{
 				// This is a lobby character (out of game)
 				if (!ImGuiMenu::g_Settings.ShowLobbyCharacters)
 					continue;
 			}
-			else if (cachedActor.ClassName == "CharacterBattle" || cachedActor.ClassName == "ACharacterBattle" || isChxxx)
+			else if (isBattleCharacter)
 			{
 				// This is a battle character (in game) - includes ChXXX patterns
 				// Check what to show: enemies OR team (self + allies)
@@ -3001,19 +3248,44 @@ static void SDK_DrawCachedActors()
 			{
 				// You can add UI toggle: if (!showLocalPlayer) continue;
 			}
+
+			// Keep actor discovery cached, but refresh live transform data every
+			// frame so fast movement does not leave ESP boxes behind the target.
+			FVector framePosition = cachedActor.Position;
+			try
+			{
+				framePosition = Actor->K2_GetActorLocation();
+			}
+			catch (...)
+			{
+				continue;
+			}
+
+			Bones frameSkeleton = cachedActor.Skeleton;
+			bool hasFrameSkeleton = false;
+			try
+			{
+				frameSkeleton = SDK_GetBones(Actor);
+				hasFrameSkeleton = (frameSkeleton.Head.x > 0.0f && frameSkeleton.Head.y > 0.0f);
+			}
+			catch (...)
+			{
+				frameSkeleton = cachedActor.Skeleton;
+				hasFrameSkeleton = cachedActor.HasValidSkeleton;
+			}
 			
 			// Calculate distance (in UE4 cm units) and check max draw distance
-			float distanceCm = SDK_GetDistanceToPosition(cachedActor.Position);
+			float distanceCm = SDK_GetDistanceToPosition(framePosition);
 			float distanceMeters = distanceCm * 0.01f;  // Convert to meters for comparison/display
 			
 			if (distanceMeters > ImGuiMenu::g_Settings.Player_DrawDistance)
 				continue;  // Skip actors beyond max draw distance
 			
 			// Project head and feet (like zero1)
-			FVector HeadPos = cachedActor.Position;
+			FVector HeadPos = framePosition;
 			HeadPos.Z += 80.8f;
 			
-			FVector FeetPos = cachedActor.Position;
+			FVector FeetPos = framePosition;
 			FeetPos.Z -= 85.95f;
 			
 			FVector2D HeadScreenPos = { 0.0f, 0.0f };
@@ -3055,9 +3327,9 @@ static void SDK_DrawCachedActors()
 			float maxY = FLT_MIN;
 			
 			// Check all 22 skeleton bones to find true bounding box
-			if (cachedActor.HasValidSkeleton)
+			if (hasFrameSkeleton)
 			{
-				const Bones& bones = cachedActor.Skeleton;
+				const Bones& bones = frameSkeleton;
 				
 				// All 22 bones
 				ImVec2 bonePositions[] = {
@@ -3127,8 +3399,8 @@ static void SDK_DrawCachedActors()
 			rect.guardPoint = cachedActor.GuardPoint;
 			rect.maxGuardPoint = cachedActor.MaxGuardPoint;
 			
-			// Only call PlayerState-dependent functions for CharacterBattle (not CharacterOutGame)
-			if (cachedActor.ClassName == "CharacterBattle" || cachedActor.ClassName == "ACharacterBattle")
+			// Only call PlayerState-dependent functions for battle characters (not CharacterOutGame)
+			if (isBattleCharacter)
 			{
 				rect.plusUltra = GetCharacterPlusUltra(Actor);
 				rect.maxPlusUltra = rect.plusUltra > 0.0f ? 100.0f : 0.0f;  // Assume max 100 for PU
@@ -3156,9 +3428,9 @@ static void SDK_DrawCachedActors()
 				const char* playerName = SDK_GetActorDisplayName(Actor, cachedActor.IsMySelf, false);
 				std::string displayText = playerName ? playerName : "Unknown";
 				
-				// Add platform if enabled (only for CharacterBattle with valid PlayerState)
+				// Add platform if enabled (only for battle characters with valid PlayerState)
 				if (ImGuiMenu::g_Settings.ShowPlatform && 
-					(cachedActor.ClassName == "CharacterBattle" || cachedActor.ClassName == "ACharacterBattle"))
+					isBattleCharacter)
 				{
 					uint8 platform = GetCharacterPlatform(Actor);
 					const char* platformStr;
@@ -3322,16 +3594,25 @@ struct AimbotTarget {
 	AActor* actorPtr = nullptr;
 	std::string className;
 	FVector position = FVector(0, 0, 0);
+	FVector aimWorldPosition = FVector(0, 0, 0);
 	bool isAlly = false;
 	ImVec2 headScreenPos = ImVec2(0, 0);
 	float distanceToCenter = FLT_MAX;
+	float worldDistance = FLT_MAX;
 	bool isValid = false;
+};
+
+enum class TargetSelectionPriority
+{
+	ScreenCenter,
+	WorldDistance
 };
 
 // Global aimbot state
 static AimbotTarget g_CurrentAimbotTarget;
 static uint64_t g_LastAimbotTargetTime = 0;
 static AActor* g_LastAimbotTargetPtr = nullptr;  // For sticky targeting (Zero1 exact)
+static AActor* g_LastSmoothedAimbotTargetPtr = nullptr;
 static FRotator g_LastAppliedAimAngles = FRotator(0, 0, 0);  // Track last applied rotation (not from controller)
 
 /**
@@ -3477,6 +3758,9 @@ static bool IsGameActive()
  */
 static bool IsKeyPressed(int key, HotKeyType inputType)
 {
+	if (key <= 0)
+		return false;
+
 	if (inputType == HotKeyType::KeyboardMouse)
 	{
 		// Keyboard/Mouse input detection
@@ -3487,7 +3771,16 @@ static bool IsKeyPressed(int key, HotKeyType inputType)
 		// Special codes for analog triggers
 		const int LT_CODE = 0x1F00;  // LT/L2
 		const int RT_CODE = 0x2F00;  // RT/R2
+		const int LEFT_STICK_UP_CODE = 0x3001;
+		const int LEFT_STICK_DOWN_CODE = 0x3002;
+		const int LEFT_STICK_LEFT_CODE = 0x3003;
+		const int LEFT_STICK_RIGHT_CODE = 0x3004;
+		const int RIGHT_STICK_UP_CODE = 0x4001;
+		const int RIGHT_STICK_DOWN_CODE = 0x4002;
+		const int RIGHT_STICK_LEFT_CODE = 0x4003;
+		const int RIGHT_STICK_RIGHT_CODE = 0x4004;
 		const int TRIGGER_THRESHOLD = 128;
+		const int STICK_THRESHOLD = 20000;
 		
 		// Gamepad input detection - check all 4 slots
 		for (DWORD i = 0; i < 4; i++)
@@ -3495,22 +3788,79 @@ static bool IsKeyPressed(int key, HotKeyType inputType)
 			XINPUT_STATE state = {};
 			if (XInputGetState(i, &state) == ERROR_SUCCESS)
 			{
-				// Check digital buttons
+				if (key == LT_CODE)
+				{
+					if (state.Gamepad.bLeftTrigger > TRIGGER_THRESHOLD)
+						return true;
+					continue;
+				}
+				
+				if (key == RT_CODE)
+				{
+					if (state.Gamepad.bRightTrigger > TRIGGER_THRESHOLD)
+						return true;
+					continue;
+				}
+
+				if (key == LEFT_STICK_UP_CODE)
+				{
+					if (state.Gamepad.sThumbLY > STICK_THRESHOLD)
+						return true;
+					continue;
+				}
+
+				if (key == LEFT_STICK_DOWN_CODE)
+				{
+					if (state.Gamepad.sThumbLY < -STICK_THRESHOLD)
+						return true;
+					continue;
+				}
+
+				if (key == LEFT_STICK_LEFT_CODE)
+				{
+					if (state.Gamepad.sThumbLX < -STICK_THRESHOLD)
+						return true;
+					continue;
+				}
+
+				if (key == LEFT_STICK_RIGHT_CODE)
+				{
+					if (state.Gamepad.sThumbLX > STICK_THRESHOLD)
+						return true;
+					continue;
+				}
+
+				if (key == RIGHT_STICK_UP_CODE)
+				{
+					if (state.Gamepad.sThumbRY > STICK_THRESHOLD)
+						return true;
+					continue;
+				}
+
+				if (key == RIGHT_STICK_DOWN_CODE)
+				{
+					if (state.Gamepad.sThumbRY < -STICK_THRESHOLD)
+						return true;
+					continue;
+				}
+
+				if (key == RIGHT_STICK_LEFT_CODE)
+				{
+					if (state.Gamepad.sThumbRX < -STICK_THRESHOLD)
+						return true;
+					continue;
+				}
+
+				if (key == RIGHT_STICK_RIGHT_CODE)
+				{
+					if (state.Gamepad.sThumbRX > STICK_THRESHOLD)
+						return true;
+					continue;
+				}
+
+				// Check digital buttons only after excluding synthetic analog codes.
 				if ((state.Gamepad.wButtons & key) != 0)
-				{
 					return true;
-				}
-				
-				// Check analog triggers
-				if (key == LT_CODE && state.Gamepad.bLeftTrigger > TRIGGER_THRESHOLD)
-				{
-					return true;
-				}
-				
-				if (key == RT_CODE && state.Gamepad.bRightTrigger > TRIGGER_THRESHOLD)
-				{
-					return true;
-				}
 			}
 		}
 	}
@@ -3806,47 +4156,69 @@ static FVector GetBoneByIndex(const std::vector<FVector>& bonePositions, int bon
  * @param stickyTargetPtr Actor pointer for sticky target (for next frame)
  * @return AimbotTarget with best target found
  */
-static AimbotTarget SelectTargetByFOV(float fovRadius, AActor*& stickyTargetPtr)
+static AimbotTarget SelectTargetByFOV(float fovRadius, AActor*& stickyTargetPtr, TargetSelectionPriority priority, bool ignoreDownedTargets)
 {
 	AimbotTarget bestTarget;
 	bestTarget.isValid = false;
 	
-	float viewportX = 0, viewportY = 0;
-	int32 vX = 0, vY = 0;
-	SDK_GetViewportSize(&vX, &vY);
-	viewportX = (float)vX;
-	viewportY = (float)vY;
+	float viewportX = 0.0f;
+	float viewportY = 0.0f;
+	SDK_GetOverlayViewportSize(&viewportX, &viewportY);
+	if (viewportX <= 1.0f || viewportY <= 1.0f)
+		return bestTarget;
 	
 	float screenCenterX = viewportX / 2.0f;
 	float screenCenterY = viewportY / 2.0f;
 	
-	float maxDistance = fovRadius;  // Use parameter
-	float closestDistance = FLT_MAX;
+	float maxDistance = SDK_GetEffectiveFovRadius(fovRadius);
+	float closestPriorityDistance = FLT_MAX;
+
+	FVector cameraPosition = FVector(0, 0, 0);
+	if (priority == TargetSelectionPriority::WorldDistance)
+	{
+		cameraPosition = SDK_GetCameraLocation();
+		if (SDK_IsZeroVector(cameraPosition) || !SDK_IsFiniteVector(cameraPosition))
+			return bestTarget;
+	}
 	
-	std::lock_guard<std::mutex> lock(g_ActorCacheMutex);
+	std::vector<CachedActor> actorsForTargeting;
+	{
+		std::lock_guard<std::mutex> lock(g_ActorCacheMutex);
+		actorsForTargeting = g_ActorsForRendering;
+	}
 	
-	for (auto& cachedActor : g_ActorsForRendering)
+	for (auto& cachedActor : actorsForTargeting)
 	{
 		// Skip invalid targets
-		if (!cachedActor.HasValidSkeleton)
+		if (!SDK_IsReadableActor(cachedActor.ActorPtr))
 			continue;
 		if (cachedActor.IsMySelf)
 			continue;
 		
-		// Skip CharacterOutGame - they don't have valid PlayerState
-		if (cachedActor.ClassName == "CharacterOutGame" || cachedActor.ClassName == "ACharacterOutGame")
+		// Aimbot/BulletTP target only real battle characters. Do not let items,
+		// NPCs, lobby actors, or fallback object projections become targets.
+		if (!SDK_IsBattleCharacterClassName(cachedActor.ClassName))
+			continue;
+
+		if (cachedActor.TeamId == 255)
 			continue;
 		
-		// ZERO1 SAFETY CHECKS - Avoid anti-cheat bans
-		if (IsCharacterDowned(cachedActor.ActorPtr))
+		if (ignoreDownedTargets && IsCharacterDowned(cachedActor.ActorPtr))
 			continue;
 		
 		// Skip team members
 		if (cachedActor.IsAlly)
 			continue;
 		
-		// Get head bone position
 		ImVec2 headScreenPos = cachedActor.Skeleton.Head;
+		if (!cachedActor.HasValidSkeleton ||
+			!cachedActor.HasValidHeadWorldPosition ||
+			headScreenPos.x <= 0.0f ||
+			headScreenPos.y <= 0.0f)
+			continue;
+
+		FVector framePosition = cachedActor.Position;
+		FVector aimWorldPosition = cachedActor.HeadWorldPosition;
 		
 		// Check if on screen
 		if (headScreenPos.x < 0 || headScreenPos.y < 0 || 
@@ -3861,30 +4233,50 @@ static AimbotTarget SelectTargetByFOV(float fovRadius, AActor*& stickyTargetPtr)
 		// Check if within FOV
 		if (distToCenter > maxDistance)
 			continue;
-		
+
+		float worldDistance = FLT_MAX;
+		float priorityDistance = distToCenter;
+		if (priority == TargetSelectionPriority::WorldDistance)
+		{
+			const FVector worldDelta = framePosition - cameraPosition;
+			worldDistance = sqrtf((worldDelta.X * worldDelta.X) +
+			                      (worldDelta.Y * worldDelta.Y) +
+			                      (worldDelta.Z * worldDelta.Z));
+			if (!std::isfinite(worldDistance))
+				continue;
+
+			priorityDistance = worldDistance;
+		}
+
 		// STICKY TARGETING: Keep current target if still valid
-		if (stickyTargetPtr != nullptr && stickyTargetPtr == cachedActor.ActorPtr)
+		if (priority == TargetSelectionPriority::ScreenCenter &&
+			stickyTargetPtr != nullptr &&
+			stickyTargetPtr == cachedActor.ActorPtr)
 		{
 			bestTarget.actorPtr = cachedActor.ActorPtr;
 			bestTarget.className = cachedActor.ClassName;
-			bestTarget.position = cachedActor.Position;
+			bestTarget.position = framePosition;
+			bestTarget.aimWorldPosition = aimWorldPosition;
 			bestTarget.isAlly = cachedActor.IsAlly;
 			bestTarget.headScreenPos = headScreenPos;
 			bestTarget.distanceToCenter = distToCenter;
+			bestTarget.worldDistance = worldDistance;
 			bestTarget.isValid = true;
 			break;  // Exit immediately - sticky targeting keeps same target
 		}
 		
-		// Select if closest to center
-		if (distToCenter < closestDistance)
+		// Aimbot priority is closest enemy inside FOV; BulletTP keeps center priority.
+		if (priorityDistance < closestPriorityDistance)
 		{
-			closestDistance = distToCenter;
+			closestPriorityDistance = priorityDistance;
 			bestTarget.actorPtr = cachedActor.ActorPtr;
 			bestTarget.className = cachedActor.ClassName;
-			bestTarget.position = cachedActor.Position;
+			bestTarget.position = framePosition;
+			bestTarget.aimWorldPosition = aimWorldPosition;
 			bestTarget.isAlly = cachedActor.IsAlly;
 			bestTarget.headScreenPos = headScreenPos;
 			bestTarget.distanceToCenter = distToCenter;
+			bestTarget.worldDistance = worldDistance;
 			bestTarget.isValid = true;
 		}
 	}
@@ -3908,14 +4300,10 @@ static AimbotTarget SelectTargetByFOV(float fovRadius, AActor*& stickyTargetPtr)
  */
 static AimbotTarget SelectAimbotTarget()
 {
-	int32 vX = 0, vY = 0;
-	SDK_GetViewportSize(&vX, &vY);
-	float viewportX = (float)vX;
-	float viewportY = (float)vY;
-	float screenCenterX = viewportX / 2.0f;
-	float screenCenterY = viewportY / 2.0f;
-	
-	return SelectTargetByFOV(ImGuiMenu::g_Settings.AimbotFOVRadius, g_LastAimbotTargetPtr);
+	return SelectTargetByFOV(ImGuiMenu::g_Settings.AimbotFOVRadius,
+	                         g_LastAimbotTargetPtr,
+	                         TargetSelectionPriority::WorldDistance,
+	                         ImGuiMenu::g_Settings.AimbotIgnoreDownedTargets);
 }
 
 /**
@@ -3926,20 +4314,99 @@ static AActor* g_LastSilentAimTargetPtr = nullptr;  // Separate sticky target fo
 
 static AimbotTarget SelectSilentAimTarget()
 {
-	int32 vX = 0, vY = 0;
-	SDK_GetViewportSize(&vX, &vY);
-	float viewportX = (float)vX;
-	float viewportY = (float)vY;
-	float screenCenterX = viewportX / 2.0f;
-	float screenCenterY = viewportY / 2.0f;
-	
-	return SelectTargetByFOV(ImGuiMenu::g_Settings.BulletTP_FOVRadius, g_LastSilentAimTargetPtr);
+	return SelectTargetByFOV(ImGuiMenu::g_Settings.BulletTP_FOVRadius,
+	                         g_LastSilentAimTargetPtr,
+	                         TargetSelectionPriority::ScreenCenter,
+	                         ImGuiMenu::g_Settings.BulletTPIgnoreDownedTargets);
+}
+
+extern "C" SDK::AActor* SDK_GetBulletTPFOVTargetWithPosition(FVector* OutTargetPosition)
+{
+	if (OutTargetPosition)
+		*OutTargetPosition = FVector(0, 0, 0);
+
+	if (ImGuiMenu::g_Settings.EnableAimbot && SDK_IsReadableActor(g_LastAimbotTargetPtr))
+	{
+		std::lock_guard<std::mutex> lock(g_ActorCacheMutex);
+		for (const auto& actor : g_ActorsForRendering)
+		{
+			if (actor.ActorPtr == g_LastAimbotTargetPtr &&
+				SDK_IsBattleCharacterClassName(actor.ClassName) &&
+				actor.TeamId != 255 &&
+				!actor.IsMySelf &&
+				!actor.IsAlly &&
+				(!ImGuiMenu::g_Settings.BulletTPIgnoreDownedTargets || !IsCharacterDowned(actor.ActorPtr)) &&
+				actor.HasValidHeadWorldPosition &&
+				!SDK_IsZeroVector(actor.HeadWorldPosition) &&
+				SDK_IsFiniteVector(actor.HeadWorldPosition))
+			{
+				if (OutTargetPosition)
+					*OutTargetPosition = actor.HeadWorldPosition;
+				return g_LastAimbotTargetPtr;
+			}
+		}
+	}
+
+	AimbotTarget target = SelectSilentAimTarget();
+	if (!target.isValid ||
+		SDK_IsZeroVector(target.aimWorldPosition) ||
+		!SDK_IsFiniteVector(target.aimWorldPosition))
+		return nullptr;
+
+	if (OutTargetPosition)
+		*OutTargetPosition = target.aimWorldPosition;
+
+	return target.actorPtr;
 }
 
 extern "C" SDK::AActor* SDK_GetBulletTPFOVTarget()
 {
-	AimbotTarget target = SelectSilentAimTarget();
-	return target.isValid ? target.actorPtr : nullptr;
+	return SDK_GetBulletTPFOVTargetWithPosition(nullptr);
+}
+
+extern "C" FVector SDK_GetLocalPlayerVelocity()
+{
+	APlayerController* playerController = SDK_GetPlayerController();
+	if (!playerController || !SDK_IsReadableMemory(playerController, sizeof(void*)))
+		return FVector(0, 0, 0);
+
+	APawn* playerPawn = nullptr;
+	if (!SDK_TryReadMemory(&playerController->Pawn, playerPawn) ||
+		!SDK_IsReadableMemory(playerPawn, sizeof(void*)))
+	{
+		SDK_TryReadMemory(&playerController->AcknowledgedPawn, playerPawn);
+	}
+
+	if (!SDK_IsReadableMemory(playerPawn, sizeof(void*)))
+		return FVector(0, 0, 0);
+
+	try
+	{
+		if (playerPawn->IsA(ACharacter::StaticClass()))
+		{
+			ACharacter* playerCharacter = static_cast<ACharacter*>(playerPawn);
+			UCharacterMovementComponent* movement = nullptr;
+			if (SDK_TryReadMemory(&playerCharacter->CharacterMovement, movement) &&
+				SDK_IsReadableMemory(movement, sizeof(UMovementComponent)))
+			{
+				FVector movementVelocity = FVector(0, 0, 0);
+				if (SDK_TryReadMemory(&movement->Velocity, movementVelocity) &&
+					SDK_IsFiniteVector(movementVelocity))
+				{
+					return movementVelocity;
+				}
+			}
+		}
+
+		const FVector actorVelocity = playerPawn->GetVelocity();
+		if (SDK_IsFiniteVector(actorVelocity))
+			return actorVelocity;
+	}
+	catch (...)
+	{
+	}
+
+	return FVector(0, 0, 0);
 }
 
 /**
@@ -3983,12 +4450,13 @@ extern "C" void SDK_RunAimbot()
 	if (!hotKeyPressed)
 	{
 		g_LastAimbotTargetPtr = nullptr;  // Reset sticky target when hotkey released
+		g_LastSmoothedAimbotTargetPtr = nullptr;
 		return;
 	}
 	
 	// Get player controller
 	APlayerController* playerController = SDK_GetPlayerController();
-	if (!playerController)
+	if (!playerController || !SDK_IsReadableMemory(playerController, sizeof(void*)))
 		return;
 	
 	// Get camera location
@@ -4026,43 +4494,46 @@ extern "C" void SDK_RunAimbot()
 	// (this prevents drift when player moves)
 	
 	// Get target bone world position (exact 3D position from skeleton)
-	if (!target.actorPtr)
+	if (!SDK_IsReadableActor(target.actorPtr, 0x400))
+	{
+		g_LastAimbotTargetPtr = nullptr;
 		return;
+	}
 	
-	// ANTI-CHEAT SAFETY: Validate target state before aiming (exactly like Zero1)
-	// Skip if target became downed since selection
-	if (IsCharacterDowned(target.actorPtr))
+	if (ImGuiMenu::g_Settings.AimbotIgnoreDownedTargets && IsCharacterDowned(target.actorPtr))
 		return;
 	
 	// Skip if target became ally since selection (safety check)
 	if (target.isAlly)
 		return;
 	
-	// Get exact 3D bone positions using our skeleton extraction (EXACTLY LIKE ZERO1)
-	std::vector<FVector> bonePositions = SDK_GetBonePositions(target.actorPtr);
-	if (bonePositions.empty() || bonePositions.size() < 5)
-		return;
-	
-	// Use Head bone position (index 4) for accurate aiming
-	FVector targetWorldPos = bonePositions[4];  // bonePositions[4] = Head
+	// Use cached aim point instead of extracting bones on hotkey press. Bone
+	// extraction is warmed by the actor cache and can be unsafe on stale actors.
+	FVector targetWorldPos = target.aimWorldPosition;
 	
 	// Fallback if head position is invalid
 	if (targetWorldPos.X == 0 && targetWorldPos.Y == 0 && targetWorldPos.Z == 0)
-	{
-		targetWorldPos = target.position;
-		targetWorldPos.Z += 150.0f;  // Fallback offset
-	}
+		return;
 	
 	// Get target velocity for prediction
-	FVector targetVelocity = target.actorPtr->GetVelocity();
-	
-	// Get local player velocity (Zero1 exact: MyMovement - player's own velocity)
-	// Use playerController's pawn/character to get local player velocity
-	FVector localPlayerVelocity = FVector(0, 0, 0);
-	if (playerController && playerController->Pawn)
+	FVector targetVelocity = FVector(0, 0, 0);
+	if (SDK_IsReadableActor(target.actorPtr))
 	{
-		localPlayerVelocity = playerController->Pawn->GetVelocity();
+		try
+		{
+			targetVelocity = target.actorPtr->GetVelocity();
+			if (!SDK_IsFiniteVector(targetVelocity))
+				targetVelocity = FVector(0, 0, 0);
+		}
+		catch (...)
+		{
+			targetVelocity = FVector(0, 0, 0);
+		}
 	}
+	
+	// Prediction uses the target motion relative to the local character motion.
+	const FVector localPlayerVelocity = SDK_GetLocalPlayerVelocity();
+	const FVector predictionVelocity = targetVelocity - localPlayerVelocity;
 	
 	// Calculate distance and time-to-bullet (INTERNAL: use real-time positions, not velocity-adjusted)
 	// We have exact positions in real-time, unlike external which must predict
@@ -4072,14 +4543,21 @@ extern "C" void SDK_RunAimbot()
 	
 	// Zero1 exact: Per-character bullet speeds (18k-25k UU/s typical)
 	// Read actual CharacterID and Variant from the target actor
-	if (!target.actorPtr || target.actorPtr->IsDefaultObject())
+	if (!SDK_IsReadableActor(target.actorPtr, 0x398))
 	{
 		g_LastAimbotTargetPtr = nullptr;
 		return;
 	}
 	
-	uint8_t charID = *(uint8_t*)(target.actorPtr + 0x0368);
-	uint8_t variant = *(uint8_t*)(target.actorPtr + 0x0377);
+	uint8_t charID = 0;
+	uint8_t variant = 0;
+	const uint8* targetMem = reinterpret_cast<const uint8*>(target.actorPtr);
+	if (!SDK_TryReadMemory(targetMem + 0x0388, charID) ||
+		!SDK_TryReadMemory(targetMem + 0x0397, variant))
+	{
+		g_LastAimbotTargetPtr = nullptr;
+		return;
+	}
 	UHeroProjectileMovementComponent bulletSpeedComponent = GetBulletSpeed(charID, variant);
 	float bulletSpeed = bulletSpeedComponent.InitialSpeed;
 	if (bulletSpeed < 100.0f) bulletSpeed = 1000.0f;  // Safety fallback
@@ -4090,7 +4568,7 @@ extern "C" void SDK_RunAimbot()
 	
 	FVector aimAngles;
 	
-	if (!usePrediction || targetVelocity.X == 0 && targetVelocity.Y == 0 && targetVelocity.Z == 0)
+	if (!usePrediction || !SDK_IsFiniteVector(predictionVelocity) || SDK_IsZeroVector(predictionVelocity))
 	{
 		// NO PREDICTION: Simple aim at current position (Method 0 without velocity)
 		aimAngles = CalculateAimAngles_Method0(cameraPos, targetWorldPos);
@@ -4102,7 +4580,7 @@ extern "C" void SDK_RunAimbot()
 		FVector predictedPos = targetWorldPos;
 		if (timeToBullet > 0.001f)
 		{
-			predictedPos += targetVelocity / timeToBullet;
+			predictedPos += predictionVelocity / timeToBullet;
 		}
 		aimAngles = CalculateAimAngles_Method0(cameraPos, predictedPos);
 	}
@@ -4112,7 +4590,7 @@ extern "C" void SDK_RunAimbot()
 		// Use actual character's ProjectileGravityScale from bulletSpeedComponent (NOT multiplied by 980)
 		float gravityScale = bulletSpeedComponent.ProjectileGravityScale;
 		if (gravityScale <= 0.0f) gravityScale = 0.5f;  // Fallback default
-		aimAngles = CalculateAimAngles_Method1(cameraPos, targetWorldPos, targetVelocity, 
+		aimAngles = CalculateAimAngles_Method1(cameraPos, targetWorldPos, predictionVelocity, 
 			gravityScale, bulletSpeed);
 	}
 	
@@ -4124,7 +4602,9 @@ extern "C" void SDK_RunAimbot()
 	if (smoothFactorH >= 0.45f) smoothFactorH = 0.4f;
 	if (smoothFactorV >= 0.45f) smoothFactorV = 0.4f;
 	
-	if (ImGuiMenu::g_Settings.AimbotSmoothing)
+	const bool targetChanged = (g_LastSmoothedAimbotTargetPtr != nullptr &&
+	                            g_LastSmoothedAimbotTargetPtr != target.actorPtr);
+	if (ImGuiMenu::g_Settings.AimbotSmoothing && !targetChanged)
 	{
 		// Smooth from LAST APPLIED rotation, not controller (prevents drift)
 		aimAngles.X = SmoothDampAngle(g_LastAppliedAimAngles.Pitch, aimAngles.X, smoothFactorV);
@@ -4138,20 +4618,18 @@ extern "C" void SDK_RunAimbot()
 	// Write to ControlRotation offset (0x288 = 648 decimal)
 	// Write 25 times for stability - Zero1 exact match
 	uintptr_t controlRotationAddr = (uintptr_t)playerController + 0x288;
+	if (!SDK_IsWritableMemory(reinterpret_cast<void*>(controlRotationAddr), sizeof(FVector)))
+		return;
+
 	for (int i = 0; i < 25; i++)
 	{
-		try
-		{
-			*(FVector*)(controlRotationAddr) = aimAngles;
-		}
-		catch (...)
-		{
-			// Skip write errors
-		}
+		if (!SDK_TryWriteMemory(reinterpret_cast<void*>(controlRotationAddr), aimAngles))
+			break;
 	}
 	
 	// Track what we just applied (for smooth damping next frame)
 	g_LastAppliedAimAngles = FRotator(aimAngles.X, aimAngles.Y, 0);
+	g_LastSmoothedAimbotTargetPtr = target.actorPtr;
 	
 	// Update last target time
 	g_LastAimbotTargetTime = GetCurrentTimeMs();
@@ -4231,22 +4709,6 @@ extern "C" void SDK_RunSilentAim()
 	if (IsGameActive() == false)
 		return;
 	
-	bool menuVisible = ImGuiMenu::IsVisible();
-	
-	// Check hotkey input (uses Aimbot hotkeys)
-	bool keyboardPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.Keyboard, HotKeyType::KeyboardMouse);
-	bool gamepadPressed = false;
-	
-	if (!menuVisible)
-	{
-		gamepadPressed = IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.Xbox, HotKeyType::Gamepad) ||
-						IsKeyPressed(ImGuiMenu::g_Settings.AimbotHoldKey.PS4, HotKeyType::Gamepad);
-	}
-	
-	bool flag = keyboardPressed || gamepadPressed;
-	if (!flag)
-		return;
-	
 	BulletTPLog("===== BULLETTP TICK START =====");
 	
 	// Get player controller
@@ -4318,8 +4780,7 @@ extern "C" void SDK_RunSilentAim()
 		}
 	}
 	
-	// Validate target state
-	if (IsCharacterDowned(target.actorPtr))
+	if (ImGuiMenu::g_Settings.BulletTPIgnoreDownedTargets && IsCharacterDowned(target.actorPtr))
 	{
 		BulletTPLog("ERROR: Target is downed");
 		return;
@@ -4331,31 +4792,13 @@ extern "C" void SDK_RunSilentAim()
 		return;
 	}
 	
-	// Get bone positions in world coordinates (NOT screen coordinates)
-	std::vector<FVector> bonePositions = SDK_GetBonePositions(target.actorPtr);
-	if (bonePositions.empty() || bonePositions.size() < 5)
-	{
-		char boneLog[256];
-		snprintf(boneLog, sizeof(boneLog), "[BulletTP] ERROR: Invalid bone positions (size: %d)", (int)bonePositions.size());
-		BulletTPLog("ERROR: Invalid bone positions (size: %d)", (int)bonePositions.size());
-		return;
-	}
-	
-	char bonePosLog[256];
-	snprintf(bonePosLog, sizeof(bonePosLog), "[BulletTP] Got %d bone positions", (int)bonePositions.size());
-	BulletTPLog("Got %d bone positions", (int)bonePositions.size());
-	
-	// Always aim at Head (index 0) for BulletTP
-	int boneIndex = 0;  // Head bone
-	
-	FVector targetBonePos = GetBoneByIndex(bonePositions, boneIndex);
+	FVector targetBonePos = target.aimWorldPosition;
 	
 	// Fallback if bone position is invalid
 	if (targetBonePos.X == 0 && targetBonePos.Y == 0 && targetBonePos.Z == 0)
 	{
-		targetBonePos = target.position;
-		targetBonePos.Z += 150.0f;  // Approximate head height
-		BulletTPLog("Using fallback head position (invalid bone)");
+		BulletTPLog("Invalid target bone position");
+		return;
 	}
 	
 	char headLog[256];
@@ -4453,27 +4896,20 @@ extern "C" void SDK_DrawAimbotFOV()
 	if (!ImGuiMenu::g_Settings.EnableAimbot || !ImGuiMenu::g_Settings.AimbotDrawFOV)
 		return;
 
-	// Get viewport size
-	int32 vX = 0, vY = 0;
-	SDK_GetViewportSize(&vX, &vY);
-	if (vX <= 0 || vY <= 0)
+	float viewportX = 0.0f;
+	float viewportY = 0.0f;
+	SDK_GetOverlayViewportSize(&viewportX, &viewportY);
+	if (viewportX <= 1.0f || viewportY <= 1.0f)
 		return;
 
-	float screenCenterX = (float)vX / 2.0f;
-	float screenCenterY = (float)vY / 2.0f;
+	float screenCenterX = viewportX / 2.0f;
+	float screenCenterY = viewportY / 2.0f;
 
-	// FOV circle radius (from menu setting)
-	float fovRadius = ImGuiMenu::g_Settings.AimbotFOVRadius;
+	float fovRadius = SDK_GetEffectiveFovRadius(ImGuiMenu::g_Settings.AimbotFOVRadius);
 
 	// Draw circle: yellow outline, semi-transparent
-	ImU32 fovColor = IM_COL32(255, 255, 0, 100);  // Yellow, semi-transparent
-	drawlist->AddCircle(
-		ImVec2(screenCenterX, screenCenterY),
-		fovRadius,
-		fovColor,
-		64,  // Number of segments for smooth circle
-		2.0f  // Line thickness
-	);
+	ImU32 fovColor = IM_COL32(255, 225, 40, 180);
+	SDK_DrawFovCircle(drawlist, ImVec2(screenCenterX, screenCenterY), fovRadius, fovColor);
 }
 
 /**
@@ -4489,27 +4925,20 @@ extern "C" void SDK_DrawBulletRedirectionFOV()
 	if (!ImGuiMenu::g_Settings.EnableBulletTP)
 		return;
 
-	// Get viewport size
-	int32 vX = 0, vY = 0;
-	SDK_GetViewportSize(&vX, &vY);
-	if (vX <= 0 || vY <= 0)
+	float viewportX = 0.0f;
+	float viewportY = 0.0f;
+	SDK_GetOverlayViewportSize(&viewportX, &viewportY);
+	if (viewportX <= 1.0f || viewportY <= 1.0f)
 		return;
 
-	float screenCenterX = (float)vX / 2.0f;
-	float screenCenterY = (float)vY / 2.0f;
+	float screenCenterX = viewportX / 2.0f;
+	float screenCenterY = viewportY / 2.0f;
 
-	// FOV circle radius (from menu setting)
-	float fovRadius = ImGuiMenu::g_Settings.BulletTP_FOVRadius;
+	float fovRadius = SDK_GetEffectiveFovRadius(ImGuiMenu::g_Settings.BulletTP_FOVRadius);
 
 	// Draw circle: cyan outline, semi-transparent
-	ImU32 bulletFovColor = IM_COL32(0, 255, 255, 100);  // Cyan, semi-transparent
-	drawlist->AddCircle(
-		ImVec2(screenCenterX, screenCenterY),
-		fovRadius,
-		bulletFovColor,
-		64,  // Number of segments for smooth circle
-		2.0f  // Line thickness
-	);
+	ImU32 bulletFovColor = IM_COL32(0, 220, 255, 180);
+	SDK_DrawFovCircle(drawlist, ImVec2(screenCenterX, screenCenterY), fovRadius, bulletFovColor);
 }
 
 extern "C" void SDK_DrawAimbotInfo()
@@ -4517,15 +4946,29 @@ extern "C" void SDK_DrawAimbotInfo()
 	if (!ImGuiMenu::g_Settings.EnableAimbot || !ImGuiMenu::g_Settings.AimbotDrawLine)
 		return;
 	
-	// Get viewport size ONCE before the loop (expensive operation)
-	int32 vpX = 0, vpY = 0;
-	SDK_GetViewportSize(&vpX, &vpY);
-	ImVec2 centerScreen(vpX / 2.0f, vpY / 2.0f);
+	float viewportX = 0.0f;
+	float viewportY = 0.0f;
+	SDK_GetOverlayViewportSize(&viewportX, &viewportY);
+	if (viewportX <= 1.0f || viewportY <= 1.0f)
+		return;
+
+	ImVec2 centerScreen(viewportX / 2.0f, viewportY / 2.0f);
 	
-	std::lock_guard<std::mutex> lock(g_ActorCacheMutex);
-	for (const auto& cachedActor : g_ActorsForRendering)
+	std::vector<CachedActor> actorsToRender;
 	{
-		if (!cachedActor.HasValidSkeleton || cachedActor.IsMySelf)
+		std::lock_guard<std::mutex> lock(g_ActorCacheMutex);
+		actorsToRender = g_ActorsForRendering;
+	}
+
+	for (const auto& cachedActor : actorsToRender)
+	{
+		if (!cachedActor.ActorPtr || cachedActor.IsMySelf)
+			continue;
+
+		if (!SDK_IsBattleCharacterClassName(cachedActor.ClassName))
+			continue;
+
+		if (cachedActor.TeamId == 255 || cachedActor.IsAlly)
 			continue;
 		
 		ImVec2 headPos = cachedActor.Skeleton.Head;
@@ -4834,27 +5277,14 @@ extern "C" SDK::AActor* SDK_GetForwardESPTarget()
 
 		std::vector<SDK::AActor*> validTargets;
 
-		// Access the cached actors from ESP rendering list
-		// Filter for ACharacterBattle actors only
+		// Access the cached actors from ESP rendering list.
 		for (const auto& cachedActor : g_ActorsForRendering)
 		{
-			// Check if it's a valid target (ACharacterBattle, CharacterBattle, or Ch***)
-			bool isValidCharacter = false;
-
-			// Check for standard character battle names
-			if (cachedActor.ClassName == "CharacterBattle" || cachedActor.ClassName == "ACharacterBattle")
-			{
-				isValidCharacter = true;
-			}
-			// Check for Ch*** character classes (Ch008, Ch005, etc.)
-			else if (cachedActor.ClassName.length() > 2 &&
-				cachedActor.ClassName[0] == 'C' &&
-				cachedActor.ClassName[1] == 'h')
-			{
-				isValidCharacter = true;
-			}
-
-			if (isValidCharacter && cachedActor.ActorPtr != nullptr && !cachedActor.IsMySelf)
+			if (SDK_IsBattleCharacterClassName(cachedActor.ClassName) &&
+				cachedActor.ActorPtr != nullptr &&
+				!cachedActor.IsMySelf &&
+				cachedActor.TeamId != 255 &&
+				!cachedActor.IsAlly)
 			{
 				validTargets.push_back(cachedActor.ActorPtr);
 			}
@@ -4934,27 +5364,14 @@ extern "C" SDK::AActor* SDK_GetRandomESPTarget()
 	
 	try
 	{
-		// Access the cached actors from ESP rendering list
-		// Filter for ACharacterBattle actors only
+		// Access the cached actors from ESP rendering list.
 		for (const auto& cachedActor : g_ActorsForRendering)
 		{
-			// Check if it's a valid target (ACharacterBattle, CharacterBattle, or Ch***)
-			bool isValidCharacter = false;
-			
-			// Check for standard character battle names
-			if (cachedActor.ClassName == "CharacterBattle" || cachedActor.ClassName == "ACharacterBattle")
-			{
-				isValidCharacter = true;
-			}
-			// Check for Ch*** character classes (Ch008, Ch005, etc.)
-			else if (cachedActor.ClassName.length() > 2 && 
-			         cachedActor.ClassName[0] == 'C' && 
-			         cachedActor.ClassName[1] == 'h')
-			{
-				isValidCharacter = true;
-			}
-			
-			if (isValidCharacter && cachedActor.ActorPtr != nullptr && !cachedActor.IsMySelf)
+			if (SDK_IsBattleCharacterClassName(cachedActor.ClassName) &&
+				cachedActor.ActorPtr != nullptr &&
+				!cachedActor.IsMySelf &&
+				cachedActor.TeamId != 255 &&
+				!cachedActor.IsAlly)
 			{
 				validTargets.push_back(cachedActor.ActorPtr);
 			}
