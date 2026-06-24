@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "SlateCore_structs.hpp"
 #include "Engine_structs.hpp"
+#include "SlateCore_structs.hpp"
 #include "OutGameModule_classes.hpp"
 #include "UIFramework_structs.hpp"
 
@@ -56,6 +56,5 @@ public:
 		return GetDefaultObjImpl<UWBP_PlayMenu_InvitationSquad_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_PlayMenu_InvitationSquad_C;
 
 SDK_NAMESPACE_END

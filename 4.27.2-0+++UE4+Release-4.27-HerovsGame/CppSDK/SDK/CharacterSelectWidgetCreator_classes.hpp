@@ -10,17 +10,17 @@
 
 #include "Basic.hpp"
 
-#include "UIFramework_classes.hpp"
+#include "OutGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass CharacterSelectWidgetCreator.CharacterSelectWidgetCreator_C
-// 0x0008 (0x0250 - 0x0248)
-class ACharacterSelectWidgetCreator_C final : public AWidgetCreator
+// 0x0008 (0x0288 - 0x0280)
+class ACharacterSelectWidgetCreator_C final : public AOutGameWidgetPresenter
 {
 public:
-	class USceneComponent*                        DefaultSceneRoot;                                  // 0x0248(0x0008)(BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData, NonTransactional, NoDestructor, HasGetValueTypeHash)
+	class USceneComponent*                        DefaultSceneRoot;                                  // 0x0280(0x0008)(BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData, NonTransactional, NoDestructor, HasGetValueTypeHash)
 
 public:
 	static class UClass* StaticClass()
@@ -36,6 +36,5 @@ public:
 		return GetDefaultObjImpl<ACharacterSelectWidgetCreator_C>();
 	}
 };
-DUMPER7_ASSERTS_ACharacterSelectWidgetCreator_C;
 
 SDK_NAMESPACE_END

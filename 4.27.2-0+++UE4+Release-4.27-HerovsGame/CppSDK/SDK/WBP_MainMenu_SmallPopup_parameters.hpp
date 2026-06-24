@@ -25,7 +25,6 @@ public:
 	class UUMGSequencePlayer*                     CallFunc_PlayAnimation_ReturnValue_1;              // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         K2Node_CustomEvent_Time;                           // 0x0018(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_MainMenu_SmallPopup_C_ExecuteUbergraph_WBP_MainMenu_SmallPopup;
 
 // Function WBP_MainMenu_SmallPopup.WBP_MainMenu_SmallPopup_C.SmallPopup
 // 0x0004 (0x0004 - 0x0000)
@@ -34,7 +33,6 @@ struct WBP_MainMenu_SmallPopup_C_SmallPopup final
 public:
 	float                                         Time;                                              // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_MainMenu_SmallPopup_C_SmallPopup;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

@@ -37,6 +37,5 @@ public:
 		return GetDefaultObjImpl<UANS_Ch202ArmMaterial_C>();
 	}
 };
-DUMPER7_ASSERTS_UANS_Ch202ArmMaterial_C;
 
 SDK_NAMESPACE_END

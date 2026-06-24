@@ -36,6 +36,5 @@ public:
 		return GetDefaultObjImpl<UWBP_TrainingWarning_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_TrainingWarning_C;
 
 SDK_NAMESPACE_END

@@ -16,41 +16,139 @@
 
 SDK_NAMESPACE_START
 
-// Function WBP_Gasha.WBP_Gasha_C.ExecuteUbergraph_WBP_Gasha
-// (Final, UbergraphFunction)
+// Function WBP_Gasha.WBP_Gasha_C.SetMainMenuLREnable
+// (Public, HasDefaults, BlueprintCallable, BlueprintEvent)
 // Parameters:
-// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// bool                                    bEmable                                                (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 
-void UWBP_Gasha_C::ExecuteUbergraph_WBP_Gasha(int32 EntryPoint)
+void UWBP_Gasha_C::SetMainMenuLREnable(bool bEmable)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Gasha_C", "ExecuteUbergraph_WBP_Gasha");
+		Func = Class->GetFunction("WBP_Gasha_C", "SetMainMenuLREnable");
 
-	Params::WBP_Gasha_C_ExecuteUbergraph_WBP_Gasha Parms{};
+	Params::WBP_Gasha_C_SetMainMenuLREnable Parms{};
 
-	Parms.EntryPoint = EntryPoint;
+	Parms.bEmable = bEmable;
 
 	UObject::ProcessEvent(Func, &Parms);
 }
 
 
-// Function WBP_Gasha.WBP_Gasha_C.OnSetMainMenuLREnable
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// bool                                    bEmable                                                (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+// Function WBP_Gasha.WBP_Gasha_C.OnAddToScreen
+// (BlueprintCosmetic, Event, Public, BlueprintEvent)
 
-void UWBP_Gasha_C::OnSetMainMenuLREnable(bool bEmable)
+void UWBP_Gasha_C::OnAddToScreen()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Gasha_C", "OnSetMainMenuLREnable");
+		Func = Class->GetFunction("WBP_Gasha_C", "OnAddToScreen");
 
-	Params::WBP_Gasha_C_OnSetMainMenuLREnable Parms{};
+	UObject::ProcessEvent(Func, nullptr);
+}
 
-	Parms.bEmable = bEmable;
+
+// Function WBP_Gasha.WBP_Gasha_C.BndEvt__WBP_Gasha__debugWindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// EWidgetInputType                        inputType                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_Gasha_C::BndEvt__WBP_Gasha__debugWindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_Gasha_C", "BndEvt__WBP_Gasha__debugWindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature");
+
+	Params::WBP_Gasha_C_BndEvt__WBP_Gasha__debugWindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_Gasha.WBP_Gasha_C.OnSetShowLoading
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// bool                                    bShow                                                  (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+
+void UWBP_Gasha_C::OnSetShowLoading(bool bShow)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_Gasha_C", "OnSetShowLoading");
+
+	Params::WBP_Gasha_C_OnSetShowLoading Parms{};
+
+	Parms.bShow = bShow;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_Gasha.WBP_Gasha_C.BndEvt__WBP_Gasha__debugRunWindowButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// EWidgetInputType                        inputType                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_Gasha_C::BndEvt__WBP_Gasha__debugRunWindowButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_Gasha_C", "BndEvt__WBP_Gasha__debugRunWindowButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature");
+
+	Params::WBP_Gasha_C_BndEvt__WBP_Gasha__debugRunWindowButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_Gasha.WBP_Gasha_C.BndEvt__WBP_Gasha__nextGashaWindow_K2Node_ComponentBoundEvent_2_gashaPickupChange__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// int32                                   Add                                                    (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_Gasha_C::BndEvt__WBP_Gasha__nextGashaWindow_K2Node_ComponentBoundEvent_2_gashaPickupChange__DelegateSignature(int32 Add)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_Gasha_C", "BndEvt__WBP_Gasha__nextGashaWindow_K2Node_ComponentBoundEvent_2_gashaPickupChange__DelegateSignature");
+
+	Params::WBP_Gasha_C_BndEvt__WBP_Gasha__nextGashaWindow_K2Node_ComponentBoundEvent_2_gashaPickupChange__DelegateSignature Parms{};
+
+	Parms.Add = Add;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_Gasha.WBP_Gasha_C.BndEvt__WBP_Gasha__prevGashaWindow_K2Node_ComponentBoundEvent_3_gashaPickupChange__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// int32                                   Add                                                    (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_Gasha_C::BndEvt__WBP_Gasha__prevGashaWindow_K2Node_ComponentBoundEvent_3_gashaPickupChange__DelegateSignature(int32 Add)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_Gasha_C", "BndEvt__WBP_Gasha__prevGashaWindow_K2Node_ComponentBoundEvent_3_gashaPickupChange__DelegateSignature");
+
+	Params::WBP_Gasha_C_BndEvt__WBP_Gasha__prevGashaWindow_K2Node_ComponentBoundEvent_3_gashaPickupChange__DelegateSignature Parms{};
+
+	Parms.Add = Add;
 
 	UObject::ProcessEvent(Func, &Parms);
 }
@@ -82,139 +180,41 @@ void UWBP_Gasha_C::OnOpenStepPopup(int32 stepValue, int32 stepMax, int32 rotValu
 }
 
 
-// Function WBP_Gasha.WBP_Gasha_C.BndEvt__WBP_Gasha__prevGashaWindow_K2Node_ComponentBoundEvent_3_gashaPickupChange__DelegateSignature
-// (BlueprintEvent)
-// Parameters:
-// int32                                   Add                                                    (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UWBP_Gasha_C::BndEvt__WBP_Gasha__prevGashaWindow_K2Node_ComponentBoundEvent_3_gashaPickupChange__DelegateSignature(int32 Add)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Gasha_C", "BndEvt__WBP_Gasha__prevGashaWindow_K2Node_ComponentBoundEvent_3_gashaPickupChange__DelegateSignature");
-
-	Params::WBP_Gasha_C_BndEvt__WBP_Gasha__prevGashaWindow_K2Node_ComponentBoundEvent_3_gashaPickupChange__DelegateSignature Parms{};
-
-	Parms.Add = Add;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function WBP_Gasha.WBP_Gasha_C.BndEvt__WBP_Gasha__nextGashaWindow_K2Node_ComponentBoundEvent_2_gashaPickupChange__DelegateSignature
-// (BlueprintEvent)
-// Parameters:
-// int32                                   Add                                                    (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UWBP_Gasha_C::BndEvt__WBP_Gasha__nextGashaWindow_K2Node_ComponentBoundEvent_2_gashaPickupChange__DelegateSignature(int32 Add)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Gasha_C", "BndEvt__WBP_Gasha__nextGashaWindow_K2Node_ComponentBoundEvent_2_gashaPickupChange__DelegateSignature");
-
-	Params::WBP_Gasha_C_BndEvt__WBP_Gasha__nextGashaWindow_K2Node_ComponentBoundEvent_2_gashaPickupChange__DelegateSignature Parms{};
-
-	Parms.Add = Add;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function WBP_Gasha.WBP_Gasha_C.BndEvt__WBP_Gasha__debugRunWindowButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature
-// (BlueprintEvent)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-// EWidgetInputType                        inputType                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UWBP_Gasha_C::BndEvt__WBP_Gasha__debugRunWindowButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Gasha_C", "BndEvt__WBP_Gasha__debugRunWindowButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature");
-
-	Params::WBP_Gasha_C_BndEvt__WBP_Gasha__debugRunWindowButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function WBP_Gasha.WBP_Gasha_C.OnSetShowLoading
+// Function WBP_Gasha.WBP_Gasha_C.OnSetMainMenuLREnable
 // (Event, Protected, BlueprintEvent)
-// Parameters:
-// bool                                    bShow                                                  (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
-
-void UWBP_Gasha_C::OnSetShowLoading(bool bShow)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Gasha_C", "OnSetShowLoading");
-
-	Params::WBP_Gasha_C_OnSetShowLoading Parms{};
-
-	Parms.bShow = bShow;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function WBP_Gasha.WBP_Gasha_C.BndEvt__WBP_Gasha__debugWindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
-// (BlueprintEvent)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-// EWidgetInputType                        inputType                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UWBP_Gasha_C::BndEvt__WBP_Gasha__debugWindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Gasha_C", "BndEvt__WBP_Gasha__debugWindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature");
-
-	Params::WBP_Gasha_C_BndEvt__WBP_Gasha__debugWindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function WBP_Gasha.WBP_Gasha_C.OnAddToScreen
-// (BlueprintCosmetic, Event, Public, BlueprintEvent)
-
-void UWBP_Gasha_C::OnAddToScreen()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Gasha_C", "OnAddToScreen");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function WBP_Gasha.WBP_Gasha_C.SetMainMenuLREnable
-// (Public, HasDefaults, BlueprintCallable, BlueprintEvent)
 // Parameters:
 // bool                                    bEmable                                                (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 
-void UWBP_Gasha_C::SetMainMenuLREnable(bool bEmable)
+void UWBP_Gasha_C::OnSetMainMenuLREnable(bool bEmable)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Gasha_C", "SetMainMenuLREnable");
+		Func = Class->GetFunction("WBP_Gasha_C", "OnSetMainMenuLREnable");
 
-	Params::WBP_Gasha_C_SetMainMenuLREnable Parms{};
+	Params::WBP_Gasha_C_OnSetMainMenuLREnable Parms{};
 
 	Parms.bEmable = bEmable;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_Gasha.WBP_Gasha_C.ExecuteUbergraph_WBP_Gasha
+// (Final, UbergraphFunction)
+// Parameters:
+// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_Gasha_C::ExecuteUbergraph_WBP_Gasha(int32 EntryPoint)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_Gasha_C", "ExecuteUbergraph_WBP_Gasha");
+
+	Params::WBP_Gasha_C_ExecuteUbergraph_WBP_Gasha Parms{};
+
+	Parms.EntryPoint = EntryPoint;
 
 	UObject::ProcessEvent(Func, &Parms);
 }

@@ -16,223 +16,21 @@
 
 SDK_NAMESPACE_START
 
-// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnBeginActionAttackAir
-// (Event, Protected, HasOutParams, BlueprintEvent)
+// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.ExecuteUbergraph_BP_Ch013_ActionAttack_Melee
+// (Final, UbergraphFunction)
 // Parameters:
-// const class FName&                      prevAction                                             (ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UBP_Ch013_ActionAttack_Melee_C::BP_OnBeginActionAttackAir(const class FName& prevAction)
+void UBP_Ch013_ActionAttack_Melee_C::ExecuteUbergraph_BP_Ch013_ActionAttack_Melee(int32 EntryPoint)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnBeginActionAttackAir");
+		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "ExecuteUbergraph_BP_Ch013_ActionAttack_Melee");
 
-	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnBeginActionAttackAir Parms{};
+	Params::BP_Ch013_ActionAttack_Melee_C_ExecuteUbergraph_BP_Ch013_ActionAttack_Melee Parms{};
 
-	Parms.prevAction = prevAction;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnChangeAttackPhaseAir
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// int32                                   nextPhase                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UBP_Ch013_ActionAttack_Melee_C::BP_OnChangeAttackPhaseAir(int32 nextPhase)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnChangeAttackPhaseAir");
-
-	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnChangeAttackPhaseAir Parms{};
-
-	Parms.nextPhase = nextPhase;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnChangeAttackPhaseAirForRemote
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// int32                                   nextPhase                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UBP_Ch013_ActionAttack_Melee_C::BP_OnChangeAttackPhaseAirForRemote(int32 nextPhase)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnChangeAttackPhaseAirForRemote");
-
-	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnChangeAttackPhaseAirForRemote Parms{};
-
-	Parms.nextPhase = nextPhase;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnLandingAir
-// (Event, Protected, BlueprintEvent)
-
-void UBP_Ch013_ActionAttack_Melee_C::BP_OnLandingAir()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnLandingAir");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnChangeAttackPhaseGround
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// int32                                   nextPhase                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UBP_Ch013_ActionAttack_Melee_C::BP_OnChangeAttackPhaseGround(int32 nextPhase)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnChangeAttackPhaseGround");
-
-	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnChangeAttackPhaseGround Parms{};
-
-	Parms.nextPhase = nextPhase;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnChangeAttackPhaseGroundForRemote
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// int32                                   nextPhase                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UBP_Ch013_ActionAttack_Melee_C::BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnChangeAttackPhaseGroundForRemote");
-
-	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnChangeAttackPhaseGroundForRemote Parms{};
-
-	Parms.nextPhase = nextPhase;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnBeginActionAttackGround
-// (Event, Protected, HasOutParams, BlueprintEvent)
-// Parameters:
-// const class FName&                      prevAction                                             (ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UBP_Ch013_ActionAttack_Melee_C::BP_OnBeginActionAttackGround(const class FName& prevAction)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnBeginActionAttackGround");
-
-	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnBeginActionAttackGround Parms{};
-
-	Parms.prevAction = prevAction;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnEndActionAttackGround
-// (Event, Protected, HasOutParams, BlueprintEvent)
-// Parameters:
-// const class FName&                      nextAction                                             (ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UBP_Ch013_ActionAttack_Melee_C::BP_OnEndActionAttackGround(const class FName& nextAction)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnEndActionAttackGround");
-
-	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnEndActionAttackGround Parms{};
-
-	Parms.nextAction = nextAction;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_ActionMain
-// (Event, Protected, BlueprintEvent)
-
-void UBP_Ch013_ActionAttack_Melee_C::BP_ActionMain()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_ActionMain");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_ActionRemote
-// (Event, Protected, BlueprintEvent)
-
-void UBP_Ch013_ActionAttack_Melee_C::BP_ActionRemote()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_ActionRemote");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnNotificationAttackDedicatedEvent
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// EAttackDedicatedEventId                 ID                                                     (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UBP_Ch013_ActionAttack_Melee_C::BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnNotificationAttackDedicatedEvent");
-
-	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnNotificationAttackDedicatedEvent Parms{};
-
-	Parms.ID = ID;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnChangeAttackPhase
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// int32                                   nextPhase                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UBP_Ch013_ActionAttack_Melee_C::BP_OnChangeAttackPhase(int32 nextPhase)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnChangeAttackPhase");
-
-	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnChangeAttackPhase Parms{};
-
-	Parms.nextPhase = nextPhase;
+	Parms.EntryPoint = EntryPoint;
 
 	UObject::ProcessEvent(Func, &Parms);
 }
@@ -258,21 +56,223 @@ void UBP_Ch013_ActionAttack_Melee_C::BP_OnChangeAttackPhaseForRemote(int32 nextP
 }
 
 
-// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.ExecuteUbergraph_BP_Ch013_ActionAttack_Melee
-// (Final, UbergraphFunction)
+// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnChangeAttackPhase
+// (Event, Protected, BlueprintEvent)
 // Parameters:
-// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// int32                                   nextPhase                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UBP_Ch013_ActionAttack_Melee_C::ExecuteUbergraph_BP_Ch013_ActionAttack_Melee(int32 EntryPoint)
+void UBP_Ch013_ActionAttack_Melee_C::BP_OnChangeAttackPhase(int32 nextPhase)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "ExecuteUbergraph_BP_Ch013_ActionAttack_Melee");
+		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnChangeAttackPhase");
 
-	Params::BP_Ch013_ActionAttack_Melee_C_ExecuteUbergraph_BP_Ch013_ActionAttack_Melee Parms{};
+	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnChangeAttackPhase Parms{};
 
-	Parms.EntryPoint = EntryPoint;
+	Parms.nextPhase = nextPhase;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnNotificationAttackDedicatedEvent
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// EAttackDedicatedEventId                 ID                                                     (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_Ch013_ActionAttack_Melee_C::BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnNotificationAttackDedicatedEvent");
+
+	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnNotificationAttackDedicatedEvent Parms{};
+
+	Parms.ID = ID;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_ActionRemote
+// (Event, Protected, BlueprintEvent)
+
+void UBP_Ch013_ActionAttack_Melee_C::BP_ActionRemote()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_ActionRemote");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_ActionMain
+// (Event, Protected, BlueprintEvent)
+
+void UBP_Ch013_ActionAttack_Melee_C::BP_ActionMain()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_ActionMain");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnEndActionAttackGround
+// (Event, Protected, HasOutParams, BlueprintEvent)
+// Parameters:
+// const class FName&                      nextAction                                             (ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_Ch013_ActionAttack_Melee_C::BP_OnEndActionAttackGround(const class FName& nextAction)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnEndActionAttackGround");
+
+	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnEndActionAttackGround Parms{};
+
+	Parms.nextAction = nextAction;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnBeginActionAttackGround
+// (Event, Protected, HasOutParams, BlueprintEvent)
+// Parameters:
+// const class FName&                      prevAction                                             (ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_Ch013_ActionAttack_Melee_C::BP_OnBeginActionAttackGround(const class FName& prevAction)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnBeginActionAttackGround");
+
+	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnBeginActionAttackGround Parms{};
+
+	Parms.prevAction = prevAction;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnChangeAttackPhaseGroundForRemote
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// int32                                   nextPhase                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_Ch013_ActionAttack_Melee_C::BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnChangeAttackPhaseGroundForRemote");
+
+	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnChangeAttackPhaseGroundForRemote Parms{};
+
+	Parms.nextPhase = nextPhase;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnChangeAttackPhaseGround
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// int32                                   nextPhase                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_Ch013_ActionAttack_Melee_C::BP_OnChangeAttackPhaseGround(int32 nextPhase)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnChangeAttackPhaseGround");
+
+	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnChangeAttackPhaseGround Parms{};
+
+	Parms.nextPhase = nextPhase;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnLandingAir
+// (Event, Protected, BlueprintEvent)
+
+void UBP_Ch013_ActionAttack_Melee_C::BP_OnLandingAir()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnLandingAir");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnChangeAttackPhaseAirForRemote
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// int32                                   nextPhase                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_Ch013_ActionAttack_Melee_C::BP_OnChangeAttackPhaseAirForRemote(int32 nextPhase)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnChangeAttackPhaseAirForRemote");
+
+	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnChangeAttackPhaseAirForRemote Parms{};
+
+	Parms.nextPhase = nextPhase;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnChangeAttackPhaseAir
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// int32                                   nextPhase                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_Ch013_ActionAttack_Melee_C::BP_OnChangeAttackPhaseAir(int32 nextPhase)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnChangeAttackPhaseAir");
+
+	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnChangeAttackPhaseAir Parms{};
+
+	Parms.nextPhase = nextPhase;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_Ch013_ActionAttack_Melee.BP_Ch013_ActionAttack_Melee_C.BP_OnBeginActionAttackAir
+// (Event, Protected, HasOutParams, BlueprintEvent)
+// Parameters:
+// const class FName&                      prevAction                                             (ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_Ch013_ActionAttack_Melee_C::BP_OnBeginActionAttackAir(const class FName& prevAction)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch013_ActionAttack_Melee_C", "BP_OnBeginActionAttackAir");
+
+	Params::BP_Ch013_ActionAttack_Melee_C_BP_OnBeginActionAttackAir Parms{};
+
+	Parms.prevAction = prevAction;
 
 	UObject::ProcessEvent(Func, &Parms);
 }

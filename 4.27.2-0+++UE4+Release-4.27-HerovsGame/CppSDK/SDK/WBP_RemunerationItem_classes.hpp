@@ -43,6 +43,5 @@ public:
 		return GetDefaultObjImpl<UWBP_RemunerationItem_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_RemunerationItem_C;
 
 SDK_NAMESPACE_END

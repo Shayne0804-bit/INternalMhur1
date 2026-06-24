@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ASL_GashaUpperLimitExChange_C>();
 	}
 };
-DUMPER7_ASSERTS_ASL_GashaUpperLimitExChange_C;
 
 SDK_NAMESPACE_END

@@ -16,7 +16,7 @@
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_CustomAdjustText.WBP_CustomAdjustText_C
-// 0x0000 (0x0688 - 0x0688)
+// 0x0000 (0x0640 - 0x0640)
 class UWBP_CustomAdjustText_C final : public UCustomAdjustText
 {
 public:

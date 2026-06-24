@@ -24,7 +24,6 @@ public:
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class ULevelStreaming*                        CallFunc_OpenLevel_LevelInstance;                  // 0x0018(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_PlayMenuStatusAddButton_C_ExecuteUbergraph_WBP_PlayMenuStatusAddButton;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

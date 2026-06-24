@@ -45,6 +45,5 @@ public:
 		return GetDefaultObjImpl<UWBP_GashaUpperLimitExChangeComplete_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_GashaUpperLimitExChangeComplete_C;
 
 SDK_NAMESPACE_END

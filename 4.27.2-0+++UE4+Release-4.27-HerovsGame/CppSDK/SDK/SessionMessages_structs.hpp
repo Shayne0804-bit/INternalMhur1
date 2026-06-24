@@ -68,7 +68,7 @@ public:
 struct FSessionServicePing final
 {
 public:
-	class FString                                 userName;                                          // 0x0000(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 UserName;                                          // 0x0000(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 SDK_NAMESPACE_END

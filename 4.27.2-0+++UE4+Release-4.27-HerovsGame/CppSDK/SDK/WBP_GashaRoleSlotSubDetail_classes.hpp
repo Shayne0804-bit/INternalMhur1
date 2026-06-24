@@ -54,6 +54,5 @@ public:
 		return GetDefaultObjImpl<UWBP_GashaRoleSlotSubDetail_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_GashaRoleSlotSubDetail_C;
 
 SDK_NAMESPACE_END

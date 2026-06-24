@@ -32,7 +32,6 @@ public:
 	struct FGeometry                              K2Node_Event_MyGeometry;                           // 0x0024(0x0038)(IsPlainOldData, NoDestructor)
 	float                                         K2Node_Event_InDeltaTime;                          // 0x005C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Stock_C_ExecuteUbergraph_WBP_Stock;
 
 // Function WBP_Stock.WBP_Stock_C.Tick
 // 0x003C (0x003C - 0x0000)
@@ -42,7 +41,6 @@ public:
 	struct FGeometry                              MyGeometry;                                        // 0x0000(0x0038)(BlueprintVisible, BlueprintReadOnly, Parm, IsPlainOldData, NoDestructor)
 	float                                         InDeltaTime;                                       // 0x0038(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Stock_C_Tick;
 
 // Function WBP_Stock.WBP_Stock_C.BndEvt__WBP_StockList__tileViewStock_K2Node_ComponentBoundEvent_1_OnListItemSelectionChangedDynamic__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -52,7 +50,6 @@ public:
 	class UObject*                                Item;                                              // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          bIsSelected;                                       // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Stock_C_BndEvt__WBP_StockList__tileViewStock_K2Node_ComponentBoundEvent_1_OnListItemSelectionChangedDynamic__DelegateSignature;
 
 // Function WBP_Stock.WBP_Stock_C.BndEvt__WBP_StockList__tileViewStock_K2Node_ComponentBoundEvent_0_OnItemIsHoveredChangedDynamic__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -62,7 +59,6 @@ public:
 	class UObject*                                Item;                                              // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          bIsHovered;                                        // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Stock_C_BndEvt__WBP_StockList__tileViewStock_K2Node_ComponentBoundEvent_0_OnItemIsHoveredChangedDynamic__DelegateSignature;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

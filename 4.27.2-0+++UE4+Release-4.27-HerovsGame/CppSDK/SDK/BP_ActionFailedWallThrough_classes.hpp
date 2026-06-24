@@ -11,22 +11,22 @@
 #include "Basic.hpp"
 
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "CoreUObject_structs.hpp"
+#include "Engine_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionFailedWallThrough.BP_ActionFailedWallThrough_C
-// 0x0040 (0x02B0 - 0x0270)
+// 0x0040 (0x02B8 - 0x0278)
 class UBP_ActionFailedWallThrough_C final : public UActionFailedWallThrough
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0270(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	TArray<EObjectTypeQuery>                      Object_Types;                                      // 0x0278(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, DisableEditOnInstance)
-	struct FVector                                StartLocation;                                     // 0x0288(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FVector                                targetLocation;                                    // 0x0294(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FVector                                ToTargetDirection;                                 // 0x02A0(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0278(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	TArray<EObjectTypeQuery>                      Object_Types;                                      // 0x0280(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, DisableEditOnInstance)
+	struct FVector                                StartLocation;                                     // 0x0290(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FVector                                targetLocation;                                    // 0x029C(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FVector                                ToTargetDirection;                                 // 0x02A8(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
 	void ExecuteUbergraph_BP_ActionFailedWallThrough(int32 EntryPoint);

@@ -135,9 +135,9 @@ void UBP_ActionDamageStrong_Bound_C::BP_ActionMain()
 // Function BP_ActionDamageStrong_Bound.BP_ActionDamageStrong_Bound_C.DecideAnimationId
 // (Private, HasOutParams, HasDefaults, BlueprintCallable, BlueprintEvent, BlueprintPure)
 // Parameters:
-// EAnimationId*                           AnimationId                                            (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// EAnimationId*                           animationId                                            (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UBP_ActionDamageStrong_Bound_C::DecideAnimationId(EAnimationId* AnimationId)
+void UBP_ActionDamageStrong_Bound_C::DecideAnimationId(EAnimationId* animationId)
 {
 	static class UFunction* Func = nullptr;
 
@@ -148,17 +148,17 @@ void UBP_ActionDamageStrong_Bound_C::DecideAnimationId(EAnimationId* AnimationId
 
 	UObject::ProcessEvent(Func, &Parms);
 
-	if (AnimationId != nullptr)
-		*AnimationId = Parms.AnimationId;
+	if (animationId != nullptr)
+		*animationId = Parms.animationId;
 }
 
 
 // Function BP_ActionDamageStrong_Bound.BP_ActionDamageStrong_Bound_C.DecideAnimationId_Bound
 // (Public, HasOutParams, HasDefaults, BlueprintCallable, BlueprintEvent, BlueprintPure)
 // Parameters:
-// EAnimationId*                           AnimationId                                            (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// EAnimationId*                           animationId                                            (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UBP_ActionDamageStrong_Bound_C::DecideAnimationId_Bound(EAnimationId* AnimationId)
+void UBP_ActionDamageStrong_Bound_C::DecideAnimationId_Bound(EAnimationId* animationId)
 {
 	static class UFunction* Func = nullptr;
 
@@ -169,8 +169,8 @@ void UBP_ActionDamageStrong_Bound_C::DecideAnimationId_Bound(EAnimationId* Anima
 
 	UObject::ProcessEvent(Func, &Parms);
 
-	if (AnimationId != nullptr)
-		*AnimationId = Parms.AnimationId;
+	if (animationId != nullptr)
+		*animationId = Parms.animationId;
 }
 
 

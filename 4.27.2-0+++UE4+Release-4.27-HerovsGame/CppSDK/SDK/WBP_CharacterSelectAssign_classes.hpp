@@ -10,16 +10,16 @@
 
 #include "Basic.hpp"
 
+#include "Engine_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "SlateCore_structs.hpp"
-#include "Engine_structs.hpp"
 #include "UIFramework_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_CharacterSelectAssign.WBP_CharacterSelectAssign_C
-// 0x00B8 (0x0498 - 0x03E0)
+// 0x00C8 (0x04A8 - 0x03E0)
 class UWBP_CharacterSelectAssign_C final : public UWidgetMatrixSelection
 {
 public:
@@ -28,13 +28,15 @@ public:
 	class UImage*                                 _bg_1;                                             // 0x03F0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 	class UImage*                                 _bg_3;                                             // 0x03F8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 	class UCanvasPanel*                           _window;                                           // 0x0400(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 Image_2;                                           // 0x0408(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class FText                                   assgin;                                            // 0x0410(0x0018)(Edit, BlueprintVisible)
-	struct FSlateColor                            Tint_Color;                                        // 0x0428(0x0028)(Edit, BlueprintVisible)
-	struct FSlateColor                            Tint_Color_Header;                                 // 0x0450(0x0028)(Edit, BlueprintVisible)
-	class UMaterialInterface*                     Material;                                          // 0x0478(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class UMaterialInstanceDynamic*               MaterialInstanceDynamic;                           // 0x0480(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FLinearColor                           GradationColor;                                    // 0x0488(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UCanvasPanel*                           CanvasPanel_1;                                     // 0x0408(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 Image_2;                                           // 0x0410(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class FText                                   assgin;                                            // 0x0418(0x0018)(Edit, BlueprintVisible)
+	struct FSlateColor                            Tint_Color;                                        // 0x0430(0x0028)(Edit, BlueprintVisible)
+	struct FSlateColor                            Tint_Color_Header;                                 // 0x0458(0x0028)(Edit, BlueprintVisible)
+	class UMaterialInterface*                     Material;                                          // 0x0480(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class UMaterialInstanceDynamic*               MaterialInstanceDynamic;                           // 0x0488(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FLinearColor                           GradationColor;                                    // 0x0490(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          _header;                                           // 0x04A0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor)
 
 public:
 	void ExecuteUbergraph_WBP_CharacterSelectAssign(int32 EntryPoint);
@@ -54,6 +56,5 @@ public:
 		return GetDefaultObjImpl<UWBP_CharacterSelectAssign_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_CharacterSelectAssign_C;
 
 SDK_NAMESPACE_END

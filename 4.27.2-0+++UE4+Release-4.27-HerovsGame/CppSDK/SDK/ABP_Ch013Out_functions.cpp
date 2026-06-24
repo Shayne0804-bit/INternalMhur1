@@ -16,29 +16,35 @@
 
 SDK_NAMESPACE_START
 
-// Function ABP_Ch013Out.ABP_Ch013Out_C.OnPlayerCharacterSelectedIdle
-// (BlueprintCallable, BlueprintEvent)
+// Function ABP_Ch013Out.ABP_Ch013Out_C.ExecuteUbergraph_ABP_Ch013Out
+// (Final, UbergraphFunction)
+// Parameters:
+// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UABP_Ch013Out_C::OnPlayerCharacterSelectedIdle()
+void UABP_Ch013Out_C::ExecuteUbergraph_ABP_Ch013Out(int32 EntryPoint)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ABP_Ch013Out_C", "OnPlayerCharacterSelectedIdle");
+		Func = Class->GetFunction("ABP_Ch013Out_C", "ExecuteUbergraph_ABP_Ch013Out");
 
-	UObject::ProcessEvent(Func, nullptr);
+	Params::ABP_Ch013Out_C_ExecuteUbergraph_ABP_Ch013Out Parms{};
+
+	Parms.EntryPoint = EntryPoint;
+
+	UObject::ProcessEvent(Func, &Parms);
 }
 
 
-// Function ABP_Ch013Out.ABP_Ch013Out_C.OnPlayerCharacterIdle
+// Function ABP_Ch013Out.ABP_Ch013Out_C.OnSetupMaterialDelegate
 // (BlueprintCallable, BlueprintEvent)
 
-void UABP_Ch013Out_C::OnPlayerCharacterIdle()
+void UABP_Ch013Out_C::OnSetupMaterialDelegate()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ABP_Ch013Out_C", "OnPlayerCharacterIdle");
+		Func = Class->GetFunction("ABP_Ch013Out_C", "OnSetupMaterialDelegate");
 
 	UObject::ProcessEvent(Func, nullptr);
 }
@@ -58,37 +64,31 @@ void UABP_Ch013Out_C::BlueprintInitializeAnimation()
 }
 
 
-// Function ABP_Ch013Out.ABP_Ch013Out_C.OnSetupMaterialDelegate
+// Function ABP_Ch013Out.ABP_Ch013Out_C.OnPlayerCharacterIdle
 // (BlueprintCallable, BlueprintEvent)
 
-void UABP_Ch013Out_C::OnSetupMaterialDelegate()
+void UABP_Ch013Out_C::OnPlayerCharacterIdle()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ABP_Ch013Out_C", "OnSetupMaterialDelegate");
+		Func = Class->GetFunction("ABP_Ch013Out_C", "OnPlayerCharacterIdle");
 
 	UObject::ProcessEvent(Func, nullptr);
 }
 
 
-// Function ABP_Ch013Out.ABP_Ch013Out_C.ExecuteUbergraph_ABP_Ch013Out
-// (Final, UbergraphFunction)
-// Parameters:
-// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// Function ABP_Ch013Out.ABP_Ch013Out_C.OnPlayerCharacterSelectedIdle
+// (BlueprintCallable, BlueprintEvent)
 
-void UABP_Ch013Out_C::ExecuteUbergraph_ABP_Ch013Out(int32 EntryPoint)
+void UABP_Ch013Out_C::OnPlayerCharacterSelectedIdle()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ABP_Ch013Out_C", "ExecuteUbergraph_ABP_Ch013Out");
+		Func = Class->GetFunction("ABP_Ch013Out_C", "OnPlayerCharacterSelectedIdle");
 
-	Params::ABP_Ch013Out_C_ExecuteUbergraph_ABP_Ch013Out Parms{};
-
-	Parms.EntryPoint = EntryPoint;
-
-	UObject::ProcessEvent(Func, &Parms);
+	UObject::ProcessEvent(Func, nullptr);
 }
 
 

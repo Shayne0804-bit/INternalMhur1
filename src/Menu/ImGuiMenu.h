@@ -35,8 +35,9 @@ namespace ImGuiMenu
     struct MenuSettings
     {
         // Global
-        bool EnableGlobal = false;
+        bool EnableGlobal = true;
         bool EnableESP = false;
+        bool EnableMenuBackgroundVideo = true;
 
         // ESP - Display
         bool EnablePlayerESP = false;
@@ -49,7 +50,8 @@ namespace ImGuiMenu
         bool ShowPU = false;        // Display Plus Ultra (when available)
         bool ShowPlatform = false;   // Display player platform (PS/Xbox/PC)
         bool ShowTeamId = false;     // Display team ID in ESP text
-        bool ShowPlayerSkeleton = false;  // Display skeleton bones (like zero1)
+        bool ShowPlayerSkeleton = false;  // Display skeleton bones
+        bool ShowServerStatusOverlay = false;  // Display current server and ping overlay
 
         // Aimbot
         bool EnableAimbot = false;
@@ -58,18 +60,26 @@ namespace ImGuiMenu
         bool AimbotDrawLine = false;  // Draw line from center to target
         bool AimbotDrawFOV = false;   // Draw FOV circle on screen
         float AimbotFOVRadius = 500.0f;  // FOV radius in pixels (adjustable)
-        bool AimbotRequireHold = false;  // Require holding key (Zero1 exact - reduces detection)
+        bool AimbotRequireHold = false;  // Require holding key
+        bool AimbotIgnoreDownedTargets = true;  // Skip downed/dying targets by default
         
         // Aimbot Hotkey (Keyboard/Xbox/PS4 grouped)
         HotkeySet AimbotHoldKey = HotkeySet(0x02, 0x0100);  // KB: RButton, Gamepad: LB
         
         // Teleport to Kota Hotkey
         bool EnableTeleportToKota = false;
-        HotkeySet TeleportToKotaKey = HotkeySet(0x50, 0x0080);  // KB: P, Gamepad: RB
+        bool EnableInfiniteObjects = false;
+        HotkeySet TeleportToKotaKey = HotkeySet(0x50, 0x0200);  // KB: P, Gamepad: RB
+
+        // Custom Drop (drop arbitrary world item by harvested supplyId, x quantity)
+        bool EnableCustomDrop = false;
+        int  CustomDropQuantity = 1;        // 1-100
+        int  CustomDropSelectedIndex = 0;   // index into scanned world item catalog
+        HotkeySet CustomDropKey = HotkeySet(0x4A, 0x0400);  // KB: J, Gamepad: dpad-down
 
         // Transform Into Random ESP Target Hotkey
         bool EnableTransformIntoRandomESP = false;
-        HotkeySet TransformIntoRandomESPKey = HotkeySet(0x4F, 0x0040);  // KB: O, Gamepad: A
+        HotkeySet TransformIntoRandomESPKey = HotkeySet(0x4F, 0x1000);  // KB: O, Gamepad: A
         
         // Duplicate Into Imitation Random ESP Target Hotkey
         bool EnableDuplicateIntoImitationRandomESP = false;
@@ -79,14 +89,19 @@ namespace ImGuiMenu
         
         // Copy Skills From Nearest Enemy Hotkey
         bool EnableCopySkillsFromNearestEnemy = false;
-        HotkeySet CopySkillsFromNearestEnemyKey = HotkeySet(0x4B, 0x2000);  // KB: K, Gamepad: RB
+        HotkeySet CopySkillsFromNearestEnemyKey = HotkeySet(0x4B, 0x0200);  // KB: K, Gamepad: RB
         bool CopySkillsSetCopySkill = false;  // Set copy skill flag
         bool CopySkillsUseOwnerCharacterLevel = false;  // Use owner character level
+        
+        // Generate Projectile Hotkey
+        bool EnableGenerateProjectile = false;
+        HotkeySet GenerateProjectileKey = HotkeySet(0x47, 0x4000);  // KB: G, Gamepad: X
         
         // Reload Adjust Rates
         float ReloadAdjustRate = 1.0f;                    // General reload rate (1.0 = normal)
         float ReloadAdjustRate_RollSlot = 1.0f;           // Reload rate for roll slot
         float ReloadAdjustRate_WearBlueFlame = 1.0f;      // Reload rate while wearing blue flame
+        float CvNoneDamageCurveValue = 1.0f;              // CV_None damage attenuation curve key value
         
         // Training Mode - Player Character Setup
         int TrainingPlayerCharacter = 0;                  // Character ID (0=UNDEF, 1=Ch000, 2=Ch001... 44=Ch999)
@@ -99,7 +114,7 @@ namespace ImGuiMenu
         int TrainingPlayerCostumeAuraType = 0;            // Costume aura type (0-5)
         
         // Invincibility Hotkey (unified)
-        HotkeySet SetInvincibleKey = HotkeySet(0x00, 0x0000);  // KB: F11, Gamepad: B
+        HotkeySet SetInvincibleKey = HotkeySet(0x7A, 0x2000);  // KB: F11, Gamepad: B
         
         // Recovery Settings
         bool EnableRecoveryMe = false;                  // Recover self only
@@ -118,10 +133,11 @@ namespace ImGuiMenu
         bool BulletTP_IncludeSpecial = false;   // Include Special skills
         float BulletTP_FOVRadius = 500.0f;      // FOV radius in pixels for targeting
         float BulletTP_MaxDistance = 5000.0f;   // Maximum distance to search for targets
+        bool BulletTPIgnoreDownedTargets = true; // Skip downed/dying targets by default
 
         // Rebuild Myself Hotkey
         bool EnableRebuildMyself = false;
-        HotkeySet RebuildMyselfKey = HotkeySet(0x4C, 0x4000);  // KB: L, Gamepad: LT
+        HotkeySet RebuildMyselfKey = HotkeySet(0x4C, 0x1F00);  // KB: L, Gamepad: LT
 
         // ESP - Filters
         bool ShowEnemies = false;
@@ -135,6 +151,10 @@ namespace ImGuiMenu
         int SelectedRecoveryTeamIndex = -1;  // Index of selected team member for recovery
         bool EnableCH202InitTransLevel5 = false;  // Enable CH202 init trans level 5 auto-apply each frame
         bool EnableSupplyMaxStackTo100 = false;  // Enable auto-set supply max stack to 100 each frame
+        bool EnableFastPlusUltraCharge = false;  // Enable server fast reload for Plus Ultra charge
+        bool EnableNoCollision = false;  // Enable camera-driven no collision movement
+        float NoCollisionSpeed = 100.0f;
+        HotkeySet NoCollisionHoldKey = HotkeySet(0x54, 0);
     };
 
     // ============================================================================
@@ -154,6 +174,8 @@ namespace ImGuiMenu
         int AbilityMovespeedLevel = 1;
         int AbilityHealLevel = 1;
         int AbilityTechniqueLevel = 1;
+
+        bool Hack_BypassRentalTickets = false;
 
         // Character Settings for ApplyToAllControllers
         int CharacterId = 1;                  // Character ID (1-44 for Ch000-Ch999)
@@ -178,18 +200,49 @@ namespace ImGuiMenu
         bool CharCondition_EnableMirioMode = false;           // Enable MIRIO MODE on battle entry
         bool CharCondition_EnableTokoyamiMode = false;        // Enable TOKOYAMI DARK MODE on battle entry
 
+        // Generic character condition editor
+        bool CharCondition_AutoExecute = false;
+        int CharCondition_SelectedConditionId = 35;            // UNBREAKABLE
+        int CharCondition_ApplyMode = 0;                       // 0=Server, 1=BP, 2=Local
+        int CharCondition_Level = 0;
+        float CharCondition_Duration = 50.0f;
+        float CharCondition_Value = 0.0f;
+        float CharCondition_Interval = 0.0f;
+        int CharCondition_SubLevel = 0;
+        bool CharCondition_TimeOverwrite = false;
+
         // Player Name Change
         char ChangePlayerNameBuffer[256] = {0};              // Input buffer for new player name
+
+        // Backend Platform Test
+        int BackendPlatformCode = 3;                         // 0=Invalid, 1=PlayStation, 2=Xbox, 3=Windows, 4=Switch, 5=None
+        char FakePlatformBuffer[64] = "Windows";             // Input buffer for ForceFakePlatform
         
-        // Backend - License Exp Purchase
-        int BuyLicenseExpCount = 100;                        // Amount of License Exp to buy (1-10000)
+        // Special License EXP
+        int BuyLicenseExpCount = 30000;                      // Raw Special License EXP to add locally (1-300000)
+        int LicenseClaimSeasonCode = 1;                      // SeasonCode for ReceiveLicense backend tests
+        int LicenseClaimFreeRank = 1;                        // Free reward rank for ReceiveLicense backend tests
+        int LicenseClaimPremiumRank = 0;                     // Premium reward rank for ReceiveLicense backend tests
+        int LicenseClaimSpecialRank = 1;                     // Rank for ReceiveSpecialLicense backend tests
+        int LicenseClaimRepeatCount = 1;                     // Immediate repeat count for idempotency tests
+        int LicenseClaimDelayMs = 1000;                      // Delay between timed backend claim requests
+        int SeasonRewardSourceIndex = 0;                     // Cached reward item selection
+        int SeasonRewardTargetRank = 1;                       // Season rank to edit when not applying all
+        int SeasonRewardQuantity = 1;                         // Replacement quantity
+        int SeasonRewardTargetSlot = 2;                       // 0=Free, 1=Premium, 2=Both
+        bool SeasonRewardApplyAllRanks = false;               // Replace all season ranks
     };
 
     // ============================================================================
     // PUBLIC API
     // ============================================================================
+    void SetModuleHandle(HMODULE module);
+    bool PreloadEmbeddedVideoResource(HMODULE module);
     bool Initialize(IDXGISwapChain* pSwapChain, HWND hWnd);
     void Shutdown();
+    void InvalidateRenderTarget();
+    void RestoreWindowProc();
+    bool HasActiveWindowProc();
     void Render(IDXGISwapChain* pSwapChain);
 
     bool IsInitialized();

@@ -10,20 +10,20 @@
 
 #include "Basic.hpp"
 
+#include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
 #include "InGameModule_structs.hpp"
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
-#include "GameModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionDamageToDying.BP_ActionDamageToDying_C
-// 0x0008 (0x0278 - 0x0270)
+// 0x0008 (0x0310 - 0x0308)
 class UBP_ActionDamageToDying_C final : public UActionDamageBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0270(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0308(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
 
 public:
 	void ExecuteUbergraph_BP_ActionDamageToDying(int32 EntryPoint);

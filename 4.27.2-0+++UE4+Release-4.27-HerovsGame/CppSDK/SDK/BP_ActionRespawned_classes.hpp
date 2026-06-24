@@ -10,21 +10,21 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionRespawned.BP_ActionRespawned_C
-// 0x0030 (0x02A0 - 0x0270)
+// 0x0030 (0x02A8 - 0x0278)
 class UBP_ActionRespawned_C final : public UActionNormalBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0270(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	struct FTransitionMaterialScalarParamArgment  argment;                                           // 0x0278(0x0020)(Edit, BlueprintVisible, DisableEditOnInstance, NoDestructor)
-	bool                                          bEnableShiftAction;                                // 0x0298(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0278(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	struct FTransitionMaterialScalarParamArgment  argment;                                           // 0x0280(0x0020)(Edit, BlueprintVisible, DisableEditOnInstance, NoDestructor)
+	bool                                          bEnableShiftAction;                                // 0x02A0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
 
 public:
 	void ExecuteUbergraph_BP_ActionRespawned(int32 EntryPoint);

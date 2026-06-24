@@ -45,6 +45,5 @@ public:
 		return GetDefaultObjImpl<UWBP_MainMenuBarEntryWidget_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_MainMenuBarEntryWidget_C;
 
 SDK_NAMESPACE_END

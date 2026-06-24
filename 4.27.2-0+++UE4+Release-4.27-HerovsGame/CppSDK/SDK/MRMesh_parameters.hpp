@@ -21,7 +21,7 @@ SDK_PARAM_NAMESPACE_START
 struct MeshReconstructorBase_ConnectMRMesh final
 {
 public:
-	class UMRMeshComponent*                       Mesh;                                              // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UMRMeshComponent*                       mesh;                                              // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // Function MRMesh.MeshReconstructorBase.IsReconstructionPaused

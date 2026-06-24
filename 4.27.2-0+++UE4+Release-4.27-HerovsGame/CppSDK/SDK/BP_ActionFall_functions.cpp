@@ -132,6 +132,20 @@ void UBP_ActionFall_C::BP_ActionMain()
 }
 
 
+// Function BP_ActionFall.BP_ActionFall_C.RequestInheritSpeedSlide
+// (Public, BlueprintCallable, BlueprintEvent)
+
+void UBP_ActionFall_C::RequestInheritSpeedSlide()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_ActionFall_C", "RequestInheritSpeedSlide");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
 // Function BP_ActionFall.BP_ActionFall_C.BP_IsEnableShiftAction
 // (Event, Protected, HasOutParams, BlueprintCallable, BlueprintEvent, Const)
 // Parameters:

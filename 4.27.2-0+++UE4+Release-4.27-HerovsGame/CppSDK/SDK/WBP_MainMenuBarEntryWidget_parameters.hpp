@@ -29,7 +29,6 @@ public:
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UMainMenuBarButtonWidget*               CallFunc_Create_ReturnValue;                       // 0x0028(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_MainMenuBarEntryWidget_C_ExecuteUbergraph_WBP_MainMenuBarEntryWidget;
 
 // Function WBP_MainMenuBarEntryWidget.WBP_MainMenuBarEntryWidget_C.OnListItemObjectSet
 // 0x0008 (0x0008 - 0x0000)
@@ -38,7 +37,6 @@ struct WBP_MainMenuBarEntryWidget_C_OnListItemObjectSet final
 public:
 	class UObject*                                ListItemObject;                                    // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_MainMenuBarEntryWidget_C_OnListItemObjectSet;
 
 // Function WBP_MainMenuBarEntryWidget.WBP_MainMenuBarEntryWidget_C.BP_OnItemSelectionChanged
 // 0x0001 (0x0001 - 0x0000)
@@ -47,7 +45,6 @@ struct WBP_MainMenuBarEntryWidget_C_BP_OnItemSelectionChanged final
 public:
 	bool                                          bIsSelected;                                       // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_MainMenuBarEntryWidget_C_BP_OnItemSelectionChanged;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

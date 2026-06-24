@@ -1682,6 +1682,58 @@ bool UBackendSubsystem::CheckedLeaveSquad()
 }
 
 
+// Function BackendSubsystem.BackendSubsystem.CheckEnableSerialCode
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+int32 UBackendSubsystem::CheckEnableSerialCode()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BackendSubsystem", "CheckEnableSerialCode");
+
+	Params::BackendSubsystem_CheckEnableSerialCode Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function BackendSubsystem.BackendSubsystem.CheckEnableSerialCodeImpl
+// (Final, Native, Protected, HasOutParams)
+// Parameters:
+// const int32                             requestId                                              (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const TArray<struct FWebApiArg>&        args                                                   (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UBackendSubsystem::CheckEnableSerialCodeImpl(const int32 requestId, const TArray<struct FWebApiArg>& args)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BackendSubsystem", "CheckEnableSerialCodeImpl");
+
+	Params::BackendSubsystem_CheckEnableSerialCodeImpl Parms{};
+
+	Parms.requestId = requestId;
+	Parms.args = std::move(args);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
 // Function BackendSubsystem.BackendSubsystem.CheckFavoriteName
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
@@ -1726,6 +1778,31 @@ void UBackendSubsystem::CheckFavoriteNameImpl(const int32 requestId, const TArra
 	Params::BackendSubsystem_CheckFavoriteNameImpl Parms{};
 
 	Parms.requestId = requestId;
+	Parms.args = std::move(args);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function BackendSubsystem.BackendSubsystem.CheckFilterProfanityCommand
+// (Final, Native, Protected, HasOutParams, BlueprintCallable)
+// Parameters:
+// const TArray<class FString>&            args                                                   (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UBackendSubsystem::CheckFilterProfanityCommand(const TArray<class FString>& args)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BackendSubsystem", "CheckFilterProfanityCommand");
+
+	Params::BackendSubsystem_CheckFilterProfanityCommand Parms{};
+
 	Parms.args = std::move(args);
 
 	auto Flgs = Func->FunctionFlags;
@@ -1911,6 +1988,61 @@ void UBackendSubsystem::CheckLimitTimePlayerNameImpl(const int32 requestId, cons
 		Func = Class->GetFunction("BackendSubsystem", "CheckLimitTimePlayerNameImpl");
 
 	Params::BackendSubsystem_CheckLimitTimePlayerNameImpl Parms{};
+
+	Parms.requestId = requestId;
+	Parms.args = std::move(args);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function BackendSubsystem.BackendSubsystem.CheckNGWord
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const class FString&                    checkedName                                            (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+int32 UBackendSubsystem::CheckNGWord(const class FString& checkedName)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BackendSubsystem", "CheckNGWord");
+
+	Params::BackendSubsystem_CheckNGWord Parms{};
+
+	Parms.checkedName = std::move(checkedName);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function BackendSubsystem.BackendSubsystem.CheckNGWordImpl
+// (Final, Native, Protected, HasOutParams)
+// Parameters:
+// const int32                             requestId                                              (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const TArray<struct FWebApiArg>&        args                                                   (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UBackendSubsystem::CheckNGWordImpl(const int32 requestId, const TArray<struct FWebApiArg>& args)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BackendSubsystem", "CheckNGWordImpl");
+
+	Params::BackendSubsystem_CheckNGWordImpl Parms{};
 
 	Parms.requestId = requestId;
 	Parms.args = std::move(args);
@@ -2325,9 +2457,10 @@ int32 UBackendSubsystem::ConsumeRentalPoint_DS(const TMap<class FString, int32>&
 // Parameters:
 // bool                                    bHiddenIdFlag                                          (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // int32                                   playModeCode                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    bAllowChangePlayerName                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-int32 UBackendSubsystem::CreateCustomMatchRoomID(bool bHiddenIdFlag, int32 playModeCode)
+int32 UBackendSubsystem::CreateCustomMatchRoomID(bool bHiddenIdFlag, int32 playModeCode, bool bAllowChangePlayerName)
 {
 	static class UFunction* Func = nullptr;
 
@@ -2338,6 +2471,7 @@ int32 UBackendSubsystem::CreateCustomMatchRoomID(bool bHiddenIdFlag, int32 playM
 
 	Parms.bHiddenIdFlag = bHiddenIdFlag;
 	Parms.playModeCode = playModeCode;
+	Parms.bAllowChangePlayerName = bAllowChangePlayerName;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -10432,6 +10566,58 @@ void UBackendSubsystem::ReceiveSpecialLicenseImpl(const int32 requestId, const T
 }
 
 
+// Function BackendSubsystem.BackendSubsystem.ReducePlayerNameChangeLimitTime
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+int32 UBackendSubsystem::ReducePlayerNameChangeLimitTime()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BackendSubsystem", "ReducePlayerNameChangeLimitTime");
+
+	Params::BackendSubsystem_ReducePlayerNameChangeLimitTime Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function BackendSubsystem.BackendSubsystem.ReducePlayerNameChangeLimitTimeImpl
+// (Final, Native, Protected, HasOutParams)
+// Parameters:
+// const int32                             requestId                                              (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const TArray<struct FWebApiArg>&        args                                                   (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UBackendSubsystem::ReducePlayerNameChangeLimitTimeImpl(const int32 requestId, const TArray<struct FWebApiArg>& args)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BackendSubsystem", "ReducePlayerNameChangeLimitTimeImpl");
+
+	Params::BackendSubsystem_ReducePlayerNameChangeLimitTimeImpl Parms{};
+
+	Parms.requestId = requestId;
+	Parms.args = std::move(args);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
 // Function BackendSubsystem.BackendSubsystem.RegisterMissionProgress
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
@@ -10666,6 +10852,56 @@ void UBackendSubsystem::ResetDedicatedServerCommand(const TArray<class FString>&
 		Func = Class->GetFunction("BackendSubsystem", "ResetDedicatedServerCommand");
 
 	Params::BackendSubsystem_ResetDedicatedServerCommand Parms{};
+
+	Parms.args = std::move(args);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function BackendSubsystem.BackendSubsystem.ResetFilterProfanityCommand
+// (Final, Native, Protected, HasOutParams, BlueprintCallable)
+// Parameters:
+// const TArray<class FString>&            args                                                   (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UBackendSubsystem::ResetFilterProfanityCommand(const TArray<class FString>& args)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BackendSubsystem", "ResetFilterProfanityCommand");
+
+	Params::BackendSubsystem_ResetFilterProfanityCommand Parms{};
+
+	Parms.args = std::move(args);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function BackendSubsystem.BackendSubsystem.ResetForceFakePlatformCommand
+// (Final, Native, Protected, HasOutParams, BlueprintCallable)
+// Parameters:
+// const TArray<class FString>&            args                                                   (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UBackendSubsystem::ResetForceFakePlatformCommand(const TArray<class FString>& args)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BackendSubsystem", "ResetForceFakePlatformCommand");
+
+	Params::BackendSubsystem_ResetForceFakePlatformCommand Parms{};
 
 	Parms.args = std::move(args);
 
@@ -12631,6 +12867,31 @@ void UBackendSubsystem::SetConnectionEnvironmentForDedicatedServer(const class F
 }
 
 
+// Function BackendSubsystem.BackendSubsystem.SetCustomMatchCustomNameCommand
+// (Final, Native, Protected, HasOutParams, BlueprintCallable)
+// Parameters:
+// const TArray<class FString>&            args                                                   (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UBackendSubsystem::SetCustomMatchCustomNameCommand(const TArray<class FString>& args)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BackendSubsystem", "SetCustomMatchCustomNameCommand");
+
+	Params::BackendSubsystem_SetCustomMatchCustomNameCommand Parms{};
+
+	Parms.args = std::move(args);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
 // Function BackendSubsystem.BackendSubsystem.SetCustomRoomMember
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
@@ -12697,6 +12958,34 @@ bool UBackendSubsystem::SetCustomRoomMemberData()
 		Func = Class->GetFunction("BackendSubsystem", "SetCustomRoomMemberData");
 
 	Params::BackendSubsystem_SetCustomRoomMemberData Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function BackendSubsystem.BackendSubsystem.SetCustomRoomMemberData_CustomName
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const class FString&                    myCustomName                                           (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+bool UBackendSubsystem::SetCustomRoomMemberData_CustomName(const class FString& myCustomName)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BackendSubsystem", "SetCustomRoomMemberData_CustomName");
+
+	Params::BackendSubsystem_SetCustomRoomMemberData_CustomName Parms{};
+
+	Parms.myCustomName = std::move(myCustomName);
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -12841,6 +13130,31 @@ void UBackendSubsystem::SetFakeNetScoreCommand(const TArray<class FString>& args
 		Func = Class->GetFunction("BackendSubsystem", "SetFakeNetScoreCommand");
 
 	Params::BackendSubsystem_SetFakeNetScoreCommand Parms{};
+
+	Parms.args = std::move(args);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function BackendSubsystem.BackendSubsystem.SetForceFakeSengakujiWebAPICommand
+// (Final, Native, Protected, HasOutParams, BlueprintCallable)
+// Parameters:
+// const TArray<class FString>&            args                                                   (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UBackendSubsystem::SetForceFakeSengakujiWebAPICommand(const TArray<class FString>& args)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BackendSubsystem", "SetForceFakeSengakujiWebAPICommand");
+
+	Params::BackendSubsystem_SetForceFakeSengakujiWebAPICommand Parms{};
 
 	Parms.args = std::move(args);
 
@@ -13690,9 +14004,10 @@ void UBackendSubsystem::SyncBlockListImpl(const int32 requestId, const TArray<st
 // Parameters:
 // const int32                             CharacterCode                                          (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // const int32                             CostumeCode                                            (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const int32                             unlockNum                                              (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-int32 UBackendSubsystem::UnlockCustomizeCostumeRoleSlot(const int32 CharacterCode, const int32 CostumeCode)
+int32 UBackendSubsystem::UnlockCustomizeCostumeRoleSlot(const int32 CharacterCode, const int32 CostumeCode, const int32 unlockNum)
 {
 	static class UFunction* Func = nullptr;
 
@@ -13703,6 +14018,7 @@ int32 UBackendSubsystem::UnlockCustomizeCostumeRoleSlot(const int32 CharacterCod
 
 	Parms.CharacterCode = CharacterCode;
 	Parms.CostumeCode = CostumeCode;
+	Parms.unlockNum = unlockNum;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -21098,9 +21414,9 @@ void UDbpLoginBonus::GetDailyBonus(struct FDbLoginBonus* freeLoginBonus, struct 
 // Function BackendSubsystem.DbpLoginBonus.GetLoginBonusList
 // (Final, Native, Public, HasOutParams, BlueprintCallable)
 // Parameters:
-// struct FDbLoginBonusListParam*          list                                                   (Parm, OutParm, NativeAccessSpecifierPublic)
+// struct FDbLoginBonusListParam*          List                                                   (Parm, OutParm, NativeAccessSpecifierPublic)
 
-void UDbpLoginBonus::GetLoginBonusList(struct FDbLoginBonusListParam* list)
+void UDbpLoginBonus::GetLoginBonusList(struct FDbLoginBonusListParam* List)
 {
 	static class UFunction* Func = nullptr;
 
@@ -21116,8 +21432,8 @@ void UDbpLoginBonus::GetLoginBonusList(struct FDbLoginBonusListParam* list)
 
 	Func->FunctionFlags = Flgs;
 
-	if (list != nullptr)
-		*list = std::move(Parms.list);
+	if (List != nullptr)
+		*List = std::move(Parms.List);
 }
 
 

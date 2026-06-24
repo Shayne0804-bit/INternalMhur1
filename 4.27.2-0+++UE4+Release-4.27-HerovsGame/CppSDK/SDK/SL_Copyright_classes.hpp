@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ASL_Copyright_C>();
 	}
 };
-DUMPER7_ASSERTS_ASL_Copyright_C;
 
 SDK_NAMESPACE_END

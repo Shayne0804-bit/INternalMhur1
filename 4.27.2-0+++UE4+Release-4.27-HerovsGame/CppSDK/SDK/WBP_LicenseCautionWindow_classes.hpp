@@ -42,6 +42,5 @@ public:
 		return GetDefaultObjImpl<UWBP_LicenseCautionWindow_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_LicenseCautionWindow_C;
 
 SDK_NAMESPACE_END

@@ -10,173 +10,116 @@
 
 #include "Basic.hpp"
 
-#include "SlateCore_structs.hpp"
-#include "Engine_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "SlateCore_structs.hpp"
 #include "OutGameModule_structs.hpp"
 #include "OutGameModule_classes.hpp"
-#include "InputCore_structs.hpp"
-#include "UMG_structs.hpp"
 #include "UIFramework_structs.hpp"
+#include "UMG_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_Setting_KeyConfig.WBP_Setting_KeyConfig_C
-// 0x02E0 (0x0828 - 0x0548)
+// 0x0278 (0x08E8 - 0x0670)
 class UWBP_Setting_KeyConfig_C final : public UKeyConfigSettingWidget
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0548(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	class UWidgetAnimation*                       Begin;                                             // 0x0550(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, Transient, IsPlainOldData, RepSkip, NoDestructor, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _action;                                           // 0x0558(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _aim;                                              // 0x0560(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _crouch;                                           // 0x0568(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _dodge;                                            // 0x0570(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _emote;                                            // 0x0578(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_AdjustText_C*                      _gemePadText;                                      // 0x0580(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _inventory;                                        // 0x0588(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _jump;                                             // 0x0590(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_AdjustText_C*                      _keyboardText;                                     // 0x0598(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _levelUpShotcut;                                   // 0x05A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UScrollBox*                             _list;                                             // 0x05A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _marker;                                           // 0x05B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _miniMap;                                          // 0x05B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _moveDown;                                         // 0x05C0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _moveLeft;                                         // 0x05C8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _moveRight;                                        // 0x05D0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _optionMenu;                                       // 0x05D8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _plusUltra;                                        // 0x05E0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _primeAbility;                                     // 0x05E8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _secondAbility;                                    // 0x05F0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _selectSupply;                                     // 0x05F8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _specialAction;                                    // 0x0600(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _sprint;                                           // 0x0608(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _supply;                                           // 0x0610(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _textChat;                                         // 0x0618(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _unique1;                                          // 0x0620(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _unique2;                                          // 0x0628(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _unique3;                                          // 0x0630(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Keyboard_C*         _voice;                                            // 0x0638(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              A;                                                 // 0x0640(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              B;                                                 // 0x0648(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 balloon;                                           // 0x0650(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 hatsume;                                           // 0x0658(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 Image_13;                                          // 0x0660(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              l1;                                                // 0x0668(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              L3;                                                // 0x0670(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 listBG_bottom;                                     // 0x0678(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 listBG_up;                                         // 0x0680(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              LongPadDown;                                       // 0x0688(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              LongPadLeft;                                       // 0x0690(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              LongPadRight;                                      // 0x0698(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              LongPadUP;                                         // 0x06A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              Options;                                           // 0x06A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 padBG;                                             // 0x06B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              padDodge;                                          // 0x06B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              PadDown;                                           // 0x06C0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              PadLeft;                                           // 0x06C8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              PadRight;                                          // 0x06D0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              PadUP;                                             // 0x06D8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              R1;                                                // 0x06E0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              R2;                                                // 0x06E8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              R3;                                                // 0x06F0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UTextBlock*                             TipsText;                                          // 0x06F8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              TouchPadLeft;                                      // 0x0700(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              TouchPadRight;                                     // 0x0708(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              X;                                                 // 0x0710(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_Setting_Button_Key_C*              Y;                                                 // 0x0718(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	TMulticastInlineDelegate<void(int32 selectindex)> CloseKeyConfigPopup;                           // 0x0720(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
-	TMulticastInlineDelegate<void(EKeyConfigCommandListType listType, EKeyConfigurableCommand curCommand)> OpenKeyConfigPopup; // 0x0730(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
-	class UWBP_Setting_Button_Key_C*              Temp;                                              // 0x0740(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	TMap<EKeyConfigurableCommand, struct FKey>    OnCommandList;                                     // 0x0748(0x0050)(Edit, BlueprintVisible, DisableEditOnInstance)
-	EKeyConfigurableCommand                       prevTempCommand;                                   // 0x0798(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_799[0x7];                                      // 0x0799(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	TMulticastInlineDelegate<void()>              FocusSaveButton;                                   // 0x07A0(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
-	TMulticastInlineDelegate<void()>              FocusResetButton;                                  // 0x07B0(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
-	TArray<EKeyConfigurableCommand>               CommandButtonList;                                 // 0x07C0(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
-	TArray<EKeyConfigurableCommand>               CommandArrowList;                                  // 0x07D0(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
-	TArray<EKeyConfigurableCommand>               CommandLongArrowList;                              // 0x07E0(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
-	bool                                          NewVar_0;                                          // 0x07F0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_7F1[0x7];                                      // 0x07F1(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<class UWBP_Setting_Button_Key_C*>      PadButtonArray;                                    // 0x07F8(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance, ContainsInstancedReference)
-	TArray<class UWBP_Setting_Button_Keyboard_C*> KeyboardButtonArray;                               // 0x0808(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance, ContainsInstancedReference)
-	TArray<class UWBP_Setting_Button_Key_C*>      PadLongButtonArray;                                // 0x0818(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance, ContainsInstancedReference)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0670(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	class UWidgetAnimation*                       Begin;                                             // 0x0678(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, Transient, IsPlainOldData, RepSkip, NoDestructor, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _action;                                           // 0x0680(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _aim;                                              // 0x0688(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _crouch;                                           // 0x0690(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _dodge;                                            // 0x0698(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _emote;                                            // 0x06A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _inventory;                                        // 0x06A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _jump;                                             // 0x06B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UCanvasPanel*                           _keyboardDsclosureeBottomPanel;                    // 0x06B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _levelUpShotcut;                                   // 0x06C0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _marker;                                           // 0x06C8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _melee;                                            // 0x06D0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _miniMap;                                          // 0x06D8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _moveDown;                                         // 0x06E0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _moveLeft;                                         // 0x06E8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _moveRight;                                        // 0x06F0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _moveUp;                                           // 0x06F8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _optionMenu;                                       // 0x0700(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padAction;                                        // 0x0708(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padAim;                                           // 0x0710(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padCrouch;                                        // 0x0718(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padDodge;                                         // 0x0720(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UCanvasPanel*                           _padDsclosureeBottomPanel;                         // 0x0728(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padEmote;                                         // 0x0730(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padInventory;                                     // 0x0738(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padjump;                                          // 0x0740(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padMarker;                                        // 0x0748(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padMelee;                                         // 0x0750(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padMiniMap;                                       // 0x0758(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padOptionMenu;                                    // 0x0760(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padPrimeAbility;                                  // 0x0768(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padSecondAbility;                                 // 0x0770(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padSelectMarker;                                  // 0x0778(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padSelectSupply;                                  // 0x0780(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padSpecialAction;                                 // 0x0788(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padSprint;                                        // 0x0790(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padSupply;                                        // 0x0798(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padUnique1;                                       // 0x07A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padUnique2;                                       // 0x07A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padUnique3;                                       // 0x07B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _padVoice;                                         // 0x07B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _plusUltra;                                        // 0x07C0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _primeAbility;                                     // 0x07C8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _secondAbility;                                    // 0x07D0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _selectSupply;                                     // 0x07D8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UCanvasPanel*                           _sensitivityDisclosureePanel;                      // 0x07E0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _specialAction;                                    // 0x07E8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _sprint;                                           // 0x07F0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _supply;                                           // 0x07F8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _textChat;                                         // 0x0800(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_AdjustText_C*                      _tipsNotesText;                                    // 0x0808(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _unique1;                                          // 0x0810(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _unique2;                                          // 0x0818(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _unique3;                                          // 0x0820(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_Setting_Button_Keyboard_C*         _voice;                                            // 0x0828(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 balloon;                                           // 0x0830(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 ControllerBottomBG;                                // 0x0838(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 ControllerTopBG;                                   // 0x0840(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 etcBottomBG;                                       // 0x0848(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 etcTopBG;                                          // 0x0850(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 hatsume;                                           // 0x0858(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 keyboardDsclosureeBottom;                          // 0x0860(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 keyboardDsclosureeBottomBG;                        // 0x0868(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 padDsclosureeBottom;                               // 0x0870(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 padDsclosureeBottom_1;                             // 0x0878(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 padDsclosureeBottomBG;                             // 0x0880(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 padDsclosureeBottomBG_1;                           // 0x0888(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UPlatformRichTextBlock*                 stephangePadImage;                                 // 0x0890(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UTextBlock*                             TipsText;                                          // 0x0898(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	TMulticastInlineDelegate<void(int32 selectindex, bool leftButton)> CloseKeyConfigPopup;          // 0x08A0(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
+	TMulticastInlineDelegate<void(EKeyConfigCommandListType listType, EKeyConfigurableCommand curCommand)> OpenKeyConfigPopup; // 0x08B0(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
+	class UWBP_Setting_Button_Key_C*              Temp;                                              // 0x08C0(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	TMulticastInlineDelegate<void()>              FocusSaveButton;                                   // 0x08C8(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
+	TMulticastInlineDelegate<void()>              FocusResetButton;                                  // 0x08D8(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
 
 public:
 	void ExecuteUbergraph_WBP_Setting_KeyConfig(int32 EntryPoint);
-	void BndEvt__WBP_Setting_KeyConfig_WBP_WindowButton_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
+	void BndEvt__WBP_Setting_KeyConfig__keyboardDisclosuree_K2Node_ComponentBoundEvent_7_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
+	void BndEvt__WBP_Setting_KeyConfig__padDisclosuree_K2Node_ComponentBoundEvent_6_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
+	void BndEvt__WBP_Setting_KeyConfig__sensitivityDisclosuree_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
+	void BndEvt__WBP_Setting_KeyConfig__sensitivityDisclosuree_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
+	void BndEvt__WBP_Setting_GamePlay__cameraDirection_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
 	void BP_GameKeyboardButtonOptionDataSetting();
-	void CheckSwap(EKeyConfigurableCommand prevCommand, EKeyConfigurableCommand nextCommand);
-	void BP_GamePadButtonOptionDataSetting();
-	void TargetSettingCommand(int32 selectindex);
-	void BndEvt__WBP_Setting_KeyConfig_A_K2Node_ComponentBoundEvent_23_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_B_K2Node_ComponentBoundEvent_22_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_X_K2Node_ComponentBoundEvent_21_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_Y_K2Node_ComponentBoundEvent_20_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_R2_K2Node_ComponentBoundEvent_19_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_R1_K2Node_ComponentBoundEvent_18_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_L3_K2Node_ComponentBoundEvent_17_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_R3_K2Node_ComponentBoundEvent_16_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_TouchPad_K2Node_ComponentBoundEvent_15_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_Option_K2Node_ComponentBoundEvent_14_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_OptionLong_K2Node_ComponentBoundEvent_13_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_ButtonAndPadDown_K2Node_ComponentBoundEvent_12_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_ButtonAndPadRight_K2Node_ComponentBoundEvent_11_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_ButtonAndPadLeft_K2Node_ComponentBoundEvent_10_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_ButtonAndPadUP_K2Node_ComponentBoundEvent_9_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_PadDown_K2Node_ComponentBoundEvent_8_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_PadRight_K2Node_ComponentBoundEvent_7_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_PadLeft_K2Node_ComponentBoundEvent_6_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_PadUP_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_L2_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_L1_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
+	void TargetSettingCommand(int32 selectindex, bool leftButton);
 	void Construct();
 	void PreConstruct(bool IsDesignTime);
-	void BndEvt__WBP_Setting_KeyConfig_Y_K2Node_ComponentBoundEvent_34_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_Y_K2Node_ComponentBoundEvent_33_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_X_K2Node_ComponentBoundEvent_32_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_X_K2Node_ComponentBoundEvent_31_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_TouchPad_K2Node_ComponentBoundEvent_30_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_TouchPad_K2Node_ComponentBoundEvent_29_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_R3_K2Node_ComponentBoundEvent_28_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_R3_K2Node_ComponentBoundEvent_27_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_R2_K2Node_ComponentBoundEvent_26_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_R2_K2Node_ComponentBoundEvent_25_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_R1_K2Node_ComponentBoundEvent_23_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_R1_K2Node_ComponentBoundEvent_22_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_PadUP_K2Node_ComponentBoundEvent_21_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_PadUP_K2Node_ComponentBoundEvent_20_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_PadRight_K2Node_ComponentBoundEvent_19_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_PadRight_K2Node_ComponentBoundEvent_18_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_PadLeft_K2Node_ComponentBoundEvent_17_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_PadDown_K2Node_ComponentBoundEvent_16_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_PadDown_K2Node_ComponentBoundEvent_15_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_OptionLong_K2Node_ComponentBoundEvent_14_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_OptionLong_K2Node_ComponentBoundEvent_12_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_Option_K2Node_ComponentBoundEvent_11_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_Option_K2Node_ComponentBoundEvent_10_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_L3_K2Node_ComponentBoundEvent_9_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_L3_K2Node_ComponentBoundEvent_8_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_L2_K2Node_ComponentBoundEvent_7_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_L2_K2Node_ComponentBoundEvent_6_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_L1_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_B_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_B_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_A_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_A_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_PadLeft_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_Setting_KeyConfig_L1_K2Node_ComponentBoundEvent_24_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void SwitchOperation(bool bPadOperation);
 	void OpenCommandList(class UAppWidget* Target);
+	void CreateSensitivityButtonArray();
 	void CreatePadButtonArray();
 	void CreateKeyboardButtonArray();
-	void ChangeCommand(EKeyConfigurableCommand prevCommand, EKeyConfigurableCommand nextCommand);
 	class UWidget* DoCustomR1Navigation(EUINavigation Navigation_0);
 	class UWidget* DoCustomL1Navigation(EUINavigation Navigation_0);
-	void GetCommandList(EKeyConfigCommandListType KeyType, TArray<EKeyConfigurableCommand>* commandList);
-	void ChangeKey(const struct FKey& prevKey, const struct FKey& nextKey);
-	class UWidget* DoCustomMoveUpNavigation(EUINavigation Navigation_0);
+	class UWidget* DoCustomSaveNavigation(EUINavigation Navigation_0);
 
 public:
 	static class UClass* StaticClass()
@@ -192,6 +135,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Setting_KeyConfig_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Setting_KeyConfig_C;
 
 SDK_NAMESPACE_END

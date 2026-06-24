@@ -27,7 +27,6 @@ public:
 	struct FFocusEvent                            K2Node_Event_InFocusEvent;                         // 0x0010(0x0008)(NoDestructor)
 	bool                                          CallFunc_IsFocusCauseNotCleared_ReturnValue;       // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_GashaHistory_listItem_C_ExecuteUbergraph_WBP_GashaHistory_listItem;
 
 // Function WBP_GashaHistory_listItem.WBP_GashaHistory_listItem_C.OnFocusLost
 // 0x0008 (0x0008 - 0x0000)
@@ -36,7 +35,6 @@ struct WBP_GashaHistory_listItem_C_OnFocusLost final
 public:
 	struct FFocusEvent                            InFocusEvent;                                      // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_GashaHistory_listItem_C_OnFocusLost;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

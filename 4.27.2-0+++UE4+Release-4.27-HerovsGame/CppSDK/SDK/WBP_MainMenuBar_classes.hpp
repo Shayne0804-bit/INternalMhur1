@@ -19,7 +19,7 @@
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_MainMenuBar.WBP_MainMenuBar_C
-// 0x11A8 (0x1550 - 0x03A8)
+// 0x11B0 (0x1558 - 0x03A8)
 class UWBP_MainMenuBar_C final : public UMainMenuBarWidget
 {
 public:
@@ -27,7 +27,7 @@ public:
 	TArray<class FText>                           rubyText;                                          // 0x03B0(0x0010)(Edit, BlueprintVisible)
 	TArray<TSubclassOf<class UMainMenuBarButtonWidget>> MainMenuBarButtonList;                       // 0x03C0(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
 	TArray<class FText>                           TitleText;                                         // 0x03D0(0x0010)(Edit, BlueprintVisible)
-	struct FDbMyPlayerParam                       My_Player;                                         // 0x03E0(0x1170)(Edit, BlueprintVisible, DisableEditOnInstance, HasGetValueTypeHash)
+	struct FDbMyPlayerParam                       My_Player;                                         // 0x03E0(0x1178)(Edit, BlueprintVisible, DisableEditOnInstance, HasGetValueTypeHash)
 
 public:
 	void UpdateNotice();
@@ -52,6 +52,5 @@ public:
 		return GetDefaultObjImpl<UWBP_MainMenuBar_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_MainMenuBar_C;
 
 SDK_NAMESPACE_END

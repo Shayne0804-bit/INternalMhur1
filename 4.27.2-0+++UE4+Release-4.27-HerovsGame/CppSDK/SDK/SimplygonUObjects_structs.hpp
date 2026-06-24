@@ -280,6 +280,15 @@ public:
 	float                                         TexCoordPadding;                                   // 0x0018(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
+// ScriptStruct SimplygonUObjects.ParameterizerSettings
+// 0x0008 (0x0008 - 0x0000)
+struct FParameterizerSettings final
+{
+public:
+	float                                         MaxStretch;                                        // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         LargeChartsImportance;                             // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
 // ScriptStruct SimplygonUObjects.InputMaterialSettings
 // 0x0004 (0x0004 - 0x0000)
 struct FInputMaterialSettings final
@@ -314,15 +323,6 @@ public:
 	class FString                                 OriginalChartProportionsChannel;                   // 0x0020(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         LockUVRotation : 1;                                // 0x0030(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Edit, BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_31[0x7];                                       // 0x0031(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct SimplygonUObjects.ParameterizerSettings
-// 0x0008 (0x0008 - 0x0000)
-struct FParameterizerSettings final
-{
-public:
-	float                                         MaxStretch;                                        // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         LargeChartsImportance;                             // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct SimplygonUObjects.MappingImageSettings

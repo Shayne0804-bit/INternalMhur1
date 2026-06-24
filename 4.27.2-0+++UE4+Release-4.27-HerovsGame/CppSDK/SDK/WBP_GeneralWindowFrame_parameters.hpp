@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "UMG_structs.hpp"
 #include "SlateCore_structs.hpp"
+#include "UMG_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -30,7 +30,6 @@ public:
 	class UWBP_WindowFrame_C*                     K2Node_DynamicCast_AsWBP_Window_Frame;             // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x0020(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_GeneralWindowFrame_C_ExecuteUbergraph_WBP_GeneralWindowFrame;
 
 // Function WBP_GeneralWindowFrame.WBP_GeneralWindowFrame_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -39,7 +38,6 @@ struct WBP_GeneralWindowFrame_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_GeneralWindowFrame_C_PreConstruct;
 
 // Function WBP_GeneralWindowFrame.WBP_GeneralWindowFrame_C.On_BlockBG_MouseButtonDown_0
 // 0x02D8 (0x02D8 - 0x0000)
@@ -53,7 +51,6 @@ public:
 	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue;                  // 0x0218(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FEventReply                            K2Node_MakeStruct_EventReply_1;                    // 0x0220(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_GeneralWindowFrame_C_On_BlockBG_MouseButtonDown_0;
 
 // Function WBP_GeneralWindowFrame.WBP_GeneralWindowFrame_C.PreConstructSE
 // 0x000C (0x000C - 0x0000)
@@ -65,7 +62,6 @@ public:
 	int32                                         CallFunc_BP_GetButtonCount_ReturnValue;            // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_EqualEqual_IntInt_ReturnValue;            // 0x0008(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_GeneralWindowFrame_C_PreConstructSE;
 
 // Function WBP_GeneralWindowFrame.WBP_GeneralWindowFrame_C.SetOverridePressAtomCue
 // 0x0030 (0x0030 - 0x0000)
@@ -81,7 +77,6 @@ public:
 	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_IsValid_ReturnValue_1;                    // 0x0029(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_GeneralWindowFrame_C_SetOverridePressAtomCue;
 
 // Function WBP_GeneralWindowFrame.WBP_GeneralWindowFrame_C.SetOverrideFocusAtomCue
 // 0x0030 (0x0030 - 0x0000)
@@ -97,7 +92,6 @@ public:
 	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_IsValid_ReturnValue_1;                    // 0x0029(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_GeneralWindowFrame_C_SetOverrideFocusAtomCue;
 
 // Function WBP_GeneralWindowFrame.WBP_GeneralWindowFrame_C.SetOverrideShortcutAtomCue
 // 0x0030 (0x0030 - 0x0000)
@@ -113,7 +107,6 @@ public:
 	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_IsValid_ReturnValue_1;                    // 0x0029(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_GeneralWindowFrame_C_SetOverrideShortcutAtomCue;
 
 // Function WBP_GeneralWindowFrame.WBP_GeneralWindowFrame_C.SetOverrideNegativeAtomCue
 // 0x0030 (0x0030 - 0x0000)
@@ -129,7 +122,6 @@ public:
 	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_IsValid_ReturnValue_1;                    // 0x0029(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_GeneralWindowFrame_C_SetOverrideNegativeAtomCue;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

@@ -24,7 +24,6 @@ public:
 	class UStaffRollSubsystem*                    CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UMaterial*                              CallFunc_GetMovieMaterial_ReturnValue;             // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollBgMovie_C_ExecuteUbergraph_WBP_StaffRollBgMovie;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 #include "CoreUObject_structs.hpp"
-#include "Slate_structs.hpp"
 #include "SlateCore_structs.hpp"
+#include "Slate_structs.hpp"
 #include "Engine_structs.hpp"
 #include "UIFramework_classes.hpp"
 

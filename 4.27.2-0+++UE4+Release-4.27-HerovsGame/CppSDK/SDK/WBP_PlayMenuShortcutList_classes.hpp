@@ -10,16 +10,16 @@
 
 #include "Basic.hpp"
 
-#include "SlateCore_structs.hpp"
 #include "Engine_structs.hpp"
-#include "UIFramework_structs.hpp"
 #include "OutGameModule_classes.hpp"
+#include "SlateCore_structs.hpp"
+#include "UIFramework_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_PlayMenuShortcutList.WBP_PlayMenuShortcutList_C
-// 0x00C0 (0x0470 - 0x03B0)
+// 0x00D0 (0x0480 - 0x03B0)
 class UWBP_PlayMenuShortcutList_C final : public UPlayMenuShortcutList
 {
 public:
@@ -34,24 +34,25 @@ public:
 	TArray<struct FSubMenuInfo>                   Sub_Menu_Info;                                     // 0x0428(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
 	TArray<struct FSubMenuInfo>                   Sub_Menu_InfoLeader;                               // 0x0438(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
 	TArray<struct FSubMenuInfo>                   Sub_Menu_InfoMember;                               // 0x0448(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
-	int32                                         CloseIndex;                                        // 0x0458(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          FocusAfterClosing;                                 // 0x045C(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_45D[0x3];                                      // 0x045D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	TMulticastInlineDelegate<void()>              OnCloseSquadSubMenu;                               // 0x0460(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
+	TArray<struct FSubMenuInfo>                   Sub_Menu_InfoForSg;                                // 0x0458(0x0010)(Edit, BlueprintVisible, DisableEditOnInstance)
+	int32                                         CloseIndex;                                        // 0x0468(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          FocusAfterClosing;                                 // 0x046C(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_46D[0x3];                                      // 0x046D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void()>              OnCloseSquadSubMenu;                               // 0x0470(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
 
 public:
-	void ExecuteUbergraph_WBP_PlayMenuShortcutList(int32 EntryPoint);
-	void BndEvt__WBP_PlayMenuShortcutList_WBP_PlayMenu_MissionIconEntry_TEST_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_PlayMenuShortcutList__squadButton_IconEntry_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void OnAddToScreen();
-	void BndEvt__WBP_PlayMenuShortcutList__contactNoticeIconEntryWidget_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void BndEvt__WBP_PlayMenuShortcutList_MenuButton_IconEntry_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
-	void Construct();
-	void BndEvt__WBP_PlayMenuShortcutList_WBP_IconSubMenu_K2Node_ComponentBoundEvent_15_OnDecideSubMenuDelegate__DelegateSignature(int32 Index_0);
-	void SetListFocus(EUINavigation DirectionToEnter);
-	class UWidget* DoCustomNavigation_left(EUINavigation Navigation_0);
-	void SetupSubMenuText();
 	class UWidget* DoCustomNavigation_up(EUINavigation Navigation_0);
+	void SetupSubMenuText();
+	class UWidget* DoCustomNavigation_left(EUINavigation Navigation_0);
+	void SetListFocus(EUINavigation DirectionToEnter);
+	void BndEvt__WBP_PlayMenuShortcutList_WBP_IconSubMenu_K2Node_ComponentBoundEvent_15_OnDecideSubMenuDelegate__DelegateSignature(int32 Index_0);
+	void Construct();
+	void BndEvt__WBP_PlayMenuShortcutList_MenuButton_IconEntry_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
+	void BndEvt__WBP_PlayMenuShortcutList__contactNoticeIconEntryWidget_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
+	void OnAddToScreen();
+	void BndEvt__WBP_PlayMenuShortcutList__squadButton_IconEntry_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
+	void BndEvt__WBP_PlayMenuShortcutList_WBP_PlayMenu_MissionIconEntry_TEST_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
+	void ExecuteUbergraph_WBP_PlayMenuShortcutList(int32 EntryPoint);
 
 public:
 	static class UClass* StaticClass()
@@ -67,6 +68,5 @@ public:
 		return GetDefaultObjImpl<UWBP_PlayMenuShortcutList_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_PlayMenuShortcutList_C;
 
 SDK_NAMESPACE_END

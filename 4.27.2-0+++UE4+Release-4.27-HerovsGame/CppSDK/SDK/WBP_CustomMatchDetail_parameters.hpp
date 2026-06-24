@@ -17,27 +17,48 @@ SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
 // Function WBP_CustomMatchDetail.WBP_CustomMatchDetail_C.ExecuteUbergraph_WBP_CustomMatchDetail
-// 0x0018 (0x0018 - 0x0000)
+// 0x0040 (0x0040 - 0x0000)
 struct WBP_CustomMatchDetail_C_ExecuteUbergraph_WBP_CustomMatchDetail final
 {
 public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_ComponentBoundEvent_bCheck;                 // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAppWidget*                             K2Node_ComponentBoundEvent_widget;                 // 0x0008(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType;              // 0x0010(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_Event_IsDesignTime;                         // 0x0011(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAppWidget*                             K2Node_CustomEvent_Widget;                         // 0x0008(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              K2Node_CustomEvent_inputType;                      // 0x0010(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue;                  // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	TDelegate<void(class UAppWidget* Widget, EWidgetInputType inputType)> K2Node_CreateDelegate_OutputDelegate; // 0x0020(0x0010)(ZeroConstructor, NoDestructor)
+	class UAppWidget*                             K2Node_ComponentBoundEvent_widget;                 // 0x0030(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType;              // 0x0038(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_Event_IsDesignTime;                         // 0x0039(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          K2Node_ComponentBoundEvent_bCheck_1;               // 0x003A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          K2Node_ComponentBoundEvent_bCheck;                 // 0x003B(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_CustomMatchDetail_C_ExecuteUbergraph_WBP_CustomMatchDetail;
 
-// Function WBP_CustomMatchDetail.WBP_CustomMatchDetail_C.BndEvt__WBP_CustomMatchDetail_WBP_CheckButton_K2Node_ComponentBoundEvent_2_OnChangeStateDelegate__DelegateSignature
+// Function WBP_CustomMatchDetail.WBP_CustomMatchDetail_C.FocusWindowButton
+// 0x0010 (0x0010 - 0x0000)
+struct WBP_CustomMatchDetail_C_FocusWindowButton final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function WBP_CustomMatchDetail.WBP_CustomMatchDetail_C.BndEvt__WBP_CustomMatchDetail_WBP_CustomMatchDetail_HiddeButton_K2Node_ComponentBoundEvent_3_OnChangeStateDelegate__DelegateSignature
 // 0x0001 (0x0001 - 0x0000)
-struct WBP_CustomMatchDetail_C_BndEvt__WBP_CustomMatchDetail_WBP_CheckButton_K2Node_ComponentBoundEvent_2_OnChangeStateDelegate__DelegateSignature final
+struct WBP_CustomMatchDetail_C_BndEvt__WBP_CustomMatchDetail_WBP_CustomMatchDetail_HiddeButton_K2Node_ComponentBoundEvent_3_OnChangeStateDelegate__DelegateSignature final
 {
 public:
 	bool                                          bCheck;                                            // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_CustomMatchDetail_C_BndEvt__WBP_CustomMatchDetail_WBP_CheckButton_K2Node_ComponentBoundEvent_2_OnChangeStateDelegate__DelegateSignature;
+
+// Function WBP_CustomMatchDetail.WBP_CustomMatchDetail_C.BndEvt__WBP_CustomMatchDetail_WBP_CustomMatchDetail_EditButton_K2Node_ComponentBoundEvent_1_OnChangeStateDelegate__DelegateSignature
+// 0x0001 (0x0001 - 0x0000)
+struct WBP_CustomMatchDetail_C_BndEvt__WBP_CustomMatchDetail_WBP_CustomMatchDetail_EditButton_K2Node_ComponentBoundEvent_1_OnChangeStateDelegate__DelegateSignature final
+{
+public:
+	bool                                          bCheck;                                            // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+};
 
 // Function WBP_CustomMatchDetail.WBP_CustomMatchDetail_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -46,7 +67,6 @@ struct WBP_CustomMatchDetail_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_CustomMatchDetail_C_PreConstruct;
 
 // Function WBP_CustomMatchDetail.WBP_CustomMatchDetail_C.BndEvt__WBP_CustomMatchDetail_WBP_WindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -56,7 +76,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_CustomMatchDetail_C_BndEvt__WBP_CustomMatchDetail_WBP_WindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

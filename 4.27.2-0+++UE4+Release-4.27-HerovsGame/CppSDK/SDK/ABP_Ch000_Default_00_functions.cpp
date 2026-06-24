@@ -16,6 +16,26 @@
 
 SDK_NAMESPACE_START
 
+// Function ABP_Ch000_Default_00.ABP_Ch000_Default_00_C.ExecuteUbergraph_ABP_Ch000_Default_00
+// (Final, UbergraphFunction)
+// Parameters:
+// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UABP_Ch000_Default_00_C::ExecuteUbergraph_ABP_Ch000_Default_00(int32 EntryPoint)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ABP_Ch000_Default_00_C", "ExecuteUbergraph_ABP_Ch000_Default_00");
+
+	Params::ABP_Ch000_Default_00_C_ExecuteUbergraph_ABP_Ch000_Default_00 Parms{};
+
+	Parms.EntryPoint = EntryPoint;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
 // Function ABP_Ch000_Default_00.ABP_Ch000_Default_00_C.AnimGraph
 // (HasOutParams, BlueprintCallable, BlueprintEvent)
 // Parameters:
@@ -37,26 +57,6 @@ void UABP_Ch000_Default_00_C::AnimGraph(const struct FPoseLink& InPose, struct F
 
 	if (AnimGraph_0 != nullptr)
 		*AnimGraph_0 = std::move(Parms.AnimGraph_0);
-}
-
-
-// Function ABP_Ch000_Default_00.ABP_Ch000_Default_00_C.ExecuteUbergraph_ABP_Ch000_Default_00
-// (Final, UbergraphFunction)
-// Parameters:
-// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UABP_Ch000_Default_00_C::ExecuteUbergraph_ABP_Ch000_Default_00(int32 EntryPoint)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ABP_Ch000_Default_00_C", "ExecuteUbergraph_ABP_Ch000_Default_00");
-
-	Params::ABP_Ch000_Default_00_C_ExecuteUbergraph_ABP_Ch000_Default_00 Parms{};
-
-	Parms.EntryPoint = EntryPoint;
-
-	UObject::ProcessEvent(Func, &Parms);
 }
 
 

@@ -10,27 +10,37 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_CC_Skill_Ch002V3_SweatBomb.BP_CC_Skill_Ch002V3_SweatBomb_C
-// 0x0058 (0x01A8 - 0x0150)
+// 0x0070 (0x01C0 - 0x0150)
 class UBP_CC_Skill_Ch002V3_SweatBomb_C final : public UCh002_CC_SweatBomb
 {
 public:
 	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0150(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
 	TSet<class FName>                             IgnoredDamage;                                     // 0x0158(0x0050)(Edit, BlueprintVisible, DisableEditOnInstance)
+	float                                         コンディション再付与インターバル;                  // 0x01A8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_1AC[0x4];                                      // 0x01AC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FTimerHandle                           ClearConditionDelay_TimerHandle;                   // 0x01B0(0x0008)(Edit, BlueprintVisible, Transient, DisableEditOnInstance, NoDestructor, AdvancedDisplay, HasGetValueTypeHash)
+	uint8                                         BootedAttackSerial;                                // 0x01B8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, Transient, DisableEditOnInstance, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash)
+	bool                                          HasSerialCache;                                    // 0x01B9(0x0001)(Edit, BlueprintVisible, ZeroConstructor, Transient, DisableEditOnInstance, IsPlainOldData, NoDestructor, AdvancedDisplay)
 
 public:
 	void ExecuteUbergraph_BP_CC_Skill_Ch002V3_SweatBomb(int32 EntryPoint);
+	void ClearCache();
+	void ClearConditionDelay();
 	void ResetDamageGate();
 	void BP_OnEndCondition();
 	void BP_OnBeginCondition();
 	void BP_OnBootDamage(const struct FDamageInfo& Info, ECharacterConditionId receivedConditionId);
+
+	bool BP_IsEnableChangeCondition(int32 Level, float span, float value, float interval) const;
+	bool IsConditioning() const;
 
 public:
 	static class UClass* StaticClass()

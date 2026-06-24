@@ -3,11 +3,51 @@
 #include "../Hooks/D3D11Hook.h"
 #include "../Hooks/GameThreadHook.h"
 #include "../Hacks/InGameModuleHacks.h"
+#include "../Hacks/Character_Changer.h"
+#include "../Hacks/Character_Data.h"
 #include "../Utils/Logger.h"
+#include "../Utils/CostumeHelper.h"
+#include "../Utils/CharacterIconLoader.h"
+#include "../Utils/SVGLoader.h"
+#include "../Assets/MenuResources.h"
+#include "../Core/UnloadManager.h"
 #include <algorithm>
+#include <climits>
+#include <unordered_map>
 #include "../SDK/SDKInit.h"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/CommonModule_structs.hpp"
+#include <cmath>
+#include <cstring>
+#include <atomic>
+#include <functional>
+#include <vector>
+#include <objbase.h>
+#include <mfapi.h>
+#include <mfidl.h>
+#include <mfreadwrite.h>
+
+#ifndef RUGIR_ENABLE_UNLOAD
+#define RUGIR_ENABLE_UNLOAD 1
+#endif
+
+#ifndef RUGIR_MENU_CHEAT_FACTORY
+#define RUGIR_MENU_CHEAT_FACTORY 0
+#endif
+
+// ============================================================================
+// CHARACTER CHANGER GLOBAL STATE (Used by Character_Changer.cpp)
+// ============================================================================
+int s_techAlpha = 9;           // Alpha skill level (1-9)
+int s_techBeta = 9;            // Beta skill level (1-9)
+int s_techGamma = 9;           // Gamma skill level (1-9)
+int s_costumeCode = 0;         // Costume code
+int s_emoteSlot[8] = { 0 };    // Emote slots
+int s_lastInGameChar = 0;      // Last character ID
+
+// Logo texture
+ID3D11ShaderResourceView* g_RugirLogo = nullptr;
 #include <imgui.h>
+#include <addons/imgui_addons.h>
 #include "ImGuiHelperExt.h"
 #include <imgui_impl_dx11.h>
 #include <imgui_impl_win32.h>
@@ -21,13 +61,17 @@
 #include "SettingsManager.h"
 #pragma comment(lib, "xinput.lib")
 
+#include "../../Free ImGui/examples/example_win32_directx11/Font.h"
+
 // Forward declare ImGui WndProc handler
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 // Forward declare SDK canvas resolution function
 
 // Forward declare unload function
+#if RUGIR_ENABLE_UNLOAD
 extern "C" __declspec(dllimport) void DLL_Unload();
+#endif
 
 // Forward declare SDK drawing functions
 extern "C" void SDK_DrawAllRectangles();
@@ -73,7 +117,7 @@ namespace ImGuiMenu
     HackSettings g_HackSettings;
     std::vector<SDK::ACharacterBattle*> g_AllCharactersList;
     std::vector<SDK::ACharacterBattle*> g_CurrentTeamCharacters;
-    ImFont* g_SymbolFont = nullptr;  // Font for Zero1-style icons
+    ImFont* g_SymbolFont = nullptr;  // Font for menu icons
 
     // ============================================================================
     // GLOBAL MENU STATE
@@ -82,11 +126,365 @@ namespace ImGuiMenu
     
     static bool g_Initialized = false;
     static bool g_Visible = true;
+    static bool g_LicenseSectionUnlocked = false;
+    static bool g_LicenseUnlockFailed = false;
+    static char g_LicenseUnlockBuffer[64] = {};
+    static bool g_MenuHotkeyDown = false;
+    static bool g_PlayerNetworkTableVisible = false;
+    static bool g_PlayerNetworkTableHotkeyDown = false;
+    static constexpr int PLAYER_NETWORK_TABLE_HOTKEY = VK_F8;
+    static bool g_PlayerListHotkeyHintVisible = false;
+    static bool g_WasInValidBattleModeForHint = false;
+    static DWORD g_LastBattleModeHintCheckTick = 0;
+    static DWORD g_PlayerListHotkeyHintStartTick = 0;
+    static constexpr DWORD PLAYER_LIST_HINT_CHECK_INTERVAL_MS = 3000;
+    static constexpr DWORD PLAYER_LIST_HINT_DURATION_MS = 7000;
+    static constexpr int PLATFORM_ICON_COUNT = 6;
+    static ID3D11ShaderResourceView* g_PlatformIcons[PLATFORM_ICON_COUNT]{};
     static ImGuiContext* g_Context = nullptr;
+
+    struct CharacterConditionOption
+    {
+        int id;
+        const char* name;
+        int defaultApplyMode;
+        int defaultLevel;
+        float defaultDuration;
+        float defaultValue;
+        float defaultInterval;
+        int defaultSubLevel;
+        bool defaultTimeOverwrite;
+    };
+
+    static constexpr CharacterConditionOption g_CharacterConditionOptions[] = {
+        { 1, "POISON_MIST", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 2, "BURN", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 3, "FREEZE", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 4, "DECAY", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 5, "BLUE_FLAME", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 6, "THUNDER", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 7, "UNIQUE_SEAL", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 8, "NOISE", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 9, "GRAB", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 10, "DECREASE_HEALTH", 1, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 11, "RECOVER_HEALTH", 1, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 12, "CONTINUOUS_RECOVER_HEALTH", 1, 0, 50.0f, 1.0f, 0.1f, 0, false },
+        { 13, "INFLUENCE_OF_ALLY_ABILITY_HEAL", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 14, "INFLUENCE_OF_ALLY_ROLLSOLT_ABILITY_HEAL", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 15, "TRANSFORM_STOCKING", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 16, "TRANSFORM", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 17, "COPY_STOCKING", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 18, "COPY", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 19, "DUPLICATE", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 20, "DYING", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 21, "GUARD", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 22, "UNIQUE_LEVEL_UP", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 23, "REBUILD", 0, 0, 0.0f, 0.0f, 0.0f, 0, false },
+        { 24, "REBUILD_MYSELF", 0, 0, 0.0f, 0.0f, 0.0f, 0, false },
+        { 25, "STONE_BIND", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 26, "SPEED_DOWN", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 27, "SKILL_PIGGYBACK", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 28, "SKILL_PIGGYBACK_CH001", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 29, "SKILL_PIGGYBACK_CH005", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 30, "SKILL_LOWGRAVITY", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 31, "SKILL_LOWGRAVITY_TO_ENEMY", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 32, "SKILL_SPEEDUP", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 33, "SKILL_SPEEDDOWN", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 34, "SKILL_AHO", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 35, "UNBREAKABLE", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 36, "SKILL_WEAR_BLUE_FLAME", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 37, "SKILL_PIGGYBACK_CH012", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 38, "GIANT", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 39, "INFECTIONDECAY_SORCE", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 40, "INFECTIONDECAY_BEFORE", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 41, "INFECTIONDECAY_AFTER", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 42, "SKILL_STEAL", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 43, "ABILITY_ATTACK", 1, 1, 500.0f, 1000.0f, 0.1f, 1, false },
+        { 44, "ABILITY_DURABLE", 1, 1, 500.0f, 1000.0f, 0.1f, 1, false },
+        { 45, "ABILITY_MOVESPEED", 1, 1, 500.0f, 1000.0f, 0.1f, 1, false },
+        { 46, "ABILITY_HEAL", 1, 1, 500.0f, 1000.0f, 0.1f, 1, false },
+        { 47, "ABILITY_TECHNIQUE", 1, 1, 500.0f, 1000.0f, 0.1f, 1, false },
+        { 48, "ROLLSLOT_ABILITY_ATTACK", 0, 1, 50.0f, 0.0f, 0.0f, 0, false },
+        { 49, "ROLLSLOT_ABILITY_DURABLE", 0, 1, 50.0f, 0.0f, 0.0f, 0, false },
+        { 50, "ROLLSLOT_ABILITY_MOVESPEED", 0, 1, 50.0f, 0.0f, 0.0f, 0, false },
+        { 51, "ROLLSLOT_ABILITY_HEAL", 0, 1, 50.0f, 0.0f, 0.0f, 0, false },
+        { 52, "ROLLSLOT_ABILITY_TECHNIQUE", 0, 1, 50.0f, 0.0f, 0.0f, 0, false },
+        { 53, "ROLLSLOT_WALLDASH", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 54, "ROLLSLOT_DECAY", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 55, "SUPERARMOR_FOR_ATTACK", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 56, "SUPERARMOR_FOR_DAMAGE", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 57, "SUPERARMOR_FOR_PLUS", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 58, "SUPERARMOR_FOR_ROLLSLOT", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 59, "PLUS_ULTRA", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 60, "SHOW_INVINCIBLE", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 61, "COMPRESSION", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 62, "COMPRESSION_REGENERATION", 1, 0, 500.0f, 1.0f, 0.1f, 0, false },
+        { 63, "OPTICALDAZZLEPAINT", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 64, "ROLLSLOT_OPTICALDAZZLEPAINT", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 65, "CH024_TRANSPARENT", 1, 0, 500.0f, 5.0f, 0.01f, 0, false },
+        { 66, "ROLLSLOT_INVINCIBLE", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 67, "ROLLSLOT_SPACTION_RELOAD_SPEED_ACCEL", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 68, "TELEPORT", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 69, "DISP_HEALTH_ON_HIT", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 70, "DISP_GUARDPOINT_ON_HIT", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 71, "DISP_LOCATION_ON_HIT", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 72, "KING", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 73, "ORB_PENALTY", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 74, "LEADER", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 75, "RULE_HP_REGENERATION", 1, 0, 500.0f, 1.0f, 0.1f, 0, false },
+        { 76, "RULE_GP_REGENERATION", 1, 0, 500.0f, 5.0f, 0.01f, 0, false },
+        { 77, "SUPPROTROLE_REGENERATION", 1, 0, 500.0f, 1.0f, 0.1f, 0, false },
+        { 78, "RULE_RESPAWNED", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 79, "BRAINWASH_SPEED_DOWN", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 80, "BRAINWASH_SPECIAL", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 81, "THUNDER_SPECIAL", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 82, "CH046_ARMOR", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 83, "CH104_STEEL", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 84, "CH026_OPTICALDAZZLEPAINT", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 85, "CH202_TRANS_MISSION", 0, 5, 0.0f, 0.0f, 0.0f, 5, false },
+        { 86, "CH202_HAKKEI", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 87, "CH202_EFFECT", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 88, "SPECIAL_SEAL", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 89, "ROLLSLOT_ACCELERATION", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 90, "CH024_TRANSPARENT_PERFECT", 1, 0, 500.0f, 5.0f, 0.01f, 0, false },
+        { 91, "CH015_RECOVERY_HEALTH_GUARDPOINT", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 92, "CH015_DISP_LOCATION_ON_HIT_AIMSEARCH", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 93, "RollSlot_Ability_Ch015_RECOVERY_HEALTH_GUARDPOINT", 0, 1, 50.0f, 0.0f, 0.0f, 0, false },
+        { 94, "CH025_WAVE_BARRIER", 0, 5, 50.0f, 50.0f, 0.1f, 5, false },
+        { 95, "CH011_ABYSS_DARK_BODY", 0, 5, 50.0f, 50.0f, 0.1f, 5, false },
+        { 96, "CH025_CONTINUOUS_RECOVER_HEALTH", 1, 0, 500.0f, 1.0f, 0.1f, 0, false },
+        { 97, "STONE_BIND_V2", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 98, "REVERSE_POISON_MIST_RECOVER_HEALTH", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 99, "CH002V3_SWEAT_BOMB", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 100, "ROLLSLOT_THUNDER", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+        { 101, "CH111_SUPERARMOR", 0, 0, 50.0f, 0.0f, 0.0f, 0, false },
+    };
+
+    static bool FullWidthButton(const char* label, float height = 0.0f);
+    static void SeparatorLabel(const char* label);
+    static void DrawPlayerNameInlineControls();
+    static void RenderPlayerNameSettingsCard(float width);
+
+    static const CharacterConditionOption* FindCharacterConditionOption(int conditionId)
+    {
+        for (const auto& option : g_CharacterConditionOptions)
+        {
+            if (option.id == conditionId)
+                return &option;
+        }
+        return nullptr;
+    }
+
+    static const CharacterConditionOption& GetDefaultCharacterConditionOption()
+    {
+        return *FindCharacterConditionOption(35);
+    }
+
+    static void LoadCharacterConditionDefaults(const CharacterConditionOption& option)
+    {
+        g_HackSettings.CharCondition_SelectedConditionId = option.id;
+        g_HackSettings.CharCondition_ApplyMode = option.defaultApplyMode;
+        g_HackSettings.CharCondition_Level = option.defaultLevel;
+        g_HackSettings.CharCondition_Duration = option.defaultDuration;
+        g_HackSettings.CharCondition_Value = option.defaultValue;
+        g_HackSettings.CharCondition_Interval = option.defaultInterval;
+        g_HackSettings.CharCondition_SubLevel = option.defaultSubLevel;
+        g_HackSettings.CharCondition_TimeOverwrite = option.defaultTimeOverwrite;
+    }
+
+    static void NormalizeCharacterConditionEditor()
+    {
+        if (!FindCharacterConditionOption(g_HackSettings.CharCondition_SelectedConditionId))
+            LoadCharacterConditionDefaults(GetDefaultCharacterConditionOption());
+
+        g_HackSettings.CharCondition_ApplyMode = std::clamp(g_HackSettings.CharCondition_ApplyMode, 0, 2);
+        if (g_HackSettings.CharCondition_Level < 0)
+            g_HackSettings.CharCondition_Level = 0;
+        if (g_HackSettings.CharCondition_Duration < 0.0f)
+            g_HackSettings.CharCondition_Duration = 0.0f;
+        if (g_HackSettings.CharCondition_Interval < 0.0f)
+            g_HackSettings.CharCondition_Interval = 0.0f;
+        if (g_HackSettings.CharCondition_SubLevel < 0)
+            g_HackSettings.CharCondition_SubLevel = 0;
+    }
+
+    static void FormatCharacterConditionLabel(const CharacterConditionOption& option, char* buffer, size_t bufferSize)
+    {
+        if (!buffer || bufferSize == 0)
+            return;
+
+        snprintf(buffer, bufferSize, "%d - %s", option.id, option.name);
+    }
+
+    static void PrepareCharacterConditionField(const char* label)
+    {
+        const float availableWidth = ImGui::GetContentRegionAvail().x;
+        const float labelWidth = availableWidth < 380.0f ? 120.0f : 180.0f;
+        const float spacing = ImGui::GetStyle().ItemSpacing.x;
+
+        if (availableWidth > labelWidth + spacing + 140.0f)
+        {
+            const float startX = ImGui::GetCursorPosX();
+            ImGui::AlignTextToFramePadding();
+            ImGui::TextUnformatted(label);
+            ImGui::SameLine(startX + labelWidth);
+            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+            return;
+        }
+
+        ImGui::TextUnformatted(label);
+        ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+    }
+
+    static bool EnqueueGameThreadMenuTask(std::function<void()> task, const char* label)
+    {
+        if (GameThreadHook::EnqueueTask(std::move(task)))
+            return true;
+
+        Logger::LogError(std::string("[Menu] Game thread hook not ready for ") + label);
+        return false;
+    }
+
+    static void DrawCharacterConditionCombo()
+    {
+        const CharacterConditionOption* selectedOption = FindCharacterConditionOption(g_HackSettings.CharCondition_SelectedConditionId);
+        if (!selectedOption)
+            selectedOption = &GetDefaultCharacterConditionOption();
+
+        char currentLabel[128] = {};
+        FormatCharacterConditionLabel(*selectedOption, currentLabel, sizeof(currentLabel));
+        PrepareCharacterConditionField("Condition");
+        if (ImGui::BeginCombo("##CharacterCondition", currentLabel, ImGuiComboFlags_HeightLarge))
+        {
+            for (const auto& option : g_CharacterConditionOptions)
+            {
+                const bool selected = g_HackSettings.CharCondition_SelectedConditionId == option.id;
+                char label[128] = {};
+                FormatCharacterConditionLabel(option, label, sizeof(label));
+                if (ImGui::Selectable(label, selected))
+                    LoadCharacterConditionDefaults(option);
+
+                if (selected)
+                    ImGui::SetItemDefaultFocus();
+            }
+            ImGui::EndCombo();
+        }
+    }
+
+    static void DrawCharacterConditionApplyModeCombo()
+    {
+        static const char* kApplyModes[] = {
+            "Server - SetCondition_ToServer",
+            "BP - BP_SetCondition",
+            "Local - BP_SetConditionLocal",
+        };
+
+        g_HackSettings.CharCondition_ApplyMode = std::clamp(g_HackSettings.CharCondition_ApplyMode, 0, 2);
+        const char* currentMode = kApplyModes[g_HackSettings.CharCondition_ApplyMode];
+
+        PrepareCharacterConditionField("Apply Mode");
+        if (ImGui::BeginCombo("##CharacterConditionApplyMode", currentMode))
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                const bool selected = g_HackSettings.CharCondition_ApplyMode == i;
+                if (ImGui::Selectable(kApplyModes[i], selected))
+                    g_HackSettings.CharCondition_ApplyMode = i;
+
+                if (selected)
+                    ImGui::SetItemDefaultFocus();
+            }
+            ImGui::EndCombo();
+        }
+    }
+
+    static void RenderCharacterConditionEditor()
+    {
+        NormalizeCharacterConditionEditor();
+
+        ImAdd::CheckBox("Auto Execute On Battle Entry", &g_HackSettings.CharCondition_AutoExecute);
+        DrawCharacterConditionCombo();
+        DrawCharacterConditionApplyModeCombo();
+
+        PrepareCharacterConditionField("Level");
+        ImGui::InputInt("##CharacterConditionLevel", &g_HackSettings.CharCondition_Level);
+        PrepareCharacterConditionField("Duration");
+        ImGui::InputFloat("##CharacterConditionDuration", &g_HackSettings.CharCondition_Duration, 1.0f, 10.0f, "%.2f");
+        PrepareCharacterConditionField("Value");
+        ImGui::InputFloat("##CharacterConditionValue", &g_HackSettings.CharCondition_Value, 1.0f, 10.0f, "%.2f");
+        PrepareCharacterConditionField("Interval");
+        ImGui::InputFloat("##CharacterConditionInterval", &g_HackSettings.CharCondition_Interval, 0.01f, 0.1f, "%.3f");
+        PrepareCharacterConditionField("Sub Level");
+        ImGui::InputInt("##CharacterConditionSubLevel", &g_HackSettings.CharCondition_SubLevel);
+
+        if (g_HackSettings.CharCondition_ApplyMode == 0)
+            ImAdd::CheckBox("Overwrite Time", &g_HackSettings.CharCondition_TimeOverwrite);
+
+        NormalizeCharacterConditionEditor();
+
+        if (FullWidthButton("APPLY CONDITION"))
+        {
+            const int conditionId = g_HackSettings.CharCondition_SelectedConditionId;
+            const int applyMode = g_HackSettings.CharCondition_ApplyMode;
+            const int level = g_HackSettings.CharCondition_Level;
+            const float duration = g_HackSettings.CharCondition_Duration;
+            const float value = g_HackSettings.CharCondition_Value;
+            const float interval = g_HackSettings.CharCondition_Interval;
+            const int subLevel = g_HackSettings.CharCondition_SubLevel;
+            const bool timeOverwrite = g_HackSettings.CharCondition_TimeOverwrite;
+            EnqueueGameThreadMenuTask([conditionId, applyMode, level, duration, value, interval, subLevel, timeOverwrite]() {
+                InGameHack_ApplyCustomCharacterCondition(conditionId, applyMode, level, duration, value, interval, subLevel, timeOverwrite);
+            }, "Apply Condition");
+        }
+
+        if (FullWidthButton("CLEAR CONDITION (TIME_UP)"))
+        {
+            const int conditionId = g_HackSettings.CharCondition_SelectedConditionId;
+            EnqueueGameThreadMenuTask([conditionId]() {
+                InGameHack_ClearCustomCharacterCondition(conditionId);
+            }, "Clear Condition");
+        }
+    }
     static HWND g_GameWindow = nullptr;
+    static HMODULE g_DllModule = nullptr;
     static WNDPROC g_OriginalWndProc = nullptr;
+    static bool g_WndProcRestored = false;
+    static std::atomic<int> g_WndProcCallDepth(0);
     static ID3D11Device* g_Device = nullptr;
     static ID3D11DeviceContext* g_DeviceContext = nullptr;
+    static ID3D11RenderTargetView* g_RenderTargetView = nullptr;
+    static IMFSourceReader* g_MenuVideoReader = nullptr;
+    static ID3D11Texture2D* g_MenuVideoTexture = nullptr;
+    static ID3D11ShaderResourceView* g_MenuVideoSRV = nullptr;
+    static UINT g_MenuVideoWidth = 0;
+    static UINT g_MenuVideoHeight = 0;
+    static UINT g_MenuVideoSourceWidth = 0;
+    static UINT g_MenuVideoSourceHeight = 0;
+    static LONG g_MenuVideoStride = 0;
+    static LONGLONG g_MenuVideoDuration = 0;
+    static double g_MenuVideoLastFrameTime = 0.0;
+    static HRESULT g_MenuVideoLastHr = S_OK;
+    static DWORD g_MenuVideoLastFlags = 0;
+    static DWORD g_MenuVideoLastWin32Error = ERROR_SUCCESS;
+    static LONG g_MenuVideoTempSerial = 0;
+    static UINT g_MenuVideoFrameCount = 0;
+    static UINT g_MenuVideoNoSampleCount = 0;
+    static UINT g_MenuVideoBufferBytes = 0;
+    static bool g_MenuVideoFrameCopied = false;
+    static bool g_MenuVideoComInitialized = false;
+    static bool g_MenuVideoMfStarted = false;
+    static bool g_MenuVideoReady = false;
+    static bool g_MenuVideoRotateToLandscape = false;
+    static const char* g_MenuVideoStatus = "idle";
+    static std::wstring g_MenuVideoTempPath;
+    static std::vector<unsigned char> g_MenuVideoEmbeddedBytes;
+    static constexpr double MENU_VIDEO_FRAME_INTERVAL = 1.0 / 30.0;
+    static ImFont* g_FreeFont = nullptr;
+    static ImFont* g_FreeFontLarge = nullptr;
+    static ImFont* g_FreeFontTitle = nullptr;
+    static ImFont* g_FreeFontSmall = nullptr;
+    static ImFont* g_FreeFontBrand = nullptr;
+    static ImFont* g_FreeIconFont = nullptr;
 
     // Profile Management
     static std::string g_CurrentProfileName = "Default";
@@ -97,19 +495,166 @@ namespace ImGuiMenu
     static bool g_ESP_DisplayOpen = true;
     static bool g_ESP_FiltersOpen = true;
     
-    // Hotkey listening state (Zero1 exact)
+    // Hotkey listening state
     static bool g_ListeningForHotkey = false;
-    static int g_HotkeyListenStartTime = 0;
+    static bool g_HotkeyWaitingForRelease = false;
+    static ULONGLONG g_HotkeyListenStartTime = 0;
     static int g_CurrentHotkeyValue = 0;  // Temporary value being set
+    static constexpr ULONGLONG HOTKEY_LISTEN_TIMEOUT_MS = 5000;
+    static constexpr int XINPUT_LT_HOTKEY = 0x1F00;
+    static constexpr int XINPUT_RT_HOTKEY = 0x2F00;
+    static constexpr int XINPUT_LEFT_STICK_UP_HOTKEY = 0x3001;
+    static constexpr int XINPUT_LEFT_STICK_DOWN_HOTKEY = 0x3002;
+    static constexpr int XINPUT_LEFT_STICK_LEFT_HOTKEY = 0x3003;
+    static constexpr int XINPUT_LEFT_STICK_RIGHT_HOTKEY = 0x3004;
+    static constexpr int XINPUT_RIGHT_STICK_UP_HOTKEY = 0x4001;
+    static constexpr int XINPUT_RIGHT_STICK_DOWN_HOTKEY = 0x4002;
+    static constexpr int XINPUT_RIGHT_STICK_LEFT_HOTKEY = 0x4003;
+    static constexpr int XINPUT_RIGHT_STICK_RIGHT_HOTKEY = 0x4004;
+    static constexpr BYTE XINPUT_HOTKEY_TRIGGER_THRESHOLD = 128;
+    static constexpr SHORT XINPUT_HOTKEY_STICK_THRESHOLD = 20000;
+
+    struct GamepadButtonHotkey
+    {
+        int code;
+        WORD mask;
+        const char* xboxName;
+        const char* psName;
+    };
+
+    static constexpr GamepadButtonHotkey GAMEPAD_BUTTON_HOTKEYS[] = {
+        { XINPUT_GAMEPAD_DPAD_UP, XINPUT_GAMEPAD_DPAD_UP, "D-Pad Up", "D-Pad Up" },
+        { XINPUT_GAMEPAD_DPAD_DOWN, XINPUT_GAMEPAD_DPAD_DOWN, "D-Pad Down", "D-Pad Down" },
+        { XINPUT_GAMEPAD_DPAD_LEFT, XINPUT_GAMEPAD_DPAD_LEFT, "D-Pad Left", "D-Pad Left" },
+        { XINPUT_GAMEPAD_DPAD_RIGHT, XINPUT_GAMEPAD_DPAD_RIGHT, "D-Pad Right", "D-Pad Right" },
+        { XINPUT_GAMEPAD_START, XINPUT_GAMEPAD_START, "Start", "Options" },
+        { XINPUT_GAMEPAD_BACK, XINPUT_GAMEPAD_BACK, "Back", "Share" },
+        { XINPUT_GAMEPAD_LEFT_THUMB, XINPUT_GAMEPAD_LEFT_THUMB, "L3", "L3" },
+        { XINPUT_GAMEPAD_RIGHT_THUMB, XINPUT_GAMEPAD_RIGHT_THUMB, "R3", "R3" },
+        { XINPUT_GAMEPAD_LEFT_SHOULDER, XINPUT_GAMEPAD_LEFT_SHOULDER, "LB", "L1" },
+        { XINPUT_GAMEPAD_RIGHT_SHOULDER, XINPUT_GAMEPAD_RIGHT_SHOULDER, "RB", "R1" },
+        { XINPUT_GAMEPAD_A, XINPUT_GAMEPAD_A, "A", "Cross" },
+        { XINPUT_GAMEPAD_B, XINPUT_GAMEPAD_B, "B", "Circle" },
+        { XINPUT_GAMEPAD_X, XINPUT_GAMEPAD_X, "X", "Square" },
+        { XINPUT_GAMEPAD_Y, XINPUT_GAMEPAD_Y, "Y", "Triangle" }
+    };
 
     // ============================================================================
-    // HOTKEY LISTENER FUNCTION (Zero1 exact)
+    // HOTKEY LISTENER FUNCTION
     // ============================================================================
     /**
      * @brief Listen for hotkey input (keyboard or gamepad) for 5 seconds
      * Returns 0 if timeout or ESC pressed, otherwise returns the key code
      */
-    static int GetHotkey(int currentKey, int inputType)
+    static bool IsKnownHotkeyId(int hotkeyId)
+    {
+        return hotkeyId >= 100 && hotkeyId <= 109;
+    }
+
+    static std::string GetWindowsKeyName(int keyCode)
+    {
+        if (keyCode <= 0 || keyCode > 0xFF)
+            return {};
+
+        switch (keyCode)
+        {
+            case VK_LBUTTON: return "Left Mouse";
+            case VK_RBUTTON: return "Right Mouse";
+            case VK_MBUTTON: return "Middle Mouse";
+            case VK_XBUTTON1: return "Mouse 4";
+            case VK_XBUTTON2: return "Mouse 5";
+            default: break;
+        }
+
+        UINT scanCode = MapVirtualKeyA(static_cast<UINT>(keyCode), MAPVK_VK_TO_VSC_EX);
+        if (scanCode == 0)
+            return {};
+
+        switch (keyCode)
+        {
+            case VK_LEFT:
+            case VK_RIGHT:
+            case VK_UP:
+            case VK_DOWN:
+            case VK_PRIOR:
+            case VK_NEXT:
+            case VK_END:
+            case VK_HOME:
+            case VK_INSERT:
+            case VK_DELETE:
+            case VK_DIVIDE:
+            case VK_NUMLOCK:
+                scanCode |= 0x100;
+                break;
+            default:
+                break;
+        }
+
+        char name[128] = {};
+        LONG lParam = static_cast<LONG>(scanCode << 16);
+        if (GetKeyNameTextA(lParam, name, sizeof(name)) <= 0)
+            return {};
+
+        return name;
+    }
+
+    static bool IsValidKeyboardHotkey(int keyCode)
+    {
+        return keyCode >= 0x01 &&
+               keyCode <= 0xFF &&
+               keyCode != VK_ESCAPE &&
+               !GetWindowsKeyName(keyCode).empty();
+    }
+
+    static bool IsValidGamepadHotkey(int keyCode)
+    {
+        for (const GamepadButtonHotkey& hotkey : GAMEPAD_BUTTON_HOTKEYS)
+        {
+            if (keyCode == hotkey.code)
+                return true;
+        }
+
+        switch (keyCode)
+        {
+            case XINPUT_LT_HOTKEY:
+            case XINPUT_RT_HOTKEY:
+            case XINPUT_LEFT_STICK_UP_HOTKEY:
+            case XINPUT_LEFT_STICK_DOWN_HOTKEY:
+            case XINPUT_LEFT_STICK_LEFT_HOTKEY:
+            case XINPUT_LEFT_STICK_RIGHT_HOTKEY:
+            case XINPUT_RIGHT_STICK_UP_HOTKEY:
+            case XINPUT_RIGHT_STICK_DOWN_HOTKEY:
+            case XINPUT_RIGHT_STICK_LEFT_HOTKEY:
+            case XINPUT_RIGHT_STICK_RIGHT_HOTKEY:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    static void StopHotkeyListening()
+    {
+        g_ListeningForHotkey = false;
+        g_HotkeyWaitingForRelease = false;
+        g_CurrentHotkeyValue = 0;
+        g_HotkeyListenStartTime = 0;
+    }
+
+    static void StartHotkeyListening(int hotkeyId)
+    {
+        if (!IsKnownHotkeyId(hotkeyId))
+        {
+            StopHotkeyListening();
+            return;
+        }
+
+        g_ListeningForHotkey = true;
+        g_HotkeyWaitingForRelease = true;
+        g_HotkeyListenStartTime = GetTickCount64();
+        g_CurrentHotkeyValue = hotkeyId;
+    }
+
+    static int GetHotkey(int inputType)
     {
         // Keyboard/Mouse input type (0)
         if (inputType == 0)
@@ -136,39 +681,41 @@ namespace ImGuiMenu
             {
                 if (XInputGetState(i, &xInputState) == ERROR_SUCCESS)
                 {
-                    // Check all button masks (XInput constants)
-                    int buttonMasks[] = {
-                        0x1000,  // A
-                        0x2000,  // B
-                        0x4000,  // X
-                        0x8000,  // Y
-                        0x0100,  // LB (Left Shoulder)
-                        0x0200,  // RB (Right Shoulder)
-                        0x0020,  // Back
-                        0x0010   // Start
-                    };
-                    
-                    for (int mask : buttonMasks)
+                    for (const GamepadButtonHotkey& hotkey : GAMEPAD_BUTTON_HOTKEYS)
                     {
-                        if ((xInputState.Gamepad.wButtons & mask) != 0)
+                        if ((xInputState.Gamepad.wButtons & hotkey.mask) != 0)
                         {
-                            return mask;  // Return the button mask
+                            return hotkey.code;
                         }
                     }
-                    
-                    // Check analog triggers (L2/LT and R2/RT)
-                    // Use special codes: 0x1F00 for LT, 0x2F00 for RT
-                    const int TRIGGER_THRESHOLD = 128;
-                    
-                    if (xInputState.Gamepad.bLeftTrigger > TRIGGER_THRESHOLD)
+
+                    if (xInputState.Gamepad.bLeftTrigger > XINPUT_HOTKEY_TRIGGER_THRESHOLD)
                     {
-                        return 0x1F00;  // Special code for LT/L2
+                        return XINPUT_LT_HOTKEY;
                     }
                     
-                    if (xInputState.Gamepad.bRightTrigger > TRIGGER_THRESHOLD)
+                    if (xInputState.Gamepad.bRightTrigger > XINPUT_HOTKEY_TRIGGER_THRESHOLD)
                     {
-                        return 0x2F00;  // Special code for RT/R2
+                        return XINPUT_RT_HOTKEY;
                     }
+
+                    if (xInputState.Gamepad.sThumbLY > XINPUT_HOTKEY_STICK_THRESHOLD)
+                        return XINPUT_LEFT_STICK_UP_HOTKEY;
+                    if (xInputState.Gamepad.sThumbLY < -XINPUT_HOTKEY_STICK_THRESHOLD)
+                        return XINPUT_LEFT_STICK_DOWN_HOTKEY;
+                    if (xInputState.Gamepad.sThumbLX < -XINPUT_HOTKEY_STICK_THRESHOLD)
+                        return XINPUT_LEFT_STICK_LEFT_HOTKEY;
+                    if (xInputState.Gamepad.sThumbLX > XINPUT_HOTKEY_STICK_THRESHOLD)
+                        return XINPUT_LEFT_STICK_RIGHT_HOTKEY;
+
+                    if (xInputState.Gamepad.sThumbRY > XINPUT_HOTKEY_STICK_THRESHOLD)
+                        return XINPUT_RIGHT_STICK_UP_HOTKEY;
+                    if (xInputState.Gamepad.sThumbRY < -XINPUT_HOTKEY_STICK_THRESHOLD)
+                        return XINPUT_RIGHT_STICK_DOWN_HOTKEY;
+                    if (xInputState.Gamepad.sThumbRX < -XINPUT_HOTKEY_STICK_THRESHOLD)
+                        return XINPUT_RIGHT_STICK_LEFT_HOTKEY;
+                    if (xInputState.Gamepad.sThumbRX > XINPUT_HOTKEY_STICK_THRESHOLD)
+                        return XINPUT_RIGHT_STICK_RIGHT_HOTKEY;
                 }
             }
         }
@@ -182,15 +729,16 @@ namespace ImGuiMenu
      */
     static std::string GetKeyName(int keyCode, int inputType)
     {
-        // Keyboard/Mouse names
         if (inputType == 0)  // HotKeyType::KeyboardMouse
         {
             switch (keyCode)
             {
-                // Mouse buttons
-                case 0x01: return "Left Mouse";
-                case 0x02: return "Right Mouse";
-                case 0x04: return "Middle Mouse";
+                case 0: return "None";
+                case VK_LBUTTON: return "Left Mouse";
+                case VK_RBUTTON: return "Right Mouse";
+                case VK_MBUTTON: return "Middle Mouse";
+                case VK_XBUTTON1: return "Mouse 4";
+                case VK_XBUTTON2: return "Mouse 5";
                 
                 // Function keys
                 case 0x70: return "F1";
@@ -267,33 +815,37 @@ namespace ImGuiMenu
                 
                 default:
                 {
-                    char buffer[32];
-                    snprintf(buffer, sizeof(buffer), "Key 0x%02X", keyCode);
-                    return buffer;
+                    std::string keyName = GetWindowsKeyName(keyCode);
+                    return keyName.empty() ? "Unassigned" : keyName;
                 }
             }
         }
-        // Gamepad names (Xbox/PS4)
-        else if (inputType == 1)  // HotKeyType::Gamepad
+        else if (inputType == 1 || inputType == 2)  // HotKeyType::Gamepad
         {
+            const bool usePlayStationNames = (inputType == 2);
+
+            if (keyCode == 0)
+                return "None";
+
+            for (const GamepadButtonHotkey& hotkey : GAMEPAD_BUTTON_HOTKEYS)
+            {
+                if (keyCode == hotkey.code)
+                    return usePlayStationNames ? hotkey.psName : hotkey.xboxName;
+            }
+
             switch (keyCode)
             {
-                case 0x1000: return "A";
-                case 0x2000: return "B";
-                case 0x4000: return "X";
-                case 0x8000: return "Y";
-                case 0x0100: return "LB";
-                case 0x0200: return "RB";
-                case 0x0020: return "Back";
-                case 0x0010: return "Start";
-                case 0x1F00: return "LT";
-                case 0x2F00: return "RT";
-                default:
-                {
-                    char buffer[32];
-                    snprintf(buffer, sizeof(buffer), "Button 0x%X", keyCode);
-                    return buffer;
-                }
+                case XINPUT_LT_HOTKEY: return usePlayStationNames ? "L2" : "LT";
+                case XINPUT_RT_HOTKEY: return usePlayStationNames ? "R2" : "RT";
+                case XINPUT_LEFT_STICK_UP_HOTKEY: return "Left Stick Up";
+                case XINPUT_LEFT_STICK_DOWN_HOTKEY: return "Left Stick Down";
+                case XINPUT_LEFT_STICK_LEFT_HOTKEY: return "Left Stick Left";
+                case XINPUT_LEFT_STICK_RIGHT_HOTKEY: return "Left Stick Right";
+                case XINPUT_RIGHT_STICK_UP_HOTKEY: return "Right Stick Up";
+                case XINPUT_RIGHT_STICK_DOWN_HOTKEY: return "Right Stick Down";
+                case XINPUT_RIGHT_STICK_LEFT_HOTKEY: return "Right Stick Left";
+                case XINPUT_RIGHT_STICK_RIGHT_HOTKEY: return "Right Stick Right";
+                default: return "Unassigned";
             }
         }
         
@@ -306,52 +858,286 @@ namespace ImGuiMenu
     struct ColorPalette
     {
         // Backgrounds
-        ImVec4 bgDarkest = ImVec4(0.04f, 0.03f, 0.06f, 1.0f);
-        ImVec4 bgDark = ImVec4(0.08f, 0.06f, 0.12f, 0.97f);
-        ImVec4 bgMedium = ImVec4(0.12f, 0.10f, 0.18f, 1.0f);
-        ImVec4 bgLight = ImVec4(0.2f, 0.16f, 0.26f, 1.0f);
+        ImVec4 bgDarkest = ImVec4(0.012f, 0.010f, 0.020f, 1.0f);
+        ImVec4 bgDark = ImVec4(0.026f, 0.022f, 0.040f, 0.98f);
+        ImVec4 bgMedium = ImVec4(0.050f, 0.042f, 0.082f, 1.0f);
+        ImVec4 bgLight = ImVec4(0.095f, 0.078f, 0.145f, 1.0f);
 
-        // Accent colors - Mauve/Magenta
-        ImVec4 accentColor = ImVec4(0.65f, 0.35f, 0.95f, 1.0f);
-        ImVec4 accentColorHover = ImVec4(0.75f, 0.45f, 1.0f, 1.0f);
-        ImVec4 accentColorActive = ImVec4(0.55f, 0.25f, 0.85f, 1.0f);
+        // Accent colors
+        ImVec4 accentColor = ImVec4(0.615f, 0.300f, 1.000f, 1.0f);
+        ImVec4 accentColorHover = ImVec4(0.735f, 0.420f, 1.000f, 1.0f);
+        ImVec4 accentColorActive = ImVec4(0.435f, 0.145f, 0.850f, 1.0f);
 
         // Status colors
-        ImVec4 success = ImVec4(0.45f, 0.95f, 0.55f, 1.0f);
-        ImVec4 warning = ImVec4(1.0f, 0.75f, 0.3f, 1.0f);
-        ImVec4 danger = ImVec4(0.95f, 0.35f, 0.45f, 1.0f);
+        ImVec4 success = ImVec4(0.250f, 1.000f, 0.520f, 1.0f);
+        ImVec4 warning = ImVec4(1.000f, 0.760f, 0.220f, 1.0f);
+        ImVec4 danger = ImVec4(1.000f, 0.170f, 0.420f, 1.0f);
 
         // Text colors
-        ImVec4 textPrimary = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
-        ImVec4 textSecondary = ImVec4(0.75f, 0.70f, 0.80f, 1.0f);
-        ImVec4 textDisabled = ImVec4(0.5f, 0.5f, 0.52f, 1.0f);
+        ImVec4 textPrimary = ImVec4(0.955f, 0.940f, 1.000f, 1.0f);
+        ImVec4 textSecondary = ImVec4(0.690f, 0.635f, 0.785f, 1.0f);
+        ImVec4 textDisabled = ImVec4(0.405f, 0.365f, 0.490f, 1.0f);
 
         // Legacy accents (for compatibility)
-        ImVec4 primaryBlue = accentColor;
+        ImVec4 primaryBlue = ImVec4(0.220f, 0.430f, 1.000f, 1.0f);
         ImVec4 accentCyan = accentColor;
-        ImVec4 accentMagenta = accentColor;
+        ImVec4 accentMagenta = ImVec4(1.000f, 0.180f, 0.760f, 1.0f);
         ImVec4 accentYellow = warning;
-        ImVec4 accentOrange = ImVec4(1.0f, 0.5f, 0.2f, 1.0f);
+        ImVec4 accentOrange = ImVec4(1.000f, 0.430f, 0.160f, 1.0f);
         ImVec4 accentPurple = accentColor;
         ImVec4 accentGreen = success;
-        ImVec4 accentAqua = accentColorHover;
+        ImVec4 accentAqua = ImVec4(0.110f, 1.000f, 0.820f, 1.0f);
     };
     static ColorPalette g_Colors;
+
+    struct PreviewMenuTheme
+    {
+        const char* name;
+        ImVec4 windowBg;
+        ImVec4 cardBg;
+        ImVec4 surfaceBg;
+        ImVec4 surfaceHover;
+        ImVec4 surfaceActive;
+        ImVec4 border;
+        ImVec4 accent;
+        ImVec4 accentHover;
+        ImVec4 accentActive;
+        ImVec4 accentSecondary;
+        ImVec4 text;
+        ImVec4 textSecondary;
+        ImVec4 textDisabled;
+    };
+
+    static ImVec4 AlphaColor(ImVec4 color, float alpha)
+    {
+        color.w = alpha;
+        return color;
+    }
+
+    static ImVec4 LerpColor(const ImVec4& from, const ImVec4& to, float t, float alpha)
+    {
+        return ImVec4(
+            from.x + (to.x - from.x) * t,
+            from.y + (to.y - from.y) * t,
+            from.z + (to.z - from.z) * t,
+            alpha
+        );
+    }
+
+    static const PreviewMenuTheme g_PreviewThemes[] =
+    {
+        {
+            "Factory Blue",
+            ImVec4(0.039f, 0.027f, 0.031f, 1.0f),
+            ImVec4(0.071f, 0.059f, 0.067f, 1.0f),
+            ImVec4(0.102f, 0.086f, 0.090f, 1.0f),
+            ImVec4(0.134f, 0.118f, 0.122f, 1.0f),
+            ImVec4(0.082f, 0.071f, 0.075f, 1.0f),
+            ImVec4(0.134f, 0.110f, 0.118f, 1.0f),
+            ImVec4(0.341f, 0.745f, 0.918f, 1.0f),
+            ImVec4(0.169f, 0.659f, 0.878f, 1.0f),
+            ImVec4(0.000f, 0.478f, 0.784f, 1.0f),
+            ImVec4(0.565f, 0.365f, 1.000f, 1.0f),
+            ImVec4(0.855f, 0.855f, 0.855f, 1.0f),
+            ImVec4(0.660f, 0.690f, 0.710f, 1.0f),
+            ImVec4(0.333f, 0.333f, 0.333f, 1.0f)
+        },
+        {
+            "Rugir Violet",
+            ImVec4(0.031f, 0.027f, 0.067f, 1.0f),
+            ImVec4(0.071f, 0.059f, 0.114f, 1.0f),
+            ImVec4(0.102f, 0.086f, 0.157f, 1.0f),
+            ImVec4(0.149f, 0.122f, 0.212f, 1.0f),
+            ImVec4(0.086f, 0.071f, 0.129f, 1.0f),
+            ImVec4(0.173f, 0.130f, 0.285f, 1.0f),
+            ImVec4(0.615f, 0.302f, 1.000f, 1.0f),
+            ImVec4(0.745f, 0.471f, 1.000f, 1.0f),
+            ImVec4(0.435f, 0.145f, 0.850f, 1.0f),
+            ImVec4(1.000f, 0.180f, 0.760f, 1.0f),
+            ImVec4(0.955f, 0.940f, 1.000f, 1.0f),
+            ImVec4(0.700f, 0.650f, 0.820f, 1.0f),
+            ImVec4(0.405f, 0.365f, 0.490f, 1.0f)
+        },
+        {
+            "Viridian",
+            ImVec4(0.024f, 0.055f, 0.051f, 1.0f),
+            ImVec4(0.051f, 0.094f, 0.086f, 1.0f),
+            ImVec4(0.063f, 0.133f, 0.122f, 1.0f),
+            ImVec4(0.090f, 0.188f, 0.169f, 1.0f),
+            ImVec4(0.051f, 0.110f, 0.098f, 1.0f),
+            ImVec4(0.086f, 0.220f, 0.196f, 1.0f),
+            ImVec4(0.224f, 0.902f, 0.694f, 1.0f),
+            ImVec4(0.396f, 1.000f, 0.816f, 1.0f),
+            ImVec4(0.067f, 0.663f, 0.506f, 1.0f),
+            ImVec4(0.325f, 0.647f, 1.000f, 1.0f),
+            ImVec4(0.900f, 1.000f, 0.965f, 1.0f),
+            ImVec4(0.640f, 0.775f, 0.735f, 1.0f),
+            ImVec4(0.365f, 0.480f, 0.445f, 1.0f)
+        },
+        {
+            "Crimson",
+            ImVec4(0.071f, 0.024f, 0.027f, 1.0f),
+            ImVec4(0.102f, 0.051f, 0.059f, 1.0f),
+            ImVec4(0.141f, 0.075f, 0.086f, 1.0f),
+            ImVec4(0.196f, 0.102f, 0.114f, 1.0f),
+            ImVec4(0.110f, 0.055f, 0.067f, 1.0f),
+            ImVec4(0.240f, 0.105f, 0.130f, 1.0f),
+            ImVec4(1.000f, 0.302f, 0.451f, 1.0f),
+            ImVec4(1.000f, 0.478f, 0.596f, 1.0f),
+            ImVec4(0.780f, 0.122f, 0.282f, 1.0f),
+            ImVec4(1.000f, 0.710f, 0.278f, 1.0f),
+            ImVec4(1.000f, 0.930f, 0.940f, 1.0f),
+            ImVec4(0.805f, 0.640f, 0.665f, 1.0f),
+            ImVec4(0.520f, 0.360f, 0.385f, 1.0f)
+        },
+        {
+            "Solar",
+            ImVec4(0.063f, 0.047f, 0.020f, 1.0f),
+            ImVec4(0.094f, 0.071f, 0.035f, 1.0f),
+            ImVec4(0.141f, 0.106f, 0.051f, 1.0f),
+            ImVec4(0.200f, 0.145f, 0.075f, 1.0f),
+            ImVec4(0.114f, 0.086f, 0.039f, 1.0f),
+            ImVec4(0.255f, 0.188f, 0.082f, 1.0f),
+            ImVec4(1.000f, 0.784f, 0.341f, 1.0f),
+            ImVec4(1.000f, 0.871f, 0.490f, 1.0f),
+            ImVec4(0.812f, 0.561f, 0.122f, 1.0f),
+            ImVec4(0.255f, 0.839f, 1.000f, 1.0f),
+            ImVec4(1.000f, 0.965f, 0.875f, 1.0f),
+            ImVec4(0.810f, 0.725f, 0.590f, 1.0f),
+            ImVec4(0.520f, 0.440f, 0.315f, 1.0f)
+        }
+    };
+
+    static int g_SelectedPreviewTheme = 0;
+
+    static int GetPreviewThemeCount()
+    {
+        return (int)(sizeof(g_PreviewThemes) / sizeof(g_PreviewThemes[0]));
+    }
+
+    static const PreviewMenuTheme& GetActivePreviewTheme()
+    {
+        int themeCount = GetPreviewThemeCount();
+        if (g_SelectedPreviewTheme < 0 || g_SelectedPreviewTheme >= themeCount)
+            g_SelectedPreviewTheme = 0;
+
+        return g_PreviewThemes[g_SelectedPreviewTheme];
+    }
+
+    static void ApplyPreviewThemeToMenuColors(const PreviewMenuTheme& theme)
+    {
+        g_Colors.bgDarkest = theme.windowBg;
+        g_Colors.bgDark = AlphaColor(theme.cardBg, 0.98f);
+        g_Colors.bgMedium = theme.surfaceBg;
+        g_Colors.bgLight = theme.surfaceHover;
+
+        g_Colors.accentColor = theme.accent;
+        g_Colors.accentColorHover = theme.accentHover;
+        g_Colors.accentColorActive = theme.accentActive;
+
+        g_Colors.textPrimary = theme.text;
+        g_Colors.textSecondary = theme.textSecondary;
+        g_Colors.textDisabled = theme.textDisabled;
+
+        g_Colors.primaryBlue = theme.accentActive;
+        g_Colors.accentCyan = theme.accentHover;
+        g_Colors.accentMagenta = theme.accentSecondary;
+        g_Colors.accentPurple = theme.accent;
+        g_Colors.accentAqua = theme.accentHover;
+    }
+
+    static void ReleaseRenderTargetView()
+    {
+        if (g_RenderTargetView)
+        {
+            g_RenderTargetView->Release();
+            g_RenderTargetView = nullptr;
+        }
+    }
+
+    static bool EnsureRenderTargetView(IDXGISwapChain* pSwapChain, ID3D11Device* device)
+    {
+        if (g_RenderTargetView)
+            return true;
+
+        ID3D11Texture2D* backbuffer = nullptr;
+        if (FAILED(pSwapChain->GetBuffer(0, IID_PPV_ARGS(&backbuffer))))
+            return false;
+
+        HRESULT hr = device->CreateRenderTargetView(backbuffer, nullptr, &g_RenderTargetView);
+        backbuffer->Release();
+
+        if (FAILED(hr))
+        {
+            g_RenderTargetView = nullptr;
+            return false;
+        }
+
+        return true;
+    }
 
     // ============================================================================
     // WINDOW PROCEDURE - INPUT HANDLING
     // ============================================================================
     static LRESULT CALLBACK HookedWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
+        struct WndProcScope
+        {
+            WndProcScope()
+            {
+                g_WndProcCallDepth.fetch_add(1, std::memory_order_acq_rel);
+            }
+
+            ~WndProcScope()
+            {
+                g_WndProcCallDepth.fetch_sub(1, std::memory_order_acq_rel);
+            }
+        } wndProcScope;
+
+        if (UnloadManager::IsUnloadRequested())
+        {
+            if (g_OriginalWndProc)
+                return CallWindowProc(g_OriginalWndProc, hWnd, msg, wParam, lParam);
+
+            return DefWindowProc(hWnd, msg, wParam, lParam);
+        }
+
         // Toggle menu with INSERT key
         if (msg == WM_KEYDOWN && wParam == VK_INSERT)
         {
-            g_Visible = !g_Visible;
+            if (!g_MenuHotkeyDown)
+            {
+                g_Visible = !g_Visible;
+                g_MenuHotkeyDown = true;
+            }
+            return true;
+        }
+
+        if (msg == WM_KEYUP && wParam == VK_INSERT)
+        {
+            g_MenuHotkeyDown = false;
+            return true;
+        }
+
+        if (msg == WM_KEYDOWN && wParam == PLAYER_NETWORK_TABLE_HOTKEY)
+        {
+            if (!g_ListeningForHotkey && !g_PlayerNetworkTableHotkeyDown)
+            {
+                g_PlayerNetworkTableVisible = !g_PlayerNetworkTableVisible;
+                g_PlayerNetworkTableHotkeyDown = true;
+                g_PlayerListHotkeyHintVisible = false;
+            }
+            return true;
+        }
+
+        if (msg == WM_KEYUP && wParam == PLAYER_NETWORK_TABLE_HOTKEY)
+        {
+            g_PlayerNetworkTableHotkeyDown = false;
             return true;
         }
 
         // Handle ImGui input
-        if (ImGui::GetCurrentContext() != nullptr && g_Visible)
+        if (ImGui::GetCurrentContext() != nullptr && (g_Visible || g_PlayerNetworkTableVisible))
         {
             // First pass the message to ImGui_ImplWin32_WndProcHandler for proper input handling
             ImGuiIO& io = ImGui::GetIO();
@@ -396,127 +1182,1093 @@ namespace ImGuiMenu
             }
         }
 
-        return CallWindowProc(g_OriginalWndProc, hWnd, msg, wParam, lParam);
+        if (g_OriginalWndProc)
+            return CallWindowProc(g_OriginalWndProc, hWnd, msg, wParam, lParam);
+
+        return DefWindowProc(hWnd, msg, wParam, lParam);
     }
 
     // ============================================================================
     // STYLING & COLOR SETUP - MODERNE MAUVE THEME
     // ============================================================================
-    static void SetupColorScheme()
+
+    static std::string GetDllDirectoryPath()
     {
-        ImGuiStyle* style = &ImGui::GetStyle();
-        ImVec4* colors = style->Colors;
+        char dllPath[MAX_PATH] = { 0 };
+        HMODULE hModule = NULL;
 
-        // Windows & Backgrounds
-        colors[ImGuiCol_WindowBg] = g_Colors.bgDark;
-        colors[ImGuiCol_ChildBg] = g_Colors.bgDarkest;
-        colors[ImGuiCol_PopupBg] = g_Colors.bgDark;
+        if (!GetModuleHandleExA(
+            GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+            (LPCSTR)&GetDllDirectoryPath,
+            &hModule))
+        {
+            return {};
+        }
 
-        // Borders & Separators - Mauve Accent
-        colors[ImGuiCol_Border] = g_Colors.accentColor;
-        colors[ImGuiCol_BorderShadow] = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
-        colors[ImGuiCol_Separator] = g_Colors.accentColor;
+        if (!GetModuleFileNameA(hModule, dllPath, MAX_PATH))
+            return {};
 
-        // Title Bar
-        colors[ImGuiCol_TitleBg] = g_Colors.bgMedium;
-        colors[ImGuiCol_TitleBgActive] = g_Colors.accentColor;
-        colors[ImGuiCol_TitleBgCollapsed] = g_Colors.bgLight;
+        char* lastSlash = strrchr(dllPath, '\\');
+        if (!lastSlash)
+            return {};
 
-        // Menus
-        colors[ImGuiCol_MenuBarBg] = g_Colors.bgMedium;
-        colors[ImGuiCol_ScrollbarBg] = g_Colors.bgDarkest;
-        colors[ImGuiCol_ScrollbarGrab] = g_Colors.accentColor;
-        colors[ImGuiCol_ScrollbarGrabHovered] = g_Colors.accentColorHover;
-        colors[ImGuiCol_ScrollbarGrabActive] = g_Colors.accentColorActive;
+        *lastSlash = '\0';
+        return dllPath;
+    }
 
-        // Tabs
-        colors[ImGuiCol_Tab] = g_Colors.bgLight;
-        colors[ImGuiCol_TabHovered] = g_Colors.accentColorHover;
-        colors[ImGuiCol_TabActive] = g_Colors.accentColor;
-        colors[ImGuiCol_TabUnfocused] = g_Colors.bgMedium;
-        colors[ImGuiCol_TabUnfocusedActive] = g_Colors.accentColor;
+    static std::string JoinPath(const std::string& base, const char* relativePath)
+    {
+        if (base.empty())
+            return relativePath ? relativePath : "";
 
-        // Headers
-        colors[ImGuiCol_Header] = g_Colors.bgLight;
-        colors[ImGuiCol_HeaderHovered] = g_Colors.accentColorHover;
-        colors[ImGuiCol_HeaderActive] = g_Colors.accentColor;
+        std::string result = base;
+        if (!result.empty() && result.back() != '\\' && relativePath && relativePath[0] != '\\')
+            result += "\\";
+        result += relativePath ? relativePath : "";
+        return result;
+    }
 
-        // Buttons
-        colors[ImGuiCol_Button] = g_Colors.bgLight;
-        colors[ImGuiCol_ButtonHovered] = g_Colors.accentColorHover;
-        colors[ImGuiCol_ButtonActive] = g_Colors.accentColorActive;
+    static const char* GetAssetFileName(const char* relativePath)
+    {
+        if (!relativePath)
+            return "";
 
-        // Frames
-        colors[ImGuiCol_FrameBg] = g_Colors.bgMedium;
-        colors[ImGuiCol_FrameBgHovered] = g_Colors.bgLight;
-        colors[ImGuiCol_FrameBgActive] = g_Colors.accentColor;
+        const char* lastBackslash = strrchr(relativePath, '\\');
+        const char* lastSlash = strrchr(relativePath, '/');
+        const char* lastSeparator = lastBackslash > lastSlash ? lastBackslash : lastSlash;
+        return lastSeparator ? lastSeparator + 1 : relativePath;
+    }
 
-        // Checkmark
-        colors[ImGuiCol_CheckMark] = g_Colors.accentColor;
+    static std::string BuildProjectAssetPath(const char* relativePath)
+    {
+        std::string root = IconLoader::CharacterIconCache::GetProjectRootPath();
+        if (root.empty())
+            return relativePath ? relativePath : "";
 
-        // Sliders
-        colors[ImGuiCol_SliderGrab] = g_Colors.accentColor;
-        colors[ImGuiCol_SliderGrabActive] = g_Colors.accentColorActive;
+        return JoinPath(root, relativePath);
+    }
 
-        // Text
+    static std::string BuildDllAssetPath(const char* relativePath)
+    {
+        return JoinPath(JoinPath(GetDllDirectoryPath(), "Assets"), GetAssetFileName(relativePath));
+    }
+
+    static std::string BuildDllDirectAssetPath(const char* relativePath)
+    {
+        return JoinPath(GetDllDirectoryPath(), GetAssetFileName(relativePath));
+    }
+
+    static void LoadRugirLogo()
+    {
+        if (g_RugirLogo)
+            return;
+
+        g_RugirLogo = IconLoader::CharacterIconCache::LoadEmbeddedImageExternal(
+            EmbeddedImages::FindAsset(EmbeddedImages::AssetId::Rugir));
+        if (g_RugirLogo)
+        {
+            Logger::LogInfo("[Menu] Loaded embedded logo bytes.");
+            return;
+        }
+
+        const char* logoAssetPath = "src\\Assets\\rugir.png";
+        std::string dllLogo = BuildDllAssetPath(logoAssetPath);
+        std::string dllDirectLogo = BuildDllDirectAssetPath(logoAssetPath);
+        std::string projectLogo = BuildProjectAssetPath(logoAssetPath);
+        const std::string logoPaths[] = {
+            dllLogo,
+            dllDirectLogo,
+            projectLogo,
+            logoAssetPath,
+            "C:\\Users\\Shayne\\Downloads\\rugir.png"
+        };
+
+        for (const std::string& path : logoPaths)
+        {
+            if (path.empty())
+                continue;
+
+            g_RugirLogo = IconLoader::CharacterIconCache::LoadPNGFromFileExternal(path.c_str());
+            if (g_RugirLogo)
+            {
+                Logger::LogInfo("[Menu] Loaded logo: " + path);
+                return;
+            }
+        }
+
+        Logger::LogWarning("[Menu] Logo image not found or not decodable. Using drawn fallback.");
+    }
+
+    static ID3D11ShaderResourceView* LoadAssetTexture(
+        const char* relativePath,
+        EmbeddedImages::AssetId embeddedAssetId = EmbeddedImages::AssetId::None)
+    {
+        if (!relativePath || !relativePath[0])
+            return nullptr;
+
+        if (embeddedAssetId != EmbeddedImages::AssetId::None)
+        {
+            ID3D11ShaderResourceView* embeddedTexture = IconLoader::CharacterIconCache::LoadEmbeddedImageExternal(
+                EmbeddedImages::FindAsset(embeddedAssetId));
+            if (embeddedTexture)
+            {
+                Logger::LogInfo(std::string("[Menu] Loaded embedded asset bytes: ") + relativePath);
+                return embeddedTexture;
+            }
+        }
+
+        std::string dllAssetPath = BuildDllAssetPath(relativePath);
+        std::string dllDirectPath = BuildDllDirectAssetPath(relativePath);
+        std::string projectPath = BuildProjectAssetPath(relativePath);
+        const std::string paths[] = {
+            dllAssetPath,
+            dllDirectPath,
+            projectPath,
+            relativePath
+        };
+
+        for (const std::string& path : paths)
+        {
+            if (path.empty())
+                continue;
+
+            ID3D11ShaderResourceView* texture = IconLoader::CharacterIconCache::LoadPNGFromFileExternal(path.c_str());
+            if (texture)
+            {
+                Logger::LogInfo("[Menu] Loaded asset texture: " + path);
+                return texture;
+            }
+        }
+
+        Logger::LogWarning(std::string("[Menu] Asset texture not found or not decodable: ") + relativePath);
+        return nullptr;
+    }
+
+    static void LoadPlatformIcons()
+    {
+        struct PlatformIconAsset
+        {
+            int platform;
+            const char* path;
+            EmbeddedImages::AssetId embeddedAssetId;
+        };
+
+        const PlatformIconAsset assets[] = {
+            { 1, "src\\Assets\\Psn-Logo-PNG-Photos.png", EmbeddedImages::AssetId::PlatformPsn },
+            { 2, "src\\Assets\\xbox.png", EmbeddedImages::AssetId::PlatformXbox },
+            { 3, "src\\Assets\\Steam_icon_logo.svg.png", EmbeddedImages::AssetId::PlatformSteam },
+            { 4, "src\\Assets\\Nintendo-switch-icon.png", EmbeddedImages::AssetId::PlatformSwitch }
+        };
+
+        for (const PlatformIconAsset& asset : assets)
+        {
+            if (asset.platform <= 0 || asset.platform >= PLATFORM_ICON_COUNT || g_PlatformIcons[asset.platform])
+                continue;
+
+            g_PlatformIcons[asset.platform] = LoadAssetTexture(asset.path, asset.embeddedAssetId);
+        }
+    }
+
+    static void ReleasePlatformIcons()
+    {
+        for (int i = 0; i < PLATFORM_ICON_COUNT; i++)
+        {
+            if (g_PlatformIcons[i])
+            {
+                g_PlatformIcons[i]->Release();
+                g_PlatformIcons[i] = nullptr;
+            }
+        }
+    }
+
+    static HMODULE GetCurrentDllModuleHandle()
+    {
+        if (g_DllModule)
+            return g_DllModule;
+
+        HMODULE module = nullptr;
+        if (!GetModuleHandleExW(
+            GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+            reinterpret_cast<LPCWSTR>(&GetCurrentDllModuleHandle),
+            &module))
+        {
+            return nullptr;
+        }
+
+        return module;
+    }
+
+    static bool WriteMenuVideoResourceToTempFile(std::wstring& outPath)
+    {
+        if (g_MenuVideoEmbeddedBytes.empty())
+        {
+            HMODULE module = GetCurrentDllModuleHandle();
+            if (!module)
+            {
+                g_MenuVideoStatus = "module fail";
+                return false;
+            }
+
+            if (!PreloadEmbeddedVideoResource(module))
+                return false;
+        }
+
+        if (g_MenuVideoEmbeddedBytes.empty())
+        {
+            g_MenuVideoStatus = "resource empty";
+            return false;
+        }
+
+        wchar_t tempDir[MAX_PATH] = {};
+        DWORD tempDirLength = GetTempPathW(MAX_PATH, tempDir);
+        if (tempDirLength == 0 || tempDirLength >= MAX_PATH)
+        {
+            g_MenuVideoStatus = "temp path fail";
+            return false;
+        }
+
+        const LONG tempSerial = InterlockedIncrement(&g_MenuVideoTempSerial);
+        wchar_t tempFile[MAX_PATH] = {};
+        if (swprintf_s(
+            tempFile,
+            L"%srugir_menu_background_%lu_%lu_%ld_%llu.mp4",
+            tempDir,
+            GetCurrentProcessId(),
+            GetCurrentThreadId(),
+            tempSerial,
+            (unsigned long long)GetTickCount64()) < 0)
+        {
+            g_MenuVideoLastWin32Error = ERROR_BUFFER_OVERFLOW;
+            g_MenuVideoStatus = "temp name fail";
+            return false;
+        }
+
+        HANDLE file = CreateFileW(
+            tempFile,
+            GENERIC_WRITE,
+            FILE_SHARE_READ | FILE_SHARE_DELETE,
+            nullptr,
+            CREATE_NEW,
+            FILE_ATTRIBUTE_TEMPORARY,
+            nullptr);
+        if (file == INVALID_HANDLE_VALUE)
+        {
+            g_MenuVideoLastWin32Error = GetLastError();
+            g_MenuVideoStatus = "temp open fail";
+            return false;
+        }
+
+        DWORD written = 0;
+        const DWORD resourceSize = (DWORD)g_MenuVideoEmbeddedBytes.size();
+        const BOOL ok = WriteFile(file, g_MenuVideoEmbeddedBytes.data(), resourceSize, &written, nullptr);
+        g_MenuVideoLastWin32Error = ok ? ERROR_SUCCESS : GetLastError();
+        CloseHandle(file);
+        if (!ok || written != resourceSize)
+        {
+            DeleteFileW(tempFile);
+            g_MenuVideoStatus = "temp write fail";
+            return false;
+        }
+
+        outPath = tempFile;
+        g_MenuVideoLastWin32Error = ERROR_SUCCESS;
+        g_MenuVideoStatus = "temp ready";
+        return true;
+    }
+
+    static bool CreateMenuVideoReaderFromEmbeddedResource(IMFAttributes* attributes)
+    {
+        if (g_MenuVideoTempPath.empty() && !WriteMenuVideoResourceToTempFile(g_MenuVideoTempPath))
+            return false;
+
+        HRESULT hr = MFCreateSourceReaderFromURL(g_MenuVideoTempPath.c_str(), attributes, &g_MenuVideoReader);
+        g_MenuVideoLastHr = hr;
+        g_MenuVideoStatus = SUCCEEDED(hr) && g_MenuVideoReader ? "reader ready" : "reader fail";
+        return SUCCEEDED(hr) && g_MenuVideoReader != nullptr;
+    }
+
+    static void ReleaseMenuBackgroundVideo()
+    {
+        if (g_MenuVideoSRV)
+        {
+            g_MenuVideoSRV->Release();
+            g_MenuVideoSRV = nullptr;
+        }
+        if (g_MenuVideoTexture)
+        {
+            g_MenuVideoTexture->Release();
+            g_MenuVideoTexture = nullptr;
+        }
+        if (g_MenuVideoReader)
+        {
+            g_MenuVideoReader->Release();
+            g_MenuVideoReader = nullptr;
+        }
+        if (g_MenuVideoMfStarted)
+        {
+            MFShutdown();
+            g_MenuVideoMfStarted = false;
+        }
+        if (g_MenuVideoComInitialized)
+        {
+            CoUninitialize();
+            g_MenuVideoComInitialized = false;
+        }
+        if (!g_MenuVideoTempPath.empty())
+        {
+            DeleteFileW(g_MenuVideoTempPath.c_str());
+            g_MenuVideoTempPath.clear();
+        }
+
+        g_MenuVideoWidth = 0;
+        g_MenuVideoHeight = 0;
+        g_MenuVideoSourceWidth = 0;
+        g_MenuVideoSourceHeight = 0;
+        g_MenuVideoStride = 0;
+        g_MenuVideoDuration = 0;
+        g_MenuVideoLastFrameTime = 0.0;
+        g_MenuVideoLastHr = S_OK;
+        g_MenuVideoLastWin32Error = ERROR_SUCCESS;
+        g_MenuVideoLastFlags = 0;
+        g_MenuVideoFrameCount = 0;
+        g_MenuVideoNoSampleCount = 0;
+        g_MenuVideoBufferBytes = 0;
+        g_MenuVideoFrameCopied = false;
+        g_MenuVideoReady = false;
+        g_MenuVideoRotateToLandscape = false;
+        g_MenuVideoStatus = "released";
+    }
+
+    static bool CreateMenuVideoTexture(UINT width, UINT height)
+    {
+        if (!g_Device || !width || !height)
+        {
+            g_MenuVideoStatus = "texture args fail";
+            return false;
+        }
+
+        if (g_MenuVideoTexture && g_MenuVideoSRV && g_MenuVideoWidth == width && g_MenuVideoHeight == height)
+            return true;
+
+        if (g_MenuVideoSRV)
+        {
+            g_MenuVideoSRV->Release();
+            g_MenuVideoSRV = nullptr;
+        }
+        if (g_MenuVideoTexture)
+        {
+            g_MenuVideoTexture->Release();
+            g_MenuVideoTexture = nullptr;
+        }
+        g_MenuVideoFrameCopied = false;
+
+        D3D11_TEXTURE2D_DESC texDesc = {};
+        texDesc.Width = width;
+        texDesc.Height = height;
+        texDesc.MipLevels = 1;
+        texDesc.ArraySize = 1;
+        texDesc.Format = DXGI_FORMAT_B8G8R8X8_UNORM;
+        texDesc.SampleDesc.Count = 1;
+        texDesc.Usage = D3D11_USAGE_DYNAMIC;
+        texDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+        texDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+        HRESULT hr = g_Device->CreateTexture2D(&texDesc, nullptr, &g_MenuVideoTexture);
+        g_MenuVideoLastHr = hr;
+        if (FAILED(hr) || !g_MenuVideoTexture)
+        {
+            g_MenuVideoStatus = "texture fail";
+            return false;
+        }
+
+        D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+        srvDesc.Format = texDesc.Format;
+        srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+        srvDesc.Texture2D.MipLevels = 1;
+
+        hr = g_Device->CreateShaderResourceView(g_MenuVideoTexture, &srvDesc, &g_MenuVideoSRV);
+        g_MenuVideoLastHr = hr;
+        if (FAILED(hr) || !g_MenuVideoSRV)
+        {
+            g_MenuVideoTexture->Release();
+            g_MenuVideoTexture = nullptr;
+            g_MenuVideoStatus = "srv fail";
+            return false;
+        }
+
+        g_MenuVideoWidth = width;
+        g_MenuVideoHeight = height;
+        g_MenuVideoStatus = "texture ready";
+        return true;
+    }
+
+    static bool InitializeMenuBackgroundVideo()
+    {
+        if (g_MenuVideoReady)
+            return true;
+        if (!g_Device || !g_DeviceContext)
+        {
+            g_MenuVideoStatus = "d3d not ready";
+            return false;
+        }
+
+        HRESULT hr = S_OK;
+        if (!g_MenuVideoMfStarted)
+        {
+            hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+            g_MenuVideoComInitialized = SUCCEEDED(hr);
+
+            hr = MFStartup(MF_VERSION, MFSTARTUP_FULL);
+            g_MenuVideoLastHr = hr;
+            if (FAILED(hr))
+            {
+                g_MenuVideoStatus = "mf startup fail";
+                return false;
+            }
+            g_MenuVideoMfStarted = true;
+        }
+
+        IMFAttributes* attributes = nullptr;
+        hr = MFCreateAttributes(&attributes, 3);
+        g_MenuVideoLastHr = hr;
+        if (SUCCEEDED(hr))
+        {
+            attributes->SetUINT32(MF_READWRITE_ENABLE_HARDWARE_TRANSFORMS, FALSE);
+            attributes->SetUINT32(MF_SOURCE_READER_DISABLE_DXVA, TRUE);
+            attributes->SetUINT32(MF_SOURCE_READER_ENABLE_VIDEO_PROCESSING, TRUE);
+        }
+
+        const bool readerCreated = CreateMenuVideoReaderFromEmbeddedResource(attributes);
+        if (attributes)
+            attributes->Release();
+        if (!readerCreated || !g_MenuVideoReader)
+            return false;
+
+        IMFMediaType* mediaType = nullptr;
+        hr = MFCreateMediaType(&mediaType);
+        g_MenuVideoLastHr = hr;
+        if (SUCCEEDED(hr))
+        {
+            mediaType->SetGUID(MF_MT_MAJOR_TYPE, MFMediaType_Video);
+            mediaType->SetGUID(MF_MT_SUBTYPE, MFVideoFormat_RGB32);
+            hr = g_MenuVideoReader->SetCurrentMediaType((DWORD)MF_SOURCE_READER_FIRST_VIDEO_STREAM, nullptr, mediaType);
+            g_MenuVideoLastHr = hr;
+        }
+        if (mediaType)
+            mediaType->Release();
+        if (FAILED(hr))
+        {
+            g_MenuVideoStatus = "set type fail";
+            return false;
+        }
+
+        IMFMediaType* currentType = nullptr;
+        hr = g_MenuVideoReader->GetCurrentMediaType((DWORD)MF_SOURCE_READER_FIRST_VIDEO_STREAM, &currentType);
+        g_MenuVideoLastHr = hr;
+        if (FAILED(hr) || !currentType)
+        {
+            g_MenuVideoStatus = "get type fail";
+            return false;
+        }
+
+        UINT32 width = 0;
+        UINT32 height = 0;
+        hr = MFGetAttributeSize(currentType, MF_MT_FRAME_SIZE, &width, &height);
+        g_MenuVideoLastHr = hr;
+        UINT32 strideValue = 0;
+        LONG stride = 0;
+        if (FAILED(currentType->GetUINT32(MF_MT_DEFAULT_STRIDE, &strideValue)) || strideValue == 0)
+            stride = (LONG)width * 4;
+        else
+            stride = (LONG)strideValue;
+        currentType->Release();
+        if (FAILED(hr) || width == 0 || height == 0)
+        {
+            g_MenuVideoStatus = "size fail";
+            return false;
+        }
+
+        g_MenuVideoStride = stride;
+
+        PROPVARIANT duration;
+        PropVariantInit(&duration);
+        if (SUCCEEDED(g_MenuVideoReader->GetPresentationAttribute((DWORD)MF_SOURCE_READER_MEDIASOURCE, MF_PD_DURATION, &duration)) &&
+            duration.vt == VT_UI8)
+        {
+            g_MenuVideoDuration = (LONGLONG)duration.uhVal.QuadPart;
+        }
+        PropVariantClear(&duration);
+
+        g_MenuVideoSourceWidth = width;
+        g_MenuVideoSourceHeight = height;
+        g_MenuVideoRotateToLandscape = height > width;
+
+        const UINT textureWidth = g_MenuVideoRotateToLandscape ? height : width;
+        const UINT textureHeight = g_MenuVideoRotateToLandscape ? width : height;
+
+        if (!CreateMenuVideoTexture(textureWidth, textureHeight))
+            return false;
+
+        g_MenuVideoReady = true;
+        g_MenuVideoStatus = "ready";
+        return true;
+    }
+
+    static void RestartMenuBackgroundVideo()
+    {
+        if (!g_MenuVideoReader)
+            return;
+
+        PROPVARIANT position;
+        PropVariantInit(&position);
+        position.vt = VT_I8;
+        position.hVal.QuadPart = 0;
+        g_MenuVideoReader->SetCurrentPosition(GUID_NULL, position);
+        PropVariantClear(&position);
+    }
+
+    static bool UpdateMenuBackgroundVideoFrame()
+    {
+        if (!InitializeMenuBackgroundVideo() || !g_MenuVideoReader || !g_MenuVideoTexture || !g_DeviceContext)
+            return false;
+
+        const double now = ImGui::GetTime();
+        if ((now - g_MenuVideoLastFrameTime) < MENU_VIDEO_FRAME_INTERVAL)
+            return g_MenuVideoSRV != nullptr && g_MenuVideoFrameCopied;
+
+        DWORD streamIndex = 0;
+        DWORD flags = 0;
+        LONGLONG timestamp = 0;
+        IMFSample* sample = nullptr;
+        HRESULT hr = g_MenuVideoReader->ReadSample(
+            (DWORD)MF_SOURCE_READER_FIRST_VIDEO_STREAM,
+            0,
+            &streamIndex,
+            &flags,
+            &timestamp,
+            &sample);
+        g_MenuVideoLastHr = hr;
+        g_MenuVideoLastFlags = flags;
+
+        if (SUCCEEDED(hr) && (flags & MF_SOURCE_READERF_ENDOFSTREAM))
+        {
+            if (sample)
+            {
+                sample->Release();
+                sample = nullptr;
+            }
+            RestartMenuBackgroundVideo();
+            hr = g_MenuVideoReader->ReadSample(
+                (DWORD)MF_SOURCE_READER_FIRST_VIDEO_STREAM,
+                0,
+                &streamIndex,
+                &flags,
+                &timestamp,
+                &sample);
+            g_MenuVideoLastHr = hr;
+            g_MenuVideoLastFlags = flags;
+        }
+
+        if (FAILED(hr) || !sample)
+        {
+            if (sample)
+                sample->Release();
+            g_MenuVideoNoSampleCount++;
+            g_MenuVideoStatus = FAILED(hr) ? "read fail" : "no sample";
+            return g_MenuVideoSRV != nullptr && g_MenuVideoFrameCopied;
+        }
+
+        IMFMediaBuffer* buffer = nullptr;
+        hr = sample->ConvertToContiguousBuffer(&buffer);
+        sample->Release();
+        if (FAILED(hr) || !buffer)
+        {
+            g_MenuVideoLastHr = hr;
+            g_MenuVideoStatus = "buffer fail";
+            return g_MenuVideoSRV != nullptr && g_MenuVideoFrameCopied;
+        }
+
+        BYTE* data = nullptr;
+        DWORD maxLength = 0;
+        DWORD currentLength = 0;
+        hr = buffer->Lock(&data, &maxLength, &currentLength);
+        g_MenuVideoLastHr = hr;
+        g_MenuVideoBufferBytes = currentLength;
+        if (SUCCEEDED(hr) && data && currentLength > 0)
+        {
+            D3D11_MAPPED_SUBRESOURCE mapped = {};
+            hr = g_DeviceContext->Map(g_MenuVideoTexture, 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped);
+            g_MenuVideoLastHr = hr;
+            if (SUCCEEDED(hr))
+            {
+                const UINT sourceWidth = g_MenuVideoSourceWidth != 0 ? g_MenuVideoSourceWidth : g_MenuVideoWidth;
+                const UINT sourceHeight = g_MenuVideoSourceHeight != 0 ? g_MenuVideoSourceHeight : g_MenuVideoHeight;
+                const LONG sourceStride = g_MenuVideoStride != 0 ? g_MenuVideoStride : (LONG)sourceWidth * 4;
+                const UINT srcPitch = sourceStride < 0 ? (UINT)-sourceStride : (UINT)sourceStride;
+                const UINT sourceRowBytes = sourceWidth * 4;
+                const UINT maxRows = srcPitch > 0 ? currentLength / srcPitch : 0;
+                const UINT rows = (std::min)(sourceHeight, maxRows);
+
+                if (g_MenuVideoRotateToLandscape)
+                {
+                    const UINT cols = (std::min)(sourceWidth, srcPitch / 4);
+                    for (UINT y = 0; y < rows; ++y)
+                    {
+                        const UINT srcY = sourceStride < 0 ? (rows - 1 - y) : y;
+                        const BYTE* srcRow = data + (size_t)srcY * srcPitch;
+                        const UINT dstX = y;
+                        for (UINT x = 0; x < cols; ++x)
+                        {
+                            const UINT dstY = sourceWidth - 1 - x;
+                            if (dstX >= g_MenuVideoWidth || dstY >= g_MenuVideoHeight)
+                                continue;
+                            memcpy(
+                                (BYTE*)mapped.pData + (size_t)dstY * mapped.RowPitch + (size_t)dstX * 4,
+                                srcRow + (size_t)x * 4,
+                                4);
+                        }
+                    }
+                }
+                else
+                {
+                    const UINT copyPitch = (std::min)(sourceRowBytes, (UINT)mapped.RowPitch);
+                    for (UINT y = 0; y < rows; ++y)
+                    {
+                        const UINT srcY = sourceStride < 0 ? (rows - 1 - y) : y;
+                        memcpy(
+                            (BYTE*)mapped.pData + (size_t)y * mapped.RowPitch,
+                            data + (size_t)srcY * srcPitch,
+                            copyPitch);
+                    }
+                }
+                g_DeviceContext->Unmap(g_MenuVideoTexture, 0);
+                g_MenuVideoLastFrameTime = now;
+                if (rows > 0)
+                {
+                    g_MenuVideoFrameCopied = true;
+                    g_MenuVideoFrameCount++;
+                    g_MenuVideoStatus = "frame copied";
+                }
+                else
+                {
+                    g_MenuVideoStatus = "zero rows";
+                }
+            }
+            else
+            {
+                g_MenuVideoStatus = "map fail";
+            }
+        }
+        else
+        {
+            g_MenuVideoStatus = "lock fail";
+        }
+
+        if (data)
+            buffer->Unlock();
+        buffer->Release();
+        return g_MenuVideoSRV != nullptr && g_MenuVideoFrameCopied;
+    }
+
+    static bool DrawMenuBackgroundVideo(ImDrawList* drawList, const ImVec2& min, const ImVec2& max, float rounding)
+    {
+        if (!g_Settings.EnableMenuBackgroundVideo)
+        {
+            if (g_MenuVideoReady || g_MenuVideoReader || g_MenuVideoTexture || g_MenuVideoSRV)
+                ReleaseMenuBackgroundVideo();
+            return false;
+        }
+
+        if (!drawList || !UpdateMenuBackgroundVideoFrame() || !g_MenuVideoSRV || g_MenuVideoWidth == 0 || g_MenuVideoHeight == 0)
+            return false;
+
+        const float dstW = max.x - min.x;
+        const float dstH = max.y - min.y;
+        if (dstW <= 1.0f || dstH <= 1.0f)
+            return false;
+
+        const float srcAspect = (float)g_MenuVideoWidth / (float)g_MenuVideoHeight;
+        float drawW = dstW;
+        float drawH = drawW / srcAspect;
+        if (drawH < dstH)
+        {
+            drawH = dstH;
+            drawW = drawH * srcAspect;
+        }
+
+        const ImVec2 imageMin(
+            min.x + (dstW - drawW) * 0.5f,
+            min.y + (dstH - drawH) * 0.5f);
+        const ImVec2 imageMax(imageMin.x + drawW, imageMin.y + drawH);
+
+        drawList->PushClipRect(min, max, true);
+        drawList->AddImageRounded(
+            (ImTextureID)g_MenuVideoSRV,
+            imageMin,
+            imageMax,
+            ImVec2(0.0f, 0.0f),
+            ImVec2(1.0f, 1.0f),
+            IM_COL32_WHITE,
+            rounding);
+        drawList->PopClipRect();
+        return true;
+    }
+
+    static ID3D11ShaderResourceView* GetPlatformIcon(int platform)
+    {
+        if (platform <= 0 || platform >= PLATFORM_ICON_COUNT)
+            return nullptr;
+
+        return g_PlatformIcons[platform];
+    }
+
+    static const char* GetPlatformShortName(const Cheats::PlayerNetworkInfo& player)
+    {
+        switch (player.platform)
+        {
+        case 1: return "PS";
+        case 2: return "XB";
+        case 3: return "PC";
+        case 4: return "NS";
+        default: return player.platformName[0] != '\0' ? player.platformName : "N/A";
+        }
+    }
+
+    static void DrawPlatformIconCell(const Cheats::PlayerNetworkInfo& player)
+    {
+        const float iconSize = 16.0f;
+        ID3D11ShaderResourceView* icon = GetPlatformIcon(player.platform);
+
+        const float cellWidth = ImGui::GetContentRegionAvail().x;
+        const float offsetX = (std::max)(0.0f, (cellWidth - iconSize) * 0.5f);
+        ImGui::SetCursorPosX(ImGui::GetCursorPosX() + offsetX);
+
+        if (icon)
+        {
+            ImGui::Image((ImTextureID)icon, ImVec2(iconSize, iconSize));
+            if (ImGui::IsItemHovered())
+                ImGui::SetTooltip("%s", player.platformName);
+            return;
+        }
+
+        ImGui::TextUnformatted(GetPlatformShortName(player));
+        if (ImGui::IsItemHovered())
+            ImGui::SetTooltip("%s", player.platformName);
+    }
+
+    static int GetTeamSortKey(int teamId)
+    {
+        return teamId >= 0 ? teamId : 9999;
+    }
+
+    static void SetupFutureTheme()
+    {
+        ImGuiStyle& style = ImGui::GetStyle();
+
+        // SPACING & SIZING
+        style.WindowPadding     = ImVec2(0, 0);
+        style.FramePadding      = ImVec2(11, 7);
+        style.ItemSpacing       = ImVec2(10, 9);
+        style.ItemInnerSpacing  = ImVec2(8, 6);
+        style.IndentSpacing     = 22.0f;
+        style.ScrollbarSize     = 11.0f;
+        style.GrabMinSize       = 10.0f;
+
+        // ROUNDING
+        style.WindowRounding    = 8.0f;
+        style.ChildRounding     = 6.0f;
+        style.FrameRounding     = 5.0f;
+        style.PopupRounding     = 6.0f;
+        style.ScrollbarRounding = 8.0f;
+        style.GrabRounding      = 5.0f;
+        style.TabRounding       = 5.0f;
+
+        // BORDERS
+        style.WindowBorderSize  = 1.0f;
+        style.ChildBorderSize   = 0.0f;
+        style.FrameBorderSize   = 1.0f;
+        style.PopupBorderSize   = 1.0f;
+
+        ImVec4* colors = style.Colors;
+
+        ImVec4 PRIMARY           = g_Colors.accentColor;
+        ImVec4 SECONDARY         = g_Colors.accentMagenta;
+        ImVec4 TEXT_WHITE        = g_Colors.textPrimary;
+        ImVec4 WINDOW_BG         = g_Colors.bgDarkest;
+        ImVec4 CARD_BG           = g_Colors.bgDark;
+        ImVec4 SECONDARY_SURFACE = g_Colors.bgMedium;
+        ImVec4 BORDER            = ImVec4(0.175f, 0.130f, 0.285f, 1.0f);
+
+        // WINDOW & BACKGROUND
+        colors[ImGuiCol_WindowBg]           = WINDOW_BG;
+        colors[ImGuiCol_ChildBg]            = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
+        colors[ImGuiCol_PopupBg]            = CARD_BG;
+
+        // BORDERS & SEPARATORS
+        colors[ImGuiCol_Border]             = BORDER;
+        colors[ImGuiCol_BorderShadow]       = ImVec4(0, 0, 0, 0);
+        colors[ImGuiCol_Separator]          = BORDER;
+        colors[ImGuiCol_SeparatorHovered]   = PRIMARY;
+        colors[ImGuiCol_SeparatorActive]    = SECONDARY;
+
+        // TEXT
+        colors[ImGuiCol_Text]               = TEXT_WHITE;
+        colors[ImGuiCol_TextDisabled]       = ImVec4(0.5f, 0.5f, 0.6f, 0.6f);
+        colors[ImGuiCol_TextSelectedBg]     = ImVec4(PRIMARY.x, PRIMARY.y, PRIMARY.z, 0.3f);
+
+        // BUTTONS
+        colors[ImGuiCol_Button]             = SECONDARY_SURFACE;
+        colors[ImGuiCol_ButtonHovered]      = ImVec4(PRIMARY.x, PRIMARY.y, PRIMARY.z, 0.35f);
+        colors[ImGuiCol_ButtonActive]       = ImVec4(PRIMARY.x, PRIMARY.y, PRIMARY.z, 0.55f);
+
+        // FRAMES (Input fields, sliders background)
+        colors[ImGuiCol_FrameBg]            = ImVec4(0.042f, 0.034f, 0.066f, 1.0f);
+        colors[ImGuiCol_FrameBgHovered]     = ImVec4(PRIMARY.x, PRIMARY.y, PRIMARY.z, 0.18f);
+        colors[ImGuiCol_FrameBgActive]      = ImVec4(PRIMARY.x, PRIMARY.y, PRIMARY.z, 0.28f);
+
+        // HEADERS (Tree nodes, CollapsingHeader)
+        colors[ImGuiCol_Header]             = SECONDARY_SURFACE;
+        colors[ImGuiCol_HeaderHovered]      = ImVec4(PRIMARY.x, PRIMARY.y, PRIMARY.z, 0.7f);
+        colors[ImGuiCol_HeaderActive]       = PRIMARY;
+
+        // TITLE BAR
+        colors[ImGuiCol_TitleBg]            = WINDOW_BG;
+        colors[ImGuiCol_TitleBgActive]      = g_Colors.bgMedium;
+        colors[ImGuiCol_TitleBgCollapsed]   = CARD_BG;
+
+        // MENU BAR
+        colors[ImGuiCol_MenuBarBg]          = CARD_BG;
+
+        // SCROLLBAR
+        colors[ImGuiCol_ScrollbarBg]        = ImVec4(0.015f, 0.020f, 0.032f, 0.35f);
+        colors[ImGuiCol_ScrollbarGrab]      = ImVec4(PRIMARY.x, PRIMARY.y, PRIMARY.z, 0.45f);
+        colors[ImGuiCol_ScrollbarGrabHovered] = PRIMARY;
+        colors[ImGuiCol_ScrollbarGrabActive] = SECONDARY;
+
+        // CHECKMARK
+        colors[ImGuiCol_CheckMark]          = PRIMARY;
+
+        // SLIDER
+        colors[ImGuiCol_SliderGrab]         = PRIMARY;
+        colors[ImGuiCol_SliderGrabActive]   = SECONDARY;
+
+        // TABS
+        colors[ImGuiCol_Tab]                = SECONDARY_SURFACE;
+        colors[ImGuiCol_TabHovered]         = ImVec4(PRIMARY.x, PRIMARY.y, PRIMARY.z, 0.7f);
+        colors[ImGuiCol_TabActive]          = PRIMARY;
+        colors[ImGuiCol_TabUnfocused]       = SECONDARY_SURFACE;
+        colors[ImGuiCol_TabUnfocusedActive] = PRIMARY;
+
+        // PLOT
+        colors[ImGuiCol_PlotLines]          = PRIMARY;
+        colors[ImGuiCol_PlotLinesHovered]   = SECONDARY;
+        colors[ImGuiCol_PlotHistogram]      = PRIMARY;
+        colors[ImGuiCol_PlotHistogramHovered] = SECONDARY;
+
+        // DRAG & DROP
+        colors[ImGuiCol_DragDropTarget]     = ImVec4(PRIMARY.x, PRIMARY.y, PRIMARY.z, 0.9f);
+    }
+
+    static void SetupFreeImGuiTheme()
+    {
+        ImGuiStyle& style = ImGui::GetStyle();
+        const ImVec4 accent = ImVec4(121.0f / 255.0f, 106.0f / 255.0f, 231.0f / 255.0f, 1.0f);
+        const ImVec4 accentHover = ImVec4(151.0f / 255.0f, 136.0f / 255.0f, 255.0f / 255.0f, 1.0f);
+        const ImVec4 window = ImVec4(7.0f / 255.0f, 8.0f / 255.0f, 12.0f / 255.0f, 0.36f);
+        const ImVec4 child = ImVec4(9.0f / 255.0f, 10.0f / 255.0f, 16.0f / 255.0f, 0.42f);
+        const ImVec4 widget = ImVec4(23.0f / 255.0f, 24.0f / 255.0f, 33.0f / 255.0f, 0.66f);
+
+        g_Colors.bgDarkest = window;
+        g_Colors.bgDark = child;
+        g_Colors.bgMedium = widget;
+        g_Colors.bgLight = ImVec4(42.0f / 255.0f, 39.0f / 255.0f, 55.0f / 255.0f, 0.58f);
+        g_Colors.accentColor = accent;
+        g_Colors.accentColorHover = accentHover;
+        g_Colors.accentColorActive = ImVec4(129.0f / 255.0f, 99.0f / 255.0f, 255.0f / 255.0f, 1.0f);
+        g_Colors.textPrimary = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+        g_Colors.textSecondary = ImVec4(0.72f, 0.72f, 0.76f, 1.0f);
+        g_Colors.textDisabled = ImVec4(0.50f, 0.54f, 0.64f, 1.0f);
+        g_Colors.primaryBlue = g_Colors.accentColorActive;
+        g_Colors.accentCyan = accentHover;
+        g_Colors.accentMagenta = ImVec4(1.0f, 1.0f, 1.0f, 0.55f);
+        g_Colors.accentPurple = accent;
+        g_Colors.accentAqua = accentHover;
+
+        style.WindowPadding = ImVec2(0.0f, 0.0f);
+        style.WindowRounding = 12.0f;
+        style.WindowBorderSize = 0.0f;
+        style.ChildRounding = 6.0f;
+        style.ChildBorderSize = 1.0f;
+        style.FrameRounding = 5.0f;
+        style.PopupRounding = 6.0f;
+        style.FramePadding = ImVec2(9.0f, 4.0f);
+        style.ItemSpacing = ImVec2(8.0f, 6.0f);
+        style.ItemInnerSpacing = ImVec2(6.0f, 4.0f);
+        style.CellPadding = ImVec2(5.0f, 3.0f);
+        style.ChildPadding = ImVec2(10.0f, 8.0f);
+        style.ScrollbarSize = 6.0f;
+        style.ScrollbarRounding = 5.0f;
+        style.GrabRounding = 4.0f;
+        style.ButtonTextAlign = ImVec2(0.5f, 0.5f);
+
+        ImVec4* colors = style.Colors;
+        colors[ImGuiCol_WindowBg] = window;
+        colors[ImGuiCol_ChildBg] = child;
+        colors[ImGuiCol_PopupBg] = ImVec4(7.0f / 255.0f, 8.0f / 255.0f, 18.0f / 255.0f, 0.88f);
+        colors[ImGuiCol_Border] = ImVec4(132.0f / 255.0f, 121.0f / 255.0f, 220.0f / 255.0f, 0.24f);
+        colors[ImGuiCol_BorderShadow] = ImVec4(0, 0, 0, 0);
         colors[ImGuiCol_Text] = g_Colors.textPrimary;
         colors[ImGuiCol_TextDisabled] = g_Colors.textDisabled;
-        colors[ImGuiCol_TextSelectedBg] = g_Colors.accentColorActive;
+        colors[ImGuiCol_CheckMark] = accent;
+        colors[ImGuiCol_FrameBg] = widget;
+        colors[ImGuiCol_FrameBgHovered] = ImVec4(50.0f / 255.0f, 51.0f / 255.0f, 68.0f / 255.0f, 0.76f);
+        colors[ImGuiCol_FrameBgActive] = ImVec4(66.0f / 255.0f, 62.0f / 255.0f, 88.0f / 255.0f, 0.86f);
+        colors[ImGuiCol_Button] = widget;
+        colors[ImGuiCol_ButtonHovered] = ImVec4(accent.x, accent.y, accent.z, 0.56f);
+        colors[ImGuiCol_ButtonActive] = ImVec4(accent.x, accent.y, accent.z, 0.82f);
+        colors[ImGuiCol_Header] = ImVec4(accent.x, accent.y, accent.z, 0.60f);
+        colors[ImGuiCol_HeaderHovered] = ImVec4(accent.x, accent.y, accent.z, 0.80f);
+        colors[ImGuiCol_HeaderActive] = accent;
+        colors[ImGuiCol_SliderGrab] = accent;
+        colors[ImGuiCol_SliderGrabActive] = accentHover;
+        colors[ImGuiCol_ScrollbarBg] = ImVec4(9.0f / 255.0f, 9.0f / 255.0f, 9.0f / 255.0f, 0.28f);
+        colors[ImGuiCol_ScrollbarGrab] = ImVec4(accent.x, accent.y, accent.z, 0.55f);
+        colors[ImGuiCol_ScrollbarGrabHovered] = accentHover;
+        colors[ImGuiCol_ScrollbarGrabActive] = accent;
+        colors[ImGuiCol_Separator] = colors[ImGuiCol_Border];
+        colors[ImGuiCol_SeparatorHovered] = accentHover;
+        colors[ImGuiCol_SeparatorActive] = accent;
+        colors[ImGuiCol_TextSelectedBg] = ImVec4(accent.x, accent.y, accent.z, 0.35f);
+        colors[ImGuiCol_ButtonShadow] = ImVec4(0.0f, 0.0f, 0.0f, 0.08f);
+        colors[ImGuiCol_FrameBgShadow] = ImVec4(0.0f, 0.0f, 0.0f, 0.07f);
+    }
 
-        // Plot
-        colors[ImGuiCol_PlotLines] = g_Colors.accentColor;
-        colors[ImGuiCol_PlotLinesHovered] = g_Colors.accentColorHover;
-        colors[ImGuiCol_PlotHistogram] = g_Colors.accentColor;
-        colors[ImGuiCol_PlotHistogramHovered] = g_Colors.accentColorHover;
+    static void SetPreviewTheme(int themeIndex)
+    {
+        int themeCount = GetPreviewThemeCount();
+        if (themeCount <= 0)
+            return;
 
-        // Rounding & Spacing - Modern Style
-        style->WindowRounding = 10.0f;
-        style->FrameRounding = 6.0f;
-        style->PopupRounding = 6.0f;
-        style->ScrollbarRounding = 6.0f;
-        style->GrabRounding = 4.0f;
-        style->TabRounding = 6.0f;
-        style->ChildRounding = 5.0f;
+        if (themeIndex < 0)
+            themeIndex = themeCount - 1;
+        else if (themeIndex >= themeCount)
+            themeIndex = 0;
 
-        style->WindowPadding = ImVec2(15.0f, 15.0f);
-        style->FramePadding = ImVec2(10.0f, 6.0f);
-        style->ItemSpacing = ImVec2(10.0f, 8.0f);
-        style->ItemInnerSpacing = ImVec2(8.0f, 6.0f);
-        style->IndentSpacing = 20.0f;
-        style->ScrollbarSize = 12.0f;
-        style->GrabMinSize = 8.0f;
-        style->WindowBorderSize = 1.50f;
-        style->FrameBorderSize = 0.0f;
-        style->PopupBorderSize = 1.0f;
+        if (g_SelectedPreviewTheme == themeIndex)
+            return;
+
+        g_SelectedPreviewTheme = themeIndex;
+        SetupFreeImGuiTheme();
     }
 
     // ============================================================================
     // HELPER FUNCTIONS - MODERN UI COMPONENTS
     // ============================================================================
-    static bool ModernButton(const char* label, ImVec2 size, bool selected = false)
+    static ImU32 ColorWithAlpha(const ImVec4& color, float alpha)
     {
-        // Use Dummy for positioning without any default rendering
-        ImGui::PushID(label);
-        ImGui::Dummy(size);
-        ImVec2 buttonPos = ImGui::GetItemRectMin();
-        ImVec2 buttonMax = ImGui::GetItemRectMax();
-        bool isHovered = ImGui::IsItemHovered();
-        bool isClicked = isHovered && ImGui::IsMouseClicked(0);
-        ImGui::PopID();
-        
+        ImVec4 adjusted = color;
+        adjusted.w = alpha;
+        return ImGui::GetColorU32(adjusted);
+    }
+
+    static void DrawCyberLine(ImDrawList* drawList, const ImVec2& start, float width, ImU32 color)
+    {
+        drawList->AddLine(start, ImVec2(start.x + width, start.y), color, 1.0f);
+        drawList->AddLine(ImVec2(start.x + width + 4.0f, start.y), ImVec2(start.x + width + 20.0f, start.y), color, 2.0f);
+    }
+
+    static void DrawLogoFallback(ImDrawList* drawList, const ImVec2& min, const ImVec2& max)
+    {
+        drawList->AddRectFilledMultiColor(
+            min,
+            max,
+            ImGui::GetColorU32(g_Colors.accentPurple),
+            ImGui::GetColorU32(g_Colors.accentMagenta),
+            ImGui::GetColorU32(g_Colors.accentColor),
+            ImGui::GetColorU32(g_Colors.primaryBlue)
+        );
+        drawList->AddRect(min, max, ColorWithAlpha(g_Colors.accentColor, 0.85f), 8.0f, 0, 1.5f);
+
+        const char* logoText = "R";
+        float size = 34.0f;
+        ImVec2 textSize = ImGui::GetFont()->CalcTextSizeA(size, FLT_MAX, 0.0f, logoText);
+        ImVec2 pos = ImVec2(
+            min.x + ((max.x - min.x) - textSize.x) * 0.5f,
+            min.y + ((max.y - min.y) - textSize.y) * 0.5f - 1.0f
+        );
+        drawList->AddText(ImGui::GetFont(), size, pos, IM_COL32(255, 255, 255, 255), logoText);
+    }
+
+    static void DrawRugirLogo(const ImVec2& size)
+    {
+        ImGui::InvisibleButton("##RugirLogo", size);
+        ImVec2 min = ImGui::GetItemRectMin();
+        ImVec2 max = ImGui::GetItemRectMax();
         ImDrawList* drawList = ImGui::GetWindowDrawList();
-        
-        // Draw ONLY ONE background rect
-        ImU32 bgColor;
-        if (isHovered)
+
+        drawList->AddRectFilled(min, max, ColorWithAlpha(g_Colors.bgMedium, 0.55f), 8.0f);
+        if (g_RugirLogo)
         {
-            bgColor = ImGui::GetColorU32(selected ? g_Colors.accentColorHover : g_Colors.accentColor);
+            drawList->AddImageRounded(
+                (ImTextureID)g_RugirLogo,
+                min,
+                max,
+                ImVec2(0, 0),
+                ImVec2(1, 1),
+                IM_COL32_WHITE,
+                8.0f
+            );
+            drawList->AddRect(min, max, ColorWithAlpha(g_Colors.accentColor, 0.50f), 8.0f, 0, 1.0f);
         }
         else
         {
-            bgColor = ImGui::GetColorU32(selected ? g_Colors.accentColor : g_Colors.bgLight);
+            DrawLogoFallback(drawList, min, max);
         }
-        drawList->AddRectFilled(buttonPos, buttonMax, bgColor, 4.0f);
+    }
+
+    static bool ModernButton(const char* label, ImVec2 size, bool selected = false)
+    {
+        ImGui::PushID(label);
+        ImGui::InvisibleButton("##nav", size);
+        ImVec2 buttonPos = ImGui::GetItemRectMin();
+        ImVec2 buttonMax = ImGui::GetItemRectMax();
+        bool isHovered = ImGui::IsItemHovered();
+        bool isClicked = ImGui::IsItemClicked();
+        ImGui::PopID();
+        
+        ImDrawList* drawList = ImGui::GetWindowDrawList();
+
+        ImU32 bgColor = ImGui::GetColorU32(selected ? ImVec4(0.380f, 0.155f, 0.740f, 0.96f) : ImVec4(0.028f, 0.024f, 0.043f, 0.18f));
+        if (isHovered && !selected)
+            bgColor = ImGui::GetColorU32(ImVec4(0.085f, 0.058f, 0.135f, 0.78f));
+
+        if (selected)
+        {
+            drawList->AddRectFilledMultiColor(
+                buttonPos,
+                buttonMax,
+                ImGui::GetColorU32(ImVec4(0.540f, 0.240f, 1.000f, 0.98f)),
+                ImGui::GetColorU32(ImVec4(0.365f, 0.135f, 0.720f, 0.98f)),
+                ImGui::GetColorU32(ImVec4(0.245f, 0.075f, 0.520f, 0.98f)),
+                ImGui::GetColorU32(ImVec4(0.455f, 0.165f, 0.900f, 0.98f))
+            );
+        }
+        else
+        {
+            drawList->AddRectFilled(buttonPos, buttonMax, bgColor, 6.0f);
+        }
+
+        drawList->AddRect(buttonPos, buttonMax, ColorWithAlpha(selected ? g_Colors.accentColorHover : g_Colors.bgLight, selected ? 0.90f : 0.20f), 5.0f, 0, selected ? 1.1f : 1.0f);
+
+        if (selected)
+        {
+            drawList->AddRectFilled(
+                buttonPos,
+                ImVec2(buttonPos.x + 2.0f, buttonMax.y),
+                ImGui::GetColorU32(g_Colors.accentMagenta),
+                2.0f
+            );
+        }
         
         // Parse label: "P   ESP" -> icon="P", text="ESP"
         std::string fullLabel = label;
@@ -531,7 +2283,8 @@ namespace ImGuiMenu
         }
         
         ImVec2 buttonSize = ImVec2(buttonMax.x - buttonPos.x, buttonMax.y - buttonPos.y);
-        ImU32 textColor = ImGui::GetColorU32(ImGuiCol_Text);
+        ImU32 textColor = ImGui::GetColorU32(selected ? g_Colors.textPrimary : g_Colors.textSecondary);
+        ImU32 iconColor = ImGui::GetColorU32(selected ? g_Colors.textPrimary : g_Colors.accentColorHover);
         
         if (!iconChar.empty() && !labelText.empty() && g_SymbolFont)
         {
@@ -539,16 +2292,16 @@ namespace ImGuiMenu
             ImGui::PushFont(g_SymbolFont);
             ImVec2 iconSize = ImGui::CalcTextSize(iconChar.c_str());
             ImVec2 iconPos = ImVec2(
-                buttonPos.x + 8.0f,
+                buttonPos.x + 7.0f,
                 buttonPos.y + (buttonSize.y - iconSize.y) / 2.0f
             );
-            drawList->AddText(iconPos, textColor, iconChar.c_str());
+            drawList->AddText(iconPos, iconColor, iconChar.c_str());
             ImGui::PopFont();
             
             // Draw label text with default font
             ImVec2 textSize = ImGui::CalcTextSize(labelText.c_str());
             ImVec2 textPos = ImVec2(
-                iconPos.x + iconSize.x + 8.0f,
+                buttonPos.x + 28.0f,
                 buttonPos.y + (buttonSize.y - textSize.y) / 2.0f
             );
             drawList->AddText(textPos, textColor, labelText.c_str());
@@ -567,7 +2320,7 @@ namespace ImGuiMenu
         return isClicked;
     }
 
-    // Button with icon from symbolfont (Zero1 style)
+    // Button with icon from symbolfont
     // icon: single Unicode character from symbolfont, label: text label
     static bool ModernButtonWithIcon(const char* icon, const char* label, ImVec2 size, bool selected = false)
     {
@@ -601,11 +2354,49 @@ namespace ImGuiMenu
     static void SectionHeader(const char* title)
     {
         ImGui::Spacing();
+        ImDrawList* drawList = ImGui::GetWindowDrawList();
+        ImVec2 cursor = ImGui::GetCursorScreenPos();
         ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentColor);
         ImGui::Text(title);
         ImGui::PopStyleColor();
-        ImGui::Separator();
+        DrawCyberLine(drawList, ImVec2(cursor.x, cursor.y + ImGui::GetTextLineHeight() + 4.0f), 72.0f, ColorWithAlpha(g_Colors.accentColor, 0.70f));
         ImGui::Spacing();
+    }
+
+    static void DrawSidebarInfoPanel(float width)
+    {
+        ImDrawList* drawList = ImGui::GetWindowDrawList();
+        ImVec2 pos = ImGui::GetCursorScreenPos();
+        ImVec2 size(width, 126.0f);
+        ImVec2 panelMax(pos.x + size.x, pos.y + size.y);
+
+        drawList->AddRectFilled(pos, panelMax, ImGui::GetColorU32(ImVec4(0.020f, 0.017f, 0.035f, 0.94f)), 6.0f);
+        drawList->AddRect(pos, panelMax, ColorWithAlpha(g_Colors.bgLight, 0.70f), 6.0f, 0, 1.0f);
+        drawList->AddRectFilled(pos, ImVec2(panelMax.x, pos.y + 24.0f), ImGui::GetColorU32(ImVec4(0.075f, 0.047f, 0.125f, 0.92f)), 6.0f, ImDrawFlags_RoundCornersTop);
+
+        ImGui::BeginGroup();
+        ImGui::Dummy(ImVec2(1.0f, 4.0f));
+        ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10.0f);
+        ImGui::TextColored(g_Colors.accentColorHover, "MENU INFO");
+        ImGui::Dummy(ImVec2(1.0f, 8.0f));
+
+        ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10.0f);
+        ImGui::TextColored(g_Colors.textDisabled, "User");
+        ImGui::SameLine(78.0f);
+        ImGui::TextColored(g_Colors.textPrimary, "Private");
+
+        ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10.0f);
+        ImGui::TextColored(g_Colors.textDisabled, "Profile");
+        ImGui::SameLine(78.0f);
+        ImGui::TextColored(g_Colors.textPrimary, "%s", g_CurrentProfileName.c_str());
+
+        ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10.0f);
+        ImGui::TextColored(g_Colors.textDisabled, "Core");
+        ImGui::SameLine(78.0f);
+        ImGui::TextColored(g_Settings.EnableGlobal ? g_Colors.success : g_Colors.danger, "%s", g_Settings.EnableGlobal ? "ON" : "OFF");
+
+        ImGui::EndGroup();
+        ImGui::SetCursorScreenPos(ImVec2(pos.x, pos.y + size.y));
     }
 
     static void StatusIndicator(bool enabled)
@@ -614,1821 +2405,2280 @@ namespace ImGuiMenu
         const char* status = (enabled ? "ON" : "OFF");
         ImGui::SameLine();
         ImGui::PushStyleColor(ImGuiCol_Text, color);
-        ImGui::Text("[%s]", status);
+        ImGui::Text("%s", status);
         ImGui::PopStyleColor();
     }
 
-    // ============================================================================
-    // RENDER FUNCTIONS - TAB CONTENT
-    // ============================================================================
-    static void RenderCharacterMenu()
+    static void DrawServerStatusOverlay()
     {
-        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentCyan);
-        ImGui::Text("CHARACTER MANAGEMENT");
-        ImGui::PopStyleColor();
-        ImGui::Separator();
-        ImGui::Spacing();
+        static Cheats::ServerConnectionInfo cachedInfo{};
+        static DWORD lastUpdateTick = 0;
+        static bool hasCachedInfo = false;
+        static bool waitingForServerInfo = true;
 
-        // ===== OWNER CHARACTER SWAP =====
+        DWORD now = GetTickCount();
+        const DWORD refreshInterval = hasCachedInfo ? 15000 : 1000;
+        if (lastUpdateTick == 0 || (now - lastUpdateTick) >= refreshInterval)
         {
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
-            ImGui::Text("OWNER CHARACTER SWAP");
-            ImGui::PopStyleColor();
-            ImGui::Spacing();
-
-            // Character + Variation selector
-            static std::vector<SDK::EVariationCharacterId> all_variation_ids;
-            static std::vector<std::string> all_variation_names;
-            static std::vector<const char*> variation_ptrs;
-            
-            if (all_variation_ids.empty())
+            if (Cheats::CanReadServerConnectionInfo())
             {
-                all_variation_ids = GetAllVariationCharacterIds();
-                all_variation_names = GetAllVariationNames();
-                for (const auto& name : all_variation_names)
+                Cheats::ServerConnectionInfo nextInfo{};
+                if (Cheats::GetCurrentServerConnectionInfo(&nextInfo))
                 {
-                    variation_ptrs.push_back(name.c_str());
+                    cachedInfo = nextInfo;
+                    hasCachedInfo = true;
+                    waitingForServerInfo = false;
                 }
             }
-            
-            static int selected_variation_index = 0;
-            ImGui::Combo("Character##CharTab", &selected_variation_index, variation_ptrs.data(), (int)variation_ptrs.size());
-
-            // Single unified slider for technique levels
-            static int uniqueLevel = 9;
-            ImGuiSliderHelper::SliderInt("Technique Level##CharTab", &uniqueLevel, 150.0f, 1, 9);
-
-            ImGui::Spacing();
-
-            // Apply button
-            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.success);
-            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.55f, 1.0f, 0.65f, 1.0f));
-            
-            if (ImGui::Button("APPLY CONFIGURATION##CharTab", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
+            else
             {
-                if (selected_variation_index >= 0 && selected_variation_index < (int)all_variation_ids.size())
-                {
-                    SDK::EVariationCharacterId variationCharId = all_variation_ids[selected_variation_index];
-                    auto [characterId, variationId] = GetCharacterAndVariationFromVariationCharacterId(variationCharId);
-                    
-                    InGameHack_ApplyPlayerConfiguration(
-                        (int)characterId,
-                        variationId,
-                        uniqueLevel,
-                        uniqueLevel,
-                        uniqueLevel,
-                        0,
-                        0,
-                        0
-                    );
-                }
+                waitingForServerInfo = !hasCachedInfo;
             }
-            
-            ImGui::PopStyleColor(2);
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
+
+            lastUpdateTick = now;
         }
 
-        // ===== RELOAD ADJUST RATES =====
-        {
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
-            ImGui::Text("RELOAD ADJUST RATES");
-            ImGui::PopStyleColor();
-            ImGui::Spacing();
+        char serverText[512] = {};
+        const char* region = hasCachedInfo && cachedInfo.hasRegion ? cachedInfo.region : "Unknown";
+        if (hasCachedInfo)
+            snprintf(serverText, sizeof(serverText), "Server: %s", region);
+        else if (waitingForServerInfo)
+            snprintf(serverText, sizeof(serverText), "Server: waiting...");
+        else
+            snprintf(serverText, sizeof(serverText), "Server: N/A");
 
-            ImGuiSliderHelper::SliderFloat("General Reload Rate", &g_Settings.ReloadAdjustRate, 150.0f, 1.0f, 5.0f);
-            ImGuiSliderHelper::SliderFloat("Reload Rate (Roll Slot)", &g_Settings.ReloadAdjustRate_RollSlot, 150.0f, 1.0f, 5.0f);
-            ImGuiSliderHelper::SliderFloat("Reload Rate (Blue Flame)", &g_Settings.ReloadAdjustRate_WearBlueFlame, 150.0f, 1.0f, 50.0f);
-            
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
-        }
+        char pingText[64] = {};
+        if (hasCachedInfo && cachedInfo.hasPing)
+            snprintf(pingText, sizeof(pingText), "Ping: %d ms", cachedInfo.pingMs);
+        else
+            snprintf(pingText, sizeof(pingText), "Ping: N/A");
 
-        // ===== UNIQUE SKILLS =====
-        {
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
-            ImGui::Text("UNIQUE SKILLS");
-            ImGui::PopStyleColor();
-            ImGui::Spacing();
+        ImDrawList* drawList = ImGui::GetForegroundDrawList();
+        if (!drawList) return;
 
-            if (ImGuiSliderHelper::SliderInt("Unique Skill 1##CharTab", &g_HackSettings.SupplyUniqueSkill1Level, 150.0f, 1, 9))
-            {
-                InGameHack_SetSkillLevel(1, g_HackSettings.SupplyUniqueSkill1Level);  // UNIQUE1
-            }
-            
-            if (ImGuiSliderHelper::SliderInt("Unique Skill 2##CharTab", &g_HackSettings.SupplyUniqueSkill2Level, 150.0f, 1, 9))
-            {
-                InGameHack_SetSkillLevel(2, g_HackSettings.SupplyUniqueSkill2Level);  // UNIQUE2
-            }
-            
-            if (ImGuiSliderHelper::SliderInt("Unique Skill 3##CharTab", &g_HackSettings.SupplyUniqueSkill3Level, 150.0f, 1, 9))
-            {
-                InGameHack_SetSkillLevel(3, g_HackSettings.SupplyUniqueSkill3Level);  // UNIQUE3
-            }
-            
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
-        }
+        ImFont* font = ImGui::GetFont();
+        float fontSize = 16.0f;
+        ImVec2 pos(14.0f, 14.0f);
+        ImVec2 serverSize = font->CalcTextSizeA(fontSize, FLT_MAX, 0.0f, serverText);
+        ImVec2 pingSize = font->CalcTextSizeA(fontSize, FLT_MAX, 0.0f, pingText);
+        float width = (std::max)(serverSize.x, pingSize.x);
+        float height = serverSize.y + pingSize.y + 14.0f;
 
-        // ===== REVIVE OPTIONS =====
-        {
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
-            ImGui::Text("REVIVE OPTIONS");
-            ImGui::PopStyleColor();
-            ImGui::Spacing();
+        drawList->AddRectFilled(
+            ImVec2(pos.x - 8.0f, pos.y - 6.0f),
+            ImVec2(pos.x + width + 8.0f, pos.y + height),
+            IM_COL32(0, 0, 0, 165),
+            5.0f
+        );
 
-            ImGuiHelper::ToggleSwitch("Recover Me (Self)##CharTab", &g_Settings.EnableRecoveryMe);
-            ImGui::SameLine();
-            ImGui::TextColored(g_Colors.warning, "(Self only)");
-
-            ImGuiHelper::ToggleSwitch("Recover Team##CharTab", &g_Settings.EnableRecoveryTeam);
-            ImGui::SameLine();
-            ImGui::TextColored(g_Colors.success, "(Team members)");
-
-            ImGuiHelper::ToggleSwitch("Recover All ESP##CharTab", &g_Settings.EnableRecoveryAllESP);
-            ImGui::SameLine();
-            ImGui::TextColored(ImVec4(0.6f, 0.8f, 0.2f, 1.0f), "(Whole map)");
-
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
-        }
-
-
-
+        drawList->AddText(font, fontSize, pos, IM_COL32(255, 255, 255, 255), serverText);
+        drawList->AddText(font, fontSize, ImVec2(pos.x, pos.y + serverSize.y + 4.0f), IM_COL32(120, 220, 255, 255), pingText);
     }
 
-    static void RenderESPMenu()
+    static void UpdatePlayerListHotkeyHintState()
     {
-        // Global ESP Control Section
-        if (ImGui::CollapsingHeader("ESP-CONTROL", &g_ESP_DisplayOpen, ImGuiTreeNodeFlags_DefaultOpen))
+        DWORD now = GetTickCount();
+        if ((now - g_LastBattleModeHintCheckTick) < PLAYER_LIST_HINT_CHECK_INTERVAL_MS)
+            return;
+
+        g_LastBattleModeHintCheckTick = now;
+
+        bool isInValidBattleMode = IsValidBattleMode();
+        bool enteredValidBattleMode = !g_WasInValidBattleModeForHint && isInValidBattleMode;
+        g_WasInValidBattleModeForHint = isInValidBattleMode;
+
+        if (enteredValidBattleMode && !g_PlayerNetworkTableVisible)
         {
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentCyan);
-            ImGui::Text("ESP CONTROL");
-            ImGui::PopStyleColor();
-            ImGui::Separator();
-
-            ImGuiHelper::ToggleSwitchLarge("Global ESP Enable", &g_Settings.EnablePlayerESP);
-            ImGuiHelper::ToggleSwitch("Show Enemy", &g_Settings.ShowEnemies);
-            ImGuiHelper::ToggleSwitch("Show Team", &g_Settings.ShowTeam);
-            ImGuiHelper::ToggleSwitch("LobbyCharacter", &g_Settings.ShowLobbyCharacters);
-            ImGuiHelper::ToggleSwitch("KOTA", &g_Settings.ShowKota);
-            
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentCyan);
-            ImGui::Text("DISPLAY INFO");
-            ImGui::PopStyleColor();
-            
-            ImGuiHelper::ToggleSwitch("HP", &g_Settings.ShowHP);
-            ImGui::SameLine();
-            ImGuiHelper::ToggleSwitch("GP", &g_Settings.ShowGP);
-            ImGui::SameLine();
-            ImGuiHelper::ToggleSwitch("PU", &g_Settings.ShowPU);
-            ImGui::SameLine();
-            ImGuiHelper::ToggleSwitch("Platform", &g_Settings.ShowPlatform);
-            ImGui::SameLine();
-            ImGuiHelper::ToggleSwitch("Team ID", &g_Settings.ShowTeamId);
-            
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGuiHelper::ToggleSwitch("Show Skeleton", &g_Settings.ShowPlayerSkeleton);
-            ImGuiSliderHelper::SliderFloat("Max Draw Distance", &g_Settings.Player_DrawDistance, 150.0f, 100.0f, 5000.0f);
-
-            ImGui::Spacing();
+            g_PlayerListHotkeyHintVisible = true;
+            g_PlayerListHotkeyHintStartTick = now;
         }
+
+        if (!isInValidBattleMode || g_PlayerNetworkTableVisible)
+            g_PlayerListHotkeyHintVisible = false;
     }
 
-    static void RenderAimbotMenu()
+    static void DrawPlayerListHotkeyHint()
     {
-        // ====================================================================
-        // AIMBOT SECTION - Collapsible, closed by default
-        // ====================================================================
-        if (ImGui::CollapsingHeader("AIMBOT SETTINGS", ImGuiTreeNodeFlags_None))
+        if (!g_PlayerListHotkeyHintVisible)
+            return;
+
+        DWORD now = GetTickCount();
+        if ((now - g_PlayerListHotkeyHintStartTick) >= PLAYER_LIST_HINT_DURATION_MS)
         {
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentCyan);
-            ImGui::Spacing();
-            ImGui::PopStyleColor();
-            
-            ImGuiHelper::ToggleSwitchLarge("Enable Aimbot", &g_Settings.EnableAimbot);
-            ImGuiHelper::ToggleSwitchLarge("Smooth Aiming", &g_Settings.AimbotSmoothing);
-            
-            if (g_Settings.AimbotSmoothing)
-            {
-                ImGuiSliderHelper::SliderFloat("Smooth Factor", &g_Settings.AimbotSmoothFactor, 150.0f, 0.01f, 1.0f);
-            }
-            
-            ImGuiHelper::ToggleSwitch("Draw Aim Line", &g_Settings.AimbotDrawLine);
-            ImGuiHelper::ToggleSwitch("Draw Aim FOV", &g_Settings.AimbotDrawFOV);
-            
-            if (g_Settings.AimbotDrawFOV)
-            {
-                ImGuiSliderHelper::SliderFloat("FOV Radius", &g_Settings.AimbotFOVRadius, 150.0f, 100.0f, 1000.0f);
-            }
-            
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
-            ImGui::Text("HOTKEY CONFIGURATION");
-            ImGui::PopStyleColor();
-            
-            ImGui::Spacing();
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.4f, 0.6f, 1.0f));
-            {
-                std::string hotkeyLabel = "[KB] " + GetKeyName(g_Settings.AimbotHoldKey.Keyboard, 0) + 
-                                          " | [X] " + GetKeyName(g_Settings.AimbotHoldKey.Xbox, 1) + 
-                                          " | [PS] " + GetKeyName(g_Settings.AimbotHoldKey.PS4, 1);
-                if (ImGui::Button(hotkeyLabel.c_str(), ImVec2(-1, 0)))
-                {
-                    g_ListeningForHotkey = true;
-                    g_HotkeyListenStartTime = GetTickCount();
-                    g_CurrentHotkeyValue = 100;  // Aimbot hotkey (unified)
-                }
-            }
-            ImGui::PopStyleColor();
+            g_PlayerListHotkeyHintVisible = false;
+            return;
         }
-        
-        // ====================================================================
-        // BULLET REDIRECTION SECTION
-        // ====================================================================
-        ImGui::Spacing();
-        ImGui::Spacing();
-        ImGui::Separator();
-        
-        if (ImGui::CollapsingHeader("BULLET TP (SILENT AIM)", ImGuiTreeNodeFlags_None))
-        {
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentCyan);
-            ImGui::Spacing();
-            ImGuiHelper::ToggleSwitchLarge("Enable Bullet Tp", &g_Settings.EnableBulletTP);
-            ImGui::PopStyleColor();
-            
-            if (g_Settings.EnableBulletTP)
-            {
-                ImGui::Spacing();
-                ImGui::Separator();
-                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
-                ImGui::Text("SKILL TYPE FILTERS");
-                ImGui::PopStyleColor();
-                ImGui::Spacing();
-                
-                ImGuiHelper::ToggleSwitch("Alpha (Unique1)", &g_Settings.BulletTP_IncludeAlpha);
-                ImGuiHelper::ToggleSwitch("Beta (Unique2)", &g_Settings.BulletTP_IncludeBeta);
-                ImGuiHelper::ToggleSwitch("Gamma (Unique3)", &g_Settings.BulletTP_IncludeGamma);
-                ImGuiHelper::ToggleSwitch("Special", &g_Settings.BulletTP_IncludeSpecial);
-                
-                ImGui::Spacing();
-                ImGui::Separator();
-                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
-                ImGui::Text("BULLET TP");
-                ImGui::PopStyleColor();
-                ImGui::Spacing();
-                
-                ImGuiSliderHelper::SliderFloat("FOV Radius ", &g_Settings.BulletTP_FOVRadius, 150.0f, 20.0f, 100.0f);
-                ImGuiSliderHelper::SliderFloat("Max Distance ", &g_Settings.BulletTP_MaxDistance, 150.0f, 1000.0f, 100000.0f);
-                
-                ImGui::Spacing();
-                ImGui::TextWrapped("Note: Uses same hotkey as Aimbot. Redirects filtered bullets to nearest forward target within FOV and distance constraints.");
-            }
-        }
+
+        ImDrawList* drawList = ImGui::GetForegroundDrawList();
+        if (!drawList)
+            return;
+
+        ImGuiIO& io = ImGui::GetIO();
+        const char* message = "f8 to display player liste";
+        ImFont* font = ImGui::GetFont();
+        float fontSize = 18.0f;
+        ImVec2 textSize = font->CalcTextSizeA(fontSize, FLT_MAX, 0.0f, message);
+        ImVec2 padding(16.0f, 10.0f);
+        ImVec2 boxMin(
+            (io.DisplaySize.x - textSize.x) * 0.5f - padding.x,
+            74.0f
+        );
+        ImVec2 boxMax(
+            boxMin.x + textSize.x + padding.x * 2.0f,
+            boxMin.y + textSize.y + padding.y * 2.0f
+        );
+
+        drawList->AddRectFilled(boxMin, boxMax, IM_COL32(10, 12, 18, 205), 6.0f);
+        drawList->AddRect(boxMin, boxMax, ColorWithAlpha(g_Colors.accentColorHover, 0.90f), 6.0f, 0, 1.2f);
+        drawList->AddText(font, fontSize, ImVec2(boxMin.x + padding.x, boxMin.y + padding.y), IM_COL32(255, 255, 255, 255), message);
     }
 
-    static void RenderHacksMenu()
+    static void DrawPlayerNetworkTableWindow()
     {
-        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentCyan);
-        ImGui::Text("HACKS");
-        ImGui::PopStyleColor();
+        if (!g_PlayerNetworkTableVisible)
+            return;
+
+        static Cheats::PlayerNetworkInfo players[128]{};
+        static int playerCount = 0;
+        static DWORD lastUpdateTick = 0;
+
+        DWORD now = GetTickCount();
+        if ((now - lastUpdateTick) >= 1000)
+        {
+            playerCount = Cheats::CollectPlayerNetworkInfo(players, (int)(sizeof(players) / sizeof(players[0])));
+            lastUpdateTick = now;
+        }
+
+        ImGuiIO& io = ImGui::GetIO();
+        const float rowHeight = ImGui::GetTextLineHeightWithSpacing() + 4.0f;
+        const float headerAndPaddingHeight = 92.0f;
+        const float minWindowHeight = 142.0f;
+        const float desiredWindowHeight = headerAndPaddingHeight + rowHeight * (float)((std::max)(playerCount, 1));
+        const float maxWindowHeight = (std::max)(220.0f, io.DisplaySize.y - 80.0f);
+        const float windowHeight = (std::min)((std::max)(desiredWindowHeight, minWindowHeight), maxWindowHeight);
+        const float windowWidth = (std::min)(960.0f, (std::max)(760.0f, io.DisplaySize.x - 40.0f));
+
+        ImGui::SetNextWindowSize(ImVec2(windowWidth, windowHeight), ImGuiCond_Always);
+        ImGui::SetNextWindowPos(ImVec2(100.0f, 120.0f), ImGuiCond_FirstUseEver);
+        if (!ImGui::Begin("Player Network Info", nullptr, ImGuiWindowFlags_NoCollapse))
+        {
+            ImGui::End();
+            return;
+        }
+
+        ImGui::TextColored(g_Colors.accentColorHover, "OTHER PLAYERS");
+        ImGui::SameLine();
+        ImGui::TextColored(g_Colors.textDisabled, "| %d found | refresh 1s", playerCount);
         ImGui::Separator();
 
-        // Transform Into Random ESP Target Section
-        if (ImGui::CollapsingHeader("TRANSFORM TOGA", ImGuiTreeNodeFlags_None))
+        if (playerCount <= 0)
         {
-            // Enable/Disable toggle
-            ImGuiHelper::ToggleSwitchLarge("Enable Transform", &g_Settings.EnableTransformIntoRandomESP);
-            
-            if (g_Settings.EnableTransformIntoRandomESP)
-            {
-                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentGreen);
-                ImGui::Text("Status: ENABLED");
-                ImGui::PopStyleColor();
-            }
-            else
-            {
-                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentOrange);
-                ImGui::Text("Status: DISABLED");
-                ImGui::PopStyleColor();
-            }
-            
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
-            ImGui::Text("HOTKEY CONFIGURATION");
-            ImGui::PopStyleColor();
-            
-            ImGui::Spacing();
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.4f, 0.6f, 1.0f));
-            {
-                std::string hotkeyLabel = "[KB] " + GetKeyName(g_Settings.TransformIntoRandomESPKey.Keyboard, 0) + 
-                                          " | [X] " + GetKeyName(g_Settings.TransformIntoRandomESPKey.Xbox, 1) + 
-                                          " | [PS] " + GetKeyName(g_Settings.TransformIntoRandomESPKey.PS4, 1);
-                if (ImGui::Button(hotkeyLabel.c_str(), ImVec2(-1, 0)))
-                {
-                    g_ListeningForHotkey = true;
-                    g_HotkeyListenStartTime = GetTickCount();
-                    g_CurrentHotkeyValue = 102;  // Transform hotkey (unified)
-                }
-            }
-            ImGui::PopStyleColor();
-            
-            ImGui::Spacing();
-            ImGui::Spacing();
-            ImGui::TextWrapped("Info: Press hotkey in-game to transform to a random ESP target (works with menu open)");
+            ImGui::TextColored(g_Colors.warning, "No other players found.");
+            ImGui::End();
+            return;
         }
 
-        // Duplicate Into Imitation Random ESP Target Section
-        if (ImGui::CollapsingHeader("DUPLICATE IMITATION", ImGuiTreeNodeFlags_None))
+        ImGuiTableFlags flags =
+            ImGuiTableFlags_Borders |
+            ImGuiTableFlags_RowBg |
+            ImGuiTableFlags_Resizable |
+            ImGuiTableFlags_Reorderable |
+            ImGuiTableFlags_ScrollY |
+            ImGuiTableFlags_SizingStretchProp;
+
+        const float tableHeight = (std::max)(64.0f, ImGui::GetContentRegionAvail().y);
+        if (ImGui::BeginTable("##PlayerNetworkInfoTable", 8, flags, ImVec2(0.0f, tableHeight)))
         {
-            ImGui::Spacing();
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentYellow);
-            ImGui::Text("DUPLICATE IMITATION VARIANT");
-            ImGui::PopStyleColor();
-            
-            ImGuiHelper::ToggleSwitchLarge("Enable DuplicateIntoImitation", &g_Settings.EnableDuplicateIntoImitationRandomESP);
-            ImGuiSliderHelper::SliderFloat("Imitation Lifetime", &g_Settings.DuplicateImitationLifeTime, 150.0f, 5.0f, 120.0f);
-            ImGuiSliderHelper::SliderInt("Imitation Duplicate Count", &g_Settings.DuplicateIntoImitationCount, 150.0f, 1, 100);
-            
-            if (g_Settings.EnableDuplicateIntoImitationRandomESP)
-            {
-                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentGreen);
-                ImGui::Text("DuplicateIntoImitation: ENABLED");
-                ImGui::PopStyleColor();
-            }
-            else
-            {
-                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentOrange);
-                ImGui::Text("DuplicateIntoImitation: DISABLED");
-                ImGui::PopStyleColor();
-            }
-            
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
-            ImGui::Text("IMITATION HOTKEYS");
-            ImGui::PopStyleColor();
-            
-            ImGui::Spacing();
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.4f, 0.6f, 1.0f));
-            {
-                std::string hotkeyLabel = "[KB] " + GetKeyName(g_Settings.DuplicateIntoImitationRandomESPKey.Keyboard, 0) + 
-                                          " | [X] " + GetKeyName(g_Settings.DuplicateIntoImitationRandomESPKey.Xbox, 1) + 
-                                          " | [PS] " + GetKeyName(g_Settings.DuplicateIntoImitationRandomESPKey.PS4, 1);
-                if (ImGui::Button(hotkeyLabel.c_str(), ImVec2(-1, 0)))
+            ImGui::TableSetupColumn("#", ImGuiTableColumnFlags_WidthFixed, 34.0f);
+            ImGui::TableSetupColumn("Disconnect", ImGuiTableColumnFlags_WidthFixed, 76.0f);
+            ImGui::TableSetupColumn("Display", ImGuiTableColumnFlags_WidthStretch, 1.35f);
+            ImGui::TableSetupColumn("Public", ImGuiTableColumnFlags_WidthStretch, 1.10f);
+            ImGui::TableSetupColumn("Private", ImGuiTableColumnFlags_WidthStretch, 1.10f);
+            ImGui::TableSetupColumn("Platform", ImGuiTableColumnFlags_WidthFixed, 58.0f);
+            ImGui::TableSetupColumn("Ping", ImGuiTableColumnFlags_WidthFixed, 66.0f);
+            ImGui::TableSetupColumn("Team", ImGuiTableColumnFlags_WidthFixed, 54.0f);
+            ImGui::TableHeadersRow();
+
+            int sortedIndices[128]{};
+            for (int i = 0; i < playerCount; i++)
+                sortedIndices[i] = i;
+
+            std::sort(sortedIndices, sortedIndices + playerCount, [&](int lhs, int rhs)
                 {
-                    g_ListeningForHotkey = true;
-                    g_HotkeyListenStartTime = GetTickCount();
-                    g_CurrentHotkeyValue = 103;  // DuplicateImitation hotkey (unified)
-                }
-            }
-            ImGui::PopStyleColor();
-            
-            ImGui::Spacing();
-            ImGui::TextWrapped("Info: Press hotkey to spawn temporary duplicate near target.");
-        }
+                    const Cheats::PlayerNetworkInfo& a = players[lhs];
+                    const Cheats::PlayerNetworkInfo& b = players[rhs];
+                    int teamA = GetTeamSortKey(a.teamId);
+                    int teamB = GetTeamSortKey(b.teamId);
 
-        // Copy Skills From Nearest Enemy Section
-        if (ImGui::CollapsingHeader("COPY SKILLS", ImGuiTreeNodeFlags_None))
-        {
-            ImGui::Spacing();
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentYellow);
-            ImGui::Text("COPY SKILLS FROM NEAREST ENEMY");
-            ImGui::PopStyleColor();
-            
-            ImGuiHelper::ToggleSwitchLarge("Enable Copy Skills", &g_Settings.EnableCopySkillsFromNearestEnemy);
-            
-            if (g_Settings.EnableCopySkillsFromNearestEnemy)
+                    if (teamA != teamB)
+                        return teamA < teamB;
+                    if (a.pingMs != b.pingMs)
+                        return a.pingMs < b.pingMs;
+                    return lhs < rhs;
+                });
+
+            int currentTeam = INT_MIN;
+            int displayIndex = 0;
+            for (int sortedPos = 0; sortedPos < playerCount; sortedPos++)
             {
-                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentGreen);
-                ImGui::Text("CopySkills: ENABLED");
-                ImGui::PopStyleColor();
-            }
-            else
-            {
-                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentOrange);
-                ImGui::Text("CopySkills: DISABLED");
-                ImGui::PopStyleColor();
-            }
-            
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
-            ImGui::Text("COPY SETTINGS");
-            ImGui::PopStyleColor();
-            
-            ImGuiHelper::ToggleSwitch("Set Copy Skill", &g_Settings.CopySkillsSetCopySkill);
-            ImGuiHelper::ToggleSwitch("Use Owner Character Level", &g_Settings.CopySkillsUseOwnerCharacterLevel);
-            
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
-            ImGui::Text("HOTKEY CONFIGURATION");
-            ImGui::PopStyleColor();
-            
-            ImGui::Spacing();
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.4f, 0.6f, 1.0f));
-            {
-                std::string hotkeyLabel = "[KB] " + GetKeyName(g_Settings.CopySkillsFromNearestEnemyKey.Keyboard, 0) + 
-                                          " | [X] " + GetKeyName(g_Settings.CopySkillsFromNearestEnemyKey.Xbox, 1) + 
-                                          " | [PS] " + GetKeyName(g_Settings.CopySkillsFromNearestEnemyKey.PS4, 1);
-                if (ImGui::Button(hotkeyLabel.c_str(), ImVec2(-1, 0)))
+                const Cheats::PlayerNetworkInfo& player = players[sortedIndices[sortedPos]];
+                if (player.teamId != currentTeam)
                 {
-                    g_ListeningForHotkey = true;
-                    g_HotkeyListenStartTime = GetTickCount();
-                    g_CurrentHotkeyValue = 106;  // Copy Skills hotkey (unified)
-                }
-            }
-            ImGui::PopStyleColor();
-            
-            ImGui::Spacing();
-            ImGui::TextWrapped("Info: Press hotkey to copy skills from nearest enemy character in battle.");
-        }
-
-        // Teleport to KOTA Section
-        if (ImGui::CollapsingHeader("TELEPORT TO KOTA", ImGuiTreeNodeFlags_None))
-        {
-            // Enable/Disable toggle
-            ImGuiHelper::ToggleSwitchLarge("Enable Teleport to KOTA", &g_Settings.EnableTeleportToKota);
-            
-            if (g_Settings.EnableTeleportToKota)
-            {
-                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentGreen);
-                ImGui::Text("Status: ENABLED");
-                ImGui::PopStyleColor();
-            }
-            else
-            {
-                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentOrange);
-                ImGui::Text("Status: DISABLED");
-                ImGui::PopStyleColor();
-            }
-            
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
-            ImGui::Text("HOTKEY CONFIGURATION");
-            ImGui::PopStyleColor();
-            
-            ImGui::Spacing();
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.4f, 0.6f, 1.0f));
-            {
-                std::string hotkeyLabel = "[KB] " + GetKeyName(g_Settings.TeleportToKotaKey.Keyboard, 0) + 
-                                          " | [X] " + GetKeyName(g_Settings.TeleportToKotaKey.Xbox, 1) + 
-                                          " | [PS] " + GetKeyName(g_Settings.TeleportToKotaKey.PS4, 1);
-                if (ImGui::Button(hotkeyLabel.c_str(), ImVec2(-1, 0)))
-                {
-                    g_ListeningForHotkey = true;
-                    g_HotkeyListenStartTime = GetTickCount();
-                    g_CurrentHotkeyValue = 101;  // Teleport hotkey (unified)
-                }
-            }
-            ImGui::PopStyleColor();
-            
-            ImGui::Spacing();
-            ImGui::Spacing();
-            ImGui::TextWrapped("Info: Press hotkey in-game to teleport to KOTA (works with menu open)");
-        }
-
-        // Teleport Items Section
-        if (ImGui::CollapsingHeader("TELEPORT ITEMS", ImGuiTreeNodeFlags_None))
-        {
-            // Enable/Disable toggle
-            ImGuiHelper::ToggleSwitchLarge("Enable Teleport Items", &g_Settings.EnableTeleportLevelUpCards);
-            
-            if (g_Settings.EnableTeleportLevelUpCards)
-            {
-                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentGreen);
-                ImGui::Text("Status: ENABLED");
-                ImGui::PopStyleColor();
-            }
-            else
-            {
-                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentOrange);
-                ImGui::Text("Status: DISABLED");
-                ImGui::PopStyleColor();
-            }
-            
-            ImGui::Spacing();
-            ImGui::Separator();
-            
-            // Global Teleport All Button
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.2f, 0.2f, 1.0f));
-            if (ImGui::Button(">> TELEPORT ALL <<", ImVec2(-1, 0)))
-            {
-                SDK_RunTeleportLevelUpCards();
-            }
-            ImGui::PopStyleColor();
-            
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.primaryBlue);
-            ImGui::Text("ITEMS");
-            ImGui::PopStyleColor();
-            ImGui::Spacing();
-            
-            // Item buttons - compact style
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.5f, 0.2f, 1.0f));
-            
-            if (ImGui::Button("HP S", ImVec2(50, 0))) { SDK_TeleportItem_HPDrinkSmall(); }
-            ImGui::SameLine();
-            if (ImGui::Button("HP L", ImVec2(50, 0))) { SDK_TeleportItem_HPDrink(); }
-            ImGui::SameLine();
-            if (ImGui::Button("Team HP", ImVec2(60, 0))) { SDK_TeleportItem_HPDrinkMedium(); }
-            ImGui::SameLine();
-            if (ImGui::Button("GP S", ImVec2(50, 0))) { SDK_TeleportItem_GPDrinkSmall(); }
-            ImGui::SameLine();
-            if (ImGui::Button("GP L", ImVec2(50, 0))) { SDK_TeleportItem_GPDrink(); }
-            ImGui::SameLine();
-            if (ImGui::Button("Team GP", ImVec2(60, 0))) { SDK_TeleportItem_GPDrinkMedium(); }
-            
-            ImGui::Spacing();
-            
-            if (ImGui::Button("Full Sup", ImVec2(60, 0))) { SDK_TeleportItem_FullSupport(); }
-            ImGui::SameLine();
-            if (ImGui::Button("Team Sup", ImVec2(70, 0))) { SDK_TeleportItem_TeamSupport(); }
-            ImGui::SameLine();
-            if (ImGui::Button("Bag S", ImVec2(50, 0))) { SDK_TeleportItem_BagSmall(); }
-            ImGui::SameLine();
-            if (ImGui::Button("Bag M", ImVec2(50, 0))) { SDK_TeleportItem_BagMedium(); }
-            ImGui::SameLine();
-            if (ImGui::Button("Bag L", ImVec2(50, 0))) { SDK_TeleportItem_BagLarge(); }
-            ImGui::SameLine();
-            if (ImGui::Button("Box", ImVec2(40, 0))) { SDK_TeleportItem_Box(); }
-            
-            ImGui::Spacing();
-            
-            if (ImGui::Button("Box S", ImVec2(50, 0))) { SDK_TeleportItem_BoxSmall(); }
-            ImGui::SameLine();
-            if (ImGui::Button("Box L", ImVec2(50, 0))) { SDK_TeleportItem_BoxLarge(); }
-            ImGui::SameLine();
-            if (ImGui::Button("Box Gold", ImVec2(70, 0))) { SDK_TeleportItem_BoxGold(); }
-            ImGui::SameLine();
-            if (ImGui::Button("LvlUp", ImVec2(50, 0))) { SDK_TeleportItem_LevelUpCard(); }
-            ImGui::SameLine();
-            if (ImGui::Button("Enhance", ImVec2(60, 0))) { SDK_TeleportItem_TeamEnhancementKit(); }
-            
-            ImGui::Spacing();
-            ImGui::SameLine();
-            if (ImGui::Button("Card A", ImVec2(50, 0))) { SDK_TeleportItem_AbilitySupplyAlpha(); }
-            ImGui::SameLine();
-            if (ImGui::Button("Card B", ImVec2(50, 0))) { SDK_TeleportItem_AbilitySupplyBeta(); }
-            ImGui::SameLine();
-            if (ImGui::Button("Card Y", ImVec2(50, 0))) { SDK_TeleportItem_AbilitySupplyGamma(); }
-            
-            ImGui::PopStyleColor();
-            
-            ImGui::Spacing();
-        }
-    }
-
-    // ============================================================================
-    // COMBAT MENU - Fused CHARACTER + COMBAT SUPPORT with collapsible sections
-    // ============================================================================
-    static bool g_CombatTrainingOpen = true;
-    static bool g_InvincibilityRecoveryOpen = true;
-    static bool g_CharacterConditionsOpen = true;
-    static bool g_CharacterControlOpen = true;
-    static bool g_SupplyManagementOpen = true;
-    static bool g_TrainingIterationOpen = true;
-    static bool g_AbilityHacksOpen = true;
-    
-    // Lobby Exploit Menu state
-    static int g_SelectedTeamId = -1;  // -1 = no selection, or actual team ID
-    static std::vector<unsigned char> g_AvailableTeamIds;  // List of teams in current match
-    static bool g_LobbyExploitOpen = true;
-    static bool g_ApplyToTeamOpen = true;
-
-    // Helper function to create combo lists for ranges
-    static void GenerateComboItems(std::vector<std::string>& items, int min_val, int max_val, const char* format = "%d")
-    {
-        items.clear();
-        for (int i = min_val; i <= max_val; i++)
-        {
-            char buf[32];
-            snprintf(buf, sizeof(buf), format, i);
-            items.push_back(buf);
-        }
-    }
-
-    // Helper function to safely access combo items
-    static std::vector<const char*> GetComboItemPtrs(const std::vector<std::string>& items)
-    {
-        std::vector<const char*> ptrs;
-        for (const auto& item : items) ptrs.push_back(item.c_str());
-        return ptrs;
-    }
-    
-    // Forward declaration for RenderAbilityHackMenu
-    static void RenderAbilityHackMenu();
-
-    static void RenderCombatMenu()
-    {
-
-
-        // ===== INVINCIBILITY & RECOVERY SECTION =====
-        if (ImGui::CollapsingHeader("INVINCIBILITY & RECOVERY", &g_InvincibilityRecoveryOpen, ImGuiTreeNodeFlags_None))
-        {
-            SectionHeader("Invincibility (10s-120s, All Effects Enabled)");
-
-            // Invincibility Hotkey button
-            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.warning);
-            {
-                std::string hotkeyLabel = "[KB] " + GetKeyName(g_Settings.SetInvincibleKey.Keyboard, 0) + 
-                                          " | [X] " + GetKeyName(g_Settings.SetInvincibleKey.Xbox, 1) + 
-                                          " | [PS] " + GetKeyName(g_Settings.SetInvincibleKey.PS4, 1);
-                if (ImGui::Button(hotkeyLabel.c_str(), ImVec2(-1, 0)))
-                {
-                    g_ListeningForHotkey = true;
-                    g_HotkeyListenStartTime = GetTickCount();
-                    g_CurrentHotkeyValue = 104;
-                }
-            }
-            ImGui::PopStyleColor();
-
-            ImGui::Spacing();
-            static bool g_EnableInvincibility = false;
-            if (ImGuiHelper::ToggleSwitch("ACTIVATE INVINCIBILITY NOW", &g_EnableInvincibility))
-            {
-                if (g_EnableInvincibility)
-                {
-                    if (InGameHack_SetInvincible())
+                    currentTeam = player.teamId;
+                    int teamCount = 0;
+                    for (int j = 0; j < playerCount; j++)
                     {
-}
+                        if (players[j].teamId == currentTeam)
+                            teamCount++;
+                    }
+
+                    ImGui::TableNextRow(ImGuiTableRowFlags_Headers);
+                    ImGui::TableSetBgColor(ImGuiTableBgTarget_RowBg0, ColorWithAlpha(g_Colors.accentColor, 0.22f));
+                    ImGui::TableSetColumnIndex(0);
+                    if (currentTeam >= 0)
+                        ImGui::Text("TEAM %d", currentTeam);
+                    else
+                        ImGui::TextUnformatted("TEAM N/A");
+                    ImGui::TableSetColumnIndex(2);
+                    ImGui::TextColored(g_Colors.textDisabled, "%d player%s", teamCount, teamCount > 1 ? "s" : "");
+                }
+
+                ImGui::TableNextRow();
+
+                ImGui::TableSetColumnIndex(0);
+                ImGui::Text("%d", displayIndex++);
+
+                ImGui::TableSetColumnIndex(1);
+                if (player.playerState)
+                    ImGui::PushID(player.playerState);
+                else
+                    ImGui::PushID(sortedPos);
+                const bool canChange = player.hasActor && !player.isLocal && player.playerState != nullptr;
+                if (!canChange)
+                    ImGui::BeginDisabled(true);
+                if (ImGui::Button("Kick", ImVec2(66.0f, 0.0f)))
+                    Cheats::ChangePlayerNetworkTargetToCh001(player.playerState);
+                if (!canChange)
+                    ImGui::EndDisabled();
+                if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenDisabled))
+                {
+                    if (player.isLocal)
+                        ImGui::SetTooltip("Local player is not changed from this table.");
+                    else if (!player.hasActor)
+                        ImGui::SetTooltip("No active actor found for this player.");
+                    else
+                        ImGui::SetTooltip("Change this player to Ch001 variation 0.");
+                }
+                ImGui::PopID();
+
+                ImGui::TableSetColumnIndex(2);
+                ImGui::TextUnformatted(player.displayName);
+
+                ImGui::TableSetColumnIndex(3);
+                ImGui::TextUnformatted(player.publicName);
+
+                ImGui::TableSetColumnIndex(4);
+                ImGui::TextUnformatted(player.privateName);
+
+                ImGui::TableSetColumnIndex(5);
+                DrawPlatformIconCell(player);
+
+                ImGui::TableSetColumnIndex(6);
+                if (player.pingMs >= 0)
+                    ImGui::Text("%d ms", player.pingMs);
+                else
+                    ImGui::TextUnformatted("N/A");
+
+                ImGui::TableSetColumnIndex(7);
+                if (player.teamId >= 0)
+                    ImGui::Text("%d", player.teamId);
+                else
+                    ImGui::TextUnformatted("N/A");
+            }
+
+            ImGui::EndTable();
+        }
+
+        ImGui::End();
+    }
+
+    // ============================================================================
+    // CHARACTER DATA HELPER FUNCTIONS (Using Character_Data.h)
+    // ============================================================================
+    struct CharacterVariationOption {
+        int characterId;        // Real ID from Character_Data.h (1-46)
+        int variationId;        // 0, 1, 2, etc.
+        const char* displayName;
+    };
+
+    static std::vector<CharacterVariationOption> GetCharacterVariationOptionsFromCharacterData()
+    {
+        std::vector<CharacterVariationOption> result;
+        for (int i = 0; i < Cheats::CharacterCount; i++) {
+            const auto& entry = Cheats::Characters[i];
+            for (int v = 0; v <= entry.maxVariation; v++) {
+                result.push_back({entry.id, v, entry.name});
+            }
+        }
+        return result;
+    }
+
+    static std::pair<int, int> GetCharacterAndVariationFromIndex(int index)
+    {
+        static auto options = GetCharacterVariationOptionsFromCharacterData();
+        if (index >= 0 && index < (int)options.size()) {
+            return {options[index].characterId, options[index].variationId};
+        }
+        return {-1, -1};
+    }
+
+    static const char* GetCharacterVariationDisplayName(int index)
+    {
+        static auto options = GetCharacterVariationOptionsFromCharacterData();
+        if (index >= 0 && index < (int)options.size()) {
+            static char displayName[128] = {};
+            if (options[index].variationId > 0)
+                snprintf(displayName, sizeof(displayName), "%s (V%d)", options[index].displayName, options[index].variationId);
+            else
+                snprintf(displayName, sizeof(displayName), "%s", options[index].displayName);
+
+            return displayName;
+        }
+        return "Unknown";
+    }
+
+    static std::unordered_map<int, ID3D11ShaderResourceView*> g_CharacterIconGridCache;
+    static size_t g_CharacterIconWarmCursor = 0;
+
+    static ID3D11ShaderResourceView* GetCachedCharacterGridIcon(int characterId)
+    {
+        auto it = g_CharacterIconGridCache.find(characterId);
+        return it != g_CharacterIconGridCache.end() ? it->second : nullptr;
+    }
+
+    static bool HasCachedCharacterGridIcon(int characterId)
+    {
+        return g_CharacterIconGridCache.find(characterId) != g_CharacterIconGridCache.end();
+    }
+
+    static void WarmCharacterGridIcons(const std::vector<CharacterVariationOption>& options, int selectedVariationIndex)
+    {
+        if (options.empty())
+            return;
+
+        constexpr int maxLoadsPerFrame = 2;
+        int loadedThisFrame = 0;
+
+        if (selectedVariationIndex >= 0 && selectedVariationIndex < (int)options.size())
+        {
+            int selectedCharacterId = options[selectedVariationIndex].characterId;
+            if (!HasCachedCharacterGridIcon(selectedCharacterId))
+            {
+                g_CharacterIconGridCache[selectedCharacterId] =
+                    IconLoader::CharacterIconCache::GetCharacterIcon(selectedCharacterId);
+                loadedThisFrame++;
+            }
+        }
+
+        for (size_t checked = 0; checked < options.size() && loadedThisFrame < maxLoadsPerFrame; checked++)
+        {
+            const CharacterVariationOption& option = options[g_CharacterIconWarmCursor % options.size()];
+            g_CharacterIconWarmCursor = (g_CharacterIconWarmCursor + 1) % options.size();
+
+            if (HasCachedCharacterGridIcon(option.characterId))
+                continue;
+
+            g_CharacterIconGridCache[option.characterId] =
+                IconLoader::CharacterIconCache::GetCharacterIcon(option.characterId);
+            loadedThisFrame++;
+        }
+    }
+
+    // ============================================================================
+    // CHARACTER ICON GRID SELECTOR
+    // ============================================================================
+    static bool CharacterIconGridSelector(int& selectedVariationIndex, float iconSize = 40.0f, bool reserveScrollbarSpace = false)
+    {
+        static auto all_options = GetCharacterVariationOptionsFromCharacterData();
+        if (all_options.empty())
+            return false;
+
+        if (selectedVariationIndex < 0 || selectedVariationIndex >= (int)all_options.size())
+            selectedVariationIndex = 0;
+
+        WarmCharacterGridIcons(all_options, selectedVariationIndex);
+
+        ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(2.0f, 2.0f));
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(6.0f, 6.0f));
+
+        bool changed = false;
+        ImGuiStyle& style = ImGui::GetStyle();
+        float itemSpacing = 6.0f;
+        float buttonWidth = iconSize + 4.0f;
+        float availableWidth = ImGui::GetContentRegionAvail().x;
+        if (reserveScrollbarSpace)
+            availableWidth -= style.ScrollbarSize + itemSpacing;
+
+        int cols = (int)((availableWidth + itemSpacing) / (buttonWidth + itemSpacing));
+        if (cols < 1) cols = 1;
+        
+        for (size_t i = 0; i < all_options.size(); i++)
+        {
+            const auto& option = all_options[i];
+            
+            ID3D11ShaderResourceView* iconSRV = GetCachedCharacterGridIcon(option.characterId);
+            
+            // Create unique ID for button
+            ImGui::PushID((int)i);
+            
+            if (iconSRV)
+            {
+                // Display icon as image button
+                bool pressed = ImGui::ImageButton("##character-icon", iconSRV, ImVec2(iconSize, iconSize));
+                
+                if (ImGui::IsItemHovered())
+                {
+                    ImGui::SetTooltip("%s (Var %d)", option.displayName, option.variationId);
+                }
+                
+                if (pressed)
+                {
+                    selectedVariationIndex = (int)i;
+                    changed = true;
+                }
+                
+                // Highlight selected
+                if (selectedVariationIndex == (int)i)
+                {
+                    ImDrawList* draw_list = ImGui::GetWindowDrawList();
+                    ImVec2 p_min = ImGui::GetItemRectMin();
+                    ImVec2 p_max = ImGui::GetItemRectMax();
+                    draw_list->AddRect(p_min, p_max, ImGui::GetColorU32(ImGuiCol_Header), 3.0f, 0, 2.0f);
+                }
+            }
+            else
+            {
+                char fallback[16] = {};
+                snprintf(fallback, sizeof(fallback), "CH%d", option.characterId);
+                if (ImAdd::Button(fallback, ImVec2(iconSize + 4.0f, iconSize + 4.0f)))
+                {
+                    selectedVariationIndex = (int)i;
+                    changed = true;
+                }
+                
+                if (selectedVariationIndex == (int)i)
+                {
+                        ImGui::GetWindowDrawList()->AddRect(
+                        ImGui::GetItemRectMin(),
+                        ImGui::GetItemRectMax(),
+                        ImGui::GetColorU32(ImGuiCol_Header),
+                        3.0f,
+                        0,
+                        2.0f);
+                }
+            }
+            
+            ImGui::PopID();
+            
+            // Next column logic
+            if ((i + 1) % cols != 0 && i + 1 < all_options.size())
+                ImGui::SameLine();
+        }
+        
+        ImGui::PopStyleVar(2);
+        return changed;
+    }
+
+    static bool CharacterIconGridPanel(const char* panelId, int& selectedVariationIndex, float height = 0.0f, float iconSize = 42.0f, bool reserveScrollbarSpace = false)
+    {
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+        ImGui::BeginChild(panelId, ImVec2(0.0f, height), false, ImGuiWindowFlags_AlwaysVerticalScrollbar);
+        bool changed = CharacterIconGridSelector(selectedVariationIndex, iconSize, reserveScrollbarSpace);
+        ImGui::EndChild();
+
+        ImGui::PopStyleVar();
+        return changed;
+    }
+
+    static int g_SelectedTeamId = -1;
+    static std::vector<unsigned char> g_AvailableTeamIds;
+
+    struct TeamListEntry
+    {
+        unsigned char teamId = 255;
+        std::vector<std::string> playerNames;
+    };
+
+    static std::vector<std::string> g_CachedRecoveryTeamNames;
+    static DWORD g_LastRecoveryTeamRefreshTick = 0;
+    static std::vector<TeamListEntry> g_CachedLobbyTeams;
+    static int g_CachedLobbyMyTeamId = -1;
+    static DWORD g_LastLobbyTeamsRefreshTick = 0;
+    static constexpr DWORD GAME_LIST_CACHE_INTERVAL_MS = 7500;
+    static std::vector<SeasonRankRewardItemOption> g_CachedSeasonRewardItems;
+    static bool g_SeasonRewardItemsLoaded = false;
+
+    struct TimedLicenseClaimTestState
+    {
+        bool active = false;
+        bool specialLicense = false;
+        int seasonCode = 1;
+        int freeRank = 1;
+        int premiumRank = 0;
+        int specialRank = 1;
+        int repeatTotal = 1;
+        int sentCount = 0;
+        int delayMs = 1000;
+        DWORD lastSendTick = 0;
+    };
+
+    static TimedLicenseClaimTestState g_TimedLicenseClaimTest;
+
+    static void StartTimedLicenseClaimTest(bool specialLicense)
+    {
+        g_TimedLicenseClaimTest.active = true;
+        g_TimedLicenseClaimTest.specialLicense = specialLicense;
+        g_TimedLicenseClaimTest.seasonCode = g_HackSettings.LicenseClaimSeasonCode;
+        g_TimedLicenseClaimTest.freeRank = g_HackSettings.LicenseClaimFreeRank;
+        g_TimedLicenseClaimTest.premiumRank = g_HackSettings.LicenseClaimPremiumRank;
+        g_TimedLicenseClaimTest.specialRank = g_HackSettings.LicenseClaimSpecialRank;
+        g_TimedLicenseClaimTest.repeatTotal = (std::max)(1, (std::min)(g_HackSettings.LicenseClaimRepeatCount, 20));
+        g_TimedLicenseClaimTest.sentCount = 0;
+        g_TimedLicenseClaimTest.delayMs = (std::max)(50, (std::min)(g_HackSettings.LicenseClaimDelayMs, 10000));
+        g_TimedLicenseClaimTest.lastSendTick = 0;
+    }
+
+    static void ProcessTimedLicenseClaimTest()
+    {
+        if (!g_TimedLicenseClaimTest.active)
+            return;
+
+        if (g_TimedLicenseClaimTest.sentCount >= g_TimedLicenseClaimTest.repeatTotal)
+        {
+            g_TimedLicenseClaimTest.active = false;
+            return;
+        }
+
+        const DWORD now = GetTickCount();
+        if (g_TimedLicenseClaimTest.lastSendTick != 0 &&
+            now - g_TimedLicenseClaimTest.lastSendTick < static_cast<DWORD>(g_TimedLicenseClaimTest.delayMs))
+        {
+            return;
+        }
+
+        if (g_TimedLicenseClaimTest.specialLicense)
+        {
+            InGameHack_ReceiveSpecialLicenseClaimTest(g_TimedLicenseClaimTest.specialRank, 1);
+        }
+        else
+        {
+            InGameHack_ReceiveLicenseClaimTest(
+                g_TimedLicenseClaimTest.seasonCode,
+                g_TimedLicenseClaimTest.freeRank,
+                g_TimedLicenseClaimTest.premiumRank,
+                1);
+        }
+
+        ++g_TimedLicenseClaimTest.sentCount;
+        g_TimedLicenseClaimTest.lastSendTick = now;
+
+        if (g_TimedLicenseClaimTest.sentCount >= g_TimedLicenseClaimTest.repeatTotal)
+            g_TimedLicenseClaimTest.active = false;
+    }
+
+    static void RefreshSeasonRewardItemCache()
+    {
+        g_CachedSeasonRewardItems = InGameHack_GetSeasonRankRewardItemOptions();
+        if (g_HackSettings.SeasonRewardSourceIndex < 0 ||
+            g_HackSettings.SeasonRewardSourceIndex >= (int)g_CachedSeasonRewardItems.size())
+        {
+            g_HackSettings.SeasonRewardSourceIndex = 0;
+        }
+        g_SeasonRewardItemsLoaded = true;
+    }
+
+    static void DrawSeasonRankRewardReplacementControls()
+    {
+        SeparatorLabel("Season rank rewards");
+
+        if (FullWidthButton("REFRESH SEASON REWARDS"))
+            RefreshSeasonRewardItemCache();
+
+        if (!g_SeasonRewardItemsLoaded)
+            RefreshSeasonRewardItemCache();
+
+        if (g_CachedSeasonRewardItems.empty())
+        {
+            ImGui::TextColored(g_Colors.warning, "No season rank rewards found.");
+            return;
+        }
+
+        if (g_HackSettings.SeasonRewardSourceIndex < 0 ||
+            g_HackSettings.SeasonRewardSourceIndex >= (int)g_CachedSeasonRewardItems.size())
+        {
+            g_HackSettings.SeasonRewardSourceIndex = 0;
+        }
+
+        const float availableWidth = ImGui::GetContentRegionAvail().x;
+        const float availableHeight = ImGui::GetContentRegionAvail().y;
+        const bool wideLayout = availableWidth >= 620.0f;
+        const float controlsWidth = wideLayout ? (std::min)(360.0f, (std::max)(250.0f, availableWidth * 0.34f)) : availableWidth;
+        const float sourceListWidth = wideLayout ? availableWidth - controlsWidth - ImGui::GetStyle().ItemSpacing.x : availableWidth;
+        const float sourceListHeight = (std::max)(180.0f, wideLayout ? availableHeight : 220.0f);
+
+        ImGui::BeginGroup();
+        ImGui::TextColored(g_Colors.textDisabled, "Source reward");
+        ImGui::BeginChild("##SeasonRewardSourceList", ImVec2(sourceListWidth, sourceListHeight), true, ImGuiWindowFlags_AlwaysVerticalScrollbar);
+        for (int i = 0; i < (int)g_CachedSeasonRewardItems.size(); ++i)
+        {
+            const SeasonRankRewardItemOption& option = g_CachedSeasonRewardItems[i];
+            const bool selected = i == g_HackSettings.SeasonRewardSourceIndex;
+            if (ImGui::Selectable(option.label.c_str(), selected))
+                g_HackSettings.SeasonRewardSourceIndex = i;
+
+            if (selected && ImGui::IsWindowAppearing())
+                ImGui::SetScrollHereY(0.5f);
+
+            if (ImGui::IsItemHovered())
+                ImGui::SetTooltip("%s", option.label.c_str());
+        }
+        ImGui::EndChild();
+        ImGui::EndGroup();
+
+        if (wideLayout)
+            ImGui::SameLine();
+        else
+            ImGui::Spacing();
+
+        ImGui::BeginGroup();
+        const SeasonRankRewardItemOption& source = g_CachedSeasonRewardItems[g_HackSettings.SeasonRewardSourceIndex];
+        ImGui::TextColored(g_Colors.textDisabled, "Selected source");
+        ImGui::PushTextWrapPos(ImGui::GetCursorPosX() + controlsWidth);
+        ImGui::TextWrapped("%s", source.label.c_str());
+        ImGui::PopTextWrapPos();
+
+        ImGui::Spacing();
+        ImGui::Checkbox("Apply to all ranks", &g_HackSettings.SeasonRewardApplyAllRanks);
+        if (!g_HackSettings.SeasonRewardApplyAllRanks)
+            ImAdd::SliderInt("Target rank", &g_HackSettings.SeasonRewardTargetRank, 1, 200, "%d");
+
+        ImAdd::SliderInt("Reward quantity", &g_HackSettings.SeasonRewardQuantity, 1, 999999, "%d");
+
+        static const char* targetSlots[] = { "Free", "Premium", "Both" };
+        ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        ImGui::Combo("Target slot", &g_HackSettings.SeasonRewardTargetSlot, targetSlots, IM_ARRAYSIZE(targetSlots));
+
+        int slotMask = 0;
+        if (g_HackSettings.SeasonRewardTargetSlot == 0)
+            slotMask = 1;
+        else if (g_HackSettings.SeasonRewardTargetSlot == 1)
+            slotMask = 2;
+        else
+            slotMask = 3;
+
+        if (FullWidthButton("REPLACE SEASON RANK REWARD"))
+        {
+            InGameHack_ReplaceSeasonRankRewardsFromExistingReward(
+                source.arrayIndex,
+                source.slot,
+                g_HackSettings.SeasonRewardTargetRank,
+                g_HackSettings.SeasonRewardQuantity,
+                slotMask,
+                g_HackSettings.SeasonRewardApplyAllRanks);
+        }
+        ImGui::EndGroup();
+    }
+
+    static void DrawLicenseBackendClaimTestControls()
+    {
+        SeparatorLabel("Backend claim tests");
+
+        ImAdd::SliderInt("Repeat count", &g_HackSettings.LicenseClaimRepeatCount, 1, 20, "%d");
+        ImAdd::SliderInt("Delay ms", &g_HackSettings.LicenseClaimDelayMs, 50, 10000, "%d");
+
+        ImAdd::SliderInt("Season code", &g_HackSettings.LicenseClaimSeasonCode, 1, 1000, "%d");
+        ImAdd::SliderInt("Free rank", &g_HackSettings.LicenseClaimFreeRank, 0, 200, "%d");
+        ImAdd::SliderInt("Premium rank", &g_HackSettings.LicenseClaimPremiumRank, 0, 200, "%d");
+        if (FullWidthButton("SEND RECEIVE LICENSE NOW"))
+        {
+            InGameHack_ReceiveLicenseClaimTest(
+                g_HackSettings.LicenseClaimSeasonCode,
+                g_HackSettings.LicenseClaimFreeRank,
+                g_HackSettings.LicenseClaimPremiumRank,
+                g_HackSettings.LicenseClaimRepeatCount);
+        }
+        if (FullWidthButton("START TIMED RECEIVE LICENSE"))
+            StartTimedLicenseClaimTest(false);
+
+        ImGui::Spacing();
+        ImAdd::SliderInt("Special rank", &g_HackSettings.LicenseClaimSpecialRank, 1, 200, "%d");
+        if (FullWidthButton("SEND RECEIVE SPECIAL LICENSE NOW"))
+        {
+            InGameHack_ReceiveSpecialLicenseClaimTest(
+                g_HackSettings.LicenseClaimSpecialRank,
+                g_HackSettings.LicenseClaimRepeatCount);
+        }
+        if (FullWidthButton("START TIMED RECEIVE SPECIAL LICENSE"))
+            StartTimedLicenseClaimTest(true);
+
+        if (g_TimedLicenseClaimTest.active)
+        {
+            ImGui::Spacing();
+            ImGui::TextColored(
+                g_Colors.warning,
+                "Timed test: %d/%d sent, delay %d ms",
+                g_TimedLicenseClaimTest.sentCount,
+                g_TimedLicenseClaimTest.repeatTotal,
+                g_TimedLicenseClaimTest.delayMs);
+            if (FullWidthButton("STOP TIMED CLAIM TEST"))
+                g_TimedLicenseClaimTest.active = false;
+        }
+    }
+
+    static void RefreshRecoveryTeamCache(bool force = false)
+    {
+        DWORD now = GetTickCount();
+        if (!force && g_LastRecoveryTeamRefreshTick != 0 &&
+            (now - g_LastRecoveryTeamRefreshTick) < GAME_LIST_CACHE_INTERVAL_MS)
+            return;
+
+        g_CurrentTeamCharacters = InGameHack_GetTeamCharacterBattles();
+        g_CachedRecoveryTeamNames = InGameHack_GetTeamCharacterNames();
+
+        if (g_Settings.SelectedRecoveryTeamIndex >= (int)g_CachedRecoveryTeamNames.size())
+            g_Settings.SelectedRecoveryTeamIndex = -1;
+
+        g_LastRecoveryTeamRefreshTick = now;
+    }
+
+    static void RefreshLobbyTeamsCache(bool force = false)
+    {
+        DWORD now = GetTickCount();
+        if (!force && g_LastLobbyTeamsRefreshTick != 0 &&
+            (now - g_LastLobbyTeamsRefreshTick) < GAME_LIST_CACHE_INTERVAL_MS)
+            return;
+
+        g_CachedLobbyMyTeamId = InGameHack_GetMyTeamId();
+        g_CachedLobbyTeams.clear();
+        g_AvailableTeamIds.clear();
+
+        Cheats::PlayerInfo players[128]{};
+        const int playerCount = Cheats::CollectLobbyPlayerList(players, (int)(sizeof(players) / sizeof(players[0])));
+        g_CachedLobbyTeams.reserve((std::max)(playerCount, 0));
+
+        for (int i = 0; i < playerCount; i++)
+        {
+            const int teamId = players[i].teamId;
+            if (teamId < 0 || teamId >= 255)
+                continue;
+
+            const unsigned char teamByte = static_cast<unsigned char>(teamId);
+            TeamListEntry* teamEntry = nullptr;
+            for (TeamListEntry& entry : g_CachedLobbyTeams)
+            {
+                if (entry.teamId == teamByte)
+                {
+                    teamEntry = &entry;
+                    break;
+                }
+            }
+
+            if (!teamEntry)
+            {
+                TeamListEntry entry;
+                entry.teamId = teamByte;
+                g_CachedLobbyTeams.push_back(entry);
+                g_AvailableTeamIds.push_back(teamByte);
+                teamEntry = &g_CachedLobbyTeams.back();
+            }
+
+            teamEntry->playerNames.push_back(players[i].name[0] ? players[i].name : "Unknown");
+        }
+
+        std::sort(g_AvailableTeamIds.begin(), g_AvailableTeamIds.end());
+        std::sort(g_CachedLobbyTeams.begin(), g_CachedLobbyTeams.end(), [](const TeamListEntry& lhs, const TeamListEntry& rhs)
+            {
+                return lhs.teamId < rhs.teamId;
+            });
+
+        g_LastLobbyTeamsRefreshTick = now;
+    }
+
+    static const TeamListEntry* FindCachedLobbyTeam(unsigned char teamId)
+    {
+        for (const TeamListEntry& entry : g_CachedLobbyTeams)
+        {
+            if (entry.teamId == teamId)
+                return &entry;
+        }
+
+        return nullptr;
+    }
+
+    struct CharacterEditorState
+    {
+        int selectedVariationIndex = 0;
+        int techniqueLevel = 9;
+        int selectedCostumeIndex = 0;
+        int lastVariationIndex = -1;
+        std::vector<int> availableCostumes;
+        std::vector<std::string> costumeNames;
+    };
+
+    static void RugirHeaderText(const char* title)
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        if (io.Fonts->Fonts.Size > 1)
+            ImGui::PushFont(io.Fonts->Fonts[1]);
+        ImGui::TextUnformatted(title);
+        if (io.Fonts->Fonts.Size > 1)
+            ImGui::PopFont();
+    }
+
+    static void RugirHeaderToggle(const char* title, bool* enabled)
+    {
+        ImGuiStyle& style = ImGui::GetStyle();
+        ImGuiIO& io = ImGui::GetIO();
+        ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, style.ChildBorderSize);
+        if (io.Fonts->Fonts.Size > 1)
+            ImGui::PushFont(io.Fonts->Fonts[1]);
+        ImAdd::ToggleButton(title, enabled);
+        if (io.Fonts->Fonts.Size > 1)
+            ImGui::PopFont();
+        ImGui::PopStyleVar();
+    }
+
+    static bool BeginRugirCard(const char* id, const char* title, ImVec2 size, bool* headerToggle = nullptr)
+    {
+        ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(8.0f / 255.0f, 9.0f / 255.0f, 14.0f / 255.0f, 0.40f));
+        ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(g_Colors.accentColor.x, g_Colors.accentColor.y, g_Colors.accentColor.z, 0.20f));
+        ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 6.0f);
+        ImGui::PushStyleVar(ImGuiStyleVar_ChildBorderSize, 1.0f);
+        bool visible = ImAdd::BeginChild(id, size);
+        if (visible)
+        {
+            if (headerToggle)
+                RugirHeaderToggle(title, headerToggle);
+            else
+                RugirHeaderText(title);
+        }
+
+        return visible;
+    }
+
+    static void EndRugirCard()
+    {
+        ImAdd::EndChild();
+        ImGui::PopStyleVar(2);
+        ImGui::PopStyleColor(2);
+    }
+
+    static void SeparatorLabel(const char* label)
+    {
+        ImAdd::SeparatorText(label);
+    }
+
+    static bool FullWidthButton(const char* label, float height)
+    {
+        if (height <= 0.0f)
+            height = 28.0f;
+        return ImAdd::Button(label, ImVec2(ImGui::GetContentRegionAvail().x, height));
+    }
+
+    static unsigned int HashLicenseUnlockText(const char* text)
+    {
+        unsigned int hash = 2166136261u;
+        if (!text)
+            return hash;
+
+        for (const unsigned char* p = reinterpret_cast<const unsigned char*>(text); *p; ++p)
+        {
+            hash ^= *p;
+            hash *= 16777619u;
+        }
+
+        return hash;
+    }
+
+    static bool ValidateLicenseUnlockPassword()
+    {
+        constexpr unsigned int kHashPartA = 0x71A80B48u;
+        constexpr unsigned int kHashPartB = 0x54455255u;
+        return HashLicenseUnlockText(g_LicenseUnlockBuffer) == (kHashPartA ^ kHashPartB);
+    }
+
+    static void RenderProtectedAccessCard(float width)
+    {
+        if (BeginRugirCard("lobby-protected-access-page", "PROTECTED ACCESS", ImVec2(width, 0.0f)))
+        {
+            const bool submitted = ImGui::InputTextWithHint(
+                "##ProtectedAccessPassword",
+                "Password",
+                g_LicenseUnlockBuffer,
+                sizeof(g_LicenseUnlockBuffer),
+                ImGuiInputTextFlags_Password | ImGuiInputTextFlags_EnterReturnsTrue);
+
+            const bool unlockClicked = FullWidthButton("UNLOCK ACCESS");
+            if (submitted || unlockClicked)
+            {
+                if (ValidateLicenseUnlockPassword())
+                {
+                    g_LicenseSectionUnlocked = true;
+                    g_LicenseUnlockFailed = false;
                 }
                 else
                 {
-}
+                    g_LicenseUnlockFailed = true;
+                }
+
+                std::memset(g_LicenseUnlockBuffer, 0, sizeof(g_LicenseUnlockBuffer));
             }
 
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
+            if (g_LicenseUnlockFailed)
+                ImGui::TextColored(g_Colors.warning, "Invalid password.");
+        }
+        EndRugirCard();
+    }
 
-            SectionHeader("Recovery Team Roster");
+    static void DrawInventoryDebugSettingsSection()
+    {
+        SeparatorLabel("Inventory Debug");
+        if (FullWidthButton("DUMP INVENTORY -> C:/temp"))
+        {
+            InGameHack_LogInventory();
+        }
+        if (FullWidthButton("DROP ALL SUPPLIES (DUPE)"))
+        {
+            InGameHack_LogDropInventorySupplies();
+        }
+        ImGui::TextDisabled("Writes C:/temp/rugir_inventory.log");
+    }
 
-            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.success);
-            if (ImGui::Button("REFRESH TEAM ROSTER", ImVec2(-1, 0)))
+    static void DrawDllControlSettingsSection()
+    {
+#if RUGIR_ENABLE_UNLOAD
+        SeparatorLabel("DLL Control");
+        ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.danger);
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.0f, 0.35f, 0.55f, 1.0f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.75f, 0.08f, 0.25f, 1.0f));
+
+        if (FullWidthButton("SAFE UNLOAD", 32.0f))
+        {
+            g_Settings.EnableGlobal = false;
+            g_Visible = false;
+            g_PlayerNetworkTableVisible = false;
+            DLL_Unload();
+        }
+
+        ImGui::PopStyleColor(3);
+#endif
+    }
+
+    static bool SelectableRow(const char* label, bool selected)
+    {
+        return ImAdd::SelectableLabel(label, selected, false, ImVec2(ImGui::GetContentRegionAvail().x, 0.0f));
+    }
+
+    static void DrawHotkeyConfigButton(const char* label, const HotkeySet& hotkey, int hotkeyId)
+    {
+        SeparatorLabel(label);
+        std::string hotkeyLabel = "[KB] " + GetKeyName(hotkey.Keyboard, 0) +
+                                  " | [X] " + GetKeyName(hotkey.Xbox, 1) +
+                                  " | [PS] " + GetKeyName(hotkey.PS4, 2);
+        ImGui::PushID(label);
+        ImGui::PushID(hotkeyId);
+        if (ImAdd::Button(hotkeyLabel.c_str(), ImVec2(ImGui::GetContentRegionAvail().x, 28.0f)))
+        {
+            StartHotkeyListening(hotkeyId);
+        }
+        ImGui::PopID();
+        ImGui::PopID();
+    }
+
+    static void DrawCompactButtonRow(const char* first, const char* second = nullptr, const char* third = nullptr)
+    {
+        const char* labels[3] = { first, second, third };
+        int count = 1;
+        if (second) count++;
+        if (third) count++;
+
+        const float spacing = 6.0f;
+        float width = std::floor((ImGui::GetContentRegionAvail().x - spacing * (float)(count - 1)) / (float)count);
+
+        for (int i = 0; i < count; i++)
+        {
+            if (i > 0)
+                ImGui::SameLine(0.0f, spacing);
+            ImAdd::Button(labels[i], ImVec2(width, 26.0f));
+        }
+    }
+
+    using ButtonAction = void (*)();
+
+    static void DrawActionButtonRow(const char* first, ButtonAction firstAction, const char* second = nullptr, ButtonAction secondAction = nullptr, const char* third = nullptr, ButtonAction thirdAction = nullptr)
+    {
+        const char* labels[3] = { first, second, third };
+        ButtonAction actions[3] = { firstAction, secondAction, thirdAction };
+        int count = 1;
+        if (second) count++;
+        if (third) count++;
+
+        const float spacing = 6.0f;
+        float width = std::floor((ImGui::GetContentRegionAvail().x - spacing * (float)(count - 1)) / (float)count);
+
+        for (int i = 0; i < count; i++)
+        {
+            if (i > 0)
+                ImGui::SameLine(0.0f, spacing);
+            if (ImAdd::Button(labels[i], ImVec2(width, 26.0f)) && actions[i])
+                actions[i]();
+        }
+    }
+
+    static void RefreshCharacterEditorCostumes(CharacterEditorState& state)
+    {
+        if (state.selectedVariationIndex == state.lastVariationIndex)
+            return;
+
+        state.lastVariationIndex = state.selectedVariationIndex;
+        auto [characterId, variationId] = GetCharacterAndVariationFromIndex(state.selectedVariationIndex);
+        state.availableCostumes = CostumeHelper::GetCostumesForCharacter((int)characterId);
+        state.costumeNames.clear();
+        state.costumeNames.reserve(state.availableCostumes.size());
+
+        for (size_t i = 0; i < state.availableCostumes.size(); i++)
+            state.costumeNames.push_back(CostumeHelper::FormatCostumeName(state.availableCostumes[i], i));
+
+        if (state.selectedCostumeIndex >= (int)state.costumeNames.size())
+            state.selectedCostumeIndex = 0;
+    }
+
+    static int GetSelectedCostumeCode(CharacterEditorState& state)
+    {
+        RefreshCharacterEditorCostumes(state);
+        if (state.selectedCostumeIndex >= 0 && state.selectedCostumeIndex < (int)state.availableCostumes.size())
+            return state.availableCostumes[state.selectedCostumeIndex];
+
+        return 0;
+    }
+
+    static void DrawCostumeSelector(CharacterEditorState& state)
+    {
+        RefreshCharacterEditorCostumes(state);
+        SeparatorLabel("Costume");
+
+        if (state.costumeNames.empty())
+        {
+            ImGui::TextColored(g_Colors.textDisabled, "No costume list available");
+            return;
+        }
+
+        if (state.selectedCostumeIndex < 0 || state.selectedCostumeIndex >= (int)state.costumeNames.size())
+            state.selectedCostumeIndex = 0;
+
+        const char* currentCostume = state.costumeNames[state.selectedCostumeIndex].c_str();
+        ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        ImGui::SetNextWindowSizeConstraints(ImVec2(0.0f, 0.0f), ImVec2(FLT_MAX, 280.0f));
+
+        ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(ImGui::GetStyle().FramePadding.x, ImGui::GetStyle().FramePadding.y + 3.0f));
+        if (ImGui::BeginCombo("##CostumeSelector", currentCostume, ImGuiComboFlags_HeightLarge))
+        {
+            for (int i = 0; i < (int)state.costumeNames.size(); i++)
             {
-                g_CurrentTeamCharacters = InGameHack_GetTeamCharacterBattles();
+                const bool selected = state.selectedCostumeIndex == i;
+                if (ImGui::Selectable(state.costumeNames[i].c_str(), selected))
+                    state.selectedCostumeIndex = i;
+
+                if (selected)
+                    ImGui::SetItemDefaultFocus();
+            }
+            ImGui::EndCombo();
+        }
+        ImGui::PopStyleVar();
+    }
+
+    static void SelectedCharacterSummary(int selectedVariationIndex)
+    {
+        auto [characterId, variationId] = GetCharacterAndVariationFromIndex(selectedVariationIndex);
+        SeparatorLabel("Selected Character");
+        ImGui::TextWrapped("%s", GetCharacterVariationDisplayName(selectedVariationIndex));
+        ImGui::TextColored(g_Colors.textDisabled, "Character ID: %d | Variation: %d", characterId, variationId);
+    }
+
+    template<typename ApplyFn>
+    static void RenderCharacterConfigCard(const char* id, const char* title, const char* actionLabel, CharacterEditorState& state, ApplyFn applyFn, bool actionEnabled = true, const char* disabledLabel = "Select a target first", bool showIconGrid = false)
+    {
+        if (BeginRugirCard(id, title, ImVec2(0.0f, 0.0f)))
+        {
+            ImGui::PushID(id);
+            SelectedCharacterSummary(state.selectedVariationIndex);
+
+            if (ImAdd::SliderInt("Technique Level", &state.techniqueLevel, 1, 9))
+            {
+                s_techAlpha = state.techniqueLevel;
+                s_techBeta = state.techniqueLevel;
+                s_techGamma = state.techniqueLevel;
+            }
+
+            DrawCostumeSelector(state);
+
+            if (showIconGrid)
+            {
+                SeparatorLabel("Character icons");
+                CharacterIconGridPanel("lobby-character-icons", state.selectedVariationIndex, 0.0f, 38.0f, true);
+            }
+
+            const char* buttonLabel = actionEnabled ? actionLabel : disabledLabel;
+            if (!actionEnabled)
+                ImGui::BeginDisabled(true);
+
+            if (FullWidthButton(buttonLabel) && actionEnabled)
+            {
+                auto [characterId, variationId] = GetCharacterAndVariationFromIndex(state.selectedVariationIndex);
+                int costumeCode = GetSelectedCostumeCode(state);
+                s_costumeCode = costumeCode;
+                applyFn(characterId, variationId, costumeCode);
+            }
+
+            if (!actionEnabled)
+                ImGui::EndDisabled();
+
+            ImGui::PopID();
+        }
+        EndRugirCard();
+    }
+
+    static void RenderPreviewEspPage(int subtab, float groupWidth)
+    {
+        (void)subtab;
+        if (BeginRugirCard("esp-page", "ESP", ImVec2(0.0f, 0.0f)))
+        {
+            ImGuiStyle& style = ImGui::GetStyle();
+            const float columnWidth = (groupWidth > 0.0f)
+                ? groupWidth
+                : std::floor((ImGui::GetContentRegionAvail().x - style.ItemSpacing.x) * 0.5f);
+
+            ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(style.ItemSpacing.x, 6.0f));
+            ImGui::Columns(2, "esp-columns", false);
+            ImGui::SetColumnWidth(0, columnWidth);
+
+            RugirHeaderToggle("ESP CONTROL", &g_Settings.EnablePlayerESP);
+            if (g_Settings.EnablePlayerESP)
+            {
+                ImAdd::CheckBox("Show Enemy", &g_Settings.ShowEnemies);
+                ImAdd::CheckBox("Show Team", &g_Settings.ShowTeam);
+                ImAdd::CheckBox("LobbyCharacter", &g_Settings.ShowLobbyCharacters);
+                ImAdd::CheckBox("KOTA", &g_Settings.ShowKota);
+            }
+
+            SeparatorLabel("Render");
+            ImAdd::CheckBox("Show Skeleton", &g_Settings.ShowPlayerSkeleton);
+            ImAdd::SliderFloat("Max Draw Distance", &g_Settings.Player_DrawDistance, 100.0f, 5000.0f, "%.0f");
+
+            ImGui::NextColumn();
+
+            SeparatorLabel("Display Info");
+            ImAdd::CheckBox("HP", &g_Settings.ShowHP);
+            ImAdd::CheckBox("GP", &g_Settings.ShowGP);
+            ImAdd::CheckBox("PU", &g_Settings.ShowPU);
+            ImAdd::CheckBox("Platform", &g_Settings.ShowPlatform);
+            ImAdd::CheckBox("Team ID", &g_Settings.ShowTeamId);
+            ImAdd::CheckBox("Server / Ping", &g_Settings.ShowServerStatusOverlay);
+
+            ImGui::Columns(1);
+            ImGui::PopStyleVar();
+        }
+        EndRugirCard();
+    }
+
+    static void RenderPreviewCharacterPage(int subtab, float groupWidth)
+    {
+        static CharacterEditorState ownerState;
+
+        if (subtab == 0)
+        {
+            float gridWidth = ImGui::GetContentRegionAvail().x * 0.66f;
+            ImGui::BeginGroup();
+            static bool ownerSwapEnabled = true;
+            if (BeginRugirCard("owner-character-swap-page", "OWNER CHARACTER SWAP", ImVec2(gridWidth, 0.0f), &ownerSwapEnabled))
+            {
+                SeparatorLabel("Character icons");
+                CharacterIconGridPanel("##owner-character-icons", ownerState.selectedVariationIndex, 0.0f, 42.0f);
+            }
+            EndRugirCard();
+            ImGui::EndGroup();
+
+            ImGui::SameLine();
+
+            RenderCharacterConfigCard(
+                "owner-character-config-page",
+                "CHARACTER CONFIGURATION",
+                "APPLY CONFIGURATION",
+                ownerState,
+                [](int characterId, int variationId, int costumeCode)
+                {
+                    InGameHack_ApplyPlayerConfiguration(characterId, variationId, s_techAlpha, s_techBeta, s_techGamma, costumeCode, 0, 0);
+                });
+            return;
+        }
+
+        if (BeginRugirCard("character-tools-page", "TOOLS", ImVec2(0.0f, 0.0f)))
+        {
+            ImGuiStyle& style = ImGui::GetStyle();
+            const float columnWidth = (groupWidth > 0.0f)
+                ? groupWidth
+                : std::floor((ImGui::GetContentRegionAvail().x - style.ItemSpacing.x) * 0.5f);
+
+            ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(style.ItemSpacing.x, 6.0f));
+            ImGui::Columns(2, "character-tools-columns", false);
+            ImGui::SetColumnWidth(0, columnWidth);
+
+            DrawPlayerNameInlineControls();
+
+            SeparatorLabel("Revive");
+            ImAdd::CheckBox("Recover Me (Self)", &g_Settings.EnableRecoveryMe);
+            ImAdd::CheckBox("Recover Team", &g_Settings.EnableRecoveryTeam);
+            ImAdd::CheckBox("Recover All ESP", &g_Settings.EnableRecoveryAllESP);
+
+            float halfButtonWidth = std::floor((ImGui::GetContentRegionAvail().x - style.ItemSpacing.x) * 0.5f);
+            if (ImAdd::Button("USER RESPAWN", ImVec2(halfButtonWidth, 0.0f)))
+                InGameHack_TestUserRespawnAction();
+            ImGui::SameLine();
+            if (ImAdd::Button("RESPAWN CARD", ImVec2(ImGui::GetContentRegionAvail().x, 0.0f)))
+                InGameHack_TestUseRespawnCardSupply();
+
+            SeparatorLabel("Plus Ultra");
+            ImAdd::CheckBox("Keep Plus Ultra Ready", &g_HackSettings.EnableInfinitePlusUltra);
+            ImAdd::CheckBox("Fast Plus Ultra Charge", &g_Settings.EnableFastPlusUltraCharge);
+            if (FullWidthButton("GET PLUS ULTRA NOW"))
+            {
+                EnqueueGameThreadMenuTask([]() {
+                    InGameHack_GivePlusUltra();
+                }, "Give Plus Ultra");
+            }
+
+            SeparatorLabel("Movement");
+            const bool wasNoCollisionEnabled = g_Settings.EnableNoCollision;
+            ImAdd::CheckBox("No Collision", &g_Settings.EnableNoCollision);
+            ImAdd::SliderFloat("No Collision Speed", &g_Settings.NoCollisionSpeed, 1.0f, 1000.0f, "%.0f");
+            DrawHotkeyConfigButton("No Collision hold", g_Settings.NoCollisionHoldKey, 108);
+            if (wasNoCollisionEnabled && !g_Settings.EnableNoCollision)
+            {
+                EnqueueGameThreadMenuTask([]() {
+                    InGameHack_SetNoCollision(false);
+                }, "Disable No Collision");
+            }
+
+            RefreshRecoveryTeamCache();
+
+            const float rosterButtonWidth = std::floor((ImGui::GetContentRegionAvail().x - style.ItemSpacing.x) * 0.5f);
+            if (ImAdd::Button("REFRESH ROSTER", ImVec2(rosterButtonWidth, 0.0f)))
+            {
+                RefreshRecoveryTeamCache(true);
                 g_Settings.SelectedRecoveryTeamIndex = -1;
-}
-            ImGui::PopStyleColor();
+            }
+            ImGui::SameLine();
+            ImAdd::CheckBox("Recover Selected Team", &g_Settings.EnableRecoverySelectedTeam);
 
-            if (g_CurrentTeamCharacters.empty())
+            if (g_CachedRecoveryTeamNames.empty())
             {
-                ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "No team members found. Refresh or join a battle.");
+                ImGui::TextColored(g_Colors.warning, "No team members found.");
             }
             else
             {
-                auto teamNames = InGameHack_GetTeamCharacterNames();
-                static std::vector<std::string> teamNameStorage;
-                static std::vector<const char*> teamNamePtrs;
-                teamNameStorage = teamNames;
-                teamNamePtrs.clear();
-                for (auto& name : teamNameStorage)
-                {
-                    teamNamePtrs.push_back(name.c_str());
-                }
+                const float rowHeight = ImGui::GetTextLineHeightWithSpacing() + 2.0f;
+                float rosterHeight = rowHeight * (float)g_CachedRecoveryTeamNames.size();
+                const float maxRosterHeight = rowHeight * 3.5f;
+                if (rosterHeight > maxRosterHeight)
+                    rosterHeight = maxRosterHeight;
 
-                if (!teamNamePtrs.empty())
+                ImGui::BeginChild("##recovery-team-list", ImVec2(0.0f, rosterHeight), false);
+                for (int i = 0; i < (int)g_CachedRecoveryTeamNames.size(); i++)
                 {
-                    ImGui::Text("Select team member to recover:");
-                    ImGui::ListBox("##team_member_list", &g_Settings.SelectedRecoveryTeamIndex, teamNamePtrs.data(), (int)teamNamePtrs.size(), 5);
-
-                    ImGui::Spacing();
-                    if (g_Settings.SelectedRecoveryTeamIndex >= 0 && g_Settings.SelectedRecoveryTeamIndex < (int)g_CurrentTeamCharacters.size())
-                    {
-                        ImGuiHelper::ToggleSwitchLarge("Recover Selected Team Member", &g_Settings.EnableRecoverySelectedTeam);
-                        ImGui::SameLine();
-                        ImGui::TextColored(g_Colors.accentColor, "(Selected member only)");
-                    }
-                    else
-                    {
-                        ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.0f, 1.0f), "Select a team member from the list above.");
-                    }
+                    if (SelectableRow(g_CachedRecoveryTeamNames[i].c_str(), g_Settings.SelectedRecoveryTeamIndex == i))
+                        g_Settings.SelectedRecoveryTeamIndex = i;
                 }
-                else
-                {
-                    ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.0f, 1.0f), "No team names could be generated.");
-                }
+                ImGui::EndChild();
             }
+
+            ImGui::NextColumn();
+
+            SeparatorLabel("Unique Skill");
+            static float lastRefreshTime = 0.0f;
+            if (ImGui::GetTime() - lastRefreshTime > 0.5f)
+            {
+                lastRefreshTime = (float)ImGui::GetTime();
+                int level1 = InGameHack_GetSkillLevel(1);
+                int level2 = InGameHack_GetSkillLevel(2);
+                int level3 = InGameHack_GetSkillLevel(3);
+                if (level1 > 0) g_HackSettings.SupplyUniqueSkill1Level = level1;
+                if (level2 > 0) g_HackSettings.SupplyUniqueSkill2Level = level2;
+                if (level3 > 0) g_HackSettings.SupplyUniqueSkill3Level = level3;
+            }
+
+            if (ImAdd::SliderInt("Unique Skill 1", &g_HackSettings.SupplyUniqueSkill1Level, 1, 9))
+                InGameHack_SetSkillLevel(1, g_HackSettings.SupplyUniqueSkill1Level);
+            if (ImAdd::SliderInt("Unique Skill 2", &g_HackSettings.SupplyUniqueSkill2Level, 1, 9))
+                InGameHack_SetSkillLevel(2, g_HackSettings.SupplyUniqueSkill2Level);
+            if (ImAdd::SliderInt("Unique Skill 3", &g_HackSettings.SupplyUniqueSkill3Level, 1, 9))
+                InGameHack_SetSkillLevel(3, g_HackSettings.SupplyUniqueSkill3Level);
+            if (FullWidthButton("TEST USE ITEM ACTION"))
+                InGameHack_TestUseItemAction();
+            if (ImAdd::SliderFloat("Reload Rate (Blue Flame)", &g_Settings.ReloadAdjustRate_WearBlueFlame, 1.0f, 50.0f, "%.2fx"))
+                InGameHack_SetReloadAdjustRate_WearBlueFlame(g_Settings.ReloadAdjustRate_WearBlueFlame);
+            if (ImAdd::SliderFloat("Damage Multiplier", &g_Settings.CvNoneDamageCurveValue, 1.0f, 300.0f, "%.2f"))
+            {
+                const float curveValue = g_Settings.CvNoneDamageCurveValue;
+                EnqueueGameThreadMenuTask([curveValue]() {
+                    InGameHack_SetCvNoneCurveValue(curveValue);
+                }, "Damage Multiplier");
+            }
+
+            ImGui::Columns(1);
+            ImGui::PopStyleVar();
+        }
+        EndRugirCard();
+    }
+
+    static void RenderPreviewAimbotPage(int subtab, float groupWidth)
+    {
+        (void)subtab;
+        if (BeginRugirCard("aimbot-page", "AIMBOT / BULLET TP", ImVec2(0.0f, 0.0f)))
+        {
+            ImGuiStyle& style = ImGui::GetStyle();
+            const float columnWidth = (groupWidth > 0.0f)
+                ? groupWidth
+                : std::floor((ImGui::GetContentRegionAvail().x - style.ItemSpacing.x) * 0.5f);
+
+            ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(style.ItemSpacing.x, 6.0f));
+            ImGui::Columns(2, "aimbot-columns", false);
+            ImGui::SetColumnWidth(0, columnWidth);
+
+            RugirHeaderToggle("AIMBOT SETTINGS", &g_Settings.EnableAimbot);
+            if (g_Settings.EnableAimbot)
+            {
+                ImAdd::CheckBox("Smooth Aiming", &g_Settings.AimbotSmoothing);
+                if (g_Settings.AimbotSmoothing)
+                    ImAdd::SliderFloat("Smooth Factor", &g_Settings.AimbotSmoothFactor, 0.01f, 1.0f, "%.2f");
+                ImAdd::CheckBox("Ignore Downed Targets", &g_Settings.AimbotIgnoreDownedTargets);
+                ImAdd::CheckBox("Draw Aim Line", &g_Settings.AimbotDrawLine);
+                ImAdd::CheckBox("Draw Aim FOV", &g_Settings.AimbotDrawFOV);
+                if (g_Settings.AimbotDrawFOV)
+                    ImAdd::SliderFloat("Aimbot FOV Radius##AimbotFOVRadius", &g_Settings.AimbotFOVRadius, 100.0f, 1000.0f, "%.0f");
+            }
+
+            DrawHotkeyConfigButton("Aimbot hold", g_Settings.AimbotHoldKey, 100);
+
+            ImGui::NextColumn();
+
+            RugirHeaderToggle("BULLET TP", &g_Settings.EnableBulletTP);
+            ImAdd::CheckBox("Alpha (Unique1)", &g_Settings.BulletTP_IncludeAlpha);
+            ImAdd::CheckBox("Beta (Unique2)", &g_Settings.BulletTP_IncludeBeta);
+            ImAdd::CheckBox("Gamma (Unique3)", &g_Settings.BulletTP_IncludeGamma);
+            ImAdd::CheckBox("Special", &g_Settings.BulletTP_IncludeSpecial);
+            ImAdd::CheckBox("Ignore Downed Targets", &g_Settings.BulletTPIgnoreDownedTargets);
+            ImAdd::SliderFloat("Bullet TP FOV Radius##BulletTPFOVRadius", &g_Settings.BulletTP_FOVRadius, 100.0f, 1000.0f, "%.0f");
+            ImAdd::SliderFloat("Max Distance", &g_Settings.BulletTP_MaxDistance, 1000.0f, 100000.0f, "%.0f");
+
+            ImGui::Columns(1);
+            ImGui::PopStyleVar();
+        }
+        EndRugirCard();
+    }
+
+    static void RenderPreviewCombatPage(int subtab, float groupWidth)
+    {
+        if (subtab == 0)
+        {
+            if (BeginRugirCard("combat-tools-page", "COMBAT", ImVec2(0.0f, 0.0f)))
+            {
+                ImGuiStyle& style = ImGui::GetStyle();
+                const float columnWidth = (groupWidth > 0.0f)
+                    ? groupWidth
+                    : std::floor((ImGui::GetContentRegionAvail().x - style.ItemSpacing.x) * 0.5f);
+
+                ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(style.ItemSpacing.x, 6.0f));
+                ImGui::Columns(2, "combat-tools-columns", false);
+                ImGui::SetColumnWidth(0, columnWidth);
+
+                RugirHeaderToggle("INVINCIBILITY & RECOVERY", &g_HackSettings.EnableInvincible);
+                DrawHotkeyConfigButton("Invincibility", g_Settings.SetInvincibleKey, 104);
+                if (FullWidthButton("ACTIVATE INVINCIBILITY NOW"))
+                    InGameHack_SetInvincible();
+
+                SeparatorLabel("Projectile Debug");
+                float halfButtonWidth = std::floor((ImGui::GetContentRegionAvail().x - style.ItemSpacing.x) * 0.5f);
+                if (ImAdd::Button("DUMP REP", ImVec2(halfButtonWidth, 0.0f)))
+                    InGameHack_DumpLastProjectileGenerateRep();
+                ImGui::SameLine();
+                if (ImAdd::Button("DUMP RUNTIME", ImVec2(ImGui::GetContentRegionAvail().x, 0.0f)))
+                    InGameHack_DumpProjectileRuntimeDebug();
+
+                if (FullWidthButton("PROJECTILE TEST"))
+                    InGameHack_GenerateProjectileInFront();
+
+                RugirHeaderToggle("PROJECTILE GENERATION", &g_Settings.EnableGenerateProjectile);
+                DrawHotkeyConfigButton("Generate Projectile", g_Settings.GenerateProjectileKey, 107);
+                if (FullWidthButton("GENERATE NOW"))
+                    InGameHack_GenerateProjectileInFront();
+
+                ImGui::NextColumn();
+
+                SeparatorLabel("Ability Levels");
+                ImAdd::SliderInt("Attack Level", &g_HackSettings.AbilityAttackLevel, 1, 100);
+                if (FullWidthButton("ABILITY ATTACK"))
+                {
+                    const int level = g_HackSettings.AbilityAttackLevel;
+                    EnqueueGameThreadMenuTask([level]() {
+                        InGameHack_AbilityAttack(level);
+                    }, "Ability Attack");
+                }
+                ImAdd::SliderInt("Durable Level", &g_HackSettings.AbilityDurableLevel, 1, 100);
+                if (FullWidthButton("ABILITY DURABLE"))
+                {
+                    const int level = g_HackSettings.AbilityDurableLevel;
+                    EnqueueGameThreadMenuTask([level]() {
+                        InGameHack_AbilityDurable(level);
+                    }, "Ability Durable");
+                }
+                ImAdd::SliderInt("Movespeed Level", &g_HackSettings.AbilityMovespeedLevel, 1, 100);
+                if (FullWidthButton("ABILITY MOVESPEED"))
+                {
+                    const int level = g_HackSettings.AbilityMovespeedLevel;
+                    EnqueueGameThreadMenuTask([level]() {
+                        InGameHack_AbilityMovespeed(level);
+                    }, "Ability Movespeed");
+                }
+                ImAdd::SliderInt("Heal Level", &g_HackSettings.AbilityHealLevel, 1, 100);
+                if (FullWidthButton("ABILITY HEAL"))
+                {
+                    const int level = g_HackSettings.AbilityHealLevel;
+                    EnqueueGameThreadMenuTask([level]() {
+                        InGameHack_AbilityHeal(level);
+                    }, "Ability Heal");
+                }
+                ImAdd::SliderInt("Technique Level", &g_HackSettings.AbilityTechniqueLevel, 1, 100);
+                if (FullWidthButton("ABILITY TECHNIQUE"))
+                {
+                    const int level = g_HackSettings.AbilityTechniqueLevel;
+                    EnqueueGameThreadMenuTask([level]() {
+                        InGameHack_AbilityTechnique(level);
+                    }, "Ability Technique");
+                }
+
+                ImGui::Columns(1);
+                ImGui::PopStyleVar();
+            }
+            EndRugirCard();
+            return;
         }
 
-        // ===== CHARACTER CONDITIONS SECTION =====
-        if (ImGui::CollapsingHeader("CHARACTER CONDITIONS", &g_CharacterConditionsOpen, ImGuiTreeNodeFlags_None))
+        if (subtab == 1)
         {
-            SectionHeader("Rebuild & Transformations");
-            
-            // Rebuild Myself button
-            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
-            if (ImGui::Button("OVERHAUL HEAL", ImVec2(-1, 0)))
+            g_Settings.EnableCH202InitTransLevel5 = false;
+            g_Settings.EnableSupplyMaxStackTo100 = false;
+
+            if (BeginRugirCard("character-conditions-page", "CHARACTER CONDITIONS", ImVec2(0.0f, 0.0f)))
             {
-                if (InGameHack_RebuildMyself())
-                {
-}
-                else
-                {
-}
+                ImAdd::CheckBox("Enable Rebuild Myself", &g_Settings.EnableRebuildMyself);
+                if (FullWidthButton("OVERHAUL HEAL"))
+                    InGameHack_RebuildMyself();
+                DrawHotkeyConfigButton("Rebuild Myself", g_Settings.RebuildMyselfKey, 105);
+                SeparatorLabel("Condition Editor");
+                RenderCharacterConditionEditor();
             }
-            ImGui::PopStyleColor();
-
-            ImGui::Spacing();
-
-            // Rebuild Myself Hotkey button
-            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
-            {
-                std::string hotkeyLabel = "[KB] " + GetKeyName(g_Settings.RebuildMyselfKey.Keyboard, 0) + 
-                                          " | [X] " + GetKeyName(g_Settings.RebuildMyselfKey.Xbox, 1) + 
-                                          " | [PS] " + GetKeyName(g_Settings.RebuildMyselfKey.PS4, 1);
-                if (ImGui::Button(hotkeyLabel.c_str(), ImVec2(-1, 0)))
-                {
-                    g_ListeningForHotkey = true;
-                    g_HotkeyListenStartTime = GetTickCount();
-                    g_CurrentHotkeyValue = 105;
-                }
-            }
-            ImGui::PopStyleColor();
-
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
-
-            SectionHeader("Transformations");
-
-            // Condition mode toggle
-            // CH202 Trans Mission toggle (85)
-            ImGuiHelper::ToggleSwitch("DEKU MODE", &g_HackSettings.CharCondition_EnableDekuMode);
-            ImGui::Spacing();
-            
-            // CH202 Init Transmission Mission Level enable/disable toggle
-            ImGuiHelper::ToggleSwitch("Enable CH202 Trans Level 5", &g_Settings.EnableCH202InitTransLevel5);
-            
-            ImGui::Spacing();
-            
-            // Supply Max Stack 100 enable/disable toggle
-            ImGuiHelper::ToggleSwitch("Supply Max Stack 100", &g_Settings.EnableSupplyMaxStackTo100);
-            
-            ImGui::Spacing();
-
-            // Unbreakable toggle
-            ImGuiHelper::ToggleSwitch("UNBREAKABLE", &g_HackSettings.CharCondition_EnableUnbreakable);
-            ImGui::Spacing();
-
-            // Compression Regeneration toggle
-            ImGuiHelper::ToggleSwitch("MR COMPRESSE MODE", &g_HackSettings.CharCondition_EnableCompressionRegen);
-            ImGui::Spacing();
-
-            // CH024 Transparent toggle
-            ImGuiHelper::ToggleSwitch("MIRIO MODE", &g_HackSettings.CharCondition_EnableMirioMode);
-            ImGui::Spacing();
-
-            // CH011 Abyss Dark Body toggle
-            ImGuiHelper::ToggleSwitch("TOKOYAMI DARK MODE", &g_HackSettings.CharCondition_EnableTokoyamiMode);
-
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
-
-            SectionHeader("Player Name Change");
-
-            // Player name input field
-            ImGui::InputText("New Player Name", g_HackSettings.ChangePlayerNameBuffer, sizeof(g_HackSettings.ChangePlayerNameBuffer));
-            ImGui::Spacing();
-
-            // Change player name button
-            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
-            if (ImGui::Button("CHANGE NAME", ImVec2(-1, 0)))
-            {
-                if (InGameHack_ChangePlayerName(g_HackSettings.ChangePlayerNameBuffer))
-                {
-                    Logger::LogInfo("[MENU] Player name changed to: " + std::string(g_HackSettings.ChangePlayerNameBuffer));
-                }
-                else
-                {
-                    Logger::LogError("[MENU] Failed to change player name");
-                }
-            }
-            ImGui::PopStyleColor();
-        }
-
-        // ===== ABILITY HACKS SECTION =====
-        if (ImGui::CollapsingHeader("ABILITY HACKS", &g_AbilityHacksOpen, ImGuiTreeNodeFlags_None))
-        {
-            RenderAbilityHackMenu();
-        }
-
-        // ===== SUPPLY MANAGEMENT SECTION =====
-        if (ImGui::CollapsingHeader("SUPPLY MANAGEMENT", &g_SupplyManagementOpen, ImGuiTreeNodeFlags_None))
-        {
-            SectionHeader("Supply & Skill Management");
-
-            // Prevent Drop on Death
-            static bool bPreventDrop = false;
-            ImGuiHelper::ToggleSwitch("Prevent Drop on Death", &bPreventDrop);
-            
-            // Call every frame while enabled
-            if (bPreventDrop)
-            {
-                InGameHack_PreventDropOnDeath(true);
-            }
-            ImGui::Spacing();
-
-            // Supply Upgrade (ABILITY & SHOULDER only)
-            {
-                static const int SUPPLY_VALUES[] = { 6, 7 };
-                static const char* SUPPLY_NAMES[] = { "ABILITY", "SHOULDER" };
-                static int supplyComboIndex = 0;
-                static int supplyLevel = 1;
-                
-                ImGui::Combo("Supply Type", &supplyComboIndex, SUPPLY_NAMES, IM_ARRAYSIZE(SUPPLY_NAMES));
-                ImGuiSliderHelper::SliderInt("Supply Level", &supplyLevel, 150.0f, 1, 99);
-                
-                if (ImGui::Button("Upgrade Supply"))
-                {
-                    InGameHack_UpgradeSupply(SUPPLY_VALUES[supplyComboIndex], supplyLevel);
-                }
-            }
-            ImGui::Spacing();
-
-            // Stop Using Supply
-            static bool bEnableStopSupply = false;
-            if (ImGuiHelper::ToggleSwitch("Stop Using Supply", &bEnableStopSupply))
-            {
-                if (bEnableStopSupply)
-                {
-                    InGameHack_StopUsingSupply();
-                    bEnableStopSupply = false;
-                }
-            }
+            EndRugirCard();
+            return;
         }
     }
 
-    static void RenderAbilityHackMenu()
+    static void RenderPreviewHacksPage(int subtab, float groupWidth)
     {
-        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentMagenta);
-        ImGui::Text("ABILITY HACKS");
-        ImGui::PopStyleColor();
-        ImGui::Separator();
-
-        ImGui::Spacing();
-
-        // Ability Attack
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
-        ImGuiSliderHelper::SliderInt("Attack Level", &g_HackSettings.AbilityAttackLevel, 150.0f, 1, 10000);
-        if (ImGui::Button("ABILITY ATTACK", ImVec2(-1, 0)))
+        if (subtab == 0)
         {
-            if (InGameHack_AbilityAttack(g_HackSettings.AbilityAttackLevel))
+            if (BeginRugirCard("imitation-copy-skills-page", "IMITATION / COPY SKILLS", ImVec2(0.0f, 0.0f)))
             {
-}
-            else
-            {
-}
-        }
-        ImGui::PopStyleColor();
+                ImGuiStyle& style = ImGui::GetStyle();
+                const float columnWidth = (groupWidth > 0.0f)
+                    ? groupWidth
+                    : std::floor((ImGui::GetContentRegionAvail().x - style.ItemSpacing.x) * 0.5f);
 
-        ImGui::Spacing();
+                ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(style.ItemSpacing.x, 6.0f));
+                ImGui::Columns(2, "imitation-copy-skills-columns", false);
+                ImGui::SetColumnWidth(0, columnWidth);
 
-        // Ability Durable
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 1.0f, 0.0f, 1.0f));
-        ImGuiSliderHelper::SliderInt("Durable Level", &g_HackSettings.AbilityDurableLevel, 150.0f, 1, 100);
-        if (ImGui::Button("ABILITY DURABLE", ImVec2(-1, 0)))
-        {
-            if (InGameHack_AbilityDurable(g_HackSettings.AbilityDurableLevel))
-            {
-}
-            else
-            {
-}
-        }
-        ImGui::PopStyleColor();
+                RugirHeaderToggle("TRANSFORM TOGA", &g_Settings.EnableTransformIntoRandomESP);
+                DrawHotkeyConfigButton("Transform", g_Settings.TransformIntoRandomESPKey, 102);
+                ImGui::TextWrapped("Transform to a random ESP target.");
 
-        ImGui::Spacing();
+                RugirHeaderToggle("DUPLICATE IMITATION", &g_Settings.EnableDuplicateIntoImitationRandomESP);
+                ImAdd::SliderFloat("Imitation Lifetime", &g_Settings.DuplicateImitationLifeTime, 5.0f, 120.0f, "%.0fs");
+                ImAdd::SliderInt("Imitation Duplicate Count", &g_Settings.DuplicateIntoImitationCount, 1, 100);
+                DrawHotkeyConfigButton("Imitation hotkey", g_Settings.DuplicateIntoImitationRandomESPKey, 103);
 
-        // Ability Movespeed
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 1.0f, 1.0f, 1.0f));
-        ImGuiSliderHelper::SliderInt("Movespeed Level", &g_HackSettings.AbilityMovespeedLevel, 150.0f, 1, 100);
-        if (ImGui::Button("ABILITY MOVESPEED", ImVec2(-1, 0)))
-        {
-            if (InGameHack_AbilityMovespeed(g_HackSettings.AbilityMovespeedLevel))
-            {
-}
-            else
-            {
-}
-        }
-        ImGui::PopStyleColor();
+                ImGui::NextColumn();
 
-        ImGui::Spacing();
+                RugirHeaderToggle("COPY SKILLS", &g_Settings.EnableCopySkillsFromNearestEnemy);
+                ImAdd::CheckBox("Set Copy Skill", &g_Settings.CopySkillsSetCopySkill);
+                ImAdd::CheckBox("Use Owner Character Level", &g_Settings.CopySkillsUseOwnerCharacterLevel);
+                DrawHotkeyConfigButton("Copy Skills", g_Settings.CopySkillsFromNearestEnemyKey, 106);
 
-        // Ability Heal
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 0.0f, 1.0f, 1.0f));
-        ImGuiSliderHelper::SliderInt("Heal Level", &g_HackSettings.AbilityHealLevel, 150.0f, 1, 100);
-        if (ImGui::Button("ABILITY HEAL", ImVec2(-1, 0)))
-        {
-            if (InGameHack_AbilityHeal(g_HackSettings.AbilityHealLevel))
-            {
-}
-            else
-            {
-}
-        }
-        ImGui::PopStyleColor();
-
-        ImGui::Spacing();
-
-        // Ability Technique
-        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 0.0f, 1.0f));
-        ImGuiSliderHelper::SliderInt("Technique Level", &g_HackSettings.AbilityTechniqueLevel, 150.0f, 1, 100);
-        if (ImGui::Button("ABILITY TECHNIQUE", ImVec2(-1, 0)))
-        {
-            if (InGameHack_AbilityTechnique(g_HackSettings.AbilityTechniqueLevel))
-            {
-}
-            else
-            {
-}
-        }
-        ImGui::PopStyleColor();
-    }
-
-    /**
-     * Render Lobby Exploit Menu - Team-based character modification
-     * Allows applying character changes to specific teams
-     */
-    static void RenderLobbyExploitMenu()
-    {
-        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentCyan);
-        ImGui::SetWindowFontScale(1.2f);
-        ImGui::Text("LOBBY EXPLOIT");
-        ImGui::SetWindowFontScale(1.0f);
-        ImGui::PopStyleColor();
-        ImGui::Spacing();
-
-        // ===== APPLY TO TEAM =====
-        if (ImGui::CollapsingHeader("APPLY TO TEAM", &g_ApplyToTeamOpen))
-        {
-            ImGui::Spacing();
-
-            // Refresh Team List button
-            if (ImGui::Button("Refresh Team List", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
-            {
-                g_AvailableTeamIds = InGameHack_GetAllTeamIds();
-                g_SelectedTeamId = -1;  // Reset selection
+                ImGui::Columns(1);
+                ImGui::PopStyleVar();
             }
-            ImGui::Spacing();
-
-            // Display available teams
-            ImGui::Text("Available Teams: %zu", g_AvailableTeamIds.size());
-            ImGui::Spacing();
-
-            if (g_AvailableTeamIds.empty())
-            {
-                ImGui::TextColored(g_Colors.warning, "No teams found. Click 'Refresh Team List'.");
-            }
-            else
-            {
-                // Get my current team ID
-                int myTeamId = InGameHack_GetMyTeamId();
-
-                ImGui::Text("Select Team:");
-                ImGui::Spacing();
-
-                // Display team selection buttons in grid (4 per row)
-                const int teamsPerRow = 4;
-                for (size_t i = 0; i < g_AvailableTeamIds.size(); i++)
-                {
-                    unsigned char teamId = g_AvailableTeamIds[i];
-                    
-                    // Get players in this team
-                    auto playerNames = InGameHack_GetTeamNamesByTeamId(teamId);
-                    
-                    // Create button label
-                    char buttonLabel[128];
-                    if (teamId == myTeamId)
-                        snprintf(buttonLabel, sizeof(buttonLabel), "TEAM %d\n[MY TEAM]\n(%zu players)", (int)teamId, playerNames.size());
-                    else
-                        snprintf(buttonLabel, sizeof(buttonLabel), "TEAM %d\n(%zu players)", (int)teamId, playerNames.size());
-                    
-                    bool isSelected = (g_SelectedTeamId == (int)teamId);
-                    
-                    // Style button based on whether it's selected
-                    if (isSelected)
-                    {
-                        ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
-                        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, g_Colors.accentColorHover);
-                    }
-                    else if (teamId == myTeamId)
-                    {
-                        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 0.0f, 0.5f));
-                        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.0f, 1.0f, 0.0f, 0.7f));
-                    }
-                    
-                    // Button to select this team
-                    if (ImGui::Button(buttonLabel, ImVec2(ImGui::GetContentRegionAvail().x / (teamsPerRow - (i % teamsPerRow)), 60)))
-                    {
-                        g_SelectedTeamId = (int)teamId;
-                    }
-                    
-                    ImGui::PopStyleColor(2);
-                    
-                    // Add spacing and new line every 4 teams
-                    if ((i + 1) % teamsPerRow != 0 && i + 1 < g_AvailableTeamIds.size())
-                    {
-                        ImGui::SameLine();
-                    }
-                    else
-                    {
-                        // Show player names after each row or at the end
-                        ImGui::Spacing();
-                        
-                        // Display players for teams in this row
-                        for (size_t j = i - (i % teamsPerRow); j <= i && j < g_AvailableTeamIds.size(); j++)
-                        {
-                            unsigned char currentTeamId = g_AvailableTeamIds[j];
-                            auto currentPlayerNames = InGameHack_GetTeamNamesByTeamId(currentTeamId);
-                            
-                            ImGui::TextColored(g_Colors.textSecondary, "TEAM %d players:", (int)currentTeamId);
-                            for (const auto& playerName : currentPlayerNames)
-                            {
-                                ImGui::TextColored(g_Colors.textSecondary, "  - %s", playerName.c_str());
-                            }
-                        }
-                        
-                        ImGui::Spacing();
-                        ImGui::Separator();
-                        ImGui::Spacing();
-                    }
-                }
-            }
-
-            ImGui::Spacing();
-
-            // Character + Variation selector
-            static std::vector<SDK::EVariationCharacterId> all_variation_ids;
-            static std::vector<std::string> all_variation_names;
-            static std::vector<const char*> variation_ptrs;
-            
-            if (all_variation_ids.empty())
-            {
-                all_variation_ids = GetAllVariationCharacterIds();
-                all_variation_names = GetAllVariationNames();
-                for (const auto& name : all_variation_names)
-                {
-                    variation_ptrs.push_back(name.c_str());
-                }
-            }
-            
-            static int selected_variation_index = 0;
-            ImGui::Combo("Character", &selected_variation_index, variation_ptrs.data(), (int)variation_ptrs.size());
-
-            // Single unified slider for technique levels
-            static int uniqueLevelTeam = 9;
-            ImGuiSliderHelper::SliderInt("Technique Level", &uniqueLevelTeam, 150.0f, 1, 9);
-
-            ImGui::Spacing();
-
-            // Apply to Team button
-            if (g_SelectedTeamId == -1)
-            {
-                ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.textDisabled);
-                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, g_Colors.textDisabled);
-                ImGui::Button("Select a Team First", ImVec2(ImGui::GetContentRegionAvail().x, 35));
-                ImGui::PopStyleColor(2);
-            }
-            else
-            {
-                char applyLabel[128];
-                snprintf(applyLabel, sizeof(applyLabel), "APPLY TO TEAM %d", g_SelectedTeamId);
-                
-                ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.success);
-                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.55f, 1.0f, 0.65f, 1.0f));
-                
-                if (ImGui::Button(applyLabel, ImVec2(ImGui::GetContentRegionAvail().x, 35)))
-                {
-                    if (selected_variation_index >= 0 && selected_variation_index < (int)all_variation_ids.size())
-                    {
-                        SDK::EVariationCharacterId variationCharId = all_variation_ids[selected_variation_index];
-                        
-                        if (InGameHack_ApplyToTeam(
-                            (unsigned char)g_SelectedTeamId,
-                            variationCharId,
-                            uniqueLevelTeam,
-                            uniqueLevelTeam,
-                            uniqueLevelTeam,
-                            0,
-                            0))
-                        {
-                            ImGui::OpenPopup("ApplyTeamSuccess");
-                        }
-                        else
-                        {
-                            ImGui::OpenPopup("ApplyTeamFailed");
-                        }
-                    }
-                }
-                
-                ImGui::PopStyleColor(2);
-            }
+            EndRugirCard();
+            return;
         }
 
-        if (ImGui::BeginPopupModal("ApplyTeamSuccess", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+        ImGui::BeginGroup();
+        if (BeginRugirCard("teleport-kota-page", "TELEPORT TO KOTA", ImVec2(groupWidth, 0.0f), &g_Settings.EnableTeleportToKota))
         {
-            ImGui::TextColored(g_Colors.success, "Successfully applied changes to Team %d!", g_SelectedTeamId);
-            ImGui::Spacing();
-            
-            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
-            {
-                ImGui::CloseCurrentPopup();
-            }
-            
-            ImGui::EndPopup();
+            ImAdd::CheckBox("Infinite Objects", &g_Settings.EnableInfiniteObjects);
+            DrawHotkeyConfigButton("KOTA hotkey", g_Settings.TeleportToKotaKey, 101);
         }
-
-        // Failed popup - Apply Team
-        if (ImGui::BeginPopupModal("ApplyTeamFailed", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-        {
-            ImGui::TextColored(g_Colors.danger, "Failed to apply changes to Team %d.", g_SelectedTeamId);
-            ImGui::TextColored(g_Colors.textSecondary, "Ensure you are in a valid battle mode.");
-            ImGui::Spacing();
-            
-            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
-            {
-                ImGui::CloseCurrentPopup();
-            }
-            
-            ImGui::EndPopup();
-        }
-
-        // 
-        // ===== APPLY TO ALL PLAYERS =====
-        ImGui::Spacing();
-        ImGui::Separator();
-        ImGui::Spacing();
-
-        static bool g_ApplyToAllPlayersOpen2 = true;
-        static int g_LastAppliedCount = 0;  // Store count for popup
-        
-        if (ImGui::CollapsingHeader("APPLY TO ALL PLAYERS", &g_ApplyToAllPlayersOpen2))
-        {
-            ImGui::Spacing();
-
-            // Character + Variation selector - EXACTLY like APPLY TO TEAM
-            static std::vector<SDK::EVariationCharacterId> all_variation_ids_all;
-            static std::vector<std::string> all_variation_names_all;
-            static std::vector<const char*> variation_ptrs_all;
-            
-            if (all_variation_ids_all.empty())
-            {
-                all_variation_ids_all = GetAllVariationCharacterIds();
-                all_variation_names_all = GetAllVariationNames();
-                for (const auto& name : all_variation_names_all)
-                {
-                    variation_ptrs_all.push_back(name.c_str());
-                }
-            }
-            
-            static int selected_variation_index_all = 0;
-            ImGui::Combo("Character##ApplyAll", &selected_variation_index_all, variation_ptrs_all.data(), (int)variation_ptrs_all.size());
-
-            // Single unified slider for technique levels
-            static int uniqueLevelApplyAll = 9;
-            ImGuiSliderHelper::SliderInt("Technique Level##ApplyAll", &uniqueLevelApplyAll, 150.0f, 1, 9);
-
-            ImGui::Spacing();
-
-            // Apply to All button
-            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.success);
-            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.55f, 1.0f, 0.65f, 1.0f));
-            
-            if (ImGui::Button("APPLY TO ALL PLAYERS##ApplyAllTab", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
-            {
-                if (selected_variation_index_all >= 0 && selected_variation_index_all < (int)all_variation_ids_all.size())
-                {
-                    SDK::EVariationCharacterId variationCharId = all_variation_ids_all[selected_variation_index_all];
-                    
-                    int appliedCount = InGameHack_ApplyToAllControllers(
-                        variationCharId,
-                        uniqueLevelApplyAll,
-                        uniqueLevelApplyAll,
-                        uniqueLevelApplyAll,
-                        0,
-                        0);
-                    
-                    g_LastAppliedCount = appliedCount;
-                    
-                    if (appliedCount > 0)
-                    {
-                        ImGui::OpenPopup("ApplyAllSuccess");
-                    }
-                    else
-                    {
-                        ImGui::OpenPopup("ApplyAllFailed");
-                    }
-                }
-            }
-            
-            ImGui::PopStyleColor(2);
-        }
-
-        // Success popup - Apply All
-        if (ImGui::BeginPopupModal("ApplyAllSuccess", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-        {
-            ImGui::TextColored(g_Colors.success, "Successfully applied changes!");
-            ImGui::TextColored(g_Colors.textSecondary, "Players modified: %d", g_LastAppliedCount);
-            ImGui::Spacing();
-            
-            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
-            {
-                ImGui::CloseCurrentPopup();
-            }
-            
-            ImGui::EndPopup();
-        }
-
-        // Failed popup - Apply All
-        if (ImGui::BeginPopupModal("ApplyAllFailed", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-        {
-            ImGui::TextColored(g_Colors.danger, "Failed to apply changes to all players.");
-            ImGui::TextColored(g_Colors.textSecondary, "Ensure you are in a valid battle mode.");
-            ImGui::Spacing();
-            
-            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
-            {
-                ImGui::CloseCurrentPopup();
-            }
-            
-            ImGui::EndPopup();
-        }
-
-        // ===== TEAM BUFFS =====
-        ImGui::Spacing();
-        ImGui::Separator();
-        ImGui::Spacing();
-
-        static bool g_TeamBuffsOpen = true;
-        if (ImGui::CollapsingHeader("APPLY TEAM BUFFS", &g_TeamBuffsOpen))
-        {
-            ImGui::TextColored(g_Colors.textSecondary, "Apply stat buffs to your team.");
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
-
-            // Static variables for buff sliders
-            static float g_BuffAttack = 1.0f;
-            static float g_BuffDurable = 1.0f;
-            static float g_BuffSpeed = 1.0f;
-            static float g_BuffHealing = 1.0f;
-            static float g_BuffReload = 1.0f;
-
-            ImGui::TextColored(g_Colors.accentCyan, "Buff Multipliers:");
-            ImGui::Spacing();
-
-            // Attack Adjust
-            ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1.0f, 0.0f, 0.0f, 1.0f));
-            ImGui::SliderFloat("Attack Adjust", &g_BuffAttack, 0.5f, 3.0f, "%.2fx");
-            ImGui::PopStyleColor();
-
-            // Durability Adjust
-            ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(0.0f, 1.0f, 0.0f, 1.0f));
-            ImGui::SliderFloat("Durability Adjust", &g_BuffDurable, 0.5f, 3.0f, "%.2fx");
-            ImGui::PopStyleColor();
-
-            // Speed Adjust
-            ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(0.0f, 1.0f, 1.0f, 1.0f));
-            ImGui::SliderFloat("Speed Adjust", &g_BuffSpeed, 0.5f, 3.0f, "%.2fx");
-            ImGui::PopStyleColor();
-
-            // Healing Adjust
-            ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1.0f, 0.0f, 1.0f, 1.0f));
-            ImGui::SliderFloat("Healing Adjust", &g_BuffHealing, 0.5f, 3.0f, "%.2fx");
-            ImGui::PopStyleColor();
-
-            // Reload Adjust
-            ImGui::PushStyleColor(ImGuiCol_SliderGrab, ImVec4(1.0f, 1.0f, 0.0f, 1.0f));
-            ImGui::SliderFloat("Reload Adjust", &g_BuffReload, 0.5f, 3.0f, "%.2fx");
-            ImGui::PopStyleColor();
-
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
-
-            // Apply Buffs button
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.8f, 1.0f, 1.0f));
-            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.9f, 1.0f, 1.0f));
-            if (ImGui::Button("APPLY TEAM BUFFS", ImVec2(-1, 40)))
-            {
-                if (InGameHack_ApplyTeamBuffs(g_BuffAttack, g_BuffDurable, g_BuffSpeed, g_BuffHealing, g_BuffReload))
-                {
-                    // Success
-                }
-                else
-                {
-                    // Failed
-                }
-            }
-            ImGui::PopStyleColor(2);
-
-            ImGui::Spacing();
-
-            // Info text
-            ImGui::TextColored(g_Colors.textSecondary, "Buff values are multipliers:");
-            ImGui::TextColored(g_Colors.textSecondary, "  1.0x = Normal (no change)");
-            ImGui::TextColored(g_Colors.textSecondary, "  2.0x = Double the stats");
-            ImGui::TextColored(g_Colors.textSecondary, "  0.5x = Half the stats");
-        }
-
-        // ===== CHANGE TEAM =====
-        ImGui::Spacing();
-        ImGui::Separator();
-        ImGui::Spacing();
-
-        static bool g_ChangeTeamOpen = true;
-        if (ImGui::CollapsingHeader("CHANGE MY TEAM", &g_ChangeTeamOpen, ImGuiTreeNodeFlags_None))
-        {
-            ImGui::TextColored(g_Colors.textSecondary, "View all teams and switch to another team.");
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
-
-            // Refresh button
-            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
-            if (ImGui::Button("REFRESH TEAMS", ImVec2(-1, 0)))
-            {
-                // Will refresh on next frame
-            }
-            ImGui::PopStyleColor();
-            ImGui::Spacing();
-
-            // Get all available teams
-            std::vector<unsigned char> availableTeamIds = InGameHack_GetAllTeamIds();
-            int myTeamId = InGameHack_GetMyTeamId();
-            
-            if (availableTeamIds.empty())
-            {
-                ImGui::TextColored(g_Colors.danger, "No teams found!");
-            }
-            else
-            {
-                ImGui::TextColored(g_Colors.textSecondary, "Total Teams: %d", (int)availableTeamIds.size());
-                ImGui::Spacing();
-                ImGui::Separator();
-                ImGui::Spacing();
-
-                ImGui::Text("Click on a team to switch:");
-                ImGui::Spacing();
-
-                // Display teams as buttons in a grid (4 per row)
-                const int teamsPerRow = 4;
-                for (size_t i = 0; i < availableTeamIds.size(); i++)
-                {
-                    unsigned char teamId = availableTeamIds[i];
-                    
-                    // Get players in this team
-                    auto playerNames = InGameHack_GetTeamNamesByTeamId(teamId);
-                    
-                    // Create button label
-                    char buttonLabel[128];
-                    if (teamId == myTeamId)
-                        snprintf(buttonLabel, sizeof(buttonLabel), "TEAM %d\n[MY TEAM]\n(%zu players)", (int)teamId, playerNames.size());
-                    else
-                        snprintf(buttonLabel, sizeof(buttonLabel), "TEAM %d\n(%zu players)", (int)teamId, playerNames.size());
-                    
-                    // Style button based on whether it's my team
-                    if (teamId == myTeamId)
-                    {
-                        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 0.0f, 0.5f));
-                        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.0f, 1.0f, 0.0f, 0.7f));
-                    }
-                    else
-                    {
-                        ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
-                        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, g_Colors.accentColorHover);
-                    }
-                    
-                    // Button to switch to this team
-                    if (ImGui::Button(buttonLabel, ImVec2(ImGui::GetContentRegionAvail().x / (teamsPerRow - (i % teamsPerRow)), 60)))
-                    {
-                        int result = InGameHack_ChangeMyTeamTo(teamId);
-                        if (result > 0)
-                        {
-                            ImGui::OpenPopup("ChangeTeamSuccess");
-                        }
-                        else
-                        {
-                            ImGui::OpenPopup("ChangeTeamFailed");
-                        }
-                    }
-                    
-                    ImGui::PopStyleColor(2);
-                    
-                    // Add spacing and new line every 4 teams
-                    if ((i + 1) % teamsPerRow != 0 && i + 1 < availableTeamIds.size())
-                    {
-                        ImGui::SameLine();
-                    }
-                    else
-                    {
-                        // Show player names after each row or at the end
-                        ImGui::Spacing();
-                        
-                        // Display players for teams in this row
-                        for (size_t j = i - (i % teamsPerRow); j <= i && j < availableTeamIds.size(); j++)
-                        {
-                            unsigned char currentTeamId = availableTeamIds[j];
-                            auto currentPlayerNames = InGameHack_GetTeamNamesByTeamId(currentTeamId);
-                            
-                            ImGui::TextColored(g_Colors.textSecondary, "TEAM %d players:", (int)currentTeamId);
-                            for (const auto& playerName : currentPlayerNames)
-                            {
-                                ImGui::TextColored(g_Colors.textSecondary, "  - %s", playerName.c_str());
-                            }
-                        }
-                        
-                        ImGui::Spacing();
-                        ImGui::Separator();
-                        ImGui::Spacing();
-                    }
-                }
-            }
-
-            ImGui::Separator();
-            ImGui::Spacing();
-        }
-
-        // Success popup - Change Team
-        if (ImGui::BeginPopupModal("ChangeTeamSuccess", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-        {
-            ImGui::TextColored(g_Colors.success, "Successfully changed team!");
-            ImGui::Spacing();
-            
-            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
-            {
-                ImGui::CloseCurrentPopup();
-            }
-            
-            ImGui::EndPopup();
-        }
-
-        // Failed popup - Change Team
-        if (ImGui::BeginPopupModal("ChangeTeamFailed", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-        {
-            ImGui::TextColored(g_Colors.danger, "Failed to change team.");
-            ImGui::TextColored(g_Colors.textSecondary, "Ensure you are in a valid battle mode and there are other teams available.");
-            ImGui::Spacing();
-            
-            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
-            {
-                ImGui::CloseCurrentPopup();
-            }
-            
-            ImGui::EndPopup();
-        }
-
-        // ===== SEASON PASS RANK INFO =====
-        if (ImGui::CollapsingHeader("SEASON PASS INFO", ImGuiTreeNodeFlags_None))
-        {
-            ImGui::Spacing();
-            ImGui::TextColored(g_Colors.textSecondary, "View and log your current season pass rank.");
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
-
-            static int lastRank = -1;
-            static bool rankFetched = false;
-
-            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
-            if (ImGui::Button("FETCH CURRENT RANK", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
-            {
-                lastRank = InGameHack_GetCurrentSeasonPassRank();
-                rankFetched = true;
-            }
-            ImGui::PopStyleColor();
-
-            ImGui::Spacing();
-
-            if (rankFetched)
-            {
-                if (lastRank > 0)
-                {
-                    ImGui::TextColored(g_Colors.success, "Current Season Pass Rank: %d", lastRank);
-                    ImGui::TextColored(g_Colors.textSecondary, "Logged to: C:/Temp/SeasonPassRank.log");
-                }
-                else if (lastRank == 0)
-                {
-                    ImGui::TextColored(g_Colors.warning, "Season Pass Rank: 0 (default value)");
-                    ImGui::TextColored(g_Colors.textSecondary, "Check if season pass data is available.");
-                }
-                else
-                {
-                    ImGui::TextColored(g_Colors.danger, "Failed to fetch rank");
-                }
-            }
-
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
-            ImGui::TextColored(g_Colors.textSecondary, "Add REAL EXP to your Season Pass (memory modification)");
-            ImGui::Spacing();
-
-            static int expCount = 1;
-            static int seasonTypeIndex = 0;
-            const char* seasonTypes[] = { "SeasonLicense", "SpecialLicense" };
-
-            ImGui::SetNextItemWidth(150);
-            ImGui::SliderInt("EXP Count (x100)##ExpCount", &expCount, 1, 100);
-            ImGui::TextColored(g_Colors.textSecondary, "Total EXP to add: %d", expCount * 100);
-
-            ImGui::Spacing();
-            ImGui::SetNextItemWidth(150);
-            ImGui::Combo("Season Type##ExpType", &seasonTypeIndex, seasonTypes, IM_ARRAYSIZE(seasonTypes));
-
-            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
-            if (ImGui::Button("ADD SEASON PASS EXP (REAL)", ImVec2(ImGui::GetContentRegionAvail().x, 35)))
-            {
-                // 0 = SeasonLicense, 1 = SpecialLicense
-                SDK::ESeasonType type = (seasonTypeIndex == 0) ? static_cast<SDK::ESeasonType>(0) : static_cast<SDK::ESeasonType>(1);
-                bool result = InGameHack_IncreaseSeasonPassExp(type, expCount);
-                
-                if (result)
-                {
-                    Logger::LogInfo("[Menu] REAL EXP added - check C:/Temp/SeasonPassExp.log");
-                }
-                else
-                {
-                    Logger::LogError("[Menu] Failed to add EXP (widget may not be initialized)");
-                }
-            }
-            ImGui::PopStyleColor();
-            
-            ImGui::TextColored(g_Colors.success, "Modifies _prevSeasonExp directly in memory");
-            ImGui::TextColored(g_Colors.textSecondary, "EXP persists in current session. Check C:/Temp/SeasonPassExp.log");
-        }
-
-        // ===== PLAYER NAME CHANGE =====
-        ImGui::Spacing();
-        ImGui::Separator();
-        ImGui::Spacing();
-
-        static bool g_PlayerNameChangeOpen = true;
-        if (ImGui::CollapsingHeader("PLAYER NAME CHANGE", &g_PlayerNameChangeOpen))
-        {
-            ImGui::TextColored(g_Colors.textSecondary, "Change your player name (lobby)");
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
-
-            // Player name input field
-            ImGui::InputText("New Player Name##LobbyChange", g_HackSettings.ChangePlayerNameBuffer, sizeof(g_HackSettings.ChangePlayerNameBuffer));
-            ImGui::Spacing();
-
-            // Change player name button
-            ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.accentColor);
-            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.4f, 0.8f, 1.0f, 1.0f));
-            if (ImGui::Button("CHANGE NAME", ImVec2(-1, 35)))
-            {
-                if (InGameHack_ChangePlayerName(g_HackSettings.ChangePlayerNameBuffer))
-                {
-                    Logger::LogInfo("[MENU] Player name changed to: " + std::string(g_HackSettings.ChangePlayerNameBuffer));
-                    ImGui::OpenPopup("NameChangeSuccess");
-                }
-                else
-                {
-                    Logger::LogError("[MENU] Failed to change player name");
-                    ImGui::OpenPopup("NameChangeFailed");
-                }
-            }
-            ImGui::PopStyleColor(2);
-
-            ImGui::Spacing();
-            ImGui::TextColored(g_Colors.textSecondary, "Changes your display name instantly");
-        }
-
-        // Success popup - Name Change
-        if (ImGui::BeginPopupModal("NameChangeSuccess", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-        {
-            ImGui::TextColored(g_Colors.success, "Name changed successfully!");
-            ImGui::TextColored(g_Colors.textSecondary, "New name: %s", g_HackSettings.ChangePlayerNameBuffer);
-            ImGui::Spacing();
-            
-            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
-            {
-                ImGui::CloseCurrentPopup();
-            }
-            
-            ImGui::EndPopup();
-        }
-
-        // Failed popup - Name Change
-        if (ImGui::BeginPopupModal("NameChangeFailed", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-        {
-            ImGui::TextColored(g_Colors.danger, "Failed to change player name.");
-            ImGui::TextColored(g_Colors.textSecondary, "Ensure the name is valid (max 255 characters).");
-            ImGui::Spacing();
-            
-            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
-            {
-                ImGui::CloseCurrentPopup();
-            }
-            
-            ImGui::EndPopup();
-        }
-
-        // ===== BUY LICENSE EXP =====
-        ImGui::Spacing();
-        ImGui::Separator();
-        ImGui::Spacing();
-
-        static bool g_BuyLicenseExpOpen = true;
-        if (ImGui::CollapsingHeader("BUY LICENSE EXP", &g_BuyLicenseExpOpen))
-        {
-            ImGui::TextColored(g_Colors.textSecondary, "Purchase License Exp from backend");
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
-
-            // Buy License Exp amount slider
-            ImGui::SliderInt("License Exp Amount##BuyLicense", &g_HackSettings.BuyLicenseExpCount, 1, 10000, "%d");
-            ImGui::Spacing();
-
-            // Buy License Exp button
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.6f, 0.2f, 0.8f));
-            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.0f, 0.8f, 0.3f, 1.0f));
-            if (ImGui::Button("BUY LICENSE EXP", ImVec2(-1, 35)))
-            {
-                if (InGameHack_BuyLicenseExp(g_HackSettings.BuyLicenseExpCount))
-                {
-                    Logger::LogInfo("[MENU] Buying " + std::to_string(g_HackSettings.BuyLicenseExpCount) + " License Exp");
-                    ImGui::OpenPopup("BuyLicenseExpSuccess");
-                }
-                else
-                {
-                    Logger::LogError("[MENU] Failed to buy License Exp");
-                    ImGui::OpenPopup("BuyLicenseExpFailed");
-                }
-            }
-            ImGui::PopStyleColor(2);
-
-            ImGui::Spacing();
-            ImGui::TextColored(g_Colors.textSecondary, "Request sent to backend server");
-        }
-
-        // Success popup - Buy License Exp
-        if (ImGui::BeginPopupModal("BuyLicenseExpSuccess", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-        {
-            ImGui::TextColored(g_Colors.success, "License Exp purchase requested!");
-            ImGui::TextColored(g_Colors.textSecondary, "Amount: %d", g_HackSettings.BuyLicenseExpCount);
-            ImGui::Spacing();
-            
-            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
-            {
-                ImGui::CloseCurrentPopup();
-            }
-            
-            ImGui::EndPopup();
-        }
-
-        // Failed popup - Buy License Exp
-        if (ImGui::BeginPopupModal("BuyLicenseExpFailed", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
-        {
-            ImGui::TextColored(g_Colors.danger, "Failed to purchase License Exp.");
-            ImGui::TextColored(g_Colors.textSecondary, "Check game state and try again.");
-            ImGui::Spacing();
-            
-            if (ImGui::Button("OK", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
-            {
-                ImGui::CloseCurrentPopup();
-            }
-            
-            ImGui::EndPopup();
-        }
-    }
-
-    static void RenderSettingsMenu()
-    {
-        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentCyan);
-        ImGui::Text("SETTINGS");
-        ImGui::PopStyleColor();
-        ImGui::Separator();
-
-        // Canvas Quality Settings
-        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentYellow);
-        ImGui::Text("Settings");
-        ImGui::PopStyleColor();
-
-
-
-        ImGui::Spacing();
-        ImGui::Separator();
-
-        // Debug section
-        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentGreen);
-        ImGui::Text("DEBUG");
-        ImGui::PopStyleColor();
-
-        ImGui::Spacing();
-        ImGui::Separator();
-
-        // ========== PROFILE MANAGEMENT UI ==========
-        ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentGreen);
-        ImGui::Text("PROFILE MANAGEMENT");
-        ImGui::PopStyleColor();
-
-        // Profile name input with proper focus handling
-        ImGui::PushItemWidth(-1);
-        ImGui::InputTextWithHint("##ProfileNameInput", "Enter profile name...", g_ProfileNameBuffer, sizeof(g_ProfileNameBuffer));
-        ImGui::PopItemWidth();
-
-        // Reload profiles list
-        if (ImGui::Button("Reload Profiles", ImVec2(-1, 0)))
-        {
-            g_ProfilesList = SettingsManager::GetProfilesList();
-            Logger::Log(Logger::LogLevel::Info, "[ImGuiMenu] Profiles reloaded. Count: " + std::to_string(g_ProfilesList.size()));
-        }
-
-        ImGui::Spacing();
-
-        // Save Profile
-        if (ImGui::Button("Save Configuration", ImVec2(ImGui::GetContentRegionAvail().x * 0.48f, 0)))
-        {
-            std::string profileName(g_ProfileNameBuffer);
-            if (!profileName.empty())
-            {
-                if (SettingsManager::SaveCurrentProfile(profileName))
-                {
-                    g_CurrentProfileName = profileName;
-                    g_ProfilesList = SettingsManager::GetProfilesList();
-                    Logger::Log(Logger::LogLevel::Info, "[ImGuiMenu] Profile saved: " + profileName);
-                }
-                else
-                {
-                    Logger::Log(Logger::LogLevel::Error, "[ImGuiMenu] Failed to save profile");
-                }
-            }
-            else
-            {
-                Logger::Log(Logger::LogLevel::Error, "[ImGuiMenu] Profile name cannot be empty");
-            }
-        }
+        EndRugirCard();
+        ImGui::EndGroup();
 
         ImGui::SameLine();
 
-        // Load Profile
-        if (ImGui::Button("Load Configuration", ImVec2(ImGui::GetContentRegionAvail().x, 0)))
+        if (BeginRugirCard("teleport-items-page", "TELEPORT ITEMS", ImVec2(0.0f, 0.0f), &g_Settings.EnableTeleportLevelUpCards))
         {
-            std::string profileName(g_ProfileNameBuffer);
-            if (!profileName.empty())
+            if (FullWidthButton(">> TELEPORT ALL <<"))
+                SDK_RunTeleportLevelUpCards();
+
+            SeparatorLabel("Health / Guard");
+            DrawActionButtonRow("HP S", SDK_TeleportItem_HPDrinkSmall, "HP L", SDK_TeleportItem_HPDrink, "Team HP", SDK_TeleportItem_HPDrinkMedium);
+            DrawActionButtonRow("GP S", SDK_TeleportItem_GPDrinkSmall, "GP L", SDK_TeleportItem_GPDrink, "Team GP", SDK_TeleportItem_GPDrinkMedium);
+
+            SeparatorLabel("Support / Bags");
+            DrawActionButtonRow("Full Sup", SDK_TeleportItem_FullSupport, "Team Sup", SDK_TeleportItem_TeamSupport, "Bag S", SDK_TeleportItem_BagSmall);
+            DrawActionButtonRow("Bag M", SDK_TeleportItem_BagMedium, "Bag L", SDK_TeleportItem_BagLarge, "Box", SDK_TeleportItem_Box);
+            DrawActionButtonRow("Revive 1/3", SDK_TeleportItem_Revive1_3, "Revive Full", SDK_TeleportItem_ReviveFull);
+
+            SeparatorLabel("Boxes / Cards");
+            DrawActionButtonRow("Box S", SDK_TeleportItem_BoxSmall, "Box L", SDK_TeleportItem_BoxLarge, "Box Gold", SDK_TeleportItem_BoxGold);
+            DrawActionButtonRow("LvlUp", SDK_TeleportItem_LevelUpCard, "Enhance", SDK_TeleportItem_TeamEnhancementKit);
+            DrawActionButtonRow("Card A", SDK_TeleportItem_AbilitySupplyAlpha, "Card B", SDK_TeleportItem_AbilitySupplyBeta, "Card Y", SDK_TeleportItem_AbilitySupplyGamma);
+        }
+        EndRugirCard();
+
+        // ===== CUSTOM DROP (drop arbitrary world item x quantity) =====
+        static std::vector<std::string> s_dropCatalog;
+        static int s_dropScanCount = -1;
+
+        if (BeginRugirCard("custom-drop-page", "DROP ITEMS (CUSTOM)", ImVec2(0.0f, 0.0f), &g_Settings.EnableCustomDrop))
+        {
+            if (FullWidthButton("RESCAN ITEMS"))
             {
-                if (SettingsManager::LoadCurrentProfile(profileName))
+                s_dropScanCount = InGameHack_ScanWorldItemCatalog();
+                InGameHack_GetWorldItemCatalogNames(s_dropCatalog);
+                if (g_Settings.CustomDropSelectedIndex >= static_cast<int>(s_dropCatalog.size()))
+                    g_Settings.CustomDropSelectedIndex = 0;
+            }
+
+            if (s_dropScanCount >= 0)
+                ImGui::TextDisabled("Found %d item(s) in match", s_dropScanCount);
+
+            const bool hasSelection =
+                g_Settings.CustomDropSelectedIndex >= 0 &&
+                g_Settings.CustomDropSelectedIndex < static_cast<int>(s_dropCatalog.size());
+            const char* preview = hasSelection
+                ? s_dropCatalog[g_Settings.CustomDropSelectedIndex].c_str()
+                : "(press RESCAN ITEMS)";
+
+            if (ImGui::BeginCombo("Item", preview))
+            {
+                for (int i = 0; i < static_cast<int>(s_dropCatalog.size()); ++i)
                 {
-                    g_CurrentProfileName = profileName;
-                    Logger::Log(Logger::LogLevel::Info, "[ImGuiMenu] Profile loaded: " + profileName);
+                    const bool selected = (i == g_Settings.CustomDropSelectedIndex);
+                    if (ImGui::Selectable(s_dropCatalog[i].c_str(), selected))
+                        g_Settings.CustomDropSelectedIndex = i;
+                    if (selected)
+                        ImGui::SetItemDefaultFocus();
                 }
-                else
+                ImGui::EndCombo();
+            }
+
+            ImGui::SliderInt("Quantity", &g_Settings.CustomDropQuantity, 1, 100);
+
+            if (FullWidthButton(">> DROP <<"))
+            {
+                InGameHack_DropCatalogItem(
+                    g_Settings.CustomDropSelectedIndex,
+                    g_Settings.CustomDropQuantity,
+                    false);
+            }
+
+            DrawHotkeyConfigButton("Custom Drop", g_Settings.CustomDropKey, 109);
+            ImGui::TextDisabled("Enable Infinite Objects to duplicate.");
+        }
+        EndRugirCard();
+    }
+
+    static std::vector<std::string>& CachedLobbyPlayers()
+    {
+        static std::vector<std::string> playerNames;
+        static DWORD lastFetchTick = 0;
+        DWORD now = GetTickCount();
+        if (lastFetchTick == 0 || (now - lastFetchTick) > GAME_LIST_CACHE_INTERVAL_MS)
+        {
+            playerNames = InGameHack_GetAllPlayerNames();
+            lastFetchTick = now;
+        }
+        return playerNames;
+    }
+
+    static void RenderLobbyTargetCard(int subtab, float width, int& selectedPlayer)
+    {
+        if (BeginRugirCard("lobby-target-card", subtab == 0 ? "APPLY TO TEAM" : subtab == 1 ? "APPLY TO ALL PLAYERS" : "APPLY TO SPECIFIC PLAYER", ImVec2(width, 0.0f)))
+        {
+            if (subtab == 0)
+            {
+                RefreshLobbyTeamsCache();
+
+                if (FullWidthButton("Refresh Team List"))
                 {
-                    Logger::Log(Logger::LogLevel::Error, "[ImGuiMenu] Failed to load profile");
+                    RefreshLobbyTeamsCache(true);
+                    g_SelectedTeamId = -1;
+                }
+
+                SeparatorLabel("Available Teams");
+                if (g_AvailableTeamIds.empty())
+                    ImGui::TextColored(g_Colors.warning, "No teams found. Refresh team list.");
+
+                for (unsigned char teamId : g_AvailableTeamIds)
+                {
+                    const TeamListEntry* cachedTeam = FindCachedLobbyTeam(teamId);
+                    size_t playerCount = cachedTeam ? cachedTeam->playerNames.size() : 0;
+                    char label[128];
+                    if ((int)teamId == g_CachedLobbyMyTeamId)
+                        snprintf(label, sizeof(label), "TEAM %d [MY TEAM] (%zu players)", (int)teamId, playerCount);
+                    else
+                        snprintf(label, sizeof(label), "TEAM %d (%zu players)", (int)teamId, playerCount);
+
+                    if (SelectableRow(label, g_SelectedTeamId == (int)teamId))
+                        g_SelectedTeamId = (int)teamId;
+                }
+
+                if (g_SelectedTeamId >= 0)
+                {
+                    SeparatorLabel("Selected team players");
+                    const TeamListEntry* cachedTeam = FindCachedLobbyTeam((unsigned char)g_SelectedTeamId);
+                    if (cachedTeam)
+                    {
+                        for (const auto& name : cachedTeam->playerNames)
+                            ImGui::TextColored(g_Colors.textDisabled, "%s", name.c_str());
+                    }
                 }
             }
             else
             {
-                Logger::Log(Logger::LogLevel::Error, "[ImGuiMenu] Profile name cannot be empty");
+                auto& playerNames = CachedLobbyPlayers();
+                if (FullWidthButton("Refresh Player List"))
+                    playerNames = InGameHack_GetAllPlayerNames();
+
+                SeparatorLabel(subtab == 1 ? "Affected Players" : "Player list");
+                if (playerNames.empty())
+                    ImGui::TextColored(g_Colors.warning, "No players found.");
+
+                for (int i = 0; i < (int)playerNames.size(); i++)
+                {
+                    bool selected = subtab == 2 && selectedPlayer == i;
+                    if (SelectableRow(playerNames[i].c_str(), selected))
+                        selectedPlayer = i;
+                }
             }
         }
+        EndRugirCard();
+    }
 
-        ImGui::Spacing();
-        ImGui::Separator();
+    static void RenderPreviewLobbyPage(int subtab, float groupWidth)
+    {
+        static CharacterEditorState teamState;
+        static CharacterEditorState allState;
+        static CharacterEditorState specificState;
+        static int selectedPlayer = 0;
 
-        // Show profiles list
-        if (ImGui::BeginListBox("Available Profiles"))
+        if (subtab <= 2)
         {
-            for (const auto& profile : g_ProfilesList)
+            CharacterEditorState& state = subtab == 0 ? teamState : subtab == 1 ? allState : specificState;
+            const char* actionLabel = subtab == 0 ? "APPLY TO TEAM" : subtab == 1 ? "APPLY TO ALL PLAYERS" : "APPLY TO SELECTED PLAYER";
+            bool actionEnabled = subtab != 0 || g_SelectedTeamId >= 0;
+            if (subtab == 2)
             {
-                bool is_selected = (profile == g_CurrentProfileName);
-                if (ImGui::Selectable(profile.c_str(), is_selected))
+                auto& players = CachedLobbyPlayers();
+                actionEnabled = !players.empty() && selectedPlayer >= 0 && selectedPlayer < (int)players.size();
+            }
+
+            ImGui::BeginGroup();
+            RenderLobbyTargetCard(subtab, groupWidth, selectedPlayer);
+            ImGui::EndGroup();
+            ImGui::SameLine();
+
+            RenderCharacterConfigCard(
+                actionLabel,
+                "APPLY CONFIGURATION",
+                actionLabel,
+                state,
+                [subtab](int characterId, int variationId, int costumeCode)
+                {
+                    if (subtab == 0)
+                    {
+                        if (g_SelectedTeamId >= 0)
+                            InGameHack_ApplyToTeam((unsigned char)g_SelectedTeamId, characterId, variationId, s_techAlpha, s_techBeta, s_techGamma, costumeCode, 0);
+                    }
+                    else if (subtab == 1)
+                    {
+                        InGameHack_ApplyToAllControllers(characterId, variationId, s_techAlpha, s_techBeta, s_techGamma, costumeCode, 0);
+                    }
+                    else
+                    {
+                        SDK::EVariationCharacterId variationCharacterId = GetVariationCharacterId((SDK::ECharacterId)characterId, variationId);
+                        InGameHack_ApplyToSpecificPlayer(selectedPlayer, variationCharacterId, s_techAlpha, s_techBeta, s_techGamma, costumeCode, 0);
+                    }
+                },
+                actionEnabled,
+                "Select a target first",
+                true);
+            return;
+        }
+
+        if (subtab == 3)
+        {
+            ImGui::BeginGroup();
+            if (BeginRugirCard("lobby-change-team-page", "CHANGE MY TEAM", ImVec2(groupWidth, 0.0f)))
+            {
+                if (FullWidthButton("REFRESH TEAMS"))
+                    RefreshLobbyTeamsCache(true);
+                static int newTeamId = 0;
+                ImAdd::SliderInt("New Team ID", &newTeamId, 0, 20);
+                if (FullWidthButton("CHANGE MY TEAM"))
+                    InGameHack_ChangeMyTeamTo((unsigned char)newTeamId);
+            }
+            EndRugirCard();
+            ImGui::EndGroup();
+
+            ImGui::SameLine();
+
+            if (BeginRugirCard("lobby-team-list-page", "TEAM LIST", ImVec2(0.0f, 0.0f)))
+            {
+                RefreshLobbyTeamsCache();
+
+                for (const TeamListEntry& team : g_CachedLobbyTeams)
+                {
+                    char label[128];
+                    snprintf(label, sizeof(label), "TEAM %d%s (%zu players)", (int)team.teamId, (int)team.teamId == g_CachedLobbyMyTeamId ? " [MY TEAM]" : "", team.playerNames.size());
+                    if (SelectableRow(label, false))
+                        InGameHack_ChangeMyTeamTo(team.teamId);
+                }
+            }
+            EndRugirCard();
+            return;
+        }
+
+        if (!g_LicenseSectionUnlocked)
+        {
+            RenderProtectedAccessCard(groupWidth);
+            return;
+        }
+
+        if (BeginRugirCard("lobby-license-page", "SPECIAL LICENSE EXP", ImVec2(0.0f, 0.0f)))
+        {
+            ImAdd::SliderInt("Special License EXP", &g_HackSettings.BuyLicenseExpCount, 1, 300000, "%d");
+            if (FullWidthButton("ADD SPECIAL LICENSE EXP (LOCAL)"))
+                InGameHack_AddSpecialLicenseExpLocal(g_HackSettings.BuyLicenseExpCount);
+            if (FullWidthButton("DUMP LICENSE GETTERS"))
+                InGameHack_DumpSeasonLicenseGetters();
+
+            SeparatorLabel("Rental Ticket Bypass");
+            ImGuiHelper::ToggleSwitch("Bypass Rental Ticket Amount", &g_HackSettings.Hack_BypassRentalTickets);
+
+            DrawLicenseBackendClaimTestControls();
+            DrawSeasonRankRewardReplacementControls();
+        }
+        EndRugirCard();
+    }
+
+    static void DrawProfileManagementSettingsSection()
+    {
+        SeparatorLabel("Profile Manager");
+        ImGui::InputTextWithHint("##ProfileNameInput", "Enter profile name...", g_ProfileNameBuffer, sizeof(g_ProfileNameBuffer));
+        if (FullWidthButton("Reload Profiles"))
+            g_ProfilesList = SettingsManager::GetProfilesList();
+
+        if (ImAdd::Button("Save Configuration", ImVec2((ImGui::GetContentRegionAvail().x - ImGui::GetStyle().ItemSpacing.x) * 0.5f, 0.0f)))
+        {
+            std::string profileName(g_ProfileNameBuffer);
+            if (!profileName.empty() && SettingsManager::SaveCurrentProfile(profileName))
+            {
+                g_CurrentProfileName = profileName;
+                g_ProfilesList = SettingsManager::GetProfilesList();
+            }
+        }
+        ImGui::SameLine();
+        if (ImAdd::Button("Load Configuration", ImVec2(ImGui::GetContentRegionAvail().x, 0.0f)))
+        {
+            std::string profileName(g_ProfileNameBuffer);
+            if (!profileName.empty() && SettingsManager::LoadCurrentProfile(profileName))
+                g_CurrentProfileName = profileName;
+        }
+
+        SeparatorLabel("Available Profiles");
+        if (g_ProfilesList.empty())
+        {
+            ImGui::TextColored(g_Colors.textDisabled, "No profiles found.");
+        }
+        else
+        {
+            static int selectedProfile = 0;
+            std::vector<const char*> profileItems;
+            profileItems.reserve(g_ProfilesList.size());
+
+            for (int i = 0; i < (int)g_ProfilesList.size(); i++)
+            {
+                profileItems.push_back(g_ProfilesList[i].c_str());
+                if (g_ProfilesList[i] == g_CurrentProfileName)
+                    selectedProfile = i;
+            }
+
+            if (selectedProfile < 0 || selectedProfile >= (int)g_ProfilesList.size())
+                selectedProfile = 0;
+
+            const int previousProfile = selectedProfile;
+            ImAdd::Combo("Profile", &selectedProfile, profileItems);
+            if (selectedProfile != previousProfile)
+            {
+                const std::string& profile = g_ProfilesList[selectedProfile];
+                if (SettingsManager::LoadCurrentProfile(profile))
                 {
                     strcpy_s(g_ProfileNameBuffer, sizeof(g_ProfileNameBuffer), profile.c_str());
                     g_CurrentProfileName = profile;
                 }
-                if (is_selected)
-                    ImGui::SetItemDefaultFocus();
+                else
+                {
+                    selectedProfile = previousProfile;
+                }
             }
-            ImGui::EndListBox();
         }
+    }
 
+    static void DrawMenuVisualsSettingsSection()
+    {
+        SeparatorLabel("Visual");
+        const bool wasEnabled = g_Settings.EnableMenuBackgroundVideo;
+        ImAdd::CheckBox("Background Video", &g_Settings.EnableMenuBackgroundVideo);
+        if (wasEnabled && !g_Settings.EnableMenuBackgroundVideo)
+            ReleaseMenuBackgroundVideo();
+    }
+
+    static void DrawPlayerNameInlineControls()
+    {
+        SeparatorLabel("Player Name");
+        ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+        const bool submitted = ImGui::InputTextWithHint(
+            "##PlayerNameInput",
+            "Enter new player name...",
+            g_HackSettings.ChangePlayerNameBuffer,
+            sizeof(g_HackSettings.ChangePlayerNameBuffer),
+            ImGuiInputTextFlags_EnterReturnsTrue);
+
+        if (submitted || FullWidthButton("UPDATE PLAYER NAME"))
+        {
+            if (!InGameHack_ChangePlayerName(g_HackSettings.ChangePlayerNameBuffer))
+                Logger::LogError("[Menu] Update player name request failed");
+        }
+    }
+
+    static void RenderPlayerNameSettingsCard(float width)
+    {
+        if (BeginRugirCard("player-name-settings-page", "PLAYER NAME", ImVec2(width, 0.0f)))
+        {
+            DrawPlayerNameInlineControls();
+        }
+        EndRugirCard();
+    }
+
+    static void RenderPlatformSettingsCard(float width)
+    {
+        if (BeginRugirCard("platform-settings-page", "PLATFORM", ImVec2(width, 0.0f)))
+        {
+            const char* platformItems[] = {
+                "Invalid",
+                "PlayStation",
+                "Xbox",
+                "Windows",
+                "Switch",
+                "None"
+            };
+
+            int selectedPlatform = g_HackSettings.BackendPlatformCode;
+            if (selectedPlatform < 0 || selectedPlatform > 5)
+                selectedPlatform = 3;
+
+            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+            if (ImGui::Combo("##BackendPlatformCode", &selectedPlatform, platformItems, IM_ARRAYSIZE(platformItems)))
+                g_HackSettings.BackendPlatformCode = selectedPlatform;
+
+            if (FullWidthButton("SET PLAYER PLATFORM"))
+            {
+                if (!InGameHack_SetBackendPlayerPlatform(g_HackSettings.BackendPlatformCode))
+                    Logger::LogError("[Menu] Set player platform request failed");
+            }
+
+            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
+            const bool submitted = ImGui::InputTextWithHint(
+                "##FakePlatformInput",
+                "Fake platform string...",
+                g_HackSettings.FakePlatformBuffer,
+                sizeof(g_HackSettings.FakePlatformBuffer),
+                ImGuiInputTextFlags_EnterReturnsTrue);
+
+            if (submitted || FullWidthButton("FORCE FAKE PLATFORM"))
+            {
+                if (!InGameHack_ForceFakePlatform(g_HackSettings.FakePlatformBuffer))
+                    Logger::LogError("[Menu] Force fake platform request failed");
+            }
+        }
+        EndRugirCard();
+    }
+
+    static void RenderPreviewSettingsPage(float groupWidth)
+    {
+        if (BeginRugirCard("settings-page", "SETTINGS", ImVec2(groupWidth, 0.0f)))
+        {
+            DrawMenuVisualsSettingsSection();
+            DrawInventoryDebugSettingsSection();
+            DrawDllControlSettingsSection();
+            DrawProfileManagementSettingsSection();
+        }
+        EndRugirCard();
     }
 
     // ============================================================================
+    //  PREVIEW MENU
+    // ============================================================================
+    static void DrawFreeImGuiStyleMenu()
+    {
+        struct Subtab
+        {
+            const char* label;
+            const char* icon;
+        };
+
+        struct Page
+        {
+            const char* label;
+            const char* icon;
+            const Subtab* subtabs;
+            int subtabCount;
+        };
+
+        static int selectedSubtabs[7] = {};
+
+        const Subtab espSubtabs[] =
+        {
+            { "ESP", "E" },
+        };
+
+        const Subtab characterSubtabs[] =
+        {
+            { "Swap", "S" },
+            { "Tools", "T" },
+        };
+
+        const Subtab aimbotSubtabs[] =
+        {
+            { "Aimbot", "A" },
+        };
+
+        const Subtab combatSubtabs[] =
+        {
+            { "Combat", "C" },
+            { "Conditions", "C" },
+        };
+
+        const Subtab hacksSubtabs[] =
+        {
+            { "Imitation/Copy", "I" },
+            { "Kota/Items", "K" },
+        };
+
+        const Subtab lobbySubtabsLocked[] =
+        {
+            { "Apply Team", "T" },
+            { "Apply All", "A" },
+            { "Specific", "S" },
+            { "Change Team", "C" },
+            { "Access", "A" },
+        };
+
+        const Subtab lobbySubtabsUnlocked[] =
+        {
+            { "Apply Team", "T" },
+            { "Apply All", "A" },
+            { "Specific", "S" },
+            { "Change Team", "C" },
+            { "License EXP", "L" },
+        };
+
+        const Subtab* lobbySubtabs = g_LicenseSectionUnlocked ? lobbySubtabsUnlocked : lobbySubtabsLocked;
+        const int lobbySubtabCount = g_LicenseSectionUnlocked ? IM_ARRAYSIZE(lobbySubtabsUnlocked) : IM_ARRAYSIZE(lobbySubtabsLocked);
+
+        const Subtab settingsSubtabs[] =
+        {
+            { "Profiles", "P" },
+        };
+
+        const Page pages[] =
+        {
+            { "ESP", "E", espSubtabs, IM_ARRAYSIZE(espSubtabs) },
+            { "Character", "C", characterSubtabs, IM_ARRAYSIZE(characterSubtabs) },
+            { "Aimbot", "A", aimbotSubtabs, IM_ARRAYSIZE(aimbotSubtabs) },
+            { "Combat", "X", combatSubtabs, IM_ARRAYSIZE(combatSubtabs) },
+            { "Hacks", "H", hacksSubtabs, IM_ARRAYSIZE(hacksSubtabs) },
+            { "Lobby", "L", lobbySubtabs, lobbySubtabCount },
+            { "Settings", "S", settingsSubtabs, IM_ARRAYSIZE(settingsSubtabs) },
+        };
+
+        ImGuiStyle& style = ImGui::GetStyle();
+        ImGuiIO& io = ImGui::GetIO();
+        const int pageCount = IM_ARRAYSIZE(pages);
+        if (g_SelectedTab < 0 || g_SelectedTab >= pageCount)
+            g_SelectedTab = 0;
+
+        const float sidebarWidth = 236.0f;
+        const ImVec2 defaultSize(900.0f, 590.0f);
+        ImGui::SetNextWindowSize(defaultSize, ImGuiCond_Once);
+        ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Once, ImVec2(0.5f, 0.5f));
+        ImGui::SetNextWindowBgAlpha(0.0f);
+
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+        ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+        bool open = ImGui::Begin("RUGIR INTERNAL##free-imgui", &g_Visible,
+            ImGuiWindowFlags_NoTitleBar |
+            ImGuiWindowFlags_NoCollapse |
+            ImGuiWindowFlags_NoScrollbar |
+            ImGuiWindowFlags_NoScrollWithMouse |
+            ImGuiWindowFlags_NoBackground);
+        ImGui::PopStyleColor();
+        ImGui::PopStyleVar(2);
+
+        if (!open)
+        {
+            ImGui::End();
+            return;
+        }
+
+        ImDrawList* drawList = ImGui::GetWindowDrawList();
+        ImVec2 p = ImGui::GetWindowPos();
+        ImVec2 size = ImGui::GetWindowSize();
+        ImVec2 windowMax(p.x + size.x, p.y + size.y);
+        ImVec2 sidebarMax(p.x + sidebarWidth, p.y + size.y);
+
+        const bool videoDrawn = DrawMenuBackgroundVideo(drawList, p, windowMax, 12.0f);
+        if (!videoDrawn)
+            drawList->AddRectFilled(p, windowMax, ImGui::GetColorU32(ImVec4(7.0f / 255.0f, 7.0f / 255.0f, 10.0f / 255.0f, 0.56f)), 12.0f);
+        drawList->AddRectFilled(p, windowMax, ImGui::GetColorU32(ImVec4(0.0f, 0.0f, 0.0f, 0.10f)), 12.0f);
+        drawList->AddRectFilled(p, sidebarMax, ImGui::GetColorU32(ImVec4(0.0f, 0.0f, 0.0f, 0.38f)), 12.0f, ImDrawFlags_RoundCornersLeft);
+        drawList->AddRectFilled(ImVec2(p.x + sidebarWidth, p.y), ImVec2(p.x + sidebarWidth + 1.0f, windowMax.y), ImGui::GetColorU32(ImVec4(g_Colors.accentColor.x, g_Colors.accentColor.y, g_Colors.accentColor.z, 0.24f)));
+        drawList->AddRect(p, windowMax, ImGui::GetColorU32(ImVec4(g_Colors.accentColor.x, g_Colors.accentColor.y, g_Colors.accentColor.z, 0.20f)), 12.0f, 0, 1.0f);
+
+        auto addText = [&](ImFont* font, float fontSize, const ImVec2& pos, ImU32 color, const char* text)
+        {
+            drawList->AddText(font ? font : ImGui::GetFont(), fontSize, pos, color, text);
+        };
+
+        auto calcTextSize = [](ImFont* font, float fontSize, const char* text) -> ImVec2
+        {
+            ImFont* resolvedFont = font ? font : ImGui::GetFont();
+            return resolvedFont->CalcTextSizeA(fontSize, FLT_MAX, 0.0f, text ? text : "");
+        };
+
+        auto sidebarTab = [&](const char* label, const char* icon, bool selected, const ImVec2& tabSize) -> bool
+        {
+            ImGui::PushID(label);
+            ImGui::InvisibleButton("##free-tab", tabSize);
+            bool clicked = ImGui::IsItemClicked();
+            bool hovered = ImGui::IsItemHovered();
+            ImVec2 tabMin = ImGui::GetItemRectMin();
+            ImVec2 tabMax = ImGui::GetItemRectMax();
+            ImGui::PopID();
+
+            ImU32 bg = ImGui::GetColorU32(selected ? ImVec4(34.0f / 255.0f, 31.0f / 255.0f, 48.0f / 255.0f, 0.62f)
+                                                   : ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+            if (hovered && !selected)
+                bg = ImGui::GetColorU32(ImVec4(33.0f / 255.0f, 32.0f / 255.0f, 43.0f / 255.0f, 0.46f));
+
+            drawList->AddRectFilled(tabMin, tabMax, bg, 6.0f);
+            if (selected)
+            {
+                drawList->AddRectFilled(ImVec2(tabMin.x, tabMin.y + 5.0f), ImVec2(tabMin.x + 3.0f, tabMax.y - 5.0f), ImGui::GetColorU32(g_Colors.accentColor), 2.0f);
+                drawList->AddRect(tabMin, tabMax, ImGui::GetColorU32(ImVec4(g_Colors.accentColor.x, g_Colors.accentColor.y, g_Colors.accentColor.z, 0.28f)), 6.0f);
+            }
+
+            ImU32 iconColor = ImGui::GetColorU32(selected ? g_Colors.accentColor : g_Colors.textDisabled);
+            ImU32 labelColor = ImGui::GetColorU32(selected ? g_Colors.textPrimary : g_Colors.textSecondary);
+            addText(g_FreeIconFont ? g_FreeIconFont : g_FreeFont, 23.0f, ImVec2(tabMin.x + 18.0f, tabMin.y + 9.0f), iconColor, icon);
+            addText(g_FreeFontLarge, 17.0f, ImVec2(tabMin.x + 52.0f, tabMin.y + 11.0f), labelColor, label);
+            return clicked;
+        };
+
+        auto subtabButton = [&](const char* label, bool selected, const ImVec2& buttonSize) -> bool
+        {
+            ImGui::PushID(label);
+            ImGui::InvisibleButton("##free-subtab", buttonSize);
+            bool clicked = ImGui::IsItemClicked();
+            bool hovered = ImGui::IsItemHovered();
+            ImVec2 buttonMin = ImGui::GetItemRectMin();
+            ImVec2 buttonMax = ImGui::GetItemRectMax();
+            ImGui::PopID();
+
+            ImVec4 bgColor = selected ? ImVec4(g_Colors.accentColor.x, g_Colors.accentColor.y, g_Colors.accentColor.z, 0.82f) : ImVec4(24.0f / 255.0f, 25.0f / 255.0f, 34.0f / 255.0f, 0.52f);
+            if (hovered && !selected)
+                bgColor = ImVec4(43.0f / 255.0f, 43.0f / 255.0f, 56.0f / 255.0f, 0.66f);
+
+            drawList->AddRectFilled(buttonMin, buttonMax, ImGui::GetColorU32(bgColor), 4.0f);
+            drawList->AddRect(buttonMin, buttonMax, ImGui::GetColorU32(ImVec4(g_Colors.accentColor.x, g_Colors.accentColor.y, g_Colors.accentColor.z, selected ? 0.38f : 0.16f)), 4.0f);
+
+            ImVec2 textSize = calcTextSize(g_FreeFontSmall, 14.0f, label);
+            ImVec2 textPos(buttonMin.x + (buttonSize.x - textSize.x) * 0.5f, buttonMin.y + (buttonSize.y - textSize.y) * 0.5f);
+            addText(g_FreeFontSmall, 14.0f, textPos, ImGui::GetColorU32(selected ? g_Colors.textPrimary : g_Colors.textSecondary), label);
+            return clicked;
+        };
+
+#if RUGIR_MENU_CHEAT_FACTORY
+        addText(g_FreeFontBrand, 29.0f, ImVec2(p.x + 24.0f, p.y + 28.0f), ImGui::GetColorU32(g_Colors.accentColor), "CHEAT");
+        addText(g_FreeFontBrand, 29.0f, ImVec2(p.x + 24.0f, p.y + 61.0f), ImGui::GetColorU32(g_Colors.textPrimary), "FACTORY");
+#else
+        addText(g_FreeFontBrand, 34.0f, ImVec2(p.x + 27.0f, p.y + 32.0f), ImGui::GetColorU32(g_Colors.accentColor), "RUGIR");
+        addText(g_FreeFontBrand, 34.0f, ImVec2(p.x + 132.0f, p.y + 32.0f), ImGui::GetColorU32(g_Colors.textPrimary), "INT");
+#endif
+
+        ImGui::SetCursorScreenPos(ImVec2(p.x + size.x - 34.0f, p.y + 16.0f));
+        if (ImAdd::ButtonXMark("free-close-button", ImVec2(18.0f, 18.0f)))
+            g_Visible = false;
+
+        ImGui::SetCursorScreenPos(ImVec2(p.x + 8.0f, p.y + 104.0f));
+        ImGui::BeginGroup();
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0.0f, 5.0f));
+        for (int i = 0; i < pageCount; i++)
+        {
+            if (sidebarTab(pages[i].label, pages[i].icon, g_SelectedTab == i, ImVec2(220.0f, 42.0f)))
+                g_SelectedTab = i;
+        }
+        ImGui::PopStyleVar();
+        ImGui::EndGroup();
+
+        const Page& page = pages[g_SelectedTab];
+        if (selectedSubtabs[g_SelectedTab] < 0 || selectedSubtabs[g_SelectedTab] >= page.subtabCount)
+            selectedSubtabs[g_SelectedTab] = 0;
+
+        const float contentX = p.x + sidebarWidth + 14.0f;
+        const float contentRight = p.x + size.x - 18.0f;
+        const ImVec2 pageLabelSize = calcTextSize(g_FreeFontTitle, 23.0f, page.label);
+        addText(g_FreeFontTitle, 23.0f, ImVec2(contentX, p.y + 18.0f), ImGui::GetColorU32(g_Colors.textPrimary), "[");
+        addText(g_FreeFontTitle, 23.0f, ImVec2(contentX + 13.0f, p.y + 18.0f), ImGui::GetColorU32(g_Colors.accentColor), page.label);
+        addText(g_FreeFontTitle, 23.0f, ImVec2(contentX + 18.0f + pageLabelSize.x, p.y + 18.0f), ImGui::GetColorU32(g_Colors.textPrimary), "]");
+
+        char fpsText[32] = {};
+        snprintf(fpsText, sizeof(fpsText), "FPS %.0f", ImGui::GetIO().Framerate);
+        ImGui::PushFont(g_FreeFontSmall ? g_FreeFontSmall : g_FreeFont);
+        const ImVec2 fpsTextSize = ImGui::CalcTextSize(fpsText);
+        ImGui::PopFont();
+        const ImVec2 fpsBoxSize(fpsTextSize.x + 18.0f, 24.0f);
+        const ImVec2 fpsBoxMin((std::max)(contentX + 180.0f, p.x + size.x - 128.0f), p.y + 55.0f);
+        const ImVec2 fpsBoxMax(fpsBoxMin.x + fpsBoxSize.x, fpsBoxMin.y + fpsBoxSize.y);
+        drawList->AddRectFilled(fpsBoxMin, fpsBoxMax, ImGui::GetColorU32(ImVec4(15.0f / 255.0f, 17.0f / 255.0f, 21.0f / 255.0f, 0.58f)), 4.0f);
+        drawList->AddRect(fpsBoxMin, fpsBoxMax, ImGui::GetColorU32(ImVec4(g_Colors.accentColor.x, g_Colors.accentColor.y, g_Colors.accentColor.z, 0.30f)), 4.0f);
+        addText(g_FreeFontSmall, 14.0f, ImVec2(fpsBoxMin.x + 9.0f, fpsBoxMin.y + 4.0f), ImGui::GetColorU32(g_Colors.textSecondary), fpsText);
+
+        float subtabY = p.y + 56.0f;
+        ImGui::SetCursorScreenPos(ImVec2(contentX, subtabY));
+        ImGui::BeginGroup();
+        for (int i = 0; i < page.subtabCount; i++)
+        {
+            if (i > 0)
+                ImGui::SameLine();
+
+            float labelWidth = calcTextSize(g_FreeFontSmall, 14.0f, page.subtabs[i].label).x + 28.0f;
+            labelWidth = (std::max)(84.0f, labelWidth);
+            if (subtabButton(page.subtabs[i].label, selectedSubtabs[g_SelectedTab] == i, ImVec2(labelWidth, 28.0f)))
+                selectedSubtabs[g_SelectedTab] = i;
+        }
+        ImGui::EndGroup();
+
+        const float contentTop = p.y + 96.0f;
+        const ImVec2 contentSize((std::max)(240.0f, contentRight - contentX), (std::max)(160.0f, p.y + size.y - contentTop - 18.0f));
+        char pageId[32] = {};
+        snprintf(pageId, sizeof(pageId), "free-page:%d:%d", g_SelectedTab, selectedSubtabs[g_SelectedTab]);
+
+        ImGui::SetCursorScreenPos(ImVec2(contentX, contentTop));
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(12.0f, 12.0f));
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(12.0f, 10.0f));
+        bool childOpen = ImGui::BeginChild(pageId, contentSize, false, ImGuiWindowFlags_AlwaysVerticalScrollbar);
+        if (childOpen)
+        {
+            float groupWidth = std::floor((ImGui::GetContentRegionAvail().x - style.ItemSpacing.x) / 2.0f);
+            int subtab = selectedSubtabs[g_SelectedTab];
+            switch (g_SelectedTab)
+            {
+            case 0: RenderPreviewEspPage(subtab, groupWidth); break;
+            case 1: RenderPreviewCharacterPage(subtab, groupWidth); break;
+            case 2: RenderPreviewAimbotPage(subtab, groupWidth); break;
+            case 3: RenderPreviewCombatPage(subtab, groupWidth); break;
+            case 4: RenderPreviewHacksPage(subtab, groupWidth); break;
+            case 5: RenderPreviewLobbyPage(subtab, groupWidth); break;
+            case 6: RenderPreviewSettingsPage(groupWidth); break;
+            default: break;
+            }
+        }
+        ImGui::EndChild();
+        ImGui::PopStyleVar(2);
+
+        ImGui::End();
+    }
+    // ============================================================================
     // INITIALIZATION & SHUTDOWN
     // ============================================================================
+    void SetModuleHandle(HMODULE module)
+    {
+        if (module)
+            g_DllModule = module;
+    }
+
+    bool PreloadEmbeddedVideoResource(HMODULE module)
+    {
+        if (!module)
+        {
+            g_MenuVideoStatus = "module fail";
+            return false;
+        }
+
+        HRSRC resource = FindResourceW(module, MAKEINTRESOURCEW(IDR_MENU_BACKGROUND_VIDEO), RT_RCDATA);
+        if (!resource)
+        {
+            g_MenuVideoStatus = "resource fail";
+            return false;
+        }
+
+        const DWORD resourceSize = SizeofResource(module, resource);
+        HGLOBAL loadedResource = LoadResource(module, resource);
+        const void* resourceBytes = loadedResource ? LockResource(loadedResource) : nullptr;
+        if (!resourceBytes || resourceSize == 0)
+        {
+            g_MenuVideoStatus = "resource empty";
+            return false;
+        }
+
+        g_MenuVideoEmbeddedBytes.assign(
+            static_cast<const unsigned char*>(resourceBytes),
+            static_cast<const unsigned char*>(resourceBytes) + resourceSize);
+        g_MenuVideoStatus = "resource cached";
+        return !g_MenuVideoEmbeddedBytes.empty();
+    }
+
     bool Initialize(IDXGISwapChain* pSwapChain, HWND hWnd)
     {
         if (g_Initialized)
@@ -2445,6 +4695,8 @@ return false;
         }
 
         g_GameWindow = hWnd;
+        g_Visible = true;
+        g_MenuHotkeyDown = false;
 
         // Create ImGui context
         g_Context = ImGui::CreateContext();
@@ -2463,42 +4715,52 @@ return false;
         // Load fonts with high-quality rendering
         // Police embarqu�e dans le dossier du DLL pour fiabilit� maximale
         io.Fonts->Clear();
-        ImFontConfig fontConfig;
-        fontConfig.SizePixels = 18.0f;
-        fontConfig.PixelSnapH = false;
-        fontConfig.OversampleH = 3;
-        fontConfig.OversampleV = 3;
-        fontConfig.RasterizerMultiply = 1.5f;
-        
-        ImFont* font = nullptr;
-        
-        // Get current module path to load font from same directory as DLL
-        char modulePath[MAX_PATH];
-        GetModuleFileNameA(nullptr, modulePath, MAX_PATH);
-        std::string dllDir = modulePath;
-        size_t lastSlash = dllDir.find_last_of("\\/");
-        if (lastSlash != std::string::npos)
-        {
-            dllDir = dllDir.substr(0, lastSlash + 1);
-        }
-        
-        // Try to load embedded font from DLL directory
-        std::string fontPath = dllDir + "segoeui.ttf";
-        font = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 18.0f, &fontConfig);
-        
-        // Fallback 1: Try Windows system font
-        if (!font)
-        {
-            font = io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\segoeui.ttf", 18.0f, &fontConfig);
-        }
-        
-        // Fallback 2: Use default ImGui font
-        if (!font)
-        {
-            font = io.Fonts->AddFontDefault(&fontConfig);
-        }
-        
-        io.Fonts->Build();
+
+        ImFontConfig freeFontConfig;
+        freeFontConfig.FontDataOwnedByAtlas = false;
+        freeFontConfig.OversampleH = 3;
+        freeFontConfig.OversampleV = 2;
+
+        g_FreeFont = io.Fonts->AddFontFromMemoryTTF(
+            Inter_SemmiBold,
+            sizeof(Inter_SemmiBold),
+            17.0f,
+            &freeFontConfig,
+            io.Fonts->GetGlyphRangesDefault());
+        g_FreeFontLarge = io.Fonts->AddFontFromMemoryTTF(
+            Inter_SemmiBold,
+            sizeof(Inter_SemmiBold),
+            18.0f,
+            &freeFontConfig,
+            io.Fonts->GetGlyphRangesDefault());
+        g_FreeFontTitle = io.Fonts->AddFontFromMemoryTTF(
+            Inter_SemmiBold,
+            sizeof(Inter_SemmiBold),
+            23.0f,
+            &freeFontConfig,
+            io.Fonts->GetGlyphRangesDefault());
+        g_FreeFontSmall = io.Fonts->AddFontFromMemoryTTF(
+            Inter_SemmiBold,
+            sizeof(Inter_SemmiBold),
+            15.0f,
+            &freeFontConfig,
+            io.Fonts->GetGlyphRangesDefault());
+        g_FreeFontBrand = io.Fonts->AddFontFromMemoryTTF(
+            Inter_Bold,
+            sizeof(Inter_Bold),
+            34.0f,
+            &freeFontConfig,
+            io.Fonts->GetGlyphRangesDefault());
+        g_FreeIconFont = io.Fonts->AddFontFromMemoryTTF(
+            Icon_Pack,
+            sizeof(Icon_Pack),
+            26.0f,
+            &freeFontConfig,
+            io.Fonts->GetGlyphRangesDefault());
+
+        if (!g_FreeFont)
+            g_FreeFont = io.Fonts->AddFontDefault();
+
         io.FontGlobalScale = 1.0f;
         
         // Load symbolfont (icon font from memory)
@@ -2528,7 +4790,7 @@ return false;
         try
         {
             ImGui::StyleColorsDark();
-            SetupColorScheme();
+            SetupFreeImGuiTheme();
         }
         catch (...)
         {
@@ -2565,6 +4827,12 @@ ImGui_ImplWin32_Shutdown();
                     return false;
                 }
 
+                g_Device = pDevice;
+                g_DeviceContext = pContext;
+
+                // Initialize SVG loader for dynamic logo rendering
+                SVGLoader::SVGTextureGenerator::Initialize(pDevice, pContext);
+
                 break;  // Success
             }
             catch (...)
@@ -2581,6 +4849,7 @@ return false;
         try
         {
             g_OriginalWndProc = (WNDPROC)SetWindowLongPtr(hWnd, GWLP_WNDPROC, (LONG_PTR)HookedWndProc);
+            g_WndProcRestored = false;
         }
         catch (...)
         {
@@ -2609,6 +4878,27 @@ return false;
             }
         }
 
+        // preview layout has no visible master switch. Keep the legacy
+        // runtime gate enabled so preview-visible feature toggles are effective.
+        g_Settings.EnableGlobal = true;
+
+        // Initialize character icon loader
+        ID3D11Device* iconDevice = D3D11Hook::GetDevice();
+        ID3D11DeviceContext* iconContext = D3D11Hook::GetContext();
+        if (iconDevice && iconContext)
+        {
+            g_Device = iconDevice;
+            g_DeviceContext = iconContext;
+            IconLoader::CharacterIconCache::Initialize(iconDevice, iconContext);
+            Logger::LogInfo("[Menu] Character icon loader initialized");
+            
+            // Load RUGIR logo
+            LoadRugirLogo();
+            LoadPlatformIcons();
+            if (g_Settings.EnableMenuBackgroundVideo)
+                InitializeMenuBackgroundVideo();
+        }
+
         g_Initialized = true;
 return true;
     }
@@ -2618,8 +4908,32 @@ return true;
         if (!g_Initialized)
             return;
 
+        RestoreWindowProc();
+
+        for (int i = 0; i < 200 && g_WndProcCallDepth.load(std::memory_order_acquire) > 0; ++i)
+            Sleep(1);
+
+        g_OriginalWndProc = nullptr;
+        g_WndProcRestored = false;
+
+        ReleaseRenderTargetView();
+
         ImGui_ImplDX11_Shutdown();
         ImGui_ImplWin32_Shutdown();
+
+        // Shutdown loaders
+        SVGLoader::SVGTextureGenerator::Shutdown();
+        if (g_RugirLogo)
+        {
+            g_RugirLogo->Release();
+            g_RugirLogo = nullptr;
+        }
+        ReleasePlatformIcons();
+        ReleaseMenuBackgroundVideo();
+        g_CharacterIconGridCache.clear();
+        IconLoader::CharacterIconCache::Shutdown();
+        g_Device = nullptr;
+        g_DeviceContext = nullptr;
 
         if (g_Context)
         {
@@ -2627,138 +4941,218 @@ return true;
             g_Context = nullptr;
         }
 
-        if (g_GameWindow && g_OriginalWndProc)
-        {
-            SetWindowLongPtr(g_GameWindow, GWLP_WNDPROC, (LONG_PTR)g_OriginalWndProc);
-        }
-
+        g_GameWindow = nullptr;
         g_Initialized = false;
 }
 
+    void InvalidateRenderTarget()
+    {
+        ReleaseRenderTargetView();
+    }
+
+    void RestoreWindowProc()
+    {
+        if (g_GameWindow && g_OriginalWndProc && !g_WndProcRestored)
+        {
+            SetWindowLongPtr(g_GameWindow, GWLP_WNDPROC, (LONG_PTR)g_OriginalWndProc);
+            g_WndProcRestored = true;
+        }
+    }
+
+    bool HasActiveWindowProc()
+    {
+        return g_WndProcCallDepth.load(std::memory_order_acquire) > 0;
+    }
+
     // ============================================================================
-    // HOTKEY LISTENER UPDATE - Called every frame (Zero1 exact)
+    // HOTKEY LISTENER UPDATE - Called every frame
     // ============================================================================
     static void UpdateHotkeyListener()
     {
-        ImGuiIO& io = ImGui::GetIO();
-        
-        // CRITICAL: Only enable gamepad navigation when actively listening for hotkey
-        // Otherwise, game needs to receive gamepad inputs
-        if (g_ListeningForHotkey)
+        if (!g_ListeningForHotkey)
         {
-            // Enable gamepad so we can detect hotkey input
-            io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
-            
-            // Check for 5-second timeout (5000 ms)
-            int elapsedTime = GetTickCount() - g_HotkeyListenStartTime;
-            if (elapsedTime > 5000)
+            StopHotkeyListening();
+            return;
+        }
+
+        if (!IsKnownHotkeyId(g_CurrentHotkeyValue))
+        {
+            StopHotkeyListening();
+            return;
+        }
+
+        if ((GetTickCount64() - g_HotkeyListenStartTime) > HOTKEY_LISTEN_TIMEOUT_MS)
+        {
+            StopHotkeyListening();
+            return;
+        }
+
+        // ESC cancels without assigning it as a usable hotkey.
+        if ((GetAsyncKeyState(VK_ESCAPE) & 0x8000) != 0)
+        {
+            StopHotkeyListening();
+            return;
+        }
+
+        const int keyboardKey = GetHotkey(0);
+        const int gamepadKey = GetHotkey(1);
+
+        if (g_HotkeyWaitingForRelease)
+        {
+            if (keyboardKey == 0 && gamepadKey == 0)
+                g_HotkeyWaitingForRelease = false;
+
+            return;
+        }
+
+        const int pressedKey = keyboardKey != 0 ? keyboardKey : gamepadKey;
+        const int inputType = keyboardKey != 0 ? 0 : 1;  // 0=keyboard, 1=gamepad
+
+        if (pressedKey == 0)
+            return;
+
+        if ((inputType == 0 && !IsValidKeyboardHotkey(pressedKey)) ||
+            (inputType == 1 && !IsValidGamepadHotkey(pressedKey)))
+        {
+            return;
+        }
+
+        // Determine which hotkey we're listening for (unified system: 100=Aimbot, 101=Teleport, 102=Transform, 103=DuplicateImitation)
+        int hotkeyType = g_CurrentHotkeyValue;
+
+        // Update the corresponding hotkey setting based on unified type
+        if (hotkeyType == 100)  // Aimbot hotkey (unified)
+        {
+            if (inputType == 0)  // Keyboard
+                g_Settings.AimbotHoldKey.Keyboard = pressedKey;
+            else  // Gamepad
             {
-                g_ListeningForHotkey = false;
-                io.ConfigFlags &= ~ImGuiConfigFlags_NavEnableGamepad;  // Disable after timeout
-                return;  // Timeout - cancel listening
-            }
-            
-            // Check for ESC key (27) - cancel
-            if ((GetAsyncKeyState(0x1B) & 0x8000) != 0)
-            {
-                g_ListeningForHotkey = false;
-                io.ConfigFlags &= ~ImGuiConfigFlags_NavEnableGamepad;  // Disable on cancel
-                return;
-            }
-            
-            // Determine which hotkey we're listening for (unified system: 100=Aimbot, 101=Teleport, 102=Transform, 103=DuplicateImitation)
-            int hotkeyType = g_CurrentHotkeyValue;
-            
-            // Try both keyboard and gamepad inputs
-            int keyboardKey = GetHotkey(0, 0);  // Check keyboard
-            int gamepadKey = GetHotkey(0, 1);   // Check gamepad
-            
-            int pressedKey = keyboardKey != 0 ? keyboardKey : gamepadKey;
-            int inputType = keyboardKey != 0 ? 0 : 1;  // 0=keyboard, 1=gamepad
-            
-            if (pressedKey != 0)
-            {
-                // Update the corresponding hotkey setting based on unified type
-                if (hotkeyType == 100)  // Aimbot hotkey (unified)
-                {
-                    if (inputType == 0)  // Keyboard
-                        g_Settings.AimbotHoldKey.Keyboard = pressedKey;
-                    else  // Gamepad
-                    {
-                        g_Settings.AimbotHoldKey.Xbox = pressedKey;
-                        g_Settings.AimbotHoldKey.PS4 = pressedKey;
-                    }
-                }
-                else if (hotkeyType == 101)  // Teleport hotkey (unified)
-                {
-                    if (inputType == 0)  // Keyboard
-                        g_Settings.TeleportToKotaKey.Keyboard = pressedKey;
-                    else  // Gamepad
-                    {
-                        g_Settings.TeleportToKotaKey.Xbox = pressedKey;
-                        g_Settings.TeleportToKotaKey.PS4 = pressedKey;
-                    }
-                }
-                else if (hotkeyType == 102)  // Transform hotkey (unified)
-                {
-                    if (inputType == 0)  // Keyboard
-                        g_Settings.TransformIntoRandomESPKey.Keyboard = pressedKey;
-                    else  // Gamepad
-                    {
-                        g_Settings.TransformIntoRandomESPKey.Xbox = pressedKey;
-                        g_Settings.TransformIntoRandomESPKey.PS4 = pressedKey;
-                    }
-                }
-                else if (hotkeyType == 103)  // DuplicateImitation hotkey (unified)
-                {
-                    if (inputType == 0)  // Keyboard
-                        g_Settings.DuplicateIntoImitationRandomESPKey.Keyboard = pressedKey;
-                    else  // Gamepad
-                    {
-                        g_Settings.DuplicateIntoImitationRandomESPKey.Xbox = pressedKey;
-                        g_Settings.DuplicateIntoImitationRandomESPKey.PS4 = pressedKey;
-                    }
-                }
-                else if (hotkeyType == 104)  // SetInvincible hotkey (unified)
-                {
-                    if (inputType == 0)  // Keyboard
-                        g_Settings.SetInvincibleKey.Keyboard = pressedKey;
-                    else  // Gamepad
-                    {
-                        g_Settings.SetInvincibleKey.Xbox = pressedKey;
-                        g_Settings.SetInvincibleKey.PS4 = pressedKey;
-                    }
-                }
-                else if (hotkeyType == 105)  // RebuildMyself hotkey (unified)
-                {
-                    if (inputType == 0)  // Keyboard
-                        g_Settings.RebuildMyselfKey.Keyboard = pressedKey;
-                    else  // Gamepad
-                    {
-                        g_Settings.RebuildMyselfKey.Xbox = pressedKey;
-                        g_Settings.RebuildMyselfKey.PS4 = pressedKey;
-                    }
-                }
-                else if (hotkeyType == 106)  // CopySkills hotkey (unified)
-                {
-                    if (inputType == 0)  // Keyboard
-                        g_Settings.CopySkillsFromNearestEnemyKey.Keyboard = pressedKey;
-                    else  // Gamepad
-                    {
-                        g_Settings.CopySkillsFromNearestEnemyKey.Xbox = pressedKey;
-                        g_Settings.CopySkillsFromNearestEnemyKey.PS4 = pressedKey;
-                    }
-                }
-                
-                g_ListeningForHotkey = false;  // Stop listening
-                io.ConfigFlags &= ~ImGuiConfigFlags_NavEnableGamepad;  // Disable after hotkey set
+                g_Settings.AimbotHoldKey.Xbox = pressedKey;
+                g_Settings.AimbotHoldKey.PS4 = pressedKey;
             }
         }
-        else
+        else if (hotkeyType == 101)  // Teleport hotkey (unified)
         {
-            // Not listening - make sure gamepad is disabled so game gets inputs
-            io.ConfigFlags &= ~ImGuiConfigFlags_NavEnableGamepad;
+            if (inputType == 0)  // Keyboard
+                g_Settings.TeleportToKotaKey.Keyboard = pressedKey;
+            else  // Gamepad
+            {
+                g_Settings.TeleportToKotaKey.Xbox = pressedKey;
+                g_Settings.TeleportToKotaKey.PS4 = pressedKey;
+            }
         }
+        else if (hotkeyType == 102)  // Transform hotkey (unified)
+        {
+            if (inputType == 0)  // Keyboard
+                g_Settings.TransformIntoRandomESPKey.Keyboard = pressedKey;
+            else  // Gamepad
+            {
+                g_Settings.TransformIntoRandomESPKey.Xbox = pressedKey;
+                g_Settings.TransformIntoRandomESPKey.PS4 = pressedKey;
+            }
+        }
+        else if (hotkeyType == 103)  // DuplicateImitation hotkey (unified)
+        {
+            if (inputType == 0)  // Keyboard
+                g_Settings.DuplicateIntoImitationRandomESPKey.Keyboard = pressedKey;
+            else  // Gamepad
+            {
+                g_Settings.DuplicateIntoImitationRandomESPKey.Xbox = pressedKey;
+                g_Settings.DuplicateIntoImitationRandomESPKey.PS4 = pressedKey;
+            }
+        }
+        else if (hotkeyType == 104)  // SetInvincible hotkey (unified)
+        {
+            if (inputType == 0)  // Keyboard
+                g_Settings.SetInvincibleKey.Keyboard = pressedKey;
+            else  // Gamepad
+            {
+                g_Settings.SetInvincibleKey.Xbox = pressedKey;
+                g_Settings.SetInvincibleKey.PS4 = pressedKey;
+            }
+        }
+        else if (hotkeyType == 105)  // RebuildMyself hotkey (unified)
+        {
+            if (inputType == 0)  // Keyboard
+                g_Settings.RebuildMyselfKey.Keyboard = pressedKey;
+            else  // Gamepad
+            {
+                g_Settings.RebuildMyselfKey.Xbox = pressedKey;
+                g_Settings.RebuildMyselfKey.PS4 = pressedKey;
+            }
+        }
+        else if (hotkeyType == 106)  // CopySkills hotkey (unified)
+        {
+            if (inputType == 0)  // Keyboard
+                g_Settings.CopySkillsFromNearestEnemyKey.Keyboard = pressedKey;
+            else  // Gamepad
+            {
+                g_Settings.CopySkillsFromNearestEnemyKey.Xbox = pressedKey;
+                g_Settings.CopySkillsFromNearestEnemyKey.PS4 = pressedKey;
+            }
+        }
+        else if (hotkeyType == 107)  // GenerateProjectile hotkey (unified)
+        {
+            if (inputType == 0)  // Keyboard
+                g_Settings.GenerateProjectileKey.Keyboard = pressedKey;
+            else  // Gamepad
+            {
+                g_Settings.GenerateProjectileKey.Xbox = pressedKey;
+                g_Settings.GenerateProjectileKey.PS4 = pressedKey;
+            }
+        }
+        else if (hotkeyType == 108)  // No Collision hotkey (unified)
+        {
+            if (inputType == 0)  // Keyboard
+                g_Settings.NoCollisionHoldKey.Keyboard = pressedKey;
+            else  // Gamepad
+            {
+                g_Settings.NoCollisionHoldKey.Xbox = pressedKey;
+                g_Settings.NoCollisionHoldKey.PS4 = pressedKey;
+            }
+        }
+        else if (hotkeyType == 109)  // Custom Drop hotkey (unified)
+        {
+            if (inputType == 0)  // Keyboard
+                g_Settings.CustomDropKey.Keyboard = pressedKey;
+            else  // Gamepad
+            {
+                g_Settings.CustomDropKey.Xbox = pressedKey;
+                g_Settings.CustomDropKey.PS4 = pressedKey;
+            }
+        }
+
+        StopHotkeyListening();
+    }
+
+    static bool HasPendingCharacterConditionAutoExecution()
+    {
+        return g_Settings.EnableGlobal &&
+            (g_HackSettings.CharCondition_EnableDekuMode ||
+             g_HackSettings.CharCondition_EnableUnbreakable ||
+             g_HackSettings.CharCondition_EnableCompressionRegen ||
+             g_HackSettings.CharCondition_EnableMirioMode ||
+             g_HackSettings.CharCondition_EnableTokoyamiMode ||
+             g_HackSettings.CharCondition_AutoExecute);
+    }
+
+    static bool HasSdkOverlayDraw()
+    {
+        if (!g_Settings.EnableGlobal)
+            return false;
+
+        return g_Settings.EnablePlayerESP ||
+            g_Settings.ShowPlayerSkeleton ||
+            (g_Settings.EnableAimbot && (g_Settings.AimbotDrawLine || g_Settings.AimbotDrawFOV)) ||
+            g_Settings.EnableBulletTP;
+    }
+
+    static bool NeedsImGuiFrame()
+    {
+        return g_Visible ||
+            g_PlayerNetworkTableVisible ||
+            g_PlayerListHotkeyHintVisible ||
+            HasSdkOverlayDraw();
     }
 
     // ============================================================================
@@ -2769,17 +5163,57 @@ return true;
         if (!g_Initialized || !pSwapChain)
             return;
 
-        // Update hotkey listener state every frame (Zero1 exact)
-        UpdateHotkeyListener();
+        ImGui::SetCurrentContext(g_Context);
 
-        // Process character condition auto-execution on battle mode entry
-        InGameHack_ProcessCharacterConditionAutoExecution(
-            g_HackSettings.CharCondition_EnableDekuMode,
-            g_HackSettings.CharCondition_EnableUnbreakable,
-            g_HackSettings.CharCondition_EnableCompressionRegen,
-            g_HackSettings.CharCondition_EnableMirioMode,
-            g_HackSettings.CharCondition_EnableTokoyamiMode
-        );
+        // Update hotkey listener state every frame
+        UpdateHotkeyListener();
+        ProcessTimedLicenseClaimTest();
+
+        if (HasPendingCharacterConditionAutoExecution())
+        {
+            static DWORD s_lastConditionAutoQueueTick = 0;
+            const DWORD now = GetTickCount();
+            if (now - s_lastConditionAutoQueueTick >= 250)
+            {
+                s_lastConditionAutoQueueTick = now;
+
+                const bool enableDekuMode = g_HackSettings.CharCondition_EnableDekuMode;
+                const bool enableUnbreakable = g_HackSettings.CharCondition_EnableUnbreakable;
+                const bool enableCompressionRegen = g_HackSettings.CharCondition_EnableCompressionRegen;
+                const bool enableMirioMode = g_HackSettings.CharCondition_EnableMirioMode;
+                const bool enableTokoyamiMode = g_HackSettings.CharCondition_EnableTokoyamiMode;
+                const bool enableGenericCondition = g_HackSettings.CharCondition_AutoExecute;
+                const int conditionId = g_HackSettings.CharCondition_SelectedConditionId;
+                const int applyMode = g_HackSettings.CharCondition_ApplyMode;
+                const int level = g_HackSettings.CharCondition_Level;
+                const float duration = g_HackSettings.CharCondition_Duration;
+                const float value = g_HackSettings.CharCondition_Value;
+                const float interval = g_HackSettings.CharCondition_Interval;
+                const int subLevel = g_HackSettings.CharCondition_SubLevel;
+                const bool timeOverwrite = g_HackSettings.CharCondition_TimeOverwrite;
+
+                EnqueueGameThreadMenuTask([enableDekuMode, enableUnbreakable, enableCompressionRegen, enableMirioMode,
+                                           enableTokoyamiMode, enableGenericCondition, conditionId, applyMode, level,
+                                           duration, value, interval, subLevel, timeOverwrite]() {
+                    InGameHack_ProcessCharacterConditionAutoExecution(
+                        enableDekuMode,
+                        enableUnbreakable,
+                        enableCompressionRegen,
+                        enableMirioMode,
+                        enableTokoyamiMode,
+                        enableGenericCondition,
+                        conditionId,
+                        applyMode,
+                        level,
+                        duration,
+                        value,
+                        interval,
+                        subLevel,
+                        timeOverwrite
+                    );
+                }, "Character Condition Auto Execute");
+            }
+        }
 
         // ⭐ RETRY MECHANISM: Try to initialize GameThreadHook every frame if not active yet
         if (!GameThreadHook::IsHookActive())
@@ -2795,42 +5229,32 @@ return true;
             }
         }
 
+        UpdatePlayerListHotkeyHintState();
+
+        const bool needsFrame = NeedsImGuiFrame();
+        if (!needsFrame)
+        {
+            ImGuiIO& io = ImGui::GetIO();
+            io.MouseDrawCursor = false;
+            io.ConfigFlags &= ~ImGuiConfigFlags_NavEnableGamepad;
+            return;
+        }
+
         // Get device and context from D3D11Hook (via getter)
         ID3D11Device* device = D3D11Hook::GetDevice();
         ID3D11DeviceContext* context = D3D11Hook::GetContext();
         if (!device || !context)
             return;
 
-        // ========================================================================
-        // STEP 1: GET BACKBUFFER FROM SWAPCHAIN
-        // ========================================================================
-        ID3D11Texture2D* backbuffer = nullptr;
-        if (FAILED(pSwapChain->GetBuffer(0, IID_PPV_ARGS(&backbuffer))))
-        {
-return;
-        }
+        g_Device = device;
+        g_DeviceContext = context;
 
-        // ========================================================================
-        // STEP 2: CREATE NEW RENDER TARGET VIEW
-        // ========================================================================
-        ID3D11RenderTargetView* localRTV = nullptr;
-        if (FAILED(device->CreateRenderTargetView(backbuffer, nullptr, &localRTV)))
-        {
-backbuffer->Release();
+        if (!EnsureRenderTargetView(pSwapChain, device))
             return;
-        }
-
-        if (!localRTV)
-        {
-            backbuffer->Release();
-            return;
-        }
 
         // ========================================================================
         // STEP 3: SET IMGUI CONTEXT & BEGIN NEW FRAME
         // ========================================================================
-        ImGui::SetCurrentContext(g_Context);
-        
         // Set display size to game window dimensions
         ImGuiIO& io = ImGui::GetIO();
         RECT rect{};
@@ -2843,178 +5267,54 @@ backbuffer->Release();
         }
         
         // ===== CURSOR VISIBILITY CONTROL =====
-        // Only show mouse cursor when menu is visible
-        io.MouseDrawCursor = g_Visible;
+        // Show mouse cursor when an ImGui window is visible.
+        io.MouseDrawCursor = g_Visible || g_PlayerNetworkTableVisible;
         
         ImGui_ImplDX11_NewFrame();
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
+
+        if (g_Settings.ShowServerStatusOverlay)
+            DrawServerStatusOverlay();
+        DrawPlayerListHotkeyHint();
         
-        // CRITICAL: Don't let ImGui capture gamepad inputs once hotkey is defined
-        // Only process gamepad when actively listening for hotkey definition
-        if (!g_ListeningForHotkey)
-        {
-            // Disable ImGui's gamepad navigation so game receives all gamepad inputs
-            io.ConfigFlags &= ~ImGuiConfigFlags_NavEnableGamepad;
-        }
-        else
-        {
-            // Enable gamepad navigation only while defining hotkey
-            io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
-        }
+        // Hotkey capture polls XInput directly. Keep ImGui gamepad navigation disabled so
+        // the menu never steals controller input or changes nav state mid-frame.
+        io.ConfigFlags &= ~ImGuiConfigFlags_NavEnableGamepad;
 
         // ========================================================================
         // STEP 3B: SDK RENDERING (on RenderThread with ImGui context)
         // ========================================================================
-        SDK_DrawAllRectangles();
-        SDK_DrawAllTextLabels();
-        
-        // Only draw skeletons if enabled
-        if (g_Settings.ShowPlayerSkeleton)
+        if (g_Settings.EnableGlobal)
         {
-            SDK_DrawAllSkeletons();
+            if (g_Settings.EnablePlayerESP)
+            {
+                SDK_DrawAllRectangles();
+                SDK_DrawAllTextLabels();
+            }
+            
+            // Only draw skeletons if enabled
+            if (g_Settings.ShowPlayerSkeleton)
+            {
+                SDK_DrawAllSkeletons();
+            }
+            
+            if (g_Settings.EnableAimbot && g_Settings.AimbotDrawLine)
+                SDK_DrawAimbotInfo();
+            if (g_Settings.EnableAimbot && g_Settings.AimbotDrawFOV)
+                SDK_DrawAimbotFOV();
+            if (g_Settings.EnableBulletTP)
+                SDK_DrawBulletRedirectionFOV();
         }
-        
-        SDK_DrawAimbotInfo();
-        SDK_DrawAimbotFOV();
-        SDK_DrawBulletRedirectionFOV();
 
         // ========================================================================
-        // STEP 4: DRAW MAIN MENU WINDOW (Sidebar + Content Layout)
+        // STEP 4: DRAW MAIN MENU WINDOW (cheat-factory structure)
         // ========================================================================
         if (g_Visible)
         {
-            ImGui::SetNextWindowSize(ImVec2(850, 600), ImGuiCond_Once);
-            ImGui::SetNextWindowPos(ImVec2(100, 50), ImGuiCond_FirstUseEver);
-
-            if (ImGui::Begin("##MainWindow", &g_Visible, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse))
-            {
-                // ========== HEADER ==========
-                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.accentColor);
-                ImGui::SetWindowFontScale(1.5f);
-                ImGui::Text("RUGIR-INTERNAL");
-                ImGui::SetWindowFontScale(1.0f);
-                ImGui::PopStyleColor();
-
-                ImGui::SameLine(ImGui::GetWindowWidth() - 320.0f);
-                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.textSecondary);
-                ImGui::Text("Global:");
-                ImGui::PopStyleColor();
-                ImGui::SameLine();
-                
-                if (ImGuiHelper::ToggleSwitchLarge("Global", &g_Settings.EnableGlobal))
-                {
-                    // Global enable toggle
-                }
-                StatusIndicator(g_Settings.EnableGlobal);
-
-                ImGui::SameLine(ImGui::GetWindowWidth() - 120.0f);
-                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.textSecondary);
-                ImGui::Text("FPS: %.0f", ImGui::GetIO().Framerate);
-                ImGui::PopStyleColor();
-
-                ImGui::Spacing();
-                ImGui::Separator();
-                ImGui::Spacing();
-
-                // ========== SIDEBAR + CONTENT LAYOUT ==========
-                float sidebarWidth = 140.0f;
-                ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0, 0, 0, 0));
-                ImGui::BeginChild("##Sidebar", ImVec2(sidebarWidth, 0.0f), false);
-                ImGui::PopStyleColor();
-                
-                // Sidebar buttons
-                ImGui::Spacing();
-                if (ModernButton("P   ESP", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 0))
-                    g_SelectedTab = 0;
-                ImGui::Spacing();
-                
-                if (ModernButton("C   CHARACTER", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 1))
-                    g_SelectedTab = 1;
-                ImGui::Spacing();
-                
-                if (ModernButton("N   AIMBOT", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 2))
-                    g_SelectedTab = 2;
-                ImGui::Spacing();
-                
-                if (ModernButton("Q   COMBAT", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 3))
-                    g_SelectedTab = 3;
-                ImGui::Spacing();
-                
-                if (ModernButton("I   HACKS", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 4))
-                    g_SelectedTab = 4;
-                ImGui::Spacing();
-                
-                if (ModernButton("O   LOBBY EXPLOIT", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 5))
-                    g_SelectedTab = 5;
-                ImGui::Spacing();
-                
-                if (ModernButton("R   SETTINGS", ImVec2(ImGui::GetContentRegionAvail().x, 40.0f), g_SelectedTab == 6))
-                    g_SelectedTab = 6;
-                ImGui::Spacing();
-
-                ImGui::SetCursorPosY(ImGui::GetWindowHeight() - 80.0f);
-                ImGui::Separator();
-                ImGui::Spacing();
-                ImGui::PushStyleColor(ImGuiCol_Text, g_Colors.textSecondary);
-                ImGui::Text("v1.0.0");
-                ImGui::PopStyleColor();
-
-                ImGui::EndChild();
-
-                ImGui::SameLine();
-                ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0, 0, 0, 0));
-                ImGui::BeginChild("##Content", ImVec2(0.0f, 0.0f), false);
-                ImGui::PopStyleColor();
-
-                // ========== CONTENT AREA ==========
-                switch (g_SelectedTab)
-                {
-                case 0:  // ESP
-                    RenderESPMenu();
-                    break;
-                case 1:  // CHARACTER
-                    RenderCharacterMenu();
-                    break;
-                case 2:  // AIMBOT
-                    RenderAimbotMenu();
-                    break;
-                case 3:  // COMBAT
-                    RenderCombatMenu();
-                    break;
-                case 4:  // HACKS
-                    RenderHacksMenu();
-                    break;
-                case 5:  // LOBBY EXPLOIT
-                    RenderLobbyExploitMenu();
-                    break;
-                case 6:  // SETTINGS
-                    RenderSettingsMenu();
-                    break;
-                }
-
-                ImGui::EndChild();
-
-                ImGui::Separator();
-                ImGui::Spacing();
-
-                // Unload button with warning
-                ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.danger);
-                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.0f, 0.5f, 0.5f, 1.0f));
-                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.8f, 0.2f, 0.2f, 1.0f));
-                
-                if (ImGui::Button("UNLOAD DLL (Complete Cleanup)", ImVec2(ImGui::GetContentRegionAvail().x, 30)))
-                {
-DLL_Unload();
-                }
-                
-                ImGui::PopStyleColor(3);
-                ImGui::TextColored(ImVec4(1.0f, 0.8f, 0.0f, 1.0f), "⚠️  Removes ALL hooks and unloads DLL");
-                ImGui::TextColored(g_Colors.textSecondary, "Press INSERT to toggle menu");
-
-                ImGui::End();
-            }
+            DrawFreeImGuiStyleMenu();
         }
+        DrawPlayerNetworkTableWindow();
 
         // ========================================================================
         // STEP 5: DRAW ESP BOXES (always drawn, menu or not)
@@ -3036,7 +5336,7 @@ DLL_Unload();
         // ========================================================================
         // STEP 8: SET LOCAL RTV (BACKBUFFER) FOR IMGUI DRAWING
         // ========================================================================
-        context->OMSetRenderTargets(1, &localRTV, nullptr);
+        context->OMSetRenderTargets(1, &g_RenderTargetView, nullptr);
 
         // ========================================================================
         // STEP 9: RENDER IMGUI DRAW DATA TO GPU
@@ -3056,13 +5356,6 @@ DLL_Unload();
         if (oldDSV)
             oldDSV->Release();
 
-        if (localRTV)
-        {
-            localRTV->Release();
-            localRTV = nullptr;
-        }
-
-        backbuffer->Release();
     }
 
     bool IsInitialized() { return g_Initialized; }

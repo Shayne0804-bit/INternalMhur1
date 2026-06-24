@@ -71,20 +71,12 @@ enum class EMeshOutlineType : uint8
 	EMeshOutlineType_MAX                     = 7,
 };
 
-// ScriptStruct BykingUnrealModule.BaseTraceParam
-// 0x00A8 (0x00A8 - 0x0000)
-struct alignas(0x08) FBaseTraceParam
+// ScriptStruct BykingUnrealModule.HashID
+// 0x0004 (0x0004 - 0x0000)
+struct FHashID final
 {
 public:
-	uint8                                         Pad_0[0xA8];                                       // 0x0000(0x00A8)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
-// ScriptStruct BykingUnrealModule.LineTraceParam
-// 0x0098 (0x0140 - 0x00A8)
-struct FLineTraceParam : public FBaseTraceParam
-{
-public:
-	uint8                                         Pad_A8[0x98];                                      // 0x00A8(0x0098)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint32                                        _value;                                            // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 };
 
 // ScriptStruct BykingUnrealModule.OnGamePadTextInputDismissed
@@ -95,14 +87,6 @@ public:
 	TDelegate<void(bool bFlag)>                   _delegate;                                         // 0x0000(0x0010)(BlueprintVisible, ZeroConstructor, InstancedReference, NoDestructor, NativeAccessSpecifierPublic)
 };
 
-// ScriptStruct BykingUnrealModule.Circle2D
-// 0x000C (0x000C - 0x0000)
-struct alignas(0x04) FCircle2D final
-{
-public:
-	uint8                                         Pad_0[0xC];                                        // 0x0000(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
 // ScriptStruct BykingUnrealModule.CharacterTickIgnorePause
 // 0x0008 (0x0030 - 0x0028)
 struct FCharacterTickIgnorePause final : public FTickFunction
@@ -111,16 +95,12 @@ public:
 	uint8                                         Pad_28[0x8];                                       // 0x0028(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
-// ScriptStruct BykingUnrealModule.SimpleKeyScalarData
-// 0x0010 (0x0010 - 0x0000)
-struct FSimpleKeyScalarData final
+// ScriptStruct BykingUnrealModule.ActionLayerData
+// 0x0030 (0x0030 - 0x0000)
+struct alignas(0x08) FActionLayerData final
 {
 public:
-	EEasingFunc                                   _easingType;                                       // 0x0000(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	int32                                         _nextKey;                                          // 0x0004(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         _span;                                             // 0x0008(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         _value;                                            // 0x000C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_0[0x30];                                       // 0x0000(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct BykingUnrealModule.TransitionAtoB
@@ -147,14 +127,6 @@ public:
 	TArray<struct FActionReserveData>             _actionReserveList;                                // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
 
-// ScriptStruct BykingUnrealModule.ActionLayerData
-// 0x0030 (0x0030 - 0x0000)
-struct alignas(0x08) FActionLayerData final
-{
-public:
-	uint8                                         Pad_0[0x30];                                       // 0x0000(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
-};
-
 // ScriptStruct BykingUnrealModule.ActionClassData
 // 0x0018 (0x0018 - 0x0000)
 struct FActionClassData final
@@ -164,12 +136,28 @@ public:
 	class UActionBase*                            _actionBasePtr;                                    // 0x0010(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// ScriptStruct BykingUnrealModule.HashID
-// 0x0004 (0x0004 - 0x0000)
-struct FHashID final
+// ScriptStruct BykingUnrealModule.Circle2D
+// 0x000C (0x000C - 0x0000)
+struct alignas(0x04) FCircle2D final
 {
 public:
-	uint32                                        _value;                                            // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_0[0xC];                                        // 0x0000(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BykingUnrealModule.BaseTraceParam
+// 0x00A8 (0x00A8 - 0x0000)
+struct alignas(0x08) FBaseTraceParam
+{
+public:
+	uint8                                         Pad_0[0xA8];                                       // 0x0000(0x00A8)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct BykingUnrealModule.LineTraceParam
+// 0x0098 (0x0140 - 0x00A8)
+struct FLineTraceParam : public FBaseTraceParam
+{
+public:
+	uint8                                         Pad_A8[0x98];                                      // 0x00A8(0x0098)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 
 // ScriptStruct BykingUnrealModule.SphereTraceParam
@@ -222,6 +210,18 @@ public:
 	int32                                         _nextKey;                                          // 0x0004(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         _span;                                             // 0x0008(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                _value;                                            // 0x000C(0x000C)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct BykingUnrealModule.SimpleKeyScalarData
+// 0x0010 (0x0010 - 0x0000)
+struct FSimpleKeyScalarData final
+{
+public:
+	EEasingFunc                                   _easingType;                                       // 0x0000(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	int32                                         _nextKey;                                          // 0x0004(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         _span;                                             // 0x0008(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         _value;                                            // 0x000C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 SDK_NAMESPACE_END

@@ -21,7 +21,7 @@ SDK_NAMESPACE_START
 class UMovieSceneGeometryCacheSection final : public UMovieSceneSection
 {
 public:
-	struct FMovieSceneGeometryCacheParams         Params_0;                                          // 0x00E8(0x0040)(Edit, NativeAccessSpecifierPublic)
+	struct FMovieSceneGeometryCacheParams         params;                                            // 0x00E8(0x0040)(Edit, NativeAccessSpecifierPublic)
 
 public:
 	static class UClass* StaticClass()

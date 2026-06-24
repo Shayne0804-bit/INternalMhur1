@@ -24,7 +24,6 @@ public:
 	class FString                                 CallFunc_GetCurrentLanguage_ReturnValue;           // 0x0008(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 	bool                                          CallFunc_NotEqual_StrStr_ReturnValue;              // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_GashaHistory_listItemTimer_C_ExecuteUbergraph_WBP_GashaHistory_listItemTimer;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

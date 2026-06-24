@@ -134,8 +134,9 @@ void UWBP_Setting_Observer_C::BP_GamePadButtonOptionDataSetting()
 // (BlueprintCallable, BlueprintEvent)
 // Parameters:
 // int32                                   selectindex                                            (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// bool                                    leftButton                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 
-void UWBP_Setting_Observer_C::TargetSettingCommand(int32 selectindex)
+void UWBP_Setting_Observer_C::TargetSettingCommand(int32 selectindex, bool leftButton)
 {
 	static class UFunction* Func = nullptr;
 
@@ -145,6 +146,7 @@ void UWBP_Setting_Observer_C::TargetSettingCommand(int32 selectindex)
 	Params::WBP_Setting_Observer_C_TargetSettingCommand Parms{};
 
 	Parms.selectindex = selectindex;
+	Parms.leftButton = leftButton;
 
 	UObject::ProcessEvent(Func, &Parms);
 }

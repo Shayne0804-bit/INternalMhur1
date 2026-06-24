@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "UIFramework_structs.hpp"
 #include "Engine_structs.hpp"
+#include "UIFramework_structs.hpp"
 #include "OutGameModule_classes.hpp"
 
 
@@ -23,12 +23,12 @@ class UWBP_CustomMatchSelect_C final : public UCustomMatchSelectWidget
 {
 public:
 	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x03A8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	class UWBP_GeneralWindow_C*                   FullMenberPopup;                                   // 0x03B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 Image_14;                                          // 0x03B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_GeneralWindow_C*                   NotExistIdPopup;                                   // 0x03C0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class USafeZone*                              SafeZone_0;                                        // 0x03C8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_CustomMatchDetail_C*               WBP_CustomMatchDetail;                             // 0x03D0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_CustomMatchDetail_C*               WBP_CustomMatchDetail_0;                           // 0x03D8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_CustomMatchDetail_C*               CreateCustomRoomDetail;                            // 0x03B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_GeneralWindow_C*                   FullMenberPopup;                                   // 0x03B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 Image_14;                                          // 0x03C0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_CustomMatchDetail_C*               JoinCustomRoomDetail;                              // 0x03C8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_GeneralWindow_C*                   NotExistIdPopup;                                   // 0x03D0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class USafeZone*                              SafeZone_0;                                        // 0x03D8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 	class UWBP_CustomMatchTenkey_C*               WBP_CustomMatchTenkey;                             // 0x03E0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 	class UWBP_EmptyWindow_C*                     WBP_EmptyWindow;                                   // 0x03E8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 	class UWBP_ReturnButton_C*                    WBP_ReturnButton;                                  // 0x03F0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
@@ -37,8 +37,9 @@ public:
 
 public:
 	void ExecuteUbergraph_WBP_CustomMatchSelect(int32 EntryPoint);
+	void BndEvt__WBP_CustomMatchSelect_CreateCustomRoomDetail_K2Node_ComponentBoundEvent_7_OnChangeEditButton__DelegateSignature(bool bAllowEdit);
+	void BndEvt__WBP_CustomMatchSelect_CreateCustomRoomDetail_K2Node_ComponentBoundEvent_6_OnChangeHiddenButton__DelegateSignature(bool bHidden);
 	void CloseWindow();
-	void BndEvt__WBP_CustomMatchSelect_WBP_CustomMatchDetail_K2Node_ComponentBoundEvent_5_OnChangeCheckButton__DelegateSignature(bool check);
 	void カスタムイベント_0();
 	void BndEvt__WBP_CustomMatchSelect_WBP_CustomMatchTenkey_K2Node_ComponentBoundEvent_4_DecideId__DelegateSignature(const class FString& ID);
 	void OpenCustomMatchLevel();
@@ -62,6 +63,5 @@ public:
 		return GetDefaultObjImpl<UWBP_CustomMatchSelect_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_CustomMatchSelect_C;
 
 SDK_NAMESPACE_END

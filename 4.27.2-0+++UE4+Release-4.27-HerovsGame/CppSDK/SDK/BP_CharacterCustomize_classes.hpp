@@ -16,7 +16,7 @@
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_CharacterCustomize.BP_CharacterCustomize_C
-// 0x0000 (0x05E0 - 0x05E0)
+// 0x0000 (0x05F8 - 0x05F8)
 class ABP_CharacterCustomize_C final : public ACharacterCustomize
 {
 public:
@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ABP_CharacterCustomize_C>();
 	}
 };
-DUMPER7_ASSERTS_ABP_CharacterCustomize_C;
 
 SDK_NAMESPACE_END

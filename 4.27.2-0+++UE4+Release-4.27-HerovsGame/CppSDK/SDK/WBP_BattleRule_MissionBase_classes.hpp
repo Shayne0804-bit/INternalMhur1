@@ -19,13 +19,13 @@
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_BattleRule_MissionBase.WBP_BattleRule_MissionBase_C
-// 0x0018 (0x0408 - 0x03F0)
+// 0x0018 (0x0410 - 0x03F8)
 class UWBP_BattleRule_MissionBase_C final : public UMissionBaseWidget
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x03F0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	class UNamedSlot*                             ListSlot;                                          // 0x03F8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UCanvasPanel*                           rewardBG;                                          // 0x0400(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x03F8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	class UNamedSlot*                             ListSlot;                                          // 0x0400(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UCanvasPanel*                           rewardBG;                                          // 0x0408(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 
 public:
 	void ExecuteUbergraph_WBP_BattleRule_MissionBase(int32 EntryPoint);
@@ -47,6 +47,5 @@ public:
 		return GetDefaultObjImpl<UWBP_BattleRule_MissionBase_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_BattleRule_MissionBase_C;
 
 SDK_NAMESPACE_END

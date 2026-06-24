@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "InputCore_structs.hpp"
 #include "CoreUObject_structs.hpp"
+#include "InputCore_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -126,16 +126,15 @@ enum class EGeneralWindowSelectType : uint8
 };
 
 // Enum UIFramework.ERichTextImagePlatformType
-// NumValues: 0x0007
+// NumValues: 0x0006
 enum class ERichTextImagePlatformType : uint8
 {
 	PlayStation                              = 0,
 	Xbox                                     = 1,
 	GamePad                                  = 2,
 	WindowsKeyboard                          = 3,
-	Mobile                                   = 4,
-	Switch                                   = 5,
-	Max                                      = 6,
+	Switch                                   = 4,
+	Max                                      = 5,
 };
 
 // Enum UIFramework.EUIInstanceCreationStep
@@ -171,21 +170,17 @@ enum class EGeneralSelectiveWindowDisplay : uint8
 	Max                                      = 3,
 };
 
-// ScriptStruct UIFramework.WidgetPair
-// 0x0018 (0x0018 - 0x0000)
-struct FWidgetPair final
+// Enum UIFramework.ECharacterSort
+// NumValues: 0x0007
+enum class ECharacterSort : uint8
 {
-public:
-	class UWidget*                                _widget;                                           // 0x0000(0x0008)(Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 _name;                                             // 0x0008(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct UIFramework.WidgetList
-// 0x0010 (0x0010 - 0x0000)
-struct FWidgetList final
-{
-public:
-	TArray<struct FWidgetPair>                    _widgetList;                                       // 0x0000(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
+	UNDEF                                    = 0,
+	DEFAULT                                  = 1,
+	PRIORITY_VILLAIN                         = 2,
+	LAST_USED                                = 3,
+	RELEASE                                  = 4,
+	AVAILABLE                                = 5,
+	ECharacterSort_MAX                       = 6,
 };
 
 // ScriptStruct UIFramework.OnFadeFinished
@@ -207,29 +202,6 @@ public:
 	struct FLinearColor                           _textColor;                                        // 0x0048(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// ScriptStruct UIFramework.GeneralWindowText
-// 0x0028 (0x0028 - 0x0000)
-struct FGeneralWindowText final
-{
-public:
-	class FText                                   _text;                                             // 0x0000(0x0018)(Edit, NativeAccessSpecifierPublic)
-	struct FLinearColor                           _color;                                            // 0x0018(0x0010)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
-// ScriptStruct UIFramework.SubMenuInfo
-// 0x0040 (0x0040 - 0x0000)
-struct FSubMenuInfo final
-{
-public:
-	class FText                                   _buttonText;                                       // 0x0000(0x0018)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
-	class FText                                   _buttonIconText;                                   // 0x0018(0x0018)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
-	bool                                          _enable;                                           // 0x0030(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bClosedButton;                                    // 0x0031(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          _bHeader;                                          // 0x0032(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_33[0x5];                                       // 0x0033(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
-	class UTexture2D*                             _headerTexture;                                    // 0x0038(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-};
-
 // ScriptStruct UIFramework.WidgetCreationData
 // 0x0018 (0x0018 - 0x0000)
 struct FWidgetCreationData final
@@ -243,6 +215,32 @@ public:
 	bool                                          _bBlockLowPriorityInput;                           // 0x0011(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_12[0x2];                                       // 0x0012(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         _totalPriority;                                    // 0x0014(0x0004)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct UIFramework.GeneralWindowText
+// 0x0028 (0x0028 - 0x0000)
+struct FGeneralWindowText final
+{
+public:
+	class FText                                   _text;                                             // 0x0000(0x0018)(Edit, NativeAccessSpecifierPublic)
+	struct FLinearColor                           _color;                                            // 0x0018(0x0010)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct UIFramework.WidgetPair
+// 0x0018 (0x0018 - 0x0000)
+struct FWidgetPair final
+{
+public:
+	class UWidget*                                _widget;                                           // 0x0000(0x0008)(Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 _name;                                             // 0x0008(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// ScriptStruct UIFramework.WidgetList
+// 0x0010 (0x0010 - 0x0000)
+struct FWidgetList final
+{
+public:
+	TArray<struct FWidgetPair>                    _widgetList;                                       // 0x0000(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
 
 // ScriptStruct UIFramework.GeneralWindowBaseText
@@ -263,6 +261,20 @@ public:
 	struct FKey                                   _inputKey;                                         // 0x0000(0x0018)(Edit, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	EInputKey                                     _inputShortcutEnum;                                // 0x0018(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+};
+
+// ScriptStruct UIFramework.SubMenuInfo
+// 0x0040 (0x0040 - 0x0000)
+struct FSubMenuInfo final
+{
+public:
+	class FText                                   _buttonText;                                       // 0x0000(0x0018)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
+	class FText                                   _buttonIconText;                                   // 0x0018(0x0018)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
+	bool                                          _enable;                                           // 0x0030(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _bClosedButton;                                    // 0x0031(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          _bHeader;                                          // 0x0032(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_33[0x5];                                       // 0x0033(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
+	class UTexture2D*                             _headerTexture;                                    // 0x0038(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
 SDK_NAMESPACE_END

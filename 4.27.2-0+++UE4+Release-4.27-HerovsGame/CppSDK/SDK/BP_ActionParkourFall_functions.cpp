@@ -36,6 +36,48 @@ void UBP_ActionParkourFall_C::ExecuteUbergraph_BP_ActionParkourFall(int32 EntryP
 }
 
 
+// Function BP_ActionParkourFall.BP_ActionParkourFall_C.BP_OnLandingEvent
+// (Event, Protected, BlueprintEvent)
+
+void UBP_ActionParkourFall_C::BP_OnLandingEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_ActionParkourFall_C", "BP_OnLandingEvent");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function BP_ActionParkourFall.BP_ActionParkourFall_C.BP_ActionMain
+// (Event, Protected, BlueprintEvent)
+
+void UBP_ActionParkourFall_C::BP_ActionMain()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_ActionParkourFall_C", "BP_ActionMain");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function BP_ActionParkourFall.BP_ActionParkourFall_C.UpdateCo-Routine
+// (BlueprintCallable, BlueprintEvent)
+
+void UBP_ActionParkourFall_C::UpdateCo_Routine()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_ActionParkourFall_C", "UpdateCo-Routine");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
 // Function BP_ActionParkourFall.BP_ActionParkourFall_C.BP_OnEndAction
 // (Event, Protected, HasOutParams, BlueprintEvent)
 // Parameters:
@@ -73,34 +115,6 @@ void UBP_ActionParkourFall_C::BP_OnBeginAction(const class FName& prevAction)
 	Parms.prevAction = prevAction;
 
 	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function BP_ActionParkourFall.BP_ActionParkourFall_C.BP_ActionMain
-// (Event, Protected, BlueprintEvent)
-
-void UBP_ActionParkourFall_C::BP_ActionMain()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_ActionParkourFall_C", "BP_ActionMain");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function BP_ActionParkourFall.BP_ActionParkourFall_C.BP_OnLandingEvent
-// (Event, Protected, BlueprintEvent)
-
-void UBP_ActionParkourFall_C::BP_OnLandingEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_ActionParkourFall_C", "BP_OnLandingEvent");
-
-	UObject::ProcessEvent(Func, nullptr);
 }
 
 

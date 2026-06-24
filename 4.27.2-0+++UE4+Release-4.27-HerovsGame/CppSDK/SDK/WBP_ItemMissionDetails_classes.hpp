@@ -45,6 +45,5 @@ public:
 		return GetDefaultObjImpl<UWBP_ItemMissionDetails_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_ItemMissionDetails_C;
 
 SDK_NAMESPACE_END

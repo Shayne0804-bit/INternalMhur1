@@ -22,7 +22,6 @@ public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         K2Node_Event_avtiveIndex;                          // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_EventPanel_C_ExecuteUbergraph_WBP_EventPanel;
 
 // Function WBP_EventPanel.WBP_EventPanel_C.OnSetEventState
 // 0x0004 (0x0004 - 0x0000)
@@ -31,7 +30,6 @@ struct WBP_EventPanel_C_OnSetEventState final
 public:
 	int32                                         avtiveIndex;                                       // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_EventPanel_C_OnSetEventState;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

@@ -10,14 +10,14 @@
 
 #include "Basic.hpp"
 
-#include "Water_structs.hpp"
-#include "DeveloperSettings_classes.hpp"
 #include "Engine_structs.hpp"
 #include "Engine_classes.hpp"
+#include "Water_structs.hpp"
 #include "AIModule_classes.hpp"
 #include "CoreUObject_structs.hpp"
 #include "CoreUObject_classes.hpp"
 #include "Niagara_classes.hpp"
+#include "DeveloperSettings_classes.hpp"
 
 
 SDK_NAMESPACE_START
@@ -76,6 +76,28 @@ public:
 	static class UBuoyancyComponent* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UBuoyancyComponent>();
+	}
+};
+
+// Class Water.GerstnerWaterWaveSubsystem
+// 0x0018 (0x0048 - 0x0030)
+class UGerstnerWaterWaveSubsystem final : public UEngineSubsystem
+{
+public:
+	uint8                                         Pad_30[0x18];                                      // 0x0030(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
+
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("GerstnerWaterWaveSubsystem")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"GerstnerWaterWaveSubsystem")
+	}
+	static class UGerstnerWaterWaveSubsystem* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UGerstnerWaterWaveSubsystem>();
 	}
 };
 
@@ -163,25 +185,6 @@ public:
 	}
 };
 
-// Class Water.WaterWavesBase
-// 0x0000 (0x0028 - 0x0028)
-class UWaterWavesBase : public UObject
-{
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("WaterWavesBase")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"WaterWavesBase")
-	}
-	static class UWaterWavesBase* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UWaterWavesBase>();
-	}
-};
-
 // Class Water.ConvertWaterBodyActorsCommandlet
 // 0x0000 (0x0080 - 0x0080)
 class UConvertWaterBodyActorsCommandlet final : public UCommandlet
@@ -223,6 +226,25 @@ public:
 	static class UEnvQueryTest_InsideWaterBody* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UEnvQueryTest_InsideWaterBody>();
+	}
+};
+
+// Class Water.WaterWavesBase
+// 0x0000 (0x0028 - 0x0028)
+class UWaterWavesBase : public UObject
+{
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("WaterWavesBase")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"WaterWavesBase")
+	}
+	static class UWaterWavesBase* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UWaterWavesBase>();
 	}
 };
 
@@ -291,28 +313,6 @@ public:
 	static class UGerstnerWaterWaves* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UGerstnerWaterWaves>();
-	}
-};
-
-// Class Water.GerstnerWaterWaveSubsystem
-// 0x0018 (0x0048 - 0x0030)
-class UGerstnerWaterWaveSubsystem final : public UEngineSubsystem
-{
-public:
-	uint8                                         Pad_30[0x18];                                      // 0x0030(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
-
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("GerstnerWaterWaveSubsystem")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"GerstnerWaterWaveSubsystem")
-	}
-	static class UGerstnerWaterWaveSubsystem* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UGerstnerWaterWaveSubsystem>();
 	}
 };
 

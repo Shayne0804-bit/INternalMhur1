@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "CoreUObject_structs.hpp"
 #include "InGameModule_structs.hpp"
+#include "CoreUObject_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -89,7 +89,6 @@ public:
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue_1;  // 0x0140(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterAttackComponent*              CallFunc_BP_GetAttackComponent_ReturnValue_12;     // 0x0148(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Melee_C_ExecuteUbergraph_BP_Ch017_ActionAttack_Melee;
 
 // Function BP_Ch017_ActionAttack_Melee.BP_Ch017_ActionAttack_Melee_C.BP_OnChangeAttackPhaseForRemote
 // 0x0004 (0x0004 - 0x0000)
@@ -98,7 +97,6 @@ struct BP_Ch017_ActionAttack_Melee_C_BP_OnChangeAttackPhaseForRemote final
 public:
 	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Melee_C_BP_OnChangeAttackPhaseForRemote;
 
 // Function BP_Ch017_ActionAttack_Melee.BP_Ch017_ActionAttack_Melee_C.BP_OnChangeAttackPhase
 // 0x0004 (0x0004 - 0x0000)
@@ -107,7 +105,6 @@ struct BP_Ch017_ActionAttack_Melee_C_BP_OnChangeAttackPhase final
 public:
 	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Melee_C_BP_OnChangeAttackPhase;
 
 // Function BP_Ch017_ActionAttack_Melee.BP_Ch017_ActionAttack_Melee_C.BP_OnNotificationAttackDedicatedEvent
 // 0x0001 (0x0001 - 0x0000)
@@ -116,7 +113,6 @@ struct BP_Ch017_ActionAttack_Melee_C_BP_OnNotificationAttackDedicatedEvent final
 public:
 	EAttackDedicatedEventId                       ID;                                                // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Melee_C_BP_OnNotificationAttackDedicatedEvent;
 
 // Function BP_Ch017_ActionAttack_Melee.BP_Ch017_ActionAttack_Melee_C.BP_OnBeginActionAttackGround
 // 0x0008 (0x0008 - 0x0000)
@@ -125,7 +121,6 @@ struct BP_Ch017_ActionAttack_Melee_C_BP_OnBeginActionAttackGround final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Melee_C_BP_OnBeginActionAttackGround;
 
 // Function BP_Ch017_ActionAttack_Melee.BP_Ch017_ActionAttack_Melee_C.BP_OnChangeAttackPhaseGroundForRemote
 // 0x0004 (0x0004 - 0x0000)
@@ -134,7 +129,6 @@ struct BP_Ch017_ActionAttack_Melee_C_BP_OnChangeAttackPhaseGroundForRemote final
 public:
 	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Melee_C_BP_OnChangeAttackPhaseGroundForRemote;
 
 // Function BP_Ch017_ActionAttack_Melee.BP_Ch017_ActionAttack_Melee_C.BP_OnChangeAttackPhaseGround
 // 0x0004 (0x0004 - 0x0000)
@@ -143,7 +137,6 @@ struct BP_Ch017_ActionAttack_Melee_C_BP_OnChangeAttackPhaseGround final
 public:
 	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Melee_C_BP_OnChangeAttackPhaseGround;
 
 // Function BP_Ch017_ActionAttack_Melee.BP_Ch017_ActionAttack_Melee_C.BP_OnChangeAttackPhaseAirForRemote
 // 0x0004 (0x0004 - 0x0000)
@@ -152,7 +145,6 @@ struct BP_Ch017_ActionAttack_Melee_C_BP_OnChangeAttackPhaseAirForRemote final
 public:
 	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Melee_C_BP_OnChangeAttackPhaseAirForRemote;
 
 // Function BP_Ch017_ActionAttack_Melee.BP_Ch017_ActionAttack_Melee_C.BP_OnChangeAttackPhaseAir
 // 0x0004 (0x0004 - 0x0000)
@@ -161,7 +153,6 @@ struct BP_Ch017_ActionAttack_Melee_C_BP_OnChangeAttackPhaseAir final
 public:
 	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Melee_C_BP_OnChangeAttackPhaseAir;
 
 // Function BP_Ch017_ActionAttack_Melee.BP_Ch017_ActionAttack_Melee_C.BP_OnBeginActionAttackAir
 // 0x0008 (0x0008 - 0x0000)
@@ -170,7 +161,6 @@ struct BP_Ch017_ActionAttack_Melee_C_BP_OnBeginActionAttackAir final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Melee_C_BP_OnBeginActionAttackAir;
 
 // Function BP_Ch017_ActionAttack_Melee.BP_Ch017_ActionAttack_Melee_C.GetMoveDirection
 // 0x0028 (0x0028 - 0x0000)
@@ -182,7 +172,6 @@ public:
 	class UCharacterCommandComponent*             CallFunc_BP_GetOwnerCommand_ReturnValue;           // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_BP_GetMoveDirection_ReturnValue;          // 0x0018(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Melee_C_GetMoveDirection;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

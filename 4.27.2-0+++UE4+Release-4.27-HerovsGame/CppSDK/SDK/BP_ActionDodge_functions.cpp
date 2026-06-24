@@ -17,7 +17,7 @@
 SDK_NAMESPACE_START
 
 // Function BP_ActionDodge.BP_ActionDodge_C.ExecuteUbergraph_BP_ActionDodge
-// (Final, UbergraphFunction)
+// (Final, UbergraphFunction, HasDefaults)
 // Parameters:
 // int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 

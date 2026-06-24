@@ -24,7 +24,6 @@ public:
 	class UWBP_FriendListItem_Button_C*           K2Node_DynamicCast_AsWBP_Friend_List_Item_Button;  // 0x0008(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x0010(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_FriendListItem_C_ExecuteUbergraph_WBP_FriendListItem;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

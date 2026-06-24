@@ -39,7 +39,6 @@ public:
 	float                                         CallFunc_BreakVector2D_Y;                          // 0x007C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_Divide_FloatFloat_ReturnValue;            // 0x0080(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_MainMenu_Popup_C_ExecuteUbergraph_WBP_MainMenu_Popup;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

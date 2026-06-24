@@ -16,12 +16,11 @@
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_CopyrightWindow.WBP_CopyrightWindow_C
-// 0x0010 (0x0380 - 0x0370)
+// 0x0008 (0x0378 - 0x0370)
 class UWBP_CopyrightWindow_C final : public UWidgetBase
 {
 public:
-	class USafeZone*                              SafeZone_0;                                        // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_TOS_Base_C*                        WBP_TOS_Base;                                      // 0x0378(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_TOS_Base_C*                        WBP_TOS_Base;                                      // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 
 public:
 	static class UClass* StaticClass()
@@ -37,6 +36,5 @@ public:
 		return GetDefaultObjImpl<UWBP_CopyrightWindow_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_CopyrightWindow_C;
 
 SDK_NAMESPACE_END

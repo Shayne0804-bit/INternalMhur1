@@ -18,13 +18,13 @@
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_GashaHistory_listItemIcon.WBP_GashaHistory_listItemIcon_C
-// 0x0018 (0x06C0 - 0x06A8)
+// 0x0018 (0x06C8 - 0x06B0)
 class UWBP_GashaHistory_listItemIcon_C final : public UGashaIconWidget
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x06A8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	class UImage*                                 new_bg_18;                                         // 0x06B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UCanvasPanel*                           newText;                                           // 0x06B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x06B0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	class UImage*                                 new_bg_18;                                         // 0x06B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UCanvasPanel*                           newText;                                           // 0x06C0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 
 public:
 	void ExecuteUbergraph_WBP_GashaHistory_listItemIcon(int32 EntryPoint);
@@ -46,6 +46,5 @@ public:
 		return GetDefaultObjImpl<UWBP_GashaHistory_listItemIcon_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_GashaHistory_listItemIcon_C;
 
 SDK_NAMESPACE_END

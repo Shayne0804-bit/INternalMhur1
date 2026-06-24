@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
+#include "CoreUObject_classes.hpp"
 #include "SlateCore_structs.hpp"
 #include "SlateCore_classes.hpp"
-#include "CoreUObject_classes.hpp"
 
 
 SDK_NAMESPACE_START
@@ -124,6 +124,25 @@ public:
 	static class UEditableTextBoxWidgetStyle* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UEditableTextBoxWidgetStyle>();
+	}
+};
+
+// Class Slate.ToolMenuBase
+// 0x0000 (0x0028 - 0x0028)
+class UToolMenuBase final : public UObject
+{
+public:
+	static class UClass* StaticClass()
+	{
+		STATIC_CLASS_IMPL("ToolMenuBase")
+	}
+	static const class FName& StaticName()
+	{
+		STATIC_NAME_IMPL(L"ToolMenuBase")
+	}
+	static class UToolMenuBase* GetDefaultObj()
+	{
+		return GetDefaultObjImpl<UToolMenuBase>();
 	}
 };
 
@@ -279,25 +298,6 @@ public:
 	static class UTextBlockWidgetStyle* GetDefaultObj()
 	{
 		return GetDefaultObjImpl<UTextBlockWidgetStyle>();
-	}
-};
-
-// Class Slate.ToolMenuBase
-// 0x0000 (0x0028 - 0x0028)
-class UToolMenuBase final : public UObject
-{
-public:
-	static class UClass* StaticClass()
-	{
-		STATIC_CLASS_IMPL("ToolMenuBase")
-	}
-	static const class FName& StaticName()
-	{
-		STATIC_NAME_IMPL(L"ToolMenuBase")
-	}
-	static class UToolMenuBase* GetDefaultObj()
-	{
-		return GetDefaultObjImpl<UToolMenuBase>();
 	}
 };
 

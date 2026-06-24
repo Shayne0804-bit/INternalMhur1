@@ -25,7 +25,6 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UGameSequenceWork*                      CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_EventButtonList_C_ExecuteUbergraph_WBP_EventButtonList;
 
 // Function WBP_EventButtonList.WBP_EventButtonList_C.DoCustomNavigation_0
 // 0x0010 (0x0010 - 0x0000)
@@ -36,7 +35,6 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWidget*                                ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_EventButtonList_C_DoCustomNavigation_0;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

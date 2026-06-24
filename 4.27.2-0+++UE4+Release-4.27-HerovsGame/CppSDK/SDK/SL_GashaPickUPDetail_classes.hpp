@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ASL_GashaPickUPDetail_C>();
 	}
 };
-DUMPER7_ASSERTS_ASL_GashaPickUPDetail_C;
 
 SDK_NAMESPACE_END

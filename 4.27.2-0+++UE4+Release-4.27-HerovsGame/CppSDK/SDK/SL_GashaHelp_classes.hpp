@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ASL_GashaHelp_C>();
 	}
 };
-DUMPER7_ASSERTS_ASL_GashaHelp_C;
 
 SDK_NAMESPACE_END

@@ -10,10 +10,10 @@
 
 #include "Basic.hpp"
 
-#include "MRMesh_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "CoreUObject_classes.hpp"
 #include "Engine_classes.hpp"
+#include "MRMesh_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -23,7 +23,7 @@ SDK_NAMESPACE_START
 class UMeshReconstructorBase final : public UObject
 {
 public:
-	void ConnectMRMesh(class UMRMeshComponent* Mesh);
+	void ConnectMRMesh(class UMRMeshComponent* mesh);
 	void DisconnectMRMesh();
 	void PauseReconstruction();
 	void StartReconstruction();

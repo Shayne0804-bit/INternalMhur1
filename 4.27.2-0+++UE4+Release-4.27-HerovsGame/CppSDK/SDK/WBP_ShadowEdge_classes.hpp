@@ -37,6 +37,5 @@ public:
 		return GetDefaultObjImpl<UWBP_ShadowEdge_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_ShadowEdge_C;
 
 SDK_NAMESPACE_END

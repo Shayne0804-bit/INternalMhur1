@@ -235,7 +235,7 @@ struct FEventReply UWBP_SelectiveWindow_C::On_DisableInput_MouseButtonDown_0(con
 
 
 // Function WBP_SelectiveWindow.WBP_SelectiveWindow_C.DoCustomNavigation_ListView
-// (Public, HasOutParams, HasDefaults, BlueprintCallable, BlueprintEvent)
+// (Public, HasOutParams, BlueprintCallable, BlueprintEvent)
 // Parameters:
 // EUINavigation                           Navigation_0                                           (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 // class UWidget*                          ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)

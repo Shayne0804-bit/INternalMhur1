@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "Engine_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
 #include "OutGameModule_classes.hpp"
 
 
@@ -51,6 +51,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Setting_Button_Key_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Setting_Button_Key_C;
 
 SDK_NAMESPACE_END

@@ -39,6 +39,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Rental_Num_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Rental_Num_C;
 
 SDK_NAMESPACE_END

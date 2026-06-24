@@ -10,10 +10,10 @@
 
 #include "Basic.hpp"
 
+#include "GameModule_classes.hpp"
+#include "Engine_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "SlateCore_structs.hpp"
-#include "Engine_structs.hpp"
-#include "GameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
@@ -44,8 +44,8 @@ public:
 	struct FSlateBrush                            UV_Brush;                                          // 0x08E0(0x00D0)(Edit, BlueprintVisible)
 
 public:
-	void ExecuteUbergraph_WBP_ShopButton(int32 EntryPoint);
 	void PreConstruct(bool IsDesignTime);
+	void ExecuteUbergraph_WBP_ShopButton(int32 EntryPoint);
 	void select(bool Set, bool Premium);
 	void OnInitialized();
 
@@ -63,6 +63,5 @@ public:
 		return GetDefaultObjImpl<UWBP_ShopButton_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_ShopButton_C;
 
 SDK_NAMESPACE_END

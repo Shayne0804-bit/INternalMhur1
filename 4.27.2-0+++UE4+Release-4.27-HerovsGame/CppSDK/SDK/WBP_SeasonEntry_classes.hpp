@@ -61,6 +61,5 @@ public:
 		return GetDefaultObjImpl<UWBP_SeasonEntry_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_SeasonEntry_C;
 
 SDK_NAMESPACE_END

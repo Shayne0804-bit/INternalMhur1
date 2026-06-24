@@ -42,6 +42,5 @@ public:
 		return GetDefaultObjImpl<UWBP_GashaLoadingList_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_GashaLoadingList_C;
 
 SDK_NAMESPACE_END

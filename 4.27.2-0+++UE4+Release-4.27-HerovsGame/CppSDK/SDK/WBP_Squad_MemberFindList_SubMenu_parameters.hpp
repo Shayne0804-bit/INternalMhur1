@@ -22,7 +22,6 @@ public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_Event_Hidden;                               // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Squad_MemberFindList_SubMenu_C_ExecuteUbergraph_WBP_Squad_MemberFindList_SubMenu;
 
 // Function WBP_Squad_MemberFindList_SubMenu.WBP_Squad_MemberFindList_SubMenu_C.IF_SetHiddenTopWidget
 // 0x0001 (0x0001 - 0x0000)
@@ -31,7 +30,6 @@ struct WBP_Squad_MemberFindList_SubMenu_C_IF_SetHiddenTopWidget final
 public:
 	bool                                          hidden;                                            // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Squad_MemberFindList_SubMenu_C_IF_SetHiddenTopWidget;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

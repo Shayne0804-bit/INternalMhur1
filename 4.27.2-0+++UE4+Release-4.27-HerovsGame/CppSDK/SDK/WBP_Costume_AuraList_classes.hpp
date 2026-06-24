@@ -36,6 +36,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Costume_AuraList_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Costume_AuraList_C;
 
 SDK_NAMESPACE_END

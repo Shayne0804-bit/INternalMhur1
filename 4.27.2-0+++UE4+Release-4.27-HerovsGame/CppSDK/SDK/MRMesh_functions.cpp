@@ -19,9 +19,9 @@ SDK_NAMESPACE_START
 // Function MRMesh.MeshReconstructorBase.ConnectMRMesh
 // (Native, Public)
 // Parameters:
-// class UMRMeshComponent*                 Mesh                                                   (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UMRMeshComponent*                 mesh                                                   (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UMeshReconstructorBase::ConnectMRMesh(class UMRMeshComponent* Mesh)
+void UMeshReconstructorBase::ConnectMRMesh(class UMRMeshComponent* mesh)
 {
 	static class UFunction* Func = nullptr;
 
@@ -30,7 +30,7 @@ void UMeshReconstructorBase::ConnectMRMesh(class UMRMeshComponent* Mesh)
 
 	Params::MeshReconstructorBase_ConnectMRMesh Parms{};
 
-	Parms.Mesh = Mesh;
+	Parms.mesh = mesh;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;

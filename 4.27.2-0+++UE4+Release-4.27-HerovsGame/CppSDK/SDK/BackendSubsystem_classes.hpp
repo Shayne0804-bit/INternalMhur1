@@ -10,12 +10,12 @@
 
 #include "Basic.hpp"
 
-#include "BackendSubsystem_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "CoreUObject_classes.hpp"
-#include "VoiceChatModule_structs.hpp"
+#include "BackendSubsystem_structs.hpp"
 #include "Engine_classes.hpp"
 #include "MasterDataModule_structs.hpp"
+#include "VoiceChatModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -48,7 +48,7 @@ public:
 };
 
 // Class BackendSubsystem.BackendSubsystem
-// 0x0D20 (0x0D50 - 0x0030)
+// 0x0D30 (0x0D60 - 0x0030)
 class alignas(0x10) UBackendSubsystem final : public UGameInstanceSubsystem
 {
 public:
@@ -105,8 +105,8 @@ public:
 	TMulticastInlineDelegate<void(int32 CharacterCode, int32 Variation)> OnUpdateVariationCompleteEventDispatcher; // 0x0358(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
 	TMulticastInlineDelegate<void(bool Unique, int32 CharacterCode, int32 CostumeCode, int32 Index)> OnUpdateRoleSlotCompleteEventDispatcher; // 0x0368(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
 	TMulticastInlineDelegate<void(bool Unique, int32 CharacterCode, int32 CostumeCode, int32 Index)> OnUpdateRoleSlotLevelUpCompleteEventDispatcher; // 0x0378(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(int32 CostumeCode, int32 UnLockedNum, int32 UnLockedAural)> OnUnLockedRoleSlotCompleteEventDispatcher; // 0x0388(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(int32 CostumeCode, int32 UnLockedNum, int32 UnLockedAural)> OnPURUnLockedRoleSlotCompleteEventDispatcher; // 0x0398(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(int32 CostumeCode, int32 UnLockedNum, int32 UnLockedAural, int32 unlockNum)> OnUnLockedRoleSlotCompleteEventDispatcher; // 0x0388(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(int32 CostumeCode, int32 UnLockedNum, int32 UnLockedAural, int32 unlockNum)> OnPURUnLockedRoleSlotCompleteEventDispatcher; // 0x0398(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
 	TMulticastInlineDelegate<void()>              OnCustomMatchCreateCompleteEventDispatcher;        // 0x03A8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
 	TMulticastInlineDelegate<void()>              OnCustomMatchJoinCompleteEventDispatcher;          // 0x03B8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
 	TMulticastInlineDelegate<void()>              OnCustomMatchLeaveCompleteEventDispatcher;         // 0x03C8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -116,24 +116,25 @@ public:
 	TMulticastInlineDelegate<void()>              OnCustomMatchKickCompleteEventDispatcher;          // 0x0408(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
 	TMulticastInlineDelegate<void()>              OnCustomMatchGetCustomLobbyServerCompleteEventDispatcher; // 0x0418(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
 	TMulticastInlineDelegate<void()>              OnCustomMatchFinishCustomGameCompleteAfterEventDispatcher; // 0x0428(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              OnCustomMatchNotifySettingsCompleteEventDispatcher; // 0x0438(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              OnCustomMatchNotifyGetCustomLobbyServerCompleteEventDispatcher; // 0x0448(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              OnCustomMatchNotifyKickCompleteEventDispatcher;    // 0x0458(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              OnCustomMatchNotifyDisbandedCompleteEventDispatcher; // 0x0468(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              OnCustomMatchTeamUpUpdatedEventDispatcher;         // 0x0478(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void()>              OnCustomMatchLockedBattleReadyEventDispatcher;     // 0x0488(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(int32 requestId, const struct FDateTime& Time)> OnCheckLimitTimePlayerNameEventDispatcher; // 0x0498(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(int32 requestId, const struct FDateTime& Time, const int32 statusCode)> OnEntrySerialCodeEventDispatcher; // 0x04A8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	uint8                                         Pad_4B8[0x78];                                     // 0x04B8(0x0078)(Fixing Size After Last Property [ Dumper-7 ])
-	class UInformationData*                       _informationData;                                  // 0x0530(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	TMulticastInlineDelegate<void()>              OnResetUserDataCharacter;                          // 0x0538(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	uint8                                         Pad_548[0x198];                                    // 0x0548(0x0198)(Fixing Size After Last Property [ Dumper-7 ])
-	class UDatabaseParams*                        _params;                                           // 0x06E0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UCosmosManager*                         _cosmos;                                           // 0x06E8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UWebApiCacheManager*                    _webApiCache;                                      // 0x06F0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_6F8[0x30];                                     // 0x06F8(0x0030)(Fixing Size After Last Property [ Dumper-7 ])
-	class UDataTable*                             _idleStateSetting;                                 // 0x0728(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_730[0x620];                                    // 0x0730(0x0620)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void()>              OnCustomMatchNotifyUserNameDuplicateEventDispatcher; // 0x0438(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              OnCustomMatchNotifySettingsCompleteEventDispatcher; // 0x0448(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              OnCustomMatchNotifyGetCustomLobbyServerCompleteEventDispatcher; // 0x0458(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              OnCustomMatchNotifyKickCompleteEventDispatcher;    // 0x0468(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              OnCustomMatchNotifyDisbandedCompleteEventDispatcher; // 0x0478(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              OnCustomMatchTeamUpUpdatedEventDispatcher;         // 0x0488(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void()>              OnCustomMatchLockedBattleReadyEventDispatcher;     // 0x0498(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(int32 requestId, const struct FDateTime& Time, const int32 limitCount)> OnCheckLimitTimePlayerNameEventDispatcher; // 0x04A8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(int32 requestId, const struct FDateTime& Time, const int32 statusCode)> OnEntrySerialCodeEventDispatcher; // 0x04B8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	uint8                                         Pad_4C8[0x78];                                     // 0x04C8(0x0078)(Fixing Size After Last Property [ Dumper-7 ])
+	class UInformationData*                       _informationData;                                  // 0x0540(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	TMulticastInlineDelegate<void()>              OnResetUserDataCharacter;                          // 0x0548(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	uint8                                         Pad_558[0x198];                                    // 0x0558(0x0198)(Fixing Size After Last Property [ Dumper-7 ])
+	class UDatabaseParams*                        _params;                                           // 0x06F0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UCosmosManager*                         _cosmos;                                           // 0x06F8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UWebApiCacheManager*                    _webApiCache;                                      // 0x0700(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_708[0x30];                                     // 0x0708(0x0030)(Fixing Size After Last Property [ Dumper-7 ])
+	class UDataTable*                             _idleStateSetting;                                 // 0x0738(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_740[0x620];                                    // 0x0740(0x0620)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	static struct FDateTime GetServerNowTime(bool bUtc, bool IsDesignTime);
@@ -199,8 +200,11 @@ public:
 	void CheckBnidStatusImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
 	void CheckChangeChannel();
 	bool CheckedLeaveSquad();
+	int32 CheckEnableSerialCode();
+	void CheckEnableSerialCodeImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
 	int32 CheckFavoriteName(const class FString& favoriteName);
 	void CheckFavoriteNameImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
+	void CheckFilterProfanityCommand(const TArray<class FString>& args);
 	int32 CheckGuildName(const class FString& Name_0);
 	void CheckGuildNameImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
 	int32 CheckGuildProfile(const class FString& Profile);
@@ -208,6 +212,8 @@ public:
 	bool CheckHasReceivableItem();
 	int32 CheckLimitTimePlayerName();
 	void CheckLimitTimePlayerNameImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
+	int32 CheckNGWord(const class FString& checkedName);
+	void CheckNGWordImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
 	bool CheckNumKpiPlayerBattleLog_DS();
 	int32 CheckPlayerName(const class FString& PlayerName, bool bUpdateFlag);
 	void CheckPlayerNameImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
@@ -224,7 +230,7 @@ public:
 	int32 ConfirmRetryLottery();
 	void ConfirmRetryLotteryImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
 	int32 ConsumeRentalPoint_DS(const TMap<class FString, int32>& consumeDataList);
-	int32 CreateCustomMatchRoomID(bool bHiddenIdFlag, int32 playModeCode);
+	int32 CreateCustomMatchRoomID(bool bHiddenIdFlag, int32 playModeCode, bool bAllowChangePlayerName);
 	void CreateCustomMatchRoomIDImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
 	int32 CreateGuild(const class FString& Name_0, const class FString& Profile, const EGuildPolicy ePolicy, const EGuildJoinRule eJoinRule, const int32 emblemCode);
 	void CreateGuildImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
@@ -529,6 +535,8 @@ public:
 	void ReceiveResearchNoteRewardsImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
 	int32 ReceiveSpecialLicense(const TArray<int32>& ranks);
 	void ReceiveSpecialLicenseImpl(const int32 requestId, const TArray<struct FWebApiArg>& args, const TArray<int32>& ranks);
+	int32 ReducePlayerNameChangeLimitTime();
+	void ReducePlayerNameChangeLimitTimeImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
 	bool RegisterMissionProgress(const int32 missionCode, const int32 value);
 	bool RegisterMissionProgress_DS(const int32 missionCode, const int32 value, const class FString& playerId);
 	void ReInitialize();
@@ -539,6 +547,8 @@ public:
 	int32 ResetBnidLink();
 	void ResetBnidLinkImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
 	void ResetDedicatedServerCommand(const TArray<class FString>& args);
+	void ResetFilterProfanityCommand(const TArray<class FString>& args);
+	void ResetForceFakePlatformCommand(const TArray<class FString>& args);
 	int32 ResetLotterySelectPickupItemInfo(const int32 lotteryCode);
 	void ResetLotterySelectPickupItemInfoImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
 	bool ResetMissionProgress(const int32 missionCode);
@@ -610,15 +620,18 @@ public:
 	void SetCallLoadPurchaseStatusCommand(const TArray<class FString>& args);
 	void SetCheckNetworkAvailableCommand(const TArray<class FString>& args);
 	void SetConnectionEnvironmentForDedicatedServer(const class FString& env, const class FString& Version, const class FString& platform);
+	void SetCustomMatchCustomNameCommand(const TArray<class FString>& args);
 	bool SetCustomRoomMember(const TArray<struct FDbCustomMatchingMemberParamList>& SquadList);
 	void SetCustomRoomMemberCommand(const TArray<class FString>& args);
 	bool SetCustomRoomMemberData();
+	bool SetCustomRoomMemberData_CustomName(const class FString& myCustomName);
 	bool SetCustomRoomSettings();
 	void SetDebugBlockList();
 	void SetDedicatedServerCommand(const TArray<class FString>& args);
 	void SetEnableCrossPlaySetting(bool enable);
 	void SetEnableSpeechToText(const bool bEnableSpeechToText);
 	void SetFakeNetScoreCommand(const TArray<class FString>& args);
+	void SetForceFakeSengakujiWebAPICommand(const TArray<class FString>& args);
 	void SetForceMultiProcessSupportCommand(const TArray<class FString>& args);
 	void SetIgnoreSystemCheckError(bool bIgnoreSystemCheckError);
 	void SetIgnoreSystemCheckErrorCommand(const TArray<class FString>& args);
@@ -651,7 +664,7 @@ public:
 	void StartPurchaseImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
 	void StartUpImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
 	void SyncBlockListImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
-	int32 UnlockCustomizeCostumeRoleSlot(const int32 CharacterCode, const int32 CostumeCode);
+	int32 UnlockCustomizeCostumeRoleSlot(const int32 CharacterCode, const int32 CostumeCode, const int32 unlockNum);
 	void UnlockCustomizeCostumeRoleSlotImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
 	int32 UnlockMyAd();
 	void UnlockMyAdImpl(const int32 requestId, const TArray<struct FWebApiArg>& args);
@@ -850,59 +863,59 @@ public:
 };
 
 // Class BackendSubsystem.DatabaseParams
-// 0x9110 (0x9138 - 0x0028)
+// 0x9188 (0x91B0 - 0x0028)
 class UDatabaseParams final : public UObject
 {
 public:
-	struct FDbMyPlayerParam                       MyPlayer;                                          // 0x0028(0x1170)(Edit, BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	struct FDbCharactersParam                     Characters;                                        // 0x1198(0x4338)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbNoticeParam                         Notice;                                            // 0x54D0(0x0138)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbMatchingParam                       matching;                                          // 0x5608(0x2490)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbShopsParam                          Shops;                                             // 0x7A98(0x0078)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbShopReceivedItemParam               ShopReceivedItem;                                  // 0x7B10(0x0018)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbLotteriesParam                      Lotteries;                                         // 0x7B28(0x0228)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbMissionsParam                       Missions;                                          // 0x7D50(0x0188)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbResearchNoteRewardListParam         ResearchNote;                                      // 0x7ED8(0x0078)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbPlayerListParam                     Players;                                           // 0x7F50(0x07B8)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbBillboardChartParam                 BillboardChart;                                    // 0x8708(0x0020)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbGuildParam                          Guild;                                             // 0x8728(0x01F0)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbChatParam                           ChatLog;                                           // 0x8918(0x0068)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbSeasonParam                         season;                                            // 0x8980(0x00D0)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbSpecialLicenseListParam             SpecialLicense;                                    // 0x8A50(0x00A0)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbEventsParam                         Event;                                             // 0x8AF0(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbRankingsParam                       Ranking;                                           // 0x8B00(0x03A8)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbSettingParam                        Setting;                                           // 0x8EA8(0x00E8)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	struct FDbBattleParam                         Battle;                                            // 0x8F90(0x00B8)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
-	class UDbpMainMenu*                           _dbpMainMenu;                                      // 0x9048(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpMyProfile*                          _dbpMyProfile;                                     // 0x9050(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpPlayableCharacterList*              _dbpPlayableCharacterList;                         // 0x9058(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpCharacterCustomize*                 _dbpCharacterCustomize;                            // 0x9060(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpEquippedCustomize*                  _dbpEquippedCustomize;                             // 0x9068(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpShopList*                           _dbpShopList;                                      // 0x9070(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpLotteryList*                        _dbpLotteryList;                                   // 0x9078(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpLotteryResult*                      _dbpLotteryResult;                                 // 0x9080(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpLotteryRate*                        _dbpLotteryRate;                                   // 0x9088(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpLotteryHistory*                     _dbpLotteryHistory;                                // 0x9090(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpLotteryResult*                      _dbpLotteryExchangeResult;                         // 0x9098(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpMissionCategoryList*                _dbpMissionCategoryList;                           // 0x90A0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpResearchNote*                       _dbpResearchNote;                                  // 0x90A8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpNotice*                             _dbpNotice;                                        // 0x90B0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpPlayerList*                         _dbpPlayerList;                                    // 0x90B8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpBillboardChart*                     _dbpBillboardChart;                                // 0x90C0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpResult*                             _dbpResult;                                        // 0x90C8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpGuild*                              _dbpGuild;                                         // 0x90D0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpChat*                               _dbpChat;                                          // 0x90D8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpMyAd*                               _dbpMyAd;                                          // 0x90E0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpInventory*                          _dbpInventory;                                     // 0x90E8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpSeason*                             _dbpSeason;                                        // 0x90F0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpEvent*                              _dbpEvent;                                         // 0x90F8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpRanking*                            _dbpRanking;                                       // 0x9100(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpGallery*                            _dbpGallery;                                       // 0x9108(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpLoginBonus*                         _dbLoginBonus;                                     // 0x9110(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpSetting*                            _dbpSetting;                                       // 0x9118(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpLoading*                            _dbpLoading;                                       // 0x9120(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpDedicatedServer*                    _dbpDedicatedServer;                               // 0x9128(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	class UDbpCustomMatching*                     _dbpCustomMatching;                                // 0x9130(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	struct FDbMyPlayerParam                       MyPlayer;                                          // 0x0028(0x1178)(Edit, BlueprintVisible, BlueprintReadOnly, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FDbCharactersParam                     Characters;                                        // 0x11A0(0x4388)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbNoticeParam                         Notice;                                            // 0x5528(0x0138)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbMatchingParam                       matching;                                          // 0x5660(0x24B0)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbShopsParam                          Shops;                                             // 0x7B10(0x0078)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbShopReceivedItemParam               ShopReceivedItem;                                  // 0x7B88(0x0018)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbLotteriesParam                      Lotteries;                                         // 0x7BA0(0x0228)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbMissionsParam                       Missions;                                          // 0x7DC8(0x0188)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbResearchNoteRewardListParam         ResearchNote;                                      // 0x7F50(0x0078)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbPlayerListParam                     Players;                                           // 0x7FC8(0x07B8)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbBillboardChartParam                 BillboardChart;                                    // 0x8780(0x0020)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbGuildParam                          Guild;                                             // 0x87A0(0x01F0)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbChatParam                           ChatLog;                                           // 0x8990(0x0068)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbSeasonParam                         season;                                            // 0x89F8(0x00D0)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbSpecialLicenseListParam             SpecialLicense;                                    // 0x8AC8(0x00A0)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbEventsParam                         Event;                                             // 0x8B68(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbRankingsParam                       Ranking;                                           // 0x8B78(0x03A8)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbSettingParam                        Setting;                                           // 0x8F20(0x00E8)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	struct FDbBattleParam                         Battle;                                            // 0x9008(0x00B8)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
+	class UDbpMainMenu*                           _dbpMainMenu;                                      // 0x90C0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpMyProfile*                          _dbpMyProfile;                                     // 0x90C8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpPlayableCharacterList*              _dbpPlayableCharacterList;                         // 0x90D0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpCharacterCustomize*                 _dbpCharacterCustomize;                            // 0x90D8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpEquippedCustomize*                  _dbpEquippedCustomize;                             // 0x90E0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpShopList*                           _dbpShopList;                                      // 0x90E8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpLotteryList*                        _dbpLotteryList;                                   // 0x90F0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpLotteryResult*                      _dbpLotteryResult;                                 // 0x90F8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpLotteryRate*                        _dbpLotteryRate;                                   // 0x9100(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpLotteryHistory*                     _dbpLotteryHistory;                                // 0x9108(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpLotteryResult*                      _dbpLotteryExchangeResult;                         // 0x9110(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpMissionCategoryList*                _dbpMissionCategoryList;                           // 0x9118(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpResearchNote*                       _dbpResearchNote;                                  // 0x9120(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpNotice*                             _dbpNotice;                                        // 0x9128(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpPlayerList*                         _dbpPlayerList;                                    // 0x9130(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpBillboardChart*                     _dbpBillboardChart;                                // 0x9138(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpResult*                             _dbpResult;                                        // 0x9140(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpGuild*                              _dbpGuild;                                         // 0x9148(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpChat*                               _dbpChat;                                          // 0x9150(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpMyAd*                               _dbpMyAd;                                          // 0x9158(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpInventory*                          _dbpInventory;                                     // 0x9160(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpSeason*                             _dbpSeason;                                        // 0x9168(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpEvent*                              _dbpEvent;                                         // 0x9170(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpRanking*                            _dbpRanking;                                       // 0x9178(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpGallery*                            _dbpGallery;                                       // 0x9180(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpLoginBonus*                         _dbLoginBonus;                                     // 0x9188(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpSetting*                            _dbpSetting;                                       // 0x9190(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpLoading*                            _dbpLoading;                                       // 0x9198(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpDedicatedServer*                    _dbpDedicatedServer;                               // 0x91A0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	class UDbpCustomMatching*                     _dbpCustomMatching;                                // 0x91A8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 
 public:
 	class UDbpBillboardChart* GetBillboardChartData();
@@ -1054,11 +1067,11 @@ public:
 };
 
 // Class BackendSubsystem.DbpCharacterCustomize
-// 0x1088 (0x10B0 - 0x0028)
+// 0x1098 (0x10C0 - 0x0028)
 class UDbpCharacterCustomize final : public UObject
 {
 public:
-	uint8                                         Pad_28[0x1088];                                    // 0x0028(0x1088)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_28[0x1098];                                    // 0x0028(0x1098)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	bool GetAppealList(TArray<struct FDbsAppealParam>* OutUnlocked, TArray<struct FDbsAppealParam>* OutLocked);
@@ -1321,7 +1334,7 @@ public:
 public:
 	bool Get(const int32 code, struct FDbLoginBonus* LoginBonus);
 	void GetDailyBonus(struct FDbLoginBonus* freeLoginBonus, struct FDbLoginBonus* premiumLoginBonus);
-	void GetLoginBonusList(struct FDbLoginBonusListParam* list);
+	void GetLoginBonusList(struct FDbLoginBonusListParam* List);
 	void GetReceivedDailyBonusItemList(TArray<struct FDbLoginBonusItem>* freeReceivedDailyBonus, TArray<struct FDbLoginBonusItem>* premiumReceivedDailyBonus);
 
 	bool CanBuyPremiumDailyLoginBonusTicket() const;

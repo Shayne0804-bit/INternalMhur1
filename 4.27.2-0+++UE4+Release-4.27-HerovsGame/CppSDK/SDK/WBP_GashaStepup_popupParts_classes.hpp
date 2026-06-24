@@ -46,6 +46,5 @@ public:
 		return GetDefaultObjImpl<UWBP_GashaStepup_popupParts_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_GashaStepup_popupParts_C;
 
 SDK_NAMESPACE_END

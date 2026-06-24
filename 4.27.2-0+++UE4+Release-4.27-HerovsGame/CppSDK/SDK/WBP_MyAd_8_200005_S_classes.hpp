@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "Engine_structs.hpp"
 #include "GameModule_classes.hpp"
+#include "Engine_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -53,6 +53,5 @@ public:
 		return GetDefaultObjImpl<UWBP_MyAd_8_200005_S_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_MyAd_8_200005_S_C;
 
 SDK_NAMESPACE_END

@@ -43,6 +43,5 @@ public:
 		return GetDefaultObjImpl<UWBP_GashaBannerList_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_GashaBannerList_C;
 
 SDK_NAMESPACE_END

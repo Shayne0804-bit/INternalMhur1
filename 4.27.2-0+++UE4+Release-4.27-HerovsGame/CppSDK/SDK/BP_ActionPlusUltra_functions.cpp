@@ -175,7 +175,7 @@ void UBP_ActionPlusUltra_C::BP_ActionRemote()
 
 
 // Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.BroadcastRollSlotUniqueSkill
-// (Private, BlueprintCallable, BlueprintEvent)
+// (Protected, BlueprintCallable, BlueprintEvent)
 
 void UBP_ActionPlusUltra_C::BroadcastRollSlotUniqueSkill()
 {
@@ -189,7 +189,7 @@ void UBP_ActionPlusUltra_C::BroadcastRollSlotUniqueSkill()
 
 
 // Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.BroadcastRollSlotUniqueSkill_OnBegin
-// (Private, BlueprintCallable, BlueprintEvent)
+// (Protected, BlueprintCallable, BlueprintEvent)
 
 void UBP_ActionPlusUltra_C::BroadcastRollSlotUniqueSkill_OnBegin()
 {
@@ -203,7 +203,7 @@ void UBP_ActionPlusUltra_C::BroadcastRollSlotUniqueSkill_OnBegin()
 
 
 // Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.IsPlusUltraCancelled
-// (Private, HasOutParams, BlueprintCallable, BlueprintEvent, BlueprintPure)
+// (Protected, HasOutParams, BlueprintCallable, BlueprintEvent, BlueprintPure)
 // Parameters:
 // class FName                             nextAction                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 // bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
@@ -250,6 +250,44 @@ void UBP_ActionPlusUltra_C::ResetBuffCondition()
 		Func = Class->GetFunction("BP_ActionPlusUltra_C", "ResetBuffCondition");
 
 	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.AnimationSelecter
+// (Protected, BlueprintCallable, BlueprintEvent)
+
+void UBP_ActionPlusUltra_C::AnimationSelecter()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_ActionPlusUltra_C", "AnimationSelecter");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.ConditionSelecter
+// (Protected, BlueprintCallable, BlueprintEvent)
+// Parameters:
+// float                                   InSpan                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// float                                   InValue                                                (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// bool                                    bSetCondition                                          (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+
+void UBP_ActionPlusUltra_C::ConditionSelecter(float InSpan, float InValue, bool bSetCondition)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_ActionPlusUltra_C", "ConditionSelecter");
+
+	Params::BP_ActionPlusUltra_C_ConditionSelecter Parms{};
+
+	Parms.InSpan = InSpan;
+	Parms.InValue = InValue;
+	Parms.bSetCondition = bSetCondition;
+
+	UObject::ProcessEvent(Func, &Parms);
 }
 
 

@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<UWBP_ResultPoint_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_ResultPoint_C;
 
 SDK_NAMESPACE_END

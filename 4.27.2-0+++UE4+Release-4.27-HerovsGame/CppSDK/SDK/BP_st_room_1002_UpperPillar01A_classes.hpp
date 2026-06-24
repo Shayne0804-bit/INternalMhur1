@@ -16,12 +16,12 @@
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_st_room_1002_UpperPillar01A.BP_st_room_1002_UpperPillar01A_C
-// 0x0010 (0x03D8 - 0x03C8)
+// 0x0010 (0x03F0 - 0x03E0)
 class ABP_st_room_1002_UpperPillar01A_C final : public ABgProp
 {
 public:
-	class UStaticMeshComponent*                   SM_st_room_1002_UpperPillar_01A1;                  // 0x03C8(0x0008)(BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData, NonTransactional, NoDestructor, HasGetValueTypeHash)
-	class UStaticMeshComponent*                   SM_st_room_1002_UpperPillar_01A;                   // 0x03D0(0x0008)(BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData, NonTransactional, NoDestructor, HasGetValueTypeHash)
+	class UStaticMeshComponent*                   SM_st_room_1002_UpperPillar_01A1;                  // 0x03E0(0x0008)(BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData, NonTransactional, NoDestructor, HasGetValueTypeHash)
+	class UStaticMeshComponent*                   SM_st_room_1002_UpperPillar_01A;                   // 0x03E8(0x0008)(BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData, NonTransactional, NoDestructor, HasGetValueTypeHash)
 
 public:
 	static class UClass* StaticClass()
@@ -37,6 +37,5 @@ public:
 		return GetDefaultObjImpl<ABP_st_room_1002_UpperPillar01A_C>();
 	}
 };
-DUMPER7_ASSERTS_ABP_st_room_1002_UpperPillar01A_C;
 
 SDK_NAMESPACE_END

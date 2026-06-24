@@ -16,11 +16,11 @@
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_st01_OakTree_MainMenu_LOD.BP_st01_OakTree_MainMenu_LOD_C
-// 0x0008 (0x03D0 - 0x03C8)
+// 0x0008 (0x03E8 - 0x03E0)
 class ABP_st01_OakTree_MainMenu_LOD_C final : public ABgProp
 {
 public:
-	class UStaticMeshComponent*                   SM_st01_03_ex04A;                                  // 0x03C8(0x0008)(BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData, NonTransactional, NoDestructor, HasGetValueTypeHash)
+	class UStaticMeshComponent*                   SM_st01_03_ex04A;                                  // 0x03E0(0x0008)(BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData, NonTransactional, NoDestructor, HasGetValueTypeHash)
 
 public:
 	static class UClass* StaticClass()
@@ -36,6 +36,5 @@ public:
 		return GetDefaultObjImpl<ABP_st01_OakTree_MainMenu_LOD_C>();
 	}
 };
-DUMPER7_ASSERTS_ABP_st01_OakTree_MainMenu_LOD_C;
 
 SDK_NAMESPACE_END

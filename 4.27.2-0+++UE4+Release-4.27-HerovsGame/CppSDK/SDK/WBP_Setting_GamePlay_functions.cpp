@@ -36,6 +36,28 @@ void UWBP_Setting_GamePlay_C::ExecuteUbergraph_WBP_Setting_GamePlay(int32 EntryP
 }
 
 
+// Function WBP_Setting_GamePlay.WBP_Setting_GamePlay_C.BndEvt__WBP_Setting_GamePlay__loadingMyRoom_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// EWidgetInputType                        inputType                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_Setting_GamePlay_C::BndEvt__WBP_Setting_GamePlay__loadingMyRoom_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_Setting_GamePlay_C", "BndEvt__WBP_Setting_GamePlay__loadingMyRoom_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature");
+
+	Params::WBP_Setting_GamePlay_C_BndEvt__WBP_Setting_GamePlay__loadingMyRoom_K2Node_ComponentBoundEvent_3_OnInputEventDelegate__DelegateSignature Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
 // Function WBP_Setting_GamePlay.WBP_Setting_GamePlay_C.BndEvt__WBP_Setting_GamePlay__auraDispType_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
 // (BlueprintEvent)
 // Parameters:
@@ -50,28 +72,6 @@ void UWBP_Setting_GamePlay_C::BndEvt__WBP_Setting_GamePlay__auraDispType_K2Node_
 		Func = Class->GetFunction("WBP_Setting_GamePlay_C", "BndEvt__WBP_Setting_GamePlay__auraDispType_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature");
 
 	Params::WBP_Setting_GamePlay_C_BndEvt__WBP_Setting_GamePlay__auraDispType_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function WBP_Setting_GamePlay.WBP_Setting_GamePlay_C.BndEvt__WBP_Setting_GamePlay__cameraDirection_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature
-// (BlueprintEvent)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-// EWidgetInputType                        inputType                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UWBP_Setting_GamePlay_C::BndEvt__WBP_Setting_GamePlay__cameraDirection_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Setting_GamePlay_C", "BndEvt__WBP_Setting_GamePlay__cameraDirection_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature");
-
-	Params::WBP_Setting_GamePlay_C_BndEvt__WBP_Setting_GamePlay__cameraDirection_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature Parms{};
 
 	Parms.Widget = Widget;
 	Parms.inputType = inputType;

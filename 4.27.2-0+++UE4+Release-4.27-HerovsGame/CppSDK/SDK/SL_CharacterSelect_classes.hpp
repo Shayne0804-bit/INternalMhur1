@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ASL_CharacterSelect_C>();
 	}
 };
-DUMPER7_ASSERTS_ASL_CharacterSelect_C;
 
 SDK_NAMESPACE_END

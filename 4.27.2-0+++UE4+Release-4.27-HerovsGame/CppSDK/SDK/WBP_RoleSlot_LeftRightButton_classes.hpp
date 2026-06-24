@@ -37,6 +37,5 @@ public:
 		return GetDefaultObjImpl<UWBP_RoleSlot_LeftRightButton_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_RoleSlot_LeftRightButton_C;
 
 SDK_NAMESPACE_END

@@ -14,6 +14,14 @@
 SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
+// Function WBP_ShopButton.WBP_ShopButton_C.PreConstruct
+// 0x0001 (0x0001 - 0x0000)
+struct WBP_ShopButton_C_PreConstruct final
+{
+public:
+	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+};
+
 // Function WBP_ShopButton.WBP_ShopButton_C.ExecuteUbergraph_WBP_ShopButton
 // 0x0028 (0x0028 - 0x0000)
 struct WBP_ShopButton_C_ExecuteUbergraph_WBP_ShopButton final
@@ -29,16 +37,6 @@ public:
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UUMGSequencePlayer*                     CallFunc_PlayAnimation_ReturnValue_2;              // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_ShopButton_C_ExecuteUbergraph_WBP_ShopButton;
-
-// Function WBP_ShopButton.WBP_ShopButton_C.PreConstruct
-// 0x0001 (0x0001 - 0x0000)
-struct WBP_ShopButton_C_PreConstruct final
-{
-public:
-	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
-};
-DUMPER7_ASSERTS_WBP_ShopButton_C_PreConstruct;
 
 // Function WBP_ShopButton.WBP_ShopButton_C.select
 // 0x0002 (0x0002 - 0x0000)
@@ -48,7 +46,6 @@ public:
 	bool                                          Set;                                               // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          Premium;                                           // 0x0001(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_ShopButton_C_select;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

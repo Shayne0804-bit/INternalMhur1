@@ -24,7 +24,6 @@ public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_EqualEqual_TextText_ReturnValue;          // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_AboutLicense_Cell_C_ExecuteUbergraph_WBP_AboutLicense_Cell;
 
 // Function WBP_AboutLicense_Cell.WBP_AboutLicense_Cell_C.Set Up Text
 // 0x0070 (0x0070 - 0x0000)
@@ -41,7 +40,6 @@ public:
 	class FText                                   CallFunc_Conv_IntToText_ReturnValue;               // 0x0040(0x0018)()
 	class FText                                   CallFunc_BP_SetUpItemText_ReturnValue;             // 0x0058(0x0018)()
 };
-DUMPER7_ASSERTS_WBP_AboutLicense_Cell_C_Set_Up_Text;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

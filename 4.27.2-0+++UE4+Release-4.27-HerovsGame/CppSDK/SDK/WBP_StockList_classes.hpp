@@ -43,6 +43,5 @@ public:
 		return GetDefaultObjImpl<UWBP_StockList_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_StockList_C;
 
 SDK_NAMESPACE_END

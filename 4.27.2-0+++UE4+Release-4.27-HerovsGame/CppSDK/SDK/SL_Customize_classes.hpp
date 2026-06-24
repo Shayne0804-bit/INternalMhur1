@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ASL_Customize_C>();
 	}
 };
-DUMPER7_ASSERTS_ASL_Customize_C;
 
 SDK_NAMESPACE_END

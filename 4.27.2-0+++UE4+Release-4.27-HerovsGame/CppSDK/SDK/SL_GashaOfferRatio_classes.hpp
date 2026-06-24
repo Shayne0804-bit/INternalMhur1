@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ASL_GashaOfferRatio_C>();
 	}
 };
-DUMPER7_ASSERTS_ASL_GashaOfferRatio_C;
 
 SDK_NAMESPACE_END

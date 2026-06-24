@@ -37,6 +37,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Contact_Notice_List_Timer_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Contact_Notice_List_Timer_C;
 
 SDK_NAMESPACE_END

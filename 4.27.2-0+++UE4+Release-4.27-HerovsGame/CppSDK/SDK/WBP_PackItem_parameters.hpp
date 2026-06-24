@@ -30,7 +30,6 @@ public:
 	TArray<struct FFormatArgumentData>            K2Node_MakeArray_Array;                            // 0x0068(0x0010)(ReferenceParm)
 	class FText                                   CallFunc_Format_ReturnValue;                       // 0x0078(0x0018)()
 };
-DUMPER7_ASSERTS_WBP_PackItem_C_ExecuteUbergraph_WBP_PackItem;
 
 // Function WBP_PackItem.WBP_PackItem_C.OnSetQuantity
 // 0x0004 (0x0004 - 0x0000)
@@ -39,7 +38,6 @@ struct WBP_PackItem_C_OnSetQuantity final
 public:
 	int32                                         Quantity;                                          // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_PackItem_C_OnSetQuantity;
 
 // Function WBP_PackItem.WBP_PackItem_C.OnSetItemName
 // 0x0018 (0x0018 - 0x0000)
@@ -48,7 +46,6 @@ struct WBP_PackItem_C_OnSetItemName final
 public:
 	class FText                                   ItemName;                                          // 0x0000(0x0018)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ReferenceParm)
 };
-DUMPER7_ASSERTS_WBP_PackItem_C_OnSetItemName;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

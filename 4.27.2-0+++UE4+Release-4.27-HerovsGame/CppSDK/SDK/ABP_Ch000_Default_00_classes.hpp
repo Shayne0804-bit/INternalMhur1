@@ -10,10 +10,10 @@
 
 #include "Basic.hpp"
 
+#include "GameModule_classes.hpp"
 #include "Engine_structs.hpp"
 #include "AnimGraphRuntime_structs.hpp"
 #include "AnimBlueprintNodes_structs.hpp"
-#include "GameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
@@ -42,8 +42,8 @@ public:
 	struct FAnimNode_MuscleEx                     AnimGraphNode_MuscleEx;                            // 0x1110(0x01C0)()
 
 public:
-	void AnimGraph(const struct FPoseLink& InPose, struct FPoseLink* AnimGraph_0);
 	void ExecuteUbergraph_ABP_Ch000_Default_00(int32 EntryPoint);
+	void AnimGraph(const struct FPoseLink& InPose, struct FPoseLink* AnimGraph_0);
 
 public:
 	static class UClass* StaticClass()

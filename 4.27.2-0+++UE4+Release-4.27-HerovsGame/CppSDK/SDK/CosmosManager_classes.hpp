@@ -17,15 +17,15 @@
 SDK_NAMESPACE_START
 
 // Class CosmosManager.CosmosManager
-// 0x1118 (0x1140 - 0x0028)
+// 0x11B8 (0x11E0 - 0x0028)
 class alignas(0x10) UCosmosManager final : public UObject
 {
 public:
-	uint8                                         Pad_28[0xEE8];                                     // 0x0028(0x0EE8)(Fixing Size After Last Property [ Dumper-7 ])
-	class UCosmosWebApiManager*                   _webApiManager;                                    // 0x0F10(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_F18[0x28];                                     // 0x0F18(0x0028)(Fixing Size After Last Property [ Dumper-7 ])
-	class UGameInstance*                          _gameInstance;                                     // 0x0F40(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_F48[0x1F8];                                    // 0x0F48(0x01F8)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_28[0xF08];                                     // 0x0028(0x0F08)(Fixing Size After Last Property [ Dumper-7 ])
+	class UCosmosWebApiManager*                   _webApiManager;                                    // 0x0F30(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_F38[0x28];                                     // 0x0F38(0x0028)(Fixing Size After Last Property [ Dumper-7 ])
+	class UGameInstance*                          _gameInstance;                                     // 0x0F60(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_F68[0x278];                                    // 0x0F68(0x0278)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	void OnChangeMyRoomDataEvent(const struct FCosmosChangeMyRoomDataNotify& E);
@@ -34,6 +34,7 @@ public:
 	void OnCustomMatchingEvent(const ECustomRoomEventId E, const int32 S);
 	void OnCustomMatchingJoinEvent(const struct FCosmosJoinCustomRoomResponse& E);
 	void OnCustomMatchingRoomDataEvent(const struct FCosmosGetCustomRoomDataResponse& E);
+	void OnCustomMatchingUserNameDuplicatedEvent(const struct FCosmosUserNameDuplicatedNotify& E);
 	void OnCustomRoomReadiedEvent(const struct FCosmosCustomRoomReadiedNotify& E);
 	void OnMatchingAppealEvent(const struct FSquadAppealEvent& E);
 	void OnMatchingChatEvent(const struct FSquadChatEvent& E);

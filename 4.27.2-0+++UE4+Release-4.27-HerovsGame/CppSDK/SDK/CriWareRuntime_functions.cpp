@@ -3748,9 +3748,9 @@ void UAtomStatics::PauseAudioOutput(bool bPause)
 // const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // class USoundAtomCue*                    Sound                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // const struct FVector&                   Location                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const struct FAtomComponentParams&      Params_0                                               (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+// const struct FAtomComponentParams&      params                                                 (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 
-void UAtomStatics::PlayAtomSoundAtLocation(const class UObject* WorldContextObject, class USoundAtomCue* Sound, const struct FVector& Location, const struct FAtomComponentParams& Params_0)
+void UAtomStatics::PlayAtomSoundAtLocation(const class UObject* WorldContextObject, class USoundAtomCue* Sound, const struct FVector& Location, const struct FAtomComponentParams& params)
 {
 	static class UFunction* Func = nullptr;
 
@@ -3762,7 +3762,7 @@ void UAtomStatics::PlayAtomSoundAtLocation(const class UObject* WorldContextObje
 	Parms.WorldContextObject = WorldContextObject;
 	Parms.Sound = Sound;
 	Parms.Location = std::move(Location);
-	Parms.Params_0 = std::move(Params_0);
+	Parms.params = std::move(params);
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -3780,9 +3780,9 @@ void UAtomStatics::PlayAtomSoundAtLocation(const class UObject* WorldContextObje
 // class USoundAtomCueSheet*               CueSheet                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // const class FString&                    CueName                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // const struct FVector&                   Location                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const struct FAtomComponentParams&      Params_0                                               (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+// const struct FAtomComponentParams&      params                                                 (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 
-void UAtomStatics::PlayAtomSoundAtLocationByName(const class UObject* WorldContextObject, class USoundAtomCueSheet* CueSheet, const class FString& CueName, const struct FVector& Location, const struct FAtomComponentParams& Params_0)
+void UAtomStatics::PlayAtomSoundAtLocationByName(const class UObject* WorldContextObject, class USoundAtomCueSheet* CueSheet, const class FString& CueName, const struct FVector& Location, const struct FAtomComponentParams& params)
 {
 	static class UFunction* Func = nullptr;
 
@@ -3795,7 +3795,7 @@ void UAtomStatics::PlayAtomSoundAtLocationByName(const class UObject* WorldConte
 	Parms.CueSheet = CueSheet;
 	Parms.CueName = std::move(CueName);
 	Parms.Location = std::move(Location);
-	Parms.Params_0 = std::move(Params_0);
+	Parms.params = std::move(params);
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -3810,7 +3810,7 @@ void UAtomStatics::PlayAtomSoundAtLocationByName(const class UObject* WorldConte
 // (Final, Native, Static, Public, HasOutParams, HasDefaults, BlueprintCallable)
 // Parameters:
 // class USoundAtomCue*                    Sound                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const struct FAtomComponentParams&      Params_0                                               (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+// const struct FAtomComponentParams&      params                                                 (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 // class USceneComponent*                  AttachToComponent                                      (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // class FName                             AttachPointName                                        (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // const struct FVector&                   Location                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -3822,7 +3822,7 @@ void UAtomStatics::PlayAtomSoundAtLocationByName(const class UObject* WorldConte
 // bool                                    bFollow                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-class UAtomComponent* UAtomStatics::PlayAtomSoundForAnimNotify(class USoundAtomCue* Sound, const struct FAtomComponentParams& Params_0, class USceneComponent* AttachToComponent, class FName AttachPointName, const struct FVector& Location, bool bStopWhenAttachedToDestroyed, float volumeMultiplier, float pitchMultiplier, float StartTime, class USoundAttenuation* AttenuationSettings, bool bFollow)
+class UAtomComponent* UAtomStatics::PlayAtomSoundForAnimNotify(class USoundAtomCue* Sound, const struct FAtomComponentParams& params, class USceneComponent* AttachToComponent, class FName AttachPointName, const struct FVector& Location, bool bStopWhenAttachedToDestroyed, float volumeMultiplier, float pitchMultiplier, float StartTime, class USoundAttenuation* AttenuationSettings, bool bFollow)
 {
 	static class UFunction* Func = nullptr;
 
@@ -3832,7 +3832,7 @@ class UAtomComponent* UAtomStatics::PlayAtomSoundForAnimNotify(class USoundAtomC
 	Params::AtomStatics_PlayAtomSoundForAnimNotify Parms{};
 
 	Parms.Sound = Sound;
-	Parms.Params_0 = std::move(Params_0);
+	Parms.params = std::move(params);
 	Parms.AttachToComponent = AttachToComponent;
 	Parms.AttachPointName = AttachPointName;
 	Parms.Location = std::move(Location);
@@ -4179,12 +4179,12 @@ void UAtomStatics::SetListenerRegion(class UAtom3dRegion* Region, const int32 Pl
 // Parameters:
 // const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // class USoundAtomCue*                    Sound                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const struct FAtomComponentParams&      Params_0                                               (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+// const struct FAtomComponentParams&      params                                                 (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 // bool                                    bPersistAcrossLevelTransition                          (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // bool                                    bAutoDestroy                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-class UAtomComponent* UAtomStatics::SpawnAtomSound2D(const class UObject* WorldContextObject, class USoundAtomCue* Sound, const struct FAtomComponentParams& Params_0, bool bPersistAcrossLevelTransition, bool bAutoDestroy)
+class UAtomComponent* UAtomStatics::SpawnAtomSound2D(const class UObject* WorldContextObject, class USoundAtomCue* Sound, const struct FAtomComponentParams& params, bool bPersistAcrossLevelTransition, bool bAutoDestroy)
 {
 	static class UFunction* Func = nullptr;
 
@@ -4195,7 +4195,7 @@ class UAtomComponent* UAtomStatics::SpawnAtomSound2D(const class UObject* WorldC
 
 	Parms.WorldContextObject = WorldContextObject;
 	Parms.Sound = Sound;
-	Parms.Params_0 = std::move(Params_0);
+	Parms.params = std::move(params);
 	Parms.bPersistAcrossLevelTransition = bPersistAcrossLevelTransition;
 	Parms.bAutoDestroy = bAutoDestroy;
 
@@ -4216,12 +4216,12 @@ class UAtomComponent* UAtomStatics::SpawnAtomSound2D(const class UObject* WorldC
 // const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // class USoundAtomCueSheet*               CueSheet                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // const class FString&                    CueName                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const struct FAtomComponentParams&      Params_0                                               (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+// const struct FAtomComponentParams&      params                                                 (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 // bool                                    bPersistAcrossLevelTransition                          (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // bool                                    bAutoDestroy                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-class UAtomComponent* UAtomStatics::SpawnAtomSound2DByName(const class UObject* WorldContextObject, class USoundAtomCueSheet* CueSheet, const class FString& CueName, const struct FAtomComponentParams& Params_0, bool bPersistAcrossLevelTransition, bool bAutoDestroy)
+class UAtomComponent* UAtomStatics::SpawnAtomSound2DByName(const class UObject* WorldContextObject, class USoundAtomCueSheet* CueSheet, const class FString& CueName, const struct FAtomComponentParams& params, bool bPersistAcrossLevelTransition, bool bAutoDestroy)
 {
 	static class UFunction* Func = nullptr;
 
@@ -4233,7 +4233,7 @@ class UAtomComponent* UAtomStatics::SpawnAtomSound2DByName(const class UObject* 
 	Parms.WorldContextObject = WorldContextObject;
 	Parms.CueSheet = CueSheet;
 	Parms.CueName = std::move(CueName);
-	Parms.Params_0 = std::move(Params_0);
+	Parms.params = std::move(params);
 	Parms.bPersistAcrossLevelTransition = bPersistAcrossLevelTransition;
 	Parms.bAutoDestroy = bAutoDestroy;
 
@@ -4254,11 +4254,11 @@ class UAtomComponent* UAtomStatics::SpawnAtomSound2DByName(const class UObject* 
 // const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // class USoundAtomCue*                    Sound                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // const struct FVector&                   Location                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const struct FAtomComponentParams&      Params_0                                               (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+// const struct FAtomComponentParams&      params                                                 (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 // bool                                    bAutoDestroy                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-class UAtomComponent* UAtomStatics::SpawnAtomSoundAtLocation(const class UObject* WorldContextObject, class USoundAtomCue* Sound, const struct FVector& Location, const struct FAtomComponentParams& Params_0, bool bAutoDestroy)
+class UAtomComponent* UAtomStatics::SpawnAtomSoundAtLocation(const class UObject* WorldContextObject, class USoundAtomCue* Sound, const struct FVector& Location, const struct FAtomComponentParams& params, bool bAutoDestroy)
 {
 	static class UFunction* Func = nullptr;
 
@@ -4270,7 +4270,7 @@ class UAtomComponent* UAtomStatics::SpawnAtomSoundAtLocation(const class UObject
 	Parms.WorldContextObject = WorldContextObject;
 	Parms.Sound = Sound;
 	Parms.Location = std::move(Location);
-	Parms.Params_0 = std::move(Params_0);
+	Parms.params = std::move(params);
 	Parms.bAutoDestroy = bAutoDestroy;
 
 	auto Flgs = Func->FunctionFlags;
@@ -4291,11 +4291,11 @@ class UAtomComponent* UAtomStatics::SpawnAtomSoundAtLocation(const class UObject
 // class USoundAtomCueSheet*               CueSheet                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // const class FString&                    CueName                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // const struct FVector&                   Location                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const struct FAtomComponentParams&      Params_0                                               (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+// const struct FAtomComponentParams&      params                                                 (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 // bool                                    bAutoDestroy                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-class UAtomComponent* UAtomStatics::SpawnAtomSoundAtLocationByName(const class UObject* WorldContextObject, class USoundAtomCueSheet* CueSheet, const class FString& CueName, const struct FVector& Location, const struct FAtomComponentParams& Params_0, bool bAutoDestroy)
+class UAtomComponent* UAtomStatics::SpawnAtomSoundAtLocationByName(const class UObject* WorldContextObject, class USoundAtomCueSheet* CueSheet, const class FString& CueName, const struct FVector& Location, const struct FAtomComponentParams& params, bool bAutoDestroy)
 {
 	static class UFunction* Func = nullptr;
 
@@ -4308,7 +4308,7 @@ class UAtomComponent* UAtomStatics::SpawnAtomSoundAtLocationByName(const class U
 	Parms.CueSheet = CueSheet;
 	Parms.CueName = std::move(CueName);
 	Parms.Location = std::move(Location);
-	Parms.Params_0 = std::move(Params_0);
+	Parms.params = std::move(params);
 	Parms.bAutoDestroy = bAutoDestroy;
 
 	auto Flgs = Func->FunctionFlags;
@@ -4327,7 +4327,7 @@ class UAtomComponent* UAtomStatics::SpawnAtomSoundAtLocationByName(const class U
 // Parameters:
 // class USoundAtomCue*                    Sound                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // class USceneComponent*                  AttachToComponent                                      (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const struct FAtomComponentParams&      Params_0                                               (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+// const struct FAtomComponentParams&      params                                                 (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 // class FName                             AttachPointName                                        (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // const struct FVector&                   Location                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // EAttachLocation                         LocationType                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -4335,7 +4335,7 @@ class UAtomComponent* UAtomStatics::SpawnAtomSoundAtLocationByName(const class U
 // bool                                    bAutoDestroy                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-class UAtomComponent* UAtomStatics::SpawnAtomSoundAttached(class USoundAtomCue* Sound, class USceneComponent* AttachToComponent, const struct FAtomComponentParams& Params_0, class FName AttachPointName, const struct FVector& Location, EAttachLocation LocationType, bool bStopWhenAttachedToDestroyed, bool bAutoDestroy)
+class UAtomComponent* UAtomStatics::SpawnAtomSoundAttached(class USoundAtomCue* Sound, class USceneComponent* AttachToComponent, const struct FAtomComponentParams& params, class FName AttachPointName, const struct FVector& Location, EAttachLocation LocationType, bool bStopWhenAttachedToDestroyed, bool bAutoDestroy)
 {
 	static class UFunction* Func = nullptr;
 
@@ -4346,7 +4346,7 @@ class UAtomComponent* UAtomStatics::SpawnAtomSoundAttached(class USoundAtomCue* 
 
 	Parms.Sound = Sound;
 	Parms.AttachToComponent = AttachToComponent;
-	Parms.Params_0 = std::move(Params_0);
+	Parms.params = std::move(params);
 	Parms.AttachPointName = AttachPointName;
 	Parms.Location = std::move(Location);
 	Parms.LocationType = LocationType;
@@ -4370,7 +4370,7 @@ class UAtomComponent* UAtomStatics::SpawnAtomSoundAttached(class USoundAtomCue* 
 // class USoundAtomCueSheet*               CueSheet                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // const class FString&                    CueName                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // class USceneComponent*                  AttachToComponent                                      (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const struct FAtomComponentParams&      Params_0                                               (ConstParm, Parm, OutParm, ReferenceParm, AdvancedDisplay, NativeAccessSpecifierPublic)
+// const struct FAtomComponentParams&      params                                                 (ConstParm, Parm, OutParm, ReferenceParm, AdvancedDisplay, NativeAccessSpecifierPublic)
 // class FName                             AttachPointName                                        (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // const struct FVector&                   Location                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // EAttachLocation                         LocationType                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -4378,7 +4378,7 @@ class UAtomComponent* UAtomStatics::SpawnAtomSoundAttached(class USoundAtomCue* 
 // bool                                    bAutoDestroy                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-class UAtomComponent* UAtomStatics::SpawnAtomSoundAttachedByName(class USoundAtomCueSheet* CueSheet, const class FString& CueName, class USceneComponent* AttachToComponent, const struct FAtomComponentParams& Params_0, class FName AttachPointName, const struct FVector& Location, EAttachLocation LocationType, bool bStopWhenAttachedToDestroyed, bool bAutoDestroy)
+class UAtomComponent* UAtomStatics::SpawnAtomSoundAttachedByName(class USoundAtomCueSheet* CueSheet, const class FString& CueName, class USceneComponent* AttachToComponent, const struct FAtomComponentParams& params, class FName AttachPointName, const struct FVector& Location, EAttachLocation LocationType, bool bStopWhenAttachedToDestroyed, bool bAutoDestroy)
 {
 	static class UFunction* Func = nullptr;
 
@@ -4390,7 +4390,7 @@ class UAtomComponent* UAtomStatics::SpawnAtomSoundAttachedByName(class USoundAto
 	Parms.CueSheet = CueSheet;
 	Parms.CueName = std::move(CueName);
 	Parms.AttachToComponent = AttachToComponent;
-	Parms.Params_0 = std::move(Params_0);
+	Parms.params = std::move(params);
 	Parms.AttachPointName = AttachPointName;
 	Parms.Location = std::move(Location);
 	Parms.LocationType = LocationType;

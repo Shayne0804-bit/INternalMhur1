@@ -38,7 +38,6 @@ public:
 	bool                                          K2Node_ComponentBoundEvent_leftButton;             // 0x0041(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_IsAvailableNoReceived_ReturnValue;        // 0x0042(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_LoginBonusPopup_C_ExecuteUbergraph_WBP_LoginBonusPopup;
 
 // Function WBP_LoginBonusPopup.WBP_LoginBonusPopup_C.BndEvt__WBP_LoginBonusPopup__checkWindow_K2Node_ComponentBoundEvent_4_OnWindowInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -49,7 +48,6 @@ public:
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          leftButton;                                        // 0x0009(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_LoginBonusPopup_C_BndEvt__WBP_LoginBonusPopup__checkWindow_K2Node_ComponentBoundEvent_4_OnWindowInputEventDelegate__DelegateSignature;
 
 // Function WBP_LoginBonusPopup.WBP_LoginBonusPopup_C.BndEvt__WBP_LoginBonusPopup_WBP_WindowButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -59,7 +57,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_LoginBonusPopup_C_BndEvt__WBP_LoginBonusPopup_WBP_WindowButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_LoginBonusPopup.WBP_LoginBonusPopup_C.BndEvt__WBP_LoginBonusPopup_WBP_ReturnButton_1_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -69,7 +66,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_LoginBonusPopup_C_BndEvt__WBP_LoginBonusPopup_WBP_ReturnButton_1_K2Node_ComponentBoundEvent_2_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_LoginBonusPopup.WBP_LoginBonusPopup_C.BndEvt__WBP_LoginBonusPopup_WBP_ReturnButton_1_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -79,7 +75,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_LoginBonusPopup_C_BndEvt__WBP_LoginBonusPopup_WBP_ReturnButton_1_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_LoginBonusPopup.WBP_LoginBonusPopup_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -88,7 +83,6 @@ struct WBP_LoginBonusPopup_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_LoginBonusPopup_C_PreConstruct;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

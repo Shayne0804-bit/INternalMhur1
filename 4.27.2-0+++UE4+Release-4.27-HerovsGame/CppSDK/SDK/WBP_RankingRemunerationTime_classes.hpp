@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<UWBP_RankingRemunerationTime_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_RankingRemunerationTime_C;
 
 SDK_NAMESPACE_END

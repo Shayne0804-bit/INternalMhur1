@@ -16,11 +16,11 @@
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_st_room_1002_Debris03A.BP_st_room_1002_Debris03A_C
-// 0x0008 (0x03D0 - 0x03C8)
+// 0x0008 (0x03E8 - 0x03E0)
 class ABP_st_room_1002_Debris03A_C final : public ABgProp
 {
 public:
-	class UStaticMeshComponent*                   SM_st_room_1002_Debris03A;                         // 0x03C8(0x0008)(BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData, NonTransactional, NoDestructor, HasGetValueTypeHash)
+	class UStaticMeshComponent*                   SM_st_room_1002_Debris03A;                         // 0x03E0(0x0008)(BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData, NonTransactional, NoDestructor, HasGetValueTypeHash)
 
 public:
 	static class UClass* StaticClass()

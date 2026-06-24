@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<UABP_Ch202_C>();
 	}
 };
-DUMPER7_ASSERTS_UABP_Ch202_C;
 
 SDK_NAMESPACE_END

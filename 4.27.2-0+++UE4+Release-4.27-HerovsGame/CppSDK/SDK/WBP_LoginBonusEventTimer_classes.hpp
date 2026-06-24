@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<UWBP_LoginBonusEventTimer_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_LoginBonusEventTimer_C;
 
 SDK_NAMESPACE_END

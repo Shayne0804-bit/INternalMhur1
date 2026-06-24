@@ -17,6 +17,81 @@
 SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
+// Function WBP_Gasha.WBP_Gasha_C.SetMainMenuLREnable
+// 0x0048 (0x0048 - 0x0000)
+struct WBP_Gasha_C_SetMainMenuLREnable final
+{
+public:
+	bool                                          bEmable;                                           // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	class FString                                 CallFunc_Conv_BoolToString_ReturnValue;            // 0x0008(0x0010)(ZeroConstructor, HasGetValueTypeHash)
+	TArray<class UWBP_MainMenu_C*>                CallFunc_GetAllWidgetsOfClass_FoundWidgets;        // 0x0018(0x0010)(ReferenceParm, ContainsInstancedReference)
+	class FString                                 CallFunc_Concat_StrStr_ReturnValue;                // 0x0028(0x0010)(ZeroConstructor, HasGetValueTypeHash)
+	class UWBP_MainMenu_C*                        CallFunc_Array_Get_Item;                           // 0x0038(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_IsValid_ReturnValue;                      // 0x0040(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+};
+
+// Function WBP_Gasha.WBP_Gasha_C.BndEvt__WBP_Gasha__debugWindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
+// 0x0010 (0x0010 - 0x0000)
+struct WBP_Gasha_C_BndEvt__WBP_Gasha__debugWindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function WBP_Gasha.WBP_Gasha_C.OnSetShowLoading
+// 0x0001 (0x0001 - 0x0000)
+struct WBP_Gasha_C_OnSetShowLoading final
+{
+public:
+	bool                                          bShow;                                             // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+};
+
+// Function WBP_Gasha.WBP_Gasha_C.BndEvt__WBP_Gasha__debugRunWindowButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature
+// 0x0010 (0x0010 - 0x0000)
+struct WBP_Gasha_C_BndEvt__WBP_Gasha__debugRunWindowButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature final
+{
+public:
+	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function WBP_Gasha.WBP_Gasha_C.BndEvt__WBP_Gasha__nextGashaWindow_K2Node_ComponentBoundEvent_2_gashaPickupChange__DelegateSignature
+// 0x0004 (0x0004 - 0x0000)
+struct WBP_Gasha_C_BndEvt__WBP_Gasha__nextGashaWindow_K2Node_ComponentBoundEvent_2_gashaPickupChange__DelegateSignature final
+{
+public:
+	int32                                         Add;                                               // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function WBP_Gasha.WBP_Gasha_C.BndEvt__WBP_Gasha__prevGashaWindow_K2Node_ComponentBoundEvent_3_gashaPickupChange__DelegateSignature
+// 0x0004 (0x0004 - 0x0000)
+struct WBP_Gasha_C_BndEvt__WBP_Gasha__prevGashaWindow_K2Node_ComponentBoundEvent_3_gashaPickupChange__DelegateSignature final
+{
+public:
+	int32                                         Add;                                               // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function WBP_Gasha.WBP_Gasha_C.OnOpenStepPopup
+// 0x0010 (0x0010 - 0x0000)
+struct WBP_Gasha_C_OnOpenStepPopup final
+{
+public:
+	int32                                         stepValue;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         stepMax;                                           // 0x0004(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         rotValue;                                          // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         rotMax;                                            // 0x000C(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function WBP_Gasha.WBP_Gasha_C.OnSetMainMenuLREnable
+// 0x0001 (0x0001 - 0x0000)
+struct WBP_Gasha_C_OnSetMainMenuLREnable final
+{
+public:
+	bool                                          bEmable;                                           // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+};
+
 // Function WBP_Gasha.WBP_Gasha_C.ExecuteUbergraph_WBP_Gasha
 // 0x0060 (0x0060 - 0x0000)
 struct WBP_Gasha_C_ExecuteUbergraph_WBP_Gasha final
@@ -46,90 +121,6 @@ public:
 	int32                                         K2Node_Event_rotValue;                             // 0x0058(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         K2Node_Event_rotMax;                               // 0x005C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Gasha_C_ExecuteUbergraph_WBP_Gasha;
-
-// Function WBP_Gasha.WBP_Gasha_C.OnSetMainMenuLREnable
-// 0x0001 (0x0001 - 0x0000)
-struct WBP_Gasha_C_OnSetMainMenuLREnable final
-{
-public:
-	bool                                          bEmable;                                           // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
-};
-DUMPER7_ASSERTS_WBP_Gasha_C_OnSetMainMenuLREnable;
-
-// Function WBP_Gasha.WBP_Gasha_C.OnOpenStepPopup
-// 0x0010 (0x0010 - 0x0000)
-struct WBP_Gasha_C_OnOpenStepPopup final
-{
-public:
-	int32                                         stepValue;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	int32                                         stepMax;                                           // 0x0004(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	int32                                         rotValue;                                          // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	int32                                         rotMax;                                            // 0x000C(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-DUMPER7_ASSERTS_WBP_Gasha_C_OnOpenStepPopup;
-
-// Function WBP_Gasha.WBP_Gasha_C.BndEvt__WBP_Gasha__prevGashaWindow_K2Node_ComponentBoundEvent_3_gashaPickupChange__DelegateSignature
-// 0x0004 (0x0004 - 0x0000)
-struct WBP_Gasha_C_BndEvt__WBP_Gasha__prevGashaWindow_K2Node_ComponentBoundEvent_3_gashaPickupChange__DelegateSignature final
-{
-public:
-	int32                                         Add;                                               // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-DUMPER7_ASSERTS_WBP_Gasha_C_BndEvt__WBP_Gasha__prevGashaWindow_K2Node_ComponentBoundEvent_3_gashaPickupChange__DelegateSignature;
-
-// Function WBP_Gasha.WBP_Gasha_C.BndEvt__WBP_Gasha__nextGashaWindow_K2Node_ComponentBoundEvent_2_gashaPickupChange__DelegateSignature
-// 0x0004 (0x0004 - 0x0000)
-struct WBP_Gasha_C_BndEvt__WBP_Gasha__nextGashaWindow_K2Node_ComponentBoundEvent_2_gashaPickupChange__DelegateSignature final
-{
-public:
-	int32                                         Add;                                               // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-DUMPER7_ASSERTS_WBP_Gasha_C_BndEvt__WBP_Gasha__nextGashaWindow_K2Node_ComponentBoundEvent_2_gashaPickupChange__DelegateSignature;
-
-// Function WBP_Gasha.WBP_Gasha_C.BndEvt__WBP_Gasha__debugRunWindowButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature
-// 0x0010 (0x0010 - 0x0000)
-struct WBP_Gasha_C_BndEvt__WBP_Gasha__debugRunWindowButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-DUMPER7_ASSERTS_WBP_Gasha_C_BndEvt__WBP_Gasha__debugRunWindowButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature;
-
-// Function WBP_Gasha.WBP_Gasha_C.OnSetShowLoading
-// 0x0001 (0x0001 - 0x0000)
-struct WBP_Gasha_C_OnSetShowLoading final
-{
-public:
-	bool                                          bShow;                                             // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
-};
-DUMPER7_ASSERTS_WBP_Gasha_C_OnSetShowLoading;
-
-// Function WBP_Gasha.WBP_Gasha_C.BndEvt__WBP_Gasha__debugWindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
-// 0x0010 (0x0010 - 0x0000)
-struct WBP_Gasha_C_BndEvt__WBP_Gasha__debugWindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature final
-{
-public:
-	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-DUMPER7_ASSERTS_WBP_Gasha_C_BndEvt__WBP_Gasha__debugWindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature;
-
-// Function WBP_Gasha.WBP_Gasha_C.SetMainMenuLREnable
-// 0x0048 (0x0048 - 0x0000)
-struct WBP_Gasha_C_SetMainMenuLREnable final
-{
-public:
-	bool                                          bEmable;                                           // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 CallFunc_Conv_BoolToString_ReturnValue;            // 0x0008(0x0010)(ZeroConstructor, HasGetValueTypeHash)
-	TArray<class UWBP_MainMenu_C*>                CallFunc_GetAllWidgetsOfClass_FoundWidgets;        // 0x0018(0x0010)(ReferenceParm, ContainsInstancedReference)
-	class FString                                 CallFunc_Concat_StrStr_ReturnValue;                // 0x0028(0x0010)(ZeroConstructor, HasGetValueTypeHash)
-	class UWBP_MainMenu_C*                        CallFunc_Array_Get_Item;                           // 0x0038(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_IsValid_ReturnValue;                      // 0x0040(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-};
-DUMPER7_ASSERTS_WBP_Gasha_C_SetMainMenuLREnable;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

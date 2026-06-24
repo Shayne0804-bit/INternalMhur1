@@ -23,7 +23,6 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FText                                   K2Node_Event_inText;                               // 0x0008(0x0018)(ConstParm)
 };
-DUMPER7_ASSERTS_WBP_ShopPickup_C_ExecuteUbergraph_WBP_ShopPickup;
 
 // Function WBP_ShopPickup.WBP_ShopPickup_C.SetShopItemName
 // 0x0018 (0x0018 - 0x0000)
@@ -32,7 +31,6 @@ struct WBP_ShopPickup_C_SetShopItemName final
 public:
 	class FText                                   InText;                                            // 0x0000(0x0018)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ReferenceParm)
 };
-DUMPER7_ASSERTS_WBP_ShopPickup_C_SetShopItemName;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

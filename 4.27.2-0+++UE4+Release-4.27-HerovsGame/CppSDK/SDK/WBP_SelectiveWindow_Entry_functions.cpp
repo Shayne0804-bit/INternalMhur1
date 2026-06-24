@@ -50,6 +50,26 @@ void UWBP_SelectiveWindow_Entry_C::BP_OnEntryReleased()
 }
 
 
+// Function WBP_SelectiveWindow_Entry.WBP_SelectiveWindow_Entry_C.BP_OnItemExpansionChanged
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// bool                                    bIsExpanded                                            (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+
+void UWBP_SelectiveWindow_Entry_C::BP_OnItemExpansionChanged(bool bIsExpanded)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_SelectiveWindow_Entry_C", "BP_OnItemExpansionChanged");
+
+	Params::WBP_SelectiveWindow_Entry_C_BP_OnItemExpansionChanged Parms{};
+
+	Parms.bIsExpanded = bIsExpanded;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
 // Function WBP_SelectiveWindow_Entry.WBP_SelectiveWindow_Entry_C.OnListItemObjectSet
 // (Event, Protected, BlueprintEvent)
 // Parameters:
@@ -85,26 +105,6 @@ void UWBP_SelectiveWindow_Entry_C::BP_OnItemSelectionChanged(bool bIsSelected)
 	Params::WBP_SelectiveWindow_Entry_C_BP_OnItemSelectionChanged Parms{};
 
 	Parms.bIsSelected = bIsSelected;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function WBP_SelectiveWindow_Entry.WBP_SelectiveWindow_Entry_C.BP_OnItemExpansionChanged
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// bool                                    bIsExpanded                                            (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
-
-void UWBP_SelectiveWindow_Entry_C::BP_OnItemExpansionChanged(bool bIsExpanded)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_SelectiveWindow_Entry_C", "BP_OnItemExpansionChanged");
-
-	Params::WBP_SelectiveWindow_Entry_C_BP_OnItemExpansionChanged Parms{};
-
-	Parms.bIsExpanded = bIsExpanded;
 
 	UObject::ProcessEvent(Func, &Parms);
 }

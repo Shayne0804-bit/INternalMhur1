@@ -43,7 +43,6 @@ public:
 	EManaComponentStatus                          CallFunc_GetStatus_ReturnValue_1;                  // 0x00B0(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x00B1(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_StaffRollMoviePlayer_C_ExecuteUbergraph_WBP_StaffRollMoviePlayer;
 
 // Function WBP_StaffRollMoviePlayer.WBP_StaffRollMoviePlayer_C.OnStatusChanged_イベント_0
 // 0x0010 (0x0010 - 0x0000)
@@ -54,7 +53,6 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UManaComponent*                         ManaComponent_0;                                   // 0x0008(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_StaffRollMoviePlayer_C_OnStatusChanged_イベント_0;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

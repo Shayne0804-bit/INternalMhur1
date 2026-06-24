@@ -23,7 +23,6 @@ struct WBP_GashaHistory_listItemIcon_C_ExecuteUbergraph_WBP_GashaHistory_listIte
 public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_GashaHistory_listItemIcon_C_ExecuteUbergraph_WBP_GashaHistory_listItemIcon;
 
 // Function WBP_GashaHistory_listItemIcon.WBP_GashaHistory_listItemIcon_C.Setup Star
 // 0x0002 (0x0002 - 0x0000)
@@ -33,7 +32,6 @@ public:
 	EMdRarity                                     Rarity;                                            // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_SwitchEnum_CmpSuccess;                      // 0x0001(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_GashaHistory_listItemIcon_C_Setup_Star;
 
 // Function WBP_GashaHistory_listItemIcon.WBP_GashaHistory_listItemIcon_C.SetupNewText
 // 0x0001 (0x0001 - 0x0000)
@@ -42,7 +40,6 @@ struct WBP_GashaHistory_listItemIcon_C_SetupNewText final
 public:
 	bool                                          newGet;                                            // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_GashaHistory_listItemIcon_C_SetupNewText;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

@@ -10,21 +10,21 @@
 
 #include "Basic.hpp"
 
+#include "CommonModule_structs.hpp"
+#include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
 #include "InGameModule_structs.hpp"
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
-#include "GameModule_structs.hpp"
-#include "CommonModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch017_ActionAttack_Unique2.BP_Ch017_ActionAttack_Unique2_C
-// 0x0008 (0x04A8 - 0x04A0)
+// 0x0008 (0x04F0 - 0x04E8)
 class UBP_Ch017_ActionAttack_Unique2_C final : public UActionAttackBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04E8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
 
 public:
 	void ExecuteUbergraph_BP_Ch017_ActionAttack_Unique2(int32 EntryPoint);
@@ -58,6 +58,5 @@ public:
 		return GetDefaultObjImpl<UBP_Ch017_ActionAttack_Unique2_C>();
 	}
 };
-DUMPER7_ASSERTS_UBP_Ch017_ActionAttack_Unique2_C;
 
 SDK_NAMESPACE_END

@@ -11,18 +11,18 @@
 #include "Basic.hpp"
 
 #include "CinematicCamera_classes.hpp"
-#include "DevelopMenu_structs.hpp"
+#include "MasterDataModule_structs.hpp"
+#include "BykingUnrealModule_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "CoreUObject_classes.hpp"
-#include "BykingUnrealModule_structs.hpp"
-#include "AntiCheatModule_classes.hpp"
 #include "Engine_classes.hpp"
-#include "LevelSequence_classes.hpp"
-#include "AIModule_classes.hpp"
 #include "UIFramework_classes.hpp"
+#include "AIModule_classes.hpp"
+#include "LevelSequence_classes.hpp"
+#include "AntiCheatModule_classes.hpp"
+#include "DevelopMenu_structs.hpp"
 #include "AnimationBudgetAllocator_classes.hpp"
 #include "BackendSubsystem_structs.hpp"
-#include "MasterDataModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -102,7 +102,7 @@ public:
 };
 
 // Class BykingUnrealModule.ActionDriveComponent
-// 0x0080 (0x0150 - 0x00D0)
+// 0x0098 (0x0168 - 0x00D0)
 class UActionDriveComponent final : public UCharacterComponentBase
 {
 public:
@@ -110,7 +110,7 @@ public:
 	TArray<struct FActionLayerData>               _actionLayerDataList;                              // 0x00D8(0x0010)(ZeroConstructor, NativeAccessSpecifierPrivate)
 	TSet<struct FActionClassData>                 _actionClassDataList;                              // 0x00E8(0x0050)(ContainsInstancedReference, NativeAccessSpecifierPrivate)
 	TArray<struct FActionReservePackData>         _actionReservePackDataList;                        // 0x0138(0x0010)(ZeroConstructor, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_148[0x8];                                      // 0x0148(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_148[0x20];                                     // 0x0148(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	class UActionBase* BP_FindActionFromName(class FName ActionName, bool* bResult) const;
@@ -221,7 +221,7 @@ public:
 };
 
 // Class BykingUnrealModule.BumPlayerController
-// 0x0000 (0x0578 - 0x0578)
+// 0x0000 (0x0588 - 0x0588)
 class ABumPlayerController : public AAntiCheatPlayerController
 {
 public:
@@ -330,7 +330,7 @@ public:
 };
 
 // Class BykingUnrealModule.CharacterBase
-// 0x00A8 (0x0368 - 0x02C0)
+// 0x00C8 (0x0388 - 0x02C0)
 class ACharacterBase : public ACharacterDummy
 {
 public:
@@ -338,9 +338,12 @@ public:
 	class UDelayInitializer*                      _delayInitializer;                                 // 0x02D8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_2E0[0x8];                                      // 0x02E0(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FCharacterTickIgnorePause              _tickFunctionIgnorePause;                          // 0x02E8(0x0030)(NativeAccessSpecifierPrivate)
-	uint8                                         Pad_318[0x30];                                     // 0x0318(0x0030)(Fixing Size After Last Property [ Dumper-7 ])
-	class UActionDriveComponent*                  _actionDriveComponent;                             // 0x0348(0x0008)(ExportObject, ZeroConstructor, Transient, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_350[0x18];                                     // 0x0350(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_318[0x18];                                     // 0x0318(0x0018)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void(class FName ActionName, EActionKind actionKind)> _onBeginActionDelegate; // 0x0330(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	uint8                                         Pad_340[0x18];                                     // 0x0340(0x0018)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void(class FName ActionName, EActionKind actionKind)> _onEndActionDelegate; // 0x0358(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	class UActionDriveComponent*                  _actionDriveComponent;                             // 0x0368(0x0008)(ExportObject, ZeroConstructor, Transient, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_370[0x18];                                     // 0x0370(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	const class UActionDriveComponent* BP_GetActionDrive() const;
@@ -460,13 +463,13 @@ public:
 };
 
 // Class BykingUnrealModule.OutlineSkeletalMeshComponent
-// 0x0020 (0x0F10 - 0x0EF0)
+// 0x0040 (0x0F30 - 0x0EF0)
 class UOutlineSkeletalMeshComponent : public USkeletalMeshComponentBudgeted
 {
 public:
-	uint8                                         Pad_EF0[0x8];                                      // 0x0EF0(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<class UMaterialInterface*>             OutlineMaterials;                                  // 0x0EF8(0x0010)(ZeroConstructor, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_F08[0x8];                                      // 0x0F08(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_EF0[0x20];                                     // 0x0EF0(0x0020)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<class UMaterialInterface*>             OutlineMaterials;                                  // 0x0F10(0x0010)(ZeroConstructor, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_F20[0x10];                                     // 0x0F20(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	void SetBpOutlineType(EMeshOutlineType Type, bool isForce);
@@ -493,12 +496,13 @@ public:
 };
 
 // Class BykingUnrealModule.EnhancedSkeletalMeshComponent
-// 0x0050 (0x0F60 - 0x0F10)
+// 0x0030 (0x0F60 - 0x0F30)
 class UEnhancedSkeletalMeshComponent final : public UOutlineSkeletalMeshComponent
 {
 public:
-	uint8                                         Pad_F10[0x40];                                     // 0x0F10(0x0040)(Fixing Size After Last Property [ Dumper-7 ])
-	TArray<struct FTransform>                     _freezeBoneSpaceTransforms;                        // 0x0F50(0x0010)(ZeroConstructor, Transient, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_F30[0x18];                                     // 0x0F30(0x0018)(Fixing Size After Last Property [ Dumper-7 ])
+	TArray<struct FTransform>                     _freezeBoneSpaceTransforms;                        // 0x0F48(0x0010)(ZeroConstructor, Transient, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_F58[0x8];                                      // 0x0F58(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	void FreezeBone(class FName BoneName, bool bFreeze);
@@ -570,6 +574,8 @@ class UMathStatics final : public UBlueprintFunctionLibrary
 {
 public:
 	static struct FRotator BP_AddRotatorFromAxisAndAngle(const struct FRotator& Origin, const struct FVector& Axis, float Angle);
+	static struct FVector BP_CalcBezierInterpolateLocation(const struct FVector& StartLocation, const struct FVector& controlLocation, const struct FVector& EndLocation, float Rate);
+	static struct FVector BP_CalcBezierInterpolateTangent(const struct FVector& StartLocation, const struct FVector& controlLocation, const struct FVector& EndLocation, float Rate);
 	static struct FVector BP_CalcClampedDirection(const struct FVector& From, const struct FVector& To, float anglerSpeed, const struct FVector& defaultAxis);
 	static void BP_CalcPitchRollDegreesOfPlane(const struct FVector& PlaneNormal, float* outPitchDegrees, float* outRollDegrees);
 	static float BP_CalcVectorDegreeWithPlaneXY(const struct FVector& sourceVector);
@@ -762,7 +768,7 @@ public:
 
 	class FString AnsiToUTF8(const TArray<uint8>& ansichar);
 	class AActor* FindActorWorld(const class UWorld* World, const class FString& ActorName);
-	bool IsDigitFString(const class FString& str);
+	bool IsDigitFString(const class FString& Str);
 
 public:
 	static class UClass* StaticClass()

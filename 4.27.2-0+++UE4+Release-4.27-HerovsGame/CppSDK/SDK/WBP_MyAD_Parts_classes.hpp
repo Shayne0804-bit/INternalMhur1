@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<UWBP_MyAD_Parts_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_MyAD_Parts_C;
 
 SDK_NAMESPACE_END

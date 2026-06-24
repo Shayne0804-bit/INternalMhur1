@@ -10,38 +10,38 @@
 
 #include "Basic.hpp"
 
+#include "Engine_structs.hpp"
 #include "InGameModule_structs.hpp"
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch012_ActionAttack_Melee.BP_Ch012_ActionAttack_Melee_C
-// 0x0010 (0x04B0 - 0x04A0)
+// 0x0010 (0x04F8 - 0x04E8)
 class UBP_Ch012_ActionAttack_Melee_C final : public UActionAttackBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	float                                         maxLoopAttackTime;                                 // 0x04A8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          IsPrevActionJumpBegin;                             // 0x04AC(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04E8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	float                                         maxLoopAttackTime;                                 // 0x04F0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          IsPrevActionJumpBegin;                             // 0x04F4(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
 
 public:
-	void GetMoveDirection(struct FVector* MoveDirection);
-	void BP_OnBeginActionAttackAir(const class FName& prevAction);
-	void BP_OnChangeAttackPhaseAir(int32 nextPhase);
-	void BP_OnChangeAttackPhaseAirForRemote(int32 nextPhase);
-	void BP_OnLandingAir();
-	void BP_OnChangeAttackPhaseGround(int32 nextPhase);
-	void BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase);
-	void BP_OnBeginActionAttackGround(const class FName& prevAction);
-	void BP_ActionMain();
-	void BP_ActionRemote();
-	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
-	void BP_OnEndAction(const class FName& nextAction);
-	void BP_OnChangeAttackPhase(int32 nextPhase);
-	void BP_OnChangeAttackPhaseForRemote(int32 nextPhase);
 	void ExecuteUbergraph_BP_Ch012_ActionAttack_Melee(int32 EntryPoint);
+	void BP_OnChangeAttackPhaseForRemote(int32 nextPhase);
+	void BP_OnChangeAttackPhase(int32 nextPhase);
+	void BP_OnEndAction(const class FName& nextAction);
+	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
+	void BP_ActionRemote();
+	void BP_ActionMain();
+	void BP_OnBeginActionAttackGround(const class FName& prevAction);
+	void BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase);
+	void BP_OnChangeAttackPhaseGround(int32 nextPhase);
+	void BP_OnLandingAir();
+	void BP_OnChangeAttackPhaseAirForRemote(int32 nextPhase);
+	void BP_OnChangeAttackPhaseAir(int32 nextPhase);
+	void BP_OnBeginActionAttackAir(const class FName& prevAction);
+	void GetMoveDirection(struct FVector* MoveDirection);
 
 public:
 	static class UClass* StaticClass()

@@ -10,29 +10,29 @@
 
 #include "Basic.hpp"
 
+#include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
 #include "InGameModule_structs.hpp"
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
-#include "GameModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionAttack_Finisher.BP_ActionAttack_Finisher_C
-// 0x0030 (0x04F0 - 0x04C0)
+// 0x0030 (0x0538 - 0x0508)
 class UBP_ActionAttack_Finisher_C : public UActionAttackFinisher
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04C0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	float                                         totalDeltaSeconds;                                 // 0x04C8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          bCompliteAttack;                                   // 0x04CC(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          bCancelAction;                                     // 0x04CD(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_4CE[0x2];                                      // 0x04CE(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	float                                         startCancelSeconds;                                // 0x04D0(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	uint8                                         Pad_4D4[0x4];                                      // 0x04D4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class APlayerStateBattle*                     InteractedTarget;                                  // 0x04D8(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnTemplate, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         ObstacleTime;                                      // 0x04E0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FReferenceToken                        InteractedTargetServerMoveModeToken;               // 0x04E4(0x000C)(Edit, BlueprintVisible, DisableEditOnInstance, NoDestructor)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0508(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	float                                         totalDeltaSeconds;                                 // 0x0510(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          bCompliteAttack;                                   // 0x0514(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          bCancelAction;                                     // 0x0515(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_516[0x2];                                      // 0x0516(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	float                                         startCancelSeconds;                                // 0x0518(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_51C[0x4];                                      // 0x051C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
+	class APlayerStateBattle*                     InteractedTarget;                                  // 0x0520(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnTemplate, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         ObstacleTime;                                      // 0x0528(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FReferenceToken                        InteractedTargetServerMoveModeToken;               // 0x052C(0x000C)(Edit, BlueprintVisible, DisableEditOnInstance, NoDestructor)
 
 public:
 	void ExecuteUbergraph_BP_ActionAttack_Finisher(int32 EntryPoint);
@@ -49,6 +49,7 @@ public:
 	void SetInteractedTarget(bool bInteract);
 	bool CheckAttackTargetObstacle(class ACharacterDummy* targetCharacter, struct FHitResult* OutHit);
 	void RequestEndAction();
+	void GetSafetyGroundLocation(struct FVector* Location);
 
 public:
 	static class UClass* StaticClass()

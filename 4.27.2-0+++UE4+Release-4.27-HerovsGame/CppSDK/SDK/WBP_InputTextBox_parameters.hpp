@@ -12,8 +12,8 @@
 
 #include "UIFramework_structs.hpp"
 #include "SlateCore_structs.hpp"
-#include "BykingUnrealModule_structs.hpp"
 #include "BackendSubsystem_structs.hpp"
+#include "BykingUnrealModule_structs.hpp"
 
 
 SDK_NAMESPACE_START

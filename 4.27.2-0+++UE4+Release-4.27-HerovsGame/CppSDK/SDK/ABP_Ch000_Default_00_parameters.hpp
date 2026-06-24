@@ -16,6 +16,14 @@
 SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
+// Function ABP_Ch000_Default_00.ABP_Ch000_Default_00_C.ExecuteUbergraph_ABP_Ch000_Default_00
+// 0x0004 (0x0004 - 0x0000)
+struct ABP_Ch000_Default_00_C_ExecuteUbergraph_ABP_Ch000_Default_00 final
+{
+public:
+	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
 // Function ABP_Ch000_Default_00.ABP_Ch000_Default_00_C.AnimGraph
 // 0x0020 (0x0020 - 0x0000)
 struct ABP_Ch000_Default_00_C_AnimGraph final
@@ -23,14 +31,6 @@ struct ABP_Ch000_Default_00_C_AnimGraph final
 public:
 	struct FPoseLink                              InPose;                                            // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, NoDestructor)
 	struct FPoseLink                              AnimGraph_0;                                       // 0x0010(0x0010)(Parm, OutParm, NoDestructor)
-};
-
-// Function ABP_Ch000_Default_00.ABP_Ch000_Default_00_C.ExecuteUbergraph_ABP_Ch000_Default_00
-// 0x0004 (0x0004 - 0x0000)
-struct ABP_Ch000_Default_00_C_ExecuteUbergraph_ABP_Ch000_Default_00 final
-{
-public:
-	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
 
 SDK_PARAM_NAMESPACE_END

@@ -18,7 +18,7 @@ SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
 // Function BP_ActionDamageStrongAddHit.BP_ActionDamageStrongAddHit_C.ExecuteUbergraph_BP_ActionDamageStrongAddHit
-// 0x0110 (0x0110 - 0x0000)
+// 0x0120 (0x0120 - 0x0000)
 struct BP_ActionDamageStrongAddHit_C_ExecuteUbergraph_BP_ActionDamageStrongAddHit final
 {
 public:
@@ -35,6 +35,18 @@ public:
 	uint8                                         Pad_FC[0x4];                                       // 0x00FC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue;              // 0x0100(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class FName                                   K2Node_Event_prevAction;                           // 0x0108(0x0008)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue;   // 0x0110(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         K2Node_Event_ping;                                 // 0x0118(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_HasAuthority_ReturnValue;                 // 0x011C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          K2Node_SwitchInteger_CmpSuccess;                   // 0x011D(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+};
+
+// Function BP_ActionDamageStrongAddHit.BP_ActionDamageStrongAddHit_C.BP_OnRecieveActionPing
+// 0x0004 (0x0004 - 0x0000)
+struct BP_ActionDamageStrongAddHit_C_BP_OnRecieveActionPing final
+{
+public:
+	int32                                         ping;                                              // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
 
 // Function BP_ActionDamageStrongAddHit.BP_ActionDamageStrongAddHit_C.BP_OnEndAction
@@ -58,7 +70,7 @@ public:
 struct BP_ActionDamageStrongAddHit_C_DecideAnimationId final
 {
 public:
-	EAnimationId                                  AnimationId;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EAnimationId                                  animationId;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          Temp_bool_Variable;                                // 0x0001(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	EAnimationId                                  Temp_byte_Variable;                                // 0x0002(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EAnimationId                                  Temp_byte_Variable_1;                              // 0x0003(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)

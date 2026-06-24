@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "UMG_structs.hpp"
 #include "SlateCore_structs.hpp"
+#include "UMG_structs.hpp"
 #include "UIFramework_structs.hpp"
 
 
@@ -38,7 +38,6 @@ public:
 	class UAppWidget*                             K2Node_CustomEvent_Widget;                         // 0x0060(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              K2Node_CustomEvent_inputType;                      // 0x0068(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SubMenu_C_ExecuteUbergraph_WBP_SubMenu;
 
 // Function WBP_SubMenu.WBP_SubMenu_C.OnCancelDelegate_イベント_0
 // 0x0010 (0x0010 - 0x0000)
@@ -48,7 +47,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SubMenu_C_OnCancelDelegate_イベント_0;
 
 // Function WBP_SubMenu.WBP_SubMenu_C.WindowClose
 // 0x0001 (0x0001 - 0x0000)
@@ -57,7 +55,6 @@ struct WBP_SubMenu_C_WindowClose final
 public:
 	bool                                          useSe;                                             // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_SubMenu_C_WindowClose;
 
 // Function WBP_SubMenu.WBP_SubMenu_C.OnOpen_Event_0
 // 0x0001 (0x0001 - 0x0000)
@@ -66,7 +63,6 @@ struct WBP_SubMenu_C_OnOpen_Event_0 final
 public:
 	bool                                          useSe;                                             // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_SubMenu_C_OnOpen_Event_0;
 
 // Function WBP_SubMenu.WBP_SubMenu_C.On_BlockBG_MouseButtonDown_0
 // 0x0220 (0x0220 - 0x0000)
@@ -79,7 +75,6 @@ public:
 	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue;                  // 0x0160(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FEventReply                            K2Node_MakeStruct_EventReply;                      // 0x0168(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_SubMenu_C_On_BlockBG_MouseButtonDown_0;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

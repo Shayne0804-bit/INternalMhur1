@@ -50,26 +50,6 @@ void UBP_ActionSuperJumpRise_C::BP_ActionMain()
 }
 
 
-// Function BP_ActionSuperJumpRise.BP_ActionSuperJumpRise_C.BP_OnBeginAction
-// (Event, Protected, HasOutParams, BlueprintEvent)
-// Parameters:
-// const class FName&                      prevAction                                             (ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UBP_ActionSuperJumpRise_C::BP_OnBeginAction(const class FName& prevAction)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_ActionSuperJumpRise_C", "BP_OnBeginAction");
-
-	Params::BP_ActionSuperJumpRise_C_BP_OnBeginAction Parms{};
-
-	Parms.prevAction = prevAction;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
 // Function BP_ActionSuperJumpRise.BP_ActionSuperJumpRise_C.UpdateCo-Routine
 // (BlueprintCallable, BlueprintEvent)
 
@@ -99,6 +79,26 @@ void UBP_ActionSuperJumpRise_C::BP_OnEndAction(const class FName& nextAction)
 	Params::BP_ActionSuperJumpRise_C_BP_OnEndAction Parms{};
 
 	Parms.nextAction = nextAction;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_ActionSuperJumpRise.BP_ActionSuperJumpRise_C.BP_OnBeginAction
+// (Event, Protected, HasOutParams, BlueprintEvent)
+// Parameters:
+// const class FName&                      prevAction                                             (ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_ActionSuperJumpRise_C::BP_OnBeginAction(const class FName& prevAction)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_ActionSuperJumpRise_C", "BP_OnBeginAction");
+
+	Params::BP_ActionSuperJumpRise_C_BP_OnBeginAction Parms{};
+
+	Parms.prevAction = prevAction;
 
 	UObject::ProcessEvent(Func, &Parms);
 }

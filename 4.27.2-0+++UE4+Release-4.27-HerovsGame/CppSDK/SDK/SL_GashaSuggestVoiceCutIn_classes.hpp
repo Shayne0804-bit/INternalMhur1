@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ASL_GashaSuggestVoiceCutIn_C>();
 	}
 };
-DUMPER7_ASSERTS_ASL_GashaSuggestVoiceCutIn_C;
 
 SDK_NAMESPACE_END

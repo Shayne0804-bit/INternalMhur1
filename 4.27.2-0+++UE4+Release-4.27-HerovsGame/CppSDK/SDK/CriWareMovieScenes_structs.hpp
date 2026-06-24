@@ -45,7 +45,7 @@ public:
 struct FMovieSceneManaSectionTemplate final : public FMovieSceneEvalTemplate
 {
 public:
-	struct FMovieSceneManaSectionParams           Params;                                            // 0x0020(0x0030)(NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPrivate)
+	struct FMovieSceneManaSectionParams           params;                                            // 0x0020(0x0030)(NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_50[0x8];                                       // 0x0050(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 

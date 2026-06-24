@@ -10,11 +10,11 @@
 
 #include "Basic.hpp"
 
-#include "Engine_classes.hpp"
-#include "MagicLeap_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "CoreUObject_classes.hpp"
+#include "MagicLeap_structs.hpp"
 #include "HeadMountedDisplay_classes.hpp"
+#include "Engine_classes.hpp"
 
 
 SDK_NAMESPACE_START
@@ -130,15 +130,15 @@ public:
 };
 
 // Class MagicLeap.MagicLeapHeadTrackingNotificationsComponent
-// 0x0090 (0x01D0 - 0x0140)
+// 0x0090 (0x01F0 - 0x0160)
 class UMagicLeapHeadTrackingNotificationsComponent final : public UVRNotificationsComponent
 {
 public:
-	TMulticastInlineDelegate<void()>              OnHeadTrackingLost;                                // 0x0140(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
-	TMulticastInlineDelegate<void()>              OnHeadTrackingRecovered;                           // 0x0150(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
-	TMulticastInlineDelegate<void()>              OnHeadTrackingRecoveryFailed;                      // 0x0160(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
-	TMulticastInlineDelegate<void()>              OnHeadTrackingNewSessionStarted;                   // 0x0170(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
-	uint8                                         Pad_180[0x50];                                     // 0x0180(0x0050)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void()>              OnHeadTrackingLost;                                // 0x0160(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
+	TMulticastInlineDelegate<void()>              OnHeadTrackingRecovered;                           // 0x0170(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
+	TMulticastInlineDelegate<void()>              OnHeadTrackingRecoveryFailed;                      // 0x0180(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
+	TMulticastInlineDelegate<void()>              OnHeadTrackingNewSessionStarted;                   // 0x0190(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPrivate)
+	uint8                                         Pad_1A0[0x50];                                     // 0x01A0(0x0050)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	static class UClass* StaticClass()

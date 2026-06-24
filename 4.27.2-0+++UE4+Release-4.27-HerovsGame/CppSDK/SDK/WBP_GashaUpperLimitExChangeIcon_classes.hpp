@@ -17,13 +17,13 @@
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_GashaUpperLimitExChangeIcon.WBP_GashaUpperLimitExChangeIcon_C
-// 0x0018 (0x06E0 - 0x06C8)
+// 0x0018 (0x06E8 - 0x06D0)
 class UWBP_GashaUpperLimitExChangeIcon_C final : public UGashaUpperLimitExChangeIconWidget
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x06C8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	class UImage*                                 Image_17;                                          // 0x06D0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 Image_22;                                          // 0x06D8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x06D0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	class UImage*                                 Image_17;                                          // 0x06D8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 Image_22;                                          // 0x06E0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 
 public:
 	void ExecuteUbergraph_WBP_GashaUpperLimitExChangeIcon(int32 EntryPoint);
@@ -43,6 +43,5 @@ public:
 		return GetDefaultObjImpl<UWBP_GashaUpperLimitExChangeIcon_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_GashaUpperLimitExChangeIcon_C;
 
 SDK_NAMESPACE_END

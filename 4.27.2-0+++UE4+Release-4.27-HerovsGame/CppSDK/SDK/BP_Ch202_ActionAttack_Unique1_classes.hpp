@@ -10,22 +10,22 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_structs.hpp"
-#include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "CommonModule_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "InGameModule_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch202_ActionAttack_Unique1.BP_Ch202_ActionAttack_Unique1_C
-// 0x0010 (0x04B8 - 0x04A8)
+// 0x0010 (0x0500 - 0x04F0)
 class UBP_Ch202_ActionAttack_Unique1_C final : public UCh202ActionAttackBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	class UProjectileGeneratorDataAsset*          ProjectileAsset;                                   // 0x04B0(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04F0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	class UProjectileGeneratorDataAsset*          ProjectileAsset;                                   // 0x04F8(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
 	void ExecuteUbergraph_BP_Ch202_ActionAttack_Unique1(int32 EntryPoint);
@@ -61,6 +61,5 @@ public:
 		return GetDefaultObjImpl<UBP_Ch202_ActionAttack_Unique1_C>();
 	}
 };
-DUMPER7_ASSERTS_UBP_Ch202_ActionAttack_Unique1_C;
 
 SDK_NAMESPACE_END

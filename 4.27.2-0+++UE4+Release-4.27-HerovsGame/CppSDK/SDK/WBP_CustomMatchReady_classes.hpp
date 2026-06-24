@@ -37,6 +37,5 @@ public:
 		return GetDefaultObjImpl<UWBP_CustomMatchReady_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_CustomMatchReady_C;
 
 SDK_NAMESPACE_END

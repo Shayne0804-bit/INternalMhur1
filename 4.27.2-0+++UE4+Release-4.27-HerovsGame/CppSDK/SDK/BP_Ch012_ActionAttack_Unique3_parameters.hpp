@@ -11,101 +11,12 @@
 #include "Basic.hpp"
 
 #include "InGameModule_structs.hpp"
-#include "CommonModule_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "CommonModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
-
-// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnBeginActionAttackAir
-// 0x0008 (0x0008 - 0x0000)
-struct BP_Ch012_ActionAttack_Unique3_C_BP_OnBeginActionAttackAir final
-{
-public:
-	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-
-// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnChangeAttackPhaseAir
-// 0x0004 (0x0004 - 0x0000)
-struct BP_Ch012_ActionAttack_Unique3_C_BP_OnChangeAttackPhaseAir final
-{
-public:
-	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-
-// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnChangeAttackPhaseAirForRemote
-// 0x0004 (0x0004 - 0x0000)
-struct BP_Ch012_ActionAttack_Unique3_C_BP_OnChangeAttackPhaseAirForRemote final
-{
-public:
-	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-
-// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnChangeAttackPhaseGround
-// 0x0004 (0x0004 - 0x0000)
-struct BP_Ch012_ActionAttack_Unique3_C_BP_OnChangeAttackPhaseGround final
-{
-public:
-	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-
-// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnBeginActionAttackGround
-// 0x0008 (0x0008 - 0x0000)
-struct BP_Ch012_ActionAttack_Unique3_C_BP_OnBeginActionAttackGround final
-{
-public:
-	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-
-// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnChangeAttackPhaseGroundForRemote
-// 0x0004 (0x0004 - 0x0000)
-struct BP_Ch012_ActionAttack_Unique3_C_BP_OnChangeAttackPhaseGroundForRemote final
-{
-public:
-	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-
-// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnBeginAction
-// 0x0008 (0x0008 - 0x0000)
-struct BP_Ch012_ActionAttack_Unique3_C_BP_OnBeginAction final
-{
-public:
-	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-
-// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnEndAction
-// 0x0008 (0x0008 - 0x0000)
-struct BP_Ch012_ActionAttack_Unique3_C_BP_OnEndAction final
-{
-public:
-	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-
-// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnLoadParams
-// 0x000C (0x000C - 0x0000)
-struct BP_Ch012_ActionAttack_Unique3_C_BP_OnLoadParams final
-{
-public:
-	class FName                                   ActionName;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	int32                                         uniqueLevel;                                       // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-
-// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnNotificationAttackDedicatedEvent
-// 0x0001 (0x0001 - 0x0000)
-struct BP_Ch012_ActionAttack_Unique3_C_BP_OnNotificationAttackDedicatedEvent final
-{
-public:
-	EAttackDedicatedEventId                       ID;                                                // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-
-// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnChangeAttackPhase
-// 0x0004 (0x0004 - 0x0000)
-struct BP_Ch012_ActionAttack_Unique3_C_BP_OnChangeAttackPhase final
-{
-public:
-	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
 
 // Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.ExecuteUbergraph_BP_Ch012_ActionAttack_Unique3
 // 0x0390 (0x0390 - 0x0000)
@@ -301,6 +212,95 @@ public:
 	bool                                          Temp_bool_Variable_3;                              // 0x0388(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	uint8                                         CallFunc_MakeLiteralByte_ReturnValue_7;            // 0x0389(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EAnimationId                                  K2Node_Select_Default_3;                           // 0x038A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnChangeAttackPhase
+// 0x0004 (0x0004 - 0x0000)
+struct BP_Ch012_ActionAttack_Unique3_C_BP_OnChangeAttackPhase final
+{
+public:
+	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnNotificationAttackDedicatedEvent
+// 0x0001 (0x0001 - 0x0000)
+struct BP_Ch012_ActionAttack_Unique3_C_BP_OnNotificationAttackDedicatedEvent final
+{
+public:
+	EAttackDedicatedEventId                       ID;                                                // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnLoadParams
+// 0x000C (0x000C - 0x0000)
+struct BP_Ch012_ActionAttack_Unique3_C_BP_OnLoadParams final
+{
+public:
+	class FName                                   ActionName;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	int32                                         uniqueLevel;                                       // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnEndAction
+// 0x0008 (0x0008 - 0x0000)
+struct BP_Ch012_ActionAttack_Unique3_C_BP_OnEndAction final
+{
+public:
+	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnBeginAction
+// 0x0008 (0x0008 - 0x0000)
+struct BP_Ch012_ActionAttack_Unique3_C_BP_OnBeginAction final
+{
+public:
+	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnChangeAttackPhaseGroundForRemote
+// 0x0004 (0x0004 - 0x0000)
+struct BP_Ch012_ActionAttack_Unique3_C_BP_OnChangeAttackPhaseGroundForRemote final
+{
+public:
+	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnBeginActionAttackGround
+// 0x0008 (0x0008 - 0x0000)
+struct BP_Ch012_ActionAttack_Unique3_C_BP_OnBeginActionAttackGround final
+{
+public:
+	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnChangeAttackPhaseGround
+// 0x0004 (0x0004 - 0x0000)
+struct BP_Ch012_ActionAttack_Unique3_C_BP_OnChangeAttackPhaseGround final
+{
+public:
+	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnChangeAttackPhaseAirForRemote
+// 0x0004 (0x0004 - 0x0000)
+struct BP_Ch012_ActionAttack_Unique3_C_BP_OnChangeAttackPhaseAirForRemote final
+{
+public:
+	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnChangeAttackPhaseAir
+// 0x0004 (0x0004 - 0x0000)
+struct BP_Ch012_ActionAttack_Unique3_C_BP_OnChangeAttackPhaseAir final
+{
+public:
+	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function BP_Ch012_ActionAttack_Unique3.BP_Ch012_ActionAttack_Unique3_C.BP_OnBeginActionAttackAir
+// 0x0008 (0x0008 - 0x0000)
+struct BP_Ch012_ActionAttack_Unique3_C_BP_OnBeginActionAttackAir final
+{
+public:
+	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
 
 SDK_PARAM_NAMESPACE_END

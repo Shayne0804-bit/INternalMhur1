@@ -39,6 +39,5 @@ public:
 		return GetDefaultObjImpl<UWBP_MainMenu_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_MainMenu_C;
 
 SDK_NAMESPACE_END

@@ -10,10 +10,10 @@
 
 #include "Basic.hpp"
 
-#include "CommonModule_structs.hpp"
-#include "GameModule_structs.hpp"
 #include "InGameModule_structs.hpp"
 #include "CoreUObject_structs.hpp"
+#include "CommonModule_structs.hpp"
+#include "GameModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -64,7 +64,6 @@ public:
 	uint8                                         Pad_BF[0x1];                                       // 0x00BF(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue_4;            // 0x00C0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Unique1_C_ExecuteUbergraph_BP_Ch017_ActionAttack_Unique1;
 
 // Function BP_Ch017_ActionAttack_Unique1.BP_Ch017_ActionAttack_Unique1_C.BP_OnLoadParamsForChargeAttack
 // 0x000C (0x000C - 0x0000)
@@ -74,7 +73,6 @@ public:
 	class FName                                   ActionName;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         uniqueLevel;                                       // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Unique1_C_BP_OnLoadParamsForChargeAttack;
 
 // Function BP_Ch017_ActionAttack_Unique1.BP_Ch017_ActionAttack_Unique1_C.BP_OnBeginActionAttackCharge
 // 0x0008 (0x0008 - 0x0000)
@@ -83,7 +81,6 @@ struct BP_Ch017_ActionAttack_Unique1_C_BP_OnBeginActionAttackCharge final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Unique1_C_BP_OnBeginActionAttackCharge;
 
 // Function BP_Ch017_ActionAttack_Unique1.BP_Ch017_ActionAttack_Unique1_C.BP_OnEndActionAttackCharge
 // 0x0008 (0x0008 - 0x0000)
@@ -92,7 +89,6 @@ struct BP_Ch017_ActionAttack_Unique1_C_BP_OnEndActionAttackCharge final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Unique1_C_BP_OnEndActionAttackCharge;
 
 // Function BP_Ch017_ActionAttack_Unique1.BP_Ch017_ActionAttack_Unique1_C.BP_OnLoadParams
 // 0x000C (0x000C - 0x0000)
@@ -102,7 +98,6 @@ public:
 	class FName                                   ActionName;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         uniqueLevel;                                       // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Unique1_C_BP_OnLoadParams;
 
 // Function BP_Ch017_ActionAttack_Unique1.BP_Ch017_ActionAttack_Unique1_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -111,7 +106,6 @@ struct BP_Ch017_ActionAttack_Unique1_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Unique1_C_BP_OnEndAction;
 
 // Function BP_Ch017_ActionAttack_Unique1.BP_Ch017_ActionAttack_Unique1_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -120,7 +114,6 @@ struct BP_Ch017_ActionAttack_Unique1_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Unique1_C_BP_OnBeginAction;
 
 // Function BP_Ch017_ActionAttack_Unique1.BP_Ch017_ActionAttack_Unique1_C.BP_IsEnableShiftAction
 // 0x000C (0x000C - 0x0000)
@@ -130,7 +123,6 @@ public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_BP_Ch017_ActionAttack_Unique1_C_BP_IsEnableShiftAction;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

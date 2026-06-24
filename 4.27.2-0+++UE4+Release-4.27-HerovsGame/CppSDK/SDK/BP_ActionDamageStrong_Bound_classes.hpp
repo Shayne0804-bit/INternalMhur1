@@ -11,25 +11,25 @@
 #include "Basic.hpp"
 
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionDamageStrong_Bound.BP_ActionDamageStrong_Bound_C
-// 0x0020 (0x0298 - 0x0278)
+// 0x0020 (0x0358 - 0x0338)
 class UBP_ActionDamageStrong_Bound_C final : public UActionDamageStrong
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0278(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	float                                         WaitTime;                                          // 0x0280(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          LandingOK;                                         // 0x0284(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	bool                                          Bounded;                                           // 0x0285(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_286[0x2];                                      // 0x0286(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FVector                                OnGroundVector;                                    // 0x0288(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          IsLanding;                                         // 0x0294(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0338(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	float                                         WaitTime;                                          // 0x0340(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          LandingOK;                                         // 0x0344(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          Bounded;                                           // 0x0345(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_346[0x2];                                      // 0x0346(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FVector                                OnGroundVector;                                    // 0x0348(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          IsLanding;                                         // 0x0354(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
 
 public:
 	void ExecuteUbergraph_BP_ActionDamageStrong_Bound(int32 EntryPoint);
@@ -39,8 +39,8 @@ public:
 	void BP_OnLandingEvent();
 	void BP_OnBeginAction(const class FName& prevAction);
 	void BP_ActionMain();
-	void DecideAnimationId(EAnimationId* AnimationId);
-	void DecideAnimationId_Bound(EAnimationId* AnimationId);
+	void DecideAnimationId(EAnimationId* animationId);
+	void DecideAnimationId_Bound(EAnimationId* animationId);
 
 public:
 	static class UClass* StaticClass()

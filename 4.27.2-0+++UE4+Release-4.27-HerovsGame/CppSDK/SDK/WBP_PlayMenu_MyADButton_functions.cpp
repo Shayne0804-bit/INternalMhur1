@@ -16,6 +16,20 @@
 
 SDK_NAMESPACE_START
 
+// Function WBP_PlayMenu_MyADButton.WBP_PlayMenu_MyADButton_C.OnInitialized
+// (BlueprintCosmetic, Event, Public, BlueprintEvent)
+
+void UWBP_PlayMenu_MyADButton_C::OnInitialized()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_PlayMenu_MyADButton_C", "OnInitialized");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
 // Function WBP_PlayMenu_MyADButton.WBP_PlayMenu_MyADButton_C.ExecuteUbergraph_WBP_PlayMenu_MyADButton
 // (Final, UbergraphFunction)
 // Parameters:
@@ -33,20 +47,6 @@ void UWBP_PlayMenu_MyADButton_C::ExecuteUbergraph_WBP_PlayMenu_MyADButton(int32 
 	Parms.EntryPoint = EntryPoint;
 
 	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function WBP_PlayMenu_MyADButton.WBP_PlayMenu_MyADButton_C.OnInitialized
-// (BlueprintCosmetic, Event, Public, BlueprintEvent)
-
-void UWBP_PlayMenu_MyADButton_C::OnInitialized()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_PlayMenu_MyADButton_C", "OnInitialized");
-
-	UObject::ProcessEvent(Func, nullptr);
 }
 
 

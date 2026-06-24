@@ -10,56 +10,69 @@
 
 #include "Basic.hpp"
 
-#include "Agones_structs.hpp"
 #include "Engine_classes.hpp"
+#include "Agones_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
-// Class Agones.AgonesComponent
-// 0x0038 (0x00E8 - 0x00B0)
-class UAgonesComponent final : public UActorComponent
+// Class Agones.AgonesSubsystem
+// 0x0080 (0x00B0 - 0x0030)
+class UAgonesSubsystem final : public UGameInstanceSubsystem
 {
 public:
-	class FString                                 HttpPort;                                          // 0x00B0(0x0010)(Edit, ZeroConstructor, Config, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	float                                         HealthRateSeconds;                                 // 0x00C0(0x0004)(Edit, ZeroConstructor, Config, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	bool                                          bDisableAutoConnect;                               // 0x00C4(0x0001)(Edit, ZeroConstructor, Config, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	uint8                                         Pad_C5[0x3];                                       // 0x00C5(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	TMulticastInlineDelegate<void(const struct FGameServerResponse& Response)> ConnectedDelegate;    // 0x00C8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	uint8                                         Pad_D8[0x10];                                      // 0x00D8(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	class FString                                 HttpPort;                                          // 0x0030(0x0010)(Edit, ZeroConstructor, Config, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	float                                         HealthRateSeconds;                                 // 0x0040(0x0004)(Edit, BlueprintVisible, ZeroConstructor, Config, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bDisableAutoHealthPing;                            // 0x0044(0x0001)(Edit, BlueprintVisible, ZeroConstructor, Config, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	bool                                          bDisableAutoConnect;                               // 0x0045(0x0001)(Edit, BlueprintVisible, ZeroConstructor, Config, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	uint8                                         Pad_46[0x2];                                       // 0x0046(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void(const struct FGameServerResponse& Response)> ConnectedDelegate;    // 0x0048(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	uint8                                         Pad_58[0x58];                                      // 0x0058(0x0058)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
+	static class UAgonesSubsystem* Get(const class UObject* WorldContext);
+
+	void AddListValue(const class FString& Key, const class FString& value, TDelegate<void(const struct FList& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
 	void Allocate(TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
 	void Connect();
 	void ConnectSuccess(const struct FGameServerResponse& GameServerResponse);
+	void DecrementCounter(const class FString& Key, int64 amount, TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
 	void GameServer(TDelegate<void(const struct FGameServerResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
 	void GetConnectedPlayers(TDelegate<void(const struct FConnectedPlayersResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
+	void GetCounter(const class FString& Key, TDelegate<void(const struct FCounterResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
+	void GetList(const class FString& Key, TDelegate<void(const struct FList& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
 	void GetPlayerCapacity(TDelegate<void(const struct FCountResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
 	void GetPlayerCount(TDelegate<void(const struct FCountResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
 	void Health(TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
 	void HealthPing(float RateSeconds);
+	void IncrementCounter(const class FString& Key, int64 amount, TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
 	void IsPlayerConnected(const class FString& playerId, TDelegate<void(const struct FConnectedResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
 	void PlayerConnect(const class FString& playerId, TDelegate<void(const struct FConnectedResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
 	void PlayerDisconnect(const class FString& playerId, TDelegate<void(const struct FDisconnectResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
 	void Ready(TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
+	void RemoveListValue(const class FString& Key, const class FString& value, TDelegate<void(const struct FList& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
 	void Reserve(int64 Seconds, TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
-	void SetAnnotation(class FString* Key, class FString* value, TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
-	void SetLabel(class FString* Key, class FString* value, TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
+	void SetAnnotation(const class FString& Key, const class FString& value, TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
+	void SetCounterCapacity(const class FString& Key, int64 Capacity, TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
+	void SetCounterCount(const class FString& Key, int64 count, TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
+	void SetLabel(const class FString& Key, const class FString& value, TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
 	void SetPlayerCapacity(int64 count, TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
 	void Shutdown(TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
+	void UpdateList(const class FString& Key, const struct FList& List, TDelegate<void(const struct FList& Response)> SuccessDelegate, TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate);
+	void WatchGameServer(TDelegate<void(const struct FGameServerResponse& Response)> WatchDelegate);
 
 public:
 	static class UClass* StaticClass()
 	{
-		STATIC_CLASS_IMPL("AgonesComponent")
+		STATIC_CLASS_IMPL("AgonesSubsystem")
 	}
 	static const class FName& StaticName()
 	{
-		STATIC_NAME_IMPL(L"AgonesComponent")
+		STATIC_NAME_IMPL(L"AgonesSubsystem")
 	}
-	static class UAgonesComponent* GetDefaultObj()
+	static class UAgonesSubsystem* GetDefaultObj()
 	{
-		return GetDefaultObjImpl<UAgonesComponent>();
+		return GetDefaultObjImpl<UAgonesSubsystem>();
 	}
 };
 

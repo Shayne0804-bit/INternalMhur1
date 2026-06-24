@@ -42,6 +42,5 @@ public:
 		return GetDefaultObjImpl<UWBP_CharacterSelect_release_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_CharacterSelect_release_C;
 
 SDK_NAMESPACE_END

@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<UBP_GashaTextImageDecorator_C>();
 	}
 };
-DUMPER7_ASSERTS_UBP_GashaTextImageDecorator_C;
 
 SDK_NAMESPACE_END

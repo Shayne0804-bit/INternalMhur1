@@ -26,7 +26,6 @@ public:
 	class UWBP_RankEventRewardsEntry_C*           CallFunc_Create_ReturnValue;                       // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UPanelSlot*                             CallFunc_AddChild_ReturnValue;                     // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_RankEventRewardsList_C_CreateEntry;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

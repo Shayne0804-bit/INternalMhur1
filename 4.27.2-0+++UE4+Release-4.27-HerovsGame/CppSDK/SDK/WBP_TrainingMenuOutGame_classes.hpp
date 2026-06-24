@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
+#include "CommonModule_structs.hpp"
 #include "Engine_structs.hpp"
 #include "OutGameModule_classes.hpp"
-#include "CommonModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -56,6 +56,5 @@ public:
 		return GetDefaultObjImpl<UWBP_TrainingMenuOutGame_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_TrainingMenuOutGame_C;
 
 SDK_NAMESPACE_END

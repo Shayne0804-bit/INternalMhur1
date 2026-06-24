@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
-#include "SlateCore_structs.hpp"
 #include "Engine_structs.hpp"
 #include "OutGameModule_classes.hpp"
+#include "SlateCore_structs.hpp"
 #include "UMG_structs.hpp"
 #include "UIFramework_structs.hpp"
 
@@ -79,6 +79,5 @@ public:
 		return GetDefaultObjImpl<UWBP_TrainingCharacter_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_TrainingCharacter_C;
 
 SDK_NAMESPACE_END

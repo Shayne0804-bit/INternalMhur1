@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "OutGameModule_structs.hpp"
 #include "SlateCore_structs.hpp"
+#include "OutGameModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -33,7 +33,6 @@ public:
 	struct FSlateBrush                            K2Node_MakeStruct_SlateBrush_1;                    // 0x0110(0x00D0)()
 	bool                                          K2Node_SwitchEnum_CmpSuccess;                      // 0x01E0(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_ItemRankUpWidget_C_ExecuteUbergraph_WBP_ItemRankUpWidget;
 
 // Function WBP_ItemRankUpWidget.WBP_ItemRankUpWidget_C.SwitchSeasonType
 // 0x0001 (0x0001 - 0x0000)
@@ -42,7 +41,6 @@ struct WBP_ItemRankUpWidget_C_SwitchSeasonType final
 public:
 	ESeasonType                                   Type;                                              // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_ItemRankUpWidget_C_SwitchSeasonType;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

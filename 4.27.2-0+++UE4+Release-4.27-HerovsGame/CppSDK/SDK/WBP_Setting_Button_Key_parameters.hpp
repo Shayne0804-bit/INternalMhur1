@@ -10,10 +10,10 @@
 
 #include "Basic.hpp"
 
-#include "UMG_structs.hpp"
 #include "SlateCore_structs.hpp"
-#include "GameModule_structs.hpp"
+#include "UMG_structs.hpp"
 #include "InputCore_structs.hpp"
+#include "GameModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -31,7 +31,6 @@ public:
 	uint8                                         Pad_41[0x3];                                       // 0x0041(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FFocusEvent                            K2Node_Event_InFocusEvent;                         // 0x0044(0x0008)(NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Key_C_ExecuteUbergraph_WBP_Setting_Button_Key;
 
 // Function WBP_Setting_Button_Key.WBP_Setting_Button_Key_C.OnFocusLost
 // 0x0008 (0x0008 - 0x0000)
@@ -40,7 +39,6 @@ struct WBP_Setting_Button_Key_C_OnFocusLost final
 public:
 	struct FFocusEvent                            InFocusEvent;                                      // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Key_C_OnFocusLost;
 
 // Function WBP_Setting_Button_Key.WBP_Setting_Button_Key_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -49,7 +47,6 @@ struct WBP_Setting_Button_Key_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Key_C_PreConstruct;
 
 // Function WBP_Setting_Button_Key.WBP_Setting_Button_Key_C.Tick
 // 0x003C (0x003C - 0x0000)
@@ -59,7 +56,6 @@ public:
 	struct FGeometry                              MyGeometry;                                        // 0x0000(0x0038)(BlueprintVisible, BlueprintReadOnly, Parm, IsPlainOldData, NoDestructor)
 	float                                         InDeltaTime;                                       // 0x0038(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Key_C_Tick;
 
 // Function WBP_Setting_Button_Key.WBP_Setting_Button_Key_C.Init
 // 0x0180 (0x0180 - 0x0000)
@@ -81,7 +77,6 @@ public:
 	int32                                         CallFunc_Array_Find_ReturnValue;                   // 0x0178(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_GreaterEqual_IntInt_ReturnValue;          // 0x017C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Key_C_Init;
 
 // Function WBP_Setting_Button_Key.WBP_Setting_Button_Key_C.OnFocusReceived
 // 0x01C0 (0x01C0 - 0x0000)
@@ -96,7 +91,6 @@ public:
 	uint8                                         Pad_1B1[0x7];                                      // 0x01B1(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue;                  // 0x01B8(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Key_C_OnFocusReceived;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

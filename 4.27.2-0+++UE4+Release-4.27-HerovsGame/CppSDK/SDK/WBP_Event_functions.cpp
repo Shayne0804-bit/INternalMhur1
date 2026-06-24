@@ -16,23 +16,17 @@
 
 SDK_NAMESPACE_START
 
-// Function WBP_Event.WBP_Event_C.ExecuteUbergraph_WBP_Event
-// (Final, UbergraphFunction)
-// Parameters:
-// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// Function WBP_Event.WBP_Event_C.OnAddToScreen
+// (BlueprintCosmetic, Event, Public, BlueprintEvent)
 
-void UWBP_Event_C::ExecuteUbergraph_WBP_Event(int32 EntryPoint)
+void UWBP_Event_C::OnAddToScreen()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Event_C", "ExecuteUbergraph_WBP_Event");
+		Func = Class->GetFunction("WBP_Event_C", "OnAddToScreen");
 
-	Params::WBP_Event_C_ExecuteUbergraph_WBP_Event Parms{};
-
-	Parms.EntryPoint = EntryPoint;
-
-	UObject::ProcessEvent(Func, &Parms);
+	UObject::ProcessEvent(Func, nullptr);
 }
 
 
@@ -50,17 +44,23 @@ void UWBP_Event_C::OnRemoveFromParent()
 }
 
 
-// Function WBP_Event.WBP_Event_C.OnAddToScreen
-// (BlueprintCosmetic, Event, Public, BlueprintEvent)
+// Function WBP_Event.WBP_Event_C.ExecuteUbergraph_WBP_Event
+// (Final, UbergraphFunction)
+// Parameters:
+// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UWBP_Event_C::OnAddToScreen()
+void UWBP_Event_C::ExecuteUbergraph_WBP_Event(int32 EntryPoint)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Event_C", "OnAddToScreen");
+		Func = Class->GetFunction("WBP_Event_C", "ExecuteUbergraph_WBP_Event");
 
-	UObject::ProcessEvent(Func, nullptr);
+	Params::WBP_Event_C_ExecuteUbergraph_WBP_Event Parms{};
+
+	Parms.EntryPoint = EntryPoint;
+
+	UObject::ProcessEvent(Func, &Parms);
 }
 
 

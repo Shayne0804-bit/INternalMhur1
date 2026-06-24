@@ -47,6 +47,5 @@ public:
 		return GetDefaultObjImpl<AWBP_StaffRollMoviePlayer_C>();
 	}
 };
-DUMPER7_ASSERTS_AWBP_StaffRollMoviePlayer_C;
 
 SDK_NAMESPACE_END

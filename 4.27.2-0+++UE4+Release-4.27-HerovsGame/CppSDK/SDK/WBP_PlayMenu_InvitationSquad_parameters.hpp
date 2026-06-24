@@ -43,7 +43,6 @@ public:
 	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType;              // 0x0078(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_ComponentBoundEvent_leftButton;             // 0x0079(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_PlayMenu_InvitationSquad_C_ExecuteUbergraph_WBP_PlayMenu_InvitationSquad;
 
 // Function WBP_PlayMenu_InvitationSquad.WBP_PlayMenu_InvitationSquad_C.BndEvt__WBP_PlayMenu_InvitationSquad__popupWindow_K2Node_ComponentBoundEvent_8_OnWindowInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -54,7 +53,6 @@ public:
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          leftButton;                                        // 0x0009(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_PlayMenu_InvitationSquad_C_BndEvt__WBP_PlayMenu_InvitationSquad__popupWindow_K2Node_ComponentBoundEvent_8_OnWindowInputEventDelegate__DelegateSignature;
 
 // Function WBP_PlayMenu_InvitationSquad.WBP_PlayMenu_InvitationSquad_C.BndEvt__WBP_PlayMenu_InvitationSquad__cancelMessageWindow_K2Node_ComponentBoundEvent_6_OnWindowInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -65,7 +63,6 @@ public:
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          leftButton;                                        // 0x0009(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_PlayMenu_InvitationSquad_C_BndEvt__WBP_PlayMenu_InvitationSquad__cancelMessageWindow_K2Node_ComponentBoundEvent_6_OnWindowInputEventDelegate__DelegateSignature;
 
 // Function WBP_PlayMenu_InvitationSquad.WBP_PlayMenu_InvitationSquad_C.BndEvt__WBP_PlayMenu_InvitationSquad__selectMessageWindow_K2Node_ComponentBoundEvent_5_OnWindowInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -76,7 +73,6 @@ public:
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          leftButton;                                        // 0x0009(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_PlayMenu_InvitationSquad_C_BndEvt__WBP_PlayMenu_InvitationSquad__selectMessageWindow_K2Node_ComponentBoundEvent_5_OnWindowInputEventDelegate__DelegateSignature;
 
 // Function WBP_PlayMenu_InvitationSquad.WBP_PlayMenu_InvitationSquad_C.BndEvt__WBP_PlayMenu_InvitationSquad_WBP_ReturnButton_K2Node_ComponentBoundEvent_11_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -86,7 +82,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_PlayMenu_InvitationSquad_C_BndEvt__WBP_PlayMenu_InvitationSquad_WBP_ReturnButton_K2Node_ComponentBoundEvent_11_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_PlayMenu_InvitationSquad.WBP_PlayMenu_InvitationSquad_C.BndEvt__WBP_Squad__squadMemberInvitationList_K2Node_ComponentBoundEvent_10_OnCancelSendSquadInvite__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -95,7 +90,6 @@ struct WBP_PlayMenu_InvitationSquad_C_BndEvt__WBP_Squad__squadMemberInvitationLi
 public:
 	class FString                                 invitationId;                                      // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_PlayMenu_InvitationSquad_C_BndEvt__WBP_Squad__squadMemberInvitationList_K2Node_ComponentBoundEvent_10_OnCancelSendSquadInvite__DelegateSignature;
 
 // Function WBP_PlayMenu_InvitationSquad.WBP_PlayMenu_InvitationSquad_C.BndEvt__WBP_Squad__squadMemberInvitationList_K2Node_ComponentBoundEvent_9_OnSendSquadInvite__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -104,7 +98,6 @@ struct WBP_PlayMenu_InvitationSquad_C_BndEvt__WBP_Squad__squadMemberInvitationLi
 public:
 	class FString                                 cosmosId;                                          // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_PlayMenu_InvitationSquad_C_BndEvt__WBP_Squad__squadMemberInvitationList_K2Node_ComponentBoundEvent_9_OnSendSquadInvite__DelegateSignature;
 
 // Function WBP_PlayMenu_InvitationSquad.WBP_PlayMenu_InvitationSquad_C.DoCustomNavigation_0
 // 0x0018 (0x0018 - 0x0000)
@@ -116,7 +109,6 @@ public:
 	class UWidget*                                ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UWidget*                                CallFunc_DoCustomNavigationFromManager_ReturnValue; // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_PlayMenu_InvitationSquad_C_DoCustomNavigation_0;
 
 // Function WBP_PlayMenu_InvitationSquad.WBP_PlayMenu_InvitationSquad_C.OnReceivedDecideSubMenu
 // 0x000C (0x000C - 0x0000)
@@ -127,7 +119,6 @@ public:
 	int32                                         LocalIndex;                                        // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_EqualEqual_IntInt_ReturnValue;            // 0x0008(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_PlayMenu_InvitationSquad_C_OnReceivedDecideSubMenu;
 
 // Function WBP_PlayMenu_InvitationSquad.WBP_PlayMenu_InvitationSquad_C.IsOpen
 // 0x0003 (0x0003 - 0x0000)
@@ -138,7 +129,6 @@ public:
 	bool                                          CallFunc_BooleanOR_ReturnValue;                    // 0x0001(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_BooleanOR_ReturnValue_1;                  // 0x0002(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_PlayMenu_InvitationSquad_C_IsOpen;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

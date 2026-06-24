@@ -953,6 +953,74 @@ struct FRotator UMathStatics::BP_AddRotatorFromAxisAndAngle(const struct FRotato
 }
 
 
+// Function BykingUnrealModule.MathStatics.BP_CalcBezierInterpolateLocation
+// (Final, Native, Static, Public, HasOutParams, HasDefaults, BlueprintCallable, BlueprintPure)
+// Parameters:
+// const struct FVector&                   StartLocation                                          (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FVector&                   controlLocation                                        (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FVector&                   EndLocation                                            (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// float                                   Rate                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// struct FVector                          ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+struct FVector UMathStatics::BP_CalcBezierInterpolateLocation(const struct FVector& StartLocation, const struct FVector& controlLocation, const struct FVector& EndLocation, float Rate)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("MathStatics", "BP_CalcBezierInterpolateLocation");
+
+	Params::MathStatics_BP_CalcBezierInterpolateLocation Parms{};
+
+	Parms.StartLocation = std::move(StartLocation);
+	Parms.controlLocation = std::move(controlLocation);
+	Parms.EndLocation = std::move(EndLocation);
+	Parms.Rate = Rate;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function BykingUnrealModule.MathStatics.BP_CalcBezierInterpolateTangent
+// (Final, Native, Static, Public, HasOutParams, HasDefaults, BlueprintCallable, BlueprintPure)
+// Parameters:
+// const struct FVector&                   StartLocation                                          (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FVector&                   controlLocation                                        (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FVector&                   EndLocation                                            (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// float                                   Rate                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// struct FVector                          ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+struct FVector UMathStatics::BP_CalcBezierInterpolateTangent(const struct FVector& StartLocation, const struct FVector& controlLocation, const struct FVector& EndLocation, float Rate)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("MathStatics", "BP_CalcBezierInterpolateTangent");
+
+	Params::MathStatics_BP_CalcBezierInterpolateTangent Parms{};
+
+	Parms.StartLocation = std::move(StartLocation);
+	Parms.controlLocation = std::move(controlLocation);
+	Parms.EndLocation = std::move(EndLocation);
+	Parms.Rate = Rate;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
 // Function BykingUnrealModule.MathStatics.BP_CalcClampedDirection
 // (Final, Native, Static, Public, HasOutParams, HasDefaults, BlueprintCallable, BlueprintPure)
 // Parameters:
@@ -2056,10 +2124,10 @@ class AActor* USystemUtility::FindActorWorld(const class UWorld* World, const cl
 // Function BykingUnrealModule.SystemUtility.IsDigitFString
 // (Final, Native, Public, BlueprintCallable, BlueprintPure)
 // Parameters:
-// const class FString&                    str                                                    (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    Str                                                    (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-bool USystemUtility::IsDigitFString(const class FString& str)
+bool USystemUtility::IsDigitFString(const class FString& Str)
 {
 	static class UFunction* Func = nullptr;
 
@@ -2068,7 +2136,7 @@ bool USystemUtility::IsDigitFString(const class FString& str)
 
 	Params::SystemUtility_IsDigitFString Parms{};
 
-	Parms.str = std::move(str);
+	Parms.Str = std::move(Str);
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;

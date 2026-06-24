@@ -16,133 +16,39 @@
 
 SDK_NAMESPACE_START
 
-// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.BP_ActionMain
-// (Event, Protected, BlueprintEvent)
-
-void UBP_Ch023_ActionAttack_Special_C::BP_ActionMain()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "BP_ActionMain");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.BP_OnBeginActionAttackGround
-// (Event, Protected, HasOutParams, BlueprintEvent)
+// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.ExecuteUbergraph_BP_Ch023_ActionAttack_Special
+// (Final, UbergraphFunction)
 // Parameters:
-// const class FName&                      prevAction                                             (ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UBP_Ch023_ActionAttack_Special_C::BP_OnBeginActionAttackGround(const class FName& prevAction)
+void UBP_Ch023_ActionAttack_Special_C::ExecuteUbergraph_BP_Ch023_ActionAttack_Special(int32 EntryPoint)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "BP_OnBeginActionAttackGround");
+		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "ExecuteUbergraph_BP_Ch023_ActionAttack_Special");
 
-	Params::BP_Ch023_ActionAttack_Special_C_BP_OnBeginActionAttackGround Parms{};
+	Params::BP_Ch023_ActionAttack_Special_C_ExecuteUbergraph_BP_Ch023_ActionAttack_Special Parms{};
 
-	Parms.prevAction = prevAction;
+	Parms.EntryPoint = EntryPoint;
 
 	UObject::ProcessEvent(Func, &Parms);
 }
 
 
-// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.BP_OnChangeAttackPhaseGround
+// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.BP_OnChangeAttackPhaseAirForRemote
 // (Event, Protected, BlueprintEvent)
 // Parameters:
 // int32                                   nextPhase                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UBP_Ch023_ActionAttack_Special_C::BP_OnChangeAttackPhaseGround(int32 nextPhase)
+void UBP_Ch023_ActionAttack_Special_C::BP_OnChangeAttackPhaseAirForRemote(int32 nextPhase)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "BP_OnChangeAttackPhaseGround");
+		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "BP_OnChangeAttackPhaseAirForRemote");
 
-	Params::BP_Ch023_ActionAttack_Special_C_BP_OnChangeAttackPhaseGround Parms{};
-
-	Parms.nextPhase = nextPhase;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.BP_OnChangeAttackPhaseGroundForRemote
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// int32                                   nextPhase                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UBP_Ch023_ActionAttack_Special_C::BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "BP_OnChangeAttackPhaseGroundForRemote");
-
-	Params::BP_Ch023_ActionAttack_Special_C_BP_OnChangeAttackPhaseGroundForRemote Parms{};
-
-	Parms.nextPhase = nextPhase;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.BP_OnEndAction
-// (Event, Protected, HasOutParams, BlueprintEvent)
-// Parameters:
-// const class FName&                      nextAction                                             (ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UBP_Ch023_ActionAttack_Special_C::BP_OnEndAction(const class FName& nextAction)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "BP_OnEndAction");
-
-	Params::BP_Ch023_ActionAttack_Special_C_BP_OnEndAction Parms{};
-
-	Parms.nextAction = nextAction;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.BP_OnBeginActionAttackAir
-// (Event, Protected, HasOutParams, BlueprintEvent)
-// Parameters:
-// const class FName&                      prevAction                                             (ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UBP_Ch023_ActionAttack_Special_C::BP_OnBeginActionAttackAir(const class FName& prevAction)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "BP_OnBeginActionAttackAir");
-
-	Params::BP_Ch023_ActionAttack_Special_C_BP_OnBeginActionAttackAir Parms{};
-
-	Parms.prevAction = prevAction;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.BP_OnChangeAttackPhaseAir
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// int32                                   nextPhase                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UBP_Ch023_ActionAttack_Special_C::BP_OnChangeAttackPhaseAir(int32 nextPhase)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "BP_OnChangeAttackPhaseAir");
-
-	Params::BP_Ch023_ActionAttack_Special_C_BP_OnChangeAttackPhaseAir Parms{};
+	Params::BP_Ch023_ActionAttack_Special_C_BP_OnChangeAttackPhaseAirForRemote Parms{};
 
 	Parms.nextPhase = nextPhase;
 
@@ -170,19 +76,19 @@ void UBP_Ch023_ActionAttack_Special_C::CustomEventAttackClient(int32 nextPhase)
 }
 
 
-// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.BP_OnChangeAttackPhaseAirForRemote
+// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.BP_OnChangeAttackPhaseAir
 // (Event, Protected, BlueprintEvent)
 // Parameters:
 // int32                                   nextPhase                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UBP_Ch023_ActionAttack_Special_C::BP_OnChangeAttackPhaseAirForRemote(int32 nextPhase)
+void UBP_Ch023_ActionAttack_Special_C::BP_OnChangeAttackPhaseAir(int32 nextPhase)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "BP_OnChangeAttackPhaseAirForRemote");
+		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "BP_OnChangeAttackPhaseAir");
 
-	Params::BP_Ch023_ActionAttack_Special_C_BP_OnChangeAttackPhaseAirForRemote Parms{};
+	Params::BP_Ch023_ActionAttack_Special_C_BP_OnChangeAttackPhaseAir Parms{};
 
 	Parms.nextPhase = nextPhase;
 
@@ -190,23 +96,117 @@ void UBP_Ch023_ActionAttack_Special_C::BP_OnChangeAttackPhaseAirForRemote(int32 
 }
 
 
-// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.ExecuteUbergraph_BP_Ch023_ActionAttack_Special
-// (Final, UbergraphFunction)
+// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.BP_OnBeginActionAttackAir
+// (Event, Protected, HasOutParams, BlueprintEvent)
 // Parameters:
-// int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// const class FName&                      prevAction                                             (ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
-void UBP_Ch023_ActionAttack_Special_C::ExecuteUbergraph_BP_Ch023_ActionAttack_Special(int32 EntryPoint)
+void UBP_Ch023_ActionAttack_Special_C::BP_OnBeginActionAttackAir(const class FName& prevAction)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "ExecuteUbergraph_BP_Ch023_ActionAttack_Special");
+		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "BP_OnBeginActionAttackAir");
 
-	Params::BP_Ch023_ActionAttack_Special_C_ExecuteUbergraph_BP_Ch023_ActionAttack_Special Parms{};
+	Params::BP_Ch023_ActionAttack_Special_C_BP_OnBeginActionAttackAir Parms{};
 
-	Parms.EntryPoint = EntryPoint;
+	Parms.prevAction = prevAction;
 
 	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.BP_OnEndAction
+// (Event, Protected, HasOutParams, BlueprintEvent)
+// Parameters:
+// const class FName&                      nextAction                                             (ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_Ch023_ActionAttack_Special_C::BP_OnEndAction(const class FName& nextAction)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "BP_OnEndAction");
+
+	Params::BP_Ch023_ActionAttack_Special_C_BP_OnEndAction Parms{};
+
+	Parms.nextAction = nextAction;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.BP_OnChangeAttackPhaseGroundForRemote
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// int32                                   nextPhase                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_Ch023_ActionAttack_Special_C::BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "BP_OnChangeAttackPhaseGroundForRemote");
+
+	Params::BP_Ch023_ActionAttack_Special_C_BP_OnChangeAttackPhaseGroundForRemote Parms{};
+
+	Parms.nextPhase = nextPhase;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.BP_OnChangeAttackPhaseGround
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// int32                                   nextPhase                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_Ch023_ActionAttack_Special_C::BP_OnChangeAttackPhaseGround(int32 nextPhase)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "BP_OnChangeAttackPhaseGround");
+
+	Params::BP_Ch023_ActionAttack_Special_C_BP_OnChangeAttackPhaseGround Parms{};
+
+	Parms.nextPhase = nextPhase;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.BP_OnBeginActionAttackGround
+// (Event, Protected, HasOutParams, BlueprintEvent)
+// Parameters:
+// const class FName&                      prevAction                                             (ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UBP_Ch023_ActionAttack_Special_C::BP_OnBeginActionAttackGround(const class FName& prevAction)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "BP_OnBeginActionAttackGround");
+
+	Params::BP_Ch023_ActionAttack_Special_C_BP_OnBeginActionAttackGround Parms{};
+
+	Parms.prevAction = prevAction;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function BP_Ch023_ActionAttack_Special.BP_Ch023_ActionAttack_Special_C.BP_ActionMain
+// (Event, Protected, BlueprintEvent)
+
+void UBP_Ch023_ActionAttack_Special_C::BP_ActionMain()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_Ch023_ActionAttack_Special_C", "BP_ActionMain");
+
+	UObject::ProcessEvent(Func, nullptr);
 }
 
 

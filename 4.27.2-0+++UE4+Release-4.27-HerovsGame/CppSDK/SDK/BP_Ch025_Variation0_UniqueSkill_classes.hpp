@@ -10,18 +10,18 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
 #include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch025_Variation0_UniqueSkill.BP_Ch025_Variation0_UniqueSkill_C
-// 0x0008 (0x0438 - 0x0430)
+// 0x0008 (0x0450 - 0x0448)
 class UBP_Ch025_Variation0_UniqueSkill_C final : public UCh025_Var0_RollSlotUniqueSkill
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0430(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0448(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
 
 public:
 	void ExecuteUbergraph_BP_Ch025_Variation0_UniqueSkill(int32 EntryPoint);

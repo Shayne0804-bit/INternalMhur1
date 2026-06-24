@@ -49,6 +49,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Contact_Loading_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Contact_Loading_C;
 
 SDK_NAMESPACE_END

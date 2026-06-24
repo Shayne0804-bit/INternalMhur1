@@ -41,6 +41,5 @@ public:
 		return GetDefaultObjImpl<UWBP_EventTimer_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_EventTimer_C;
 
 SDK_NAMESPACE_END

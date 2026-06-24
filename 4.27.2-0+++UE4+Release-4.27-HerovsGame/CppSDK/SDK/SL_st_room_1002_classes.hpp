@@ -41,6 +41,5 @@ public:
 		return GetDefaultObjImpl<ASL_st_room_1002_C>();
 	}
 };
-DUMPER7_ASSERTS_ASL_st_room_1002_C;
 
 SDK_NAMESPACE_END

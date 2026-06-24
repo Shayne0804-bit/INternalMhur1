@@ -29,7 +29,6 @@ public:
 	class FString                                 CallFunc_Concat_StrStr_ReturnValue_1;              // 0x0040(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 	class FText                                   CallFunc_Conv_StringToText_ReturnValue;            // 0x0050(0x0018)()
 };
-DUMPER7_ASSERTS_WBP_GashaStepup_popupParts_C_ExecuteUbergraph_WBP_GashaStepup_popupParts;
 
 // Function WBP_GashaStepup_popupParts.WBP_GashaStepup_popupParts_C.StepupText
 // 0x0004 (0x0004 - 0x0000)
@@ -38,7 +37,6 @@ struct WBP_GashaStepup_popupParts_C_StepupText final
 public:
 	int32                                         RotNumber;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_GashaStepup_popupParts_C_StepupText;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "UMG_structs.hpp"
 #include "SlateCore_structs.hpp"
+#include "UMG_structs.hpp"
 #include "InputCore_structs.hpp"
 #include "UIFramework_structs.hpp"
 
@@ -41,7 +41,6 @@ public:
 	class UAppWidget*                             K2Node_ComponentBoundEvent_widget;                 // 0x0048(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType;              // 0x0050(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Gasha_OfferRatio_C_ExecuteUbergraph_WBP_Gasha_OfferRatio;
 
 // Function WBP_Gasha_OfferRatio.WBP_Gasha_OfferRatio_C.BndEvt__WBP_Gasha_OfferRatio_WBP_WindowButton_L_K2Node_ComponentBoundEvent_7_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -51,7 +50,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Gasha_OfferRatio_C_BndEvt__WBP_Gasha_OfferRatio_WBP_WindowButton_L_K2Node_ComponentBoundEvent_7_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_Gasha_OfferRatio.WBP_Gasha_OfferRatio_C.BndEvt__WBP_Gasha_OfferRatio_WBP_WindowButton_R_K2Node_ComponentBoundEvent_6_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -61,7 +59,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Gasha_OfferRatio_C_BndEvt__WBP_Gasha_OfferRatio_WBP_WindowButton_R_K2Node_ComponentBoundEvent_6_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_Gasha_OfferRatio.WBP_Gasha_OfferRatio_C.BndEvt__WBP_Gasha_OfferRatio_WBP_ReturnButton_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -71,7 +68,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Gasha_OfferRatio_C_BndEvt__WBP_Gasha_OfferRatio_WBP_ReturnButton_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_Gasha_OfferRatio.WBP_Gasha_OfferRatio_C.BndEvt__WBP_Gasha_OfferRatio__tabWidget_K2Node_ComponentBoundEvent_3_OnSwitchTabEventDelegate__DelegateSignature
 // 0x0004 (0x0004 - 0x0000)
@@ -80,7 +76,6 @@ struct WBP_Gasha_OfferRatio_C_BndEvt__WBP_Gasha_OfferRatio__tabWidget_K2Node_Com
 public:
 	int32                                         newSelectTab;                                      // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Gasha_OfferRatio_C_BndEvt__WBP_Gasha_OfferRatio__tabWidget_K2Node_ComponentBoundEvent_3_OnSwitchTabEventDelegate__DelegateSignature;
 
 // Function WBP_Gasha_OfferRatio.WBP_Gasha_OfferRatio_C.BndEvt__WBP_Gasha_OfferRatio_WBP_ReturnButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -90,7 +85,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Gasha_OfferRatio_C_BndEvt__WBP_Gasha_OfferRatio_WBP_ReturnButton_K2Node_ComponentBoundEvent_1_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_Gasha_OfferRatio.WBP_Gasha_OfferRatio_C.OnAnalogValueChanged
 // 0x02B8 (0x02B8 - 0x0000)
@@ -110,7 +104,6 @@ public:
 	uint8                                         Pad_1FA[0x6];                                      // 0x01FA(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FEventReply                            CallFunc_Unhandled_ReturnValue;                    // 0x0200(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_Gasha_OfferRatio_C_OnAnalogValueChanged;
 
 // Function WBP_Gasha_OfferRatio.WBP_Gasha_OfferRatio_C.OnKeyDown
 // 0x0208 (0x0208 - 0x0000)
@@ -129,7 +122,6 @@ public:
 	uint8                                         Pad_1FC[0x4];                                      // 0x01FC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue;                  // 0x0200(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Gasha_OfferRatio_C_OnKeyDown;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

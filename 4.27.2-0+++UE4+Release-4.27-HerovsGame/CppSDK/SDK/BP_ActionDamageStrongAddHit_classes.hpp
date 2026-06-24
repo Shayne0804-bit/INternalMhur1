@@ -10,30 +10,31 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionDamageStrongAddHit.BP_ActionDamageStrongAddHit_C
-// 0x0010 (0x0288 - 0x0278)
+// 0x0010 (0x0348 - 0x0338)
 class UBP_ActionDamageStrongAddHit_C final : public UActionDamageStrong
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0278(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	float                                         WaitTime;                                          // 0x0280(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          IsLanding;                                         // 0x0284(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0338(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	float                                         WaitTime;                                          // 0x0340(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          IsLanding;                                         // 0x0344(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
 
 public:
 	void ExecuteUbergraph_BP_ActionDamageStrongAddHit(int32 EntryPoint);
+	void BP_OnRecieveActionPing(int32 ping);
 	void BP_OnEndAction(const class FName& nextAction);
 	void BP_ActionRemote();
 	void BP_OnLandingEvent();
 	void BP_OnBeginAction(const class FName& prevAction);
 	void BP_ActionMain();
-	void DecideAnimationId(EAnimationId* AnimationId);
+	void DecideAnimationId(EAnimationId* animationId);
 
 public:
 	static class UClass* StaticClass()

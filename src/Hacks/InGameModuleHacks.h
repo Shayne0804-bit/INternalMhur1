@@ -16,6 +16,17 @@ namespace SDK
     enum class ESeasonType : uint8_t;
 }
 
+struct SeasonRankRewardItemOption
+{
+    int arrayIndex = -1;
+    int rank = 0;
+    int slot = 0; // 0=FreeItem, 1=PremiumItem
+    int code = 0;
+    int category = 0;
+    int quantity = 0;
+    std::string label;
+};
+
 // ============================================================================
 // CHARACTER VARIATION FUNCTIONS
 // ============================================================================
@@ -82,6 +93,12 @@ std::vector<std::string> GetAllVariationNames();
  * @return true if in valid battle mode, false otherwise
  */
 bool IsValidBattleMode();
+
+/**
+ * Debug logger for the current player's role slot state.
+ * Runs only in valid battle modes and writes to C:\temp\current_roleslot_compare.log.
+ */
+void InGameHack_AutoLogCurrentRoleSlotState();
 
 /**
  * Change character on server with logging
@@ -154,6 +171,37 @@ bool InGameHack_SetReloadAdjustRate_RollSlot(float rate);
  */
 bool InGameHack_SetReloadAdjustRate_WearBlueFlame(float rate);
 
+/**
+ * Give/activate Plus Ultra on the local battle character.
+ */
+bool InGameHack_GivePlusUltra();
+
+/**
+ * Fill Plus Ultra gauge on the local battle character without changing active duration.
+ */
+bool InGameHack_KeepPlusUltraReady();
+
+/**
+ * Toggle faster Plus Ultra charge/reload on the local player state.
+ */
+bool InGameHack_SetPlusUltraFastCharge(bool enable);
+
+/**
+ * Toggle wall/player through on the local battle character.
+ */
+bool InGameHack_SetNoCollision(bool enable);
+
+/**
+ * Run camera-driven no collision movement while the hold input is active.
+ */
+bool InGameHack_UpdateNoCollisionMovement(bool holdActive, float forwardAxis, float rightAxis, float speed);
+
+/**
+ * Set CV_None CurveFloat key values used by damage attenuation.
+ * value <= 1.0 restores the original key values captured before patching.
+ */
+bool InGameHack_SetCvNoneCurveValue(float value);
+
 // ============================================
 // TRAINING MODE EXECUTION
 // ============================================
@@ -183,7 +231,26 @@ bool InGameHack_ApplyPlayerConfiguration(int characterId, int variationId, int u
  * @param costumeAuraType - Costume aura type (0-5)
  * @return Number of characters successfully changed (0 if failed or no characters found)
  */
-int InGameHack_ApplyToAllControllers(SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType);
+int InGameHack_ApplyToAllControllers(int characterId, int variationId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType);
+
+/**
+ * Get all player names on the map
+ * Returns vector with format: "PlayerName (CharacterClass)"
+ */
+std::vector<std::string> InGameHack_GetAllPlayerNames();
+
+/**
+ * Apply character change to a specific player by index
+ * @param playerIndex - Index in the player list (from GetAllPlayerNames)
+ * @param variationCharacterId - The variation character ID enum
+ * @param unique1 - Unique skill 1 level (1-9)
+ * @param unique2 - Unique skill 2 level (1-9)
+ * @param unique3 - Unique skill 3 level (1-9)
+ * @param costumeCode - Costume code ID (0-5)
+ * @param costumeAuraType - Costume aura type (0-5)
+ * @return 1 if successful, 0 if failed
+ */
+int InGameHack_ApplyToSpecificPlayer(int playerIndex, SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType);
 
 /**
  * Get ALL UNIQUE TEAM IDs present in the current match
@@ -231,7 +298,7 @@ std::vector<SDK::ACharacterBattle*> InGameHack_GetCharactersByTeamId(unsigned ch
  * @param costumeAuraType - Costume aura type (0-5)
  * @return true if at least one character was modified, false otherwise
  */
-bool InGameHack_ApplyToTeam(unsigned char teamId, SDK::EVariationCharacterId variationCharacterId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType);
+bool InGameHack_ApplyToTeam(unsigned char teamId, int characterId, int variationId, int unique1, int unique2, int unique3, int costumeCode, int costumeAuraType);
 
 /**
  * Copy skills from the nearest enemy character to the local player
@@ -295,6 +362,17 @@ bool InGameHack_IteratePlayersViaGameStateTraining();
  */
 bool InGameHack_DecideTraining();
 
+// ============================================================================
+// ROLLSLOT SKILL FUNCTIONS
+// ============================================================================
+
+/**
+ * Test: Launch Ch101 RollSlot Unique Skill
+ * Tests the RollSlot skill activation system with detailed logging to C:\temp\rollslot_launch.log
+ * @return true if skill was launched successfully
+ */
+bool InGameHack_LaunchCh101RollSlotSkill();
+
 // ============================================
 // RECOVERY & INVINCIBILITY HACKS
 // ============================================
@@ -315,6 +393,92 @@ bool InGameHack_SetInvincible();
  * Resets character dynamics and condition
  */
 bool InGameHack_RebuildMyself();
+
+/**
+ * Toggle the infinite objects patch from objetos infinitos.ct.
+ * Replaces MHUR.exe+3ED21F5 bytes 89 51 08 with NOPs while enabled.
+ */
+bool InGameHack_SetInfiniteObjectsPatch(bool enabled);
+
+/**
+ * Restore original bytes for the infinite objects patch if they are currently applied.
+ */
+void InGameHack_RestoreInfiniteObjectsPatch();
+
+/**
+ * Infinite objects, pure-SDK version (no byte patch / no hardcoded offset).
+ * Call TickInfiniteObjectsSDK every frame while enabled; it re-inflates the
+ * local player's inventory holder counts (UC::TArray::NumElements) so items
+ * are never consumed. Call Reset on disable or match exit to clear tracking.
+ */
+void InGameHack_TickInfiniteObjectsSDK();
+void InGameHack_ResetInfiniteObjectsSDK();
+
+/**
+ * Read-only snapshot of one inventory holder (USupplyHolder).
+ */
+struct InGameInventoryHolder
+{
+    int32_t inventoryIndex = -1;                     // index in USupplyHolderComponent::_inventory
+    int32_t holderIndex = -1;                        // USupplyHolder::_index
+    const char* typeName = "?";                      // ESupplyHolderType (INVENTORY/ABILITYSLOT/...)
+    bool enabled = false;                            // USupplyHolder::_bEnable
+    int32_t supplyCount = 0;                         // USupplyHolder::_supplies.Num()
+    int32_t serialCount = 0;                         // USupplyHolder::_serverSerialList.Num()
+    std::vector<std::string> supplyClassNames;       // class name of each USupply* slot
+};
+
+/**
+ * Read-only snapshot of the local player's whole inventory.
+ */
+struct InGameInventorySnapshot
+{
+    bool valid = false;
+    int32_t totalSupplies = 0;
+    std::vector<InGameInventoryHolder> holders;
+};
+
+/**
+ * Read the local player's inventory (USupplyHolderComponent) into `out`.
+ * Pure SDK reads, no writes. Returns false if not in battle or no component.
+ */
+bool InGameHack_ReadInventory(InGameInventorySnapshot& out);
+
+/**
+ * Convenience: read the inventory and dump it to the log (one line per holder).
+ */
+void InGameHack_LogInventory();
+
+/**
+ * Drop every supply in the local player's inventory via OnDrop_ToServer (by
+ * server serial). With Infinite Objects active the inventory count does not
+ * decrement, so dropped supplies are duplicated on the ground.
+ * Returns the number of serials sent to the server.
+ */
+int32_t InGameHack_DropInventorySupplies(bool longDropDistance);
+
+/**
+ * Convenience: drop all inventory supplies and append the result to the log.
+ */
+void InGameHack_LogDropInventorySupplies();
+
+/**
+ * Scan the world for droppable item actors (AItemBase) and rebuild the internal
+ * catalog used by the custom drop menu. Returns the number of distinct items.
+ */
+int InGameHack_ScanWorldItemCatalog();
+
+/**
+ * Copy the current world item catalog display names (for the UI combo).
+ */
+void InGameHack_GetWorldItemCatalogNames(std::vector<std::string>& out);
+
+/**
+ * Drop `quantity` copies (1-100) of the catalog item at `catalogIndex`.
+ * With Infinite Objects active the drops are duplicated. Logs to
+ * C:\temp\rugir_inventory.log. Returns the number of serials sent.
+ */
+int InGameHack_DropCatalogItem(int catalogIndex, int quantity, bool longDrop);
 
 /**
  * Apply CH202_TRANS_MISSION condition to player character
@@ -369,6 +533,17 @@ bool InGameHack_CH024Transparent();
  * Applies abyss dark body state (ECharacterConditionId = 95)
  */
 bool InGameHack_CH011AbyssDarkBody();
+
+/**
+ * Apply a configurable character condition to the local player.
+ * applyMode: 0=SetCondition_ToServer, 1=BP_SetCondition, 2=BP_SetConditionLocal.
+ */
+bool InGameHack_ApplyCustomCharacterCondition(int conditionId, int applyMode, int level, float duration, float value, float interval, int subLevel, bool timeOverwrite);
+
+/**
+ * Clear a character condition from the local player using TIME_UP end type.
+ */
+bool InGameHack_ClearCustomCharacterCondition(int conditionId);
 
 // ============================================
 // ABILITY HACKS
@@ -435,6 +610,11 @@ bool InGameHack_RecoverDyingTeamMember(SDK::ACharacterBattle* target);
 void InGameHack_LogAllDamageAttenuationCurves();
 
 /**
+ * Scan loaded CurveFloat objects for CV_none and dump curve keys to C:/Temp/cv_none_curve_scan.log.
+ */
+bool InGameHack_DumpCvNoneCurveScan();
+
+/**
  * Set a character to dying state
  * target: The ACharacterBattle to set dying
  */
@@ -461,12 +641,6 @@ bool InGameHack_ValidateTransMissionLevel(int level);
 bool InGameHack_SetInitTransMissionLevel(int levelIndex, int32_t newValue);
 
 /**
- * Prevent dropping supplies when character dies
- * @param bPreventDrop - true to prevent dropping
- */
-bool InGameHack_PreventDropOnDeath(bool bPreventDrop);
-
-/**
  * Set skill level for a character
  * @param skillIndex - The skill index (0-8 for levels 1-9)
  * @param level - Level to set (1-9)
@@ -474,26 +648,30 @@ bool InGameHack_PreventDropOnDeath(bool bPreventDrop);
 bool InGameHack_SetSkillLevel(int skillIndex, int level);
 
 /**
- * Upgrade a supply item
- * @param supplyIndex - The supply index in inventory
- * @param level - Level to set (1-99)
+ * Test the server-side item-use attack action path.
+ * Calls CharacterActionControlComponent::SetAttackAction_ToServer(USEITEM).
  */
-bool InGameHack_UpgradeSupply(int supplyIndex, int level);
+bool InGameHack_TestUseItemAction(int uniqueLevel = 1);
 
 /**
- * Apply team buffs
- * @param attackAdjust - Attack bonus (e.g. 1.5f = +50%)
- * @param durableAdjust - Durability bonus
- * @param speedAdjust - Speed bonus
- * @param healingAdjust - Healing bonus
- * @param reloadAdjust - Reload speed bonus
+ * Test the server-side ally respawn action path.
+ * Calls CharacterActionControlComponent::SetAttackAction_ToServer(USERESPAWN).
  */
-bool InGameHack_ApplyTeamBuffs(float attackAdjust, float durableAdjust, float speedAdjust, float healingAdjust, float reloadAdjust);
+bool InGameHack_TestUserRespawnAction();
+bool InGameHack_TestUserRespawnSelectedTeamMember(int teamMemberIndex);
 
 /**
- * Stop using current supply
+ * Test the real respawn-card supply path.
+ * Finds a respawn supply in inventory and calls SupplyHolderComponent::OnUseSupply_ToServer.
  */
-bool InGameHack_StopUsingSupply();
+bool InGameHack_TestUseRespawnCardSupply();
+
+/**
+ * Get current skill level for a character
+ * @param skillIndex - The skill index (0-8)
+ * @return - Current skill level (1-9) or -1 on error
+ */
+int InGameHack_GetSkillLevel(int skillIndex);
 
 /**
  * Validate transmission mission level (calls ValidateTransMissionLevel with level 5)
@@ -535,7 +713,16 @@ void InGameHack_ProcessCharacterConditionAutoExecution(
     bool enableUnbreakable,
     bool enableCompressionRegen,
     bool enableMirioMode,
-    bool enableTokoyamiMode);
+    bool enableTokoyamiMode,
+    bool enableGenericCondition,
+    int conditionId,
+    int applyMode,
+    int level,
+    float duration,
+    float value,
+    float interval,
+    int subLevel,
+    bool timeOverwrite);
 // ============================================================================
 // PLAYER NAME CHANGE
 // ============================================================================
@@ -548,10 +735,101 @@ void InGameHack_ProcessCharacterConditionAutoExecution(
 bool InGameHack_ChangePlayerName(const char* newName);
 
 /**
+ * Set backend player platform enum.
+ * EPlatform: 0=Invalid, 1=PlayStation, 2=Xbox, 3=Windows, 4=Switch, 5=None.
+ */
+bool InGameHack_SetBackendPlayerPlatform(int platform);
+
+/**
+ * Force the backend fake platform string.
+ */
+bool InGameHack_ForceFakePlatform(const char* platformName);
+
+/**
+ * Generate projectile in front of player (hardcoded: Ch010 PUSH_SPECIAL)
+ * Creates projectile at player location facing forward
+ * @return true if successful, false otherwise
+ */
+bool InGameHack_GenerateProjectileInFront();
+
+/**
+ * Dump the replicated projectile generation slots from the local player.
+ * Use after firing a normal projectile in-game to capture runtime generator IDs.
+ * @return true if dump was written, false otherwise
+ */
+bool InGameHack_DumpLastProjectileGenerateRep();
+
+/**
+ * Dump active projectile generators, bullets, projectile notifies and data assets.
+ * Use after firing a normal projectile in-game when _createGenerateRep stays empty.
+ * @return true if dump was written, false otherwise.
+ */
+bool InGameHack_DumpProjectileRuntimeDebug();
+
+/**
  * Buy License Exp from backend subsystem
  * @param count - Number of License Exp to buy
  * @return true if successful, false otherwise
  */
 bool InGameHack_BuyLicenseExp(int32_t count);
 
+/**
+ * Add Special License EXP locally by updating the runtime season data.
+ * @param exp - Raw EXP to add to the Special License progress.
+ * @return true if the runtime data was updated or the native local add call succeeded.
+ */
+bool InGameHack_AddSpecialLicenseExpLocal(int32_t exp);
 
+/**
+ * Send ReceiveLicense requests through BackendSubsystem for authorized backend idempotency testing.
+ * @param seasonCode - SeasonCode argument sent to ReceiveLicense.
+ * @param freeRank - Free reward rank to claim, or <=0 to leave the free list empty.
+ * @param premiumRank - Limited/premium reward rank to claim, or <=0 to leave the premium list empty.
+ * @param repeatCount - Number of immediate requests to send.
+ * @return true if at least one request id was returned.
+ */
+bool InGameHack_ReceiveLicenseClaimTest(int32_t seasonCode, int32_t freeRank, int32_t premiumRank, int32_t repeatCount);
+
+/**
+ * Send ReceiveSpecialLicense requests through BackendSubsystem for authorized backend idempotency testing.
+ * @param rank - Special license rank to claim.
+ * @param repeatCount - Number of immediate requests to send.
+ * @return true if at least one request id was returned.
+ */
+bool InGameHack_ReceiveSpecialLicenseClaimTest(int32_t rank, int32_t repeatCount);
+
+/**
+ * Dump season pass and special license getter results to C:/Temp/season_license_getters.log.
+ * @return true if the dump file was written, false otherwise.
+ */
+bool InGameHack_DumpSeasonLicenseGetters();
+
+/**
+ * Read existing reward items from DatabaseParams.season.ranks for menu selection.
+ */
+std::vector<SeasonRankRewardItemOption> InGameHack_GetSeasonRankRewardItemOptions();
+
+/**
+ * Replace DatabaseParams.season.ranks rewards with one existing reward item.
+ * targetSlotMask: bit 0=FreeItem, bit 1=PremiumItem.
+ * @return number of reward slots modified, or -1 on failure.
+ */
+int InGameHack_ReplaceSeasonRankRewardsFromExistingReward(
+    int sourceArrayIndex,
+    int sourceSlot,
+    int targetRank,
+    int quantity,
+    int targetSlotMask,
+    bool applyAllRanks);
+
+// ============================================================================
+// RENTAL TICKET BYPASS
+// ============================================================================
+
+/**
+ * Bypass rental ticket amount check by writing max ticket value (3)
+ * Navigates UWorld->OwningGameInstance->+0xF0->+0x8->+0x6B0 and writes byte at +0x1038
+ * Must be called every frame while enabled (one-frame write, no persistence)
+ * @return true if write succeeded, false otherwise
+ */
+bool InGameHack_BypassRentalTickets();

@@ -281,6 +281,34 @@ void UAdjustTextWidget::BP_SetTextColorAndOpacity(const struct FSlateColor& InCo
 }
 
 
+// Function GameModule.AlternativeAnimationProvider.TryGetAlternativeMontage
+// (Native, Event, Public, BlueprintCallable, BlueprintEvent, BlueprintPure, Const)
+// Parameters:
+// EAnimationId                            animationId                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UAnimMontage*                     ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UAnimMontage* IAlternativeAnimationProvider::TryGetAlternativeMontage(EAnimationId animationId) const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = AsUObject()->Class->GetFunction("AlternativeAnimationProvider", "TryGetAlternativeMontage");
+
+	Params::AlternativeAnimationProvider_TryGetAlternativeMontage Parms{};
+
+	Parms.animationId = animationId;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	AsUObject()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
 // Function GameModule.Animation.BP_AnimationBlendingOutStartedDelegate
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
@@ -771,6 +799,37 @@ void UAnimation::BP_PlayAnimationFace(EAnimationId ID, float PlayRate, float Ble
 	Parms.ID = ID;
 	Parms.PlayRate = PlayRate;
 	Parms.BlendInTime = BlendInTime;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.Animation.BP_PlayAnimationMontage
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// class UAnimMontage*                     Montage                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// float                                   PlayRate                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// float                                   BlendInTime                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EAnimationId                            partsAnimationId                                       (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UAnimation::BP_PlayAnimationMontage(class UAnimMontage* Montage, float PlayRate, float BlendInTime, EAnimationId partsAnimationId)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("Animation", "BP_PlayAnimationMontage");
+
+	Params::Animation_BP_PlayAnimationMontage Parms{};
+
+	Parms.Montage = Montage;
+	Parms.PlayRate = PlayRate;
+	Parms.BlendInTime = BlendInTime;
+	Parms.partsAnimationId = partsAnimationId;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -2276,10 +2335,10 @@ class UCustomParticleSystemComponent* UBPActorUtilityComponent::BP_SpawnEmitterA
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
 // class UParticleSystem*                  EmitterTemplate                                        (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class USkeletalMeshComponent*           Mesh                                                   (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class USkeletalMeshComponent*           mesh                                                   (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // class UCustomParticleSystemComponent*   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-class UCustomParticleSystemComponent* UBPActorUtilityComponent::BP_SpawnEmitterVertex(class UParticleSystem* EmitterTemplate, class USkeletalMeshComponent* Mesh)
+class UCustomParticleSystemComponent* UBPActorUtilityComponent::BP_SpawnEmitterVertex(class UParticleSystem* EmitterTemplate, class USkeletalMeshComponent* mesh)
 {
 	static class UFunction* Func = nullptr;
 
@@ -2289,7 +2348,7 @@ class UCustomParticleSystemComponent* UBPActorUtilityComponent::BP_SpawnEmitterV
 	Params::BPActorUtilityComponent_BP_SpawnEmitterVertex Parms{};
 
 	Parms.EmitterTemplate = EmitterTemplate;
-	Parms.Mesh = Mesh;
+	Parms.mesh = mesh;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -3176,6 +3235,106 @@ void UCharacterInfoWidget::OnRightKey()
 }
 
 
+// Function GameModule.ScoreComponentBase.OnCompletedSendKpi
+// (Final, Native, Protected)
+// Parameters:
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UScoreComponentBase::OnCompletedSendKpi(int32 requestId)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ScoreComponentBase", "OnCompletedSendKpi");
+
+	Params::ScoreComponentBase_OnCompletedSendKpi Parms{};
+
+	Parms.requestId = requestId;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ScoreComponentBase.OnCompletedSendRentalPointList
+// (Final, Native, Protected)
+// Parameters:
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UScoreComponentBase::OnCompletedSendRentalPointList(int32 requestId)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ScoreComponentBase", "OnCompletedSendRentalPointList");
+
+	Params::ScoreComponentBase_OnCompletedSendRentalPointList Parms{};
+
+	Parms.requestId = requestId;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ScoreComponentBase.OnCompletedSendSaveCustomizeData
+// (Final, Native, Protected)
+// Parameters:
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UScoreComponentBase::OnCompletedSendSaveCustomizeData(int32 requestId)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ScoreComponentBase", "OnCompletedSendSaveCustomizeData");
+
+	Params::ScoreComponentBase_OnCompletedSendSaveCustomizeData Parms{};
+
+	Parms.requestId = requestId;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ScoreComponentBase.OnCompletedSendViolationReport
+// (Final, Native, Protected)
+// Parameters:
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UScoreComponentBase::OnCompletedSendViolationReport(int32 requestId)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ScoreComponentBase", "OnCompletedSendViolationReport");
+
+	Params::ScoreComponentBase_OnCompletedSendViolationReport Parms{};
+
+	Parms.requestId = requestId;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
 // Function GameModule.CharacterStateBase.BP_SetAirialState
 // (Final, Native, Public, BlueprintCallable)
 
@@ -3239,6 +3398,25 @@ bool UCharacterStateBase::BP_IsOnGround() const
 }
 
 
+// Function GameModule.SendLikeItemWidget.UpdateOpenAnimParam
+// (Final, Native, Protected, BlueprintCallable)
+
+void USendLikeItemWidget::UpdateOpenAnimParam()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SendLikeItemWidget", "UpdateOpenAnimParam");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
 // Function GameModule.CharacterVoiceComponent.OnAudioFinishedEvent
 // (Final, Native, Private)
 // Parameters:
@@ -3280,6 +3458,152 @@ void UCharacterVoiceComponent::PlayNextVoice()
 	UObject::ProcessEvent(Func, nullptr);
 
 	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.RoleSlotStatics.GetCostumeRoleSlotParam
+// (Final, Native, Static, Public, HasOutParams, BlueprintCallable, BlueprintPure)
+// Parameters:
+// int32                                   CostumeCode                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// struct FDbsCostumeRoleSlotParam*        outParam                                               (Parm, OutParm, NativeAccessSpecifierPublic)
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+bool URoleSlotStatics::GetCostumeRoleSlotParam(int32 CostumeCode, struct FDbsCostumeRoleSlotParam* outParam)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("RoleSlotStatics", "GetCostumeRoleSlotParam");
+
+	Params::RoleSlotStatics_GetCostumeRoleSlotParam Parms{};
+
+	Parms.CostumeCode = CostumeCode;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	if (outParam != nullptr)
+		*outParam = std::move(Parms.outParam);
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.RoleSlotStatics.GetRoleSlotCharacterNameText
+// (Final, Native, Static, Public, BlueprintCallable, BlueprintPure)
+// Parameters:
+// const int32                             VariationCode                                          (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class FText                             ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+
+class FText URoleSlotStatics::GetRoleSlotCharacterNameText(const int32 VariationCode)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("RoleSlotStatics", "GetRoleSlotCharacterNameText");
+
+	Params::RoleSlotStatics_GetRoleSlotCharacterNameText Parms{};
+
+	Parms.VariationCode = VariationCode;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.RoleSlotStatics.GetRoleSlotDataText
+// (Final, Native, Static, Public, BlueprintCallable, BlueprintPure)
+// Parameters:
+// const int32                             VariationCode                                          (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class FText                             ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+
+class FText URoleSlotStatics::GetRoleSlotDataText(const int32 VariationCode)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("RoleSlotStatics", "GetRoleSlotDataText");
+
+	Params::RoleSlotStatics_GetRoleSlotDataText Parms{};
+
+	Parms.VariationCode = VariationCode;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.RoleSlotStatics.GetRoleSlotEffect
+// (Final, Native, Static, Public, BlueprintCallable, BlueprintPure)
+// Parameters:
+// const int32                             VariationCode                                          (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const bool                              bSkillFlag                                             (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class FText                             ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+
+class FText URoleSlotStatics::GetRoleSlotEffect(const int32 VariationCode, const bool bSkillFlag)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("RoleSlotStatics", "GetRoleSlotEffect");
+
+	Params::RoleSlotStatics_GetRoleSlotEffect Parms{};
+
+	Parms.VariationCode = VariationCode;
+	Parms.bSkillFlag = bSkillFlag;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.RoleSlotStatics.GetRoleSlotTip
+// (Final, Native, Static, Public, BlueprintCallable, BlueprintPure)
+// Parameters:
+// const int32                             VariationCode                                          (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// struct FDbsRoleSlotTip                  ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+
+struct FDbsRoleSlotTip URoleSlotStatics::GetRoleSlotTip(const int32 VariationCode)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("RoleSlotStatics", "GetRoleSlotTip");
+
+	Params::RoleSlotStatics_GetRoleSlotTip Parms{};
+
+	Parms.VariationCode = VariationCode;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
 }
 
 
@@ -3381,34 +3705,6 @@ void UChatMute::PressMuteButton(class UAppWidget* Widget, EWidgetInputType input
 }
 
 
-// Function GameModule.PrimaryAssetTutorial.BP_GetPopupWorld
-// (Final, Native, Protected, BlueprintCallable, BlueprintPure)
-// Parameters:
-// ETutorialPopupScene                     Type                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// TSoftObjectPtr<class UWorld>            ReturnValue                                            (Parm, OutParm, ReturnParm, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-TSoftObjectPtr<class UWorld> UPrimaryAssetTutorial::BP_GetPopupWorld(ETutorialPopupScene Type)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("PrimaryAssetTutorial", "BP_GetPopupWorld");
-
-	Params::PrimaryAssetTutorial_BP_GetPopupWorld Parms{};
-
-	Parms.Type = Type;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
 // Function GameModule.ChatStatusWidget.OnVCBeginTalk
 // (Final, Native, Public)
 // Parameters:
@@ -3481,159 +3777,6 @@ void UChatStatusWidget::OnVCEndTalk(const class FString& uniqueNetId)
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SupplyBaseDataAsset.GetActionGuideText
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// class FText                             ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
-
-class FText USupplyBaseDataAsset::GetActionGuideText() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SupplyBaseDataAsset", "GetActionGuideText");
-
-	Params::SupplyBaseDataAsset_GetActionGuideText Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.SupplyBaseDataAsset.GetDescriptionText
-// (Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// const class UObject*                    WorldContext                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class FText                             ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
-
-class FText USupplyBaseDataAsset::GetDescriptionText(const class UObject* WorldContext) const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SupplyBaseDataAsset", "GetDescriptionText");
-
-	Params::SupplyBaseDataAsset_GetDescriptionText Parms{};
-
-	Parms.WorldContext = WorldContext;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.SupplyBaseDataAsset.GetDisplayNameText
-// (Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// class FText                             ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
-
-class FText USupplyBaseDataAsset::GetDisplayNameText() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SupplyBaseDataAsset", "GetDisplayNameText");
-
-	Params::SupplyBaseDataAsset_GetDisplayNameText Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.SupplyBaseDataAsset.GetFieldPopUpWidgetColorCurve
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// class UCurveLinearColor*                ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UCurveLinearColor* USupplyBaseDataAsset::GetFieldPopUpWidgetColorCurve() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SupplyBaseDataAsset", "GetFieldPopUpWidgetColorCurve");
-
-	Params::SupplyBaseDataAsset_GetFieldPopUpWidgetColorCurve Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.SupplyBaseDataAsset.GetIconPaperSprite
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// class UPaperSprite*                     ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UPaperSprite* USupplyBaseDataAsset::GetIconPaperSprite() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SupplyBaseDataAsset", "GetIconPaperSprite");
-
-	Params::SupplyBaseDataAsset_GetIconPaperSprite Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.SupplyBaseDataAsset.GetIconPaperSprite2
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// class UPaperSprite*                     ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UPaperSprite* USupplyBaseDataAsset::GetIconPaperSprite2() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SupplyBaseDataAsset", "GetIconPaperSprite2");
-
-	Params::SupplyBaseDataAsset_GetIconPaperSprite2 Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
 }
 
 
@@ -4065,461 +4208,6 @@ void UPlatformWidgetButton::SwitchSingleButtonGuide()
 }
 
 
-// Function GameModule.SoundStatics.GetCharacterDedicatedVoiceCharacterCodeList
-// (Final, Native, Static, Public, HasOutParams, BlueprintCallable)
-// Parameters:
-// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const int32                             inCharacterCode                                        (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// TSet<int32>*                            outCharacterCodeSet                                    (Parm, OutParm, NativeAccessSpecifierPublic)
-// bool                                    bInBattle                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USoundStatics::GetCharacterDedicatedVoiceCharacterCodeList(const class UObject* WorldContextObject, const int32 inCharacterCode, TSet<int32>* outCharacterCodeSet, bool bInBattle)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("SoundStatics", "GetCharacterDedicatedVoiceCharacterCodeList");
-
-	Params::SoundStatics_GetCharacterDedicatedVoiceCharacterCodeList Parms{};
-
-	Parms.WorldContextObject = WorldContextObject;
-	Parms.inCharacterCode = inCharacterCode;
-	Parms.bInBattle = bInBattle;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	if (outCharacterCodeSet != nullptr)
-		*outCharacterCodeSet = std::move(Parms.outCharacterCodeSet);
-}
-
-
-// Function GameModule.SoundStatics.GetCharacterDedicatedVoiceCueName
-// (Final, Native, Static, Public, HasOutParams, BlueprintCallable)
-// Parameters:
-// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const int32                             inCharacterCode                                        (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const int32                             inVsCharacterCode                                      (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const bool                              bInDedicated                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const bool                              bInVillain                                             (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FString&                    inFormatString                                         (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class FString*                          outSoundString                                         (Parm, OutParm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USoundStatics::GetCharacterDedicatedVoiceCueName(const class UObject* WorldContextObject, const int32 inCharacterCode, const int32 inVsCharacterCode, const bool bInDedicated, const bool bInVillain, const class FString& inFormatString, class FString* outSoundString)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("SoundStatics", "GetCharacterDedicatedVoiceCueName");
-
-	Params::SoundStatics_GetCharacterDedicatedVoiceCueName Parms{};
-
-	Parms.WorldContextObject = WorldContextObject;
-	Parms.inCharacterCode = inCharacterCode;
-	Parms.inVsCharacterCode = inVsCharacterCode;
-	Parms.bInDedicated = bInDedicated;
-	Parms.bInVillain = bInVillain;
-	Parms.inFormatString = std::move(inFormatString);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	if (outSoundString != nullptr)
-		*outSoundString = std::move(Parms.outSoundString);
-}
-
-
-// Function GameModule.SoundStatics.GetCharacterDedicatedVoiceCueNameAuto
-// (Final, Native, Static, Public, HasOutParams, BlueprintCallable)
-// Parameters:
-// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const ECharacterId                      inCharacterId                                          (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const ECharacterId                      inVsCharacterId                                        (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FString&                    inFormatString                                         (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class FString*                          outSoundString                                         (Parm, OutParm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USoundStatics::GetCharacterDedicatedVoiceCueNameAuto(const class UObject* WorldContextObject, const ECharacterId inCharacterId, const ECharacterId inVsCharacterId, const class FString& inFormatString, class FString* outSoundString)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("SoundStatics", "GetCharacterDedicatedVoiceCueNameAuto");
-
-	Params::SoundStatics_GetCharacterDedicatedVoiceCueNameAuto Parms{};
-
-	Parms.WorldContextObject = WorldContextObject;
-	Parms.inCharacterId = inCharacterId;
-	Parms.inVsCharacterId = inVsCharacterId;
-	Parms.inFormatString = std::move(inFormatString);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	if (outSoundString != nullptr)
-		*outSoundString = std::move(Parms.outSoundString);
-}
-
-
-// Function GameModule.SoundStatics.GetCueByName
-// (Final, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// const class FString&                    CueName                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class USoundAtomCue*                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class USoundAtomCue* USoundStatics::GetCueByName(const class FString& CueName)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("SoundStatics", "GetCueByName");
-
-	Params::SoundStatics_GetCueByName Parms{};
-
-	Parms.CueName = std::move(CueName);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.SoundStatics.PlayCharacterDedicatedVoice
-// (Final, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const int32                             inCharacterCode                                        (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const int32                             inVsCharacterCode                                      (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const bool                              bInDedicated                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const bool                              bInVillain                                             (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FString&                    inFormatString                                         (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UAtomComponent* USoundStatics::PlayCharacterDedicatedVoice(const class UObject* WorldContextObject, const int32 inCharacterCode, const int32 inVsCharacterCode, const bool bInDedicated, const bool bInVillain, const class FString& inFormatString)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("SoundStatics", "PlayCharacterDedicatedVoice");
-
-	Params::SoundStatics_PlayCharacterDedicatedVoice Parms{};
-
-	Parms.WorldContextObject = WorldContextObject;
-	Parms.inCharacterCode = inCharacterCode;
-	Parms.inVsCharacterCode = inVsCharacterCode;
-	Parms.bInDedicated = bInDedicated;
-	Parms.bInVillain = bInVillain;
-	Parms.inFormatString = std::move(inFormatString);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.SoundStatics.PlayCharacterDedicatedVoiceAuto
-// (Final, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const ECharacterId                      inCharacterId                                          (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const ECharacterId                      inVsCharacterId                                        (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FString&                    inFormatString                                         (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UAtomComponent* USoundStatics::PlayCharacterDedicatedVoiceAuto(const class UObject* WorldContextObject, const ECharacterId inCharacterId, const ECharacterId inVsCharacterId, const class FString& inFormatString)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("SoundStatics", "PlayCharacterDedicatedVoiceAuto");
-
-	Params::SoundStatics_PlayCharacterDedicatedVoiceAuto Parms{};
-
-	Parms.WorldContextObject = WorldContextObject;
-	Parms.inCharacterId = inCharacterId;
-	Parms.inVsCharacterId = inVsCharacterId;
-	Parms.inFormatString = std::move(inFormatString);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.SoundStatics.PlayMusic
-// (Final, BlueprintCosmetic, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class USoundAtomCue*                    Sound                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UAtomComponent* USoundStatics::PlayMusic(const class UObject* WorldContextObject, class USoundAtomCue* Sound)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("SoundStatics", "PlayMusic");
-
-	Params::SoundStatics_PlayMusic Parms{};
-
-	Parms.WorldContextObject = WorldContextObject;
-	Parms.Sound = Sound;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.SoundStatics.PlaySound2D
-// (Final, BlueprintCosmetic, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class USoundAtomCue*                    Sound                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UAtomComponent* USoundStatics::PlaySound2D(const class UObject* WorldContextObject, class USoundAtomCue* Sound)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("SoundStatics", "PlaySound2D");
-
-	Params::SoundStatics_PlaySound2D Parms{};
-
-	Parms.WorldContextObject = WorldContextObject;
-	Parms.Sound = Sound;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.SoundStatics.PlaySound2DByName
-// (Final, BlueprintCosmetic, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FString&                    CueName                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UAtomComponent* USoundStatics::PlaySound2DByName(const class UObject* WorldContextObject, const class FString& CueName)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("SoundStatics", "PlaySound2DByName");
-
-	Params::SoundStatics_PlaySound2DByName Parms{};
-
-	Parms.WorldContextObject = WorldContextObject;
-	Parms.CueName = std::move(CueName);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.SoundStatics.PlaySoundAtLocation
-// (Final, BlueprintCosmetic, Native, Static, Public, HasDefaults, BlueprintCallable)
-// Parameters:
-// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FString&                    CueName                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const struct FVector&                   Location                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const struct FRotator&                  Rotation                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, NativeAccessSpecifierPublic)
-// float                                   volumeMultiplier                                       (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// float                                   pitchMultiplier                                        (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// float                                   StartTime                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class USoundAttenuation*                AttenuationSettings                                    (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class USoundConcurrency*                ConcurrencySettings                                    (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    bAutoDestroy                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UAtomComponent* USoundStatics::PlaySoundAtLocation(const class UObject* WorldContextObject, const class FString& CueName, const struct FVector& Location, const struct FRotator& Rotation, float volumeMultiplier, float pitchMultiplier, float StartTime, class USoundAttenuation* AttenuationSettings, class USoundConcurrency* ConcurrencySettings, bool bAutoDestroy)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("SoundStatics", "PlaySoundAtLocation");
-
-	Params::SoundStatics_PlaySoundAtLocation Parms{};
-
-	Parms.WorldContextObject = WorldContextObject;
-	Parms.CueName = std::move(CueName);
-	Parms.Location = std::move(Location);
-	Parms.Rotation = std::move(Rotation);
-	Parms.volumeMultiplier = volumeMultiplier;
-	Parms.pitchMultiplier = pitchMultiplier;
-	Parms.StartTime = StartTime;
-	Parms.AttenuationSettings = AttenuationSettings;
-	Parms.ConcurrencySettings = ConcurrencySettings;
-	Parms.bAutoDestroy = bAutoDestroy;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.SoundStatics.PlaySoundAttached
-// (Final, BlueprintCosmetic, Native, Static, Public, HasDefaults, BlueprintCallable)
-// Parameters:
-// const class FString&                    CueName                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class USceneComponent*                  AttachToComponent                                      (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class FName                             AttachPointName                                        (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const struct FVector&                   Location                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const struct FRotator&                  Rotation                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, NativeAccessSpecifierPublic)
-// EAttachLocation                         LocationType                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    bStopWhenAttachedToDestroyed                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// float                                   volumeMultiplier                                       (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// float                                   pitchMultiplier                                        (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// float                                   StartTime                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class USoundAttenuation*                AttenuationSettings                                    (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class USoundConcurrency*                ConcurrencySettings                                    (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    bAutoDestroy                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UAtomComponent* USoundStatics::PlaySoundAttached(const class FString& CueName, class USceneComponent* AttachToComponent, class FName AttachPointName, const struct FVector& Location, const struct FRotator& Rotation, EAttachLocation LocationType, bool bStopWhenAttachedToDestroyed, float volumeMultiplier, float pitchMultiplier, float StartTime, class USoundAttenuation* AttenuationSettings, class USoundConcurrency* ConcurrencySettings, bool bAutoDestroy)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("SoundStatics", "PlaySoundAttached");
-
-	Params::SoundStatics_PlaySoundAttached Parms{};
-
-	Parms.CueName = std::move(CueName);
-	Parms.AttachToComponent = AttachToComponent;
-	Parms.AttachPointName = AttachPointName;
-	Parms.Location = std::move(Location);
-	Parms.Rotation = std::move(Rotation);
-	Parms.LocationType = LocationType;
-	Parms.bStopWhenAttachedToDestroyed = bStopWhenAttachedToDestroyed;
-	Parms.volumeMultiplier = volumeMultiplier;
-	Parms.pitchMultiplier = pitchMultiplier;
-	Parms.StartTime = StartTime;
-	Parms.AttenuationSettings = AttenuationSettings;
-	Parms.ConcurrencySettings = ConcurrencySettings;
-	Parms.bAutoDestroy = bAutoDestroy;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.SoundStatics.PlayVoice2D
-// (Final, BlueprintCosmetic, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class USoundAtomCue*                    Sound                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UAtomComponent* USoundStatics::PlayVoice2D(const class UObject* WorldContextObject, class USoundAtomCue* Sound)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("SoundStatics", "PlayVoice2D");
-
-	Params::SoundStatics_PlayVoice2D Parms{};
-
-	Parms.WorldContextObject = WorldContextObject;
-	Parms.Sound = Sound;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.SoundStatics.PlayVoice2DByName
-// (Final, BlueprintCosmetic, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FString&                    CueName                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UAtomComponent* USoundStatics::PlayVoice2DByName(const class UObject* WorldContextObject, const class FString& CueName)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("SoundStatics", "PlayVoice2DByName");
-
-	Params::SoundStatics_PlayVoice2DByName Parms{};
-
-	Parms.WorldContextObject = WorldContextObject;
-	Parms.CueName = std::move(CueName);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
 // Function GameModule.CheckButtonWidget.OnDecideEvent
 // (Final, Native, Protected)
 // Parameters:
@@ -4649,6 +4337,34 @@ bool UCheckButtonWidget::IsCheck() const
 }
 
 
+// Function GameModule.PrimaryAssetLoginBonusLogo.BP_GetPaperSpriteLogo
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// const class FString&                    Key                                                    (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UPaperSprite*                     ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UPaperSprite* UPrimaryAssetLoginBonusLogo::BP_GetPaperSpriteLogo(const class FString& Key) const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("PrimaryAssetLoginBonusLogo", "BP_GetPaperSpriteLogo");
+
+	Params::PrimaryAssetLoginBonusLogo_BP_GetPaperSpriteLogo Parms{};
+
+	Parms.Key = std::move(Key);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
 // Function GameModule.Confetti.Start
 // (Final, Native, Public, BlueprintCallable)
 
@@ -4687,131 +4403,6 @@ void UConfetti::Stop()
 }
 
 
-// Function GameModule.ProfileDisplayData.BP_getAD
-// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// const struct FMyADDisplayData           ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-const struct FMyADDisplayData UProfileDisplayData::BP_getAD() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayData", "BP_getAD");
-
-	Params::ProfileDisplayData_BP_getAD Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProfileDisplayData.BP_getEmblem
-// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// const struct FEmblemDisplayData         ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
-
-const struct FEmblemDisplayData UProfileDisplayData::BP_getEmblem() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayData", "BP_getEmblem");
-
-	Params::ProfileDisplayData_BP_getEmblem Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProfileDisplayData.BP_getGuild
-// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// const struct FGuildDisplayData          ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-const struct FGuildDisplayData UProfileDisplayData::BP_getGuild() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayData", "BP_getGuild");
-
-	Params::ProfileDisplayData_BP_getGuild Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProfileDisplayData.BP_getPlayer
-// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// const struct FPlayerDisplayData         ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-const struct FPlayerDisplayData UProfileDisplayData::BP_getPlayer() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayData", "BP_getPlayer");
-
-	Params::ProfileDisplayData_BP_getPlayer Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProfileDisplayData.BP_GetPlayerId
-// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// class FString                           ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class FString UProfileDisplayData::BP_GetPlayerId() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayData", "BP_GetPlayerId");
-
-	Params::ProfileDisplayData_BP_GetPlayerId Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
 // Function GameModule.ConfettiUnit.Update
 // (Final, Native, Protected)
 
@@ -4847,6 +4438,34 @@ void UConfettiUnit::UpdateView()
 	UObject::ProcessEvent(Func, nullptr);
 
 	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.PrimaryAssetTutorial.BP_GetPopupWorld
+// (Final, Native, Protected, BlueprintCallable, BlueprintPure)
+// Parameters:
+// ETutorialPopupScene                     Type                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// TSoftObjectPtr<class UWorld>            ReturnValue                                            (Parm, OutParm, ReturnParm, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+TSoftObjectPtr<class UWorld> UPrimaryAssetTutorial::BP_GetPopupWorld(ETutorialPopupScene Type)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("PrimaryAssetTutorial", "BP_GetPopupWorld");
+
+	Params::PrimaryAssetTutorial_BP_GetPopupWorld Parms{};
+
+	Parms.Type = Type;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
 }
 
 
@@ -4891,6 +4510,40 @@ void UCustomAdjustText::AddLineIndentList(const struct FLineIndentInfo& lineInde
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.CustomAdjustText.GetReplaceWidget
+// (Final, Native, Public, HasOutParams, BlueprintCallable)
+// Parameters:
+// TArray<class UWidget*>*                 outReplaceWidget                                       (Parm, OutParm, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
+// const class FText&                      Text                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+// const bool                              bForceSetup                                            (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+bool UCustomAdjustText::GetReplaceWidget(TArray<class UWidget*>* outReplaceWidget, const class FText& Text, const bool bForceSetup)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("CustomAdjustText", "GetReplaceWidget");
+
+	Params::CustomAdjustText_GetReplaceWidget Parms{};
+
+	Parms.Text = std::move(Text);
+	Parms.bForceSetup = bForceSetup;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	if (outReplaceWidget != nullptr)
+		*outReplaceWidget = std::move(Parms.outReplaceWidget);
+
+	return Parms.ReturnValue;
 }
 
 
@@ -5250,34 +4903,6 @@ TArray<struct FCustomText> UCustomAdjustText::GetCustomText() const
 }
 
 
-// Function GameModule.CustomAdjustText.GetReplaceWidget
-// (Final, Native, Public, HasOutParams, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// const class FText&                      Text                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-// TArray<class UWidget*>                  ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, ContainsInstancedReference, NativeAccessSpecifierPublic)
-
-TArray<class UWidget*> UCustomAdjustText::GetReplaceWidget(const class FText& Text) const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("CustomAdjustText", "GetReplaceWidget");
-
-	Params::CustomAdjustText_GetReplaceWidget Parms{};
-
-	Parms.Text = std::move(Text);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
 // Function GameModule.CustomAdjustText.GetText
 // (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
 // Parameters:
@@ -5328,22 +4953,50 @@ bool UCustomAdjustText::GetUpdateScale() const
 }
 
 
-// Function GameModule.CustomAdjustText.IsAdjustStr
+// Function GameModule.PrimaryAssetStaffrollAnimation.BP_GetMovieMaterial
 // (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
 // Parameters:
-// const class FString&                    str                                                    (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// int32                                   Index_0                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UMaterial*                        ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-bool UCustomAdjustText::IsAdjustStr(const class FString& str) const
+class UMaterial* UPrimaryAssetStaffrollAnimation::BP_GetMovieMaterial(int32 Index_0) const
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("CustomAdjustText", "IsAdjustStr");
+		Func = Class->GetFunction("PrimaryAssetStaffrollAnimation", "BP_GetMovieMaterial");
 
-	Params::CustomAdjustText_IsAdjustStr Parms{};
+	Params::PrimaryAssetStaffrollAnimation_BP_GetMovieMaterial Parms{};
 
-	Parms.str = std::move(str);
+	Parms.Index_0 = Index_0;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.PrimaryAssetStaffrollAnimation.BP_GetMovieTexture
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// int32                                   Index_0                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UTexture*                         ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UTexture* UPrimaryAssetStaffrollAnimation::BP_GetMovieTexture(int32 Index_0) const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("PrimaryAssetStaffrollAnimation", "BP_GetMovieTexture");
+
+	Params::PrimaryAssetStaffrollAnimation_BP_GetMovieTexture Parms{};
+
+	Parms.Index_0 = Index_0;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -6116,174 +5769,6 @@ struct FVector2D UCustomInputKey::GetViewPortSizeDPI() const
 }
 
 
-// Function GameModule.ProfileDisplayPlayerCardWidget.BP_Setup
-// (Final, Native, Protected, HasOutParams, BlueprintCallable, BlueprintPure)
-// Parameters:
-// const struct FPlayerDisplayData&        Data                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-void UProfileDisplayPlayerCardWidget::BP_Setup(const struct FPlayerDisplayData& Data)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayPlayerCardWidget", "BP_Setup");
-
-	Params::ProfileDisplayPlayerCardWidget_BP_Setup Parms{};
-
-	Parms.Data = std::move(Data);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileShowLevel.DisableInputLoadProfileLevel
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// class UWidgetBase*                      Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UProfileShowLevel::DisableInputLoadProfileLevel(class UWidgetBase* Widget)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileShowLevel", "DisableInputLoadProfileLevel");
-
-	Params::ProfileShowLevel_DisableInputLoadProfileLevel Parms{};
-
-	Parms.Widget = Widget;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileShowLevel.EnableInputLoadProfileLevel
-// (Final, Native, Protected, BlueprintCallable)
-// Parameters:
-// class UWidgetBase*                      Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UProfileShowLevel::EnableInputLoadProfileLevel(class UWidgetBase* Widget)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileShowLevel", "EnableInputLoadProfileLevel");
-
-	Params::ProfileShowLevel_EnableInputLoadProfileLevel Parms{};
-
-	Parms.Widget = Widget;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileShowLevel.GetLevelStreamingDynamic
-// (Final, Native, Public, BlueprintCallable, BlueprintPure)
-// Parameters:
-// class ULevelStreamingDynamic*           ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class ULevelStreamingDynamic* UProfileShowLevel::GetLevelStreamingDynamic()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileShowLevel", "GetLevelStreamingDynamic");
-
-	Params::ProfileShowLevel_GetLevelStreamingDynamic Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProfileShowLevel.OnSubLevelHidden
-// (Final, Native, Protected)
-
-void UProfileShowLevel::OnSubLevelHidden()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileShowLevel", "OnSubLevelHidden");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileShowLevel.OnSubLevelShown
-// (Final, Native, Protected)
-
-void UProfileShowLevel::OnSubLevelShown()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileShowLevel", "OnSubLevelShown");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileShowLevel.OpenProfile
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    inGame                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-bool UProfileShowLevel::OpenProfile(const class UObject* WorldContextObject, bool inGame)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileShowLevel", "OpenProfile");
-
-	Params::ProfileShowLevel_OpenProfile Parms{};
-
-	Parms.WorldContextObject = WorldContextObject;
-	Parms.inGame = inGame;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
 // Function GameModule.CustomInputTextBox.BP_CheckCommit
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
@@ -6572,83 +6057,6 @@ bool UCustomInputTextBox::BP_GetFirstFocus() const
 	Func->FunctionFlags = Flgs;
 
 	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProfileDisplayRoleSlotWidget.GenerateData
-// (Native, Event, Public, BlueprintCallable, BlueprintEvent)
-// Parameters:
-// const class UProfileDisplayData*        _data                                                  (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    mySelf                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UProfileDisplayRoleSlotWidget::GenerateData(const class UProfileDisplayData* _data, bool mySelf)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayRoleSlotWidget", "GenerateData");
-
-	Params::ProfileDisplayRoleSlotWidget_GenerateData Parms{};
-
-	Parms._data = _data;
-	Parms.mySelf = mySelf;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayRoleSlotWidget.OnLoadedCostumeImage
-// (Final, Native, Protected)
-// Parameters:
-// class UPaperSprite*                     Sprite                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UProfileDisplayRoleSlotWidget::OnLoadedCostumeImage(class UPaperSprite* Sprite)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayRoleSlotWidget", "OnLoadedCostumeImage");
-
-	Params::ProfileDisplayRoleSlotWidget_OnLoadedCostumeImage Parms{};
-
-	Parms.Sprite = Sprite;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayRoleSlotWidget.OnLoadedRarityImage
-// (Final, Native, Protected)
-// Parameters:
-// class UTexture2D*                       Sprite                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UProfileDisplayRoleSlotWidget::OnLoadedRarityImage(class UTexture2D* Sprite)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayRoleSlotWidget", "OnLoadedRarityImage");
-
-	Params::ProfileDisplayRoleSlotWidget_OnLoadedRarityImage Parms{};
-
-	Parms.Sprite = Sprite;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
 }
 
 
@@ -7031,22 +6439,119 @@ void UCustomParticleSystemComponent::OnParticleDeathEvent(class UParticleSystemC
 }
 
 
-// Function GameModule.ProfileDisplayManager.BP_RequesetLoad
-// (Final, Native, Public, BlueprintCallable)
+// Function GameModule.ProfileDisplayData.BP_getAD
+// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
 // Parameters:
-// TSoftObjectPtr<class UWorld>            _level                                                 (Parm, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class ULevelStreamingDynamic*           ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FMyADDisplayData           ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
 
-class ULevelStreamingDynamic* AProfileDisplayManager::BP_RequesetLoad(TSoftObjectPtr<class UWorld> _level)
+const struct FMyADDisplayData UProfileDisplayData::BP_getAD() const
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayManager", "BP_RequesetLoad");
+		Func = Class->GetFunction("ProfileDisplayData", "BP_getAD");
 
-	Params::ProfileDisplayManager_BP_RequesetLoad Parms{};
+	Params::ProfileDisplayData_BP_getAD Parms{};
 
-	Parms._level = _level;
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.ProfileDisplayData.BP_getEmblem
+// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// const struct FEmblemDisplayData         ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
+
+const struct FEmblemDisplayData UProfileDisplayData::BP_getEmblem() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayData", "BP_getEmblem");
+
+	Params::ProfileDisplayData_BP_getEmblem Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.ProfileDisplayData.BP_getGuild
+// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// const struct FGuildDisplayData          ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+const struct FGuildDisplayData UProfileDisplayData::BP_getGuild() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayData", "BP_getGuild");
+
+	Params::ProfileDisplayData_BP_getGuild Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.ProfileDisplayData.BP_getPlayer
+// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// const struct FPlayerDisplayData         ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+const struct FPlayerDisplayData UProfileDisplayData::BP_getPlayer() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayData", "BP_getPlayer");
+
+	Params::ProfileDisplayData_BP_getPlayer Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.ProfileDisplayData.BP_GetPlayerId
+// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// class FString                           ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class FString UProfileDisplayData::BP_GetPlayerId() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayData", "BP_GetPlayerId");
+
+	Params::ProfileDisplayData_BP_GetPlayerId Parms{};
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -7073,6 +6578,763 @@ void UDotScrollBarItemWidget::OnSelect(class UAppWidget* Widget, EWidgetInputTyp
 		Func = Class->GetFunction("DotScrollBarItemWidget", "OnSelect");
 
 	Params::DotScrollBarItemWidget_OnSelect Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.DotScrollBarWidget.OnFocusListItem
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UDotScrollBarWidget::OnFocusListItem(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("DotScrollBarWidget", "OnFocusListItem");
+
+	Params::DotScrollBarWidget_OnFocusListItem Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.DotScrollBarWidget.OnItemScrolledIntoView
+// (Final, Native, Protected)
+// Parameters:
+// class UObject*                          Item                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UUserWidget*                      Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UDotScrollBarWidget::OnItemScrolledIntoView(class UObject* Item, class UUserWidget* Widget)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("DotScrollBarWidget", "OnItemScrolledIntoView");
+
+	Params::DotScrollBarWidget_OnItemScrolledIntoView Parms{};
+
+	Parms.Item = Item;
+	Parms.Widget = Widget;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.DotScrollBarWidget.OnListViewScrolled
+// (Final, Native, Protected)
+// Parameters:
+// float                                   ItemOffset                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// float                                   DistanceRemaining                                      (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UDotScrollBarWidget::OnListViewScrolled(float ItemOffset, float DistanceRemaining)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("DotScrollBarWidget", "OnListViewScrolled");
+
+	Params::DotScrollBarWidget_OnListViewScrolled Parms{};
+
+	Parms.ItemOffset = ItemOffset;
+	Parms.DistanceRemaining = DistanceRemaining;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.DotScrollBarWidget.OnPressArrow
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UDotScrollBarWidget::OnPressArrow(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("DotScrollBarWidget", "OnPressArrow");
+
+	Params::DotScrollBarWidget_OnPressArrow Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.DotScrollBarWidget.OnPressDot
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UDotScrollBarWidget::OnPressDot(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("DotScrollBarWidget", "OnPressDot");
+
+	Params::DotScrollBarWidget_OnPressDot Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.EmblemDisplayWidget.BP_GetBodyCanvasPanel
+// (Final, Native, Protected, BlueprintCallable)
+// Parameters:
+// class UCanvasPanel*                     ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UCanvasPanel* UEmblemDisplayWidget::BP_GetBodyCanvasPanel()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("EmblemDisplayWidget", "BP_GetBodyCanvasPanel");
+
+	Params::EmblemDisplayWidget_BP_GetBodyCanvasPanel Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.EmblemDisplayWidget.OnLoadedImage
+// (Final, Native, Private)
+// Parameters:
+// TSubclassOf<class UWidgetBase>          WidgetClass                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UEmblemDisplayWidget::OnLoadedImage(TSubclassOf<class UWidgetBase> WidgetClass)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("EmblemDisplayWidget", "OnLoadedImage");
+
+	Params::EmblemDisplayWidget_OnLoadedImage Parms{};
+
+	Parms.WidgetClass = WidgetClass;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileShowLevel.DisableInputLoadProfileLevel
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// class UWidgetBase*                      Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UProfileShowLevel::DisableInputLoadProfileLevel(class UWidgetBase* Widget)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileShowLevel", "DisableInputLoadProfileLevel");
+
+	Params::ProfileShowLevel_DisableInputLoadProfileLevel Parms{};
+
+	Parms.Widget = Widget;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileShowLevel.EnableInputLoadProfileLevel
+// (Final, Native, Protected, BlueprintCallable)
+// Parameters:
+// class UWidgetBase*                      Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UProfileShowLevel::EnableInputLoadProfileLevel(class UWidgetBase* Widget)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileShowLevel", "EnableInputLoadProfileLevel");
+
+	Params::ProfileShowLevel_EnableInputLoadProfileLevel Parms{};
+
+	Parms.Widget = Widget;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileShowLevel.GetLevelStreamingDynamic
+// (Final, Native, Public, BlueprintCallable, BlueprintPure)
+// Parameters:
+// class ULevelStreamingDynamic*           ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class ULevelStreamingDynamic* UProfileShowLevel::GetLevelStreamingDynamic()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileShowLevel", "GetLevelStreamingDynamic");
+
+	Params::ProfileShowLevel_GetLevelStreamingDynamic Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.ProfileShowLevel.OnSubLevelHidden
+// (Final, Native, Protected)
+
+void UProfileShowLevel::OnSubLevelHidden()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileShowLevel", "OnSubLevelHidden");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileShowLevel.OnSubLevelShown
+// (Final, Native, Protected)
+
+void UProfileShowLevel::OnSubLevelShown()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileShowLevel", "OnSubLevelShown");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileShowLevel.OpenProfile
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    inGame                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+bool UProfileShowLevel::OpenProfile(const class UObject* WorldContextObject, bool inGame)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileShowLevel", "OpenProfile");
+
+	Params::ProfileShowLevel_OpenProfile Parms{};
+
+	Parms.WorldContextObject = WorldContextObject;
+	Parms.inGame = inGame;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.FadeWidget.BP_StartFade
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// bool                                    bNext                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UFadeWidget::BP_StartFade(bool bNext)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("FadeWidget", "BP_StartFade");
+
+	Params::FadeWidget_BP_StartFade Parms{};
+
+	Parms.bNext = bNext;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.FadeWidget.FadeTimeOut
+// (Final, Native, Protected)
+
+void UFadeWidget::FadeTimeOut()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("FadeWidget", "FadeTimeOut");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.FadeWidget.StartFade
+// (Final, Native, Public)
+// Parameters:
+// bool                                    bNext                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UFadeWidget::StartFade(bool bNext)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("FadeWidget", "StartFade");
+
+	Params::FadeWidget_StartFade Parms{};
+
+	Parms.bNext = bNext;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.FocusAnimationWidget.SetFocusOffsets
+// (Final, Native, Public, HasOutParams, BlueprintCallable)
+// Parameters:
+// const struct FMargin&                   Offsets                                                (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+
+void UFocusAnimationWidget::SetFocusOffsets(const struct FMargin& Offsets)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("FocusAnimationWidget", "SetFocusOffsets");
+
+	Params::FocusAnimationWidget_SetFocusOffsets Parms{};
+
+	Parms.Offsets = std::move(Offsets);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.FocusAnimationWidget.SetViewArrowDown
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const bool                              bView                                                  (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UFocusAnimationWidget::SetViewArrowDown(const bool bView)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("FocusAnimationWidget", "SetViewArrowDown");
+
+	Params::FocusAnimationWidget_SetViewArrowDown Parms{};
+
+	Parms.bView = bView;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.FocusAnimationWidget.SetViewArrowLeft
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const bool                              bView                                                  (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UFocusAnimationWidget::SetViewArrowLeft(const bool bView)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("FocusAnimationWidget", "SetViewArrowLeft");
+
+	Params::FocusAnimationWidget_SetViewArrowLeft Parms{};
+
+	Parms.bView = bView;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.FocusAnimationWidget.SetViewArrowRight
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const bool                              bView                                                  (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UFocusAnimationWidget::SetViewArrowRight(const bool bView)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("FocusAnimationWidget", "SetViewArrowRight");
+
+	Params::FocusAnimationWidget_SetViewArrowRight Parms{};
+
+	Parms.bView = bView;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.FocusAnimationWidget.SetViewArrowUp
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const bool                              bView                                                  (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UFocusAnimationWidget::SetViewArrowUp(const bool bView)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("FocusAnimationWidget", "SetViewArrowUp");
+
+	Params::FocusAnimationWidget_SetViewArrowUp Parms{};
+
+	Parms.bView = bView;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.FocusAnimationWidget.SetViewFocus
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const bool                              bView                                                  (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UFocusAnimationWidget::SetViewFocus(const bool bView)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("FocusAnimationWidget", "SetViewFocus");
+
+	Params::FocusAnimationWidget_SetViewFocus Parms{};
+
+	Parms.bView = bView;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.FontCheckWidget.CopyErrorCode
+// (Final, Native, Private)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const EWidgetInputType                  inputType                                              (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UFontCheckWidget::CopyErrorCode(class UAppWidget* Widget, const EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("FontCheckWidget", "CopyErrorCode");
+
+	Params::FontCheckWidget_CopyErrorCode Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.FontCheckWidget.OpenSwitchFontMenu
+// (Final, Native, Private)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const EWidgetInputType                  inputType                                              (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UFontCheckWidget::OpenSwitchFontMenu(class UAppWidget* Widget, const EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("FontCheckWidget", "OpenSwitchFontMenu");
+
+	Params::FontCheckWidget_OpenSwitchFontMenu Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.FontCheckWidget.PasteEndCode
+// (Final, Native, Private)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const EWidgetInputType                  inputType                                              (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UFontCheckWidget::PasteEndCode(class UAppWidget* Widget, const EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("FontCheckWidget", "PasteEndCode");
+
+	Params::FontCheckWidget_PasteEndCode Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.FontCheckWidget.PasteStartCode
+// (Final, Native, Private)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const EWidgetInputType                  inputType                                              (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UFontCheckWidget::PasteStartCode(class UAppWidget* Widget, const EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("FontCheckWidget", "PasteStartCode");
+
+	Params::FontCheckWidget_PasteStartCode Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.FontCheckWidget.SwitchFont
+// (Final, Native, Private)
+// Parameters:
+// const int32                             idx                                                    (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UFontCheckWidget::SwitchFont(const int32 idx)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("FontCheckWidget", "SwitchFont");
+
+	Params::FontCheckWidget_SwitchFont Parms{};
+
+	Parms.idx = idx;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.FontCheckWidget.UpdateEndCode
+// (Final, Native, Private, HasOutParams)
+// Parameters:
+// const class FText&                      Text                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UFontCheckWidget::UpdateEndCode(const class FText& Text)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("FontCheckWidget", "UpdateEndCode");
+
+	Params::FontCheckWidget_UpdateEndCode Parms{};
+
+	Parms.Text = std::move(Text);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.FontCheckWidget.UpdateStartCode
+// (Final, Native, Private, HasOutParams)
+// Parameters:
+// const class FText&                      Text                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UFontCheckWidget::UpdateStartCode(const class FText& Text)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("FontCheckWidget", "UpdateStartCode");
+
+	Params::FontCheckWidget_UpdateStartCode Parms{};
+
+	Parms.Text = std::move(Text);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.FontCheckWidget.UpdateView
+// (Final, Native, Private)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const EWidgetInputType                  inputType                                              (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UFontCheckWidget::UpdateView(class UAppWidget* Widget, const EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("FontCheckWidget", "UpdateView");
+
+	Params::FontCheckWidget_UpdateView Parms{};
 
 	Parms.Widget = Widget;
 	Parms.inputType = inputType;
@@ -7120,6 +7382,25 @@ void UProfileDisplayOfferWidget::BP_OnTryChangeTab()
 
 	if (Func == nullptr)
 		Func = Class->GetFunction("ProfileDisplayOfferWidget", "BP_OnTryChangeTab");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayOfferWidget.BP_SetFocusListOpenButton
+// (Final, Native, Public, BlueprintCallable)
+
+void UProfileDisplayOfferWidget::BP_SetFocusListOpenButton()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayOfferWidget", "BP_SetFocusListOpenButton");
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -7644,1024 +7925,23 @@ void UProfileDisplayOfferWidget::UpdateAfterFetchData()
 }
 
 
-// Function GameModule.DotScrollBarWidget.OnFocusListItem
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UDotScrollBarWidget::OnFocusListItem(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("DotScrollBarWidget", "OnFocusListItem");
-
-	Params::DotScrollBarWidget_OnFocusListItem Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.DotScrollBarWidget.OnItemScrolledIntoView
-// (Final, Native, Protected)
-// Parameters:
-// class UObject*                          Item                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UUserWidget*                      Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UDotScrollBarWidget::OnItemScrolledIntoView(class UObject* Item, class UUserWidget* Widget)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("DotScrollBarWidget", "OnItemScrolledIntoView");
-
-	Params::DotScrollBarWidget_OnItemScrolledIntoView Parms{};
-
-	Parms.Item = Item;
-	Parms.Widget = Widget;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.DotScrollBarWidget.OnListViewScrolled
-// (Final, Native, Protected)
-// Parameters:
-// float                                   ItemOffset                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// float                                   DistanceRemaining                                      (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UDotScrollBarWidget::OnListViewScrolled(float ItemOffset, float DistanceRemaining)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("DotScrollBarWidget", "OnListViewScrolled");
-
-	Params::DotScrollBarWidget_OnListViewScrolled Parms{};
-
-	Parms.ItemOffset = ItemOffset;
-	Parms.DistanceRemaining = DistanceRemaining;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.DotScrollBarWidget.OnPressArrow
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UDotScrollBarWidget::OnPressArrow(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("DotScrollBarWidget", "OnPressArrow");
-
-	Params::DotScrollBarWidget_OnPressArrow Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.DotScrollBarWidget.OnPressDot
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UDotScrollBarWidget::OnPressDot(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("DotScrollBarWidget", "OnPressDot");
-
-	Params::DotScrollBarWidget_OnPressDot Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.EmblemDisplayWidget.BP_GetBodyCanvasPanel
-// (Final, Native, Protected, BlueprintCallable)
-// Parameters:
-// class UCanvasPanel*                     ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UCanvasPanel* UEmblemDisplayWidget::BP_GetBodyCanvasPanel()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("EmblemDisplayWidget", "BP_GetBodyCanvasPanel");
-
-	Params::EmblemDisplayWidget_BP_GetBodyCanvasPanel Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.EmblemDisplayWidget.OnLoadedImage
-// (Final, Native, Private)
-// Parameters:
-// TSubclassOf<class UWidgetBase>          WidgetClass                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UEmblemDisplayWidget::OnLoadedImage(TSubclassOf<class UWidgetBase> WidgetClass)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("EmblemDisplayWidget", "OnLoadedImage");
-
-	Params::EmblemDisplayWidget_OnLoadedImage Parms{};
-
-	Parms.WidgetClass = WidgetClass;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.FadeWidget.BP_StartFade
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// bool                                    bNext                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UFadeWidget::BP_StartFade(bool bNext)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("FadeWidget", "BP_StartFade");
-
-	Params::FadeWidget_BP_StartFade Parms{};
-
-	Parms.bNext = bNext;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.FadeWidget.FadeTimeOut
-// (Final, Native, Protected)
-
-void UFadeWidget::FadeTimeOut()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("FadeWidget", "FadeTimeOut");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.FadeWidget.StartFade
+// Function GameModule.ReturnButtonWidget.OnPressButton
 // (Final, Native, Public)
 // Parameters:
-// bool                                    bNext                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UFadeWidget::StartFade(bool bNext)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("FadeWidget", "StartFade");
-
-	Params::FadeWidget_StartFade Parms{};
-
-	Parms.bNext = bNext;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.BP_Cancel
-// (Final, Native, Protected, BlueprintCallable)
-
-void UProfileDisplayViolationReportWidget::BP_Cancel()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "BP_Cancel");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.BP_CloseLevel
-// (Final, Native, Protected, BlueprintCallable)
-
-void UProfileDisplayViolationReportWidget::BP_CloseLevel()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "BP_CloseLevel");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.BP_GetTargetName
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// class FString                           ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class FString UProfileDisplayViolationReportWidget::BP_GetTargetName()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "BP_GetTargetName");
-
-	Params::ProfileDisplayViolationReportWidget_BP_GetTargetName Parms{};
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.BP_RequestReport
-// (Final, Native, Protected, BlueprintCallable)
-
-void UProfileDisplayViolationReportWidget::BP_RequestReport()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "BP_RequestReport");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.BP_RequestReportInGame
-// (Event, Protected, BlueprintEvent)
-
-void UProfileDisplayViolationReportWidget::BP_RequestReportInGame()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "BP_RequestReportInGame");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnCancelBlockListAddPopupWindow
-// (Final, Native, Protected)
-// Parameters:
 // class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UProfileDisplayViolationReportWidget::OnCancelBlockListAddPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType)
+void UReturnButtonWidget::OnPressButton(class UAppWidget* Widget, EWidgetInputType inputType)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnCancelBlockListAddPopupWindow");
+		Func = Class->GetFunction("ReturnButtonWidget", "OnPressButton");
 
-	Params::ProfileDisplayViolationReportWidget_OnCancelBlockListAddPopupWindow Parms{};
+	Params::ReturnButtonWidget_OnPressButton Parms{};
 
 	Parms.Widget = Widget;
 	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnCancelCheckRemoveFriendPopupWindow
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UProfileDisplayViolationReportWidget::OnCancelCheckRemoveFriendPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnCancelCheckRemoveFriendPopupWindow");
-
-	Params::ProfileDisplayViolationReportWidget_OnCancelCheckRemoveFriendPopupWindow Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnCancelCheckRemoveFriendWindow
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UProfileDisplayViolationReportWidget::OnCancelCheckRemoveFriendWindow(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnCancelCheckRemoveFriendWindow");
-
-	Params::ProfileDisplayViolationReportWidget_OnCancelCheckRemoveFriendWindow Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnCancelPopupWindow
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UProfileDisplayViolationReportWidget::OnCancelPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnCancelPopupWindow");
-
-	Params::ProfileDisplayViolationReportWidget_OnCancelPopupWindow Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnClickedBlockBGBlockListAddPopupWindow
-// (Final, Native, Protected)
-
-void UProfileDisplayViolationReportWidget::OnClickedBlockBGBlockListAddPopupWindow()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClickedBlockBGBlockListAddPopupWindow");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnClickedBlockBGCheckRemoveFriendWindow
-// (Final, Native, Protected)
-
-void UProfileDisplayViolationReportWidget::OnClickedBlockBGCheckRemoveFriendWindow()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClickedBlockBGCheckRemoveFriendWindow");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnClickedBlockBGPopupWindow
-// (Final, Native, Protected)
-
-void UProfileDisplayViolationReportWidget::OnClickedBlockBGPopupWindow()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClickedBlockBGPopupWindow");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnClickedCheckRemoveFriendBlockBGPopupWindow
-// (Final, Native, Protected)
-
-void UProfileDisplayViolationReportWidget::OnClickedCheckRemoveFriendBlockBGPopupWindow()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClickedCheckRemoveFriendBlockBGPopupWindow");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnClosedBlockListAddPopupWindow
-// (Final, Native, Protected)
-
-void UProfileDisplayViolationReportWidget::OnClosedBlockListAddPopupWindow()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClosedBlockListAddPopupWindow");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnClosedCheckRemoveFriendPopupWindow
-// (Final, Native, Protected)
-
-void UProfileDisplayViolationReportWidget::OnClosedCheckRemoveFriendPopupWindow()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClosedCheckRemoveFriendPopupWindow");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnClosedCheckRemoveFriendWindow
-// (Final, Native, Protected)
-
-void UProfileDisplayViolationReportWidget::OnClosedCheckRemoveFriendWindow()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClosedCheckRemoveFriendWindow");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnClosedPopupWindow
-// (Final, Native, Protected)
-
-void UProfileDisplayViolationReportWidget::OnClosedPopupWindow()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClosedPopupWindow");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnClosedSelectWindow
-// (Final, Native, Protected)
-
-void UProfileDisplayViolationReportWidget::OnClosedSelectWindow()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClosedSelectWindow");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnDecideBlockListAddPopupWindow
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    leftButton                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UProfileDisplayViolationReportWidget::OnDecideBlockListAddPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnDecideBlockListAddPopupWindow");
-
-	Params::ProfileDisplayViolationReportWidget_OnDecideBlockListAddPopupWindow Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-	Parms.leftButton = leftButton;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnDecideCheckRemoveFriendPopupWindow
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    leftButton                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UProfileDisplayViolationReportWidget::OnDecideCheckRemoveFriendPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnDecideCheckRemoveFriendPopupWindow");
-
-	Params::ProfileDisplayViolationReportWidget_OnDecideCheckRemoveFriendPopupWindow Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-	Parms.leftButton = leftButton;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnDecideCheckRemoveFriendWindow
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    leftButton                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UProfileDisplayViolationReportWidget::OnDecideCheckRemoveFriendWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnDecideCheckRemoveFriendWindow");
-
-	Params::ProfileDisplayViolationReportWidget_OnDecideCheckRemoveFriendWindow Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-	Parms.leftButton = leftButton;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnDecidePopupWindow
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    leftButton                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UProfileDisplayViolationReportWidget::OnDecidePopupWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnDecidePopupWindow");
-
-	Params::ProfileDisplayViolationReportWidget_OnDecidePopupWindow Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-	Parms.leftButton = leftButton;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnDecideSelectWindow
-// (Final, Native, Protected)
-// Parameters:
-// int32                                   selectindex                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    leftButton                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UProfileDisplayViolationReportWidget::OnDecideSelectWindow(int32 selectindex, class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnDecideSelectWindow");
-
-	Params::ProfileDisplayViolationReportWidget_OnDecideSelectWindow Parms{};
-
-	Parms.selectindex = selectindex;
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-	Parms.leftButton = leftButton;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnFinishFetchDataCommonEvent
-// (Final, Native, Protected)
-// Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UProfileDisplayViolationReportWidget::OnFinishFetchDataCommonEvent(int32 requestId)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnFinishFetchDataCommonEvent");
-
-	Params::ProfileDisplayViolationReportWidget_OnFinishFetchDataCommonEvent Parms{};
-
-	Parms.requestId = requestId;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnFinishFetchDataEvent
-// (Final, Native, Protected)
-// Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UProfileDisplayViolationReportWidget::OnFinishFetchDataEvent(int32 requestId)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnFinishFetchDataEvent");
-
-	Params::ProfileDisplayViolationReportWidget_OnFinishFetchDataEvent Parms{};
-
-	Parms.requestId = requestId;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnReceivedFinish
-// (Final, Native, Protected)
-
-void UProfileDisplayViolationReportWidget::OnReceivedFinish()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnReceivedFinish");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnReceivedFinishAddBlockList
-// (Final, Native, Protected)
-
-void UProfileDisplayViolationReportWidget::OnReceivedFinishAddBlockList()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnReceivedFinishAddBlockList");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ProfileDisplayViolationReportWidget.OnReceivedFinishRemoveFriend
-// (Final, Native, Protected)
-
-void UProfileDisplayViolationReportWidget::OnReceivedFinishRemoveFriend()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnReceivedFinishRemoveFriend");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.FocusAnimationWidget.SetFocusOffsets
-// (Final, Native, Public, HasOutParams, BlueprintCallable)
-// Parameters:
-// const struct FMargin&                   Offsets                                                (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
-
-void UFocusAnimationWidget::SetFocusOffsets(const struct FMargin& Offsets)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("FocusAnimationWidget", "SetFocusOffsets");
-
-	Params::FocusAnimationWidget_SetFocusOffsets Parms{};
-
-	Parms.Offsets = std::move(Offsets);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.FocusAnimationWidget.SetViewArrowDown
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const bool                              bView                                                  (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UFocusAnimationWidget::SetViewArrowDown(const bool bView)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("FocusAnimationWidget", "SetViewArrowDown");
-
-	Params::FocusAnimationWidget_SetViewArrowDown Parms{};
-
-	Parms.bView = bView;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.FocusAnimationWidget.SetViewArrowLeft
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const bool                              bView                                                  (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UFocusAnimationWidget::SetViewArrowLeft(const bool bView)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("FocusAnimationWidget", "SetViewArrowLeft");
-
-	Params::FocusAnimationWidget_SetViewArrowLeft Parms{};
-
-	Parms.bView = bView;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.FocusAnimationWidget.SetViewArrowRight
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const bool                              bView                                                  (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UFocusAnimationWidget::SetViewArrowRight(const bool bView)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("FocusAnimationWidget", "SetViewArrowRight");
-
-	Params::FocusAnimationWidget_SetViewArrowRight Parms{};
-
-	Parms.bView = bView;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.FocusAnimationWidget.SetViewArrowUp
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const bool                              bView                                                  (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UFocusAnimationWidget::SetViewArrowUp(const bool bView)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("FocusAnimationWidget", "SetViewArrowUp");
-
-	Params::FocusAnimationWidget_SetViewArrowUp Parms{};
-
-	Parms.bView = bView;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.FocusAnimationWidget.SetViewFocus
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const bool                              bView                                                  (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UFocusAnimationWidget::SetViewFocus(const bool bView)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("FocusAnimationWidget", "SetViewFocus");
-
-	Params::FocusAnimationWidget_SetViewFocus Parms{};
-
-	Parms.bView = bView;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -8775,31 +8055,6 @@ void UGameEffectSubsystem::OnParticleDestroy(class UParticleSystemComponent* par
 }
 
 
-// Function GameModule.RoleSlotMainItemIconWidget.OnLoadedIconImage
-// (Final, Native, Protected)
-// Parameters:
-// class UPaperSprite*                     Sprite                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void URoleSlotMainItemIconWidget::OnLoadedIconImage(class UPaperSprite* Sprite)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("RoleSlotMainItemIconWidget", "OnLoadedIconImage");
-
-	Params::RoleSlotMainItemIconWidget_OnLoadedIconImage Parms{};
-
-	Parms.Sprite = Sprite;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
 // Function GameModule.GameOption.BP_GetButtonGuideImgId
 // (Final, Native, Static, Public, BlueprintCallable)
 // Parameters:
@@ -8829,6 +8084,31 @@ class FString UGameOption::BP_GetButtonGuideImgId(const class UObject* WorldCont
 	Func->FunctionFlags = Flgs;
 
 	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.GameOption.AddUsedCharacterToList
+// (Final, Native, Protected, HasOutParams, BlueprintCallable)
+// Parameters:
+// const TArray<class FString>&            args                                                   (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UGameOption::AddUsedCharacterToList(const TArray<class FString>& args)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("GameOption", "AddUsedCharacterToList");
+
+	Params::GameOption_AddUsedCharacterToList Parms{};
+
+	Parms.args = std::move(args);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
 }
 
 
@@ -9452,6 +8732,31 @@ bool UGameOption::BP_SetViewShopItem(int32 shopItem)
 }
 
 
+// Function GameModule.GameOption.DeleteUsedCharacterToList
+// (Final, Native, Protected, HasOutParams, BlueprintCallable)
+// Parameters:
+// const TArray<class FString>&            args                                                   (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UGameOption::DeleteUsedCharacterToList(const TArray<class FString>& args)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("GameOption", "DeleteUsedCharacterToList");
+
+	Params::GameOption_DeleteUsedCharacterToList Parms{};
+
+	Parms.args = std::move(args);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
 // Function GameModule.GameOption.GetGamePadKeyConfigOnCommand
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
@@ -9906,6 +9211,31 @@ void UGameOption::ResetTermsOfServiceFlagCmd(const TArray<class FString>& args)
 		Func = Class->GetFunction("GameOption", "ResetTermsOfServiceFlagCmd");
 
 	Params::GameOption_ResetTermsOfServiceFlagCmd Parms{};
+
+	Parms.args = std::move(args);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.GameOption.ResetUsedCharacterListCmd
+// (Final, Native, Protected, HasOutParams, BlueprintCallable)
+// Parameters:
+// const TArray<class FString>&            args                                                   (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UGameOption::ResetUsedCharacterListCmd(const TArray<class FString>& args)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("GameOption", "ResetUsedCharacterListCmd");
+
+	Params::GameOption_ResetUsedCharacterListCmd Parms{};
 
 	Parms.args = std::move(args);
 
@@ -10709,6 +10039,884 @@ void IGameOptionSettingsInterface::CloseOptionMenu()
 	Func->FunctionFlags |= 0x400;
 
 	AsUObject()->ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.BP_Cancel
+// (Final, Native, Protected, BlueprintCallable)
+
+void UProfileDisplayViolationReportWidget::BP_Cancel()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "BP_Cancel");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.BP_CloseLevel
+// (Final, Native, Protected, BlueprintCallable)
+
+void UProfileDisplayViolationReportWidget::BP_CloseLevel()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "BP_CloseLevel");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.BP_GetTargetName
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// class FString                           ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class FString UProfileDisplayViolationReportWidget::BP_GetTargetName()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "BP_GetTargetName");
+
+	Params::ProfileDisplayViolationReportWidget_BP_GetTargetName Parms{};
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.BP_RequestReport
+// (Final, Native, Protected, BlueprintCallable)
+
+void UProfileDisplayViolationReportWidget::BP_RequestReport()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "BP_RequestReport");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.BP_RequestReportInGame
+// (Event, Protected, BlueprintEvent)
+
+void UProfileDisplayViolationReportWidget::BP_RequestReportInGame()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "BP_RequestReportInGame");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnCancelBlockListAddPopupWindow
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UProfileDisplayViolationReportWidget::OnCancelBlockListAddPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnCancelBlockListAddPopupWindow");
+
+	Params::ProfileDisplayViolationReportWidget_OnCancelBlockListAddPopupWindow Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnCancelCheckRemoveFriendPopupWindow
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UProfileDisplayViolationReportWidget::OnCancelCheckRemoveFriendPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnCancelCheckRemoveFriendPopupWindow");
+
+	Params::ProfileDisplayViolationReportWidget_OnCancelCheckRemoveFriendPopupWindow Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnCancelCheckRemoveFriendWindow
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UProfileDisplayViolationReportWidget::OnCancelCheckRemoveFriendWindow(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnCancelCheckRemoveFriendWindow");
+
+	Params::ProfileDisplayViolationReportWidget_OnCancelCheckRemoveFriendWindow Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnCancelPopupWindow
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UProfileDisplayViolationReportWidget::OnCancelPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnCancelPopupWindow");
+
+	Params::ProfileDisplayViolationReportWidget_OnCancelPopupWindow Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnClickedBlockBGBlockListAddPopupWindow
+// (Final, Native, Protected)
+
+void UProfileDisplayViolationReportWidget::OnClickedBlockBGBlockListAddPopupWindow()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClickedBlockBGBlockListAddPopupWindow");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnClickedBlockBGCheckRemoveFriendWindow
+// (Final, Native, Protected)
+
+void UProfileDisplayViolationReportWidget::OnClickedBlockBGCheckRemoveFriendWindow()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClickedBlockBGCheckRemoveFriendWindow");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnClickedBlockBGPopupWindow
+// (Final, Native, Protected)
+
+void UProfileDisplayViolationReportWidget::OnClickedBlockBGPopupWindow()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClickedBlockBGPopupWindow");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnClickedCheckRemoveFriendBlockBGPopupWindow
+// (Final, Native, Protected)
+
+void UProfileDisplayViolationReportWidget::OnClickedCheckRemoveFriendBlockBGPopupWindow()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClickedCheckRemoveFriendBlockBGPopupWindow");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnClosedBlockListAddPopupWindow
+// (Final, Native, Protected)
+
+void UProfileDisplayViolationReportWidget::OnClosedBlockListAddPopupWindow()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClosedBlockListAddPopupWindow");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnClosedCheckRemoveFriendPopupWindow
+// (Final, Native, Protected)
+
+void UProfileDisplayViolationReportWidget::OnClosedCheckRemoveFriendPopupWindow()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClosedCheckRemoveFriendPopupWindow");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnClosedCheckRemoveFriendWindow
+// (Final, Native, Protected)
+
+void UProfileDisplayViolationReportWidget::OnClosedCheckRemoveFriendWindow()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClosedCheckRemoveFriendWindow");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnClosedPopupWindow
+// (Final, Native, Protected)
+
+void UProfileDisplayViolationReportWidget::OnClosedPopupWindow()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClosedPopupWindow");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnClosedSelectWindow
+// (Final, Native, Protected)
+
+void UProfileDisplayViolationReportWidget::OnClosedSelectWindow()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnClosedSelectWindow");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnDecideBlockListAddPopupWindow
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    leftButton                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UProfileDisplayViolationReportWidget::OnDecideBlockListAddPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnDecideBlockListAddPopupWindow");
+
+	Params::ProfileDisplayViolationReportWidget_OnDecideBlockListAddPopupWindow Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+	Parms.leftButton = leftButton;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnDecideCheckRemoveFriendPopupWindow
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    leftButton                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UProfileDisplayViolationReportWidget::OnDecideCheckRemoveFriendPopupWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnDecideCheckRemoveFriendPopupWindow");
+
+	Params::ProfileDisplayViolationReportWidget_OnDecideCheckRemoveFriendPopupWindow Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+	Parms.leftButton = leftButton;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnDecideCheckRemoveFriendWindow
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    leftButton                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UProfileDisplayViolationReportWidget::OnDecideCheckRemoveFriendWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnDecideCheckRemoveFriendWindow");
+
+	Params::ProfileDisplayViolationReportWidget_OnDecideCheckRemoveFriendWindow Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+	Parms.leftButton = leftButton;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnDecidePopupWindow
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    leftButton                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UProfileDisplayViolationReportWidget::OnDecidePopupWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnDecidePopupWindow");
+
+	Params::ProfileDisplayViolationReportWidget_OnDecidePopupWindow Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+	Parms.leftButton = leftButton;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnDecideSelectWindow
+// (Final, Native, Protected)
+// Parameters:
+// int32                                   selectindex                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    leftButton                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UProfileDisplayViolationReportWidget::OnDecideSelectWindow(int32 selectindex, class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnDecideSelectWindow");
+
+	Params::ProfileDisplayViolationReportWidget_OnDecideSelectWindow Parms{};
+
+	Parms.selectindex = selectindex;
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+	Parms.leftButton = leftButton;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnFinishFetchDataCommonEvent
+// (Final, Native, Protected)
+// Parameters:
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UProfileDisplayViolationReportWidget::OnFinishFetchDataCommonEvent(int32 requestId)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnFinishFetchDataCommonEvent");
+
+	Params::ProfileDisplayViolationReportWidget_OnFinishFetchDataCommonEvent Parms{};
+
+	Parms.requestId = requestId;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnFinishFetchDataEvent
+// (Final, Native, Protected)
+// Parameters:
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UProfileDisplayViolationReportWidget::OnFinishFetchDataEvent(int32 requestId)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnFinishFetchDataEvent");
+
+	Params::ProfileDisplayViolationReportWidget_OnFinishFetchDataEvent Parms{};
+
+	Parms.requestId = requestId;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnReceivedFinish
+// (Final, Native, Protected)
+
+void UProfileDisplayViolationReportWidget::OnReceivedFinish()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnReceivedFinish");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnReceivedFinishAddBlockList
+// (Final, Native, Protected)
+
+void UProfileDisplayViolationReportWidget::OnReceivedFinishAddBlockList()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnReceivedFinishAddBlockList");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayViolationReportWidget.OnReceivedFinishRemoveFriend
+// (Final, Native, Protected)
+
+void UProfileDisplayViolationReportWidget::OnReceivedFinishRemoveFriend()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayViolationReportWidget", "OnReceivedFinishRemoveFriend");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.RankImage.GetEventRank
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+int32 URankImage::GetEventRank()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("RankImage", "GetEventRank");
+
+	Params::RankImage_GetEventRank Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.RankImage.GetRank
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+int32 URankImage::GetRank()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("RankImage", "GetRank");
+
+	Params::RankImage_GetRank Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.RankImage.SetEventRank
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const int32                             Rank                                                   (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void URankImage::SetEventRank(const int32 Rank)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("RankImage", "SetEventRank");
+
+	Params::RankImage_SetEventRank Parms{};
+
+	Parms.Rank = Rank;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.RankImage.SetEventRankFB
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const class UPaperFlipbook*             fb                                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void URankImage::SetEventRankFB(const class UPaperFlipbook* fb)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("RankImage", "SetEventRankFB");
+
+	Params::RankImage_SetEventRankFB Parms{};
+
+	Parms.fb = fb;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.RankImage.SetEventRankFBIdx
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const class UPaperFlipbook*             fb                                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const int32                             idx                                                    (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void URankImage::SetEventRankFBIdx(const class UPaperFlipbook* fb, const int32 idx)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("RankImage", "SetEventRankFBIdx");
+
+	Params::RankImage_SetEventRankFBIdx Parms{};
+
+	Parms.fb = fb;
+	Parms.idx = idx;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.RankImage.SetEventRankIdx
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const int32                             idx                                                    (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void URankImage::SetEventRankIdx(const int32 idx)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("RankImage", "SetEventRankIdx");
+
+	Params::RankImage_SetEventRankIdx Parms{};
+
+	Parms.idx = idx;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.RankImage.SetRank
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const int32                             Rank                                                   (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void URankImage::SetRank(const int32 Rank)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("RankImage", "SetRank");
+
+	Params::RankImage_SetRank Parms{};
+
+	Parms.Rank = Rank;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.RankImage.SetRankFB
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const class UPaperFlipbook*             fb                                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void URankImage::SetRankFB(const class UPaperFlipbook* fb)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("RankImage", "SetRankFB");
+
+	Params::RankImage_SetRankFB Parms{};
+
+	Parms.fb = fb;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.RankImage.SetRankFBIdx
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const class UPaperFlipbook*             fb                                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const int32                             idx                                                    (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void URankImage::SetRankFBIdx(const class UPaperFlipbook* fb, const int32 idx)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("RankImage", "SetRankFBIdx");
+
+	Params::RankImage_SetRankFBIdx Parms{};
+
+	Parms.fb = fb;
+	Parms.idx = idx;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.RankImage.SetRankIdx
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const int32                             idx                                                    (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void URankImage::SetRankIdx(const int32 idx)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("RankImage", "SetRankIdx");
+
+	Params::RankImage_SetRankIdx Parms{};
+
+	Parms.idx = idx;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
 }
@@ -14674,56 +14882,28 @@ bool UGameStatics::IsAutoPlayMode(class UObject* WorldContextObject)
 }
 
 
-// Function GameModule.SendLikeInterface.SendLikeImage
-// (Native, Event, Public, BlueprintCallable, BlueprintEvent)
+// Function GameModule.RoleSlotMainSkillWidget.OnLoadedRoleIconSet
+// (Final, Native, Protected)
 // Parameters:
-// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UTexture2D*                       Texture                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-bool ISendLikeInterface::SendLikeImage()
+void URoleSlotMainSkillWidget::OnLoadedRoleIconSet(class UTexture2D* Texture)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = AsUObject()->Class->GetFunction("SendLikeInterface", "SendLikeImage");
+		Func = Class->GetFunction("RoleSlotMainSkillWidget", "OnLoadedRoleIconSet");
 
-	Params::SendLikeInterface_SendLikeImage Parms{};
+	Params::RoleSlotMainSkillWidget_OnLoadedRoleIconSet Parms{};
 
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	AsUObject()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.SendLikeInterface.SetSendLikeButtonEnable
-// (Native, Event, Public, BlueprintCallable, BlueprintEvent)
-// Parameters:
-// bool                                    inEnable                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-bool ISendLikeInterface::SetSendLikeButtonEnable(bool inEnable)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = AsUObject()->Class->GetFunction("SendLikeInterface", "SetSendLikeButtonEnable");
-
-	Params::SendLikeInterface_SetSendLikeButtonEnable Parms{};
-
-	Parms.inEnable = inEnable;
+	Parms.Texture = Texture;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
 
-	AsUObject()->ProcessEvent(Func, &Parms);
+	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
 }
 
 
@@ -16149,46 +16329,33 @@ void UGashaDatabaseWork::UnLoadGashaResultImage()
 }
 
 
-// Function GameModule.ScoreComponentBase.OnCompletedSendKpi
-// (Final, Native, Protected)
-// Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// Function GameModule.ProjectileGeneratorGame.OnSpawnInitParams
+// (Event, Public, BlueprintEvent)
 
-void UScoreComponentBase::OnCompletedSendKpi(int32 requestId)
+void AProjectileGeneratorGame::OnSpawnInitParams()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ScoreComponentBase", "OnCompletedSendKpi");
+		Func = Class->GetFunction("ProjectileGeneratorGame", "OnSpawnInitParams");
 
-	Params::ScoreComponentBase_OnCompletedSendKpi Parms{};
-
-	Parms.requestId = requestId;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
+	UObject::ProcessEvent(Func, nullptr);
 }
 
 
-// Function GameModule.ScoreComponentBase.OnCompletedSendRentalPointList
-// (Final, Native, Protected)
+// Function GameModule.ProjectileGeneratorGame.BP_GetBaseDB
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
 // Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FGeneratorIndexData        ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
 
-void UScoreComponentBase::OnCompletedSendRentalPointList(int32 requestId)
+const struct FGeneratorIndexData AProjectileGeneratorGame::BP_GetBaseDB() const
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ScoreComponentBase", "OnCompletedSendRentalPointList");
+		Func = Class->GetFunction("ProjectileGeneratorGame", "BP_GetBaseDB");
 
-	Params::ScoreComponentBase_OnCompletedSendRentalPointList Parms{};
-
-	Parms.requestId = requestId;
+	Params::ProjectileGeneratorGame_BP_GetBaseDB Parms{};
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -16196,24 +16363,24 @@ void UScoreComponentBase::OnCompletedSendRentalPointList(int32 requestId)
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
 }
 
 
-// Function GameModule.ScoreComponentBase.OnCompletedSendSaveCustomizeData
-// (Final, Native, Protected)
+// Function GameModule.ProjectileGeneratorGame.BP_GetLevelDB
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
 // Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FGeneratorIndexLevelData   ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
 
-void UScoreComponentBase::OnCompletedSendSaveCustomizeData(int32 requestId)
+const struct FGeneratorIndexLevelData AProjectileGeneratorGame::BP_GetLevelDB() const
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ScoreComponentBase", "OnCompletedSendSaveCustomizeData");
+		Func = Class->GetFunction("ProjectileGeneratorGame", "BP_GetLevelDB");
 
-	Params::ScoreComponentBase_OnCompletedSendSaveCustomizeData Parms{};
-
-	Parms.requestId = requestId;
+	Params::ProjectileGeneratorGame_BP_GetLevelDB Parms{};
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -16221,24 +16388,24 @@ void UScoreComponentBase::OnCompletedSendSaveCustomizeData(int32 requestId)
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
 }
 
 
-// Function GameModule.ScoreComponentBase.OnCompletedSendViolationReport
-// (Final, Native, Protected)
+// Function GameModule.ProjectileGeneratorGame.GetCharacterID
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
 // Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// ECharacterId                            ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UScoreComponentBase::OnCompletedSendViolationReport(int32 requestId)
+ECharacterId AProjectileGeneratorGame::GetCharacterID() const
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ScoreComponentBase", "OnCompletedSendViolationReport");
+		Func = Class->GetFunction("ProjectileGeneratorGame", "GetCharacterID");
 
-	Params::ScoreComponentBase_OnCompletedSendViolationReport Parms{};
-
-	Parms.requestId = requestId;
+	Params::ProjectileGeneratorGame_GetCharacterID Parms{};
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -16246,24 +16413,24 @@ void UScoreComponentBase::OnCompletedSendViolationReport(int32 requestId)
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
 }
 
 
-// Function GameModule.ScoreComponent.OnCompletedSendDropAchievement
-// (Final, Native, Protected)
+// Function GameModule.ProjectileGeneratorGame.GetInitDirection
+// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure, Const)
 // Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FVector                    ReturnValue                                            (ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UScoreComponent::OnCompletedSendDropAchievement(int32 requestId)
+const struct FVector AProjectileGeneratorGame::GetInitDirection() const
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ScoreComponent", "OnCompletedSendDropAchievement");
+		Func = Class->GetFunction("ProjectileGeneratorGame", "GetInitDirection");
 
-	Params::ScoreComponent_OnCompletedSendDropAchievement Parms{};
-
-	Parms.requestId = requestId;
+	Params::ProjectileGeneratorGame_GetInitDirection Parms{};
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -16271,24 +16438,24 @@ void UScoreComponent::OnCompletedSendDropAchievement(int32 requestId)
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
 }
 
 
-// Function GameModule.ScoreComponent.OnCompletedSendMission
-// (Final, Native, Protected)
+// Function GameModule.ProjectileGeneratorGame.GetInitLocation
+// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure, Const)
 // Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FVector                    ReturnValue                                            (ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UScoreComponent::OnCompletedSendMission(int32 requestId)
+const struct FVector AProjectileGeneratorGame::GetInitLocation() const
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ScoreComponent", "OnCompletedSendMission");
+		Func = Class->GetFunction("ProjectileGeneratorGame", "GetInitLocation");
 
-	Params::ScoreComponent_OnCompletedSendMission Parms{};
-
-	Parms.requestId = requestId;
+	Params::ProjectileGeneratorGame_GetInitLocation Parms{};
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -16296,24 +16463,24 @@ void UScoreComponent::OnCompletedSendMission(int32 requestId)
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
 }
 
 
-// Function GameModule.ScoreComponent.OnCompletedSendUserResult
-// (Final, Native, Protected)
+// Function GameModule.ProjectileGeneratorGame.GetInitQuat
+// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure, Const)
 // Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FQuat                      ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 
-void UScoreComponent::OnCompletedSendUserResult(int32 requestId)
+const struct FQuat AProjectileGeneratorGame::GetInitQuat() const
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ScoreComponent", "OnCompletedSendUserResult");
+		Func = Class->GetFunction("ProjectileGeneratorGame", "GetInitQuat");
 
-	Params::ScoreComponent_OnCompletedSendUserResult Parms{};
-
-	Parms.requestId = requestId;
+	Params::ProjectileGeneratorGame_GetInitQuat Parms{};
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -16321,28 +16488,24 @@ void UScoreComponent::OnCompletedSendUserResult(int32 requestId)
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
 }
 
 
-// Function GameModule.ScoreComponent.OnSystemError
-// (Final, Native, Protected)
+// Function GameModule.ProjectileGeneratorGame.GetInitScale
+// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure, Const)
 // Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FName                       Key                                                    (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FName                       message                                                (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FVector                    ReturnValue                                            (ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UScoreComponent::OnSystemError(int32 requestId, const class FName Key, const class FName message)
+const struct FVector AProjectileGeneratorGame::GetInitScale() const
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ScoreComponent", "OnSystemError");
+		Func = Class->GetFunction("ProjectileGeneratorGame", "GetInitScale");
 
-	Params::ScoreComponent_OnSystemError Parms{};
-
-	Parms.requestId = requestId;
-	Parms.Key = Key;
-	Parms.message = message;
+	Params::ProjectileGeneratorGame_GetInitScale Parms{};
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -16350,6 +16513,183 @@ void UScoreComponent::OnSystemError(int32 requestId, const class FName Key, cons
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.ProjectileGeneratorGame.GetInitTarget
+// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// const struct FVector                    ReturnValue                                            (ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+const struct FVector AProjectileGeneratorGame::GetInitTarget() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProjectileGeneratorGame", "GetInitTarget");
+
+	Params::ProjectileGeneratorGame_GetInitTarget Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.ProjectileGeneratorGame.GetInitTransform
+// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// const struct FTransform                 ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+
+const struct FTransform AProjectileGeneratorGame::GetInitTransform() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProjectileGeneratorGame", "GetInitTransform");
+
+	Params::ProjectileGeneratorGame_GetInitTransform Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.ProjectileGeneratorGame.GetIsProjectileCreatorMode
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+bool AProjectileGeneratorGame::GetIsProjectileCreatorMode() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProjectileGeneratorGame", "GetIsProjectileCreatorMode");
+
+	Params::ProjectileGeneratorGame_GetIsProjectileCreatorMode Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.ProjectileGeneratorGame.GetLevel
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+int32 AProjectileGeneratorGame::GetLevel() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProjectileGeneratorGame", "GetLevel");
+
+	Params::ProjectileGeneratorGame_GetLevel Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.ProjectileGeneratorGame.GetLockonActor
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// class AActor*                           ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class AActor* AProjectileGeneratorGame::GetLockonActor() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProjectileGeneratorGame", "GetLockonActor");
+
+	Params::ProjectileGeneratorGame_GetLockonActor Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.ProjectileGeneratorGame.GetParent
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// class UPrimitiveComponent*              ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UPrimitiveComponent* AProjectileGeneratorGame::GetParent() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProjectileGeneratorGame", "GetParent");
+
+	Params::ProjectileGeneratorGame_GetParent Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.ProjectileGeneratorGame.GetSocketName
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// class FName                             ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class FName AProjectileGeneratorGame::GetSocketName() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProjectileGeneratorGame", "GetSocketName");
+
+	Params::ProjectileGeneratorGame_GetSocketName Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
 }
 
 
@@ -16426,103 +16766,28 @@ void UHerovsControlChannel::OnReadyForPlayersLoginForDedicatedServer()
 }
 
 
-// Function GameModule.SkillVariationListItemWidget.OnSetEquip
-// (Event, Protected, BlueprintEvent)
+// Function GameModule.ScoreComponentCustomMatch.OnCompletedSendResultData
+// (Final, Native, Protected)
 // Parameters:
-// bool                                    bEquip                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void USkillVariationListItemWidget::OnSetEquip(bool bEquip)
+void UScoreComponentCustomMatch::OnCompletedSendResultData(int32 requestId)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationListItemWidget", "OnSetEquip");
+		Func = Class->GetFunction("ScoreComponentCustomMatch", "OnCompletedSendResultData");
 
-	Params::SkillVariationListItemWidget_OnSetEquip Parms{};
+	Params::ScoreComponentCustomMatch_OnCompletedSendResultData Parms{};
 
-	Parms.bEquip = bEquip;
+	Parms.requestId = requestId;
 
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.SkillVariationListItemWidget.OnSetHave
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// bool                                    bHave                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USkillVariationListItemWidget::OnSetHave(bool bHave)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationListItemWidget", "OnSetHave");
-
-	Params::SkillVariationListItemWidget_OnSetHave Parms{};
-
-	Parms.bHave = bHave;
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
 
 	UObject::ProcessEvent(Func, &Parms);
-}
 
-
-// Function GameModule.SkillVariationListItemWidget.OnSetHowToGetText
-// (Event, Protected, HasOutParams, BlueprintEvent)
-// Parameters:
-// const class FText&                      howToGetText                                           (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-void USkillVariationListItemWidget::OnSetHowToGetText(const class FText& howToGetText)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationListItemWidget", "OnSetHowToGetText");
-
-	Params::SkillVariationListItemWidget_OnSetHowToGetText Parms{};
-
-	Parms.howToGetText = std::move(howToGetText);
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.SkillVariationListItemWidget.OnSetName
-// (Event, Protected, HasOutParams, BlueprintEvent)
-// Parameters:
-// const class FText&                      nameText                                               (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-void USkillVariationListItemWidget::OnSetName(const class FText& nameText)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationListItemWidget", "OnSetName");
-
-	Params::SkillVariationListItemWidget_OnSetName Parms{};
-
-	Parms.nameText = std::move(nameText);
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.SkillVariationListItemWidget.OnSetRarity
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// EMdRarity                               Rarity                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USkillVariationListItemWidget::OnSetRarity(EMdRarity Rarity)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationListItemWidget", "OnSetRarity");
-
-	Params::SkillVariationListItemWidget_OnSetRarity Parms{};
-
-	Parms.Rarity = Rarity;
-
-	UObject::ProcessEvent(Func, &Parms);
+	Func->FunctionFlags = Flgs;
 }
 
 
@@ -16865,6 +17130,100 @@ void UHerovsGameInstance::ForceClashCmd() const
 }
 
 
+// Function GameModule.RoleSlotMainTipsIconWidget.BP_Reset
+// (Final, Native, Protected, BlueprintCallable)
+
+void URoleSlotMainTipsIconWidget::BP_Reset()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("RoleSlotMainTipsIconWidget", "BP_Reset");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.RoleSlotMainTipsIconWidget.BP_SetCurrencyCode
+// (Final, Native, Protected, BlueprintCallable)
+// Parameters:
+// int32                                   code                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void URoleSlotMainTipsIconWidget::BP_SetCurrencyCode(int32 code)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("RoleSlotMainTipsIconWidget", "BP_SetCurrencyCode");
+
+	Params::RoleSlotMainTipsIconWidget_BP_SetCurrencyCode Parms{};
+
+	Parms.code = code;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.RoleSlotMainTipsIconWidget.BP_SetVariationCode
+// (Final, Native, Protected, BlueprintCallable)
+// Parameters:
+// int32                                   code                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void URoleSlotMainTipsIconWidget::BP_SetVariationCode(int32 code)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("RoleSlotMainTipsIconWidget", "BP_SetVariationCode");
+
+	Params::RoleSlotMainTipsIconWidget_BP_SetVariationCode Parms{};
+
+	Parms.code = code;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.RoleSlotCostumeWidget.OnLoadedCostumeImage
+// (Final, Native, Protected)
+// Parameters:
+// class UPaperSprite*                     Sprite                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void URoleSlotCostumeWidget::OnLoadedCostumeImage(class UPaperSprite* Sprite)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("RoleSlotCostumeWidget", "OnLoadedCostumeImage");
+
+	Params::RoleSlotCostumeWidget_OnLoadedCostumeImage Parms{};
+
+	Parms.Sprite = Sprite;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
 // Function GameModule.HerovsGameState.BP_CloseSystemMenu
 // (Final, Native, Private, BlueprintCallable)
 
@@ -16950,26 +17309,6 @@ bool AHerovsGameState::IsLocalCharacterReady() const
 	Func->FunctionFlags = Flgs;
 
 	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.RoleWidget.OnSetRole
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// EMdAbilityType                          abilityType                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void URoleWidget::OnSetRole(EMdAbilityType abilityType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("RoleWidget", "OnSetRole");
-
-	Params::RoleWidget_OnSetRole Parms{};
-
-	Parms.abilityType = abilityType;
-
-	UObject::ProcessEvent(Func, &Parms);
 }
 
 
@@ -17124,6 +17463,31 @@ int32 AHerovsPlayerState::BP_GetPlayerId() const
 		Func = Class->GetFunction("HerovsPlayerState", "BP_GetPlayerId");
 
 	Params::HerovsPlayerState_BP_GetPlayerId Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.HerovsPlayerState.BP_GetSpawnCharacterId
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// ECharacterId                            ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+ECharacterId AHerovsPlayerState::BP_GetSpawnCharacterId() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("HerovsPlayerState", "BP_GetSpawnCharacterId");
+
+	Params::HerovsPlayerState_BP_GetSpawnCharacterId Parms{};
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -17364,95 +17728,6 @@ class UPaperSprite* UHudResource::GetMarkerSprite(EMarkerType markerType)
 }
 
 
-// Function GameModule.SkillVariationDetailWidget.OnAnalogValueScroll
-// (Event, Protected, HasOutParams, BlueprintCallable, BlueprintEvent)
-// Parameters:
-// const struct FAnalogInputEvent&         InAnalogEvent                                          (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-void USkillVariationDetailWidget::OnAnalogValueScroll(const struct FAnalogInputEvent& InAnalogEvent)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationDetailWidget", "OnAnalogValueScroll");
-
-	Params::SkillVariationDetailWidget_OnAnalogValueScroll Parms{};
-
-	Parms.InAnalogEvent = std::move(InAnalogEvent);
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.SkillVariationDetailWidget.OnDecideButtonEvent
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USkillVariationDetailWidget::OnDecideButtonEvent(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationDetailWidget", "OnDecideButtonEvent");
-
-	Params::SkillVariationDetailWidget_OnDecideButtonEvent Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SkillVariationDetailWidget.OnSetAbilityList
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// ECharacterId                            characterId                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// int32                                   variationNo                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USkillVariationDetailWidget::OnSetAbilityList(ECharacterId characterId, int32 variationNo)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationDetailWidget", "OnSetAbilityList");
-
-	Params::SkillVariationDetailWidget_OnSetAbilityList Parms{};
-
-	Parms.characterId = characterId;
-	Parms.variationNo = variationNo;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.SkillVariationDetailWidget.OnSetHowToGetText
-// (Event, Protected, HasOutParams, BlueprintEvent)
-// Parameters:
-// const class FText&                      howToGetText                                           (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-void USkillVariationDetailWidget::OnSetHowToGetText(const class FText& howToGetText)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationDetailWidget", "OnSetHowToGetText");
-
-	Params::SkillVariationDetailWidget_OnSetHowToGetText Parms{};
-
-	Parms.howToGetText = std::move(howToGetText);
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
 // Function GameModule.JsonUtilityFunction.ExportObjectAsJson
 // (Final, Native, Static, Public, BlueprintCallable)
 // Parameters:
@@ -17526,186 +17801,6 @@ void ULambdaWrapper::Dispatch()
 	Func->FunctionFlags |= 0x400;
 
 	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SkillVariationWidget.CloseLevel
-// (Final, Native, Protected, BlueprintCallable)
-
-void USkillVariationWidget::CloseLevel()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationWidget", "CloseLevel");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SkillVariationWidget.OnDecideGoToGashaButtonEvent
-// (Final, Native, Protected)
-
-void USkillVariationWidget::OnDecideGoToGashaButtonEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationWidget", "OnDecideGoToGashaButtonEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SkillVariationWidget.OnDecideSkillVariationListItemObject
-// (Final, Native, Protected)
-// Parameters:
-// class USkillVariationListItemObject*    itemObject                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USkillVariationWidget::OnDecideSkillVariationListItemObject(class USkillVariationListItemObject* itemObject)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationWidget", "OnDecideSkillVariationListItemObject");
-
-	Params::SkillVariationWidget_OnDecideSkillVariationListItemObject Parms{};
-
-	Parms.itemObject = itemObject;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SkillVariationWidget.OnFocusSkillVariationListItemObject
-// (Final, Native, Protected)
-// Parameters:
-// class USkillVariationListItemObject*    itemObject                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USkillVariationWidget::OnFocusSkillVariationListItemObject(class USkillVariationListItemObject* itemObject)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationWidget", "OnFocusSkillVariationListItemObject");
-
-	Params::SkillVariationWidget_OnFocusSkillVariationListItemObject Parms{};
-
-	Parms.itemObject = itemObject;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SkillVariationWidget.OnLoadComplete
-// (Final, Native, Protected)
-// Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USkillVariationWidget::OnLoadComplete(int32 requestId)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationWidget", "OnLoadComplete");
-
-	Params::SkillVariationWidget_OnLoadComplete Parms{};
-
-	Parms.requestId = requestId;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SkillVariationWidget.OnSetAbilityList
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// ECharacterId                            characterId                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// int32                                   variationNo                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USkillVariationWidget::OnSetAbilityList(ECharacterId characterId, int32 variationNo)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationWidget", "OnSetAbilityList");
-
-	Params::SkillVariationWidget_OnSetAbilityList Parms{};
-
-	Parms.characterId = characterId;
-	Parms.variationNo = variationNo;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.SkillVariationWidget.OnShowLoadingIcon
-// (Event, Protected, BlueprintEvent)
-// Parameters:
-// bool                                    bShow                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USkillVariationWidget::OnShowLoadingIcon(bool bShow)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationWidget", "OnShowLoadingIcon");
-
-	Params::SkillVariationWidget_OnShowLoadingIcon Parms{};
-
-	Parms.bShow = bShow;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.SkillVariationWidget.OnUpdateComplete
-// (Final, Native, Protected)
-// Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USkillVariationWidget::OnUpdateComplete(int32 requestId)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationWidget", "OnUpdateComplete");
-
-	Params::SkillVariationWidget_OnUpdateComplete Parms{};
-
-	Parms.requestId = requestId;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
 }
@@ -17818,27 +17913,6 @@ void ULoadTransitionWidget::UpdateBgTexture(int32 code)
 	Parms.code = code;
 
 	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.SkillDerivedTypeWidget.GetUniqueButtonList
-// (Event, Protected, HasOutParams, BlueprintEvent)
-// Parameters:
-// TArray<class UPlatformRichTextBlock*>*  uniqueButtonList                                       (Parm, OutParm, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
-
-void USkillDerivedTypeWidget::GetUniqueButtonList(TArray<class UPlatformRichTextBlock*>* uniqueButtonList)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillDerivedTypeWidget", "GetUniqueButtonList");
-
-	Params::SkillDerivedTypeWidget_GetUniqueButtonList Parms{};
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	if (uniqueButtonList != nullptr)
-		*uniqueButtonList = std::move(Parms.uniqueButtonList);
 }
 
 
@@ -18394,17 +18468,141 @@ void UMaterialControlComponent::BP_UnregisterOverWriteMaterial(EMaterialOverWrit
 }
 
 
-// Function GameModule.TextChatIconAnker.SetIconPosition
-// (Event, Public, BlueprintEvent)
+// Function GameModule.SendLikeButtonWidget.BP_GetRemainSendLikeCount
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UTextChatIconAnker::SetIconPosition()
+int32 USendLikeButtonWidget::BP_GetRemainSendLikeCount()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatIconAnker", "SetIconPosition");
+		Func = Class->GetFunction("SendLikeButtonWidget", "BP_GetRemainSendLikeCount");
+
+	Params::SendLikeButtonWidget_BP_GetRemainSendLikeCount Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SendLikeButtonWidget.BP_UpdateSendLikeCount
+// (Final, Native, Protected, BlueprintCallable)
+// Parameters:
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+bool USendLikeButtonWidget::BP_UpdateSendLikeCount()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SendLikeButtonWidget", "BP_UpdateSendLikeCount");
+
+	Params::SendLikeButtonWidget_BP_UpdateSendLikeCount Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SendLikeButtonWidget.ClearFocus
+// (Final, Native, Public, BlueprintCallable)
+
+void USendLikeButtonWidget::ClearFocus()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SendLikeButtonWidget", "ClearFocus");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
 
 	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SendLikeButtonWidget.SetupSendLikeCounter
+// (Native, Event, Public, BlueprintCallable, BlueprintEvent)
+
+void USendLikeButtonWidget::SetupSendLikeCounter()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SendLikeButtonWidget", "SetupSendLikeCounter");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SendLikeButtonWidget.BP_GetRemainsSendLikeCount
+// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+int32 USendLikeButtonWidget::BP_GetRemainsSendLikeCount() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SendLikeButtonWidget", "BP_GetRemainsSendLikeCount");
+
+	Params::SendLikeButtonWidget_BP_GetRemainsSendLikeCount Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SendLikeButtonWidget.BP_GetSendLikeCounter
+// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+int32 USendLikeButtonWidget::BP_GetSendLikeCounter() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SendLikeButtonWidget", "BP_GetSendLikeCounter");
+
+	Params::SendLikeButtonWidget_BP_GetSendLikeCounter Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
 }
 
 
@@ -18435,23 +18633,54 @@ void UMultipleDigitsWidget::BP_SetDisplayNumber(int32 dispNum, uint8 dispDigits)
 }
 
 
-// Function GameModule.TextChatEntryWidget.SetMessage
+// Function GameModule.TextChatButtonGuide.BP_PlayMessageAnimation
 // (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// class UTextChatListObject*              obj                                                    (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    isSTT                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UTextChatEntryWidget::SetMessage(class UTextChatListObject* obj, bool isSTT)
+void UTextChatButtonGuide::BP_PlayMessageAnimation()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatEntryWidget", "SetMessage");
+		Func = Class->GetFunction("TextChatButtonGuide", "BP_PlayMessageAnimation");
 
-	Params::TextChatEntryWidget_SetMessage Parms{};
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
 
-	Parms.obj = obj;
-	Parms.isSTT = isSTT;
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatButtonGuide.PlayMessageAnimation
+// (Event, Public, BlueprintEvent)
+
+void UTextChatButtonGuide::PlayMessageAnimation()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatButtonGuide", "PlayMessageAnimation");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function GameModule.TextChatButtonGuide.SetGaugePercent
+// (Final, Native, Public)
+// Parameters:
+// float                                   value                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatButtonGuide::SetGaugePercent(float value)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatButtonGuide", "SetGaugePercent");
+
+	Params::TextChatButtonGuide_SetGaugePercent Parms{};
+
+	Parms.value = value;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -18981,25 +19210,6 @@ bool UPlayerNameWidgetBase::GetUpdateScale() const
 }
 
 
-// Function GameModule.TrackingNumberSubsystem.CreateTrackingNumber
-// (Final, Native, Public, BlueprintCallable)
-
-void UTrackingNumberSubsystem::CreateTrackingNumber()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TrackingNumberSubsystem", "CreateTrackingNumber");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
 // Function GameModule.NamePlate.OnBgErrorNoImage
 // (Final, Native, Private)
 
@@ -19157,6 +19367,314 @@ void UNamePlate::SetName(const class FString& Name_0)
 }
 
 
+// Function GameModule.SquadJoinWidget.OnClosedWindow
+// (Final, Native, Private)
+
+void USquadJoinWidget::OnClosedWindow()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SquadJoinWidget", "OnClosedWindow");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SquadJoinWidget.OnCloseLevel
+// (Event, Public, BlueprintEvent)
+
+void USquadJoinWidget::OnCloseLevel()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SquadJoinWidget", "OnCloseLevel");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function GameModule.SquadJoinWidget.OnCloseMessageClosedWindow
+// (Final, Native, Private)
+
+void USquadJoinWidget::OnCloseMessageClosedWindow()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SquadJoinWidget", "OnCloseMessageClosedWindow");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SquadJoinWidget.OnPlayerRequestErrorEvent
+// (Final, Native, Protected)
+// Parameters:
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FName                       Key                                                    (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FName                       message                                                (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USquadJoinWidget::OnPlayerRequestErrorEvent(int32 requestId, const class FName Key, const class FName message)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SquadJoinWidget", "OnPlayerRequestErrorEvent");
+
+	Params::SquadJoinWidget_OnPlayerRequestErrorEvent Parms{};
+
+	Parms.requestId = requestId;
+	Parms.Key = Key;
+	Parms.message = message;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SquadJoinWidget.OnSelectMessageClosedWindow
+// (Final, Native, Private)
+
+void USquadJoinWidget::OnSelectMessageClosedWindow()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SquadJoinWidget", "OnSelectMessageClosedWindow");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SquadJoinWidget.OnSelectMessageCloseWindow
+// (Final, Native, Private)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    leftButton                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USquadJoinWidget::OnSelectMessageCloseWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SquadJoinWidget", "OnSelectMessageCloseWindow");
+
+	Params::SquadJoinWidget_OnSelectMessageCloseWindow Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+	Parms.leftButton = leftButton;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SquadJoinWidget.OnSelectMessageDecideWindow
+// (Final, Native, Private)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    leftButton                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USquadJoinWidget::OnSelectMessageDecideWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SquadJoinWidget", "OnSelectMessageDecideWindow");
+
+	Params::SquadJoinWidget_OnSelectMessageDecideWindow Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+	Parms.leftButton = leftButton;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SquadJoinWidget.OnSelectWindowSetting
+// (Event, Public, BlueprintEvent)
+// Parameters:
+// bool                                    leader                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USquadJoinWidget::OnSelectWindowSetting(bool leader)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SquadJoinWidget", "OnSelectWindowSetting");
+
+	Params::SquadJoinWidget_OnSelectWindowSetting Parms{};
+
+	Parms.leader = leader;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.SquadJoinWidget.OnSystemErrorEvent
+// (Final, Native, Protected)
+// Parameters:
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FName                       Key                                                    (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FName                       message                                                (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USquadJoinWidget::OnSystemErrorEvent(int32 requestId, const class FName Key, const class FName message)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SquadJoinWidget", "OnSystemErrorEvent");
+
+	Params::SquadJoinWidget_OnSystemErrorEvent Parms{};
+
+	Parms.requestId = requestId;
+	Parms.Key = Key;
+	Parms.message = message;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SquadJoinWidget.OnTeamUpJoinByInvitationEvent
+// (Final, Native, Private)
+
+void USquadJoinWidget::OnTeamUpJoinByInvitationEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SquadJoinWidget", "OnTeamUpJoinByInvitationEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SquadJoinWidget.OnTeamUpJoinEvent
+// (Final, Native, Private)
+
+void USquadJoinWidget::OnTeamUpJoinEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SquadJoinWidget", "OnTeamUpJoinEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SquadJoinWidget.OnTeamUpLeaveEvent
+// (Final, Native, Private)
+
+void USquadJoinWidget::OnTeamUpLeaveEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SquadJoinWidget", "OnTeamUpLeaveEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SquadJoinWidget.OnTeamUpUpdatedEvent
+// (Final, Native, Private)
+
+void USquadJoinWidget::OnTeamUpUpdatedEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SquadJoinWidget", "OnTeamUpUpdatedEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SquadJoinWidget.OnUpdateCompleteEvent
+// (Final, Native, Private)
+// Parameters:
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USquadJoinWidget::OnUpdateCompleteEvent(int32 requestId)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SquadJoinWidget", "OnUpdateCompleteEvent");
+
+	Params::SquadJoinWidget_OnUpdateCompleteEvent Parms{};
+
+	Parms.requestId = requestId;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
 // Function GameModule.NamePlateBgImage.OnLoadedIconImage
 // (Final, Native, Protected)
 // Parameters:
@@ -19177,357 +19695,6 @@ void UNamePlateBgImage::OnLoadedIconImage(class UPaperSprite* Sprite)
 	Func->FunctionFlags |= 0x400;
 
 	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatListWidget.BP_AddNewTextItem
-// (Event, Public, HasOutParams, BlueprintCallable, BlueprintEvent)
-// Parameters:
-// const class FText&                      Text                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-void UTextChatListWidget::BP_AddNewTextItem(const class FText& Text)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatListWidget", "BP_AddNewTextItem");
-
-	Params::TextChatListWidget_BP_AddNewTextItem Parms{};
-
-	Parms.Text = std::move(Text);
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.TextChatListWidget.BP_CallTextChatIconEvent
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatListWidget::BP_CallTextChatIconEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatListWidget", "BP_CallTextChatIconEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatListWidget.BP_CallTextChatRecieveEvent
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const class UTextChatListObject*        chatObject                                             (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatListWidget::BP_CallTextChatRecieveEvent(const class UTextChatListObject* chatObject)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatListWidget", "BP_CallTextChatRecieveEvent");
-
-	Params::TextChatListWidget_BP_CallTextChatRecieveEvent Parms{};
-
-	Parms.chatObject = chatObject;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatListWidget.BP_CheckUnreadMessage
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// class UTextChatListObject*              message                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatListWidget::BP_CheckUnreadMessage(class UTextChatListObject* message)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatListWidget", "BP_CheckUnreadMessage");
-
-	Params::TextChatListWidget_BP_CheckUnreadMessage Parms{};
-
-	Parms.message = message;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatListWidget.BP_GetUserName
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const class FString&                    playerId                                               (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FString&                    Name_0                                                 (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class FString                           ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class FString UTextChatListWidget::BP_GetUserName(const class FString& playerId, const class FString& Name_0)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatListWidget", "BP_GetUserName");
-
-	Params::TextChatListWidget_BP_GetUserName Parms{};
-
-	Parms.playerId = std::move(playerId);
-	Parms.Name_0 = std::move(Name_0);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.TextChatListWidget.BP_IsUnreadMessage
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-bool UTextChatListWidget::BP_IsUnreadMessage()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatListWidget", "BP_IsUnreadMessage");
-
-	Params::TextChatListWidget_BP_IsUnreadMessage Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.TextChatListWidget.BP_ManagementChatItems
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatListWidget::BP_ManagementChatItems()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatListWidget", "BP_ManagementChatItems");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatListWidget.BP_UpdateArray
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// class UTextChatListObject*              chatObject                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatListWidget::BP_UpdateArray(class UTextChatListObject* chatObject)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatListWidget", "BP_UpdateArray");
-
-	Params::TextChatListWidget_BP_UpdateArray Parms{};
-
-	Parms.chatObject = chatObject;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatListWidget.ClearEvent
-// (Event, Public, BlueprintCallable, BlueprintEvent)
-
-void UTextChatListWidget::ClearEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatListWidget", "ClearEvent");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function GameModule.TextChatListWidget.GetScrollSpeedRate
-// (Final, Native, Protected, BlueprintCallable)
-// Parameters:
-// float                                   analogValue                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// float                                   defaultSpeedRate                                       (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// float                                   maxSpeedRate                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// float                                   addSpeedRate                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// float                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-float UTextChatListWidget::GetScrollSpeedRate(float analogValue, float defaultSpeedRate, float maxSpeedRate, float addSpeedRate)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatListWidget", "GetScrollSpeedRate");
-
-	Params::TextChatListWidget_GetScrollSpeedRate Parms{};
-
-	Parms.analogValue = analogValue;
-	Parms.defaultSpeedRate = defaultSpeedRate;
-	Parms.maxSpeedRate = maxSpeedRate;
-	Parms.addSpeedRate = addSpeedRate;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.TextChatListWidget.ReceiveSTTMessage
-// (Final, Native, Public)
-// Parameters:
-// const class FString&                    platformPlayerId                                       (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FString&                    DisplayName                                            (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FString&                    message                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatListWidget::ReceiveSTTMessage(const class FString& platformPlayerId, const class FString& DisplayName, const class FString& message)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatListWidget", "ReceiveSTTMessage");
-
-	Params::TextChatListWidget_ReceiveSTTMessage Parms{};
-
-	Parms.platformPlayerId = std::move(platformPlayerId);
-	Parms.DisplayName = std::move(DisplayName);
-	Parms.message = std::move(message);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatListWidget.ScrollBottom
-// (Event, Protected, BlueprintCallable, BlueprintEvent)
-
-void UTextChatListWidget::ScrollBottom()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatListWidget", "ScrollBottom");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function GameModule.TextChatListWidget.SetUpNewMessage
-// (Event, Public, BlueprintCallable, BlueprintEvent)
-// Parameters:
-// const class FString&                    playerId                                               (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FString&                    Name_0                                                 (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FString&                    message                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const bool                              bLock                                                  (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const bool                              isSTT                                                  (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatListWidget::SetUpNewMessage(const class FString& playerId, const class FString& Name_0, const class FString& message, const bool bLock, const bool isSTT)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatListWidget", "SetUpNewMessage");
-
-	Params::TextChatListWidget_SetUpNewMessage Parms{};
-
-	Parms.playerId = std::move(playerId);
-	Parms.Name_0 = std::move(Name_0);
-	Parms.message = std::move(message);
-	Parms.bLock = bLock;
-	Parms.isSTT = isSTT;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.TextChatListWidget.TextToSpeech
-// (Final, Native, Protected, BlueprintCallable)
-// Parameters:
-// class UTextChatListObject*              obj                                                    (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatListWidget::TextToSpeech(class UTextChatListObject* obj)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatListWidget", "TextToSpeech");
-
-	Params::TextChatListWidget_TextToSpeech Parms{};
-
-	Parms.obj = obj;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatListWidget.UpdateList
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatListWidget::UpdateList()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatListWidget", "UpdateList");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
 
 	Func->FunctionFlags = Flgs;
 }
@@ -19658,6 +19825,96 @@ bool UPlayerNameTextBase::IsContainsPlayerNameWidget() const
 }
 
 
+// Function GameModule.SkillVariationListWidget.OnChangedMainMenu
+// (Final, Native, Protected)
+// Parameters:
+// int32                                   Index_0                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USkillVariationListWidget::OnChangedMainMenu(int32 Index_0)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillVariationListWidget", "OnChangedMainMenu");
+
+	Params::SkillVariationListWidget_OnChangedMainMenu Parms{};
+
+	Parms.Index_0 = Index_0;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SkillVariationListWidget.OnDecideEvent
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USkillVariationListWidget::OnDecideEvent(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillVariationListWidget", "OnDecideEvent");
+
+	Params::SkillVariationListWidget_OnDecideEvent Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SkillVariationListWidget.OnSubLevelHidden
+// (Final, Native, Protected)
+
+void USkillVariationListWidget::OnSubLevelHidden()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillVariationListWidget", "OnSubLevelHidden");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SkillVariationListWidget.OnSubLevelShown
+// (Final, Native, Protected)
+
+void USkillVariationListWidget::OnSubLevelShown()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillVariationListWidget", "OnSubLevelShown");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
 // Function GameModule.NamePlateText.SetIconSize
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
@@ -19758,139 +20015,6 @@ void UNamePlateText::SetSpace(const float space)
 }
 
 
-// Function GameModule.TeamCommentaryMessageWidget.OnChangeBattleSequence
-// (Final, Native, Private)
-// Parameters:
-// EBattleStartSequenceType                Sequence                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTeamCommentaryMessageWidget::OnChangeBattleSequence(EBattleStartSequenceType Sequence)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TeamCommentaryMessageWidget", "OnChangeBattleSequence");
-
-	Params::TeamCommentaryMessageWidget_OnChangeBattleSequence Parms{};
-
-	Parms.Sequence = Sequence;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TeamCommentaryMessageWidget.OnNoticeUpdatedEvent
-// (Final, Native, Private)
-
-void UTeamCommentaryMessageWidget::OnNoticeUpdatedEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TeamCommentaryMessageWidget", "OnNoticeUpdatedEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TeamCommentaryMessageWidget.OnRequestMessage
-// (Event, Public, BlueprintEvent)
-// Parameters:
-// ETeamCommentaryMessage                  MessageType                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTeamCommentaryMessageWidget::OnRequestMessage(ETeamCommentaryMessage MessageType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TeamCommentaryMessageWidget", "OnRequestMessage");
-
-	Params::TeamCommentaryMessageWidget_OnRequestMessage Parms{};
-
-	Parms.MessageType = MessageType;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.TeamCommentaryMessageWidget.OnSquadNumChanged
-// (Final, Native, Private)
-// Parameters:
-// int32                                   SquadNum                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTeamCommentaryMessageWidget::OnSquadNumChanged(int32 SquadNum)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TeamCommentaryMessageWidget", "OnSquadNumChanged");
-
-	Params::TeamCommentaryMessageWidget_OnSquadNumChanged Parms{};
-
-	Parms.SquadNum = SquadNum;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TeamCommentaryMessageWidget.OnTeamUpUpdatedEvent
-// (Final, Native, Private)
-
-void UTeamCommentaryMessageWidget::OnTeamUpUpdatedEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TeamCommentaryMessageWidget", "OnTeamUpUpdatedEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TeamCommentaryMessageWidget.SetMessageEnable
-// (Final, Native, Private, BlueprintCallable)
-// Parameters:
-// bool                                    enable                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTeamCommentaryMessageWidget::SetMessageEnable(bool enable)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TeamCommentaryMessageWidget", "SetMessageEnable");
-
-	Params::TeamCommentaryMessageWidget_SetMessageEnable Parms{};
-
-	Parms.enable = enable;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
 // Function GameModule.NetworkErrorWidget.OnCloseEvent
 // (Final, Native, Public)
 
@@ -19938,6 +20062,25 @@ void UNetworkErrorWidget::OnOpenEvent()
 
 	if (Func == nullptr)
 		Func = Class->GetFunction("NetworkErrorWidget", "OnOpenEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TeamCommentaryMessageItemWidget.OnDrawTimeout
+// (Final, Native, Private)
+
+void UTeamCommentaryMessageItemWidget::OnDrawTimeout()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TeamCommentaryMessageItemWidget", "OnDrawTimeout");
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -20679,75 +20822,6 @@ const TMap<class FString, bool> UNetworkWork::GetMuteMap() const
 }
 
 
-// Function GameModule.TextSpeechBalloonWidget.Open
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextSpeechBalloonWidget::Open()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextSpeechBalloonWidget", "Open");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextSpeechBalloonWidget.SetText
-// (Final, Native, Public, HasOutParams, BlueprintCallable)
-// Parameters:
-// const class FText&                      Text                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-void UTextSpeechBalloonWidget::SetText(const class FText& Text)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextSpeechBalloonWidget", "SetText");
-
-	Params::TextSpeechBalloonWidget_SetText Parms{};
-
-	Parms.Text = std::move(Text);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextSpeechBalloonWidget.GetText
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// const class FText                       ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-const class FText UTextSpeechBalloonWidget::GetText() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextSpeechBalloonWidget", "GetText");
-
-	Params::TextSpeechBalloonWidget_GetText Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
 // Function GameModule.NoticeDatabaseWork.LoadAllNotice
 // (Final, Native, Protected)
 // Parameters:
@@ -20839,6 +20913,690 @@ void UNoticeDatabaseWork::OnNoticeUpdatedEvent(int32 requestId)
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.AnimStart
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// class UWidgetAnimation*                 anim                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatWindowWidget::AnimStart(class UWidgetAnimation* anim)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "AnimStart");
+
+	Params::TextChatWindowWidget_AnimStart Parms{};
+
+	Parms.anim = anim;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_CallCloseConsentEvent
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatWindowWidget::BP_CallCloseConsentEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_CallCloseConsentEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_CallFinishEvent
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatWindowWidget::BP_CallFinishEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_CallFinishEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_CallHiddenEventDispatcher
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatWindowWidget::BP_CallHiddenEventDispatcher()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_CallHiddenEventDispatcher");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_CallOpenConsentEvent
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatWindowWidget::BP_CallOpenConsentEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_CallOpenConsentEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_CallOpenParentalControlEvent
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatWindowWidget::BP_CallOpenParentalControlEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_CallOpenParentalControlEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_CallVisibleEventDispatcher
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatWindowWidget::BP_CallVisibleEventDispatcher()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_CallVisibleEventDispatcher");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_CheckParentControl
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+bool UTextChatWindowWidget::BP_CheckParentControl()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_CheckParentControl");
+
+	Params::TextChatWindowWidget_BP_CheckParentControl Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_ClearFocus
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatWindowWidget::BP_ClearFocus()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_ClearFocus");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_PlayCloseAnimation
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatWindowWidget::BP_PlayCloseAnimation()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_PlayCloseAnimation");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_PlayOpenAnimation
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatWindowWidget::BP_PlayOpenAnimation()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_PlayOpenAnimation");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_PlaySoundCloseWindow
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// bool                                    isPlaySound                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatWindowWidget::BP_PlaySoundCloseWindow(bool isPlaySound)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_PlaySoundCloseWindow");
+
+	Params::TextChatWindowWidget_BP_PlaySoundCloseWindow Parms{};
+
+	Parms.isPlaySound = isPlaySound;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_SendMessage
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatWindowWidget::BP_SendMessage()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_SendMessage");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_SetActiveFocus
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// bool                                    isFocusable                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatWindowWidget::BP_SetActiveFocus(bool isFocusable)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_SetActiveFocus");
+
+	Params::TextChatWindowWidget_BP_SetActiveFocus Parms{};
+
+	Parms.isFocusable = isFocusable;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_SetActiveSendButton
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// bool                                    isSendable                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatWindowWidget::BP_SetActiveSendButton(bool isSendable)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_SetActiveSendButton");
+
+	Params::TextChatWindowWidget_BP_SetActiveSendButton Parms{};
+
+	Parms.isSendable = isSendable;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_SetFocusInputTextBox
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatWindowWidget::BP_SetFocusInputTextBox()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_SetFocusInputTextBox");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_SetNoticeVisibility
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// ESlateVisibility                        value                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatWindowWidget::BP_SetNoticeVisibility(ESlateVisibility value)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_SetNoticeVisibility");
+
+	Params::TextChatWindowWidget_BP_SetNoticeVisibility Parms{};
+
+	Parms.value = value;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_WindowClose
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// bool                                    bPlaySound                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatWindowWidget::BP_WindowClose(bool bPlaySound)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_WindowClose");
+
+	Params::TextChatWindowWidget_BP_WindowClose Parms{};
+
+	Parms.bPlaySound = bPlaySound;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.BP_WindowOpen
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// bool                                    bPlaySound                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatWindowWidget::BP_WindowOpen(bool bPlaySound)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "BP_WindowOpen");
+
+	Params::TextChatWindowWidget_BP_WindowOpen Parms{};
+
+	Parms.bPlaySound = bPlaySound;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.ChangeControllerEvent
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatWindowWidget::ChangeControllerEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "ChangeControllerEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.ClearText
+// (Event, Public, BlueprintEvent)
+
+void UTextChatWindowWidget::ClearText()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "ClearText");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function GameModule.TextChatWindowWidget.FinishCloseAnimation
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatWindowWidget::FinishCloseAnimation()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "FinishCloseAnimation");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.FinishOpenAnimation
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatWindowWidget::FinishOpenAnimation()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "FinishOpenAnimation");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.OnCommitChangeText
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// bool                                    IsEmpty                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    _isFirstFocus                                          (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatWindowWidget::OnCommitChangeText(bool IsEmpty, bool _isFirstFocus)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "OnCommitChangeText");
+
+	Params::TextChatWindowWidget_OnCommitChangeText Parms{};
+
+	Parms.IsEmpty = IsEmpty;
+	Parms._isFirstFocus = _isFirstFocus;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.RemoveInputShortCutKeyboardEvent
+// (Final, Native, Public)
+
+void UTextChatWindowWidget::RemoveInputShortCutKeyboardEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "RemoveInputShortCutKeyboardEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.SetActiveFocus
+// (Event, Public, BlueprintEvent)
+// Parameters:
+// bool                                    isFocusable                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatWindowWidget::SetActiveFocus(bool isFocusable)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "SetActiveFocus");
+
+	Params::TextChatWindowWidget_SetActiveFocus Parms{};
+
+	Parms.isFocusable = isFocusable;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.TextChatWindowWidget.SetActiveSendButton
+// (Event, Public, BlueprintEvent)
+// Parameters:
+// bool                                    isSendable                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatWindowWidget::SetActiveSendButton(bool isSendable)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "SetActiveSendButton");
+
+	Params::TextChatWindowWidget_SetActiveSendButton Parms{};
+
+	Parms.isSendable = isSendable;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.TextChatWindowWidget.SetFocusInputTextBox
+// (Event, Public, BlueprintEvent)
+
+void UTextChatWindowWidget::SetFocusInputTextBox()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "SetFocusInputTextBox");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function GameModule.TextChatWindowWidget.SetInputShortCut
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// bool                                    value                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatWindowWidget::SetInputShortCut(bool value)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "SetInputShortCut");
+
+	Params::TextChatWindowWidget_SetInputShortCut Parms{};
+
+	Parms.value = value;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.SetInputShortCutKeyboardEvent
+// (Final, Native, Public)
+
+void UTextChatWindowWidget::SetInputShortCutKeyboardEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "SetInputShortCutKeyboardEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWindowWidget.SetNoticeVisibility
+// (Event, Public, BlueprintEvent)
+// Parameters:
+// ESlateVisibility                        value                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatWindowWidget::SetNoticeVisibility(ESlateVisibility value)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "SetNoticeVisibility");
+
+	Params::TextChatWindowWidget_SetNoticeVisibility Parms{};
+
+	Parms.value = value;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.TextChatWindowWidget.WindowClose
+// (Event, Public, BlueprintEvent)
+// Parameters:
+// bool                                    bPlaySound                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatWindowWidget::WindowClose(bool bPlaySound)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "WindowClose");
+
+	Params::TextChatWindowWidget_WindowClose Parms{};
+
+	Parms.bPlaySound = bPlaySound;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.TextChatWindowWidget.WindowOpen
+// (Event, Public, BlueprintEvent)
+// Parameters:
+// bool                                    bPlaySound                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatWindowWidget::WindowOpen(bool bPlaySound)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWindowWidget", "WindowOpen");
+
+	Params::TextChatWindowWidget_WindowOpen Parms{};
+
+	Parms.bPlaySound = bPlaySound;
+
+	UObject::ProcessEvent(Func, &Parms);
 }
 
 
@@ -21025,15 +21783,15 @@ TArray<class FString> UNoticeWindowWidget::SplitStringByCarriageReturn(const cla
 }
 
 
-// Function GameModule.UMGTemporaryNotification.Activate
+// Function GameModule.TextChatIcon.BP_PlayMessageAnimation
 // (Final, Native, Public, BlueprintCallable)
 
-void UUMGTemporaryNotification::Activate()
+void UTextChatIcon::BP_PlayMessageAnimation()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("UMGTemporaryNotification", "Activate");
+		Func = Class->GetFunction("TextChatIcon", "BP_PlayMessageAnimation");
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -21044,15 +21802,15 @@ void UUMGTemporaryNotification::Activate()
 }
 
 
-// Function GameModule.UMGTemporaryNotification.Deactivate
+// Function GameModule.TextChatIcon.BP_StartAnimation
 // (Final, Native, Public, BlueprintCallable)
 
-void UUMGTemporaryNotification::Deactivate()
+void UTextChatIcon::BP_StartAnimation()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("UMGTemporaryNotification", "Deactivate");
+		Func = Class->GetFunction("TextChatIcon", "BP_StartAnimation");
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -21063,26 +21821,530 @@ void UUMGTemporaryNotification::Deactivate()
 }
 
 
-// Function GameModule.TrainingMenuCommonWidget.OpenCharacterInfo
-// (Final, Native, Protected, BlueprintCallable)
+// Function GameModule.TextChatIcon.BP_StopAnimation
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatIcon::BP_StopAnimation()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatIcon", "BP_StopAnimation");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatIcon.BP_StopMessageAnimation
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatIcon::BP_StopMessageAnimation()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatIcon", "BP_StopMessageAnimation");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatIcon.BP_UpdateIconNotice
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatIcon::BP_UpdateIconNotice()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatIcon", "BP_UpdateIconNotice");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatIcon.LoopAnimation
+// (Final, Native, Public)
 // Parameters:
-// bool                                    bOutgame                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const float                             DeltaTime                                              (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UTrainingMenuCommonWidget::OpenCharacterInfo(bool bOutgame)
+void UTextChatIcon::LoopAnimation(const float DeltaTime)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TrainingMenuCommonWidget", "OpenCharacterInfo");
+		Func = Class->GetFunction("TextChatIcon", "LoopAnimation");
 
-	Params::TrainingMenuCommonWidget_OpenCharacterInfo Parms{};
+	Params::TextChatIcon_LoopAnimation Parms{};
 
-	Parms.bOutgame = bOutgame;
+	Parms.DeltaTime = DeltaTime;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
 
 	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatIcon.OnPressButton
+// (Final, Native, Public)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatIcon::OnPressButton(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatIcon", "OnPressButton");
+
+	Params::TextChatIcon_OnPressButton Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatIcon.PlayMessageAnimation
+// (Event, Public, BlueprintEvent)
+
+void UTextChatIcon::PlayMessageAnimation()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatIcon", "PlayMessageAnimation");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function GameModule.TextChatIcon.StopMessageAnimation
+// (Event, Public, BlueprintEvent)
+
+void UTextChatIcon::StopMessageAnimation()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatIcon", "StopMessageAnimation");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function GameModule.TextChatIcon.UpdateArray
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatIcon::UpdateArray()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatIcon", "UpdateArray");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatIcon.UpdateIconNotice
+// (Final, Native, Public)
+
+void UTextChatIcon::UpdateIconNotice()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatIcon", "UpdateIconNotice");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.StaticDataManager.AsyncLoadPermanentDataAsset
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+bool UStaticDataManager::AsyncLoadPermanentDataAsset()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("StaticDataManager", "AsyncLoadPermanentDataAsset");
+
+	Params::StaticDataManager_AsyncLoadPermanentDataAsset Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.StaticDataManager.GetAbilityArtColorInfo
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// EMdAbilityType                          abilityType                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FAbilityArtColorInfo       ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+const struct FAbilityArtColorInfo UStaticDataManager::GetAbilityArtColorInfo(EMdAbilityType abilityType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("StaticDataManager", "GetAbilityArtColorInfo");
+
+	Params::StaticDataManager_GetAbilityArtColorInfo Parms{};
+
+	Parms.abilityType = abilityType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.StaticDataManager.GetAbilityDurationOnValue
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EMdAbilityType                          abilityType                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// int32                                   Level                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// float                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+float UStaticDataManager::GetAbilityDurationOnValue(const class UObject* WorldContextObject, EMdAbilityType abilityType, int32 Level)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("StaticDataManager", "GetAbilityDurationOnValue");
+
+	Params::StaticDataManager_GetAbilityDurationOnValue Parms{};
+
+	Parms.WorldContextObject = WorldContextObject;
+	Parms.abilityType = abilityType;
+	Parms.Level = Level;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.StaticDataManager.GetCustomMatchTeamBorderColorInfo
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// uint8                                   TeamId                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// struct FCustomMatchTeamColorInfo        ReturnValue                                            (Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
+
+struct FCustomMatchTeamColorInfo UStaticDataManager::GetCustomMatchTeamBorderColorInfo(uint8 TeamId)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("StaticDataManager", "GetCustomMatchTeamBorderColorInfo");
+
+	Params::StaticDataManager_GetCustomMatchTeamBorderColorInfo Parms{};
+
+	Parms.TeamId = TeamId;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.StaticDataManager.GetCustomMatchTeamBorderColorInfoList
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// TMap<uint8, struct FCustomMatchTeamColorInfo>ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+
+TMap<uint8, struct FCustomMatchTeamColorInfo> UStaticDataManager::GetCustomMatchTeamBorderColorInfoList()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("StaticDataManager", "GetCustomMatchTeamBorderColorInfoList");
+
+	Params::StaticDataManager_GetCustomMatchTeamBorderColorInfoList Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.StaticDataManager.GetDominateBattleColorInfo
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// struct FDominateBattleColorInfo         ReturnValue                                            (Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
+
+struct FDominateBattleColorInfo UStaticDataManager::GetDominateBattleColorInfo()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("StaticDataManager", "GetDominateBattleColorInfo");
+
+	Params::StaticDataManager_GetDominateBattleColorInfo Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.StaticDataManager.GetGimmickDataAsset
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class FName                             gimmickId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UGimmickBaseDataAsset*            ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UGimmickBaseDataAsset* UStaticDataManager::GetGimmickDataAsset(const class UObject* WorldContextObject, class FName gimmickId)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("StaticDataManager", "GetGimmickDataAsset");
+
+	Params::StaticDataManager_GetGimmickDataAsset Parms{};
+
+	Parms.WorldContextObject = WorldContextObject;
+	Parms.gimmickId = gimmickId;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.StaticDataManager.GetHudResourceDataAsset
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UHudResource*                     ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UHudResource* UStaticDataManager::GetHudResourceDataAsset(const class UObject* WorldContextObject)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("StaticDataManager", "GetHudResourceDataAsset");
+
+	Params::StaticDataManager_GetHudResourceDataAsset Parms{};
+
+	Parms.WorldContextObject = WorldContextObject;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.StaticDataManager.GetLeadersTeamBorderColorInfo
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// ELeadersBattleTeamType                  TeamColor                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// struct FLeadersTeamColorInfo            ReturnValue                                            (Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
+
+struct FLeadersTeamColorInfo UStaticDataManager::GetLeadersTeamBorderColorInfo(ELeadersBattleTeamType TeamColor)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("StaticDataManager", "GetLeadersTeamBorderColorInfo");
+
+	Params::StaticDataManager_GetLeadersTeamBorderColorInfo Parms{};
+
+	Parms.TeamColor = TeamColor;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.StaticDataManager.GetPermanentDataAsset
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// class UPrimaryAssetPermanent*           ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UPrimaryAssetPermanent* UStaticDataManager::GetPermanentDataAsset()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("StaticDataManager", "GetPermanentDataAsset");
+
+	Params::StaticDataManager_GetPermanentDataAsset Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.StaticDataManager.GetSupplyBaseDataAsset
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class FName                             supplyId                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class USupplyBaseDataAsset*             ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class USupplyBaseDataAsset* UStaticDataManager::GetSupplyBaseDataAsset(const class UObject* WorldContextObject, class FName supplyId)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("StaticDataManager", "GetSupplyBaseDataAsset");
+
+	Params::StaticDataManager_GetSupplyBaseDataAsset Parms{};
+
+	Parms.WorldContextObject = WorldContextObject;
+	Parms.supplyId = supplyId;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.StaticDataManager.GetSupplyParticleColorInfo
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// class USupplyArtInfoDataAsset*          ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class USupplyArtInfoDataAsset* UStaticDataManager::GetSupplyParticleColorInfo()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("StaticDataManager", "GetSupplyParticleColorInfo");
+
+	Params::StaticDataManager_GetSupplyParticleColorInfo Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.StaticDataManager.LoadHudResourceDataAsset
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UStaticDataManager::LoadHudResourceDataAsset(const class UObject* WorldContextObject)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("StaticDataManager", "LoadHudResourceDataAsset");
+
+	Params::StaticDataManager_LoadHudResourceDataAsset Parms{};
+
+	Parms.WorldContextObject = WorldContextObject;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
 }
@@ -21107,342 +22369,6 @@ void UPlatformAssetBgTree::UpdatePrimaryAssetData()
 }
 
 
-// Function GameModule.TextChatWidget.BP_SetNoticeVisibility
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// ESlateVisibility                        value                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatWidget::BP_SetNoticeVisibility(ESlateVisibility value)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWidget", "BP_SetNoticeVisibility");
-
-	Params::TextChatWidget_BP_SetNoticeVisibility Parms{};
-
-	Parms.value = value;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWidget.CloseObserverWindowEvent
-// (Final, Native, Protected)
-
-void UTextChatWidget::CloseObserverWindowEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWidget", "CloseObserverWindowEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWidget.CreateAnkerMap
-// (Event, Public, BlueprintEvent)
-
-void UTextChatWidget::CreateAnkerMap()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWidget", "CreateAnkerMap");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function GameModule.TextChatWidget.GetChatIcon
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// class UTextChatIcon*                    ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UTextChatIcon* UTextChatWidget::GetChatIcon()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWidget", "GetChatIcon");
-
-	Params::TextChatWidget_GetChatIcon Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.TextChatWidget.OnCloseObserver
-// (Final, Native, Protected, BlueprintCallable)
-
-void UTextChatWidget::OnCloseObserver()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWidget", "OnCloseObserver");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWidget.OnCloseParentEvent
-// (Final, Native, Protected)
-
-void UTextChatWidget::OnCloseParentEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWidget", "OnCloseParentEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWidget.OnDecideObserver
-// (Final, Native, Protected, BlueprintCallable)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    isLeftButton                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatWidget::OnDecideObserver(class UAppWidget* Widget, EWidgetInputType inputType, bool isLeftButton)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWidget", "OnDecideObserver");
-
-	Params::TextChatWidget_OnDecideObserver Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-	Parms.isLeftButton = isLeftButton;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWidget.OnDecideParentEvent
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    isLeftButton                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatWidget::OnDecideParentEvent(class UAppWidget* Widget, EWidgetInputType inputType, bool isLeftButton)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWidget", "OnDecideParentEvent");
-
-	Params::TextChatWidget_OnDecideParentEvent Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-	Parms.isLeftButton = isLeftButton;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWidget.OnOpenObserver
-// (Final, Native, Protected, BlueprintCallable)
-
-void UTextChatWidget::OnOpenObserver()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWidget", "OnOpenObserver");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWidget.OnOpenParent
-// (Final, Native, Protected, BlueprintCallable)
-
-void UTextChatWidget::OnOpenParent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWidget", "OnOpenParent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWidget.SetNoticeVisibility
-// (Event, Public, BlueprintEvent)
-// Parameters:
-// ESlateVisibility                        value                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatWidget::SetNoticeVisibility(ESlateVisibility value)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWidget", "SetNoticeVisibility");
-
-	Params::TextChatWidget_SetNoticeVisibility Parms{};
-
-	Parms.value = value;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.TextChatWidget.SetValueButtonGuide
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// float                                   value                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatWidget::SetValueButtonGuide(float value)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWidget", "SetValueButtonGuide");
-
-	Params::TextChatWidget_SetValueButtonGuide Parms{};
-
-	Parms.value = value;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWidget.SetVisibilityMessageCanvas
-// (Event, Public, BlueprintEvent)
-
-void UTextChatWidget::SetVisibilityMessageCanvas()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWidget", "SetVisibilityMessageCanvas");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function GameModule.TextChatWidget.UpdatePopUpPivot
-// (Event, Public, HasDefaults, BlueprintEvent)
-// Parameters:
-// const struct FVector2D&                 Pivot                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatWidget::UpdatePopUpPivot(const struct FVector2D& Pivot)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWidget", "UpdatePopUpPivot");
-
-	Params::TextChatWidget_UpdatePopUpPivot Parms{};
-
-	Parms.Pivot = std::move(Pivot);
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.TextChatWidget.WindowClose
-// (Event, Public, BlueprintEvent)
-// Parameters:
-// bool                                    bPlaySound                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatWidget::WindowClose(bool bPlaySound)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWidget", "WindowClose");
-
-	Params::TextChatWidget_WindowClose Parms{};
-
-	Parms.bPlaySound = bPlaySound;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.TextChatWidget.WindowOpen
-// (Event, Public, BlueprintEvent)
-// Parameters:
-// bool                                    bPlaySound                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatWidget::WindowOpen(bool bPlaySound)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWidget", "WindowOpen");
-
-	Params::TextChatWidget_WindowOpen Parms{};
-
-	Parms.bPlaySound = bPlaySound;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
 // Function GameModule.PlatformAssetInterface.UpdatePrimaryAssetData
 // (Native, Public, BlueprintCallable)
 
@@ -21457,6 +22383,31 @@ void IPlatformAssetInterface::UpdatePrimaryAssetData()
 	Func->FunctionFlags |= 0x400;
 
 	AsUObject()->ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayPlayerCardWidget.BP_Setup
+// (Final, Native, Protected, HasOutParams, BlueprintCallable, BlueprintPure)
+// Parameters:
+// const struct FPlayerDisplayData&        Data                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UProfileDisplayPlayerCardWidget::BP_Setup(const struct FPlayerDisplayData& Data)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayPlayerCardWidget", "BP_Setup");
+
+	Params::ProfileDisplayPlayerCardWidget_BP_Setup Parms{};
+
+	Parms.Data = std::move(Data);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
 }
@@ -21714,31 +22665,6 @@ class FString UPlatformAssetLibrary::GetPlatformPackagePath(const class FString&
 }
 
 
-// Function GameModule.TutorialTipsImageWidget.OnReceivedChangedImageIndexEvent
-// (Final, Native, Protected)
-// Parameters:
-// int32                                   Index_0                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTutorialTipsImageWidget::OnReceivedChangedImageIndexEvent(int32 Index_0)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TutorialTipsImageWidget", "OnReceivedChangedImageIndexEvent");
-
-	Params::TutorialTipsImageWidget_OnReceivedChangedImageIndexEvent Parms{};
-
-	Parms.Index_0 = Index_0;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
 // Function GameModule.PlatformAssetSwitchableWidget.UpdatePrimaryAssetData
 // (Native, Public, BlueprintCallable)
 
@@ -21783,88 +22709,6 @@ void UPlatformIcon::BP_UpdateIcon(EPlatform displayPlatform)
 }
 
 
-// Function GameModule.YesNoWidget.AddYesButton
-// (Event, Public, BlueprintCallable, BlueprintEvent)
-
-void UYesNoWidget::AddYesButton()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("YesNoWidget", "AddYesButton");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function GameModule.YesNoWidget.NoEvent
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UYesNoWidget::NoEvent(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("YesNoWidget", "NoEvent");
-
-	Params::YesNoWidget_NoEvent Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.YesNoWidget.RemoveYesButton
-// (Event, Public, BlueprintCallable, BlueprintEvent)
-
-void UYesNoWidget::RemoveYesButton()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("YesNoWidget", "RemoveYesButton");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function GameModule.YesNoWidget.YesEvent
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UYesNoWidget::YesEvent(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("YesNoWidget", "YesEvent");
-
-	Params::YesNoWidget_YesEvent Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
 // Function GameModule.PlatformRichTextBlock.ApplyButtonGuideText
 // (Final, Native, Public, BlueprintCallable)
 
@@ -21884,48 +22728,73 @@ void UPlatformRichTextBlock::ApplyButtonGuideText()
 }
 
 
-// Function GameModule.WaitNetworkMessage.OnCloseEvent
-// (Final, Native, Protected)
+// Function GameModule.ProfileDisplayRoleSlotWidget.GenerateData
+// (Native, Event, Public, BlueprintCallable, BlueprintEvent)
+// Parameters:
+// const class UProfileDisplayData*        _data                                                  (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    mySelf                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UWaitNetworkMessage::OnCloseEvent()
+void UProfileDisplayRoleSlotWidget::GenerateData(const class UProfileDisplayData* _data, bool mySelf)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WaitNetworkMessage", "OnCloseEvent");
+		Func = Class->GetFunction("ProfileDisplayRoleSlotWidget", "GenerateData");
+
+	Params::ProfileDisplayRoleSlotWidget_GenerateData Parms{};
+
+	Parms._data = _data;
+	Parms.mySelf = mySelf;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
 
-	UObject::ProcessEvent(Func, nullptr);
+	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
 }
 
 
-// Function GameModule.WaitNetworkMessage.Setup
-// (Final, Native, Public, BlueprintCallable)
+// Function GameModule.ProfileDisplayRoleSlotWidget.OnLoadedCostumeImage
+// (Final, Native, Protected)
 // Parameters:
-// EWaitMessageType                        Type                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    backImage                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    backBlur                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    focusFlag                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// int32                                   stateSetting                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UPaperSprite*                     Sprite                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UWaitNetworkMessage::Setup(EWaitMessageType Type, bool backImage, bool backBlur, bool focusFlag, int32 stateSetting)
+void UProfileDisplayRoleSlotWidget::OnLoadedCostumeImage(class UPaperSprite* Sprite)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WaitNetworkMessage", "Setup");
+		Func = Class->GetFunction("ProfileDisplayRoleSlotWidget", "OnLoadedCostumeImage");
 
-	Params::WaitNetworkMessage_Setup Parms{};
+	Params::ProfileDisplayRoleSlotWidget_OnLoadedCostumeImage Parms{};
 
-	Parms.Type = Type;
-	Parms.backImage = backImage;
-	Parms.backBlur = backBlur;
-	Parms.focusFlag = focusFlag;
-	Parms.stateSetting = stateSetting;
+	Parms.Sprite = Sprite;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayRoleSlotWidget.OnLoadedRarityImage
+// (Final, Native, Protected)
+// Parameters:
+// class UTexture2D*                       Sprite                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UProfileDisplayRoleSlotWidget::OnLoadedRarityImage(class UTexture2D* Sprite)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayRoleSlotWidget", "OnLoadedRarityImage");
+
+	Params::ProfileDisplayRoleSlotWidget_OnLoadedRarityImage Parms{};
+
+	Parms.Sprite = Sprite;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -21952,6 +22821,34 @@ void UPlatformTextBlock::Update()
 	UObject::ProcessEvent(Func, nullptr);
 
 	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ProfileDisplayManager.BP_RequesetLoad
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// TSoftObjectPtr<class UWorld>            _level                                                 (Parm, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class ULevelStreamingDynamic*           ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class ULevelStreamingDynamic* AProfileDisplayManager::BP_RequesetLoad(TSoftObjectPtr<class UWorld> _level)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ProfileDisplayManager", "BP_RequesetLoad");
+
+	Params::ProfileDisplayManager_BP_RequesetLoad Parms{};
+
+	Parms._level = _level;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
 }
 
 
@@ -22139,51 +23036,6 @@ void APlayerControllerGame::ServerStepDevPause()
 	Func->FunctionFlags |= 0x400;
 
 	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TutorialMessageWidget.ChangeSizeTutorialMessageWindow
-// (Event, Public, BlueprintCallable, BlueprintEvent)
-// Parameters:
-// bool                                    condition                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTutorialMessageWidget::ChangeSizeTutorialMessageWindow(bool condition)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TutorialMessageWidget", "ChangeSizeTutorialMessageWindow");
-
-	Params::TutorialMessageWidget_ChangeSizeTutorialMessageWindow Parms{};
-
-	Parms.condition = condition;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.TutorialMessageWidget.SetTutorialMessageWidget
-// (Native, Event, Public, HasOutParams, BlueprintCallable, BlueprintEvent)
-// Parameters:
-// const class FText&                      message                                                (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-void UTutorialMessageWidget::SetTutorialMessageWidget(const class FText& message)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TutorialMessageWidget", "SetTutorialMessageWidget");
-
-	Params::TutorialMessageWidget_SetTutorialMessageWidget Parms{};
-
-	Parms.message = std::move(message);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
 }
@@ -25015,106 +25867,6 @@ void UPlayerName::SetLineBreakSpace(const float space)
 }
 
 
-// Function GameModule.ResultDatabaseWork.OnLoadedBattleReward
-// (Final, Native, Protected)
-// Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UResultDatabaseWork::OnLoadedBattleReward(int32 requestId)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ResultDatabaseWork", "OnLoadedBattleReward");
-
-	Params::ResultDatabaseWork_OnLoadedBattleReward Parms{};
-
-	Parms.requestId = requestId;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ResultDatabaseWork.OnLoadedEventRankReward
-// (Final, Native, Protected)
-// Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UResultDatabaseWork::OnLoadedEventRankReward(int32 requestId)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ResultDatabaseWork", "OnLoadedEventRankReward");
-
-	Params::ResultDatabaseWork_OnLoadedEventRankReward Parms{};
-
-	Parms.requestId = requestId;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ResultDatabaseWork.OnLoadedRankMatchReward
-// (Final, Native, Protected)
-// Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UResultDatabaseWork::OnLoadedRankMatchReward(int32 requestId)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ResultDatabaseWork", "OnLoadedRankMatchReward");
-
-	Params::ResultDatabaseWork_OnLoadedRankMatchReward Parms{};
-
-	Parms.requestId = requestId;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.ResultDatabaseWork.OnLoadedSpecialLicenseReward
-// (Final, Native, Protected)
-// Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UResultDatabaseWork::OnLoadedSpecialLicenseReward(int32 requestId)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ResultDatabaseWork", "OnLoadedSpecialLicenseReward");
-
-	Params::ResultDatabaseWork_OnLoadedSpecialLicenseReward Parms{};
-
-	Parms.requestId = requestId;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
 // Function GameModule.PlayerNameText.OnSetPlayerNameScale
 // (Final, Native, Protected, HasOutParams)
 // Parameters:
@@ -25455,6 +26207,261 @@ void UPositionMeasurement::InitPairPointProperties(class UWidget* widgetA, class
 }
 
 
+// Function GameModule.TutorialTipsWidget.BP_OnReceivedCloseButtonDecidedEvent
+// (Final, Native, Protected, BlueprintCallable)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTutorialTipsWidget::BP_OnReceivedCloseButtonDecidedEvent(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TutorialTipsWidget", "BP_OnReceivedCloseButtonDecidedEvent");
+
+	Params::TutorialTipsWidget_BP_OnReceivedCloseButtonDecidedEvent Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TutorialTipsWidget.HideRightLeftButton
+// (Event, Public, BlueprintEvent)
+
+void UTutorialTipsWidget::HideRightLeftButton()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TutorialTipsWidget", "HideRightLeftButton");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function GameModule.TutorialTipsWidget.NextButtonTileView
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const bool                              NotMaxNext                                             (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTutorialTipsWidget::NextButtonTileView(const bool NotMaxNext)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TutorialTipsWidget", "NextButtonTileView");
+
+	Params::TutorialTipsWidget_NextButtonTileView Parms{};
+
+	Parms.NotMaxNext = NotMaxNext;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TutorialTipsWidget.OnChangeBattleSequence
+// (Final, Native, Public)
+// Parameters:
+// EBattleStartSequenceType                Sequence                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTutorialTipsWidget::OnChangeBattleSequence(EBattleStartSequenceType Sequence)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TutorialTipsWidget", "OnChangeBattleSequence");
+
+	Params::TutorialTipsWidget_OnChangeBattleSequence Parms{};
+
+	Parms.Sequence = Sequence;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TutorialTipsWidget.OnChangeLevel
+// (Final, Native, Protected)
+// Parameters:
+// class ULevel*                           level_p                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UWorld*                           world_p                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTutorialTipsWidget::OnChangeLevel(class ULevel* level_p, class UWorld* world_p)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TutorialTipsWidget", "OnChangeLevel");
+
+	Params::TutorialTipsWidget_OnChangeLevel Parms{};
+
+	Parms.level_p = level_p;
+	Parms.world_p = world_p;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TutorialTipsWidget.OnReceivedCloseButtonDecidedEvent
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTutorialTipsWidget::OnReceivedCloseButtonDecidedEvent(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TutorialTipsWidget", "OnReceivedCloseButtonDecidedEvent");
+
+	Params::TutorialTipsWidget_OnReceivedCloseButtonDecidedEvent Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TutorialTipsWidget.OnReceivedClosedEmptyWindowEvent
+// (Final, Native, Protected)
+
+void UTutorialTipsWidget::OnReceivedClosedEmptyWindowEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TutorialTipsWidget", "OnReceivedClosedEmptyWindowEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TutorialTipsWidget.OnReceivedOpenedEmptyWindowEvent
+// (Final, Native, Protected)
+
+void UTutorialTipsWidget::OnReceivedOpenedEmptyWindowEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TutorialTipsWidget", "OnReceivedOpenedEmptyWindowEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TutorialTipsWidget.OnReceivedOpenedEmptyWindowEventAutoPlay
+// (Final, Native, Protected)
+
+void UTutorialTipsWidget::OnReceivedOpenedEmptyWindowEventAutoPlay()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TutorialTipsWidget", "OnReceivedOpenedEmptyWindowEventAutoPlay");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TutorialTipsWidget.PrevButtonTileView
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const bool                              NotMinPrev                                             (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTutorialTipsWidget::PrevButtonTileView(const bool NotMinPrev)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TutorialTipsWidget", "PrevButtonTileView");
+
+	Params::TutorialTipsWidget_PrevButtonTileView Parms{};
+
+	Parms.NotMinPrev = NotMinPrev;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TutorialTipsWidget.SplitStringByCarriageReturn
+// (Final, Native, Public, BlueprintCallable, BlueprintPure)
+// Parameters:
+// const class FString&                    message                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// TArray<class FString>                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
+
+TArray<class FString> UTutorialTipsWidget::SplitStringByCarriageReturn(const class FString& message)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TutorialTipsWidget", "SplitStringByCarriageReturn");
+
+	Params::TutorialTipsWidget_SplitStringByCarriageReturn Parms{};
+
+	Parms.message = std::move(message);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
 // Function GameModule.PrimaryAssetAvatarCreateImage.BP_GetImageTexture
 // (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
 // Parameters:
@@ -25485,33 +26492,48 @@ class UTexture2D* UPrimaryAssetAvatarCreateImage::BP_GetImageTexture(EAvatarImag
 }
 
 
-// Function GameModule.ProjectileGeneratorGame.OnSpawnInitParams
-// (Event, Public, BlueprintEvent)
+// Function GameModule.WaitNetworkMessage.OnCloseEvent
+// (Final, Native, Protected)
 
-void AProjectileGeneratorGame::OnSpawnInitParams()
+void UWaitNetworkMessage::OnCloseEvent()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ProjectileGeneratorGame", "OnSpawnInitParams");
+		Func = Class->GetFunction("WaitNetworkMessage", "OnCloseEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
 
 	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
 }
 
 
-// Function GameModule.ProjectileGeneratorGame.BP_GetBaseDB
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Function GameModule.WaitNetworkMessage.Setup
+// (Final, Native, Public, BlueprintCallable)
 // Parameters:
-// const struct FGeneratorIndexData        ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
+// EWaitMessageType                        Type                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    backImage                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    backBlur                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    focusFlag                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// int32                                   stateSetting                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-const struct FGeneratorIndexData AProjectileGeneratorGame::BP_GetBaseDB() const
+void UWaitNetworkMessage::Setup(EWaitMessageType Type, bool backImage, bool backBlur, bool focusFlag, int32 stateSetting)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ProjectileGeneratorGame", "BP_GetBaseDB");
+		Func = Class->GetFunction("WaitNetworkMessage", "Setup");
 
-	Params::ProjectileGeneratorGame_BP_GetBaseDB Parms{};
+	Params::WaitNetworkMessage_Setup Parms{};
+
+	Parms.Type = Type;
+	Parms.backImage = backImage;
+	Parms.backBlur = backBlur;
+	Parms.focusFlag = focusFlag;
+	Parms.stateSetting = stateSetting;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -25519,308 +26541,6 @@ const struct FGeneratorIndexData AProjectileGeneratorGame::BP_GetBaseDB() const
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProjectileGeneratorGame.BP_GetLevelDB
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// const struct FGeneratorIndexLevelData   ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
-
-const struct FGeneratorIndexLevelData AProjectileGeneratorGame::BP_GetLevelDB() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProjectileGeneratorGame", "BP_GetLevelDB");
-
-	Params::ProjectileGeneratorGame_BP_GetLevelDB Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProjectileGeneratorGame.GetCharacterID
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// ECharacterId                            ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-ECharacterId AProjectileGeneratorGame::GetCharacterID() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProjectileGeneratorGame", "GetCharacterID");
-
-	Params::ProjectileGeneratorGame_GetCharacterID Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProjectileGeneratorGame.GetInitDirection
-// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// const struct FVector                    ReturnValue                                            (ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-const struct FVector AProjectileGeneratorGame::GetInitDirection() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProjectileGeneratorGame", "GetInitDirection");
-
-	Params::ProjectileGeneratorGame_GetInitDirection Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProjectileGeneratorGame.GetInitLocation
-// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// const struct FVector                    ReturnValue                                            (ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-const struct FVector AProjectileGeneratorGame::GetInitLocation() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProjectileGeneratorGame", "GetInitLocation");
-
-	Params::ProjectileGeneratorGame_GetInitLocation Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProjectileGeneratorGame.GetInitQuat
-// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// const struct FQuat                      ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
-
-const struct FQuat AProjectileGeneratorGame::GetInitQuat() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProjectileGeneratorGame", "GetInitQuat");
-
-	Params::ProjectileGeneratorGame_GetInitQuat Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProjectileGeneratorGame.GetInitScale
-// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// const struct FVector                    ReturnValue                                            (ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-const struct FVector AProjectileGeneratorGame::GetInitScale() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProjectileGeneratorGame", "GetInitScale");
-
-	Params::ProjectileGeneratorGame_GetInitScale Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProjectileGeneratorGame.GetInitTarget
-// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// const struct FVector                    ReturnValue                                            (ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-const struct FVector AProjectileGeneratorGame::GetInitTarget() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProjectileGeneratorGame", "GetInitTarget");
-
-	Params::ProjectileGeneratorGame_GetInitTarget Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProjectileGeneratorGame.GetInitTransform
-// (Final, Native, Public, HasDefaults, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// const struct FTransform                 ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
-
-const struct FTransform AProjectileGeneratorGame::GetInitTransform() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProjectileGeneratorGame", "GetInitTransform");
-
-	Params::ProjectileGeneratorGame_GetInitTransform Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProjectileGeneratorGame.GetIsProjectileCreatorMode
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-bool AProjectileGeneratorGame::GetIsProjectileCreatorMode() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProjectileGeneratorGame", "GetIsProjectileCreatorMode");
-
-	Params::ProjectileGeneratorGame_GetIsProjectileCreatorMode Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProjectileGeneratorGame.GetLevel
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-int32 AProjectileGeneratorGame::GetLevel() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProjectileGeneratorGame", "GetLevel");
-
-	Params::ProjectileGeneratorGame_GetLevel Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProjectileGeneratorGame.GetLockonActor
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// class AActor*                           ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class AActor* AProjectileGeneratorGame::GetLockonActor() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProjectileGeneratorGame", "GetLockonActor");
-
-	Params::ProjectileGeneratorGame_GetLockonActor Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ProjectileGeneratorGame.GetSocketName
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// class FName                             ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class FName AProjectileGeneratorGame::GetSocketName() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("ProjectileGeneratorGame", "GetSocketName");
-
-	Params::ProjectileGeneratorGame_GetSocketName Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
 }
 
 
@@ -26061,6 +26781,189 @@ void UPrimaryAssetCharacterGUI::GetOffset(ESceneCaptureTypeId Type, struct FTran
 
 	if (outOffset != nullptr)
 		*outOffset = std::move(Parms.outOffset);
+}
+
+
+// Function GameModule.WidgetNetWorkNotation.OnChangedCurrentPlayMode
+// (Final, Native, Protected)
+
+void UWidgetNetWorkNotation::OnChangedCurrentPlayMode()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetNetWorkNotation", "OnChangedCurrentPlayMode");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.WidgetNetWorkNotation.OnGetPingTimerEvent
+// (Final, Native, Private)
+
+void UWidgetNetWorkNotation::OnGetPingTimerEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetNetWorkNotation", "OnGetPingTimerEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.WidgetNetWorkNotation.OnMatchingRegionEvent
+// (Final, Native, Protected, HasOutParams)
+// Parameters:
+// const int32&                            regionCode                                             (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetNetWorkNotation::OnMatchingRegionEvent(const int32& regionCode)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetNetWorkNotation", "OnMatchingRegionEvent");
+
+	Params::WidgetNetWorkNotation_OnMatchingRegionEvent Parms{};
+
+	Parms.regionCode = regionCode;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.WidgetNetWorkNotation.OnReadyForPlayEvent
+// (Final, Native, Protected)
+
+void UWidgetNetWorkNotation::OnReadyForPlayEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetNetWorkNotation", "OnReadyForPlayEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.WidgetNetWorkNotation.OnTeamUpUpdatedEvent
+// (Final, Native, Protected)
+
+void UWidgetNetWorkNotation::OnTeamUpUpdatedEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetNetWorkNotation", "OnTeamUpUpdatedEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.WidgetNetWorkNotation.OnVoiceChatChangeStatus
+// (Final, Native, Protected)
+// Parameters:
+// EVoiceChatSystemStatus                  Status                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UWidgetNetWorkNotation::OnVoiceChatChangeStatus(EVoiceChatSystemStatus Status)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetNetWorkNotation", "OnVoiceChatChangeStatus");
+
+	Params::WidgetNetWorkNotation_OnVoiceChatChangeStatus Parms{};
+
+	Parms.Status = Status;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.WidgetNetWorkNotation.OnWaitForLoginEvent
+// (Final, Native, Protected)
+
+void UWidgetNetWorkNotation::OnWaitForLoginEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WidgetNetWorkNotation", "OnWaitForLoginEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.UMGTemporaryNotification.Activate
+// (Final, Native, Public, BlueprintCallable)
+
+void UUMGTemporaryNotification::Activate()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("UMGTemporaryNotification", "Activate");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.UMGTemporaryNotification.Deactivate
+// (Final, Native, Public, BlueprintCallable)
+
+void UUMGTemporaryNotification::Deactivate()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("UMGTemporaryNotification", "Deactivate");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
 }
 
 
@@ -26378,6 +27281,88 @@ TSoftObjectPtr<class UTexture2D> UPrimaryAssetLanguageImage::BP_GetTOSImage(int3
 }
 
 
+// Function GameModule.YesNoWidget.AddYesButton
+// (Event, Public, BlueprintCallable, BlueprintEvent)
+
+void UYesNoWidget::AddYesButton()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("YesNoWidget", "AddYesButton");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function GameModule.YesNoWidget.NoEvent
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UYesNoWidget::NoEvent(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("YesNoWidget", "NoEvent");
+
+	Params::YesNoWidget_NoEvent Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.YesNoWidget.RemoveYesButton
+// (Event, Public, BlueprintCallable, BlueprintEvent)
+
+void UYesNoWidget::RemoveYesButton()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("YesNoWidget", "RemoveYesButton");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function GameModule.YesNoWidget.YesEvent
+// (Final, Native, Protected)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UYesNoWidget::YesEvent(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("YesNoWidget", "YesEvent");
+
+	Params::YesNoWidget_YesEvent Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
 // Function GameModule.PrimaryAssetLicense.BP_GetTextureL
 // (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
 // Parameters:
@@ -26478,90 +27463,6 @@ class UPaperSprite* UPrimaryAssetLicense::BP_TextureS(const class FString& Key) 
 	Params::PrimaryAssetLicense_BP_TextureS Parms{};
 
 	Parms.Key = std::move(Key);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.PrimaryAssetLoginBonusLogo.BP_GetPaperSpriteLogo
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// const class FString&                    Key                                                    (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UPaperSprite*                     ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UPaperSprite* UPrimaryAssetLoginBonusLogo::BP_GetPaperSpriteLogo(const class FString& Key) const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("PrimaryAssetLoginBonusLogo", "BP_GetPaperSpriteLogo");
-
-	Params::PrimaryAssetLoginBonusLogo_BP_GetPaperSpriteLogo Parms{};
-
-	Parms.Key = std::move(Key);
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.PrimaryAssetStaffrollAnimation.BP_GetMovieMaterial
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// int32                                   Index_0                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UMaterial*                        ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UMaterial* UPrimaryAssetStaffrollAnimation::BP_GetMovieMaterial(int32 Index_0) const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("PrimaryAssetStaffrollAnimation", "BP_GetMovieMaterial");
-
-	Params::PrimaryAssetStaffrollAnimation_BP_GetMovieMaterial Parms{};
-
-	Parms.Index_0 = Index_0;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.PrimaryAssetStaffrollAnimation.BP_GetMovieTexture
-// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// int32                                   Index_0                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UTexture*                         ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UTexture* UPrimaryAssetStaffrollAnimation::BP_GetMovieTexture(int32 Index_0) const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("PrimaryAssetStaffrollAnimation", "BP_GetMovieTexture");
-
-	Params::PrimaryAssetStaffrollAnimation_BP_GetMovieTexture Parms{};
-
-	Parms.Index_0 = Index_0;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -27540,23 +28441,21 @@ struct FVector UProjectileDB::BP_GeneratorFindAnyParameterVector(const struct FG
 }
 
 
-// Function GameModule.ReturnButtonWidget.OnPressButton
-// (Final, Native, Public)
+// Function GameModule.ResultDatabaseWork.OnLoadedBattleReward
+// (Final, Native, Protected)
 // Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UReturnButtonWidget::OnPressButton(class UAppWidget* Widget, EWidgetInputType inputType)
+void UResultDatabaseWork::OnLoadedBattleReward(int32 requestId)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ReturnButtonWidget", "OnPressButton");
+		Func = Class->GetFunction("ResultDatabaseWork", "OnLoadedBattleReward");
 
-	Params::ReturnButtonWidget_OnPressButton Parms{};
+	Params::ResultDatabaseWork_OnLoadedBattleReward Parms{};
 
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
+	Parms.requestId = requestId;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -27567,19 +28466,94 @@ void UReturnButtonWidget::OnPressButton(class UAppWidget* Widget, EWidgetInputTy
 }
 
 
-// Function GameModule.RoleSlotCostumeWidget.OnLoadedCostumeImage
+// Function GameModule.ResultDatabaseWork.OnLoadedEventRankReward
 // (Final, Native, Protected)
 // Parameters:
-// class UPaperSprite*                     Sprite                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void URoleSlotCostumeWidget::OnLoadedCostumeImage(class UPaperSprite* Sprite)
+void UResultDatabaseWork::OnLoadedEventRankReward(int32 requestId)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("RoleSlotCostumeWidget", "OnLoadedCostumeImage");
+		Func = Class->GetFunction("ResultDatabaseWork", "OnLoadedEventRankReward");
 
-	Params::RoleSlotCostumeWidget_OnLoadedCostumeImage Parms{};
+	Params::ResultDatabaseWork_OnLoadedEventRankReward Parms{};
+
+	Parms.requestId = requestId;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ResultDatabaseWork.OnLoadedRankMatchReward
+// (Final, Native, Protected)
+// Parameters:
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UResultDatabaseWork::OnLoadedRankMatchReward(int32 requestId)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ResultDatabaseWork", "OnLoadedRankMatchReward");
+
+	Params::ResultDatabaseWork_OnLoadedRankMatchReward Parms{};
+
+	Parms.requestId = requestId;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.ResultDatabaseWork.OnLoadedSpecialLicenseReward
+// (Final, Native, Protected)
+// Parameters:
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UResultDatabaseWork::OnLoadedSpecialLicenseReward(int32 requestId)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("ResultDatabaseWork", "OnLoadedSpecialLicenseReward");
+
+	Params::ResultDatabaseWork_OnLoadedSpecialLicenseReward Parms{};
+
+	Parms.requestId = requestId;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.RoleSlotMainItemIconWidget.OnLoadedIconImage
+// (Final, Native, Protected)
+// Parameters:
+// class UPaperSprite*                     Sprite                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void URoleSlotMainItemIconWidget::OnLoadedIconImage(class UPaperSprite* Sprite)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("RoleSlotMainItemIconWidget", "OnLoadedIconImage");
+
+	Params::RoleSlotMainItemIconWidget_OnLoadedIconImage Parms{};
 
 	Parms.Sprite = Sprite;
 
@@ -27592,259 +28566,39 @@ void URoleSlotCostumeWidget::OnLoadedCostumeImage(class UPaperSprite* Sprite)
 }
 
 
-// Function GameModule.RoleSlotMainSkillWidget.OnLoadedRoleIconSet
-// (Final, Native, Protected)
+// Function GameModule.RoleWidget.OnSetRole
+// (Event, Protected, BlueprintEvent)
 // Parameters:
-// class UTexture2D*                       Texture                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EMdAbilityType                          abilityType                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void URoleSlotMainSkillWidget::OnLoadedRoleIconSet(class UTexture2D* Texture)
+void URoleWidget::OnSetRole(EMdAbilityType abilityType)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("RoleSlotMainSkillWidget", "OnLoadedRoleIconSet");
+		Func = Class->GetFunction("RoleWidget", "OnSetRole");
 
-	Params::RoleSlotMainSkillWidget_OnLoadedRoleIconSet Parms{};
+	Params::RoleWidget_OnSetRole Parms{};
 
-	Parms.Texture = Texture;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
+	Parms.abilityType = abilityType;
 
 	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
 }
 
 
-// Function GameModule.RoleSlotMainTipsIconWidget.BP_Reset
-// (Final, Native, Protected, BlueprintCallable)
-
-void URoleSlotMainTipsIconWidget::BP_Reset()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("RoleSlotMainTipsIconWidget", "BP_Reset");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.RoleSlotMainTipsIconWidget.BP_SetCurrencyCode
-// (Final, Native, Protected, BlueprintCallable)
-// Parameters:
-// int32                                   code                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void URoleSlotMainTipsIconWidget::BP_SetCurrencyCode(int32 code)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("RoleSlotMainTipsIconWidget", "BP_SetCurrencyCode");
-
-	Params::RoleSlotMainTipsIconWidget_BP_SetCurrencyCode Parms{};
-
-	Parms.code = code;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.RoleSlotMainTipsIconWidget.BP_SetVariationCode
-// (Final, Native, Protected, BlueprintCallable)
-// Parameters:
-// int32                                   code                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void URoleSlotMainTipsIconWidget::BP_SetVariationCode(int32 code)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("RoleSlotMainTipsIconWidget", "BP_SetVariationCode");
-
-	Params::RoleSlotMainTipsIconWidget_BP_SetVariationCode Parms{};
-
-	Parms.code = code;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.RoleSlotStatics.GetCostumeRoleSlotParam
-// (Final, Native, Static, Public, HasOutParams, BlueprintCallable, BlueprintPure)
-// Parameters:
-// int32                                   CostumeCode                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// struct FDbsCostumeRoleSlotParam*        outParam                                               (Parm, OutParm, NativeAccessSpecifierPublic)
-// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-bool URoleSlotStatics::GetCostumeRoleSlotParam(int32 CostumeCode, struct FDbsCostumeRoleSlotParam* outParam)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("RoleSlotStatics", "GetCostumeRoleSlotParam");
-
-	Params::RoleSlotStatics_GetCostumeRoleSlotParam Parms{};
-
-	Parms.CostumeCode = CostumeCode;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	if (outParam != nullptr)
-		*outParam = std::move(Parms.outParam);
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.RoleSlotStatics.GetRoleSlotCharacterNameText
-// (Final, Native, Static, Public, BlueprintCallable, BlueprintPure)
-// Parameters:
-// const int32                             VariationCode                                          (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class FText                             ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
-
-class FText URoleSlotStatics::GetRoleSlotCharacterNameText(const int32 VariationCode)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("RoleSlotStatics", "GetRoleSlotCharacterNameText");
-
-	Params::RoleSlotStatics_GetRoleSlotCharacterNameText Parms{};
-
-	Parms.VariationCode = VariationCode;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.RoleSlotStatics.GetRoleSlotDataText
-// (Final, Native, Static, Public, BlueprintCallable, BlueprintPure)
-// Parameters:
-// const int32                             VariationCode                                          (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class FText                             ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
-
-class FText URoleSlotStatics::GetRoleSlotDataText(const int32 VariationCode)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("RoleSlotStatics", "GetRoleSlotDataText");
-
-	Params::RoleSlotStatics_GetRoleSlotDataText Parms{};
-
-	Parms.VariationCode = VariationCode;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.RoleSlotStatics.GetRoleSlotEffect
-// (Final, Native, Static, Public, BlueprintCallable, BlueprintPure)
-// Parameters:
-// const int32                             VariationCode                                          (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const bool                              bSkillFlag                                             (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class FText                             ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
-
-class FText URoleSlotStatics::GetRoleSlotEffect(const int32 VariationCode, const bool bSkillFlag)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("RoleSlotStatics", "GetRoleSlotEffect");
-
-	Params::RoleSlotStatics_GetRoleSlotEffect Parms{};
-
-	Parms.VariationCode = VariationCode;
-	Parms.bSkillFlag = bSkillFlag;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.RoleSlotStatics.GetRoleSlotTip
-// (Final, Native, Static, Public, BlueprintCallable, BlueprintPure)
-// Parameters:
-// const int32                             VariationCode                                          (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// struct FDbsRoleSlotTip                  ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
-
-struct FDbsRoleSlotTip URoleSlotStatics::GetRoleSlotTip(const int32 VariationCode)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("RoleSlotStatics", "GetRoleSlotTip");
-
-	Params::RoleSlotStatics_GetRoleSlotTip Parms{};
-
-	Parms.VariationCode = VariationCode;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.ScoreComponentCustomMatch.OnCompletedSendResultData
+// Function GameModule.ScoreComponent.OnCompletedSendDropAchievement
 // (Final, Native, Protected)
 // Parameters:
 // int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UScoreComponentCustomMatch::OnCompletedSendResultData(int32 requestId)
+void UScoreComponent::OnCompletedSendDropAchievement(int32 requestId)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("ScoreComponentCustomMatch", "OnCompletedSendResultData");
+		Func = Class->GetFunction("ScoreComponent", "OnCompletedSendDropAchievement");
 
-	Params::ScoreComponentCustomMatch_OnCompletedSendResultData Parms{};
+	Params::ScoreComponent_OnCompletedSendDropAchievement Parms{};
 
 	Parms.requestId = requestId;
 
@@ -27857,38 +28611,21 @@ void UScoreComponentCustomMatch::OnCompletedSendResultData(int32 requestId)
 }
 
 
-// Function GameModule.SendLikeItemWidget.UpdateOpenAnimParam
-// (Final, Native, Protected, BlueprintCallable)
-
-void USendLikeItemWidget::UpdateOpenAnimParam()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SendLikeItemWidget", "UpdateOpenAnimParam");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SendLikeButtonWidget.BP_GetRemainSendLikeCount
-// (Final, Native, Public, BlueprintCallable)
+// Function GameModule.ScoreComponent.OnCompletedSendMission
+// (Final, Native, Protected)
 // Parameters:
-// int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-int32 USendLikeButtonWidget::BP_GetRemainSendLikeCount()
+void UScoreComponent::OnCompletedSendMission(int32 requestId)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("SendLikeButtonWidget", "BP_GetRemainSendLikeCount");
+		Func = Class->GetFunction("ScoreComponent", "OnCompletedSendMission");
 
-	Params::SendLikeButtonWidget_BP_GetRemainSendLikeCount Parms{};
+	Params::ScoreComponent_OnCompletedSendMission Parms{};
+
+	Parms.requestId = requestId;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -27896,24 +28633,24 @@ int32 USendLikeButtonWidget::BP_GetRemainSendLikeCount()
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
 }
 
 
-// Function GameModule.SendLikeButtonWidget.BP_UpdateSendLikeCount
-// (Final, Native, Protected, BlueprintCallable)
+// Function GameModule.ScoreComponent.OnCompletedSendUserResult
+// (Final, Native, Protected)
 // Parameters:
-// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-bool USendLikeButtonWidget::BP_UpdateSendLikeCount()
+void UScoreComponent::OnCompletedSendUserResult(int32 requestId)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("SendLikeButtonWidget", "BP_UpdateSendLikeCount");
+		Func = Class->GetFunction("ScoreComponent", "OnCompletedSendUserResult");
 
-	Params::SendLikeButtonWidget_BP_UpdateSendLikeCount Parms{};
+	Params::ScoreComponent_OnCompletedSendUserResult Parms{};
+
+	Parms.requestId = requestId;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -27921,515 +28658,56 @@ bool USendLikeButtonWidget::BP_UpdateSendLikeCount()
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
 }
 
 
-// Function GameModule.SendLikeButtonWidget.ClearFocus
-// (Final, Native, Public, BlueprintCallable)
+// Function GameModule.ScoreComponent.OnSystemError
+// (Final, Native, Protected)
+// Parameters:
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FName                       Key                                                    (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FName                       message                                                (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void USendLikeButtonWidget::ClearFocus()
+void UScoreComponent::OnSystemError(int32 requestId, const class FName Key, const class FName message)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("SendLikeButtonWidget", "ClearFocus");
+		Func = Class->GetFunction("ScoreComponent", "OnSystemError");
+
+	Params::ScoreComponent_OnSystemError Parms{};
+
+	Parms.requestId = requestId;
+	Parms.Key = Key;
+	Parms.message = message;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
 
-	UObject::ProcessEvent(Func, nullptr);
+	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
 }
 
 
-// Function GameModule.SendLikeButtonWidget.SetupSendLikeCounter
+// Function GameModule.SendLikeInterface.SendLikeImage
 // (Native, Event, Public, BlueprintCallable, BlueprintEvent)
-
-void USendLikeButtonWidget::SetupSendLikeCounter()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SendLikeButtonWidget", "SetupSendLikeCounter");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SendLikeButtonWidget.BP_GetRemainsSendLikeCount
-// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-int32 USendLikeButtonWidget::BP_GetRemainsSendLikeCount() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SendLikeButtonWidget", "BP_GetRemainsSendLikeCount");
-
-	Params::SendLikeButtonWidget_BP_GetRemainsSendLikeCount Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.SendLikeButtonWidget.BP_GetSendLikeCounter
-// (Final, Native, Protected, BlueprintCallable, BlueprintPure, Const)
-// Parameters:
-// int32                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-int32 USendLikeButtonWidget::BP_GetSendLikeCounter() const
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SendLikeButtonWidget", "BP_GetSendLikeCounter");
-
-	Params::SendLikeButtonWidget_BP_GetSendLikeCounter Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.SkillVariationListWidget.OnChangedMainMenu
-// (Final, Native, Protected)
-// Parameters:
-// int32                                   Index_0                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USkillVariationListWidget::OnChangedMainMenu(int32 Index_0)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationListWidget", "OnChangedMainMenu");
-
-	Params::SkillVariationListWidget_OnChangedMainMenu Parms{};
-
-	Parms.Index_0 = Index_0;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SkillVariationListWidget.OnDecideEvent
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USkillVariationListWidget::OnDecideEvent(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationListWidget", "OnDecideEvent");
-
-	Params::SkillVariationListWidget_OnDecideEvent Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SkillVariationListWidget.OnSubLevelHidden
-// (Final, Native, Protected)
-
-void USkillVariationListWidget::OnSubLevelHidden()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationListWidget", "OnSubLevelHidden");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SkillVariationListWidget.OnSubLevelShown
-// (Final, Native, Protected)
-
-void USkillVariationListWidget::OnSubLevelShown()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SkillVariationListWidget", "OnSubLevelShown");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SquadJoinWidget.OnClosedWindow
-// (Final, Native, Private)
-
-void USquadJoinWidget::OnClosedWindow()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SquadJoinWidget", "OnClosedWindow");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SquadJoinWidget.OnCloseLevel
-// (Event, Public, BlueprintEvent)
-
-void USquadJoinWidget::OnCloseLevel()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SquadJoinWidget", "OnCloseLevel");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function GameModule.SquadJoinWidget.OnCloseMessageClosedWindow
-// (Final, Native, Private)
-
-void USquadJoinWidget::OnCloseMessageClosedWindow()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SquadJoinWidget", "OnCloseMessageClosedWindow");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SquadJoinWidget.OnPlayerRequestErrorEvent
-// (Final, Native, Protected)
-// Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FName                       Key                                                    (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FName                       message                                                (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USquadJoinWidget::OnPlayerRequestErrorEvent(int32 requestId, const class FName Key, const class FName message)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SquadJoinWidget", "OnPlayerRequestErrorEvent");
-
-	Params::SquadJoinWidget_OnPlayerRequestErrorEvent Parms{};
-
-	Parms.requestId = requestId;
-	Parms.Key = Key;
-	Parms.message = message;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SquadJoinWidget.OnSelectMessageClosedWindow
-// (Final, Native, Private)
-
-void USquadJoinWidget::OnSelectMessageClosedWindow()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SquadJoinWidget", "OnSelectMessageClosedWindow");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SquadJoinWidget.OnSelectMessageCloseWindow
-// (Final, Native, Private)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    leftButton                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USquadJoinWidget::OnSelectMessageCloseWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SquadJoinWidget", "OnSelectMessageCloseWindow");
-
-	Params::SquadJoinWidget_OnSelectMessageCloseWindow Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-	Parms.leftButton = leftButton;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SquadJoinWidget.OnSelectMessageDecideWindow
-// (Final, Native, Private)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    leftButton                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USquadJoinWidget::OnSelectMessageDecideWindow(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SquadJoinWidget", "OnSelectMessageDecideWindow");
-
-	Params::SquadJoinWidget_OnSelectMessageDecideWindow Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-	Parms.leftButton = leftButton;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SquadJoinWidget.OnSelectWindowSetting
-// (Event, Public, BlueprintEvent)
-// Parameters:
-// bool                                    leader                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USquadJoinWidget::OnSelectWindowSetting(bool leader)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SquadJoinWidget", "OnSelectWindowSetting");
-
-	Params::SquadJoinWidget_OnSelectWindowSetting Parms{};
-
-	Parms.leader = leader;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.SquadJoinWidget.OnSystemErrorEvent
-// (Final, Native, Protected)
-// Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FName                       Key                                                    (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const class FName                       message                                                (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USquadJoinWidget::OnSystemErrorEvent(int32 requestId, const class FName Key, const class FName message)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SquadJoinWidget", "OnSystemErrorEvent");
-
-	Params::SquadJoinWidget_OnSystemErrorEvent Parms{};
-
-	Parms.requestId = requestId;
-	Parms.Key = Key;
-	Parms.message = message;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SquadJoinWidget.OnTeamUpJoinByInvitationEvent
-// (Final, Native, Private)
-
-void USquadJoinWidget::OnTeamUpJoinByInvitationEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SquadJoinWidget", "OnTeamUpJoinByInvitationEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SquadJoinWidget.OnTeamUpJoinEvent
-// (Final, Native, Private)
-
-void USquadJoinWidget::OnTeamUpJoinEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SquadJoinWidget", "OnTeamUpJoinEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SquadJoinWidget.OnTeamUpLeaveEvent
-// (Final, Native, Private)
-
-void USquadJoinWidget::OnTeamUpLeaveEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SquadJoinWidget", "OnTeamUpLeaveEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SquadJoinWidget.OnTeamUpUpdatedEvent
-// (Final, Native, Private)
-
-void USquadJoinWidget::OnTeamUpUpdatedEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SquadJoinWidget", "OnTeamUpUpdatedEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.SquadJoinWidget.OnUpdateCompleteEvent
-// (Final, Native, Private)
-// Parameters:
-// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void USquadJoinWidget::OnUpdateCompleteEvent(int32 requestId)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("SquadJoinWidget", "OnUpdateCompleteEvent");
-
-	Params::SquadJoinWidget_OnUpdateCompleteEvent Parms{};
-
-	Parms.requestId = requestId;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.StaticDataManager.AsyncLoadPermanentDataAsset
-// (Final, Native, Static, Public, BlueprintCallable)
 // Parameters:
 // bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-bool UStaticDataManager::AsyncLoadPermanentDataAsset()
+bool ISendLikeInterface::SendLikeImage()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("StaticDataManager", "AsyncLoadPermanentDataAsset");
+		Func = AsUObject()->Class->GetFunction("SendLikeInterface", "SendLikeImage");
 
-	Params::StaticDataManager_AsyncLoadPermanentDataAsset Parms{};
+	Params::SendLikeInterface_SendLikeImage Parms{};
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
 
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
+	AsUObject()->ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
 
@@ -28437,27 +28715,27 @@ bool UStaticDataManager::AsyncLoadPermanentDataAsset()
 }
 
 
-// Function GameModule.StaticDataManager.GetAbilityArtColorInfo
-// (Final, Native, Static, Public, BlueprintCallable)
+// Function GameModule.SendLikeInterface.SetSendLikeButtonEnable
+// (Native, Event, Public, BlueprintCallable, BlueprintEvent)
 // Parameters:
-// EMdAbilityType                          abilityType                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// const struct FAbilityArtColorInfo       ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
+// bool                                    inEnable                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-const struct FAbilityArtColorInfo UStaticDataManager::GetAbilityArtColorInfo(EMdAbilityType abilityType)
+bool ISendLikeInterface::SetSendLikeButtonEnable(bool inEnable)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("StaticDataManager", "GetAbilityArtColorInfo");
+		Func = AsUObject()->Class->GetFunction("SendLikeInterface", "SetSendLikeButtonEnable");
 
-	Params::StaticDataManager_GetAbilityArtColorInfo Parms{};
+	Params::SendLikeInterface_SetSendLikeButtonEnable Parms{};
 
-	Parms.abilityType = abilityType;
+	Parms.inEnable = inEnable;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
 
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
+	AsUObject()->ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
 
@@ -28465,374 +28743,23 @@ const struct FAbilityArtColorInfo UStaticDataManager::GetAbilityArtColorInfo(EMd
 }
 
 
-// Function GameModule.StaticDataManager.GetAbilityDurationOnValue
-// (Final, Native, Static, Public, BlueprintCallable)
+// Function GameModule.SengakujiInputArea.OnMoveControllerSG
+// (Final, Native, Public, HasOutParams)
 // Parameters:
-// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EMdAbilityType                          abilityType                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// int32                                   Level                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// float                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FGeometry&                 Geometry                                               (ConstParm, Parm, OutParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+// const struct FPointerEvent&             touchEvent                                             (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 
-float UStaticDataManager::GetAbilityDurationOnValue(const class UObject* WorldContextObject, EMdAbilityType abilityType, int32 Level)
+void USengakujiInputArea::OnMoveControllerSG(const struct FGeometry& Geometry, const struct FPointerEvent& touchEvent)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("StaticDataManager", "GetAbilityDurationOnValue");
+		Func = Class->GetFunction("SengakujiInputArea", "OnMoveControllerSG");
 
-	Params::StaticDataManager_GetAbilityDurationOnValue Parms{};
+	Params::SengakujiInputArea_OnMoveControllerSG Parms{};
 
-	Parms.WorldContextObject = WorldContextObject;
-	Parms.abilityType = abilityType;
-	Parms.Level = Level;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.StaticDataManager.GetCustomMatchTeamBorderColorInfo
-// (Final, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// uint8                                   TeamId                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// struct FCustomMatchTeamColorInfo        ReturnValue                                            (Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
-
-struct FCustomMatchTeamColorInfo UStaticDataManager::GetCustomMatchTeamBorderColorInfo(uint8 TeamId)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("StaticDataManager", "GetCustomMatchTeamBorderColorInfo");
-
-	Params::StaticDataManager_GetCustomMatchTeamBorderColorInfo Parms{};
-
-	Parms.TeamId = TeamId;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.StaticDataManager.GetCustomMatchTeamBorderColorInfoList
-// (Final, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// TMap<uint8, struct FCustomMatchTeamColorInfo>ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
-
-TMap<uint8, struct FCustomMatchTeamColorInfo> UStaticDataManager::GetCustomMatchTeamBorderColorInfoList()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("StaticDataManager", "GetCustomMatchTeamBorderColorInfoList");
-
-	Params::StaticDataManager_GetCustomMatchTeamBorderColorInfoList Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.StaticDataManager.GetDominateBattleColorInfo
-// (Final, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// struct FDominateBattleColorInfo         ReturnValue                                            (Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
-
-struct FDominateBattleColorInfo UStaticDataManager::GetDominateBattleColorInfo()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("StaticDataManager", "GetDominateBattleColorInfo");
-
-	Params::StaticDataManager_GetDominateBattleColorInfo Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.StaticDataManager.GetGimmickDataAsset
-// (Final, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class FName                             gimmickId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UGimmickBaseDataAsset*            ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UGimmickBaseDataAsset* UStaticDataManager::GetGimmickDataAsset(const class UObject* WorldContextObject, class FName gimmickId)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("StaticDataManager", "GetGimmickDataAsset");
-
-	Params::StaticDataManager_GetGimmickDataAsset Parms{};
-
-	Parms.WorldContextObject = WorldContextObject;
-	Parms.gimmickId = gimmickId;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.StaticDataManager.GetHudResourceDataAsset
-// (Final, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UHudResource*                     ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UHudResource* UStaticDataManager::GetHudResourceDataAsset(const class UObject* WorldContextObject)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("StaticDataManager", "GetHudResourceDataAsset");
-
-	Params::StaticDataManager_GetHudResourceDataAsset Parms{};
-
-	Parms.WorldContextObject = WorldContextObject;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.StaticDataManager.GetLeadersTeamBorderColorInfo
-// (Final, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// ELeadersBattleTeamType                  TeamColor                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// struct FLeadersTeamColorInfo            ReturnValue                                            (Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
-
-struct FLeadersTeamColorInfo UStaticDataManager::GetLeadersTeamBorderColorInfo(ELeadersBattleTeamType TeamColor)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("StaticDataManager", "GetLeadersTeamBorderColorInfo");
-
-	Params::StaticDataManager_GetLeadersTeamBorderColorInfo Parms{};
-
-	Parms.TeamColor = TeamColor;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.StaticDataManager.GetPermanentDataAsset
-// (Final, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// class UPrimaryAssetPermanent*           ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class UPrimaryAssetPermanent* UStaticDataManager::GetPermanentDataAsset()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("StaticDataManager", "GetPermanentDataAsset");
-
-	Params::StaticDataManager_GetPermanentDataAsset Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.StaticDataManager.GetSupplyBaseDataAsset
-// (Final, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class FName                             supplyId                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class USupplyBaseDataAsset*             ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class USupplyBaseDataAsset* UStaticDataManager::GetSupplyBaseDataAsset(const class UObject* WorldContextObject, class FName supplyId)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("StaticDataManager", "GetSupplyBaseDataAsset");
-
-	Params::StaticDataManager_GetSupplyBaseDataAsset Parms{};
-
-	Parms.WorldContextObject = WorldContextObject;
-	Parms.supplyId = supplyId;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.StaticDataManager.GetSupplyParticleColorInfo
-// (Final, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// class USupplyArtInfoDataAsset*          ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-class USupplyArtInfoDataAsset* UStaticDataManager::GetSupplyParticleColorInfo()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("StaticDataManager", "GetSupplyParticleColorInfo");
-
-	Params::StaticDataManager_GetSupplyParticleColorInfo Parms{};
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-
-	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.StaticDataManager.LoadHudResourceDataAsset
-// (Final, Native, Static, Public, BlueprintCallable)
-// Parameters:
-// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UStaticDataManager::LoadHudResourceDataAsset(const class UObject* WorldContextObject)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = StaticClass()->GetFunction("StaticDataManager", "LoadHudResourceDataAsset");
-
-	Params::StaticDataManager_LoadHudResourceDataAsset Parms{};
-
-	Parms.WorldContextObject = WorldContextObject;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	GetDefaultObj()->ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TeamCommentaryMessageItemWidget.OnDrawTimeout
-// (Final, Native, Private)
-
-void UTeamCommentaryMessageItemWidget::OnDrawTimeout()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TeamCommentaryMessageItemWidget", "OnDrawTimeout");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatButtonGuide.BP_PlayMessageAnimation
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatButtonGuide::BP_PlayMessageAnimation()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatButtonGuide", "BP_PlayMessageAnimation");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatButtonGuide.PlayMessageAnimation
-// (Event, Public, BlueprintEvent)
-
-void UTextChatButtonGuide::PlayMessageAnimation()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatButtonGuide", "PlayMessageAnimation");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function GameModule.TextChatButtonGuide.SetGaugePercent
-// (Final, Native, Public)
-// Parameters:
-// float                                   value                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatButtonGuide::SetGaugePercent(float value)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatButtonGuide", "SetGaugePercent");
-
-	Params::TextChatButtonGuide_SetGaugePercent Parms{};
-
-	Parms.value = value;
+	Parms.Geometry = std::move(Geometry);
+	Parms.touchEvent = std::move(touchEvent);
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -28843,116 +28770,23 @@ void UTextChatButtonGuide::SetGaugePercent(float value)
 }
 
 
-// Function GameModule.TextChatIcon.BP_PlayMessageAnimation
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatIcon::BP_PlayMessageAnimation()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatIcon", "BP_PlayMessageAnimation");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatIcon.BP_StartAnimation
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatIcon::BP_StartAnimation()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatIcon", "BP_StartAnimation");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatIcon.BP_StopAnimation
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatIcon::BP_StopAnimation()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatIcon", "BP_StopAnimation");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatIcon.BP_StopMessageAnimation
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatIcon::BP_StopMessageAnimation()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatIcon", "BP_StopMessageAnimation");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatIcon.BP_UpdateIconNotice
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatIcon::BP_UpdateIconNotice()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatIcon", "BP_UpdateIconNotice");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatIcon.LoopAnimation
-// (Final, Native, Public)
+// Function GameModule.SengakujiInputArea.PressControllerSG
+// (Final, Native, Public, HasOutParams)
 // Parameters:
-// const float                             DeltaTime                                              (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FGeometry&                 Geometry                                               (ConstParm, Parm, OutParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+// const struct FPointerEvent&             touchEvent                                             (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 
-void UTextChatIcon::LoopAnimation(const float DeltaTime)
+void USengakujiInputArea::PressControllerSG(const struct FGeometry& Geometry, const struct FPointerEvent& touchEvent)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatIcon", "LoopAnimation");
+		Func = Class->GetFunction("SengakujiInputArea", "PressControllerSG");
 
-	Params::TextChatIcon_LoopAnimation Parms{};
+	Params::SengakujiInputArea_PressControllerSG Parms{};
 
-	Parms.DeltaTime = DeltaTime;
+	Parms.Geometry = std::move(Geometry);
+	Parms.touchEvent = std::move(touchEvent);
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -28963,20 +28797,88 @@ void UTextChatIcon::LoopAnimation(const float DeltaTime)
 }
 
 
-// Function GameModule.TextChatIcon.OnPressButton
-// (Final, Native, Public)
+// Function GameModule.SengakujiInputArea.ReleaseControllerSG
+// (Final, Native, Public, HasOutParams)
+// Parameters:
+// const struct FGeometry&                 Geometry                                               (ConstParm, Parm, OutParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
+// const struct FPointerEvent&             touchEvent                                             (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+void USengakujiInputArea::ReleaseControllerSG(const struct FGeometry& Geometry, const struct FPointerEvent& touchEvent)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SengakujiInputArea", "ReleaseControllerSG");
+
+	Params::SengakujiInputArea_ReleaseControllerSG Parms{};
+
+	Parms.Geometry = std::move(Geometry);
+	Parms.touchEvent = std::move(touchEvent);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SkillDerivedTypeWidget.GetUniqueButtonList
+// (Event, Protected, HasOutParams, BlueprintEvent)
+// Parameters:
+// TArray<class UPlatformRichTextBlock*>*  uniqueButtonList                                       (Parm, OutParm, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
+
+void USkillDerivedTypeWidget::GetUniqueButtonList(TArray<class UPlatformRichTextBlock*>* uniqueButtonList)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillDerivedTypeWidget", "GetUniqueButtonList");
+
+	Params::SkillDerivedTypeWidget_GetUniqueButtonList Parms{};
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	if (uniqueButtonList != nullptr)
+		*uniqueButtonList = std::move(Parms.uniqueButtonList);
+}
+
+
+// Function GameModule.SkillVariationDetailWidget.OnAnalogValueScroll
+// (Event, Protected, HasOutParams, BlueprintCallable, BlueprintEvent)
+// Parameters:
+// const struct FAnalogInputEvent&         InAnalogEvent                                          (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+void USkillVariationDetailWidget::OnAnalogValueScroll(const struct FAnalogInputEvent& InAnalogEvent)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillVariationDetailWidget", "OnAnalogValueScroll");
+
+	Params::SkillVariationDetailWidget_OnAnalogValueScroll Parms{};
+
+	Parms.InAnalogEvent = std::move(InAnalogEvent);
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.SkillVariationDetailWidget.OnDecideButtonEvent
+// (Final, Native, Protected)
 // Parameters:
 // class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UTextChatIcon::OnPressButton(class UAppWidget* Widget, EWidgetInputType inputType)
+void USkillVariationDetailWidget::OnDecideButtonEvent(class UAppWidget* Widget, EWidgetInputType inputType)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatIcon", "OnPressButton");
+		Func = Class->GetFunction("SkillVariationDetailWidget", "OnDecideButtonEvent");
 
-	Params::TextChatIcon_OnPressButton Parms{};
+	Params::SkillVariationDetailWidget_OnDecideButtonEvent Parms{};
 
 	Parms.Widget = Widget;
 	Parms.inputType = inputType;
@@ -28990,43 +28892,157 @@ void UTextChatIcon::OnPressButton(class UAppWidget* Widget, EWidgetInputType inp
 }
 
 
-// Function GameModule.TextChatIcon.PlayMessageAnimation
-// (Event, Public, BlueprintEvent)
+// Function GameModule.SkillVariationDetailWidget.OnSetAbilityList
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// ECharacterId                            characterId                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// int32                                   variationNo                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UTextChatIcon::PlayMessageAnimation()
+void USkillVariationDetailWidget::OnSetAbilityList(ECharacterId characterId, int32 variationNo)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatIcon", "PlayMessageAnimation");
+		Func = Class->GetFunction("SkillVariationDetailWidget", "OnSetAbilityList");
 
-	UObject::ProcessEvent(Func, nullptr);
+	Params::SkillVariationDetailWidget_OnSetAbilityList Parms{};
+
+	Parms.characterId = characterId;
+	Parms.variationNo = variationNo;
+
+	UObject::ProcessEvent(Func, &Parms);
 }
 
 
-// Function GameModule.TextChatIcon.StopMessageAnimation
-// (Event, Public, BlueprintEvent)
+// Function GameModule.SkillVariationDetailWidget.OnSetHowToGetText
+// (Event, Protected, HasOutParams, BlueprintEvent)
+// Parameters:
+// const class FText&                      howToGetText                                           (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 
-void UTextChatIcon::StopMessageAnimation()
+void USkillVariationDetailWidget::OnSetHowToGetText(const class FText& howToGetText)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatIcon", "StopMessageAnimation");
+		Func = Class->GetFunction("SkillVariationDetailWidget", "OnSetHowToGetText");
 
-	UObject::ProcessEvent(Func, nullptr);
+	Params::SkillVariationDetailWidget_OnSetHowToGetText Parms{};
+
+	Parms.howToGetText = std::move(howToGetText);
+
+	UObject::ProcessEvent(Func, &Parms);
 }
 
 
-// Function GameModule.TextChatIcon.UpdateArray
-// (Final, Native, Public, BlueprintCallable)
+// Function GameModule.SkillVariationListItemWidget.OnSetEquip
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// bool                                    bEquip                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UTextChatIcon::UpdateArray()
+void USkillVariationListItemWidget::OnSetEquip(bool bEquip)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatIcon", "UpdateArray");
+		Func = Class->GetFunction("SkillVariationListItemWidget", "OnSetEquip");
+
+	Params::SkillVariationListItemWidget_OnSetEquip Parms{};
+
+	Parms.bEquip = bEquip;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.SkillVariationListItemWidget.OnSetHave
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// bool                                    bHave                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USkillVariationListItemWidget::OnSetHave(bool bHave)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillVariationListItemWidget", "OnSetHave");
+
+	Params::SkillVariationListItemWidget_OnSetHave Parms{};
+
+	Parms.bHave = bHave;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.SkillVariationListItemWidget.OnSetHowToGetText
+// (Event, Protected, HasOutParams, BlueprintEvent)
+// Parameters:
+// const class FText&                      howToGetText                                           (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+void USkillVariationListItemWidget::OnSetHowToGetText(const class FText& howToGetText)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillVariationListItemWidget", "OnSetHowToGetText");
+
+	Params::SkillVariationListItemWidget_OnSetHowToGetText Parms{};
+
+	Parms.howToGetText = std::move(howToGetText);
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.SkillVariationListItemWidget.OnSetName
+// (Event, Protected, HasOutParams, BlueprintEvent)
+// Parameters:
+// const class FText&                      nameText                                               (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+void USkillVariationListItemWidget::OnSetName(const class FText& nameText)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillVariationListItemWidget", "OnSetName");
+
+	Params::SkillVariationListItemWidget_OnSetName Parms{};
+
+	Parms.nameText = std::move(nameText);
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.SkillVariationListItemWidget.OnSetRarity
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// EMdRarity                               Rarity                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USkillVariationListItemWidget::OnSetRarity(EMdRarity Rarity)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillVariationListItemWidget", "OnSetRarity");
+
+	Params::SkillVariationListItemWidget_OnSetRarity Parms{};
+
+	Parms.Rarity = Rarity;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.SkillVariationWidget.CloseLevel
+// (Final, Native, Protected, BlueprintCallable)
+
+void USkillVariationWidget::CloseLevel()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillVariationWidget", "CloseLevel");
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -29037,15 +29053,944 @@ void UTextChatIcon::UpdateArray()
 }
 
 
-// Function GameModule.TextChatIcon.UpdateIconNotice
+// Function GameModule.SkillVariationWidget.OnDecideGoToGashaButtonEvent
+// (Final, Native, Protected)
+
+void USkillVariationWidget::OnDecideGoToGashaButtonEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillVariationWidget", "OnDecideGoToGashaButtonEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SkillVariationWidget.OnDecideSkillVariationListItemObject
+// (Final, Native, Protected)
+// Parameters:
+// class USkillVariationListItemObject*    itemObject                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USkillVariationWidget::OnDecideSkillVariationListItemObject(class USkillVariationListItemObject* itemObject)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillVariationWidget", "OnDecideSkillVariationListItemObject");
+
+	Params::SkillVariationWidget_OnDecideSkillVariationListItemObject Parms{};
+
+	Parms.itemObject = itemObject;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SkillVariationWidget.OnFocusSkillVariationListItemObject
+// (Final, Native, Protected)
+// Parameters:
+// class USkillVariationListItemObject*    itemObject                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USkillVariationWidget::OnFocusSkillVariationListItemObject(class USkillVariationListItemObject* itemObject)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillVariationWidget", "OnFocusSkillVariationListItemObject");
+
+	Params::SkillVariationWidget_OnFocusSkillVariationListItemObject Parms{};
+
+	Parms.itemObject = itemObject;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SkillVariationWidget.OnLoadComplete
+// (Final, Native, Protected)
+// Parameters:
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USkillVariationWidget::OnLoadComplete(int32 requestId)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillVariationWidget", "OnLoadComplete");
+
+	Params::SkillVariationWidget_OnLoadComplete Parms{};
+
+	Parms.requestId = requestId;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SkillVariationWidget.OnSetAbilityList
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// ECharacterId                            characterId                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// int32                                   variationNo                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USkillVariationWidget::OnSetAbilityList(ECharacterId characterId, int32 variationNo)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillVariationWidget", "OnSetAbilityList");
+
+	Params::SkillVariationWidget_OnSetAbilityList Parms{};
+
+	Parms.characterId = characterId;
+	Parms.variationNo = variationNo;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.SkillVariationWidget.OnShowLoadingIcon
+// (Event, Protected, BlueprintEvent)
+// Parameters:
+// bool                                    bShow                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USkillVariationWidget::OnShowLoadingIcon(bool bShow)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillVariationWidget", "OnShowLoadingIcon");
+
+	Params::SkillVariationWidget_OnShowLoadingIcon Parms{};
+
+	Parms.bShow = bShow;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.SkillVariationWidget.OnUpdateComplete
+// (Final, Native, Protected)
+// Parameters:
+// int32                                   requestId                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USkillVariationWidget::OnUpdateComplete(int32 requestId)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SkillVariationWidget", "OnUpdateComplete");
+
+	Params::SkillVariationWidget_OnUpdateComplete Parms{};
+
+	Parms.requestId = requestId;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.SoundStatics.GetCharacterDedicatedVoiceCharacterCodeList
+// (Final, Native, Static, Public, HasOutParams, BlueprintCallable)
+// Parameters:
+// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const int32                             inCharacterCode                                        (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// TSet<int32>*                            outCharacterCodeSet                                    (Parm, OutParm, NativeAccessSpecifierPublic)
+// bool                                    bInBattle                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USoundStatics::GetCharacterDedicatedVoiceCharacterCodeList(const class UObject* WorldContextObject, const int32 inCharacterCode, TSet<int32>* outCharacterCodeSet, bool bInBattle)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("SoundStatics", "GetCharacterDedicatedVoiceCharacterCodeList");
+
+	Params::SoundStatics_GetCharacterDedicatedVoiceCharacterCodeList Parms{};
+
+	Parms.WorldContextObject = WorldContextObject;
+	Parms.inCharacterCode = inCharacterCode;
+	Parms.bInBattle = bInBattle;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	if (outCharacterCodeSet != nullptr)
+		*outCharacterCodeSet = std::move(Parms.outCharacterCodeSet);
+}
+
+
+// Function GameModule.SoundStatics.GetCharacterDedicatedVoiceCueName
+// (Final, Native, Static, Public, HasOutParams, BlueprintCallable)
+// Parameters:
+// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const int32                             inCharacterCode                                        (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const int32                             inVsCharacterCode                                      (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const bool                              bInDedicated                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const bool                              bInVillain                                             (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    inFormatString                                         (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class FString*                          outSoundString                                         (Parm, OutParm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USoundStatics::GetCharacterDedicatedVoiceCueName(const class UObject* WorldContextObject, const int32 inCharacterCode, const int32 inVsCharacterCode, const bool bInDedicated, const bool bInVillain, const class FString& inFormatString, class FString* outSoundString)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("SoundStatics", "GetCharacterDedicatedVoiceCueName");
+
+	Params::SoundStatics_GetCharacterDedicatedVoiceCueName Parms{};
+
+	Parms.WorldContextObject = WorldContextObject;
+	Parms.inCharacterCode = inCharacterCode;
+	Parms.inVsCharacterCode = inVsCharacterCode;
+	Parms.bInDedicated = bInDedicated;
+	Parms.bInVillain = bInVillain;
+	Parms.inFormatString = std::move(inFormatString);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	if (outSoundString != nullptr)
+		*outSoundString = std::move(Parms.outSoundString);
+}
+
+
+// Function GameModule.SoundStatics.GetCharacterDedicatedVoiceCueNameAuto
+// (Final, Native, Static, Public, HasOutParams, BlueprintCallable)
+// Parameters:
+// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const ECharacterId                      inCharacterId                                          (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const ECharacterId                      inVsCharacterId                                        (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    inFormatString                                         (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class FString*                          outSoundString                                         (Parm, OutParm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void USoundStatics::GetCharacterDedicatedVoiceCueNameAuto(const class UObject* WorldContextObject, const ECharacterId inCharacterId, const ECharacterId inVsCharacterId, const class FString& inFormatString, class FString* outSoundString)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("SoundStatics", "GetCharacterDedicatedVoiceCueNameAuto");
+
+	Params::SoundStatics_GetCharacterDedicatedVoiceCueNameAuto Parms{};
+
+	Parms.WorldContextObject = WorldContextObject;
+	Parms.inCharacterId = inCharacterId;
+	Parms.inVsCharacterId = inVsCharacterId;
+	Parms.inFormatString = std::move(inFormatString);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	if (outSoundString != nullptr)
+		*outSoundString = std::move(Parms.outSoundString);
+}
+
+
+// Function GameModule.SoundStatics.GetCueByName
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// const class FString&                    CueName                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class USoundAtomCue*                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class USoundAtomCue* USoundStatics::GetCueByName(const class FString& CueName)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("SoundStatics", "GetCueByName");
+
+	Params::SoundStatics_GetCueByName Parms{};
+
+	Parms.CueName = std::move(CueName);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SoundStatics.PlayCharacterDedicatedVoice
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const int32                             inCharacterCode                                        (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const int32                             inVsCharacterCode                                      (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const bool                              bInDedicated                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const bool                              bInVillain                                             (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    inFormatString                                         (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UAtomComponent* USoundStatics::PlayCharacterDedicatedVoice(const class UObject* WorldContextObject, const int32 inCharacterCode, const int32 inVsCharacterCode, const bool bInDedicated, const bool bInVillain, const class FString& inFormatString)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("SoundStatics", "PlayCharacterDedicatedVoice");
+
+	Params::SoundStatics_PlayCharacterDedicatedVoice Parms{};
+
+	Parms.WorldContextObject = WorldContextObject;
+	Parms.inCharacterCode = inCharacterCode;
+	Parms.inVsCharacterCode = inVsCharacterCode;
+	Parms.bInDedicated = bInDedicated;
+	Parms.bInVillain = bInVillain;
+	Parms.inFormatString = std::move(inFormatString);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SoundStatics.PlayCharacterDedicatedVoiceAuto
+// (Final, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const ECharacterId                      inCharacterId                                          (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const ECharacterId                      inVsCharacterId                                        (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    inFormatString                                         (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UAtomComponent* USoundStatics::PlayCharacterDedicatedVoiceAuto(const class UObject* WorldContextObject, const ECharacterId inCharacterId, const ECharacterId inVsCharacterId, const class FString& inFormatString)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("SoundStatics", "PlayCharacterDedicatedVoiceAuto");
+
+	Params::SoundStatics_PlayCharacterDedicatedVoiceAuto Parms{};
+
+	Parms.WorldContextObject = WorldContextObject;
+	Parms.inCharacterId = inCharacterId;
+	Parms.inVsCharacterId = inVsCharacterId;
+	Parms.inFormatString = std::move(inFormatString);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SoundStatics.PlayMusic
+// (Final, BlueprintCosmetic, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class USoundAtomCue*                    Sound                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UAtomComponent* USoundStatics::PlayMusic(const class UObject* WorldContextObject, class USoundAtomCue* Sound)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("SoundStatics", "PlayMusic");
+
+	Params::SoundStatics_PlayMusic Parms{};
+
+	Parms.WorldContextObject = WorldContextObject;
+	Parms.Sound = Sound;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SoundStatics.PlaySound2D
+// (Final, BlueprintCosmetic, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class USoundAtomCue*                    Sound                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UAtomComponent* USoundStatics::PlaySound2D(const class UObject* WorldContextObject, class USoundAtomCue* Sound)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("SoundStatics", "PlaySound2D");
+
+	Params::SoundStatics_PlaySound2D Parms{};
+
+	Parms.WorldContextObject = WorldContextObject;
+	Parms.Sound = Sound;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SoundStatics.PlaySound2DByName
+// (Final, BlueprintCosmetic, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    CueName                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UAtomComponent* USoundStatics::PlaySound2DByName(const class UObject* WorldContextObject, const class FString& CueName)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("SoundStatics", "PlaySound2DByName");
+
+	Params::SoundStatics_PlaySound2DByName Parms{};
+
+	Parms.WorldContextObject = WorldContextObject;
+	Parms.CueName = std::move(CueName);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SoundStatics.PlaySoundAtLocation
+// (Final, BlueprintCosmetic, Native, Static, Public, HasDefaults, BlueprintCallable)
+// Parameters:
+// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    CueName                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FVector&                   Location                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FRotator&                  Rotation                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, NativeAccessSpecifierPublic)
+// float                                   volumeMultiplier                                       (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// float                                   pitchMultiplier                                        (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// float                                   StartTime                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class USoundAttenuation*                AttenuationSettings                                    (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class USoundConcurrency*                ConcurrencySettings                                    (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    bAutoDestroy                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UAtomComponent* USoundStatics::PlaySoundAtLocation(const class UObject* WorldContextObject, const class FString& CueName, const struct FVector& Location, const struct FRotator& Rotation, float volumeMultiplier, float pitchMultiplier, float StartTime, class USoundAttenuation* AttenuationSettings, class USoundConcurrency* ConcurrencySettings, bool bAutoDestroy)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("SoundStatics", "PlaySoundAtLocation");
+
+	Params::SoundStatics_PlaySoundAtLocation Parms{};
+
+	Parms.WorldContextObject = WorldContextObject;
+	Parms.CueName = std::move(CueName);
+	Parms.Location = std::move(Location);
+	Parms.Rotation = std::move(Rotation);
+	Parms.volumeMultiplier = volumeMultiplier;
+	Parms.pitchMultiplier = pitchMultiplier;
+	Parms.StartTime = StartTime;
+	Parms.AttenuationSettings = AttenuationSettings;
+	Parms.ConcurrencySettings = ConcurrencySettings;
+	Parms.bAutoDestroy = bAutoDestroy;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SoundStatics.PlaySoundAttached
+// (Final, BlueprintCosmetic, Native, Static, Public, HasDefaults, BlueprintCallable)
+// Parameters:
+// const class FString&                    CueName                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class USceneComponent*                  AttachToComponent                                      (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class FName                             AttachPointName                                        (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FVector&                   Location                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const struct FRotator&                  Rotation                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, NativeAccessSpecifierPublic)
+// EAttachLocation                         LocationType                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    bStopWhenAttachedToDestroyed                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// float                                   volumeMultiplier                                       (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// float                                   pitchMultiplier                                        (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// float                                   StartTime                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class USoundAttenuation*                AttenuationSettings                                    (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class USoundConcurrency*                ConcurrencySettings                                    (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    bAutoDestroy                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UAtomComponent* USoundStatics::PlaySoundAttached(const class FString& CueName, class USceneComponent* AttachToComponent, class FName AttachPointName, const struct FVector& Location, const struct FRotator& Rotation, EAttachLocation LocationType, bool bStopWhenAttachedToDestroyed, float volumeMultiplier, float pitchMultiplier, float StartTime, class USoundAttenuation* AttenuationSettings, class USoundConcurrency* ConcurrencySettings, bool bAutoDestroy)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("SoundStatics", "PlaySoundAttached");
+
+	Params::SoundStatics_PlaySoundAttached Parms{};
+
+	Parms.CueName = std::move(CueName);
+	Parms.AttachToComponent = AttachToComponent;
+	Parms.AttachPointName = AttachPointName;
+	Parms.Location = std::move(Location);
+	Parms.Rotation = std::move(Rotation);
+	Parms.LocationType = LocationType;
+	Parms.bStopWhenAttachedToDestroyed = bStopWhenAttachedToDestroyed;
+	Parms.volumeMultiplier = volumeMultiplier;
+	Parms.pitchMultiplier = pitchMultiplier;
+	Parms.StartTime = StartTime;
+	Parms.AttenuationSettings = AttenuationSettings;
+	Parms.ConcurrencySettings = ConcurrencySettings;
+	Parms.bAutoDestroy = bAutoDestroy;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SoundStatics.PlayVoice2D
+// (Final, BlueprintCosmetic, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class USoundAtomCue*                    Sound                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UAtomComponent* USoundStatics::PlayVoice2D(const class UObject* WorldContextObject, class USoundAtomCue* Sound)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("SoundStatics", "PlayVoice2D");
+
+	Params::SoundStatics_PlayVoice2D Parms{};
+
+	Parms.WorldContextObject = WorldContextObject;
+	Parms.Sound = Sound;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SoundStatics.PlayVoice2DByName
+// (Final, BlueprintCosmetic, Native, Static, Public, BlueprintCallable)
+// Parameters:
+// const class UObject*                    WorldContextObject                                     (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    CueName                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UAtomComponent*                   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UAtomComponent* USoundStatics::PlayVoice2DByName(const class UObject* WorldContextObject, const class FString& CueName)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = StaticClass()->GetFunction("SoundStatics", "PlayVoice2DByName");
+
+	Params::SoundStatics_PlayVoice2DByName Parms{};
+
+	Parms.WorldContextObject = WorldContextObject;
+	Parms.CueName = std::move(CueName);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	GetDefaultObj()->ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SupplyBaseDataAsset.GetActionGuideText
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// class FText                             ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+
+class FText USupplyBaseDataAsset::GetActionGuideText() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SupplyBaseDataAsset", "GetActionGuideText");
+
+	Params::SupplyBaseDataAsset_GetActionGuideText Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SupplyBaseDataAsset.GetDescriptionText
+// (Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// const class UObject*                    WorldContext                                           (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class FText                             ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+
+class FText USupplyBaseDataAsset::GetDescriptionText(const class UObject* WorldContext) const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SupplyBaseDataAsset", "GetDescriptionText");
+
+	Params::SupplyBaseDataAsset_GetDescriptionText Parms{};
+
+	Parms.WorldContext = WorldContext;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SupplyBaseDataAsset.GetDisplayNameText
+// (Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// class FText                             ReturnValue                                            (Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
+
+class FText USupplyBaseDataAsset::GetDisplayNameText() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SupplyBaseDataAsset", "GetDisplayNameText");
+
+	Params::SupplyBaseDataAsset_GetDisplayNameText Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SupplyBaseDataAsset.GetFieldPopUpWidgetColorCurve
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// class UCurveLinearColor*                ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UCurveLinearColor* USupplyBaseDataAsset::GetFieldPopUpWidgetColorCurve() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SupplyBaseDataAsset", "GetFieldPopUpWidgetColorCurve");
+
+	Params::SupplyBaseDataAsset_GetFieldPopUpWidgetColorCurve Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SupplyBaseDataAsset.GetIconPaperSprite
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// class UPaperSprite*                     ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UPaperSprite* USupplyBaseDataAsset::GetIconPaperSprite() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SupplyBaseDataAsset", "GetIconPaperSprite");
+
+	Params::SupplyBaseDataAsset_GetIconPaperSprite Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.SupplyBaseDataAsset.GetIconPaperSprite2
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// class UPaperSprite*                     ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class UPaperSprite* USupplyBaseDataAsset::GetIconPaperSprite2() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("SupplyBaseDataAsset", "GetIconPaperSprite2");
+
+	Params::SupplyBaseDataAsset_GetIconPaperSprite2 Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.TeamCommentaryMessageWidget.OnChangeBattleSequence
+// (Final, Native, Private)
+// Parameters:
+// EBattleStartSequenceType                Sequence                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTeamCommentaryMessageWidget::OnChangeBattleSequence(EBattleStartSequenceType Sequence)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TeamCommentaryMessageWidget", "OnChangeBattleSequence");
+
+	Params::TeamCommentaryMessageWidget_OnChangeBattleSequence Parms{};
+
+	Parms.Sequence = Sequence;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TeamCommentaryMessageWidget.OnNoticeUpdatedEvent
+// (Final, Native, Private)
+
+void UTeamCommentaryMessageWidget::OnNoticeUpdatedEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TeamCommentaryMessageWidget", "OnNoticeUpdatedEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TeamCommentaryMessageWidget.OnRequestMessage
+// (Event, Public, BlueprintEvent)
+// Parameters:
+// ETeamCommentaryMessage                  MessageType                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTeamCommentaryMessageWidget::OnRequestMessage(ETeamCommentaryMessage MessageType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TeamCommentaryMessageWidget", "OnRequestMessage");
+
+	Params::TeamCommentaryMessageWidget_OnRequestMessage Parms{};
+
+	Parms.MessageType = MessageType;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.TeamCommentaryMessageWidget.OnSquadNumChanged
+// (Final, Native, Private)
+// Parameters:
+// int32                                   SquadNum                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTeamCommentaryMessageWidget::OnSquadNumChanged(int32 SquadNum)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TeamCommentaryMessageWidget", "OnSquadNumChanged");
+
+	Params::TeamCommentaryMessageWidget_OnSquadNumChanged Parms{};
+
+	Parms.SquadNum = SquadNum;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TeamCommentaryMessageWidget.OnTeamUpUpdatedEvent
+// (Final, Native, Private)
+
+void UTeamCommentaryMessageWidget::OnTeamUpUpdatedEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TeamCommentaryMessageWidget", "OnTeamUpUpdatedEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TeamCommentaryMessageWidget.SetMessageEnable
+// (Final, Native, Private, BlueprintCallable)
+// Parameters:
+// bool                                    enable                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTeamCommentaryMessageWidget::SetMessageEnable(bool enable)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TeamCommentaryMessageWidget", "SetMessageEnable");
+
+	Params::TeamCommentaryMessageWidget_SetMessageEnable Parms{};
+
+	Parms.enable = enable;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatEntryWidget.SetMessage
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// class UTextChatListObject*              obj                                                    (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    isSTT                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatEntryWidget::SetMessage(class UTextChatListObject* obj, bool isSTT)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatEntryWidget", "SetMessage");
+
+	Params::TextChatEntryWidget_SetMessage Parms{};
+
+	Parms.obj = obj;
+	Parms.isSTT = isSTT;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatEntryWidget.UpdateUserName
 // (Final, Native, Public)
 
-void UTextChatIcon::UpdateIconNotice()
+void UTextChatEntryWidget::UpdateUserName()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatIcon", "UpdateIconNotice");
+		Func = Class->GetFunction("TextChatEntryWidget", "UpdateUserName");
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -29053,6 +29998,20 @@ void UTextChatIcon::UpdateIconNotice()
 	UObject::ProcessEvent(Func, nullptr);
 
 	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatIconAnker.SetIconPosition
+// (Event, Public, BlueprintEvent)
+
+void UTextChatIconAnker::SetIconPosition()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatIconAnker", "SetIconPosition");
+
+	UObject::ProcessEvent(Func, nullptr);
 }
 
 
@@ -29334,6 +30293,357 @@ const class FString UTextChatListObject::BP_GetPlayerId() const
 	Func->FunctionFlags = Flgs;
 
 	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.TextChatListWidget.BP_AddNewTextItem
+// (Event, Public, HasOutParams, BlueprintCallable, BlueprintEvent)
+// Parameters:
+// const class FText&                      Text                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UTextChatListWidget::BP_AddNewTextItem(const class FText& Text)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatListWidget", "BP_AddNewTextItem");
+
+	Params::TextChatListWidget_BP_AddNewTextItem Parms{};
+
+	Parms.Text = std::move(Text);
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.TextChatListWidget.BP_CallTextChatIconEvent
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatListWidget::BP_CallTextChatIconEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatListWidget", "BP_CallTextChatIconEvent");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatListWidget.BP_CallTextChatRecieveEvent
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const class UTextChatListObject*        chatObject                                             (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatListWidget::BP_CallTextChatRecieveEvent(const class UTextChatListObject* chatObject)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatListWidget", "BP_CallTextChatRecieveEvent");
+
+	Params::TextChatListWidget_BP_CallTextChatRecieveEvent Parms{};
+
+	Parms.chatObject = chatObject;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatListWidget.BP_CheckUnreadMessage
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// class UTextChatListObject*              message                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatListWidget::BP_CheckUnreadMessage(class UTextChatListObject* message)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatListWidget", "BP_CheckUnreadMessage");
+
+	Params::TextChatListWidget_BP_CheckUnreadMessage Parms{};
+
+	Parms.message = message;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatListWidget.BP_GetUserName
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// const class FString&                    playerId                                               (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    Name_0                                                 (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class FString                           ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class FString UTextChatListWidget::BP_GetUserName(const class FString& playerId, const class FString& Name_0)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatListWidget", "BP_GetUserName");
+
+	Params::TextChatListWidget_BP_GetUserName Parms{};
+
+	Parms.playerId = std::move(playerId);
+	Parms.Name_0 = std::move(Name_0);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.TextChatListWidget.BP_IsUnreadMessage
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+bool UTextChatListWidget::BP_IsUnreadMessage()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatListWidget", "BP_IsUnreadMessage");
+
+	Params::TextChatListWidget_BP_IsUnreadMessage Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.TextChatListWidget.BP_ManagementChatItems
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatListWidget::BP_ManagementChatItems()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatListWidget", "BP_ManagementChatItems");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatListWidget.BP_UpdateArray
+// (Final, Native, Public, BlueprintCallable)
+// Parameters:
+// class UTextChatListObject*              chatObject                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatListWidget::BP_UpdateArray(class UTextChatListObject* chatObject)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatListWidget", "BP_UpdateArray");
+
+	Params::TextChatListWidget_BP_UpdateArray Parms{};
+
+	Parms.chatObject = chatObject;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatListWidget.ClearEvent
+// (Event, Public, BlueprintCallable, BlueprintEvent)
+
+void UTextChatListWidget::ClearEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatListWidget", "ClearEvent");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function GameModule.TextChatListWidget.GetScrollSpeedRate
+// (Final, Native, Protected, BlueprintCallable)
+// Parameters:
+// float                                   analogValue                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// float                                   defaultSpeedRate                                       (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// float                                   maxSpeedRate                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// float                                   addSpeedRate                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// float                                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+float UTextChatListWidget::GetScrollSpeedRate(float analogValue, float defaultSpeedRate, float maxSpeedRate, float addSpeedRate)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatListWidget", "GetScrollSpeedRate");
+
+	Params::TextChatListWidget_GetScrollSpeedRate Parms{};
+
+	Parms.analogValue = analogValue;
+	Parms.defaultSpeedRate = defaultSpeedRate;
+	Parms.maxSpeedRate = maxSpeedRate;
+	Parms.addSpeedRate = addSpeedRate;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
+}
+
+
+// Function GameModule.TextChatListWidget.ReceiveSTTMessage
+// (Final, Native, Public)
+// Parameters:
+// const class FString&                    platformPlayerId                                       (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    DisplayName                                            (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    message                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatListWidget::ReceiveSTTMessage(const class FString& platformPlayerId, const class FString& DisplayName, const class FString& message)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatListWidget", "ReceiveSTTMessage");
+
+	Params::TextChatListWidget_ReceiveSTTMessage Parms{};
+
+	Parms.platformPlayerId = std::move(platformPlayerId);
+	Parms.DisplayName = std::move(DisplayName);
+	Parms.message = std::move(message);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatListWidget.ScrollBottom
+// (Event, Protected, BlueprintCallable, BlueprintEvent)
+
+void UTextChatListWidget::ScrollBottom()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatListWidget", "ScrollBottom");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function GameModule.TextChatListWidget.SetUpNewMessage
+// (Event, Public, BlueprintCallable, BlueprintEvent)
+// Parameters:
+// const class FString&                    playerId                                               (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    Name_0                                                 (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    message                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const bool                              bLock                                                  (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const bool                              isSTT                                                  (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatListWidget::SetUpNewMessage(const class FString& playerId, const class FString& Name_0, const class FString& message, const bool bLock, const bool isSTT)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatListWidget", "SetUpNewMessage");
+
+	Params::TextChatListWidget_SetUpNewMessage Parms{};
+
+	Parms.playerId = std::move(playerId);
+	Parms.Name_0 = std::move(Name_0);
+	Parms.message = std::move(message);
+	Parms.bLock = bLock;
+	Parms.isSTT = isSTT;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.TextChatListWidget.TextToSpeech
+// (Final, Native, Protected, BlueprintCallable)
+// Parameters:
+// class UTextChatListObject*              obj                                                    (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatListWidget::TextToSpeech(class UTextChatListObject* obj)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatListWidget", "TextToSpeech");
+
+	Params::TextChatListWidget_TextToSpeech Parms{};
+
+	Parms.obj = obj;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatListWidget.UpdateList
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextChatListWidget::UpdateList()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatListWidget", "UpdateList");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
 }
 
 
@@ -30124,21 +31434,21 @@ bool UTextChatSubsystem::GetIngameWindowOpenFlag() const
 }
 
 
-// Function GameModule.TextChatWindowWidget.AnimStart
+// Function GameModule.TextChatWidget.BP_SetNoticeVisibility
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
-// class UWidgetAnimation*                 anim                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// ESlateVisibility                        value                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UTextChatWindowWidget::AnimStart(class UWidgetAnimation* anim)
+void UTextChatWidget::BP_SetNoticeVisibility(ESlateVisibility value)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "AnimStart");
+		Func = Class->GetFunction("TextChatWidget", "BP_SetNoticeVisibility");
 
-	Params::TextChatWindowWidget_AnimStart Parms{};
+	Params::TextChatWidget_BP_SetNoticeVisibility Parms{};
 
-	Parms.anim = anim;
+	Parms.value = value;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -30149,15 +31459,15 @@ void UTextChatWindowWidget::AnimStart(class UWidgetAnimation* anim)
 }
 
 
-// Function GameModule.TextChatWindowWidget.BP_CallCloseConsentEvent
-// (Final, Native, Public, BlueprintCallable)
+// Function GameModule.TextChatWidget.CloseObserverWindowEvent
+// (Final, Native, Protected)
 
-void UTextChatWindowWidget::BP_CallCloseConsentEvent()
+void UTextChatWidget::CloseObserverWindowEvent()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_CallCloseConsentEvent");
+		Func = Class->GetFunction("TextChatWidget", "CloseObserverWindowEvent");
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -30168,114 +31478,19 @@ void UTextChatWindowWidget::BP_CallCloseConsentEvent()
 }
 
 
-// Function GameModule.TextChatWindowWidget.BP_CallFinishEvent
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatWindowWidget::BP_CallFinishEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_CallFinishEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWindowWidget.BP_CallHiddenEventDispatcher
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatWindowWidget::BP_CallHiddenEventDispatcher()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_CallHiddenEventDispatcher");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWindowWidget.BP_CallOpenConsentEvent
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatWindowWidget::BP_CallOpenConsentEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_CallOpenConsentEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWindowWidget.BP_CallOpenParentalControlEvent
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatWindowWidget::BP_CallOpenParentalControlEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_CallOpenParentalControlEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWindowWidget.BP_CallVisibleEventDispatcher
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatWindowWidget::BP_CallVisibleEventDispatcher()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_CallVisibleEventDispatcher");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWindowWidget.BP_CheckParentControl
+// Function GameModule.TextChatWidget.GetChatIcon
 // (Final, Native, Public, BlueprintCallable)
 // Parameters:
-// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UTextChatIcon*                    ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-bool UTextChatWindowWidget::BP_CheckParentControl()
+class UTextChatIcon* UTextChatWidget::GetChatIcon()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_CheckParentControl");
+		Func = Class->GetFunction("TextChatWidget", "GetChatIcon");
 
-	Params::TextChatWindowWidget_BP_CheckParentControl Parms{};
+	Params::TextChatWidget_GetChatIcon Parms{};
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -30288,15 +31503,15 @@ bool UTextChatWindowWidget::BP_CheckParentControl()
 }
 
 
-// Function GameModule.TextChatWindowWidget.BP_ClearFocus
-// (Final, Native, Public, BlueprintCallable)
+// Function GameModule.TextChatWidget.OnCloseObserver
+// (Final, Native, Protected, BlueprintCallable)
 
-void UTextChatWindowWidget::BP_ClearFocus()
+void UTextChatWidget::OnCloseObserver()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_ClearFocus");
+		Func = Class->GetFunction("TextChatWidget", "OnCloseObserver");
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -30307,15 +31522,15 @@ void UTextChatWindowWidget::BP_ClearFocus()
 }
 
 
-// Function GameModule.TextChatWindowWidget.BP_PlayCloseAnimation
-// (Final, Native, Public, BlueprintCallable)
+// Function GameModule.TextChatWidget.OnCloseParentEvent
+// (Final, Native, Protected)
 
-void UTextChatWindowWidget::BP_PlayCloseAnimation()
+void UTextChatWidget::OnCloseParentEvent()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_PlayCloseAnimation");
+		Func = Class->GetFunction("TextChatWidget", "OnCloseParentEvent");
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -30326,40 +31541,25 @@ void UTextChatWindowWidget::BP_PlayCloseAnimation()
 }
 
 
-// Function GameModule.TextChatWindowWidget.BP_PlayOpenAnimation
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatWindowWidget::BP_PlayOpenAnimation()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_PlayOpenAnimation");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWindowWidget.BP_PlaySoundCloseWindow
-// (Final, Native, Public, BlueprintCallable)
+// Function GameModule.TextChatWidget.OnDecideObserver
+// (Final, Native, Protected, BlueprintCallable)
 // Parameters:
-// bool                                    isPlaySound                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    isLeftButton                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UTextChatWindowWidget::BP_PlaySoundCloseWindow(bool isPlaySound)
+void UTextChatWidget::OnDecideObserver(class UAppWidget* Widget, EWidgetInputType inputType, bool isLeftButton)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_PlaySoundCloseWindow");
+		Func = Class->GetFunction("TextChatWidget", "OnDecideObserver");
 
-	Params::TextChatWindowWidget_BP_PlaySoundCloseWindow Parms{};
+	Params::TextChatWidget_OnDecideObserver Parms{};
 
-	Parms.isPlaySound = isPlaySound;
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+	Parms.isLeftButton = isLeftButton;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -30370,40 +31570,25 @@ void UTextChatWindowWidget::BP_PlaySoundCloseWindow(bool isPlaySound)
 }
 
 
-// Function GameModule.TextChatWindowWidget.BP_SendMessage
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatWindowWidget::BP_SendMessage()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_SendMessage");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWindowWidget.BP_SetActiveFocus
-// (Final, Native, Public, BlueprintCallable)
+// Function GameModule.TextChatWidget.OnDecideParentEvent
+// (Final, Native, Protected)
 // Parameters:
-// bool                                    isFocusable                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    isLeftButton                                           (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UTextChatWindowWidget::BP_SetActiveFocus(bool isFocusable)
+void UTextChatWidget::OnDecideParentEvent(class UAppWidget* Widget, EWidgetInputType inputType, bool isLeftButton)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_SetActiveFocus");
+		Func = Class->GetFunction("TextChatWidget", "OnDecideParentEvent");
 
-	Params::TextChatWindowWidget_BP_SetActiveFocus Parms{};
+	Params::TextChatWidget_OnDecideParentEvent Parms{};
 
-	Parms.isFocusable = isFocusable;
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+	Parms.isLeftButton = isLeftButton;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -30414,40 +31599,15 @@ void UTextChatWindowWidget::BP_SetActiveFocus(bool isFocusable)
 }
 
 
-// Function GameModule.TextChatWindowWidget.BP_SetActiveSendButton
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// bool                                    isSendable                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// Function GameModule.TextChatWidget.OnOpenObserver
+// (Final, Native, Protected, BlueprintCallable)
 
-void UTextChatWindowWidget::BP_SetActiveSendButton(bool isSendable)
+void UTextChatWidget::OnOpenObserver()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_SetActiveSendButton");
-
-	Params::TextChatWindowWidget_BP_SetActiveSendButton Parms{};
-
-	Parms.isSendable = isSendable;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWindowWidget.BP_SetFocusInputTextBox
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatWindowWidget::BP_SetFocusInputTextBox()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_SetFocusInputTextBox");
+		Func = Class->GetFunction("TextChatWidget", "OnOpenObserver");
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -30458,90 +31618,15 @@ void UTextChatWindowWidget::BP_SetFocusInputTextBox()
 }
 
 
-// Function GameModule.TextChatWindowWidget.BP_SetNoticeVisibility
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// ESlateVisibility                        value                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// Function GameModule.TextChatWidget.OnOpenParent
+// (Final, Native, Protected, BlueprintCallable)
 
-void UTextChatWindowWidget::BP_SetNoticeVisibility(ESlateVisibility value)
+void UTextChatWidget::OnOpenParent()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_SetNoticeVisibility");
-
-	Params::TextChatWindowWidget_BP_SetNoticeVisibility Parms{};
-
-	Parms.value = value;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWindowWidget.BP_WindowClose
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// bool                                    bPlaySound                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatWindowWidget::BP_WindowClose(bool bPlaySound)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_WindowClose");
-
-	Params::TextChatWindowWidget_BP_WindowClose Parms{};
-
-	Parms.bPlaySound = bPlaySound;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWindowWidget.BP_WindowOpen
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// bool                                    bPlaySound                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatWindowWidget::BP_WindowOpen(bool bPlaySound)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "BP_WindowOpen");
-
-	Params::TextChatWindowWidget_BP_WindowOpen Parms{};
-
-	Parms.bPlaySound = bPlaySound;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWindowWidget.ChangeControllerEvent
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatWindowWidget::ChangeControllerEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "ChangeControllerEvent");
+		Func = Class->GetFunction("TextChatWidget", "OnOpenParent");
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -30552,215 +31637,19 @@ void UTextChatWindowWidget::ChangeControllerEvent()
 }
 
 
-// Function GameModule.TextChatWindowWidget.ClearText
-// (Event, Public, BlueprintEvent)
-
-void UTextChatWindowWidget::ClearText()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "ClearText");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function GameModule.TextChatWindowWidget.FinishCloseAnimation
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatWindowWidget::FinishCloseAnimation()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "FinishCloseAnimation");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWindowWidget.FinishOpenAnimation
-// (Final, Native, Public, BlueprintCallable)
-
-void UTextChatWindowWidget::FinishOpenAnimation()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "FinishOpenAnimation");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWindowWidget.OnCommitChangeText
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// bool                                    IsEmpty                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// bool                                    _isFirstFocus                                          (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatWindowWidget::OnCommitChangeText(bool IsEmpty, bool _isFirstFocus)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "OnCommitChangeText");
-
-	Params::TextChatWindowWidget_OnCommitChangeText Parms{};
-
-	Parms.IsEmpty = IsEmpty;
-	Parms._isFirstFocus = _isFirstFocus;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWindowWidget.RemoveInputShortCutKeyboardEvent
-// (Final, Native, Public)
-
-void UTextChatWindowWidget::RemoveInputShortCutKeyboardEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "RemoveInputShortCutKeyboardEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWindowWidget.SetActiveFocus
-// (Event, Public, BlueprintEvent)
-// Parameters:
-// bool                                    isFocusable                                            (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatWindowWidget::SetActiveFocus(bool isFocusable)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "SetActiveFocus");
-
-	Params::TextChatWindowWidget_SetActiveFocus Parms{};
-
-	Parms.isFocusable = isFocusable;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.TextChatWindowWidget.SetActiveSendButton
-// (Event, Public, BlueprintEvent)
-// Parameters:
-// bool                                    isSendable                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatWindowWidget::SetActiveSendButton(bool isSendable)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "SetActiveSendButton");
-
-	Params::TextChatWindowWidget_SetActiveSendButton Parms{};
-
-	Parms.isSendable = isSendable;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
-// Function GameModule.TextChatWindowWidget.SetFocusInputTextBox
-// (Event, Public, BlueprintEvent)
-
-void UTextChatWindowWidget::SetFocusInputTextBox()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "SetFocusInputTextBox");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function GameModule.TextChatWindowWidget.SetInputShortCut
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// bool                                    value                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTextChatWindowWidget::SetInputShortCut(bool value)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "SetInputShortCut");
-
-	Params::TextChatWindowWidget_SetInputShortCut Parms{};
-
-	Parms.value = value;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWindowWidget.SetInputShortCutKeyboardEvent
-// (Final, Native, Public)
-
-void UTextChatWindowWidget::SetInputShortCutKeyboardEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "SetInputShortCutKeyboardEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TextChatWindowWidget.SetNoticeVisibility
+// Function GameModule.TextChatWidget.SetNoticeVisibility
 // (Event, Public, BlueprintEvent)
 // Parameters:
 // ESlateVisibility                        value                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UTextChatWindowWidget::SetNoticeVisibility(ESlateVisibility value)
+void UTextChatWidget::SetNoticeVisibility(ESlateVisibility value)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "SetNoticeVisibility");
+		Func = Class->GetFunction("TextChatWidget", "SetNoticeVisibility");
 
-	Params::TextChatWindowWidget_SetNoticeVisibility Parms{};
+	Params::TextChatWidget_SetNoticeVisibility Parms{};
 
 	Parms.value = value;
 
@@ -30768,19 +31657,78 @@ void UTextChatWindowWidget::SetNoticeVisibility(ESlateVisibility value)
 }
 
 
-// Function GameModule.TextChatWindowWidget.WindowClose
-// (Event, Public, BlueprintEvent)
+// Function GameModule.TextChatWidget.SetValueButtonGuide
+// (Final, Native, Public, BlueprintCallable)
 // Parameters:
-// bool                                    bPlaySound                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// float                                   value                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UTextChatWindowWidget::WindowClose(bool bPlaySound)
+void UTextChatWidget::SetValueButtonGuide(float value)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "WindowClose");
+		Func = Class->GetFunction("TextChatWidget", "SetValueButtonGuide");
 
-	Params::TextChatWindowWidget_WindowClose Parms{};
+	Params::TextChatWidget_SetValueButtonGuide Parms{};
+
+	Parms.value = value;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextChatWidget.SetVisibilityMessageCanvas
+// (Event, Public, BlueprintEvent)
+
+void UTextChatWidget::SetVisibilityMessageCanvas()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWidget", "SetVisibilityMessageCanvas");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function GameModule.TextChatWidget.UpdatePopUpPivot
+// (Event, Public, HasDefaults, BlueprintEvent)
+// Parameters:
+// const struct FVector2D&                 Pivot                                                  (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatWidget::UpdatePopUpPivot(const struct FVector2D& Pivot)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWidget", "UpdatePopUpPivot");
+
+	Params::TextChatWidget_UpdatePopUpPivot Parms{};
+
+	Parms.Pivot = std::move(Pivot);
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.TextChatWidget.WindowClose
+// (Event, Public, BlueprintEvent)
+// Parameters:
+// bool                                    bPlaySound                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTextChatWidget::WindowClose(bool bPlaySound)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextChatWidget", "WindowClose");
+
+	Params::TextChatWidget_WindowClose Parms{};
 
 	Parms.bPlaySound = bPlaySound;
 
@@ -30788,23 +31736,92 @@ void UTextChatWindowWidget::WindowClose(bool bPlaySound)
 }
 
 
-// Function GameModule.TextChatWindowWidget.WindowOpen
+// Function GameModule.TextChatWidget.WindowOpen
 // (Event, Public, BlueprintEvent)
 // Parameters:
 // bool                                    bPlaySound                                             (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UTextChatWindowWidget::WindowOpen(bool bPlaySound)
+void UTextChatWidget::WindowOpen(bool bPlaySound)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TextChatWindowWidget", "WindowOpen");
+		Func = Class->GetFunction("TextChatWidget", "WindowOpen");
 
-	Params::TextChatWindowWidget_WindowOpen Parms{};
+	Params::TextChatWidget_WindowOpen Parms{};
 
 	Parms.bPlaySound = bPlaySound;
 
 	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function GameModule.TextSpeechBalloonWidget.Open
+// (Final, Native, Public, BlueprintCallable)
+
+void UTextSpeechBalloonWidget::Open()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextSpeechBalloonWidget", "Open");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextSpeechBalloonWidget.SetText
+// (Final, Native, Public, HasOutParams, BlueprintCallable)
+// Parameters:
+// const class FText&                      Text                                                   (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+void UTextSpeechBalloonWidget::SetText(const class FText& Text)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextSpeechBalloonWidget", "SetText");
+
+	Params::TextSpeechBalloonWidget_SetText Parms{};
+
+	Parms.Text = std::move(Text);
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TextSpeechBalloonWidget.GetText
+// (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
+// Parameters:
+// const class FText                       ReturnValue                                            (ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
+
+const class FText UTextSpeechBalloonWidget::GetText() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TextSpeechBalloonWidget", "GetText");
+
+	Params::TextSpeechBalloonWidget_GetText Parms{};
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
+
+	return Parms.ReturnValue;
 }
 
 
@@ -30858,23 +31875,40 @@ void UTimeWidget::BP_UpdateTimeView(const struct FTimespan& remainingTime)
 }
 
 
-// Function GameModule.TutorialTipsWidget.BP_OnReceivedCloseButtonDecidedEvent
+// Function GameModule.TrackingNumberSubsystem.CreateTrackingNumber
+// (Final, Native, Public, BlueprintCallable)
+
+void UTrackingNumberSubsystem::CreateTrackingNumber()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TrackingNumberSubsystem", "CreateTrackingNumber");
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, nullptr);
+
+	Func->FunctionFlags = Flgs;
+}
+
+
+// Function GameModule.TrainingMenuCommonWidget.OpenCharacterInfo
 // (Final, Native, Protected, BlueprintCallable)
 // Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    bOutgame                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UTutorialTipsWidget::BP_OnReceivedCloseButtonDecidedEvent(class UAppWidget* Widget, EWidgetInputType inputType)
+void UTrainingMenuCommonWidget::OpenCharacterInfo(bool bOutgame)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TutorialTipsWidget", "BP_OnReceivedCloseButtonDecidedEvent");
+		Func = Class->GetFunction("TrainingMenuCommonWidget", "OpenCharacterInfo");
 
-	Params::TutorialTipsWidget_BP_OnReceivedCloseButtonDecidedEvent Parms{};
+	Params::TrainingMenuCommonWidget_OpenCharacterInfo Parms{};
 
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
+	Parms.bOutgame = bOutgame;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -30885,220 +31919,39 @@ void UTutorialTipsWidget::BP_OnReceivedCloseButtonDecidedEvent(class UAppWidget*
 }
 
 
-// Function GameModule.TutorialTipsWidget.HideRightLeftButton
-// (Event, Public, BlueprintEvent)
-
-void UTutorialTipsWidget::HideRightLeftButton()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TutorialTipsWidget", "HideRightLeftButton");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function GameModule.TutorialTipsWidget.NextButtonTileView
-// (Final, Native, Public, BlueprintCallable)
+// Function GameModule.TutorialMessageWidget.ChangeSizeTutorialMessageWindow
+// (Event, Public, BlueprintCallable, BlueprintEvent)
 // Parameters:
-// const bool                              NotMaxNext                                             (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// bool                                    condition                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UTutorialTipsWidget::NextButtonTileView(const bool NotMaxNext)
+void UTutorialMessageWidget::ChangeSizeTutorialMessageWindow(bool condition)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TutorialTipsWidget", "NextButtonTileView");
+		Func = Class->GetFunction("TutorialMessageWidget", "ChangeSizeTutorialMessageWindow");
 
-	Params::TutorialTipsWidget_NextButtonTileView Parms{};
+	Params::TutorialMessageWidget_ChangeSizeTutorialMessageWindow Parms{};
 
-	Parms.NotMaxNext = NotMaxNext;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
+	Parms.condition = condition;
 
 	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
 }
 
 
-// Function GameModule.TutorialTipsWidget.OnChangeBattleSequence
-// (Final, Native, Public)
+// Function GameModule.TutorialMessageWidget.SetTutorialMessageWidget
+// (Native, Event, Public, HasOutParams, BlueprintCallable, BlueprintEvent)
 // Parameters:
-// EBattleStartSequenceType                Sequence                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FText&                      message                                                (ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 
-void UTutorialTipsWidget::OnChangeBattleSequence(EBattleStartSequenceType Sequence)
+void UTutorialMessageWidget::SetTutorialMessageWidget(const class FText& message)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("TutorialTipsWidget", "OnChangeBattleSequence");
+		Func = Class->GetFunction("TutorialMessageWidget", "SetTutorialMessageWidget");
 
-	Params::TutorialTipsWidget_OnChangeBattleSequence Parms{};
-
-	Parms.Sequence = Sequence;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TutorialTipsWidget.OnChangeLevel
-// (Final, Native, Protected)
-// Parameters:
-// class ULevel*                           level_p                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// class UWorld*                           world_p                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTutorialTipsWidget::OnChangeLevel(class ULevel* level_p, class UWorld* world_p)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TutorialTipsWidget", "OnChangeLevel");
-
-	Params::TutorialTipsWidget_OnChangeLevel Parms{};
-
-	Parms.level_p = level_p;
-	Parms.world_p = world_p;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TutorialTipsWidget.OnReceivedCloseButtonDecidedEvent
-// (Final, Native, Protected)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// EWidgetInputType                        inputType                                              (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTutorialTipsWidget::OnReceivedCloseButtonDecidedEvent(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TutorialTipsWidget", "OnReceivedCloseButtonDecidedEvent");
-
-	Params::TutorialTipsWidget_OnReceivedCloseButtonDecidedEvent Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TutorialTipsWidget.OnReceivedClosedEmptyWindowEvent
-// (Final, Native, Protected)
-
-void UTutorialTipsWidget::OnReceivedClosedEmptyWindowEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TutorialTipsWidget", "OnReceivedClosedEmptyWindowEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TutorialTipsWidget.OnReceivedOpenedEmptyWindowEvent
-// (Final, Native, Protected)
-
-void UTutorialTipsWidget::OnReceivedOpenedEmptyWindowEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TutorialTipsWidget", "OnReceivedOpenedEmptyWindowEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TutorialTipsWidget.OnReceivedOpenedEmptyWindowEventAutoPlay
-// (Final, Native, Protected)
-
-void UTutorialTipsWidget::OnReceivedOpenedEmptyWindowEventAutoPlay()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TutorialTipsWidget", "OnReceivedOpenedEmptyWindowEventAutoPlay");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TutorialTipsWidget.PrevButtonTileView
-// (Final, Native, Public, BlueprintCallable)
-// Parameters:
-// const bool                              NotMinPrev                                             (ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UTutorialTipsWidget::PrevButtonTileView(const bool NotMinPrev)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TutorialTipsWidget", "PrevButtonTileView");
-
-	Params::TutorialTipsWidget_PrevButtonTileView Parms{};
-
-	Parms.NotMinPrev = NotMinPrev;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.TutorialTipsWidget.SplitStringByCarriageReturn
-// (Final, Native, Public, BlueprintCallable, BlueprintPure)
-// Parameters:
-// const class FString&                    message                                                (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// TArray<class FString>                   ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
-
-TArray<class FString> UTutorialTipsWidget::SplitStringByCarriageReturn(const class FString& message)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("TutorialTipsWidget", "SplitStringByCarriageReturn");
-
-	Params::TutorialTipsWidget_SplitStringByCarriageReturn Parms{};
+	Params::TutorialMessageWidget_SetTutorialMessageWidget Parms{};
 
 	Parms.message = std::move(message);
 
@@ -31108,8 +31961,31 @@ TArray<class FString> UTutorialTipsWidget::SplitStringByCarriageReturn(const cla
 	UObject::ProcessEvent(Func, &Parms);
 
 	Func->FunctionFlags = Flgs;
+}
 
-	return Parms.ReturnValue;
+
+// Function GameModule.TutorialTipsImageWidget.OnReceivedChangedImageIndexEvent
+// (Final, Native, Protected)
+// Parameters:
+// int32                                   Index_0                                                (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+void UTutorialTipsImageWidget::OnReceivedChangedImageIndexEvent(int32 Index_0)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("TutorialTipsImageWidget", "OnReceivedChangedImageIndexEvent");
+
+	Params::TutorialTipsImageWidget_OnReceivedChangedImageIndexEvent Parms{};
+
+	Parms.Index_0 = Index_0;
+
+	auto Flgs = Func->FunctionFlags;
+	Func->FunctionFlags |= 0x400;
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	Func->FunctionFlags = Flgs;
 }
 
 
@@ -31398,151 +32274,6 @@ const struct FVector2D UWidgetAnalogInputComponent::GetVirtualCursorPosition() c
 	Func->FunctionFlags = Flgs;
 
 	return Parms.ReturnValue;
-}
-
-
-// Function GameModule.WidgetNetWorkNotation.OnChangedCurrentPlayMode
-// (Final, Native, Protected)
-
-void UWidgetNetWorkNotation::OnChangedCurrentPlayMode()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetNetWorkNotation", "OnChangedCurrentPlayMode");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.WidgetNetWorkNotation.OnGetPingTimerEvent
-// (Final, Native, Private)
-
-void UWidgetNetWorkNotation::OnGetPingTimerEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetNetWorkNotation", "OnGetPingTimerEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.WidgetNetWorkNotation.OnMatchingRegionEvent
-// (Final, Native, Protected, HasOutParams)
-// Parameters:
-// const int32&                            regionCode                                             (ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetNetWorkNotation::OnMatchingRegionEvent(const int32& regionCode)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetNetWorkNotation", "OnMatchingRegionEvent");
-
-	Params::WidgetNetWorkNotation_OnMatchingRegionEvent Parms{};
-
-	Parms.regionCode = regionCode;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.WidgetNetWorkNotation.OnReadyForPlayEvent
-// (Final, Native, Protected)
-
-void UWidgetNetWorkNotation::OnReadyForPlayEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetNetWorkNotation", "OnReadyForPlayEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.WidgetNetWorkNotation.OnTeamUpUpdatedEvent
-// (Final, Native, Protected)
-
-void UWidgetNetWorkNotation::OnTeamUpUpdatedEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetNetWorkNotation", "OnTeamUpUpdatedEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.WidgetNetWorkNotation.OnVoiceChatChangeStatus
-// (Final, Native, Protected)
-// Parameters:
-// EVoiceChatSystemStatus                  Status                                                 (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-
-void UWidgetNetWorkNotation::OnVoiceChatChangeStatus(EVoiceChatSystemStatus Status)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetNetWorkNotation", "OnVoiceChatChangeStatus");
-
-	Params::WidgetNetWorkNotation_OnVoiceChatChangeStatus Parms{};
-
-	Parms.Status = Status;
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	Func->FunctionFlags = Flgs;
-}
-
-
-// Function GameModule.WidgetNetWorkNotation.OnWaitForLoginEvent
-// (Final, Native, Protected)
-
-void UWidgetNetWorkNotation::OnWaitForLoginEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WidgetNetWorkNotation", "OnWaitForLoginEvent");
-
-	auto Flgs = Func->FunctionFlags;
-	Func->FunctionFlags |= 0x400;
-
-	UObject::ProcessEvent(Func, nullptr);
-
-	Func->FunctionFlags = Flgs;
 }
 
 

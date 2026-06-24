@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<UWBP_CharacterCustomize_RoleSlotI_CharaIcon_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_CharacterCustomize_RoleSlotI_CharaIcon_C;
 
 SDK_NAMESPACE_END

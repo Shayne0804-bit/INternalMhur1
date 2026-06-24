@@ -32,9 +32,9 @@ public:
 	bool                                          _bBlackExclushion;                                 // 0x02F0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor)
 
 public:
-	void Setup(bool bBlackExclushion);
-	void PreConstruct(bool IsDesignTime);
 	void ExecuteUbergraph_WBP_Clipping(int32 EntryPoint);
+	void PreConstruct(bool IsDesignTime);
+	void Setup(bool bBlackExclushion);
 
 public:
 	static class UClass* StaticClass()

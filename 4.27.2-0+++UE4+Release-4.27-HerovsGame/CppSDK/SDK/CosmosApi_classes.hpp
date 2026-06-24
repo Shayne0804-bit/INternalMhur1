@@ -28,7 +28,7 @@ public:
 public:
 	static class UNetHttp* Create(class UObject* WorldContextObject);
 
-	class UNetHttp* PostRequest(class UObject* WorldContextObject, const class FString& URL, class UNetMessage* Data, float LimitSec);
+	class UNetHttp* PostRequest(class UObject* WorldContextObject, const class FString& URL, class UNetMessage* Data, float limitsec);
 	class UNetHttp* SetHeader(class UObject* WorldContextObject, const class FString& TitleCd, const class FString& UserId, const class FString& session, int32 platform);
 
 public:
@@ -110,7 +110,7 @@ public:
 };
 
 // Class CosmosApi.NetSquad
-// 0x0320 (0x0348 - 0x0028)
+// 0x0330 (0x0358 - 0x0028)
 class UNetSquad final : public UObject
 {
 public:
@@ -123,14 +123,15 @@ public:
 	TMulticastInlineDelegate<void(ECosmosProtocolResponseCode ErrorCode)> OnErrorEvent;              // 0x01D8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
 	TMulticastInlineDelegate<void(ECustomRoomEventId EventId, int32 EventStatus)> OnCustomRoomEvent; // 0x01E8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
 	TMulticastInlineDelegate<void(const struct FCosmosJoinCustomRoomResponse& Param)> OnJoinCustomRoomEvent; // 0x01F8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(const struct FCosmosChangeCustomRoomSettingsNotify& Param)> OnChangeCustomRoomSettingsEvent; // 0x0208(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(const struct FCosmosGetCustomRoomDataResponse& Param)> OnGetCustomRoomDataEvent; // 0x0218(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(const struct FCosmosCustomRoomReadiedNotify& Param)> OnCustomRoomReadiedEvent; // 0x0228(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(const struct FCosmosCustomLobbyServerNotify& Param)> OnCustomLobbyServerEvent; // 0x0238(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(const struct FCosmosReceiveCustomSquadChatNotify& Param)> OnReceiveCustomSquadChatEvent; // 0x0248(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(const struct FCosmosCustomSquadAppealedNotify& Param)> OnCustomSquadAppealedEvent; // 0x0258(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	TMulticastInlineDelegate<void(const struct FCosmosChangeMyRoomDataNotify& Param)> OnChangeMyRoomDataEvent; // 0x0268(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
-	uint8                                         Pad_278[0xD0];                                     // 0x0278(0x00D0)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void(const struct FCosmosUserNameDuplicatedNotify& Param)> OnUserNameDuplicatedEvent; // 0x0208(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(const struct FCosmosChangeCustomRoomSettingsNotify& Param)> OnChangeCustomRoomSettingsEvent; // 0x0218(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(const struct FCosmosGetCustomRoomDataResponse& Param)> OnGetCustomRoomDataEvent; // 0x0228(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(const struct FCosmosCustomRoomReadiedNotify& Param)> OnCustomRoomReadiedEvent; // 0x0238(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(const struct FCosmosCustomLobbyServerNotify& Param)> OnCustomLobbyServerEvent; // 0x0248(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(const struct FCosmosReceiveCustomSquadChatNotify& Param)> OnReceiveCustomSquadChatEvent; // 0x0258(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(const struct FCosmosCustomSquadAppealedNotify& Param)> OnCustomSquadAppealedEvent; // 0x0268(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	TMulticastInlineDelegate<void(const struct FCosmosChangeMyRoomDataNotify& Param)> OnChangeMyRoomDataEvent; // 0x0278(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
+	uint8                                         Pad_288[0xD0];                                     // 0x0288(0x00D0)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	void Appeal(const class FString& AppealMessage);
@@ -140,7 +141,7 @@ public:
 	void CancelSquadMatching();
 	void ChangePlayMode(int32 newPlayMode);
 	void ConnectMatchingServer(int32 Score);
-	void CreateCustomRoom(const class FString& customRoomId, const class FString& UserData, const class FString& CustomRoomData, int32 CustomRoomPlayMode);
+	void CreateCustomRoom(const class FString& customRoomId, const class FString& UserData, const class FString& CustomRoomData, int32 CustomRoomPlayMode, const class FString& UserName);
 	void CreateSquad(const struct FCreateSquadParam& Param);
 	void Disconnect();
 	void FindSquad(int32 PlayMode, int32 Skill, const class FString& ConnectionServerIP, int32 ConnectionServerPort);
@@ -150,7 +151,7 @@ public:
 	void GetCustomLobbyServer(const class FString& customRoomId);
 	void GetCustomRoomData(const class FString& customRoomId);
 	void Initialize(const struct FNetSquadConfig& Config, bool bUseWebSocket, bool bUseP2P);
-	void JoinCustomRoom(const class FString& customRoomId, const class FString& UserData);
+	void JoinCustomRoom(const class FString& customRoomId, const class FString& UserData, const class FString& UserName);
 	void JoinInvitedSquad(const class FString& JoinSquadId, const struct FNetSquadMemberData& OutMemberData);
 	void JoinMatchingSquad(const class FString& JoinSquadId, const struct FNetSquadMemberData& MemberData);
 	void KickCustomRoom(const class FString& customRoomId, const class FString& UserId);
@@ -163,7 +164,7 @@ public:
 	void SendCustomSquadChat(const class FString& customRoomId, int32 CustomSquadNo, const class FString& ChatMessage, int32 IsAllChat);
 	void SendHeartbeat();
 	void SendSquadChatMessage(const class FString& message);
-	void SetCustomMemberData(const class FString& customRoomId, const class FString& UserData);
+	void SetCustomMemberData(const class FString& customRoomId, const class FString& UserData, const class FString& CustomUserName);
 	void SetCustomRoomMember(const class FString& customRoomId, const TArray<struct FCosmosCustomRoomSquadList>& RoomSquadList, const TArray<struct FCosmosCustomSquadMember>& RoomObserverUserList);
 	void SetCustomRoomSettings(const class FString& customRoomId, const class FString& CustomRoomData, int32 CustomRoomPlayMode);
 	void SetMyRoomData(const class FString& squadId, const class FString& MyRoomData);

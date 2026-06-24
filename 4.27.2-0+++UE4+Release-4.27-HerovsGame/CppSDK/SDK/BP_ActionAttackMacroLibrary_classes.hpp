@@ -16,7 +16,7 @@
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionAttackMacroLibrary.BP_ActionAttackMacroLibrary_C
-// 0x0000 (0x04A0 - 0x04A0)
+// 0x0000 (0x04E8 - 0x04E8)
 class UBP_ActionAttackMacroLibrary_C final : public UActionAttackBase
 {
 public:

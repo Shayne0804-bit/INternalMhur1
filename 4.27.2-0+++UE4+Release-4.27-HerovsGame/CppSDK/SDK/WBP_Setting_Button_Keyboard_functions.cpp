@@ -76,26 +76,6 @@ void UWBP_Setting_Button_Keyboard_C::OnFocusLost(const struct FFocusEvent& InFoc
 }
 
 
-// Function WBP_Setting_Button_Keyboard.WBP_Setting_Button_Keyboard_C.CustomEvent
-// (BlueprintCallable, BlueprintEvent)
-// Parameters:
-// bool                                    bIsSelected                                            (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
-
-void UWBP_Setting_Button_Keyboard_C::CustomEvent(bool bIsSelected)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Setting_Button_Keyboard_C", "CustomEvent");
-
-	Params::WBP_Setting_Button_Keyboard_C_CustomEvent Parms{};
-
-	Parms.bIsSelected = bIsSelected;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
 // Function WBP_Setting_Button_Keyboard.WBP_Setting_Button_Keyboard_C.Tick
 // (BlueprintCosmetic, Event, Public, BlueprintEvent)
 // Parameters:

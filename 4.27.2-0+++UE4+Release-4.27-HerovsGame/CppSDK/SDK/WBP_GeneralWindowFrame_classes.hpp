@@ -69,6 +69,5 @@ public:
 		return GetDefaultObjImpl<UWBP_GeneralWindowFrame_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_GeneralWindowFrame_C;
 
 SDK_NAMESPACE_END

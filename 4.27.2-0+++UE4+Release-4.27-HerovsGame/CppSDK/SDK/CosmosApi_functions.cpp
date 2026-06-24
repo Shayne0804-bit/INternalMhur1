@@ -50,10 +50,10 @@ class UNetHttp* UNetHttp::Create(class UObject* WorldContextObject)
 // class UObject*                          WorldContextObject                                     (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // const class FString&                    URL                                                    (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // class UNetMessage*                      Data                                                   (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-// float                                   LimitSec                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// float                                   limitsec                                               (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // class UNetHttp*                         ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-class UNetHttp* UNetHttp::PostRequest(class UObject* WorldContextObject, const class FString& URL, class UNetMessage* Data, float LimitSec)
+class UNetHttp* UNetHttp::PostRequest(class UObject* WorldContextObject, const class FString& URL, class UNetMessage* Data, float limitsec)
 {
 	static class UFunction* Func = nullptr;
 
@@ -65,7 +65,7 @@ class UNetHttp* UNetHttp::PostRequest(class UObject* WorldContextObject, const c
 	Parms.WorldContextObject = WorldContextObject;
 	Parms.URL = std::move(URL);
 	Parms.Data = Data;
-	Parms.LimitSec = LimitSec;
+	Parms.limitsec = limitsec;
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -507,8 +507,9 @@ void UNetSquad::ConnectMatchingServer(int32 Score)
 // const class FString&                    UserData                                               (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // const class FString&                    CustomRoomData                                         (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // int32                                   CustomRoomPlayMode                                     (Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    UserName                                               (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UNetSquad::CreateCustomRoom(const class FString& customRoomId, const class FString& UserData, const class FString& CustomRoomData, int32 CustomRoomPlayMode)
+void UNetSquad::CreateCustomRoom(const class FString& customRoomId, const class FString& UserData, const class FString& CustomRoomData, int32 CustomRoomPlayMode, const class FString& UserName)
 {
 	static class UFunction* Func = nullptr;
 
@@ -521,6 +522,7 @@ void UNetSquad::CreateCustomRoom(const class FString& customRoomId, const class 
 	Parms.UserData = std::move(UserData);
 	Parms.CustomRoomData = std::move(CustomRoomData);
 	Parms.CustomRoomPlayMode = CustomRoomPlayMode;
+	Parms.UserName = std::move(UserName);
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -781,8 +783,9 @@ void UNetSquad::Initialize(const struct FNetSquadConfig& Config, bool bUseWebSoc
 // Parameters:
 // const class FString&                    customRoomId                                           (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // const class FString&                    UserData                                               (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    UserName                                               (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UNetSquad::JoinCustomRoom(const class FString& customRoomId, const class FString& UserData)
+void UNetSquad::JoinCustomRoom(const class FString& customRoomId, const class FString& UserData, const class FString& UserName)
 {
 	static class UFunction* Func = nullptr;
 
@@ -793,6 +796,7 @@ void UNetSquad::JoinCustomRoom(const class FString& customRoomId, const class FS
 
 	Parms.customRoomId = std::move(customRoomId);
 	Parms.UserData = std::move(UserData);
+	Parms.UserName = std::move(UserName);
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;
@@ -1096,8 +1100,9 @@ void UNetSquad::SendSquadChatMessage(const class FString& message)
 // Parameters:
 // const class FString&                    customRoomId                                           (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 // const class FString&                    UserData                                               (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    CustomUserName                                         (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void UNetSquad::SetCustomMemberData(const class FString& customRoomId, const class FString& UserData)
+void UNetSquad::SetCustomMemberData(const class FString& customRoomId, const class FString& UserData, const class FString& CustomUserName)
 {
 	static class UFunction* Func = nullptr;
 
@@ -1108,6 +1113,7 @@ void UNetSquad::SetCustomMemberData(const class FString& customRoomId, const cla
 
 	Parms.customRoomId = std::move(customRoomId);
 	Parms.UserData = std::move(UserData);
+	Parms.CustomUserName = std::move(CustomUserName);
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;

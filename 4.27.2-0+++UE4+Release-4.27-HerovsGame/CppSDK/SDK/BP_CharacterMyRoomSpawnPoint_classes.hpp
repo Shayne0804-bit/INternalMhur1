@@ -16,7 +16,7 @@
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_CharacterMyRoomSpawnPoint.BP_CharacterMyRoomSpawnPoint_C
-// 0x0000 (0x02B8 - 0x02B8)
+// 0x0000 (0x02C0 - 0x02C0)
 class ABP_CharacterMyRoomSpawnPoint_C final : public ACharacterMyRoomSpawnPoint
 {
 public:
@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ABP_CharacterMyRoomSpawnPoint_C>();
 	}
 };
-DUMPER7_ASSERTS_ABP_CharacterMyRoomSpawnPoint_C;
 
 SDK_NAMESPACE_END

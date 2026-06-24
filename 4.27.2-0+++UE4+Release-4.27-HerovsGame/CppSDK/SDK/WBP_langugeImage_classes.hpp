@@ -36,6 +36,5 @@ public:
 		return GetDefaultObjImpl<UWBP_langugeImage_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_langugeImage_C;
 
 SDK_NAMESPACE_END

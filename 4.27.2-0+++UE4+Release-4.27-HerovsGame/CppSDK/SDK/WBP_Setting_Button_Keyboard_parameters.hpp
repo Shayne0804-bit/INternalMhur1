@@ -10,8 +10,9 @@
 
 #include "Basic.hpp"
 
-#include "UMG_structs.hpp"
+#include "CoreUObject_structs.hpp"
 #include "SlateCore_structs.hpp"
+#include "UMG_structs.hpp"
 #include "InputCore_structs.hpp"
 
 
@@ -19,32 +20,23 @@ SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
 // Function WBP_Setting_Button_Keyboard.WBP_Setting_Button_Keyboard_C.ExecuteUbergraph_WBP_Setting_Button_Keyboard
-// 0x0090 (0x0090 - 0x0000)
+// 0x0080 (0x0080 - 0x0000)
 struct WBP_Setting_Button_Keyboard_C_ExecuteUbergraph_WBP_Setting_Button_Keyboard final
 {
 public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_Event_bIsExpanded;                          // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	class UObject*                                K2Node_Event_ListItemObject;                       // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_Event_IsDesignTime;                         // 0x0010(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FGeometry                              K2Node_Event_MyGeometry;                           // 0x0014(0x0038)(IsPlainOldData, NoDestructor)
-	float                                         K2Node_Event_InDeltaTime;                          // 0x004C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_Event_bIsSelected_1;                        // 0x0050(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_51[0x7];                                       // 0x0051(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class APlayerController*                      CallFunc_GetPlayerController_ReturnValue;          // 0x0058(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_HasUserFocus_ReturnValue;                 // 0x0060(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_61[0x3];                                       // 0x0061(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	struct FFocusEvent                            K2Node_Event_InFocusEvent;                         // 0x0064(0x0008)(NoDestructor)
-	uint8                                         Pad_6C[0x4];                                       // 0x006C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
-	class FString                                 CallFunc_Conv_BoolToString_ReturnValue;            // 0x0070(0x0010)(ZeroConstructor, HasGetValueTypeHash)
-	bool                                          CallFunc_IsFocusCauseNotCleared_ReturnValue;       // 0x0080(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	bool                                          K2Node_Event_bIsSelected;                          // 0x0081(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_82[0x6];                                       // 0x0082(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue;                  // 0x0088(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FLinearColor                           K2Node_MakeStruct_LinearColor;                     // 0x0004(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FLinearColor                           K2Node_MakeStruct_LinearColor_1;                   // 0x0014(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_Event_bIsExpanded;                          // 0x0024(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_25[0x3];                                       // 0x0025(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	class UObject*                                K2Node_Event_ListItemObject;                       // 0x0028(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_Event_IsDesignTime;                         // 0x0030(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_31[0x3];                                       // 0x0031(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FGeometry                              K2Node_Event_MyGeometry;                           // 0x0034(0x0038)(IsPlainOldData, NoDestructor)
+	float                                         K2Node_Event_InDeltaTime;                          // 0x006C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FFocusEvent                            K2Node_Event_InFocusEvent;                         // 0x0070(0x0008)(NoDestructor)
+	bool                                          K2Node_Event_bIsSelected;                          // 0x0078(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Keyboard_C_ExecuteUbergraph_WBP_Setting_Button_Keyboard;
 
 // Function WBP_Setting_Button_Keyboard.WBP_Setting_Button_Keyboard_C.BP_OnItemSelectionChanged
 // 0x0001 (0x0001 - 0x0000)
@@ -53,7 +45,6 @@ struct WBP_Setting_Button_Keyboard_C_BP_OnItemSelectionChanged final
 public:
 	bool                                          bIsSelected;                                       // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Keyboard_C_BP_OnItemSelectionChanged;
 
 // Function WBP_Setting_Button_Keyboard.WBP_Setting_Button_Keyboard_C.OnFocusLost
 // 0x0008 (0x0008 - 0x0000)
@@ -62,16 +53,6 @@ struct WBP_Setting_Button_Keyboard_C_OnFocusLost final
 public:
 	struct FFocusEvent                            InFocusEvent;                                      // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Keyboard_C_OnFocusLost;
-
-// Function WBP_Setting_Button_Keyboard.WBP_Setting_Button_Keyboard_C.CustomEvent
-// 0x0001 (0x0001 - 0x0000)
-struct WBP_Setting_Button_Keyboard_C_CustomEvent final
-{
-public:
-	bool                                          bIsSelected;                                       // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
-};
-DUMPER7_ASSERTS_WBP_Setting_Button_Keyboard_C_CustomEvent;
 
 // Function WBP_Setting_Button_Keyboard.WBP_Setting_Button_Keyboard_C.Tick
 // 0x003C (0x003C - 0x0000)
@@ -81,7 +62,6 @@ public:
 	struct FGeometry                              MyGeometry;                                        // 0x0000(0x0038)(BlueprintVisible, BlueprintReadOnly, Parm, IsPlainOldData, NoDestructor)
 	float                                         InDeltaTime;                                       // 0x0038(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Keyboard_C_Tick;
 
 // Function WBP_Setting_Button_Keyboard.WBP_Setting_Button_Keyboard_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -90,7 +70,6 @@ struct WBP_Setting_Button_Keyboard_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Keyboard_C_PreConstruct;
 
 // Function WBP_Setting_Button_Keyboard.WBP_Setting_Button_Keyboard_C.OnListItemObjectSet
 // 0x0008 (0x0008 - 0x0000)
@@ -99,7 +78,6 @@ struct WBP_Setting_Button_Keyboard_C_OnListItemObjectSet final
 public:
 	class UObject*                                ListItemObject;                                    // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Keyboard_C_OnListItemObjectSet;
 
 // Function WBP_Setting_Button_Keyboard.WBP_Setting_Button_Keyboard_C.BP_OnItemExpansionChanged
 // 0x0001 (0x0001 - 0x0000)
@@ -108,27 +86,24 @@ struct WBP_Setting_Button_Keyboard_C_BP_OnItemExpansionChanged final
 public:
 	bool                                          bIsExpanded;                                       // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Keyboard_C_BP_OnItemExpansionChanged;
 
 // Function WBP_Setting_Button_Keyboard.WBP_Setting_Button_Keyboard_C.OnKeyDown
-// 0x02C0 (0x02C0 - 0x0000)
+// 0x02B8 (0x02B8 - 0x0000)
 struct WBP_Setting_Button_Keyboard_C_OnKeyDown final
 {
 public:
 	struct FGeometry                              MyGeometry;                                        // 0x0000(0x0038)(BlueprintVisible, BlueprintReadOnly, Parm, IsPlainOldData, NoDestructor)
 	struct FKeyEvent                              InKeyEvent;                                        // 0x0038(0x0038)(BlueprintVisible, BlueprintReadOnly, Parm)
 	struct FEventReply                            ReturnValue;                                       // 0x0070(0x00B8)(Parm, OutParm, ReturnParm)
-	struct FKey                                   CallFunc_GetKey_ReturnValue;                       // 0x0128(0x0018)(HasGetValueTypeHash)
-	bool                                          CallFunc_Key_IsKeyboardKey_ReturnValue;            // 0x0140(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_141[0x7];                                      // 0x0141(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue;                  // 0x0148(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FEventReply                            CallFunc_Handled_ReturnValue;                      // 0x0150(0x00B8)()
-	struct FEventReply                            CallFunc_Unhandled_ReturnValue;                    // 0x0208(0x00B8)()
+	struct FEventReply                            CallFunc_Unhandled_ReturnValue;                    // 0x0128(0x00B8)()
+	struct FKey                                   CallFunc_GetKey_ReturnValue;                       // 0x01E0(0x0018)(HasGetValueTypeHash)
+	bool                                          CallFunc_BP_OnKeyDown_ReturnValue;                 // 0x01F8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_1F9[0x7];                                      // 0x01F9(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	struct FEventReply                            CallFunc_Handled_ReturnValue;                      // 0x0200(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Keyboard_C_OnKeyDown;
 
 // Function WBP_Setting_Button_Keyboard.WBP_Setting_Button_Keyboard_C.OnMouseButtonDown
-// 0x02E8 (0x02E8 - 0x0000)
+// 0x0238 (0x0238 - 0x0000)
 struct WBP_Setting_Button_Keyboard_C_OnMouseButtonDown final
 {
 public:
@@ -137,9 +112,8 @@ public:
 	struct FEventReply                            ReturnValue;                                       // 0x00A8(0x00B8)(Parm, OutParm, ReturnParm)
 	struct FEventReply                            CallFunc_Handled_ReturnValue;                      // 0x0160(0x00B8)()
 	struct FKey                                   CallFunc_PointerEvent_GetEffectingButton_ReturnValue; // 0x0218(0x0018)(HasGetValueTypeHash)
-	struct FEventReply                            CallFunc_Unhandled_ReturnValue;                    // 0x0230(0x00B8)()
+	bool                                          CallFunc_BP_OnKeyDown_ReturnValue;                 // 0x0230(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Keyboard_C_OnMouseButtonDown;
 
 // Function WBP_Setting_Button_Keyboard.WBP_Setting_Button_Keyboard_C.OnMouseWheel
 // 0x02F0 (0x02F0 - 0x0000)
@@ -157,7 +131,6 @@ public:
 	struct FEventReply                            CallFunc_Handled_ReturnValue;                      // 0x0180(0x00B8)()
 	struct FEventReply                            CallFunc_Unhandled_ReturnValue;                    // 0x0238(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_Setting_Button_Keyboard_C_OnMouseWheel;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

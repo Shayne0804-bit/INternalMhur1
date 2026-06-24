@@ -26,7 +26,6 @@ public:
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         CallFunc_Add_IntInt_ReturnValue;                   // 0x0014(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_EventPanelList_C_ExecuteUbergraph_WBP_EventPanelList;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

@@ -70,7 +70,7 @@ enum class EDevelopMenuMainTabID : uint8
 	DLC                                      = 3,
 	Console                                  = 4,
 	ImGui                                    = 5,
-	Mobile                                   = 6,
+	Sengakuji                                = 6,
 	MAX                                      = 7,
 };
 

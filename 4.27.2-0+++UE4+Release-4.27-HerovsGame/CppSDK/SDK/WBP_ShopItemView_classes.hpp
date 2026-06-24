@@ -43,6 +43,5 @@ public:
 		return GetDefaultObjImpl<UWBP_ShopItemView_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_ShopItemView_C;
 
 SDK_NAMESPACE_END

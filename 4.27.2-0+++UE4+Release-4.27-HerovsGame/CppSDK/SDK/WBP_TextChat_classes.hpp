@@ -10,26 +10,26 @@
 
 #include "Basic.hpp"
 
-#include "Engine_structs.hpp"
 #include "GameModule_structs.hpp"
 #include "GameModule_classes.hpp"
-#include "BackendSubsystem_structs.hpp"
+#include "Engine_structs.hpp"
 #include "UMG_structs.hpp"
+#include "BackendSubsystem_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_TextChat.WBP_TextChat_C
-// 0x0030 (0x0458 - 0x0428)
+// 0x0030 (0x0418 - 0x03E8)
 class UWBP_TextChat_C final : public UTextChatWidget
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0428(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	class UWBP_Consent_C*                         _consent;                                          // 0x0430(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_TextChatNewMessage_C*              _TextChatNewMessage;                               // 0x0438(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 BGImage;                                           // 0x0440(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UCanvasPanel*                           CanvasPanel_0;                                     // 0x0448(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	bool                                          NewVar_0;                                          // 0x0450(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x03E8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	class UWBP_Consent_C*                         _consent;                                          // 0x03F0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_TextChatNewMessage_C*              _TextChatNewMessage;                               // 0x03F8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 BGImage;                                           // 0x0400(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UCanvasPanel*                           CanvasPanel_0;                                     // 0x0408(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	bool                                          NewVar_0;                                          // 0x0410(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor)
 
 public:
 	void ExecuteUbergraph_WBP_TextChat(int32 EntryPoint);
@@ -39,18 +39,17 @@ public:
 	void WindowOpen(bool bPlaySound);
 	void WindowClose(bool bPlaySound);
 	void PreConstruct(bool IsDesignTime);
-	void CreateAnkerMap();
-	void SetVisiblityNewMessage(ESlateVisibility visivle);
 	void _textChatRecieveEvent_イベント_0(const class UTextChatListObject* chatObject);
 	void _textChatIconEvent_イベント_0();
 	void _OnCloseConsentEventDispather_イベント_0();
+	void SetVisiblityNewMessage(ESlateVisibility visivle);
 	void OnOpenParentalControlEventDispather();
 	void BndEvt__WBP_TextChat__consent_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature(bool bAgree);
 	void OnOpenedDelegate();
 	void OnClosedDelegate();
 	void OnBGHiddenSetEvent();
-	void OnBGVisiblitySetEvent();
 	void OnOpenConsentEventDispather();
+	void OnBGVisiblitySetEvent();
 	void ChangeBGVisibility(ESlateVisibility NewParam);
 	void TextChatRecieveEvent(class UTextChatListObject* velue);
 	void OnOpenConsentEvent();

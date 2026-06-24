@@ -16,79 +16,141 @@
 SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
-// Function Agones.AgonesComponent.Allocate
+// Function Agones.AgonesSubsystem.Get
+// 0x0010 (0x0010 - 0x0000)
+struct AgonesSubsystem_Get final
+{
+public:
+	const class UObject*                          WorldContext;                                      // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class UAgonesSubsystem*                       ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+};
+
+// Function Agones.AgonesSubsystem.AddListValue
+// 0x0040 (0x0040 - 0x0000)
+struct AgonesSubsystem_AddListValue final
+{
+public:
+	class FString                                 Key;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 value;                                             // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FList& Response)> SuccessDelegate;                                   // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0030(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function Agones.AgonesSubsystem.Allocate
 // 0x0020 (0x0020 - 0x0000)
-struct AgonesComponent_Allocate final
+struct AgonesSubsystem_Allocate final
 {
 public:
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
 
-// Function Agones.AgonesComponent.ConnectSuccess
-// 0x0138 (0x0138 - 0x0000)
-struct AgonesComponent_ConnectSuccess final
+// Function Agones.AgonesSubsystem.ConnectSuccess
+// 0x0198 (0x0198 - 0x0000)
+struct AgonesSubsystem_ConnectSuccess final
 {
 public:
-	struct FGameServerResponse                    GameServerResponse;                                // 0x0000(0x0138)(Parm, NativeAccessSpecifierPublic)
+	struct FGameServerResponse                    GameServerResponse;                                // 0x0000(0x0198)(Parm, NativeAccessSpecifierPublic)
 };
 
-// Function Agones.AgonesComponent.GameServer
+// Function Agones.AgonesSubsystem.DecrementCounter
+// 0x0038 (0x0038 - 0x0000)
+struct AgonesSubsystem_DecrementCounter final
+{
+public:
+	class FString                                 Key;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int64                                         amount;                                            // 0x0010(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0018(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0028(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function Agones.AgonesSubsystem.GameServer
 // 0x0020 (0x0020 - 0x0000)
-struct AgonesComponent_GameServer final
+struct AgonesSubsystem_GameServer final
 {
 public:
 	TDelegate<void(const struct FGameServerResponse& Response)> SuccessDelegate;                     // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
 
-// Function Agones.AgonesComponent.GetConnectedPlayers
+// Function Agones.AgonesSubsystem.GetConnectedPlayers
 // 0x0020 (0x0020 - 0x0000)
-struct AgonesComponent_GetConnectedPlayers final
+struct AgonesSubsystem_GetConnectedPlayers final
 {
 public:
 	TDelegate<void(const struct FConnectedPlayersResponse& Response)> SuccessDelegate;               // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
 
-// Function Agones.AgonesComponent.GetPlayerCapacity
+// Function Agones.AgonesSubsystem.GetCounter
+// 0x0030 (0x0030 - 0x0000)
+struct AgonesSubsystem_GetCounter final
+{
+public:
+	class FString                                 Key;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FCounterResponse& Response)> SuccessDelegate;                        // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function Agones.AgonesSubsystem.GetList
+// 0x0030 (0x0030 - 0x0000)
+struct AgonesSubsystem_GetList final
+{
+public:
+	class FString                                 Key;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FList& Response)> SuccessDelegate;                                   // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function Agones.AgonesSubsystem.GetPlayerCapacity
 // 0x0020 (0x0020 - 0x0000)
-struct AgonesComponent_GetPlayerCapacity final
+struct AgonesSubsystem_GetPlayerCapacity final
 {
 public:
 	TDelegate<void(const struct FCountResponse& Response)> SuccessDelegate;                          // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
 
-// Function Agones.AgonesComponent.GetPlayerCount
+// Function Agones.AgonesSubsystem.GetPlayerCount
 // 0x0020 (0x0020 - 0x0000)
-struct AgonesComponent_GetPlayerCount final
+struct AgonesSubsystem_GetPlayerCount final
 {
 public:
 	TDelegate<void(const struct FCountResponse& Response)> SuccessDelegate;                          // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
 
-// Function Agones.AgonesComponent.Health
+// Function Agones.AgonesSubsystem.Health
 // 0x0020 (0x0020 - 0x0000)
-struct AgonesComponent_Health final
+struct AgonesSubsystem_Health final
 {
 public:
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
 
-// Function Agones.AgonesComponent.HealthPing
+// Function Agones.AgonesSubsystem.HealthPing
 // 0x0004 (0x0004 - 0x0000)
-struct AgonesComponent_HealthPing final
+struct AgonesSubsystem_HealthPing final
 {
 public:
 	float                                         RateSeconds;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
 
-// Function Agones.AgonesComponent.IsPlayerConnected
+// Function Agones.AgonesSubsystem.IncrementCounter
+// 0x0038 (0x0038 - 0x0000)
+struct AgonesSubsystem_IncrementCounter final
+{
+public:
+	class FString                                 Key;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int64                                         amount;                                            // 0x0010(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0018(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0028(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function Agones.AgonesSubsystem.IsPlayerConnected
 // 0x0030 (0x0030 - 0x0000)
-struct AgonesComponent_IsPlayerConnected final
+struct AgonesSubsystem_IsPlayerConnected final
 {
 public:
 	class FString                                 playerId;                                          // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -96,9 +158,9 @@ public:
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
 
-// Function Agones.AgonesComponent.PlayerConnect
+// Function Agones.AgonesSubsystem.PlayerConnect
 // 0x0030 (0x0030 - 0x0000)
-struct AgonesComponent_PlayerConnect final
+struct AgonesSubsystem_PlayerConnect final
 {
 public:
 	class FString                                 playerId;                                          // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -106,9 +168,9 @@ public:
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
 
-// Function Agones.AgonesComponent.PlayerDisconnect
+// Function Agones.AgonesSubsystem.PlayerDisconnect
 // 0x0030 (0x0030 - 0x0000)
-struct AgonesComponent_PlayerDisconnect final
+struct AgonesSubsystem_PlayerDisconnect final
 {
 public:
 	class FString                                 playerId;                                          // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -116,18 +178,29 @@ public:
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
 
-// Function Agones.AgonesComponent.Ready
+// Function Agones.AgonesSubsystem.Ready
 // 0x0020 (0x0020 - 0x0000)
-struct AgonesComponent_Ready final
+struct AgonesSubsystem_Ready final
 {
 public:
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
 
-// Function Agones.AgonesComponent.Reserve
+// Function Agones.AgonesSubsystem.RemoveListValue
+// 0x0040 (0x0040 - 0x0000)
+struct AgonesSubsystem_RemoveListValue final
+{
+public:
+	class FString                                 Key;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 value;                                             // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FList& Response)> SuccessDelegate;                                   // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0030(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function Agones.AgonesSubsystem.Reserve
 // 0x0028 (0x0028 - 0x0000)
-struct AgonesComponent_Reserve final
+struct AgonesSubsystem_Reserve final
 {
 public:
 	int64                                         Seconds;                                           // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -135,31 +208,53 @@ public:
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0018(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
 
-// Function Agones.AgonesComponent.SetAnnotation
+// Function Agones.AgonesSubsystem.SetAnnotation
 // 0x0040 (0x0040 - 0x0000)
-struct AgonesComponent_SetAnnotation final
+struct AgonesSubsystem_SetAnnotation final
 {
 public:
-	class FString                                 Key;                                               // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 value;                                             // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 Key;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 value;                                             // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0030(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
 
-// Function Agones.AgonesComponent.SetLabel
-// 0x0040 (0x0040 - 0x0000)
-struct AgonesComponent_SetLabel final
+// Function Agones.AgonesSubsystem.SetCounterCapacity
+// 0x0038 (0x0038 - 0x0000)
+struct AgonesSubsystem_SetCounterCapacity final
 {
 public:
-	class FString                                 Key;                                               // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
-	class FString                                 value;                                             // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 Key;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int64                                         Capacity;                                          // 0x0010(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0018(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0028(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function Agones.AgonesSubsystem.SetCounterCount
+// 0x0038 (0x0038 - 0x0000)
+struct AgonesSubsystem_SetCounterCount final
+{
+public:
+	class FString                                 Key;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	int64                                         count;                                             // 0x0010(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0018(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0028(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function Agones.AgonesSubsystem.SetLabel
+// 0x0040 (0x0040 - 0x0000)
+struct AgonesSubsystem_SetLabel final
+{
+public:
+	class FString                                 Key;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	class FString                                 value;                                             // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0030(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
 
-// Function Agones.AgonesComponent.SetPlayerCapacity
+// Function Agones.AgonesSubsystem.SetPlayerCapacity
 // 0x0028 (0x0028 - 0x0000)
-struct AgonesComponent_SetPlayerCapacity final
+struct AgonesSubsystem_SetPlayerCapacity final
 {
 public:
 	int64                                         count;                                             // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -167,13 +262,32 @@ public:
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0018(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
 
-// Function Agones.AgonesComponent.Shutdown
+// Function Agones.AgonesSubsystem.Shutdown
 // 0x0020 (0x0020 - 0x0000)
-struct AgonesComponent_Shutdown final
+struct AgonesSubsystem_Shutdown final
 {
 public:
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function Agones.AgonesSubsystem.UpdateList
+// 0x0058 (0x0058 - 0x0000)
+struct AgonesSubsystem_UpdateList final
+{
+public:
+	class FString                                 Key;                                               // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+	struct FList                                  List;                                              // 0x0010(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FList& Response)> SuccessDelegate;                                   // 0x0038(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0048(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
+};
+
+// Function Agones.AgonesSubsystem.WatchGameServer
+// 0x0010 (0x0010 - 0x0000)
+struct AgonesSubsystem_WatchGameServer final
+{
+public:
+	TDelegate<void(const struct FGameServerResponse& Response)> WatchDelegate;                       // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
 
 SDK_PARAM_NAMESPACE_END

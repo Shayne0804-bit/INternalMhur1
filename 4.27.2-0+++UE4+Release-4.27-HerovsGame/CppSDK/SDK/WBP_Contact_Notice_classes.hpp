@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "OutGameModule_classes.hpp"
 #include "SlateCore_structs.hpp"
+#include "OutGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
@@ -39,6 +39,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Contact_Notice_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Contact_Notice_C;
 
 SDK_NAMESPACE_END

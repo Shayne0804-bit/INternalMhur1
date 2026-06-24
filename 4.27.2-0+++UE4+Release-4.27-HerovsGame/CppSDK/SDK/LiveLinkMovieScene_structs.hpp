@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 #include "LiveLinkInterface_structs.hpp"
-#include "MovieSceneTracks_structs.hpp"
 #include "MovieScene_structs.hpp"
+#include "MovieSceneTracks_structs.hpp"
 
 
 SDK_NAMESPACE_START

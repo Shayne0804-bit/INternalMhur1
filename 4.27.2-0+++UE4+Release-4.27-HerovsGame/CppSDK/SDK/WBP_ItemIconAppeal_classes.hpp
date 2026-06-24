@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<UWBP_ItemIconAppeal_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_ItemIconAppeal_C;
 
 SDK_NAMESPACE_END

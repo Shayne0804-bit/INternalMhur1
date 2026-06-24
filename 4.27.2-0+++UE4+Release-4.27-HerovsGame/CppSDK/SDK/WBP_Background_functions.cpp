@@ -44,6 +44,26 @@ void UWBP_Background_C::PlayCloseSE()
 }
 
 
+// Function WBP_Background.WBP_Background_C.PreConstruct
+// (BlueprintCosmetic, Event, Public, BlueprintEvent)
+// Parameters:
+// bool                                    IsDesignTime                                           (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+
+void UWBP_Background_C::PreConstruct(bool IsDesignTime)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_Background_C", "PreConstruct");
+
+	Params::WBP_Background_C_PreConstruct Parms{};
+
+	Parms.IsDesignTime = IsDesignTime;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
 // Function WBP_Background.WBP_Background_C.ExecuteUbergraph_WBP_Background
 // (Final, UbergraphFunction)
 // Parameters:

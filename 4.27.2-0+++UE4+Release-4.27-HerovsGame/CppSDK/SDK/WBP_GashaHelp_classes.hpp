@@ -58,6 +58,5 @@ public:
 		return GetDefaultObjImpl<UWBP_GashaHelp_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_GashaHelp_C;
 
 SDK_NAMESPACE_END

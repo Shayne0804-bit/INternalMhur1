@@ -16,40 +16,6 @@
 SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
-// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.ExecuteUbergraph_WBP_PlayMenuBattle
-// 0x0028 (0x0028 - 0x0000)
-struct WBP_PlayMenuBattle_C_ExecuteUbergraph_WBP_PlayMenuBattle final
-{
-public:
-	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          K2Node_Event_IsDesignTime;                         // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	TDelegate<void()>                             K2Node_CreateDelegate_OutputDelegate;              // 0x0008(0x0010)(ZeroConstructor, NoDestructor)
-	class ULevelStreaming*                        CallFunc_OpenLevel_LevelInstance;                  // 0x0018(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	class ULevelStreaming*                        CallFunc_OpenLevel_LevelInstance_1;                // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-};
-DUMPER7_ASSERTS_WBP_PlayMenuBattle_C_ExecuteUbergraph_WBP_PlayMenuBattle;
-
-// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.PreConstruct
-// 0x0001 (0x0001 - 0x0000)
-struct WBP_PlayMenuBattle_C_PreConstruct final
-{
-public:
-	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
-};
-DUMPER7_ASSERTS_WBP_PlayMenuBattle_C_PreConstruct;
-
-// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.Out Navigation
-// 0x0003 (0x0003 - 0x0000)
-struct WBP_PlayMenuBattle_C_Out_Navigation final
-{
-public:
-	EUINavigation                                 Navigation_0;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x0001(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-	bool                                          CallFunc_EqualEqual_IntInt_ReturnValue;            // 0x0002(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
-};
-DUMPER7_ASSERTS_WBP_PlayMenuBattle_C_Out_Navigation;
-
 // Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.CancelButtonNavigation
 // 0x0018 (0x0018 - 0x0000)
 struct WBP_PlayMenuBattle_C_CancelButtonNavigation final
@@ -62,7 +28,37 @@ public:
 	bool                                          K2Node_SwitchEnum_CmpSuccess_1;                    // 0x0011(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          K2Node_SwitchInteger_CmpSuccess;                   // 0x0012(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_PlayMenuBattle_C_CancelButtonNavigation;
+
+// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.Out Navigation
+// 0x0003 (0x0003 - 0x0000)
+struct WBP_PlayMenuBattle_C_Out_Navigation final
+{
+public:
+	EUINavigation                                 Navigation_0;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x0001(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	bool                                          CallFunc_EqualEqual_IntInt_ReturnValue;            // 0x0002(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+};
+
+// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.PreConstruct
+// 0x0001 (0x0001 - 0x0000)
+struct WBP_PlayMenuBattle_C_PreConstruct final
+{
+public:
+	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+};
+
+// Function WBP_PlayMenuBattle.WBP_PlayMenuBattle_C.ExecuteUbergraph_WBP_PlayMenuBattle
+// 0x0028 (0x0028 - 0x0000)
+struct WBP_PlayMenuBattle_C_ExecuteUbergraph_WBP_PlayMenuBattle final
+{
+public:
+	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          K2Node_Event_IsDesignTime;                         // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	TDelegate<void()>                             K2Node_CreateDelegate_OutputDelegate;              // 0x0008(0x0010)(ZeroConstructor, NoDestructor)
+	class ULevelStreaming*                        CallFunc_OpenLevel_LevelInstance;                  // 0x0018(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	class ULevelStreaming*                        CallFunc_OpenLevel_LevelInstance_1;                // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

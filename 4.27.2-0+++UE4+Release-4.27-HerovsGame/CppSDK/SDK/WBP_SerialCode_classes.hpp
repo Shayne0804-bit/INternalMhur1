@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "SlateCore_structs.hpp"
 #include "Engine_structs.hpp"
+#include "SlateCore_structs.hpp"
 #include "OutGameModule_classes.hpp"
 #include "UIFramework_structs.hpp"
 
@@ -32,6 +32,9 @@ public:
 
 public:
 	void ExecuteUbergraph_WBP_SerialCode(int32 EntryPoint);
+	void BndEvt__WBP_SerialCode__SerialCode_InputText_3_K2Node_ComponentBoundEvent_7_OnChangeText__DelegateSignature(const class FText& Text, bool bSendable, ETextCommit CommitMethod);
+	void BndEvt__WBP_SerialCode__SerialCode_InputText_2_K2Node_ComponentBoundEvent_6_OnChangeText__DelegateSignature(const class FText& Text, bool bSendable, ETextCommit CommitMethod);
+	void BndEvt__WBP_SerialCode__SerialCode_InputText_1_K2Node_ComponentBoundEvent_5_OnChangeText__DelegateSignature(const class FText& Text, bool bSendable, ETextCommit CommitMethod);
 	void BndEvt__WBP_SerialCode__serialCodeCompletion_K2Node_ComponentBoundEvent_1_OnWindowEventDelegate__DelegateSignature();
 	void BndEvt__WBP_SerialCode_SerialCodeInput_K2Node_ComponentBoundEvent_3_OnWindowEventDelegate__DelegateSignature();
 	void BndEvt__WBP_SerialCode_SerialCodeCompletion_K2Node_ComponentBoundEvent_2_OnWindowInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton);
@@ -56,6 +59,5 @@ public:
 		return GetDefaultObjImpl<UWBP_SerialCode_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_SerialCode_C;
 
 SDK_NAMESPACE_END

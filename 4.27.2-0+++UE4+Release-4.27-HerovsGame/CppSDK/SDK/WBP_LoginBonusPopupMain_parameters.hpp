@@ -25,7 +25,6 @@ public:
 	struct FWidgetTransform                       K2Node_MakeStruct_WidgetTransform;                 // 0x0004(0x001C)(NoDestructor)
 	bool                                          K2Node_Event_IsDesignTime;                         // 0x0020(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_LoginBonusPopupMain_C_ExecuteUbergraph_WBP_LoginBonusPopupMain;
 
 // Function WBP_LoginBonusPopupMain.WBP_LoginBonusPopupMain_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -34,7 +33,6 @@ struct WBP_LoginBonusPopupMain_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_LoginBonusPopupMain_C_PreConstruct;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

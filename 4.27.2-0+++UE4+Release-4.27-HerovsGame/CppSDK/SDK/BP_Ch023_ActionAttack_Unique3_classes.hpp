@@ -10,46 +10,46 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_structs.hpp"
-#include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "CommonModule_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "InGameModule_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch023_ActionAttack_Unique3.BP_Ch023_ActionAttack_Unique3_C
-// 0x0020 (0x04C0 - 0x04A0)
+// 0x0020 (0x0508 - 0x04E8)
 class UBP_Ch023_ActionAttack_Unique3_C final : public UActionAttackBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	class UParticleSystemComponent*               shotEffect;                                        // 0x04A8(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         ShotCount;                                         // 0x04B0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         TurnRatio;                                         // 0x04B4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          CanRotate;                                         // 0x04B8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_4B9[0x3];                                      // 0x04B9(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	float                                         MinShotCount;                                      // 0x04BC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04E8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	class UParticleSystemComponent*               shotEffect;                                        // 0x04F0(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         ShotCount;                                         // 0x04F8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         TurnRatio;                                         // 0x04FC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          CanRotate;                                         // 0x0500(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_501[0x3];                                      // 0x0501(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	float                                         MinShotCount;                                      // 0x0504(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
-	void BP_OnChangeAttackPhaseAir(int32 nextPhase);
-	void BP_OnChangeAttackPhaseAirForRemote(int32 nextPhase);
-	void BP_OnChangeAttackPhaseGround(int32 nextPhase);
-	void BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase);
-	void BP_ActionMain();
-	void BP_OnBeginAction(const class FName& prevAction);
-	void BP_OnBeginAimingMode();
-	void BP_OnEndAimingMode();
-	void BP_OnEndAction(const class FName& nextAction);
-	void BP_OnLoadParams(const class FName& ActionName, int32 uniqueLevel);
-	void BP_ActionRemote();
-	void ShootWhileHolding();
-	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
-	void RotateShotDirection();
-	void RotateShotDirectionRemote();
-	void ConsumeWhileHolding();
 	void ExecuteUbergraph_BP_Ch023_ActionAttack_Unique3(int32 EntryPoint);
+	void ConsumeWhileHolding();
+	void RotateShotDirectionRemote();
+	void RotateShotDirection();
+	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
+	void ShootWhileHolding();
+	void BP_ActionRemote();
+	void BP_OnLoadParams(const class FName& ActionName, int32 uniqueLevel);
+	void BP_OnEndAction(const class FName& nextAction);
+	void BP_OnEndAimingMode();
+	void BP_OnBeginAimingMode();
+	void BP_OnBeginAction(const class FName& prevAction);
+	void BP_ActionMain();
+	void BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase);
+	void BP_OnChangeAttackPhaseGround(int32 nextPhase);
+	void BP_OnChangeAttackPhaseAirForRemote(int32 nextPhase);
+	void BP_OnChangeAttackPhaseAir(int32 nextPhase);
 
 public:
 	static class UClass* StaticClass()

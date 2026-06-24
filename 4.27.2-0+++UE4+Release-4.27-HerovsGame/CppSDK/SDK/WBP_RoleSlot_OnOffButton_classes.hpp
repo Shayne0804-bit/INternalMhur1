@@ -16,11 +16,11 @@
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_RoleSlot_OnOffButton.WBP_RoleSlot_OnOffButton_C
-// 0x0008 (0x0540 - 0x0538)
+// 0x0008 (0x0440 - 0x0438)
 class UWBP_RoleSlot_OnOffButton_C final : public UCharacterSelectLSButtonWidget
 {
 public:
-	class UPlatformRichTextBlock*                 MessageIcon_1;                                     // 0x0538(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UPlatformRichTextBlock*                 MessageIcon_1;                                     // 0x0438(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 
 public:
 	static class UClass* StaticClass()
@@ -36,6 +36,5 @@ public:
 		return GetDefaultObjImpl<UWBP_RoleSlot_OnOffButton_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_RoleSlot_OnOffButton_C;
 
 SDK_NAMESPACE_END

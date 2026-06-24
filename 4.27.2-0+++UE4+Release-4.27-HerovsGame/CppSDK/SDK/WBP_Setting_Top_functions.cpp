@@ -36,6 +36,40 @@ void UWBP_Setting_Top_C::ExecuteUbergraph_WBP_Setting_Top(int32 EntryPoint)
 }
 
 
+// Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_ComponentBoundEvent_23_OnCheckSavePresetPopupDelegate__DelegateSignature
+// (BlueprintEvent)
+
+void UWBP_Setting_Top_C::BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_ComponentBoundEvent_23_OnCheckSavePresetPopupDelegate__DelegateSignature()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_Setting_Top_C", "BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_ComponentBoundEvent_23_OnCheckSavePresetPopupDelegate__DelegateSignature");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_ComponentBoundEvent_19_OnOpenKeyConfigPopupDelegate__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// EKeyConfigCommandListType               listType                                               (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_Setting_Top_C::BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_ComponentBoundEvent_19_OnOpenKeyConfigPopupDelegate__DelegateSignature(EKeyConfigCommandListType listType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_Setting_Top_C", "BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_ComponentBoundEvent_19_OnOpenKeyConfigPopupDelegate__DelegateSignature");
+
+	Params::WBP_Setting_Top_C_BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_ComponentBoundEvent_19_OnOpenKeyConfigPopupDelegate__DelegateSignature Parms{};
+
+	Parms.listType = listType;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
 // Function WBP_Setting_Top.WBP_Setting_Top_C.PreConstruct
 // (BlueprintCosmetic, Event, Public, BlueprintEvent)
 // Parameters:
@@ -56,15 +90,29 @@ void UWBP_Setting_Top_C::PreConstruct(bool IsDesignTime)
 }
 
 
-// Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top_WBP_Setting_GamePlay_K2Node_ComponentBoundEvent_6_OnCrossPlayXboxPopupDelegate__DelegateSignature
+// Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top__resetCheckPopup_K2Node_ComponentBoundEvent_14_OnWindowEventDelegate__DelegateSignature
 // (BlueprintEvent)
 
-void UWBP_Setting_Top_C::BndEvt__WBP_Setting_Top_WBP_Setting_GamePlay_K2Node_ComponentBoundEvent_6_OnCrossPlayXboxPopupDelegate__DelegateSignature()
+void UWBP_Setting_Top_C::BndEvt__WBP_Setting_Top__resetCheckPopup_K2Node_ComponentBoundEvent_14_OnWindowEventDelegate__DelegateSignature()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Setting_Top_C", "BndEvt__WBP_Setting_Top_WBP_Setting_GamePlay_K2Node_ComponentBoundEvent_6_OnCrossPlayXboxPopupDelegate__DelegateSignature");
+		Func = Class->GetFunction("WBP_Setting_Top_C", "BndEvt__WBP_Setting_Top__resetCheckPopup_K2Node_ComponentBoundEvent_14_OnWindowEventDelegate__DelegateSignature");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top__savedPopup_K2Node_ComponentBoundEvent_8_OnWindowEventDelegate__DelegateSignature
+// (BlueprintEvent)
+
+void UWBP_Setting_Top_C::BndEvt__WBP_Setting_Top__savedPopup_K2Node_ComponentBoundEvent_8_OnWindowEventDelegate__DelegateSignature()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_Setting_Top_C", "BndEvt__WBP_Setting_Top__savedPopup_K2Node_ComponentBoundEvent_8_OnWindowEventDelegate__DelegateSignature");
 
 	UObject::ProcessEvent(Func, nullptr);
 }
@@ -79,6 +127,20 @@ void UWBP_Setting_Top_C::Construct()
 
 	if (Func == nullptr)
 		Func = Class->GetFunction("WBP_Setting_Top_C", "Construct");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top_WBP_Setting_GamePlay_K2Node_ComponentBoundEvent_6_OnCrossPlayXboxPopupDelegate__DelegateSignature
+// (BlueprintEvent)
+
+void UWBP_Setting_Top_C::BndEvt__WBP_Setting_Top_WBP_Setting_GamePlay_K2Node_ComponentBoundEvent_6_OnCrossPlayXboxPopupDelegate__DelegateSignature()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_Setting_Top_C", "BndEvt__WBP_Setting_Top_WBP_Setting_GamePlay_K2Node_ComponentBoundEvent_6_OnCrossPlayXboxPopupDelegate__DelegateSignature");
 
 	UObject::ProcessEvent(Func, nullptr);
 }
@@ -280,6 +342,28 @@ void UWBP_Setting_Top_C::BndEvt__WBP_Setting_Top_WBP_ReturnButton_K2Node_Compone
 }
 
 
+// Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top_WBP_ReturnButton_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature
+// (BlueprintEvent)
+// Parameters:
+// class UAppWidget*                       Widget                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// EWidgetInputType                        inputType                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_Setting_Top_C::BndEvt__WBP_Setting_Top_WBP_ReturnButton_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_Setting_Top_C", "BndEvt__WBP_Setting_Top_WBP_ReturnButton_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature");
+
+	Params::WBP_Setting_Top_C_BndEvt__WBP_Setting_Top_WBP_ReturnButton_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature Parms{};
+
+	Parms.Widget = Widget;
+	Parms.inputType = inputType;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
 // Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top_WBP_Setting_Sound_K2Node_ComponentBoundEvent_18_OnParentalControlPopupDelegate__DelegateSignature
 // (BlueprintEvent)
 
@@ -377,28 +461,6 @@ void UWBP_Setting_Top_C::BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_Co
 		Func = Class->GetFunction("WBP_Setting_Top_C", "BndEvt__WBP_Setting_Top_WBP_Setting_KeyConfig_K2Node_ComponentBoundEvent_9_FocusSaveButton__DelegateSignature");
 
 	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function WBP_Setting_Top.WBP_Setting_Top_C.BndEvt__WBP_Setting_Top_WBP_ReturnButton_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature
-// (BlueprintEvent)
-// Parameters:
-// class UAppWidget*                       Widget                                                 (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-// EWidgetInputType                        inputType                                              (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UWBP_Setting_Top_C::BndEvt__WBP_Setting_Top_WBP_ReturnButton_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_Setting_Top_C", "BndEvt__WBP_Setting_Top_WBP_ReturnButton_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature");
-
-	Params::WBP_Setting_Top_C_BndEvt__WBP_Setting_Top_WBP_ReturnButton_K2Node_ComponentBoundEvent_5_OnInputEventDelegate__DelegateSignature Parms{};
-
-	Parms.Widget = Widget;
-	Parms.inputType = inputType;
-
-	UObject::ProcessEvent(Func, &Parms);
 }
 
 
@@ -595,6 +657,26 @@ void UWBP_Setting_Top_C::SetupObserverSelectiveWindow(EKeyConfigCommandListType 
 
 	Parms.listType = listType;
 	Parms.curCommand = curCommand;
+
+	UObject::ProcessEvent(Func, &Parms);
+}
+
+
+// Function WBP_Setting_Top.WBP_Setting_Top_C.SetupPadButtonSelectiveWindow
+// (Public, HasDefaults, BlueprintCallable, BlueprintEvent)
+// Parameters:
+// EKeyConfigCommandListType               listType                                               (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_Setting_Top_C::SetupPadButtonSelectiveWindow(EKeyConfigCommandListType listType)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_Setting_Top_C", "SetupPadButtonSelectiveWindow");
+
+	Params::WBP_Setting_Top_C_SetupPadButtonSelectiveWindow Parms{};
+
+	Parms.listType = listType;
 
 	UObject::ProcessEvent(Func, &Parms);
 }

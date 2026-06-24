@@ -3,13 +3,12 @@
 #include "../Menu/ImGuiMenu.h"
 
 #include "../SDK/SDKESPFunctions.h"
-#include "../Hacks/InGameModuleHacks.h"
-#include "../Hacks/HackThread.h"
+#include "../Core/UnloadManager.h"
 #include <imgui.h>
 #include <imgui_impl_win32.h>
 #include <Xinput.h>
+#include <atomic>
 #include <mutex>
-#include <chrono>
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
@@ -18,37 +17,132 @@
 // Aimbot function declaration
 extern "C" void SDK_RunAimbot();
 extern "C" void SDK_RunSilentAim();
-extern "C" void SDK_RunTeleportToKota();
+void InGameHack_RestoreInfiniteObjectsPatch();
 
 namespace D3D11Hook
 {
+    typedef HRESULT(WINAPI* ResizeBuffersFn)(IDXGISwapChain*, UINT, UINT, UINT, DXGI_FORMAT, UINT);
+
     static ID3D11Device* g_Device = nullptr;
     static ID3D11DeviceContext* g_Context = nullptr;
     static bool g_ImGuiInit = false;
     static bool g_SDKLogged = false;
     static std::atomic<bool> g_PresentCalled(false);
+    static std::atomic<int> g_PresentCallDepth(0);
+    static std::atomic<int> g_ResizeBuffersCallDepth(0);
+    static std::atomic_bool g_PresentHookRestored(false);
+    static std::mutex g_HookStateMutex;
 
     static PresentFn g_OriginalPresent = nullptr;
+    static ResizeBuffersFn g_OriginalResizeBuffers = nullptr;
+    static void** g_PresentVTableSlot = nullptr;
+    static void** g_ResizeBuffersVTableSlot = nullptr;
     static thread_local bool g_InHookedPresent = false;
 
     static HWND g_GameWindow = nullptr;
+
+    static HRESULT WINAPI HookedPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT Flags);
+    static HRESULT WINAPI HookedResizeBuffers(IDXGISwapChain* pSwapChain, UINT BufferCount, UINT Width, UINT Height, DXGI_FORMAT NewFormat, UINT SwapChainFlags);
+
+    static void RestorePresentHook()
+    {
+        std::lock_guard<std::mutex> lock(g_HookStateMutex);
+
+        if (!g_PresentVTableSlot && !g_ResizeBuffersVTableSlot)
+        {
+            g_PresentHookRestored.store(true, std::memory_order_release);
+            return;
+        }
+
+        DWORD oldProtect = 0;
+        if (g_PresentVTableSlot && g_OriginalPresent &&
+            VirtualProtect(g_PresentVTableSlot, sizeof(void*), PAGE_EXECUTE_READWRITE, &oldProtect))
+        {
+            if (*g_PresentVTableSlot == reinterpret_cast<void*>(&HookedPresent))
+                *g_PresentVTableSlot = reinterpret_cast<void*>(g_OriginalPresent);
+
+            DWORD unused = 0;
+            VirtualProtect(g_PresentVTableSlot, sizeof(void*), oldProtect, &unused);
+        }
+
+        oldProtect = 0;
+        if (g_ResizeBuffersVTableSlot && g_OriginalResizeBuffers &&
+            VirtualProtect(g_ResizeBuffersVTableSlot, sizeof(void*), PAGE_EXECUTE_READWRITE, &oldProtect))
+        {
+            if (*g_ResizeBuffersVTableSlot == reinterpret_cast<void*>(&HookedResizeBuffers))
+                *g_ResizeBuffersVTableSlot = reinterpret_cast<void*>(g_OriginalResizeBuffers);
+
+            DWORD unused = 0;
+            VirtualProtect(g_ResizeBuffersVTableSlot, sizeof(void*), oldProtect, &unused);
+        }
+
+        g_PresentVTableSlot = nullptr;
+        g_ResizeBuffersVTableSlot = nullptr;
+        g_PresentHookRestored.store(true, std::memory_order_release);
+    }
+
+    static bool NeedsActorCache()
+    {
+        const auto& settings = ImGuiMenu::g_Settings;
+        return settings.EnablePlayerESP ||
+            settings.ShowPlayerSkeleton ||
+            settings.EnableAimbot ||
+            settings.EnableTeleportToKota ||
+            settings.EnableBulletTP ||
+            settings.EnableTeleportLevelUpCards ||
+            settings.EnableTransformIntoRandomESP ||
+            settings.EnableDuplicateIntoImitationRandomESP ||
+            settings.EnableCopySkillsFromNearestEnemy;
+    }
 
     static HRESULT WINAPI HookedPresent(
         IDXGISwapChain* pSwapChain,
         UINT SyncInterval,
         UINT Flags)
     {
-        if (g_InHookedPresent)
-            return g_OriginalPresent(pSwapChain, SyncInterval, Flags);
+        PresentFn originalPresent = g_OriginalPresent;
+        if (!originalPresent)
+            return DXGI_ERROR_INVALID_CALL;
 
-        g_InHookedPresent = true;
+        struct PresentCallScope
+        {
+            PresentCallScope()
+            {
+                g_PresentCallDepth.fetch_add(1, std::memory_order_acq_rel);
+            }
+
+            ~PresentCallScope()
+            {
+                g_PresentCallDepth.fetch_sub(1, std::memory_order_acq_rel);
+            }
+        } presentCallScope;
+
+        if (UnloadManager::IsUnloadRequested())
+        {
+            RestorePresentHook();
+            return originalPresent(pSwapChain, SyncInterval, Flags);
+        }
+
+        if (g_InHookedPresent)
+            return originalPresent(pSwapChain, SyncInterval, Flags);
+
+        struct PresentScope
+        {
+            PresentScope()
+            {
+                g_InHookedPresent = true;
+            }
+
+            ~PresentScope()
+            {
+                g_InHookedPresent = false;
+            }
+        } presentScope;
+
         g_PresentCalled.store(true, std::memory_order_relaxed);
 
         if (!pSwapChain)
-        {
-            g_InHookedPresent = false;
-            return g_OriginalPresent(pSwapChain, SyncInterval, Flags);
-        }
+            return originalPresent(pSwapChain, SyncInterval, Flags);
 
         // Récupérer le device et context lors du premier appel
         if (!g_Device)
@@ -78,13 +172,11 @@ namespace D3D11Hook
 }
         }
 
-        // Test DeprojectScreenToWorld conversion per frame - MUST BE BEFORE ImguiMenu::Render!
-        // Run every frame to draw boxes
-        static int deprojectCounter = 0;
-        deprojectCounter++;
-        if (deprojectCounter >= 1)  // Run every frame
+        if (ImGuiMenu::g_Settings.EnableGlobal)
         {
-            deprojectCounter = 0;
+        // Update the actor cache only when a feature actually consumes it.
+        if (NeedsActorCache())
+        {
             try
             {
                 SDK_TestDeprojectScreenToWorld();
@@ -96,121 +188,18 @@ namespace D3D11Hook
 
         // ===== RUN AIMBOT EVERY FRAME =====
         // This is called after actor cache is updated, so targets are current
-        try
+        if (ImGuiMenu::g_Settings.EnableAimbot)
         {
-            SDK_RunAimbot();
-        }
-        catch (...)
-        {
-}
-
-        // ===== FRAME UPDATE HACKS (via HackThread) =====
-        // This calls all continuous frame-based hacks like bullet redirection
-        try
-        {
-            HackThreadManager::GetInstance().FrameUpdateHacks();
-        }
-        catch (...)
-        {
-}
-
-        // ===== RUN TELEPORT TO KOTA =====
-        try
-        {
-            SDK_RunTeleportToKota();
-        }
-        catch (...)
-        {
-}
-
-        // ===== RUN TRANSFORM INTO RANDOM ESP TARGET =====
-        // NOTE: InGameHack_TransformIntoRandomESP is now called from HackThread.cpp::FrameUpdateHacks()
-
-        // ===== RUN DUPLICATE INTO IMITATION RANDOM ESP TARGET =====
-        // NOTE: InGameHack_DuplicateIntoImitationRandomESP is now called from HackThread.cpp::FrameUpdateHacks()
-
-        // =====================================================================
-        // HOTKEY: SET INVINCIBLE (F11 or B button)
-        // =====================================================================
-        // NOTE: InGameHack_SetInvincible is now called from HackThread.cpp::FrameUpdateHacks()
-
-        // ===== REBUILD MYSELF HOTKEY =====
-        // NOTE: InGameHack_RebuildMyself is now called from HackThread.cpp::FrameUpdateHacks()
-        // via EnqueueHack() to avoid duplicate calls and maintain consistency
-
-        // ===== RUN CH202 INIT TRANSMISSION LEVEL 5 AUTO-APPLY =====
-        try
-        {
-            // Auto-apply CH202 init trans level 5 once if enabled
-            if (ImGuiMenu::g_Settings.EnableCH202InitTransLevel5)
+            try
             {
-                if (IsValidBattleMode())
-                {
-                    InGameHack_SetInitTransMissionLevel(0, 5);
-                    // Disable after execution to prevent re-execution
-                    ImGuiMenu::g_Settings.EnableCH202InitTransLevel5 = false;
-                }
+                SDK_RunAimbot();
             }
-        }
-        catch (...)
-        {
-}
-
-        // ===== RUN RELOAD ADJUST RATE BUFFS =====
-        try
-        {
-            // Only apply reload buffs in valid battle modes
-            if (IsValidBattleMode())
+            catch (...)
             {
-                // Apply general reload adjust rate
-                if (ImGuiMenu::g_Settings.ReloadAdjustRate != 1.0f)
-                {
-                    InGameHack_SetReloadAdjustRate(ImGuiMenu::g_Settings.ReloadAdjustRate);
-                }
-                
-                // Apply reload adjust rate for roll slot
-                if (ImGuiMenu::g_Settings.ReloadAdjustRate_RollSlot != 1.0f)
-                {
-                    InGameHack_SetReloadAdjustRate_RollSlot(ImGuiMenu::g_Settings.ReloadAdjustRate_RollSlot);
-                }
-                
-                // Apply reload adjust rate for blue flame
-                if (ImGuiMenu::g_Settings.ReloadAdjustRate_WearBlueFlame != 1.0f)
-                {
-                    InGameHack_SetReloadAdjustRate_WearBlueFlame(ImGuiMenu::g_Settings.ReloadAdjustRate_WearBlueFlame);
-                }
-            }
-        }
-        catch (...)
-        {
 }
-
-        // ===== TRAINING MODE - PLAYER CHARACTER CONFIGURATION =====
-        try
-        {
-            // Get player controller
-            SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-            if (playerController)
-            {
-                // Find and cast to UTrainingMenuWidget to configure training player
-                // This needs to be called when "Apply Player Configuration" button is pressed
-                // For now, we just ensure the settings are stored for training mode
-                
-                // Note: To actually apply the training player config, you need to call:
-                // trainingWidget->OnSetPlayerCharacter(
-                //     (ECharacterId)g_Settings.TrainingPlayerCharacter,
-                //     g_Settings.TrainingPlayerUnique1,
-                //     g_Settings.TrainingPlayerUnique2,
-                //     g_Settings.TrainingPlayerUnique3,
-                //     g_Settings.TrainingPlayerSkillCode);
-            }
         }
-        catch (...)
-        {
-}
 
-        // NOTE: Recovery functions (RecoverMe, RecoverTeam, RecoverAllESP) are now called
-        // from HackThread.cpp::FrameUpdateHacks() via EnqueueHack() to avoid duplicate calls
+        }
 
         // ===== RUN SILENT AIM (BULLET TP) - DISABLED =====
         // BulletTP has been disabled
@@ -237,14 +226,52 @@ namespace D3D11Hook
 
         // Drawing is now done in ImGuiMenu::Render() at the right time (after NewFrame, before Render)
 
-        HRESULT hr = g_OriginalPresent(pSwapChain, SyncInterval, Flags);
+        HRESULT hr = originalPresent(pSwapChain, SyncInterval, Flags);
 
-        g_InHookedPresent = false;
         return hr;
+    }
+
+    static HRESULT WINAPI HookedResizeBuffers(
+        IDXGISwapChain* pSwapChain,
+        UINT BufferCount,
+        UINT Width,
+        UINT Height,
+        DXGI_FORMAT NewFormat,
+        UINT SwapChainFlags)
+    {
+        ResizeBuffersFn originalResizeBuffers = g_OriginalResizeBuffers;
+        if (!originalResizeBuffers)
+            return DXGI_ERROR_INVALID_CALL;
+
+        struct ResizeBuffersCallScope
+        {
+            ResizeBuffersCallScope()
+            {
+                g_ResizeBuffersCallDepth.fetch_add(1, std::memory_order_acq_rel);
+            }
+
+            ~ResizeBuffersCallScope()
+            {
+                g_ResizeBuffersCallDepth.fetch_sub(1, std::memory_order_acq_rel);
+            }
+        } resizeBuffersCallScope;
+
+        ImGuiMenu::InvalidateRenderTarget();
+
+        if (UnloadManager::IsUnloadRequested())
+            RestorePresentHook();
+
+        return originalResizeBuffers(pSwapChain, BufferCount, Width, Height, NewFormat, SwapChainFlags);
     }
 
     bool Initialize()
     {
+        if (UnloadManager::IsUnloadRequested())
+            return false;
+
+        if (g_OriginalPresent && g_PresentVTableSlot)
+            return true;
+
 // Créer une fenêtre temporaire
         WNDCLASSEXW wc{ sizeof(wc), CS_CLASSDC, DefWindowProcW, 0L, 0L,
             GetModuleHandleW(nullptr), nullptr, nullptr, nullptr, nullptr,
@@ -295,11 +322,18 @@ DestroyWindow(hwnd);
         // Hooker la vtable du swapchain
         void** vtable = *reinterpret_cast<void***>(swap);
         g_OriginalPresent = reinterpret_cast<PresentFn>(vtable[8]);
+        g_OriginalResizeBuffers = reinterpret_cast<ResizeBuffersFn>(vtable[13]);
+        g_PresentVTableSlot = &vtable[8];
+        g_ResizeBuffersVTableSlot = &vtable[13];
+        g_PresentHookRestored.store(false, std::memory_order_release);
 
         DWORD old;
         VirtualProtect(&vtable[8], sizeof(void*), PAGE_EXECUTE_READWRITE, &old);
         vtable[8] = reinterpret_cast<void*>(&HookedPresent);
         VirtualProtect(&vtable[8], sizeof(void*), old, &old);
+        VirtualProtect(&vtable[13], sizeof(void*), PAGE_EXECUTE_READWRITE, &old);
+        vtable[13] = reinterpret_cast<void*>(&HookedResizeBuffers);
+        VirtualProtect(&vtable[13], sizeof(void*), old, &old);
 swap->Release();
         context->Release();
         device->Release();
@@ -312,6 +346,12 @@ swap->Release();
 
     void Shutdown()
     {
+        InGameHack_RestoreInfiniteObjectsPatch();
+        RestorePresentHook();
+
+        for (int i = 0; i < 200 && g_PresentCallDepth.load(std::memory_order_acquire) > 0; ++i)
+            Sleep(1);
+
 if (g_ImGuiInit)
         {
             ImGuiMenu::Shutdown();
@@ -330,10 +370,45 @@ if (g_ImGuiInit)
         }
 
         g_OriginalPresent = nullptr;
+        g_OriginalResizeBuffers = nullptr;
+        g_GameWindow = nullptr;
+        g_PresentCalled.store(false, std::memory_order_relaxed);
 }
+
+    void RestoreHookOnly()
+    {
+        ImGuiMenu::RestoreWindowProc();
+        RestorePresentHook();
+    }
 
     ID3D11Device* GetDevice() { return g_Device; }
     ID3D11DeviceContext* GetContext() { return g_Context; }
     HWND GetGameWindow() { return g_GameWindow; }
     bool IsHookInstalled() { return g_PresentCalled.load(); }
+    bool IsPresentHookRestored() { return g_PresentHookRestored.load(std::memory_order_acquire); }
+    bool HasActivePresentCall() { return g_PresentCallDepth.load(std::memory_order_acquire) > 0; }
+    bool IsSafeToUnload()
+    {
+        return IsPresentHookRestored() &&
+            g_PresentCallDepth.load(std::memory_order_acquire) == 0 &&
+            g_ResizeBuffersCallDepth.load(std::memory_order_acquire) == 0 &&
+            !ImGuiMenu::HasActiveWindowProc();
+    }
+
+    void ReleaseResourcesForUnload()
+    {
+        ImGuiMenu::InvalidateRenderTarget();
+
+        if (g_Context)
+        {
+            g_Context->Release();
+            g_Context = nullptr;
+        }
+
+        if (g_Device)
+        {
+            g_Device->Release();
+            g_Device = nullptr;
+        }
+    }
 }

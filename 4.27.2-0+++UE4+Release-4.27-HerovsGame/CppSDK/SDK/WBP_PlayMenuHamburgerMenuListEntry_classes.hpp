@@ -44,6 +44,5 @@ public:
 		return GetDefaultObjImpl<UWBP_PlayMenuHamburgerMenuListEntry_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_PlayMenuHamburgerMenuListEntry_C;
 
 SDK_NAMESPACE_END

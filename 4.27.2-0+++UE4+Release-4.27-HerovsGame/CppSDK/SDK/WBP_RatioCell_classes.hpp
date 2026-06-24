@@ -43,6 +43,5 @@ public:
 		return GetDefaultObjImpl<UWBP_RatioCell_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_RatioCell_C;
 
 SDK_NAMESPACE_END

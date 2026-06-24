@@ -43,6 +43,5 @@ public:
 		return GetDefaultObjImpl<UWBP_PlayMenuReadyTimer_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_PlayMenuReadyTimer_C;
 
 SDK_NAMESPACE_END

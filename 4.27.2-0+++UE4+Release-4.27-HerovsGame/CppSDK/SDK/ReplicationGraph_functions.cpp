@@ -67,9 +67,9 @@ void AReplicationGraphDebugActor::ServerCellInfo()
 // Function ReplicationGraph.ReplicationGraphDebugActor.ServerPrintAllActorInfo
 // (Net, NetReliable, Native, Event, Public, NetServer)
 // Parameters:
-// const class FString&                    str                                                    (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+// const class FString&                    Str                                                    (Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 
-void AReplicationGraphDebugActor::ServerPrintAllActorInfo(const class FString& str)
+void AReplicationGraphDebugActor::ServerPrintAllActorInfo(const class FString& Str)
 {
 	static class UFunction* Func = nullptr;
 
@@ -78,7 +78,7 @@ void AReplicationGraphDebugActor::ServerPrintAllActorInfo(const class FString& s
 
 	Params::ReplicationGraphDebugActor_ServerPrintAllActorInfo Parms{};
 
-	Parms.str = std::move(str);
+	Parms.Str = std::move(Str);
 
 	auto Flgs = Func->FunctionFlags;
 	Func->FunctionFlags |= 0x400;

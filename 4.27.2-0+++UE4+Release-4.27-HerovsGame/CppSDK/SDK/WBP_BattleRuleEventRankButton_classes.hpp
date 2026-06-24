@@ -42,6 +42,5 @@ public:
 		return GetDefaultObjImpl<UWBP_BattleRuleEventRankButton_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_BattleRuleEventRankButton_C;
 
 SDK_NAMESPACE_END

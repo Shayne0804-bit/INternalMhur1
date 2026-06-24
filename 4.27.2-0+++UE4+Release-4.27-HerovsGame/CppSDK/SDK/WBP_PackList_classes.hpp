@@ -39,6 +39,5 @@ public:
 		return GetDefaultObjImpl<UWBP_PackList_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_PackList_C;
 
 SDK_NAMESPACE_END

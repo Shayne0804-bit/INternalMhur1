@@ -24,7 +24,6 @@ public:
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class UMaterialInstanceDynamic*               CallFunc_CreateDynamicMaterialInstance_ReturnValue; // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_CharacterSelectAssign_C_ExecuteUbergraph_WBP_CharacterSelectAssign;
 
 // Function WBP_CharacterSelectAssign.WBP_CharacterSelectAssign_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -33,7 +32,6 @@ struct WBP_CharacterSelectAssign_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_CharacterSelectAssign_C_PreConstruct;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

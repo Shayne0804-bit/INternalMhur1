@@ -10,9 +10,14 @@ namespace D3D11Hook
 
     bool Initialize();
     void Shutdown();
+    void RestoreHookOnly();
     
     ID3D11Device* GetDevice();
     ID3D11DeviceContext* GetContext();
     HWND GetGameWindow();
     bool IsHookInstalled();
+    bool IsPresentHookRestored();
+    bool HasActivePresentCall();
+    bool IsSafeToUnload();
+    void ReleaseResourcesForUnload();
 }

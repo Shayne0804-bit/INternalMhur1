@@ -17,7 +17,7 @@
 SDK_NAMESPACE_START
 
 // Function WBP_TextChat.WBP_TextChat_C.ExecuteUbergraph_WBP_TextChat
-// (Final, UbergraphFunction, HasDefaults)
+// (Final, UbergraphFunction)
 // Parameters:
 // int32                                   EntryPoint                                             (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
@@ -150,40 +150,6 @@ void UWBP_TextChat_C::PreConstruct(bool IsDesignTime)
 }
 
 
-// Function WBP_TextChat.WBP_TextChat_C.CreateAnkerMap
-// (Event, Public, BlueprintEvent)
-
-void UWBP_TextChat_C::CreateAnkerMap()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_TextChat_C", "CreateAnkerMap");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
-// Function WBP_TextChat.WBP_TextChat_C.SetVisiblityNewMessage
-// (BlueprintEvent)
-// Parameters:
-// ESlateVisibility                        visivle                                                (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-
-void UWBP_TextChat_C::SetVisiblityNewMessage(ESlateVisibility visivle)
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_TextChat_C", "SetVisiblityNewMessage");
-
-	Params::WBP_TextChat_C_SetVisiblityNewMessage Parms{};
-
-	Parms.visivle = visivle;
-
-	UObject::ProcessEvent(Func, &Parms);
-}
-
-
 // Function WBP_TextChat.WBP_TextChat_C._textChatRecieveEvent_イベント_0
 // (BlueprintCallable, BlueprintEvent)
 // Parameters:
@@ -229,6 +195,26 @@ void UWBP_TextChat_C::_OnCloseConsentEventDispather_イベント_0()
 		Func = Class->GetFunction("WBP_TextChat_C", "_OnCloseConsentEventDispather_イベント_0");
 
 	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WBP_TextChat.WBP_TextChat_C.SetVisiblityNewMessage
+// (BlueprintEvent)
+// Parameters:
+// ESlateVisibility                        visivle                                                (BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+
+void UWBP_TextChat_C::SetVisiblityNewMessage(ESlateVisibility visivle)
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_TextChat_C", "SetVisiblityNewMessage");
+
+	Params::WBP_TextChat_C_SetVisiblityNewMessage Parms{};
+
+	Parms.visivle = visivle;
+
+	UObject::ProcessEvent(Func, &Parms);
 }
 
 
@@ -308,20 +294,6 @@ void UWBP_TextChat_C::OnBGHiddenSetEvent()
 }
 
 
-// Function WBP_TextChat.WBP_TextChat_C.OnBGVisiblitySetEvent
-// (BlueprintCallable, BlueprintEvent)
-
-void UWBP_TextChat_C::OnBGVisiblitySetEvent()
-{
-	static class UFunction* Func = nullptr;
-
-	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_TextChat_C", "OnBGVisiblitySetEvent");
-
-	UObject::ProcessEvent(Func, nullptr);
-}
-
-
 // Function WBP_TextChat.WBP_TextChat_C.OnOpenConsentEventDispather
 // (BlueprintCallable, BlueprintEvent)
 
@@ -331,6 +303,20 @@ void UWBP_TextChat_C::OnOpenConsentEventDispather()
 
 	if (Func == nullptr)
 		Func = Class->GetFunction("WBP_TextChat_C", "OnOpenConsentEventDispather");
+
+	UObject::ProcessEvent(Func, nullptr);
+}
+
+
+// Function WBP_TextChat.WBP_TextChat_C.OnBGVisiblitySetEvent
+// (BlueprintCallable, BlueprintEvent)
+
+void UWBP_TextChat_C::OnBGVisiblitySetEvent()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("WBP_TextChat_C", "OnBGVisiblitySetEvent");
 
 	UObject::ProcessEvent(Func, nullptr);
 }

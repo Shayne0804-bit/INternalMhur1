@@ -12,47 +12,52 @@
 
 #include "InGameModule_structs.hpp"
 #include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch012_ActionAttack_Special.BP_Ch012_ActionAttack_Special_C
-// 0x0028 (0x04D0 - 0x04A8)
-class UBP_Ch012_ActionAttack_Special_C final : public UActionAttackSpecialBase
+// 0x0028 (0x0518 - 0x04F0)
+class UBP_Ch012_ActionAttack_Special_C final : public UCh012_ActionAttack_Special
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04A8(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	bool                                          bPiggyBackNow;                                     // 0x04B0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_4B1[0x3];                                      // 0x04B1(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
-	float                                         jumpSeconds;                                       // 0x04B4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	float                                         forwardJumpSeconds;                                // 0x04B8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	struct FVector                                jumpDirection;                                     // 0x04BC(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          IsMagazineEmpty;                                   // 0x04C8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x04F0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	bool                                          bPiggyBackNow;                                     // 0x04F8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_4F9[0x3];                                      // 0x04F9(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
+	float                                         jumpSeconds;                                       // 0x04FC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	float                                         forwardJumpSeconds;                                // 0x0500(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FVector                                jumpDirection;                                     // 0x0504(0x000C)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          IsMagazineEmpty;                                   // 0x0510(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
+	bool                                          IsMagazineEmptyStart;                              // 0x0511(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor)
 
 public:
-	void Turning(float* Turn_Span);
-	void Initialize();
-	void BP_OnBeginActionAttackGround(const class FName& prevAction);
-	void BP_ActionAttackMainGround();
-	void BP_ActionAttackRemoteGround();
-	void BP_OnChangeAttackPhaseGround(int32 nextPhase);
-	void BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase);
-	void BP_ActionMain();
-	void Piggyback_End();
-	void Piggyback_Move();
-	void Piggyback_Begin();
-	void BP_ActionRemote();
-	void BP_OnEndAction(const class FName& nextAction);
-	void BP_OnAbortGrabEvent();
-	void HoldingMain();
-	void HoldingRemote();
-	void BP_OnEmptyMagazine();
-	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
-	void BP_OnBeginCondition(ECharacterConditionId ID, int32 Level, float value, class APlayerStateBattle* instigatedPlayer);
 	void ExecuteUbergraph_BP_Ch012_ActionAttack_Special(int32 EntryPoint);
+	void BP_OnBeginCondition(ECharacterConditionId ID, int32 Level, float value, class APlayerStateBattle* instigatedPlayer);
+	void BP_OnNotificationAttackDedicatedEvent(EAttackDedicatedEventId ID);
+	void BP_OnEmptyMagazine();
+	void HoldingRemote();
+	void HoldingMain();
+	void BP_OnAbortGrabEvent();
+	void BP_OnEndAction(const class FName& nextAction);
+	void BP_ActionRemote();
+	void Piggyback_Begin();
+	void Piggyback_Move();
+	void Piggyback_End();
+	void BP_ActionMain();
+	void BP_OnChangeAttackPhaseGroundForRemote(int32 nextPhase);
+	void BP_OnChangeAttackPhaseGround(int32 nextPhase);
+	void BP_ActionAttackRemoteGround();
+	void BP_ActionAttackMainGround();
+	void BP_OnBeginActionAttackGround(const class FName& prevAction);
+	void Initialize();
+	void Turning(float* Turn_Span);
+	void CheckReloadStop();
+	void CheckReloadStart();
+	bool IsRequestEndPiggyBag();
+	bool IsForceEndPiggyBag();
 
 	bool BP_IsEnableShiftAction(const class FName& nextAction) const;
 

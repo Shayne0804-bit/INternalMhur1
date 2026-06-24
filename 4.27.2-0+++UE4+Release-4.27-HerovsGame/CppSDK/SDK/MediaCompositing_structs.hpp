@@ -48,7 +48,7 @@ public:
 struct FMovieSceneMediaSectionTemplate final : public FMovieSceneEvalTemplate
 {
 public:
-	struct FMovieSceneMediaSectionParams          Params;                                            // 0x0020(0x0030)(NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPrivate)
+	struct FMovieSceneMediaSectionParams          params;                                            // 0x0020(0x0030)(NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPrivate)
 };
 
 SDK_NAMESPACE_END

@@ -33,7 +33,6 @@ public:
 	uint8                                         Pad_29[0x7];                                       // 0x0029(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class ULevelStreamingDynamic*                 CallFunc_LoadDynamicLevel_LevelInstance;           // 0x0030(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Contact_Invitation_C_ExecuteUbergraph_WBP_Contact_Invitation;
 
 // Function WBP_Contact_Invitation.WBP_Contact_Invitation_C.BndEvt__WBP_Contact_Invitation__generalWindowDelete_K2Node_ComponentBoundEvent_0_OnWindowInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -44,7 +43,6 @@ public:
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          leftButton;                                        // 0x0009(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_Contact_Invitation_C_BndEvt__WBP_Contact_Invitation__generalWindowDelete_K2Node_ComponentBoundEvent_0_OnWindowInputEventDelegate__DelegateSignature;
 
 // Function WBP_Contact_Invitation.WBP_Contact_Invitation_C.UpdateAllReadIcon
 // 0x0004 (0x0004 - 0x0000)
@@ -53,7 +51,6 @@ struct WBP_Contact_Invitation_C_UpdateAllReadIcon final
 public:
 	int32                                         CallFunc_IsUnreadListParams_ReturnValue;           // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_Contact_Invitation_C_UpdateAllReadIcon;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

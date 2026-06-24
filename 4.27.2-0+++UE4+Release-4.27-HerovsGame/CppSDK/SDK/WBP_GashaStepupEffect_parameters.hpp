@@ -25,7 +25,6 @@ public:
 	class UGashaDatabaseWork*                     CallFunc_GetGameInstanceSubsystem_ReturnValue_1;   // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         CallFunc_GetStepUpNextStep_ReturnValue;            // 0x0018(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_GashaStepupEffect_C_ExecuteUbergraph_WBP_GashaStepupEffect;
 
 // Function WBP_GashaStepupEffect.WBP_GashaStepupEffect_C.OepnStepupPopup
 // 0x0010 (0x0010 - 0x0000)
@@ -37,7 +36,6 @@ public:
 	int32                                         rotValue;                                          // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         rotMax;                                            // 0x000C(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_GashaStepupEffect_C_OepnStepupPopup;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

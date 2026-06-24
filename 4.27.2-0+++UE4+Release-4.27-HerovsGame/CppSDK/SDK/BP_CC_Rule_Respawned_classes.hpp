@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
@@ -27,9 +27,9 @@ public:
 
 public:
 	void ExecuteUbergraph_BP_CC_Rule_Respawned(int32 EntryPoint);
-	void BP_OnUpdateIntervalValue(float value);
 	void BP_OnEndCondition();
 	void BP_OnBeginCondition();
+	void BP_OnUpdateIntervalValue(float value);
 
 public:
 	static class UClass* StaticClass()

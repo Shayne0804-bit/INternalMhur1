@@ -29,7 +29,6 @@ public:
 	EWidgetInputType                              K2Node_CustomEvent_inputType;                      // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_IsBuyNowPremium_ReturnValue;              // 0x0029(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_PremiumLoginBonusButton_C_ExecuteUbergraph_WBP_PremiumLoginBonusButton;
 
 // Function WBP_PremiumLoginBonusButton.WBP_PremiumLoginBonusButton_C.CustomEvent_0
 // 0x0010 (0x0010 - 0x0000)
@@ -39,7 +38,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_PremiumLoginBonusButton_C_CustomEvent_0;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

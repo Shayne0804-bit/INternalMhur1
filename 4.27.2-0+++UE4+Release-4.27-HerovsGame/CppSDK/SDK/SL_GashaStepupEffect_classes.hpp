@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ASL_GashaStepupEffect_C>();
 	}
 };
-DUMPER7_ASSERTS_ASL_GashaStepupEffect_C;
 
 SDK_NAMESPACE_END

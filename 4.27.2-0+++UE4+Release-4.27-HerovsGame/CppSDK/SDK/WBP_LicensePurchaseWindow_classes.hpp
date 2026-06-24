@@ -92,6 +92,5 @@ public:
 		return GetDefaultObjImpl<UWBP_LicensePurchaseWindow_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_LicensePurchaseWindow_C;
 
 SDK_NAMESPACE_END

@@ -10,12 +10,12 @@
 
 #include "Basic.hpp"
 
-#include "SlateCore_structs.hpp"
-#include "Engine_structs.hpp"
+#include "InputCore_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "SlateCore_structs.hpp"
 #include "OutGameModule_structs.hpp"
 #include "OutGameModule_classes.hpp"
-#include "InputCore_structs.hpp"
 #include "UIFramework_structs.hpp"
 
 
@@ -81,7 +81,7 @@ public:
 	class UWBP_AdjustText_C*                      WBP_AdjustText_112;                                // 0x0788(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 	class UWBP_Setting_Button_Key_C*              X;                                                 // 0x0790(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 	class UWBP_Setting_Button_Key_C*              Y;                                                 // 0x0798(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	TMulticastInlineDelegate<void(int32 selectindex)> CloseKeyConfigPopup;                           // 0x07A0(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
+	TMulticastInlineDelegate<void(int32 selectindex, bool leftButton)> CloseKeyConfigPopup;          // 0x07A0(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
 	TMulticastInlineDelegate<void(EKeyConfigCommandListType listType, EKeyConfigurableCommand curCommand)> OpenKeyConfigPopup; // 0x07B0(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
 	class UWBP_Setting_Button_Key_C*              Temp;                                              // 0x07C0(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	TMap<EKeyConfigurableCommand, struct FKey>    OnCommandList;                                     // 0x07C8(0x0050)(Edit, BlueprintVisible, DisableEditOnInstance)
@@ -101,7 +101,7 @@ public:
 	void BP_GameKeyboardButtonOptionDataSetting();
 	void CheckSwap(EKeyConfigurableCommand prevCommand, EKeyConfigurableCommand nextCommand);
 	void BP_GamePadButtonOptionDataSetting();
-	void TargetSettingCommand(int32 selectindex);
+	void TargetSettingCommand(int32 selectindex, bool leftButton);
 	void BndEvt__WBP_Setting_KeyConfig_A_K2Node_ComponentBoundEvent_23_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
 	void BndEvt__WBP_Setting_KeyConfig_B_K2Node_ComponentBoundEvent_22_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
 	void BndEvt__WBP_Setting_KeyConfig_X_K2Node_ComponentBoundEvent_21_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
@@ -179,6 +179,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Setting_Observer_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Setting_Observer_C;
 
 SDK_NAMESPACE_END

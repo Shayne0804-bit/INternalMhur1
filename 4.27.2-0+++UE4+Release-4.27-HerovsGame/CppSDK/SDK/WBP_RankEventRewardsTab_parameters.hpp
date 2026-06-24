@@ -10,6 +10,8 @@
 
 #include "Basic.hpp"
 
+#include "SlateCore_structs.hpp"
+#include "UMG_structs.hpp"
 #include "UIFramework_structs.hpp"
 
 
@@ -26,7 +28,6 @@ public:
 	class UAppWidget*                             K2Node_ComponentBoundEvent_widget;                 // 0x0008(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType;              // 0x0010(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_RankEventRewardsTab_C_ExecuteUbergraph_WBP_RankEventRewardsTab;
 
 // Function WBP_RankEventRewardsTab.WBP_RankEventRewardsTab_C.BndEvt__WBP_RankEventRewardsTab_WBP_ReturnButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -36,7 +37,18 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_RankEventRewardsTab_C_BndEvt__WBP_RankEventRewardsTab_WBP_ReturnButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature;
+
+// Function WBP_RankEventRewardsTab.WBP_RankEventRewardsTab_C.OnAnalogValueChanged
+// 0x02A0 (0x02A0 - 0x0000)
+struct WBP_RankEventRewardsTab_C_OnAnalogValueChanged final
+{
+public:
+	struct FGeometry                              MyGeometry;                                        // 0x0000(0x0038)(BlueprintVisible, BlueprintReadOnly, Parm, IsPlainOldData, NoDestructor)
+	struct FAnalogInputEvent                      InAnalogInputEvent;                                // 0x0038(0x0040)(BlueprintVisible, BlueprintReadOnly, Parm)
+	struct FEventReply                            ReturnValue;                                       // 0x0078(0x00B8)(Parm, OutParm, ReturnParm)
+	struct FEventReply                            CallFunc_OnAnalogValueChanged_ReturnValue;         // 0x0130(0x00B8)()
+	struct FEventReply                            CallFunc_Unhandled_ReturnValue;                    // 0x01E8(0x00B8)()
+};
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

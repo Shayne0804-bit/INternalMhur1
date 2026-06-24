@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
+#include "InGameModule_structs.hpp"
 #include "CoreUObject_structs.hpp"
 #include "GameModule_structs.hpp"
-#include "InGameModule_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -45,7 +45,7 @@ public:
 struct BP_ActionDamageStrongCarryFront_C_DecideAnimationId final
 {
 public:
-	EAnimationId                                  AnimationId;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	EAnimationId                                  animationId;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	uint8                                         CallFunc_MakeLiteralByte_ReturnValue;              // 0x0001(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
 

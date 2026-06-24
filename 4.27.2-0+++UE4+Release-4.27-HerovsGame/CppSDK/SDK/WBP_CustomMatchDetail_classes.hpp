@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "SlateCore_structs.hpp"
 #include "Engine_structs.hpp"
+#include "SlateCore_structs.hpp"
 #include "UIFramework_structs.hpp"
 #include "UIFramework_classes.hpp"
 
@@ -19,32 +19,37 @@
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_CustomMatchDetail.WBP_CustomMatchDetail_C
-// 0x00D8 (0x0448 - 0x0370)
+// 0x00F8 (0x0468 - 0x0370)
 class UWBP_CustomMatchDetail_C final : public UWidgetBase
 {
 public:
 	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0370(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
 	class UImage*                                 backImage;                                         // 0x0378(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 	class UImage*                                 backImage_1;                                       // 0x0380(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 Image_95;                                          // 0x0388(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 Image_239;                                         // 0x0390(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UTextBlock*                             TextBlock_0;                                       // 0x0398(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UTextBlock*                             TextBlock_32;                                      // 0x03A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_CheckButton_C*                     WBP_CheckButton;                                   // 0x03A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_FocusAnimationListItem_C*          WBP_FocusAnimationListItem;                        // 0x03B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UWBP_WindowButton_C*                    WBP_WindowButton;                                  // 0x03B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	TMulticastInlineDelegate<void()>              OnDecideButtonEvent;                               // 0x03C0(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
-	struct FSlateColor                            Color;                                             // 0x03D0(0x0028)(Edit, BlueprintVisible)
-	class FText                                   Text;                                              // 0x03F8(0x0018)(Edit, BlueprintVisible)
-	class FText                                   ButtonText;                                        // 0x0410(0x0018)(Edit, BlueprintVisible)
-	class UTexture2D*                             Texture;                                           // 0x0428(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
-	bool                                          IsRoomIdButton;                                    // 0x0430(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor)
-	uint8                                         Pad_431[0x7];                                      // 0x0431(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
-	TMulticastInlineDelegate<void(bool check)>    OnChangeCheckButton;                               // 0x0438(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
+	class UImage*                                 BG;                                                // 0x0388(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_CustomMatchDetail_EditButton_C*    EditButton;                                        // 0x0390(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_CustomMatchDetail_HiddeButton_C*   HiddeButton;                                       // 0x0398(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 Image_95;                                          // 0x03A0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 Image_239;                                         // 0x03A8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UTextBlock*                             TextBlock_0;                                       // 0x03B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UTextBlock*                             TextBlock_32;                                      // 0x03B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_FocusAnimationListItem_C*          WBP_FocusAnimationListItem;                        // 0x03C0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UWBP_WindowButton_C*                    WBP_WindowButton;                                  // 0x03C8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	TMulticastInlineDelegate<void()>              OnDecideButtonEvent;                               // 0x03D0(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
+	struct FSlateColor                            Color;                                             // 0x03E0(0x0028)(Edit, BlueprintVisible)
+	class FText                                   Text;                                              // 0x0408(0x0018)(Edit, BlueprintVisible)
+	class FText                                   ButtonText;                                        // 0x0420(0x0018)(Edit, BlueprintVisible)
+	class UTexture2D*                             Texture;                                           // 0x0438(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	bool                                          IsRoomIdButton;                                    // 0x0440(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_441[0x7];                                      // 0x0441(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
+	TMulticastInlineDelegate<void(bool bHidden)>  OnChangeHiddenButton;                              // 0x0448(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
+	TMulticastInlineDelegate<void(bool bAllowEdit)> OnChangeEditButton;                              // 0x0458(0x0010)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, BlueprintAssignable, BlueprintCallable)
 
 public:
 	void ExecuteUbergraph_WBP_CustomMatchDetail(int32 EntryPoint);
-	void BndEvt__WBP_CustomMatchDetail_WBP_CheckButton_K2Node_ComponentBoundEvent_2_OnChangeStateDelegate__DelegateSignature(bool bCheck);
+	void FocusWindowButton(class UAppWidget* Widget, EWidgetInputType inputType);
+	void BndEvt__WBP_CustomMatchDetail_WBP_CustomMatchDetail_HiddeButton_K2Node_ComponentBoundEvent_3_OnChangeStateDelegate__DelegateSignature(bool bCheck);
+	void BndEvt__WBP_CustomMatchDetail_WBP_CustomMatchDetail_EditButton_K2Node_ComponentBoundEvent_1_OnChangeStateDelegate__DelegateSignature(bool bCheck);
 	void PreConstruct(bool IsDesignTime);
 	void BndEvt__WBP_CustomMatchDetail_WBP_WindowButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature(class UAppWidget* Widget, EWidgetInputType inputType);
 	void SetFocusButton();
@@ -63,6 +68,5 @@ public:
 		return GetDefaultObjImpl<UWBP_CustomMatchDetail_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_CustomMatchDetail_C;
 
 SDK_NAMESPACE_END

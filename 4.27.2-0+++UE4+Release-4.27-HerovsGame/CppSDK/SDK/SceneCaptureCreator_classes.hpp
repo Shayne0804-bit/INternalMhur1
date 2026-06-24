@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<ASceneCaptureCreator_C>();
 	}
 };
-DUMPER7_ASSERTS_ASceneCaptureCreator_C;
 
 SDK_NAMESPACE_END

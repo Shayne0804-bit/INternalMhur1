@@ -27,7 +27,6 @@ public:
 	class UBattleRuleListEntryObject*             K2Node_DynamicCast_AsBattle_Rule_List_Entry_Object; // 0x0018(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x0020(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_BattleRule_C_ExecuteUbergraph_WBP_BattleRule;
 
 // Function WBP_BattleRule.WBP_BattleRule_C.BndEvt__WBP_BattleRule__playModeRuleTileView_K2Node_ComponentBoundEvent_7_OnListItemSelectionChangedDynamic__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -37,7 +36,6 @@ public:
 	class UObject*                                Item;                                              // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          bIsSelected;                                       // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_BattleRule_C_BndEvt__WBP_BattleRule__playModeRuleTileView_K2Node_ComponentBoundEvent_7_OnListItemSelectionChangedDynamic__DelegateSignature;
 
 // Function WBP_BattleRule.WBP_BattleRule_C.OpenWindow
 // 0x0010 (0x0010 - 0x0000)
@@ -49,7 +47,6 @@ public:
 	uint8                                         Pad_2[0x6];                                        // 0x0002(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	class UUMGSequencePlayer*                     CallFunc_PlayAnimation_ReturnValue;                // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_BattleRule_C_OpenWindow;
 
 // Function WBP_BattleRule.WBP_BattleRule_C.SetCurrentSelect
 // 0x0020 (0x0020 - 0x0000)
@@ -62,7 +59,6 @@ public:
 	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue;                  // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_IsValid_ReturnValue;                      // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_BattleRule_C_SetCurrentSelect;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<APL_MainMenu_C>();
 	}
 };
-DUMPER7_ASSERTS_APL_MainMenu_C;
 
 SDK_NAMESPACE_END

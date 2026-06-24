@@ -18,7 +18,7 @@ SDK_NAMESPACE_START
 SDK_PARAM_NAMESPACE_START
 
 // Function WBP_SerialCode.WBP_SerialCode_C.ExecuteUbergraph_WBP_SerialCode
-// 0x0028 (0x0028 - 0x0000)
+// 0x0088 (0x0088 - 0x0000)
 struct WBP_SerialCode_C_ExecuteUbergraph_WBP_SerialCode final
 {
 public:
@@ -31,8 +31,49 @@ public:
 	class UAppWidget*                             K2Node_ComponentBoundEvent_widget;                 // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType;              // 0x0020(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_ComponentBoundEvent_leftButton;             // 0x0021(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	uint8                                         Pad_22[0x6];                                       // 0x0022(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
+	class FText                                   K2Node_ComponentBoundEvent_Text_2;                 // 0x0028(0x0018)()
+	bool                                          K2Node_ComponentBoundEvent_bSendable_2;            // 0x0040(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	ETextCommit                                   K2Node_ComponentBoundEvent_CommitMethod_2;         // 0x0041(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_42[0x6];                                       // 0x0042(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
+	class FText                                   K2Node_ComponentBoundEvent_Text_1;                 // 0x0048(0x0018)()
+	bool                                          K2Node_ComponentBoundEvent_bSendable_1;            // 0x0060(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	ETextCommit                                   K2Node_ComponentBoundEvent_CommitMethod_1;         // 0x0061(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	uint8                                         Pad_62[0x6];                                       // 0x0062(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
+	class FText                                   K2Node_ComponentBoundEvent_Text;                   // 0x0068(0x0018)()
+	bool                                          K2Node_ComponentBoundEvent_bSendable;              // 0x0080(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
+	ETextCommit                                   K2Node_ComponentBoundEvent_CommitMethod;           // 0x0081(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SerialCode_C_ExecuteUbergraph_WBP_SerialCode;
+
+// Function WBP_SerialCode.WBP_SerialCode_C.BndEvt__WBP_SerialCode__SerialCode_InputText_3_K2Node_ComponentBoundEvent_7_OnChangeText__DelegateSignature
+// 0x0020 (0x0020 - 0x0000)
+struct WBP_SerialCode_C_BndEvt__WBP_SerialCode__SerialCode_InputText_3_K2Node_ComponentBoundEvent_7_OnChangeText__DelegateSignature final
+{
+public:
+	class FText                                   Text;                                              // 0x0000(0x0018)(BlueprintVisible, BlueprintReadOnly, Parm)
+	bool                                          bSendable;                                         // 0x0018(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+	ETextCommit                                   CommitMethod;                                      // 0x0019(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function WBP_SerialCode.WBP_SerialCode_C.BndEvt__WBP_SerialCode__SerialCode_InputText_2_K2Node_ComponentBoundEvent_6_OnChangeText__DelegateSignature
+// 0x0020 (0x0020 - 0x0000)
+struct WBP_SerialCode_C_BndEvt__WBP_SerialCode__SerialCode_InputText_2_K2Node_ComponentBoundEvent_6_OnChangeText__DelegateSignature final
+{
+public:
+	class FText                                   Text;                                              // 0x0000(0x0018)(BlueprintVisible, BlueprintReadOnly, Parm)
+	bool                                          bSendable;                                         // 0x0018(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+	ETextCommit                                   CommitMethod;                                      // 0x0019(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
+
+// Function WBP_SerialCode.WBP_SerialCode_C.BndEvt__WBP_SerialCode__SerialCode_InputText_1_K2Node_ComponentBoundEvent_5_OnChangeText__DelegateSignature
+// 0x0020 (0x0020 - 0x0000)
+struct WBP_SerialCode_C_BndEvt__WBP_SerialCode__SerialCode_InputText_1_K2Node_ComponentBoundEvent_5_OnChangeText__DelegateSignature final
+{
+public:
+	class FText                                   Text;                                              // 0x0000(0x0018)(BlueprintVisible, BlueprintReadOnly, Parm)
+	bool                                          bSendable;                                         // 0x0018(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
+	ETextCommit                                   CommitMethod;                                      // 0x0019(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+};
 
 // Function WBP_SerialCode.WBP_SerialCode_C.BndEvt__WBP_SerialCode_SerialCodeCompletion_K2Node_ComponentBoundEvent_2_OnWindowInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -43,7 +84,6 @@ public:
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          leftButton;                                        // 0x0009(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_SerialCode_C_BndEvt__WBP_SerialCode_SerialCodeCompletion_K2Node_ComponentBoundEvent_2_OnWindowInputEventDelegate__DelegateSignature;
 
 // Function WBP_SerialCode.WBP_SerialCode_C.BndEvt__WBP_SerialCode_SerialCodeInput_K2Node_ComponentBoundEvent_0_OnWindowInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -54,7 +94,6 @@ public:
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          leftButton;                                        // 0x0009(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_SerialCode_C_BndEvt__WBP_SerialCode_SerialCodeInput_K2Node_ComponentBoundEvent_0_OnWindowInputEventDelegate__DelegateSignature;
 
 // Function WBP_SerialCode.WBP_SerialCode_C.GetInputText1
 // 0x0030 (0x0030 - 0x0000)
@@ -64,7 +103,6 @@ public:
 	class FText                                   ReturnValue;                                       // 0x0000(0x0018)(Parm, OutParm, ReturnParm)
 	class FText                                   CallFunc_GetText_ReturnValue;                      // 0x0018(0x0018)()
 };
-DUMPER7_ASSERTS_WBP_SerialCode_C_GetInputText1;
 
 // Function WBP_SerialCode.WBP_SerialCode_C.GetInputText2
 // 0x0030 (0x0030 - 0x0000)
@@ -74,7 +112,6 @@ public:
 	class FText                                   ReturnValue;                                       // 0x0000(0x0018)(Parm, OutParm, ReturnParm)
 	class FText                                   CallFunc_GetText_ReturnValue;                      // 0x0018(0x0018)()
 };
-DUMPER7_ASSERTS_WBP_SerialCode_C_GetInputText2;
 
 // Function WBP_SerialCode.WBP_SerialCode_C.GetInputText3
 // 0x0030 (0x0030 - 0x0000)
@@ -84,7 +121,6 @@ public:
 	class FText                                   ReturnValue;                                       // 0x0000(0x0018)(Parm, OutParm, ReturnParm)
 	class FText                                   CallFunc_GetText_ReturnValue;                      // 0x0018(0x0018)()
 };
-DUMPER7_ASSERTS_WBP_SerialCode_C_GetInputText3;
 
 // Function WBP_SerialCode.WBP_SerialCode_C.DoCustomNavigation_0
 // 0x0010 (0x0010 - 0x0000)
@@ -95,7 +131,6 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWidget*                                ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_SerialCode_C_DoCustomNavigation_0;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

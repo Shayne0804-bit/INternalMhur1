@@ -16,12 +16,12 @@
 SDK_NAMESPACE_START
 
 // WidgetBlueprintGeneratedClass WBP_ShoppingCountCarousel.WBP_ShoppingCountCarousel_C
-// 0x0010 (0x0448 - 0x0438)
+// 0x0010 (0x0450 - 0x0440)
 class UWBP_ShoppingCountCarousel_C final : public UGeneralCountCarouselWidget
 {
 public:
-	class UImage*                                 Image;                                             // 0x0438(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
-	class UImage*                                 ImageWhite;                                        // 0x0440(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 Image;                                             // 0x0440(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
+	class UImage*                                 ImageWhite;                                        // 0x0448(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, RepSkip, NoDestructor, PersistentInstance, HasGetValueTypeHash)
 
 public:
 	static class UClass* StaticClass()
@@ -37,6 +37,5 @@ public:
 		return GetDefaultObjImpl<UWBP_ShoppingCountCarousel_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_ShoppingCountCarousel_C;
 
 SDK_NAMESPACE_END

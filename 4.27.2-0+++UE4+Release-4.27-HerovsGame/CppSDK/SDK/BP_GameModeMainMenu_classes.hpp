@@ -16,11 +16,11 @@
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_GameModeMainMenu.BP_GameModeMainMenu_C
-// 0x0008 (0x03B0 - 0x03A8)
+// 0x0008 (0x03A8 - 0x03A0)
 class ABP_GameModeMainMenu_C final : public AGameModeMainMenu
 {
 public:
-	class USceneComponent*                        DefaultSceneRoot;                                  // 0x03A8(0x0008)(BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData, NonTransactional, NoDestructor, HasGetValueTypeHash)
+	class USceneComponent*                        DefaultSceneRoot;                                  // 0x03A0(0x0008)(BlueprintVisible, ZeroConstructor, InstancedReference, IsPlainOldData, NonTransactional, NoDestructor, HasGetValueTypeHash)
 
 public:
 	static class UClass* StaticClass()
@@ -36,6 +36,5 @@ public:
 		return GetDefaultObjImpl<ABP_GameModeMainMenu_C>();
 	}
 };
-DUMPER7_ASSERTS_ABP_GameModeMainMenu_C;
 
 SDK_NAMESPACE_END

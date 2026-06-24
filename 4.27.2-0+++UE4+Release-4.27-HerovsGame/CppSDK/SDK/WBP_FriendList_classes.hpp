@@ -42,6 +42,5 @@ public:
 		return GetDefaultObjImpl<UWBP_FriendList_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_FriendList_C;
 
 SDK_NAMESPACE_END

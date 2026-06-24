@@ -33,6 +33,5 @@ public:
 		return GetDefaultObjImpl<UWBP_AccountLinkage_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_AccountLinkage_C;
 
 SDK_NAMESPACE_END

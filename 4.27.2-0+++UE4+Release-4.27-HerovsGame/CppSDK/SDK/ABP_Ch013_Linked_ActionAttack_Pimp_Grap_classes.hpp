@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "AnimGraphRuntime_structs.hpp"
+#include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
@@ -44,12 +44,12 @@ public:
 	float                                         CalcedTrailBlend;                                  // 0x0EBC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
-	void NagaraBlend(const struct FPoseLink& LowerBody, const struct FPoseLink& UpperBody, float UpperWeights, struct FPoseLink* NagaraBlend_0);
-	void AnimGraph(struct FPoseLink* AnimGraph_0);
-	void ActionCustom(const struct FPoseLink& InPose, struct FPoseLink* ActionCustom_0);
-	void BlueprintUpdateAnimation(float DeltaTimeX);
-	void BP_EventOnHit(const struct FVector& HitLocation);
 	void ExecuteUbergraph_ABP_Ch013_Linked_ActionAttack_Pimp_Grap(int32 EntryPoint);
+	void BP_EventOnHit(const struct FVector& HitLocation);
+	void BlueprintUpdateAnimation(float DeltaTimeX);
+	void AnimGraph(struct FPoseLink* AnimGraph_0);
+	void NagaraBlend(const struct FPoseLink& LowerBody, const struct FPoseLink& UpperBody, float UpperWeights, struct FPoseLink* NagaraBlend_0);
+	void ActionCustom(const struct FPoseLink& InPose, struct FPoseLink* ActionCustom_0);
 
 public:
 	static class UClass* StaticClass()

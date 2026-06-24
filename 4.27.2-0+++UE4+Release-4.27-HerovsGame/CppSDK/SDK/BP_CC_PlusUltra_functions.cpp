@@ -148,4 +148,24 @@ void UBP_CC_PlusUltra_C::BroadcastRollSlotUniqueSkill()
 }
 
 
+// Function BP_CC_PlusUltra.BP_CC_PlusUltra_C.IsStrengthPlusCharacter
+// (Protected, HasOutParams, BlueprintCallable, BlueprintEvent, BlueprintPure, Const)
+// Parameters:
+// bool                                    ReturnValue                                            (Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
+
+bool UBP_CC_PlusUltra_C::IsStrengthPlusCharacter() const
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("BP_CC_PlusUltra_C", "IsStrengthPlusCharacter");
+
+	Params::BP_CC_PlusUltra_C_IsStrengthPlusCharacter Parms{};
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	return Parms.ReturnValue;
+}
+
+
 SDK_NAMESPACE_END

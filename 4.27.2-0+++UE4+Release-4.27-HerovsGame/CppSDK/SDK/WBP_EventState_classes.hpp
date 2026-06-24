@@ -40,6 +40,5 @@ public:
 		return GetDefaultObjImpl<UWBP_EventState_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_EventState_C;
 
 SDK_NAMESPACE_END

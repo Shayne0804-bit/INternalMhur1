@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "SlateCore_structs.hpp"
 #include "Engine_structs.hpp"
+#include "SlateCore_structs.hpp"
 #include "UIFramework_structs.hpp"
 #include "UIFramework_classes.hpp"
 
@@ -62,6 +62,5 @@ public:
 		return GetDefaultObjImpl<UWBP_TrainingSetting_2_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_TrainingSetting_2_C;
 
 SDK_NAMESPACE_END

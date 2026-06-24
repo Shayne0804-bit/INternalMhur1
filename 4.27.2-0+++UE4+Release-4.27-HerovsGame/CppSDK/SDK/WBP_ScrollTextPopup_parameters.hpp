@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "UMG_structs.hpp"
 #include "SlateCore_structs.hpp"
+#include "UMG_structs.hpp"
 #include "UIFramework_structs.hpp"
 
 
@@ -32,7 +32,6 @@ public:
 	class UAppWidget*                             K2Node_ComponentBoundEvent_widget_1;               // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType_1;            // 0x0020(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_ScrollTextPopup_C_ExecuteUbergraph_WBP_ScrollTextPopup;
 
 // Function WBP_ScrollTextPopup.WBP_ScrollTextPopup_C.BndEvt__WBP_ScrollTextPopup_CloseButton_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -42,7 +41,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_ScrollTextPopup_C_BndEvt__WBP_ScrollTextPopup_CloseButton_K2Node_ComponentBoundEvent_4_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_ScrollTextPopup.WBP_ScrollTextPopup_C.BndEvt__WBP_ScrollTextPopup_CloseButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -52,7 +50,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_ScrollTextPopup_C_BndEvt__WBP_ScrollTextPopup_CloseButton_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_ScrollTextPopup.WBP_ScrollTextPopup_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -61,7 +58,6 @@ struct WBP_ScrollTextPopup_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_ScrollTextPopup_C_PreConstruct;
 
 // Function WBP_ScrollTextPopup.WBP_ScrollTextPopup_C.OnAnalogValueChanged
 // 0x02B0 (0x02B0 - 0x0000)
@@ -79,7 +75,6 @@ public:
 	uint8                                         Pad_1F2[0x6];                                      // 0x01F2(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FEventReply                            CallFunc_Unhandled_ReturnValue;                    // 0x01F8(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_ScrollTextPopup_C_OnAnalogValueChanged;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

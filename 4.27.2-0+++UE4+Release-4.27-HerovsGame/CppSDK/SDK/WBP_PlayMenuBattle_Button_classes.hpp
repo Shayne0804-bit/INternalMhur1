@@ -41,6 +41,5 @@ public:
 		return GetDefaultObjImpl<UWBP_PlayMenuBattle_Button_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_PlayMenuBattle_Button_C;
 
 SDK_NAMESPACE_END

@@ -24,7 +24,6 @@ public:
 	class UUMGSequencePlayer*                     CallFunc_PlayAnimation_ReturnValue;                // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UUMGSequencePlayer*                     CallFunc_PlayAnimation_ReturnValue_1;              // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_BattleRuleFlashItemList_C_ExecuteUbergraph_WBP_BattleRuleFlashItemList;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

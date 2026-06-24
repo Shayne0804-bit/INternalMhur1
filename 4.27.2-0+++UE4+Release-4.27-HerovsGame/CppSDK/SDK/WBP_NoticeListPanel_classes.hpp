@@ -62,6 +62,5 @@ public:
 		return GetDefaultObjImpl<UWBP_NoticeListPanel_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_NoticeListPanel_C;
 
 SDK_NAMESPACE_END

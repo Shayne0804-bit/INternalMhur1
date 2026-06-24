@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
-#include "UMG_structs.hpp"
-#include "SlateCore_structs.hpp"
 #include "CoreUObject_structs.hpp"
+#include "SlateCore_structs.hpp"
+#include "UMG_structs.hpp"
 #include "InputCore_structs.hpp"
 #include "UIFramework_structs.hpp"
 
@@ -34,7 +34,6 @@ public:
 	int32                                         K2Node_ComponentBoundEvent_index_1;                // 0x0024(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         K2Node_ComponentBoundEvent_index;                  // 0x0028(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingSetting_C_ExecuteUbergraph_WBP_TrainingSetting;
 
 // Function WBP_TrainingSetting.WBP_TrainingSetting_C.BndEvt__WBP_TrainingSetting_ChoicesFriendlyFire_K2Node_ComponentBoundEvent_1_OnChangedIndexDelegate__DelegateSignature
 // 0x0004 (0x0004 - 0x0000)
@@ -43,7 +42,6 @@ struct WBP_TrainingSetting_C_BndEvt__WBP_TrainingSetting_ChoicesFriendlyFire_K2N
 public:
 	int32                                         Index_0;                                           // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingSetting_C_BndEvt__WBP_TrainingSetting_ChoicesFriendlyFire_K2Node_ComponentBoundEvent_1_OnChangedIndexDelegate__DelegateSignature;
 
 // Function WBP_TrainingSetting.WBP_TrainingSetting_C.BndEvt__WBP_TrainingSetting_ChoicesDamage_K2Node_ComponentBoundEvent_0_OnChangedIndexDelegate__DelegateSignature
 // 0x0004 (0x0004 - 0x0000)
@@ -52,7 +50,6 @@ struct WBP_TrainingSetting_C_BndEvt__WBP_TrainingSetting_ChoicesDamage_K2Node_Co
 public:
 	int32                                         Index_0;                                           // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingSetting_C_BndEvt__WBP_TrainingSetting_ChoicesDamage_K2Node_ComponentBoundEvent_0_OnChangedIndexDelegate__DelegateSignature;
 
 // Function WBP_TrainingSetting.WBP_TrainingSetting_C.OnFocusEvent
 // 0x0010 (0x0010 - 0x0000)
@@ -62,7 +59,6 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingSetting_C_OnFocusEvent;
 
 // Function WBP_TrainingSetting.WBP_TrainingSetting_C.SetFocusView
 // 0x00E0 (0x00E0 - 0x0000)
@@ -74,7 +70,6 @@ public:
 	uint8                                         Pad_2[0xE];                                        // 0x0002(0x000E)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FSlateBrush                            K2Node_Select_Default;                             // 0x0010(0x00D0)(ConstParm)
 };
-DUMPER7_ASSERTS_WBP_TrainingSetting_C_SetFocusView;
 
 // Function WBP_TrainingSetting.WBP_TrainingSetting_C.SetFrinedlyFire
 // 0x0010 (0x0010 - 0x0000)
@@ -88,7 +83,6 @@ public:
 	int32                                         Temp_int_Variable_1;                               // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         K2Node_Select_Default;                             // 0x000C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingSetting_C_SetFrinedlyFire;
 
 // Function WBP_TrainingSetting.WBP_TrainingSetting_C.SetDamageIndex
 // 0x0004 (0x0004 - 0x0000)
@@ -97,7 +91,6 @@ struct WBP_TrainingSetting_C_SetDamageIndex final
 public:
 	int32                                         Index_0;                                           // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingSetting_C_SetDamageIndex;
 
 // Function WBP_TrainingSetting.WBP_TrainingSetting_C.IsChange
 // 0x000C (0x000C - 0x0000)
@@ -112,7 +105,6 @@ public:
 	bool                                          CallFunc_NotEqual_IntInt_ReturnValue;              // 0x000A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_BooleanOR_ReturnValue;                    // 0x000B(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingSetting_C_IsChange;
 
 // Function WBP_TrainingSetting.WBP_TrainingSetting_C.SetEnableButton
 // 0x0034 (0x0034 - 0x0000)
@@ -126,7 +118,6 @@ public:
 	struct FLinearColor                           Temp_struct_Variable_1;                            // 0x0014(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FLinearColor                           K2Node_Select_Default;                             // 0x0024(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingSetting_C_SetEnableButton;
 
 // Function WBP_TrainingSetting.WBP_TrainingSetting_C.OnFocusReceived
 // 0x01B0 (0x01B0 - 0x0000)
@@ -138,7 +129,6 @@ public:
 	struct FEventReply                            ReturnValue;                                       // 0x0040(0x00B8)(Parm, OutParm, ReturnParm)
 	struct FEventReply                            CallFunc_OnFocusReceived_ReturnValue;              // 0x00F8(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_TrainingSetting_C_OnFocusReceived;
 
 // Function WBP_TrainingSetting.WBP_TrainingSetting_C.OnKeyDown
 // 0x02B8 (0x02B8 - 0x0000)
@@ -155,7 +145,6 @@ public:
 	uint8                                         Pad_1FA[0x6];                                      // 0x01FA(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FEventReply                            CallFunc_Handled_ReturnValue;                      // 0x0200(0x00B8)()
 };
-DUMPER7_ASSERTS_WBP_TrainingSetting_C_OnKeyDown;
 
 // Function WBP_TrainingSetting.WBP_TrainingSetting_C.GetFrinedlyFire
 // 0x000C (0x000C - 0x0000)
@@ -167,7 +156,6 @@ public:
 	int32                                         CallFunc_GetIndex_ReturnValue;                     // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_NotEqual_IntInt_ReturnValue;              // 0x0008(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_TrainingSetting_C_GetFrinedlyFire;
 
 // Function WBP_TrainingSetting.WBP_TrainingSetting_C.GetDamageIndex
 // 0x0008 (0x0008 - 0x0000)
@@ -177,7 +165,6 @@ public:
 	int32                                         Index_0;                                           // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         CallFunc_GetIndex_ReturnValue;                     // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
-DUMPER7_ASSERTS_WBP_TrainingSetting_C_GetDamageIndex;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

@@ -30,7 +30,6 @@ public:
 	class UCustomListView*                        K2Node_DynamicCast_AsCustom_List_View;             // 0x0050(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x0058(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
-DUMPER7_ASSERTS_WBP_PackList_C_AddScrollOffset;
 
 SDK_PARAM_NAMESPACE_END
 SDK_NAMESPACE_END

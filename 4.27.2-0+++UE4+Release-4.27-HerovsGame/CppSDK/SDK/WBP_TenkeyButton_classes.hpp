@@ -10,9 +10,9 @@
 
 #include "Basic.hpp"
 
-#include "SlateCore_structs.hpp"
-#include "Engine_structs.hpp"
 #include "GameModule_classes.hpp"
+#include "Engine_structs.hpp"
+#include "SlateCore_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -47,6 +47,5 @@ public:
 		return GetDefaultObjImpl<UWBP_TenkeyButton_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_TenkeyButton_C;
 
 SDK_NAMESPACE_END

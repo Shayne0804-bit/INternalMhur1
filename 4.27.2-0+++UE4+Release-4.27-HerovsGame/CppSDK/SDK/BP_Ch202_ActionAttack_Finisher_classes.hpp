@@ -17,12 +17,12 @@
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_Ch202_ActionAttack_Finisher.BP_Ch202_ActionAttack_Finisher_C
-// 0x0010 (0x0500 - 0x04F0)
+// 0x0010 (0x0548 - 0x0538)
 class UBP_Ch202_ActionAttack_Finisher_C final : public UBP_ActionAttack_Finisher_C
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame_BP_Ch202_ActionAttack_Finisher_C;   // 0x04F0(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	class UPlayEffectDataAsset*                   EffectAsset;                                       // 0x04F8(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame_BP_Ch202_ActionAttack_Finisher_C;   // 0x0538(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	class UPlayEffectDataAsset*                   EffectAsset;                                       // 0x0540(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
 	void ExecuteUbergraph_BP_Ch202_ActionAttack_Finisher(int32 EntryPoint);
@@ -42,6 +42,5 @@ public:
 		return GetDefaultObjImpl<UBP_Ch202_ActionAttack_Finisher_C>();
 	}
 };
-DUMPER7_ASSERTS_UBP_Ch202_ActionAttack_Finisher_C;
 
 SDK_NAMESPACE_END

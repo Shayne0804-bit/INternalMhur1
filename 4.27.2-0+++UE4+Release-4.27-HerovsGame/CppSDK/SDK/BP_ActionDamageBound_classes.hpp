@@ -10,20 +10,20 @@
 
 #include "Basic.hpp"
 
-#include "InGameModule_classes.hpp"
-#include "Engine_structs.hpp"
 #include "GameModule_structs.hpp"
+#include "Engine_structs.hpp"
+#include "InGameModule_classes.hpp"
 
 
 SDK_NAMESPACE_START
 
 // BlueprintGeneratedClass BP_ActionDamageBound.BP_ActionDamageBound_C
-// 0x0010 (0x0280 - 0x0270)
+// 0x0010 (0x0318 - 0x0308)
 class UBP_ActionDamageBound_C final : public UActionDamageBase
 {
 public:
-	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0270(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
-	float                                         _elapsed;                                          // 0x0278(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0308(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
+	float                                         _elapsed;                                          // 0x0310(0x0004)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 
 public:
 	void ExecuteUbergraph_BP_ActionDamageBound(int32 EntryPoint);
@@ -32,7 +32,7 @@ public:
 	void BP_ActionRemote();
 	void BP_OnBeginAction(const class FName& prevAction);
 	void BP_ActionMain();
-	void DecideAnimationId(EAnimationId* AnimationId);
+	void DecideAnimationId(EAnimationId* animationId);
 
 public:
 	static class UClass* StaticClass()

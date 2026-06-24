@@ -118,24 +118,17 @@ void UBP_ActionDamageStrongBlowOff_C::BP_ActionMain()
 }
 
 
-// Function BP_ActionDamageStrongBlowOff.BP_ActionDamageStrongBlowOff_C.DecideAnimationId
-// (Private, HasOutParams, HasDefaults, BlueprintCallable, BlueprintEvent, BlueprintPure)
-// Parameters:
-// EAnimationId*                           AnimationId                                            (Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
+// Function BP_ActionDamageStrongBlowOff.BP_ActionDamageStrongBlowOff_C.PlayAnimation
+// (Public, BlueprintCallable, BlueprintEvent)
 
-void UBP_ActionDamageStrongBlowOff_C::DecideAnimationId(EAnimationId* AnimationId)
+void UBP_ActionDamageStrongBlowOff_C::PlayAnimation()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("BP_ActionDamageStrongBlowOff_C", "DecideAnimationId");
+		Func = Class->GetFunction("BP_ActionDamageStrongBlowOff_C", "PlayAnimation");
 
-	Params::BP_ActionDamageStrongBlowOff_C_DecideAnimationId Parms{};
-
-	UObject::ProcessEvent(Func, &Parms);
-
-	if (AnimationId != nullptr)
-		*AnimationId = Parms.AnimationId;
+	UObject::ProcessEvent(Func, nullptr);
 }
 
 

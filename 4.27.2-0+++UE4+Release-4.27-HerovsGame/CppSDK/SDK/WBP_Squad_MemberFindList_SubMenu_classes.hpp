@@ -42,6 +42,5 @@ public:
 		return GetDefaultObjImpl<UWBP_Squad_MemberFindList_SubMenu_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_Squad_MemberFindList_SubMenu_C;
 
 SDK_NAMESPACE_END

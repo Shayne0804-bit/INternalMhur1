@@ -44,6 +44,5 @@ public:
 		return GetDefaultObjImpl<UWBP_ShopPickup_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_ShopPickup_C;
 
 SDK_NAMESPACE_END

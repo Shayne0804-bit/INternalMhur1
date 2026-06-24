@@ -10,8 +10,8 @@
 
 #include "Basic.hpp"
 
-#include "Engine_structs.hpp"
 #include "GameModule_classes.hpp"
+#include "Engine_structs.hpp"
 
 
 SDK_NAMESPACE_START
@@ -47,6 +47,5 @@ public:
 		return GetDefaultObjImpl<UWBP_SeasonPassTimer_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_SeasonPassTimer_C;
 
 SDK_NAMESPACE_END

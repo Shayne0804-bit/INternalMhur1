@@ -41,6 +41,5 @@ public:
 		return GetDefaultObjImpl<UWBP_PlayMenuSpecialEffectIcon_C>();
 	}
 };
-DUMPER7_ASSERTS_UWBP_PlayMenuSpecialEffectIcon_C;
 
 SDK_NAMESPACE_END

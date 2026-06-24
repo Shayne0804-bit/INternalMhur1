@@ -152,6 +152,7 @@ namespace SettingsManager
 			// Global
 			file << "    \"EnableGlobal\": " << BoolToJson(menuSettings.EnableGlobal) << ",\n";
 			file << "    \"EnableESP\": " << BoolToJson(menuSettings.EnableESP) << ",\n";
+			file << "    \"EnableMenuBackgroundVideo\": " << BoolToJson(menuSettings.EnableMenuBackgroundVideo) << ",\n";
 
 			// ESP - Display
 			file << "    \"EnablePlayerESP\": " << BoolToJson(menuSettings.EnablePlayerESP) << ",\n";
@@ -165,6 +166,7 @@ namespace SettingsManager
 			file << "    \"ShowPlatform\": " << BoolToJson(menuSettings.ShowPlatform) << ",\n";
 			file << "    \"ShowTeamId\": " << BoolToJson(menuSettings.ShowTeamId) << ",\n";
 			file << "    \"ShowPlayerSkeleton\": " << BoolToJson(menuSettings.ShowPlayerSkeleton) << ",\n";
+			file << "    \"ShowServerStatusOverlay\": " << BoolToJson(menuSettings.ShowServerStatusOverlay) << ",\n";
 
 			// Aimbot
 			file << "    \"EnableAimbot\": " << BoolToJson(menuSettings.EnableAimbot) << ",\n";
@@ -174,6 +176,7 @@ namespace SettingsManager
 			file << "    \"AimbotDrawFOV\": " << BoolToJson(menuSettings.AimbotDrawFOV) << ",\n";
 			file << "    \"AimbotFOVRadius\": " << FloatToJson(menuSettings.AimbotFOVRadius) << ",\n";
 			file << "    \"AimbotRequireHold\": " << BoolToJson(menuSettings.AimbotRequireHold) << ",\n";
+			file << "    \"AimbotIgnoreDownedTargets\": " << BoolToJson(menuSettings.AimbotIgnoreDownedTargets) << ",\n";
 
 			// Aimbot Hotkeys
 			file << "    \"AimbotHoldKey_Keyboard\": " << IntToJson(menuSettings.AimbotHoldKey.Keyboard) << ",\n";
@@ -181,8 +184,16 @@ namespace SettingsManager
 
 			// Teleport to Kota
 			file << "    \"EnableTeleportToKota\": " << BoolToJson(menuSettings.EnableTeleportToKota) << ",\n";
+			file << "    \"EnableInfiniteObjects\": " << BoolToJson(menuSettings.EnableInfiniteObjects) << ",\n";
 			file << "    \"TeleportToKotaKey_Keyboard\": " << IntToJson(menuSettings.TeleportToKotaKey.Keyboard) << ",\n";
 			file << "    \"TeleportToKotaKey_Xbox\": " << IntToJson(menuSettings.TeleportToKotaKey.Xbox) << ",\n";
+
+			// Custom Drop
+			file << "    \"EnableCustomDrop\": " << BoolToJson(menuSettings.EnableCustomDrop) << ",\n";
+			file << "    \"CustomDropQuantity\": " << IntToJson(menuSettings.CustomDropQuantity) << ",\n";
+			file << "    \"CustomDropSelectedIndex\": " << IntToJson(menuSettings.CustomDropSelectedIndex) << ",\n";
+			file << "    \"CustomDropKey_Keyboard\": " << IntToJson(menuSettings.CustomDropKey.Keyboard) << ",\n";
+			file << "    \"CustomDropKey_Xbox\": " << IntToJson(menuSettings.CustomDropKey.Xbox) << ",\n";
 
 			// Transform Into Random ESP Target
 			file << "    \"EnableTransformIntoRandomESP\": " << BoolToJson(menuSettings.EnableTransformIntoRandomESP) << ",\n";
@@ -203,10 +214,16 @@ namespace SettingsManager
 			file << "    \"CopySkillsSetCopySkill\": " << BoolToJson(menuSettings.CopySkillsSetCopySkill) << ",\n";
 			file << "    \"CopySkillsUseOwnerCharacterLevel\": " << BoolToJson(menuSettings.CopySkillsUseOwnerCharacterLevel) << ",\n";
 
+			// Generate Projectile
+			file << "    \"EnableGenerateProjectile\": " << BoolToJson(menuSettings.EnableGenerateProjectile) << ",\n";
+			file << "    \"GenerateProjectileKey_Keyboard\": " << IntToJson(menuSettings.GenerateProjectileKey.Keyboard) << ",\n";
+			file << "    \"GenerateProjectileKey_Xbox\": " << IntToJson(menuSettings.GenerateProjectileKey.Xbox) << ",\n";
+
 			// Reload Adjust Rates
 			file << "    \"ReloadAdjustRate\": " << FloatToJson(menuSettings.ReloadAdjustRate) << ",\n";
 			file << "    \"ReloadAdjustRate_RollSlot\": " << FloatToJson(menuSettings.ReloadAdjustRate_RollSlot) << ",\n";
 			file << "    \"ReloadAdjustRate_WearBlueFlame\": " << FloatToJson(menuSettings.ReloadAdjustRate_WearBlueFlame) << ",\n";
+			file << "    \"CvNoneDamageCurveValue\": " << FloatToJson(menuSettings.CvNoneDamageCurveValue) << ",\n";
 
 			// Training Mode
 			file << "    \"TrainingPlayerCharacter\": " << IntToJson(menuSettings.TrainingPlayerCharacter) << ",\n";
@@ -239,6 +256,7 @@ namespace SettingsManager
 			file << "    \"BulletTP_IncludeSpecial\": " << BoolToJson(menuSettings.BulletTP_IncludeSpecial) << ",\n";
 			file << "    \"BulletTP_FOVRadius\": " << FloatToJson(menuSettings.BulletTP_FOVRadius) << ",\n";
 			file << "    \"BulletTP_MaxDistance\": " << FloatToJson(menuSettings.BulletTP_MaxDistance) << ",\n";
+			file << "    \"BulletTPIgnoreDownedTargets\": " << BoolToJson(menuSettings.BulletTPIgnoreDownedTargets) << ",\n";
 
 			// Rebuild Myself
 			file << "    \"EnableRebuildMyself\": " << BoolToJson(menuSettings.EnableRebuildMyself) << ",\n";
@@ -256,7 +274,12 @@ namespace SettingsManager
 			file << "    \"SelectedCharacterIndex\": " << IntToJson(menuSettings.SelectedCharacterIndex) << ",\n";
 			file << "    \"SelectedRecoveryTeamIndex\": " << IntToJson(menuSettings.SelectedRecoveryTeamIndex) << ",\n";
 			file << "    \"EnableCH202InitTransLevel5\": " << BoolToJson(menuSettings.EnableCH202InitTransLevel5) << ",\n";
-			file << "    \"EnableSupplyMaxStackTo100\": " << BoolToJson(menuSettings.EnableSupplyMaxStackTo100) << "\n";
+			file << "    \"EnableSupplyMaxStackTo100\": " << BoolToJson(menuSettings.EnableSupplyMaxStackTo100) << ",\n";
+			file << "    \"EnableFastPlusUltraCharge\": " << BoolToJson(menuSettings.EnableFastPlusUltraCharge) << ",\n";
+			file << "    \"EnableNoCollision\": " << BoolToJson(menuSettings.EnableNoCollision) << ",\n";
+			file << "    \"NoCollisionSpeed\": " << FloatToJson(menuSettings.NoCollisionSpeed) << ",\n";
+			file << "    \"NoCollisionHoldKey_Keyboard\": " << IntToJson(menuSettings.NoCollisionHoldKey.Keyboard) << ",\n";
+			file << "    \"NoCollisionHoldKey_Xbox\": " << IntToJson(menuSettings.NoCollisionHoldKey.Xbox) << "\n";
 
 			file << "  },\n";
 
@@ -282,7 +305,31 @@ namespace SettingsManager
 			file << "    \"CharacterCostumeAuraType\": " << IntToJson(hackSettings.CharacterCostumeAuraType) << ",\n";
 			file << "    \"SupplyUniqueSkill1Level\": " << IntToJson(hackSettings.SupplyUniqueSkill1Level) << ",\n";
 			file << "    \"SupplyUniqueSkill2Level\": " << IntToJson(hackSettings.SupplyUniqueSkill2Level) << ",\n";
-			file << "    \"SupplyUniqueSkill3Level\": " << IntToJson(hackSettings.SupplyUniqueSkill3Level) << "\n";
+			file << "    \"SupplyUniqueSkill3Level\": " << IntToJson(hackSettings.SupplyUniqueSkill3Level) << ",\n";
+			file << "    \"CharCondition_EnableDekuMode\": " << BoolToJson(hackSettings.CharCondition_EnableDekuMode) << ",\n";
+			file << "    \"CharCondition_EnableUnbreakable\": " << BoolToJson(hackSettings.CharCondition_EnableUnbreakable) << ",\n";
+			file << "    \"CharCondition_EnableCompressionRegen\": " << BoolToJson(hackSettings.CharCondition_EnableCompressionRegen) << ",\n";
+			file << "    \"CharCondition_EnableMirioMode\": " << BoolToJson(hackSettings.CharCondition_EnableMirioMode) << ",\n";
+			file << "    \"CharCondition_EnableTokoyamiMode\": " << BoolToJson(hackSettings.CharCondition_EnableTokoyamiMode) << ",\n";
+			file << "    \"CharCondition_AutoExecute\": " << BoolToJson(hackSettings.CharCondition_AutoExecute) << ",\n";
+			file << "    \"CharCondition_SelectedConditionId\": " << IntToJson(hackSettings.CharCondition_SelectedConditionId) << ",\n";
+			file << "    \"CharCondition_ApplyMode\": " << IntToJson(hackSettings.CharCondition_ApplyMode) << ",\n";
+			file << "    \"CharCondition_Level\": " << IntToJson(hackSettings.CharCondition_Level) << ",\n";
+			file << "    \"CharCondition_Duration\": " << FloatToJson(hackSettings.CharCondition_Duration) << ",\n";
+			file << "    \"CharCondition_Value\": " << FloatToJson(hackSettings.CharCondition_Value) << ",\n";
+			file << "    \"CharCondition_Interval\": " << FloatToJson(hackSettings.CharCondition_Interval) << ",\n";
+			file << "    \"CharCondition_SubLevel\": " << IntToJson(hackSettings.CharCondition_SubLevel) << ",\n";
+			file << "    \"CharCondition_TimeOverwrite\": " << BoolToJson(hackSettings.CharCondition_TimeOverwrite) << ",\n";
+			file << "    \"ChangePlayerNameBuffer\": \"" << EscapeJsonString(hackSettings.ChangePlayerNameBuffer) << "\",\n";
+			file << "    \"BackendPlatformCode\": " << IntToJson(hackSettings.BackendPlatformCode) << ",\n";
+			file << "    \"FakePlatformBuffer\": \"" << EscapeJsonString(hackSettings.FakePlatformBuffer) << "\",\n";
+			file << "    \"BuyLicenseExpCount\": " << IntToJson(hackSettings.BuyLicenseExpCount) << ",\n";
+			file << "    \"LicenseClaimSeasonCode\": " << IntToJson(hackSettings.LicenseClaimSeasonCode) << ",\n";
+			file << "    \"LicenseClaimFreeRank\": " << IntToJson(hackSettings.LicenseClaimFreeRank) << ",\n";
+			file << "    \"LicenseClaimPremiumRank\": " << IntToJson(hackSettings.LicenseClaimPremiumRank) << ",\n";
+			file << "    \"LicenseClaimSpecialRank\": " << IntToJson(hackSettings.LicenseClaimSpecialRank) << ",\n";
+			file << "    \"LicenseClaimRepeatCount\": " << IntToJson(hackSettings.LicenseClaimRepeatCount) << ",\n";
+			file << "    \"LicenseClaimDelayMs\": " << IntToJson(hackSettings.LicenseClaimDelayMs) << "\n";
 			file << "  }\n";
 
 			file << "}\n";
@@ -309,6 +356,7 @@ namespace SettingsManager
 		// Disable all MenuSettings bools
 		emptyMenu.EnableGlobal = false;
 		emptyMenu.EnableESP = false;
+		emptyMenu.EnableMenuBackgroundVideo = true;
 		emptyMenu.EnablePlayerESP = false;
 		emptyMenu.Player_Box = false;
 		emptyMenu.Player_Health = false;
@@ -320,19 +368,23 @@ namespace SettingsManager
 		emptyMenu.ShowPlatform = false;
 		emptyMenu.ShowTeamId = false;
 		emptyMenu.ShowPlayerSkeleton = false;
+		emptyMenu.ShowServerStatusOverlay = false;
 
 		emptyMenu.EnableAimbot = false;
 		emptyMenu.AimbotSmoothing = false;
 		emptyMenu.AimbotDrawLine = false;
 		emptyMenu.AimbotDrawFOV = false;
 		emptyMenu.AimbotRequireHold = false;
+		emptyMenu.AimbotIgnoreDownedTargets = true;
 
 		emptyMenu.EnableTeleportToKota = false;
+		emptyMenu.EnableInfiniteObjects = false;
 		emptyMenu.EnableTransformIntoRandomESP = false;
 		emptyMenu.EnableDuplicateIntoImitationRandomESP = false;
 		emptyMenu.EnableCopySkillsFromNearestEnemy = false;
 		emptyMenu.CopySkillsSetCopySkill = false;
 		emptyMenu.CopySkillsUseOwnerCharacterLevel = false;
+		emptyMenu.EnableGenerateProjectile = false;
 		emptyMenu.EnableRecoveryMe = false;
 		emptyMenu.EnableRecoveryTeam = false;
 		emptyMenu.EnableRecoverySelectedTeam = false;
@@ -343,6 +395,7 @@ namespace SettingsManager
 		emptyMenu.BulletTP_IncludeBeta = false;
 		emptyMenu.BulletTP_IncludeGamma = false;
 		emptyMenu.BulletTP_IncludeSpecial = false;
+		emptyMenu.BulletTPIgnoreDownedTargets = true;
 		emptyMenu.EnableRebuildMyself = false;
 		emptyMenu.ShowEnemies = false;
 		emptyMenu.ShowTeam = false;
@@ -358,6 +411,7 @@ namespace SettingsManager
 		emptyMenu.ReloadAdjustRate = 1.0f;  // Keep at 1.0f (normal speed) not 0
 		emptyMenu.ReloadAdjustRate_RollSlot = 1.0f;  // Keep at 1.0f
 		emptyMenu.ReloadAdjustRate_WearBlueFlame = 1.0f;  // Keep at 1.0f
+		emptyMenu.CvNoneDamageCurveValue = 1.0f;  // Keep original CV_None curve values
 		emptyMenu.BulletTP_FOVRadius = 0.0f;
 		emptyMenu.BulletTP_MaxDistance = 0.0f;
 		emptyMenu.Player_DrawDistance = 0.0f;
@@ -378,11 +432,17 @@ namespace SettingsManager
 		// Initialize all hotkeys to 0
 		emptyMenu.AimbotHoldKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.TeleportToKotaKey = ImGuiMenu::HotkeySet(0, 0);
+		emptyMenu.CustomDropKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.TransformIntoRandomESPKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.DuplicateIntoImitationRandomESPKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.CopySkillsFromNearestEnemyKey = ImGuiMenu::HotkeySet(0, 0);
+		emptyMenu.GenerateProjectileKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.SetInvincibleKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.RebuildMyselfKey = ImGuiMenu::HotkeySet(0, 0);
+		emptyMenu.NoCollisionHoldKey = ImGuiMenu::HotkeySet(0, 0);
+		emptyMenu.EnableFastPlusUltraCharge = false;
+		emptyMenu.EnableNoCollision = false;
+		emptyMenu.NoCollisionSpeed = 0.0f;
 
 		// Disable all HackSettings
 		emptyHack.EnableInvincible = false;
@@ -412,6 +472,30 @@ namespace SettingsManager
 		emptyHack.SupplyUniqueSkill1Level = 1;  // Level - keep at 1
 		emptyHack.SupplyUniqueSkill2Level = 1;  // Level - keep at 1
 		emptyHack.SupplyUniqueSkill3Level = 1;  // Level - keep at 1
+		emptyHack.CharCondition_EnableDekuMode = false;
+		emptyHack.CharCondition_EnableUnbreakable = false;
+		emptyHack.CharCondition_EnableCompressionRegen = false;
+		emptyHack.CharCondition_EnableMirioMode = false;
+		emptyHack.CharCondition_EnableTokoyamiMode = false;
+		emptyHack.CharCondition_AutoExecute = false;
+		emptyHack.CharCondition_SelectedConditionId = 35;
+		emptyHack.CharCondition_ApplyMode = 0;
+		emptyHack.CharCondition_Level = 0;
+		emptyHack.CharCondition_Duration = 50.0f;
+		emptyHack.CharCondition_Value = 0.0f;
+		emptyHack.CharCondition_Interval = 0.0f;
+		emptyHack.CharCondition_SubLevel = 0;
+		emptyHack.CharCondition_TimeOverwrite = false;
+		emptyHack.ChangePlayerNameBuffer[0] = '\0';
+		emptyHack.BackendPlatformCode = 3;
+		strcpy_s(emptyHack.FakePlatformBuffer, sizeof(emptyHack.FakePlatformBuffer), "Windows");
+		emptyHack.BuyLicenseExpCount = 30000;
+		emptyHack.LicenseClaimSeasonCode = 1;
+		emptyHack.LicenseClaimFreeRank = 1;
+		emptyHack.LicenseClaimPremiumRank = 0;
+		emptyHack.LicenseClaimSpecialRank = 1;
+		emptyHack.LicenseClaimRepeatCount = 1;
+		emptyHack.LicenseClaimDelayMs = 1000;
 
 		return SaveProfile(emptyMenu, emptyHack, "Default");
 	}
@@ -458,6 +542,16 @@ namespace SettingsManager
 				return json.substr(pos, 4) == "true";
 			};
 
+			auto ExtractBoolDefault = [&](const std::string& key, bool defaultValue) -> bool
+			{
+				std::string searchStr = "\"" + key + "\": ";
+				size_t pos = json.find(searchStr);
+				if (pos == std::string::npos) return defaultValue;
+				
+				pos += searchStr.length();
+				return json.substr(pos, 4) == "true";
+			};
+
 			auto ExtractInt = [&](const std::string& key) -> int
 			{
 				std::string searchStr = "\"" + key + "\": ";
@@ -472,6 +566,22 @@ namespace SettingsManager
 					pos++;
 				}
 				return numStr.empty() ? 0 : std::stoi(numStr);
+			};
+
+			auto ExtractIntDefault = [&](const std::string& key, int defaultValue) -> int
+			{
+				std::string searchStr = "\"" + key + "\": ";
+				size_t pos = json.find(searchStr);
+				if (pos == std::string::npos) return defaultValue;
+				
+				pos += searchStr.length();
+				std::string numStr;
+				while (pos < json.length() && (std::isdigit(json[pos]) || json[pos] == '-'))
+				{
+					numStr += json[pos];
+					pos++;
+				}
+				return numStr.empty() ? defaultValue : std::stoi(numStr);
 			};
 
 			auto ExtractFloat = [&](const std::string& key) -> float
@@ -490,9 +600,26 @@ namespace SettingsManager
 				return numStr.empty() ? 0.0f : std::stof(numStr);
 			};
 
+			auto ExtractFloatDefault = [&](const std::string& key, float defaultValue) -> float
+			{
+				std::string searchStr = "\"" + key + "\": ";
+				size_t pos = json.find(searchStr);
+				if (pos == std::string::npos) return defaultValue;
+				
+				pos += searchStr.length();
+				std::string numStr;
+				while (pos < json.length() && (std::isdigit(json[pos]) || json[pos] == '.' || json[pos] == '-'))
+				{
+					numStr += json[pos];
+					pos++;
+				}
+				return numStr.empty() ? defaultValue : std::stof(numStr);
+			};
+
 			// Load MenuSettings
 			menuSettings.EnableGlobal = ExtractBool("EnableGlobal");
 			menuSettings.EnableESP = ExtractBool("EnableESP");
+			menuSettings.EnableMenuBackgroundVideo = ExtractBoolDefault("EnableMenuBackgroundVideo", true);
 			menuSettings.EnablePlayerESP = ExtractBool("EnablePlayerESP");
 			menuSettings.Player_Box = ExtractBool("Player_Box");
 			menuSettings.Player_Health = ExtractBool("Player_Health");
@@ -504,6 +631,7 @@ namespace SettingsManager
 			menuSettings.ShowPlatform = ExtractBool("ShowPlatform");
 			menuSettings.ShowTeamId = ExtractBool("ShowTeamId");
 			menuSettings.ShowPlayerSkeleton = ExtractBool("ShowPlayerSkeleton");
+			menuSettings.ShowServerStatusOverlay = ExtractBoolDefault("ShowServerStatusOverlay", false);
 
 			menuSettings.EnableAimbot = ExtractBool("EnableAimbot");
 			menuSettings.AimbotSmoothing = ExtractBool("AimbotSmoothing");
@@ -512,15 +640,24 @@ namespace SettingsManager
 			menuSettings.AimbotDrawFOV = ExtractBool("AimbotDrawFOV");
 			menuSettings.AimbotFOVRadius = ExtractFloat("AimbotFOVRadius");
 			menuSettings.AimbotRequireHold = ExtractBool("AimbotRequireHold");
+			menuSettings.AimbotIgnoreDownedTargets = ExtractBoolDefault("AimbotIgnoreDownedTargets", true);
 
 			menuSettings.AimbotHoldKey.Keyboard = ExtractInt("AimbotHoldKey_Keyboard");
 			menuSettings.AimbotHoldKey.Xbox = ExtractInt("AimbotHoldKey_Xbox");
 			menuSettings.AimbotHoldKey.PS4 = menuSettings.AimbotHoldKey.Xbox; // PS4 uses same value
 
 			menuSettings.EnableTeleportToKota = ExtractBool("EnableTeleportToKota");
+			menuSettings.EnableInfiniteObjects = ExtractBool("EnableInfiniteObjects");
 			menuSettings.TeleportToKotaKey.Keyboard = ExtractInt("TeleportToKotaKey_Keyboard");
 			menuSettings.TeleportToKotaKey.Xbox = ExtractInt("TeleportToKotaKey_Xbox");
 			menuSettings.TeleportToKotaKey.PS4 = menuSettings.TeleportToKotaKey.Xbox;
+
+			menuSettings.EnableCustomDrop = ExtractBool("EnableCustomDrop");
+			menuSettings.CustomDropQuantity = ExtractIntDefault("CustomDropQuantity", 1);
+			menuSettings.CustomDropSelectedIndex = ExtractInt("CustomDropSelectedIndex");
+			menuSettings.CustomDropKey.Keyboard = ExtractInt("CustomDropKey_Keyboard");
+			menuSettings.CustomDropKey.Xbox = ExtractInt("CustomDropKey_Xbox");
+			menuSettings.CustomDropKey.PS4 = menuSettings.CustomDropKey.Xbox;
 
 			menuSettings.EnableTransformIntoRandomESP = ExtractBool("EnableTransformIntoRandomESP");
 			menuSettings.TransformIntoRandomESPKey.Keyboard = ExtractInt("TransformIntoRandomESPKey_Keyboard");
@@ -541,9 +678,15 @@ namespace SettingsManager
 			menuSettings.CopySkillsSetCopySkill = ExtractBool("CopySkillsSetCopySkill");
 			menuSettings.CopySkillsUseOwnerCharacterLevel = ExtractBool("CopySkillsUseOwnerCharacterLevel");
 
+			menuSettings.EnableGenerateProjectile = ExtractBool("EnableGenerateProjectile");
+			menuSettings.GenerateProjectileKey.Keyboard = ExtractInt("GenerateProjectileKey_Keyboard");
+			menuSettings.GenerateProjectileKey.Xbox = ExtractInt("GenerateProjectileKey_Xbox");
+			menuSettings.GenerateProjectileKey.PS4 = menuSettings.GenerateProjectileKey.Xbox;
+
 			menuSettings.ReloadAdjustRate = ExtractFloat("ReloadAdjustRate");
 			menuSettings.ReloadAdjustRate_RollSlot = ExtractFloat("ReloadAdjustRate_RollSlot");
 			menuSettings.ReloadAdjustRate_WearBlueFlame = ExtractFloat("ReloadAdjustRate_WearBlueFlame");
+			menuSettings.CvNoneDamageCurveValue = ExtractFloatDefault("CvNoneDamageCurveValue", 1.0f);
 
 			menuSettings.TrainingPlayerCharacter = ExtractInt("TrainingPlayerCharacter");
 			menuSettings.TrainingPlayerVariationId = ExtractInt("TrainingPlayerVariationId");
@@ -572,6 +715,7 @@ namespace SettingsManager
 			menuSettings.BulletTP_IncludeSpecial = ExtractBool("BulletTP_IncludeSpecial");
 			menuSettings.BulletTP_FOVRadius = ExtractFloat("BulletTP_FOVRadius");
 			menuSettings.BulletTP_MaxDistance = ExtractFloat("BulletTP_MaxDistance");
+			menuSettings.BulletTPIgnoreDownedTargets = ExtractBoolDefault("BulletTPIgnoreDownedTargets", true);
 
 			menuSettings.EnableRebuildMyself = ExtractBool("EnableRebuildMyself");
 			menuSettings.RebuildMyselfKey.Keyboard = ExtractInt("RebuildMyselfKey_Keyboard");
@@ -588,6 +732,12 @@ namespace SettingsManager
 			menuSettings.SelectedRecoveryTeamIndex = ExtractInt("SelectedRecoveryTeamIndex");
 			menuSettings.EnableCH202InitTransLevel5 = ExtractBool("EnableCH202InitTransLevel5");
 			menuSettings.EnableSupplyMaxStackTo100 = ExtractBool("EnableSupplyMaxStackTo100");
+			menuSettings.EnableFastPlusUltraCharge = ExtractBoolDefault("EnableFastPlusUltraCharge", false);
+			menuSettings.EnableNoCollision = ExtractBoolDefault("EnableNoCollision", false);
+			menuSettings.NoCollisionSpeed = ExtractFloatDefault("NoCollisionSpeed", 100.0f);
+			menuSettings.NoCollisionHoldKey.Keyboard = ExtractIntDefault("NoCollisionHoldKey_Keyboard", 0x54);
+			menuSettings.NoCollisionHoldKey.Xbox = ExtractIntDefault("NoCollisionHoldKey_Xbox", 0);
+			menuSettings.NoCollisionHoldKey.PS4 = menuSettings.NoCollisionHoldKey.Xbox;
 
 			// Load HackSettings
 			hackSettings.EnableInvincible = ExtractBool("EnableInvincible");
@@ -611,6 +761,38 @@ namespace SettingsManager
 			hackSettings.SupplyUniqueSkill1Level = ExtractInt("SupplyUniqueSkill1Level");
 			hackSettings.SupplyUniqueSkill2Level = ExtractInt("SupplyUniqueSkill2Level");
 			hackSettings.SupplyUniqueSkill3Level = ExtractInt("SupplyUniqueSkill3Level");
+			hackSettings.CharCondition_EnableDekuMode = ExtractBool("CharCondition_EnableDekuMode");
+			hackSettings.CharCondition_EnableUnbreakable = ExtractBool("CharCondition_EnableUnbreakable");
+			hackSettings.CharCondition_EnableCompressionRegen = ExtractBool("CharCondition_EnableCompressionRegen");
+			hackSettings.CharCondition_EnableMirioMode = ExtractBool("CharCondition_EnableMirioMode");
+			hackSettings.CharCondition_EnableTokoyamiMode = ExtractBool("CharCondition_EnableTokoyamiMode");
+			hackSettings.CharCondition_AutoExecute = ExtractBool("CharCondition_AutoExecute");
+			hackSettings.CharCondition_SelectedConditionId = ExtractIntDefault("CharCondition_SelectedConditionId", 35);
+			hackSettings.CharCondition_ApplyMode = ExtractIntDefault("CharCondition_ApplyMode", 0);
+			hackSettings.CharCondition_Level = ExtractIntDefault("CharCondition_Level", 0);
+			hackSettings.CharCondition_Duration = ExtractFloatDefault("CharCondition_Duration", 50.0f);
+			hackSettings.CharCondition_Value = ExtractFloatDefault("CharCondition_Value", 0.0f);
+			hackSettings.CharCondition_Interval = ExtractFloatDefault("CharCondition_Interval", 0.0f);
+			hackSettings.CharCondition_SubLevel = ExtractIntDefault("CharCondition_SubLevel", 0);
+			hackSettings.CharCondition_TimeOverwrite = ExtractBool("CharCondition_TimeOverwrite");
+			{
+				std::string playerNameBuffer = ExtractString("ChangePlayerNameBuffer");
+				strncpy_s(hackSettings.ChangePlayerNameBuffer, sizeof(hackSettings.ChangePlayerNameBuffer), playerNameBuffer.c_str(), _TRUNCATE);
+			}
+			hackSettings.BackendPlatformCode = ExtractIntDefault("BackendPlatformCode", 3);
+			{
+				std::string fakePlatformBuffer = ExtractString("FakePlatformBuffer");
+				if (fakePlatformBuffer.empty())
+					fakePlatformBuffer = "Windows";
+				strncpy_s(hackSettings.FakePlatformBuffer, sizeof(hackSettings.FakePlatformBuffer), fakePlatformBuffer.c_str(), _TRUNCATE);
+			}
+			hackSettings.BuyLicenseExpCount = ExtractIntDefault("BuyLicenseExpCount", 30000);
+			hackSettings.LicenseClaimSeasonCode = ExtractIntDefault("LicenseClaimSeasonCode", 1);
+			hackSettings.LicenseClaimFreeRank = ExtractIntDefault("LicenseClaimFreeRank", 1);
+			hackSettings.LicenseClaimPremiumRank = ExtractIntDefault("LicenseClaimPremiumRank", 0);
+			hackSettings.LicenseClaimSpecialRank = ExtractIntDefault("LicenseClaimSpecialRank", 1);
+			hackSettings.LicenseClaimRepeatCount = ExtractIntDefault("LicenseClaimRepeatCount", 1);
+			hackSettings.LicenseClaimDelayMs = ExtractIntDefault("LicenseClaimDelayMs", 1000);
 
 			Logger::Log(Logger::LogLevel::Info, "[SettingsManager] Profile loaded: " + profileName);
 			return true;
