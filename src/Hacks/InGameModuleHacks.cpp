@@ -16,6 +16,7 @@
 #include "../Menu/ImGuiMenu.h"
 #include <set>
 #include <map>
+#include <vector>
 #include <cctype>
 #include <string>
 #include <sstream>
@@ -40,10 +41,28 @@ namespace
     constexpr size_t INFINITE_OBJECTS_PATCH_SIZE = 3;
     constexpr BYTE INFINITE_OBJECTS_ORIGINAL_BYTES[INFINITE_OBJECTS_PATCH_SIZE] = { 0x89, 0x51, 0x08 };
     constexpr BYTE INFINITE_OBJECTS_PATCH_BYTES[INFINITE_OBJECTS_PATCH_SIZE] = { 0x90, 0x90, 0x90 };
+    constexpr uintptr_t NO_COLLISION_SPHERE_COMPONENT_OFFSET = 0x290;
+    constexpr uintptr_t NO_COLLISION_TELEPORT_POSITION_OFFSET = 0x1D0;
+
+    struct NoCollisionVector3
+    {
+        float X;
+        float Y;
+        float Z;
+    };
+
+    struct NoCollisionRotator3
+    {
+        float Pitch;
+        float Yaw;
+        float Roll;
+    };
 
     static std::mutex g_InfiniteObjectsPatchMutex;
     static bool g_InfiniteObjectsPatchApplied = false;
     static bool g_InfiniteObjectsMismatchLogged = false;
+    static bool g_NoCollisionInitialized = false;
+    static SDK::FVector g_NoCollisionTargetPosition{};
 
     static void WriteRuntimeDebugLog(const char* path, const std::string& message)
     {
@@ -281,6 +300,35 @@ bool IsValidBattleMode()
     }
 }
 
+static bool IsNoCollisionGameMode()
+{
+    try
+    {
+        SDK::UWorld* world = SDK::UWorld::GetWorld();
+        if (!SafeMemory::IsReadable(world, sizeof(void*)))
+            return false;
+
+        SDK::AGameStateBase* baseGameState = nullptr;
+        if (!SafeMemory::TryRead(&world->GameState, baseGameState))
+            return false;
+
+        SDK::AHerovsGameState* gameState = static_cast<SDK::AHerovsGameState*>(baseGameState);
+        if (!SafeMemory::IsReadable(gameState, sizeof(void*)))
+            return false;
+
+        SDK::EGameModeType modeType{};
+        if (!TryGetGameModeTypeSafe(gameState, modeType))
+            return false;
+
+        const int modeValue = static_cast<int>(modeType);
+        return modeValue >= 1 && modeValue <= 9;
+    }
+    catch (...)
+    {
+        return false;
+    }
+}
+
 /**
  * Validate if a pointer is safe to access
  * Checks for NULL and obviously invalid addresses
@@ -299,6 +347,7 @@ static inline bool SafeReadMember(const T* memberAddress, T& out)
 
 static inline bool IsObjectDefaultSafe(SDK::UObject* object);
 static inline bool IsObjectAUnsafeGuarded(SDK::UObject* object, SDK::UClass* klass);
+static inline bool IsLiveUObjectPointer(SDK::UObject* object);
 
 template<typename T>
 static inline bool SafeArrayCount(const UC::TArray<T>& array, int32_t& count, int32_t maxReasonableCount = 200000)
@@ -532,14 +581,240 @@ static inline SDK::FVector_NetQuantize100 GetActorLocationNetQuantize100Safe(SDK
 
 static inline SDK::USkillManagementComponent* GetSkillManagementComponentSafe(SDK::ACharacterBattle* character)
 {
-    if (!IsValidPointer(character))
+    if (!IsLiveUObjectPointer(character))
         return nullptr;
 
     SDK::USkillManagementComponent* skillComponent = nullptr;
-    if (!SafeReadMember(&character->_skillManagementComponent, skillComponent) || !IsValidPointer(skillComponent))
+    if (!SafeReadMember(&character->_skillManagementComponent, skillComponent) || !IsLiveUObjectPointer(skillComponent))
         return nullptr;
 
     return skillComponent;
+}
+
+static inline bool TryIsPlusUltraActionActiveSafe(SDK::ACharacterBattle* character, bool& isActive)
+{
+    isActive = false;
+    if (!IsLiveUObjectPointer(character))
+        return false;
+
+    SDK::UCharacterState* characterState = nullptr;
+    __try
+    {
+        characterState = character->BP_GetState();
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+
+    if (!IsLiveUObjectPointer(characterState))
+        return false;
+
+    __try
+    {
+        isActive = characterState->BP_IsPlusUltraAction();
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+static inline bool TrySetPlusUltraStateSafe(SDK::APlayerStateBattle* playerState, bool enable)
+{
+    if (!IsLiveUObjectPointer(playerState))
+        return false;
+
+    __try
+    {
+        playerState->SetPlusUltraFastReload(enable);
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+static inline bool TryPrimePlusUltraPointSafe(SDK::APlayerStateBattle* playerState)
+{
+    if (!IsLiveUObjectPointer(playerState))
+        return false;
+
+    constexpr float ReadyPlusUltraPoint = 100.0f;
+    constexpr float ReadyPlusUltraThreshold = 99.5f;
+
+    float currentPoint = 0.0f;
+    if (!SafeReadMember(&playerState->_plusUltraPoint, currentPoint) || !std::isfinite(currentPoint))
+        return false;
+
+    bool pointUpdated = false;
+    if (currentPoint < ReadyPlusUltraThreshold)
+    {
+        if (!SafeMemory::TryWrite<float>(&playerState->_plusUltraPoint, ReadyPlusUltraPoint))
+            return false;
+
+        pointUpdated = true;
+    }
+
+    __try
+    {
+        if (pointUpdated)
+            playerState->OnRep_PlusUltraPoint();
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+static inline bool TrySetPlusUltraSkillSafe(SDK::USkillManagementComponent* skillComponent)
+{
+    if (!IsLiveUObjectPointer(skillComponent))
+        return false;
+
+    __try
+    {
+        skillComponent->BP_SetPlusUltra();
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+static inline bool TrySetNoCollisionSafe(SDK::ACharacterBattle* character, bool enable)
+{
+    if (!IsLiveUObjectPointer(character))
+        return false;
+
+    __try
+    {
+        character->BP_SetEnableWallThrough(enable, enable);
+        character->BP_SetEnableCharacterThrough(enable);
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+static inline bool TryGetNoCollisionPositionAddress(SDK::ACharacterBattle* character, SDK::FVector** outPosition)
+{
+    if (!outPosition)
+        return false;
+
+    *outPosition = nullptr;
+
+    if (!IsValidPointer(character))
+        return false;
+
+    auto sphereComponentAddress = reinterpret_cast<SDK::UObject**>(
+        reinterpret_cast<uintptr_t>(character) + NO_COLLISION_SPHERE_COMPONENT_OFFSET);
+
+    SDK::UObject* sphereComponent = nullptr;
+    if (!SafeReadMember(sphereComponentAddress, sphereComponent) || !IsLiveUObjectPointer(sphereComponent))
+        return false;
+
+    auto positionAddress = reinterpret_cast<SDK::FVector*>(
+        reinterpret_cast<uintptr_t>(sphereComponent) + NO_COLLISION_TELEPORT_POSITION_OFFSET);
+
+    if (!SafeMemory::IsReadable(positionAddress, sizeof(SDK::FVector)))
+        return false;
+
+    *outPosition = positionAddress;
+    return true;
+}
+
+static inline bool TryReadNoCollisionPosition(SDK::ACharacterBattle* character, SDK::FVector& outPosition)
+{
+    SDK::FVector* positionAddress = nullptr;
+    if (!TryGetNoCollisionPositionAddress(character, &positionAddress))
+        return false;
+
+    NoCollisionVector3 rawPosition{};
+    if (!SafeMemory::TryRead(reinterpret_cast<const NoCollisionVector3*>(positionAddress), rawPosition) ||
+        !std::isfinite(rawPosition.X) ||
+        !std::isfinite(rawPosition.Y) ||
+        !std::isfinite(rawPosition.Z))
+    {
+        return false;
+    }
+
+    outPosition = SDK::FVector(rawPosition.X, rawPosition.Y, rawPosition.Z);
+    return true;
+}
+
+static inline bool TryWriteNoCollisionPosition(SDK::ACharacterBattle* character, const SDK::FVector& position)
+{
+    SDK::FVector* positionAddress = nullptr;
+    if (!TryGetNoCollisionPositionAddress(character, &positionAddress))
+        return false;
+
+    const NoCollisionVector3 rawPosition{ position.X, position.Y, position.Z };
+    return SafeMemory::TryWrite(reinterpret_cast<NoCollisionVector3*>(positionAddress), rawPosition);
+}
+
+static inline bool TryGetNoCollisionCameraRotation(SDK::APlayerController* playerController, SDK::FRotator& outRotation)
+{
+    if (!IsValidPointer(playerController))
+        return false;
+
+    SDK::APlayerCameraManager* cameraManager = nullptr;
+    if (SafeReadMember(&playerController->PlayerCameraManager, cameraManager) && IsLiveUObjectPointer(cameraManager))
+    {
+        __try
+        {
+            outRotation = cameraManager->GetCameraRotation();
+            if (std::isfinite(outRotation.Pitch) && std::isfinite(outRotation.Yaw) && std::isfinite(outRotation.Roll))
+                return true;
+        }
+        __except (EXCEPTION_EXECUTE_HANDLER)
+        {
+        }
+    }
+
+    NoCollisionRotator3 rawRotation{};
+    if (!SafeMemory::TryRead(reinterpret_cast<const NoCollisionRotator3*>(&playerController->ControlRotation), rawRotation))
+        return false;
+
+    if (!std::isfinite(rawRotation.Pitch) ||
+        !std::isfinite(rawRotation.Yaw) ||
+        !std::isfinite(rawRotation.Roll))
+    {
+        return false;
+    }
+
+    outRotation = SDK::FRotator(rawRotation.Pitch, rawRotation.Yaw, rawRotation.Roll);
+    return true;
+}
+
+static inline bool TryGetActorLocationSafe(SDK::AActor* actor, SDK::FVector& outLocation)
+{
+    if (!IsLiveUObjectPointer(actor))
+        return false;
+
+    __try
+    {
+        outLocation = actor->K2_GetActorLocation();
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+
+    return std::isfinite(outLocation.X) &&
+        std::isfinite(outLocation.Y) &&
+        std::isfinite(outLocation.Z);
 }
 
 static inline SDK::UProjectileReplicateBattleComponent* GetProjectileReplicatorSafe(SDK::ACharacterBattle* character)
@@ -569,7 +844,7 @@ static inline SDK::UCharacterConditionControlComponent* GetConditionControlCompo
         return nullptr;
     }
 
-    if (!IsValidPointer(conditionComponent))
+    if (!IsValidPointer(conditionComponent) || !IsLiveUObjectPointer(conditionComponent))
         return nullptr;
 
     return conditionComponent;
@@ -2160,17 +2435,24 @@ static bool GetStaticCostumeRoleSlotSafe(int costumeCode, SDK::FDbsCostumeRoleSl
 
 static std::string GetObjectNameSafe(SDK::UObject* object)
 {
-    if (!IsValidPointer(object))
+    if (!IsLiveUObjectPointer(object))
         return "null";
 
-    try
-    {
-        return object->GetName();
-    }
-    catch (...)
-    {
-        return "unreadable";
-    }
+    std::ostringstream oss;
+    oss << "object@" << std::hex << reinterpret_cast<uintptr_t>(object);
+    return oss.str();
+}
+
+static inline bool IsLiveUObjectPointer(SDK::UObject* object)
+{
+    if (!IsValidPointer(object))
+        return false;
+
+    SDK::UClass* objectClass = nullptr;
+    if (!SafeReadMember(&object->Class, objectClass) || !IsValidPointer(objectClass))
+        return false;
+
+    return true;
 }
 
 static std::string DescribeRollSlotState(SDK::APlayerStateBattle* playerState)
@@ -2224,14 +2506,14 @@ static void LogTogaTransformRollSlotState(const char* phase, SDK::APlayerControl
 
 static inline bool IsObjectDefaultSafe(SDK::UObject* object)
 {
-    if (!IsValidPointer(object))
+    if (!IsLiveUObjectPointer(object))
         return true;
 
-    try
+    __try
     {
         return object->IsDefaultObject();
     }
-    catch (...)
+    __except (EXCEPTION_EXECUTE_HANDLER)
     {
         return true;
     }
@@ -2239,14 +2521,14 @@ static inline bool IsObjectDefaultSafe(SDK::UObject* object)
 
 static inline bool IsObjectAUnsafeGuarded(SDK::UObject* object, SDK::UClass* klass)
 {
-    if (!IsValidPointer(object) || !IsValidPointer(klass))
+    if (!IsLiveUObjectPointer(object) || !IsLiveUObjectPointer(klass))
         return false;
 
-    try
+    __try
     {
         return object->IsA(klass);
     }
-    catch (...)
+    __except (EXCEPTION_EXECUTE_HANDLER)
     {
         return false;
     }
@@ -4515,6 +4797,543 @@ void InGameHack_RestoreInfiniteObjectsPatch()
     (void)InGameHack_SetInfiniteObjectsPatch(false);
 }
 
+// ============================================
+// INFINITE OBJECTS - SDK VERSION
+// ============================================
+// Pure-SDK replacement for the "mov [rcx+0x08], edx -> nop" byte patch.
+// [rcx+0x08] is UC::TArray::NumElements; the patch froze it so consuming an
+// item never decremented the holder array. Here we re-inflate NumElements of
+// the local player's inventory holders each frame instead of patching code,
+// so there is no hardcoded MHUR.exe+3ED21F5 offset to break on game updates.
+
+namespace
+{
+    std::mutex g_InfiniteObjectsSdkMutex;
+    SDK::USupplyHolderComponent* g_InfiniteObjectsLastComp = nullptr;
+    std::map<SDK::USupplyHolder*, int32_t> g_InfiniteObjectsFrozen;  // holder -> highest legit count
+}
+
+// Force UC::TArray::NumElements (offset +0x08) without ever exceeding capacity.
+template<typename T>
+static inline bool SafeArrayForceCount(UC::TArray<T>& array, int32_t newCount)
+{
+    if (!SafeMemory::IsReadable(&array, sizeof(array)))
+        return false;
+
+    int32_t curMax = 0;
+    try
+    {
+        curMax = array.Max();
+    }
+    catch (...)
+    {
+        return false;
+    }
+
+    // Never grow past MaxElements: that slot would point past allocated data.
+    if (newCount < 0 || curMax < newCount)
+        return false;
+
+    int32_t* numAddr = reinterpret_cast<int32_t*>(reinterpret_cast<uint8_t*>(&array) + 0x08);
+    return SafeMemory::TryWrite(numAddr, newCount);
+}
+
+void InGameHack_ResetInfiniteObjectsSDK()
+{
+    std::lock_guard<std::mutex> lock(g_InfiniteObjectsSdkMutex);
+    g_InfiniteObjectsFrozen.clear();
+    g_InfiniteObjectsLastComp = nullptr;
+}
+
+// Call every frame while the feature is enabled. Keeps each enabled inventory
+// holder's item count pinned to the highest value ever observed for it.
+void InGameHack_TickInfiniteObjectsSDK()
+{
+    if (!IsValidBattleMode())
+        return;
+
+    SDK::APlayerController* playerController = SDK_GetPlayerController();
+    SDK::ACharacterBattle* character = GetPlayerCharacterBattle(playerController);
+    if (!IsValidPointer(character))
+        return;
+
+    SDK::APlayerStateBattle* playerState = GetPlayerStateBattleFromCharacterSafe(character);
+    SDK::USupplyHolderComponent* comp = GetSupplyHolderComponentSafe(playerState);
+    if (!IsValidPointer(comp))
+        return;
+
+    std::lock_guard<std::mutex> lock(g_InfiniteObjectsSdkMutex);
+
+    // Drop tracking when the inventory component changes (new match / respawn)
+    // so recycled holder pointers can't inherit a stale ceiling.
+    if (comp != g_InfiniteObjectsLastComp)
+    {
+        g_InfiniteObjectsFrozen.clear();
+        g_InfiniteObjectsLastComp = comp;
+    }
+
+    int32_t inventoryCount = 0;
+    if (!SafeArrayCount(comp->_inventory, inventoryCount, 128))
+        return;
+
+    for (int32_t i = 0; i < inventoryCount; ++i)
+    {
+        SDK::USupplyHolder* holder = nullptr;
+        if (!SafeArrayGet(comp->_inventory, i, holder, 128) || !IsValidPointer(holder))
+            continue;
+
+        bool enabled = false;
+        if (!SafeReadMember(&holder->_bEnable, enabled) || !enabled)
+            continue;
+
+        int32_t supplyCount = 0;
+        if (!SafeArrayCount(holder->_supplies, supplyCount, 64))
+            continue;
+
+        int32_t& frozen = g_InfiniteObjectsFrozen[holder];
+        if (supplyCount > frozen)
+            frozen = supplyCount;   // picked up more -> raise the ceiling
+        if (frozen <= 0)
+            continue;
+
+        if (supplyCount < frozen)
+        {
+            // Re-inflate both parallel arrays together (1 supply <-> 1 serial)
+            // so the holder stays internally consistent.
+            SafeArrayForceCount(holder->_supplies, frozen);
+            SafeArrayForceCount(holder->_serverSerialList, frozen);
+        }
+    }
+}
+
+// ============================================
+// INVENTORY READER (read-only)
+// ============================================
+// Walks the local player's USupplyHolderComponent and reports which supplies
+// each holder currently contains. Pure SDK reads, no writes — this is the
+// foundation the InfiniteObjects logic builds on (know what we have before we
+// decide what to keep). Everything is bounded + guarded like the rest of the
+// file so a malformed holder can never fault the game thread.
+
+static inline const char* SupplyHolderTypeName(SDK::ESupplyHolderType type)
+{
+    switch (type)
+    {
+    case SDK::ESupplyHolderType::INVENTORY:       return "INVENTORY";
+    case SDK::ESupplyHolderType::ABILITYSLOT:     return "ABILITYSLOT";
+    case SDK::ESupplyHolderType::SKILLSLOT:       return "SKILLSLOT";
+    case SDK::ESupplyHolderType::ORBSLOT:         return "ORBSLOT";
+    case SDK::ESupplyHolderType::SKILLCHANGESLOT: return "SKILLCHANGESLOT";
+    case SDK::ESupplyHolderType::UNDEF:           return "UNDEF";
+    default:                                      return "?";
+    }
+}
+
+bool InGameHack_ReadInventory(InGameInventorySnapshot& out)
+{
+    out = InGameInventorySnapshot{};
+
+    if (!IsValidBattleMode())
+        return false;
+
+    SDK::APlayerController* playerController = SDK_GetPlayerController();
+    SDK::ACharacterBattle* character = GetPlayerCharacterBattle(playerController);
+    if (!IsValidPointer(character))
+        return false;
+
+    SDK::APlayerStateBattle* playerState = GetPlayerStateBattleFromCharacterSafe(character);
+    SDK::USupplyHolderComponent* comp = GetSupplyHolderComponentSafe(playerState);
+    if (!IsValidPointer(comp))
+        return false;
+
+    int32_t inventoryCount = 0;
+    if (!SafeArrayCount(comp->_inventory, inventoryCount, 128))
+        return false;
+
+    out.valid = true;
+
+    for (int32_t i = 0; i < inventoryCount; ++i)
+    {
+        SDK::USupplyHolder* holder = nullptr;
+        if (!SafeArrayGet(comp->_inventory, i, holder, 128) || !IsValidPointer(holder))
+            continue;
+
+        InGameInventoryHolder holderInfo{};
+        holderInfo.inventoryIndex = i;
+
+        SafeReadMember(&holder->_bEnable, holderInfo.enabled);
+        SafeReadMember(&holder->_index, holderInfo.holderIndex);
+
+        SDK::ESupplyHolderType holderType = SDK::ESupplyHolderType::UNDEF;
+        if (SafeReadMember(&holder->_type, holderType))
+            holderInfo.typeName = SupplyHolderTypeName(holderType);
+
+        int32_t supplyCount = 0;
+        if (SafeArrayCount(holder->_supplies, supplyCount, 64))
+        {
+            holderInfo.supplyCount = supplyCount;
+
+            for (int32_t j = 0; j < supplyCount; ++j)
+            {
+                SDK::USupply* supply = nullptr;
+                if (!SafeArrayGet(holder->_supplies, j, supply, 64) || !IsValidPointer(supply))
+                {
+                    holderInfo.supplyClassNames.push_back("<null>");
+                    continue;
+                }
+
+                std::string supplyClass = "Unknown";
+                GetClassNameSafe(supply, supplyClass);
+                holderInfo.supplyClassNames.push_back(supplyClass);
+            }
+        }
+
+        int32_t serialCount = 0;
+        if (SafeArrayCount(holder->_serverSerialList, serialCount, 64))
+            holderInfo.serialCount = serialCount;
+
+        out.totalSupplies += holderInfo.supplyCount;
+        out.holders.push_back(std::move(holderInfo));
+    }
+
+    return true;
+}
+
+// Dedicated inventory log file. The shared Logger is a no-op in release builds,
+// so we write straight to disk here. Appends so successive dumps stack up.
+static const char* const INVENTORY_LOG_PATH = "C:/temp/rugir_inventory.log";
+
+static std::string CurrentTimestampString()
+{
+    using namespace std::chrono;
+    const auto now = system_clock::now();
+    const std::time_t t = system_clock::to_time_t(now);
+
+    struct tm timeinfo {};
+    localtime_s(&timeinfo, &t);
+
+    std::stringstream ss;
+    ss << std::put_time(&timeinfo, "%Y-%m-%d %H:%M:%S");
+    return ss.str();
+}
+
+void InGameHack_LogInventory()
+{
+    // Make sure C:\temp exists before opening the file.
+    CreateDirectoryA("C:\\temp", nullptr);
+
+    std::ofstream out(INVENTORY_LOG_PATH, std::ios::app);
+    if (!out.is_open())
+        return;
+
+    out << "==== " << CurrentTimestampString() << " ====\n";
+
+    InGameInventorySnapshot snapshot;
+    if (!InGameHack_ReadInventory(snapshot) || !snapshot.valid)
+    {
+        out << "[Inventory] Could not read inventory (not in battle / no holder component)\n\n";
+        return;
+    }
+
+    out << "[Inventory] holders=" << snapshot.holders.size()
+        << " totalSupplies=" << snapshot.totalSupplies << "\n";
+
+    for (const InGameInventoryHolder& holder : snapshot.holders)
+    {
+        out << "  holder #" << holder.inventoryIndex
+            << " idx=" << holder.holderIndex
+            << " type=" << holder.typeName
+            << " enabled=" << (holder.enabled ? "1" : "0")
+            << " supplies=" << holder.supplyCount
+            << " serials=" << holder.serialCount;
+
+        if (!holder.supplyClassNames.empty())
+        {
+            out << " [";
+            for (size_t k = 0; k < holder.supplyClassNames.size(); ++k)
+            {
+                if (k != 0)
+                    out << ", ";
+                out << holder.supplyClassNames[k];
+            }
+            out << "]";
+        }
+
+        out << "\n";
+    }
+
+    out << "\n";
+}
+
+// ============================================
+// DROP / DUPLICATE SUPPLIES
+// ============================================
+// USupplyHolderComponent::OnDrop_ToServer(serials, levelOverWrite, longDistance)
+// asks the server to spawn the given supplies on the ground. Normally dropping
+// also removes them from the inventory; with Infinite Objects active the count
+// never decrements, so the dropped items are effectively duplicated.
+
+static bool OnDropToServerRawSafe(
+    SDK::USupplyHolderComponent* supplyHolderComp,
+    const SDK::TArray<SDK::uint32>& serialID,
+    SDK::uint8 levelOverWrite,
+    bool longDropDistance)
+{
+    if (!IsValidPointer(supplyHolderComp))
+        return false;
+
+    __try
+    {
+        supplyHolderComp->OnDrop_ToServer(serialID, levelOverWrite, longDropDistance);
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+// Drop (and, with Infinite Objects on, duplicate) every supply currently in the
+// local player's inventory holders. Returns the number of serials sent.
+int32_t InGameHack_DropInventorySupplies(bool longDropDistance)
+{
+    if (!IsValidBattleMode())
+        return 0;
+
+    SDK::APlayerController* playerController = SDK_GetPlayerController();
+    SDK::ACharacterBattle* character = GetPlayerCharacterBattle(playerController);
+    if (!IsValidPointer(character))
+        return 0;
+
+    SDK::APlayerStateBattle* playerState = GetPlayerStateBattleFromCharacterSafe(character);
+    SDK::USupplyHolderComponent* comp = GetSupplyHolderComponentSafe(playerState);
+    if (!IsValidPointer(comp))
+        return 0;
+
+    int32_t inventoryCount = 0;
+    if (!SafeArrayCount(comp->_inventory, inventoryCount, 128))
+        return 0;
+
+    int32_t totalDropped = 0;
+
+    for (int32_t i = 0; i < inventoryCount; ++i)
+    {
+        SDK::USupplyHolder* holder = nullptr;
+        if (!SafeArrayGet(comp->_inventory, i, holder, 128) || !IsValidPointer(holder))
+            continue;
+
+        bool enabled = false;
+        if (!SafeReadMember(&holder->_bEnable, enabled) || !enabled)
+            continue;
+
+        int32_t serialCount = 0;
+        if (!SafeArrayCount(holder->_serverSerialList, serialCount, 64) || serialCount <= 0)
+            continue;
+
+        SDK::TAllocatedArray<SDK::uint32> serials(serialCount);
+        for (int32_t j = 0; j < serialCount; ++j)
+        {
+            SDK::uint32 serial = 0;
+            if (SafeArrayGet(holder->_serverSerialList, j, serial, 64))
+                serials.Add(serial);
+        }
+
+        if (serials.Num() <= 0)
+            continue;
+
+        if (OnDropToServerRawSafe(comp, serials, 0, longDropDistance))
+            totalDropped += serials.Num();
+    }
+
+    return totalDropped;
+}
+
+void InGameHack_LogDropInventorySupplies()
+{
+    CreateDirectoryA("C:\\temp", nullptr);
+
+    std::ofstream out(INVENTORY_LOG_PATH, std::ios::app);
+    if (out.is_open())
+        out << "==== " << CurrentTimestampString() << " (DROP) ====\n";
+
+    const int32_t dropped = InGameHack_DropInventorySupplies(false);
+
+    if (out.is_open())
+        out << "[Drop] serials dropped=" << dropped << "\n\n";
+}
+
+// ============================================
+// CUSTOM DROP - WORLD ITEM CATALOG
+// ============================================
+// FName cannot be built from a string in this SDK, so to drop an item that is
+// not in the inventory we must harvest a valid supplyId FName at runtime. We
+// scan GObjects for AItemBase actors present in the match and read their
+// ASupplyActorBase::_supplyId (+ _netSupplyId as a best-effort serial). The UI
+// then lets the user pick one of these by name and drop N copies.
+
+namespace
+{
+    struct WorldDropItem
+    {
+        std::string displayName;   // actor class name, e.g. "BP_Su011_C"
+        SDK::FName  supplyId{};     // harvested ASupplyActorBase::_supplyId
+        uint32_t    sampleSerial;  // ASupplyActorBase::_netSupplyId (best-effort)
+    };
+
+    std::mutex g_WorldItemCatalogMutex;
+    std::vector<WorldDropItem> g_WorldItemCatalog;
+}
+
+static bool OnPickupToServerRawSafe(
+    SDK::USupplyHolderComponent* supplyHolderComp,
+    uint32_t serialID,
+    const SDK::FName& supplyId)
+{
+    if (!IsValidPointer(supplyHolderComp))
+        return false;
+
+    __try
+    {
+        supplyHolderComp->OnPickup_ToServer(serialID, supplyId);
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+// Scan the world for droppable item actors and rebuild the catalog.
+// Returns the number of distinct items found.
+int InGameHack_ScanWorldItemCatalog()
+{
+    SDK::TUObjectArray* gObjects = SDK::UObject::GObjects.GetTypedPtr();
+    if (!SafeMemory::IsReadable(gObjects, sizeof(SDK::TUObjectArray)))
+        return 0;
+
+    int32_t objectCount = 0;
+    if (!TryGetObjectArrayCountSafe(gObjects, objectCount))
+        return 0;
+    if (objectCount <= 0 || objectCount > 2000000)
+        return 0;
+
+    SDK::UClass* itemClass = SDK::AItemBase::StaticClass();
+
+    std::vector<WorldDropItem> found;
+    std::set<std::string> seenClasses;
+
+    for (int32_t i = 0; i < objectCount; ++i)
+    {
+        SDK::UObject* obj = GetObjectByIndexSafe(gObjects, i);
+        if (!IsValidPointer(obj) || IsObjectDefaultSafe(obj))
+            continue;
+        if (!IsObjectAUnsafeGuarded(obj, itemClass))
+            continue;
+
+        SDK::AItemBase* item = static_cast<SDK::AItemBase*>(obj);
+
+        SDK::FName supplyId{};
+        if (!SafeReadMember(&item->_supplyId, supplyId) || supplyId.IsNone())
+            continue;
+
+        std::string className = "Unknown";
+        GetClassNameSafe(obj, className);
+        if (seenClasses.count(className))
+            continue;
+        seenClasses.insert(className);
+
+        uint16_t netSupplyId = 0;
+        SafeReadMember(&item->_netSupplyId, netSupplyId);
+
+        WorldDropItem entry;
+        entry.displayName = className;
+        entry.supplyId = supplyId;
+        entry.sampleSerial = netSupplyId;
+        found.push_back(std::move(entry));
+    }
+
+    std::lock_guard<std::mutex> lock(g_WorldItemCatalogMutex);
+    g_WorldItemCatalog = std::move(found);
+    return static_cast<int>(g_WorldItemCatalog.size());
+}
+
+// Copy the current catalog display names for the UI combo.
+void InGameHack_GetWorldItemCatalogNames(std::vector<std::string>& out)
+{
+    out.clear();
+    std::lock_guard<std::mutex> lock(g_WorldItemCatalogMutex);
+    out.reserve(g_WorldItemCatalog.size());
+    for (const WorldDropItem& e : g_WorldItemCatalog)
+        out.push_back(e.displayName);
+}
+
+// Drop `quantity` copies of the catalog item at `catalogIndex`. With Infinite
+// Objects active the inventory count is frozen, so the drops are duplicated.
+// Logs results to C:\temp\rugir_inventory.log so the serial/pickup mechanism
+// can be iterated on empirically. Returns the number of serials sent.
+int InGameHack_DropCatalogItem(int catalogIndex, int quantity, bool longDrop)
+{
+    if (quantity < 1)   quantity = 1;
+    if (quantity > 100) quantity = 100;
+
+    CreateDirectoryA("C:\\temp", nullptr);
+    std::ofstream out(INVENTORY_LOG_PATH, std::ios::app);
+    if (out.is_open())
+        out << "==== " << CurrentTimestampString() << " (CUSTOM DROP) ====\n";
+
+    WorldDropItem item;
+    {
+        std::lock_guard<std::mutex> lock(g_WorldItemCatalogMutex);
+        if (catalogIndex < 0 || catalogIndex >= static_cast<int>(g_WorldItemCatalog.size()))
+        {
+            if (out.is_open())
+                out << "[CustomDrop] invalid catalog index=" << catalogIndex
+                    << " size=" << g_WorldItemCatalog.size() << "\n\n";
+            return 0;
+        }
+        item = g_WorldItemCatalog[catalogIndex];
+    }
+
+    if (out.is_open())
+        out << "[CustomDrop] item=" << item.displayName
+            << " serial=" << item.sampleSerial
+            << " qty=" << quantity << "\n";
+
+    if (!IsValidBattleMode())
+    {
+        if (out.is_open()) out << "[CustomDrop] not in battle mode\n\n";
+        return 0;
+    }
+
+    SDK::APlayerController* playerController = SDK_GetPlayerController();
+    SDK::ACharacterBattle* character = GetPlayerCharacterBattle(playerController);
+    SDK::APlayerStateBattle* playerState = GetPlayerStateBattleFromCharacterSafe(character);
+    SDK::USupplyHolderComponent* comp = GetSupplyHolderComponentSafe(playerState);
+    if (!IsValidPointer(comp))
+    {
+        if (out.is_open()) out << "[CustomDrop] no SupplyHolderComponent\n\n";
+        return 0;
+    }
+
+    // Build a serial array of `quantity` entries (same serial repeated). If the
+    // server dedupes by serial we will vary these in a follow-up iteration.
+    SDK::TAllocatedArray<SDK::uint32> serials(quantity);
+    for (int i = 0; i < quantity; ++i)
+        serials.Add(item.sampleSerial);
+
+    // Best-effort: inject the item via pickup first (for items not owned), then
+    // drop. Both are logged so we can see which step the server accepts.
+    const bool pickup = OnPickupToServerRawSafe(comp, item.sampleSerial, item.supplyId);
+    const bool dropped = OnDropToServerRawSafe(comp, serials, 0, longDrop);
+
+    if (out.is_open())
+        out << "[CustomDrop] pickup=" << (pickup ? "1" : "0")
+            << " drop=" << (dropped ? "1" : "0")
+            << " sent=" << serials.Num() << "\n\n";
+
+    return dropped ? serials.Num() : 0;
+}
+
 /**
  * Apply CH202_TRANS_MISSION condition to player character
  * Enables Ch202 transformation/mission state (ECharacterConditionId = 85)
@@ -5121,9 +5940,27 @@ bool InGameHack_CH011AbyssDarkBody()
 }
 
 static bool IsAbilityConditionId(SDK::ECharacterConditionId id);
-static SDK::APlayerStateBattle* GetLocalInstigatedPlayerState(
-    SDK::APlayerControllerBattle* playerController,
-    SDK::ACharacterBattle* playerCharacter);
+static bool CallBPSetConditionSafe(
+    SDK::UCharacterConditionControlComponent* conditionComponent,
+    SDK::ECharacterConditionId id,
+    int level,
+    float span,
+    float value,
+    float interval,
+    int subLevel,
+    SDK::APlayerStateBattle* instigatedPlayer,
+    int damageActionSerialNo);
+static bool CallSetConditionToServerSafe(
+    SDK::UCharacterConditionControlComponent* conditionComponent,
+    SDK::ECharacterConditionId id,
+    int level,
+    float span,
+    float value,
+    float interval,
+    int subLevel,
+    SDK::APlayerStateBattle* instigatedPlayer,
+    int damageActionSerialNo,
+    bool timeOverwrite);
 
 bool InGameHack_ApplyCustomCharacterCondition(int conditionId, int applyMode, int level, float duration, float value, float interval, int subLevel, bool timeOverwrite)
 {
@@ -5170,13 +6007,13 @@ bool InGameHack_ApplyCustomCharacterCondition(int conditionId, int applyMode, in
                 return false;
             }
 
-            instigatedPlayer = GetLocalInstigatedPlayerState(playerController, playerCharacter);
-            if (!instigatedPlayer)
+            if (!GetCharacterPlayerStateSafe(playerCharacter))
             {
-                Logger::LogError("[CharacterCondition] Could not get local PlayerState for ability condition");
+                Logger::LogError("[CharacterCondition] Player character is not fully ready for ability condition");
                 return false;
             }
 
+            instigatedPlayer = nullptr;
             applyMode = 1;
             value = value > 0.0f ? value : 1000.0f;
             interval = interval > 0.0f ? interval : 0.1f;
@@ -5186,14 +6023,22 @@ bool InGameHack_ApplyCustomCharacterCondition(int conditionId, int applyMode, in
         switch (applyMode)
         {
         case 1:
-            conditionComponent->BP_SetCondition(id, level, duration, value, interval, subLevel, instigatedPlayer, 0);
+            if (!CallBPSetConditionSafe(conditionComponent, id, level, duration, value, interval, subLevel, instigatedPlayer, 0))
+            {
+                Logger::LogError("[CharacterCondition] SEH exception applying BP condition ID " + std::to_string(conditionId));
+                return false;
+            }
             break;
         case 2:
             conditionComponent->BP_SetConditionLocal(id, level, duration, value, interval, subLevel, instigatedPlayer, 0);
             break;
         case 0:
         default:
-            conditionComponent->SetCondition_ToServer(id, level, duration, value, interval, subLevel, instigatedPlayer, 0, timeOverwrite, nullptr);
+            if (!CallSetConditionToServerSafe(conditionComponent, id, level, duration, value, interval, subLevel, instigatedPlayer, 0, timeOverwrite))
+            {
+                Logger::LogError("[CharacterCondition] SEH exception applying condition ID " + std::to_string(conditionId));
+                return false;
+            }
             break;
         }
 
@@ -5277,17 +6122,6 @@ static bool IsAbilityConditionId(SDK::ECharacterConditionId id)
         id <= SDK::ECharacterConditionId::ABILITY_TECHNIQUE;
 }
 
-static SDK::APlayerStateBattle* GetLocalInstigatedPlayerState(
-    SDK::APlayerControllerBattle* playerController,
-    SDK::ACharacterBattle* playerCharacter)
-{
-    SDK::APlayerStateBattle* instigatedPlayer = GetPlayerStateBattle(playerController);
-    if (!IsValidPointer(instigatedPlayer))
-        instigatedPlayer = GetPlayerStateBattleFromCharacterSafe(playerCharacter);
-
-    return IsValidPointer(instigatedPlayer) ? instigatedPlayer : nullptr;
-}
-
 static bool CallBPSetConditionSafe(
     SDK::UCharacterConditionControlComponent* conditionComponent,
     SDK::ECharacterConditionId id,
@@ -5299,6 +6133,12 @@ static bool CallBPSetConditionSafe(
     SDK::APlayerStateBattle* instigatedPlayer,
     int damageActionSerialNo)
 {
+    if (!IsValidPointer(conditionComponent) || !IsLiveUObjectPointer(conditionComponent))
+        return false;
+
+    if (instigatedPlayer && !IsLiveUObjectPointer(instigatedPlayer))
+        instigatedPlayer = nullptr;
+
     __try
     {
         conditionComponent->BP_SetCondition(
@@ -5310,6 +6150,46 @@ static bool CallBPSetConditionSafe(
             subLevel,
             instigatedPlayer,
             damageActionSerialNo
+        );
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool CallSetConditionToServerSafe(
+    SDK::UCharacterConditionControlComponent* conditionComponent,
+    SDK::ECharacterConditionId id,
+    int level,
+    float span,
+    float value,
+    float interval,
+    int subLevel,
+    SDK::APlayerStateBattle* instigatedPlayer,
+    int damageActionSerialNo,
+    bool timeOverwrite)
+{
+    if (!IsValidPointer(conditionComponent) || !IsLiveUObjectPointer(conditionComponent))
+        return false;
+
+    if (instigatedPlayer && !IsLiveUObjectPointer(instigatedPlayer))
+        instigatedPlayer = nullptr;
+
+    __try
+    {
+        conditionComponent->SetCondition_ToServer(
+            id,
+            level,
+            span,
+            value,
+            interval,
+            subLevel,
+            instigatedPlayer,
+            damageActionSerialNo,
+            timeOverwrite,
+            nullptr
         );
         return true;
     }
@@ -5363,14 +6243,13 @@ static bool ApplyAbilityCondition(SDK::ECharacterConditionId id, int level, cons
         return false;
     }
 
-    SDK::APlayerStateBattle* instigatedPlayer = GetLocalInstigatedPlayerState(playerController, playerCharacter);
-    if (!instigatedPlayer)
+    if (!GetCharacterPlayerStateSafe(playerCharacter))
     {
-        Logger::LogError(std::string("[COMBAT] Could not get local PlayerState for ") + logName);
+        Logger::LogError(std::string("[COMBAT] Player character is not fully ready for ") + logName);
         return false;
     }
 
-    if (!CallBPSetConditionSafe(conditionComponent, id, level, 500.0f, 1000.0f, 0.1f, level, instigatedPlayer, 0))
+    if (!CallBPSetConditionSafe(conditionComponent, id, level, 500.0f, 1000.0f, 0.1f, level, nullptr, 0))
     {
         Logger::LogError(std::string("[COMBAT] SEH exception calling BP_SetCondition for ") + logName);
         return false;
@@ -5773,6 +6652,303 @@ void InGameHack_LogAllDamageAttenuationCurves()
     }
 }
 
+static bool TextContainsCvNoneCurveName(const std::string& text)
+{
+    return text.find("CV_none") != std::string::npos ||
+           text.find("CV_None") != std::string::npos;
+}
+
+static SDK::UCurveFloat* FindCvNoneCurveFloat()
+{
+    SDK::TUObjectArray* gObjects = SDK::UObject::GObjects.GetTypedPtr();
+    if (!IsValidPointer(gObjects))
+        return nullptr;
+
+    int32_t objectCount = 0;
+    if (!TryGetObjectArrayCountSafe(gObjects, objectCount) || objectCount <= 0 || objectCount > 2000000)
+        return nullptr;
+
+    for (int32_t i = 0; i < objectCount; ++i)
+    {
+        SDK::UObject* obj = GetObjectByIndexSafe(gObjects, i);
+        if (!IsLiveUObjectPointer(obj) || IsObjectDefaultSafe(obj))
+            continue;
+
+        std::string className;
+        if (!GetClassNameSafe(obj, className) || className != "CurveFloat")
+            continue;
+
+        std::string objectName;
+        std::string fullName;
+        try
+        {
+            objectName = obj->GetName();
+            fullName = obj->GetFullName();
+        }
+        catch (...)
+        {
+            objectName.clear();
+            fullName.clear();
+        }
+
+        if (TextContainsCvNoneCurveName(objectName) || TextContainsCvNoneCurveName(fullName))
+            return static_cast<SDK::UCurveFloat*>(obj);
+    }
+
+    return nullptr;
+}
+
+static bool GetCvNoneCurveKeyData(SDK::UCurveFloat* curve, SDK::FRichCurveKey*& keyData, int32_t& keyCount)
+{
+    keyData = nullptr;
+    keyCount = 0;
+
+    if (!IsLiveUObjectPointer(curve))
+        return false;
+
+    SDK::FRichCurve* richCurve = &curve->FloatCurve;
+    if (!SafeMemory::IsReadable(richCurve, sizeof(SDK::FRichCurve)))
+        return false;
+
+    if (!SafeArrayCount(richCurve->Keys, keyCount, 4096) || keyCount <= 0)
+        return false;
+
+    const SDK::FRichCurveKey* constKeyData = nullptr;
+    try
+    {
+        constKeyData = richCurve->Keys.GetDataPtr();
+    }
+    catch (...)
+    {
+        return false;
+    }
+
+    if (!SafeMemory::IsReadable(constKeyData, sizeof(SDK::FRichCurveKey) * static_cast<size_t>(keyCount)))
+        return false;
+
+    keyData = const_cast<SDK::FRichCurveKey*>(constKeyData);
+    return true;
+}
+
+static bool WriteFloatValueWithProtection(float* target, float value)
+{
+    if (!target)
+        return false;
+
+    if (SafeMemory::TryWrite<float>(target, value))
+        return true;
+
+    DWORD oldProtect = 0;
+    if (!VirtualProtect(target, sizeof(float), PAGE_READWRITE, &oldProtect))
+        return false;
+
+    const bool success = SafeMemory::TryWrite<float>(target, value);
+
+    DWORD unusedProtect = 0;
+    VirtualProtect(target, sizeof(float), oldProtect, &unusedProtect);
+    return success;
+}
+
+bool InGameHack_SetCvNoneCurveValue(float value)
+{
+    static std::mutex s_CvNoneCurveMutex;
+    static SDK::UCurveFloat* s_CachedCurve = nullptr;
+    static SDK::FRichCurveKey* s_CachedKeyData = nullptr;
+    static int32_t s_CachedKeyCount = 0;
+    static std::vector<float> s_OriginalValues;
+
+    if (!std::isfinite(value))
+        value = 1.0f;
+
+    if (value < 1.0f)
+        value = 1.0f;
+    if (value > 300.0f)
+        value = 300.0f;
+
+    std::lock_guard<std::mutex> lock(s_CvNoneCurveMutex);
+
+    SDK::UCurveFloat* curve = s_CachedCurve;
+    SDK::FRichCurveKey* keyData = nullptr;
+    int32_t keyCount = 0;
+
+    if (!curve || !GetCvNoneCurveKeyData(curve, keyData, keyCount) ||
+        keyData != s_CachedKeyData || keyCount != s_CachedKeyCount)
+    {
+        s_CachedCurve = nullptr;
+        s_CachedKeyData = nullptr;
+        s_CachedKeyCount = 0;
+        s_OriginalValues.clear();
+
+        curve = FindCvNoneCurveFloat();
+        if (!curve || !GetCvNoneCurveKeyData(curve, keyData, keyCount))
+            return false;
+
+        s_CachedCurve = curve;
+        s_CachedKeyData = keyData;
+        s_CachedKeyCount = keyCount;
+
+        s_OriginalValues.reserve(static_cast<size_t>(keyCount));
+        for (int32_t i = 0; i < keyCount; ++i)
+        {
+            SDK::FRichCurveKey key{};
+            if (!SafeMemory::TryRead(keyData + i, key))
+            {
+                s_CachedCurve = nullptr;
+                s_CachedKeyData = nullptr;
+                s_CachedKeyCount = 0;
+                s_OriginalValues.clear();
+                return false;
+            }
+
+            s_OriginalValues.push_back(key.value);
+        }
+    }
+
+    const bool restoreOriginals = value <= 1.0001f;
+    int32_t writtenCount = 0;
+
+    for (int32_t i = 0; i < keyCount; ++i)
+    {
+        const float keyValue = (restoreOriginals && i < static_cast<int32_t>(s_OriginalValues.size()))
+            ? s_OriginalValues[static_cast<size_t>(i)]
+            : value;
+
+        if (WriteFloatValueWithProtection(&keyData[i].value, keyValue))
+            ++writtenCount;
+    }
+
+    return writtenCount == keyCount;
+}
+
+bool InGameHack_DumpCvNoneCurveScan()
+{
+    try
+    {
+        CreateDirectoryA("C:\\Temp", nullptr);
+
+        std::ofstream logFile("C:\\Temp\\cv_none_curve_scan.log", std::ios::out | std::ios::trunc);
+        if (!logFile.is_open())
+            return false;
+
+        logFile << "============ CV_none CurveFloat Scan ============\n";
+        logFile << "Timestamp: " << std::time(nullptr) << "\n";
+        logFile << "Target: CurveFloat objects where name/fullname contains CV_none or CV_None\n";
+        logFile << "=================================================\n\n";
+
+        SDK::TUObjectArray* gObjects = SDK::UObject::GObjects.GetTypedPtr();
+        if (!IsValidPointer(gObjects))
+        {
+            logFile << "ERROR: GObjects pointer is not readable\n";
+            return false;
+        }
+
+        int32_t objectCount = 0;
+        if (!TryGetObjectArrayCountSafe(gObjects, objectCount) || objectCount <= 0 || objectCount > 2000000)
+        {
+            logFile << "ERROR: invalid GObjects count: " << objectCount << "\n";
+            return false;
+        }
+
+        int32_t curveFloatCount = 0;
+        int32_t cvNoneCount = 0;
+        int32_t totalKeys = 0;
+
+        logFile << "GObjects count: " << objectCount << "\n\n";
+
+        for (int32_t i = 0; i < objectCount; ++i)
+        {
+            SDK::UObject* obj = GetObjectByIndexSafe(gObjects, i);
+            if (!IsValidPointer(obj) || IsObjectDefaultSafe(obj))
+                continue;
+
+            std::string className;
+            if (!GetClassNameSafe(obj, className) || className != "CurveFloat")
+                continue;
+
+            ++curveFloatCount;
+
+            std::string objectName;
+            std::string fullName;
+            try
+            {
+                objectName = obj->GetName();
+                fullName = obj->GetFullName();
+            }
+            catch (...)
+            {
+                objectName.clear();
+                fullName.clear();
+            }
+
+            const bool nameMatches =
+                objectName.find("CV_none") != std::string::npos ||
+                objectName.find("CV_None") != std::string::npos ||
+                fullName.find("CV_none") != std::string::npos ||
+                fullName.find("CV_None") != std::string::npos;
+
+            if (!nameMatches)
+                continue;
+
+            ++cvNoneCount;
+            auto* curve = static_cast<SDK::UCurveFloat*>(obj);
+
+            logFile << "[MATCH #" << cvNoneCount << "] index=" << i
+                    << " object=0x" << std::hex << reinterpret_cast<uintptr_t>(obj)
+                    << " curve=0x" << reinterpret_cast<uintptr_t>(curve)
+                    << std::dec << "\n";
+            logFile << "  name=" << objectName << "\n";
+            logFile << "  fullName=" << fullName << "\n";
+
+            SDK::FRichCurve* richCurve = &curve->FloatCurve;
+
+            if (!richCurve || !SafeMemory::IsReadable(richCurve, sizeof(SDK::FRichCurve)))
+            {
+                logFile << "  keys=unreadable\n\n";
+                continue;
+            }
+
+            int32_t keyCount = 0;
+            if (!SafeArrayCount(richCurve->Keys, keyCount, 4096))
+            {
+                logFile << "  keys=invalid-or-unreadable\n\n";
+                continue;
+            }
+
+            totalKeys += keyCount;
+            logFile << "  keys=" << keyCount << "\n";
+
+            for (int32_t keyIndex = 0; keyIndex < keyCount; ++keyIndex)
+            {
+                SDK::FRichCurveKey key{};
+                if (!SafeArrayGet(richCurve->Keys, keyIndex, key, 4096))
+                {
+                    logFile << "    [" << keyIndex << "] unreadable\n";
+                    continue;
+                }
+
+                logFile << "    [" << keyIndex << "] time=" << key.Time
+                        << " value=" << key.value
+                        << " interp=" << static_cast<int>(key.InterpMode)
+                        << " tangent=" << static_cast<int>(key.TangentMode)
+                        << "\n";
+            }
+
+            logFile << "\n";
+        }
+
+        logFile << "================ Summary ================\n";
+        logFile << "CurveFloat objects scanned: " << curveFloatCount << "\n";
+        logFile << "CV_none matches: " << cvNoneCount << "\n";
+        logFile << "Total matched keys: " << totalKeys << "\n";
+        logFile << "Output: C:\\Temp\\cv_none_curve_scan.log\n";
+        return true;
+    }
+    catch (...)
+    {
+        return false;
+    }
+}
+
 bool InGameHack_SetCharacterDying(SDK::ACharacterBattle* character)
 {
     try
@@ -6052,6 +7228,250 @@ bool InGameHack_SetSkillLevel(int skillIndex, int level)
     }
 }
 
+bool InGameHack_GivePlusUltra()
+{
+    try
+    {
+        if (!IsValidBattleMode())
+            return false;
+
+        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!IsValidPointer(playerController))
+            return false;
+
+        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
+        if (!IsLiveUObjectPointer(playerChar))
+            return false;
+
+        bool plusUltraActive = false;
+        if (TryIsPlusUltraActionActiveSafe(playerChar, plusUltraActive) && plusUltraActive)
+            return false;
+
+        SDK::APlayerStateBattle* playerState = GetPlayerStateBattle(playerController);
+        const bool primedPlayerState = TryPrimePlusUltraPointSafe(playerState);
+
+        SDK::USkillManagementComponent* skillComponent = GetSkillManagementComponentSafe(playerChar);
+        if (!IsValidPointer(skillComponent))
+            return primedPlayerState;
+
+        return TrySetPlusUltraSkillSafe(skillComponent) || primedPlayerState;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[PlusUltra] Exception in GivePlusUltra: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[PlusUltra] Unknown exception in GivePlusUltra");
+        return false;
+    }
+}
+
+bool InGameHack_KeepPlusUltraReady()
+{
+    try
+    {
+        if (!IsValidBattleMode())
+            return false;
+
+        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!IsValidPointer(playerController))
+            return false;
+
+        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
+        if (!IsLiveUObjectPointer(playerChar))
+            return false;
+
+        bool plusUltraActive = false;
+        if (TryIsPlusUltraActionActiveSafe(playerChar, plusUltraActive) && plusUltraActive)
+            return true;
+
+        SDK::APlayerStateBattle* playerState = GetPlayerStateBattle(playerController);
+        return TryPrimePlusUltraPointSafe(playerState);
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[PlusUltra] Exception in KeepPlusUltraReady: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[PlusUltra] Unknown exception in KeepPlusUltraReady");
+        return false;
+    }
+}
+
+bool InGameHack_SetPlusUltraFastCharge(bool enable)
+{
+    try
+    {
+        if (!IsValidBattleMode())
+            return false;
+
+        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!IsValidPointer(playerController))
+            return false;
+
+        SDK::APlayerStateBattle* playerState = GetPlayerStateBattle(playerController);
+        if (!IsValidPointer(playerState))
+            return false;
+
+        return TrySetPlusUltraStateSafe(playerState, enable);
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[PlusUltra] Exception in SetPlusUltraFastCharge: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[PlusUltra] Unknown exception in SetPlusUltraFastCharge");
+        return false;
+    }
+}
+
+bool InGameHack_SetNoCollision(bool enable)
+{
+    try
+    {
+        if (!enable)
+            g_NoCollisionInitialized = false;
+
+        if (!IsNoCollisionGameMode())
+            return false;
+
+        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!IsValidPointer(playerController))
+            return false;
+
+        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
+        if (!IsLiveUObjectPointer(playerChar))
+            return false;
+
+        return TrySetNoCollisionSafe(playerChar, enable);
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[NoCollision] Exception in SetNoCollision: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[NoCollision] Unknown exception in SetNoCollision");
+        return false;
+    }
+}
+
+bool InGameHack_UpdateNoCollisionMovement(bool holdActive, float forwardAxis, float rightAxis, float speed)
+{
+    try
+    {
+        if (!IsNoCollisionGameMode())
+        {
+            g_NoCollisionInitialized = false;
+            return false;
+        }
+
+        SDK::APlayerController* playerController = SDK_GetPlayerController();
+        if (!IsValidPointer(playerController))
+            return false;
+
+        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
+        if (!IsLiveUObjectPointer(playerChar))
+            return false;
+
+        SDK::FVector currentPosition{};
+        const bool hasCurrentPosition = TryReadNoCollisionPosition(playerChar, currentPosition);
+        if (!g_NoCollisionInitialized)
+        {
+            if (hasCurrentPosition)
+            {
+                g_NoCollisionTargetPosition = currentPosition;
+            }
+            else
+            {
+                if (!TryGetActorLocationSafe(playerChar, g_NoCollisionTargetPosition))
+                    return false;
+            }
+
+            g_NoCollisionInitialized = true;
+        }
+
+        if (!holdActive)
+        {
+            if (hasCurrentPosition)
+                g_NoCollisionTargetPosition = currentPosition;
+            return true;
+        }
+
+        constexpr float AxisDeadzone = 0.001f;
+        if (!std::isfinite(forwardAxis))
+            forwardAxis = 0.0f;
+        if (!std::isfinite(rightAxis))
+            rightAxis = 0.0f;
+
+        forwardAxis = std::clamp(forwardAxis, -1.0f, 1.0f);
+        rightAxis = std::clamp(rightAxis, -1.0f, 1.0f);
+
+        if (std::abs(forwardAxis) < AxisDeadzone && std::abs(rightAxis) < AxisDeadzone)
+        {
+            if (hasCurrentPosition)
+                g_NoCollisionTargetPosition = currentPosition;
+            return true;
+        }
+
+        if (!std::isfinite(speed) || speed < 0.0f)
+            speed = 0.0f;
+
+        SDK::FRotator rotation{};
+        if (!TryGetNoCollisionCameraRotation(playerController, rotation))
+            return false;
+
+        constexpr float DegToRad = 0.017453292519943295769f;
+        constexpr float HalfPi = 1.570796326794896619f;
+        const float yaw = rotation.Yaw * DegToRad;
+        const float pitch = rotation.Pitch * DegToRad;
+        const float cosPitch = std::cos(pitch);
+
+        const SDK::FVector forward(
+            cosPitch * std::cos(yaw),
+            cosPitch * std::sin(yaw),
+            std::sin(pitch));
+
+        const SDK::FVector right(
+            std::cos(yaw + HalfPi),
+            std::sin(yaw + HalfPi),
+            0.0f);
+
+        g_NoCollisionTargetPosition.X += (forward.X * forwardAxis + right.X * rightAxis) * speed;
+        g_NoCollisionTargetPosition.Y += (forward.Y * forwardAxis + right.Y * rightAxis) * speed;
+        g_NoCollisionTargetPosition.Z += forward.Z * forwardAxis * speed;
+
+        if (!std::isfinite(g_NoCollisionTargetPosition.X) ||
+            !std::isfinite(g_NoCollisionTargetPosition.Y) ||
+            !std::isfinite(g_NoCollisionTargetPosition.Z))
+        {
+            g_NoCollisionInitialized = false;
+            return false;
+        }
+
+        return TryWriteNoCollisionPosition(playerChar, g_NoCollisionTargetPosition);
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[NoCollision] Exception in UpdateNoCollisionMovement: " + std::string(e.what()));
+        g_NoCollisionInitialized = false;
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[NoCollision] Unknown exception in UpdateNoCollisionMovement");
+        g_NoCollisionInitialized = false;
+        return false;
+    }
+}
+
 bool InGameHack_TestUseItemAction(int uniqueLevel)
 {
     try
@@ -6137,6 +7557,1147 @@ bool InGameHack_TestUseItemAction(int uniqueLevel)
         Logger::LogError("[UseItemAction] Unknown exception");
         return false;
     }
+}
+
+static bool GetUserRespawnCommandSatisfiedSafe(SDK::ACharacterBattle* playerChar)
+{
+    if (!IsValidPointer(playerChar))
+        return false;
+
+    __try
+    {
+        SDK::UCharacterCommandComponent* command = playerChar->BP_GetCommandComponent();
+        return IsValidPointer(command) && command->BP_IsSatisfiedCommand(SDK::ECommandId::USERESPAWN);
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static SDK::FVector_NetQuantize100 MakeNetQuantize100Safe(const SDK::FVector& location)
+{
+    SDK::FVector_NetQuantize100 targetLocation{};
+    targetLocation.X = location.X;
+    targetLocation.Y = location.Y;
+    targetLocation.Z = location.Z;
+    return targetLocation;
+}
+
+static SDK::UCharacterRespawnControlCompnent* GetRespawnControlComponentSafe(SDK::ACharacterBattle* character)
+{
+    if (!IsValidPointer(character))
+        return nullptr;
+
+    __try
+    {
+        SDK::UCharacterRespawnControlCompnent* component = character->BP_GetRespawnControlComponent();
+        return IsValidPointer(component) ? component : nullptr;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return nullptr;
+    }
+}
+
+static SDK::FVector_NetQuantize100 GetRespawnTargetLocationSafe(SDK::ACharacterBattle* targetCharacter, bool& usedRespawnComponent)
+{
+    usedRespawnComponent = false;
+
+    SDK::FVector_NetQuantize100 fallback = GetActorLocationNetQuantize100Safe(targetCharacter);
+    SDK::UCharacterRespawnControlCompnent* respawnComponent = GetRespawnControlComponentSafe(targetCharacter);
+    if (!IsValidPointer(respawnComponent))
+        return fallback;
+
+    __try
+    {
+        SDK::FVector respawnLocation = respawnComponent->BP_GetRespawnLocation();
+        usedRespawnComponent = true;
+        return MakeNetQuantize100Safe(respawnLocation);
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        usedRespawnComponent = false;
+        return fallback;
+    }
+}
+
+static bool SetCurrentActionButtonTargetSafe(SDK::UCharacterActionControlComponent* actionControl, SDK::AActor* targetActor)
+{
+    if (!IsValidPointer(actionControl) || !IsValidPointer(targetActor))
+        return false;
+
+    return SafeMemory::TryWrite(&actionControl->_currentActionButtonTarget, targetActor);
+}
+
+static void LogRespawnDebugFile(const std::string& message)
+{
+    CreateDirectoryA("C:\\Temp", nullptr);
+
+    std::ofstream logFile("C:\\Temp\\respawn_debug.log", std::ios::out | std::ios::app);
+    if (!logFile.is_open())
+        return;
+
+    logFile << "tick=" << GetTickCount64() << " " << message << "\n";
+}
+
+struct RespawnRosterCandidate
+{
+    SDK::APlayerStateBattle* playerState = nullptr;
+    SDK::ACharacterBattle* character = nullptr;
+    std::string playerName = "Unknown";
+    int playerId = -1;
+    int teamId = -1;
+    bool dead = false;
+    bool dying = false;
+    bool spectator = false;
+    bool onlySpectator = false;
+    bool inactive = false;
+    int respawnTagState = -1;
+    int numberOfSpectators = 0;
+    int score = 0;
+};
+
+static std::string PtrToHexString(const void* ptr)
+{
+    std::ostringstream oss;
+    oss << "0x" << std::hex << reinterpret_cast<uintptr_t>(ptr);
+    return oss.str();
+}
+
+static const char* RespawnTagStateName(int state)
+{
+    switch (state)
+    {
+    case 0: return "ALIVE";
+    case 1: return "SPAWNED";
+    case 2: return "COLLECTED";
+    case 3: return "RETIRE";
+    default: return "UNKNOWN";
+    }
+}
+
+static int GetHerovsPlayerTeamIdSafe(SDK::APlayerState* playerState)
+{
+    if (!IsValidPointer(playerState))
+        return -1;
+
+    __try
+    {
+        SDK::AHerovsPlayerState* herovsState = static_cast<SDK::AHerovsPlayerState*>(playerState);
+        return herovsState->BP_GetTeamId();
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+    }
+
+    uint8_t teamId = 255;
+    if (SafeMemory::TryRead(reinterpret_cast<uint8_t*>(reinterpret_cast<uintptr_t>(playerState) + 0x32A), teamId))
+        return teamId;
+
+    return -1;
+}
+
+static int GetHerovsPlayerIdSafe(SDK::APlayerState* playerState)
+{
+    if (!IsValidPointer(playerState))
+        return -1;
+
+    __try
+    {
+        SDK::AHerovsPlayerState* herovsState = static_cast<SDK::AHerovsPlayerState*>(playerState);
+        return herovsState->BP_GetPlayerId();
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+    }
+
+    int16_t herovsPlayerId = -1;
+    if (SafeMemory::TryRead(reinterpret_cast<int16_t*>(reinterpret_cast<uintptr_t>(playerState) + 0x328), herovsPlayerId))
+        return herovsPlayerId;
+
+    int32_t enginePlayerId = -1;
+    if (SafeReadMember(&playerState->playerId, enginePlayerId))
+        return enginePlayerId;
+
+    return -1;
+}
+
+static void GetPlayerStateSpectatorFlagsSafe(
+    SDK::APlayerState* playerState,
+    bool& spectator,
+    bool& onlySpectator,
+    bool& inactive)
+{
+    spectator = false;
+    onlySpectator = false;
+    inactive = false;
+
+    if (!IsValidPointer(playerState))
+        return;
+
+    uint8_t flags = 0;
+    if (!SafeMemory::TryRead(reinterpret_cast<uint8_t*>(reinterpret_cast<uintptr_t>(playerState) + 0x22A), flags))
+        return;
+
+    spectator = (flags & 0x02) != 0;
+    onlySpectator = (flags & 0x04) != 0;
+    inactive = (flags & 0x20) != 0;
+}
+
+static bool GetPlayerStateDeadSafe(SDK::APlayerStateBattle* playerState)
+{
+    if (!IsValidPointer(playerState))
+        return false;
+
+    __try
+    {
+        return playerState->BP_IsDead();
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool GetPlayerStateDyingSafe(SDK::APlayerStateBattle* playerState)
+{
+    if (!IsValidPointer(playerState))
+        return false;
+
+    __try
+    {
+        return playerState->BP_IsDying();
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static int GetRespawnTagStateValueSafe(SDK::APlayerStateBattle* playerState)
+{
+    if (!IsValidPointer(playerState))
+        return -1;
+
+    SDK::ERespawnTagState tagState = SDK::ERespawnTagState::ALIVE;
+    if (!SafeReadMember(&playerState->_respawnTagState, tagState))
+        return -1;
+
+    return static_cast<int>(tagState);
+}
+
+static SDK::ACharacterBattle* PlayerIdsToCharacterBattleRawSafe(SDK::UWorld* world, int playerId)
+{
+    if (!IsValidPointer(world) || playerId < 0)
+        return nullptr;
+
+    __try
+    {
+        return SDK::UInGameStatics::PlayerIdsToCharacterBattle(world, playerId);
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return nullptr;
+    }
+}
+
+static SDK::ACharacterBattle* FindCharacterForPlayerStateSafe(
+    SDK::UWorld* world,
+    SDK::APlayerStateBattle* targetPlayerState,
+    int playerId)
+{
+    if (!IsValidPointer(targetPlayerState))
+        return nullptr;
+
+    if (playerId >= 0 && IsValidPointer(world))
+    {
+        SDK::ACharacterBattle* byPlayerId = PlayerIdsToCharacterBattleRawSafe(world, playerId);
+        if (IsValidPointer(byPlayerId) &&
+            !IsObjectDefaultSafe(byPlayerId) &&
+            GetCharacterPlayerStateSafe(byPlayerId) == targetPlayerState)
+        {
+            return byPlayerId;
+        }
+    }
+
+    auto allCharacters = InGameHack_GetAllCharacterBattles();
+    for (SDK::ACharacterBattle* character : allCharacters)
+    {
+        if (!IsValidPointer(character) || IsObjectDefaultSafe(character))
+            continue;
+
+        if (GetCharacterPlayerStateSafe(character) == targetPlayerState)
+            return character;
+    }
+
+    return nullptr;
+}
+
+static bool IsRespawnCandidateState(const RespawnRosterCandidate& candidate)
+{
+    const bool tagNeedsRespawn =
+        candidate.respawnTagState >= 0 &&
+        candidate.respawnTagState != static_cast<int>(SDK::ERespawnTagState::ALIVE);
+
+    return candidate.dead ||
+           candidate.spectator ||
+           candidate.onlySpectator ||
+           tagNeedsRespawn;
+}
+
+static int ScoreRespawnCandidate(const RespawnRosterCandidate& candidate)
+{
+    if (!IsRespawnCandidateState(candidate))
+        return 0;
+
+    int score = 1;
+    if (candidate.dead)
+        score += 100;
+    if (candidate.spectator || candidate.onlySpectator)
+        score += 80;
+    if (candidate.respawnTagState == static_cast<int>(SDK::ERespawnTagState::COLLECTED))
+        score += 70;
+    else if (candidate.respawnTagState > static_cast<int>(SDK::ERespawnTagState::ALIVE))
+        score += 35;
+    if (!candidate.character)
+        score += 20;
+    else
+        score += 5;
+
+    return score;
+}
+
+static void LogRespawnRosterCandidate(const RespawnRosterCandidate& candidate, int rosterIndex, bool sameTeam)
+{
+    std::string message =
+        "[RespawnRoster] idx=" +
+        std::to_string(rosterIndex) +
+        " name=" +
+        candidate.playerName +
+        " playerId=" +
+        std::to_string(candidate.playerId) +
+        " team=" +
+        std::to_string(candidate.teamId) +
+        " sameTeam=" +
+        (sameTeam ? "true" : "false") +
+        " dead=" +
+        (candidate.dead ? "true" : "false") +
+        " dying=" +
+        (candidate.dying ? "true" : "false") +
+        " spectator=" +
+        (candidate.spectator ? "true" : "false") +
+        " onlySpectator=" +
+        (candidate.onlySpectator ? "true" : "false") +
+        " inactive=" +
+        (candidate.inactive ? "true" : "false") +
+        " tagState=" +
+        RespawnTagStateName(candidate.respawnTagState) +
+        "(" +
+        std::to_string(candidate.respawnTagState) +
+        ") hasCharacter=" +
+        (IsValidPointer(candidate.character) ? "true" : "false") +
+        " character=" +
+        PtrToHexString(candidate.character) +
+        " spectators=" +
+        std::to_string(candidate.numberOfSpectators) +
+        " score=" +
+        std::to_string(candidate.score);
+
+    LogRespawnDebugFile(message);
+}
+
+static bool FindAutoRespawnRosterCandidate(RespawnRosterCandidate& outCandidate)
+{
+    outCandidate = RespawnRosterCandidate{};
+
+    SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+    if (!IsValidPointer(playerController))
+    {
+        LogRespawnDebugFile("[RespawnRoster] Could not get PlayerController");
+        return false;
+    }
+
+    SDK::APlayerState* localBaseState = GetControllerPlayerStateSafe(playerController);
+    if (!IsValidPointer(localBaseState))
+    {
+        LogRespawnDebugFile("[RespawnRoster] Could not get local PlayerState");
+        return false;
+    }
+
+    const int localTeamId = GetHerovsPlayerTeamIdSafe(localBaseState);
+    if (localTeamId < 0 || localTeamId == 255)
+    {
+        LogRespawnDebugFile("[RespawnRoster] Invalid local team id: " + std::to_string(localTeamId));
+        return false;
+    }
+
+    SDK::UWorld* world = SDK::UWorld::GetWorld();
+    SDK::AGameStateBase* gameState = GetGameStateSafe(world);
+    if (!IsValidPointer(gameState))
+    {
+        LogRespawnDebugFile("[RespawnRoster] Could not get GameState");
+        return false;
+    }
+
+    int32_t playerCount = 0;
+    if (!SafeArrayCount(gameState->PlayerArray, playerCount, 128))
+    {
+        LogRespawnDebugFile("[RespawnRoster] Could not read GameState.PlayerArray");
+        return false;
+    }
+
+    LogRespawnDebugFile(
+        "[RespawnRoster] Scan start; players=" +
+        std::to_string(playerCount) +
+        " localTeam=" +
+        std::to_string(localTeamId));
+
+    bool found = false;
+    int bestScore = 0;
+
+    for (int32_t i = 0; i < playerCount; ++i)
+    {
+        SDK::APlayerState* baseState = nullptr;
+        if (!SafeArrayGet(gameState->PlayerArray, i, baseState, 128) || !IsValidPointer(baseState))
+            continue;
+
+        if (baseState == localBaseState)
+            continue;
+
+        RespawnRosterCandidate candidate{};
+        candidate.playerState = static_cast<SDK::APlayerStateBattle*>(baseState);
+        candidate.playerName = GetPlayerNameSafe(baseState);
+        candidate.playerId = GetHerovsPlayerIdSafe(baseState);
+        candidate.teamId = GetHerovsPlayerTeamIdSafe(baseState);
+        GetPlayerStateSpectatorFlagsSafe(
+            baseState,
+            candidate.spectator,
+            candidate.onlySpectator,
+            candidate.inactive);
+
+        const bool sameTeam = candidate.teamId == localTeamId;
+        if (sameTeam && IsValidPointer(candidate.playerState))
+        {
+            candidate.dead = GetPlayerStateDeadSafe(candidate.playerState);
+            candidate.dying = GetPlayerStateDyingSafe(candidate.playerState);
+            candidate.respawnTagState = GetRespawnTagStateValueSafe(candidate.playerState);
+            SafeReadMember(&candidate.playerState->_numberOfSpectator, candidate.numberOfSpectators);
+            candidate.character = FindCharacterForPlayerStateSafe(world, candidate.playerState, candidate.playerId);
+            candidate.score = ScoreRespawnCandidate(candidate);
+        }
+
+        LogRespawnRosterCandidate(candidate, i, sameTeam);
+
+        if (!sameTeam || candidate.score <= 0)
+            continue;
+
+        if (!found || candidate.score > bestScore)
+        {
+            outCandidate = candidate;
+            bestScore = candidate.score;
+            found = true;
+        }
+    }
+
+    if (!found)
+    {
+        LogRespawnDebugFile("[RespawnRoster] No dead/spectator same-team candidate found");
+        return false;
+    }
+
+    LogRespawnDebugFile(
+        "[RespawnRoster] Selected target name=" +
+        outCandidate.playerName +
+        " playerId=" +
+        std::to_string(outCandidate.playerId) +
+        " team=" +
+        std::to_string(outCandidate.teamId) +
+        " tagState=" +
+        RespawnTagStateName(outCandidate.respawnTagState) +
+        " hasCharacter=" +
+        (IsValidPointer(outCandidate.character) ? "true" : "false") +
+        " score=" +
+        std::to_string(outCandidate.score));
+
+    return true;
+}
+
+static SDK::UDogTagManagerComponent* GetDogTagManagerSafe()
+{
+    SDK::UWorld* world = SDK::UWorld::GetWorld();
+    SDK::AGameStateBase* baseGameState = GetGameStateSafe(world);
+    if (!IsValidPointer(baseGameState))
+        return nullptr;
+
+    SDK::AGameStateBattle* gameStateBattle = static_cast<SDK::AGameStateBattle*>(baseGameState);
+    if (!IsValidPointer(gameStateBattle))
+        return nullptr;
+
+    SDK::UDogTagManagerComponent* dogTagManager = nullptr;
+    if (!SafeReadMember(&gameStateBattle->_dogTagManager, dogTagManager) || !IsValidPointer(dogTagManager))
+        return nullptr;
+
+    return dogTagManager;
+}
+
+static bool ConsumeDogTagToServerRawSafe(
+    SDK::UDogTagManagerComponent* dogTagManager,
+    SDK::APlayerStateBattle* targetPlayerState)
+{
+    if (!IsValidPointer(dogTagManager) || !IsValidPointer(targetPlayerState))
+        return false;
+
+    __try
+    {
+        dogTagManager->ConsumeDogTag_ToServer(targetPlayerState);
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool SendRespawnDogTagConsumeSafe(SDK::APlayerStateBattle* targetPlayerState)
+{
+    if (!IsValidPointer(targetPlayerState))
+    {
+        LogRespawnDebugFile("[RespawnDogTag] No target PlayerStateBattle");
+        return false;
+    }
+
+    SDK::UDogTagManagerComponent* dogTagManager = GetDogTagManagerSafe();
+    if (!IsValidPointer(dogTagManager))
+    {
+        LogRespawnDebugFile("[RespawnDogTag] Could not get DogTagManagerComponent");
+        return false;
+    }
+
+    if (!ConsumeDogTagToServerRawSafe(dogTagManager, targetPlayerState))
+    {
+        LogRespawnDebugFile("[RespawnDogTag] ConsumeDogTag_ToServer failed");
+        return false;
+    }
+
+    LogRespawnDebugFile(
+        "[RespawnDogTag] ConsumeDogTag_ToServer sent; target=" +
+        GetPlayerNameSafe(targetPlayerState) +
+        " playerId=" +
+        std::to_string(GetHerovsPlayerIdSafe(targetPlayerState)));
+    return true;
+}
+
+static bool InGameHack_SendUserRespawnAction(SDK::ACharacterBattle* targetCharacter)
+{
+    try
+    {
+        if (!IsValidBattleMode())
+        {
+            LogRespawnDebugFile("[UserRespawnAction] Not in valid battle mode");
+            Logger::LogWarning("[UserRespawnAction] Not in valid battle mode");
+            return false;
+        }
+
+        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!IsValidPointer(playerController))
+        {
+            LogRespawnDebugFile("[UserRespawnAction] Could not get PlayerController");
+            Logger::LogError("[UserRespawnAction] Could not get PlayerController");
+            return false;
+        }
+
+        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
+        if (!IsValidPointer(playerChar))
+        {
+            LogRespawnDebugFile("[UserRespawnAction] Could not get player character");
+            Logger::LogError("[UserRespawnAction] Could not get player character");
+            return false;
+        }
+
+        SDK::UCharacterActionControlComponent* actionControl = GetActionControlComponentSafe(playerChar);
+        if (!IsValidPointer(actionControl))
+        {
+            LogRespawnDebugFile("[UserRespawnAction] Could not get CharacterActionControlComponent");
+            Logger::LogError("[UserRespawnAction] Could not get CharacterActionControlComponent");
+            return false;
+        }
+
+        if (!IsValidPointer(targetCharacter) || IsObjectDefaultSafe(targetCharacter))
+        {
+            LogRespawnDebugFile("[UserRespawnAction] No target CharacterBattle; auto target may be spectator-only");
+            Logger::LogWarning("[UserRespawnAction] No target CharacterBattle");
+            return false;
+        }
+
+        SDK::AActor* targetActor = static_cast<SDK::AActor*>(targetCharacter);
+
+        unsigned char playerTeamId = GetCharacterTeamId(playerChar);
+        unsigned char targetTeamId = GetCharacterTeamId(targetCharacter);
+        if (playerTeamId == 255 || targetTeamId != playerTeamId)
+        {
+            LogRespawnDebugFile(
+                "[UserRespawnAction] Selected target is not on same team; playerTeam=" +
+                std::to_string(playerTeamId) +
+                " targetTeam=" +
+                std::to_string(targetTeamId));
+            Logger::LogWarning("[UserRespawnAction] Selected target is not on same team");
+            return false;
+        }
+
+        bool usedRespawnComponent = false;
+        bool targetDying = IsCharacterDyingOffset(targetCharacter);
+        bool commandBefore = GetUserRespawnCommandSatisfiedSafe(playerChar);
+        bool actionTargetWritten = SetCurrentActionButtonTargetSafe(actionControl, targetActor);
+
+        int32_t recoverAllyCount = 0;
+        SafeArrayCount(actionControl->_characterListForRecoverAlly, recoverAllyCount, 64);
+
+        SDK::FVector_NetQuantize100 targetLocation = GetRespawnTargetLocationSafe(targetCharacter, usedRespawnComponent);
+
+        actionControl->SetAttackAction_ToServer(
+            SDK::EAttackId::USEITEM,
+            targetLocation,
+            targetActor,
+            0,
+            SDK::ECommandId::USERESPAWN,
+            true,
+            0,
+            SDK::EAttackBeginStateFlags::NONE);
+
+        bool commandAfter = GetUserRespawnCommandSatisfiedSafe(playerChar);
+        std::string message =
+            std::string("[UserRespawnAction] SetAttackAction_ToServer(USERESPAWN) sent; target=CharacterBattle") +
+            " commandBefore=" +
+            (commandBefore ? "true" : "false") +
+            " commandAfter=" +
+            (commandAfter ? "true" : "false") +
+            " targetDying=" +
+            (targetDying ? "true" : "false") +
+            " actionTargetWritten=" +
+            (actionTargetWritten ? "true" : "false") +
+            " recoverAllyCount=" +
+            std::to_string(recoverAllyCount) +
+            " usedRespawnComponent=" +
+            (usedRespawnComponent ? "true" : "false");
+        LogRespawnDebugFile(message);
+        Logger::LogInfo(message);
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        LogRespawnDebugFile("[UserRespawnAction] Exception: " + std::string(e.what()));
+        Logger::LogError("[UserRespawnAction] Exception: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        LogRespawnDebugFile("[UserRespawnAction] Unknown exception");
+        Logger::LogError("[UserRespawnAction] Unknown exception");
+        return false;
+    }
+}
+
+bool InGameHack_TestUserRespawnAction()
+{
+    RespawnRosterCandidate candidate;
+    if (!FindAutoRespawnRosterCandidate(candidate))
+        return false;
+
+    if (!IsValidPointer(candidate.character))
+    {
+        LogRespawnDebugFile(
+            "[UserRespawnAction] Auto target has no CharacterBattle; use respawn card path for PlayerState target=" +
+            candidate.playerName +
+            " playerId=" +
+            std::to_string(candidate.playerId));
+        Logger::LogWarning("[UserRespawnAction] Auto target has no CharacterBattle");
+        return false;
+    }
+
+    return InGameHack_SendUserRespawnAction(candidate.character);
+}
+
+bool InGameHack_TestUserRespawnSelectedTeamMember(int teamMemberIndex);
+
+bool InGameHack_TestUserRespawnSelectedTeamMember(int teamMemberIndex)
+{
+    if (teamMemberIndex < 0 || teamMemberIndex >= (int)ImGuiMenu::g_CurrentTeamCharacters.size())
+    {
+        LogRespawnDebugFile("[UserRespawnAction] Invalid selected team member index: " + std::to_string(teamMemberIndex));
+        Logger::LogWarning("[UserRespawnAction] Invalid selected team member index: " + std::to_string(teamMemberIndex));
+        return InGameHack_TestUserRespawnAction();
+    }
+
+    return InGameHack_SendUserRespawnAction(ImGuiMenu::g_CurrentTeamCharacters[teamMemberIndex]);
+}
+
+static bool IsRespawnSupplySafe(SDK::USupply* supply, std::string& supplyClassName)
+{
+    supplyClassName = "Unknown";
+    if (!IsValidPointer(supply) || IsObjectDefaultSafe(supply))
+        return false;
+
+    GetClassNameSafe(supply, supplyClassName);
+    if (IsObjectAUnsafeGuarded(supply, SDK::USupplyRespawn::StaticClass()) ||
+        IsObjectAUnsafeGuarded(supply, SDK::USupplyRespawnFlagment::StaticClass()))
+    {
+        return true;
+    }
+
+    return supplyClassName.find("Respawn") != std::string::npos;
+}
+
+static SDK::USupplyHolder* FindRespawnSupplyHolderSafe(
+    SDK::USupplyHolderComponent* supplyHolderComp,
+    std::string& supplyClassName,
+    int32_t& inventoryIndex,
+    int32_t& supplyIndex,
+    int32_t& scannedHolders,
+    int32_t& scannedSupplies)
+{
+    supplyClassName = "Unknown";
+    inventoryIndex = -1;
+    supplyIndex = -1;
+    scannedHolders = 0;
+    scannedSupplies = 0;
+
+    if (!IsValidPointer(supplyHolderComp))
+        return nullptr;
+
+    int32_t inventoryCount = 0;
+    if (!SafeArrayCount(supplyHolderComp->_inventory, inventoryCount, 128))
+        return nullptr;
+
+    scannedHolders = inventoryCount;
+    for (int32_t i = 0; i < inventoryCount; ++i)
+    {
+        SDK::USupplyHolder* holder = nullptr;
+        if (!SafeArrayGet(supplyHolderComp->_inventory, i, holder, 128) || !IsValidPointer(holder))
+            continue;
+
+        bool holderEnabled = false;
+        SafeReadMember(&holder->_bEnable, holderEnabled);
+        if (!holderEnabled)
+            continue;
+
+        int32_t supplyCount = 0;
+        if (!SafeArrayCount(holder->_supplies, supplyCount, 16))
+            continue;
+
+        scannedSupplies += supplyCount;
+        for (int32_t j = 0; j < supplyCount; ++j)
+        {
+            SDK::USupply* supply = nullptr;
+            if (!SafeArrayGet(holder->_supplies, j, supply, 16) || !IsValidPointer(supply))
+                continue;
+
+            std::string currentClass;
+            if (!IsRespawnSupplySafe(supply, currentClass))
+                continue;
+
+            supplyClassName = currentClass;
+            inventoryIndex = i;
+            supplyIndex = j;
+            return holder;
+        }
+    }
+
+    return nullptr;
+}
+
+struct RespawnSupplyHolderSource
+{
+    SDK::USupplyHolderComponent* component = nullptr;
+    SDK::USupplyHolder* holder = nullptr;
+    std::string supplyClassName = "Unknown";
+    int32_t inventoryIndex = -1;
+    int32_t supplyIndex = -1;
+    int32_t scannedHolders = 0;
+    int32_t scannedSupplies = 0;
+    int32_t scannedObjects = 0;
+    int32_t scannedComponents = 0;
+    bool ownerMatchesLocalPlayerState = false;
+    const char* source = "none";
+};
+
+static SDK::AActor* GetComponentOwnerSafe(SDK::UActorComponent* component)
+{
+    if (!IsValidPointer(component))
+        return nullptr;
+
+    __try
+    {
+        SDK::AActor* owner = component->GetOwner();
+        return IsValidPointer(owner) ? owner : nullptr;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return nullptr;
+    }
+}
+
+static bool TryResolveRespawnSupplyFromComponent(
+    SDK::USupplyHolderComponent* supplyHolderComp,
+    const char* source,
+    SDK::APlayerState* localPlayerState,
+    RespawnSupplyHolderSource& out)
+{
+    if (!IsValidPointer(supplyHolderComp))
+        return false;
+
+    std::string supplyClassName;
+    int32_t inventoryIndex = -1;
+    int32_t supplyIndex = -1;
+    int32_t scannedHolders = 0;
+    int32_t scannedSupplies = 0;
+    SDK::USupplyHolder* holder = FindRespawnSupplyHolderSafe(
+        supplyHolderComp,
+        supplyClassName,
+        inventoryIndex,
+        supplyIndex,
+        scannedHolders,
+        scannedSupplies);
+    if (!IsValidPointer(holder))
+    {
+        out.scannedHolders += scannedHolders;
+        out.scannedSupplies += scannedSupplies;
+        return false;
+    }
+
+    out.component = supplyHolderComp;
+    out.holder = holder;
+    out.supplyClassName = supplyClassName;
+    out.inventoryIndex = inventoryIndex;
+    out.supplyIndex = supplyIndex;
+    out.scannedHolders += scannedHolders;
+    out.scannedSupplies += scannedSupplies;
+    out.ownerMatchesLocalPlayerState =
+        IsValidPointer(localPlayerState) &&
+        GetComponentOwnerSafe(supplyHolderComp) == static_cast<SDK::AActor*>(localPlayerState);
+    out.source = source;
+    return true;
+}
+
+static bool TryFindRespawnSupplyHolderFromGObjects(
+    SDK::APlayerState* localPlayerState,
+    RespawnSupplyHolderSource& out)
+{
+    SDK::TUObjectArray* gObjects = SDK::UObject::GObjects.GetTypedPtr();
+    int32_t objectCount = 0;
+    if (!IsValidPointer(gObjects) || !TryGetObjectArrayCountSafe(gObjects, objectCount))
+        return false;
+
+    if (objectCount <= 0 || objectCount > 2000000)
+        return false;
+
+    SDK::UClass* supplyHolderClass = SDK::USupplyHolderComponent::StaticClass();
+    if (!IsValidPointer(supplyHolderClass))
+        return false;
+
+    RespawnSupplyHolderSource firstAnyMatch{};
+    bool foundAnyMatch = false;
+    out.scannedObjects = objectCount;
+
+    for (int32_t i = 0; i < objectCount; ++i)
+    {
+        SDK::UObject* obj = GetObjectByIndexSafe(gObjects, i);
+        if (!IsValidPointer(obj) || IsObjectDefaultSafe(obj))
+            continue;
+
+        if (!IsObjectAUnsafeGuarded(obj, supplyHolderClass))
+            continue;
+
+        ++out.scannedComponents;
+        SDK::USupplyHolderComponent* component = static_cast<SDK::USupplyHolderComponent*>(obj);
+
+        RespawnSupplyHolderSource candidate{};
+        candidate.scannedObjects = objectCount;
+        candidate.scannedComponents = out.scannedComponents;
+        if (!TryResolveRespawnSupplyFromComponent(component, "gobjects_forced_any_holder", localPlayerState, candidate))
+        {
+            out.scannedHolders += candidate.scannedHolders;
+            out.scannedSupplies += candidate.scannedSupplies;
+            continue;
+        }
+
+        out.scannedHolders += candidate.scannedHolders;
+        out.scannedSupplies += candidate.scannedSupplies;
+
+        if (candidate.ownerMatchesLocalPlayerState)
+        {
+            candidate.source = "gobjects_local_owner";
+            candidate.scannedObjects = objectCount;
+            candidate.scannedComponents = out.scannedComponents;
+            out = candidate;
+            return true;
+        }
+
+        if (!foundAnyMatch)
+        {
+            firstAnyMatch = candidate;
+            foundAnyMatch = true;
+        }
+    }
+
+    if (foundAnyMatch)
+    {
+        firstAnyMatch.scannedObjects = objectCount;
+        firstAnyMatch.scannedComponents = out.scannedComponents;
+        firstAnyMatch.scannedHolders = out.scannedHolders;
+        firstAnyMatch.scannedSupplies = out.scannedSupplies;
+        out = firstAnyMatch;
+        return true;
+    }
+
+    return false;
+}
+
+static bool OnUseSupplyToServerRawSafe(
+    SDK::USupplyHolderComponent* supplyHolderComp,
+    const SDK::FNetSupplyHolderData& data)
+{
+    if (!IsValidPointer(supplyHolderComp))
+        return false;
+
+    __try
+    {
+        supplyHolderComp->OnUseSupply_ToServer(data);
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool InGameHack_TestUseRespawnCardSupplyForCandidate(const RespawnRosterCandidate& candidate)
+{
+    try
+    {
+        if (!IsValidBattleMode())
+        {
+            LogRespawnDebugFile("[RespawnCardSupply] Not in valid battle mode");
+            Logger::LogWarning("[RespawnCardSupply] Not in valid battle mode");
+            return false;
+        }
+
+        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!IsValidPointer(playerController))
+        {
+            LogRespawnDebugFile("[RespawnCardSupply] Could not get PlayerController");
+            Logger::LogError("[RespawnCardSupply] Could not get PlayerController");
+            return false;
+        }
+
+        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
+        const bool hasLocalCharacter = IsValidPointer(playerChar);
+        if (!hasLocalCharacter)
+            LogRespawnDebugFile("[RespawnCardSupply] Local CharacterBattle unavailable; forcing supply path without pawn");
+
+        if (!IsValidPointer(candidate.playerState))
+        {
+            LogRespawnDebugFile("[RespawnCardSupply] Auto target has no PlayerStateBattle; supply will be sent without DogTag consume");
+            Logger::LogWarning("[RespawnCardSupply] Auto target has no PlayerStateBattle");
+        }
+
+        SDK::APlayerState* localPlayerState = GetControllerPlayerStateSafe(playerController);
+        const bool hasLocalPlayerState = IsValidPointer(localPlayerState);
+        const int playerTeamId = GetHerovsPlayerTeamIdSafe(localPlayerState);
+        if (hasLocalPlayerState && (playerTeamId < 0 || playerTeamId == 255 || candidate.teamId != playerTeamId))
+        {
+            LogRespawnDebugFile(
+                "[RespawnCardSupply] Auto target is not on same team; playerTeam=" +
+                std::to_string(playerTeamId) +
+                " targetTeam=" +
+                std::to_string(candidate.teamId));
+            Logger::LogWarning("[RespawnCardSupply] Auto target is not on same team");
+            return false;
+        }
+        if (!hasLocalPlayerState)
+            LogRespawnDebugFile("[RespawnCardSupply] Local PlayerState unavailable; trusting auto roster target and forcing supply holder scan");
+
+        SDK::ACharacterBattle* targetCharacter = candidate.character;
+
+        SDK::APlayerStateBattle* playerState = GetPlayerStateBattle(playerController);
+        RespawnSupplyHolderSource supplySource{};
+        SDK::USupplyHolderComponent* playerStateSupplyHolderComp = GetSupplyHolderComponentSafe(playerState);
+        if (TryResolveRespawnSupplyFromComponent(playerStateSupplyHolderComp, "playerstate", localPlayerState, supplySource))
+        {
+            supplySource.ownerMatchesLocalPlayerState = true;
+        }
+        else
+        {
+            RespawnSupplyHolderSource forcedSource{};
+            if (TryFindRespawnSupplyHolderFromGObjects(localPlayerState, forcedSource))
+            {
+                supplySource = forcedSource;
+                LogRespawnDebugFile(
+                    "[RespawnCardSupply] Forced supply holder fallback selected; source=" +
+                    std::string(supplySource.source) +
+                    " scannedObjects=" +
+                    std::to_string(supplySource.scannedObjects) +
+                    " components=" +
+                    std::to_string(supplySource.scannedComponents) +
+                    " ownerMatchesLocalPlayerState=" +
+                    (supplySource.ownerMatchesLocalPlayerState ? "true" : "false"));
+            }
+            else
+            {
+                LogRespawnDebugFile(
+                    "[RespawnCardSupply] Could not find respawn SupplyHolderComponent; hasLocalPlayerState=" +
+                    std::string(hasLocalPlayerState ? "true" : "false") +
+                    " hasLocalCharacter=" +
+                    (hasLocalCharacter ? "true" : "false") +
+                    " gobjectsScanned=" +
+                    std::to_string(forcedSource.scannedObjects) +
+                    " components=" +
+                    std::to_string(forcedSource.scannedComponents));
+                Logger::LogError("[RespawnCardSupply] Could not find respawn SupplyHolderComponent");
+                return false;
+            }
+        }
+
+        SDK::USupplyHolderComponent* supplyHolderComp = supplySource.component;
+        SDK::USupplyHolder* holder = supplySource.holder;
+
+        int32_t serialCount = 0;
+        if (!SafeArrayCount(holder->_serverSerialList, serialCount, 16) || serialCount <= 0)
+        {
+            LogRespawnDebugFile("[RespawnCardSupply] Respawn supply holder has no server serials");
+            Logger::LogWarning("[RespawnCardSupply] Respawn supply holder has no server serials");
+            return false;
+        }
+
+        SDK::TAllocatedArray<SDK::uint32> serverSerials(serialCount);
+        for (int32_t i = 0; i < serialCount; ++i)
+        {
+            SDK::uint32 serial = 0;
+            if (SafeArrayGet(holder->_serverSerialList, i, serial, 16))
+                serverSerials.Add(serial);
+        }
+
+        if (serverSerials.Num() <= 0)
+        {
+            LogRespawnDebugFile("[RespawnCardSupply] Failed to copy server serials");
+            Logger::LogWarning("[RespawnCardSupply] Failed to copy server serials");
+            return false;
+        }
+
+        bool holderEnabled = true;
+        int32_t holderIndex = supplySource.inventoryIndex;
+        SDK::ESupplyHolderType holderType = SDK::ESupplyHolderType::INVENTORY;
+        SafeReadMember(&holder->_bEnable, holderEnabled);
+        SafeReadMember(&holder->_index, holderIndex);
+        SafeReadMember(&holder->_type, holderType);
+
+        SDK::TAllocatedArray<SDK::uint32> levels(0);
+        SDK::FNetSupplyHolderData data{};
+        data._serverSerialList = serverSerials;
+        data._levelList = levels;
+        data._bEnable = holderEnabled;
+        data._index = holderIndex;
+        data._type = holderType;
+        data._manipulation = SDK::ESupplyManipulationType::USE;
+
+        bool commandBefore = hasLocalCharacter ? GetUserRespawnCommandSatisfiedSafe(playerChar) : false;
+        const bool supplySent = OnUseSupplyToServerRawSafe(supplyHolderComp, data);
+        if (!supplySent)
+        {
+            LogRespawnDebugFile(
+                "[RespawnCardSupply] OnUseSupply_ToServer failed; source=" +
+                std::string(supplySource.source) +
+                " holderIndex=" +
+                std::to_string(holderIndex) +
+                " serials=" +
+                std::to_string(serverSerials.Num()));
+            Logger::LogWarning("[RespawnCardSupply] OnUseSupply_ToServer failed");
+        }
+
+        const bool dogTagSent = IsValidPointer(candidate.playerState) ? SendRespawnDogTagConsumeSafe(candidate.playerState) : false;
+        const bool hasCharacterTarget = IsValidPointer(targetCharacter) && !IsObjectDefaultSafe(targetCharacter);
+        const bool actionSent = (hasLocalCharacter && hasCharacterTarget) ? InGameHack_SendUserRespawnAction(targetCharacter) : false;
+        if (!hasCharacterTarget)
+        {
+            LogRespawnDebugFile(
+                "[RespawnCardSupply] Auto target has no CharacterBattle; skipped USERESPAWN action and used PlayerState/DogTag path target=" +
+                candidate.playerName +
+                " playerId=" +
+                std::to_string(candidate.playerId));
+        }
+        else if (!hasLocalCharacter)
+        {
+            LogRespawnDebugFile("[RespawnCardSupply] Skipped USERESPAWN action because local CharacterBattle is unavailable");
+        }
+
+        std::string message =
+            "[RespawnCardSupply] Force use result; supply=" +
+            supplySource.supplyClassName +
+            " target=" +
+            candidate.playerName +
+            " playerId=" +
+            std::to_string(candidate.playerId) +
+            " tagState=" +
+            RespawnTagStateName(candidate.respawnTagState) +
+            " hasCharacter=" +
+            (hasCharacterTarget ? "true" : "false") +
+            " holderIndex=" +
+            std::to_string(holderIndex) +
+            " inventoryIndex=" +
+            std::to_string(supplySource.inventoryIndex) +
+            " supplyIndex=" +
+            std::to_string(supplySource.supplyIndex) +
+            " serials=" +
+            std::to_string(serverSerials.Num()) +
+            " commandBefore=" +
+            (commandBefore ? "true" : "false") +
+            " hasLocalCharacter=" +
+            (hasLocalCharacter ? "true" : "false") +
+            " hasLocalPlayerState=" +
+            (hasLocalPlayerState ? "true" : "false") +
+            " source=" +
+            supplySource.source +
+            " ownerMatchesLocalPlayerState=" +
+            (supplySource.ownerMatchesLocalPlayerState ? "true" : "false") +
+            " scannedObjects=" +
+            std::to_string(supplySource.scannedObjects) +
+            " holderComponents=" +
+            std::to_string(supplySource.scannedComponents) +
+            " scannedHolders=" +
+            std::to_string(supplySource.scannedHolders) +
+            " scannedSupplies=" +
+            std::to_string(supplySource.scannedSupplies) +
+            " supplySent=" +
+            (supplySent ? "true" : "false") +
+            " dogTagSent=" +
+            (dogTagSent ? "true" : "false") +
+            " actionSent=" +
+            (actionSent ? "true" : "false");
+        LogRespawnDebugFile(message);
+        Logger::LogInfo(message);
+        return supplySent || dogTagSent || actionSent;
+    }
+    catch (const std::exception& e)
+    {
+        LogRespawnDebugFile("[RespawnCardSupply] Exception: " + std::string(e.what()));
+        Logger::LogError("[RespawnCardSupply] Exception: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        LogRespawnDebugFile("[RespawnCardSupply] Unknown exception");
+        Logger::LogError("[RespawnCardSupply] Unknown exception");
+        return false;
+    }
+}
+
+bool InGameHack_TestUseRespawnCardSupply()
+{
+    RespawnRosterCandidate candidate;
+    if (!FindAutoRespawnRosterCandidate(candidate))
+        return false;
+
+    return InGameHack_TestUseRespawnCardSupplyForCandidate(candidate);
 }
 
 int InGameHack_GetSkillLevel(int skillIndex)
@@ -7166,9 +9727,125 @@ void InGameHack_ProcessCharacterConditionAutoExecution(
 // PLAYER NAME CHANGE
 // ============================================================================
 
+struct RuntimeBackendSubsystemSource
+{
+    SDK::UBackendSubsystem* backendSubsystem = nullptr;
+    int32_t scannedObjects = 0;
+    int32_t backendCandidates = 0;
+    const char* source = "none";
+};
+
+static RuntimeBackendSubsystemSource ResolveRuntimeBackendSubsystem()
+{
+    RuntimeBackendSubsystemSource result{};
+
+    SDK::TUObjectArray* gObjects = SDK::UObject::GObjects.GetTypedPtr();
+    int32_t objectCount = 0;
+    if (!IsValidPointer(gObjects) || !TryGetObjectArrayCountSafe(gObjects, objectCount))
+        return result;
+
+    if (objectCount <= 0 || objectCount > 2000000)
+        return result;
+
+    SDK::UClass* backendClass = SDK::UBackendSubsystem::StaticClass();
+    if (!IsValidPointer(backendClass))
+        return result;
+
+    result.scannedObjects = objectCount;
+    for (int32_t i = 0; i < objectCount; ++i)
+    {
+        SDK::UObject* obj = GetObjectByIndexSafe(gObjects, i);
+        if (!IsValidPointer(obj) || IsObjectDefaultSafe(obj))
+            continue;
+
+        if (!IsObjectAUnsafeGuarded(obj, backendClass))
+            continue;
+
+        ++result.backendCandidates;
+        result.backendSubsystem = static_cast<SDK::UBackendSubsystem*>(obj);
+        result.source = "gobjects_runtime_backend";
+        return result;
+    }
+
+    SDK::UBackendSubsystem* defaultBackend = SDK::UBackendSubsystem::GetDefaultObj();
+    if (IsValidPointer(defaultBackend))
+    {
+        result.backendSubsystem = defaultBackend;
+        result.source = "default_object_fallback";
+    }
+
+    return result;
+}
+
+static bool TryMakeWideStringFromUtf8(const char* text, std::wstring& outText)
+{
+    int requiredSize = MultiByteToWideChar(CP_UTF8, 0, text, -1, nullptr, 0);
+    if (requiredSize <= 0)
+        return false;
+
+    outText.assign(static_cast<size_t>(requiredSize), L'\0');
+    if (MultiByteToWideChar(CP_UTF8, 0, text, -1, outText.data(), requiredSize) <= 0)
+        return false;
+
+    return true;
+}
+
+static bool TryUpdatePlayerName(SDK::UBackendSubsystem* backendSubsystem, const SDK::FString& playerName, SDK::int32& requestId)
+{
+    __try
+    {
+        requestId = backendSubsystem->UpdatePlayerName(playerName);
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool TrySetBackendPlayerPlatform(SDK::UBackendSubsystem* backendSubsystem, int platform)
+{
+    __try
+    {
+        backendSubsystem->SetPlayerPlatform(platform);
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static bool TryForceBackendFakePlatform(SDK::UBackendSubsystem* backendSubsystem, const SDK::FString& platform)
+{
+    __try
+    {
+        backendSubsystem->ForceFakePlatform(platform);
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+static const char* BackendPlatformNameFromCode(int platform)
+{
+    switch (platform)
+    {
+    case 0: return "Invalid";
+    case 1: return "PlayStation";
+    case 2: return "Xbox";
+    case 3: return "Windows";
+    case 4: return "Switch";
+    case 5: return "None";
+    default: return "Unknown";
+    }
+}
+
 /**
  * Change player name in the game
- * Calls AGameModeBase::ChangeName on server
+ * Calls BackendSubsystem::UpdatePlayerName so the request follows the profile backend path.
  * @param newName - The new player name (max 255 characters)
  * @return true if successful, false otherwise
  */
@@ -7183,42 +9860,39 @@ bool InGameHack_ChangePlayerName(const char* newName)
             return false;
         }
 
-        // Get player controller
-        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!playerController)
+        RuntimeBackendSubsystemSource backendSource = ResolveRuntimeBackendSubsystem();
+        SDK::UBackendSubsystem* backendSubsystem = backendSource.backendSubsystem;
+        if (!IsValidPointer(backendSubsystem))
         {
-            Logger::LogError("[ChangeName] Could not get player controller");
+            Logger::LogError("[ChangeName] Could not resolve runtime BackendSubsystem");
             return false;
         }
 
-        // Validate controller pointer
-        if (IsBadReadPtr(playerController, sizeof(void*)))
+        std::wstring wideName;
+        if (!TryMakeWideStringFromUtf8(newName, wideName))
         {
-            Logger::LogError("[ChangeName] PlayerController pointer is invalid");
+            Logger::LogError("[ChangeName] Failed to convert player name to FString");
             return false;
         }
 
-        // Convert C string (const char*) to wide string (wchar_t*)
-        int requiredSize = MultiByteToWideChar(CP_UTF8, 0, newName, -1, NULL, 0);
-        if (requiredSize <= 0)
+        SDK::FString newNameFString(wideName.c_str());
+        SDK::int32 requestId = -1;
+        if (!TryUpdatePlayerName(backendSubsystem, newNameFString, requestId))
         {
-            Logger::LogError("[ChangeName] Failed to convert player name to wide string");
+            Logger::LogError("[ChangeName] UpdatePlayerName raised an SEH exception");
             return false;
         }
 
-        wchar_t* wideNameBuffer = new wchar_t[requiredSize];
-        MultiByteToWideChar(CP_UTF8, 0, newName, -1, wideNameBuffer, requiredSize);
+        if (requestId <= 0)
+        {
+            Logger::LogError("[ChangeName] UpdatePlayerName failed, requestId=" + std::to_string(requestId));
+            return false;
+        }
 
-        // Create FString from wide string
-        SDK::FString newNameFString(wideNameBuffer);
-
-        // Call ServerChangeName RPC on player controller
-        playerController->ServerChangeName(newNameFString);
-
-        // Clean up
-        delete[] wideNameBuffer;
-
-        Logger::LogInfo("[ChangeName] Successfully changed player name to: " + std::string(newName));
+        Logger::LogInfo(
+            "[ChangeName] UpdatePlayerName sent requestId=" + std::to_string(requestId) +
+            " source=" + backendSource.source +
+            " name=" + std::string(newName));
         return true;
     }
     catch (const std::exception& e)
@@ -7229,6 +9903,97 @@ bool InGameHack_ChangePlayerName(const char* newName)
     catch (...)
     {
         Logger::LogError("[ChangeName] Unknown exception");
+        return false;
+    }
+}
+
+bool InGameHack_SetBackendPlayerPlatform(int platform)
+{
+    try
+    {
+        if (platform < 0 || platform > 5)
+        {
+            Logger::LogError("[Platform] Invalid platform code: " + std::to_string(platform));
+            return false;
+        }
+
+        RuntimeBackendSubsystemSource backendSource = ResolveRuntimeBackendSubsystem();
+        SDK::UBackendSubsystem* backendSubsystem = backendSource.backendSubsystem;
+        if (!IsValidPointer(backendSubsystem))
+        {
+            Logger::LogError("[Platform] Could not resolve runtime BackendSubsystem");
+            return false;
+        }
+
+        if (!TrySetBackendPlayerPlatform(backendSubsystem, platform))
+        {
+            Logger::LogError("[Platform] SetPlayerPlatform raised an SEH exception");
+            return false;
+        }
+
+        Logger::LogInfo(
+            "[Platform] SetPlayerPlatform sent platform=" + std::to_string(platform) +
+            " name=" + BackendPlatformNameFromCode(platform) +
+            " source=" + backendSource.source);
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[Platform] SetPlayerPlatform exception: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[Platform] SetPlayerPlatform unknown exception");
+        return false;
+    }
+}
+
+bool InGameHack_ForceFakePlatform(const char* platformName)
+{
+    try
+    {
+        if (!platformName || platformName[0] == '\0' || strlen(platformName) > 63)
+        {
+            Logger::LogError("[Platform] Invalid fake platform name");
+            return false;
+        }
+
+        RuntimeBackendSubsystemSource backendSource = ResolveRuntimeBackendSubsystem();
+        SDK::UBackendSubsystem* backendSubsystem = backendSource.backendSubsystem;
+        if (!IsValidPointer(backendSubsystem))
+        {
+            Logger::LogError("[Platform] Could not resolve runtime BackendSubsystem");
+            return false;
+        }
+
+        std::wstring widePlatform;
+        if (!TryMakeWideStringFromUtf8(platformName, widePlatform))
+        {
+            Logger::LogError("[Platform] Failed to convert fake platform to FString");
+            return false;
+        }
+
+        SDK::FString platformFString(widePlatform.c_str());
+        if (!TryForceBackendFakePlatform(backendSubsystem, platformFString))
+        {
+            Logger::LogError("[Platform] ForceFakePlatform raised an SEH exception");
+            return false;
+        }
+
+        Logger::LogInfo(
+            "[Platform] ForceFakePlatform sent platform=" + std::string(platformName) +
+            " source=" + backendSource.source);
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[Platform] ForceFakePlatform exception: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[Platform] ForceFakePlatform unknown exception");
         return false;
     }
 }
@@ -7955,6 +10720,776 @@ bool InGameHack_GenerateProjectileInFront()
     catch (...)
     {
         Logger::LogError("[GenerateProjectile] Unknown exception");
+        return false;
+    }
+}
+
+static void AppendProjectileGenerateRepDump(
+    std::ostream& out,
+    const SDK::FProjectileGenerateRep& rep,
+    int slotIndex)
+{
+    out << "slot=" << slotIndex
+        << " parent=0x" << std::hex << reinterpret_cast<uintptr_t>(rep.Parent)
+        << " parentComponent=0x" << reinterpret_cast<uintptr_t>(rep.ParentComponent)
+        << std::dec
+        << " generatorDataID=" << rep.generatorDataID
+        << " generatorDataIndexID=" << rep.generatorDataIndexID
+        << " genID=" << rep.genID
+        << " serialID=" << rep.serialID
+        << " charaId=" << static_cast<int>(rep.charaId)
+        << " AttachType=" << static_cast<int>(rep.AttachType)
+        << " Level=" << static_cast<int>(rep.Level)
+        << " variationNo=" << static_cast<int>(rep.variationNo)
+        << " commandId=" << static_cast<int>(rep.commandId)
+        << " attackId=" << static_cast<int>(rep.attackId)
+        << " conditionID=" << static_cast<int>(rep.conditionID)
+        << " attackSerial=" << static_cast<int>(rep.attackSerial)
+        << " overrideDamageAdjustAdd=" << static_cast<int>(rep.overrideDamageAdjustAdd)
+        << " overrideJsonIDX=" << static_cast<int>(rep.overrideJsonIDX)
+        << " attachTime=" << rep.attachTime
+        << " socketIdx=" << rep.socketIdx
+        << "\n";
+
+    out << "  targetLocate=("
+        << rep.targetLocate.X << ", "
+        << rep.targetLocate.Y << ", "
+        << rep.targetLocate.Z << ")"
+        << " initLocate=("
+        << rep.initLocate.X << ", "
+        << rep.initLocate.Y << ", "
+        << rep.initLocate.Z << ")"
+        << " initScale=("
+        << rep.initScale.X << ", "
+        << rep.initScale.Y << ", "
+        << rep.initScale.Z << ")"
+        << " initQuat=("
+        << rep.initQuat.Pitch << ", "
+        << rep.initQuat.Yaw << ", "
+        << rep.initQuat.Roll << ")"
+        << "\n";
+}
+
+static bool ReadProjectileGenerateRepRawSafe(
+    const SDK::FProjectileGenerateRep* source,
+    SDK::FProjectileGenerateRep& out)
+{
+    if (!SafeMemory::IsReadable(source, sizeof(SDK::FProjectileGenerateRep)))
+        return false;
+
+    __try
+    {
+        std::memcpy(&out, source, sizeof(SDK::FProjectileGenerateRep));
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+bool InGameHack_DumpLastProjectileGenerateRep()
+{
+    try
+    {
+        SDK::APlayerController* playerController = SDK_GetPlayerController();
+        if (!IsValidPointer(playerController))
+        {
+            Logger::LogError("[ProjectileRepDump] No player controller found");
+            return false;
+        }
+
+        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
+        if (!IsValidPointer(playerChar))
+        {
+            Logger::LogError("[ProjectileRepDump] No player character found");
+            return false;
+        }
+
+        SDK::UProjectileReplicateBattleComponent* projectileComp = GetProjectileReplicatorSafe(playerChar);
+        if (!IsValidPointer(projectileComp))
+        {
+            Logger::LogError("[ProjectileRepDump] No projectile replicator component found");
+            return false;
+        }
+
+        SDK::FProjectileGenerateRep reps[2]{};
+        for (int i = 0; i < 2; ++i)
+        {
+            if (!ReadProjectileGenerateRepRawSafe(&projectileComp->_createGenerateRep[i], reps[i]))
+            {
+                Logger::LogError("[ProjectileRepDump] Failed to read _createGenerateRep slot " + std::to_string(i));
+                return false;
+            }
+        }
+
+        CreateDirectoryA("C:\\Temp", nullptr);
+        std::ofstream logFile("C:\\Temp\\projectile_rep_debug.log", std::ios::out | std::ios::app);
+        if (!logFile.is_open())
+        {
+            Logger::LogError("[ProjectileRepDump] Could not open C:\\Temp\\projectile_rep_debug.log");
+            return false;
+        }
+
+        SDK::FVector_NetQuantize100 playerLocation = GetActorLocationNetQuantize100Safe(playerChar);
+
+        logFile << "tick=" << GetTickCount64()
+                << " playerChar=0x" << std::hex << reinterpret_cast<uintptr_t>(playerChar)
+                << " projectileComp=0x" << reinterpret_cast<uintptr_t>(projectileComp)
+                << std::dec
+                << " playerLocation=("
+                << playerLocation.X << ", "
+                << playerLocation.Y << ", "
+                << playerLocation.Z << ")"
+                << "\n";
+
+        AppendProjectileGenerateRepDump(logFile, reps[0], 0);
+        AppendProjectileGenerateRepDump(logFile, reps[1], 1);
+        logFile << "\n";
+
+        Logger::LogInfo("[ProjectileRepDump] Wrote C:\\Temp\\projectile_rep_debug.log");
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[ProjectileRepDump] Exception: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[ProjectileRepDump] Unknown exception");
+        return false;
+    }
+}
+
+static const char* ProjectileGeneratorIdName(SDK::EProjectileGeneratorID value)
+{
+    switch (value)
+    {
+    case SDK::EProjectileGeneratorID::__NONE__: return "__NONE__";
+    case SDK::EProjectileGeneratorID::__COMMON__: return "__COMMON__";
+    case SDK::EProjectileGeneratorID::AttackLow: return "AttackLow";
+    case SDK::EProjectileGeneratorID::AttackHigh: return "AttackHigh";
+    case SDK::EProjectileGeneratorID::Shot: return "Shot";
+    case SDK::EProjectileGeneratorID::Test: return "Test";
+    case SDK::EProjectileGeneratorID::__DEKU__: return "__DEKU__";
+    default: return "Unknown";
+    }
+}
+
+static bool GetActorLocationRawSafe(SDK::AActor* actor, SDK::FVector& out)
+{
+    if (!IsValidPointer(actor))
+        return false;
+
+    __try
+    {
+        out = actor->K2_GetActorLocation();
+        return IsFiniteVector(out);
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        out = SDK::FVector(0.0f, 0.0f, 0.0f);
+        return false;
+    }
+}
+
+static bool GetActorVelocityRawSafe(SDK::AActor* actor, SDK::FVector& out)
+{
+    if (!IsValidPointer(actor))
+        return false;
+
+    __try
+    {
+        out = actor->GetVelocity();
+        return IsFiniteVector(out);
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        out = SDK::FVector(0.0f, 0.0f, 0.0f);
+        return false;
+    }
+}
+
+static bool GetGeneratorSpawnBulletCountRawSafe(SDK::AProjectileGeneratorBattle* generator, int32_t& out)
+{
+    if (!IsValidPointer(generator))
+        return false;
+
+    __try
+    {
+        out = static_cast<int32_t>(generator->BP_GetSpawnBulletCount());
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        out = -1;
+        return false;
+    }
+}
+
+static bool GetBulletAttackIdsRawSafe(
+    SDK::ABullet* bullet,
+    SDK::ECharacterId& characterId,
+    SDK::ECommandId& commandId,
+    SDK::EAttackId& attackId)
+{
+    if (!IsValidPointer(bullet))
+        return false;
+
+    __try
+    {
+        characterId = bullet->GetCharacterID();
+        commandId = bullet->GetCommandID();
+        attackId = bullet->GetAttackId();
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        characterId = SDK::ECharacterId::UNDEF;
+        commandId = SDK::ECommandId::NONE;
+        attackId = SDK::EAttackId::NONE;
+        return false;
+    }
+}
+
+static std::string SafeFNameDebugString(const SDK::FName& name)
+{
+    std::stringstream ss;
+    ss << "idx=" << name.ComparisonIndex << ",num=" << name.Number;
+
+    if (!name.IsNone())
+    {
+        try
+        {
+            const std::string resolvedName = name.ToString();
+            if (!resolvedName.empty())
+                ss << ",str=" << resolvedName;
+        }
+        catch (...)
+        {
+            ss << ",str=unreadable";
+        }
+    }
+
+    return ss.str();
+}
+
+static void AppendVectorDump(std::ostream& out, const char* label, const SDK::FVector& value)
+{
+    out << " " << label << "=(" << value.X << ", " << value.Y << ", " << value.Z << ")";
+}
+
+static void AppendProjectileBulletRuntimeDump(
+    std::ostream& out,
+    SDK::ABullet* bullet,
+    SDK::ACharacterBattle* playerChar,
+    int index,
+    const char* source)
+{
+    if (!IsValidPointer(bullet))
+    {
+        out << source << "[" << index << "] bullet=null\n";
+        return;
+    }
+
+    std::string className;
+    GetClassNameSafe(bullet, className);
+
+    SDK::FVector location{};
+    const bool hasLocation = GetActorLocationRawSafe(bullet, location);
+
+    SDK::FVector velocity{};
+    const bool hasVelocity = GetActorVelocityRawSafe(bullet, velocity);
+
+    SDK::ACharacterBattle* ownerChr = nullptr;
+    SDK::ACharacterBattle* baseOwnerChr = nullptr;
+    SDK::AProjectileGeneratorBattle* ownerGen = nullptr;
+    SafeReadMember(&bullet->_ownerChr, ownerChr);
+    SafeReadMember(&bullet->_baseOwnerChr, baseOwnerChr);
+    SafeReadMember(&bullet->_ownerGen, ownerGen);
+
+    SDK::ECharacterId characterId{};
+    SDK::ECommandId commandId{};
+    SDK::EAttackId attackId{};
+    const bool hasIds = GetBulletAttackIdsRawSafe(bullet, characterId, commandId, attackId);
+
+    out << source << "[" << index << "]"
+        << " bullet=0x" << std::hex << reinterpret_cast<uintptr_t>(bullet)
+        << " class=" << className
+        << " ownerChr=0x" << reinterpret_cast<uintptr_t>(ownerChr)
+        << " baseOwnerChr=0x" << reinterpret_cast<uintptr_t>(baseOwnerChr)
+        << " ownerGen=0x" << reinterpret_cast<uintptr_t>(ownerGen)
+        << std::dec
+        << " ownerIsLocal=" << (ownerChr == playerChar ? 1 : 0)
+        << " baseOwnerIsLocal=" << (baseOwnerChr == playerChar ? 1 : 0);
+
+    if (hasIds)
+    {
+        out << " charaId=" << static_cast<int>(characterId)
+            << " commandId=" << static_cast<int>(commandId)
+            << " attackId=" << static_cast<int>(attackId);
+    }
+    else
+    {
+        out << " ids=unreadable";
+    }
+
+    if (hasLocation)
+        AppendVectorDump(out, "loc", location);
+    else
+        out << " loc=unreadable";
+
+    if (hasVelocity)
+        AppendVectorDump(out, "vel", velocity);
+    else
+        out << " vel=unreadable";
+
+    out << "\n";
+}
+
+static void AppendProjectileGeneratorRuntimeDump(
+    std::ostream& out,
+    SDK::AProjectileGeneratorBattle* generator,
+    SDK::ACharacterBattle* playerChar,
+    int index,
+    const char* source)
+{
+    if (!IsValidPointer(generator))
+    {
+        out << source << "[" << index << "] generator=null\n";
+        return;
+    }
+
+    std::string className;
+    GetClassNameSafe(generator, className);
+
+    SDK::FVector location{};
+    const bool hasLocation = GetActorLocationRawSafe(generator, location);
+
+    SDK::ACharacterBattle* ownerBtl = nullptr;
+    SafeReadMember(&generator->_ownerBtl, ownerBtl);
+
+    int32_t bulletArrayCount = -1;
+    const bool hasBulletArray = SafeArrayCount(generator->_bulletTbl, bulletArrayCount, 2048);
+
+    int32_t spawnBulletCount = -1;
+    const bool hasSpawnBulletCount = GetGeneratorSpawnBulletCountRawSafe(generator, spawnBulletCount);
+
+    out << source << "[" << index << "]"
+        << " generator=0x" << std::hex << reinterpret_cast<uintptr_t>(generator)
+        << " class=" << className
+        << " ownerBtl=0x" << reinterpret_cast<uintptr_t>(ownerBtl)
+        << std::dec
+        << " ownerIsLocal=" << (ownerBtl == playerChar ? 1 : 0)
+        << " bulletArrayCount=" << (hasBulletArray ? bulletArrayCount : -1)
+        << " spawnBulletCount=" << (hasSpawnBulletCount ? spawnBulletCount : -1);
+
+    if (hasLocation)
+        AppendVectorDump(out, "loc", location);
+    else
+        out << " loc=unreadable";
+
+    out << "\n";
+
+    if (!hasBulletArray || bulletArrayCount <= 0)
+        return;
+
+    constexpr int32_t kMaxBulletsPerGenerator = 12;
+    const int32_t bulletDumpCount = bulletArrayCount < kMaxBulletsPerGenerator ? bulletArrayCount : kMaxBulletsPerGenerator;
+    for (int32_t bulletIndex = 0; bulletIndex < bulletDumpCount; ++bulletIndex)
+    {
+        SDK::ABullet* bullet = nullptr;
+        if (!SafeArrayGet(generator->_bulletTbl, bulletIndex, bullet, 2048))
+        {
+            out << "  " << source << "[" << index << "].bullet[" << bulletIndex << "]=unreadable\n";
+            continue;
+        }
+
+        AppendProjectileBulletRuntimeDump(out, bullet, playerChar, bulletIndex, "  generatorBullet");
+    }
+
+    if (bulletArrayCount > bulletDumpCount)
+        out << "  generatorBullet_truncated remaining=" << (bulletArrayCount - bulletDumpCount) << "\n";
+}
+
+static void AppendProjectileDataAssetRuntimeDump(
+    std::ostream& out,
+    SDK::UProjectileGeneratorDataAsset* asset,
+    int objectIndex,
+    int dumpIndex)
+{
+    if (!IsValidPointer(asset))
+        return;
+
+    SDK::ECharacterId characterId{};
+    SDK::FName socketName{};
+    SDK::EAttachType attachType{};
+    float attachTime = 0.0f;
+    bool disableNotify = false;
+
+    SafeReadMember(&asset->characterId, characterId);
+    SafeReadMember(&asset->_socketName, socketName);
+    SafeReadMember(&asset->_attachType, attachType);
+    SafeReadMember(&asset->_attachTime, attachTime);
+    SafeReadMember(&asset->_disableNotify, disableNotify);
+
+    std::string className;
+    GetClassNameSafe(asset, className);
+
+    out << "dataAsset[" << dumpIndex << "]"
+        << " objectIndex=" << objectIndex
+        << " ptr=0x" << std::hex << reinterpret_cast<uintptr_t>(asset)
+        << std::dec
+        << " objectName=" << GetObjectNameSafe(asset)
+        << " class=" << className
+        << " characterId=" << static_cast<int>(characterId)
+        << " generatorDataName=" << SafeFStringToString(asset->_generatorDataName)
+        << " socketName{" << SafeFNameDebugString(socketName) << "}"
+        << " attachType=" << static_cast<int>(attachType)
+        << " attachTime=" << attachTime
+        << " disableNotify=" << (disableNotify ? 1 : 0)
+        << "\n";
+}
+
+static void AppendProjectileNotifyRuntimeDump(
+    std::ostream& out,
+    SDK::UProjectileNotify* notify,
+    int objectIndex,
+    int dumpIndex)
+{
+    if (!IsValidPointer(notify))
+        return;
+
+    SDK::EProjectileGeneratorID generatorId{};
+    SDK::FName socketName{};
+    SDK::EAttachType attachType{};
+    float attachTime = 0.0f;
+    SDK::ECharacterId editCharaId{};
+    bool disableNotify = false;
+
+    SafeReadMember(&notify->_generatorID, generatorId);
+    SafeReadMember(&notify->_socketName, socketName);
+    SafeReadMember(&notify->_attachType, attachType);
+    SafeReadMember(&notify->_attachTime, attachTime);
+    SafeReadMember(&notify->_editCharaId, editCharaId);
+    SafeReadMember(&notify->_disableNotify, disableNotify);
+
+    std::string className;
+    GetClassNameSafe(notify, className);
+
+    out << "notify[" << dumpIndex << "]"
+        << " objectIndex=" << objectIndex
+        << " ptr=0x" << std::hex << reinterpret_cast<uintptr_t>(notify)
+        << std::dec
+        << " objectName=" << GetObjectNameSafe(notify)
+        << " class=" << className
+        << " generatorID=" << static_cast<int>(generatorId)
+        << "(" << ProjectileGeneratorIdName(generatorId) << ")"
+        << " generatorDataName=" << SafeFStringToString(notify->_generatorDataName)
+        << " chargeGeneratorDataName=" << SafeFStringToString(notify->_chargeGeneratorDataName)
+        << " lockonGeneratorDataName=" << SafeFStringToString(notify->_lockonGeneratorDataName)
+        << " socketName{" << SafeFNameDebugString(socketName) << "}"
+        << " attachType=" << static_cast<int>(attachType)
+        << " attachTime=" << attachTime
+        << " editCharaId=" << static_cast<int>(editCharaId)
+        << " disableNotify=" << (disableNotify ? 1 : 0)
+        << "\n";
+}
+
+bool InGameHack_DumpProjectileRuntimeDebug()
+{
+    try
+    {
+        SDK::APlayerController* playerController = SDK_GetPlayerController();
+        if (!IsValidPointer(playerController))
+        {
+            Logger::LogError("[ProjectileRuntimeDump] No player controller found");
+            return false;
+        }
+
+        SDK::ACharacterBattle* playerChar = GetPlayerCharacterBattle(playerController);
+        if (!IsValidPointer(playerChar))
+        {
+            Logger::LogError("[ProjectileRuntimeDump] No player character found");
+            return false;
+        }
+
+        SDK::UProjectileReplicateBattleComponent* projectileComp = GetProjectileReplicatorSafe(playerChar);
+
+        CreateDirectoryA("C:\\Temp", nullptr);
+        std::ofstream logFile("C:\\Temp\\projectile_runtime_debug.log", std::ios::out | std::ios::app);
+        if (!logFile.is_open())
+        {
+            Logger::LogError("[ProjectileRuntimeDump] Could not open C:\\Temp\\projectile_runtime_debug.log");
+            return false;
+        }
+
+        SDK::FVector_NetQuantize100 playerLocation = GetActorLocationNetQuantize100Safe(playerChar);
+
+        logFile << "\n=== PROJECTILE RUNTIME DUMP ===\n"
+                << "tick=" << GetTickCount64()
+                << " playerChar=0x" << std::hex << reinterpret_cast<uintptr_t>(playerChar)
+                << " projectileComp=0x" << reinterpret_cast<uintptr_t>(projectileComp)
+                << std::dec
+                << " playerLocation=("
+                << playerLocation.X << ", "
+                << playerLocation.Y << ", "
+                << playerLocation.Z << ")"
+                << "\n";
+
+        if (IsValidPointer(projectileComp))
+        {
+            int32_t genListCount = -1;
+            if (SafeArrayCount(projectileComp->_genList, genListCount, 2048))
+            {
+                logFile << "\n-- local projectileComp._genList count=" << genListCount << " --\n";
+                const int32_t dumpCount = genListCount < 48 ? genListCount : 48;
+                for (int32_t i = 0; i < dumpCount; ++i)
+                {
+                    SDK::AProjectileGeneratorBattle* generator = nullptr;
+                    if (!SafeArrayGet(projectileComp->_genList, i, generator, 2048))
+                    {
+                        logFile << "localGenList[" << i << "]=unreadable\n";
+                        continue;
+                    }
+                    AppendProjectileGeneratorRuntimeDump(logFile, generator, playerChar, i, "localGenList");
+                }
+                if (genListCount > dumpCount)
+                    logFile << "localGenList_truncated remaining=" << (genListCount - dumpCount) << "\n";
+            }
+            else
+            {
+                logFile << "\n-- local projectileComp._genList unreadable --\n";
+            }
+        }
+        else
+        {
+            logFile << "\n-- local projectileComp missing --\n";
+        }
+
+        int32_t owningGenCount = -1;
+        if (SafeArrayCount(playerChar->_owningProjectileGenerators, owningGenCount, 2048))
+        {
+            logFile << "\n-- player._owningProjectileGenerators count=" << owningGenCount << " --\n";
+            const int32_t dumpCount = owningGenCount < 48 ? owningGenCount : 48;
+            for (int32_t i = 0; i < dumpCount; ++i)
+            {
+                SDK::AProjectileGeneratorBattle* generator = nullptr;
+                if (!SafeArrayGet(playerChar->_owningProjectileGenerators, i, generator, 2048))
+                {
+                    logFile << "owningGen[" << i << "]=unreadable\n";
+                    continue;
+                }
+                AppendProjectileGeneratorRuntimeDump(logFile, generator, playerChar, i, "owningGen");
+            }
+            if (owningGenCount > dumpCount)
+                logFile << "owningGen_truncated remaining=" << (owningGenCount - dumpCount) << "\n";
+        }
+        else
+        {
+            logFile << "\n-- player._owningProjectileGenerators unreadable --\n";
+        }
+
+        int32_t owningBulletCount = -1;
+        if (SafeArrayCount(playerChar->_owningBullets, owningBulletCount, 4096))
+        {
+            logFile << "\n-- player._owningBullets count=" << owningBulletCount << " --\n";
+            const int32_t dumpCount = owningBulletCount < 64 ? owningBulletCount : 64;
+            for (int32_t i = 0; i < dumpCount; ++i)
+            {
+                SDK::ABullet* bullet = nullptr;
+                if (!SafeArrayGet(playerChar->_owningBullets, i, bullet, 4096))
+                {
+                    logFile << "owningBullet[" << i << "]=unreadable\n";
+                    continue;
+                }
+                AppendProjectileBulletRuntimeDump(logFile, bullet, playerChar, i, "owningBullet");
+            }
+            if (owningBulletCount > dumpCount)
+                logFile << "owningBullet_truncated remaining=" << (owningBulletCount - dumpCount) << "\n";
+        }
+        else
+        {
+            logFile << "\n-- player._owningBullets unreadable --\n";
+        }
+
+        SDK::UWorld* world = SDK::UWorld::GetWorld();
+        int32_t actorCount = 0;
+        int32_t worldGenTotal = 0;
+        int32_t worldBulletTotal = 0;
+        int32_t worldGenLogged = 0;
+        int32_t worldBulletLogged = 0;
+        if (GetWorldActorsCountSafe(world, actorCount))
+        {
+            logFile << "\n-- world actors scan actorCount=" << actorCount << " --\n";
+            for (int32_t i = 0; i < actorCount; ++i)
+            {
+                SDK::AActor* actor = GetWorldActorSafe(world, i);
+                if (!IsValidPointer(actor) || IsObjectDefaultSafe(actor))
+                    continue;
+
+                if (IsObjectAUnsafeGuarded(actor, SDK::AProjectileGeneratorBattle::StaticClass()))
+                {
+                    ++worldGenTotal;
+                    if (worldGenLogged < 48)
+                    {
+                        AppendProjectileGeneratorRuntimeDump(logFile, static_cast<SDK::AProjectileGeneratorBattle*>(actor), playerChar, i, "worldGen");
+                        ++worldGenLogged;
+                    }
+                    continue;
+                }
+
+                if (IsObjectAUnsafeGuarded(actor, SDK::ABullet::StaticClass()))
+                {
+                    ++worldBulletTotal;
+                    if (worldBulletLogged < 64)
+                    {
+                        AppendProjectileBulletRuntimeDump(logFile, static_cast<SDK::ABullet*>(actor), playerChar, i, "worldBullet");
+                        ++worldBulletLogged;
+                    }
+                }
+            }
+            logFile << "worldGenTotal=" << worldGenTotal
+                    << " worldGenLogged=" << worldGenLogged
+                    << " worldBulletTotal=" << worldBulletTotal
+                    << " worldBulletLogged=" << worldBulletLogged
+                    << "\n";
+        }
+        else
+        {
+            logFile << "\n-- world actors scan unavailable --\n";
+        }
+
+        SDK::TUObjectArray* gObjects = SDK::UObject::GObjects.GetTypedPtr();
+        int32_t objectCount = 0;
+        int32_t dataAssetTotal = 0;
+        int32_t dataAssetLogged = 0;
+        int32_t notifyTotal = 0;
+        int32_t notifyLogged = 0;
+        int32_t objectGeneratorTotal = 0;
+        int32_t objectGeneratorLogged = 0;
+        if (IsValidPointer(gObjects) && TryGetObjectArrayCountSafe(gObjects, objectCount) && objectCount > 0 && objectCount < 2000000)
+        {
+            logFile << "\n-- GObjects projectile scan objectCount=" << objectCount << " --\n";
+            for (int32_t i = 0; i < objectCount; ++i)
+            {
+                SDK::UObject* obj = GetObjectByIndexSafe(gObjects, i);
+                if (!IsValidPointer(obj) || IsObjectDefaultSafe(obj))
+                    continue;
+
+                if (IsObjectAUnsafeGuarded(obj, SDK::UProjectileGeneratorDataAsset::StaticClass()))
+                {
+                    ++dataAssetTotal;
+                    if (dataAssetLogged < 160)
+                    {
+                        AppendProjectileDataAssetRuntimeDump(logFile, static_cast<SDK::UProjectileGeneratorDataAsset*>(obj), i, dataAssetLogged);
+                        ++dataAssetLogged;
+                    }
+                    continue;
+                }
+
+                if (IsObjectAUnsafeGuarded(obj, SDK::UProjectileNotify::StaticClass()))
+                {
+                    ++notifyTotal;
+                    if (notifyLogged < 220)
+                    {
+                        AppendProjectileNotifyRuntimeDump(logFile, static_cast<SDK::UProjectileNotify*>(obj), i, notifyLogged);
+                        ++notifyLogged;
+                    }
+                    continue;
+                }
+
+                if (IsObjectAUnsafeGuarded(obj, SDK::AProjectileGeneratorBattle::StaticClass()))
+                {
+                    ++objectGeneratorTotal;
+                    if (objectGeneratorLogged < 80)
+                    {
+                        AppendProjectileGeneratorRuntimeDump(logFile, static_cast<SDK::AProjectileGeneratorBattle*>(obj), playerChar, i, "gobjectGen");
+                        ++objectGeneratorLogged;
+                    }
+                }
+            }
+
+            logFile << "dataAssetTotal=" << dataAssetTotal
+                    << " dataAssetLogged=" << dataAssetLogged
+                    << " notifyTotal=" << notifyTotal
+                    << " notifyLogged=" << notifyLogged
+                    << " objectGeneratorTotal=" << objectGeneratorTotal
+                    << " objectGeneratorLogged=" << objectGeneratorLogged
+                    << "\n";
+        }
+        else
+        {
+            logFile << "\n-- GObjects projectile scan unavailable objectCount=" << objectCount << " --\n";
+        }
+
+        Logger::LogInfo("[ProjectileRuntimeDump] Wrote C:\\Temp\\projectile_runtime_debug.log");
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[ProjectileRuntimeDump] Exception: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[ProjectileRuntimeDump] Unknown exception");
+        return false;
+    }
+}
+
+// ============================================================================
+// RENTAL TICKET BYPASS - Internal version of zero1 external bypass
+//
+// Chain: UWorld::GetWorld() -> OwningGameInstance(+0x180) -> +0xF0 -> +0x8 -> +0x6B0
+// At final address + 0x1038, write 23 (CharacterRentalPointMAX from MasterDataModule)
+//
+// NOTE: Offsets 0xF0, 0x8, 0x6B0 are in unresolved padding areas of the SDK dump.
+// They navigate through UGameInstance::SubsystemCollection (internal UE4 struct).
+// If the rental bypass stops working after a game update, these 3 offsets need
+// re-verification via runtime pointer scan.
+//
+// Per-frame write — no persistence. Must be called every frame while enabled.
+// ============================================================================
+bool InGameHack_BypassRentalTickets()
+{
+    // CharacterRentalPointMAX from SDK: MasterDataModule_structs.hpp
+    constexpr BYTE RENTAL_POINT_MAX = 23;
+    constexpr uintptr_t OFFSET_GAMEINSTANCE_INTERNAL = 0xF0;
+    constexpr uintptr_t OFFSET_SUBSYSTEM_ARRAY      = 0x8;
+    constexpr uintptr_t OFFSET_RENTAL_DATA          = 0x6B0;
+    constexpr uintptr_t OFFSET_TICKET_COUNT         = 0x28 + 0x1010; // = 0x1038
+
+    try
+    {
+        SDK::UWorld* world = SDK::UWorld::GetWorld();
+        if (!world)
+            return false;
+
+        SDK::UHerovsGameInstance* gameInstance = static_cast<SDK::UHerovsGameInstance*>(world->OwningGameInstance);
+        if (!gameInstance)
+            return false;
+
+        uintptr_t addr = reinterpret_cast<uintptr_t>(gameInstance);
+
+        uintptr_t step1 = *reinterpret_cast<uintptr_t*>(addr + OFFSET_GAMEINSTANCE_INTERNAL);
+        if (!step1 || step1 < 0x10000)
+            return false;
+
+        uintptr_t step2 = *reinterpret_cast<uintptr_t*>(step1 + OFFSET_SUBSYSTEM_ARRAY);
+        if (!step2 || step2 < 0x10000)
+            return false;
+
+        uintptr_t step3 = *reinterpret_cast<uintptr_t*>(step2 + OFFSET_RENTAL_DATA);
+        if (!step3 || step3 < 0x10000)
+            return false;
+
+        *reinterpret_cast<BYTE*>(step3 + OFFSET_TICKET_COUNT) = RENTAL_POINT_MAX;
+        return true;
+    }
+    catch (...)
+    {
         return false;
     }
 }

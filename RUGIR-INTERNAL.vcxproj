@@ -102,7 +102,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;mfplat.lib;mfreadwrite.lib;mfuuid.lib;ole32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)cheat factory\vendors\FreeType\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -120,7 +120,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;mfplat.lib;mfreadwrite.lib;mfuuid.lib;ole32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)cheat factory\vendors\FreeType\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -130,7 +130,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;RUGIR_INTERNAL_EXPORTS;RUGIR_ENABLE_UNLOAD=0;RUGIR_FULL_PROTECTION=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;RUGIR_INTERNAL_EXPORTS;RUGIR_ENABLE_UNLOAD=0;RUGIR_FULL_PROTECTION=1;RUGIR_MENU_CHEAT_FACTORY=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)cheat factory\projects\shared\ImGui;$(ProjectDir)cheat factory\projects\shared\ImGui\backends;$(ProjectDir)cheat factory\projects\shared;$(ProjectDir)cheat factory\vendors\FreeType\include;$(ProjectDir)src\dependencies;$(ProjectDir)4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -138,7 +138,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;mfplat.lib;mfreadwrite.lib;mfuuid.lib;ole32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)cheat factory\vendors\FreeType\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -152,7 +152,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)cheat factory\projects\shared\ImGui;$(ProjectDir)cheat factory\projects\shared\ImGui\backends;$(ProjectDir)cheat factory\projects\shared;$(ProjectDir)cheat factory\vendors\FreeType\include;$(ProjectDir)src\dependencies;$(ProjectDir)4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;mfplat.lib;mfreadwrite.lib;mfuuid.lib;ole32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)cheat factory\vendors\FreeType\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -188,9 +188,13 @@
     <ClInclude Include="src\Hooks\D3D11Hook.h" />
     <ClInclude Include="src\Hooks\GameThreadHook.h" />
     <ClInclude Include="src\Menu\ImGuiMenu.h" />
+    <ClInclude Include="src\Assets\MenuResources.h" />
     <ClInclude Include="src\Utils\EmbeddedImages.h" />
     <ClInclude Include="src\Utils\Logger.h" />
     <ClInclude Include="src\SDK\SDKInit.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\Assets\MenuResources.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hacks\InGameModuleHacks.cpp">

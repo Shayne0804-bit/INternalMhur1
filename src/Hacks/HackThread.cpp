@@ -24,6 +24,8 @@ namespace
     constexpr int XINPUT_RIGHT_STICK_RIGHT_HOTKEY = 0x4004;
     constexpr BYTE XINPUT_TRIGGER_THRESHOLD = 128;
     constexpr SHORT XINPUT_STICK_THRESHOLD = 20000;
+    constexpr int RECOVERY_SCAN_INTERVAL_MS = 250;
+    constexpr int BULLET_TP_SCAN_INTERVAL_MS = 50;
 
     struct GamepadSnapshot
     {
@@ -143,8 +145,49 @@ namespace
     bool IsHotkeyPressed(const ImGuiMenu::HotkeySet& hotkey, const GamepadSnapshot& snapshot)
     {
         return IsKeyboardHotkeyPressed(hotkey.Keyboard) ||
-               IsGamepadHotkeyPressed(snapshot, hotkey.Xbox) ||
-               IsGamepadHotkeyPressed(snapshot, hotkey.PS4);
+            IsGamepadHotkeyPressed(snapshot, hotkey.Xbox) ||
+            IsGamepadHotkeyPressed(snapshot, hotkey.PS4);
+    }
+
+    float NormalizeNoCollisionStickAxis(SHORT value)
+    {
+        constexpr float MaxPositive = 32767.0f;
+        constexpr float MaxNegative = 32768.0f;
+
+        if (value > XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE)
+            return static_cast<float>(value) / MaxPositive;
+
+        if (value < -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE)
+            return static_cast<float>(value) / MaxNegative;
+
+        return 0.0f;
+    }
+
+    void AddNoCollisionGamepadMovement(const GamepadSnapshot& snapshot, float& forwardAxis, float& rightAxis)
+    {
+        for (DWORD i = 0; i < 4; i++)
+        {
+            if (!snapshot.connected[i])
+                continue;
+
+            const XINPUT_GAMEPAD& gamepad = snapshot.states[i].Gamepad;
+            forwardAxis += NormalizeNoCollisionStickAxis(gamepad.sThumbLY);
+            rightAxis += NormalizeNoCollisionStickAxis(gamepad.sThumbLX);
+        }
+    }
+
+    bool IsIntervalDue(std::chrono::steady_clock::time_point& lastRun, int intervalMs)
+    {
+        const auto now = std::chrono::steady_clock::now();
+        if (lastRun.time_since_epoch().count() != 0)
+        {
+            const auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastRun).count();
+            if (elapsed < intervalMs)
+                return false;
+        }
+
+        lastRun = now;
+        return true;
     }
 }
 
@@ -333,7 +376,9 @@ void HackThreadManager::FrameUpdateHacks()
         ImGuiMenu::g_HackSettings.EnableInvincible ||
         ImGuiMenu::g_Settings.EnableRebuildMyself ||
         ImGuiMenu::g_Settings.EnableCopySkillsFromNearestEnemy ||
-        ImGuiMenu::g_Settings.EnableGenerateProjectile;
+        ImGuiMenu::g_Settings.EnableGenerateProjectile ||
+        ImGuiMenu::g_Settings.EnableNoCollision ||
+        ImGuiMenu::g_Settings.EnableCustomDrop;
     const GamepadSnapshot gamepadSnapshot = needsHotkeyPolling ? PollGamepads() : GamepadSnapshot{};
 
     auto enqueueContinuousHack = [this](std::function<void()> hackFunction) -> bool
@@ -384,6 +429,38 @@ void HackThreadManager::FrameUpdateHacks()
             }
             
             lastTransformPressed = shouldTransform;
+        }
+        catch (...)
+        {
+}
+    }
+
+    // ===== CUSTOM DROP (catalog item + quantity) =====
+    if (ImGuiMenu::g_Settings.EnableCustomDrop)
+    {
+        try
+        {
+            static bool lastCustomDropPressed = false;
+            static auto lastCustomDropTime = std::chrono::high_resolution_clock::now();
+            const int CUSTOM_DROP_COOLDOWN_MS = 100;
+
+            bool shouldCustomDrop = IsHotkeyPressed(ImGuiMenu::g_Settings.CustomDropKey, gamepadSnapshot);
+
+            if (shouldCustomDrop && !lastCustomDropPressed)
+            {
+                auto now = std::chrono::high_resolution_clock::now();
+                auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastCustomDropTime).count();
+
+                if (elapsed >= CUSTOM_DROP_COOLDOWN_MS)
+                {
+                    EnqueueHack([index = ImGuiMenu::g_Settings.CustomDropSelectedIndex, qty = ImGuiMenu::g_Settings.CustomDropQuantity]() {
+                        InGameHack_DropCatalogItem(index, qty, false);
+                    });
+                    lastCustomDropTime = now;
+                }
+            }
+
+            lastCustomDropPressed = shouldCustomDrop;
         }
         catch (...)
         {
@@ -550,7 +627,9 @@ void HackThreadManager::FrameUpdateHacks()
     {
         try
         {
-            InGameHack_RecoverMe();
+            static auto lastRecoveryMeTime = std::chrono::steady_clock::time_point{};
+            if (IsIntervalDue(lastRecoveryMeTime, RECOVERY_SCAN_INTERVAL_MS))
+                InGameHack_RecoverMe();
         }
         catch (...)
         {
@@ -562,7 +641,9 @@ void HackThreadManager::FrameUpdateHacks()
     {
         try
         {
-            InGameHack_RecoverDyingTeam();
+            static auto lastRecoveryTeamTime = std::chrono::steady_clock::time_point{};
+            if (IsIntervalDue(lastRecoveryTeamTime, RECOVERY_SCAN_INTERVAL_MS))
+                InGameHack_RecoverDyingTeam();
         }
         catch (...)
         {
@@ -574,7 +655,9 @@ void HackThreadManager::FrameUpdateHacks()
     {
         try
         {
-            InGameHack_RecoverDyingAllESP();
+            static auto lastRecoveryAllEspTime = std::chrono::steady_clock::time_point{};
+            if (IsIntervalDue(lastRecoveryAllEspTime, RECOVERY_SCAN_INTERVAL_MS))
+                InGameHack_RecoverDyingAllESP();
         }
         catch (...)
         {
@@ -586,13 +669,17 @@ void HackThreadManager::FrameUpdateHacks()
     {
         try
         {
-            // Get the selected team member index
-            int selectedIndex = ImGuiMenu::g_Settings.SelectedRecoveryTeamIndex;
-            
-            // Validate index
-            if (selectedIndex >= 0 && selectedIndex < (int)ImGuiMenu::g_CurrentTeamCharacters.size())
+            static auto lastRecoverySelectedTeamTime = std::chrono::steady_clock::time_point{};
+            if (IsIntervalDue(lastRecoverySelectedTeamTime, RECOVERY_SCAN_INTERVAL_MS))
             {
-                InGameHack_RecoverDyingSpecificTeamMember(selectedIndex);
+                // Get the selected team member index
+                int selectedIndex = ImGuiMenu::g_Settings.SelectedRecoveryTeamIndex;
+                
+                // Validate index
+                if (selectedIndex >= 0 && selectedIndex < (int)ImGuiMenu::g_CurrentTeamCharacters.size())
+                {
+                    InGameHack_RecoverDyingSpecificTeamMember(selectedIndex);
+                }
             }
         }
         catch (...)
@@ -600,12 +687,84 @@ void HackThreadManager::FrameUpdateHacks()
 }
     }
 
+    // ===== PLUS ULTRA (CONTINUOUS) =====
+    {
+        static bool s_plusUltraFastChargeWasEnabled = false;
+        static auto lastPlusUltraTime = std::chrono::steady_clock::time_point{};
+        try
+        {
+            const bool keepReady = ImGuiMenu::g_HackSettings.EnableInfinitePlusUltra;
+            const bool fastCharge = ImGuiMenu::g_Settings.EnableFastPlusUltraCharge;
+
+            if (!keepReady && !fastCharge)
+            {
+                if (s_plusUltraFastChargeWasEnabled)
+                {
+                    s_plusUltraFastChargeWasEnabled = false;
+                    InGameHack_SetPlusUltraFastCharge(false);
+                }
+            }
+            else if (IsIntervalDue(lastPlusUltraTime, 250))
+            {
+                s_plusUltraFastChargeWasEnabled = fastCharge || keepReady;
+                if (keepReady)
+                    InGameHack_KeepPlusUltraReady();
+                if (fastCharge)
+                    InGameHack_SetPlusUltraFastCharge(true);
+            }
+        }
+        catch (...)
+        {
+        }
+    }
+
+    // ===== NO COLLISION MOVEMENT (EVERY FRAME) =====
+    {
+        static bool s_noCollisionWasEnabled = false;
+        try
+        {
+            const bool noCollision = ImGuiMenu::g_Settings.EnableNoCollision;
+            if (noCollision)
+            {
+                s_noCollisionWasEnabled = true;
+                const bool holdActive = IsHotkeyPressed(ImGuiMenu::g_Settings.NoCollisionHoldKey, gamepadSnapshot);
+                float forwardAxis = 0.0f;
+                float rightAxis = 0.0f;
+                if (IsKeyboardHotkeyPressed('W'))
+                    forwardAxis += 1.0f;
+                if (IsKeyboardHotkeyPressed('S'))
+                    forwardAxis -= 1.0f;
+                if (IsKeyboardHotkeyPressed('D'))
+                    rightAxis += 1.0f;
+                if (IsKeyboardHotkeyPressed('A'))
+                    rightAxis -= 1.0f;
+                AddNoCollisionGamepadMovement(gamepadSnapshot, forwardAxis, rightAxis);
+                forwardAxis = std::clamp(forwardAxis, -1.0f, 1.0f);
+                rightAxis = std::clamp(rightAxis, -1.0f, 1.0f);
+                InGameHack_UpdateNoCollisionMovement(
+                    holdActive,
+                    forwardAxis,
+                    rightAxis,
+                    ImGuiMenu::g_Settings.NoCollisionSpeed);
+            }
+            else if (s_noCollisionWasEnabled)
+            {
+                s_noCollisionWasEnabled = false;
+                InGameHack_SetNoCollision(false);
+            }
+        }
+        catch (...)
+        {
+        }
+    }
+
     // ===== BULLET REDIRECTION (EVERY FRAME) =====
     if (ImGuiMenu::g_Settings.EnableBulletTP)
     {
         try
         {
-            if (!ImGuiMenu::IsVisible())
+            static auto lastBulletTpTime = std::chrono::steady_clock::time_point{};
+            if (!ImGuiMenu::IsVisible() && IsIntervalDue(lastBulletTpTime, BULLET_TP_SCAN_INTERVAL_MS))
             {
                 enqueueContinuousHack([alpha = ImGuiMenu::g_Settings.BulletTP_IncludeAlpha,
                                       beta = ImGuiMenu::g_Settings.BulletTP_IncludeBeta,
@@ -618,6 +777,18 @@ void HackThreadManager::FrameUpdateHacks()
         catch (...)
         {
 }
+    }
+
+    // ===== BYPASS RENTAL TICKETS (EVERY FRAME) =====
+    if (ImGuiMenu::g_HackSettings.Hack_BypassRentalTickets)
+    {
+        try
+        {
+            InGameHack_BypassRentalTickets();
+        }
+        catch (...)
+        {
+        }
     }
 
     // ===== CHARACTER CHANGER PERSISTENT MODE UPDATE =====

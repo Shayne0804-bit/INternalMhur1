@@ -171,6 +171,37 @@ bool InGameHack_SetReloadAdjustRate_RollSlot(float rate);
  */
 bool InGameHack_SetReloadAdjustRate_WearBlueFlame(float rate);
 
+/**
+ * Give/activate Plus Ultra on the local battle character.
+ */
+bool InGameHack_GivePlusUltra();
+
+/**
+ * Fill Plus Ultra gauge on the local battle character without changing active duration.
+ */
+bool InGameHack_KeepPlusUltraReady();
+
+/**
+ * Toggle faster Plus Ultra charge/reload on the local player state.
+ */
+bool InGameHack_SetPlusUltraFastCharge(bool enable);
+
+/**
+ * Toggle wall/player through on the local battle character.
+ */
+bool InGameHack_SetNoCollision(bool enable);
+
+/**
+ * Run camera-driven no collision movement while the hold input is active.
+ */
+bool InGameHack_UpdateNoCollisionMovement(bool holdActive, float forwardAxis, float rightAxis, float speed);
+
+/**
+ * Set CV_None CurveFloat key values used by damage attenuation.
+ * value <= 1.0 restores the original key values captured before patching.
+ */
+bool InGameHack_SetCvNoneCurveValue(float value);
+
 // ============================================
 // TRAINING MODE EXECUTION
 // ============================================
@@ -375,6 +406,81 @@ bool InGameHack_SetInfiniteObjectsPatch(bool enabled);
 void InGameHack_RestoreInfiniteObjectsPatch();
 
 /**
+ * Infinite objects, pure-SDK version (no byte patch / no hardcoded offset).
+ * Call TickInfiniteObjectsSDK every frame while enabled; it re-inflates the
+ * local player's inventory holder counts (UC::TArray::NumElements) so items
+ * are never consumed. Call Reset on disable or match exit to clear tracking.
+ */
+void InGameHack_TickInfiniteObjectsSDK();
+void InGameHack_ResetInfiniteObjectsSDK();
+
+/**
+ * Read-only snapshot of one inventory holder (USupplyHolder).
+ */
+struct InGameInventoryHolder
+{
+    int32_t inventoryIndex = -1;                     // index in USupplyHolderComponent::_inventory
+    int32_t holderIndex = -1;                        // USupplyHolder::_index
+    const char* typeName = "?";                      // ESupplyHolderType (INVENTORY/ABILITYSLOT/...)
+    bool enabled = false;                            // USupplyHolder::_bEnable
+    int32_t supplyCount = 0;                         // USupplyHolder::_supplies.Num()
+    int32_t serialCount = 0;                         // USupplyHolder::_serverSerialList.Num()
+    std::vector<std::string> supplyClassNames;       // class name of each USupply* slot
+};
+
+/**
+ * Read-only snapshot of the local player's whole inventory.
+ */
+struct InGameInventorySnapshot
+{
+    bool valid = false;
+    int32_t totalSupplies = 0;
+    std::vector<InGameInventoryHolder> holders;
+};
+
+/**
+ * Read the local player's inventory (USupplyHolderComponent) into `out`.
+ * Pure SDK reads, no writes. Returns false if not in battle or no component.
+ */
+bool InGameHack_ReadInventory(InGameInventorySnapshot& out);
+
+/**
+ * Convenience: read the inventory and dump it to the log (one line per holder).
+ */
+void InGameHack_LogInventory();
+
+/**
+ * Drop every supply in the local player's inventory via OnDrop_ToServer (by
+ * server serial). With Infinite Objects active the inventory count does not
+ * decrement, so dropped supplies are duplicated on the ground.
+ * Returns the number of serials sent to the server.
+ */
+int32_t InGameHack_DropInventorySupplies(bool longDropDistance);
+
+/**
+ * Convenience: drop all inventory supplies and append the result to the log.
+ */
+void InGameHack_LogDropInventorySupplies();
+
+/**
+ * Scan the world for droppable item actors (AItemBase) and rebuild the internal
+ * catalog used by the custom drop menu. Returns the number of distinct items.
+ */
+int InGameHack_ScanWorldItemCatalog();
+
+/**
+ * Copy the current world item catalog display names (for the UI combo).
+ */
+void InGameHack_GetWorldItemCatalogNames(std::vector<std::string>& out);
+
+/**
+ * Drop `quantity` copies (1-100) of the catalog item at `catalogIndex`.
+ * With Infinite Objects active the drops are duplicated. Logs to
+ * C:\temp\rugir_inventory.log. Returns the number of serials sent.
+ */
+int InGameHack_DropCatalogItem(int catalogIndex, int quantity, bool longDrop);
+
+/**
  * Apply CH202_TRANS_MISSION condition to player character
  * Enables Ch202 transformation/mission state (ECharacterConditionId = 85)
  */
@@ -504,6 +610,11 @@ bool InGameHack_RecoverDyingTeamMember(SDK::ACharacterBattle* target);
 void InGameHack_LogAllDamageAttenuationCurves();
 
 /**
+ * Scan loaded CurveFloat objects for CV_none and dump curve keys to C:/Temp/cv_none_curve_scan.log.
+ */
+bool InGameHack_DumpCvNoneCurveScan();
+
+/**
  * Set a character to dying state
  * target: The ACharacterBattle to set dying
  */
@@ -541,6 +652,19 @@ bool InGameHack_SetSkillLevel(int skillIndex, int level);
  * Calls CharacterActionControlComponent::SetAttackAction_ToServer(USEITEM).
  */
 bool InGameHack_TestUseItemAction(int uniqueLevel = 1);
+
+/**
+ * Test the server-side ally respawn action path.
+ * Calls CharacterActionControlComponent::SetAttackAction_ToServer(USERESPAWN).
+ */
+bool InGameHack_TestUserRespawnAction();
+bool InGameHack_TestUserRespawnSelectedTeamMember(int teamMemberIndex);
+
+/**
+ * Test the real respawn-card supply path.
+ * Finds a respawn supply in inventory and calls SupplyHolderComponent::OnUseSupply_ToServer.
+ */
+bool InGameHack_TestUseRespawnCardSupply();
 
 /**
  * Get current skill level for a character
@@ -611,11 +735,36 @@ void InGameHack_ProcessCharacterConditionAutoExecution(
 bool InGameHack_ChangePlayerName(const char* newName);
 
 /**
+ * Set backend player platform enum.
+ * EPlatform: 0=Invalid, 1=PlayStation, 2=Xbox, 3=Windows, 4=Switch, 5=None.
+ */
+bool InGameHack_SetBackendPlayerPlatform(int platform);
+
+/**
+ * Force the backend fake platform string.
+ */
+bool InGameHack_ForceFakePlatform(const char* platformName);
+
+/**
  * Generate projectile in front of player (hardcoded: Ch010 PUSH_SPECIAL)
  * Creates projectile at player location facing forward
  * @return true if successful, false otherwise
  */
 bool InGameHack_GenerateProjectileInFront();
+
+/**
+ * Dump the replicated projectile generation slots from the local player.
+ * Use after firing a normal projectile in-game to capture runtime generator IDs.
+ * @return true if dump was written, false otherwise
+ */
+bool InGameHack_DumpLastProjectileGenerateRep();
+
+/**
+ * Dump active projectile generators, bullets, projectile notifies and data assets.
+ * Use after firing a normal projectile in-game when _createGenerateRep stays empty.
+ * @return true if dump was written, false otherwise.
+ */
+bool InGameHack_DumpProjectileRuntimeDebug();
 
 /**
  * Buy License Exp from backend subsystem
@@ -672,3 +821,15 @@ int InGameHack_ReplaceSeasonRankRewardsFromExistingReward(
     int quantity,
     int targetSlotMask,
     bool applyAllRanks);
+
+// ============================================================================
+// RENTAL TICKET BYPASS
+// ============================================================================
+
+/**
+ * Bypass rental ticket amount check by writing max ticket value (3)
+ * Navigates UWorld->OwningGameInstance->+0xF0->+0x8->+0x6B0 and writes byte at +0x1038
+ * Must be called every frame while enabled (one-frame write, no persistence)
+ * @return true if write succeeded, false otherwise
+ */
+bool InGameHack_BypassRentalTickets();

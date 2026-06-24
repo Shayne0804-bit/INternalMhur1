@@ -3,16 +3,12 @@
 #include "../Menu/ImGuiMenu.h"
 
 #include "../SDK/SDKESPFunctions.h"
-#include "../Hacks/InGameModuleHacks.h"
-#include "../Hacks/Character_Changer.h"
-#include "../Hacks/HackThread.h"
 #include "../Core/UnloadManager.h"
 #include <imgui.h>
 #include <imgui_impl_win32.h>
 #include <Xinput.h>
 #include <atomic>
 #include <mutex>
-#include <chrono>
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
@@ -21,7 +17,7 @@
 // Aimbot function declaration
 extern "C" void SDK_RunAimbot();
 extern "C" void SDK_RunSilentAim();
-extern "C" void SDK_RunTeleportToKota();
+void InGameHack_RestoreInfiniteObjectsPatch();
 
 namespace D3D11Hook
 {
@@ -94,29 +90,9 @@ namespace D3D11Hook
             settings.EnableTeleportToKota ||
             settings.EnableBulletTP ||
             settings.EnableTeleportLevelUpCards ||
-            settings.AimbotDrawFOV ||
-            settings.AimbotDrawLine ||
             settings.EnableTransformIntoRandomESP ||
             settings.EnableDuplicateIntoImitationRandomESP ||
-            settings.EnableCopySkillsFromNearestEnemy ||
-            settings.EnableRecoveryAllESP;
-    }
-
-    static bool NeedsFrameHackUpdate()
-    {
-        const auto& settings = ImGuiMenu::g_Settings;
-        return settings.EnableTransformIntoRandomESP ||
-            settings.EnableDuplicateIntoImitationRandomESP ||
-            settings.EnableCopySkillsFromNearestEnemy ||
-            settings.EnableGenerateProjectile ||
-            settings.EnableRecoveryMe ||
-            settings.EnableRecoveryTeam ||
-            settings.EnableRecoverySelectedTeam ||
-            settings.EnableRecoveryAllESP ||
-            settings.EnableBulletTP ||
-            Cheats::IsAllPlayersActive() ||
-            Cheats::IsEnemiesOnlyActive() ||
-            Cheats::IsTeammatesOnlyActive();
+            settings.EnableCopySkillsFromNearestEnemy;
     }
 
     static HRESULT WINAPI HookedPresent(
@@ -196,16 +172,6 @@ namespace D3D11Hook
 }
         }
 
-        try
-        {
-            InGameHack_SetInfiniteObjectsPatch(
-                ImGuiMenu::g_Settings.EnableGlobal &&
-                ImGuiMenu::g_Settings.EnableInfiniteObjects);
-        }
-        catch (...)
-        {
-}
-
         if (ImGuiMenu::g_Settings.EnableGlobal)
         {
         // Update the actor cache only when a feature actually consumes it.
@@ -233,102 +199,7 @@ namespace D3D11Hook
 }
         }
 
-        // ===== FRAME UPDATE HACKS (via HackThread) =====
-        // This calls enabled continuous frame-based hacks like bullet redirection.
-        if (NeedsFrameHackUpdate())
-        {
-            try
-            {
-                HackThreadManager::GetInstance().FrameUpdateHacks();
-            }
-            catch (...)
-            {
-}
         }
-
-        // ===== RUN TELEPORT TO KOTA =====
-        if (ImGuiMenu::g_Settings.EnableTeleportToKota)
-        {
-            try
-            {
-                SDK_RunTeleportToKota();
-            }
-            catch (...)
-            {
-}
-        }
-
-        // ===== RUN TRANSFORM INTO RANDOM ESP TARGET =====
-        // NOTE: InGameHack_TransformIntoRandomESP is now called from HackThread.cpp::FrameUpdateHacks()
-
-        // ===== RUN DUPLICATE INTO IMITATION RANDOM ESP TARGET =====
-        // NOTE: InGameHack_DuplicateIntoImitationRandomESP is now called from HackThread.cpp::FrameUpdateHacks()
-
-        // =====================================================================
-        // HOTKEY: SET INVINCIBLE (F11 or B button)
-        // =====================================================================
-        // NOTE: InGameHack_SetInvincible is now called from HackThread.cpp::FrameUpdateHacks()
-
-        // ===== REBUILD MYSELF HOTKEY =====
-        // NOTE: InGameHack_RebuildMyself is now called from HackThread.cpp::FrameUpdateHacks()
-        // via EnqueueHack() to avoid duplicate calls and maintain consistency
-
-        // ===== RUN CH202 INIT TRANSMISSION LEVEL 5 AUTO-APPLY =====
-        try
-        {
-            // Auto-apply CH202 init trans level 5 once if enabled
-            if (ImGuiMenu::g_Settings.EnableCH202InitTransLevel5)
-            {
-                if (IsValidBattleMode())
-                {
-                    InGameHack_SetInitTransMissionLevel(0, 5);
-                    // Disable after execution to prevent re-execution
-                    ImGuiMenu::g_Settings.EnableCH202InitTransLevel5 = false;
-                }
-            }
-        }
-        catch (...)
-        {
-}
-
-        // ===== RUN RELOAD ADJUST RATE BUFFS =====
-        try
-        {
-            // Only apply reload buffs in valid battle modes
-            const bool needsReloadAdjust =
-                ImGuiMenu::g_Settings.ReloadAdjustRate != 1.0f ||
-                ImGuiMenu::g_Settings.ReloadAdjustRate_RollSlot != 1.0f ||
-                ImGuiMenu::g_Settings.ReloadAdjustRate_WearBlueFlame != 1.0f;
-
-            if (needsReloadAdjust && IsValidBattleMode())
-            {
-                // Apply general reload adjust rate
-                if (ImGuiMenu::g_Settings.ReloadAdjustRate != 1.0f)
-                {
-                    InGameHack_SetReloadAdjustRate(ImGuiMenu::g_Settings.ReloadAdjustRate);
-                }
-                
-                // Apply reload adjust rate for roll slot
-                if (ImGuiMenu::g_Settings.ReloadAdjustRate_RollSlot != 1.0f)
-                {
-                    InGameHack_SetReloadAdjustRate_RollSlot(ImGuiMenu::g_Settings.ReloadAdjustRate_RollSlot);
-                }
-                
-                // Apply reload adjust rate for blue flame
-                if (ImGuiMenu::g_Settings.ReloadAdjustRate_WearBlueFlame != 1.0f)
-                {
-                    InGameHack_SetReloadAdjustRate_WearBlueFlame(ImGuiMenu::g_Settings.ReloadAdjustRate_WearBlueFlame);
-                }
-            }
-        }
-        catch (...)
-        {
-}
-
-        }
-
-        // NOTE: Recovery functions (RecoverMe, RecoverTeam, RecoverAllESP) are now called
-        // from HackThread.cpp::FrameUpdateHacks() via EnqueueHack() to avoid duplicate calls
 
         // ===== RUN SILENT AIM (BULLET TP) - DISABLED =====
         // BulletTP has been disabled

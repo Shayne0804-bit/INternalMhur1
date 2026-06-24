@@ -1,12 +1,11 @@
 #include <Windows.h>
-#include <iostream>
-#include <cstdio>
 #include <fstream>
 #include "src/Core/Main.h"
 #include "src/Core/UnloadManager.h"
 #include "src/Hooks/D3D11Hook.h"
 #include "src/Hooks/GameThreadHook.h"
 #include "src/Hacks/HackThread.h"
+#include "src/Menu/ImGuiMenu.h"
 #include <atomic>
 #include <cstdint>
 
@@ -124,18 +123,19 @@ DWORD WINAPI MainThread(HMODULE Module)
 {
     g_MainThreadRunning.store(true, std::memory_order_release);
     g_hModule = Module;
+    ImGuiMenu::SetModuleHandle(Module);
+    ImGuiMenu::PreloadEmbeddedVideoResource(Module);
+    GameThreadHook::Log("[DllEntry] MainThread start module=0x%p", Module);
     ApplyLibProtProtection(Module);
-    
-    /* Console completely disabled - no logging output */
-    // AllocConsole removed - console window will not appear
-    // All printf statements disabled
-    // All file logging disabled
+    GameThreadHook::Log("[DllEntry] LibProt protection applied");
     
     /* Wait for game initialization */
+    GameThreadHook::Log("[DllEntry] waiting 3000ms before Main::Initialize");
     Sleep(3000);
 
     if (UnloadManager::IsUnloadRequested())
     {
+        GameThreadHook::Log("[DllEntry] unload requested before init");
         g_MainThreadRunning.store(false, std::memory_order_release);
         return 0;
     }
@@ -143,18 +143,20 @@ DWORD WINAPI MainThread(HMODULE Module)
     /* Initialize the SDK and menu silently */
     try
     {
+        GameThreadHook::Log("[DllEntry] Main::Initialize begin");
         Main::Initialize();
+        GameThreadHook::Log("[DllEntry] Main::Initialize end");
     }
     catch (const std::exception& e)
     {
-        // Silent fail - no error output
-        (void)e;
+        GameThreadHook::Log("[DllEntry] Main::Initialize std::exception: %s", e.what());
     }
     catch (...)
     {
-        // Silent fail - no error output
+        GameThreadHook::Log("[DllEntry] Main::Initialize unknown exception");
     }
 
+    GameThreadHook::Log("[DllEntry] MainThread end");
     g_MainThreadRunning.store(false, std::memory_order_release);
     return 0;
 }

@@ -331,6 +331,23 @@ namespace Cheats
         return 0;
     }
 
+    static int GetGamePlayerIdFromSDK(SDK::APlayerState* PlayerState)
+    {
+        if (auto* HerovsState = AsHerovsPlayerState(PlayerState))
+        {
+            __try
+            {
+                return HerovsState->BP_GetPlayerId();
+            }
+            __except (EXCEPTION_EXECUTE_HANDLER)
+            {
+                return -1;
+            }
+        }
+
+        return -1;
+    }
+
     static size_t CopyPlayerNameFromSDK(SDK::APlayerState* PlayerState, char* out, size_t maxLen)
     {
         if (!out || maxLen == 0) return 0;
@@ -919,6 +936,7 @@ namespace Cheats
             outPlayers[count].currentCharacterId = GetCharacterIdFromSDK(CG);
             outPlayers[count].characterIndex = GetCharacterIndexFromSDKId(outPlayers[count].currentCharacterId);
             outPlayers[count].teamId = GetTeamIdFromSDK(CG);
+            outPlayers[count].gamePlayerId = GetGamePlayerIdFromSDK(PS);
             outPlayers[count].platform = GetPlatformFromSDK(PS);
             outPlayers[count].pingMs = ReadPlayerPingMs(PS);
             snprintf(outPlayers[count].platformName, sizeof(outPlayers[count].platformName), "%s", GetPlatformName((uint8_t)outPlayers[count].platform));
@@ -949,6 +967,7 @@ namespace Cheats
                 info.currentCharacterId = -1;
                 info.characterIndex = -1;
                 info.teamId = -1;
+                info.gamePlayerId = GetGamePlayerIdFromSDK(PS);
                 info.platform = GetPlatformFromSDK(PS);
                 info.pingMs = ReadPlayerPingMs(PS);
                 snprintf(info.platformName, sizeof(info.platformName), "%s", GetPlatformName((uint8_t)info.platform));
@@ -1054,6 +1073,7 @@ namespace Cheats
                 info.isLocal = (PS == localPS);
                 info.pingMs = ReadPlayerPingMs(PS);
                 info.platform = GetPlatformFromSDK(PS);
+                info.gamePlayerId = GetGamePlayerIdFromSDK(PS);
                 snprintf(info.platformName, sizeof(info.platformName), "%s", GetPlatformName((uint8_t)info.platform));
 
                 if (CopyPlayerNameFromSDK(PS, info.displayName, sizeof(info.displayName)) == 0)

@@ -311,12 +311,12 @@ static inline void SDK_DrawFovCircle(ImDrawList* drawlist, const ImVec2& center,
 		return;
 
 	constexpr int segments = 128;
-	constexpr float mainThickness = 4.0f;
-	const ImU32 shadowColor = IM_COL32(0, 0, 0, 170);
+	constexpr float mainThickness = 1.6f;
+	const ImU32 shadowColor = IM_COL32(0, 0, 0, 125);
 
-	drawlist->AddCircle(center, radius + 1.0f, shadowColor, segments, mainThickness + 2.0f);
+	drawlist->AddCircle(center, radius + 1.0f, shadowColor, segments, mainThickness + 1.0f);
 	drawlist->AddCircle(center, radius, color, segments, mainThickness);
-	drawlist->AddCircle(center, radius - 1.0f, SDK_ColorWithAlpha(color, 95), segments, 1.25f);
+	drawlist->AddCircle(center, radius - 1.0f, SDK_ColorWithAlpha(color, 75), segments, 0.75f);
 }
 
 static inline void SDK_AdjustProjectedScreenPosition(FVector2D* ScreenPosition)
@@ -440,9 +440,10 @@ static inline bool SDK_IsOutGameCharacterClassName(const std::string& className)
 static uint8 g_MyTeamId = 255;              // My team ID (255 = unknown)
 static AActor* g_LastLocalPlayerCharacter = nullptr;  // Cache to detect when local player changes
 
-// Timer for rate-limiting enumeration (like zero1's 200ms throttle)
+// Timer for rate-limiting enumeration. Real matches have many more networked
+// actors than training, so keep full cache rebuilds away from the render rate.
 static uint64_t g_LastEnumerationTime = 0;
-static const uint64_t ENUMERATION_THROTTLE_MS = 200;  // Enumerate only every 200ms (like zero1)
+static const uint64_t ENUMERATION_THROTTLE_MS = 350;
 
 // Get current time in milliseconds
 static inline uint64_t GetCurrentTimeMs()
@@ -522,6 +523,13 @@ static inline bool IsCharacterDowned(AActor* Character)
 		return false;
 
 	return (dyingFlags & 2) != 0;
+}
+
+static inline bool SDK_ShouldCacheSkeletonData()
+{
+	return ImGuiMenu::g_Settings.ShowPlayerSkeleton ||
+		ImGuiMenu::g_Settings.EnableAimbot ||
+		ImGuiMenu::g_Settings.EnableBulletTP;
 }
 
 static inline float GetCharacterHealth(AActor* Character)
@@ -2849,6 +2857,57 @@ static Bones SDK_GetBones(SDK::AActor* character, FVector* OutHeadWorldPosition)
 	}
 }
 
+static void SDK_RefreshCachedActorFrameData()
+{
+	const bool refreshSkeleton = SDK_ShouldCacheSkeletonData();
+
+	std::lock_guard<std::mutex> lock(g_ActorCacheMutex);
+	for (CachedActor& cachedActor : g_ActorsForRendering)
+	{
+		AActor* actor = cachedActor.ActorPtr;
+		if (!actor || !SDK_IsReadableActor(actor) || actor->IsDefaultObject())
+			continue;
+
+		try
+		{
+			cachedActor.Position = actor->K2_GetActorLocation();
+		}
+		catch (...)
+		{
+			continue;
+		}
+
+		if (!refreshSkeleton)
+			continue;
+
+		const bool shouldRefreshSkeleton =
+			((SDK_IsBattleCharacterClassName(cachedActor.ClassName) &&
+			  cachedActor.TeamId != 255 &&
+			  !cachedActor.IsMySelf) ||
+			 SDK_IsOutGameCharacterClassName(cachedActor.ClassName));
+		if (!shouldRefreshSkeleton)
+			continue;
+
+		try
+		{
+			FVector headWorldPosition = FVector(0, 0, 0);
+			Bones frameSkeleton = SDK_GetBones(actor, &headWorldPosition);
+			cachedActor.Skeleton = frameSkeleton;
+			cachedActor.HasValidSkeleton = frameSkeleton.Head.x > 0.0f && frameSkeleton.Head.y > 0.0f;
+			cachedActor.HeadWorldPosition = headWorldPosition;
+			cachedActor.HasValidHeadWorldPosition =
+				cachedActor.HasValidSkeleton &&
+				SDK_IsValidHeadWorldPosition(actor, cachedActor.HeadWorldPosition);
+		}
+		catch (...)
+		{
+			cachedActor.HasValidSkeleton = false;
+			cachedActor.HeadWorldPosition = FVector(0, 0, 0);
+			cachedActor.HasValidHeadWorldPosition = false;
+		}
+	}
+}
+
 // ===== DRAWING FUNCTIONS FOR ESP =====
 
 /**
@@ -3083,10 +3142,8 @@ static void SDK_UpdateActorCache()
 			}
 		}
 		
-		const bool extractSkeletonData = true;
+		const bool extractSkeletonData = SDK_ShouldCacheSkeletonData();
 
-		// Keep skeleton/bone data warm by default. The menu toggle only controls
-		// drawing; other systems can still consume cached skeleton data.
 		int skeletonCount = 0;
 		if (extractSkeletonData)
 		{
@@ -3262,16 +3319,19 @@ static void SDK_DrawCachedActors()
 			}
 
 			Bones frameSkeleton = cachedActor.Skeleton;
-			bool hasFrameSkeleton = false;
-			try
+			bool hasFrameSkeleton = cachedActor.HasValidSkeleton;
+			if (ImGuiMenu::g_Settings.ShowPlayerSkeleton)
 			{
-				frameSkeleton = SDK_GetBones(Actor);
-				hasFrameSkeleton = (frameSkeleton.Head.x > 0.0f && frameSkeleton.Head.y > 0.0f);
-			}
-			catch (...)
-			{
-				frameSkeleton = cachedActor.Skeleton;
-				hasFrameSkeleton = cachedActor.HasValidSkeleton;
+				try
+				{
+					frameSkeleton = SDK_GetBones(Actor);
+					hasFrameSkeleton = (frameSkeleton.Head.x > 0.0f && frameSkeleton.Head.y > 0.0f);
+				}
+				catch (...)
+				{
+					frameSkeleton = cachedActor.Skeleton;
+					hasFrameSkeleton = cachedActor.HasValidSkeleton;
+				}
 			}
 			
 			// Calculate distance (in UE4 cm units) and check max draw distance
@@ -3573,6 +3633,7 @@ extern "C" void SDK_TestDeprojectScreenToWorld()
 		// STEP 1: Update actor cache (throttled to 200ms like zero1)
 		// This will enumerate actors only if 200ms have passed since last enumeration
 		SDK_UpdateActorCache();
+		SDK_RefreshCachedActorFrameData();
 		
 		// STEP 2: Draw all cached actors using pre-calculated data
 		// No enumeration needed - just rendering from cache

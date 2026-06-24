@@ -7,11 +7,20 @@
 #include "../imgui_internal.h"
 #include "imgui_addons.h"
 
-#include <map>
-#include <unordered_map>
 #include <string>
 
 using namespace ImGui;
+
+static ImU32 ImAddColorU32(ImVec4 color)
+{
+    return ImGui::ColorConvertFloat4ToU32(color);
+}
+
+static ImU32 ImAddColorU32(ImVec4 color, float alpha_mul)
+{
+    color.w *= alpha_mul;
+    return ImGui::ColorConvertFloat4ToU32(color);
+}
 
 ImVec4 ImAdd::HexToColorVec4(unsigned int hex_color, float alpha)
 {
@@ -100,30 +109,10 @@ bool ImAdd::TabIcon(ImTextureRef icon_texture, const char* label, int* v, int ta
     float unexpanded_width = g.FontSize + style.FramePadding.x * 2.0f;
     float finnal_width = (expandable && has_label) ? (active ? expanded_width : unexpanded_width) : expanded_width;
     
-    // Animations
-    struct stColors_State {
-        float   Width;
-        ImColor Shadow;
-        ImColor Frame;
-        ImColor Border;
-        ImColor Label;
-        ImColor Icon;
-    };
-
-    static std::map<ImGuiID, stColors_State> anim;
-    auto it_anim = anim.find(id);
-
-    static bool init_width = true;
-
-    if (init_width)
-    {
-        it_anim->second.Width = finnal_width;
-    }
-
     ImVec2 pos = window->DC.CursorPos;
     ImVec2 finnal_size = CalcItemSize(
         size_arg, 
-        it_anim->second.Width,
+        finnal_width,
         label_size.y + style.FramePadding.y * 2.0f
     );
 
@@ -172,45 +161,19 @@ bool ImAdd::TabIcon(ImTextureRef icon_texture, const char* label, int* v, int ta
     ImVec4 colIcon = colLabelMain;
     colIcon.w *= style.Alpha;
 
-    if (it_anim == anim.end())
-    {
-        anim.insert({ id, stColors_State() });
-        it_anim = anim.find(id);
-
-        it_anim->second.Width   = finnal_width;
-        it_anim->second.Shadow   = colShadow;
-        it_anim->second.Frame   = colFrame;
-        it_anim->second.Border  = colBorder;
-        it_anim->second.Label   = colLabel;
-        it_anim->second.Icon   = colIcon;
-
-        init_width = false;
-    }
-
-    if (expandable && has_label)
-    {
-        it_anim->second.Width = ImLerp<float>(it_anim->second.Width, finnal_width, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-    }
-
-    it_anim->second.Shadow.Value     = ImLerp(it_anim->second.Shadow.Value, colShadow, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-    it_anim->second.Frame.Value     = ImLerp(it_anim->second.Frame.Value, colFrame, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-    it_anim->second.Border.Value    = ImLerp(it_anim->second.Border.Value, colBorder, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-    it_anim->second.Label.Value     = ImLerp(it_anim->second.Label.Value, colLabel, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-    it_anim->second.Icon.Value      = ImLerp(it_anim->second.Icon.Value, colIcon, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-
     RenderNavCursor(total_bb, id);
 
-    window->DrawList->AddRectFilled(total_bb.Min, total_bb.Max, it_anim->second.Frame, style.FrameRounding);
-    window->DrawList->AddRectFilledMultiColorRounded(total_bb.Min, total_bb.Max, GetColorU32(it_anim->second.Shadow, 0.0f), GetColorU32(it_anim->second.Shadow, 0.0f), it_anim->second.Shadow, it_anim->second.Shadow, style.FrameRounding);
+    window->DrawList->AddRectFilled(total_bb.Min, total_bb.Max, ImAddColorU32(colFrame), style.FrameRounding);
+    window->DrawList->AddRectFilledMultiColorRounded(total_bb.Min, total_bb.Max, ImAddColorU32(colShadow, 0.0f), ImAddColorU32(colShadow, 0.0f), ImAddColorU32(colShadow), ImAddColorU32(colShadow), style.FrameRounding);
 
     if (style.FrameBorderSize > 0)
     {
-        window->DrawList->AddRect(total_bb.Min, total_bb.Max, it_anim->second.Border, style.FrameRounding, 0, style.FrameBorderSize);
+        window->DrawList->AddRect(total_bb.Min, total_bb.Max, ImAddColorU32(colBorder), style.FrameRounding, 0, style.FrameBorderSize);
     }
 
     if (has_icon)
     {
-        window->DrawList->AddImage(icon_texture, pos + style.FramePadding, pos + ImVec2(g.FontSize, g.FontSize) + style.FramePadding, ImVec2(0, 0), ImVec2(1, 1), it_anim->second.Icon);
+        window->DrawList->AddImage(icon_texture, pos + style.FramePadding, pos + ImVec2(g.FontSize, g.FontSize) + style.FramePadding, ImVec2(0, 0), ImVec2(1, 1), ImAddColorU32(colIcon));
     }
 
     ImVec2 label_pos(pos + ImVec2(has_icon ? finnal_size.y : style.FramePadding.x, style.FramePadding.y));
@@ -218,7 +181,7 @@ bool ImAdd::TabIcon(ImTextureRef icon_texture, const char* label, int* v, int ta
     if (has_label)
     {
         window->DrawList->PushClipRect(total_bb.Min, total_bb.Max, true);
-        PushStyleColor(ImGuiCol_Text, it_anim->second.Label.Value);
+        PushStyleColor(ImGuiCol_Text, colLabel);
         RenderText(label_pos, label);
         PopStyleColor();
         window->DrawList->PopClipRect();
@@ -252,32 +215,14 @@ bool ImAdd::ButtonXMark(const char* str_id, const ImVec2& size_arg)
     // Colors
     ImVec4 colXMark = GetStyleColorVec4((held || was_disabled) ? ImGuiCol_TextDisabled : ImGuiCol_Text);
 
-    // Animation
-    struct stColors_State {
-        ImColor XMark;
-    };
-
-    static std::map<ImGuiID, stColors_State> anim;
-    auto it_anim = anim.find(id);
-
-    if (it_anim == anim.end())
-    {
-        anim.insert({ id, stColors_State() });
-        it_anim = anim.find(id);
-
-        it_anim->second.XMark = colXMark;
-    }
-
-    it_anim->second.XMark.Value = ImLerp(it_anim->second.XMark.Value, colXMark, 1.0f / IMADD_ANIMATIONS_SPEED * ImGui::GetIO().DeltaTime);
-
     // Render
     RenderNavHighlight(bb, id);
 
     ImVec2 center = bb.GetCenter();
     float cross_extent = g.FontSize * 0.5f * 0.7071f - 1.0f;
     center -= ImVec2(0.5f, 0.5f);
-    window->DrawList->AddLine(center + ImVec2(+cross_extent, +cross_extent), center + ImVec2(-cross_extent, -cross_extent), it_anim->second.XMark, 1.5f);
-    window->DrawList->AddLine(center + ImVec2(+cross_extent, -cross_extent), center + ImVec2(-cross_extent, +cross_extent), it_anim->second.XMark, 1.5f);
+    window->DrawList->AddLine(center + ImVec2(+cross_extent, +cross_extent), center + ImVec2(-cross_extent, -cross_extent), ImAddColorU32(colXMark), 1.5f);
+    window->DrawList->AddLine(center + ImVec2(+cross_extent, -cross_extent), center + ImVec2(-cross_extent, +cross_extent), ImAddColorU32(colXMark), 1.5f);
 
     return pressed;
 }
@@ -313,27 +258,9 @@ bool ImAdd::Button(ImTextureRef icon_texture, const char* label, const ImVec2& s
     // Colors
     ImVec4 colFrame = GetStyleColorVec4((hovered && held) ? ImGuiCol_ButtonActive : hovered ? ImGuiCol_ButtonHovered : ImGuiCol_Button);
 
-    // Animations
-    struct stColors_State {
-        ImColor Frame;
-    };
-
-    static std::map<ImGuiID, stColors_State> anim;
-    auto it_anim = anim.find(id);
-
-    if (it_anim == anim.end())
-    {
-        anim.insert({ id, stColors_State() });
-        it_anim = anim.find(id);
-
-        it_anim->second.Frame = colFrame;
-    }
-
-    it_anim->second.Frame.Value = ImLerp(it_anim->second.Frame.Value, colFrame, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-
     RenderNavCursor(total_bb, id);
 
-    window->DrawList->AddRectFilled(total_bb.Min, total_bb.Max, it_anim->second.Frame, style.FrameRounding, draw_flags);
+    window->DrawList->AddRectFilled(total_bb.Min, total_bb.Max, ImAddColorU32(colFrame), style.FrameRounding, draw_flags);
     window->DrawList->AddRectFilledMultiColorRounded(total_bb.Min, total_bb.Max, GetColorU32(ImGuiCol_ButtonShadow, 0.0f), GetColorU32(ImGuiCol_ButtonShadow, 0.0f), GetColorU32(ImGuiCol_ButtonShadow), GetColorU32(ImGuiCol_ButtonShadow), style.FrameRounding, draw_flags);
 
     if (style.FrameBorderSize > 0)
@@ -379,43 +306,15 @@ void ImAdd::ScrollBar(const char* str_id, ImGuiWindow* window, const ImVec2& siz
     // Colors
     ImVec4 colFrame = GetStyleColorVec4(held ? ImGuiCol_ScrollbarGrabActive : hovered ? ImGuiCol_ScrollbarGrabHovered : ImGuiCol_ScrollbarGrab);
 
-    // Animations
-    struct stColors_State {
-        ImColor Frame;
-    };
-
-    static std::map<ImGuiID, stColors_State> anim;
-    auto it_anim = anim.find(id);
-
-    if (it_anim == anim.end())
-    {
-        anim.insert({ id, stColors_State() });
-        it_anim = anim.find(id);
-
-        it_anim->second.Frame = colFrame;
-    }
-
-    it_anim->second.Frame.Value = ImLerp(it_anim->second.Frame.Value, colFrame, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-
     // Scroll metrics
     float visible_height = size.y;
     float total_height = window->ContentSize.y;
     float scroll_max = ImMax(window->ScrollMax.y, 0.0f);
-    float scroll_y = window->Scroll.y;
-
     float scroll_height = (total_height > 0.0f)
         ? (visible_height / total_height) * visible_height
         : visible_height;
 
     scroll_height = ImClamp(scroll_height, 15.0f, visible_height);
-
-    float scroll_top = (scroll_max > 0.0f)
-        ? (scroll_y / scroll_max) * (visible_height - scroll_height)
-        : 0.0f;
-
-    // Smooth mouse wheel scroll
-    static std::unordered_map<ImGuiID, float> scroll_targets;
-    auto& target = scroll_targets[id];
 
     // Handle dragging
     if (held && scroll_max > 0.0f)
@@ -427,8 +326,6 @@ void ImAdd::ScrollBar(const char* str_id, ImGuiWindow* window, const ImVec2& siz
             float ratio = scroll_max / scrollable_range;
             window->Scroll.y = ImClamp(window->Scroll.y + mouse_delta * ratio, 0.0f, scroll_max);
         }
-        // Keep smooth scroll target in sync
-        target = window->Scroll.y;
     }
     else
     {
@@ -439,17 +336,18 @@ void ImAdd::ScrollBar(const char* str_id, ImGuiWindow* window, const ImVec2& siz
         {
             window->Flags |= ImGuiWindowFlags_NoScrollWithMouse;
             const float scroll_speed = 40.0f;
-            target -= g.IO.MouseWheel * scroll_speed;
-            target = ImClamp(target, 0.0f, scroll_max);
+            window->Scroll.y = ImClamp(window->Scroll.y - g.IO.MouseWheel * scroll_speed, 0.0f, scroll_max);
         }
-
-        window->Scroll.y = ImLerp(window->Scroll.y, target, 10.0f * g.IO.DeltaTime);
     }
+
+    const float scroll_top = (scroll_max > 0.0f)
+        ? (window->Scroll.y / scroll_max) * (visible_height - scroll_height)
+        : 0.0f;
 
     ImRect grab_bb(ImVec2(total_bb.Min.x, total_bb.Min.y + scroll_top), ImVec2(total_bb.Max.x, total_bb.Min.y + scroll_top + scroll_height));
 
     window->DrawList->AddRectFilled(total_bb.Min, total_bb.Max, GetColorU32(ImGuiCol_ScrollbarBg), style.ScrollbarRounding);
-    window->DrawList->AddRectFilled(grab_bb.Min, grab_bb.Max, it_anim->second.Frame, style.ScrollbarRounding);
+    window->DrawList->AddRectFilled(grab_bb.Min, grab_bb.Max, ImAddColorU32(colFrame), style.ScrollbarRounding);
     window->DrawList->AddRectFilledMultiColorRounded(grab_bb.Min, grab_bb.Max, GetColorU32(ImGuiCol_FrameBgShadow, 0.0f), GetColorU32(ImGuiCol_FrameBgShadow, 0.0f), GetColorU32(ImGuiCol_FrameBgShadow), GetColorU32(ImGuiCol_FrameBgShadow), style.ScrollbarRounding);
 
     RenderNavCursor(total_bb, id);
@@ -562,44 +460,17 @@ bool ImAdd::ToggleButton(const char* label, bool* v)
 
     float fGrabProg = *v ? 1.0f : 0.0f;
 
-    // Animations
-    struct stColors_State {
-        ImColor Frame;
-        ImColor Border;
-        ImColor Grab;
-        float GrabProg;
-    };
-
-    static std::map<ImGuiID, stColors_State> anim;
-    auto it_anim = anim.find(id);
-
-    if (it_anim == anim.end())
-    {
-        anim.insert({ id, stColors_State() });
-        it_anim = anim.find(id);
-
-        it_anim->second.Frame = colFrame;
-        it_anim->second.Border = colBorder;
-        it_anim->second.Grab = colGrab;
-        it_anim->second.GrabProg = fGrabProg;
-    }
-
-    it_anim->second.Frame.Value = ImLerp(it_anim->second.Frame.Value, colFrame, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-    it_anim->second.Border.Value = ImLerp(it_anim->second.Border.Value, colBorder, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-    it_anim->second.Grab.Value = ImLerp(it_anim->second.Grab.Value, colGrab, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-    it_anim->second.GrabProg = ImLerp<float>(it_anim->second.GrabProg, fGrabProg, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-
     RenderNavCursor(total_bb, id);
 
-    window->DrawList->AddRectFilled(frame_bb.Min, frame_bb.Max, GetColorU32(it_anim->second.Frame, style.Alpha), rounding);
+    window->DrawList->AddRectFilled(frame_bb.Min, frame_bb.Max, ImAddColorU32(colFrame, style.Alpha), rounding);
     window->DrawList->AddRectFilledMultiColorRounded(frame_bb.Min, frame_bb.Max, GetColorU32(ImGuiCol_ButtonShadow, 0.0f), GetColorU32(ImGuiCol_ButtonShadow, 0.0f), GetColorU32(ImGuiCol_ButtonShadow, *v ? 1.0f : 0.0f), GetColorU32(ImGuiCol_ButtonShadow, *v ? 1.0f : 0.0f), rounding);
 
     if (style.FrameBorderSize > 0)
     {
-        window->DrawList->AddRect(frame_bb.Min, frame_bb.Max, it_anim->second.Border, rounding, 0, style.FrameBorderSize);
+        window->DrawList->AddRect(frame_bb.Min, frame_bb.Max, ImAddColorU32(colBorder), rounding, 0, style.FrameBorderSize);
     }
 
-    window->DrawList->AddCircleFilled(frame_bb.Min + ImVec2(ImTrunc(height / 2) + (grab_size + grab_padding) * it_anim->second.GrabProg, ImTrunc(height / 2)), grab_radius, it_anim->second.Grab);
+    window->DrawList->AddCircleFilled(frame_bb.Min + ImVec2(ImTrunc(height / 2) + (grab_size + grab_padding) * fGrabProg, ImTrunc(height / 2)), grab_radius, ImAddColorU32(colGrab));
 
     RenderText(ImVec2(pos.x, pos.y + style.CellPadding.y), label);
 
@@ -651,45 +522,18 @@ bool ImAdd::CheckBox(const char* label, bool* checked)
     colCheckNull.w = 0.0f;
     ImVec4 colCheck = *checked ? colCheckMain : colCheckNull;
 
-    // Animations
-    struct stColors_State {
-        ImColor Frame;
-        ImColor Border;
-        ImColor Shadow;
-        ImColor Check;
-    };
-
-    static std::map<ImGuiID, stColors_State> anim;
-    auto it_anim = anim.find(id);
-
-    if (it_anim == anim.end())
-    {
-        anim.insert({ id, stColors_State() });
-        it_anim = anim.find(id);
-
-        it_anim->second.Frame = colFrame;
-        it_anim->second.Border = colBorder;
-        it_anim->second.Shadow = colShadow;
-        it_anim->second.Check = colCheck;
-    }
-
-    it_anim->second.Frame.Value = ImLerp(it_anim->second.Frame.Value, colFrame, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-    it_anim->second.Border.Value = ImLerp(it_anim->second.Border.Value, colBorder, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-    it_anim->second.Shadow.Value = ImLerp(it_anim->second.Shadow.Value, colShadow, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-    it_anim->second.Check.Value = ImLerp(it_anim->second.Check.Value, colCheck, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-
     RenderNavCursor(total_bb, id);
 
-    window->DrawList->AddRectFilled(check_bb.Min, check_bb.Max, it_anim->second.Frame, style.FrameRounding);
-    window->DrawList->AddRectFilledMultiColorRounded(check_bb.Min, check_bb.Max, GetColorU32(it_anim->second.Shadow, 0.0f), GetColorU32(it_anim->second.Shadow, 0.0f), it_anim->second.Shadow, it_anim->second.Shadow, style.FrameRounding);
+    window->DrawList->AddRectFilled(check_bb.Min, check_bb.Max, ImAddColorU32(colFrame), style.FrameRounding);
+    window->DrawList->AddRectFilledMultiColorRounded(check_bb.Min, check_bb.Max, ImAddColorU32(colShadow, 0.0f), ImAddColorU32(colShadow, 0.0f), ImAddColorU32(colShadow), ImAddColorU32(colShadow), style.FrameRounding);
 
     if (style.FrameBorderSize > 0)
     {
-        window->DrawList->AddRect(check_bb.Min, check_bb.Max, it_anim->second.Border, style.FrameRounding, 0, style.FrameBorderSize);
+        window->DrawList->AddRect(check_bb.Min, check_bb.Max, ImAddColorU32(colBorder), style.FrameRounding, 0, style.FrameBorderSize);
     }
 
     const float pad = ImMax(1.0f, IM_TRUNC(square_sz / 3.5f));
-    ImAdd::RenderCheckMark(window->DrawList, check_bb.Min + ImVec2(pad, pad), it_anim->second.Check, square_sz - pad * 2.0f);
+    ImAdd::RenderCheckMark(window->DrawList, check_bb.Min + ImVec2(pad, pad), ImAddColorU32(colCheck), square_sz - pad * 2.0f);
 
     window->DrawList->AddText(pos + ImVec2(size.y + style.ItemInnerSpacing.x, style.CellPadding.y), GetColorU32(ImGuiCol_Text), label);
 
@@ -741,27 +585,6 @@ bool ImAdd::SliderScalar(const char* label, ImGuiDataType data_type, void* p_dat
     ImVec4 colFrame = GetStyleColorVec4((hovered && held) ? ImGuiCol_ButtonActive : hovered ? ImGuiCol_ButtonHovered : ImGuiCol_Button);
     ImVec4 colLine = GetStyleColorVec4(held ? ImGuiCol_SliderGrabActive : ImGuiCol_SliderGrab);
 
-    // Animations
-    struct stColors_State {
-        ImColor Frame;
-        ImColor Line;
-    };
-
-    static std::map<ImGuiID, stColors_State> anim;
-    auto it_anim = anim.find(id);
-
-    if (it_anim == anim.end())
-    {
-        anim.insert({ id, stColors_State() });
-        it_anim = anim.find(id);
-
-        it_anim->second.Frame = colFrame;
-        it_anim->second.Line = colLine;
-    }
-
-    it_anim->second.Frame.Value = ImLerp(it_anim->second.Frame.Value, colFrame, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-    it_anim->second.Line.Value = ImLerp(it_anim->second.Line.Value, colLine, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-
     // Grab logic
     ImRect grab_bb;
     const bool value_changed = SliderBehavior(frame_bb, id, data_type, p_data, p_min, p_max, format, 0, &grab_bb);
@@ -790,7 +613,7 @@ bool ImAdd::SliderScalar(const char* label, ImGuiDataType data_type, void* p_dat
 
     const float pad = ImTrunc(frame_height / 3.0f);
 
-    window->DrawList->AddRectFilled(frame_bb.Min + ImVec2(0, pad), frame_bb.Max - ImVec2(0, pad), it_anim->second.Frame, 1.0f);
+    window->DrawList->AddRectFilled(frame_bb.Min + ImVec2(0, pad), frame_bb.Max - ImVec2(0, pad), ImAddColorU32(colFrame), 1.0f);
 
     ImVec2 fill_end = ImTrunc(ImVec2(frame_bb.Min.x + relative_value * (frame_bb.GetWidth() - style.GrabMinSize), frame_bb.Max.y));
 
@@ -798,7 +621,7 @@ bool ImAdd::SliderScalar(const char* label, ImGuiDataType data_type, void* p_dat
 
     if (slider_bb.Max.x > slider_bb.Min.x + style.FrameRounding)
     {
-        window->DrawList->AddRectFilled(slider_bb.Min, slider_bb.Max, it_anim->second.Line, style.FrameRounding);
+        window->DrawList->AddRectFilled(slider_bb.Min, slider_bb.Max, ImAddColorU32(colLine), style.FrameRounding);
         window->DrawList->AddRectFilledMultiColorRounded(slider_bb.Min, slider_bb.Max, GetColorU32(ImGuiCol_FrameBgShadow, 0.0f), GetColorU32(ImGuiCol_FrameBgShadow), GetColorU32(ImGuiCol_FrameBgShadow), GetColorU32(ImGuiCol_FrameBgShadow, 0.0f), style.FrameRounding);
     }
 
@@ -1250,27 +1073,9 @@ bool ImAdd::SelectableLabel(const char* label, bool selected, bool centered, con
     // Colors
     ImVec4 colLabel = GetStyleColorVec4(hovered || selected ? ImGuiCol_Text : ImGuiCol_TextDisabled);
 
-    // Animations
-    struct stColors_State {
-        ImColor Label;
-    };
-
-    static std::map<ImGuiID, stColors_State> anim;
-    auto it_anim = anim.find(id);
-
-    if (it_anim == anim.end())
-    {
-        anim.insert({ id, stColors_State() });
-        it_anim = anim.find(id);
-
-        it_anim->second.Label = colLabel;
-    }
-
-    it_anim->second.Label.Value = ImLerp(it_anim->second.Label.Value, colLabel, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-
     RenderNavCursor(total_bb, id);
 
-    window->DrawList->AddText(pos + ImTrunc(ImVec2(centered ? (size.x / 2 - label_size.x / 2) : style.FramePadding.x, size.y / 2 - label_size.y / 2)), it_anim->second.Label, label);
+    window->DrawList->AddText(pos + ImTrunc(ImVec2(centered ? (size.x / 2 - label_size.x / 2) : style.FramePadding.x, size.y / 2 - label_size.y / 2)), ImAddColorU32(colLabel), label);
 
     return pressed;
 }
@@ -1336,29 +1141,11 @@ bool ImAdd::Combo(const char* label, int* selected_index, std::vector<const char
     // Colors
     ImVec4 colFrame = GetStyleColorVec4((hovered && held) ? ImGuiCol_ButtonActive : hovered ? ImGuiCol_ButtonHovered : ImGuiCol_Button);
 
-    // Animations
-    struct stColors_State {
-        ImColor Frame;
-    };
-
-    static std::map<ImGuiID, stColors_State> anim;
-    auto it_anim = anim.find(id);
-
-    if (it_anim == anim.end())
-    {
-        anim.insert({ id, stColors_State() });
-        it_anim = anim.find(id);
-
-        it_anim->second.Frame = colFrame;
-    }
-
-    it_anim->second.Frame.Value = ImLerp(it_anim->second.Frame.Value, colFrame, 1.0f / IMADD_ANIMATIONS_SPEED * GetIO().DeltaTime);
-
     RenderNavCursor(combo_bb, id);
 
     RenderText(pos + ImVec2(0, style.CellPadding.y * 2), label);
 
-    window->DrawList->AddRectFilled(combo_bb.Min, combo_bb.Max, it_anim->second.Frame, style.FrameRounding);
+    window->DrawList->AddRectFilled(combo_bb.Min, combo_bb.Max, ImAddColorU32(colFrame), style.FrameRounding);
     window->DrawList->AddRectFilledMultiColorRounded(combo_bb.Min, combo_bb.Max, GetColorU32(ImGuiCol_ButtonShadow, 0.0f), GetColorU32(ImGuiCol_ButtonShadow, 0.0f), GetColorU32(ImGuiCol_ButtonShadow), GetColorU32(ImGuiCol_ButtonShadow), style.FrameRounding);
 
     //if (style.FrameBorderSize > 0)

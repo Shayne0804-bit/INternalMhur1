@@ -20,22 +20,16 @@ namespace Main
     {
         if (g_initialized) return;
 
-        // Console completely disabled - no window will appear
-        // AllocConsole removed
-        // freopen_s removed
-        // FILE* pFile;
-        // freopen_s(&pFile, "CONOUT$", "w", stdout);
-
-        // All logging is silent - no console output
+        GameThreadHook::Log("[Main] Initialize begin");
 
         // Initialiser le hook D3D11
         if (D3D11Hook::Initialize())
         {
-            // D3D11 hook initialized successfully
+            GameThreadHook::Log("[Main] D3D11Hook initialized");
         }
         else
         {
-            // Failed to initialize D3D11 hook!
+            GameThreadHook::Log("[Main] D3D11Hook initialization failed");
             return;
         }
 
@@ -43,10 +37,11 @@ namespace Main
         try
         {
             HackThreadManager::GetInstance().Initialize();
+            GameThreadHook::Log("[Main] HackThread initialized");
         }
         catch (const std::exception& e)
         {
-            // Failed to initialize hack thread manager
+            GameThreadHook::Log("[Main] HackThread std::exception: %s", e.what());
         }
 
         // ESP drawing is now done directly in SDK_TestDeprojectScreenToWorld() using ImGui
@@ -55,14 +50,15 @@ namespace Main
         // Initialize game thread hook (VMT shadowing ProcessEvent)
         if (GameThreadHook::Initialize())
         {
-            // Game thread hook initialized successfully
+            GameThreadHook::Log("[Main] GameThreadHook active");
         }
         else
         {
-            // Game thread hook initialization failed (non-critical)
+            GameThreadHook::Log("[Main] GameThreadHook not active yet");
         }
 
         g_initialized = true;
+        GameThreadHook::Log("[Main] Initialize end");
     }
 
     void Shutdown()
@@ -74,6 +70,7 @@ namespace Main
         GameThreadHook::Shutdown();
         
         g_initialized = false;
+        GameThreadHook::Log("[Main] Shutdown end");
     }
 
     bool IsInitialized()

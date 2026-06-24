@@ -152,6 +152,7 @@ namespace SettingsManager
 			// Global
 			file << "    \"EnableGlobal\": " << BoolToJson(menuSettings.EnableGlobal) << ",\n";
 			file << "    \"EnableESP\": " << BoolToJson(menuSettings.EnableESP) << ",\n";
+			file << "    \"EnableMenuBackgroundVideo\": " << BoolToJson(menuSettings.EnableMenuBackgroundVideo) << ",\n";
 
 			// ESP - Display
 			file << "    \"EnablePlayerESP\": " << BoolToJson(menuSettings.EnablePlayerESP) << ",\n";
@@ -187,6 +188,13 @@ namespace SettingsManager
 			file << "    \"TeleportToKotaKey_Keyboard\": " << IntToJson(menuSettings.TeleportToKotaKey.Keyboard) << ",\n";
 			file << "    \"TeleportToKotaKey_Xbox\": " << IntToJson(menuSettings.TeleportToKotaKey.Xbox) << ",\n";
 
+			// Custom Drop
+			file << "    \"EnableCustomDrop\": " << BoolToJson(menuSettings.EnableCustomDrop) << ",\n";
+			file << "    \"CustomDropQuantity\": " << IntToJson(menuSettings.CustomDropQuantity) << ",\n";
+			file << "    \"CustomDropSelectedIndex\": " << IntToJson(menuSettings.CustomDropSelectedIndex) << ",\n";
+			file << "    \"CustomDropKey_Keyboard\": " << IntToJson(menuSettings.CustomDropKey.Keyboard) << ",\n";
+			file << "    \"CustomDropKey_Xbox\": " << IntToJson(menuSettings.CustomDropKey.Xbox) << ",\n";
+
 			// Transform Into Random ESP Target
 			file << "    \"EnableTransformIntoRandomESP\": " << BoolToJson(menuSettings.EnableTransformIntoRandomESP) << ",\n";
 			file << "    \"TransformIntoRandomESPKey_Keyboard\": " << IntToJson(menuSettings.TransformIntoRandomESPKey.Keyboard) << ",\n";
@@ -215,6 +223,7 @@ namespace SettingsManager
 			file << "    \"ReloadAdjustRate\": " << FloatToJson(menuSettings.ReloadAdjustRate) << ",\n";
 			file << "    \"ReloadAdjustRate_RollSlot\": " << FloatToJson(menuSettings.ReloadAdjustRate_RollSlot) << ",\n";
 			file << "    \"ReloadAdjustRate_WearBlueFlame\": " << FloatToJson(menuSettings.ReloadAdjustRate_WearBlueFlame) << ",\n";
+			file << "    \"CvNoneDamageCurveValue\": " << FloatToJson(menuSettings.CvNoneDamageCurveValue) << ",\n";
 
 			// Training Mode
 			file << "    \"TrainingPlayerCharacter\": " << IntToJson(menuSettings.TrainingPlayerCharacter) << ",\n";
@@ -265,7 +274,12 @@ namespace SettingsManager
 			file << "    \"SelectedCharacterIndex\": " << IntToJson(menuSettings.SelectedCharacterIndex) << ",\n";
 			file << "    \"SelectedRecoveryTeamIndex\": " << IntToJson(menuSettings.SelectedRecoveryTeamIndex) << ",\n";
 			file << "    \"EnableCH202InitTransLevel5\": " << BoolToJson(menuSettings.EnableCH202InitTransLevel5) << ",\n";
-			file << "    \"EnableSupplyMaxStackTo100\": " << BoolToJson(menuSettings.EnableSupplyMaxStackTo100) << "\n";
+			file << "    \"EnableSupplyMaxStackTo100\": " << BoolToJson(menuSettings.EnableSupplyMaxStackTo100) << ",\n";
+			file << "    \"EnableFastPlusUltraCharge\": " << BoolToJson(menuSettings.EnableFastPlusUltraCharge) << ",\n";
+			file << "    \"EnableNoCollision\": " << BoolToJson(menuSettings.EnableNoCollision) << ",\n";
+			file << "    \"NoCollisionSpeed\": " << FloatToJson(menuSettings.NoCollisionSpeed) << ",\n";
+			file << "    \"NoCollisionHoldKey_Keyboard\": " << IntToJson(menuSettings.NoCollisionHoldKey.Keyboard) << ",\n";
+			file << "    \"NoCollisionHoldKey_Xbox\": " << IntToJson(menuSettings.NoCollisionHoldKey.Xbox) << "\n";
 
 			file << "  },\n";
 
@@ -306,6 +320,9 @@ namespace SettingsManager
 			file << "    \"CharCondition_Interval\": " << FloatToJson(hackSettings.CharCondition_Interval) << ",\n";
 			file << "    \"CharCondition_SubLevel\": " << IntToJson(hackSettings.CharCondition_SubLevel) << ",\n";
 			file << "    \"CharCondition_TimeOverwrite\": " << BoolToJson(hackSettings.CharCondition_TimeOverwrite) << ",\n";
+			file << "    \"ChangePlayerNameBuffer\": \"" << EscapeJsonString(hackSettings.ChangePlayerNameBuffer) << "\",\n";
+			file << "    \"BackendPlatformCode\": " << IntToJson(hackSettings.BackendPlatformCode) << ",\n";
+			file << "    \"FakePlatformBuffer\": \"" << EscapeJsonString(hackSettings.FakePlatformBuffer) << "\",\n";
 			file << "    \"BuyLicenseExpCount\": " << IntToJson(hackSettings.BuyLicenseExpCount) << ",\n";
 			file << "    \"LicenseClaimSeasonCode\": " << IntToJson(hackSettings.LicenseClaimSeasonCode) << ",\n";
 			file << "    \"LicenseClaimFreeRank\": " << IntToJson(hackSettings.LicenseClaimFreeRank) << ",\n";
@@ -339,6 +356,7 @@ namespace SettingsManager
 		// Disable all MenuSettings bools
 		emptyMenu.EnableGlobal = false;
 		emptyMenu.EnableESP = false;
+		emptyMenu.EnableMenuBackgroundVideo = true;
 		emptyMenu.EnablePlayerESP = false;
 		emptyMenu.Player_Box = false;
 		emptyMenu.Player_Health = false;
@@ -393,6 +411,7 @@ namespace SettingsManager
 		emptyMenu.ReloadAdjustRate = 1.0f;  // Keep at 1.0f (normal speed) not 0
 		emptyMenu.ReloadAdjustRate_RollSlot = 1.0f;  // Keep at 1.0f
 		emptyMenu.ReloadAdjustRate_WearBlueFlame = 1.0f;  // Keep at 1.0f
+		emptyMenu.CvNoneDamageCurveValue = 1.0f;  // Keep original CV_None curve values
 		emptyMenu.BulletTP_FOVRadius = 0.0f;
 		emptyMenu.BulletTP_MaxDistance = 0.0f;
 		emptyMenu.Player_DrawDistance = 0.0f;
@@ -413,12 +432,17 @@ namespace SettingsManager
 		// Initialize all hotkeys to 0
 		emptyMenu.AimbotHoldKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.TeleportToKotaKey = ImGuiMenu::HotkeySet(0, 0);
+		emptyMenu.CustomDropKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.TransformIntoRandomESPKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.DuplicateIntoImitationRandomESPKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.CopySkillsFromNearestEnemyKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.GenerateProjectileKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.SetInvincibleKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.RebuildMyselfKey = ImGuiMenu::HotkeySet(0, 0);
+		emptyMenu.NoCollisionHoldKey = ImGuiMenu::HotkeySet(0, 0);
+		emptyMenu.EnableFastPlusUltraCharge = false;
+		emptyMenu.EnableNoCollision = false;
+		emptyMenu.NoCollisionSpeed = 0.0f;
 
 		// Disable all HackSettings
 		emptyHack.EnableInvincible = false;
@@ -462,6 +486,9 @@ namespace SettingsManager
 		emptyHack.CharCondition_Interval = 0.0f;
 		emptyHack.CharCondition_SubLevel = 0;
 		emptyHack.CharCondition_TimeOverwrite = false;
+		emptyHack.ChangePlayerNameBuffer[0] = '\0';
+		emptyHack.BackendPlatformCode = 3;
+		strcpy_s(emptyHack.FakePlatformBuffer, sizeof(emptyHack.FakePlatformBuffer), "Windows");
 		emptyHack.BuyLicenseExpCount = 30000;
 		emptyHack.LicenseClaimSeasonCode = 1;
 		emptyHack.LicenseClaimFreeRank = 1;
@@ -592,6 +619,7 @@ namespace SettingsManager
 			// Load MenuSettings
 			menuSettings.EnableGlobal = ExtractBool("EnableGlobal");
 			menuSettings.EnableESP = ExtractBool("EnableESP");
+			menuSettings.EnableMenuBackgroundVideo = ExtractBoolDefault("EnableMenuBackgroundVideo", true);
 			menuSettings.EnablePlayerESP = ExtractBool("EnablePlayerESP");
 			menuSettings.Player_Box = ExtractBool("Player_Box");
 			menuSettings.Player_Health = ExtractBool("Player_Health");
@@ -624,6 +652,13 @@ namespace SettingsManager
 			menuSettings.TeleportToKotaKey.Xbox = ExtractInt("TeleportToKotaKey_Xbox");
 			menuSettings.TeleportToKotaKey.PS4 = menuSettings.TeleportToKotaKey.Xbox;
 
+			menuSettings.EnableCustomDrop = ExtractBool("EnableCustomDrop");
+			menuSettings.CustomDropQuantity = ExtractIntDefault("CustomDropQuantity", 1);
+			menuSettings.CustomDropSelectedIndex = ExtractInt("CustomDropSelectedIndex");
+			menuSettings.CustomDropKey.Keyboard = ExtractInt("CustomDropKey_Keyboard");
+			menuSettings.CustomDropKey.Xbox = ExtractInt("CustomDropKey_Xbox");
+			menuSettings.CustomDropKey.PS4 = menuSettings.CustomDropKey.Xbox;
+
 			menuSettings.EnableTransformIntoRandomESP = ExtractBool("EnableTransformIntoRandomESP");
 			menuSettings.TransformIntoRandomESPKey.Keyboard = ExtractInt("TransformIntoRandomESPKey_Keyboard");
 			menuSettings.TransformIntoRandomESPKey.Xbox = ExtractInt("TransformIntoRandomESPKey_Xbox");
@@ -651,6 +686,7 @@ namespace SettingsManager
 			menuSettings.ReloadAdjustRate = ExtractFloat("ReloadAdjustRate");
 			menuSettings.ReloadAdjustRate_RollSlot = ExtractFloat("ReloadAdjustRate_RollSlot");
 			menuSettings.ReloadAdjustRate_WearBlueFlame = ExtractFloat("ReloadAdjustRate_WearBlueFlame");
+			menuSettings.CvNoneDamageCurveValue = ExtractFloatDefault("CvNoneDamageCurveValue", 1.0f);
 
 			menuSettings.TrainingPlayerCharacter = ExtractInt("TrainingPlayerCharacter");
 			menuSettings.TrainingPlayerVariationId = ExtractInt("TrainingPlayerVariationId");
@@ -696,6 +732,12 @@ namespace SettingsManager
 			menuSettings.SelectedRecoveryTeamIndex = ExtractInt("SelectedRecoveryTeamIndex");
 			menuSettings.EnableCH202InitTransLevel5 = ExtractBool("EnableCH202InitTransLevel5");
 			menuSettings.EnableSupplyMaxStackTo100 = ExtractBool("EnableSupplyMaxStackTo100");
+			menuSettings.EnableFastPlusUltraCharge = ExtractBoolDefault("EnableFastPlusUltraCharge", false);
+			menuSettings.EnableNoCollision = ExtractBoolDefault("EnableNoCollision", false);
+			menuSettings.NoCollisionSpeed = ExtractFloatDefault("NoCollisionSpeed", 100.0f);
+			menuSettings.NoCollisionHoldKey.Keyboard = ExtractIntDefault("NoCollisionHoldKey_Keyboard", 0x54);
+			menuSettings.NoCollisionHoldKey.Xbox = ExtractIntDefault("NoCollisionHoldKey_Xbox", 0);
+			menuSettings.NoCollisionHoldKey.PS4 = menuSettings.NoCollisionHoldKey.Xbox;
 
 			// Load HackSettings
 			hackSettings.EnableInvincible = ExtractBool("EnableInvincible");
@@ -733,6 +775,17 @@ namespace SettingsManager
 			hackSettings.CharCondition_Interval = ExtractFloatDefault("CharCondition_Interval", 0.0f);
 			hackSettings.CharCondition_SubLevel = ExtractIntDefault("CharCondition_SubLevel", 0);
 			hackSettings.CharCondition_TimeOverwrite = ExtractBool("CharCondition_TimeOverwrite");
+			{
+				std::string playerNameBuffer = ExtractString("ChangePlayerNameBuffer");
+				strncpy_s(hackSettings.ChangePlayerNameBuffer, sizeof(hackSettings.ChangePlayerNameBuffer), playerNameBuffer.c_str(), _TRUNCATE);
+			}
+			hackSettings.BackendPlatformCode = ExtractIntDefault("BackendPlatformCode", 3);
+			{
+				std::string fakePlatformBuffer = ExtractString("FakePlatformBuffer");
+				if (fakePlatformBuffer.empty())
+					fakePlatformBuffer = "Windows";
+				strncpy_s(hackSettings.FakePlatformBuffer, sizeof(hackSettings.FakePlatformBuffer), fakePlatformBuffer.c_str(), _TRUNCATE);
+			}
 			hackSettings.BuyLicenseExpCount = ExtractIntDefault("BuyLicenseExpCount", 30000);
 			hackSettings.LicenseClaimSeasonCode = ExtractIntDefault("LicenseClaimSeasonCode", 1);
 			hackSettings.LicenseClaimFreeRank = ExtractIntDefault("LicenseClaimFreeRank", 1);

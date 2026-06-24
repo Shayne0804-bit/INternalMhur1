@@ -37,6 +37,7 @@ namespace ImGuiMenu
         // Global
         bool EnableGlobal = true;
         bool EnableESP = false;
+        bool EnableMenuBackgroundVideo = true;
 
         // ESP - Display
         bool EnablePlayerESP = false;
@@ -49,7 +50,7 @@ namespace ImGuiMenu
         bool ShowPU = false;        // Display Plus Ultra (when available)
         bool ShowPlatform = false;   // Display player platform (PS/Xbox/PC)
         bool ShowTeamId = false;     // Display team ID in ESP text
-        bool ShowPlayerSkeleton = false;  // Display skeleton bones (like zero1)
+        bool ShowPlayerSkeleton = false;  // Display skeleton bones
         bool ShowServerStatusOverlay = false;  // Display current server and ping overlay
 
         // Aimbot
@@ -59,7 +60,7 @@ namespace ImGuiMenu
         bool AimbotDrawLine = false;  // Draw line from center to target
         bool AimbotDrawFOV = false;   // Draw FOV circle on screen
         float AimbotFOVRadius = 500.0f;  // FOV radius in pixels (adjustable)
-        bool AimbotRequireHold = false;  // Require holding key (Zero1 exact - reduces detection)
+        bool AimbotRequireHold = false;  // Require holding key
         bool AimbotIgnoreDownedTargets = true;  // Skip downed/dying targets by default
         
         // Aimbot Hotkey (Keyboard/Xbox/PS4 grouped)
@@ -69,6 +70,12 @@ namespace ImGuiMenu
         bool EnableTeleportToKota = false;
         bool EnableInfiniteObjects = false;
         HotkeySet TeleportToKotaKey = HotkeySet(0x50, 0x0200);  // KB: P, Gamepad: RB
+
+        // Custom Drop (drop arbitrary world item by harvested supplyId, x quantity)
+        bool EnableCustomDrop = false;
+        int  CustomDropQuantity = 1;        // 1-100
+        int  CustomDropSelectedIndex = 0;   // index into scanned world item catalog
+        HotkeySet CustomDropKey = HotkeySet(0x4A, 0x0400);  // KB: J, Gamepad: dpad-down
 
         // Transform Into Random ESP Target Hotkey
         bool EnableTransformIntoRandomESP = false;
@@ -94,6 +101,7 @@ namespace ImGuiMenu
         float ReloadAdjustRate = 1.0f;                    // General reload rate (1.0 = normal)
         float ReloadAdjustRate_RollSlot = 1.0f;           // Reload rate for roll slot
         float ReloadAdjustRate_WearBlueFlame = 1.0f;      // Reload rate while wearing blue flame
+        float CvNoneDamageCurveValue = 1.0f;              // CV_None damage attenuation curve key value
         
         // Training Mode - Player Character Setup
         int TrainingPlayerCharacter = 0;                  // Character ID (0=UNDEF, 1=Ch000, 2=Ch001... 44=Ch999)
@@ -143,6 +151,10 @@ namespace ImGuiMenu
         int SelectedRecoveryTeamIndex = -1;  // Index of selected team member for recovery
         bool EnableCH202InitTransLevel5 = false;  // Enable CH202 init trans level 5 auto-apply each frame
         bool EnableSupplyMaxStackTo100 = false;  // Enable auto-set supply max stack to 100 each frame
+        bool EnableFastPlusUltraCharge = false;  // Enable server fast reload for Plus Ultra charge
+        bool EnableNoCollision = false;  // Enable camera-driven no collision movement
+        float NoCollisionSpeed = 100.0f;
+        HotkeySet NoCollisionHoldKey = HotkeySet(0x54, 0);
     };
 
     // ============================================================================
@@ -162,6 +174,8 @@ namespace ImGuiMenu
         int AbilityMovespeedLevel = 1;
         int AbilityHealLevel = 1;
         int AbilityTechniqueLevel = 1;
+
+        bool Hack_BypassRentalTickets = false;
 
         // Character Settings for ApplyToAllControllers
         int CharacterId = 1;                  // Character ID (1-44 for Ch000-Ch999)
@@ -199,6 +213,10 @@ namespace ImGuiMenu
 
         // Player Name Change
         char ChangePlayerNameBuffer[256] = {0};              // Input buffer for new player name
+
+        // Backend Platform Test
+        int BackendPlatformCode = 3;                         // 0=Invalid, 1=PlayStation, 2=Xbox, 3=Windows, 4=Switch, 5=None
+        char FakePlatformBuffer[64] = "Windows";             // Input buffer for ForceFakePlatform
         
         // Special License EXP
         int BuyLicenseExpCount = 30000;                      // Raw Special License EXP to add locally (1-300000)
@@ -218,6 +236,8 @@ namespace ImGuiMenu
     // ============================================================================
     // PUBLIC API
     // ============================================================================
+    void SetModuleHandle(HMODULE module);
+    bool PreloadEmbeddedVideoResource(HMODULE module);
     bool Initialize(IDXGISwapChain* pSwapChain, HWND hWnd);
     void Shutdown();
     void InvalidateRenderTarget();
