@@ -5,8 +5,11 @@
 #include "InGameModuleHacks.h"
 #include "Character_Changer.h"
 #include "../Menu/ImGuiMenu.h"
+#include "../Utils/Logger.h"
+#include "../Auth/LicenseAuth.h"
 #include <algorithm>
 #include <chrono>
+#include <string>
 #include <Windows.h>
 #include <Xinput.h>
 
@@ -24,6 +27,8 @@ namespace
     constexpr int XINPUT_RIGHT_STICK_RIGHT_HOTKEY = 0x4004;
     constexpr BYTE XINPUT_TRIGGER_THRESHOLD = 128;
     constexpr SHORT XINPUT_STICK_THRESHOLD = 20000;
+    constexpr int RECOVERY_SCAN_INTERVAL_MS = 250;
+    constexpr int BULLET_TP_SCAN_INTERVAL_MS = 50;
 
     struct GamepadSnapshot
     {
@@ -143,8 +148,84 @@ namespace
     bool IsHotkeyPressed(const ImGuiMenu::HotkeySet& hotkey, const GamepadSnapshot& snapshot)
     {
         return IsKeyboardHotkeyPressed(hotkey.Keyboard) ||
-               IsGamepadHotkeyPressed(snapshot, hotkey.Xbox) ||
-               IsGamepadHotkeyPressed(snapshot, hotkey.PS4);
+            IsGamepadHotkeyPressed(snapshot, hotkey.Xbox) ||
+            IsGamepadHotkeyPressed(snapshot, hotkey.PS4);
+    }
+
+    float NormalizeNoCollisionStickAxis(SHORT value)
+    {
+        constexpr float MaxPositive = 32767.0f;
+        constexpr float MaxNegative = 32768.0f;
+
+        if (value > XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE)
+            return static_cast<float>(value) / MaxPositive;
+
+        if (value < -XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE)
+            return static_cast<float>(value) / MaxNegative;
+
+        return 0.0f;
+    }
+
+    void AddNoCollisionGamepadMovement(const GamepadSnapshot& snapshot, float& forwardAxis, float& rightAxis)
+    {
+        for (DWORD i = 0; i < 4; i++)
+        {
+            if (!snapshot.connected[i])
+                continue;
+
+            const XINPUT_GAMEPAD& gamepad = snapshot.states[i].Gamepad;
+            forwardAxis += NormalizeNoCollisionStickAxis(gamepad.sThumbLY);
+            rightAxis += NormalizeNoCollisionStickAxis(gamepad.sThumbLX);
+        }
+    }
+
+    bool IsIntervalDue(std::chrono::steady_clock::time_point& lastRun, int intervalMs)
+    {
+        const auto now = std::chrono::steady_clock::now();
+        if (lastRun.time_since_epoch().count() != 0)
+        {
+            const auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastRun).count();
+            if (elapsed < intervalMs)
+                return false;
+        }
+
+        lastRun = now;
+        return true;
+    }
+
+    int HandleAccessViolation(_EXCEPTION_POINTERS* exceptionInfo)
+    {
+        if (!exceptionInfo || !exceptionInfo->ExceptionRecord)
+            return EXCEPTION_CONTINUE_SEARCH;
+
+        const DWORD code = exceptionInfo->ExceptionRecord->ExceptionCode;
+        return (code == EXCEPTION_ACCESS_VIOLATION || code == EXCEPTION_IN_PAGE_ERROR)
+            ? EXCEPTION_EXECUTE_HANDLER
+            : EXCEPTION_CONTINUE_SEARCH;
+    }
+
+    bool IsValidBattleModeNoThrow()
+    {
+        __try
+        {
+            return IsValidBattleMode();
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+            return false;
+        }
+    }
+
+    void ExecuteHackTaskNoThrow(const std::function<void()>& task)
+    {
+        __try
+        {
+            if (task)
+                task();
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+        }
     }
 }
 
@@ -179,6 +260,10 @@ return;
     m_shutdown.store(false);
     m_pendingTasks.store(0);
 
+    // Re-activate from a previously saved (DPAPI) key so the user does not have
+    // to re-enter it every launch. No-op if no key stored or it is rejected.
+    Auth::LoadSavedKeyAndActivate();
+
     try
     {
         m_workerThread = std::make_unique<std::thread>(&HackThreadManager::WorkerThreadProc, this);
@@ -212,7 +297,7 @@ void HackThreadManager::EnqueueHack(std::function<void()> hackFunction)
 {
     if (!m_isRunning.load())
     {
-hackFunction();
+        ExecuteHackTaskNoThrow(hackFunction);
         return;
     }
 
@@ -229,7 +314,7 @@ void HackThreadManager::EnqueueHackWithDelay(std::function<void()> hackFunction,
 {
     if (!m_isRunning.load())
     {
-hackFunction();
+        ExecuteHackTaskNoThrow(hackFunction);
         return;
     }
 
@@ -295,17 +380,7 @@ while (!m_shutdown.load())
                 std::this_thread::sleep_for(delay);
             }
 
-            try
-            {
-                // Execute the hack function
-                task.func();
-            }
-            catch (const std::exception& e)
-            {
-}
-            catch (...)
-            {
-}
+            ExecuteHackTaskNoThrow(task.func);
 
             // Decrement pending tasks and notify waiters
             m_pendingTasks.fetch_sub(1);
@@ -321,11 +396,33 @@ while (!m_shutdown.load())
 
 void HackThreadManager::FrameUpdateHacks()
 {
+    __try
+    {
+        FrameUpdateHacksImpl();
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+    }
+}
+
+void HackThreadManager::FrameUpdateHacksImpl()
+{
     if (!m_isRunning.load())
+        return;
+
+    // License re-validation (self-throttled). Runs every frame but only fires a
+    // request every few minutes; catches server-side revocation/expiry.
+    Auth::HeartbeatTick();
+
+    // Global license gate: no valid key = no hacks, no hotkeys. Everything below
+    // this point (including the hotkey polling) is bound to an authorized session.
+    if (!Auth::IsAuthorized())
         return;
 
     if (!ImGuiMenu::g_Settings.EnableGlobal)
         return;
+
+    const bool isBattleMode = IsValidBattleModeNoThrow();
 
     const bool needsHotkeyPolling =
         ImGuiMenu::g_Settings.EnableTransformIntoRandomESP ||
@@ -333,7 +430,11 @@ void HackThreadManager::FrameUpdateHacks()
         ImGuiMenu::g_HackSettings.EnableInvincible ||
         ImGuiMenu::g_Settings.EnableRebuildMyself ||
         ImGuiMenu::g_Settings.EnableCopySkillsFromNearestEnemy ||
-        ImGuiMenu::g_Settings.EnableGenerateProjectile;
+        ImGuiMenu::g_Settings.EnableGenerateProjectile ||
+        ImGuiMenu::g_Settings.EnableNoCollision ||
+        ImGuiMenu::g_Settings.EnableCustomDrop ||
+        ImGuiMenu::g_Settings.CustomDropKey.Xbox > 0 ||
+        ImGuiMenu::g_Settings.CustomDropKey.PS4 > 0;
     const GamepadSnapshot gamepadSnapshot = needsHotkeyPolling ? PollGamepads() : GamepadSnapshot{};
 
     auto enqueueContinuousHack = [this](std::function<void()> hackFunction) -> bool
@@ -388,6 +489,58 @@ void HackThreadManager::FrameUpdateHacks()
         catch (...)
         {
 }
+    }
+
+    // ===== CUSTOM DROP (catalog item + quantity) =====
+    {
+        try
+        {
+            static bool lastCustomDropPressed = false;
+            static auto lastCustomDropTime = std::chrono::high_resolution_clock::now();
+            const int CUSTOM_DROP_COOLDOWN_MS = 100;
+
+            bool shouldCustomDrop = IsHotkeyPressed(ImGuiMenu::g_Settings.CustomDropKey, gamepadSnapshot);
+
+            if (shouldCustomDrop && !lastCustomDropPressed)
+            {
+                auto now = std::chrono::high_resolution_clock::now();
+                auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastCustomDropTime).count();
+
+                if (elapsed >= CUSTOM_DROP_COOLDOWN_MS)
+                {
+                    InGameHack_DropCatalogItem(
+                        ImGuiMenu::g_Settings.CustomDropSelectedIndex,
+                        ImGuiMenu::g_Settings.CustomDropQuantity,
+                        ImGuiMenu::g_Settings.CustomDropSerialId,
+                        false);
+                    lastCustomDropTime = now;
+                }
+            }
+
+            lastCustomDropPressed = shouldCustomDrop;
+        }
+        catch (...)
+        {
+}
+    }
+
+    try
+    {
+        static auto lastCustomDropPlacementTime = std::chrono::high_resolution_clock::now();
+        auto now = std::chrono::high_resolution_clock::now();
+        auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastCustomDropPlacementTime).count();
+        if (elapsed >= 16 && InGameHack_HasPendingCustomDropPlacement())
+        {
+            if (enqueueContinuousHack([]() {
+                InGameHack_UpdateCustomDropPlacement();
+            }))
+            {
+                lastCustomDropPlacementTime = now;
+            }
+        }
+    }
+    catch (...)
+    {
     }
 
     // ===== DUPLICATE INTO IMITATION RANDOM ESP TARGET =====
@@ -459,7 +612,7 @@ void HackThreadManager::FrameUpdateHacks()
     {
         try
         {
-            if (IsValidBattleMode())
+            if (isBattleMode)
             {
                 static auto lastRebuildMyselfTime = std::chrono::high_resolution_clock::now();
                 static bool lastRebuildMyselfPressed = false;
@@ -550,7 +703,9 @@ void HackThreadManager::FrameUpdateHacks()
     {
         try
         {
-            InGameHack_RecoverMe();
+            static auto lastRecoveryMeTime = std::chrono::steady_clock::time_point{};
+            if (IsIntervalDue(lastRecoveryMeTime, RECOVERY_SCAN_INTERVAL_MS))
+                InGameHack_RecoverMe();
         }
         catch (...)
         {
@@ -562,7 +717,9 @@ void HackThreadManager::FrameUpdateHacks()
     {
         try
         {
-            InGameHack_RecoverDyingTeam();
+            static auto lastRecoveryTeamTime = std::chrono::steady_clock::time_point{};
+            if (IsIntervalDue(lastRecoveryTeamTime, RECOVERY_SCAN_INTERVAL_MS))
+                InGameHack_RecoverDyingTeam();
         }
         catch (...)
         {
@@ -574,7 +731,9 @@ void HackThreadManager::FrameUpdateHacks()
     {
         try
         {
-            InGameHack_RecoverDyingAllESP();
+            static auto lastRecoveryAllEspTime = std::chrono::steady_clock::time_point{};
+            if (IsIntervalDue(lastRecoveryAllEspTime, RECOVERY_SCAN_INTERVAL_MS))
+                InGameHack_RecoverDyingAllESP();
         }
         catch (...)
         {
@@ -586,13 +745,17 @@ void HackThreadManager::FrameUpdateHacks()
     {
         try
         {
-            // Get the selected team member index
-            int selectedIndex = ImGuiMenu::g_Settings.SelectedRecoveryTeamIndex;
-            
-            // Validate index
-            if (selectedIndex >= 0 && selectedIndex < (int)ImGuiMenu::g_CurrentTeamCharacters.size())
+            static auto lastRecoverySelectedTeamTime = std::chrono::steady_clock::time_point{};
+            if (IsIntervalDue(lastRecoverySelectedTeamTime, RECOVERY_SCAN_INTERVAL_MS))
             {
-                InGameHack_RecoverDyingSpecificTeamMember(selectedIndex);
+                // Get the selected team member index
+                int selectedIndex = ImGuiMenu::g_Settings.SelectedRecoveryTeamIndex;
+                
+                // Validate index
+                if (selectedIndex >= 0 && selectedIndex < (int)ImGuiMenu::g_CurrentTeamCharacters.size())
+                {
+                    InGameHack_RecoverDyingSpecificTeamMember(selectedIndex);
+                }
             }
         }
         catch (...)
@@ -600,12 +763,209 @@ void HackThreadManager::FrameUpdateHacks()
 }
     }
 
+    // ===== PLUS ULTRA (CONTINUOUS) =====
+    {
+        static bool s_plusUltraFastChargeWasEnabled = false;
+        static auto lastPlusUltraTime = std::chrono::steady_clock::time_point{};
+        try
+        {
+            const bool keepReady = ImGuiMenu::g_HackSettings.EnableInfinitePlusUltra;
+            const bool fastCharge = ImGuiMenu::g_Settings.EnableFastPlusUltraCharge;
+
+            if (!keepReady && !fastCharge)
+            {
+                if (s_plusUltraFastChargeWasEnabled)
+                {
+                    s_plusUltraFastChargeWasEnabled = false;
+                    InGameHack_SetPlusUltraFastCharge(false);
+                }
+            }
+            else if (IsIntervalDue(lastPlusUltraTime, 250))
+            {
+                s_plusUltraFastChargeWasEnabled = fastCharge || keepReady;
+                if (keepReady)
+                    InGameHack_KeepPlusUltraReady();
+                if (fastCharge)
+                    InGameHack_SetPlusUltraFastCharge(true);
+            }
+        }
+        catch (...)
+        {
+        }
+    }
+
+    // ===== CLEAR INVINCIBLE (AUTO) =====
+    if (ImGuiMenu::g_Settings.EnableClearInvincibleAuto)
+    {
+        try
+        {
+            static auto lastClearInvincibleTime = std::chrono::steady_clock::time_point{};
+            const int intervalMs = std::clamp(ImGuiMenu::g_Settings.ClearInvincibleIntervalMs, 50, 2000);
+            if (isBattleMode && IsIntervalDue(lastClearInvincibleTime, intervalMs))
+            {
+                const int targetMode = std::clamp(ImGuiMenu::g_Settings.ClearInvincibleTargetMode, 0, 3);
+                const int method = std::clamp(ImGuiMenu::g_Settings.ClearInvincibleMethod, 0, 2);
+                const bool ignoreFixed = ImGuiMenu::g_Settings.ClearInvincibleIgnoreFixed;
+                const int attackId = std::clamp(ImGuiMenu::g_Settings.ClearInvincibleAttackId, 0, 8);
+                const int selectedIndex = ImGuiMenu::g_Settings.ClearInvincibleSelectedCharacterIndex;
+                const std::string tag = ImGuiMenu::g_Settings.ClearInvincibleTagBuffer;
+
+                enqueueContinuousHack([targetMode, method, ignoreFixed, attackId, selectedIndex, tag]() {
+                    InGameHack_ClearInvincibleTargets(
+                        targetMode,
+                        method,
+                        ignoreFixed,
+                        attackId,
+                        tag.c_str(),
+                        selectedIndex);
+                });
+            }
+        }
+        catch (...)
+        {
+        }
+    }
+
+    // ===== ACTION CANCEL / ATTACK CHAIN (AUTO) =====
+    if (ImGuiMenu::g_Settings.EnableAttackChainAuto)
+    {
+        try
+        {
+            static auto lastAttackChainTime = std::chrono::steady_clock::time_point{};
+            const int intervalMs = std::clamp(ImGuiMenu::g_Settings.AttackChainIntervalMs, 16, 1000);
+            if (isBattleMode && IsIntervalDue(lastAttackChainTime, intervalMs))
+            {
+                AttackChainConfig config{};
+                config.useChainComboFlag = ImGuiMenu::g_Settings.AttackChainUseChainComboFlag;
+                config.chainComboTime = std::clamp(ImGuiMenu::g_Settings.AttackChainComboFlagTime, 0.0f, 5.0f);
+                config.enableShiftAttackActions = ImGuiMenu::g_Settings.AttackChainEnableShiftAttackActions;
+                config.clearShiftActionAttackFlags = ImGuiMenu::g_Settings.AttackChainClearShiftActionAttackFlags;
+                config.useAnimationRate = ImGuiMenu::g_Settings.AttackChainUseAnimationRate;
+                config.animationRate = std::clamp(ImGuiMenu::g_Settings.AttackChainAnimationRate, 0.1f, 30.0f);
+                config.animationRateNagara = ImGuiMenu::g_Settings.AttackChainAnimationRateNagara;
+                config.usePhaseEndCondition = ImGuiMenu::g_Settings.AttackChainUsePhaseEndCondition;
+                config.comboCommand = ImGuiMenu::g_Settings.AttackChainComboCommand;
+                config.grabbed = ImGuiMenu::g_Settings.AttackChainGrabbed;
+                config.endTimer = std::clamp(ImGuiMenu::g_Settings.AttackChainEndTimer, 0.0f, 10.0f);
+                config.landing = ImGuiMenu::g_Settings.AttackChainLanding;
+                config.endAnim = ImGuiMenu::g_Settings.AttackChainEndAnim;
+                config.endAnimSlot = std::clamp(ImGuiMenu::g_Settings.AttackChainEndAnimSlot, 0, 6);
+                config.finishCurrentPhase = ImGuiMenu::g_Settings.AttackChainFinishCurrentPhase;
+                config.terminateAttackLayer = ImGuiMenu::g_Settings.AttackChainTerminateAttackLayer;
+                config.enableAimingActionCancel = ImGuiMenu::g_Settings.AttackChainEnableAimingActionCancel;
+                config.actionCancelFlag = std::clamp(ImGuiMenu::g_Settings.AttackChainActionCancelFlag, 0, 255);
+                config.ownerActionOnly = ImGuiMenu::g_Settings.AttackChainOwnerActionOnly;
+                config.validateNextReservedAction = ImGuiMenu::g_Settings.AttackChainValidateNextReservedAction;
+
+                enqueueContinuousHack([config]() {
+                    InGameHack_ApplyAttackChainControl(config);
+                });
+            }
+        }
+        catch (...)
+        {
+        }
+    }
+
+    // ===== DOWNPOWER (AUTO) =====
+    if (ImGuiMenu::g_Settings.EnableDownPowerAuto)
+    {
+        try
+        {
+            static auto lastDownPowerTime = std::chrono::steady_clock::time_point{};
+            const int intervalMs = std::clamp(ImGuiMenu::g_Settings.DownPowerIntervalMs, 50, 2000);
+            if (isBattleMode && IsIntervalDue(lastDownPowerTime, intervalMs))
+            {
+                DownPowerConfig config{};
+                config.patchDamageParams = ImGuiMenu::g_Settings.DownPowerPatchDamageParams;
+                config.damageType = ImGuiMenu::g_Settings.DownPowerDamageType;
+                config.includeNoActionDamage = ImGuiMenu::g_Settings.DownPowerIncludeNoActionDamage;
+                config.overrideRecoverSpan = ImGuiMenu::g_Settings.DownPowerOverrideRecoverSpan;
+                config.recoverSpan = std::clamp(ImGuiMenu::g_Settings.DownPowerRecoverSpan, 0.0f, 30.0f);
+                config.applyDurableRates = ImGuiMenu::g_Settings.DownPowerApplyDurableRates;
+                config.durableRate = std::clamp(ImGuiMenu::g_Settings.DownPowerDurableRate, 0.0f, 100.0f);
+                config.durableAttackActionRate = std::clamp(ImGuiMenu::g_Settings.DownPowerDurableAttackActionRate, 0.0f, 100.0f);
+                config.durableTakeDamageRate = std::clamp(ImGuiMenu::g_Settings.DownPowerDurableTakeDamageRate, 0.0f, 100.0f);
+                config.durableSpecialActionRate = std::clamp(ImGuiMenu::g_Settings.DownPowerDurableSpecialActionRate, 0.0f, 100.0f);
+                config.durableRollSlotRate = std::clamp(ImGuiMenu::g_Settings.DownPowerDurableRollSlotRate, 0.0f, 100.0f);
+                config.durableTakeDamageRollSlotRate = std::clamp(ImGuiMenu::g_Settings.DownPowerDurableTakeDamageRollSlotRate, 0.0f, 100.0f);
+                config.applyBreakDownSuperArmorRate = ImGuiMenu::g_Settings.DownPowerApplyBreakDownSuperArmorRate;
+                config.breakDownSuperArmorRate = std::clamp(ImGuiMenu::g_Settings.DownPowerBreakDownSuperArmorRate, 0.0f, 100.0f);
+                config.disableTargetSuperArmor = ImGuiMenu::g_Settings.DownPowerDisableTargetSuperArmor;
+                config.targetMode = std::clamp(ImGuiMenu::g_Settings.DownPowerTargetMode, 0, 3);
+                config.selectedCharacterIndex = ImGuiMenu::g_Settings.DownPowerSelectedCharacterIndex;
+
+                enqueueContinuousHack([config]() {
+                    InGameHack_ApplyDownPowerConfig(config);
+                });
+            }
+        }
+        catch (...)
+        {
+        }
+    }
+
+    // ===== NO COLLISION MOVEMENT (EVERY FRAME) =====
+    {
+        static bool s_noCollisionWasEnabled = false;
+        try
+        {
+            const bool noCollision = ImGuiMenu::g_Settings.EnableNoCollision;
+            if (noCollision)
+            {
+                s_noCollisionWasEnabled = true;
+                const bool holdActive = IsHotkeyPressed(ImGuiMenu::g_Settings.NoCollisionHoldKey, gamepadSnapshot);
+                float forwardAxis = 0.0f;
+                float rightAxis = 0.0f;
+                if (IsKeyboardHotkeyPressed('W'))
+                    forwardAxis += 1.0f;
+                if (IsKeyboardHotkeyPressed('S'))
+                    forwardAxis -= 1.0f;
+                if (IsKeyboardHotkeyPressed('D'))
+                    rightAxis += 1.0f;
+                if (IsKeyboardHotkeyPressed('A'))
+                    rightAxis -= 1.0f;
+                AddNoCollisionGamepadMovement(gamepadSnapshot, forwardAxis, rightAxis);
+                forwardAxis = std::clamp(forwardAxis, -1.0f, 1.0f);
+                rightAxis = std::clamp(rightAxis, -1.0f, 1.0f);
+                InGameHack_UpdateNoCollisionMovement(
+                    holdActive,
+                    forwardAxis,
+                    rightAxis,
+                    ImGuiMenu::g_Settings.NoCollisionSpeed);
+            }
+            else if (s_noCollisionWasEnabled)
+            {
+                s_noCollisionWasEnabled = false;
+                InGameHack_SetNoCollision(false);
+            }
+        }
+        catch (...)
+        {
+        }
+    }
+
+    // ===== CAMERA FOV (SDK) =====
+    if (ImGuiMenu::g_Settings.EnableCameraFOV)
+    {
+        try
+        {
+            static auto lastCameraFovTime = std::chrono::steady_clock::time_point{};
+            if (IsIntervalDue(lastCameraFovTime, 50))
+                InGameHack_SetCameraFOV(ImGuiMenu::g_Settings.CameraFOV);
+        }
+        catch (...)
+        {
+        }
+    }
+
     // ===== BULLET REDIRECTION (EVERY FRAME) =====
     if (ImGuiMenu::g_Settings.EnableBulletTP)
     {
         try
         {
-            if (!ImGuiMenu::IsVisible())
+            static auto lastBulletTpTime = std::chrono::steady_clock::time_point{};
+            if (!ImGuiMenu::IsVisible() && IsIntervalDue(lastBulletTpTime, BULLET_TP_SCAN_INTERVAL_MS))
             {
                 enqueueContinuousHack([alpha = ImGuiMenu::g_Settings.BulletTP_IncludeAlpha,
                                       beta = ImGuiMenu::g_Settings.BulletTP_IncludeBeta,
@@ -618,6 +978,18 @@ void HackThreadManager::FrameUpdateHacks()
         catch (...)
         {
 }
+    }
+
+    // ===== BYPASS RENTAL TICKETS (EVERY FRAME) =====
+    if (ImGuiMenu::g_HackSettings.Hack_BypassRentalTickets)
+    {
+        try
+        {
+            InGameHack_BypassRentalTickets();
+        }
+        catch (...)
+        {
+        }
     }
 
     // ===== CHARACTER CHANGER PERSISTENT MODE UPDATE =====
