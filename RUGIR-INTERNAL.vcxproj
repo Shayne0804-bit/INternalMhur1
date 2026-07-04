@@ -17,6 +17,10 @@
       <Configuration>Protected</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Agency|x64">
+      <Configuration>Agency</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Configuration">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -52,6 +56,13 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Agency|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -67,6 +78,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Protected|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Agency|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -88,6 +102,11 @@
     <IntDir>$(SolutionDir)obj\$(Configuration)\</IntDir>
     <TargetName>RUGIR-INTERNAL-protected</TargetName>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Agency|x64'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Configuration)\</IntDir>
+    <TargetName>VALARIA</TargetName>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -102,7 +121,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;mfplat.lib;mfreadwrite.lib;mfuuid.lib;ole32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;mfplat.lib;mfreadwrite.lib;mfuuid.lib;ole32.lib;freetype.lib;winhttp.lib;bcrypt.lib;crypt32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)cheat factory\vendors\FreeType\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -120,7 +139,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;mfplat.lib;mfreadwrite.lib;mfuuid.lib;ole32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;mfplat.lib;mfreadwrite.lib;mfuuid.lib;ole32.lib;freetype.lib;winhttp.lib;bcrypt.lib;crypt32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)cheat factory\vendors\FreeType\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -138,7 +157,26 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;mfplat.lib;mfreadwrite.lib;mfuuid.lib;ole32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;mfplat.lib;mfreadwrite.lib;mfuuid.lib;ole32.lib;freetype.lib;winhttp.lib;bcrypt.lib;crypt32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)cheat factory\vendors\FreeType\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Agency|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;RUGIR_INTERNAL_EXPORTS;RUGIR_MENU_VALARIA=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)cheat factory\projects\shared\ImGui;$(ProjectDir)cheat factory\projects\shared\ImGui\backends;$(ProjectDir)cheat factory\projects\shared;$(ProjectDir)cheat factory\vendors\FreeType\include;$(ProjectDir)src\dependencies;$(ProjectDir)4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>None</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;mfplat.lib;mfreadwrite.lib;mfuuid.lib;ole32.lib;freetype.lib;winhttp.lib;bcrypt.lib;crypt32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)cheat factory\vendors\FreeType\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -152,12 +190,13 @@
       <AdditionalIncludeDirectories>$(ProjectDir)cheat factory\projects\shared\ImGui;$(ProjectDir)cheat factory\projects\shared\ImGui\backends;$(ProjectDir)cheat factory\projects\shared;$(ProjectDir)cheat factory\vendors\FreeType\include;$(ProjectDir)src\dependencies;$(ProjectDir)4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;mfplat.lib;mfreadwrite.lib;mfuuid.lib;ole32.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;dxgi.lib;windowscodecs.lib;propsys.lib;mfplat.lib;mfreadwrite.lib;mfuuid.lib;ole32.lib;freetype.lib;winhttp.lib;bcrypt.lib;crypt32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)cheat factory\vendors\FreeType\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DllEntry.cpp" />
+    <ClCompile Include="src\Auth\LicenseAuth.cpp" />
     <ClCompile Include="src\Core\Main.cpp" />
     <ClCompile Include="src\Core\UnloadManager.cpp" />
     <ClCompile Include="src\Hooks\D3D11Hook.cpp" />
@@ -183,6 +222,7 @@
     <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\BackendSubsystem_functions.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Auth\LicenseAuth.h" />
     <ClInclude Include="src\Core\Main.h" />
     <ClInclude Include="src\Core\UnloadManager.h" />
     <ClInclude Include="src\Hooks\D3D11Hook.h" />
