@@ -3320,8 +3320,13 @@ namespace ImGuiMenu
             if (authorized)
             {
                 const std::string tier = Auth::GetTier();
+                const std::string expires = Auth::GetExpiresAt();
                 ImGui::TextColored(g_Colors.success, "Licence active%s%s.",
                     tier.empty() ? "" : " - ", tier.c_str());
+                if (!expires.empty())
+                    ImGui::TextColored(g_Colors.textSecondary, "Expire le : %s", expires.c_str());
+                else
+                    ImGui::TextColored(g_Colors.textSecondary, "Expiration : illimitee");
                 ImGui::Spacing();
                 if (FullWidthButton("DECONNEXION"))
                 {
@@ -3331,21 +3336,43 @@ namespace ImGuiMenu
             }
             else
             {
+                // Pre-fill the input with the saved key once, but never auto-connect:
+                // the user must click CONFIRMER.
+                static bool s_prefilled = false;
+                if (!s_prefilled)
+                {
+                    s_prefilled = true;
+                    const std::string saved = Auth::GetSavedKey();
+                    if (!saved.empty())
+                    {
+                        std::memset(g_LicenseKeyBuffer, 0, sizeof(g_LicenseKeyBuffer));
+                        const size_t maxN = sizeof(g_LicenseKeyBuffer) - 1;
+                        const size_t n = saved.size() < maxN ? saved.size() : maxN;
+                        std::memcpy(g_LicenseKeyBuffer, saved.data(), n);
+                    }
+                }
+
                 const bool busy = (state == Auth::State::Checking);
 
                 ImGui::BeginDisabled(busy);
-                const bool submitted = ImGui::InputTextWithHint(
+                ImGui::InputTextWithHint(
                     "##LicenseKey",
                     "RUGIR-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
                     g_LicenseKeyBuffer,
                     sizeof(g_LicenseKeyBuffer),
-                    ImGuiInputTextFlags_EnterReturnsTrue);
+                    ImGuiInputTextFlags_None);
 
-                const bool activateClicked = FullWidthButton(busy ? "VERIFICATION..." : "ACTIVER");
+                // Confirm / Cancel row: nothing connects until CONFIRMER is pressed.
+                const float halfW = std::floor((ImGui::GetContentRegionAvail().x - ImGui::GetStyle().ItemSpacing.x) * 0.5f);
+                const bool confirmClicked = ImAdd::Button(busy ? "VERIFICATION..." : "CONFIRMER", ImVec2(halfW, 0.0f));
+                ImGui::SameLine();
+                const bool cancelClicked = ImAdd::Button("ANNULER", ImVec2(ImGui::GetContentRegionAvail().x, 0.0f));
                 ImGui::EndDisabled();
 
-                if ((submitted || activateClicked) && !busy)
+                if (confirmClicked && !busy)
                     Auth::ActivateAsync(g_LicenseKeyBuffer);
+                if (cancelClicked && !busy)
+                    std::memset(g_LicenseKeyBuffer, 0, sizeof(g_LicenseKeyBuffer));
 
                 const std::string status = Auth::GetStatusText();
                 if (!status.empty())

@@ -223,9 +223,7 @@ return;
     m_shutdown.store(false);
     m_pendingTasks.store(0);
 
-    // Re-activate from a previously saved (DPAPI) key so the user does not have
-    // to re-enter it every launch. No-op if no key stored or it is rejected.
-    Auth::LoadSavedKeyAndActivate();
+    // No auto-connect: the user must confirm activation in the menu each launch.
 
     try
     {
