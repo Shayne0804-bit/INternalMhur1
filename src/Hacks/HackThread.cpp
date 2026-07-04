@@ -5,6 +5,7 @@
 #include "InGameModuleHacks.h"
 #include "Character_Changer.h"
 #include "../Menu/ImGuiMenu.h"
+#include "../Auth/LicenseAuth.h"
 #include <algorithm>
 #include <chrono>
 #include <Windows.h>
@@ -222,6 +223,10 @@ return;
     m_shutdown.store(false);
     m_pendingTasks.store(0);
 
+    // Re-activate from a previously saved (DPAPI) key so the user does not have
+    // to re-enter it every launch. No-op if no key stored or it is rejected.
+    Auth::LoadSavedKeyAndActivate();
+
     try
     {
         m_workerThread = std::make_unique<std::thread>(&HackThreadManager::WorkerThreadProc, this);
@@ -365,6 +370,11 @@ while (!m_shutdown.load())
 void HackThreadManager::FrameUpdateHacks()
 {
     if (!m_isRunning.load())
+        return;
+
+    // License re-validation (self-throttled) + global gate: no valid key = no hacks.
+    Auth::HeartbeatTick();
+    if (!Auth::IsAuthorized())
         return;
 
     if (!ImGuiMenu::g_Settings.EnableGlobal)

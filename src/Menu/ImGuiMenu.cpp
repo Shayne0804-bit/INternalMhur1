@@ -11,6 +11,7 @@
 #include "../Utils/SVGLoader.h"
 #include "../Assets/MenuResources.h"
 #include "../Core/UnloadManager.h"
+#include "../Auth/LicenseAuth.h"
 #include <algorithm>
 #include <climits>
 #include <unordered_map>
@@ -129,6 +130,7 @@ namespace ImGuiMenu
     static bool g_LicenseSectionUnlocked = false;
     static bool g_LicenseUnlockFailed = false;
     static char g_LicenseUnlockBuffer[64] = {};
+    static char g_LicenseKeyBuffer[64] = {};
     static bool g_MenuHotkeyDown = false;
     static bool g_PlayerNetworkTableVisible = false;
     static bool g_PlayerNetworkTableHotkeyDown = false;
@@ -3310,33 +3312,52 @@ namespace ImGuiMenu
 
     static void RenderProtectedAccessCard(float width)
     {
-        if (BeginRugirCard("lobby-protected-access-page", "PROTECTED ACCESS", ImVec2(width, 0.0f)))
+        if (BeginRugirCard("license-activation-page", "ACTIVATION", ImVec2(width, 0.0f)))
         {
-            const bool submitted = ImGui::InputTextWithHint(
-                "##ProtectedAccessPassword",
-                "Password",
-                g_LicenseUnlockBuffer,
-                sizeof(g_LicenseUnlockBuffer),
-                ImGuiInputTextFlags_Password | ImGuiInputTextFlags_EnterReturnsTrue);
+            const Auth::State state = Auth::GetState();
+            const bool authorized = Auth::IsAuthorized();
 
-            const bool unlockClicked = FullWidthButton("UNLOCK ACCESS");
-            if (submitted || unlockClicked)
+            if (authorized)
             {
-                if (ValidateLicenseUnlockPassword())
+                const std::string tier = Auth::GetTier();
+                ImGui::TextColored(g_Colors.success, "Licence active%s%s.",
+                    tier.empty() ? "" : " - ", tier.c_str());
+                ImGui::Spacing();
+                if (FullWidthButton("DECONNEXION"))
                 {
-                    g_LicenseSectionUnlocked = true;
-                    g_LicenseUnlockFailed = false;
+                    Auth::Clear();
+                    std::memset(g_LicenseKeyBuffer, 0, sizeof(g_LicenseKeyBuffer));
                 }
-                else
-                {
-                    g_LicenseUnlockFailed = true;
-                }
+            }
+            else
+            {
+                const bool busy = (state == Auth::State::Checking);
 
-                std::memset(g_LicenseUnlockBuffer, 0, sizeof(g_LicenseUnlockBuffer));
+                ImGui::BeginDisabled(busy);
+                const bool submitted = ImGui::InputTextWithHint(
+                    "##LicenseKey",
+                    "RUGIR-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX",
+                    g_LicenseKeyBuffer,
+                    sizeof(g_LicenseKeyBuffer),
+                    ImGuiInputTextFlags_EnterReturnsTrue);
+
+                const bool activateClicked = FullWidthButton(busy ? "VERIFICATION..." : "ACTIVER");
+                ImGui::EndDisabled();
+
+                if ((submitted || activateClicked) && !busy)
+                    Auth::ActivateAsync(g_LicenseKeyBuffer);
+
+                const std::string status = Auth::GetStatusText();
+                if (!status.empty())
+                {
+                    const ImVec4 color = (state == Auth::State::Denied) ? g_Colors.danger
+                        : (busy ? g_Colors.warning : g_Colors.textSecondary);
+                    ImGui::TextColored(color, "%s", status.c_str());
+                }
             }
 
-            if (g_LicenseUnlockFailed)
-                ImGui::TextColored(g_Colors.warning, "Invalid password.");
+            ImGui::Spacing();
+            ImGui::TextColored(g_Colors.textSecondary, "HWID: %s", Auth::GetHwidShort().c_str());
         }
         EndRugirCard();
     }
@@ -4551,6 +4572,9 @@ namespace ImGuiMenu
 #if RUGIR_MENU_CHEAT_FACTORY
         addText(g_FreeFontBrand, 29.0f, ImVec2(p.x + 24.0f, p.y + 28.0f), ImGui::GetColorU32(g_Colors.accentColor), "CHEAT");
         addText(g_FreeFontBrand, 29.0f, ImVec2(p.x + 24.0f, p.y + 61.0f), ImGui::GetColorU32(g_Colors.textPrimary), "FACTORY");
+#elif RUGIR_MENU_VALARIA
+        addText(g_FreeFontBrand, 34.0f, ImVec2(p.x + 27.0f, p.y + 32.0f), ImGui::GetColorU32(g_Colors.accentColor), "VALA");
+        addText(g_FreeFontBrand, 34.0f, ImVec2(p.x + 111.0f, p.y + 32.0f), ImGui::GetColorU32(g_Colors.textPrimary), "RIA");
 #else
         addText(g_FreeFontBrand, 34.0f, ImVec2(p.x + 27.0f, p.y + 32.0f), ImGui::GetColorU32(g_Colors.accentColor), "RUGIR");
         addText(g_FreeFontBrand, 34.0f, ImVec2(p.x + 132.0f, p.y + 32.0f), ImGui::GetColorU32(g_Colors.textPrimary), "INT");
@@ -4559,6 +4583,24 @@ namespace ImGuiMenu
         ImGui::SetCursorScreenPos(ImVec2(p.x + size.x - 34.0f, p.y + 16.0f));
         if (ImAdd::ButtonXMark("free-close-button", ImVec2(18.0f, 18.0f)))
             g_Visible = false;
+
+        // License gate: until the server authorizes this machine, the whole
+        // menu is replaced by the activation card. No tabs, no features.
+        if (!Auth::IsAuthorized())
+        {
+            const float cardWidth = size.x - sidebarWidth - 48.0f;
+            ImGui::SetCursorScreenPos(ImVec2(p.x + sidebarWidth + 24.0f, p.y + 150.0f));
+            ImGui::BeginGroup();
+            ImGui::PushItemWidth(cardWidth > 200.0f ? cardWidth : 200.0f);
+            RenderProtectedAccessCard(cardWidth > 200.0f ? cardWidth : 200.0f);
+            ImGui::PopItemWidth();
+            ImGui::EndGroup();
+            ImGui::End();
+            return;
+        }
+
+        // Once authorized, keep the lobby "Access" section open too.
+        g_LicenseSectionUnlocked = true;
 
         ImGui::SetCursorScreenPos(ImVec2(p.x + 8.0f, p.y + 104.0f));
         ImGui::BeginGroup();
@@ -5285,7 +5327,7 @@ return true;
         // ========================================================================
         // STEP 3B: SDK RENDERING (on RenderThread with ImGui context)
         // ========================================================================
-        if (g_Settings.EnableGlobal)
+        if (Auth::IsAuthorized() && g_Settings.EnableGlobal)
         {
             if (g_Settings.EnablePlayerESP)
             {

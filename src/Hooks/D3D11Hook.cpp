@@ -4,6 +4,7 @@
 
 #include "../SDK/SDKESPFunctions.h"
 #include "../Core/UnloadManager.h"
+#include "../Auth/LicenseAuth.h"
 #include <imgui.h>
 #include <imgui_impl_win32.h>
 #include <Xinput.h>
@@ -172,7 +173,7 @@ namespace D3D11Hook
 }
         }
 
-        if (ImGuiMenu::g_Settings.EnableGlobal)
+        if (Auth::IsAuthorized() && ImGuiMenu::g_Settings.EnableGlobal)
         {
         // Update the actor cache only when a feature actually consumes it.
         if (NeedsActorCache())
