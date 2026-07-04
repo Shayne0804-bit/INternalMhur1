@@ -15,7 +15,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum PhysXVehicles.EWheelSweepType
 // NumValues: 0x0004
@@ -47,6 +48,7 @@ struct FAnimNode_WheelHandler final : public FAnimNode_SkeletalControlBase
 public:
 	uint8                                         Pad_C8[0x18];                                      // 0x00C8(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_WheelHandler;
 
 // ScriptStruct PhysXVehicles.TireConfigMaterialFriction
 // 0x0010 (0x0010 - 0x0000)
@@ -57,6 +59,7 @@ public:
 	float                                         FrictionScale;                                     // 0x0008(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTireConfigMaterialFriction;
 
 // ScriptStruct PhysXVehicles.VehicleAnimInstanceProxy
 // 0x0010 (0x0780 - 0x0770)
@@ -65,6 +68,7 @@ struct FVehicleAnimInstanceProxy final : public FAnimInstanceProxy
 public:
 	uint8                                         Pad_770[0x10];                                     // 0x0770(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FVehicleAnimInstanceProxy;
 
 // ScriptStruct PhysXVehicles.VehicleInputRate
 // 0x0008 (0x0008 - 0x0000)
@@ -74,6 +78,7 @@ public:
 	float                                         RiseRate;                                          // 0x0000(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         FallRate;                                          // 0x0004(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVehicleInputRate;
 
 // ScriptStruct PhysXVehicles.ReplicatedVehicleState
 // 0x0014 (0x0014 - 0x0000)
@@ -86,6 +91,7 @@ public:
 	float                                         HandbrakeInput;                                    // 0x000C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         CurrentGear;                                       // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FReplicatedVehicleState;
 
 // ScriptStruct PhysXVehicles.WheelSetup
 // 0x0020 (0x0020 - 0x0000)
@@ -98,6 +104,7 @@ public:
 	bool                                          bDisableSteering;                                  // 0x001C(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FWheelSetup;
 
 // ScriptStruct PhysXVehicles.VehicleGearData
 // 0x000C (0x000C - 0x0000)
@@ -108,6 +115,7 @@ public:
 	float                                         DownRatio;                                         // 0x0004(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         UpRatio;                                           // 0x0008(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVehicleGearData;
 
 // ScriptStruct PhysXVehicles.VehicleTransmissionData
 // 0x0030 (0x0030 - 0x0000)
@@ -125,6 +133,7 @@ public:
 	float                                         ClutchStrength;                                    // 0x0028(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FVehicleTransmissionData;
 
 // ScriptStruct PhysXVehicles.VehicleEngineData
 // 0x00A0 (0x00A0 - 0x0000)
@@ -139,6 +148,7 @@ public:
 	float                                         DampingRateZeroThrottleClutchDisengaged;           // 0x0098(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9C[0x4];                                       // 0x009C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FVehicleEngineData;
 
 // ScriptStruct PhysXVehicles.VehicleDifferential4WData
 // 0x001C (0x001C - 0x0000)
@@ -154,5 +164,7 @@ public:
 	float                                         FrontBias;                                         // 0x0014(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         RearBias;                                          // 0x0018(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVehicleDifferential4WData;
 
-SDK_NAMESPACE_END
+}
+

@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MagicLeapLightEstimation.MagicLeapLightingTrackingComponent
 // 0x0010 (0x00C0 - 0x00B0)
@@ -38,6 +39,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapLightingTrackingComponent>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapLightingTrackingComponent;
 
 // Class MagicLeapLightEstimation.MagicLeapLightEstimationFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -64,5 +66,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapLightEstimationFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapLightEstimationFunctionLibrary;
 
-SDK_NAMESPACE_END
+}
+

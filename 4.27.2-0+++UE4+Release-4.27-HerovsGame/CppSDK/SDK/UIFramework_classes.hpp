@@ -22,7 +22,8 @@
 #include "SlateCore_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class UIFramework.WidgetBase
 // 0x00F8 (0x0370 - 0x0278)
@@ -82,6 +83,7 @@ public:
 		return GetDefaultObjImpl<UWidgetBase>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetBase;
 
 // Class UIFramework.CustomTextBlock
 // 0x0000 (0x02F0 - 0x02F0)
@@ -106,6 +108,7 @@ public:
 		return GetDefaultObjImpl<UCustomTextBlock>();
 	}
 };
+DUMPER7_ASSERTS_UCustomTextBlock;
 
 // Class UIFramework.CustomListView
 // 0x00D0 (0x0438 - 0x0368)
@@ -137,6 +140,7 @@ public:
 		return GetDefaultObjImpl<UCustomListView>();
 	}
 };
+DUMPER7_ASSERTS_UCustomListView;
 
 // Class UIFramework.AppWidget
 // 0x00A8 (0x0418 - 0x0370)
@@ -170,6 +174,7 @@ public:
 		return GetDefaultObjImpl<UAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAppWidget;
 
 // Class UIFramework.WidgetScrollBarKnob
 // 0x0010 (0x0428 - 0x0418)
@@ -193,6 +198,7 @@ public:
 		return GetDefaultObjImpl<UWidgetScrollBarKnob>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetScrollBarKnob;
 
 // Class UIFramework.AppWidgetWork
 // 0x0428 (0x0458 - 0x0030)
@@ -258,6 +264,7 @@ public:
 		return GetDefaultObjImpl<UAppWidgetWork>();
 	}
 };
+DUMPER7_ASSERTS_UAppWidgetWork;
 
 // Class UIFramework.WidgetButton
 // 0x00F8 (0x0510 - 0x0418)
@@ -320,6 +327,7 @@ public:
 		return GetDefaultObjImpl<UWidgetButton>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetButton;
 
 // Class UIFramework.WidgetToggleSwitch
 // 0x0010 (0x0520 - 0x0510)
@@ -343,6 +351,7 @@ public:
 		return GetDefaultObjImpl<UWidgetToggleSwitch>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetToggleSwitch;
 
 // Class UIFramework.AppWidgetLocalPlayerWork
 // 0x0000 (0x0030 - 0x0030)
@@ -362,6 +371,7 @@ public:
 		return GetDefaultObjImpl<UAppWidgetLocalPlayerWork>();
 	}
 };
+DUMPER7_ASSERTS_UAppWidgetLocalPlayerWork;
 
 // Class UIFramework.CustomMultiLineEditableText
 // 0x0040 (0x05B0 - 0x0570)
@@ -395,6 +405,7 @@ public:
 		return GetDefaultObjImpl<UCustomMultiLineEditableText>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMultiLineEditableText;
 
 // Class UIFramework.WidgetText
 // 0x0030 (0x03A0 - 0x0370)
@@ -442,10 +453,11 @@ public:
 		return GetDefaultObjImpl<UWidgetText>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetText;
 
 // Class UIFramework.ClippingWidget
 // 0x0040 (0x02B8 - 0x0278)
-class UClippingWidget : public UUserWidget
+class UClippingWidget final : public UUserWidget
 {
 public:
 	uint8                                         Pad_278[0x20];                                     // 0x0278(0x0020)(Fixing Size After Last Property [ Dumper-7 ])
@@ -476,6 +488,7 @@ public:
 		return GetDefaultObjImpl<UClippingWidget>();
 	}
 };
+DUMPER7_ASSERTS_UClippingWidget;
 
 // Class UIFramework.CustomEditableTextBox
 // 0x0040 (0x0E40 - 0x0E00)
@@ -507,6 +520,7 @@ public:
 		return GetDefaultObjImpl<UCustomEditableTextBox>();
 	}
 };
+DUMPER7_ASSERTS_UCustomEditableTextBox;
 
 // Class UIFramework.CustomSafeZone
 // 0x0000 (0x0138 - 0x0138)
@@ -526,6 +540,7 @@ public:
 		return GetDefaultObjImpl<UCustomSafeZone>();
 	}
 };
+DUMPER7_ASSERTS_UCustomSafeZone;
 
 // Class UIFramework.CustomScaleBox
 // 0x0008 (0x0148 - 0x0140)
@@ -549,6 +564,7 @@ public:
 		return GetDefaultObjImpl<UCustomScaleBox>();
 	}
 };
+DUMPER7_ASSERTS_UCustomScaleBox;
 
 // Class UIFramework.CustomScrollBox
 // 0x0010 (0x0C50 - 0x0C40)
@@ -578,6 +594,7 @@ public:
 		return GetDefaultObjImpl<UCustomScrollBox>();
 	}
 };
+DUMPER7_ASSERTS_UCustomScrollBox;
 
 // Class UIFramework.CustomTileView
 // 0x00B8 (0x0440 - 0x0388)
@@ -619,6 +636,7 @@ public:
 		return GetDefaultObjImpl<UCustomTileView>();
 	}
 };
+DUMPER7_ASSERTS_UCustomTileView;
 
 // Class UIFramework.CustomTileViewHasWidget
 // 0x0018 (0x0430 - 0x0418)
@@ -649,6 +667,7 @@ public:
 		return GetDefaultObjImpl<UCustomTileViewHasWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomTileViewHasWidget;
 
 // Class UIFramework.LevelLoaderWork
 // 0x0000 (0x0030 - 0x0030)
@@ -681,6 +700,7 @@ public:
 		return GetDefaultObjImpl<ULevelLoaderWork>();
 	}
 };
+DUMPER7_ASSERTS_ULevelLoaderWork;
 
 // Class UIFramework.LevelStreamingClientOnly
 // 0x0000 (0x0150 - 0x0150)
@@ -703,6 +723,7 @@ public:
 		return GetDefaultObjImpl<ULevelStreamingClientOnly>();
 	}
 };
+DUMPER7_ASSERTS_ULevelStreamingClientOnly;
 
 // Class UIFramework.ListViewEntryObjectBase
 // 0x0008 (0x0030 - 0x0028)
@@ -731,6 +752,7 @@ public:
 		return GetDefaultObjImpl<UListViewEntryObjectBase>();
 	}
 };
+DUMPER7_ASSERTS_UListViewEntryObjectBase;
 
 // Class UIFramework.UIPresenterBase
 // 0x0008 (0x0228 - 0x0220)
@@ -754,6 +776,7 @@ public:
 		return GetDefaultObjImpl<AUIPresenterBase>();
 	}
 };
+DUMPER7_ASSERTS_AUIPresenterBase;
 
 // Class UIFramework.MultiWidgetCreator
 // 0x00A8 (0x02D0 - 0x0228)
@@ -782,6 +805,7 @@ public:
 		return GetDefaultObjImpl<AMultiWidgetCreator>();
 	}
 };
+DUMPER7_ASSERTS_AMultiWidgetCreator;
 
 // Class UIFramework.RichTextImageDecorator
 // 0x0000 (0x0038 - 0x0038)
@@ -801,6 +825,7 @@ public:
 		return GetDefaultObjImpl<URichTextImageDecorator>();
 	}
 };
+DUMPER7_ASSERTS_URichTextImageDecorator;
 
 // Class UIFramework.RichTextImageDecoratorForPlatform
 // 0x0268 (0x02A0 - 0x0038)
@@ -827,6 +852,7 @@ public:
 		return GetDefaultObjImpl<URichTextImageDecoratorForPlatform>();
 	}
 };
+DUMPER7_ASSERTS_URichTextImageDecoratorForPlatform;
 
 // Class UIFramework.UIFrameworkSettings
 // 0x0380 (0x03A8 - 0x0028)
@@ -876,6 +902,7 @@ public:
 		return GetDefaultObjImpl<UUIFrameworkSettings>();
 	}
 };
+DUMPER7_ASSERTS_UUIFrameworkSettings;
 
 // Class UIFramework.UIFrameworkViewInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -908,6 +935,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IUIFrameworkViewInterface;
 
 // Class UIFramework.UISubsystem
 // 0x0060 (0x0090 - 0x0030)
@@ -939,10 +967,11 @@ public:
 		return GetDefaultObjImpl<UUISubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UUISubsystem;
 
 // Class UIFramework.WidgetBackground
 // 0x0020 (0x0390 - 0x0370)
-class UWidgetBackground : public UWidgetBase
+class UWidgetBackground final : public UWidgetBase
 {
 public:
 	class UBackgroundBlur*                        _backgroundBlur;                                   // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -973,10 +1002,11 @@ public:
 		return GetDefaultObjImpl<UWidgetBackground>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetBackground;
 
 // Class UIFramework.WidgetLocalizeLayoutItem
 // 0x0010 (0x0380 - 0x0370)
-class UWidgetLocalizeLayoutItem final : public UWidgetBase
+class UWidgetLocalizeLayoutItem : public UWidgetBase
 {
 public:
 	struct FSlateChildSize                        _size;                                             // 0x0370(0x0008)(Edit, NoDestructor, Protected, NativeAccessSpecifierProtected)
@@ -999,6 +1029,7 @@ public:
 		return GetDefaultObjImpl<UWidgetLocalizeLayoutItem>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetLocalizeLayoutItem;
 
 // Class UIFramework.WidgetButtonDetails
 // 0x0048 (0x0558 - 0x0510)
@@ -1025,6 +1056,7 @@ public:
 		return GetDefaultObjImpl<UWidgetButtonDetails>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetButtonDetails;
 
 // Class UIFramework.WidgetGeneralTimer
 // 0x0038 (0x0450 - 0x0418)
@@ -1049,6 +1081,7 @@ public:
 		return GetDefaultObjImpl<UWidgetGeneralTimer>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetGeneralTimer;
 
 // Class UIFramework.WidgetCreator
 // 0x0020 (0x0248 - 0x0228)
@@ -1085,6 +1118,7 @@ public:
 		return GetDefaultObjImpl<AWidgetCreator>();
 	}
 };
+DUMPER7_ASSERTS_AWidgetCreator;
 
 // Class UIFramework.WidgetCreatorCache
 // 0x0080 (0x02A0 - 0x0220)
@@ -1115,6 +1149,7 @@ public:
 		return GetDefaultObjImpl<AWidgetCreatorCache>();
 	}
 };
+DUMPER7_ASSERTS_AWidgetCreatorCache;
 
 // Class UIFramework.WidgetDrawPrimitive
 // 0x00C0 (0x01C8 - 0x0108)
@@ -1140,6 +1175,7 @@ public:
 		return GetDefaultObjImpl<UWidgetDrawPrimitive>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetDrawPrimitive;
 
 // Class UIFramework.WidgetGeneralWindowBase
 // 0x0090 (0x04A8 - 0x0418)
@@ -1190,6 +1226,7 @@ public:
 		return GetDefaultObjImpl<UWidgetGeneralWindowBase>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetGeneralWindowBase;
 
 // Class UIFramework.WidgetInputControl
 // 0x0000 (0x0370 - 0x0370)
@@ -1216,6 +1253,7 @@ public:
 		return GetDefaultObjImpl<UWidgetInputControl>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetInputControl;
 
 // Class UIFramework.WidgetGeneralEmptyWindow
 // 0x0088 (0x0530 - 0x04A8)
@@ -1268,10 +1306,11 @@ public:
 		return GetDefaultObjImpl<UWidgetGeneralEmptyWindow>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetGeneralEmptyWindow;
 
 // Class UIFramework.WidgetGeneralSelectiveWindow
 // 0x0110 (0x05B8 - 0x04A8)
-class UWidgetGeneralSelectiveWindow : public UWidgetGeneralWindowBase
+class UWidgetGeneralSelectiveWindow final : public UWidgetGeneralWindowBase
 {
 public:
 	TMulticastInlineDelegate<void(int32 selectindex, class UAppWidget* Widget, EWidgetInputType inputType, bool leftButton)> OnPressWindowDelegate; // 0x04A8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -1326,6 +1365,7 @@ public:
 		return GetDefaultObjImpl<UWidgetGeneralSelectiveWindow>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetGeneralSelectiveWindow;
 
 // Class UIFramework.WidgetGeneralTimerDigit
 // 0x0018 (0x0430 - 0x0418)
@@ -1350,6 +1390,7 @@ public:
 		return GetDefaultObjImpl<UWidgetGeneralTimerDigit>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetGeneralTimerDigit;
 
 // Class UIFramework.WidgetGeneralWindow
 // 0x0150 (0x05F8 - 0x04A8)
@@ -1433,6 +1474,7 @@ public:
 		return GetDefaultObjImpl<UWidgetGeneralWindow>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetGeneralWindow;
 
 // Class UIFramework.WidgetGeneralVerticalMultipleButtonWindow
 // 0x0358 (0x0950 - 0x05F8)
@@ -1518,6 +1560,7 @@ public:
 		return GetDefaultObjImpl<UWidgetGeneralVerticalMultipleButtonWindow>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetGeneralVerticalMultipleButtonWindow;
 
 // Class UIFramework.WidgetGeneralWindowFrame
 // 0x0018 (0x0610 - 0x05F8)
@@ -1545,10 +1588,11 @@ public:
 		return GetDefaultObjImpl<UWidgetGeneralWindowFrame>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetGeneralWindowFrame;
 
 // Class UIFramework.WidgetLocalizeLayout
 // 0x0030 (0x03A0 - 0x0370)
-class UWidgetLocalizeLayout final : public UWidgetBase
+class UWidgetLocalizeLayout : public UWidgetBase
 {
 public:
 	class FText                                   _tagText;                                          // 0x0370(0x0018)(Edit, Protected, NativeAccessSpecifierProtected)
@@ -1573,6 +1617,7 @@ public:
 		return GetDefaultObjImpl<UWidgetLocalizeLayout>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetLocalizeLayout;
 
 // Class UIFramework.WidgetMatrixSelection
 // 0x0070 (0x03E0 - 0x0370)
@@ -1613,6 +1658,7 @@ public:
 		return GetDefaultObjImpl<UWidgetMatrixSelection>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetMatrixSelection;
 
 // Class UIFramework.WidgetPopUpWindow
 // 0x0068 (0x0510 - 0x04A8)
@@ -1641,6 +1687,7 @@ public:
 		return GetDefaultObjImpl<UWidgetPopUpWindow>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetPopUpWindow;
 
 // Class UIFramework.WidgetScrollBar
 // 0x0080 (0x0498 - 0x0418)
@@ -1678,6 +1725,7 @@ public:
 		return GetDefaultObjImpl<UWidgetScrollBar>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetScrollBar;
 
 // Class UIFramework.WidgetScrollText
 // 0x0080 (0x03F0 - 0x0370)
@@ -1721,6 +1769,7 @@ public:
 		return GetDefaultObjImpl<UWidgetScrollText>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetScrollText;
 
 // Class UIFramework.WidgetStatics
 // 0x0000 (0x0028 - 0x0028)
@@ -1757,6 +1806,7 @@ public:
 		return GetDefaultObjImpl<UWidgetStatics>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetStatics;
 
 // Class UIFramework.WidgetSubMenu
 // 0x00E0 (0x04F8 - 0x0418)
@@ -1828,10 +1878,11 @@ public:
 		return GetDefaultObjImpl<UWidgetSubMenu>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetSubMenu;
 
 // Class UIFramework.WidgetSubMenuEntry
 // 0x0020 (0x0390 - 0x0370)
-class UWidgetSubMenuEntry : public UWidgetBase
+class UWidgetSubMenuEntry final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -1856,6 +1907,7 @@ public:
 		return GetDefaultObjImpl<UWidgetSubMenuEntry>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetSubMenuEntry;
 
 // Class UIFramework.WidgetSubMenuObject
 // 0x0040 (0x0070 - 0x0030)
@@ -1878,6 +1930,7 @@ public:
 		return GetDefaultObjImpl<UWidgetSubMenuObject>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetSubMenuObject;
 
 // Class UIFramework.WidgetTransition
 // 0x0150 (0x04C0 - 0x0370)
@@ -1903,6 +1956,7 @@ public:
 		return GetDefaultObjImpl<UWidgetTransition>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetTransition;
 
 // Class UIFramework.WidgetVersionNotation
 // 0x0018 (0x0388 - 0x0370)
@@ -1926,6 +1980,7 @@ public:
 		return GetDefaultObjImpl<UWidgetVersionNotation>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetVersionNotation;
 
 // Class UIFramework.WidgetWindowFrame
 // 0x0240 (0x05B0 - 0x0370)
@@ -2002,5 +2057,7 @@ public:
 		return GetDefaultObjImpl<UWidgetWindowFrame>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetWindowFrame;
 
-SDK_NAMESPACE_END
+}
+

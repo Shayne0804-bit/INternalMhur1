@@ -14,7 +14,8 @@
 #include "AugmentedReality_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function AugmentedReality.ARTrackedGeometry.GetUnderlyingMesh
 // (Final, Native, Public, BlueprintCallable, BlueprintPure)
@@ -5708,5 +5709,5 @@ class FString UARCandidateObject::GetFriendlyName() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

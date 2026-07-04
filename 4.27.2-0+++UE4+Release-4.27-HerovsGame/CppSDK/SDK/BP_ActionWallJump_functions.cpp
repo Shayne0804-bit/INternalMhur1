@@ -14,7 +14,8 @@
 #include "BP_ActionWallJump_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionWallJump.BP_ActionWallJump_C.ExecuteUbergraph_BP_ActionWallJump
 // (Final, UbergraphFunction)
@@ -92,5 +93,5 @@ bool UBP_ActionWallJump_C::BP_IsEnableShiftAction(const class FName& nextAction)
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // UserDefinedStruct FPlusUltraBuffParam.FPlusUltraBuffParam
 // 0x0008 (0x0008 - 0x0000)
@@ -21,5 +22,7 @@ public:
 	float                                         AttackAdjustRate_4_B25B7FEE40118312603DD59A9F06DA33; // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         ReloadAdjustRate_5_A8D00953442C35337F25BE96C02D6BF9; // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_FFPlusUltraBuffParam;
 
-SDK_NAMESPACE_END
+}
+

@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum SqlcipherModule.EMdVersionDiff
 // NumValues: 0x000C
@@ -31,4 +32,5 @@ enum class EMdVersionDiff : uint8
 	EMdVersionDiff_MAX                       = 11,
 };
 
-SDK_NAMESPACE_END
+}
+

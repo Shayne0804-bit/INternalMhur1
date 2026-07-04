@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_PoizonMist.BP_CC_PoizonMist_C.ExecuteUbergraph_BP_CC_PoizonMist
 // 0x0020 (0x0020 - 0x0000)
@@ -26,6 +26,7 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue;   // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterDamageComponent*              CallFunc_BP_GetDamageComponent_ReturnValue;        // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_PoizonMist_C_ExecuteUbergraph_BP_CC_PoizonMist;
 
 // Function BP_CC_PoizonMist.BP_CC_PoizonMist_C.BP_OnUpdateIntervalValue
 // 0x0004 (0x0004 - 0x0000)
@@ -34,6 +35,7 @@ struct BP_CC_PoizonMist_C_BP_OnUpdateIntervalValue final
 public:
 	float                                         value;                                             // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_PoizonMist_C_BP_OnUpdateIntervalValue;
 
 // Function BP_CC_PoizonMist.BP_CC_PoizonMist_C.GetDamageMultiplierInfo
 // 0x0030 (0x0030 - 0x0000)
@@ -57,6 +59,7 @@ public:
 	bool                                          CallFunc_BP_GetDebugIgnoreStartDamageMultiplierTimeFlag_ReturnValue; // 0x002C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_Not_PreBool_ReturnValue_1;                // 0x002D(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_PoizonMist_C_GetDamageMultiplierInfo;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

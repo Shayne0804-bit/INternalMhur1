@@ -14,7 +14,8 @@
 #include "BTT_CombatStart_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BTT_CombatStart.BTT_CombatStart_C.ExecuteUbergraph_BTT_CombatStart
 // (Final, UbergraphFunction)
@@ -57,5 +58,5 @@ void UBTT_CombatStart_C::ReceiveExecuteAI(class AAIController* OwnerController, 
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

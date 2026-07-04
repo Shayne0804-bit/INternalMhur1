@@ -14,7 +14,8 @@
 #include "WBP_TextChatButtonGuide_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_TextChatButtonGuide.WBP_TextChatButtonGuide_C.ExecuteUbergraph_WBP_TextChatButtonGuide
 // (Final, UbergraphFunction)
@@ -49,5 +50,5 @@ void UWBP_TextChatButtonGuide_C::PlayMessageAnimation()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

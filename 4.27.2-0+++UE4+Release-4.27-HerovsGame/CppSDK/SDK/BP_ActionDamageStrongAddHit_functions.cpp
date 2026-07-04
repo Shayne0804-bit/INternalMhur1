@@ -14,7 +14,8 @@
 #include "BP_ActionDamageStrongAddHit_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageStrongAddHit.BP_ActionDamageStrongAddHit_C.ExecuteUbergraph_BP_ActionDamageStrongAddHit
 // (Final, UbergraphFunction, HasDefaults)
@@ -158,5 +159,5 @@ void UBP_ActionDamageStrongAddHit_C::DecideAnimationId(EAnimationId* animationId
 		*animationId = Parms.animationId;
 }
 
+}
 
-SDK_NAMESPACE_END

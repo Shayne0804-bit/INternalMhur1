@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function StaticMeshDescription.StaticMeshDescription.CreateCube
 // 0x0034 (0x0034 - 0x0000)
@@ -32,6 +32,7 @@ public:
 	struct FPolygonID                             PolygonID_PlusZ;                                   // 0x002C(0x0004)(Parm, OutParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FPolygonID                             PolygonID_MinusZ;                                  // 0x0030(0x0004)(Parm, OutParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_StaticMeshDescription_CreateCube;
 
 // Function StaticMeshDescription.StaticMeshDescription.SetPolygonGroupMaterialSlotName
 // 0x000C (0x000C - 0x0000)
@@ -41,6 +42,7 @@ public:
 	struct FPolygonGroupID                        PolygonGroupID;                                    // 0x0000(0x0004)(Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   SlotName;                                          // 0x0004(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_StaticMeshDescription_SetPolygonGroupMaterialSlotName;
 
 // Function StaticMeshDescription.StaticMeshDescription.SetVertexInstanceUV
 // 0x0010 (0x0010 - 0x0000)
@@ -51,6 +53,7 @@ public:
 	struct FVector2D                              UV;                                                // 0x0004(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         UVIndex;                                           // 0x000C(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_StaticMeshDescription_SetVertexInstanceUV;
 
 // Function StaticMeshDescription.StaticMeshDescription.GetVertexInstanceUV
 // 0x0010 (0x0010 - 0x0000)
@@ -61,6 +64,7 @@ public:
 	int32                                         UVIndex;                                           // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector2D                              ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_StaticMeshDescription_GetVertexInstanceUV;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

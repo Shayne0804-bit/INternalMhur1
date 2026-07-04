@@ -15,7 +15,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class ReplicationGraph.ReplicationGraph
 // 0x0488 (0x04B0 - 0x0028)
@@ -47,6 +48,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_UReplicationGraph;
 
 // Class ReplicationGraph.BasicReplicationGraph
 // 0x0030 (0x04E0 - 0x04B0)
@@ -73,6 +75,7 @@ public:
 		return GetDefaultObjImpl<UBasicReplicationGraph>();
 	}
 };
+DUMPER7_ASSERTS_UBasicReplicationGraph;
 
 // Class ReplicationGraph.ReplicationGraphNode
 // 0x0028 (0x0050 - 0x0028)
@@ -96,6 +99,7 @@ public:
 		return GetDefaultObjImpl<UReplicationGraphNode>();
 	}
 };
+DUMPER7_ASSERTS_UReplicationGraphNode;
 
 // Class ReplicationGraph.ReplicationGraphNode_ActorList
 // 0x0080 (0x00D0 - 0x0050)
@@ -118,6 +122,7 @@ public:
 		return GetDefaultObjImpl<UReplicationGraphNode_ActorList>();
 	}
 };
+DUMPER7_ASSERTS_UReplicationGraphNode_ActorList;
 
 // Class ReplicationGraph.ReplicationGraphNode_ActorListFrequencyBuckets
 // 0x00B8 (0x0108 - 0x0050)
@@ -140,6 +145,7 @@ public:
 		return GetDefaultObjImpl<UReplicationGraphNode_ActorListFrequencyBuckets>();
 	}
 };
+DUMPER7_ASSERTS_UReplicationGraphNode_ActorListFrequencyBuckets;
 
 // Class ReplicationGraph.ReplicationGraphNode_DynamicSpatialFrequency
 // 0x0030 (0x0100 - 0x00D0)
@@ -162,6 +168,7 @@ public:
 		return GetDefaultObjImpl<UReplicationGraphNode_DynamicSpatialFrequency>();
 	}
 };
+DUMPER7_ASSERTS_UReplicationGraphNode_DynamicSpatialFrequency;
 
 // Class ReplicationGraph.ReplicationGraphNode_ConnectionDormancyNode
 // 0x0080 (0x0150 - 0x00D0)
@@ -184,6 +191,7 @@ public:
 		return GetDefaultObjImpl<UReplicationGraphNode_ConnectionDormancyNode>();
 	}
 };
+DUMPER7_ASSERTS_UReplicationGraphNode_ConnectionDormancyNode;
 
 // Class ReplicationGraph.ReplicationGraphNode_DormancyNode
 // 0x0010 (0x00E0 - 0x00D0)
@@ -206,6 +214,7 @@ public:
 		return GetDefaultObjImpl<UReplicationGraphNode_DormancyNode>();
 	}
 };
+DUMPER7_ASSERTS_UReplicationGraphNode_DormancyNode;
 
 // Class ReplicationGraph.ReplicationGraphNode_GridCell
 // 0x0050 (0x0120 - 0x00D0)
@@ -230,6 +239,7 @@ public:
 		return GetDefaultObjImpl<UReplicationGraphNode_GridCell>();
 	}
 };
+DUMPER7_ASSERTS_UReplicationGraphNode_GridCell;
 
 // Class ReplicationGraph.ReplicationGraphNode_GridSpatialization2D
 // 0x01E0 (0x0230 - 0x0050)
@@ -252,6 +262,7 @@ public:
 		return GetDefaultObjImpl<UReplicationGraphNode_GridSpatialization2D>();
 	}
 };
+DUMPER7_ASSERTS_UReplicationGraphNode_GridSpatialization2D;
 
 // Class ReplicationGraph.ReplicationGraphNode_AlwaysRelevant
 // 0x0018 (0x0068 - 0x0050)
@@ -275,6 +286,7 @@ public:
 		return GetDefaultObjImpl<UReplicationGraphNode_AlwaysRelevant>();
 	}
 };
+DUMPER7_ASSERTS_UReplicationGraphNode_AlwaysRelevant;
 
 // Class ReplicationGraph.ReplicationGraphNode_AlwaysRelevant_ForConnection
 // 0x0020 (0x00F0 - 0x00D0)
@@ -298,6 +310,7 @@ public:
 		return GetDefaultObjImpl<UReplicationGraphNode_AlwaysRelevant_ForConnection>();
 	}
 };
+DUMPER7_ASSERTS_UReplicationGraphNode_AlwaysRelevant_ForConnection;
 
 // Class ReplicationGraph.ReplicationGraphNode_TearOff_ForConnection
 // 0x0020 (0x0070 - 0x0050)
@@ -321,6 +334,7 @@ public:
 		return GetDefaultObjImpl<UReplicationGraphNode_TearOff_ForConnection>();
 	}
 };
+DUMPER7_ASSERTS_UReplicationGraphNode_TearOff_ForConnection;
 
 // Class ReplicationGraph.NetReplicationGraphConnection
 // 0x0210 (0x0238 - 0x0028)
@@ -351,6 +365,7 @@ public:
 		return GetDefaultObjImpl<UNetReplicationGraphConnection>();
 	}
 };
+DUMPER7_ASSERTS_UNetReplicationGraphConnection;
 
 // Class ReplicationGraph.ReplicationGraphDebugActor
 // 0x0010 (0x0230 - 0x0220)
@@ -385,5 +400,7 @@ public:
 		return GetDefaultObjImpl<AReplicationGraphDebugActor>();
 	}
 };
+DUMPER7_ASSERTS_AReplicationGraphDebugActor;
 
-SDK_NAMESPACE_END
+}
+

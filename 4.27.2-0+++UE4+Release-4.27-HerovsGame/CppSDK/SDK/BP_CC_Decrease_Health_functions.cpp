@@ -14,7 +14,8 @@
 #include "BP_CC_Decrease_Health_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Decrease_Health.BP_CC_Decrease_Health_C.ExecuteUbergraph_BP_CC_Decrease_Health
 // (Final, UbergraphFunction)
@@ -83,5 +84,5 @@ void UBP_CC_Decrease_Health_C::BP_OnUpdateIntervalValue(float value)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

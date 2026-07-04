@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct AudioCapture.AudioCaptureDeviceInfo
 // 0x0010 (0x0010 - 0x0000)
@@ -22,5 +23,7 @@ public:
 	int32                                         NumInputChannels;                                  // 0x0008(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         SampleRate;                                        // 0x000C(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAudioCaptureDeviceInfo;
 
-SDK_NAMESPACE_END
+}
+

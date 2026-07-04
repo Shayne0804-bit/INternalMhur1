@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_LoadTransition.WBP_LoadTransition_C.ExecuteUbergraph_WBP_LoadTransition
 // 0x0008 (0x0008 - 0x0000)
@@ -22,6 +22,7 @@ public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         K2Node_Event_Code;                                 // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_LoadTransition_C_ExecuteUbergraph_WBP_LoadTransition;
 
 // Function WBP_LoadTransition.WBP_LoadTransition_C.UpdateBgTexture
 // 0x0004 (0x0004 - 0x0000)
@@ -30,6 +31,7 @@ struct WBP_LoadTransition_C_UpdateBgTexture final
 public:
 	int32                                         code;                                              // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_LoadTransition_C_UpdateBgTexture;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class ActorLayerUtilities.LayersBlueprintLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -38,5 +39,7 @@ public:
 		return GetDefaultObjImpl<ULayersBlueprintLibrary>();
 	}
 };
+DUMPER7_ASSERTS_ULayersBlueprintLibrary;
 
-SDK_NAMESPACE_END
+}
+

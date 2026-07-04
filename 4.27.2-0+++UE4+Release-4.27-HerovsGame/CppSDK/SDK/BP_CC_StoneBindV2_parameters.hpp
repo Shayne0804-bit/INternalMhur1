@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_StoneBindV2.BP_CC_StoneBindV2_C.ExecuteUbergraph_BP_CC_StoneBindV2
 // 0x0048 (0x0048 - 0x0000)
@@ -30,6 +30,7 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_3; // 0x0038(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterState*                        CallFunc_BP_GetState_ReturnValue_1;                // 0x0040(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_StoneBindV2_C_ExecuteUbergraph_BP_CC_StoneBindV2;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

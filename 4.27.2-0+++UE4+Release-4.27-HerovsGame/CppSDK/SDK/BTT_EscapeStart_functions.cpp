@@ -14,7 +14,8 @@
 #include "BTT_EscapeStart_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BTT_EscapeStart.BTT_EscapeStart_C.ExecuteUbergraph_BTT_EscapeStart
 // (Final, UbergraphFunction)
@@ -57,5 +58,5 @@ void UBTT_EscapeStart_C::ReceiveExecuteAI(class AAIController* OwnerController, 
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -14,7 +14,8 @@
 #include "WBP_DevelopMenuWait_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_DevelopMenuWait.WBP_DevelopMenuWait_C.ExecuteUbergraph_WBP_DevelopMenuWait
 // (Final, UbergraphFunction)
@@ -63,5 +64,5 @@ void UWBP_DevelopMenuWait_C::Construct()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

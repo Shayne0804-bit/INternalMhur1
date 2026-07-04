@@ -15,7 +15,8 @@
 #include "UIFramework_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_FocusAnimationListItem.WBP_FocusAnimationListItem_C
 // 0x0068 (0x04E8 - 0x0480)
@@ -55,5 +56,7 @@ public:
 		return GetDefaultObjImpl<UWBP_FocusAnimationListItem_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_FocusAnimationListItem_C;
 
-SDK_NAMESPACE_END
+}
+

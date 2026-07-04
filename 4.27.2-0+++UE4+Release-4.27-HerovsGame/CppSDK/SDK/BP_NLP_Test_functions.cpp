@@ -14,7 +14,8 @@
 #include "BP_NLP_Test_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_NLP_Test.BP_NLP_Test_C.ExecuteUbergraph_BP_NLP_Test
 // (Final, UbergraphFunction)
@@ -57,5 +58,5 @@ void ABP_NLP_Test_C::ReceiveSmartLinkReached(class AActor* Agent, const struct F
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

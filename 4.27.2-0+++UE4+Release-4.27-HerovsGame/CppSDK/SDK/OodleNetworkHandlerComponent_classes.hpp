@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class OodleNetworkHandlerComponent.OodleNetworkTrainerCommandlet
 // 0x0020 (0x00A0 - 0x0080)
@@ -44,5 +45,7 @@ public:
 		return GetDefaultObjImpl<UOodleNetworkTrainerCommandlet>();
 	}
 };
+DUMPER7_ASSERTS_UOodleNetworkTrainerCommandlet;
 
-SDK_NAMESPACE_END
+}
+

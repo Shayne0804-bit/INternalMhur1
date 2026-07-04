@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_Skill_Ch202_TransMission.BP_CC_Skill_Ch202_TransMission_C.ExecuteUbergraph_BP_CC_Skill_Ch202_TransMission
 // 0x00A0 (0x00A0 - 0x0000)
@@ -52,6 +52,7 @@ public:
 	int32                                         CallFunc_BP_GetLevel_ReturnValue_4;                // 0x0094(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_EqualEqual_IntInt_ReturnValue;            // 0x0098(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_Ch202_TransMission_C_ExecuteUbergraph_BP_CC_Skill_Ch202_TransMission;
 
 // Function BP_CC_Skill_Ch202_TransMission.BP_CC_Skill_Ch202_TransMission_C.ApplySpeed
 // 0x0010 (0x0010 - 0x0000)
@@ -63,6 +64,7 @@ public:
 	float                                         CallFunc_GetLevelParam_moveMultiplyRate;           // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_GetLevelParam_jumpAdjustMultiplyRate;     // 0x000C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_Ch202_TransMission_C_ApplySpeed;
 
 // Function BP_CC_Skill_Ch202_TransMission.BP_CC_Skill_Ch202_TransMission_C.SpawnAuta
 // 0x0028 (0x0028 - 0x0000)
@@ -78,6 +80,7 @@ public:
 	class UPlayEffectDataAsset*                   K2Node_Select_Default;                             // 0x0018(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UBattleCustomParticleSystemComponent*   CallFunc_SpawnAtCharacter_spawnParticle;           // 0x0020(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_Ch202_TransMission_C_SpawnAuta;
 
 // Function BP_CC_Skill_Ch202_TransMission.BP_CC_Skill_Ch202_TransMission_C.DeleteAura
 // 0x0001 (0x0001 - 0x0000)
@@ -86,6 +89,7 @@ struct BP_CC_Skill_Ch202_TransMission_C_DeleteAura final
 public:
 	bool                                          CallFunc_IsValid_ReturnValue;                      // 0x0000(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_Ch202_TransMission_C_DeleteAura;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

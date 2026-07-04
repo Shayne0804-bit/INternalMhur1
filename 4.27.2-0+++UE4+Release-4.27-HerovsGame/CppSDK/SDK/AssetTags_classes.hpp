@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class AssetTags.AssetTagsSubsystem
 // 0x0000 (0x0030 - 0x0030)
@@ -41,5 +42,7 @@ public:
 		return GetDefaultObjImpl<UAssetTagsSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UAssetTagsSubsystem;
 
-SDK_NAMESPACE_END
+}
+

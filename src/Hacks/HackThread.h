@@ -65,6 +65,8 @@ private:
     // Worker thread function
     void WorkerThreadProc();
 
+    void FrameUpdateHacksImpl();
+
     // Hack task structure
     struct HackTask
     {

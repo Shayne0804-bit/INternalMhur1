@@ -15,7 +15,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MagicLeapPlanes.MagicLeapPlanesComponent
 // 0x0060 (0x0260 - 0x0200)
@@ -52,6 +53,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapPlanesComponent>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapPlanesComponent;
 
 // Class MagicLeapPlanes.MagicLeapPlanesFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -83,5 +85,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapPlanesFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapPlanesFunctionLibrary;
 
-SDK_NAMESPACE_END
+}
+

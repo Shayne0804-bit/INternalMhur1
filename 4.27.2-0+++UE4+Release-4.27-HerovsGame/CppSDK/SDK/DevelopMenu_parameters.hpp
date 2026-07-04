@@ -16,8 +16,8 @@
 #include "UMG_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function DevelopMenu.DevelopMenuButtonWidget.GetBorderColor
 // 0x0010 (0x0010 - 0x0000)
@@ -26,6 +26,7 @@ struct DevelopMenuButtonWidget_GetBorderColor final
 public:
 	struct FLinearColor                           ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuButtonWidget_GetBorderColor;
 
 // Function DevelopMenu.DevelopMenuButtonWidget.GetButtonText
 // 0x0018 (0x0018 - 0x0000)
@@ -34,6 +35,7 @@ struct DevelopMenuButtonWidget_GetButtonText final
 public:
 	class FText                                   ReturnValue;                                       // 0x0000(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuButtonWidget_GetButtonText;
 
 // Function DevelopMenu.DevelopMenuButtonWidget.GetColorAndOpacity
 // 0x0028 (0x0028 - 0x0000)
@@ -42,6 +44,7 @@ struct DevelopMenuButtonWidget_GetColorAndOpacity final
 public:
 	struct FSlateColor                            ReturnValue;                                       // 0x0000(0x0028)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuButtonWidget_GetColorAndOpacity;
 
 // Function DevelopMenu.DevelopMenuButtonWidget.GetContentColorAndOpacity
 // 0x0010 (0x0010 - 0x0000)
@@ -50,6 +53,7 @@ struct DevelopMenuButtonWidget_GetContentColorAndOpacity final
 public:
 	struct FLinearColor                           ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuButtonWidget_GetContentColorAndOpacity;
 
 // Function DevelopMenu.DevelopMenuItemWidget.ExecuteEvent_CallFunc
 // 0x0004 (0x0004 - 0x0000)
@@ -58,6 +62,7 @@ struct DevelopMenuItemWidget_ExecuteEvent_CallFunc final
 public:
 	int32                                         SelectNum;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuItemWidget_ExecuteEvent_CallFunc;
 
 // Function DevelopMenu.DevelopMenuItemWidget.ExecuteEvent_OnCheckStateChanged_ItemCheckBox
 // 0x0001 (0x0001 - 0x0000)
@@ -66,6 +71,7 @@ struct DevelopMenuItemWidget_ExecuteEvent_OnCheckStateChanged_ItemCheckBox final
 public:
 	bool                                          IsChecked;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuItemWidget_ExecuteEvent_OnCheckStateChanged_ItemCheckBox;
 
 // Function DevelopMenu.DevelopMenuItemWidget.ExecuteEvent_OnSelectionChanged_ItemTextList
 // 0x0018 (0x0018 - 0x0000)
@@ -76,6 +82,7 @@ public:
 	ESelectInfo                                   SelectionType;                                     // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_DevelopMenuItemWidget_ExecuteEvent_OnSelectionChanged_ItemTextList;
 
 // Function DevelopMenu.DevelopMenuItemWidget.ExecuteEvent_OnTextCommitted_String
 // 0x0020 (0x0020 - 0x0000)
@@ -86,6 +93,7 @@ public:
 	ETextCommit                                   CommitMethod;                                      // 0x0018(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_DevelopMenuItemWidget_ExecuteEvent_OnTextCommitted_String;
 
 // Function DevelopMenu.DevelopMenuItemWidget.ExecuteEvent_OnValueChanged
 // 0x0004 (0x0004 - 0x0000)
@@ -94,6 +102,7 @@ struct DevelopMenuItemWidget_ExecuteEvent_OnValueChanged final
 public:
 	float                                         value;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuItemWidget_ExecuteEvent_OnValueChanged;
 
 // Function DevelopMenu.DevelopMenuItemWidget.ExecuteEvent_OnValueCommitted_Float
 // 0x0008 (0x0008 - 0x0000)
@@ -104,6 +113,7 @@ public:
 	ETextCommit                                   CommitMethod;                                      // 0x0004(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_DevelopMenuItemWidget_ExecuteEvent_OnValueCommitted_Float;
 
 // Function DevelopMenu.DevelopMenuItemWidget.ExecuteEvent_OnValueCommitted_Int
 // 0x0008 (0x0008 - 0x0000)
@@ -114,6 +124,7 @@ public:
 	ETextCommit                                   CommitMethod;                                      // 0x0004(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_DevelopMenuItemWidget_ExecuteEvent_OnValueCommitted_Int;
 
 // Function DevelopMenu.DevelopMenuItemWidget.GetItemCheckBox
 // 0x0001 (0x0001 - 0x0000)
@@ -122,6 +133,7 @@ struct DevelopMenuItemWidget_GetItemCheckBox final
 public:
 	ECheckBoxState                                ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuItemWidget_GetItemCheckBox;
 
 // Function DevelopMenu.DevelopMenuItemWidget.OnMouseMoveDebug
 // 0x0160 (0x0160 - 0x0000)
@@ -132,6 +144,7 @@ public:
 	struct FPointerEvent                          MouseEvent;                                        // 0x0038(0x0070)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	struct FEventReply                            ReturnValue;                                       // 0x00A8(0x00B8)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuItemWidget_OnMouseMoveDebug;
 
 // Function DevelopMenu.DevelopMenuItemWidget.OnReloadItem
 // 0x0008 (0x0008 - 0x0000)
@@ -140,6 +153,7 @@ struct DevelopMenuItemWidget_OnReloadItem final
 public:
 	class FName                                   Name_0;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuItemWidget_OnReloadItem;
 
 // Function DevelopMenu.DevelopMenuWidget.ExecuteEvent_OnSelectionChanged_SlotComboBox
 // 0x0018 (0x0018 - 0x0000)
@@ -150,6 +164,7 @@ public:
 	ESelectInfo                                   SelectionType;                                     // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_DevelopMenuWidget_ExecuteEvent_OnSelectionChanged_SlotComboBox;
 
 // Function DevelopMenu.DevelopMenuWidget.OnClickedMenuButton
 // 0x0003 (0x0003 - 0x0000)
@@ -160,6 +175,7 @@ public:
 	EDevelopMenuSubTabID                          SubId;                                             // 0x0001(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	EDevelopMenuHierarchy                         Hierarchy;                                         // 0x0002(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuWidget_OnClickedMenuButton;
 
 // Function DevelopMenu.DevelopMenuWidget.SetButtonFlag
 // 0x0003 (0x0003 - 0x0000)
@@ -170,6 +186,7 @@ public:
 	EDevelopMenuSubTabID                          SubId;                                             // 0x0001(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	EDevelopMenuHierarchy                         Hierarchy;                                         // 0x0002(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuWidget_SetButtonFlag;
 
 // Function DevelopMenu.DevelopMenuWidget.SetSystemElementFlag
 // 0x0001 (0x0001 - 0x0000)
@@ -178,6 +195,7 @@ struct DevelopMenuWidget_SetSystemElementFlag final
 public:
 	EDevelopMenuHierarchy                         Hierarchy;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuWidget_SetSystemElementFlag;
 
 // Function DevelopMenu.DevelopMenuWidget.GetDipDisplayString
 // 0x0018 (0x0018 - 0x0000)
@@ -186,6 +204,7 @@ struct DevelopMenuWidget_GetDipDisplayString final
 public:
 	class FText                                   ReturnValue;                                       // 0x0000(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuWidget_GetDipDisplayString;
 
 // Function DevelopMenu.DevelopMenuWidget.GetDipMessageText
 // 0x0018 (0x0018 - 0x0000)
@@ -194,6 +213,7 @@ struct DevelopMenuWidget_GetDipMessageText final
 public:
 	class FText                                   ReturnValue;                                       // 0x0000(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuWidget_GetDipMessageText;
 
 // Function DevelopMenu.DevelopMenuWidget.GetMakerText
 // 0x0018 (0x0018 - 0x0000)
@@ -202,6 +222,7 @@ struct DevelopMenuWidget_GetMakerText final
 public:
 	class FText                                   ReturnValue;                                       // 0x0000(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuWidget_GetMakerText;
 
 // Function DevelopMenu.DevelopMenuWork.BP_OpenDIPMenu
 // 0x0010 (0x0010 - 0x0000)
@@ -212,6 +233,7 @@ public:
 	bool                                          bOpen;                                             // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_DevelopMenuWork_BP_OpenDIPMenu;
 
 // Function DevelopMenu.DevelopMenuWork.BP_OpenWaitMenu
 // 0x0010 (0x0010 - 0x0000)
@@ -222,6 +244,7 @@ public:
 	bool                                          bOpen;                                             // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_DevelopMenuWork_BP_OpenWaitMenu;
 
 // Function DevelopMenu.DevelopMenuWork.BP_GetDipAsBoolean
 // 0x000C (0x000C - 0x0000)
@@ -232,6 +255,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_DevelopMenuWork_BP_GetDipAsBoolean;
 
 // Function DevelopMenu.DevelopMenuWork.BP_GetDipAsFloat
 // 0x000C (0x000C - 0x0000)
@@ -241,6 +265,7 @@ public:
 	class FName                                   idName;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuWork_BP_GetDipAsFloat;
 
 // Function DevelopMenu.DevelopMenuWork.BP_GetDipAsInt
 // 0x000C (0x000C - 0x0000)
@@ -250,6 +275,7 @@ public:
 	class FName                                   idName;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuWork_BP_GetDipAsInt;
 
 // Function DevelopMenu.DevelopMenuWork.BP_GetDipAsString
 // 0x0018 (0x0018 - 0x0000)
@@ -259,6 +285,7 @@ public:
 	class FName                                   idName;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopMenuWork_BP_GetDipAsString;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

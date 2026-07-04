@@ -13,8 +13,8 @@
 #include "CommonModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_RollSlot_Ability_Durable.BP_CC_RollSlot_Ability_Durable_C.ExecuteUbergraph_BP_CC_RollSlot_Ability_Durable
 // 0x0070 (0x0070 - 0x0000)
@@ -41,6 +41,7 @@ public:
 	float                                         CallFunc_Multiply_FloatFloat_ReturnValue;          // 0x0064(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_Less_IntInt_ReturnValue;                  // 0x0068(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_RollSlot_Ability_Durable_C_ExecuteUbergraph_BP_CC_RollSlot_Ability_Durable;
 
 // Function BP_CC_RollSlot_Ability_Durable.BP_CC_RollSlot_Ability_Durable_C.IsCondision
 // 0x000C (0x000C - 0x0000)
@@ -52,6 +53,7 @@ public:
 	bool                                          bFunction;                                         // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_EqualEqual_IntInt_ReturnValue;            // 0x0009(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_RollSlot_Ability_Durable_C_IsCondision;
 
 // Function BP_CC_RollSlot_Ability_Durable.BP_CC_RollSlot_Ability_Durable_C.DefultRate
 // 0x0018 (0x0018 - 0x0000)
@@ -63,6 +65,7 @@ public:
 	class APlayerStateBattle*                     CallFunc_BP_GetOwnerPlayerState_ReturnValue;       // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UBuffParam*                             CallFunc_BP_GetBuffParam_ReturnValue;              // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_RollSlot_Ability_Durable_C_DefultRate;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

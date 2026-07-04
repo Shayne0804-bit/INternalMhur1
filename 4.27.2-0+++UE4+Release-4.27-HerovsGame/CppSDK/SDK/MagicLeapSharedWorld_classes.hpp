@@ -14,7 +14,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MagicLeapSharedWorld.MagicLeapSharedWorldGameMode
 // 0x00D0 (0x03D8 - 0x0308)
@@ -46,6 +47,7 @@ public:
 		return GetDefaultObjImpl<AMagicLeapSharedWorldGameMode>();
 	}
 };
+DUMPER7_ASSERTS_AMagicLeapSharedWorldGameMode;
 
 // Class MagicLeapSharedWorld.MagicLeapSharedWorldGameState
 // 0x0040 (0x02D0 - 0x0290)
@@ -77,6 +79,7 @@ public:
 		return GetDefaultObjImpl<AMagicLeapSharedWorldGameState>();
 	}
 };
+DUMPER7_ASSERTS_AMagicLeapSharedWorldGameState;
 
 // Class MagicLeapSharedWorld.MagicLeapSharedWorldPlayerController
 // 0x0018 (0x0598 - 0x0580)
@@ -108,5 +111,7 @@ public:
 		return GetDefaultObjImpl<AMagicLeapSharedWorldPlayerController>();
 	}
 };
+DUMPER7_ASSERTS_AMagicLeapSharedWorldPlayerController;
 
-SDK_NAMESPACE_END
+}
+

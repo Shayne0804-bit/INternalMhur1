@@ -14,7 +14,8 @@
 #include "MagicLeapPrivileges_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function MagicLeapPrivileges.MagicLeapPrivilegesFunctionLibrary.CheckPrivilege
 // (Final, Native, Static, Public, BlueprintCallable)
@@ -101,5 +102,5 @@ bool UMagicLeapPrivilegesFunctionLibrary::RequestPrivilegeAsync(EMagicLeapPrivil
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_InfectionDecay_Before.BP_CC_InfectionDecay_Before_C.ExecuteUbergraph_BP_CC_InfectionDecay_Before
 // 0x0040 (0x0040 - 0x0000)
@@ -33,6 +33,7 @@ public:
 	uint8                                         Pad_31[0x7];                                       // 0x0031(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UCharacterConditionControlComponent*    CallFunc_BP_GetConditionControlComponent_ReturnValue; // 0x0038(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_InfectionDecay_Before_C_ExecuteUbergraph_BP_CC_InfectionDecay_Before;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

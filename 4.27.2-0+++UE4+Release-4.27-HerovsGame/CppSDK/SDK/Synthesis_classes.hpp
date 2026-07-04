@@ -19,7 +19,8 @@
 #include "UMG_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class Synthesis.EnvelopeFollowerListener
 // 0x0020 (0x00D0 - 0x00B0)
@@ -43,6 +44,7 @@ public:
 		return GetDefaultObjImpl<UEnvelopeFollowerListener>();
 	}
 };
+DUMPER7_ASSERTS_UEnvelopeFollowerListener;
 
 // Class Synthesis.ModularSynthPresetBank
 // 0x0010 (0x0038 - 0x0028)
@@ -65,6 +67,7 @@ public:
 		return GetDefaultObjImpl<UModularSynthPresetBank>();
 	}
 };
+DUMPER7_ASSERTS_UModularSynthPresetBank;
 
 // Class Synthesis.SourceEffectEnvelopeFollowerPreset
 // 0x0040 (0x00A8 - 0x0068)
@@ -93,6 +96,7 @@ public:
 		return GetDefaultObjImpl<USourceEffectEnvelopeFollowerPreset>();
 	}
 };
+DUMPER7_ASSERTS_USourceEffectEnvelopeFollowerPreset;
 
 // Class Synthesis.ModularSynthLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -115,6 +119,7 @@ public:
 		return GetDefaultObjImpl<UModularSynthLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UModularSynthLibrary;
 
 // Class Synthesis.ModularSynthComponent
 // 0x06C0 (0x0D80 - 0x06C0)
@@ -199,6 +204,7 @@ public:
 		return GetDefaultObjImpl<UModularSynthComponent>();
 	}
 };
+DUMPER7_ASSERTS_UModularSynthComponent;
 
 // Class Synthesis.SourceEffectBitCrusherPreset
 // 0x0088 (0x00F0 - 0x0068)
@@ -230,6 +236,7 @@ public:
 		return GetDefaultObjImpl<USourceEffectBitCrusherPreset>();
 	}
 };
+DUMPER7_ASSERTS_USourceEffectBitCrusherPreset;
 
 // Class Synthesis.SourceEffectChorusPreset
 // 0x0118 (0x0180 - 0x0068)
@@ -269,6 +276,7 @@ public:
 		return GetDefaultObjImpl<USourceEffectChorusPreset>();
 	}
 };
+DUMPER7_ASSERTS_USourceEffectChorusPreset;
 
 // Class Synthesis.SourceEffectDynamicsProcessorPreset
 // 0x0078 (0x00E0 - 0x0068)
@@ -295,6 +303,7 @@ public:
 		return GetDefaultObjImpl<USourceEffectDynamicsProcessorPreset>();
 	}
 };
+DUMPER7_ASSERTS_USourceEffectDynamicsProcessorPreset;
 
 // Class Synthesis.SourceEffectEQPreset
 // 0x0048 (0x00B0 - 0x0068)
@@ -321,6 +330,7 @@ public:
 		return GetDefaultObjImpl<USourceEffectEQPreset>();
 	}
 };
+DUMPER7_ASSERTS_USourceEffectEQPreset;
 
 // Class Synthesis.SourceEffectFilterPreset
 // 0x0068 (0x00D0 - 0x0068)
@@ -347,6 +357,7 @@ public:
 		return GetDefaultObjImpl<USourceEffectFilterPreset>();
 	}
 };
+DUMPER7_ASSERTS_USourceEffectFilterPreset;
 
 // Class Synthesis.SourceEffectFoldbackDistortionPreset
 // 0x0040 (0x00A8 - 0x0068)
@@ -373,6 +384,7 @@ public:
 		return GetDefaultObjImpl<USourceEffectFoldbackDistortionPreset>();
 	}
 };
+DUMPER7_ASSERTS_USourceEffectFoldbackDistortionPreset;
 
 // Class Synthesis.SourceEffectMidSideSpreaderPreset
 // 0x0038 (0x00A0 - 0x0068)
@@ -399,6 +411,7 @@ public:
 		return GetDefaultObjImpl<USourceEffectMidSideSpreaderPreset>();
 	}
 };
+DUMPER7_ASSERTS_USourceEffectMidSideSpreaderPreset;
 
 // Class Synthesis.SourceEffectPannerPreset
 // 0x0038 (0x00A0 - 0x0068)
@@ -425,6 +438,7 @@ public:
 		return GetDefaultObjImpl<USourceEffectPannerPreset>();
 	}
 };
+DUMPER7_ASSERTS_USourceEffectPannerPreset;
 
 // Class Synthesis.SourceEffectPhaserPreset
 // 0x0048 (0x00B0 - 0x0068)
@@ -451,6 +465,7 @@ public:
 		return GetDefaultObjImpl<USourceEffectPhaserPreset>();
 	}
 };
+DUMPER7_ASSERTS_USourceEffectPhaserPreset;
 
 // Class Synthesis.SourceEffectRingModulationPreset
 // 0x0068 (0x00D0 - 0x0068)
@@ -477,6 +492,7 @@ public:
 		return GetDefaultObjImpl<USourceEffectRingModulationPreset>();
 	}
 };
+DUMPER7_ASSERTS_USourceEffectRingModulationPreset;
 
 // Class Synthesis.SourceEffectSimpleDelayPreset
 // 0x0058 (0x00C0 - 0x0068)
@@ -503,6 +519,7 @@ public:
 		return GetDefaultObjImpl<USourceEffectSimpleDelayPreset>();
 	}
 };
+DUMPER7_ASSERTS_USourceEffectSimpleDelayPreset;
 
 // Class Synthesis.SourceEffectStereoDelayPreset
 // 0x0070 (0x00D8 - 0x0068)
@@ -529,6 +546,7 @@ public:
 		return GetDefaultObjImpl<USourceEffectStereoDelayPreset>();
 	}
 };
+DUMPER7_ASSERTS_USourceEffectStereoDelayPreset;
 
 // Class Synthesis.SourceEffectWaveShaperPreset
 // 0x0038 (0x00A0 - 0x0068)
@@ -555,6 +573,7 @@ public:
 		return GetDefaultObjImpl<USourceEffectWaveShaperPreset>();
 	}
 };
+DUMPER7_ASSERTS_USourceEffectWaveShaperPreset;
 
 // Class Synthesis.AudioImpulseResponse
 // 0x0030 (0x0058 - 0x0028)
@@ -583,6 +602,7 @@ public:
 		return GetDefaultObjImpl<UAudioImpulseResponse>();
 	}
 };
+DUMPER7_ASSERTS_UAudioImpulseResponse;
 
 // Class Synthesis.SubmixEffectConvolutionReverbPreset
 // 0x0088 (0x00F0 - 0x0068)
@@ -613,6 +633,7 @@ public:
 		return GetDefaultObjImpl<USubmixEffectConvolutionReverbPreset>();
 	}
 };
+DUMPER7_ASSERTS_USubmixEffectConvolutionReverbPreset;
 
 // Class Synthesis.SubmixEffectDelayPreset
 // 0x0050 (0x00B8 - 0x0068)
@@ -644,6 +665,7 @@ public:
 		return GetDefaultObjImpl<USubmixEffectDelayPreset>();
 	}
 };
+DUMPER7_ASSERTS_USubmixEffectDelayPreset;
 
 // Class Synthesis.SubmixEffectFilterPreset
 // 0x0040 (0x00A8 - 0x0068)
@@ -676,6 +698,7 @@ public:
 		return GetDefaultObjImpl<USubmixEffectFilterPreset>();
 	}
 };
+DUMPER7_ASSERTS_USubmixEffectFilterPreset;
 
 // Class Synthesis.SubmixEffectFlexiverbPreset
 // 0x0048 (0x00B0 - 0x0068)
@@ -702,6 +725,7 @@ public:
 		return GetDefaultObjImpl<USubmixEffectFlexiverbPreset>();
 	}
 };
+DUMPER7_ASSERTS_USubmixEffectFlexiverbPreset;
 
 // Class Synthesis.SubmixEffectMultibandCompressorPreset
 // 0x0068 (0x00D0 - 0x0068)
@@ -728,6 +752,7 @@ public:
 		return GetDefaultObjImpl<USubmixEffectMultibandCompressorPreset>();
 	}
 };
+DUMPER7_ASSERTS_USubmixEffectMultibandCompressorPreset;
 
 // Class Synthesis.SubmixEffectStereoDelayPreset
 // 0x0070 (0x00D8 - 0x0068)
@@ -754,6 +779,7 @@ public:
 		return GetDefaultObjImpl<USubmixEffectStereoDelayPreset>();
 	}
 };
+DUMPER7_ASSERTS_USubmixEffectStereoDelayPreset;
 
 // Class Synthesis.SubmixEffectTapDelayPreset
 // 0x0070 (0x00D8 - 0x0068)
@@ -788,6 +814,7 @@ public:
 		return GetDefaultObjImpl<USubmixEffectTapDelayPreset>();
 	}
 };
+DUMPER7_ASSERTS_USubmixEffectTapDelayPreset;
 
 // Class Synthesis.Synth2DSlider
 // 0x04E8 (0x05F0 - 0x0108)
@@ -837,6 +864,7 @@ public:
 		return GetDefaultObjImpl<USynth2DSlider>();
 	}
 };
+DUMPER7_ASSERTS_USynth2DSlider;
 
 // Class Synthesis.GranularSynth
 // 0x03C0 (0x0A80 - 0x06C0)
@@ -883,6 +911,7 @@ public:
 		return GetDefaultObjImpl<UGranularSynth>();
 	}
 };
+DUMPER7_ASSERTS_UGranularSynth;
 
 // Class Synthesis.MonoWaveTableSynthPreset
 // 0x0148 (0x0170 - 0x0028)
@@ -913,6 +942,7 @@ public:
 		return GetDefaultObjImpl<UMonoWaveTableSynthPreset>();
 	}
 };
+DUMPER7_ASSERTS_UMonoWaveTableSynthPreset;
 
 // Class Synthesis.SynthComponentMonoWaveTable
 // 0x0740 (0x0E00 - 0x06C0)
@@ -985,6 +1015,7 @@ public:
 		return GetDefaultObjImpl<USynthComponentMonoWaveTable>();
 	}
 };
+DUMPER7_ASSERTS_USynthComponentMonoWaveTable;
 
 // Class Synthesis.SynthComponentToneGenerator
 // 0x0020 (0x06E0 - 0x06C0)
@@ -1013,6 +1044,7 @@ public:
 		return GetDefaultObjImpl<USynthComponentToneGenerator>();
 	}
 };
+DUMPER7_ASSERTS_USynthComponentToneGenerator;
 
 // Class Synthesis.SynthSamplePlayer
 // 0x0130 (0x07F0 - 0x06C0)
@@ -1050,6 +1082,7 @@ public:
 		return GetDefaultObjImpl<USynthSamplePlayer>();
 	}
 };
+DUMPER7_ASSERTS_USynthSamplePlayer;
 
 // Class Synthesis.SynthesisUtilitiesBlueprintFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -1073,6 +1106,7 @@ public:
 		return GetDefaultObjImpl<USynthesisUtilitiesBlueprintFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_USynthesisUtilitiesBlueprintFunctionLibrary;
 
 // Class Synthesis.SynthKnob
 // 0x0428 (0x0530 - 0x0108)
@@ -1120,5 +1154,7 @@ public:
 		return GetDefaultObjImpl<USynthKnob>();
 	}
 };
+DUMPER7_ASSERTS_USynthKnob;
 
-SDK_NAMESPACE_END
+}
+

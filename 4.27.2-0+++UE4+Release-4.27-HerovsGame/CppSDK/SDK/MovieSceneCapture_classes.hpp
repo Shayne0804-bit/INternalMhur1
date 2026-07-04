@@ -16,7 +16,8 @@
 #include "ImageWriteQueue_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MovieSceneCapture.MovieSceneCaptureProtocolBase
 // 0x0030 (0x0058 - 0x0028)
@@ -45,6 +46,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneCaptureProtocolBase>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneCaptureProtocolBase;
 
 // Class MovieSceneCapture.MovieSceneAudioCaptureProtocolBase
 // 0x0000 (0x0058 - 0x0058)
@@ -64,6 +66,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneAudioCaptureProtocolBase>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneAudioCaptureProtocolBase;
 
 // Class MovieSceneCapture.NullAudioCaptureProtocol
 // 0x0000 (0x0058 - 0x0058)
@@ -83,6 +86,7 @@ public:
 		return GetDefaultObjImpl<UNullAudioCaptureProtocol>();
 	}
 };
+DUMPER7_ASSERTS_UNullAudioCaptureProtocol;
 
 // Class MovieSceneCapture.MasterAudioSubmixCaptureProtocol
 // 0x0038 (0x0090 - 0x0058)
@@ -106,6 +110,7 @@ public:
 		return GetDefaultObjImpl<UMasterAudioSubmixCaptureProtocol>();
 	}
 };
+DUMPER7_ASSERTS_UMasterAudioSubmixCaptureProtocol;
 
 // Class MovieSceneCapture.MovieSceneImageCaptureProtocolBase
 // 0x0000 (0x0058 - 0x0058)
@@ -125,6 +130,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneImageCaptureProtocolBase>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneImageCaptureProtocolBase;
 
 // Class MovieSceneCapture.CompositionGraphCaptureProtocol
 // 0x0068 (0x00C0 - 0x0058)
@@ -157,6 +163,7 @@ public:
 		return GetDefaultObjImpl<UCompositionGraphCaptureProtocol>();
 	}
 };
+DUMPER7_ASSERTS_UCompositionGraphCaptureProtocol;
 
 // Class MovieSceneCapture.FrameGrabberProtocol
 // 0x0010 (0x0068 - 0x0058)
@@ -179,6 +186,7 @@ public:
 		return GetDefaultObjImpl<UFrameGrabberProtocol>();
 	}
 };
+DUMPER7_ASSERTS_UFrameGrabberProtocol;
 
 // Class MovieSceneCapture.ImageSequenceProtocol
 // 0x0070 (0x00D8 - 0x0068)
@@ -201,6 +209,7 @@ public:
 		return GetDefaultObjImpl<UImageSequenceProtocol>();
 	}
 };
+DUMPER7_ASSERTS_UImageSequenceProtocol;
 
 // Class MovieSceneCapture.MovieSceneCapture
 // 0x01F8 (0x0220 - 0x0028)
@@ -240,6 +249,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneCapture>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneCapture;
 
 // Class MovieSceneCapture.LevelCapture
 // 0x0020 (0x0240 - 0x0220)
@@ -265,6 +275,7 @@ public:
 		return GetDefaultObjImpl<ULevelCapture>();
 	}
 };
+DUMPER7_ASSERTS_ULevelCapture;
 
 // Class MovieSceneCapture.CompressedImageSequenceProtocol
 // 0x0008 (0x00E0 - 0x00D8)
@@ -288,6 +299,7 @@ public:
 		return GetDefaultObjImpl<UCompressedImageSequenceProtocol>();
 	}
 };
+DUMPER7_ASSERTS_UCompressedImageSequenceProtocol;
 
 // Class MovieSceneCapture.ImageSequenceProtocol_BMP
 // 0x0000 (0x00D8 - 0x00D8)
@@ -307,6 +319,7 @@ public:
 		return GetDefaultObjImpl<UImageSequenceProtocol_BMP>();
 	}
 };
+DUMPER7_ASSERTS_UImageSequenceProtocol_BMP;
 
 // Class MovieSceneCapture.ImageSequenceProtocol_PNG
 // 0x0000 (0x00E0 - 0x00E0)
@@ -326,6 +339,7 @@ public:
 		return GetDefaultObjImpl<UImageSequenceProtocol_PNG>();
 	}
 };
+DUMPER7_ASSERTS_UImageSequenceProtocol_PNG;
 
 // Class MovieSceneCapture.ImageSequenceProtocol_JPG
 // 0x0000 (0x00E0 - 0x00E0)
@@ -345,6 +359,7 @@ public:
 		return GetDefaultObjImpl<UImageSequenceProtocol_JPG>();
 	}
 };
+DUMPER7_ASSERTS_UImageSequenceProtocol_JPG;
 
 // Class MovieSceneCapture.VideoCaptureProtocol
 // 0x0018 (0x0080 - 0x0068)
@@ -370,6 +385,7 @@ public:
 		return GetDefaultObjImpl<UVideoCaptureProtocol>();
 	}
 };
+DUMPER7_ASSERTS_UVideoCaptureProtocol;
 
 // Class MovieSceneCapture.ImageSequenceProtocol_EXR
 // 0x0010 (0x00E8 - 0x00D8)
@@ -394,6 +410,7 @@ public:
 		return GetDefaultObjImpl<UImageSequenceProtocol_EXR>();
 	}
 };
+DUMPER7_ASSERTS_UImageSequenceProtocol_EXR;
 
 // Class MovieSceneCapture.MovieSceneCaptureInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -422,6 +439,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IMovieSceneCaptureInterface;
 
 // Class MovieSceneCapture.MovieSceneCaptureEnvironment
 // 0x0000 (0x0028 - 0x0028)
@@ -448,6 +466,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneCaptureEnvironment>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneCaptureEnvironment;
 
 // Class MovieSceneCapture.UserDefinedCaptureProtocol
 // 0x0080 (0x00D8 - 0x0058)
@@ -490,6 +509,7 @@ public:
 		return GetDefaultObjImpl<UUserDefinedCaptureProtocol>();
 	}
 };
+DUMPER7_ASSERTS_UUserDefinedCaptureProtocol;
 
 // Class MovieSceneCapture.UserDefinedImageCaptureProtocol
 // 0x0008 (0x00E0 - 0x00D8)
@@ -520,5 +540,7 @@ public:
 		return GetDefaultObjImpl<UUserDefinedImageCaptureProtocol>();
 	}
 };
+DUMPER7_ASSERTS_UUserDefinedImageCaptureProtocol;
 
-SDK_NAMESPACE_END
+}
+

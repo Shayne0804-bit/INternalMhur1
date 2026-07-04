@@ -14,7 +14,8 @@
 #include "BP_ActionDie_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDie.BP_ActionDie_C.ExecuteUbergraph_BP_ActionDie
 // (Final, UbergraphFunction, HasDefaults)
@@ -273,5 +274,5 @@ bool UBP_ActionDie_C::BP_IsEnableShiftAction(const class FName& nextAction) cons
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

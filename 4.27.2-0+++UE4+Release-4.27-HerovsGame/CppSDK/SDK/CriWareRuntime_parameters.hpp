@@ -15,8 +15,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function CriWareRuntime.Atom3dRegion.GetHandle
 // 0x0008 (0x0008 - 0x0000)
@@ -25,6 +25,7 @@ struct Atom3dRegion_GetHandle final
 public:
 	class UAtom3dRegionHandle*                    ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_Atom3dRegion_GetHandle;
 
 // Function CriWareRuntime.Atom3dRegion.SetHandle
 // 0x0008 (0x0008 - 0x0000)
@@ -33,6 +34,7 @@ struct Atom3dRegion_SetHandle final
 public:
 	class UAtom3dRegionHandle*                    InHandle;                                          // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_Atom3dRegion_SetHandle;
 
 // Function CriWareRuntime.Atom3dSourceBaseComponent.SetRegion
 // 0x0008 (0x0008 - 0x0000)
@@ -41,6 +43,7 @@ struct Atom3dSourceBaseComponent_SetRegion final
 public:
 	class UAtom3dRegion*                          InRegion;                                          // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_Atom3dSourceBaseComponent_SetRegion;
 
 // Function CriWareRuntime.AtomAreaSoundVolume.CreateSounds
 // 0x0020 (0x0020 - 0x0000)
@@ -51,6 +54,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<class UAtomComponent*>                 ReturnValue;                                       // 0x0010(0x0010)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomAreaSoundVolume_CreateSounds;
 
 // Function CriWareRuntime.AtomAreaSoundVolume.SetEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -59,6 +63,7 @@ struct AtomAreaSoundVolume_SetEnabled final
 public:
 	bool                                          bNewEnabled;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomAreaSoundVolume_SetEnabled;
 
 // Function CriWareRuntime.AtomAreaSoundVolume.SetPriority
 // 0x0004 (0x0004 - 0x0000)
@@ -67,6 +72,7 @@ struct AtomAreaSoundVolume_SetPriority final
 public:
 	float                                         NewPriority;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomAreaSoundVolume_SetPriority;
 
 // Function CriWareRuntime.AtomAreaSoundVolume.GetEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -75,6 +81,7 @@ struct AtomAreaSoundVolume_GetEnabled final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomAreaSoundVolume_GetEnabled;
 
 // Function CriWareRuntime.AtomAreaSoundVolume.GetPriority
 // 0x0004 (0x0004 - 0x0000)
@@ -83,6 +90,7 @@ struct AtomAreaSoundVolume_GetPriority final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomAreaSoundVolume_GetPriority;
 
 // Function CriWareRuntime.AtomAsrRack.GetAsrRack
 // 0x0010 (0x0010 - 0x0000)
@@ -93,6 +101,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomAsrRack*                           ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomAsrRack_GetAsrRack;
 
 // Function CriWareRuntime.AtomAsrRack.GetDefaultAsrRack
 // 0x0008 (0x0008 - 0x0000)
@@ -101,6 +110,7 @@ struct AtomAsrRack_GetDefaultAsrRack final
 public:
 	class UAtomAsrRack*                           ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomAsrRack_GetDefaultAsrRack;
 
 // Function CriWareRuntime.AtomAsrRack.ApplyDspBusSnapshot
 // 0x0018 (0x0018 - 0x0000)
@@ -111,6 +121,7 @@ public:
 	int32                                         Milliseconds;                                      // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomAsrRack_ApplyDspBusSnapshot;
 
 // Function CriWareRuntime.AtomAsrRack.AttachDspBusSetting
 // 0x0010 (0x0010 - 0x0000)
@@ -119,6 +130,7 @@ struct AtomAsrRack_AttachDspBusSetting final
 public:
 	class FString                                 SettingName;                                       // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomAsrRack_AttachDspBusSetting;
 
 // Function CriWareRuntime.AtomAsrRack.ConnectToPadSpeaker
 // 0x0004 (0x0004 - 0x0000)
@@ -127,6 +139,7 @@ struct AtomAsrRack_ConnectToPadSpeaker final
 public:
 	int32                                         UserIndex;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomAsrRack_ConnectToPadSpeaker;
 
 // Function CriWareRuntime.AtomAsrRack.ConnectToPadVibrator
 // 0x0004 (0x0004 - 0x0000)
@@ -135,6 +148,7 @@ struct AtomAsrRack_ConnectToPadVibrator final
 public:
 	int32                                         UserIndex;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomAsrRack_ConnectToPadVibrator;
 
 // Function CriWareRuntime.AtomAsrRack.GetBusAnalyzerInfo
 // 0x0050 (0x0050 - 0x0000)
@@ -150,6 +164,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0048(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_49[0x7];                                       // 0x0049(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomAsrRack_GetBusAnalyzerInfo;
 
 // Function CriWareRuntime.AtomAsrRack.GetCurrentAppliedSnapshot
 // 0x0018 (0x0018 - 0x0000)
@@ -160,6 +175,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomAsrRack_GetCurrentAppliedSnapshot;
 
 // Function CriWareRuntime.AtomAsrRack.SetBusSendLevelByName
 // 0x0028 (0x0028 - 0x0000)
@@ -171,6 +187,7 @@ public:
 	float                                         Level;                                             // 0x0020(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomAsrRack_SetBusSendLevelByName;
 
 // Function CriWareRuntime.AtomAsrRack.SetBusVolumeByName
 // 0x0018 (0x0018 - 0x0000)
@@ -181,6 +198,7 @@ public:
 	float                                         Volume;                                            // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomAsrRack_SetBusVolumeByName;
 
 // Function CriWareRuntime.AtomAsrRack.SetEffectBypass
 // 0x0028 (0x0028 - 0x0000)
@@ -192,6 +210,7 @@ public:
 	bool                                          Bypasses;                                          // 0x0020(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomAsrRack_SetEffectBypass;
 
 // Function CriWareRuntime.AtomEntranceVolume.SetEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -200,6 +219,7 @@ struct AtomEntranceVolume_SetEnabled final
 public:
 	bool                                          bNewEnabled;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomEntranceVolume_SetEnabled;
 
 // Function CriWareRuntime.AtomEntranceVolume.SetPriority
 // 0x0004 (0x0004 - 0x0000)
@@ -208,6 +228,7 @@ struct AtomEntranceVolume_SetPriority final
 public:
 	float                                         NewPriority;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomEntranceVolume_SetPriority;
 
 // Function CriWareRuntime.AtomEntranceVolume.GetEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -216,6 +237,7 @@ struct AtomEntranceVolume_GetEnabled final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomEntranceVolume_GetEnabled;
 
 // Function CriWareRuntime.AtomEntranceVolume.GetPriority
 // 0x0004 (0x0004 - 0x0000)
@@ -224,6 +246,7 @@ struct AtomEntranceVolume_GetPriority final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomEntranceVolume_GetPriority;
 
 // Function CriWareRuntime.AtomAudioVolume.EnableAllAudioVolume
 // 0x0001 (0x0001 - 0x0000)
@@ -232,6 +255,7 @@ struct AtomAudioVolume_EnableAllAudioVolume final
 public:
 	bool                                          bEnable;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomAudioVolume_EnableAllAudioVolume;
 
 // Function CriWareRuntime.AtomAudioVolume.SetEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -240,6 +264,7 @@ struct AtomAudioVolume_SetEnabled final
 public:
 	bool                                          bNewEnabled;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomAudioVolume_SetEnabled;
 
 // Function CriWareRuntime.AtomAudioVolume.SetPriority
 // 0x0004 (0x0004 - 0x0000)
@@ -248,6 +273,7 @@ struct AtomAudioVolume_SetPriority final
 public:
 	float                                         NewPriority;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomAudioVolume_SetPriority;
 
 // Function CriWareRuntime.AtomAudioVolume.SetReverbSettings
 // 0x0038 (0x0038 - 0x0000)
@@ -256,6 +282,7 @@ struct AtomAudioVolume_SetReverbSettings final
 public:
 	struct FSnapshotSwitchSettings                NewReverbSettings;                                 // 0x0000(0x0038)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomAudioVolume_SetReverbSettings;
 
 // Function CriWareRuntime.AtomAudioVolume.GetEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -264,6 +291,7 @@ struct AtomAudioVolume_GetEnabled final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomAudioVolume_GetEnabled;
 
 // Function CriWareRuntime.AtomAudioVolume.GetPriority
 // 0x0004 (0x0004 - 0x0000)
@@ -272,6 +300,7 @@ struct AtomAudioVolume_GetPriority final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomAudioVolume_GetPriority;
 
 // Function CriWareRuntime.AtomBusSampler.PauseRecordedSound
 // 0x0001 (0x0001 - 0x0000)
@@ -280,6 +309,7 @@ struct AtomBusSampler_PauseRecordedSound final
 public:
 	bool                                          bPause;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomBusSampler_PauseRecordedSound;
 
 // Function CriWareRuntime.AtomBusSampler.PlayRecordedSound
 // 0x0004 (0x0004 - 0x0000)
@@ -288,6 +318,7 @@ struct AtomBusSampler_PlayRecordedSound final
 public:
 	int32                                         Milliseconds;                                      // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomBusSampler_PlayRecordedSound;
 
 // Function CriWareRuntime.AtomBusSampler.StartRecording
 // 0x0020 (0x0020 - 0x0000)
@@ -300,6 +331,7 @@ public:
 	bool                                          BusOutput;                                         // 0x0018(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomBusSampler_StartRecording;
 
 // Function CriWareRuntime.AtomBusSampler.CanPlayRecordedSound
 // 0x0001 (0x0001 - 0x0000)
@@ -308,6 +340,7 @@ struct AtomBusSampler_CanPlayRecordedSound final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomBusSampler_CanPlayRecordedSound;
 
 // Function CriWareRuntime.AtomBusSampler.CanRecord
 // 0x0001 (0x0001 - 0x0000)
@@ -316,6 +349,7 @@ struct AtomBusSampler_CanRecord final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomBusSampler_CanRecord;
 
 // Function CriWareRuntime.AtomBusSampler.IsPausedRecordedSound
 // 0x0001 (0x0001 - 0x0000)
@@ -324,6 +358,7 @@ struct AtomBusSampler_IsPausedRecordedSound final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomBusSampler_IsPausedRecordedSound;
 
 // Function CriWareRuntime.AtomBusSampler.IsPlayingRecordedSound
 // 0x0001 (0x0001 - 0x0000)
@@ -332,6 +367,7 @@ struct AtomBusSampler_IsPlayingRecordedSound final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomBusSampler_IsPlayingRecordedSound;
 
 // Function CriWareRuntime.AtomBusSampler.IsRecording
 // 0x0001 (0x0001 - 0x0000)
@@ -340,6 +376,7 @@ struct AtomBusSampler_IsRecording final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomBusSampler_IsRecording;
 
 // Function CriWareRuntime.AtomCallbackManager.NativeBreakAtomBeatSyncInfo
 // 0x0040 (0x0040 - 0x0000)
@@ -354,6 +391,7 @@ public:
 	int32                                         Offset;                                            // 0x0038(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         NumBeats;                                          // 0x003C(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomCallbackManager_NativeBreakAtomBeatSyncInfo;
 
 // Function CriWareRuntime.AtomCallbackManager.NativeBreakAtomSequenceInfo
 // 0x0048 (0x0048 - 0x0000)
@@ -368,6 +406,7 @@ public:
 	uint8                                         Pad_41[0x3];                                       // 0x0041(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         CallbackID;                                        // 0x0044(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomCallbackManager_NativeBreakAtomSequenceInfo;
 
 // Function CriWareRuntime.AtomCategory.GetAttachedAisacInfoById
 // 0x0040 (0x0040 - 0x0000)
@@ -380,6 +419,7 @@ public:
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FAtomAisacInfo                         AisacInfo;                                         // 0x0010(0x0030)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomCategory_GetAttachedAisacInfoById;
 
 // Function CriWareRuntime.AtomCategory.GetAttachedAisacInfoByName
 // 0x0048 (0x0048 - 0x0000)
@@ -392,6 +432,7 @@ public:
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FAtomAisacInfo                         AisacInfo;                                         // 0x0018(0x0030)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomCategory_GetAttachedAisacInfoByName;
 
 // Function CriWareRuntime.AtomCategory.GetCurrentAisacControlValueById
 // 0x000C (0x000C - 0x0000)
@@ -402,6 +443,7 @@ public:
 	int32                                         AisacControlID;                                    // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomCategory_GetCurrentAisacControlValueById;
 
 // Function CriWareRuntime.AtomCategory.GetCurrentAisacControlValueByName
 // 0x0028 (0x0028 - 0x0000)
@@ -413,6 +455,7 @@ public:
 	float                                         ReturnValue;                                       // 0x0020(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomCategory_GetCurrentAisacControlValueByName;
 
 // Function CriWareRuntime.AtomCategory.GetNumAttachedAisacsById
 // 0x0008 (0x0008 - 0x0000)
@@ -422,6 +465,7 @@ public:
 	int32                                         CategoryId;                                        // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomCategory_GetNumAttachedAisacsById;
 
 // Function CriWareRuntime.AtomCategory.GetNumAttachedAisacsByName
 // 0x0018 (0x0018 - 0x0000)
@@ -432,6 +476,7 @@ public:
 	int32                                         ReturnValue;                                       // 0x0010(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomCategory_GetNumAttachedAisacsByName;
 
 // Function CriWareRuntime.AtomCategory.GetVolumeByName
 // 0x0018 (0x0018 - 0x0000)
@@ -442,6 +487,7 @@ public:
 	float                                         ReturnValue;                                       // 0x0010(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomCategory_GetVolumeByName;
 
 // Function CriWareRuntime.AtomCategory.IsPausedByName
 // 0x0018 (0x0018 - 0x0000)
@@ -452,6 +498,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomCategory_IsPausedByName;
 
 // Function CriWareRuntime.AtomCategory.PauseByName
 // 0x0018 (0x0018 - 0x0000)
@@ -462,6 +509,7 @@ public:
 	bool                                          bPause;                                            // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomCategory_PauseByName;
 
 // Function CriWareRuntime.AtomCategory.ResetAllAisacControlById
 // 0x0008 (0x0008 - 0x0000)
@@ -472,6 +520,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomCategory_ResetAllAisacControlById;
 
 // Function CriWareRuntime.AtomCategory.ResetAllAisacControlByName
 // 0x0018 (0x0018 - 0x0000)
@@ -482,6 +531,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomCategory_ResetAllAisacControlByName;
 
 // Function CriWareRuntime.AtomCategory.SetAisacControlByName
 // 0x0028 (0x0028 - 0x0000)
@@ -493,6 +543,7 @@ public:
 	float                                         value;                                             // 0x0020(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomCategory_SetAisacControlByName;
 
 // Function CriWareRuntime.AtomCategory.SetMute
 // 0x0018 (0x0018 - 0x0000)
@@ -503,6 +554,7 @@ public:
 	bool                                          isMute;                                            // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomCategory_SetMute;
 
 // Function CriWareRuntime.AtomCategory.SetVolumeByName
 // 0x0018 (0x0018 - 0x0000)
@@ -513,6 +565,7 @@ public:
 	float                                         Volume;                                            // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomCategory_SetVolumeByName;
 
 // Function CriWareRuntime.AtomCategory.StopByName
 // 0x0010 (0x0010 - 0x0000)
@@ -521,6 +574,7 @@ struct AtomCategory_StopByName final
 public:
 	class FString                                 CategoryName;                                      // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomCategory_StopByName;
 
 // Function CriWareRuntime.AtomComponent.DestroyComponentByID
 // 0x0004 (0x0004 - 0x0000)
@@ -529,6 +583,7 @@ struct AtomComponent_DestroyComponentByID final
 public:
 	int32                                         TargetID;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_DestroyComponentByID;
 
 // Function CriWareRuntime.AtomComponent.GetAtomComponentFromID
 // 0x0010 (0x0010 - 0x0000)
@@ -539,6 +594,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         ReturnValue;                                       // 0x0008(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetAtomComponentFromID;
 
 // Function CriWareRuntime.AtomComponent.GetDefaultAttenuationEnable
 // 0x0001 (0x0001 - 0x0000)
@@ -547,6 +603,7 @@ struct AtomComponent_GetDefaultAttenuationEnable final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetDefaultAttenuationEnable;
 
 // Function CriWareRuntime.AtomComponent.SetDefaultAttenuationEnable
 // 0x0001 (0x0001 - 0x0000)
@@ -555,6 +612,7 @@ struct AtomComponent_SetDefaultAttenuationEnable final
 public:
 	bool                                          bEnable;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_SetDefaultAttenuationEnable;
 
 // Function CriWareRuntime.AtomComponent.AdjustAttenuation
 // 0x03A0 (0x03A0 - 0x0000)
@@ -563,6 +621,7 @@ struct AtomComponent_AdjustAttenuation final
 public:
 	struct FSoundAttenuationSettings              InAttenuationSettings;                             // 0x0000(0x03A0)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_AdjustAttenuation;
 
 // Function CriWareRuntime.AtomComponent.AttachAreaSoundVolume
 // 0x0008 (0x0008 - 0x0000)
@@ -571,6 +630,7 @@ struct AtomComponent_AttachAreaSoundVolume final
 public:
 	class AAtomAreaSoundVolume*                   sound_shape_volume;                                // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_AttachAreaSoundVolume;
 
 // Function CriWareRuntime.AtomComponent.BP_GetAttenuationSettingsToApply
 // 0x03A8 (0x03A8 - 0x0000)
@@ -581,6 +641,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x03A0(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_3A1[0x7];                                      // 0x03A1(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomComponent_BP_GetAttenuationSettingsToApply;
 
 // Function CriWareRuntime.AtomComponent.EnqueueSound
 // 0x0008 (0x0008 - 0x0000)
@@ -589,6 +650,7 @@ struct AtomComponent_EnqueueSound final
 public:
 	class USoundAtomCue*                          NewSound;                                          // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_EnqueueSound;
 
 // Function CriWareRuntime.AtomComponent.FadeIn
 // 0x000C (0x000C - 0x0000)
@@ -599,6 +661,7 @@ public:
 	float                                         FadeVolumeLevel;                                   // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         StartTime;                                         // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_FadeIn;
 
 // Function CriWareRuntime.AtomComponent.FadeOut
 // 0x0004 (0x0004 - 0x0000)
@@ -607,6 +670,7 @@ struct AtomComponent_FadeOut final
 public:
 	float                                         FadeOutDuration;                                   // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_FadeOut;
 
 // Function CriWareRuntime.AtomComponent.GetAtomAppliedValueParam
 // 0x0080 (0x0080 - 0x0000)
@@ -615,6 +679,7 @@ struct AtomComponent_GetAtomAppliedValueParam final
 public:
 	struct FAtomAppliedValueParam                 ReturnValue;                                       // 0x0000(0x0080)(ConstParm, Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetAtomAppliedValueParam;
 
 // Function CriWareRuntime.AtomComponent.GetAudioVolumeValueMap
 // 0x0058 (0x0058 - 0x0000)
@@ -625,6 +690,7 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	TMap<class FString, float>                    ReturnValue;                                       // 0x0008(0x0050)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetAudioVolumeValueMap;
 
 // Function CriWareRuntime.AtomComponent.GetVolume
 // 0x0004 (0x0004 - 0x0000)
@@ -633,6 +699,7 @@ struct AtomComponent_GetVolume final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetVolume;
 
 // Function CriWareRuntime.AtomComponent.Pause
 // 0x0001 (0x0001 - 0x0000)
@@ -641,6 +708,7 @@ struct AtomComponent_Pause final
 public:
 	bool                                          bPause;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_Pause;
 
 // Function CriWareRuntime.AtomComponent.Play
 // 0x0004 (0x0004 - 0x0000)
@@ -649,6 +717,7 @@ struct AtomComponent_Play final
 public:
 	float                                         StartTime;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_Play;
 
 // Function CriWareRuntime.AtomComponent.SetAisacByName
 // 0x0018 (0x0018 - 0x0000)
@@ -659,6 +728,7 @@ public:
 	float                                         ControlValue;                                      // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomComponent_SetAisacByName;
 
 // Function CriWareRuntime.AtomComponent.SetAsrRackID
 // 0x0004 (0x0004 - 0x0000)
@@ -667,6 +737,7 @@ struct AtomComponent_SetAsrRackID final
 public:
 	int32                                         asr_rack_id;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_SetAsrRackID;
 
 // Function CriWareRuntime.AtomComponent.SetAsrRackIdArray
 // 0x0010 (0x0010 - 0x0000)
@@ -675,6 +746,7 @@ struct AtomComponent_SetAsrRackIdArray final
 public:
 	TArray<int32>                                 AsrRackIDs;                                        // 0x0000(0x0010)(Parm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_SetAsrRackIdArray;
 
 // Function CriWareRuntime.AtomComponent.SetBusSendLevel
 // 0x0008 (0x0008 - 0x0000)
@@ -684,6 +756,7 @@ public:
 	int32                                         BusId;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Level;                                             // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_SetBusSendLevel;
 
 // Function CriWareRuntime.AtomComponent.SetBusSendLevelByName
 // 0x0018 (0x0018 - 0x0000)
@@ -694,6 +767,7 @@ public:
 	float                                         Level;                                             // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomComponent_SetBusSendLevelByName;
 
 // Function CriWareRuntime.AtomComponent.SetBusSendLevelOffset
 // 0x0008 (0x0008 - 0x0000)
@@ -703,6 +777,7 @@ public:
 	int32                                         BusId;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         LevelOffset;                                       // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_SetBusSendLevelOffset;
 
 // Function CriWareRuntime.AtomComponent.SetBusSendLevelOffsetByName
 // 0x0018 (0x0018 - 0x0000)
@@ -713,6 +788,7 @@ public:
 	float                                         LevelOffset;                                       // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomComponent_SetBusSendLevelOffsetByName;
 
 // Function CriWareRuntime.AtomComponent.SetNextBlockIndex
 // 0x0004 (0x0004 - 0x0000)
@@ -721,6 +797,7 @@ struct AtomComponent_SetNextBlockIndex final
 public:
 	int32                                         BlockIndex;                                        // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_SetNextBlockIndex;
 
 // Function CriWareRuntime.AtomComponent.SetPitch
 // 0x0004 (0x0004 - 0x0000)
@@ -729,6 +806,7 @@ struct AtomComponent_SetPitch final
 public:
 	float                                         Pitch;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_SetPitch;
 
 // Function CriWareRuntime.AtomComponent.SetPitchMultiplier
 // 0x0004 (0x0004 - 0x0000)
@@ -737,6 +815,7 @@ struct AtomComponent_SetPitchMultiplier final
 public:
 	float                                         NewPitchMultiplier;                                // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_SetPitchMultiplier;
 
 // Function CriWareRuntime.AtomComponent.SetRegion
 // 0x0008 (0x0008 - 0x0000)
@@ -745,6 +824,7 @@ struct AtomComponent_SetRegion final
 public:
 	class UAtom3dRegion*                          InRegion;                                          // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_SetRegion;
 
 // Function CriWareRuntime.AtomComponent.SetSelectorLabel
 // 0x0020 (0x0020 - 0x0000)
@@ -754,6 +834,7 @@ public:
 	class FString                                 Selector;                                          // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 Label;                                             // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_SetSelectorLabel;
 
 // Function CriWareRuntime.AtomComponent.SetSound
 // 0x0008 (0x0008 - 0x0000)
@@ -762,6 +843,7 @@ struct AtomComponent_SetSound final
 public:
 	class USoundAtomCue*                          NewSound;                                          // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_SetSound;
 
 // Function CriWareRuntime.AtomComponent.SetSoundObject
 // 0x0008 (0x0008 - 0x0000)
@@ -770,6 +852,7 @@ struct AtomComponent_SetSoundObject final
 public:
 	class UAtomSoundObject*                       InSoundObject;                                     // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_SetSoundObject;
 
 // Function CriWareRuntime.AtomComponent.SetVolume
 // 0x0004 (0x0004 - 0x0000)
@@ -778,6 +861,7 @@ struct AtomComponent_SetVolume final
 public:
 	float                                         Volume;                                            // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_SetVolume;
 
 // Function CriWareRuntime.AtomComponent.GetAtomComponentID
 // 0x0004 (0x0004 - 0x0000)
@@ -786,6 +870,7 @@ struct AtomComponent_GetAtomComponentID final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetAtomComponentID;
 
 // Function CriWareRuntime.AtomComponent.GetCueName
 // 0x0010 (0x0010 - 0x0000)
@@ -794,6 +879,7 @@ struct AtomComponent_GetCueName final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetCueName;
 
 // Function CriWareRuntime.AtomComponent.GetCullDistance
 // 0x0004 (0x0004 - 0x0000)
@@ -802,6 +888,7 @@ struct AtomComponent_GetCullDistance final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetCullDistance;
 
 // Function CriWareRuntime.AtomComponent.GetCullDistanceMargin
 // 0x0004 (0x0004 - 0x0000)
@@ -810,6 +897,7 @@ struct AtomComponent_GetCullDistanceMargin final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetCullDistanceMargin;
 
 // Function CriWareRuntime.AtomComponent.GetCurrentBelongingAudioVolume
 // 0x0010 (0x0010 - 0x0000)
@@ -821,6 +909,7 @@ public:
 	uint8                                         Pad_2[0x6];                                        // 0x0002(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	class AAtomAudioVolume*                       ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetCurrentBelongingAudioVolume;
 
 // Function CriWareRuntime.AtomComponent.GetCurrentCullingBoundaryDistance
 // 0x0004 (0x0004 - 0x0000)
@@ -829,6 +918,7 @@ struct AtomComponent_GetCurrentCullingBoundaryDistance final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetCurrentCullingBoundaryDistance;
 
 // Function CriWareRuntime.AtomComponent.GetCurrentCullingMarginDistance
 // 0x0004 (0x0004 - 0x0000)
@@ -837,6 +927,7 @@ struct AtomComponent_GetCurrentCullingMarginDistance final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetCurrentCullingMarginDistance;
 
 // Function CriWareRuntime.AtomComponent.GetCurrentEconomicTickBoundaryDistance
 // 0x0004 (0x0004 - 0x0000)
@@ -845,6 +936,7 @@ struct AtomComponent_GetCurrentEconomicTickBoundaryDistance final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetCurrentEconomicTickBoundaryDistance;
 
 // Function CriWareRuntime.AtomComponent.GetCurrentEconomicTickFrequency
 // 0x0004 (0x0004 - 0x0000)
@@ -853,6 +945,7 @@ struct AtomComponent_GetCurrentEconomicTickFrequency final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetCurrentEconomicTickFrequency;
 
 // Function CriWareRuntime.AtomComponent.GetCurrentEconomicTickMarginDistance
 // 0x0004 (0x0004 - 0x0000)
@@ -861,6 +954,7 @@ struct AtomComponent_GetCurrentEconomicTickMarginDistance final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetCurrentEconomicTickMarginDistance;
 
 // Function CriWareRuntime.AtomComponent.GetCurrentMaxAttenuationDistance
 // 0x0004 (0x0004 - 0x0000)
@@ -869,6 +963,7 @@ struct AtomComponent_GetCurrentMaxAttenuationDistance final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetCurrentMaxAttenuationDistance;
 
 // Function CriWareRuntime.AtomComponent.GetEconomicTickDistance
 // 0x0004 (0x0004 - 0x0000)
@@ -877,6 +972,7 @@ struct AtomComponent_GetEconomicTickDistance final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetEconomicTickDistance;
 
 // Function CriWareRuntime.AtomComponent.GetEconomicTickDistanceMargin
 // 0x0004 (0x0004 - 0x0000)
@@ -885,6 +981,7 @@ struct AtomComponent_GetEconomicTickDistanceMargin final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetEconomicTickDistanceMargin;
 
 // Function CriWareRuntime.AtomComponent.GetEconomicTickFrequency
 // 0x0004 (0x0004 - 0x0000)
@@ -893,6 +990,7 @@ struct AtomComponent_GetEconomicTickFrequency final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetEconomicTickFrequency;
 
 // Function CriWareRuntime.AtomComponent.GetMaxAttenuationDistance
 // 0x0004 (0x0004 - 0x0000)
@@ -901,6 +999,7 @@ struct AtomComponent_GetMaxAttenuationDistance final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetMaxAttenuationDistance;
 
 // Function CriWareRuntime.AtomComponent.GetNumPlayedSamples
 // 0x0010 (0x0010 - 0x0000)
@@ -911,6 +1010,7 @@ public:
 	int32                                         SamplingRate;                                      // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomComponent_GetNumPlayedSamples;
 
 // Function CriWareRuntime.AtomComponent.GetNumQueuedSounds
 // 0x0004 (0x0004 - 0x0000)
@@ -919,6 +1019,7 @@ struct AtomComponent_GetNumQueuedSounds final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetNumQueuedSounds;
 
 // Function CriWareRuntime.AtomComponent.GetSequencePosition
 // 0x0004 (0x0004 - 0x0000)
@@ -927,6 +1028,7 @@ struct AtomComponent_GetSequencePosition final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetSequencePosition;
 
 // Function CriWareRuntime.AtomComponent.GetStatus
 // 0x0001 (0x0001 - 0x0000)
@@ -935,6 +1037,7 @@ struct AtomComponent_GetStatus final
 public:
 	EAtomComponentStatus                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetStatus;
 
 // Function CriWareRuntime.AtomComponent.GetTime
 // 0x0004 (0x0004 - 0x0000)
@@ -943,6 +1046,7 @@ struct AtomComponent_GetTime final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetTime;
 
 // Function CriWareRuntime.AtomComponent.GetVelocity
 // 0x000C (0x000C - 0x0000)
@@ -951,6 +1055,7 @@ struct AtomComponent_GetVelocity final
 public:
 	struct FVector                                ReturnValue;                                       // 0x0000(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_GetVelocity;
 
 // Function CriWareRuntime.AtomComponent.HasBeenEconomicTick
 // 0x0001 (0x0001 - 0x0000)
@@ -959,6 +1064,7 @@ struct AtomComponent_HasBeenEconomicTick final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_HasBeenEconomicTick;
 
 // Function CriWareRuntime.AtomComponent.IsLoop
 // 0x0001 (0x0001 - 0x0000)
@@ -967,6 +1073,7 @@ struct AtomComponent_IsLoop final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_IsLoop;
 
 // Function CriWareRuntime.AtomComponent.IsPaused
 // 0x0001 (0x0001 - 0x0000)
@@ -975,6 +1082,7 @@ struct AtomComponent_IsPaused final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_IsPaused;
 
 // Function CriWareRuntime.AtomComponent.IsPlaying
 // 0x0001 (0x0001 - 0x0000)
@@ -983,6 +1091,7 @@ struct AtomComponent_IsPlaying final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_IsPlaying;
 
 // Function CriWareRuntime.AtomComponent.IsReducingTickFrequency
 // 0x0001 (0x0001 - 0x0000)
@@ -991,6 +1100,7 @@ struct AtomComponent_IsReducingTickFrequency final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomComponent_IsReducingTickFrequency;
 
 // Function CriWareRuntime.AtomCueSheetLoaderComponent.LoadAtomCueSheet
 // 0x0058 (0x0058 - 0x0000)
@@ -1002,6 +1112,7 @@ public:
 	TDelegate<void(class USoundAtomCueSheet* Loaded)> OnLoaded;                                      // 0x0030(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	struct FLatentActionInfo                      LatentInfo;                                        // 0x0040(0x0018)(Parm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomCueSheetLoaderComponent_LoadAtomCueSheet;
 
 // Function CriWareRuntime.AtomCueSheetLoaderComponent.GetAtomCueSheet
 // 0x0008 (0x0008 - 0x0000)
@@ -1010,6 +1121,7 @@ struct AtomCueSheetLoaderComponent_GetAtomCueSheet final
 public:
 	class USoundAtomCueSheet*                     ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomCueSheetLoaderComponent_GetAtomCueSheet;
 
 // Function CriWareRuntime.AtomCueSheetLoaderComponent.GetStatus
 // 0x0001 (0x0001 - 0x0000)
@@ -1018,6 +1130,7 @@ struct AtomCueSheetLoaderComponent_GetStatus final
 public:
 	EAtomCueSheetLoaderComponentStatus            ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomCueSheetLoaderComponent_GetStatus;
 
 // Function CriWareRuntime.AtomDeviceWatcher.GetDeviceChannelCount
 // 0x0004 (0x0004 - 0x0000)
@@ -1026,6 +1139,7 @@ struct AtomDeviceWatcher_GetDeviceChannelCount final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomDeviceWatcher_GetDeviceChannelCount;
 
 // Function CriWareRuntime.AtomDeviceWatcher.GetDeviceName
 // 0x0010 (0x0010 - 0x0000)
@@ -1034,6 +1148,7 @@ struct AtomDeviceWatcher_GetDeviceName final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomDeviceWatcher_GetDeviceName;
 
 // Function CriWareRuntime.AtomProfileData.CriWareAdx2ProfileDataSort
 // 0x0028 (0x0028 - 0x0000)
@@ -1046,6 +1161,7 @@ public:
 	uint8                                         Pad_12[0x6];                                       // 0x0012(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FAtomProfileItem>               sorted_item;                                       // 0x0018(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomProfileData_CriWareAdx2ProfileDataSort;
 
 // Function CriWareRuntime.AtomProfileData.CriWareAdx2ProfileDataUpdate
 // 0x0018 (0x0018 - 0x0000)
@@ -1055,6 +1171,7 @@ public:
 	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FAtomProfileItem>               ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomProfileData_CriWareAdx2ProfileDataUpdate;
 
 // Function CriWareRuntime.AtomSpectrumAnalyzer.CreateDspSpectra
 // 0x0020 (0x0020 - 0x0000)
@@ -1066,6 +1183,7 @@ public:
 	int32                                         num_bands;                                         // 0x0018(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomSpectrumAnalyzer_CreateDspSpectra;
 
 // Function CriWareRuntime.AtomSpectrumAnalyzer.GetLevels
 // 0x0010 (0x0010 - 0x0000)
@@ -1074,6 +1192,7 @@ struct AtomSpectrumAnalyzer_GetLevels final
 public:
 	TArray<float>                                 spectra;                                           // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomSpectrumAnalyzer_GetLevels;
 
 // Function CriWareRuntime.AtomSpectrumAnalyzer.GetLevelsDB
 // 0x0018 (0x0018 - 0x0000)
@@ -1084,6 +1203,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<float>                                 spectra;                                           // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomSpectrumAnalyzer_GetLevelsDB;
 
 // Function CriWareRuntime.AtomStatics.AddToAtomComponentIds
 // 0x0018 (0x0018 - 0x0000)
@@ -1095,6 +1215,7 @@ public:
 	int32                                         AtomComponentID;                                   // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomStatics_AddToAtomComponentIds;
 
 // Function CriWareRuntime.AtomStatics.CreateRootedAtomComponent
 // 0x0018 (0x0018 - 0x0000)
@@ -1106,6 +1227,7 @@ public:
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         ReturnValue;                                       // 0x0010(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_CreateRootedAtomComponent;
 
 // Function CriWareRuntime.AtomStatics.GetAtomGameVariable
 // 0x0018 (0x0018 - 0x0000)
@@ -1116,6 +1238,7 @@ public:
 	float                                         ReturnValue;                                       // 0x0010(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomStatics_GetAtomGameVariable;
 
 // Function CriWareRuntime.AtomStatics.GetAudioVolumeAffectingListener
 // 0x0010 (0x0010 - 0x0000)
@@ -1127,6 +1250,7 @@ public:
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class AAtomAudioVolume*                       ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_GetAudioVolumeAffectingListener;
 
 // Function CriWareRuntime.AtomStatics.GetListenerFocusPointInfo
 // 0x001C (0x001C - 0x0000)
@@ -1136,6 +1260,7 @@ public:
 	int32                                         PlayerIndex;                                       // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FAtomListenerFocusPointInfo            ReturnValue;                                       // 0x0004(0x0018)(Parm, OutParm, ReturnParm, NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_GetListenerFocusPointInfo;
 
 // Function CriWareRuntime.AtomStatics.GetListenerRegion
 // 0x0010 (0x0010 - 0x0000)
@@ -1146,6 +1271,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtom3dRegion*                          ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_GetListenerRegion;
 
 // Function CriWareRuntime.AtomStatics.GetListeningPoint
 // 0x0010 (0x0010 - 0x0000)
@@ -1155,6 +1281,7 @@ public:
 	int32                                         PlayerIndex;                                       // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                ReturnValue;                                       // 0x0004(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_GetListeningPoint;
 
 // Function CriWareRuntime.AtomStatics.LoadAtomConfig
 // 0x0010 (0x0010 - 0x0000)
@@ -1165,6 +1292,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomStatics_LoadAtomConfig;
 
 // Function CriWareRuntime.AtomStatics.PauseAudioOutput
 // 0x0001 (0x0001 - 0x0000)
@@ -1173,6 +1301,7 @@ struct AtomStatics_PauseAudioOutput final
 public:
 	bool                                          bPause;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_PauseAudioOutput;
 
 // Function CriWareRuntime.AtomStatics.PlayAtomSoundAtLocation
 // 0x0080 (0x0080 - 0x0000)
@@ -1185,6 +1314,7 @@ public:
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FAtomComponentParams                   params;                                            // 0x0020(0x0060)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_PlayAtomSoundAtLocation;
 
 // Function CriWareRuntime.AtomStatics.PlayAtomSoundAtLocationByName
 // 0x0090 (0x0090 - 0x0000)
@@ -1198,6 +1328,7 @@ public:
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FAtomComponentParams                   params;                                            // 0x0030(0x0060)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_PlayAtomSoundAtLocationByName;
 
 // Function CriWareRuntime.AtomStatics.PlayAtomSoundForAnimNotify
 // 0x00B0 (0x00B0 - 0x0000)
@@ -1220,6 +1351,7 @@ public:
 	uint8                                         Pad_A1[0x7];                                       // 0x00A1(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         ReturnValue;                                       // 0x00A8(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_PlayAtomSoundForAnimNotify;
 
 // Function CriWareRuntime.AtomStatics.PlaySoundAtLocation
 // 0x0048 (0x0048 - 0x0000)
@@ -1237,6 +1369,7 @@ public:
 	class USoundAttenuation*                      AttenuationSettings;                               // 0x0038(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class USoundConcurrency*                      ConcurrencySettings;                               // 0x0040(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_PlaySoundAtLocation;
 
 // Function CriWareRuntime.AtomStatics.PlaySoundAttached
 // 0x0048 (0x0048 - 0x0000)
@@ -1256,6 +1389,7 @@ public:
 	class USoundAttenuation*                      AttenuationSettings;                               // 0x0038(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UAtomComponent*                         ReturnValue;                                       // 0x0040(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_PlaySoundAttached;
 
 // Function CriWareRuntime.AtomStatics.PlaySoundForAnimNotify
 // 0x0050 (0x0050 - 0x0000)
@@ -1277,6 +1411,7 @@ public:
 	uint8                                         Pad_41[0x7];                                       // 0x0041(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         ReturnValue;                                       // 0x0048(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_PlaySoundForAnimNotify;
 
 // Function CriWareRuntime.AtomStatics.SetAtomGameVariable
 // 0x0018 (0x0018 - 0x0000)
@@ -1287,6 +1422,7 @@ public:
 	float                                         value;                                             // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomStatics_SetAtomGameVariable;
 
 // Function CriWareRuntime.AtomStatics.SetListenerFocusPointDirectionLevel
 // 0x0008 (0x0008 - 0x0000)
@@ -1296,6 +1432,7 @@ public:
 	float                                         DirectionLevel;                                    // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         PlayerIndex;                                       // 0x0004(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_SetListenerFocusPointDirectionLevel;
 
 // Function CriWareRuntime.AtomStatics.SetListenerFocusPointDistanceLevel
 // 0x0008 (0x0008 - 0x0000)
@@ -1305,6 +1442,7 @@ public:
 	float                                         DistanceLevel;                                     // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         PlayerIndex;                                       // 0x0004(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_SetListenerFocusPointDistanceLevel;
 
 // Function CriWareRuntime.AtomStatics.SetListenerFocusPointInfo
 // 0x001C (0x001C - 0x0000)
@@ -1314,6 +1452,7 @@ public:
 	struct FAtomListenerFocusPointInfo            FocusPointInfo;                                    // 0x0000(0x0018)(ConstParm, Parm, NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 	int32                                         PlayerIndex;                                       // 0x0018(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_SetListenerFocusPointInfo;
 
 // Function CriWareRuntime.AtomStatics.SetListenerFocusPointTargetActor
 // 0x0010 (0x0010 - 0x0000)
@@ -1324,6 +1463,7 @@ public:
 	int32                                         PlayerIndex;                                       // 0x0008(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomStatics_SetListenerFocusPointTargetActor;
 
 // Function CriWareRuntime.AtomStatics.SetListenerFocusPointTargetComponent
 // 0x0010 (0x0010 - 0x0000)
@@ -1334,6 +1474,7 @@ public:
 	int32                                         PlayerIndex;                                       // 0x0008(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomStatics_SetListenerFocusPointTargetComponent;
 
 // Function CriWareRuntime.AtomStatics.SetListenerRegion
 // 0x0010 (0x0010 - 0x0000)
@@ -1344,6 +1485,7 @@ public:
 	int32                                         PlayerIndex;                                       // 0x0008(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomStatics_SetListenerRegion;
 
 // Function CriWareRuntime.AtomStatics.SpawnAtomSound2D
 // 0x0080 (0x0080 - 0x0000)
@@ -1358,6 +1500,7 @@ public:
 	uint8                                         Pad_72[0x6];                                       // 0x0072(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         ReturnValue;                                       // 0x0078(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_SpawnAtomSound2D;
 
 // Function CriWareRuntime.AtomStatics.SpawnAtomSound2DByName
 // 0x0090 (0x0090 - 0x0000)
@@ -1373,6 +1516,7 @@ public:
 	uint8                                         Pad_82[0x6];                                       // 0x0082(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         ReturnValue;                                       // 0x0088(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_SpawnAtomSound2DByName;
 
 // Function CriWareRuntime.AtomStatics.SpawnAtomSoundAtLocation
 // 0x0090 (0x0090 - 0x0000)
@@ -1388,6 +1532,7 @@ public:
 	uint8                                         Pad_81[0x7];                                       // 0x0081(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         ReturnValue;                                       // 0x0088(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_SpawnAtomSoundAtLocation;
 
 // Function CriWareRuntime.AtomStatics.SpawnAtomSoundAtLocationByName
 // 0x00A0 (0x00A0 - 0x0000)
@@ -1404,6 +1549,7 @@ public:
 	uint8                                         Pad_91[0x7];                                       // 0x0091(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         ReturnValue;                                       // 0x0098(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_SpawnAtomSoundAtLocationByName;
 
 // Function CriWareRuntime.AtomStatics.SpawnAtomSoundAttached
 // 0x0090 (0x0090 - 0x0000)
@@ -1421,6 +1567,7 @@ public:
 	uint8                                         Pad_87[0x1];                                       // 0x0087(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         ReturnValue;                                       // 0x0088(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_SpawnAtomSoundAttached;
 
 // Function CriWareRuntime.AtomStatics.SpawnAtomSoundAttachedByName
 // 0x00A0 (0x00A0 - 0x0000)
@@ -1439,6 +1586,7 @@ public:
 	uint8                                         Pad_97[0x1];                                       // 0x0097(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         ReturnValue;                                       // 0x0098(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_SpawnAtomSoundAttachedByName;
 
 // Function CriWareRuntime.AtomStatics.SpawnSound2D
 // 0x0028 (0x0028 - 0x0000)
@@ -1454,6 +1602,7 @@ public:
 	uint8                                         Pad_1A[0x6];                                       // 0x001A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         ReturnValue;                                       // 0x0020(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_SpawnSound2D;
 
 // Function CriWareRuntime.AtomStatics.SpawnSoundAtLocation
 // 0x0058 (0x0058 - 0x0000)
@@ -1474,6 +1623,7 @@ public:
 	uint8                                         Pad_49[0x7];                                       // 0x0049(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         ReturnValue;                                       // 0x0050(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_SpawnSoundAtLocation;
 
 // Function CriWareRuntime.AtomStatics.SpawnSoundAttached
 // 0x0060 (0x0060 - 0x0000)
@@ -1497,6 +1647,7 @@ public:
 	uint8                                         Pad_51[0x7];                                       // 0x0051(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         ReturnValue;                                       // 0x0058(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_SpawnSoundAttached;
 
 // Function CriWareRuntime.AtomStatics.StopAllSoundsForKeyFromAtomComponentIds
 // 0x0010 (0x0010 - 0x0000)
@@ -1506,6 +1657,7 @@ public:
 	class UObject*                                AtomPlayGateRef;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UObject*                                SkeltalMeshComponentRef;                           // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_StopAllSoundsForKeyFromAtomComponentIds;
 
 // Function CriWareRuntime.AtomStatics.UpdateDistanceFactorForAllSounds
 // 0x0004 (0x0004 - 0x0000)
@@ -1514,6 +1666,7 @@ struct AtomStatics_UpdateDistanceFactorForAllSounds final
 public:
 	float                                         ArgDistanceFactor;                                 // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomStatics_UpdateDistanceFactorForAllSounds;
 
 // Function CriWareRuntime.AtomTriggerTableFunctionLibrary.GetDataTableRowFromName
 // 0x0038 (0x0038 - 0x0000)
@@ -1526,6 +1679,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0030(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_31[0x7];                                       // 0x0031(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AtomTriggerTableFunctionLibrary_GetDataTableRowFromName;
 
 // Function CriWareRuntime.AtomWavePlayer.AdjustVolume
 // 0x0008 (0x0008 - 0x0000)
@@ -1535,6 +1689,7 @@ public:
 	float                                         AdjustVolumeDuration;                              // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         AdjustVolumeLevel;                                 // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomWavePlayer_AdjustVolume;
 
 // Function CriWareRuntime.AtomWavePlayer.Play
 // 0x0004 (0x0004 - 0x0000)
@@ -1543,6 +1698,7 @@ struct AtomWavePlayer_Play final
 public:
 	float                                         StartTime;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomWavePlayer_Play;
 
 // Function CriWareRuntime.AtomWavePlayer.SetLooping
 // 0x0002 (0x0002 - 0x0000)
@@ -1552,6 +1708,7 @@ public:
 	bool                                          Looping;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomWavePlayer_SetLooping;
 
 // Function CriWareRuntime.AtomWavePlayer.SetPaused
 // 0x0001 (0x0001 - 0x0000)
@@ -1560,6 +1717,7 @@ struct AtomWavePlayer_SetPaused final
 public:
 	bool                                          bPause;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomWavePlayer_SetPaused;
 
 // Function CriWareRuntime.AtomWavePlayer.SetWave
 // 0x0008 (0x0008 - 0x0000)
@@ -1568,6 +1726,7 @@ struct AtomWavePlayer_SetWave final
 public:
 	class USoundAtomCue*                          InCue;                                             // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomWavePlayer_SetWave;
 
 // Function CriWareRuntime.AtomWavePlayer.StopDelayed
 // 0x0004 (0x0004 - 0x0000)
@@ -1576,6 +1735,7 @@ struct AtomWavePlayer_StopDelayed final
 public:
 	float                                         DelayTime;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomWavePlayer_StopDelayed;
 
 // Function CriWareRuntime.AtomWavePlayer.GetCue
 // 0x0008 (0x0008 - 0x0000)
@@ -1584,6 +1744,7 @@ struct AtomWavePlayer_GetCue final
 public:
 	class USoundAtomCue*                          ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomWavePlayer_GetCue;
 
 // Function CriWareRuntime.AtomWavePlayer.GetPlayState
 // 0x0001 (0x0001 - 0x0000)
@@ -1592,6 +1753,7 @@ struct AtomWavePlayer_GetPlayState final
 public:
 	EAtomWavePlayState                            ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomWavePlayer_GetPlayState;
 
 // Function CriWareRuntime.AtomWavePlayer.GetTime
 // 0x0008 (0x0008 - 0x0000)
@@ -1600,6 +1762,7 @@ struct AtomWavePlayer_GetTime final
 public:
 	struct FTimespan                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomWavePlayer_GetTime;
 
 // Function CriWareRuntime.AtomWavePlayer.GetWaveInfo
 // 0x0014 (0x0014 - 0x0000)
@@ -1608,6 +1771,7 @@ struct AtomWavePlayer_GetWaveInfo final
 public:
 	struct FAtomWaveInfo                          ReturnValue;                                       // 0x0000(0x0014)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomWavePlayer_GetWaveInfo;
 
 // Function CriWareRuntime.AtomWavePlayer.HasError
 // 0x0001 (0x0001 - 0x0000)
@@ -1616,6 +1780,7 @@ struct AtomWavePlayer_HasError final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomWavePlayer_HasError;
 
 // Function CriWareRuntime.AtomWavePlayer.IsLooping
 // 0x0001 (0x0001 - 0x0000)
@@ -1624,6 +1789,7 @@ struct AtomWavePlayer_IsLooping final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomWavePlayer_IsLooping;
 
 // Function CriWareRuntime.AtomWavePlayer.IsPaused
 // 0x0001 (0x0001 - 0x0000)
@@ -1632,6 +1798,7 @@ struct AtomWavePlayer_IsPaused final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomWavePlayer_IsPaused;
 
 // Function CriWareRuntime.AtomWavePlayer.IsPlaying
 // 0x0001 (0x0001 - 0x0000)
@@ -1640,6 +1807,7 @@ struct AtomWavePlayer_IsPlaying final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AtomWavePlayer_IsPlaying;
 
 // Function CriWareRuntime.CriFsBinderComponent.GetStatus
 // 0x0001 (0x0001 - 0x0000)
@@ -1648,6 +1816,7 @@ struct CriFsBinderComponent_GetStatus final
 public:
 	ECriFsBinderStatus                            ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CriFsBinderComponent_GetStatus;
 
 // Function CriWareRuntime.CriFsLoaderComponent.GetDataArray
 // 0x0010 (0x0010 - 0x0000)
@@ -1656,6 +1825,7 @@ struct CriFsLoaderComponent_GetDataArray final
 public:
 	TArray<uint8>                                 ReturnValue;                                       // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CriFsLoaderComponent_GetDataArray;
 
 // Function CriWareRuntime.CriFsLoaderComponent.GetStatus
 // 0x0001 (0x0001 - 0x0000)
@@ -1664,6 +1834,7 @@ struct CriFsLoaderComponent_GetStatus final
 public:
 	ECriFsLoaderStatus                            ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CriFsLoaderComponent_GetStatus;
 
 // Function CriWareRuntime.CriWareError.GetCriWareError
 // 0x0008 (0x0008 - 0x0000)
@@ -1672,6 +1843,7 @@ struct CriWareError_GetCriWareError final
 public:
 	class UCriWareError*                          ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CriWareError_GetCriWareError;
 
 // Function CriWareRuntime.CriWareFunctionLibrary.SearchAtomCuesInAssetRegistry
 // 0x0018 (0x0018 - 0x0000)
@@ -1681,6 +1853,7 @@ public:
 	const class USoundAtomCueSheet*               CueSheet;                                          // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<class USoundAtomCue*>                  ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CriWareFunctionLibrary_SearchAtomCuesInAssetRegistry;
 
 // Function CriWareRuntime.CriWareFunctionLibrary.SetGameVariableByName
 // 0x0018 (0x0018 - 0x0000)
@@ -1691,6 +1864,7 @@ public:
 	float                                         value;                                             // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_CriWareFunctionLibrary_SetGameVariableByName;
 
 // Function CriWareRuntime.CriWareFunctionLibrary.SetGlobalLabelToSelectorByName
 // 0x0020 (0x0020 - 0x0000)
@@ -1700,6 +1874,7 @@ public:
 	class FString                                 SelectorName;                                      // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 LabelName;                                         // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CriWareFunctionLibrary_SetGlobalLabelToSelectorByName;
 
 // Function CriWareRuntime.CriWareFunctionLibrary.SetSpeakerAngleArray
 // 0x0018 (0x0018 - 0x0000)
@@ -1710,6 +1885,7 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<float>                                 Angles;                                            // 0x0008(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CriWareFunctionLibrary_SetSpeakerAngleArray;
 
 // Function CriWareRuntime.ManaComponent.AdvanceTime
 // 0x0008 (0x0008 - 0x0000)
@@ -1718,6 +1894,7 @@ struct ManaComponent_AdvanceTime final
 public:
 	struct FTimespan                              DeltaTime;                                         // 0x0000(0x0008)(Parm, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_AdvanceTime;
 
 // Function CriWareRuntime.ManaComponent.ChangeSubtitlesChannel
 // 0x0004 (0x0004 - 0x0000)
@@ -1726,6 +1903,7 @@ struct ManaComponent_ChangeSubtitlesChannel final
 public:
 	int32                                         Channel;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_ChangeSubtitlesChannel;
 
 // Function CriWareRuntime.ManaComponent.ChangeSubtitlesEncoding
 // 0x0001 (0x0001 - 0x0000)
@@ -1734,6 +1912,7 @@ struct ManaComponent_ChangeSubtitlesEncoding final
 public:
 	EManaSubtitlesEncoding                        Encoding;                                          // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_ChangeSubtitlesEncoding;
 
 // Function CriWareRuntime.ManaComponent.EnableSeamless
 // 0x0001 (0x0001 - 0x0000)
@@ -1742,6 +1921,7 @@ struct ManaComponent_EnableSeamless final
 public:
 	bool                                          bEnable;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_EnableSeamless;
 
 // Function CriWareRuntime.ManaComponent.EnableSubtitles
 // 0x0001 (0x0001 - 0x0000)
@@ -1750,6 +1930,7 @@ struct ManaComponent_EnableSubtitles final
 public:
 	bool                                          bEnable;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_EnableSubtitles;
 
 // Function CriWareRuntime.ManaComponent.Loop
 // 0x0001 (0x0001 - 0x0000)
@@ -1758,6 +1939,7 @@ struct ManaComponent_Loop final
 public:
 	bool                                          bInLoop;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_Loop;
 
 // Function CriWareRuntime.ManaComponent.Next
 // 0x0001 (0x0001 - 0x0000)
@@ -1766,6 +1948,7 @@ struct ManaComponent_Next final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_Next;
 
 // Function CriWareRuntime.ManaComponent.Pause
 // 0x0001 (0x0001 - 0x0000)
@@ -1774,6 +1957,7 @@ struct ManaComponent_Pause final
 public:
 	bool                                          bPause;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_Pause;
 
 // Function CriWareRuntime.ManaComponent.PreparePlaylistIndex
 // 0x0004 (0x0004 - 0x0000)
@@ -1782,6 +1966,7 @@ struct ManaComponent_PreparePlaylistIndex final
 public:
 	int32                                         Index_0;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_PreparePlaylistIndex;
 
 // Function CriWareRuntime.ManaComponent.Previous
 // 0x0001 (0x0001 - 0x0000)
@@ -1790,6 +1975,7 @@ struct ManaComponent_Previous final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_Previous;
 
 // Function CriWareRuntime.ManaComponent.Seek
 // 0x0008 (0x0008 - 0x0000)
@@ -1798,6 +1984,7 @@ struct ManaComponent_Seek final
 public:
 	struct FTimespan                              Time;                                              // 0x0000(0x0008)(Parm, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_Seek;
 
 // Function CriWareRuntime.ManaComponent.SeekToPosition
 // 0x0004 (0x0004 - 0x0000)
@@ -1806,6 +1993,7 @@ struct ManaComponent_SeekToPosition final
 public:
 	int32                                         FrameNumber;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SeekToPosition;
 
 // Function CriWareRuntime.ManaComponent.SetAlphaTrack
 // 0x0004 (0x0004 - 0x0000)
@@ -1814,6 +2002,7 @@ struct ManaComponent_SetAlphaTrack final
 public:
 	int32                                         Track;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SetAlphaTrack;
 
 // Function CriWareRuntime.ManaComponent.SetAudioCategory
 // 0x0010 (0x0010 - 0x0000)
@@ -1822,6 +2011,7 @@ struct ManaComponent_SetAudioCategory final
 public:
 	class FString                                 CategoryName;                                      // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SetAudioCategory;
 
 // Function CriWareRuntime.ManaComponent.SetAudioTrack
 // 0x0004 (0x0004 - 0x0000)
@@ -1830,6 +2020,7 @@ struct ManaComponent_SetAudioTrack final
 public:
 	int32                                         Track;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SetAudioTrack;
 
 // Function CriWareRuntime.ManaComponent.SetEndFrameAction
 // 0x0001 (0x0001 - 0x0000)
@@ -1838,6 +2029,7 @@ struct ManaComponent_SetEndFrameAction final
 public:
 	EManaFrameAction                              InFrameAction;                                     // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SetEndFrameAction;
 
 // Function CriWareRuntime.ManaComponent.SetExtraAudioCategory
 // 0x0010 (0x0010 - 0x0000)
@@ -1846,6 +2038,7 @@ struct ManaComponent_SetExtraAudioCategory final
 public:
 	class FString                                 CategoryName;                                      // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SetExtraAudioCategory;
 
 // Function CriWareRuntime.ManaComponent.SetExtraAudioTrack
 // 0x0004 (0x0004 - 0x0000)
@@ -1854,6 +2047,7 @@ struct ManaComponent_SetExtraAudioTrack final
 public:
 	int32                                         Track;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SetExtraAudioTrack;
 
 // Function CriWareRuntime.ManaComponent.SetExtraVolume
 // 0x0004 (0x0004 - 0x0000)
@@ -1862,6 +2056,7 @@ struct ManaComponent_SetExtraVolume final
 public:
 	float                                         Volume;                                            // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SetExtraVolume;
 
 // Function CriWareRuntime.ManaComponent.SetFile
 // 0x0010 (0x0010 - 0x0000)
@@ -1870,6 +2065,7 @@ struct ManaComponent_SetFile final
 public:
 	class FString                                 MovieFilePath;                                     // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SetFile;
 
 // Function CriWareRuntime.ManaComponent.SetMaxDropFrames
 // 0x0001 (0x0001 - 0x0000)
@@ -1878,6 +2074,7 @@ struct ManaComponent_SetMaxDropFrames final
 public:
 	EManaMaxFrameDrop                             InMaxDropFrames;                                   // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SetMaxDropFrames;
 
 // Function CriWareRuntime.ManaComponent.SetMovie
 // 0x0008 (0x0008 - 0x0000)
@@ -1886,6 +2083,7 @@ struct ManaComponent_SetMovie final
 public:
 	class UManaMovie*                             InMovie;                                           // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SetMovie;
 
 // Function CriWareRuntime.ManaComponent.SetPlaybackTimer
 // 0x0001 (0x0001 - 0x0000)
@@ -1894,6 +2092,7 @@ struct ManaComponent_SetPlaybackTimer final
 public:
 	EManaPlaybackTimer                            InPlaybackTimer;                                   // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SetPlaybackTimer;
 
 // Function CriWareRuntime.ManaComponent.SetSubAudioCategory
 // 0x0010 (0x0010 - 0x0000)
@@ -1902,6 +2101,7 @@ struct ManaComponent_SetSubAudioCategory final
 public:
 	class FString                                 CategoryName;                                      // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SetSubAudioCategory;
 
 // Function CriWareRuntime.ManaComponent.SetSubAudioSendLevel
 // 0x000C (0x000C - 0x0000)
@@ -1913,6 +2113,7 @@ public:
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         Volume;                                            // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SetSubAudioSendLevel;
 
 // Function CriWareRuntime.ManaComponent.SetSubAudioTrack
 // 0x0004 (0x0004 - 0x0000)
@@ -1921,6 +2122,7 @@ struct ManaComponent_SetSubAudioTrack final
 public:
 	int32                                         Track;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SetSubAudioTrack;
 
 // Function CriWareRuntime.ManaComponent.SetSubVolume
 // 0x0004 (0x0004 - 0x0000)
@@ -1929,6 +2131,7 @@ struct ManaComponent_SetSubVolume final
 public:
 	float                                         Volume;                                            // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SetSubVolume;
 
 // Function CriWareRuntime.ManaComponent.SetTexture
 // 0x0008 (0x0008 - 0x0000)
@@ -1937,6 +2140,7 @@ struct ManaComponent_SetTexture final
 public:
 	class UManaTexture*                           Texture;                                           // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SetTexture;
 
 // Function CriWareRuntime.ManaComponent.SetVolume
 // 0x0004 (0x0004 - 0x0000)
@@ -1945,6 +2149,7 @@ struct ManaComponent_SetVolume final
 public:
 	float                                         Volume;                                            // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_SetVolume;
 
 // Function CriWareRuntime.ManaComponent.ToIndex
 // 0x0008 (0x0008 - 0x0000)
@@ -1955,6 +2160,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ManaComponent_ToIndex;
 
 // Function CriWareRuntime.ManaComponent.GetExtraVolume
 // 0x0004 (0x0004 - 0x0000)
@@ -1963,6 +2169,7 @@ struct ManaComponent_GetExtraVolume final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_GetExtraVolume;
 
 // Function CriWareRuntime.ManaComponent.GetFrameNumber
 // 0x0004 (0x0004 - 0x0000)
@@ -1971,6 +2178,7 @@ struct ManaComponent_GetFrameNumber final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_GetFrameNumber;
 
 // Function CriWareRuntime.ManaComponent.GetMovieTime
 // 0x0008 (0x0008 - 0x0000)
@@ -1979,6 +2187,7 @@ struct ManaComponent_GetMovieTime final
 public:
 	struct FTimespan                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_GetMovieTime;
 
 // Function CriWareRuntime.ManaComponent.GetPosition
 // 0x0004 (0x0004 - 0x0000)
@@ -1987,6 +2196,7 @@ struct ManaComponent_GetPosition final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_GetPosition;
 
 // Function CriWareRuntime.ManaComponent.GetSource
 // 0x0008 (0x0008 - 0x0000)
@@ -1995,6 +2205,7 @@ struct ManaComponent_GetSource final
 public:
 	class UManaMovie*                             ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_GetSource;
 
 // Function CriWareRuntime.ManaComponent.GetStatus
 // 0x0001 (0x0001 - 0x0000)
@@ -2003,6 +2214,7 @@ struct ManaComponent_GetStatus final
 public:
 	EManaComponentStatus                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_GetStatus;
 
 // Function CriWareRuntime.ManaComponent.GetSubVolume
 // 0x0004 (0x0004 - 0x0000)
@@ -2011,6 +2223,7 @@ struct ManaComponent_GetSubVolume final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_GetSubVolume;
 
 // Function CriWareRuntime.ManaComponent.GetTexture
 // 0x0008 (0x0008 - 0x0000)
@@ -2019,6 +2232,7 @@ struct ManaComponent_GetTexture final
 public:
 	class UManaTexture*                           ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_GetTexture;
 
 // Function CriWareRuntime.ManaComponent.GetTime
 // 0x0008 (0x0008 - 0x0000)
@@ -2027,6 +2241,7 @@ struct ManaComponent_GetTime final
 public:
 	struct FTimespan                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_GetTime;
 
 // Function CriWareRuntime.ManaComponent.GetVolume
 // 0x0004 (0x0004 - 0x0000)
@@ -2035,6 +2250,7 @@ struct ManaComponent_GetVolume final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_GetVolume;
 
 // Function CriWareRuntime.ManaComponent.IsLooping
 // 0x0001 (0x0001 - 0x0000)
@@ -2043,6 +2259,7 @@ struct ManaComponent_IsLooping final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_IsLooping;
 
 // Function CriWareRuntime.ManaComponent.IsPaused
 // 0x0001 (0x0001 - 0x0000)
@@ -2051,6 +2268,7 @@ struct ManaComponent_IsPaused final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_IsPaused;
 
 // Function CriWareRuntime.ManaComponent.IsPlaying
 // 0x0001 (0x0001 - 0x0000)
@@ -2059,6 +2277,7 @@ struct ManaComponent_IsPlaying final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_IsPlaying;
 
 // Function CriWareRuntime.ManaComponent.IsPreparing
 // 0x0001 (0x0001 - 0x0000)
@@ -2067,6 +2286,7 @@ struct ManaComponent_IsPreparing final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_IsPreparing;
 
 // Function CriWareRuntime.ManaComponent.IsReady
 // 0x0001 (0x0001 - 0x0000)
@@ -2075,6 +2295,7 @@ struct ManaComponent_IsReady final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaComponent_IsReady;
 
 // Function CriWareRuntime.ManaMovie.GetUrl
 // 0x0010 (0x0010 - 0x0000)
@@ -2083,6 +2304,7 @@ struct ManaMovie_GetUrl final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaMovie_GetUrl;
 
 // Function CriWareRuntime.ManaMovie.Validate
 // 0x0001 (0x0001 - 0x0000)
@@ -2091,6 +2313,7 @@ struct ManaMovie_Validate final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaMovie_Validate;
 
 // Function CriWareRuntime.FileManaMovie.SetFilePath
 // 0x0010 (0x0010 - 0x0000)
@@ -2099,6 +2322,7 @@ struct FileManaMovie_SetFilePath final
 public:
 	class FString                                 Path;                                              // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FileManaMovie_SetFilePath;
 
 // Function CriWareRuntime.DataManaMovie.GetDataArray
 // 0x0010 (0x0010 - 0x0000)
@@ -2107,6 +2331,7 @@ struct DataManaMovie_GetDataArray final
 public:
 	TArray<uint8>                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DataManaMovie_GetDataArray;
 
 // Function CriWareRuntime.DataManaMovie.SetDataArray
 // 0x0010 (0x0010 - 0x0000)
@@ -2115,6 +2340,7 @@ struct DataManaMovie_SetDataArray final
 public:
 	TArray<uint8>                                 InDataArray;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DataManaMovie_SetDataArray;
 
 // Function CriWareRuntime.ManaPlayer.BindOnFrameUpdated
 // 0x0010 (0x0010 - 0x0000)
@@ -2123,6 +2349,7 @@ struct ManaPlayer_BindOnFrameUpdated final
 public:
 	TDelegate<void(int32 FrameNumber)>            Event;                                             // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_BindOnFrameUpdated;
 
 // Function CriWareRuntime.ManaPlayer.DisableTrack
 // 0x0002 (0x0002 - 0x0000)
@@ -2132,6 +2359,7 @@ public:
 	EManaPlayerTrack                              TrackType;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_DisableTrack;
 
 // Function CriWareRuntime.ManaPlayer.GetSubtitleTrackEncoding
 // 0x0008 (0x0008 - 0x0000)
@@ -2142,6 +2370,7 @@ public:
 	EManaSubtitlesEncoding                        ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ManaPlayer_GetSubtitleTrackEncoding;
 
 // Function CriWareRuntime.ManaPlayer.GetTimeSyncedSource
 // 0x0008 (0x0008 - 0x0000)
@@ -2150,6 +2379,7 @@ struct ManaPlayer_GetTimeSyncedSource final
 public:
 	class UAtomComponent*                         ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetTimeSyncedSource;
 
 // Function CriWareRuntime.ManaPlayer.GetVolume
 // 0x0008 (0x0008 - 0x0000)
@@ -2160,6 +2390,7 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetVolume;
 
 // Function CriWareRuntime.ManaPlayer.HandleManaComponentEventPoint
 // 0x0028 (0x0028 - 0x0000)
@@ -2168,6 +2399,7 @@ struct ManaPlayer_HandleManaComponentEventPoint final
 public:
 	struct FManaEventPointInfo                    EventPointInfo;                                    // 0x0000(0x0028)(Parm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_HandleManaComponentEventPoint;
 
 // Function CriWareRuntime.ManaPlayer.HandleManaComponentFrameOnTime
 // 0x0010 (0x0010 - 0x0000)
@@ -2178,6 +2410,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UManaComponent*                         InManaComponent;                                   // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_HandleManaComponentFrameOnTime;
 
 // Function CriWareRuntime.ManaPlayer.HandleManaComponentMovieChanged
 // 0x0010 (0x0010 - 0x0000)
@@ -2187,6 +2420,7 @@ public:
 	class UManaMovie*                             InManaMovie;                                       // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UManaComponent*                         InManaComponent;                                   // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_HandleManaComponentMovieChanged;
 
 // Function CriWareRuntime.ManaPlayer.HandleManaComponentPlayerDestroyed
 // 0x0008 (0x0008 - 0x0000)
@@ -2195,6 +2429,7 @@ struct ManaPlayer_HandleManaComponentPlayerDestroyed final
 public:
 	class UManaComponent*                         InManaComponent;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_HandleManaComponentPlayerDestroyed;
 
 // Function CriWareRuntime.ManaPlayer.HandleManaComponentSeekCompleted
 // 0x0010 (0x0010 - 0x0000)
@@ -2205,6 +2440,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UManaComponent*                         InManaComponent;                                   // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_HandleManaComponentSeekCompleted;
 
 // Function CriWareRuntime.ManaPlayer.HandleManaComponentStatusChanged
 // 0x0010 (0x0010 - 0x0000)
@@ -2215,6 +2451,7 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UManaComponent*                         InManaComponent;                                   // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_HandleManaComponentStatusChanged;
 
 // Function CriWareRuntime.ManaPlayer.HandleManaComponentSubtitleChanged
 // 0x0018 (0x0018 - 0x0000)
@@ -2223,6 +2460,7 @@ struct ManaPlayer_HandleManaComponentSubtitleChanged final
 public:
 	class FText                                   Subtitle;                                          // 0x0000(0x0018)(Parm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_HandleManaComponentSubtitleChanged;
 
 // Function CriWareRuntime.ManaPlayer.Next
 // 0x0001 (0x0001 - 0x0000)
@@ -2231,6 +2469,7 @@ struct ManaPlayer_Next final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_Next;
 
 // Function CriWareRuntime.ManaPlayer.OpenMovieSource
 // 0x0008 (0x0008 - 0x0000)
@@ -2239,6 +2478,7 @@ struct ManaPlayer_OpenMovieSource final
 public:
 	class UManaMovie*                             InManaMovie;                                       // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_OpenMovieSource;
 
 // Function CriWareRuntime.ManaPlayer.OpenPlaylist
 // 0x0010 (0x0010 - 0x0000)
@@ -2249,6 +2489,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ManaPlayer_OpenPlaylist;
 
 // Function CriWareRuntime.ManaPlayer.OpenPlaylistIndex
 // 0x0010 (0x0010 - 0x0000)
@@ -2260,6 +2501,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ManaPlayer_OpenPlaylistIndex;
 
 // Function CriWareRuntime.ManaPlayer.OpenSourceWithOptions
 // 0x0040 (0x0040 - 0x0000)
@@ -2271,6 +2513,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0038(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_39[0x7];                                       // 0x0039(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ManaPlayer_OpenSourceWithOptions;
 
 // Function CriWareRuntime.ManaPlayer.Pause
 // 0x0001 (0x0001 - 0x0000)
@@ -2279,6 +2522,7 @@ struct ManaPlayer_Pause final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_Pause;
 
 // Function CriWareRuntime.ManaPlayer.Play
 // 0x0001 (0x0001 - 0x0000)
@@ -2287,6 +2531,7 @@ struct ManaPlayer_Play final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_Play;
 
 // Function CriWareRuntime.ManaPlayer.Previous
 // 0x0001 (0x0001 - 0x0000)
@@ -2295,6 +2540,7 @@ struct ManaPlayer_Previous final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_Previous;
 
 // Function CriWareRuntime.ManaPlayer.Reopen
 // 0x0001 (0x0001 - 0x0000)
@@ -2303,6 +2549,7 @@ struct ManaPlayer_Reopen final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_Reopen;
 
 // Function CriWareRuntime.ManaPlayer.Rewind
 // 0x0001 (0x0001 - 0x0000)
@@ -2311,6 +2558,7 @@ struct ManaPlayer_Rewind final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_Rewind;
 
 // Function CriWareRuntime.ManaPlayer.Seek
 // 0x0010 (0x0010 - 0x0000)
@@ -2321,6 +2569,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ManaPlayer_Seek;
 
 // Function CriWareRuntime.ManaPlayer.SelectTrack
 // 0x000C (0x000C - 0x0000)
@@ -2333,6 +2582,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ManaPlayer_SelectTrack;
 
 // Function CriWareRuntime.ManaPlayer.SetLooping
 // 0x0002 (0x0002 - 0x0000)
@@ -2342,6 +2592,7 @@ public:
 	bool                                          Looping;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_SetLooping;
 
 // Function CriWareRuntime.ManaPlayer.SetRate
 // 0x0008 (0x0008 - 0x0000)
@@ -2352,6 +2603,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ManaPlayer_SetRate;
 
 // Function CriWareRuntime.ManaPlayer.SetTexture
 // 0x0008 (0x0008 - 0x0000)
@@ -2360,6 +2612,7 @@ struct ManaPlayer_SetTexture final
 public:
 	class UManaTexture*                           InManaTexture;                                     // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_SetTexture;
 
 // Function CriWareRuntime.ManaPlayer.SetTimeSyncedSource
 // 0x0008 (0x0008 - 0x0000)
@@ -2368,6 +2621,7 @@ struct ManaPlayer_SetTimeSyncedSource final
 public:
 	class UAtomComponent*                         SyncedSource;                                      // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_SetTimeSyncedSource;
 
 // Function CriWareRuntime.ManaPlayer.SetTrackFormat
 // 0x0010 (0x0010 - 0x0000)
@@ -2381,6 +2635,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ManaPlayer_SetTrackFormat;
 
 // Function CriWareRuntime.ManaPlayer.SetVolume
 // 0x0008 (0x0008 - 0x0000)
@@ -2392,6 +2647,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0005(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_6[0x2];                                        // 0x0006(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ManaPlayer_SetVolume;
 
 // Function CriWareRuntime.ManaPlayer.GetDuration
 // 0x0008 (0x0008 - 0x0000)
@@ -2400,6 +2656,7 @@ struct ManaPlayer_GetDuration final
 public:
 	struct FTimespan                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetDuration;
 
 // Function CriWareRuntime.ManaPlayer.GetFrames
 // 0x0004 (0x0004 - 0x0000)
@@ -2408,6 +2665,7 @@ struct ManaPlayer_GetFrames final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetFrames;
 
 // Function CriWareRuntime.ManaPlayer.GetMovieFrames
 // 0x0004 (0x0004 - 0x0000)
@@ -2416,6 +2674,7 @@ struct ManaPlayer_GetMovieFrames final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetMovieFrames;
 
 // Function CriWareRuntime.ManaPlayer.GetMovieSource
 // 0x0008 (0x0008 - 0x0000)
@@ -2424,6 +2683,7 @@ struct ManaPlayer_GetMovieSource final
 public:
 	class UManaMovie*                             ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetMovieSource;
 
 // Function CriWareRuntime.ManaPlayer.GetMovieTime
 // 0x0008 (0x0008 - 0x0000)
@@ -2432,6 +2692,7 @@ struct ManaPlayer_GetMovieTime final
 public:
 	struct FTimespan                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetMovieTime;
 
 // Function CriWareRuntime.ManaPlayer.GetNumTrackFormats
 // 0x000C (0x000C - 0x0000)
@@ -2443,6 +2704,7 @@ public:
 	int32                                         TrackIndex;                                        // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetNumTrackFormats;
 
 // Function CriWareRuntime.ManaPlayer.GetNumTracks
 // 0x0008 (0x0008 - 0x0000)
@@ -2453,6 +2715,7 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetNumTracks;
 
 // Function CriWareRuntime.ManaPlayer.GetPlaylistIndex
 // 0x0004 (0x0004 - 0x0000)
@@ -2461,6 +2724,7 @@ struct ManaPlayer_GetPlaylistIndex final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetPlaylistIndex;
 
 // Function CriWareRuntime.ManaPlayer.GetRate
 // 0x0004 (0x0004 - 0x0000)
@@ -2469,6 +2733,7 @@ struct ManaPlayer_GetRate final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetRate;
 
 // Function CriWareRuntime.ManaPlayer.GetSelectedTrack
 // 0x0008 (0x0008 - 0x0000)
@@ -2479,6 +2744,7 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetSelectedTrack;
 
 // Function CriWareRuntime.ManaPlayer.GetStatus
 // 0x0001 (0x0001 - 0x0000)
@@ -2487,6 +2753,7 @@ struct ManaPlayer_GetStatus final
 public:
 	EManaComponentStatus                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetStatus;
 
 // Function CriWareRuntime.ManaPlayer.GetTexture
 // 0x0008 (0x0008 - 0x0000)
@@ -2495,6 +2762,7 @@ struct ManaPlayer_GetTexture final
 public:
 	class UManaTexture*                           ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetTexture;
 
 // Function CriWareRuntime.ManaPlayer.GetTime
 // 0x0008 (0x0008 - 0x0000)
@@ -2503,6 +2771,7 @@ struct ManaPlayer_GetTime final
 public:
 	struct FTimespan                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetTime;
 
 // Function CriWareRuntime.ManaPlayer.GetTrackDisplayName
 // 0x0020 (0x0020 - 0x0000)
@@ -2514,6 +2783,7 @@ public:
 	int32                                         TrackIndex;                                        // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FText                                   ReturnValue;                                       // 0x0008(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetTrackDisplayName;
 
 // Function CriWareRuntime.ManaPlayer.GetTrackFormat
 // 0x000C (0x000C - 0x0000)
@@ -2525,6 +2795,7 @@ public:
 	int32                                         TrackIndex;                                        // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetTrackFormat;
 
 // Function CriWareRuntime.ManaPlayer.GetTrackLanguage
 // 0x0018 (0x0018 - 0x0000)
@@ -2536,6 +2807,7 @@ public:
 	int32                                         TrackIndex;                                        // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_GetTrackLanguage;
 
 // Function CriWareRuntime.ManaPlayer.HasError
 // 0x0001 (0x0001 - 0x0000)
@@ -2544,6 +2816,7 @@ struct ManaPlayer_HasError final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_HasError;
 
 // Function CriWareRuntime.ManaPlayer.IsClosed
 // 0x0001 (0x0001 - 0x0000)
@@ -2552,6 +2825,7 @@ struct ManaPlayer_IsClosed final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_IsClosed;
 
 // Function CriWareRuntime.ManaPlayer.IsLooping
 // 0x0001 (0x0001 - 0x0000)
@@ -2560,6 +2834,7 @@ struct ManaPlayer_IsLooping final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_IsLooping;
 
 // Function CriWareRuntime.ManaPlayer.IsPaused
 // 0x0001 (0x0001 - 0x0000)
@@ -2568,6 +2843,7 @@ struct ManaPlayer_IsPaused final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_IsPaused;
 
 // Function CriWareRuntime.ManaPlayer.IsPlaying
 // 0x0001 (0x0001 - 0x0000)
@@ -2576,6 +2852,7 @@ struct ManaPlayer_IsPlaying final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_IsPlaying;
 
 // Function CriWareRuntime.ManaPlayer.IsPreparing
 // 0x0001 (0x0001 - 0x0000)
@@ -2584,6 +2861,7 @@ struct ManaPlayer_IsPreparing final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_IsPreparing;
 
 // Function CriWareRuntime.ManaPlayer.IsReady
 // 0x0001 (0x0001 - 0x0000)
@@ -2592,6 +2870,7 @@ struct ManaPlayer_IsReady final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_IsReady;
 
 // Function CriWareRuntime.ManaPlayer.IsSeeking
 // 0x0001 (0x0001 - 0x0000)
@@ -2600,6 +2879,7 @@ struct ManaPlayer_IsSeeking final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlayer_IsSeeking;
 
 // Function CriWareRuntime.ManaPlaylist.Add
 // 0x0008 (0x0008 - 0x0000)
@@ -2608,6 +2888,7 @@ struct ManaPlaylist_Add final
 public:
 	class UManaMovie*                             ManaMovie;                                         // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlaylist_Add;
 
 // Function CriWareRuntime.ManaPlaylist.Get
 // 0x0010 (0x0010 - 0x0000)
@@ -2618,6 +2899,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UManaMovie*                             ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlaylist_Get;
 
 // Function CriWareRuntime.ManaPlaylist.GetNext
 // 0x0010 (0x0010 - 0x0000)
@@ -2628,6 +2910,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UManaMovie*                             ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlaylist_GetNext;
 
 // Function CriWareRuntime.ManaPlaylist.GetPrevious
 // 0x0010 (0x0010 - 0x0000)
@@ -2638,6 +2921,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UManaMovie*                             ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlaylist_GetPrevious;
 
 // Function CriWareRuntime.ManaPlaylist.GetRandom
 // 0x0010 (0x0010 - 0x0000)
@@ -2648,6 +2932,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UManaMovie*                             ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlaylist_GetRandom;
 
 // Function CriWareRuntime.ManaPlaylist.Insert
 // 0x0010 (0x0010 - 0x0000)
@@ -2658,6 +2943,7 @@ public:
 	int32                                         Index_0;                                           // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ManaPlaylist_Insert;
 
 // Function CriWareRuntime.ManaPlaylist.IsAlpha
 // 0x0001 (0x0001 - 0x0000)
@@ -2666,6 +2952,7 @@ struct ManaPlaylist_IsAlpha final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlaylist_IsAlpha;
 
 // Function CriWareRuntime.ManaPlaylist.IsMixedTypes
 // 0x0001 (0x0001 - 0x0000)
@@ -2674,6 +2961,7 @@ struct ManaPlaylist_IsMixedTypes final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlaylist_IsMixedTypes;
 
 // Function CriWareRuntime.ManaPlaylist.IsSeamless
 // 0x0001 (0x0001 - 0x0000)
@@ -2682,6 +2970,7 @@ struct ManaPlaylist_IsSeamless final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlaylist_IsSeamless;
 
 // Function CriWareRuntime.ManaPlaylist.Num
 // 0x0004 (0x0004 - 0x0000)
@@ -2690,6 +2979,7 @@ struct ManaPlaylist_Num final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlaylist_Num;
 
 // Function CriWareRuntime.ManaPlaylist.Remove
 // 0x0008 (0x0008 - 0x0000)
@@ -2698,6 +2988,7 @@ struct ManaPlaylist_Remove final
 public:
 	class UManaMovie*                             ManaMovie;                                         // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlaylist_Remove;
 
 // Function CriWareRuntime.ManaPlaylist.RemoveAt
 // 0x0004 (0x0004 - 0x0000)
@@ -2706,6 +2997,7 @@ struct ManaPlaylist_RemoveAt final
 public:
 	int32                                         Index_0;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaPlaylist_RemoveAt;
 
 // Function CriWareRuntime.ManaTexture.SetMovieSource
 // 0x0008 (0x0008 - 0x0000)
@@ -2714,6 +3006,7 @@ struct ManaTexture_SetMovieSource final
 public:
 	class UManaSource*                            InSource;                                          // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ManaTexture_SetMovieSource;
 
 // Function CriWareRuntime.SoundAtomConfig.GetCategoryInfoArray
 // 0x0010 (0x0010 - 0x0000)
@@ -2722,6 +3015,7 @@ struct SoundAtomConfig_GetCategoryInfoArray final
 public:
 	TArray<struct FAtomCategoryInfoParam>         ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomConfig_GetCategoryInfoArray;
 
 // Function CriWareRuntime.SoundAtomCue.BP_GetCueInfo
 // 0x0068 (0x0068 - 0x0000)
@@ -2732,6 +3026,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0060(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_61[0x7];                                       // 0x0061(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_SoundAtomCue_BP_GetCueInfo;
 
 // Function CriWareRuntime.SoundAtomCue.GetCullDistance
 // 0x0004 (0x0004 - 0x0000)
@@ -2740,6 +3035,7 @@ struct SoundAtomCue_GetCullDistance final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCue_GetCullDistance;
 
 // Function CriWareRuntime.SoundAtomCue.GetCullDistanceMarginToApply
 // 0x0004 (0x0004 - 0x0000)
@@ -2748,6 +3044,7 @@ struct SoundAtomCue_GetCullDistanceMarginToApply final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCue_GetCullDistanceMarginToApply;
 
 // Function CriWareRuntime.SoundAtomCue.GetCullingBoundaryDistanceToUse
 // 0x0004 (0x0004 - 0x0000)
@@ -2756,6 +3053,7 @@ struct SoundAtomCue_GetCullingBoundaryDistanceToUse final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCue_GetCullingBoundaryDistanceToUse;
 
 // Function CriWareRuntime.SoundAtomCue.GetCullingMarginDistanceToUse
 // 0x0004 (0x0004 - 0x0000)
@@ -2764,6 +3062,7 @@ struct SoundAtomCue_GetCullingMarginDistanceToUse final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCue_GetCullingMarginDistanceToUse;
 
 // Function CriWareRuntime.SoundAtomCue.GetEconomicTickBoundaryDistanceToUse
 // 0x0004 (0x0004 - 0x0000)
@@ -2772,6 +3071,7 @@ struct SoundAtomCue_GetEconomicTickBoundaryDistanceToUse final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCue_GetEconomicTickBoundaryDistanceToUse;
 
 // Function CriWareRuntime.SoundAtomCue.GetEconomicTickDistance
 // 0x0004 (0x0004 - 0x0000)
@@ -2780,6 +3080,7 @@ struct SoundAtomCue_GetEconomicTickDistance final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCue_GetEconomicTickDistance;
 
 // Function CriWareRuntime.SoundAtomCue.GetEconomicTickDistanceMarginToApply
 // 0x0004 (0x0004 - 0x0000)
@@ -2788,6 +3089,7 @@ struct SoundAtomCue_GetEconomicTickDistanceMarginToApply final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCue_GetEconomicTickDistanceMarginToApply;
 
 // Function CriWareRuntime.SoundAtomCue.GetEconomicTickFrequencyToApply
 // 0x0004 (0x0004 - 0x0000)
@@ -2796,6 +3098,7 @@ struct SoundAtomCue_GetEconomicTickFrequencyToApply final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCue_GetEconomicTickFrequencyToApply;
 
 // Function CriWareRuntime.SoundAtomCue.GetEconomicTickFrequencyToUse
 // 0x0004 (0x0004 - 0x0000)
@@ -2804,6 +3107,7 @@ struct SoundAtomCue_GetEconomicTickFrequencyToUse final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCue_GetEconomicTickFrequencyToUse;
 
 // Function CriWareRuntime.SoundAtomCue.GetEconomicTickMarginDistanceToUse
 // 0x0004 (0x0004 - 0x0000)
@@ -2812,6 +3116,7 @@ struct SoundAtomCue_GetEconomicTickMarginDistanceToUse final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCue_GetEconomicTickMarginDistanceToUse;
 
 // Function CriWareRuntime.SoundAtomCue.GetMaxAttenuationDistanceToApply
 // 0x0004 (0x0004 - 0x0000)
@@ -2820,6 +3125,7 @@ struct SoundAtomCue_GetMaxAttenuationDistanceToApply final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCue_GetMaxAttenuationDistanceToApply;
 
 // Function CriWareRuntime.SoundAtomCue.GetMaxAttenuationDistanceToUse
 // 0x0004 (0x0004 - 0x0000)
@@ -2828,6 +3134,7 @@ struct SoundAtomCue_GetMaxAttenuationDistanceToUse final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCue_GetMaxAttenuationDistanceToUse;
 
 // Function CriWareRuntime.SoundAtomCue.IsEconomicTickEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -2836,6 +3143,7 @@ struct SoundAtomCue_IsEconomicTickEnabled final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCue_IsEconomicTickEnabled;
 
 // Function CriWareRuntime.SoundAtomCue.IsLooping
 // 0x0001 (0x0001 - 0x0000)
@@ -2844,6 +3152,7 @@ struct SoundAtomCue_IsLooping final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCue_IsLooping;
 
 // Function CriWareRuntime.SoundAtomCue.Validate
 // 0x0001 (0x0001 - 0x0000)
@@ -2852,6 +3161,7 @@ struct SoundAtomCue_Validate final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCue_Validate;
 
 // Function CriWareRuntime.SoundAtomCueSheet.ApplyDspBusSnapshot
 // 0x0018 (0x0018 - 0x0000)
@@ -2862,6 +3172,7 @@ public:
 	int32                                         Milliseconds;                                      // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_SoundAtomCueSheet_ApplyDspBusSnapshot;
 
 // Function CriWareRuntime.SoundAtomCueSheet.AttachDspBusSetting
 // 0x0010 (0x0010 - 0x0000)
@@ -2870,6 +3181,7 @@ struct SoundAtomCueSheet_AttachDspBusSetting final
 public:
 	class FString                                 SettingName;                                       // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCueSheet_AttachDspBusSetting;
 
 // Function CriWareRuntime.SoundAtomCueSheet.LoadAcb
 // 0x0018 (0x0018 - 0x0000)
@@ -2881,6 +3193,7 @@ public:
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class USoundAtomCueSheet*                     ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCueSheet_LoadAcb;
 
 // Function CriWareRuntime.SoundAtomCueSheet.LoadAtomCueSheet
 // 0x0018 (0x0018 - 0x0000)
@@ -2892,6 +3205,7 @@ public:
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class USoundAtomCueSheet*                     ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCueSheet_LoadAtomCueSheet;
 
 // Function CriWareRuntime.SoundAtomCueSheet.ReleaseAcb
 // 0x0008 (0x0008 - 0x0000)
@@ -2900,6 +3214,7 @@ struct SoundAtomCueSheet_ReleaseAcb final
 public:
 	class FName                                   AcbName;                                           // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCueSheet_ReleaseAcb;
 
 // Function CriWareRuntime.SoundAtomCueSheet.GetAtomCueById
 // 0x0010 (0x0010 - 0x0000)
@@ -2910,6 +3225,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class USoundAtomCue*                          ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCueSheet_GetAtomCueById;
 
 // Function CriWareRuntime.SoundAtomCueSheet.GetAtomCueByIndex
 // 0x0010 (0x0010 - 0x0000)
@@ -2920,6 +3236,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class USoundAtomCue*                          ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCueSheet_GetAtomCueByIndex;
 
 // Function CriWareRuntime.SoundAtomCueSheet.GetAtomCueByName
 // 0x0018 (0x0018 - 0x0000)
@@ -2929,6 +3246,7 @@ public:
 	class FString                                 CueName;                                           // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class USoundAtomCue*                          ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCueSheet_GetAtomCueByName;
 
 // Function CriWareRuntime.SoundAtomCueSheet.IsLoaded
 // 0x0001 (0x0001 - 0x0000)
@@ -2937,6 +3255,7 @@ struct SoundAtomCueSheet_IsLoaded final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCueSheet_IsLoaded;
 
 // Function CriWareRuntime.SoundAtomCueSheet.BP_GetCueInfoFromId
 // 0x0070 (0x0070 - 0x0000)
@@ -2949,6 +3268,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0068(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_69[0x7];                                       // 0x0069(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_SoundAtomCueSheet_BP_GetCueInfoFromId;
 
 // Function CriWareRuntime.SoundAtomCueSheet.BP_GetCueInfoFromIndex
 // 0x0070 (0x0070 - 0x0000)
@@ -2961,6 +3281,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0068(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_69[0x7];                                       // 0x0069(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_SoundAtomCueSheet_BP_GetCueInfoFromIndex;
 
 // Function CriWareRuntime.SoundAtomCueSheet.BP_GetCueInfoFromName
 // 0x0078 (0x0078 - 0x0000)
@@ -2972,6 +3293,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0070(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_71[0x7];                                       // 0x0071(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_SoundAtomCueSheet_BP_GetCueInfoFromName;
 
 // Function CriWareRuntime.SoundAtomCueSheet.GetNumCues
 // 0x0004 (0x0004 - 0x0000)
@@ -2980,6 +3302,7 @@ struct SoundAtomCueSheet_GetNumCues final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SoundAtomCueSheet_GetNumCues;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

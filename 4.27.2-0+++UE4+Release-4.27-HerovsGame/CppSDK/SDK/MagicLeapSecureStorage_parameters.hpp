@@ -13,8 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.DeleteSecureData
 // 0x0018 (0x0018 - 0x0000)
@@ -25,6 +25,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_DeleteSecureData;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.GetSecureArray
 // 0x0028 (0x0028 - 0x0000)
@@ -36,6 +37,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0020(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_GetSecureArray;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.GetSecureBool
 // 0x0018 (0x0018 - 0x0000)
@@ -47,6 +49,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0011(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_12[0x6];                                       // 0x0012(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_GetSecureBool;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.GetSecureByte
 // 0x0018 (0x0018 - 0x0000)
@@ -58,6 +61,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0011(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_12[0x6];                                       // 0x0012(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_GetSecureByte;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.GetSecureFloat
 // 0x0018 (0x0018 - 0x0000)
@@ -69,6 +73,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0014(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_GetSecureFloat;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.GetSecureInt
 // 0x0018 (0x0018 - 0x0000)
@@ -80,6 +85,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0014(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_GetSecureInt;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.GetSecureInt64
 // 0x0020 (0x0020 - 0x0000)
@@ -91,6 +97,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0018(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_GetSecureInt64;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.GetSecureRotator
 // 0x0020 (0x0020 - 0x0000)
@@ -102,6 +109,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x001C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_GetSecureRotator;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.GetSecureSaveGame
 // 0x0020 (0x0020 - 0x0000)
@@ -113,6 +121,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0018(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_GetSecureSaveGame;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.GetSecureString
 // 0x0028 (0x0028 - 0x0000)
@@ -124,6 +133,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0020(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_GetSecureString;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.GetSecureTransform
 // 0x0050 (0x0050 - 0x0000)
@@ -135,6 +145,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0040(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_41[0xF];                                       // 0x0041(0x000F)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_GetSecureTransform;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.GetSecureVector
 // 0x0020 (0x0020 - 0x0000)
@@ -146,6 +157,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x001C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_GetSecureVector;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.PutSecureArray
 // 0x0028 (0x0028 - 0x0000)
@@ -157,6 +169,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0020(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_PutSecureArray;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.PutSecureBool
 // 0x0018 (0x0018 - 0x0000)
@@ -168,6 +181,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0011(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_12[0x6];                                       // 0x0012(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_PutSecureBool;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.PutSecureByte
 // 0x0018 (0x0018 - 0x0000)
@@ -179,6 +193,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0011(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_12[0x6];                                       // 0x0012(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_PutSecureByte;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.PutSecureFloat
 // 0x0018 (0x0018 - 0x0000)
@@ -190,6 +205,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0014(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_PutSecureFloat;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.PutSecureInt
 // 0x0018 (0x0018 - 0x0000)
@@ -201,6 +217,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0014(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_PutSecureInt;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.PutSecureInt64
 // 0x0020 (0x0020 - 0x0000)
@@ -212,6 +229,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0018(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_PutSecureInt64;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.PutSecureRotator
 // 0x0020 (0x0020 - 0x0000)
@@ -223,6 +241,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x001C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_PutSecureRotator;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.PutSecureSaveGame
 // 0x0020 (0x0020 - 0x0000)
@@ -234,6 +253,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0018(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_PutSecureSaveGame;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.PutSecureString
 // 0x0028 (0x0028 - 0x0000)
@@ -245,6 +265,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0020(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_PutSecureString;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.PutSecureTransform
 // 0x0050 (0x0050 - 0x0000)
@@ -256,6 +277,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0040(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_41[0xF];                                       // 0x0041(0x000F)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_PutSecureTransform;
 
 // Function MagicLeapSecureStorage.MagicLeapSecureStorage.PutSecureVector
 // 0x0020 (0x0020 - 0x0000)
@@ -267,6 +289,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x001C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapSecureStorage_PutSecureVector;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

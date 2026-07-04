@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass DmgTypeBP_Environmental.DmgTypeBP_Environmental_C
 // 0x0000 (0x0040 - 0x0040)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UDmgTypeBP_Environmental_C>();
 	}
 };
+DUMPER7_ASSERTS_UDmgTypeBP_Environmental_C;
 
-SDK_NAMESPACE_END
+}
+

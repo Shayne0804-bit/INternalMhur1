@@ -13,7 +13,8 @@
 #include "GameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_BlockList.WBP_BlockList_C
 // 0x0000 (0x03D0 - 0x03D0)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UWBP_BlockList_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_BlockList_C;
 
-SDK_NAMESPACE_END
+}
+

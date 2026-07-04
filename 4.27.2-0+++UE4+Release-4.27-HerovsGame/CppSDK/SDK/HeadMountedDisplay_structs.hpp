@@ -14,7 +14,8 @@
 #include "InputCore_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum HeadMountedDisplay.EXRVisualType
 // NumValues: 0x0003
@@ -186,6 +187,7 @@ public:
 	bool                                          bIsGrasped;                                        // 0x0090(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_91[0xF];                                       // 0x0091(0x000F)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FXRMotionControllerData;
 
 // ScriptStruct HeadMountedDisplay.XRHMDData
 // 0x0040 (0x0040 - 0x0000)
@@ -202,6 +204,7 @@ public:
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FQuat                                  Rotation;                                          // 0x0030(0x0010)(BlueprintVisible, BlueprintReadOnly, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FXRHMDData;
 
 // ScriptStruct HeadMountedDisplay.XRDeviceId
 // 0x000C (0x000C - 0x0000)
@@ -211,6 +214,7 @@ public:
 	class FName                                   SystemName;                                        // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         DeviceID;                                          // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FXRDeviceId;
 
 // ScriptStruct HeadMountedDisplay.XRGestureConfig
 // 0x0006 (0x0006 - 0x0000)
@@ -224,5 +228,7 @@ public:
 	bool                                          bNavigationAxisY;                                  // 0x0004(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          bNavigationAxisZ;                                  // 0x0005(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FXRGestureConfig;
 
-SDK_NAMESPACE_END
+}
+

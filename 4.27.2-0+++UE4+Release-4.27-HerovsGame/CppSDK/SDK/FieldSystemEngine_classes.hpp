@@ -17,7 +17,8 @@
 #include "FieldSystemEngine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class FieldSystemEngine.FieldSystemActor
 // 0x0008 (0x0228 - 0x0220)
@@ -40,6 +41,7 @@ public:
 		return GetDefaultObjImpl<AFieldSystemActor>();
 	}
 };
+DUMPER7_ASSERTS_AFieldSystemActor;
 
 // Class FieldSystemEngine.FieldSystem
 // 0x0010 (0x0038 - 0x0028)
@@ -62,6 +64,7 @@ public:
 		return GetDefaultObjImpl<UFieldSystem>();
 	}
 };
+DUMPER7_ASSERTS_UFieldSystem;
 
 // Class FieldSystemEngine.FieldSystemComponent
 // 0x00D0 (0x0520 - 0x0450)
@@ -104,6 +107,7 @@ public:
 		return GetDefaultObjImpl<UFieldSystemComponent>();
 	}
 };
+DUMPER7_ASSERTS_UFieldSystemComponent;
 
 // Class FieldSystemEngine.FieldSystemMetaData
 // 0x0000 (0x00B0 - 0x00B0)
@@ -123,6 +127,7 @@ public:
 		return GetDefaultObjImpl<UFieldSystemMetaData>();
 	}
 };
+DUMPER7_ASSERTS_UFieldSystemMetaData;
 
 // Class FieldSystemEngine.FieldSystemMetaDataIteration
 // 0x0008 (0x00B8 - 0x00B0)
@@ -149,6 +154,7 @@ public:
 		return GetDefaultObjImpl<UFieldSystemMetaDataIteration>();
 	}
 };
+DUMPER7_ASSERTS_UFieldSystemMetaDataIteration;
 
 // Class FieldSystemEngine.FieldSystemMetaDataProcessingResolution
 // 0x0008 (0x00B8 - 0x00B0)
@@ -175,6 +181,7 @@ public:
 		return GetDefaultObjImpl<UFieldSystemMetaDataProcessingResolution>();
 	}
 };
+DUMPER7_ASSERTS_UFieldSystemMetaDataProcessingResolution;
 
 // Class FieldSystemEngine.FieldSystemMetaDataFilter
 // 0x0008 (0x00B8 - 0x00B0)
@@ -201,6 +208,7 @@ public:
 		return GetDefaultObjImpl<UFieldSystemMetaDataFilter>();
 	}
 };
+DUMPER7_ASSERTS_UFieldSystemMetaDataFilter;
 
 // Class FieldSystemEngine.FieldNodeBase
 // 0x0000 (0x00B0 - 0x00B0)
@@ -220,6 +228,7 @@ public:
 		return GetDefaultObjImpl<UFieldNodeBase>();
 	}
 };
+DUMPER7_ASSERTS_UFieldNodeBase;
 
 // Class FieldSystemEngine.FieldNodeInt
 // 0x0000 (0x00B0 - 0x00B0)
@@ -239,6 +248,7 @@ public:
 		return GetDefaultObjImpl<UFieldNodeInt>();
 	}
 };
+DUMPER7_ASSERTS_UFieldNodeInt;
 
 // Class FieldSystemEngine.FieldNodeFloat
 // 0x0000 (0x00B0 - 0x00B0)
@@ -258,6 +268,7 @@ public:
 		return GetDefaultObjImpl<UFieldNodeFloat>();
 	}
 };
+DUMPER7_ASSERTS_UFieldNodeFloat;
 
 // Class FieldSystemEngine.FieldNodeVector
 // 0x0000 (0x00B0 - 0x00B0)
@@ -277,6 +288,7 @@ public:
 		return GetDefaultObjImpl<UFieldNodeVector>();
 	}
 };
+DUMPER7_ASSERTS_UFieldNodeVector;
 
 // Class FieldSystemEngine.UniformInteger
 // 0x0008 (0x00B8 - 0x00B0)
@@ -303,6 +315,7 @@ public:
 		return GetDefaultObjImpl<UUniformInteger>();
 	}
 };
+DUMPER7_ASSERTS_UUniformInteger;
 
 // Class FieldSystemEngine.RadialIntMask
 // 0x0020 (0x00D0 - 0x00B0)
@@ -333,6 +346,7 @@ public:
 		return GetDefaultObjImpl<URadialIntMask>();
 	}
 };
+DUMPER7_ASSERTS_URadialIntMask;
 
 // Class FieldSystemEngine.UniformScalar
 // 0x0008 (0x00B8 - 0x00B0)
@@ -359,6 +373,7 @@ public:
 		return GetDefaultObjImpl<UUniformScalar>();
 	}
 };
+DUMPER7_ASSERTS_UUniformScalar;
 
 // Class FieldSystemEngine.WaveScalar
 // 0x0020 (0x00D0 - 0x00B0)
@@ -390,6 +405,7 @@ public:
 		return GetDefaultObjImpl<UWaveScalar>();
 	}
 };
+DUMPER7_ASSERTS_UWaveScalar;
 
 // Class FieldSystemEngine.RadialFalloff
 // 0x0028 (0x00D8 - 0x00B0)
@@ -422,6 +438,7 @@ public:
 		return GetDefaultObjImpl<URadialFalloff>();
 	}
 };
+DUMPER7_ASSERTS_URadialFalloff;
 
 // Class FieldSystemEngine.PlaneFalloff
 // 0x0030 (0x00E0 - 0x00B0)
@@ -455,6 +472,7 @@ public:
 		return GetDefaultObjImpl<UPlaneFalloff>();
 	}
 };
+DUMPER7_ASSERTS_UPlaneFalloff;
 
 // Class FieldSystemEngine.BoxFalloff
 // 0x0050 (0x0100 - 0x00B0)
@@ -486,6 +504,7 @@ public:
 		return GetDefaultObjImpl<UBoxFalloff>();
 	}
 };
+DUMPER7_ASSERTS_UBoxFalloff;
 
 // Class FieldSystemEngine.NoiseField
 // 0x0040 (0x00F0 - 0x00B0)
@@ -514,6 +533,7 @@ public:
 		return GetDefaultObjImpl<UNoiseField>();
 	}
 };
+DUMPER7_ASSERTS_UNoiseField;
 
 // Class FieldSystemEngine.UniformVector
 // 0x0010 (0x00C0 - 0x00B0)
@@ -540,6 +560,7 @@ public:
 		return GetDefaultObjImpl<UUniformVector>();
 	}
 };
+DUMPER7_ASSERTS_UUniformVector;
 
 // Class FieldSystemEngine.RadialVector
 // 0x0010 (0x00C0 - 0x00B0)
@@ -566,6 +587,7 @@ public:
 		return GetDefaultObjImpl<URadialVector>();
 	}
 };
+DUMPER7_ASSERTS_URadialVector;
 
 // Class FieldSystemEngine.RandomVector
 // 0x0008 (0x00B8 - 0x00B0)
@@ -592,6 +614,7 @@ public:
 		return GetDefaultObjImpl<URandomVector>();
 	}
 };
+DUMPER7_ASSERTS_URandomVector;
 
 // Class FieldSystemEngine.OperatorField
 // 0x0020 (0x00D0 - 0x00B0)
@@ -622,6 +645,7 @@ public:
 		return GetDefaultObjImpl<UOperatorField>();
 	}
 };
+DUMPER7_ASSERTS_UOperatorField;
 
 // Class FieldSystemEngine.ToIntegerField
 // 0x0008 (0x00B8 - 0x00B0)
@@ -647,6 +671,7 @@ public:
 		return GetDefaultObjImpl<UToIntegerField>();
 	}
 };
+DUMPER7_ASSERTS_UToIntegerField;
 
 // Class FieldSystemEngine.ToFloatField
 // 0x0008 (0x00B8 - 0x00B0)
@@ -672,6 +697,7 @@ public:
 		return GetDefaultObjImpl<UToFloatField>();
 	}
 };
+DUMPER7_ASSERTS_UToFloatField;
 
 // Class FieldSystemEngine.CullingField
 // 0x0018 (0x00C8 - 0x00B0)
@@ -700,6 +726,7 @@ public:
 		return GetDefaultObjImpl<UCullingField>();
 	}
 };
+DUMPER7_ASSERTS_UCullingField;
 
 // Class FieldSystemEngine.ReturnResultsTerminal
 // 0x0000 (0x00B0 - 0x00B0)
@@ -722,5 +749,7 @@ public:
 		return GetDefaultObjImpl<UReturnResultsTerminal>();
 	}
 };
+DUMPER7_ASSERTS_UReturnResultsTerminal;
 
-SDK_NAMESPACE_END
+}
+

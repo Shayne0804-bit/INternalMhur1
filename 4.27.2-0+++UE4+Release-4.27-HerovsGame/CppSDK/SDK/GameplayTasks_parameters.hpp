@@ -14,8 +14,8 @@
 #include "GameplayTasks_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function GameplayTasks.GameplayTask_ClaimResource.ClaimResource
 // 0x0030 (0x0030 - 0x0000)
@@ -30,6 +30,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UGameplayTask_ClaimResource*            ReturnValue;                                       // 0x0028(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GameplayTask_ClaimResource_ClaimResource;
 
 // Function GameplayTasks.GameplayTask_ClaimResource.ClaimResources
 // 0x0038 (0x0038 - 0x0000)
@@ -44,6 +45,7 @@ public:
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UGameplayTask_ClaimResource*            ReturnValue;                                       // 0x0030(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GameplayTask_ClaimResource_ClaimResources;
 
 // Function GameplayTasks.GameplayTask_SpawnActor.SpawnActor
 // 0x0040 (0x0040 - 0x0000)
@@ -58,6 +60,7 @@ public:
 	uint8                                         Pad_31[0x7];                                       // 0x0031(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UGameplayTask_SpawnActor*               ReturnValue;                                       // 0x0038(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GameplayTask_SpawnActor_SpawnActor;
 
 // Function GameplayTasks.GameplayTask_SpawnActor.BeginSpawningActor
 // 0x0018 (0x0018 - 0x0000)
@@ -69,6 +72,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_GameplayTask_SpawnActor_BeginSpawningActor;
 
 // Function GameplayTasks.GameplayTask_SpawnActor.FinishSpawningActor
 // 0x0010 (0x0010 - 0x0000)
@@ -78,6 +82,7 @@ public:
 	class UObject*                                WorldContextObject;                                // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class AActor*                                 SpawnedActor;                                      // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GameplayTask_SpawnActor_FinishSpawningActor;
 
 // Function GameplayTasks.GameplayTask_WaitDelay.TaskWaitDelay
 // 0x0020 (0x0020 - 0x0000)
@@ -90,6 +95,7 @@ public:
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class UGameplayTask_WaitDelay*                ReturnValue;                                       // 0x0018(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GameplayTask_WaitDelay_TaskWaitDelay;
 
 // Function GameplayTasks.GameplayTasksComponent.K2_RunGameplayTask
 // 0x0048 (0x0048 - 0x0000)
@@ -105,6 +111,7 @@ public:
 	EGameplayTaskRunResult                        ReturnValue;                                       // 0x0040(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_41[0x7];                                       // 0x0041(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_GameplayTasksComponent_K2_RunGameplayTask;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

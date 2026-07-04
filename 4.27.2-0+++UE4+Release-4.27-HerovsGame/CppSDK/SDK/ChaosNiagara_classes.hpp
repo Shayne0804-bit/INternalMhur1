@@ -15,7 +15,8 @@
 #include "Niagara_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class ChaosNiagara.NiagaraDataInterfaceChaosDestruction
 // 0x0200 (0x0238 - 0x0038)
@@ -96,6 +97,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceChaosDestruction>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceChaosDestruction;
 
 // Class ChaosNiagara.NiagaraDataInterfacePhysicsField
 // 0x0000 (0x0038 - 0x0038)
@@ -115,5 +117,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfacePhysicsField>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfacePhysicsField;
 
-SDK_NAMESPACE_END
+}
+

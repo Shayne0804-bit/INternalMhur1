@@ -17,7 +17,8 @@
 #include "DatasmithContent_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class DatasmithContent.DatasmithAssetImportData
 // 0x0000 (0x0028 - 0x0028)
@@ -37,6 +38,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithAssetImportData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithAssetImportData;
 
 // Class DatasmithContent.DatasmithStaticMeshImportData
 // 0x0000 (0x0028 - 0x0028)
@@ -56,6 +58,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithStaticMeshImportData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithStaticMeshImportData;
 
 // Class DatasmithContent.DatasmithStaticMeshCADImportData
 // 0x0000 (0x0028 - 0x0028)
@@ -75,6 +78,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithStaticMeshCADImportData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithStaticMeshCADImportData;
 
 // Class DatasmithContent.DatasmithObjectTemplate
 // 0x0008 (0x0030 - 0x0028)
@@ -97,6 +101,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithObjectTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithObjectTemplate;
 
 // Class DatasmithContent.DatasmithActorTemplate
 // 0x00A0 (0x00D0 - 0x0030)
@@ -120,6 +125,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithActorTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithActorTemplate;
 
 // Class DatasmithContent.DatasmithAdditionalData
 // 0x0000 (0x0028 - 0x0028)
@@ -139,6 +145,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithAdditionalData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithAdditionalData;
 
 // Class DatasmithContent.DatasmithAreaLightActor
 // 0x0058 (0x0278 - 0x0220)
@@ -180,6 +187,7 @@ public:
 		return GetDefaultObjImpl<ADatasmithAreaLightActor>();
 	}
 };
+DUMPER7_ASSERTS_ADatasmithAreaLightActor;
 
 // Class DatasmithContent.DatasmithAreaLightActorTemplate
 // 0x0070 (0x00A0 - 0x0030)
@@ -218,6 +226,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithAreaLightActorTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithAreaLightActorTemplate;
 
 // Class DatasmithContent.DatasmithSceneImportData
 // 0x0000 (0x0028 - 0x0028)
@@ -237,6 +246,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithSceneImportData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithSceneImportData;
 
 // Class DatasmithContent.DatasmithTranslatedSceneImportData
 // 0x0000 (0x0028 - 0x0028)
@@ -256,6 +266,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithTranslatedSceneImportData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithTranslatedSceneImportData;
 
 // Class DatasmithContent.DatasmithCADImportSceneData
 // 0x0000 (0x0028 - 0x0028)
@@ -275,6 +286,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithCADImportSceneData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithCADImportSceneData;
 
 // Class DatasmithContent.DatasmithMDLSceneImportData
 // 0x0000 (0x0028 - 0x0028)
@@ -294,6 +306,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithMDLSceneImportData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithMDLSceneImportData;
 
 // Class DatasmithContent.DatasmithGLTFSceneImportData
 // 0x0048 (0x0070 - 0x0028)
@@ -321,6 +334,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithGLTFSceneImportData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithGLTFSceneImportData;
 
 // Class DatasmithContent.DatasmithStaticMeshGLTFImportData
 // 0x0010 (0x0038 - 0x0028)
@@ -343,6 +357,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithStaticMeshGLTFImportData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithStaticMeshGLTFImportData;
 
 // Class DatasmithContent.DatasmithFBXSceneImportData
 // 0x0020 (0x0048 - 0x0028)
@@ -370,6 +385,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithFBXSceneImportData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithFBXSceneImportData;
 
 // Class DatasmithContent.DatasmithDeltaGenAssetImportData
 // 0x0000 (0x0028 - 0x0028)
@@ -389,6 +405,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithDeltaGenAssetImportData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithDeltaGenAssetImportData;
 
 // Class DatasmithContent.DatasmithDeltaGenSceneImportData
 // 0x0048 (0x0090 - 0x0048)
@@ -423,6 +440,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithDeltaGenSceneImportData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithDeltaGenSceneImportData;
 
 // Class DatasmithContent.DatasmithVREDAssetImportData
 // 0x0000 (0x0028 - 0x0028)
@@ -442,6 +460,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithVREDAssetImportData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithVREDAssetImportData;
 
 // Class DatasmithContent.DatasmithVREDSceneImportData
 // 0x0060 (0x00A8 - 0x0048)
@@ -478,6 +497,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithVREDSceneImportData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithVREDSceneImportData;
 
 // Class DatasmithContent.DatasmithIFCSceneImportData
 // 0x0000 (0x0028 - 0x0028)
@@ -497,6 +517,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithIFCSceneImportData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithIFCSceneImportData;
 
 // Class DatasmithContent.DatasmithStaticMeshIFCImportData
 // 0x0010 (0x0038 - 0x0028)
@@ -519,6 +540,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithStaticMeshIFCImportData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithStaticMeshIFCImportData;
 
 // Class DatasmithContent.DatasmithAssetUserData
 // 0x0050 (0x0078 - 0x0028)
@@ -541,6 +563,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithAssetUserData>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithAssetUserData;
 
 // Class DatasmithContent.DatasmithCineCameraActorTemplate
 // 0x0030 (0x0060 - 0x0030)
@@ -563,6 +586,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithCineCameraActorTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithCineCameraActorTemplate;
 
 // Class DatasmithContent.DatasmithCineCameraComponentTemplate
 // 0x0060 (0x0090 - 0x0030)
@@ -591,6 +615,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithCineCameraComponentTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithCineCameraComponentTemplate;
 
 // Class DatasmithContent.DatasmithContentBlueprintLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -615,6 +640,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithContentBlueprintLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithContentBlueprintLibrary;
 
 // Class DatasmithContent.DatasmithCustomActionBase
 // 0x0008 (0x0030 - 0x0028)
@@ -637,6 +663,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithCustomActionBase>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithCustomActionBase;
 
 // Class DatasmithContent.DatasmithDecalComponentTemplate
 // 0x0018 (0x0048 - 0x0030)
@@ -661,6 +688,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithDecalComponentTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithDecalComponentTemplate;
 
 // Class DatasmithContent.DatasmithImportedSequencesActor
 // 0x0010 (0x0230 - 0x0220)
@@ -686,6 +714,7 @@ public:
 		return GetDefaultObjImpl<ADatasmithImportedSequencesActor>();
 	}
 };
+DUMPER7_ASSERTS_ADatasmithImportedSequencesActor;
 
 // Class DatasmithContent.DatasmithOptionsBase
 // 0x0000 (0x0028 - 0x0028)
@@ -705,6 +734,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithOptionsBase>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithOptionsBase;
 
 // Class DatasmithContent.DatasmithCommonTessellationOptions
 // 0x0010 (0x0038 - 0x0028)
@@ -727,6 +757,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithCommonTessellationOptions>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithCommonTessellationOptions;
 
 // Class DatasmithContent.DatasmithImportOptions
 // 0x0048 (0x0070 - 0x0028)
@@ -762,6 +793,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithImportOptions>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithImportOptions;
 
 // Class DatasmithContent.DatasmithLandscapeTemplate
 // 0x0010 (0x0040 - 0x0030)
@@ -786,6 +818,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithLandscapeTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithLandscapeTemplate;
 
 // Class DatasmithContent.DatasmithLightComponentTemplate
 // 0x0038 (0x0068 - 0x0030)
@@ -821,6 +854,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithLightComponentTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithLightComponentTemplate;
 
 // Class DatasmithContent.DatasmithMaterialInstanceTemplate
 // 0x0168 (0x0198 - 0x0030)
@@ -847,6 +881,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithMaterialInstanceTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithMaterialInstanceTemplate;
 
 // Class DatasmithContent.DatasmithPointLightComponentTemplate
 // 0x0010 (0x0040 - 0x0030)
@@ -873,6 +908,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithPointLightComponentTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithPointLightComponentTemplate;
 
 // Class DatasmithContent.DatasmithPostProcessVolumeTemplate
 // 0x0050 (0x0080 - 0x0030)
@@ -898,6 +934,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithPostProcessVolumeTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithPostProcessVolumeTemplate;
 
 // Class DatasmithContent.DatasmithScene
 // 0x0008 (0x0030 - 0x0028)
@@ -920,6 +957,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithScene>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithScene;
 
 // Class DatasmithContent.DatasmithSceneActor
 // 0x0058 (0x0278 - 0x0220)
@@ -943,6 +981,7 @@ public:
 		return GetDefaultObjImpl<ADatasmithSceneActor>();
 	}
 };
+DUMPER7_ASSERTS_ADatasmithSceneActor;
 
 // Class DatasmithContent.DatasmithSceneComponentTemplate
 // 0x00C0 (0x00F0 - 0x0030)
@@ -972,6 +1011,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithSceneComponentTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithSceneComponentTemplate;
 
 // Class DatasmithContent.DatasmithSkyLightComponentTemplate
 // 0x0010 (0x0040 - 0x0030)
@@ -997,6 +1037,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithSkyLightComponentTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithSkyLightComponentTemplate;
 
 // Class DatasmithContent.DatasmithSpotLightComponentTemplate
 // 0x0008 (0x0038 - 0x0030)
@@ -1020,6 +1061,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithSpotLightComponentTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithSpotLightComponentTemplate;
 
 // Class DatasmithContent.DatasmithStaticMeshComponentTemplate
 // 0x0018 (0x0048 - 0x0030)
@@ -1043,6 +1085,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithStaticMeshComponentTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithStaticMeshComponentTemplate;
 
 // Class DatasmithContent.DatasmithStaticMeshTemplate
 // 0x0078 (0x00A8 - 0x0030)
@@ -1069,5 +1112,7 @@ public:
 		return GetDefaultObjImpl<UDatasmithStaticMeshTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UDatasmithStaticMeshTemplate;
 
-SDK_NAMESPACE_END
+}
+

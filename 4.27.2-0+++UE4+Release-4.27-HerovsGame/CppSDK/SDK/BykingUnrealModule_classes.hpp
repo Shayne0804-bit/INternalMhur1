@@ -25,7 +25,8 @@
 #include "BackendSubsystem_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class BykingUnrealModule.ActionBase
 // 0x00D0 (0x00F8 - 0x0028)
@@ -74,6 +75,7 @@ public:
 		return GetDefaultObjImpl<UActionBase>();
 	}
 };
+DUMPER7_ASSERTS_UActionBase;
 
 // Class BykingUnrealModule.CharacterComponentBase
 // 0x0020 (0x00D0 - 0x00B0)
@@ -100,6 +102,7 @@ public:
 		return GetDefaultObjImpl<UCharacterComponentBase>();
 	}
 };
+DUMPER7_ASSERTS_UCharacterComponentBase;
 
 // Class BykingUnrealModule.ActionDriveComponent
 // 0x0098 (0x0168 - 0x00D0)
@@ -131,6 +134,7 @@ public:
 		return GetDefaultObjImpl<UActionDriveComponent>();
 	}
 };
+DUMPER7_ASSERTS_UActionDriveComponent;
 
 // Class BykingUnrealModule.AN_CharacterBase
 // 0x0008 (0x0040 - 0x0038)
@@ -154,6 +158,7 @@ public:
 		return GetDefaultObjImpl<UAN_CharacterBase>();
 	}
 };
+DUMPER7_ASSERTS_UAN_CharacterBase;
 
 // Class BykingUnrealModule.AN_ActionEvent
 // 0x0010 (0x0050 - 0x0040)
@@ -177,6 +182,7 @@ public:
 		return GetDefaultObjImpl<UAN_ActionEvent>();
 	}
 };
+DUMPER7_ASSERTS_UAN_ActionEvent;
 
 // Class BykingUnrealModule.ANS_CharacterBase
 // 0x0008 (0x0038 - 0x0030)
@@ -200,6 +206,7 @@ public:
 		return GetDefaultObjImpl<UANS_CharacterBase>();
 	}
 };
+DUMPER7_ASSERTS_UANS_CharacterBase;
 
 // Class BykingUnrealModule.BumAIController
 // 0x0000 (0x0328 - 0x0328)
@@ -219,6 +226,7 @@ public:
 		return GetDefaultObjImpl<ABumAIController>();
 	}
 };
+DUMPER7_ASSERTS_ABumAIController;
 
 // Class BykingUnrealModule.BumPlayerController
 // 0x0000 (0x0588 - 0x0588)
@@ -238,6 +246,7 @@ public:
 		return GetDefaultObjImpl<ABumPlayerController>();
 	}
 };
+DUMPER7_ASSERTS_ABumPlayerController;
 
 // Class BykingUnrealModule.BykingCineCameraActor
 // 0x0000 (0x0810 - 0x0810)
@@ -260,6 +269,7 @@ public:
 		return GetDefaultObjImpl<ABykingCineCameraActor>();
 	}
 };
+DUMPER7_ASSERTS_ABykingCineCameraActor;
 
 // Class BykingUnrealModule.BykingWidgetVersionNotation
 // 0x0018 (0x03A0 - 0x0388)
@@ -284,6 +294,7 @@ public:
 		return GetDefaultObjImpl<UBykingWidgetVersionNotation>();
 	}
 };
+DUMPER7_ASSERTS_UBykingWidgetVersionNotation;
 
 // Class BykingUnrealModule.CapsuleComponentDummy
 // 0x0000 (0x0470 - 0x0470)
@@ -303,6 +314,7 @@ public:
 		return GetDefaultObjImpl<UCapsuleComponentDummy>();
 	}
 };
+DUMPER7_ASSERTS_UCapsuleComponentDummy;
 
 // Class BykingUnrealModule.CharacterDummy
 // 0x0040 (0x02C0 - 0x0280)
@@ -328,6 +340,7 @@ public:
 		return GetDefaultObjImpl<ACharacterDummy>();
 	}
 };
+DUMPER7_ASSERTS_ACharacterDummy;
 
 // Class BykingUnrealModule.CharacterBase
 // 0x00C8 (0x0388 - 0x02C0)
@@ -364,6 +377,7 @@ public:
 		return GetDefaultObjImpl<ACharacterBase>();
 	}
 };
+DUMPER7_ASSERTS_ACharacterBase;
 
 // Class BykingUnrealModule.CPP_SequenceActorBase
 // 0x0048 (0x02F0 - 0x02A8)
@@ -392,6 +406,7 @@ public:
 		return GetDefaultObjImpl<ACPP_SequenceActorBase>();
 	}
 };
+DUMPER7_ASSERTS_ACPP_SequenceActorBase;
 
 // Class BykingUnrealModule.DatabaseWork
 // 0x0010 (0x0040 - 0x0030)
@@ -414,6 +429,7 @@ public:
 		return GetDefaultObjImpl<UDatabaseWork>();
 	}
 };
+DUMPER7_ASSERTS_UDatabaseWork;
 
 // Class BykingUnrealModule.DebugSaveData
 // 0x0068 (0x0090 - 0x0028)
@@ -439,6 +455,7 @@ public:
 		return GetDefaultObjImpl<UDebugSaveData>();
 	}
 };
+DUMPER7_ASSERTS_UDebugSaveData;
 
 // Class BykingUnrealModule.DelayInitializer
 // 0x0028 (0x00D8 - 0x00B0)
@@ -461,6 +478,7 @@ public:
 		return GetDefaultObjImpl<UDelayInitializer>();
 	}
 };
+DUMPER7_ASSERTS_UDelayInitializer;
 
 // Class BykingUnrealModule.OutlineSkeletalMeshComponent
 // 0x0040 (0x0F30 - 0x0EF0)
@@ -494,6 +512,7 @@ public:
 		return GetDefaultObjImpl<UOutlineSkeletalMeshComponent>();
 	}
 };
+DUMPER7_ASSERTS_UOutlineSkeletalMeshComponent;
 
 // Class BykingUnrealModule.EnhancedSkeletalMeshComponent
 // 0x0030 (0x0F60 - 0x0F30)
@@ -521,6 +540,7 @@ public:
 		return GetDefaultObjImpl<UEnhancedSkeletalMeshComponent>();
 	}
 };
+DUMPER7_ASSERTS_UEnhancedSkeletalMeshComponent;
 
 // Class BykingUnrealModule.EnhancedStaticMeshComponent
 // 0x0000 (0x04E0 - 0x04E0)
@@ -540,6 +560,7 @@ public:
 		return GetDefaultObjImpl<UEnhancedStaticMeshComponent>();
 	}
 };
+DUMPER7_ASSERTS_UEnhancedStaticMeshComponent;
 
 // Class BykingUnrealModule.HttpChunkBPFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -567,6 +588,7 @@ public:
 		return GetDefaultObjImpl<UHttpChunkBPFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UHttpChunkBPFunctionLibrary;
 
 // Class BykingUnrealModule.MathStatics
 // 0x0000 (0x0028 - 0x0028)
@@ -608,6 +630,7 @@ public:
 		return GetDefaultObjImpl<UMathStatics>();
 	}
 };
+DUMPER7_ASSERTS_UMathStatics;
 
 // Class BykingUnrealModule.MovementComponentDummy
 // 0x0000 (0x0138 - 0x0138)
@@ -627,6 +650,7 @@ public:
 		return GetDefaultObjImpl<UMovementComponentDummy>();
 	}
 };
+DUMPER7_ASSERTS_UMovementComponentDummy;
 
 // Class BykingUnrealModule.MyBlueprintFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -655,6 +679,7 @@ public:
 		return GetDefaultObjImpl<UMyBlueprintFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UMyBlueprintFunctionLibrary;
 
 // Class BykingUnrealModule.OutlineAssetUserData
 // 0x0050 (0x0078 - 0x0028)
@@ -677,6 +702,7 @@ public:
 		return GetDefaultObjImpl<UOutlineAssetUserData>();
 	}
 };
+DUMPER7_ASSERTS_UOutlineAssetUserData;
 
 // Class BykingUnrealModule.OutlineStaticMeshComponent
 // 0x0010 (0x04F0 - 0x04E0)
@@ -699,6 +725,7 @@ public:
 		return GetDefaultObjImpl<UOutlineStaticMeshComponent>();
 	}
 };
+DUMPER7_ASSERTS_UOutlineStaticMeshComponent;
 
 // Class BykingUnrealModule.PlatformSubsystem
 // 0x00F0 (0x0120 - 0x0030)
@@ -738,6 +765,7 @@ public:
 		return GetDefaultObjImpl<UPlatformSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UPlatformSubsystem;
 
 // Class BykingUnrealModule.RayCastHelperSubsystem
 // 0x0000 (0x0030 - 0x0030)
@@ -757,6 +785,7 @@ public:
 		return GetDefaultObjImpl<URayCastHelperSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_URayCastHelperSubsystem;
 
 // Class BykingUnrealModule.SystemUtility
 // 0x0000 (0x0030 - 0x0030)
@@ -784,5 +813,7 @@ public:
 		return GetDefaultObjImpl<USystemUtility>();
 	}
 };
+DUMPER7_ASSERTS_USystemUtility;
 
-SDK_NAMESPACE_END
+}
+

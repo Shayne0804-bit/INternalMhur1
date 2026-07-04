@@ -14,7 +14,8 @@
 #include "BP_ActionSuperJumpTop_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionSuperJumpTop.BP_ActionSuperJumpTop_C.ExecuteUbergraph_BP_ActionSuperJumpTop
 // (Final, UbergraphFunction)
@@ -140,5 +141,5 @@ bool UBP_ActionSuperJumpTop_C::BP_IsEnableShiftAction(const class FName& nextAct
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

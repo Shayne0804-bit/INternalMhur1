@@ -14,7 +14,8 @@
 #include "MagicLeapAudio_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function MagicLeapAudio.MagicLeapAudioFunctionLibrary.IsMicMuted
 // (Final, Native, Static, Public, BlueprintCallable, BlueprintPure)
@@ -124,5 +125,5 @@ bool UMagicLeapAudioFunctionLibrary::SetOnAudioJackUnpluggedDelegate(const TDele
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

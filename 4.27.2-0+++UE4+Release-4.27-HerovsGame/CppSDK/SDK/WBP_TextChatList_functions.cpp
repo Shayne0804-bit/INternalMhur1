@@ -14,7 +14,8 @@
 #include "WBP_TextChatList_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_TextChatList.WBP_TextChatList_C.ExecuteUbergraph_WBP_TextChatList
 // (Final, UbergraphFunction)
@@ -191,5 +192,5 @@ void UWBP_TextChatList_C::UpdateUnreadMessage()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -20,7 +20,8 @@
 #include "TemplateSequence_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class TemplateSequence.TemplateSequence
 // 0x00A8 (0x0108 - 0x0060)
@@ -46,6 +47,7 @@ public:
 		return GetDefaultObjImpl<UTemplateSequence>();
 	}
 };
+DUMPER7_ASSERTS_UTemplateSequence;
 
 // Class TemplateSequence.TemplateSequenceSection
 // 0x0018 (0x0180 - 0x0168)
@@ -69,6 +71,7 @@ public:
 		return GetDefaultObjImpl<UTemplateSequenceSection>();
 	}
 };
+DUMPER7_ASSERTS_UTemplateSequenceSection;
 
 // Class TemplateSequence.CameraAnimationSequence
 // 0x0000 (0x0108 - 0x0108)
@@ -88,6 +91,7 @@ public:
 		return GetDefaultObjImpl<UCameraAnimationSequence>();
 	}
 };
+DUMPER7_ASSERTS_UCameraAnimationSequence;
 
 // Class TemplateSequence.SequenceCameraShakeCameraStandIn
 // 0x0648 (0x0670 - 0x0028)
@@ -124,6 +128,7 @@ public:
 		return GetDefaultObjImpl<USequenceCameraShakeCameraStandIn>();
 	}
 };
+DUMPER7_ASSERTS_USequenceCameraShakeCameraStandIn;
 
 // Class TemplateSequence.SequenceCameraShakePattern
 // 0x0030 (0x0058 - 0x0028)
@@ -155,6 +160,7 @@ public:
 		return GetDefaultObjImpl<USequenceCameraShakePattern>();
 	}
 };
+DUMPER7_ASSERTS_USequenceCameraShakePattern;
 
 // Class TemplateSequence.SequenceCameraShakeSequencePlayer
 // 0x0400 (0x0428 - 0x0028)
@@ -181,6 +187,7 @@ public:
 		return GetDefaultObjImpl<USequenceCameraShakeSequencePlayer>();
 	}
 };
+DUMPER7_ASSERTS_USequenceCameraShakeSequencePlayer;
 
 // Class TemplateSequence.TemplateSequenceActor
 // 0x0058 (0x0278 - 0x0220)
@@ -217,6 +224,7 @@ public:
 		return GetDefaultObjImpl<ATemplateSequenceActor>();
 	}
 };
+DUMPER7_ASSERTS_ATemplateSequenceActor;
 
 // Class TemplateSequence.TemplateSequencePlayer
 // 0x0008 (0x04F0 - 0x04E8)
@@ -242,6 +250,7 @@ public:
 		return GetDefaultObjImpl<UTemplateSequencePlayer>();
 	}
 };
+DUMPER7_ASSERTS_UTemplateSequencePlayer;
 
 // Class TemplateSequence.TemplateSequenceSystem
 // 0x0070 (0x00B0 - 0x0040)
@@ -264,6 +273,7 @@ public:
 		return GetDefaultObjImpl<UTemplateSequenceSystem>();
 	}
 };
+DUMPER7_ASSERTS_UTemplateSequenceSystem;
 
 // Class TemplateSequence.TemplateSequencePropertyScalingInstantiatorSystem
 // 0x0058 (0x0098 - 0x0040)
@@ -286,6 +296,7 @@ public:
 		return GetDefaultObjImpl<UTemplateSequencePropertyScalingInstantiatorSystem>();
 	}
 };
+DUMPER7_ASSERTS_UTemplateSequencePropertyScalingInstantiatorSystem;
 
 // Class TemplateSequence.TemplateSequencePropertyScalingEvaluatorSystem
 // 0x0050 (0x0090 - 0x0040)
@@ -308,6 +319,7 @@ public:
 		return GetDefaultObjImpl<UTemplateSequencePropertyScalingEvaluatorSystem>();
 	}
 };
+DUMPER7_ASSERTS_UTemplateSequencePropertyScalingEvaluatorSystem;
 
 // Class TemplateSequence.TemplateSequenceTrack
 // 0x0000 (0x00A0 - 0x00A0)
@@ -327,5 +339,7 @@ public:
 		return GetDefaultObjImpl<UTemplateSequenceTrack>();
 	}
 };
+DUMPER7_ASSERTS_UTemplateSequenceTrack;
 
-SDK_NAMESPACE_END
+}
+

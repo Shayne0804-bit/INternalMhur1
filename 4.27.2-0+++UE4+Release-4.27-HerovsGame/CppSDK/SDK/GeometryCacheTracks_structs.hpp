@@ -14,7 +14,8 @@
 #include "MovieScene_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct GeometryCacheTracks.MovieSceneGeometryCacheParams
 // 0x0040 (0x0040 - 0x0000)
@@ -33,6 +34,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FSoftObjectPath                        GeometryCache;                                     // 0x0028(0x0018)(ZeroConstructor, Deprecated, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMovieSceneGeometryCacheParams;
 
 // ScriptStruct GeometryCacheTracks.MovieSceneGeometryCacheSectionTemplateParameters
 // 0x0008 (0x0048 - 0x0040)
@@ -42,6 +44,7 @@ public:
 	struct FFrameNumber                           SectionStartTime;                                  // 0x0040(0x0004)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FFrameNumber                           SectionEndTime;                                    // 0x0044(0x0004)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMovieSceneGeometryCacheSectionTemplateParameters;
 
 // ScriptStruct GeometryCacheTracks.MovieSceneGeometryCacheSectionTemplate
 // 0x0048 (0x0068 - 0x0020)
@@ -50,5 +53,7 @@ struct FMovieSceneGeometryCacheSectionTemplate final : public FMovieSceneEvalTem
 public:
 	struct FMovieSceneGeometryCacheSectionTemplateParameters params;                                 // 0x0020(0x0048)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMovieSceneGeometryCacheSectionTemplate;
 
-SDK_NAMESPACE_END
+}
+

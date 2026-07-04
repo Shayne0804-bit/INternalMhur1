@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function AntiCheatModule.AntiCheatPlayerController.SendAntiCheatMessageClientInternal
 // 0x0010 (0x0010 - 0x0000)
@@ -21,6 +21,7 @@ struct AntiCheatPlayerController_SendAntiCheatMessageClientInternal final
 public:
 	TArray<int8>                                  message;                                           // 0x0000(0x0010)(ConstParm, Parm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AntiCheatPlayerController_SendAntiCheatMessageClientInternal;
 
 // Function AntiCheatModule.AntiCheatPlayerController.SendAntiCheatMessageServerInternal
 // 0x0010 (0x0010 - 0x0000)
@@ -29,6 +30,7 @@ struct AntiCheatPlayerController_SendAntiCheatMessageServerInternal final
 public:
 	TArray<int8>                                  message;                                           // 0x0000(0x0010)(ConstParm, Parm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AntiCheatPlayerController_SendAntiCheatMessageServerInternal;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

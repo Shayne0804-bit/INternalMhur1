@@ -14,8 +14,8 @@
 #include "CommonModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function CommonModule.CommonStatics.DrawDebugStringWithShadow
 // 0x0050 (0x0050 - 0x0000)
@@ -34,6 +34,7 @@ public:
 	float                                         FontScale;                                         // 0x0048(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_4C[0x4];                                       // 0x004C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_CommonStatics_DrawDebugStringWithShadow;
 
 // Function CommonModule.CommonStatics.FindSubLevel
 // 0x0018 (0x0018 - 0x0000)
@@ -44,6 +45,7 @@ public:
 	class FName                                   LevelName;                                         // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class ULevelStreaming*                        ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CommonStatics_FindSubLevel;
 
 // Function CommonModule.CommonStatics.GetCurrentMapName
 // 0x0018 (0x0018 - 0x0000)
@@ -53,6 +55,7 @@ public:
 	const class UObject*                          WorldContextObject;                                // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CommonStatics_GetCurrentMapName;
 
 // Function CommonModule.CommonStatics.SetLevelVisible
 // 0x0018 (0x0018 - 0x0000)
@@ -64,6 +67,7 @@ public:
 	bool                                          bVisible;                                          // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_CommonStatics_SetLevelVisible;
 
 // Function CommonModule.DebugDataViewerSubsystem.ReceivedOnLoadCompleteEvent
 // 0x0004 (0x0004 - 0x0000)
@@ -72,6 +76,7 @@ struct DebugDataViewerSubsystem_ReceivedOnLoadCompleteEvent final
 public:
 	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugDataViewerSubsystem_ReceivedOnLoadCompleteEvent;
 
 // Function CommonModule.DebugDataViewerSubsystem.ReceivedOnUpdateCompleteEvent
 // 0x0004 (0x0004 - 0x0000)
@@ -80,6 +85,7 @@ struct DebugDataViewerSubsystem_ReceivedOnUpdateCompleteEvent final
 public:
 	int32                                         requestId;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugDataViewerSubsystem_ReceivedOnUpdateCompleteEvent;
 
 // Function CommonModule.DevelopActor.BP_OnChangedDevelopMenu
 // 0x0001 (0x0001 - 0x0000)
@@ -88,6 +94,7 @@ struct DevelopActor_BP_OnChangedDevelopMenu final
 public:
 	bool                                          bOpen;                                             // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopActor_BP_OnChangedDevelopMenu;
 
 // Function CommonModule.DevelopActor.BP_OnChangedDevelopPause
 // 0x0001 (0x0001 - 0x0000)
@@ -96,6 +103,7 @@ struct DevelopActor_BP_OnChangedDevelopPause final
 public:
 	bool                                          bPause;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopActor_BP_OnChangedDevelopPause;
 
 // Function CommonModule.DevelopActor.MulticastOpenDevelopMenu
 // 0x0020 (0x0020 - 0x0000)
@@ -107,6 +115,7 @@ public:
 	const class APlayerController*                pauseOwner;                                        // 0x0008(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 pauseOwnerName;                                    // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopActor_MulticastOpenDevelopMenu;
 
 // Function CommonModule.DevelopActor.MulticastSetDevPause
 // 0x0002 (0x0002 - 0x0000)
@@ -116,6 +125,7 @@ public:
 	bool                                          bPause;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          bStep;                                             // 0x0001(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopActor_MulticastSetDevPause;
 
 // Function CommonModule.DevelopCharacterSelector.ConvertStringToEnum
 // 0x0018 (0x0018 - 0x0000)
@@ -126,6 +136,7 @@ public:
 	ECharacterId                                  ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_DevelopCharacterSelector_ConvertStringToEnum;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

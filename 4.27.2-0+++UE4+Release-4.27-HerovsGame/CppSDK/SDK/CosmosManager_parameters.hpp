@@ -13,8 +13,8 @@
 #include "CosmosApi_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function CosmosManager.CosmosManager.OnChangeMyRoomDataEvent
 // 0x0020 (0x0020 - 0x0000)
@@ -23,6 +23,7 @@ struct CosmosManager_OnChangeMyRoomDataEvent final
 public:
 	struct FCosmosChangeMyRoomDataNotify          E;                                                 // 0x0000(0x0020)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosManager_OnChangeMyRoomDataEvent;
 
 // Function CosmosManager.CosmosManager.OnCustomLobbyServerEvent
 // 0x0018 (0x0018 - 0x0000)
@@ -31,6 +32,7 @@ struct CosmosManager_OnCustomLobbyServerEvent final
 public:
 	struct FCosmosCustomLobbyServerNotify         E;                                                 // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosManager_OnCustomLobbyServerEvent;
 
 // Function CosmosManager.CosmosManager.OnCustomMatchingChangeSettingsEvent
 // 0x0070 (0x0070 - 0x0000)
@@ -39,6 +41,7 @@ struct CosmosManager_OnCustomMatchingChangeSettingsEvent final
 public:
 	struct FCosmosChangeCustomRoomSettingsNotify  E;                                                 // 0x0000(0x0070)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosManager_OnCustomMatchingChangeSettingsEvent;
 
 // Function CosmosManager.CosmosManager.OnCustomMatchingEvent
 // 0x0008 (0x0008 - 0x0000)
@@ -49,6 +52,7 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         S;                                                 // 0x0004(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosManager_OnCustomMatchingEvent;
 
 // Function CosmosManager.CosmosManager.OnCustomMatchingJoinEvent
 // 0x0078 (0x0078 - 0x0000)
@@ -57,6 +61,7 @@ struct CosmosManager_OnCustomMatchingJoinEvent final
 public:
 	struct FCosmosJoinCustomRoomResponse          E;                                                 // 0x0000(0x0078)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosManager_OnCustomMatchingJoinEvent;
 
 // Function CosmosManager.CosmosManager.OnCustomMatchingRoomDataEvent
 // 0x0078 (0x0078 - 0x0000)
@@ -65,6 +70,7 @@ struct CosmosManager_OnCustomMatchingRoomDataEvent final
 public:
 	struct FCosmosGetCustomRoomDataResponse       E;                                                 // 0x0000(0x0078)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosManager_OnCustomMatchingRoomDataEvent;
 
 // Function CosmosManager.CosmosManager.OnCustomMatchingUserNameDuplicatedEvent
 // 0x0070 (0x0070 - 0x0000)
@@ -73,6 +79,7 @@ struct CosmosManager_OnCustomMatchingUserNameDuplicatedEvent final
 public:
 	struct FCosmosUserNameDuplicatedNotify        E;                                                 // 0x0000(0x0070)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosManager_OnCustomMatchingUserNameDuplicatedEvent;
 
 // Function CosmosManager.CosmosManager.OnCustomRoomReadiedEvent
 // 0x0038 (0x0038 - 0x0000)
@@ -81,6 +88,7 @@ struct CosmosManager_OnCustomRoomReadiedEvent final
 public:
 	struct FCosmosCustomRoomReadiedNotify         E;                                                 // 0x0000(0x0038)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosManager_OnCustomRoomReadiedEvent;
 
 // Function CosmosManager.CosmosManager.OnMatchingAppealEvent
 // 0x0020 (0x0020 - 0x0000)
@@ -89,6 +97,7 @@ struct CosmosManager_OnMatchingAppealEvent final
 public:
 	struct FSquadAppealEvent                      E;                                                 // 0x0000(0x0020)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosManager_OnMatchingAppealEvent;
 
 // Function CosmosManager.CosmosManager.OnMatchingChatEvent
 // 0x0030 (0x0030 - 0x0000)
@@ -97,6 +106,7 @@ struct CosmosManager_OnMatchingChatEvent final
 public:
 	struct FSquadChatEvent                        E;                                                 // 0x0000(0x0030)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosManager_OnMatchingChatEvent;
 
 // Function CosmosManager.CosmosManager.OnMatchingErrorEvent
 // 0x0004 (0x0004 - 0x0000)
@@ -105,6 +115,7 @@ struct CosmosManager_OnMatchingErrorEvent final
 public:
 	ECosmosProtocolResponseCode                   E;                                                 // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosManager_OnMatchingErrorEvent;
 
 // Function CosmosManager.CosmosManager.OnMatchingSquadDissolvedEvent
 // 0x0020 (0x0020 - 0x0000)
@@ -113,6 +124,7 @@ struct CosmosManager_OnMatchingSquadDissolvedEvent final
 public:
 	struct FSquadDissolvedEvent                   E;                                                 // 0x0000(0x0020)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosManager_OnMatchingSquadDissolvedEvent;
 
 // Function CosmosManager.CosmosManager.OnMatchingSquadEvent
 // 0x0008 (0x0008 - 0x0000)
@@ -121,6 +133,7 @@ struct CosmosManager_OnMatchingSquadEvent final
 public:
 	struct FSquadEvent                            E;                                                 // 0x0000(0x0008)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosManager_OnMatchingSquadEvent;
 
 // Function CosmosManager.CosmosManager.OnMatchingSquadLeftEvent
 // 0x0018 (0x0018 - 0x0000)
@@ -129,6 +142,7 @@ struct CosmosManager_OnMatchingSquadLeftEvent final
 public:
 	struct FSquadMemberLeftEvent                  E;                                                 // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosManager_OnMatchingSquadLeftEvent;
 
 // Function CosmosManager.CosmosManager.OnReceiveCustomSquadAppealEvent
 // 0x0020 (0x0020 - 0x0000)
@@ -137,6 +151,7 @@ struct CosmosManager_OnReceiveCustomSquadAppealEvent final
 public:
 	struct FCosmosCustomSquadAppealedNotify       E;                                                 // 0x0000(0x0020)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosManager_OnReceiveCustomSquadAppealEvent;
 
 // Function CosmosManager.CosmosManager.OnReceiveCustomSquadChatEvent
 // 0x0020 (0x0020 - 0x0000)
@@ -145,6 +160,7 @@ struct CosmosManager_OnReceiveCustomSquadChatEvent final
 public:
 	struct FCosmosReceiveCustomSquadChatNotify    E;                                                 // 0x0000(0x0020)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosManager_OnReceiveCustomSquadChatEvent;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

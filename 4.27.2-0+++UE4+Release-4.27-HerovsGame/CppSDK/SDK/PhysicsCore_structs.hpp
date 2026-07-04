@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum PhysicsCore.EBodyCollisionResponse
 // NumValues: 0x0003
@@ -187,5 +188,7 @@ public:
 	uint8                                         bUpdateMassWhenScaleChanges : 1;                   // 0x0010(0x0001)(BitIndex: 0x06, PropSize: 0x0001 (NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBodyInstanceCore;
 
-SDK_NAMESPACE_END
+}
+

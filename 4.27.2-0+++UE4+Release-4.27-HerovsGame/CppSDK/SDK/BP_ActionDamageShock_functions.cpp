@@ -14,7 +14,8 @@
 #include "BP_ActionDamageShock_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageShock.BP_ActionDamageShock_C.ExecuteUbergraph_BP_ActionDamageShock
 // (Final, UbergraphFunction, HasDefaults)
@@ -103,5 +104,5 @@ void UBP_ActionDamageShock_C::BP_OnBeginAction(const class FName& prevAction)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

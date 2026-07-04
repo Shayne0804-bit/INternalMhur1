@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_Giant.BP_CC_Giant_C.ExecuteUbergraph_BP_CC_Giant
 // 0x0028 (0x0028 - 0x0000)
@@ -27,6 +27,7 @@ public:
 	int32                                         K2Node_Event_oldLevel;                             // 0x001C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         K2Node_Event_newLevel;                             // 0x0020(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Giant_C_ExecuteUbergraph_BP_CC_Giant;
 
 // Function BP_CC_Giant.BP_CC_Giant_C.BP_OnChangeConditionLevel
 // 0x0008 (0x0008 - 0x0000)
@@ -36,6 +37,7 @@ public:
 	int32                                         oldLevel;                                          // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         newLevel;                                          // 0x0004(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Giant_C_BP_OnChangeConditionLevel;
 
 // Function BP_CC_Giant.BP_CC_Giant_C.BP_OnUpdateIntervalValue
 // 0x0004 (0x0004 - 0x0000)
@@ -44,6 +46,7 @@ struct BP_CC_Giant_C_BP_OnUpdateIntervalValue final
 public:
 	float                                         value;                                             // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Giant_C_BP_OnUpdateIntervalValue;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

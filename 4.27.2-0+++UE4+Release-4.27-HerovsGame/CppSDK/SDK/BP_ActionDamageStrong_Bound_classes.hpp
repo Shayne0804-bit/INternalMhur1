@@ -16,7 +16,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionDamageStrong_Bound.BP_ActionDamageStrong_Bound_C
 // 0x0020 (0x0358 - 0x0338)
@@ -56,5 +57,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionDamageStrong_Bound_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionDamageStrong_Bound_C;
 
-SDK_NAMESPACE_END
+}
+

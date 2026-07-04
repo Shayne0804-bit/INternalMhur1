@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function GameplayCameras.MatineeCameraShake.StartMatineeCameraShake
 // 0x0030 (0x0030 - 0x0000)
@@ -31,6 +31,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UMatineeCameraShake*                    ReturnValue;                                       // 0x0028(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MatineeCameraShake_StartMatineeCameraShake;
 
 // Function GameplayCameras.MatineeCameraShake.StartMatineeCameraShakeFromSource
 // 0x0038 (0x0038 - 0x0000)
@@ -47,6 +48,7 @@ public:
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UMatineeCameraShake*                    ReturnValue;                                       // 0x0030(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MatineeCameraShake_StartMatineeCameraShakeFromSource;
 
 // Function GameplayCameras.MatineeCameraShake.BlueprintUpdateCameraShake
 // 0x0BF0 (0x0BF0 - 0x0000)
@@ -59,6 +61,7 @@ public:
 	struct FMinimalViewInfo                       POV;                                               // 0x0010(0x05F0)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	struct FMinimalViewInfo                       ModifiedPOV;                                       // 0x0600(0x05F0)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MatineeCameraShake_BlueprintUpdateCameraShake;
 
 // Function GameplayCameras.MatineeCameraShake.ReceivePlayShake
 // 0x0004 (0x0004 - 0x0000)
@@ -67,6 +70,7 @@ struct MatineeCameraShake_ReceivePlayShake final
 public:
 	float                                         Scale;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MatineeCameraShake_ReceivePlayShake;
 
 // Function GameplayCameras.MatineeCameraShake.ReceiveStopShake
 // 0x0001 (0x0001 - 0x0000)
@@ -75,6 +79,7 @@ struct MatineeCameraShake_ReceiveStopShake final
 public:
 	bool                                          bImmediately;                                      // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MatineeCameraShake_ReceiveStopShake;
 
 // Function GameplayCameras.MatineeCameraShake.ReceiveIsFinished
 // 0x0001 (0x0001 - 0x0000)
@@ -83,6 +88,7 @@ struct MatineeCameraShake_ReceiveIsFinished final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MatineeCameraShake_ReceiveIsFinished;
 
 // Function GameplayCameras.MatineeCameraShakeFunctionLibrary.Conv_MatineeCameraShake
 // 0x0010 (0x0010 - 0x0000)
@@ -92,6 +98,7 @@ public:
 	class UCameraShakeBase*                       CameraShake;                                       // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UMatineeCameraShake*                    ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MatineeCameraShakeFunctionLibrary_Conv_MatineeCameraShake;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

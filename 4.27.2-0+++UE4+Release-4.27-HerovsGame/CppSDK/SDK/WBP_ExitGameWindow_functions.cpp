@@ -14,7 +14,8 @@
 #include "WBP_ExitGameWindow_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_ExitGameWindow.WBP_ExitGameWindow_C.ExecuteUbergraph_WBP_ExitGameWindow
 // (Final, UbergraphFunction)
@@ -87,5 +88,5 @@ void UWBP_ExitGameWindow_C::Construct()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

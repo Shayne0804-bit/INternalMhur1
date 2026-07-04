@@ -14,7 +14,8 @@
 #include "HoudiniEngineRuntime_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function HoudiniEngineRuntime.HoudiniAssetBlueprintComponent.HasParameter
 // (Final, Native, Public, BlueprintCallable)
@@ -1320,5 +1321,5 @@ bool UHoudiniStaticMeshComponent::IsHoudiniIconVisible() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

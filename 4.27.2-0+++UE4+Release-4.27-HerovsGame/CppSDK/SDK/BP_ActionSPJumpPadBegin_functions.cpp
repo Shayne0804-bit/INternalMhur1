@@ -14,7 +14,8 @@
 #include "BP_ActionSPJumpPadBegin_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionSPJumpPadBegin.BP_ActionSPJumpPadBegin_C.ExecuteUbergraph_BP_ActionSPJumpPadBegin
 // (Final, UbergraphFunction)
@@ -112,5 +113,5 @@ bool UBP_ActionSPJumpPadBegin_C::BP_IsEnableShiftAction(const class FName& nextA
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

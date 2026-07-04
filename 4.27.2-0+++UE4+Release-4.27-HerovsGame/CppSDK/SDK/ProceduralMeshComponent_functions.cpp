@@ -14,7 +14,8 @@
 #include "ProceduralMeshComponent_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function ProceduralMeshComponent.KismetProceduralMeshLibrary.CalculateTangentsForMesh
 // (Final, Native, Static, Public, HasOutParams, BlueprintCallable)
@@ -745,5 +746,5 @@ bool UProceduralMeshComponent::IsMeshSectionVisible(int32 SectionIndex) const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -13,7 +13,8 @@
 #include "OutGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_Gasha_OfferRatio_Cell.WBP_Gasha_OfferRatio_Cell_C
 // 0x0020 (0x03B8 - 0x0398)
@@ -39,5 +40,7 @@ public:
 		return GetDefaultObjImpl<UWBP_Gasha_OfferRatio_Cell_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_Gasha_OfferRatio_Cell_C;
 
-SDK_NAMESPACE_END
+}
+

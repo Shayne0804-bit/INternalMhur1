@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum AppleImageUtils.EAppleTextureType
 // NumValues: 0x0006
@@ -48,5 +49,7 @@ public:
 	class FString                                 Error;                                             // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<uint8>                                 ImageData;                                         // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAppleImageUtilsImageConversionResult;
 
-SDK_NAMESPACE_END
+}
+

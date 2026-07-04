@@ -29,11 +29,12 @@
 #include "Slate_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class OutGameModule.AboutDataUsage
 // 0x0008 (0x0378 - 0x0370)
-class UAboutDataUsage : public UWidgetBase
+class UAboutDataUsage final : public UWidgetBase
 {
 public:
 	class UTermsOfServiceBaseWidget*              _tosWidget;                                        // 0x0370(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -57,6 +58,7 @@ public:
 		return GetDefaultObjImpl<UAboutDataUsage>();
 	}
 };
+DUMPER7_ASSERTS_UAboutDataUsage;
 
 // Class OutGameModule.AccountLinkageWidget
 // 0x0048 (0x03B8 - 0x0370)
@@ -108,10 +110,11 @@ public:
 		return GetDefaultObjImpl<UAccountLinkageWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAccountLinkageWidget;
 
 // Class OutGameModule.LoginBonusPopupBannerListItemWidget
 // 0x0030 (0x0540 - 0x0510)
-class ULoginBonusPopupBannerListItemWidget : public UWidgetButton
+class ULoginBonusPopupBannerListItemWidget final : public UWidgetButton
 {
 public:
 	uint8                                         Pad_510[0x8];                                      // 0x0510(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -139,6 +142,7 @@ public:
 		return GetDefaultObjImpl<ULoginBonusPopupBannerListItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULoginBonusPopupBannerListItemWidget;
 
 // Class OutGameModule.AccountSelectWidget
 // 0x0018 (0x0388 - 0x0370)
@@ -177,6 +181,7 @@ public:
 		return GetDefaultObjImpl<UAccountSelectWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAccountSelectWidget;
 
 // Class OutGameModule.ItemListEntryWidget
 // 0x0070 (0x07D0 - 0x0760)
@@ -220,6 +225,7 @@ public:
 		return GetDefaultObjImpl<UItemListEntryWidget>();
 	}
 };
+DUMPER7_ASSERTS_UItemListEntryWidget;
 
 // Class OutGameModule.AnimationOutGame
 // 0x0000 (0x07A0 - 0x07A0)
@@ -242,6 +248,7 @@ public:
 		return GetDefaultObjImpl<UAnimationOutGame>();
 	}
 };
+DUMPER7_ASSERTS_UAnimationOutGame;
 
 // Class OutGameModule.AvatarCreateAppWidget
 // 0x00A8 (0x04C0 - 0x0418)
@@ -282,6 +289,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateAppWidget;
 
 // Class OutGameModule.AvatarCreateSlotWidgetBase
 // 0x0150 (0x04C0 - 0x0370)
@@ -324,6 +332,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateSlotWidgetBase>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateSlotWidgetBase;
 
 // Class OutGameModule.EventsMissionContents
 // 0x0070 (0x03E0 - 0x0370)
@@ -357,6 +366,7 @@ public:
 		return GetDefaultObjImpl<UEventsMissionContents>();
 	}
 };
+DUMPER7_ASSERTS_UEventsMissionContents;
 
 // Class OutGameModule.AvatarCreateBattleStyleSlotWidget
 // 0x0008 (0x04C8 - 0x04C0)
@@ -383,10 +393,11 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateBattleStyleSlotWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateBattleStyleSlotWidget;
 
 // Class OutGameModule.ItemIconVoiceWidget
 // 0x0020 (0x0390 - 0x0370)
-class UItemIconVoiceWidget : public UWidgetBase
+class UItemIconVoiceWidget final : public UWidgetBase
 {
 public:
 	class UImage*                                 _iconImage;                                        // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -409,6 +420,7 @@ public:
 		return GetDefaultObjImpl<UItemIconVoiceWidget>();
 	}
 };
+DUMPER7_ASSERTS_UItemIconVoiceWidget;
 
 // Class OutGameModule.RankSpecialEffectItemEntryObject
 // 0x0010 (0x0040 - 0x0030)
@@ -431,6 +443,7 @@ public:
 		return GetDefaultObjImpl<URankSpecialEffectItemEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_URankSpecialEffectItemEntryObject;
 
 // Class OutGameModule.AvatarCreateBattleStyleWidget
 // 0x0038 (0x04F8 - 0x04C0)
@@ -467,6 +480,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateBattleStyleWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateBattleStyleWidget;
 
 // Class OutGameModule.AvatarCreateButtonWidget
 // 0x0028 (0x0398 - 0x0370)
@@ -500,6 +514,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateButtonWidget;
 
 // Class OutGameModule.CustomMatchTopWidget
 // 0x0130 (0x04A0 - 0x0370)
@@ -554,6 +569,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchTopWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchTopWidget;
 
 // Class OutGameModule.AvatarCreateCarouselButtonWidget
 // 0x0060 (0x03F8 - 0x0398)
@@ -582,6 +598,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateCarouselButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateCarouselButtonWidget;
 
 // Class OutGameModule.GuildEmblemIconImage
 // 0x0010 (0x0270 - 0x0260)
@@ -610,6 +627,7 @@ public:
 		return GetDefaultObjImpl<UGuildEmblemIconImage>();
 	}
 };
+DUMPER7_ASSERTS_UGuildEmblemIconImage;
 
 // Class OutGameModule.AvatarCreateCharaImage
 // 0x0058 (0x03C8 - 0x0370)
@@ -646,6 +664,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateCharaImage>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateCharaImage;
 
 // Class OutGameModule.ItemQuantityWidget
 // 0x0040 (0x0550 - 0x0510)
@@ -674,6 +693,7 @@ public:
 		return GetDefaultObjImpl<UItemQuantityWidget>();
 	}
 };
+DUMPER7_ASSERTS_UItemQuantityWidget;
 
 // Class OutGameModule.AvatarCreateColorButtonWidget
 // 0x0028 (0x0538 - 0x0510)
@@ -700,6 +720,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateColorButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateColorButtonWidget;
 
 // Class OutGameModule.AvatarCreateColorListWidget
 // 0x0080 (0x04B0 - 0x0430)
@@ -737,6 +758,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateColorListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateColorListWidget;
 
 // Class OutGameModule.BaseSettingWidget
 // 0x0020 (0x0390 - 0x0370)
@@ -762,10 +784,11 @@ public:
 		return GetDefaultObjImpl<UBaseSettingWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBaseSettingWidget;
 
 // Class OutGameModule.SoundSettingWidget
 // 0x0078 (0x0408 - 0x0390)
-class USoundSettingWidget : public UBaseSettingWidget
+class USoundSettingWidget final : public UBaseSettingWidget
 {
 public:
 	class USettingButtonSwitchWidget*             _backgroundSound;                                  // 0x0390(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -810,6 +833,7 @@ public:
 		return GetDefaultObjImpl<USoundSettingWidget>();
 	}
 };
+DUMPER7_ASSERTS_USoundSettingWidget;
 
 // Class OutGameModule.AvatarCreateDetailSettingTopWidget
 // 0x0028 (0x0440 - 0x0418)
@@ -840,6 +864,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateDetailSettingTopWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateDetailSettingTopWidget;
 
 // Class OutGameModule.CustomMatchResultTabPlayerPanelBase
 // 0x0038 (0x0798 - 0x0760)
@@ -867,6 +892,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTabPlayerPanelBase>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTabPlayerPanelBase;
 
 // Class OutGameModule.CustomMatchResultTabPlayerPanelSquad
 // 0x0000 (0x0798 - 0x0798)
@@ -886,6 +912,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTabPlayerPanelSquad>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTabPlayerPanelSquad;
 
 // Class OutGameModule.AvatarCreateDetailSettingWidget
 // 0x0018 (0x04D8 - 0x04C0)
@@ -915,10 +942,11 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateDetailSettingWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateDetailSettingWidget;
 
 // Class OutGameModule.SquadCreateWidget
 // 0x0018 (0x0388 - 0x0370)
-class USquadCreateWidget : public UWidgetBase
+class USquadCreateWidget final : public UWidgetBase
 {
 public:
 	class UWidgetGeneralWindow*                   _selectMessageWindow;                              // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -949,6 +977,7 @@ public:
 		return GetDefaultObjImpl<USquadCreateWidget>();
 	}
 };
+DUMPER7_ASSERTS_USquadCreateWidget;
 
 // Class OutGameModule.AvatarCreateFunctionSlotWidget
 // 0x0020 (0x04E0 - 0x04C0)
@@ -980,6 +1009,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateFunctionSlotWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateFunctionSlotWidget;
 
 // Class OutGameModule.AvatarCreateBaseListEntryObject
 // 0x0058 (0x0088 - 0x0030)
@@ -1006,10 +1036,11 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateBaseListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateBaseListEntryObject;
 
 // Class OutGameModule.EventBannerTitleWidget
 // 0x0010 (0x0380 - 0x0370)
-class UEventBannerTitleWidget : public UWidgetBase
+class UEventBannerTitleWidget final : public UWidgetBase
 {
 public:
 	int32                                         _switcherNum;                                      // 0x0370(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -1033,6 +1064,7 @@ public:
 		return GetDefaultObjImpl<UEventBannerTitleWidget>();
 	}
 };
+DUMPER7_ASSERTS_UEventBannerTitleWidget;
 
 // Class OutGameModule.AvatarCreateSelectMenuListEntryObject
 // 0x0000 (0x0088 - 0x0088)
@@ -1052,6 +1084,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateSelectMenuListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateSelectMenuListEntryObject;
 
 // Class OutGameModule.GuildMemberItemWidget
 // 0x0060 (0x07C0 - 0x0760)
@@ -1094,6 +1127,7 @@ public:
 		return GetDefaultObjImpl<UGuildMemberItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildMemberItemWidget;
 
 // Class OutGameModule.AvatarCreateMenuListEntryObject
 // 0x0008 (0x0090 - 0x0088)
@@ -1117,6 +1151,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateMenuListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateMenuListEntryObject;
 
 // Class OutGameModule.LeaderboardWidget
 // 0x0050 (0x0468 - 0x0418)
@@ -1148,6 +1183,7 @@ public:
 		return GetDefaultObjImpl<ULeaderboardWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULeaderboardWidget;
 
 // Class OutGameModule.AvatarCreateBattleStyleListEntryObject
 // 0x0008 (0x0090 - 0x0088)
@@ -1171,6 +1207,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateBattleStyleListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateBattleStyleListEntryObject;
 
 // Class OutGameModule.AvatarCreateBaseSettingsListEntryObject
 // 0x0018 (0x00A0 - 0x0088)
@@ -1195,10 +1232,11 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateBaseSettingsListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateBaseSettingsListEntryObject;
 
 // Class OutGameModule.SpecialEffectIconWidget
 // 0x0038 (0x03A8 - 0x0370)
-class USpecialEffectIconWidget : public UWidgetBase
+class USpecialEffectIconWidget final : public UWidgetBase
 {
 public:
 	class UPlayMenuSpecialEffectCharaIconWidget*  _characterIcon1;                                   // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -1223,6 +1261,7 @@ public:
 		return GetDefaultObjImpl<USpecialEffectIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_USpecialEffectIconWidget;
 
 // Class OutGameModule.AvatarCreateDetailSettingsListEntryObject
 // 0x0008 (0x0090 - 0x0088)
@@ -1246,6 +1285,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateDetailSettingsListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateDetailSettingsListEntryObject;
 
 // Class OutGameModule.AvatarCreateDetailSettingsItemListEntryObject
 // 0x0008 (0x0098 - 0x0090)
@@ -1269,10 +1309,11 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateDetailSettingsItemListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateDetailSettingsItemListEntryObject;
 
 // Class OutGameModule.KeyConfigSettingWidget
 // 0x02E0 (0x0670 - 0x0390)
-class UKeyConfigSettingWidget : public UBaseSettingWidget
+class UKeyConfigSettingWidget final : public UBaseSettingWidget
 {
 public:
 	TMulticastInlineDelegate<void(EKeyConfigCommandListType listType)> _onOpenKeyConfigPopupDelegate; // 0x0390(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, BlueprintCallable, NativeAccessSpecifierPublic)
@@ -1359,6 +1400,7 @@ public:
 		return GetDefaultObjImpl<UKeyConfigSettingWidget>();
 	}
 };
+DUMPER7_ASSERTS_UKeyConfigSettingWidget;
 
 // Class OutGameModule.AvatarCreateDetailColorListEntryObject
 // 0x0010 (0x0098 - 0x0088)
@@ -1386,6 +1428,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateDetailColorListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateDetailColorListEntryObject;
 
 // Class OutGameModule.AvatarCreateSlotHasWidget
 // 0x0020 (0x0530 - 0x0510)
@@ -1417,6 +1460,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateSlotHasWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateSlotHasWidget;
 
 // Class OutGameModule.AvatarCreateMenuWidget
 // 0x0060 (0x0590 - 0x0530)
@@ -1456,6 +1500,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateMenuWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateMenuWidget;
 
 // Class OutGameModule.GashaSharePhotoDetail
 // 0x0020 (0x0390 - 0x0370)
@@ -1484,6 +1529,7 @@ public:
 		return GetDefaultObjImpl<UGashaSharePhotoDetail>();
 	}
 };
+DUMPER7_ASSERTS_UGashaSharePhotoDetail;
 
 // Class OutGameModule.AvatarCreatePartsButtonWidget
 // 0x0028 (0x0538 - 0x0510)
@@ -1509,6 +1555,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreatePartsButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreatePartsButtonWidget;
 
 // Class OutGameModule.GuildApplicantListWidget
 // 0x0088 (0x03F8 - 0x0370)
@@ -1562,6 +1609,7 @@ public:
 		return GetDefaultObjImpl<UGuildApplicantListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildApplicantListWidget;
 
 // Class OutGameModule.AvatarCreatePartsListWidget
 // 0x0058 (0x0488 - 0x0430)
@@ -1589,6 +1637,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreatePartsListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreatePartsListWidget;
 
 // Class OutGameModule.AvatarCreatePartsWidget
 // 0x0080 (0x03F0 - 0x0370)
@@ -1622,6 +1671,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreatePartsWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreatePartsWidget;
 
 // Class OutGameModule.AvatarCreateSelectMenuWidget
 // 0x0010 (0x04D0 - 0x04C0)
@@ -1651,10 +1701,11 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateSelectMenuWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateSelectMenuWidget;
 
 // Class OutGameModule.LoginBonusPopupListItemWidget
 // 0x0110 (0x0620 - 0x0510)
-class ULoginBonusPopupListItemWidget : public UWidgetButton
+class ULoginBonusPopupListItemWidget final : public UWidgetButton
 {
 public:
 	uint8                                         Pad_510[0x8];                                      // 0x0510(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -1704,6 +1755,7 @@ public:
 		return GetDefaultObjImpl<ULoginBonusPopupListItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULoginBonusPopupListItemWidget;
 
 // Class OutGameModule.AvatarCreateSliderButtonWidget
 // 0x0060 (0x03F8 - 0x0398)
@@ -1737,6 +1789,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateSliderButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateSliderButtonWidget;
 
 // Class OutGameModule.LoginBonusDailyListItemWidget
 // 0x0198 (0x06A8 - 0x0510)
@@ -1798,6 +1851,7 @@ public:
 		return GetDefaultObjImpl<ULoginBonusDailyListItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULoginBonusDailyListItemWidget;
 
 // Class OutGameModule.AvatarCreateWidget
 // 0x0060 (0x0520 - 0x04C0)
@@ -1825,6 +1879,7 @@ public:
 		return GetDefaultObjImpl<UAvatarCreateWidget>();
 	}
 };
+DUMPER7_ASSERTS_UAvatarCreateWidget;
 
 // Class OutGameModule.BattleRecordObject
 // 0x0050 (0x0080 - 0x0030)
@@ -1856,6 +1911,7 @@ public:
 		return GetDefaultObjImpl<UBattleRecordObject>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRecordObject;
 
 // Class OutGameModule.GashaIconWidget
 // 0x01A0 (0x06B0 - 0x0510)
@@ -1939,10 +1995,11 @@ public:
 		return GetDefaultObjImpl<UGashaIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaIconWidget;
 
 // Class OutGameModule.GashaUpperLimitExChangeIconWidget
 // 0x0020 (0x06D0 - 0x06B0)
-class UGashaUpperLimitExChangeIconWidget : public UGashaIconWidget
+class UGashaUpperLimitExChangeIconWidget final : public UGashaIconWidget
 {
 public:
 	class UWidget*                                _possessPanel;                                     // 0x06B0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -1964,6 +2021,7 @@ public:
 		return GetDefaultObjImpl<UGashaUpperLimitExChangeIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaUpperLimitExChangeIconWidget;
 
 // Class OutGameModule.BattleRecordItemHasWidget
 // 0x0008 (0x0378 - 0x0370)
@@ -1986,10 +2044,11 @@ public:
 		return GetDefaultObjImpl<UBattleRecordItemHasWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRecordItemHasWidget;
 
 // Class OutGameModule.GashaHistoryWidget
 // 0x0078 (0x03E8 - 0x0370)
-class UGashaHistoryWidget : public UWidgetBase
+class UGashaHistoryWidget final : public UWidgetBase
 {
 public:
 	class UCustomTileView*                        _historyTileView;                                  // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -2028,6 +2087,7 @@ public:
 		return GetDefaultObjImpl<UGashaHistoryWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaHistoryWidget;
 
 // Class OutGameModule.BattleRecordItemWidget
 // 0x0090 (0x0400 - 0x0370)
@@ -2069,6 +2129,7 @@ public:
 		return GetDefaultObjImpl<UBattleRecordItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRecordItemWidget;
 
 // Class OutGameModule.BattleRecordAppWidget
 // 0x0090 (0x04A8 - 0x0418)
@@ -2121,6 +2182,7 @@ public:
 		return GetDefaultObjImpl<UBattleRecordAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRecordAppWidget;
 
 // Class OutGameModule.ProgressFinishDelegateWidget
 // 0x0010 (0x0380 - 0x0370)
@@ -2146,10 +2208,11 @@ public:
 		return GetDefaultObjImpl<UProgressFinishDelegateWidget>();
 	}
 };
+DUMPER7_ASSERTS_UProgressFinishDelegateWidget;
 
 // Class OutGameModule.GuildInviteWidget
 // 0x0060 (0x03D0 - 0x0370)
-class UGuildInviteWidget : public UWidgetBase
+class UGuildInviteWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -2201,6 +2264,7 @@ public:
 		return GetDefaultObjImpl<UGuildInviteWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildInviteWidget;
 
 // Class OutGameModule.BattleRewardDirectingItemWidget
 // 0x0040 (0x03C0 - 0x0380)
@@ -2226,10 +2290,11 @@ public:
 		return GetDefaultObjImpl<UBattleRewardDirectingItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRewardDirectingItemWidget;
 
 // Class OutGameModule.LoginBonusPopupDailyWidget
 // 0x00F0 (0x0460 - 0x0370)
-class ULoginBonusPopupDailyWidget : public UWidgetBase
+class ULoginBonusPopupDailyWidget final : public UWidgetBase
 {
 public:
 	class UTileView*                              _itemTileView;                                     // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -2265,6 +2330,7 @@ public:
 		return GetDefaultObjImpl<ULoginBonusPopupDailyWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULoginBonusPopupDailyWidget;
 
 // Class OutGameModule.ResultRewardDirectingWidget
 // 0x0010 (0x0428 - 0x0418)
@@ -2291,6 +2357,7 @@ public:
 		return GetDefaultObjImpl<UResultRewardDirectingWidget>();
 	}
 };
+DUMPER7_ASSERTS_UResultRewardDirectingWidget;
 
 // Class OutGameModule.BattleRewardDirectingWidget
 // 0x0070 (0x0498 - 0x0428)
@@ -2325,6 +2392,7 @@ public:
 		return GetDefaultObjImpl<UBattleRewardDirectingWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRewardDirectingWidget;
 
 // Class OutGameModule.BattleRewardSpeechBubbleWidget
 // 0x0080 (0x03F0 - 0x0370)
@@ -2357,6 +2425,7 @@ public:
 		return GetDefaultObjImpl<UBattleRewardSpeechBubbleWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRewardSpeechBubbleWidget;
 
 // Class OutGameModule.MissionContents
 // 0x0108 (0x0478 - 0x0370)
@@ -2396,10 +2465,11 @@ public:
 		return GetDefaultObjImpl<UMissionContents>();
 	}
 };
+DUMPER7_ASSERTS_UMissionContents;
 
 // Class OutGameModule.ItemMissionContents
 // 0x0000 (0x0478 - 0x0478)
-class UItemMissionContents : public UMissionContents
+class UItemMissionContents final : public UMissionContents
 {
 public:
 	static class UClass* StaticClass()
@@ -2415,6 +2485,7 @@ public:
 		return GetDefaultObjImpl<UItemMissionContents>();
 	}
 };
+DUMPER7_ASSERTS_UItemMissionContents;
 
 // Class OutGameModule.BattleRewardSwitcherWidget
 // 0x0078 (0x03F8 - 0x0380)
@@ -2455,10 +2526,11 @@ public:
 		return GetDefaultObjImpl<UBattleRewardSwitcherWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRewardSwitcherWidget;
 
 // Class OutGameModule.GashaPickUpDetailWidget
 // 0x01F0 (0x0560 - 0x0370)
-class UGashaPickUpDetailWidget : public UWidgetBase
+class UGashaPickUpDetailWidget final : public UWidgetBase
 {
 public:
 	struct FGashaPickupData                       _pickupData;                                       // 0x0370(0x0018)(NoDestructor, Protected, NativeAccessSpecifierProtected)
@@ -2538,6 +2610,7 @@ public:
 		return GetDefaultObjImpl<UGashaPickUpDetailWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaPickUpDetailWidget;
 
 // Class OutGameModule.BattleRewardWidgetBase
 // 0x0030 (0x03B0 - 0x0380)
@@ -2569,6 +2642,7 @@ public:
 		return GetDefaultObjImpl<UBattleRewardWidgetBase>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRewardWidgetBase;
 
 // Class OutGameModule.BattleRewardWidget
 // 0x01A0 (0x0550 - 0x03B0)
@@ -2641,6 +2715,7 @@ public:
 		return GetDefaultObjImpl<UBattleRewardWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRewardWidget;
 
 // Class OutGameModule.BattleRuleCategoryEntryWidget
 // 0x0080 (0x03F0 - 0x0370)
@@ -2669,6 +2744,7 @@ public:
 		return GetDefaultObjImpl<UBattleRuleCategoryEntryWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleCategoryEntryWidget;
 
 // Class OutGameModule.GuildSearchItemObject
 // 0x0040 (0x0068 - 0x0028)
@@ -2691,6 +2767,7 @@ public:
 		return GetDefaultObjImpl<UGuildSearchItemObject>();
 	}
 };
+DUMPER7_ASSERTS_UGuildSearchItemObject;
 
 // Class OutGameModule.ProgressBarWidget
 // 0x0130 (0x04A0 - 0x0370)
@@ -2723,6 +2800,7 @@ public:
 		return GetDefaultObjImpl<UProgressBarWidget>();
 	}
 };
+DUMPER7_ASSERTS_UProgressBarWidget;
 
 // Class OutGameModule.DeltaProgressBarWidget
 // 0x0070 (0x0510 - 0x04A0)
@@ -2757,10 +2835,11 @@ public:
 		return GetDefaultObjImpl<UDeltaProgressBarWidget>();
 	}
 };
+DUMPER7_ASSERTS_UDeltaProgressBarWidget;
 
 // Class OutGameModule.BattleRuleChoiceButtonWidget
 // 0x0010 (0x0520 - 0x0510)
-class UBattleRuleChoiceButtonWidget : public UWidgetButton
+class UBattleRuleChoiceButtonWidget final : public UWidgetButton
 {
 public:
 	class UAdjustTextWidget*                      _buttonName;                                       // 0x0510(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -2780,6 +2859,7 @@ public:
 		return GetDefaultObjImpl<UBattleRuleChoiceButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleChoiceButtonWidget;
 
 // Class OutGameModule.GuildEmblemListWidget
 // 0x0010 (0x0380 - 0x0370)
@@ -2804,6 +2884,7 @@ public:
 		return GetDefaultObjImpl<UGuildEmblemListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildEmblemListWidget;
 
 // Class OutGameModule.BattleRuleSpecificBaseWidget
 // 0x0020 (0x0390 - 0x0370)
@@ -2828,10 +2909,11 @@ public:
 		return GetDefaultObjImpl<UBattleRuleSpecificBaseWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleSpecificBaseWidget;
 
 // Class OutGameModule.BattleRuleChoiceTopWidget
 // 0x00F8 (0x0488 - 0x0390)
-class UBattleRuleChoiceTopWidget : public UBattleRuleSpecificBaseWidget
+class UBattleRuleChoiceTopWidget final : public UBattleRuleSpecificBaseWidget
 {
 public:
 	uint8                                         Pad_390[0x10];                                     // 0x0390(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
@@ -2884,10 +2966,11 @@ public:
 		return GetDefaultObjImpl<UBattleRuleChoiceTopWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleChoiceTopWidget;
 
 // Class OutGameModule.BattleRuleDetailsEntryWidget
 // 0x01B0 (0x06C0 - 0x0510)
-class UBattleRuleDetailsEntryWidget : public UWidgetButton
+class UBattleRuleDetailsEntryWidget final : public UWidgetButton
 {
 public:
 	uint8                                         Pad_510[0x8];                                      // 0x0510(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -2947,6 +3030,7 @@ public:
 		return GetDefaultObjImpl<UBattleRuleDetailsEntryWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleDetailsEntryWidget;
 
 // Class OutGameModule.ItemSubMenuAppWidget
 // 0x0018 (0x0430 - 0x0418)
@@ -2970,10 +3054,11 @@ public:
 		return GetDefaultObjImpl<UItemSubMenuAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UItemSubMenuAppWidget;
 
 // Class OutGameModule.BattleRuleEventRankButton
-// 0x0060 (0x0570 - 0x0510)
-class UBattleRuleEventRankButton : public UWidgetButton
+// 0x0068 (0x0578 - 0x0510)
+class UBattleRuleEventRankButton final : public UWidgetButton
 {
 public:
 	class UWidgetButton*                          _leftButton;                                       // 0x0510(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -2984,6 +3069,7 @@ public:
 	ERankRewardCategory                           _type;                                             // 0x0538(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 	uint8                                         Pad_539[0x2F];                                     // 0x0539(0x002F)(Fixing Size After Last Property [ Dumper-7 ])
 	class UNoticeItemIconListWidget*              _flashItemList;                                    // 0x0568(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_570[0x8];                                      // 0x0570(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	void OnDecideLeftButtonWidget(class UAppWidget* Button, EWidgetInputType inputType);
@@ -3004,10 +3090,11 @@ public:
 		return GetDefaultObjImpl<UBattleRuleEventRankButton>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleEventRankButton;
 
 // Class OutGameModule.GashaSelectPickupWindowWidget
 // 0x0078 (0x03E8 - 0x0370)
-class UGashaSelectPickupWindowWidget : public UWidgetBase
+class UGashaSelectPickupWindowWidget final : public UWidgetBase
 {
 public:
 	class UWidgetSwitcher*                        _bgSwitcher;                                       // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -3034,10 +3121,11 @@ public:
 		return GetDefaultObjImpl<UGashaSelectPickupWindowWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaSelectPickupWindowWidget;
 
 // Class OutGameModule.BattleRuleEventRankExp
 // 0x0090 (0x0400 - 0x0370)
-class UBattleRuleEventRankExp : public UWidgetBase
+class UBattleRuleEventRankExp final : public UWidgetBase
 {
 public:
 	class URankImage*                             _eventRankImage;                                   // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -3072,10 +3160,11 @@ public:
 		return GetDefaultObjImpl<UBattleRuleEventRankExp>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleEventRankExp;
 
 // Class OutGameModule.BattleRuleEventRankTop
-// 0x0040 (0x03D0 - 0x0390)
-class UBattleRuleEventRankTop : public UBattleRuleSpecificBaseWidget
+// 0x0048 (0x03D8 - 0x0390)
+class UBattleRuleEventRankTop final : public UBattleRuleSpecificBaseWidget
 {
 public:
 	class UTextBlock*                             _gameModeText;                                     // 0x0390(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -3085,7 +3174,7 @@ public:
 	class UWidgetBase*                            _loadingIcon;                                      // 0x03B0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 	class UBattleRuleEventRankExp*                _eventRankExp;                                     // 0x03B8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 	class UTimeWidget*                            _eventTimer;                                       // 0x03C0(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_3C8[0x8];                                      // 0x03C8(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8                                         Pad_3C8[0x10];                                     // 0x03C8(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
 	class UWidget* DoCustomSelectWidgetNavigation(EUINavigation uiNavigation);
@@ -3104,6 +3193,7 @@ public:
 		return GetDefaultObjImpl<UBattleRuleEventRankTop>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleEventRankTop;
 
 // Class OutGameModule.BattleRuleListEntryObject
 // 0x0008 (0x0038 - 0x0030)
@@ -3128,6 +3218,7 @@ public:
 		return GetDefaultObjImpl<UBattleRuleListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleListEntryObject;
 
 // Class OutGameModule.ItemGetListIEntryObject
 // 0x0058 (0x0088 - 0x0030)
@@ -3150,6 +3241,7 @@ public:
 		return GetDefaultObjImpl<UItemGetListIEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UItemGetListIEntryObject;
 
 // Class OutGameModule.GameStateOutGame
 // 0x00F0 (0x0490 - 0x03A0)
@@ -3182,6 +3274,7 @@ public:
 		return GetDefaultObjImpl<AGameStateOutGame>();
 	}
 };
+DUMPER7_ASSERTS_AGameStateOutGame;
 
 // Class OutGameModule.GameStateMainMenu
 // 0x0000 (0x0490 - 0x0490)
@@ -3201,6 +3294,7 @@ public:
 		return GetDefaultObjImpl<AGameStateMainMenu>();
 	}
 };
+DUMPER7_ASSERTS_AGameStateMainMenu;
 
 // Class OutGameModule.BattleRuleCategoryListEntryObject
 // 0x0010 (0x0040 - 0x0030)
@@ -3227,10 +3321,11 @@ public:
 		return GetDefaultObjImpl<UBattleRuleCategoryListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleCategoryListEntryObject;
 
 // Class OutGameModule.SettingWidget
 // 0x0050 (0x03C0 - 0x0370)
-class USettingWidget : public UWidgetBase
+class USettingWidget final : public UWidgetBase
 {
 public:
 	class UTabContentsSwitcher*                   _tabContentsSwitcher;                              // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -3285,6 +3380,7 @@ public:
 		return GetDefaultObjImpl<USettingWidget>();
 	}
 };
+DUMPER7_ASSERTS_USettingWidget;
 
 // Class OutGameModule.BattleRuleCategoryCountListEntryObject
 // 0x0008 (0x0038 - 0x0030)
@@ -3307,10 +3403,11 @@ public:
 		return GetDefaultObjImpl<UBattleRuleCategoryCountListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleCategoryCountListEntryObject;
 
 // Class OutGameModule.BattleRuleRankDetailExpWidget
 // 0x00A0 (0x0410 - 0x0370)
-class UBattleRuleRankDetailExpWidget : public UWidgetBase
+class UBattleRuleRankDetailExpWidget final : public UWidgetBase
 {
 public:
 	class UCanvasPanel*                           _currentRankPanel;                                 // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -3348,6 +3445,7 @@ public:
 		return GetDefaultObjImpl<UBattleRuleRankDetailExpWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleRankDetailExpWidget;
 
 // Class OutGameModule.CustomMatchStandbyListWidget
 // 0x0070 (0x03E0 - 0x0370)
@@ -3385,6 +3483,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchStandbyListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchStandbyListWidget;
 
 // Class OutGameModule.SpecialEffectDetailPopupWidget
 // 0x00A8 (0x0418 - 0x0370)
@@ -3433,6 +3532,7 @@ public:
 		return GetDefaultObjImpl<USpecialEffectDetailPopupWidget>();
 	}
 };
+DUMPER7_ASSERTS_USpecialEffectDetailPopupWidget;
 
 // Class OutGameModule.BattleRuleRankDetailReachingRewardItem
 // 0x0038 (0x0450 - 0x0418)
@@ -3460,10 +3560,11 @@ public:
 		return GetDefaultObjImpl<UBattleRuleRankDetailReachingRewardItem>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleRankDetailReachingRewardItem;
 
 // Class OutGameModule.EventRankList
 // 0x0050 (0x03C0 - 0x0370)
-class UEventRankList : public UWidgetBase
+class UEventRankList final : public UWidgetBase
 {
 public:
 	class UVerticalBox*                           _rankList;                                         // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -3494,6 +3595,7 @@ public:
 		return GetDefaultObjImpl<UEventRankList>();
 	}
 };
+DUMPER7_ASSERTS_UEventRankList;
 
 // Class OutGameModule.RankingRemunerationSelectionWidget
 // 0x0038 (0x0450 - 0x0418)
@@ -3525,6 +3627,7 @@ public:
 		return GetDefaultObjImpl<URankingRemunerationSelectionWidget>();
 	}
 };
+DUMPER7_ASSERTS_URankingRemunerationSelectionWidget;
 
 // Class OutGameModule.ItemGetListWidget
 // 0x00F8 (0x0468 - 0x0370)
@@ -3591,10 +3694,11 @@ public:
 		return GetDefaultObjImpl<UItemGetListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UItemGetListWidget;
 
 // Class OutGameModule.SortPopupWidget
 // 0x0080 (0x0498 - 0x0418)
-class USortPopupWidget : public UAppWidget
+class USortPopupWidget final : public UAppWidget
 {
 public:
 	class UWidgetGeneralEmptyWindow*              _emptyWindow;                                      // 0x0418(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -3640,10 +3744,11 @@ public:
 		return GetDefaultObjImpl<USortPopupWidget>();
 	}
 };
+DUMPER7_ASSERTS_USortPopupWidget;
 
 // Class OutGameModule.BattleRuleRankDetailSelectionWidget
 // 0x0008 (0x0458 - 0x0450)
-class UBattleRuleRankDetailSelectionWidget : public URankingRemunerationSelectionWidget
+class UBattleRuleRankDetailSelectionWidget final : public URankingRemunerationSelectionWidget
 {
 public:
 	ERankRewardCategory                           _type;                                             // 0x0450(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -3663,10 +3768,11 @@ public:
 		return GetDefaultObjImpl<UBattleRuleRankDetailSelectionWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleRankDetailSelectionWidget;
 
 // Class OutGameModule.BattleRuleRankDetailTopWidget
 // 0x0078 (0x03E8 - 0x0370)
-class UBattleRuleRankDetailTopWidget : public UWidgetBase
+class UBattleRuleRankDetailTopWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x10];                                     // 0x0370(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
@@ -3703,6 +3809,7 @@ public:
 		return GetDefaultObjImpl<UBattleRuleRankDetailTopWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleRankDetailTopWidget;
 
 // Class OutGameModule.EventPanelEntryObject
 // 0x0028 (0x0058 - 0x0030)
@@ -3725,6 +3832,7 @@ public:
 		return GetDefaultObjImpl<UEventPanelEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UEventPanelEntryObject;
 
 // Class OutGameModule.CharacterSelectAppWidgetBase
 // 0x01B0 (0x0520 - 0x0370)
@@ -3836,6 +3944,7 @@ public:
 		return GetDefaultObjImpl<UCharacterSelectAppWidgetBase>();
 	}
 };
+DUMPER7_ASSERTS_UCharacterSelectAppWidgetBase;
 
 // Class OutGameModule.SettingCharacterSelectAppWidget
 // 0x0000 (0x0520 - 0x0520)
@@ -3858,10 +3967,11 @@ public:
 		return GetDefaultObjImpl<USettingCharacterSelectAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_USettingCharacterSelectAppWidget;
 
 // Class OutGameModule.BattleRuleRankExpWidget
 // 0x0098 (0x0408 - 0x0370)
-class UBattleRuleRankExpWidget : public UWidgetBase
+class UBattleRuleRankExpWidget final : public UWidgetBase
 {
 public:
 	class UCanvasPanel*                           _currentRankPanel;                                 // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -3901,10 +4011,11 @@ public:
 		return GetDefaultObjImpl<UBattleRuleRankExpWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleRankExpWidget;
 
 // Class OutGameModule.GashaBannerListItemWidget
 // 0x0028 (0x0538 - 0x0510)
-class UGashaBannerListItemWidget : public UWidgetButton
+class UGashaBannerListItemWidget final : public UWidgetButton
 {
 public:
 	uint8                                         Pad_510[0x8];                                      // 0x0510(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -3930,10 +4041,11 @@ public:
 		return GetDefaultObjImpl<UGashaBannerListItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaBannerListItemWidget;
 
 // Class OutGameModule.BattleRuleRankRewardButtonListWidget
 // 0x00E8 (0x0458 - 0x0370)
-class UBattleRuleRankRewardButtonListWidget : public UWidgetBase
+class UBattleRuleRankRewardButtonListWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x10];                                     // 0x0370(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
@@ -3973,6 +4085,7 @@ public:
 		return GetDefaultObjImpl<UBattleRuleRankRewardButtonListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleRankRewardButtonListWidget;
 
 // Class OutGameModule.ShopItemWidget
 // 0x00F0 (0x0850 - 0x0760)
@@ -4043,10 +4156,11 @@ public:
 		return GetDefaultObjImpl<UShopItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UShopItemWidget;
 
 // Class OutGameModule.BattleRuleRankRewardButtonWidget
 // 0x0018 (0x0528 - 0x0510)
-class UBattleRuleRankRewardButtonWidget : public UWidgetButton
+class UBattleRuleRankRewardButtonWidget final : public UWidgetButton
 {
 public:
 	class UAdjustTextWidget*                      _rewardTitleText;                                  // 0x0510(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -4067,10 +4181,11 @@ public:
 		return GetDefaultObjImpl<UBattleRuleRankRewardButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleRankRewardButtonWidget;
 
 // Class OutGameModule.BattleRuleRankTabInfoBaseWidget
 // 0x0018 (0x0388 - 0x0370)
-class UBattleRuleRankTabInfoBaseWidget : public UWidgetBase
+class UBattleRuleRankTabInfoBaseWidget final : public UWidgetBase
 {
 public:
 	class UTextBlock*                             _seasonText;                                       // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -4094,6 +4209,7 @@ public:
 		return GetDefaultObjImpl<UBattleRuleRankTabInfoBaseWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleRankTabInfoBaseWidget;
 
 // Class OutGameModule.CustomMatchResultTabEntryObject
 // 0x0048 (0x0078 - 0x0030)
@@ -4116,6 +4232,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTabEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTabEntryObject;
 
 // Class OutGameModule.FriendListViewEntryObject
 // 0x0068 (0x0098 - 0x0030)
@@ -4140,6 +4257,7 @@ public:
 		return GetDefaultObjImpl<UFriendListViewEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UFriendListViewEntryObject;
 
 // Class OutGameModule.SquadFriendListViewEntryObject
 // 0x0008 (0x00A0 - 0x0098)
@@ -4163,10 +4281,11 @@ public:
 		return GetDefaultObjImpl<USquadFriendListViewEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_USquadFriendListViewEntryObject;
 
 // Class OutGameModule.BattleRuleRankTopWidget
 // 0x0078 (0x0408 - 0x0390)
-class UBattleRuleRankTopWidget : public UBattleRuleSpecificBaseWidget
+class UBattleRuleRankTopWidget final : public UBattleRuleSpecificBaseWidget
 {
 public:
 	class UDataTable*                             _rankCommentDT;                                    // 0x0390(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -4203,6 +4322,7 @@ public:
 		return GetDefaultObjImpl<UBattleRuleRankTopWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleRankTopWidget;
 
 // Class OutGameModule.CustomMatchResultTabListBase
 // 0x0048 (0x03B8 - 0x0370)
@@ -4228,6 +4348,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTabListBase>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTabListBase;
 
 // Class OutGameModule.CustomMatchResultTabListDominate
 // 0x0028 (0x03E0 - 0x03B8)
@@ -4257,10 +4378,11 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTabListDominate>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTabListDominate;
 
 // Class OutGameModule.BattleRuleSpecificWidget
 // 0x0010 (0x0380 - 0x0370)
-class UBattleRuleSpecificWidget : public UWidgetBase
+class UBattleRuleSpecificWidget final : public UWidgetBase
 {
 public:
 	class UWidgetSwitcher*                        _screenSwitcher;                                   // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -4280,6 +4402,7 @@ public:
 		return GetDefaultObjImpl<UBattleRuleSpecificWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleSpecificWidget;
 
 // Class OutGameModule.SpecialEffectDetailRankWidget
 // 0x0028 (0x0398 - 0x0370)
@@ -4306,10 +4429,11 @@ public:
 		return GetDefaultObjImpl<USpecialEffectDetailRankWidget>();
 	}
 };
+DUMPER7_ASSERTS_USpecialEffectDetailRankWidget;
 
 // Class OutGameModule.BattleRuleStageWidget
 // 0x0150 (0x04C0 - 0x0370)
-class UBattleRuleStageWidget : public UWidgetBase
+class UBattleRuleStageWidget final : public UWidgetBase
 {
 public:
 	class UPaperFlipbook*                         _stageFB;                                          // 0x0370(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -4357,10 +4481,11 @@ public:
 		return GetDefaultObjImpl<UBattleRuleStageWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleStageWidget;
 
 // Class OutGameModule.BattleRuleWidget
 // 0x0118 (0x0488 - 0x0370)
-class UBattleRuleWidget : public UWidgetInputControl
+class UBattleRuleWidget final : public UWidgetInputControl
 {
 public:
 	TMap<EPlayModeModeCategory, int32>            _drawCategoryInfoMap;                              // 0x0370(0x0050)(BlueprintVisible, BlueprintReadOnly, Protected, NativeAccessSpecifierProtected)
@@ -4409,10 +4534,11 @@ public:
 		return GetDefaultObjImpl<UBattleRuleWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBattleRuleWidget;
 
 // Class OutGameModule.EventPreviewWidget
 // 0x0068 (0x03D8 - 0x0370)
-class UEventPreviewWidget : public UWidgetBase
+class UEventPreviewWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x10];                                     // 0x0370(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
@@ -4452,6 +4578,7 @@ public:
 		return GetDefaultObjImpl<UEventPreviewWidget>();
 	}
 };
+DUMPER7_ASSERTS_UEventPreviewWidget;
 
 // Class OutGameModule.ShopItemObject
 // 0x00D0 (0x00F8 - 0x0028)
@@ -4475,6 +4602,7 @@ public:
 		return GetDefaultObjImpl<UShopItemObject>();
 	}
 };
+DUMPER7_ASSERTS_UShopItemObject;
 
 // Class OutGameModule.BeforePurchasePopupWidget
 // 0x0038 (0x0450 - 0x0418)
@@ -4511,10 +4639,11 @@ public:
 		return GetDefaultObjImpl<UBeforePurchasePopupWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBeforePurchasePopupWidget;
 
 // Class OutGameModule.GashaHelpWidget
 // 0x0000 (0x0370 - 0x0370)
-class UGashaHelpWidget : public UWidgetBase
+class UGashaHelpWidget final : public UWidgetBase
 {
 public:
 	void SetHelpText(class UTextBlock* Text);
@@ -4535,6 +4664,7 @@ public:
 		return GetDefaultObjImpl<UGashaHelpWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaHelpWidget;
 
 // Class OutGameModule.BillboardObject
 // 0x0088 (0x00B8 - 0x0030)
@@ -4557,6 +4687,7 @@ public:
 		return GetDefaultObjImpl<UBillboardObject>();
 	}
 };
+DUMPER7_ASSERTS_UBillboardObject;
 
 // Class OutGameModule.UseCurrencySelectItemEntryObject
 // 0x0030 (0x0060 - 0x0030)
@@ -4579,6 +4710,7 @@ public:
 		return GetDefaultObjImpl<UUseCurrencySelectItemEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UUseCurrencySelectItemEntryObject;
 
 // Class OutGameModule.BillboardItemWidget
 // 0x0058 (0x07B8 - 0x0760)
@@ -4611,6 +4743,7 @@ public:
 		return GetDefaultObjImpl<UBillboardItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBillboardItemWidget;
 
 // Class OutGameModule.BillboardAppWidget
 // 0x0048 (0x0478 - 0x0430)
@@ -4652,6 +4785,7 @@ public:
 		return GetDefaultObjImpl<UBillboardAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBillboardAppWidget;
 
 // Class OutGameModule.GameModeOutGame
 // 0x0058 (0x0398 - 0x0340)
@@ -4675,10 +4809,11 @@ public:
 		return GetDefaultObjImpl<AGameModeOutGame>();
 	}
 };
+DUMPER7_ASSERTS_AGameModeOutGame;
 
 // Class OutGameModule.GameModeMainMenu
 // 0x0008 (0x03A0 - 0x0398)
-class AGameModeMainMenu : public AGameModeOutGame
+class AGameModeMainMenu final : public AGameModeOutGame
 {
 public:
 	class UMyRoomComponent*                       _myRoomComponent;                                  // 0x0398(0x0008)(Edit, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -4700,10 +4835,11 @@ public:
 		return GetDefaultObjImpl<AGameModeMainMenu>();
 	}
 };
+DUMPER7_ASSERTS_AGameModeMainMenu;
 
 // Class OutGameModule.StaffRollCellSlot
 // 0x0028 (0x0398 - 0x0370)
-class UStaffRollCellSlot : public UWidgetBase
+class UStaffRollCellSlot final : public UWidgetBase
 {
 public:
 	class UTextBlock*                             _textSlot1;                                        // 0x0370(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -4729,6 +4865,7 @@ public:
 		return GetDefaultObjImpl<UStaffRollCellSlot>();
 	}
 };
+DUMPER7_ASSERTS_UStaffRollCellSlot;
 
 // Class OutGameModule.BillboardDisplayWidget
 // 0x0040 (0x03B0 - 0x0370)
@@ -4763,6 +4900,7 @@ public:
 		return GetDefaultObjImpl<UBillboardDisplayWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBillboardDisplayWidget;
 
 // Class OutGameModule.CustomMatchResultTeamItemBaseWidget
 // 0x00B0 (0x0420 - 0x0370)
@@ -4795,6 +4933,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTeamItemBaseWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTeamItemBaseWidget;
 
 // Class OutGameModule.BlockListRequestWidget
 // 0x0060 (0x0478 - 0x0418)
@@ -4848,10 +4987,11 @@ public:
 		return GetDefaultObjImpl<UBlockListRequestWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBlockListRequestWidget;
 
 // Class OutGameModule.SquadMemberInvitationList
 // 0x0140 (0x04B0 - 0x0370)
-class USquadMemberInvitationList : public UWidgetBase
+class USquadMemberInvitationList final : public UWidgetBase
 {
 public:
 	TMulticastInlineDelegate<void(ESquadMemberInvitationStatus squadMemberInvitationStatus)> OnDecideSelectButton; // 0x0370(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -4899,6 +5039,7 @@ public:
 		return GetDefaultObjImpl<USquadMemberInvitationList>();
 	}
 };
+DUMPER7_ASSERTS_USquadMemberInvitationList;
 
 // Class OutGameModule.OutGameWidgetPresenter
 // 0x0038 (0x0280 - 0x0248)
@@ -4926,6 +5067,7 @@ public:
 		return GetDefaultObjImpl<AOutGameWidgetPresenter>();
 	}
 };
+DUMPER7_ASSERTS_AOutGameWidgetPresenter;
 
 // Class OutGameModule.BlockListRequestWidgetPresenter
 // 0x0000 (0x0280 - 0x0280)
@@ -4945,6 +5087,7 @@ public:
 		return GetDefaultObjImpl<ABlockListRequestWidgetPresenter>();
 	}
 };
+DUMPER7_ASSERTS_ABlockListRequestWidgetPresenter;
 
 // Class OutGameModule.StarMissionContents
 // 0x00B8 (0x0530 - 0x0478)
@@ -4975,6 +5118,7 @@ public:
 		return GetDefaultObjImpl<UStarMissionContents>();
 	}
 };
+DUMPER7_ASSERTS_UStarMissionContents;
 
 // Class OutGameModule.UniformWidthHorizontalBox
 // 0x0010 (0x0380 - 0x0370)
@@ -5000,6 +5144,7 @@ public:
 		return GetDefaultObjImpl<UUniformWidthHorizontalBox>();
 	}
 };
+DUMPER7_ASSERTS_UUniformWidthHorizontalBox;
 
 // Class OutGameModule.BootWidget
 // 0x0068 (0x03D8 - 0x0370)
@@ -5038,6 +5183,7 @@ public:
 		return GetDefaultObjImpl<UBootWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBootWidget;
 
 // Class OutGameModule.FindSquadWidget
 // 0x0000 (0x0370 - 0x0370)
@@ -5057,10 +5203,11 @@ public:
 		return GetDefaultObjImpl<UFindSquadWidget>();
 	}
 };
+DUMPER7_ASSERTS_UFindSquadWidget;
 
 // Class OutGameModule.BrowserTransWindowWidget
 // 0x0050 (0x0468 - 0x0418)
-class UBrowserTransWindowWidget : public UAppWidget
+class UBrowserTransWindowWidget final : public UAppWidget
 {
 public:
 	TMap<ETitleCodeRegion, class FString>         _browserURLMaps;                                   // 0x0418(0x0050)(Edit, BlueprintVisible, DisableEditOnInstance, Protected, NativeAccessSpecifierProtected)
@@ -5082,6 +5229,7 @@ public:
 		return GetDefaultObjImpl<UBrowserTransWindowWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBrowserTransWindowWidget;
 
 // Class OutGameModule.BuyItemWidget
 // 0x0078 (0x0588 - 0x0510)
@@ -5116,6 +5264,7 @@ public:
 		return GetDefaultObjImpl<UBuyItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UBuyItemWidget;
 
 // Class OutGameModule.SwitcherControllerWidget
 // 0x0058 (0x03C8 - 0x0370)
@@ -5160,6 +5309,7 @@ public:
 		return GetDefaultObjImpl<USwitcherControllerWidget>();
 	}
 };
+DUMPER7_ASSERTS_USwitcherControllerWidget;
 
 // Class OutGameModule.GameStateDevOnlineMenu
 // 0x0018 (0x02A8 - 0x0290)
@@ -5214,10 +5364,11 @@ public:
 		return GetDefaultObjImpl<AGameStateDevOnlineMenu>();
 	}
 };
+DUMPER7_ASSERTS_AGameStateDevOnlineMenu;
 
 // Class OutGameModule.SeasonPassRank
 // 0x00A0 (0x0410 - 0x0370)
-class USeasonPassRank : public UWidgetBase
+class USeasonPassRank final : public UWidgetBase
 {
 public:
 	class UProgressBar*                           _rankProgressBar;                                  // 0x0370(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -5257,6 +5408,7 @@ public:
 		return GetDefaultObjImpl<USeasonPassRank>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassRank;
 
 // Class OutGameModule.CalloutTabWidget
 // 0x0028 (0x03F0 - 0x03C8)
@@ -5284,6 +5436,7 @@ public:
 		return GetDefaultObjImpl<UCalloutTabWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCalloutTabWidget;
 
 // Class OutGameModule.CustomMatchSelectTop
 // 0x00C8 (0x0438 - 0x0370)
@@ -5320,6 +5473,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchSelectTop>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchSelectTop;
 
 // Class OutGameModule.CameraActorOutGame
 // 0x0138 (0x0358 - 0x0220)
@@ -5358,6 +5512,7 @@ public:
 		return GetDefaultObjImpl<ACameraActorOutGame>();
 	}
 };
+DUMPER7_ASSERTS_ACameraActorOutGame;
 
 // Class OutGameModule.StaffRollObject
 // 0x0020 (0x0048 - 0x0028)
@@ -5381,6 +5536,7 @@ public:
 		return GetDefaultObjImpl<UStaffRollObject>();
 	}
 };
+DUMPER7_ASSERTS_UStaffRollObject;
 
 // Class OutGameModule.CameraActorAvatarCreate
 // 0x0048 (0x03A0 - 0x0358)
@@ -5414,6 +5570,7 @@ public:
 		return GetDefaultObjImpl<ACameraActorAvatarCreate>();
 	}
 };
+DUMPER7_ASSERTS_ACameraActorAvatarCreate;
 
 // Class OutGameModule.PlayerNameBaseAppWidget
 // 0x0080 (0x0498 - 0x0418)
@@ -5469,6 +5626,7 @@ public:
 		return GetDefaultObjImpl<UPlayerNameBaseAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayerNameBaseAppWidget;
 
 // Class OutGameModule.CustomMatchResultTabTopPanelDominate
 // 0x0030 (0x03A0 - 0x0370)
@@ -5494,6 +5652,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTabTopPanelDominate>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTabTopPanelDominate;
 
 // Class OutGameModule.ChangeRoomPlayerNameWidget
 // 0x00B8 (0x0550 - 0x0498)
@@ -5539,6 +5698,7 @@ public:
 		return GetDefaultObjImpl<UChangeRoomPlayerNameWidget>();
 	}
 };
+DUMPER7_ASSERTS_UChangeRoomPlayerNameWidget;
 
 // Class OutGameModule.CustomMatchResultTeamListBase
 // 0x0030 (0x03A0 - 0x0370)
@@ -5566,6 +5726,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTeamListBase>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTeamListBase;
 
 // Class OutGameModule.ChangeRoomSquadNameWidget
 // 0x00C0 (0x0558 - 0x0498)
@@ -5612,10 +5773,11 @@ public:
 		return GetDefaultObjImpl<UChangeRoomSquadNameWidget>();
 	}
 };
+DUMPER7_ASSERTS_UChangeRoomSquadNameWidget;
 
 // Class OutGameModule.SquadWidget
 // 0x0080 (0x03F0 - 0x0370)
-class USquadWidget : public UWidgetBase
+class USquadWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -5673,6 +5835,7 @@ public:
 		return GetDefaultObjImpl<USquadWidget>();
 	}
 };
+DUMPER7_ASSERTS_USquadWidget;
 
 // Class OutGameModule.CharacterOutGame
 // 0x0080 (0x05C0 - 0x0540)
@@ -5718,6 +5881,7 @@ public:
 		return GetDefaultObjImpl<ACharacterOutGame>();
 	}
 };
+DUMPER7_ASSERTS_ACharacterOutGame;
 
 // Class OutGameModule.CharacterAvatarCreate
 // 0x0000 (0x05C0 - 0x05C0)
@@ -5737,6 +5901,7 @@ public:
 		return GetDefaultObjImpl<ACharacterAvatarCreate>();
 	}
 };
+DUMPER7_ASSERTS_ACharacterAvatarCreate;
 
 // Class OutGameModule.EventMissionListItem
 // 0x0070 (0x0580 - 0x0510)
@@ -5773,10 +5938,11 @@ public:
 		return GetDefaultObjImpl<UEventMissionListItem>();
 	}
 };
+DUMPER7_ASSERTS_UEventMissionListItem;
 
 // Class OutGameModule.CharacterCustomize
 // 0x0038 (0x05F8 - 0x05C0)
-class ACharacterCustomize : public ACharacterOutGame
+class ACharacterCustomize final : public ACharacterOutGame
 {
 public:
 	uint8                                         Pad_5C0[0x18];                                     // 0x05C0(0x0018)(Fixing Size After Last Property [ Dumper-7 ])
@@ -5806,6 +5972,7 @@ public:
 		return GetDefaultObjImpl<ACharacterCustomize>();
 	}
 };
+DUMPER7_ASSERTS_ACharacterCustomize;
 
 // Class OutGameModule.GuildTopWidget
 // 0x0068 (0x03D8 - 0x0370)
@@ -5843,6 +6010,7 @@ public:
 		return GetDefaultObjImpl<UGuildTopWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildTopWidget;
 
 // Class OutGameModule.CharacterIconButtonWidget
 // 0x0018 (0x0570 - 0x0558)
@@ -5868,6 +6036,7 @@ public:
 		return GetDefaultObjImpl<UCharacterIconButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCharacterIconButtonWidget;
 
 // Class OutGameModule.LoginBonusListItemWidget
 // 0x0140 (0x0650 - 0x0510)
@@ -5918,6 +6087,7 @@ public:
 		return GetDefaultObjImpl<ULoginBonusListItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULoginBonusListItemWidget;
 
 // Class OutGameModule.CharacterImageWidget
 // 0x0060 (0x03D0 - 0x0370)
@@ -5945,6 +6115,7 @@ public:
 		return GetDefaultObjImpl<UCharacterImageWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCharacterImageWidget;
 
 // Class OutGameModule.CharacterOutGameSpawnPoint
 // 0x0058 (0x0278 - 0x0220)
@@ -5971,10 +6142,11 @@ public:
 		return GetDefaultObjImpl<ACharacterOutGameSpawnPoint>();
 	}
 };
+DUMPER7_ASSERTS_ACharacterOutGameSpawnPoint;
 
 // Class OutGameModule.SquadMemberListWidget
 // 0x0068 (0x03D8 - 0x0370)
-class USquadMemberListWidget : public UWidgetBase
+class USquadMemberListWidget final : public UWidgetBase
 {
 public:
 	TArray<struct FDbSquadMemberParam>            _memberList;                                       // 0x0370(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
@@ -6009,10 +6181,11 @@ public:
 		return GetDefaultObjImpl<USquadMemberListWidget>();
 	}
 };
+DUMPER7_ASSERTS_USquadMemberListWidget;
 
 // Class OutGameModule.CharacterMyRoomSpawnPoint
 // 0x0048 (0x02C0 - 0x0278)
-class ACharacterMyRoomSpawnPoint : public ACharacterOutGameSpawnPoint
+class ACharacterMyRoomSpawnPoint final : public ACharacterOutGameSpawnPoint
 {
 public:
 	struct FDbMyRoomCharacterDataParam            _chracterData;                                     // 0x0278(0x0030)(Edit, NativeAccessSpecifierPublic)
@@ -6035,6 +6208,7 @@ public:
 		return GetDefaultObjImpl<ACharacterMyRoomSpawnPoint>();
 	}
 };
+DUMPER7_ASSERTS_ACharacterMyRoomSpawnPoint;
 
 // Class OutGameModule.CustomMatchTeamButtonWidget
 // 0x0020 (0x0390 - 0x0370)
@@ -6061,6 +6235,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchTeamButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchTeamButtonWidget;
 
 // Class OutGameModule.CharacterPanel
 // 0x0030 (0x0540 - 0x0510)
@@ -6090,6 +6265,7 @@ public:
 		return GetDefaultObjImpl<UCharacterPanel>();
 	}
 };
+DUMPER7_ASSERTS_UCharacterPanel;
 
 // Class OutGameModule.StarDetailsObject
 // 0x0098 (0x00C0 - 0x0028)
@@ -6112,10 +6288,11 @@ public:
 		return GetDefaultObjImpl<UStarDetailsObject>();
 	}
 };
+DUMPER7_ASSERTS_UStarDetailsObject;
 
 // Class OutGameModule.CharacterSelectAppWidget
 // 0x0430 (0x0950 - 0x0520)
-class UCharacterSelectAppWidget : public UCharacterSelectAppWidgetBase
+class UCharacterSelectAppWidget final : public UCharacterSelectAppWidgetBase
 {
 public:
 	TSoftObjectPtr<class UWorld>                  _shopPopupLevel;                                   // 0x0520(0x0028)(Edit, DisableEditOnInstance, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -6182,6 +6359,7 @@ public:
 		return GetDefaultObjImpl<UCharacterSelectAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCharacterSelectAppWidget;
 
 // Class OutGameModule.EventRewardItemWidget
 // 0x0050 (0x0560 - 0x0510)
@@ -6213,6 +6391,7 @@ public:
 		return GetDefaultObjImpl<UEventRewardItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UEventRewardItemWidget;
 
 // Class OutGameModule.CharacterSelectCharaButtonWidget
 // 0x0108 (0x0678 - 0x0570)
@@ -6260,6 +6439,7 @@ public:
 		return GetDefaultObjImpl<UCharacterSelectCharaButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCharacterSelectCharaButtonWidget;
 
 // Class OutGameModule.ItemIconImage
 // 0x0060 (0x02C0 - 0x0260)
@@ -6294,6 +6474,7 @@ public:
 		return GetDefaultObjImpl<UItemIconImage>();
 	}
 };
+DUMPER7_ASSERTS_UItemIconImage;
 
 // Class OutGameModule.CustomMatchTeamWidget
 // 0x00A0 (0x0410 - 0x0370)
@@ -6332,10 +6513,11 @@ public:
 		return GetDefaultObjImpl<UCustomMatchTeamWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchTeamWidget;
 
 // Class OutGameModule.CharacterSelectButtonMemberWidget
 // 0x0018 (0x0690 - 0x0678)
-class UCharacterSelectButtonMemberWidget : public UCharacterSelectCharaButtonWidget
+class UCharacterSelectButtonMemberWidget final : public UCharacterSelectCharaButtonWidget
 {
 public:
 	class UAdjustTextWidget*                      _memberText;                                       // 0x0678(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -6355,6 +6537,7 @@ public:
 		return GetDefaultObjImpl<UCharacterSelectButtonMemberWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCharacterSelectButtonMemberWidget;
 
 // Class OutGameModule.GuildPageWidgetBase
 // 0x0028 (0x0440 - 0x0418)
@@ -6385,6 +6568,7 @@ public:
 		return GetDefaultObjImpl<UGuildPageWidgetBase>();
 	}
 };
+DUMPER7_ASSERTS_UGuildPageWidgetBase;
 
 // Class OutGameModule.GuildCreateWidget
 // 0x0008 (0x0448 - 0x0440)
@@ -6413,6 +6597,7 @@ public:
 		return GetDefaultObjImpl<UGuildCreateWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildCreateWidget;
 
 // Class OutGameModule.CharacterSelectCharaStatusWidget
 // 0x0050 (0x03C0 - 0x0370)
@@ -6450,10 +6635,11 @@ public:
 		return GetDefaultObjImpl<UCharacterSelectCharaStatusWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCharacterSelectCharaStatusWidget;
 
 // Class OutGameModule.CharacterSelectLeftRightButtonWidget
 // 0x0060 (0x0570 - 0x0510)
-class UCharacterSelectLeftRightButtonWidget : public UWidgetButton
+class UCharacterSelectLeftRightButtonWidget final : public UWidgetButton
 {
 public:
 	uint8                                         Pad_510[0x10];                                     // 0x0510(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
@@ -6481,10 +6667,11 @@ public:
 		return GetDefaultObjImpl<UCharacterSelectLeftRightButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCharacterSelectLeftRightButtonWidget;
 
 // Class OutGameModule.StaffRollWidget
 // 0x00C0 (0x0430 - 0x0370)
-class UStaffRollWidget : public UWidgetBase
+class UStaffRollWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x20];                                     // 0x0370(0x0020)(Fixing Size After Last Property [ Dumper-7 ])
@@ -6549,6 +6736,7 @@ public:
 		return GetDefaultObjImpl<UStaffRollWidget>();
 	}
 };
+DUMPER7_ASSERTS_UStaffRollWidget;
 
 // Class OutGameModule.CharacterSelectCategoryListEntryObject
 // 0x0020 (0x0050 - 0x0030)
@@ -6577,6 +6765,7 @@ public:
 		return GetDefaultObjImpl<UCharacterSelectCategoryListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UCharacterSelectCategoryListEntryObject;
 
 // Class OutGameModule.CustomMatchTeamItemWidget
 // 0x0058 (0x05B0 - 0x0558)
@@ -6612,6 +6801,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchTeamItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchTeamItemWidget;
 
 // Class OutGameModule.CharacterSelectCharaListEntryObject
 // 0x0008 (0x0038 - 0x0030)
@@ -6636,10 +6826,11 @@ public:
 		return GetDefaultObjImpl<UCharacterSelectCharaListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UCharacterSelectCharaListEntryObject;
 
 // Class OutGameModule.SeasonPassStockEntry
 // 0x0018 (0x0388 - 0x0370)
-class USeasonPassStockEntry : public UWidgetBase
+class USeasonPassStockEntry final : public UWidgetBase
 {
 public:
 	class USeasonPassEntry*                       _entry;                                            // 0x0370(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -6662,10 +6853,11 @@ public:
 		return GetDefaultObjImpl<USeasonPassStockEntry>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassStockEntry;
 
 // Class OutGameModule.CharacterSelectLSButtonWidget
 // 0x0020 (0x0438 - 0x0418)
-class UCharacterSelectLSButtonWidget : public UAppWidget
+class UCharacterSelectLSButtonWidget final : public UAppWidget
 {
 public:
 	class UCanvasPanel*                           _main;                                             // 0x0418(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -6687,6 +6879,7 @@ public:
 		return GetDefaultObjImpl<UCharacterSelectLSButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCharacterSelectLSButtonWidget;
 
 // Class OutGameModule.CharacterSelectSortSettingWidget
 // 0x0030 (0x0448 - 0x0418)
@@ -6716,6 +6909,7 @@ public:
 		return GetDefaultObjImpl<UCharacterSelectSortSettingWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCharacterSelectSortSettingWidget;
 
 // Class OutGameModule.CharacterSelectTrainingAppWidget
 // 0x0000 (0x0520 - 0x0520)
@@ -6738,6 +6932,7 @@ public:
 		return GetDefaultObjImpl<UCharacterSelectTrainingAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCharacterSelectTrainingAppWidget;
 
 // Class OutGameModule.DetailsRankingContentsBase
 // 0x0120 (0x0490 - 0x0370)
@@ -6778,6 +6973,7 @@ public:
 		return GetDefaultObjImpl<UDetailsRankingContentsBase>();
 	}
 };
+DUMPER7_ASSERTS_UDetailsRankingContentsBase;
 
 // Class OutGameModule.DetailsRankingContents
 // 0x0030 (0x04C0 - 0x0490)
@@ -6814,6 +7010,7 @@ public:
 		return GetDefaultObjImpl<UDetailsRankingContents>();
 	}
 };
+DUMPER7_ASSERTS_UDetailsRankingContents;
 
 // Class OutGameModule.CharacterSequencerOutGame
 // 0x0040 (0x0600 - 0x05C0)
@@ -6842,6 +7039,7 @@ public:
 		return GetDefaultObjImpl<ACharacterSequencerOutGame>();
 	}
 };
+DUMPER7_ASSERTS_ACharacterSequencerOutGame;
 
 // Class OutGameModule.GuildMainWidget
 // 0x0140 (0x0580 - 0x0440)
@@ -6898,6 +7096,7 @@ public:
 		return GetDefaultObjImpl<UGuildMainWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildMainWidget;
 
 // Class OutGameModule.CheckBoxWidget
 // 0x0030 (0x0540 - 0x0510)
@@ -6927,6 +7126,7 @@ public:
 		return GetDefaultObjImpl<UCheckBoxWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCheckBoxWidget;
 
 // Class OutGameModule.CheckBoxObject
 // 0x0030 (0x0058 - 0x0028)
@@ -6949,10 +7149,11 @@ public:
 		return GetDefaultObjImpl<UCheckBoxObject>();
 	}
 };
+DUMPER7_ASSERTS_UCheckBoxObject;
 
 // Class OutGameModule.SeasonPassScrollSlot
 // 0x0030 (0x03A0 - 0x0370)
-class USeasonPassScrollSlot : public UWidgetBase
+class USeasonPassScrollSlot final : public UWidgetBase
 {
 public:
 	TMulticastInlineDelegate<void()>              _OnItemClicked;                                    // 0x0370(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -6979,6 +7180,7 @@ public:
 		return GetDefaultObjImpl<USeasonPassScrollSlot>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassScrollSlot;
 
 // Class OutGameModule.CoinWidget
 // 0x00C0 (0x0430 - 0x0370)
@@ -7026,6 +7228,7 @@ public:
 		return GetDefaultObjImpl<UCoinWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCoinWidget;
 
 // Class OutGameModule.GameModeShop
 // 0x0000 (0x0398 - 0x0398)
@@ -7045,6 +7248,7 @@ public:
 		return GetDefaultObjImpl<AGameModeShop>();
 	}
 };
+DUMPER7_ASSERTS_AGameModeShop;
 
 // Class OutGameModule.ConsentWidget
 // 0x0090 (0x04A8 - 0x0418)
@@ -7087,6 +7291,7 @@ public:
 		return GetDefaultObjImpl<UConsentWidget>();
 	}
 };
+DUMPER7_ASSERTS_UConsentWidget;
 
 // Class OutGameModule.SettingButtonBaseWidget
 // 0x00B8 (0x05C8 - 0x0510)
@@ -7134,10 +7339,11 @@ public:
 		return GetDefaultObjImpl<USettingButtonBaseWidget>();
 	}
 };
+DUMPER7_ASSERTS_USettingButtonBaseWidget;
 
 // Class OutGameModule.SettingButtonChoicesWidget
 // 0x00D0 (0x0698 - 0x05C8)
-class USettingButtonChoicesWidget : public USettingButtonBaseWidget
+class USettingButtonChoicesWidget final : public USettingButtonBaseWidget
 {
 public:
 	TMulticastInlineDelegate<void(int32 selectedIndex)> _onValueChangedDelegate;                     // 0x05C8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -7177,6 +7383,7 @@ public:
 		return GetDefaultObjImpl<USettingButtonChoicesWidget>();
 	}
 };
+DUMPER7_ASSERTS_USettingButtonChoicesWidget;
 
 // Class OutGameModule.ContactListBaseWidget
 // 0x0078 (0x03E8 - 0x0370)
@@ -7235,10 +7442,11 @@ public:
 		return GetDefaultObjImpl<UContactListBaseWidget>();
 	}
 };
+DUMPER7_ASSERTS_UContactListBaseWidget;
 
 // Class OutGameModule.ContactInvitationWidget
 // 0x0310 (0x06F8 - 0x03E8)
-class UContactInvitationWidget : public UContactListBaseWidget
+class UContactInvitationWidget final : public UContactListBaseWidget
 {
 public:
 	ECosmosInviteTarget                           _listInvitationType;                               // 0x03E8(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -7305,6 +7513,7 @@ public:
 		return GetDefaultObjImpl<UContactInvitationWidget>();
 	}
 };
+DUMPER7_ASSERTS_UContactInvitationWidget;
 
 // Class OutGameModule.CustomMatchResultTeamItemSquad
 // 0x0008 (0x0428 - 0x0420)
@@ -7327,6 +7536,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTeamItemSquad>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTeamItemSquad;
 
 // Class OutGameModule.ShopTabWidget
 // 0x0068 (0x03D8 - 0x0370)
@@ -7363,6 +7573,7 @@ public:
 		return GetDefaultObjImpl<UShopTabWidget>();
 	}
 };
+DUMPER7_ASSERTS_UShopTabWidget;
 
 // Class OutGameModule.ContactListEntryObject
 // 0x00E8 (0x0118 - 0x0030)
@@ -7394,6 +7605,7 @@ public:
 		return GetDefaultObjImpl<UContactListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UContactListEntryObject;
 
 // Class OutGameModule.EventItemListWidget
 // 0x0040 (0x03B0 - 0x0370)
@@ -7426,10 +7638,11 @@ public:
 		return GetDefaultObjImpl<UEventItemListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UEventItemListWidget;
 
 // Class OutGameModule.ContactListEntryWidget
 // 0x0040 (0x07A0 - 0x0760)
-class UContactListEntryWidget : public UPlatformWidgetButton
+class UContactListEntryWidget final : public UPlatformWidgetButton
 {
 public:
 	uint8                                         Pad_760[0x8];                                      // 0x0760(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -7457,6 +7670,7 @@ public:
 		return GetDefaultObjImpl<UContactListEntryWidget>();
 	}
 };
+DUMPER7_ASSERTS_UContactListEntryWidget;
 
 // Class OutGameModule.GuildSearchWidget
 // 0x0040 (0x0480 - 0x0440)
@@ -7493,10 +7707,11 @@ public:
 		return GetDefaultObjImpl<UGuildSearchWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildSearchWidget;
 
 // Class OutGameModule.ContactNoticePopupWidget
 // 0x00A0 (0x0410 - 0x0370)
-class UContactNoticePopupWidget : public UWidgetBase
+class UContactNoticePopupWidget final : public UWidgetBase
 {
 public:
 	TMulticastInlineDelegate<void()>              _onClosePopupDelegate;                             // 0x0370(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -7532,10 +7747,11 @@ public:
 		return GetDefaultObjImpl<UContactNoticePopupWidget>();
 	}
 };
+DUMPER7_ASSERTS_UContactNoticePopupWidget;
 
 // Class OutGameModule.ContactNoticeWidget
 // 0x00E8 (0x04D0 - 0x03E8)
-class UContactNoticeWidget : public UContactListBaseWidget
+class UContactNoticeWidget final : public UContactListBaseWidget
 {
 public:
 	bool                                          _presentFlag;                                      // 0x03E8(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -7584,6 +7800,7 @@ public:
 		return GetDefaultObjImpl<UContactNoticeWidget>();
 	}
 };
+DUMPER7_ASSERTS_UContactNoticeWidget;
 
 // Class OutGameModule.DetailsEventContents
 // 0x0020 (0x0390 - 0x0370)
@@ -7612,10 +7829,11 @@ public:
 		return GetDefaultObjImpl<UDetailsEventContents>();
 	}
 };
+DUMPER7_ASSERTS_UDetailsEventContents;
 
 // Class OutGameModule.SettingBattleStyleDetailsWidget
 // 0x0118 (0x0488 - 0x0370)
-class USettingBattleStyleDetailsWidget : public UWidgetBase
+class USettingBattleStyleDetailsWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -7655,10 +7873,11 @@ public:
 		return GetDefaultObjImpl<USettingBattleStyleDetailsWidget>();
 	}
 };
+DUMPER7_ASSERTS_USettingBattleStyleDetailsWidget;
 
 // Class OutGameModule.ContactWidget
 // 0x00D0 (0x0440 - 0x0370)
-class UContactWidget : public UWidgetInputControl
+class UContactWidget final : public UWidgetInputControl
 {
 public:
 	bool                                          _inputLimitFlag;                                   // 0x0370(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -7716,10 +7935,11 @@ public:
 		return GetDefaultObjImpl<UContactWidget>();
 	}
 };
+DUMPER7_ASSERTS_UContactWidget;
 
 // Class OutGameModule.CurrentEventRank
 // 0x0068 (0x03D8 - 0x0370)
-class UCurrentEventRank : public UWidgetBase
+class UCurrentEventRank final : public UWidgetBase
 {
 public:
 	class UTextBlock*                             _currentRankName;                                  // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -7750,10 +7970,11 @@ public:
 		return GetDefaultObjImpl<UCurrentEventRank>();
 	}
 };
+DUMPER7_ASSERTS_UCurrentEventRank;
 
 // Class OutGameModule.MyADDisplayWidget
 // 0x0190 (0x0500 - 0x0370)
-class UMyADDisplayWidget : public UWidgetBase
+class UMyADDisplayWidget final : public UWidgetBase
 {
 public:
 	struct FMyADDisplayData                       _data;                                             // 0x0370(0x0078)(Edit, BlueprintVisible, Protected, NativeAccessSpecifierProtected)
@@ -7799,6 +8020,7 @@ public:
 		return GetDefaultObjImpl<UMyADDisplayWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyADDisplayWidget;
 
 // Class OutGameModule.GeneralPresetWidget
 // 0x00F0 (0x0508 - 0x0418)
@@ -7843,10 +8065,11 @@ public:
 		return GetDefaultObjImpl<UGeneralPresetWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGeneralPresetWidget;
 
 // Class OutGameModule.TermsOfServiceBaseWidget
 // 0x00C0 (0x0430 - 0x0370)
-class UTermsOfServiceBaseWidget : public UWidgetBase
+class UTermsOfServiceBaseWidget final : public UWidgetBase
 {
 public:
 	class UScrollBox*                             _scrollBox;                                        // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -7894,6 +8117,7 @@ public:
 		return GetDefaultObjImpl<UTermsOfServiceBaseWidget>();
 	}
 };
+DUMPER7_ASSERTS_UTermsOfServiceBaseWidget;
 
 // Class OutGameModule.CustomizeAppTopWidget
 // 0x00D8 (0x0448 - 0x0370)
@@ -7959,6 +8183,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeAppTopWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeAppTopWidget;
 
 // Class OutGameModule.CustomizeAppWidget
 // 0x0108 (0x0520 - 0x0418)
@@ -8023,6 +8248,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeAppWidget;
 
 // Class OutGameModule.GalleryItemIconWidget
 // 0x0008 (0x0378 - 0x0370)
@@ -8045,6 +8271,7 @@ public:
 		return GetDefaultObjImpl<UGalleryItemIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGalleryItemIconWidget;
 
 // Class OutGameModule.UseCurrencySelectWidget
 // 0x0040 (0x03B0 - 0x0370)
@@ -8083,6 +8310,7 @@ public:
 		return GetDefaultObjImpl<UUseCurrencySelectWidget>();
 	}
 };
+DUMPER7_ASSERTS_UUseCurrencySelectWidget;
 
 // Class OutGameModule.CustomizeCharacterSelectWidget
 // 0x0040 (0x0560 - 0x0520)
@@ -8118,6 +8346,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeCharacterSelectWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeCharacterSelectWidget;
 
 // Class OutGameModule.GashaConvertedItemWidget
 // 0x0040 (0x03B0 - 0x0370)
@@ -8150,6 +8379,7 @@ public:
 		return GetDefaultObjImpl<UGashaConvertedItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaConvertedItemWidget;
 
 // Class OutGameModule.CustomizeCostumeAppWidget
 // 0x01A8 (0x06C8 - 0x0520)
@@ -8232,6 +8462,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeCostumeAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeCostumeAppWidget;
 
 // Class OutGameModule.UIVisibilityControllerWidget
 // 0x0068 (0x0578 - 0x0510)
@@ -8261,10 +8492,11 @@ public:
 		return GetDefaultObjImpl<UUIVisibilityControllerWidget>();
 	}
 };
+DUMPER7_ASSERTS_UUIVisibilityControllerWidget;
 
 // Class OutGameModule.CustomizeCostumeAuraWidget
 // 0x0010 (0x0380 - 0x0370)
-class UCustomizeCostumeAuraWidget : public UWidgetBase
+class UCustomizeCostumeAuraWidget final : public UWidgetBase
 {
 public:
 	bool                                          _bUnLockedAura;                                    // 0x0370(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -8286,10 +8518,11 @@ public:
 		return GetDefaultObjImpl<UCustomizeCostumeAuraWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeCostumeAuraWidget;
 
 // Class OutGameModule.CustomizeCostumeAuraListWidget
 // 0x0060 (0x03D0 - 0x0370)
-class UCustomizeCostumeAuraListWidget : public UWidgetBase
+class UCustomizeCostumeAuraListWidget final : public UWidgetBase
 {
 public:
 	int32                                         _costumeCode;                                      // 0x0370(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -8320,6 +8553,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeCostumeAuraListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeCostumeAuraListWidget;
 
 // Class OutGameModule.GameStateSeasonPass
 // 0x0000 (0x0490 - 0x0490)
@@ -8339,6 +8573,7 @@ public:
 		return GetDefaultObjImpl<AGameStateSeasonPass>();
 	}
 };
+DUMPER7_ASSERTS_AGameStateSeasonPass;
 
 // Class OutGameModule.TemporaryManageOutGameState
 // 0x0000 (0x0030 - 0x0030)
@@ -8358,10 +8593,11 @@ public:
 		return GetDefaultObjImpl<UTemporaryManageOutGameState>();
 	}
 };
+DUMPER7_ASSERTS_UTemporaryManageOutGameState;
 
 // Class OutGameModule.CustomizeCostumeRoleSlotWidget
 // 0x0028 (0x0398 - 0x0370)
-class UCustomizeCostumeRoleSlotWidget : public UWidgetBase
+class UCustomizeCostumeRoleSlotWidget final : public UWidgetBase
 {
 public:
 	class UGameSequenceWork*                      _gameSequenceWork;                                 // 0x0370(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -8384,6 +8620,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeCostumeRoleSlotWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeCostumeRoleSlotWidget;
 
 // Class OutGameModule.MissionWidgetBase
 // 0x0038 (0x03A8 - 0x0370)
@@ -8415,6 +8652,7 @@ public:
 		return GetDefaultObjImpl<UMissionWidgetBase>();
 	}
 };
+DUMPER7_ASSERTS_UMissionWidgetBase;
 
 // Class OutGameModule.MissionWindow
 // 0x0058 (0x0400 - 0x03A8)
@@ -8443,6 +8681,7 @@ public:
 		return GetDefaultObjImpl<UMissionWindow>();
 	}
 };
+DUMPER7_ASSERTS_UMissionWindow;
 
 // Class OutGameModule.CustomizeCostumeSeriesAppWidget
 // 0x0028 (0x0398 - 0x0370)
@@ -8470,10 +8709,11 @@ public:
 		return GetDefaultObjImpl<UCustomizeCostumeSeriesAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeCostumeSeriesAppWidget;
 
 // Class OutGameModule.MyADPartsWidget
 // 0x0118 (0x0488 - 0x0370)
-class UMyADPartsWidget : public UWidgetBase
+class UMyADPartsWidget final : public UWidgetBase
 {
 public:
 	TMap<EMyAdPartsCategory, int32>               _itemCodeMap;                                      // 0x0370(0x0050)(Edit, BlueprintVisible, Protected, NativeAccessSpecifierProtected)
@@ -8510,6 +8750,7 @@ public:
 		return GetDefaultObjImpl<UMyADPartsWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyADPartsWidget;
 
 // Class OutGameModule.GuildActivityStatusWidget
 // 0x0090 (0x04D0 - 0x0440)
@@ -8547,10 +8788,11 @@ public:
 		return GetDefaultObjImpl<UGuildActivityStatusWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildActivityStatusWidget;
 
 // Class OutGameModule.TrainingCharacterWidget
 // 0x0090 (0x0400 - 0x0370)
-class UTrainingCharacterWidget : public UWidgetBase
+class UTrainingCharacterWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x18];                                     // 0x0370(0x0018)(Fixing Size After Last Property [ Dumper-7 ])
@@ -8598,6 +8840,7 @@ public:
 		return GetDefaultObjImpl<UTrainingCharacterWidget>();
 	}
 };
+DUMPER7_ASSERTS_UTrainingCharacterWidget;
 
 // Class OutGameModule.CustomizeCostumeSeriesWidget
 // 0x0038 (0x0418 - 0x03E0)
@@ -8629,6 +8872,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeCostumeSeriesWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeCostumeSeriesWidget;
 
 // Class OutGameModule.CustomizeEmblemAppWidget
 // 0x0040 (0x0560 - 0x0520)
@@ -8660,6 +8904,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeEmblemAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeEmblemAppWidget;
 
 // Class OutGameModule.GalleryTradeTicketWidget
 // 0x0048 (0x0558 - 0x0510)
@@ -8687,6 +8932,7 @@ public:
 		return GetDefaultObjImpl<UGalleryTradeTicketWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGalleryTradeTicketWidget;
 
 // Class OutGameModule.CustomizeEmblemPreviewAppWidget
 // 0x0030 (0x0448 - 0x0418)
@@ -8724,10 +8970,11 @@ public:
 		return GetDefaultObjImpl<UCustomizeEmblemPreviewAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeEmblemPreviewAppWidget;
 
 // Class OutGameModule.EventTimerWidget
 // 0x0008 (0x0410 - 0x0408)
-class UEventTimerWidget : public UTimeWidget
+class UEventTimerWidget final : public UTimeWidget
 {
 public:
 	class UAdjustTextWidget*                      _stateText;                                        // 0x0408(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -8746,6 +8993,7 @@ public:
 		return GetDefaultObjImpl<UEventTimerWidget>();
 	}
 };
+DUMPER7_ASSERTS_UEventTimerWidget;
 
 // Class OutGameModule.CustomizeEmblemSelectedWidget
 // 0x0028 (0x0458 - 0x0430)
@@ -8771,10 +9019,11 @@ public:
 		return GetDefaultObjImpl<UCustomizeEmblemSelectedWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeEmblemSelectedWidget;
 
 // Class OutGameModule.VideoSettingWidget
 // 0x0178 (0x0508 - 0x0390)
-class UVideoSettingWidget : public UBaseSettingWidget
+class UVideoSettingWidget final : public UBaseSettingWidget
 {
 public:
 	class USettingButtonSliderWidget*             _brightness;                                       // 0x0390(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -8841,6 +9090,7 @@ public:
 		return GetDefaultObjImpl<UVideoSettingWidget>();
 	}
 };
+DUMPER7_ASSERTS_UVideoSettingWidget;
 
 // Class OutGameModule.CustomizeEmoteAppWidget
 // 0x0038 (0x0558 - 0x0520)
@@ -8879,6 +9129,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeEmoteAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeEmoteAppWidget;
 
 // Class OutGameModule.CustomizeListEntryObject
 // 0x0028 (0x0058 - 0x0030)
@@ -8921,6 +9172,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeListEntryObject;
 
 // Class OutGameModule.GashaBaseWindow
 // 0x0118 (0x0488 - 0x0370)
@@ -9004,10 +9256,11 @@ public:
 		return GetDefaultObjImpl<UGashaBaseWindow>();
 	}
 };
+DUMPER7_ASSERTS_UGashaBaseWindow;
 
 // Class OutGameModule.TitleWidget
 // 0x0100 (0x0470 - 0x0370)
-class UTitleWidget final : public UWidgetBase
+class UTitleWidget : public UWidgetBase
 {
 public:
 	struct FTimerHandle                           _titleVoiceHandle;                                 // 0x0370(0x0008)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -9067,6 +9320,7 @@ public:
 		return GetDefaultObjImpl<UTitleWidget>();
 	}
 };
+DUMPER7_ASSERTS_UTitleWidget;
 
 // Class OutGameModule.CustomizeCostumeListEntryObject
 // 0x0000 (0x0058 - 0x0058)
@@ -9086,6 +9340,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeCostumeListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeCostumeListEntryObject;
 
 // Class OutGameModule.MyADPartsListEntryObject
 // 0x00B0 (0x00E0 - 0x0030)
@@ -9115,6 +9370,7 @@ public:
 		return GetDefaultObjImpl<UMyADPartsListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UMyADPartsListEntryObject;
 
 // Class OutGameModule.CustomizeVoiceListEntryObject
 // 0x0000 (0x0058 - 0x0058)
@@ -9134,6 +9390,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeVoiceListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeVoiceListEntryObject;
 
 // Class OutGameModule.MyRoomComponent
 // 0x04F0 (0x05A0 - 0x00B0)
@@ -9210,6 +9467,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomComponent>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomComponent;
 
 // Class OutGameModule.GuildChatEntryWidget
 // 0x0018 (0x0388 - 0x0370)
@@ -9236,6 +9494,7 @@ public:
 		return GetDefaultObjImpl<UGuildChatEntryWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildChatEntryWidget;
 
 // Class OutGameModule.CustomizeAppealListEntryObject
 // 0x0000 (0x0058 - 0x0058)
@@ -9255,6 +9514,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeAppealListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeAppealListEntryObject;
 
 // Class OutGameModule.MissionTabWidget
 // 0x0020 (0x03C8 - 0x03A8)
@@ -9286,6 +9546,7 @@ public:
 		return GetDefaultObjImpl<UMissionTabWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMissionTabWidget;
 
 // Class OutGameModule.CustomizeEmblemListEntryObject
 // 0x0000 (0x0058 - 0x0058)
@@ -9305,10 +9566,11 @@ public:
 		return GetDefaultObjImpl<UCustomizeEmblemListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeEmblemListEntryObject;
 
 // Class OutGameModule.GashaWindowWidget
 // 0x0158 (0x05E0 - 0x0488)
-class UGashaWindowWidget : public UGashaBaseWindow
+class UGashaWindowWidget final : public UGashaBaseWindow
 {
 public:
 	class UWidgetSwitcher*                        _pickupImageSwitcher;                              // 0x0488(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -9371,10 +9633,11 @@ public:
 		return GetDefaultObjImpl<UGashaWindowWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaWindowWidget;
 
 // Class OutGameModule.CustomizeMenuAppWidget
 // 0x0028 (0x0440 - 0x0418)
-class UCustomizeMenuAppWidget : public UAppWidget
+class UCustomizeMenuAppWidget final : public UAppWidget
 {
 public:
 	class UCustomizePanelCustomizeWidget*         _customizeButton;                                  // 0x0418(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -9405,6 +9668,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeMenuAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeMenuAppWidget;
 
 // Class OutGameModule.FriendListItemSubWidget
 // 0x0038 (0x0450 - 0x0418)
@@ -9438,10 +9702,11 @@ public:
 		return GetDefaultObjImpl<UFriendListItemSubWidget>();
 	}
 };
+DUMPER7_ASSERTS_UFriendListItemSubWidget;
 
 // Class OutGameModule.CustomizePanelWidget
 // 0x0078 (0x0588 - 0x0510)
-class UCustomizePanelWidget : public UWidgetButton
+class UCustomizePanelWidget final : public UWidgetButton
 {
 public:
 	class UAdjustTextWidget*                      _titleTextWidget;                                  // 0x0510(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -9467,10 +9732,11 @@ public:
 		return GetDefaultObjImpl<UCustomizePanelWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizePanelWidget;
 
 // Class OutGameModule.CustomizePanelCustomizeWidget
 // 0x0008 (0x0378 - 0x0370)
-class UCustomizePanelCustomizeWidget : public UWidgetBase
+class UCustomizePanelCustomizeWidget final : public UWidgetBase
 {
 public:
 	class UCustomizePanelWidget*                  _customizeButton;                                  // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -9493,10 +9759,11 @@ public:
 		return GetDefaultObjImpl<UCustomizePanelCustomizeWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizePanelCustomizeWidget;
 
 // Class OutGameModule.CustomizePanelMyADWidget
 // 0x0018 (0x0388 - 0x0370)
-class UCustomizePanelMyADWidget : public UWidgetBase
+class UCustomizePanelMyADWidget final : public UWidgetBase
 {
 public:
 	class UCustomizePanelWidget*                  _myAdButton;                                       // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -9521,10 +9788,11 @@ public:
 		return GetDefaultObjImpl<UCustomizePanelMyADWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizePanelMyADWidget;
 
 // Class OutGameModule.GashaHistoryListItemWidget
 // 0x0048 (0x0558 - 0x0510)
-class UGashaHistoryListItemWidget : public UWidgetButton
+class UGashaHistoryListItemWidget final : public UWidgetButton
 {
 public:
 	uint8                                         Pad_510[0x8];                                      // 0x0510(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -9551,6 +9819,7 @@ public:
 		return GetDefaultObjImpl<UGashaHistoryListItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaHistoryListItemWidget;
 
 // Class OutGameModule.CustomizePanelAvatarWidget
 // 0x0008 (0x0378 - 0x0370)
@@ -9577,6 +9846,7 @@ public:
 		return GetDefaultObjImpl<UCustomizePanelAvatarWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizePanelAvatarWidget;
 
 // Class OutGameModule.MyRoomMenuBaseWidget
 // 0x0050 (0x03C0 - 0x0370)
@@ -9606,6 +9876,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomMenuBaseWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomMenuBaseWidget;
 
 // Class OutGameModule.MyRoomCharaPositionMenuWidget
 // 0x0070 (0x0430 - 0x03C0)
@@ -9646,10 +9917,11 @@ public:
 		return GetDefaultObjImpl<UMyRoomCharaPositionMenuWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomCharaPositionMenuWidget;
 
 // Class OutGameModule.CustomizePanelMyRoomWidget
 // 0x0018 (0x0388 - 0x0370)
-class UCustomizePanelMyRoomWidget : public UWidgetBase
+class UCustomizePanelMyRoomWidget final : public UWidgetBase
 {
 public:
 	class UCustomizePanelWidget*                  _myroomButton;                                     // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -9676,6 +9948,7 @@ public:
 		return GetDefaultObjImpl<UCustomizePanelMyRoomWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizePanelMyRoomWidget;
 
 // Class OutGameModule.MyRoomPartsSelectMenu
 // 0x00E0 (0x04A0 - 0x03C0)
@@ -9716,6 +9989,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomPartsSelectMenu>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomPartsSelectMenu;
 
 // Class OutGameModule.GashaOpenUIWidget
 // 0x0010 (0x0380 - 0x0370)
@@ -9742,6 +10016,7 @@ public:
 		return GetDefaultObjImpl<UGashaOpenUIWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaOpenUIWidget;
 
 // Class OutGameModule.CustomizePresetAppWidget
 // 0x26A0 (0x2AB8 - 0x0418)
@@ -9828,6 +10103,7 @@ public:
 		return GetDefaultObjImpl<UCustomizePresetAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizePresetAppWidget;
 
 // Class OutGameModule.MyADListEntryObject
 // 0x0108 (0x0138 - 0x0030)
@@ -9853,6 +10129,7 @@ public:
 		return GetDefaultObjImpl<UMyADListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UMyADListEntryObject;
 
 // Class OutGameModule.CustomizePresetButtonWidget
 // 0x0020 (0x0530 - 0x0510)
@@ -9878,6 +10155,7 @@ public:
 		return GetDefaultObjImpl<UCustomizePresetButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizePresetButtonWidget;
 
 // Class OutGameModule.PresetObject
 // 0x0008 (0x0038 - 0x0030)
@@ -9902,6 +10180,7 @@ public:
 		return GetDefaultObjImpl<UPresetObject>();
 	}
 };
+DUMPER7_ASSERTS_UPresetObject;
 
 // Class OutGameModule.MissionDetailsObject
 // 0x00A8 (0x00D0 - 0x0028)
@@ -9924,6 +10203,7 @@ public:
 		return GetDefaultObjImpl<UMissionDetailsObject>();
 	}
 };
+DUMPER7_ASSERTS_UMissionDetailsObject;
 
 // Class OutGameModule.StarMissionDetailsObject
 // 0x0008 (0x00D8 - 0x00D0)
@@ -9946,6 +10226,7 @@ public:
 		return GetDefaultObjImpl<UStarMissionDetailsObject>();
 	}
 };
+DUMPER7_ASSERTS_UStarMissionDetailsObject;
 
 // Class OutGameModule.CustomizePresetRoleSlotWidget
 // 0x0050 (0x0468 - 0x0418)
@@ -9981,6 +10262,7 @@ public:
 		return GetDefaultObjImpl<UCustomizePresetRoleSlotWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizePresetRoleSlotWidget;
 
 // Class OutGameModule.GalleryDialogWidget
 // 0x0028 (0x0398 - 0x0370)
@@ -10014,6 +10296,7 @@ public:
 		return GetDefaultObjImpl<UGalleryDialogWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGalleryDialogWidget;
 
 // Class OutGameModule.CustomizeRealityWidget
 // 0x0038 (0x03A8 - 0x0370)
@@ -10047,6 +10330,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeRealityWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeRealityWidget;
 
 // Class OutGameModule.CustomizeRoleSlotAppWidget
 // 0x0150 (0x0568 - 0x0418)
@@ -10123,6 +10407,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeRoleSlotAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeRoleSlotAppWidget;
 
 // Class OutGameModule.CustomizeRoleSlotDetailPopupWidget
 // 0x00C8 (0x04E0 - 0x0418)
@@ -10175,10 +10460,11 @@ public:
 		return GetDefaultObjImpl<UCustomizeRoleSlotDetailPopupWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeRoleSlotDetailPopupWidget;
 
 // Class OutGameModule.FriendListButtonWidget
 // 0x0050 (0x07B0 - 0x0760)
-class UFriendListButtonWidget : public UPlatformWidgetButton
+class UFriendListButtonWidget final : public UPlatformWidgetButton
 {
 public:
 	bool                                          _bSquadButton;                                     // 0x0760(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -10210,6 +10496,7 @@ public:
 		return GetDefaultObjImpl<UFriendListButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UFriendListButtonWidget;
 
 // Class OutGameModule.CustomizeRoleSlotFavoriteNameButtonWidget
 // 0x0038 (0x0548 - 0x0510)
@@ -10238,6 +10525,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeRoleSlotFavoriteNameButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeRoleSlotFavoriteNameButtonWidget;
 
 // Class OutGameModule.MyRoomPartsSelectListObject
 // 0x0048 (0x0070 - 0x0028)
@@ -10260,10 +10548,11 @@ public:
 		return GetDefaultObjImpl<UMyRoomPartsSelectListObject>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomPartsSelectListObject;
 
 // Class OutGameModule.FriendRequesetMenuAppWidget
 // 0x0080 (0x0498 - 0x0418)
-class UFriendRequesetMenuAppWidget : public UAppWidget
+class UFriendRequesetMenuAppWidget final : public UAppWidget
 {
 public:
 	TMulticastInlineDelegate<void()>              OnCloseLevelEventDelegate;                         // 0x0418(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -10309,6 +10598,7 @@ public:
 		return GetDefaultObjImpl<UFriendRequesetMenuAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UFriendRequesetMenuAppWidget;
 
 // Class OutGameModule.CustomizeRoleSlotFavoriteWidget
 // 0x0070 (0x0488 - 0x0418)
@@ -10348,6 +10638,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeRoleSlotFavoriteWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeRoleSlotFavoriteWidget;
 
 // Class OutGameModule.CustomizeRoleSlotLevelUpWindow
 // 0x0040 (0x03B0 - 0x0370)
@@ -10383,6 +10674,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeRoleSlotLevelUpWindow>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeRoleSlotLevelUpWindow;
 
 // Class OutGameModule.CustomizeRoleSlotMainAppWidget
 // 0x0158 (0x0570 - 0x0418)
@@ -10459,6 +10751,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeRoleSlotMainAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeRoleSlotMainAppWidget;
 
 // Class OutGameModule.GashaAuraIconWidget
 // 0x0028 (0x0398 - 0x0370)
@@ -10490,10 +10783,11 @@ public:
 		return GetDefaultObjImpl<UGashaAuraIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaAuraIconWidget;
 
 // Class OutGameModule.SeasonPassTitle
 // 0x0020 (0x0390 - 0x0370)
-class USeasonPassTitle : public UWidgetBase
+class USeasonPassTitle final : public UWidgetBase
 {
 public:
 	class UTimeWidget*                            _seasonPassTimer;                                  // 0x0370(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -10518,6 +10812,7 @@ public:
 		return GetDefaultObjImpl<USeasonPassTitle>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassTitle;
 
 // Class OutGameModule.CustomizeRoleSlotSkillSlotWidget
 // 0x0190 (0x06E8 - 0x0558)
@@ -10583,6 +10878,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeRoleSlotSkillSlotWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeRoleSlotSkillSlotWidget;
 
 // Class OutGameModule.CustomMatchGameRuleEntryObject
 // 0x00A0 (0x00D0 - 0x0030)
@@ -10605,6 +10901,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchGameRuleEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchGameRuleEntryObject;
 
 // Class OutGameModule.CustomizeRoleSlotTipsListAppWidget
 // 0x00E8 (0x0500 - 0x0418)
@@ -10657,6 +10954,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeRoleSlotTipsListAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeRoleSlotTipsListAppWidget;
 
 // Class OutGameModule.SeasonPassRankList
 // 0x0080 (0x03F0 - 0x0370)
@@ -10698,6 +10996,7 @@ public:
 		return GetDefaultObjImpl<USeasonPassRankList>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassRankList;
 
 // Class OutGameModule.CustomizeRoleSlotTipsWidget
 // 0x07D8 (0x0D30 - 0x0558)
@@ -10754,6 +11053,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeRoleSlotTipsWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeRoleSlotTipsWidget;
 
 // Class OutGameModule.CustomizeRoleSlotUnlockWindow
 // 0x0040 (0x03B0 - 0x0370)
@@ -10791,6 +11091,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeRoleSlotUnlockWindow>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeRoleSlotUnlockWindow;
 
 // Class OutGameModule.CustomMatchResultTeamTileWidget
 // 0x0010 (0x03B0 - 0x03A0)
@@ -10815,6 +11116,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTeamTileWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTeamTileWidget;
 
 // Class OutGameModule.CustomizeSelectButtonHasWidget
 // 0x0018 (0x0528 - 0x0510)
@@ -10842,6 +11144,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeSelectButtonHasWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeSelectButtonHasWidget;
 
 // Class OutGameModule.GalleryPanelEntryObject
 // 0x01F0 (0x0220 - 0x0030)
@@ -10870,6 +11173,7 @@ public:
 		return GetDefaultObjImpl<UGalleryPanelEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UGalleryPanelEntryObject;
 
 // Class OutGameModule.CustomizePreviewButtonWidget
 // 0x0068 (0x0578 - 0x0510)
@@ -10907,6 +11211,7 @@ public:
 		return GetDefaultObjImpl<UCustomizePreviewButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizePreviewButtonWidget;
 
 // Class OutGameModule.CustomizeSelectButtonWidget
 // 0x00B0 (0x05C0 - 0x0510)
@@ -10959,6 +11264,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeSelectButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeSelectButtonWidget;
 
 // Class OutGameModule.CustomizeToggleWidget
 // 0x0018 (0x0388 - 0x0370)
@@ -10983,6 +11289,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeToggleWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeToggleWidget;
 
 // Class OutGameModule.GashaConvertedListItemWidget
 // 0x0030 (0x03A0 - 0x0370)
@@ -11010,10 +11317,11 @@ public:
 		return GetDefaultObjImpl<UGashaConvertedListItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaConvertedListItemWidget;
 
 // Class OutGameModule.SettingButtonKeyboardWidget
 // 0x0140 (0x0650 - 0x0510)
-class USettingButtonKeyboardWidget : public UWidgetButton
+class USettingButtonKeyboardWidget final : public UWidgetButton
 {
 public:
 	TMulticastInlineDelegate<void(const struct FKey& prev, const struct FKey& Next)> _onSwapKeyDelegate; // 0x0510(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, BlueprintCallable, NativeAccessSpecifierPublic)
@@ -11081,6 +11389,7 @@ public:
 		return GetDefaultObjImpl<USettingButtonKeyboardWidget>();
 	}
 };
+DUMPER7_ASSERTS_USettingButtonKeyboardWidget;
 
 // Class OutGameModule.CustomizeVoiceAppWidget
 // 0x0028 (0x0548 - 0x0520)
@@ -11118,6 +11427,7 @@ public:
 		return GetDefaultObjImpl<UCustomizeVoiceAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeVoiceAppWidget;
 
 // Class OutGameModule.GameModeDevOnlineMenu
 // 0x0000 (0x0340 - 0x0340)
@@ -11137,6 +11447,7 @@ public:
 		return GetDefaultObjImpl<AGameModeDevOnlineMenu>();
 	}
 };
+DUMPER7_ASSERTS_AGameModeDevOnlineMenu;
 
 // Class OutGameModule.CustomizeWheelHasWidget
 // 0x0010 (0x0428 - 0x0418)
@@ -11163,10 +11474,11 @@ public:
 		return GetDefaultObjImpl<UCustomizeWheelHasWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomizeWheelHasWidget;
 
 // Class OutGameModule.SerialCodeWidget
 // 0x0028 (0x0398 - 0x0370)
-class USerialCodeWidget : public UWidgetBase
+class USerialCodeWidget final : public UWidgetBase
 {
 public:
 	class UWidgetGeneralWindowFrame*              _serialCodeInput;                                  // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -11198,6 +11510,7 @@ public:
 		return GetDefaultObjImpl<USerialCodeWidget>();
 	}
 };
+DUMPER7_ASSERTS_USerialCodeWidget;
 
 // Class OutGameModule.CustomMatchBlockListWidget
 // 0x0050 (0x03C0 - 0x0370)
@@ -11228,10 +11541,11 @@ public:
 		return GetDefaultObjImpl<UCustomMatchBlockListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchBlockListWidget;
 
 // Class OutGameModule.CustomMatchGameModeButtonWidget
 // 0x0020 (0x0780 - 0x0760)
-class UCustomMatchGameModeButtonWidget : public UPlatformWidgetButton
+class UCustomMatchGameModeButtonWidget final : public UPlatformWidgetButton
 {
 public:
 	uint8                                         Pad_760[0x8];                                      // 0x0760(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -11253,6 +11567,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchGameModeButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchGameModeButtonWidget;
 
 // Class OutGameModule.CustomMatchTeamItemEntryObject
 // 0x0088 (0x00B8 - 0x0030)
@@ -11275,6 +11590,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchTeamItemEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchTeamItemEntryObject;
 
 // Class OutGameModule.CustomMatchSelectItemEntryObject
 // 0x0008 (0x00C0 - 0x00B8)
@@ -11297,6 +11613,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchSelectItemEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchSelectItemEntryObject;
 
 // Class OutGameModule.CustomMatchGameModeList
 // 0x0070 (0x03E0 - 0x0370)
@@ -11329,6 +11646,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchGameModeList>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchGameModeList;
 
 // Class OutGameModule.GalleryWindowWidget
 // 0x0088 (0x04A0 - 0x0418)
@@ -11370,6 +11688,7 @@ public:
 		return GetDefaultObjImpl<UGalleryWindowWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGalleryWindowWidget;
 
 // Class OutGameModule.CustomMatchGameModeSelectTopWidget
 // 0x00A0 (0x0410 - 0x0370)
@@ -11405,6 +11724,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchGameModeSelectTopWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchGameModeSelectTopWidget;
 
 // Class OutGameModule.StudyNoteRewardDetails
 // 0x0038 (0x03A8 - 0x0370)
@@ -11433,6 +11753,7 @@ public:
 		return GetDefaultObjImpl<UStudyNoteRewardDetails>();
 	}
 };
+DUMPER7_ASSERTS_UStudyNoteRewardDetails;
 
 // Class OutGameModule.CustomMatchGameModeSelectWidget
 // 0x0018 (0x0778 - 0x0760)
@@ -11461,6 +11782,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchGameModeSelectWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchGameModeSelectWidget;
 
 // Class OutGameModule.CustomMatchGameModeThumbnailWidget
 // 0x0058 (0x03C8 - 0x0370)
@@ -11493,6 +11815,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchGameModeThumbnailWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchGameModeThumbnailWidget;
 
 // Class OutGameModule.ExperiencePointBarWidget
 // 0x0088 (0x03F8 - 0x0370)
@@ -11529,6 +11852,7 @@ public:
 		return GetDefaultObjImpl<UExperiencePointBarWidget>();
 	}
 };
+DUMPER7_ASSERTS_UExperiencePointBarWidget;
 
 // Class OutGameModule.ShopHeaderWidget
 // 0x0038 (0x03A8 - 0x0370)
@@ -11557,6 +11881,7 @@ public:
 		return GetDefaultObjImpl<UShopHeaderWidget>();
 	}
 };
+DUMPER7_ASSERTS_UShopHeaderWidget;
 
 // Class OutGameModule.CustomMatchGameRuleButtonWidget
 // 0x0040 (0x07A0 - 0x0760)
@@ -11586,6 +11911,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchGameRuleButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchGameRuleButtonWidget;
 
 // Class OutGameModule.GameStateAvatarCreate
 // 0x0000 (0x0490 - 0x0490)
@@ -11605,6 +11931,7 @@ public:
 		return GetDefaultObjImpl<AGameStateAvatarCreate>();
 	}
 };
+DUMPER7_ASSERTS_AGameStateAvatarCreate;
 
 // Class OutGameModule.CustomMatchGameRuleList
 // 0x0050 (0x03C0 - 0x0370)
@@ -11636,10 +11963,11 @@ public:
 		return GetDefaultObjImpl<UCustomMatchGameRuleList>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchGameRuleList;
 
 // Class OutGameModule.SettingButtonSliderWidget
 // 0x0058 (0x0620 - 0x05C8)
-class USettingButtonSliderWidget : public USettingButtonBaseWidget
+class USettingButtonSliderWidget final : public USettingButtonBaseWidget
 {
 public:
 	TMulticastInlineDelegate<void(float value)>   _onValueChangedDelegate;                           // 0x05C8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -11677,6 +12005,7 @@ public:
 		return GetDefaultObjImpl<USettingButtonSliderWidget>();
 	}
 };
+DUMPER7_ASSERTS_USettingButtonSliderWidget;
 
 // Class OutGameModule.CustomMatchJoinCodeWidget
 // 0x0090 (0x0400 - 0x0370)
@@ -11715,6 +12044,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchJoinCodeWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchJoinCodeWidget;
 
 // Class OutGameModule.CustomMatchPlayerButtonWidget
 // 0x0060 (0x05B8 - 0x0558)
@@ -11748,6 +12078,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchPlayerButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchPlayerButtonWidget;
 
 // Class OutGameModule.CustomMatchTeamListBase
 // 0x0058 (0x03C8 - 0x0370)
@@ -11776,6 +12107,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchTeamListBase>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchTeamListBase;
 
 // Class OutGameModule.CustomMatchTeamListSolo
 // 0x0048 (0x0410 - 0x03C8)
@@ -11805,6 +12137,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchTeamListSolo>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchTeamListSolo;
 
 // Class OutGameModule.StudyNoteContentsListItem
 // 0x00E8 (0x0640 - 0x0558)
@@ -11849,10 +12182,11 @@ public:
 		return GetDefaultObjImpl<UStudyNoteContentsListItem>();
 	}
 };
+DUMPER7_ASSERTS_UStudyNoteContentsListItem;
 
 // Class OutGameModule.CustomMatchReadyWidget
 // 0x0010 (0x0380 - 0x0370)
-class UCustomMatchReadyWidget : public UWidgetBase
+class UCustomMatchReadyWidget final : public UWidgetBase
 {
 public:
 	class UTextBlock*                             _readyNum;                                         // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -11875,6 +12209,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchReadyWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchReadyWidget;
 
 // Class OutGameModule.GeneralCarouselWidget
 // 0x0080 (0x0590 - 0x0510)
@@ -11925,6 +12260,7 @@ public:
 		return GetDefaultObjImpl<UGeneralCarouselWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGeneralCarouselWidget;
 
 // Class OutGameModule.CustomMatchResultCharaImageWidget
 // 0x0080 (0x03F0 - 0x0370)
@@ -11953,6 +12289,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultCharaImageWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultCharaImageWidget;
 
 // Class OutGameModule.StudyNoteStarLevelWidget
 // 0x0020 (0x0530 - 0x0510)
@@ -11979,6 +12316,7 @@ public:
 		return GetDefaultObjImpl<UStudyNoteStarLevelWidget>();
 	}
 };
+DUMPER7_ASSERTS_UStudyNoteStarLevelWidget;
 
 // Class OutGameModule.CustomMatchResultMemberTopBase
 // 0x0060 (0x03D0 - 0x0370)
@@ -12007,6 +12345,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultMemberTopBase>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultMemberTopBase;
 
 // Class OutGameModule.CustomMatchResultMemberTopDominate
 // 0x0028 (0x03F8 - 0x03D0)
@@ -12032,10 +12371,11 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultMemberTopDominate>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultMemberTopDominate;
 
 // Class OutGameModule.TrainingTipsWidget
 // 0x0018 (0x0388 - 0x0370)
-class UTrainingTipsWidget : public UWidgetBase
+class UTrainingTipsWidget final : public UWidgetBase
 {
 public:
 	class UTextBlock*                             _titleText;                                        // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -12059,6 +12399,7 @@ public:
 		return GetDefaultObjImpl<UTrainingTipsWidget>();
 	}
 };
+DUMPER7_ASSERTS_UTrainingTipsWidget;
 
 // Class OutGameModule.CustomMatchResultMemberTopSquad
 // 0x0020 (0x03F0 - 0x03D0)
@@ -12087,6 +12428,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultMemberTopSquad>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultMemberTopSquad;
 
 // Class OutGameModule.GameStateTitle
 // 0x0000 (0x0490 - 0x0490)
@@ -12106,6 +12448,7 @@ public:
 		return GetDefaultObjImpl<AGameStateTitle>();
 	}
 };
+DUMPER7_ASSERTS_AGameStateTitle;
 
 // Class OutGameModule.CustomMatchResultPlayerButtonWidget
 // 0x0060 (0x07C0 - 0x0760)
@@ -12142,6 +12485,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultPlayerButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultPlayerButtonWidget;
 
 // Class OutGameModule.ShopItemListWidgetBase
 // 0x00E0 (0x04F8 - 0x0418)
@@ -12187,6 +12531,7 @@ public:
 		return GetDefaultObjImpl<UShopItemListWidgetBase>();
 	}
 };
+DUMPER7_ASSERTS_UShopItemListWidgetBase;
 
 // Class OutGameModule.CustomMatchResultTabItemBase
 // 0x00C8 (0x04E0 - 0x0418)
@@ -12226,6 +12571,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTabItemBase>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTabItemBase;
 
 // Class OutGameModule.CustomMatchResultTabItemDominate
 // 0x0000 (0x04E0 - 0x04E0)
@@ -12245,10 +12591,11 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTabItemDominate>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTabItemDominate;
 
 // Class OutGameModule.GamePlaySettingWidget
 // 0x0118 (0x04A8 - 0x0390)
-class UGamePlaySettingWidget : public UBaseSettingWidget
+class UGamePlaySettingWidget final : public UBaseSettingWidget
 {
 public:
 	class USettingButtonSwitchWidget*             _notification;                                     // 0x0390(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -12302,6 +12649,7 @@ public:
 		return GetDefaultObjImpl<UGamePlaySettingWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGamePlaySettingWidget;
 
 // Class OutGameModule.StudyNotesTabWidget
 // 0x0010 (0x0380 - 0x0370)
@@ -12325,6 +12673,7 @@ public:
 		return GetDefaultObjImpl<UStudyNotesTabWidget>();
 	}
 };
+DUMPER7_ASSERTS_UStudyNotesTabWidget;
 
 // Class OutGameModule.CustomMatchResultTabItemSquad
 // 0x0010 (0x04F0 - 0x04E0)
@@ -12348,6 +12697,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTabItemSquad>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTabItemSquad;
 
 // Class OutGameModule.CustomMatchResultTabListSquad
 // 0x0000 (0x03B8 - 0x03B8)
@@ -12370,6 +12720,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTabListSquad>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTabListSquad;
 
 // Class OutGameModule.CustomMatchResultTabPlayerPanelDominate
 // 0x0058 (0x07F0 - 0x0798)
@@ -12402,6 +12753,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTabPlayerPanelDominate>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTabPlayerPanelDominate;
 
 // Class OutGameModule.CustomMatchResultTabTop
 // 0x0028 (0x0398 - 0x0370)
@@ -12427,6 +12779,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTabTop>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTabTop;
 
 // Class OutGameModule.CustomMatchResultTeamDominate
 // 0x0060 (0x03D0 - 0x0370)
@@ -12456,6 +12809,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTeamDominate>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTeamDominate;
 
 // Class OutGameModule.CustomMatchResultTeamItemDominate
 // 0x0000 (0x0420 - 0x0420)
@@ -12475,6 +12829,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTeamItemDominate>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTeamItemDominate;
 
 // Class OutGameModule.CustomMatchResultTeamItemWidget
 // 0x0038 (0x0450 - 0x0418)
@@ -12499,6 +12854,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTeamItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTeamItemWidget;
 
 // Class OutGameModule.CustomMatchResultTeamListWidget
 // 0x0008 (0x03A8 - 0x03A0)
@@ -12521,6 +12877,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTeamListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTeamListWidget;
 
 // Class OutGameModule.CustomMatchResultTopWidget
 // 0x00C8 (0x0438 - 0x0370)
@@ -12558,10 +12915,11 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTopWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTopWidget;
 
 // Class OutGameModule.CustomMatchSelectWidget
 // 0x0038 (0x03A8 - 0x0370)
-class UCustomMatchSelectWidget : public UWidgetBase
+class UCustomMatchSelectWidget final : public UWidgetBase
 {
 public:
 	class UWidgetGeneralWindow*                   _reEntryRoom;                                      // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -12595,6 +12953,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchSelectWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchSelectWidget;
 
 // Class OutGameModule.CustomMatchTabWidget
 // 0x0150 (0x04C0 - 0x0370)
@@ -12701,6 +13060,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchTabWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchTabWidget;
 
 // Class OutGameModule.CustomMatchGameModeEntryObject
 // 0x00B8 (0x00E8 - 0x0030)
@@ -12723,6 +13083,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchGameModeEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchGameModeEntryObject;
 
 // Class OutGameModule.CustomMatchResultTeamItemEntryObject
 // 0x0050 (0x0080 - 0x0030)
@@ -12745,6 +13106,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTeamItemEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTeamItemEntryObject;
 
 // Class OutGameModule.CustomMatchResultTabDominateEntryObject
 // 0x0010 (0x0040 - 0x0030)
@@ -12767,6 +13129,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchResultTabDominateEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchResultTabDominateEntryObject;
 
 // Class OutGameModule.CustomMatchTeamListWidget
 // 0x00E8 (0x0458 - 0x0370)
@@ -12798,6 +13161,7 @@ public:
 		return GetDefaultObjImpl<UCustomMatchTeamListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchTeamListWidget;
 
 // Class OutGameModule.CustomMatchTopPanelWidget
 // 0x0010 (0x0380 - 0x0370)
@@ -12821,10 +13185,11 @@ public:
 		return GetDefaultObjImpl<UCustomMatchTopPanelWidget>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMatchTopPanelWidget;
 
 // Class OutGameModule.DeltaColorProgressBarWidget
 // 0x0040 (0x0550 - 0x0510)
-class UDeltaColorProgressBarWidget : public UDeltaProgressBarWidget
+class UDeltaColorProgressBarWidget final : public UDeltaProgressBarWidget
 {
 public:
 	bool                                          _bAutoSetColor;                                    // 0x0510(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -12850,6 +13215,7 @@ public:
 		return GetDefaultObjImpl<UDeltaColorProgressBarWidget>();
 	}
 };
+DUMPER7_ASSERTS_UDeltaColorProgressBarWidget;
 
 // Class OutGameModule.DownloadWidget
 // 0x0020 (0x0390 - 0x0370)
@@ -12874,10 +13240,11 @@ public:
 		return GetDefaultObjImpl<UDownloadWidget>();
 	}
 };
+DUMPER7_ASSERTS_UDownloadWidget;
 
 // Class OutGameModule.EventButtonListWidget
 // 0x00B0 (0x0420 - 0x0370)
-class UEventButtonListWidget : public UWidgetBase
+class UEventButtonListWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x20];                                     // 0x0370(0x0020)(Fixing Size After Last Property [ Dumper-7 ])
@@ -12917,10 +13284,11 @@ public:
 		return GetDefaultObjImpl<UEventButtonListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UEventButtonListWidget;
 
 // Class OutGameModule.EventButtonWidget
 // 0x0028 (0x0398 - 0x0370)
-class UEventButtonWidget : public UWidgetBase
+class UEventButtonWidget final : public UWidgetBase
 {
 public:
 	TArray<class FText>                           _buttonText;                                       // 0x0370(0x0010)(Edit, ZeroConstructor, Protected, NativeAccessSpecifierProtected)
@@ -12942,6 +13310,7 @@ public:
 		return GetDefaultObjImpl<UEventButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UEventButtonWidget;
 
 // Class OutGameModule.EventItemEntryObject
 // 0x0040 (0x0070 - 0x0030)
@@ -12966,6 +13335,7 @@ public:
 		return GetDefaultObjImpl<UEventItemEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UEventItemEntryObject;
 
 // Class OutGameModule.EventRewardEntryObject
 // 0x0038 (0x0068 - 0x0030)
@@ -12988,6 +13358,7 @@ public:
 		return GetDefaultObjImpl<UEventRewardEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UEventRewardEntryObject;
 
 // Class OutGameModule.EventItemWidget
 // 0x0018 (0x0778 - 0x0760)
@@ -13020,6 +13391,7 @@ public:
 		return GetDefaultObjImpl<UEventItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UEventItemWidget;
 
 // Class OutGameModule.EventMissionListItemObject
 // 0x0060 (0x0088 - 0x0028)
@@ -13047,10 +13419,11 @@ public:
 		return GetDefaultObjImpl<UEventMissionListItemObject>();
 	}
 };
+DUMPER7_ASSERTS_UEventMissionListItemObject;
 
 // Class OutGameModule.EventPanelListWidget
 // 0x0040 (0x03B0 - 0x0370)
-class UEventPanelListWidget : public UWidgetBase
+class UEventPanelListWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x20];                                     // 0x0370(0x0020)(Fixing Size After Last Property [ Dumper-7 ])
@@ -13077,10 +13450,11 @@ public:
 		return GetDefaultObjImpl<UEventPanelListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UEventPanelListWidget;
 
 // Class OutGameModule.EventPanelWidget
 // 0x0028 (0x0788 - 0x0760)
-class UEventPanelWidget : public UPlatformWidgetButton
+class UEventPanelWidget final : public UPlatformWidgetButton
 {
 public:
 	uint8                                         Pad_760[0x8];                                      // 0x0760(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -13106,10 +13480,11 @@ public:
 		return GetDefaultObjImpl<UEventPanelWidget>();
 	}
 };
+DUMPER7_ASSERTS_UEventPanelWidget;
 
 // Class OutGameModule.EventRankEntry
 // 0x0030 (0x03A0 - 0x0370)
-class UEventRankEntry : public UWidgetBase
+class UEventRankEntry final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -13133,10 +13508,11 @@ public:
 		return GetDefaultObjImpl<UEventRankEntry>();
 	}
 };
+DUMPER7_ASSERTS_UEventRankEntry;
 
 // Class OutGameModule.EventRankTop
 // 0x0048 (0x03B8 - 0x0370)
-class UEventRankTop : public UWidgetBase
+class UEventRankTop final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x10];                                     // 0x0370(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
@@ -13165,6 +13541,7 @@ public:
 		return GetDefaultObjImpl<UEventRankTop>();
 	}
 };
+DUMPER7_ASSERTS_UEventRankTop;
 
 // Class OutGameModule.EventRewardListWidget
 // 0x0060 (0x03D0 - 0x0370)
@@ -13197,6 +13574,7 @@ public:
 		return GetDefaultObjImpl<UEventRewardListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UEventRewardListWidget;
 
 // Class OutGameModule.EventStarMissionContents
 // 0x0000 (0x0530 - 0x0530)
@@ -13216,10 +13594,11 @@ public:
 		return GetDefaultObjImpl<UEventStarMissionContents>();
 	}
 };
+DUMPER7_ASSERTS_UEventStarMissionContents;
 
 // Class OutGameModule.EventWidget
 // 0x0028 (0x0398 - 0x0370)
-class UEventWidget : public UWidgetBase
+class UEventWidget final : public UWidgetBase
 {
 public:
 	class UEventPanelListWidget*                  _eventPanelList;                                   // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -13247,6 +13626,7 @@ public:
 		return GetDefaultObjImpl<UEventWidget>();
 	}
 };
+DUMPER7_ASSERTS_UEventWidget;
 
 // Class OutGameModule.ExperiencePointGetListWidget
 // 0x0070 (0x03E0 - 0x0370)
@@ -13287,6 +13667,7 @@ public:
 		return GetDefaultObjImpl<UExperiencePointGetListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UExperiencePointGetListWidget;
 
 // Class OutGameModule.FriendAppWidget
 // 0x0180 (0x04F0 - 0x0370)
@@ -13357,10 +13738,11 @@ public:
 		return GetDefaultObjImpl<UFriendAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UFriendAppWidget;
 
 // Class OutGameModule.FriendListHasWidget
 // 0x0038 (0x03A8 - 0x0370)
-class UFriendListHasWidget : public UWidgetBase
+class UFriendListHasWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x10];                                     // 0x0370(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
@@ -13391,10 +13773,11 @@ public:
 		return GetDefaultObjImpl<UFriendListHasWidget>();
 	}
 };
+DUMPER7_ASSERTS_UFriendListHasWidget;
 
 // Class OutGameModule.FriendListItemWidget
 // 0x0018 (0x0778 - 0x0760)
-class UFriendListItemWidget : public UPlatformWidgetButton
+class UFriendListItemWidget final : public UPlatformWidgetButton
 {
 public:
 	uint8                                         Pad_760[0x8];                                      // 0x0760(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -13415,10 +13798,11 @@ public:
 		return GetDefaultObjImpl<UFriendListItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UFriendListItemWidget;
 
 // Class OutGameModule.FriendListWidget
 // 0x00A8 (0x0418 - 0x0370)
-class UFriendListWidget : public UWidgetBase
+class UFriendListWidget final : public UWidgetBase
 {
 public:
 	class UCustomTileView*                        _tileView;                                         // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -13481,10 +13865,11 @@ public:
 		return GetDefaultObjImpl<UFriendListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UFriendListWidget;
 
 // Class OutGameModule.FriendSubMenuAppWidget
 // 0x00D8 (0x04F0 - 0x0418)
-class UFriendSubMenuAppWidget : public UAppWidget
+class UFriendSubMenuAppWidget final : public UAppWidget
 {
 public:
 	TMulticastInlineDelegate<void(EFriendListType friendType, EFriendStatus friendStatus)> RequestFetchEventDelegate; // 0x0418(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, BlueprintCallable, NativeAccessSpecifierPublic)
@@ -13527,6 +13912,7 @@ public:
 		return GetDefaultObjImpl<UFriendSubMenuAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UFriendSubMenuAppWidget;
 
 // Class OutGameModule.FriendSubMenuButtonWidget
 // 0x0008 (0x0768 - 0x0760)
@@ -13549,6 +13935,7 @@ public:
 		return GetDefaultObjImpl<UFriendSubMenuButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UFriendSubMenuButtonWidget;
 
 // Class OutGameModule.GalleryBlackPanelWidget
 // 0x0028 (0x0538 - 0x0510)
@@ -13578,6 +13965,7 @@ public:
 		return GetDefaultObjImpl<UGalleryBlackPanelWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGalleryBlackPanelWidget;
 
 // Class OutGameModule.GalleryFullScreenWidget
 // 0x0018 (0x0388 - 0x0370)
@@ -13602,6 +13990,7 @@ public:
 		return GetDefaultObjImpl<UGalleryFullScreenWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGalleryFullScreenWidget;
 
 // Class OutGameModule.GalleryListWidget
 // 0x00C0 (0x0430 - 0x0370)
@@ -13664,6 +14053,7 @@ public:
 		return GetDefaultObjImpl<UGalleryListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGalleryListWidget;
 
 // Class OutGameModule.GalleryBlackPanelEntryObject
 // 0x0008 (0x0038 - 0x0030)
@@ -13686,6 +14076,7 @@ public:
 		return GetDefaultObjImpl<UGalleryBlackPanelEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UGalleryBlackPanelEntryObject;
 
 // Class OutGameModule.GalleryPanelWidget
 // 0x0020 (0x0780 - 0x0760)
@@ -13714,6 +14105,7 @@ public:
 		return GetDefaultObjImpl<UGalleryPanelWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGalleryPanelWidget;
 
 // Class OutGameModule.GalleryStoryWidget
 // 0x0030 (0x03A0 - 0x0370)
@@ -13743,6 +14135,7 @@ public:
 		return GetDefaultObjImpl<UGalleryStoryWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGalleryStoryWidget;
 
 // Class OutGameModule.GalleryTexture
 // 0x0020 (0x0390 - 0x0370)
@@ -13771,6 +14164,7 @@ public:
 		return GetDefaultObjImpl<UGalleryTexture>();
 	}
 };
+DUMPER7_ASSERTS_UGalleryTexture;
 
 // Class OutGameModule.GalleryTicketWidget
 // 0x0038 (0x0468 - 0x0430)
@@ -13801,6 +14195,7 @@ public:
 		return GetDefaultObjImpl<UGalleryTicketWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGalleryTicketWidget;
 
 // Class OutGameModule.GalleryTradeWidget
 // 0x0050 (0x03C0 - 0x0370)
@@ -13839,6 +14234,7 @@ public:
 		return GetDefaultObjImpl<UGalleryTradeWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGalleryTradeWidget;
 
 // Class OutGameModule.GameModeAvatarCreate
 // 0x0000 (0x0398 - 0x0398)
@@ -13858,6 +14254,7 @@ public:
 		return GetDefaultObjImpl<AGameModeAvatarCreate>();
 	}
 };
+DUMPER7_ASSERTS_AGameModeAvatarCreate;
 
 // Class OutGameModule.GameModeCustomize
 // 0x0000 (0x0398 - 0x0398)
@@ -13877,6 +14274,7 @@ public:
 		return GetDefaultObjImpl<AGameModeCustomize>();
 	}
 };
+DUMPER7_ASSERTS_AGameModeCustomize;
 
 // Class OutGameModule.GameModeGasha
 // 0x0000 (0x0398 - 0x0398)
@@ -13896,6 +14294,7 @@ public:
 		return GetDefaultObjImpl<AGameModeGasha>();
 	}
 };
+DUMPER7_ASSERTS_AGameModeGasha;
 
 // Class OutGameModule.GameModeSeasonPass
 // 0x0000 (0x0398 - 0x0398)
@@ -13915,6 +14314,7 @@ public:
 		return GetDefaultObjImpl<AGameModeSeasonPass>();
 	}
 };
+DUMPER7_ASSERTS_AGameModeSeasonPass;
 
 // Class OutGameModule.GameModeTitle
 // 0x0000 (0x0398 - 0x0398)
@@ -13934,6 +14334,7 @@ public:
 		return GetDefaultObjImpl<AGameModeTitle>();
 	}
 };
+DUMPER7_ASSERTS_AGameModeTitle;
 
 // Class OutGameModule.GameStateCustomize
 // 0x0000 (0x0490 - 0x0490)
@@ -13953,6 +14354,7 @@ public:
 		return GetDefaultObjImpl<AGameStateCustomize>();
 	}
 };
+DUMPER7_ASSERTS_AGameStateCustomize;
 
 // Class OutGameModule.GameStateGasha
 // 0x0000 (0x0220 - 0x0220)
@@ -13972,6 +14374,7 @@ public:
 		return GetDefaultObjImpl<AGameStateGasha>();
 	}
 };
+DUMPER7_ASSERTS_AGameStateGasha;
 
 // Class OutGameModule.GameStateResult
 // 0x00A8 (0x0538 - 0x0490)
@@ -14006,6 +14409,7 @@ public:
 		return GetDefaultObjImpl<AGameStateResult>();
 	}
 };
+DUMPER7_ASSERTS_AGameStateResult;
 
 // Class OutGameModule.GameStateShop
 // 0x0000 (0x0490 - 0x0490)
@@ -14025,6 +14429,7 @@ public:
 		return GetDefaultObjImpl<AGameStateShop>();
 	}
 };
+DUMPER7_ASSERTS_AGameStateShop;
 
 // Class OutGameModule.GashaAuraIconListEntryObject
 // 0x0018 (0x0048 - 0x0030)
@@ -14047,6 +14452,7 @@ public:
 		return GetDefaultObjImpl<UGashaAuraIconListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UGashaAuraIconListEntryObject;
 
 // Class OutGameModule.GashaBannerListEntryObject
 // 0x0030 (0x0060 - 0x0030)
@@ -14069,10 +14475,11 @@ public:
 		return GetDefaultObjImpl<UGashaBannerListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UGashaBannerListEntryObject;
 
 // Class OutGameModule.GashaBannerListWidget
 // 0x0028 (0x0398 - 0x0370)
-class UGashaBannerListWidget : public UWidgetBase
+class UGashaBannerListWidget final : public UWidgetBase
 {
 public:
 	class UCustomTileView*                        _bannerList;                                       // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -14096,10 +14503,11 @@ public:
 		return GetDefaultObjImpl<UGashaBannerListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaBannerListWidget;
 
 // Class OutGameModule.GashaButtonWidget
 // 0x0100 (0x0470 - 0x0370)
-class UGashaButtonWidget : public UWidgetBase
+class UGashaButtonWidget final : public UWidgetBase
 {
 public:
 	TMap<class FString, struct FVector2D>         _numPos;                                           // 0x0370(0x0050)(Edit, Protected, NativeAccessSpecifierProtected)
@@ -14145,6 +14553,7 @@ public:
 		return GetDefaultObjImpl<UGashaButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaButtonWidget;
 
 // Class OutGameModule.GashaConvertedListEntryObject
 // 0x0018 (0x0048 - 0x0030)
@@ -14167,6 +14576,7 @@ public:
 		return GetDefaultObjImpl<UGashaConvertedListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UGashaConvertedListEntryObject;
 
 // Class OutGameModule.GashaGetExItemWidget
 // 0x0048 (0x03B8 - 0x0370)
@@ -14197,6 +14607,7 @@ public:
 		return GetDefaultObjImpl<UGashaGetExItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaGetExItemWidget;
 
 // Class OutGameModule.GashaHistoryListEntryObject
 // 0x0028 (0x0058 - 0x0030)
@@ -14219,10 +14630,11 @@ public:
 		return GetDefaultObjImpl<UGashaHistoryListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UGashaHistoryListEntryObject;
 
 // Class OutGameModule.MyRoomLikeTopWidget
 // 0x0018 (0x0388 - 0x0370)
-class UMyRoomLikeTopWidget : public UWidgetBase
+class UMyRoomLikeTopWidget final : public UWidgetBase
 {
 public:
 	EMyRoomLikeOwnerUIType                        _ownerUIType;                                      // 0x0370(0x0001)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -14254,6 +14666,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomLikeTopWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomLikeTopWidget;
 
 // Class OutGameModule.GashaIconListEntryObject
 // 0x0048 (0x0078 - 0x0030)
@@ -14278,6 +14691,7 @@ public:
 		return GetDefaultObjImpl<UGashaIconListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UGashaIconListEntryObject;
 
 // Class OutGameModule.MainMenuBarListEntryObject
 // 0x0040 (0x0070 - 0x0030)
@@ -14305,6 +14719,7 @@ public:
 		return GetDefaultObjImpl<UMainMenuBarListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UMainMenuBarListEntryObject;
 
 // Class OutGameModule.GashaOfferRatioListCellWidget
 // 0x0028 (0x0398 - 0x0370)
@@ -14331,10 +14746,11 @@ public:
 		return GetDefaultObjImpl<UGashaOfferRatioListCellWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaOfferRatioListCellWidget;
 
 // Class OutGameModule.GashaOfferRatioWidget
 // 0x01C0 (0x0530 - 0x0370)
-class UGashaOfferRatioWidget : public UWidgetBase
+class UGashaOfferRatioWidget final : public UWidgetBase
 {
 public:
 	class UWidgetGeneralEmptyWindow*              _mainWindow;                                       // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -14382,6 +14798,7 @@ public:
 		return GetDefaultObjImpl<UGashaOfferRatioWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaOfferRatioWidget;
 
 // Class OutGameModule.GashaOtherIconListItemWidget
 // 0x00D8 (0x0448 - 0x0370)
@@ -14433,6 +14850,7 @@ public:
 		return GetDefaultObjImpl<UGashaOtherIconListItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaOtherIconListItemWidget;
 
 // Class OutGameModule.MyRoomHelpMessageWidget
 // 0x0010 (0x0380 - 0x0370)
@@ -14458,10 +14876,11 @@ public:
 		return GetDefaultObjImpl<UMyRoomHelpMessageWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomHelpMessageWidget;
 
 // Class OutGameModule.GashaPickUpDetailSkillSlotWidget
 // 0x0010 (0x06F8 - 0x06E8)
-class UGashaPickUpDetailSkillSlotWidget : public UCustomizeRoleSlotSkillSlotWidget
+class UGashaPickUpDetailSkillSlotWidget final : public UCustomizeRoleSlotSkillSlotWidget
 {
 public:
 	class UTextBlock*                             _levelMaxText;                                     // 0x06E8(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -14481,6 +14900,7 @@ public:
 		return GetDefaultObjImpl<UGashaPickUpDetailSkillSlotWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaPickUpDetailSkillSlotWidget;
 
 // Class OutGameModule.LoginBonusWidget
 // 0x0058 (0x03C8 - 0x0370)
@@ -14520,6 +14940,7 @@ public:
 		return GetDefaultObjImpl<ULoginBonusWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULoginBonusWidget;
 
 // Class OutGameModule.GashaResultWidget
 // 0x00F8 (0x0468 - 0x0370)
@@ -14600,10 +15021,11 @@ public:
 		return GetDefaultObjImpl<UGashaResultWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaResultWidget;
 
 // Class OutGameModule.GashaRoleSlotLabelWidget
 // 0x00B0 (0x0420 - 0x0370)
-class UGashaRoleSlotLabelWidget : public UWidgetBase
+class UGashaRoleSlotLabelWidget final : public UWidgetBase
 {
 public:
 	class UWidgetSwitcher*                        _skillslotSwitcher;                                // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -14646,6 +15068,7 @@ public:
 		return GetDefaultObjImpl<UGashaRoleSlotLabelWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaRoleSlotLabelWidget;
 
 // Class OutGameModule.MiscellaneousMenuListEntryObject
 // 0x0020 (0x0050 - 0x0030)
@@ -14674,10 +15097,11 @@ public:
 		return GetDefaultObjImpl<UMiscellaneousMenuListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UMiscellaneousMenuListEntryObject;
 
 // Class OutGameModule.GashaRoleSlotSkillSubDetailWidget
 // 0x0040 (0x03B0 - 0x0370)
-class UGashaRoleSlotSkillSubDetailWidget : public UWidgetBase
+class UGashaRoleSlotSkillSubDetailWidget final : public UWidgetBase
 {
 public:
 	class URoleSlotTipsIconWidget*                _roleSlotIcon;                                     // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -14703,10 +15127,11 @@ public:
 		return GetDefaultObjImpl<UGashaRoleSlotSkillSubDetailWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaRoleSlotSkillSubDetailWidget;
 
 // Class OutGameModule.GashaRoleSlotSubDetailWidget
 // 0x0020 (0x0390 - 0x0370)
-class UGashaRoleSlotSubDetailWidget : public UWidgetBase
+class UGashaRoleSlotSubDetailWidget final : public UWidgetBase
 {
 public:
 	TArray<class UGashaRoleSlotLabelWidget*>      _normalLabels;                                     // 0x0370(0x0010)(BlueprintVisible, ExportObject, ZeroConstructor, ContainsInstancedReference, Protected, NativeAccessSpecifierProtected)
@@ -14726,10 +15151,11 @@ public:
 		return GetDefaultObjImpl<UGashaRoleSlotSubDetailWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaRoleSlotSubDetailWidget;
 
 // Class OutGameModule.MainMenuBarWidget
 // 0x0038 (0x03A8 - 0x0370)
-class UMainMenuBarWidget : public UWidgetBase
+class UMainMenuBarWidget final : public UWidgetBase
 {
 public:
 	ETutorialStepNo                               _grayedOutTutorialNo;                              // 0x0370(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -14770,6 +15196,7 @@ public:
 		return GetDefaultObjImpl<UMainMenuBarWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMainMenuBarWidget;
 
 // Class OutGameModule.GashaSelectPickupIconListIEntryObject
 // 0x0050 (0x0080 - 0x0030)
@@ -14792,10 +15219,11 @@ public:
 		return GetDefaultObjImpl<UGashaSelectPickupIconListIEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UGashaSelectPickupIconListIEntryObject;
 
 // Class OutGameModule.GashaSelectPickupIconWidget
 // 0x00A0 (0x0410 - 0x0370)
-class UGashaSelectPickupIconWidget : public UWidgetBase
+class UGashaSelectPickupIconWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -14831,10 +15259,11 @@ public:
 		return GetDefaultObjImpl<UGashaSelectPickupIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaSelectPickupIconWidget;
 
 // Class OutGameModule.LoginBonusPopupWidget
 // 0x0098 (0x0408 - 0x0370)
-class ULoginBonusPopupWidget : public UWidgetBase
+class ULoginBonusPopupWidget final : public UWidgetBase
 {
 public:
 	class UDataTable*                             _logoOffsetTable;                                  // 0x0370(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -14889,10 +15318,11 @@ public:
 		return GetDefaultObjImpl<ULoginBonusPopupWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULoginBonusPopupWidget;
 
 // Class OutGameModule.GashaSelectPickupPopupWidget
 // 0x0088 (0x03F8 - 0x0370)
-class UGashaSelectPickupPopupWidget : public UWidgetBase
+class UGashaSelectPickupPopupWidget final : public UWidgetBase
 {
 public:
 	class UWidgetGeneralEmptyWindow*              _mainWindow;                                       // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -14937,10 +15367,11 @@ public:
 		return GetDefaultObjImpl<UGashaSelectPickupPopupWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaSelectPickupPopupWidget;
 
 // Class OutGameModule.MainMenuWidget
 // 0x01A8 (0x05C0 - 0x0418)
-class UMainMenuWidget : public UAppWidget
+class UMainMenuWidget final : public UAppWidget
 {
 public:
 	uint8                                         Pad_418[0x10];                                     // 0x0418(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
@@ -15025,6 +15456,7 @@ public:
 		return GetDefaultObjImpl<UMainMenuWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMainMenuWidget;
 
 // Class OutGameModule.GashaSequenceGUIWidget
 // 0x0000 (0x0370 - 0x0370)
@@ -15044,6 +15476,7 @@ public:
 		return GetDefaultObjImpl<UGashaSequenceGUIWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaSequenceGUIWidget;
 
 // Class OutGameModule.MissionDetailsWindow
 // 0x0060 (0x03D0 - 0x0370)
@@ -15083,6 +15516,7 @@ public:
 		return GetDefaultObjImpl<UMissionDetailsWindow>();
 	}
 };
+DUMPER7_ASSERTS_UMissionDetailsWindow;
 
 // Class OutGameModule.GashaSlotIconEntryObject
 // 0x0000 (0x0030 - 0x0030)
@@ -15102,6 +15536,7 @@ public:
 		return GetDefaultObjImpl<UGashaSlotIconEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UGashaSlotIconEntryObject;
 
 // Class OutGameModule.GashaSSROpenUIWidget
 // 0x00B0 (0x0420 - 0x0370)
@@ -15153,10 +15588,11 @@ public:
 		return GetDefaultObjImpl<UGashaSSROpenUIWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaSSROpenUIWidget;
 
 // Class OutGameModule.MissionBaseWidget
 // 0x0088 (0x03F8 - 0x0370)
-class UMissionBaseWidget : public UWidgetBase
+class UMissionBaseWidget final : public UWidgetBase
 {
 public:
 	class UWidgetButton*                          _topButton;                                        // 0x0370(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -15194,10 +15630,11 @@ public:
 		return GetDefaultObjImpl<UMissionBaseWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMissionBaseWidget;
 
 // Class OutGameModule.GashaStepUpCheckPopupWidget
 // 0x00F8 (0x0468 - 0x0370)
-class UGashaStepUpCheckPopupWidget : public UWidgetBase
+class UGashaStepUpCheckPopupWidget final : public UWidgetBase
 {
 public:
 	class UWidgetGeneralEmptyWindow*              _popWindow;                                        // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -15268,10 +15705,11 @@ public:
 		return GetDefaultObjImpl<UGashaStepUpCheckPopupWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaStepUpCheckPopupWidget;
 
 // Class OutGameModule.GashaStepUpDirectingWidget
 // 0x0018 (0x0388 - 0x0370)
-class UGashaStepUpDirectingWidget : public UWidgetBase
+class UGashaStepUpDirectingWidget final : public UWidgetBase
 {
 public:
 	class UTextBlock*                             _subText;                                          // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -15295,10 +15733,11 @@ public:
 		return GetDefaultObjImpl<UGashaStepUpDirectingWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaStepUpDirectingWidget;
 
 // Class OutGameModule.MainMenuPopupWidget
 // 0x00A0 (0x0410 - 0x0370)
-class UMainMenuPopupWidget : public UWidgetBase
+class UMainMenuPopupWidget final : public UWidgetBase
 {
 public:
 	class UWidgetButton*                          _emptyButton;                                      // 0x0370(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -15332,10 +15771,11 @@ public:
 		return GetDefaultObjImpl<UMainMenuPopupWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMainMenuPopupWidget;
 
 // Class OutGameModule.GashaStepUpEffectWidget
 // 0x0000 (0x0370 - 0x0370)
-class UGashaStepUpEffectWidget : public UWidgetBase
+class UGashaStepUpEffectWidget final : public UWidgetBase
 {
 public:
 	static class UClass* StaticClass()
@@ -15351,10 +15791,11 @@ public:
 		return GetDefaultObjImpl<UGashaStepUpEffectWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaStepUpEffectWidget;
 
 // Class OutGameModule.GashaStepUpWidget
 // 0x0008 (0x0378 - 0x0370)
-class UGashaStepUpWidget : public UWidgetBase
+class UGashaStepUpWidget final : public UWidgetBase
 {
 public:
 	class UPlatformWidgetButton*                  _generalButton;                                    // 0x0370(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -15379,6 +15820,7 @@ public:
 		return GetDefaultObjImpl<UGashaStepUpWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaStepUpWidget;
 
 // Class OutGameModule.MissionCharacterFilterListItemObject
 // 0x0008 (0x0060 - 0x0058)
@@ -15401,10 +15843,11 @@ public:
 		return GetDefaultObjImpl<UMissionCharacterFilterListItemObject>();
 	}
 };
+DUMPER7_ASSERTS_UMissionCharacterFilterListItemObject;
 
 // Class OutGameModule.GashaSuggestVoiceCutInWidget
 // 0x0000 (0x0370 - 0x0370)
-class UGashaSuggestVoiceCutInWidget : public UWidgetBase
+class UGashaSuggestVoiceCutInWidget final : public UWidgetBase
 {
 public:
 	void SetImage(class UImage* Image);
@@ -15424,6 +15867,7 @@ public:
 		return GetDefaultObjImpl<UGashaSuggestVoiceCutInWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaSuggestVoiceCutInWidget;
 
 // Class OutGameModule.MissionStarAddWidget
 // 0x0018 (0x0388 - 0x0370)
@@ -15448,6 +15892,7 @@ public:
 		return GetDefaultObjImpl<UMissionStarAddWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMissionStarAddWidget;
 
 // Class OutGameModule.GashaUpperLimitExChangeListIEntryObject
 // 0x0060 (0x0090 - 0x0030)
@@ -15470,10 +15915,11 @@ public:
 		return GetDefaultObjImpl<UGashaUpperLimitExChangeListIEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UGashaUpperLimitExChangeListIEntryObject;
 
 // Class OutGameModule.GashaUpperLimitExChangeListItemWidget
 // 0x0040 (0x0550 - 0x0510)
-class UGashaUpperLimitExChangeListItemWidget : public UWidgetButton
+class UGashaUpperLimitExChangeListItemWidget final : public UWidgetButton
 {
 public:
 	uint8                                         Pad_510[0x8];                                      // 0x0510(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -15503,6 +15949,7 @@ public:
 		return GetDefaultObjImpl<UGashaUpperLimitExChangeListItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaUpperLimitExChangeListItemWidget;
 
 // Class OutGameModule.MissionFilterCheckBoxObject
 // 0x0008 (0x0060 - 0x0058)
@@ -15525,10 +15972,11 @@ public:
 		return GetDefaultObjImpl<UMissionFilterCheckBoxObject>();
 	}
 };
+DUMPER7_ASSERTS_UMissionFilterCheckBoxObject;
 
 // Class OutGameModule.GashaUpperLimitExChangePopupWidget
 // 0x0090 (0x0400 - 0x0370)
-class UGashaUpperLimitExChangePopupWidget : public UWidgetBase
+class UGashaUpperLimitExChangePopupWidget final : public UWidgetBase
 {
 public:
 	class UTextBlock*                             _text;                                             // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -15567,10 +16015,11 @@ public:
 		return GetDefaultObjImpl<UGashaUpperLimitExChangePopupWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaUpperLimitExChangePopupWidget;
 
 // Class OutGameModule.GashaUpperLimitExChangeWidget
 // 0x0068 (0x03D8 - 0x0370)
-class UGashaUpperLimitExChangeWidget : public UWidgetBase
+class UGashaUpperLimitExChangeWidget final : public UWidgetBase
 {
 public:
 	class UWidgetGeneralWindowFrame*              _windowFrame;                                      // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -15605,6 +16054,7 @@ public:
 		return GetDefaultObjImpl<UGashaUpperLimitExChangeWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaUpperLimitExChangeWidget;
 
 // Class OutGameModule.MissionFilterListBase
 // 0x0088 (0x03F8 - 0x0370)
@@ -15633,6 +16083,7 @@ public:
 		return GetDefaultObjImpl<UMissionFilterListBase>();
 	}
 };
+DUMPER7_ASSERTS_UMissionFilterListBase;
 
 // Class OutGameModule.MissionCharacterFilterList
 // 0x0028 (0x0420 - 0x03F8)
@@ -15671,10 +16122,11 @@ public:
 		return GetDefaultObjImpl<UMissionCharacterFilterList>();
 	}
 };
+DUMPER7_ASSERTS_UMissionCharacterFilterList;
 
 // Class OutGameModule.GashaUseCheckWidget
 // 0x0010 (0x0380 - 0x0370)
-class UGashaUseCheckWidget : public UWidgetBase
+class UGashaUseCheckWidget final : public UWidgetBase
 {
 public:
 	class UWidgetGeneralWindow*                   _checkPopup;                                       // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -15698,10 +16150,11 @@ public:
 		return GetDefaultObjImpl<UGashaUseCheckWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaUseCheckWidget;
 
 // Class OutGameModule.GashaWidget
 // 0x00D8 (0x0448 - 0x0370)
-class UGashaWidget : public UWidgetBase
+class UGashaWidget final : public UWidgetBase
 {
 public:
 	class UWidgetSwitcher*                        _waitSwitcher;                                     // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -15759,6 +16212,7 @@ public:
 		return GetDefaultObjImpl<UGashaWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaWidget;
 
 // Class OutGameModule.GashaWindowIconListIEntryObject
 // 0x0030 (0x0060 - 0x0030)
@@ -15781,10 +16235,11 @@ public:
 		return GetDefaultObjImpl<UGashaWindowIconListIEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UGashaWindowIconListIEntryObject;
 
 // Class OutGameModule.GashaWindowIconListItemWidget
 // 0x0088 (0x03F8 - 0x0370)
-class UGashaWindowIconListItemWidget : public UWidgetBase
+class UGashaWindowIconListItemWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -15825,6 +16280,7 @@ public:
 		return GetDefaultObjImpl<UGashaWindowIconListItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGashaWindowIconListItemWidget;
 
 // Class OutGameModule.GaugeRankWidget
 // 0x0038 (0x03A8 - 0x0370)
@@ -15853,6 +16309,7 @@ public:
 		return GetDefaultObjImpl<UGaugeRankWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGaugeRankWidget;
 
 // Class OutGameModule.GeneralCoinSelectButtonWidget
 // 0x0068 (0x07C8 - 0x0760)
@@ -15878,6 +16335,7 @@ public:
 		return GetDefaultObjImpl<UGeneralCoinSelectButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGeneralCoinSelectButtonWidget;
 
 // Class OutGameModule.GeneralCoinSelectItemWidget
 // 0x0020 (0x0390 - 0x0370)
@@ -15908,6 +16366,7 @@ public:
 		return GetDefaultObjImpl<UGeneralCoinSelectItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGeneralCoinSelectItemWidget;
 
 // Class OutGameModule.GeneralCoinSelectWidget
 // 0x00F0 (0x0520 - 0x0430)
@@ -15970,6 +16429,7 @@ public:
 		return GetDefaultObjImpl<UGeneralCoinSelectWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGeneralCoinSelectWidget;
 
 // Class OutGameModule.MissionStatics
 // 0x0000 (0x0028 - 0x0028)
@@ -15994,10 +16454,11 @@ public:
 		return GetDefaultObjImpl<UMissionStatics>();
 	}
 };
+DUMPER7_ASSERTS_UMissionStatics;
 
 // Class OutGameModule.GeneralCountCarouselWidget
 // 0x00D0 (0x0440 - 0x0370)
-class UGeneralCountCarouselWidget : public UWidgetBase
+class UGeneralCountCarouselWidget final : public UWidgetBase
 {
 public:
 	TMulticastInlineDelegate<void(int32 newCount, bool isFoucas)> OnChangeCountDelegate;             // 0x0370(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -16052,10 +16513,11 @@ public:
 		return GetDefaultObjImpl<UGeneralCountCarouselWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGeneralCountCarouselWidget;
 
 // Class OutGameModule.GeneralPageCarouselWidget
 // 0x0078 (0x03E8 - 0x0370)
-class UGeneralPageCarouselWidget : public UWidgetBase
+class UGeneralPageCarouselWidget final : public UWidgetBase
 {
 public:
 	TMulticastInlineDelegate<void(int32 newIndex, bool isFoucas)> OnChangeIndexDelegate;             // 0x0370(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -16104,6 +16566,7 @@ public:
 		return GetDefaultObjImpl<UGeneralPageCarouselWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGeneralPageCarouselWidget;
 
 // Class OutGameModule.GeneralPresetAppWidget
 // 0x00B8 (0x04D0 - 0x0418)
@@ -16160,6 +16623,7 @@ public:
 		return GetDefaultObjImpl<UGeneralPresetAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGeneralPresetAppWidget;
 
 // Class OutGameModule.GeneralSelectionButtonWidget
 // 0x0020 (0x0530 - 0x0510)
@@ -16194,6 +16658,7 @@ public:
 		return GetDefaultObjImpl<UGeneralSelectionButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGeneralSelectionButtonWidget;
 
 // Class OutGameModule.MissionStarMagnificationWidget
 // 0x0008 (0x0378 - 0x0370)
@@ -16216,10 +16681,11 @@ public:
 		return GetDefaultObjImpl<UMissionStarMagnificationWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMissionStarMagnificationWidget;
 
 // Class OutGameModule.GeneralShoppingWidget
 // 0x0148 (0x0740 - 0x05F8)
-class UGeneralShoppingWidget : public UWidgetGeneralWindow
+class UGeneralShoppingWidget final : public UWidgetGeneralWindow
 {
 public:
 	TMulticastInlineDelegate<void(const int32 value)> _itemAddEvent;                                 // 0x05F8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -16277,6 +16743,7 @@ public:
 		return GetDefaultObjImpl<UGeneralShoppingWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGeneralShoppingWidget;
 
 // Class OutGameModule.GeneralTradeWidget
 // 0x00E0 (0x0450 - 0x0370)
@@ -16330,6 +16797,7 @@ public:
 		return GetDefaultObjImpl<UGeneralTradeWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGeneralTradeWidget;
 
 // Class OutGameModule.MyADEditWidget
 // 0x0050 (0x0480 - 0x0430)
@@ -16367,6 +16835,7 @@ public:
 		return GetDefaultObjImpl<UMyADEditWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyADEditWidget;
 
 // Class OutGameModule.GeometryControllerAvatarCreate
 // 0x0000 (0x0028 - 0x0028)
@@ -16389,6 +16858,7 @@ public:
 		return GetDefaultObjImpl<UGeometryControllerAvatarCreate>();
 	}
 };
+DUMPER7_ASSERTS_UGeometryControllerAvatarCreate;
 
 // Class OutGameModule.GuildActivityStatusItemObject
 // 0x00A0 (0x00C8 - 0x0028)
@@ -16411,6 +16881,7 @@ public:
 		return GetDefaultObjImpl<UGuildActivityStatusItemObject>();
 	}
 };
+DUMPER7_ASSERTS_UGuildActivityStatusItemObject;
 
 // Class OutGameModule.GuildActivityStatusItemWidget
 // 0x0040 (0x07A0 - 0x0760)
@@ -16447,6 +16918,7 @@ public:
 		return GetDefaultObjImpl<UGuildActivityStatusItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildActivityStatusItemWidget;
 
 // Class OutGameModule.GuildApplicantListItemObject
 // 0x0038 (0x0060 - 0x0028)
@@ -16469,6 +16941,7 @@ public:
 		return GetDefaultObjImpl<UGuildApplicantListItemObject>();
 	}
 };
+DUMPER7_ASSERTS_UGuildApplicantListItemObject;
 
 // Class OutGameModule.MyADEditSelectHasButtonWidget
 // 0x0010 (0x0520 - 0x0510)
@@ -16492,6 +16965,7 @@ public:
 		return GetDefaultObjImpl<UMyADEditSelectHasButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyADEditSelectHasButtonWidget;
 
 // Class OutGameModule.GuildApplicantListItemWidget
 // 0x0010 (0x0520 - 0x0510)
@@ -16520,6 +16994,7 @@ public:
 		return GetDefaultObjImpl<UGuildApplicantListItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildApplicantListItemWidget;
 
 // Class OutGameModule.MyRoomButtonBaseWidget
 // 0x0058 (0x0568 - 0x0510)
@@ -16561,6 +17036,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomButtonBaseWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomButtonBaseWidget;
 
 // Class OutGameModule.GuildApplicantListWindow
 // 0x0010 (0x0380 - 0x0370)
@@ -16593,6 +17069,7 @@ public:
 		return GetDefaultObjImpl<UGuildApplicantListWindow>();
 	}
 };
+DUMPER7_ASSERTS_UGuildApplicantListWindow;
 
 // Class OutGameModule.GuildCancelWidget
 // 0x0008 (0x0378 - 0x0370)
@@ -16621,6 +17098,7 @@ public:
 		return GetDefaultObjImpl<UGuildCancelWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildCancelWidget;
 
 // Class OutGameModule.MyRoomPartsSelectButton
 // 0x0048 (0x05B0 - 0x0568)
@@ -16654,6 +17132,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomPartsSelectButton>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomPartsSelectButton;
 
 // Class OutGameModule.GuildCardWidget
 // 0x0030 (0x03A0 - 0x0370)
@@ -16689,6 +17168,7 @@ public:
 		return GetDefaultObjImpl<UGuildCardWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildCardWidget;
 
 // Class OutGameModule.GuildChangeWidget
 // 0x0008 (0x0378 - 0x0370)
@@ -16725,6 +17205,7 @@ public:
 		return GetDefaultObjImpl<UGuildChangeWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildChangeWidget;
 
 // Class OutGameModule.GuildChatListObject
 // 0x0048 (0x0070 - 0x0028)
@@ -16758,6 +17239,7 @@ public:
 		return GetDefaultObjImpl<UGuildChatListObject>();
 	}
 };
+DUMPER7_ASSERTS_UGuildChatListObject;
 
 // Class OutGameModule.MyADWidget
 // 0x00E0 (0x04F8 - 0x0418)
@@ -16819,6 +17301,7 @@ public:
 		return GetDefaultObjImpl<UMyADWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyADWidget;
 
 // Class OutGameModule.GuildChatWindowWidget
 // 0x0020 (0x0460 - 0x0440)
@@ -16850,6 +17333,7 @@ public:
 		return GetDefaultObjImpl<UGuildChatWindowWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildChatWindowWidget;
 
 // Class OutGameModule.GuildDetailWindow
 // 0x0180 (0x04F0 - 0x0370)
@@ -16923,6 +17407,7 @@ public:
 		return GetDefaultObjImpl<UGuildDetailWindow>();
 	}
 };
+DUMPER7_ASSERTS_UGuildDetailWindow;
 
 // Class OutGameModule.MyRoomRoomSelectListObject
 // 0x0030 (0x0058 - 0x0028)
@@ -16945,6 +17430,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomRoomSelectListObject>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomRoomSelectListObject;
 
 // Class OutGameModule.GuildEmblemListItemObject
 // 0x0008 (0x0030 - 0x0028)
@@ -16974,6 +17460,7 @@ public:
 		return GetDefaultObjImpl<UGuildEmblemListItemObject>();
 	}
 };
+DUMPER7_ASSERTS_UGuildEmblemListItemObject;
 
 // Class OutGameModule.GuildInstitutionWidget
 // 0x01A0 (0x0510 - 0x0370)
@@ -17024,6 +17511,7 @@ public:
 		return GetDefaultObjImpl<UGuildInstitutionWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildInstitutionWidget;
 
 // Class OutGameModule.GuildLevelUpResultWindow
 // 0x0040 (0x03B0 - 0x0370)
@@ -17053,6 +17541,7 @@ public:
 		return GetDefaultObjImpl<UGuildLevelUpResultWindow>();
 	}
 };
+DUMPER7_ASSERTS_UGuildLevelUpResultWindow;
 
 // Class OutGameModule.MyRoomPreviewWidget
 // 0x0038 (0x03A8 - 0x0370)
@@ -17088,6 +17577,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomPreviewWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomPreviewWidget;
 
 // Class OutGameModule.GuildMemberItemObject
 // 0x0068 (0x0090 - 0x0028)
@@ -17110,6 +17600,7 @@ public:
 		return GetDefaultObjImpl<UGuildMemberItemObject>();
 	}
 };
+DUMPER7_ASSERTS_UGuildMemberItemObject;
 
 // Class OutGameModule.GuildMemberWidget
 // 0x00E8 (0x0528 - 0x0440)
@@ -17176,6 +17667,7 @@ public:
 		return GetDefaultObjImpl<UGuildMemberWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildMemberWidget;
 
 // Class OutGameModule.GuildMenuWindow
 // 0x0010 (0x0380 - 0x0370)
@@ -17206,6 +17698,7 @@ public:
 		return GetDefaultObjImpl<UGuildMenuWindow>();
 	}
 };
+DUMPER7_ASSERTS_UGuildMenuWindow;
 
 // Class OutGameModule.MyRoomScreenTagWidget
 // 0x0060 (0x0478 - 0x0418)
@@ -17240,6 +17733,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomScreenTagWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomScreenTagWidget;
 
 // Class OutGameModule.GuildScoreWidget
 // 0x0058 (0x03C8 - 0x0370)
@@ -17268,6 +17762,7 @@ public:
 		return GetDefaultObjImpl<UGuildScoreWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildScoreWidget;
 
 // Class OutGameModule.MyRoomPresetAppWidget
 // 0x0158 (0x0570 - 0x0418)
@@ -17331,6 +17826,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomPresetAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomPresetAppWidget;
 
 // Class OutGameModule.GuildSearchItemWidget
 // 0x00C0 (0x0820 - 0x0760)
@@ -17366,6 +17862,7 @@ public:
 		return GetDefaultObjImpl<UGuildSearchItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UGuildSearchItemWidget;
 
 // Class OutGameModule.GuildStatics
 // 0x0000 (0x0028 - 0x0028)
@@ -17391,6 +17888,7 @@ public:
 		return GetDefaultObjImpl<UGuildStatics>();
 	}
 };
+DUMPER7_ASSERTS_UGuildStatics;
 
 // Class OutGameModule.IncentiveStatics
 // 0x0000 (0x0028 - 0x0028)
@@ -17410,6 +17908,7 @@ public:
 		return GetDefaultObjImpl<UIncentiveStatics>();
 	}
 };
+DUMPER7_ASSERTS_UIncentiveStatics;
 
 // Class OutGameModule.ItemDetailPopup
 // 0x0030 (0x03A0 - 0x0370)
@@ -17443,6 +17942,7 @@ public:
 		return GetDefaultObjImpl<UItemDetailPopup>();
 	}
 };
+DUMPER7_ASSERTS_UItemDetailPopup;
 
 // Class OutGameModule.ItemDetailsWidget
 // 0x0080 (0x03F0 - 0x0370)
@@ -17492,6 +17992,7 @@ public:
 		return GetDefaultObjImpl<UItemDetailsWidget>();
 	}
 };
+DUMPER7_ASSERTS_UItemDetailsWidget;
 
 // Class OutGameModule.MyRoomSettingMenu
 // 0x0058 (0x03C8 - 0x0370)
@@ -17528,6 +18029,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomSettingMenu>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomSettingMenu;
 
 // Class OutGameModule.ItemGetListItemWidget
 // 0x00B8 (0x0818 - 0x0760)
@@ -17577,10 +18079,11 @@ public:
 		return GetDefaultObjImpl<UItemGetListItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UItemGetListItemWidget;
 
 // Class OutGameModule.ItemIconAppealWidget
 // 0x0020 (0x0390 - 0x0370)
-class UItemIconAppealWidget : public UWidgetBase
+class UItemIconAppealWidget final : public UWidgetBase
 {
 public:
 	class UItemIconWidget*                        _ItemIcon;                                         // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -17604,10 +18107,11 @@ public:
 		return GetDefaultObjImpl<UItemIconAppealWidget>();
 	}
 };
+DUMPER7_ASSERTS_UItemIconAppealWidget;
 
 // Class OutGameModule.ItemIconNamePlateBGWidget
 // 0x0008 (0x0378 - 0x0370)
-class UItemIconNamePlateBGWidget : public UWidgetBase
+class UItemIconNamePlateBGWidget final : public UWidgetBase
 {
 public:
 	class UNamePlateBgImage*                      _iconImage;                                        // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -17626,6 +18130,7 @@ public:
 		return GetDefaultObjImpl<UItemIconNamePlateBGWidget>();
 	}
 };
+DUMPER7_ASSERTS_UItemIconNamePlateBGWidget;
 
 // Class OutGameModule.ItemIconWidget
 // 0x0100 (0x0610 - 0x0510)
@@ -17689,6 +18194,7 @@ public:
 		return GetDefaultObjImpl<UItemIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_UItemIconWidget;
 
 // Class OutGameModule.ItemIconWithNameWidget
 // 0x0028 (0x0638 - 0x0610)
@@ -17716,6 +18222,7 @@ public:
 		return GetDefaultObjImpl<UItemIconWithNameWidget>();
 	}
 };
+DUMPER7_ASSERTS_UItemIconWithNameWidget;
 
 // Class OutGameModule.ItemListObject
 // 0x0038 (0x0068 - 0x0030)
@@ -17741,6 +18248,7 @@ public:
 		return GetDefaultObjImpl<UItemListObject>();
 	}
 };
+DUMPER7_ASSERTS_UItemListObject;
 
 // Class OutGameModule.MissionStarWidgetBase
 // 0x0050 (0x03C0 - 0x0370)
@@ -17771,6 +18279,7 @@ public:
 		return GetDefaultObjImpl<UMissionStarWidgetBase>();
 	}
 };
+DUMPER7_ASSERTS_UMissionStarWidgetBase;
 
 // Class OutGameModule.MissionMagnificationStarWidget
 // 0x0010 (0x03D0 - 0x03C0)
@@ -17795,6 +18304,7 @@ public:
 		return GetDefaultObjImpl<UMissionMagnificationStarWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMissionMagnificationStarWidget;
 
 // Class OutGameModule.ItemListAppWidget
 // 0x0058 (0x0488 - 0x0430)
@@ -17839,6 +18349,7 @@ public:
 		return GetDefaultObjImpl<UItemListAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UItemListAppWidget;
 
 // Class OutGameModule.MissionListItem
 // 0x0060 (0x05B8 - 0x0558)
@@ -17868,6 +18379,7 @@ public:
 		return GetDefaultObjImpl<UMissionListItem>();
 	}
 };
+DUMPER7_ASSERTS_UMissionListItem;
 
 // Class OutGameModule.MissionDetails
 // 0x00E0 (0x0698 - 0x05B8)
@@ -17911,6 +18423,7 @@ public:
 		return GetDefaultObjImpl<UMissionDetails>();
 	}
 };
+DUMPER7_ASSERTS_UMissionDetails;
 
 // Class OutGameModule.MissionStarCountWidget
 // 0x0028 (0x0398 - 0x0370)
@@ -17938,10 +18451,11 @@ public:
 		return GetDefaultObjImpl<UMissionStarCountWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMissionStarCountWidget;
 
 // Class OutGameModule.ItemMissionDetails
 // 0x0048 (0x06E0 - 0x0698)
-class UItemMissionDetails : public UMissionDetails
+class UItemMissionDetails final : public UMissionDetails
 {
 public:
 	class UItemIconWidget*                        _ItemIcon;                                         // 0x0698(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -17969,6 +18483,7 @@ public:
 		return GetDefaultObjImpl<UItemMissionDetails>();
 	}
 };
+DUMPER7_ASSERTS_UItemMissionDetails;
 
 // Class OutGameModule.MissionFilterWindow
 // 0x0038 (0x03A8 - 0x0370)
@@ -18002,6 +18517,7 @@ public:
 		return GetDefaultObjImpl<UMissionFilterWindow>();
 	}
 };
+DUMPER7_ASSERTS_UMissionFilterWindow;
 
 // Class OutGameModule.ItemMissionDetailsObject
 // 0x0028 (0x00F8 - 0x00D0)
@@ -18024,10 +18540,11 @@ public:
 		return GetDefaultObjImpl<UItemMissionDetailsObject>();
 	}
 };
+DUMPER7_ASSERTS_UItemMissionDetailsObject;
 
 // Class OutGameModule.ItemRankUpWidget
 // 0x0068 (0x03D8 - 0x0370)
-class UItemRankUpWidget : public UWidgetBase
+class UItemRankUpWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x30];                                     // 0x0370(0x0030)(Fixing Size After Last Property [ Dumper-7 ])
@@ -18060,6 +18577,7 @@ public:
 		return GetDefaultObjImpl<UItemRankUpWidget>();
 	}
 };
+DUMPER7_ASSERTS_UItemRankUpWidget;
 
 // Class OutGameModule.KeyConfigItemObject
 // 0x0020 (0x0048 - 0x0028)
@@ -18084,6 +18602,7 @@ public:
 		return GetDefaultObjImpl<UKeyConfigItemObject>();
 	}
 };
+DUMPER7_ASSERTS_UKeyConfigItemObject;
 
 // Class OutGameModule.KeyConfigElemObject
 // 0x0020 (0x0048 - 0x0028)
@@ -18108,6 +18627,7 @@ public:
 		return GetDefaultObjImpl<UKeyConfigElemObject>();
 	}
 };
+DUMPER7_ASSERTS_UKeyConfigElemObject;
 
 // Class OutGameModule.KeyConfigWidget
 // 0x0020 (0x0390 - 0x0370)
@@ -18132,6 +18652,7 @@ public:
 		return GetDefaultObjImpl<UKeyConfigWidget>();
 	}
 };
+DUMPER7_ASSERTS_UKeyConfigWidget;
 
 // Class OutGameModule.LeaderboardPanelWidget
 // 0x0130 (0x0688 - 0x0558)
@@ -18196,10 +18717,11 @@ public:
 		return GetDefaultObjImpl<ULeaderboardPanelWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULeaderboardPanelWidget;
 
 // Class OutGameModule.LoadingTitleWidget
 // 0x0010 (0x0380 - 0x0370)
-class ULoadingTitleWidget final : public UWidgetBase
+class ULoadingTitleWidget : public UWidgetBase
 {
 public:
 	class UProgressBar*                           _lodingBar;                                        // 0x0370(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -18219,10 +18741,11 @@ public:
 		return GetDefaultObjImpl<ULoadingTitleWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULoadingTitleWidget;
 
 // Class OutGameModule.LoginBonusBuyWindowWidget
 // 0x0010 (0x0380 - 0x0370)
-class ULoginBonusBuyWindowWidget : public UWidgetBase
+class ULoginBonusBuyWindowWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x10];                                     // 0x0370(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
@@ -18250,10 +18773,11 @@ public:
 		return GetDefaultObjImpl<ULoginBonusBuyWindowWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULoginBonusBuyWindowWidget;
 
 // Class OutGameModule.LoginBonusCountdownTimerWidget
 // 0x0020 (0x0390 - 0x0370)
-class ULoginBonusCountdownTimerWidget : public UWidgetBase
+class ULoginBonusCountdownTimerWidget final : public UWidgetBase
 {
 public:
 	class UAdjustTextWidget*                      _timeText;                                         // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -18277,6 +18801,7 @@ public:
 		return GetDefaultObjImpl<ULoginBonusCountdownTimerWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULoginBonusCountdownTimerWidget;
 
 // Class OutGameModule.LoginBonusDailyWidget
 // 0x0118 (0x0488 - 0x0370)
@@ -18327,6 +18852,7 @@ public:
 		return GetDefaultObjImpl<ULoginBonusDailyWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULoginBonusDailyWidget;
 
 // Class OutGameModule.LoginBonusEventWidget
 // 0x0100 (0x0470 - 0x0370)
@@ -18371,6 +18897,7 @@ public:
 		return GetDefaultObjImpl<ULoginBonusEventWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULoginBonusEventWidget;
 
 // Class OutGameModule.LoginBonusItemEntryObject
 // 0x0060 (0x0090 - 0x0030)
@@ -18396,6 +18923,7 @@ public:
 		return GetDefaultObjImpl<ULoginBonusItemEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_ULoginBonusItemEntryObject;
 
 // Class OutGameModule.LoginBonusPopupBannerListEntryObject
 // 0x0070 (0x00A0 - 0x0030)
@@ -18418,10 +18946,11 @@ public:
 		return GetDefaultObjImpl<ULoginBonusPopupBannerListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_ULoginBonusPopupBannerListEntryObject;
 
 // Class OutGameModule.LoginBonusPopupBannerListWidget
 // 0x0028 (0x0398 - 0x0370)
-class ULoginBonusPopupBannerListWidget : public UWidgetBase
+class ULoginBonusPopupBannerListWidget final : public UWidgetBase
 {
 public:
 	class UCustomTileView*                        _bannerList;                                       // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -18445,10 +18974,11 @@ public:
 		return GetDefaultObjImpl<ULoginBonusPopupBannerListWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULoginBonusPopupBannerListWidget;
 
 // Class OutGameModule.LoginBonusPopupEventWidget
 // 0x00F0 (0x0460 - 0x0370)
-class ULoginBonusPopupEventWidget : public UWidgetBase
+class ULoginBonusPopupEventWidget final : public UWidgetBase
 {
 public:
 	class UTileView*                              _itemTileView;                                     // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -18487,10 +19017,11 @@ public:
 		return GetDefaultObjImpl<ULoginBonusPopupEventWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULoginBonusPopupEventWidget;
 
 // Class OutGameModule.LoginBonusPopupMainWidget
 // 0x0070 (0x03E0 - 0x0370)
-class ULoginBonusPopupMainWidget : public UWidgetBase
+class ULoginBonusPopupMainWidget final : public UWidgetBase
 {
 public:
 	class ULoginBonusPopupDailyWidget*            _dailyLoginBonus;                                  // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -18522,10 +19053,11 @@ public:
 		return GetDefaultObjImpl<ULoginBonusPopupMainWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULoginBonusPopupMainWidget;
 
 // Class OutGameModule.LoginBonusPremiumButtonWidget
 // 0x0030 (0x03A0 - 0x0370)
-class ULoginBonusPremiumButtonWidget : public UWidgetBase
+class ULoginBonusPremiumButtonWidget final : public UWidgetBase
 {
 public:
 	class UItemIconImage*                         _costIcon;                                         // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -18552,10 +19084,11 @@ public:
 		return GetDefaultObjImpl<ULoginBonusPremiumButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_ULoginBonusPremiumButtonWidget;
 
 // Class OutGameModule.MainMenuBarButtonWidget
 // 0x0050 (0x03C0 - 0x0370)
-class UMainMenuBarButtonWidget : public UWidgetBase
+class UMainMenuBarButtonWidget final : public UWidgetBase
 {
 public:
 	class UWidgetSwitcher*                        _buttonSwitcher;                                   // 0x0370(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -18582,10 +19115,11 @@ public:
 		return GetDefaultObjImpl<UMainMenuBarButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMainMenuBarButtonWidget;
 
 // Class OutGameModule.MainMenuBarListEntryWidget
 // 0x0070 (0x03E0 - 0x0370)
-class UMainMenuBarListEntryWidget : public UWidgetBase
+class UMainMenuBarListEntryWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -18624,6 +19158,7 @@ public:
 		return GetDefaultObjImpl<UMainMenuBarListEntryWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMainMenuBarListEntryWidget;
 
 // Class OutGameModule.MainMenuInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -18655,10 +19190,11 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IMainMenuInterface;
 
 // Class OutGameModule.MainMenuSmallPopupWidget
 // 0x0048 (0x03B8 - 0x0370)
-class UMainMenuSmallPopupWidget : public UWidgetBase
+class UMainMenuSmallPopupWidget final : public UWidgetBase
 {
 public:
 	class UCanvasPanel*                           _popupMain;                                        // 0x0370(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -18688,10 +19224,11 @@ public:
 		return GetDefaultObjImpl<UMainMenuSmallPopupWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMainMenuSmallPopupWidget;
 
 // Class OutGameModule.MiscellaneousMenuEntryWidget
 // 0x0038 (0x03A8 - 0x0370)
-class UMiscellaneousMenuEntryWidget : public UWidgetBase
+class UMiscellaneousMenuEntryWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -18719,10 +19256,11 @@ public:
 		return GetDefaultObjImpl<UMiscellaneousMenuEntryWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMiscellaneousMenuEntryWidget;
 
 // Class OutGameModule.MiscellaneousMenuWidget
 // 0x0098 (0x04C8 - 0x0430)
-class UMiscellaneousMenuWidget : public UCustomTileViewHasWidget
+class UMiscellaneousMenuWidget final : public UCustomTileViewHasWidget
 {
 public:
 	EMdMiscellaneousMenuList                      _selectMenuList;                                   // 0x0430(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -18756,6 +19294,7 @@ public:
 		return GetDefaultObjImpl<UMiscellaneousMenuWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMiscellaneousMenuWidget;
 
 // Class OutGameModule.MissionCharacterFilterListItem
 // 0x0008 (0x0548 - 0x0540)
@@ -18778,6 +19317,7 @@ public:
 		return GetDefaultObjImpl<UMissionCharacterFilterListItem>();
 	}
 };
+DUMPER7_ASSERTS_UMissionCharacterFilterListItem;
 
 // Class OutGameModule.MissionDatabaseWork
 // 0x0060 (0x0090 - 0x0030)
@@ -18800,6 +19340,7 @@ public:
 		return GetDefaultObjImpl<UMissionDatabaseWork>();
 	}
 };
+DUMPER7_ASSERTS_UMissionDatabaseWork;
 
 // Class OutGameModule.MissionFilterCheckBox
 // 0x0010 (0x0550 - 0x0540)
@@ -18823,6 +19364,7 @@ public:
 		return GetDefaultObjImpl<UMissionFilterCheckBox>();
 	}
 };
+DUMPER7_ASSERTS_UMissionFilterCheckBox;
 
 // Class OutGameModule.MissionFilterList
 // 0x0078 (0x0470 - 0x03F8)
@@ -18857,10 +19399,11 @@ public:
 		return GetDefaultObjImpl<UMissionFilterList>();
 	}
 };
+DUMPER7_ASSERTS_UMissionFilterList;
 
 // Class OutGameModule.MissionProgressWidget
 // 0x0010 (0x0380 - 0x0370)
-class UMissionProgressWidget : public UWidgetBase
+class UMissionProgressWidget final : public UWidgetBase
 {
 public:
 	class UTextBlock*                             _progress;                                         // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -18880,6 +19423,7 @@ public:
 		return GetDefaultObjImpl<UMissionProgressWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMissionProgressWidget;
 
 // Class OutGameModule.MissionStarCountItemWidget
 // 0x0008 (0x0378 - 0x0370)
@@ -18902,6 +19446,7 @@ public:
 		return GetDefaultObjImpl<UMissionStarCountItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMissionStarCountItemWidget;
 
 // Class OutGameModule.MissionStarItemWidget
 // 0x0038 (0x03A8 - 0x0370)
@@ -18930,6 +19475,7 @@ public:
 		return GetDefaultObjImpl<UMissionStarItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMissionStarItemWidget;
 
 // Class OutGameModule.TabContentsInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -18962,6 +19508,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_ITabContentsInterface;
 
 // Class OutGameModule.MissionStarWidget
 // 0x0020 (0x03E0 - 0x03C0)
@@ -18990,6 +19537,7 @@ public:
 		return GetDefaultObjImpl<UMissionStarWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMissionStarWidget;
 
 // Class OutGameModule.MyADEditSelectButtonWidget
 // 0x0050 (0x0468 - 0x0418)
@@ -19025,6 +19573,7 @@ public:
 		return GetDefaultObjImpl<UMyADEditSelectButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyADEditSelectButtonWidget;
 
 // Class OutGameModule.TileViewScroll
 // 0x0008 (0x0390 - 0x0388)
@@ -19047,6 +19596,7 @@ public:
 		return GetDefaultObjImpl<UTileViewScroll>();
 	}
 };
+DUMPER7_ASSERTS_UTileViewScroll;
 
 // Class OutGameModule.MyADEditTopWidget
 // 0x0028 (0x0398 - 0x0370)
@@ -19077,6 +19627,7 @@ public:
 		return GetDefaultObjImpl<UMyADEditTopWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyADEditTopWidget;
 
 // Class OutGameModule.MyADEditWidgetMessage
 // 0x0088 (0x0508 - 0x0480)
@@ -19112,6 +19663,7 @@ public:
 		return GetDefaultObjImpl<UMyADEditWidgetMessage>();
 	}
 };
+DUMPER7_ASSERTS_UMyADEditWidgetMessage;
 
 // Class OutGameModule.MyADSelectButtonWidget
 // 0x0128 (0x0638 - 0x0510)
@@ -19151,6 +19703,7 @@ public:
 		return GetDefaultObjImpl<UMyADSelectButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyADSelectButtonWidget;
 
 // Class OutGameModule.MyADWidgetSubMenu
 // 0x0010 (0x0380 - 0x0370)
@@ -19178,6 +19731,7 @@ public:
 		return GetDefaultObjImpl<UMyADWidgetSubMenu>();
 	}
 };
+DUMPER7_ASSERTS_UMyADWidgetSubMenu;
 
 // Class OutGameModule.MyRoomCharacterSelectWidget
 // 0x0158 (0x0678 - 0x0520)
@@ -19231,10 +19785,11 @@ public:
 		return GetDefaultObjImpl<UMyRoomCharacterSelectWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomCharacterSelectWidget;
 
 // Class OutGameModule.MyRoomFadeWidget
 // 0x0000 (0x03A0 - 0x03A0)
-class UMyRoomFadeWidget : public UFadeWidget
+class UMyRoomFadeWidget final : public UFadeWidget
 {
 public:
 	static class UClass* StaticClass()
@@ -19250,10 +19805,11 @@ public:
 		return GetDefaultObjImpl<UMyRoomFadeWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomFadeWidget;
 
 // Class OutGameModule.MyRoomLikeButtonWidget
 // 0x0008 (0x03C8 - 0x03C0)
-class UMyRoomLikeButtonWidget : public USendLikeButtonWidget
+class UMyRoomLikeButtonWidget final : public USendLikeButtonWidget
 {
 public:
 	class UTextBlock*                             _count;                                            // 0x03C0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -19275,6 +19831,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomLikeButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomLikeButtonWidget;
 
 // Class OutGameModule.MyRoomOperationWidget
 // 0x0008 (0x0378 - 0x0370)
@@ -19300,6 +19857,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomOperationWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomOperationWidget;
 
 // Class OutGameModule.MyRoomPartsSelectSubMenu
 // 0x0010 (0x0508 - 0x04F8)
@@ -19322,6 +19880,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomPartsSelectSubMenu>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomPartsSelectSubMenu;
 
 // Class OutGameModule.MyRoomPresetDisplayWidget
 // 0x0088 (0x03F8 - 0x0370)
@@ -19354,6 +19913,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomPresetDisplayWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomPresetDisplayWidget;
 
 // Class OutGameModule.MyRoomRoomSelectButton
 // 0x0040 (0x05A8 - 0x0568)
@@ -19386,6 +19946,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomRoomSelectButton>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomRoomSelectButton;
 
 // Class OutGameModule.MyRoomRoomSelectMenu
 // 0x00A0 (0x0460 - 0x03C0)
@@ -19426,6 +19987,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomRoomSelectMenu>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomRoomSelectMenu;
 
 // Class OutGameModule.MyRoomScreenWidget
 // 0x00E0 (0x04F8 - 0x0418)
@@ -19459,6 +20021,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomScreenWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomScreenWidget;
 
 // Class OutGameModule.MyRoomTopMenuWidget
 // 0x0090 (0x0450 - 0x03C0)
@@ -19499,6 +20062,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomTopMenuWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomTopMenuWidget;
 
 // Class OutGameModule.MyRoomTopWidget
 // 0x00A0 (0x0410 - 0x0370)
@@ -19553,6 +20117,7 @@ public:
 		return GetDefaultObjImpl<UMyRoomTopWidget>();
 	}
 };
+DUMPER7_ASSERTS_UMyRoomTopWidget;
 
 // Class OutGameModule.NamePlateChangeWidget
 // 0x0048 (0x03B8 - 0x0370)
@@ -19594,6 +20159,7 @@ public:
 		return GetDefaultObjImpl<UNamePlateChangeWidget>();
 	}
 };
+DUMPER7_ASSERTS_UNamePlateChangeWidget;
 
 // Class OutGameModule.NamePlateIconWidget
 // 0x0058 (0x07B8 - 0x0760)
@@ -19628,6 +20194,7 @@ public:
 		return GetDefaultObjImpl<UNamePlateIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_UNamePlateIconWidget;
 
 // Class OutGameModule.NamePlateListObject
 // 0x0010 (0x0038 - 0x0028)
@@ -19650,6 +20217,7 @@ public:
 		return GetDefaultObjImpl<UNamePlateListObject>();
 	}
 };
+DUMPER7_ASSERTS_UNamePlateListObject;
 
 // Class OutGameModule.NamePlateListWidget
 // 0x0070 (0x03E0 - 0x0370)
@@ -19680,10 +20248,11 @@ public:
 		return GetDefaultObjImpl<UNamePlateListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UNamePlateListWidget;
 
 // Class OutGameModule.NoticeDotListItemWidget
 // 0x0010 (0x0520 - 0x0510)
-class UNoticeDotListItemWidget : public UWidgetButton
+class UNoticeDotListItemWidget final : public UWidgetButton
 {
 public:
 	uint8                                         Pad_510[0x8];                                      // 0x0510(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -19703,6 +20272,7 @@ public:
 		return GetDefaultObjImpl<UNoticeDotListItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UNoticeDotListItemWidget;
 
 // Class OutGameModule.ShopTopWidget
 // 0x0058 (0x03C8 - 0x0370)
@@ -19746,6 +20316,7 @@ public:
 		return GetDefaultObjImpl<UShopTopWidget>();
 	}
 };
+DUMPER7_ASSERTS_UShopTopWidget;
 
 // Class OutGameModule.NoticePanelEntryObject
 // 0x0098 (0x00C8 - 0x0030)
@@ -19768,10 +20339,11 @@ public:
 		return GetDefaultObjImpl<UNoticePanelEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UNoticePanelEntryObject;
 
 // Class OutGameModule.NoticeExplanationText
 // 0x0018 (0x0388 - 0x0370)
-class UNoticeExplanationText : public UWidgetBase
+class UNoticeExplanationText final : public UWidgetBase
 {
 public:
 	class UScrollBox*                             _scrollBox;                                        // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -19795,10 +20367,11 @@ public:
 		return GetDefaultObjImpl<UNoticeExplanationText>();
 	}
 };
+DUMPER7_ASSERTS_UNoticeExplanationText;
 
 // Class OutGameModule.NoticeExplanationTimer
 // 0x0028 (0x0398 - 0x0370)
-class UNoticeExplanationTimer : public UWidgetBase
+class UNoticeExplanationTimer final : public UWidgetBase
 {
 public:
 	class UNoticeTimerWidget*                     _noticeTimer;                                      // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -19821,10 +20394,11 @@ public:
 		return GetDefaultObjImpl<UNoticeExplanationTimer>();
 	}
 };
+DUMPER7_ASSERTS_UNoticeExplanationTimer;
 
 // Class OutGameModule.NoticeExplanationWidget
 // 0x0018 (0x0388 - 0x0370)
-class UNoticeExplanationWidget : public UWidgetBase
+class UNoticeExplanationWidget final : public UWidgetBase
 {
 public:
 	class UAdjustTextWidget*                      _titleText;                                        // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -19845,6 +20419,7 @@ public:
 		return GetDefaultObjImpl<UNoticeExplanationWidget>();
 	}
 };
+DUMPER7_ASSERTS_UNoticeExplanationWidget;
 
 // Class OutGameModule.SpaceAdjustmentList
 // 0x0018 (0x0388 - 0x0370)
@@ -19875,10 +20450,11 @@ public:
 		return GetDefaultObjImpl<USpaceAdjustmentList>();
 	}
 };
+DUMPER7_ASSERTS_USpaceAdjustmentList;
 
 // Class OutGameModule.NoticeImageWidget
 // 0x0050 (0x03C0 - 0x0370)
-class UNoticeImageWidget : public UWidgetBase
+class UNoticeImageWidget final : public UWidgetBase
 {
 public:
 	class UImage*                                 _image;                                            // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -19904,10 +20480,11 @@ public:
 		return GetDefaultObjImpl<UNoticeImageWidget>();
 	}
 };
+DUMPER7_ASSERTS_UNoticeImageWidget;
 
 // Class OutGameModule.NoticeItemIconListWidget
 // 0x0040 (0x03B0 - 0x0370)
-class UNoticeItemIconListWidget : public UWidgetBase
+class UNoticeItemIconListWidget final : public UWidgetBase
 {
 public:
 	int32                                         _itemCount;                                        // 0x0370(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -19936,10 +20513,11 @@ public:
 		return GetDefaultObjImpl<UNoticeItemIconListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UNoticeItemIconListWidget;
 
 // Class OutGameModule.NoticeItemWidget
 // 0x0008 (0x0378 - 0x0370)
-class UNoticeItemWidget : public UWidgetBase
+class UNoticeItemWidget final : public UWidgetBase
 {
 public:
 	class UItemIconWidget*                        _ItemIcon;                                         // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -19958,10 +20536,11 @@ public:
 		return GetDefaultObjImpl<UNoticeItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UNoticeItemWidget;
 
 // Class OutGameModule.NoticeListPanelWidget
 // 0x0050 (0x0560 - 0x0510)
-class UNoticeListPanelWidget : public UWidgetButton
+class UNoticeListPanelWidget final : public UWidgetButton
 {
 public:
 	uint8                                         Pad_510[0x8];                                      // 0x0510(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -19992,6 +20571,7 @@ public:
 		return GetDefaultObjImpl<UNoticeListPanelWidget>();
 	}
 };
+DUMPER7_ASSERTS_UNoticeListPanelWidget;
 
 // Class OutGameModule.RankSpecialEffectRankEntryObject
 // 0x0008 (0x0038 - 0x0030)
@@ -20014,10 +20594,11 @@ public:
 		return GetDefaultObjImpl<URankSpecialEffectRankEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_URankSpecialEffectRankEntryObject;
 
 // Class OutGameModule.NoticeListWidget
 // 0x0040 (0x03B0 - 0x0370)
-class UNoticeListWidget : public UWidgetBase
+class UNoticeListWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x28];                                     // 0x0370(0x0028)(Fixing Size After Last Property [ Dumper-7 ])
@@ -20043,6 +20624,7 @@ public:
 		return GetDefaultObjImpl<UNoticeListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UNoticeListWidget;
 
 // Class OutGameModule.NoticeTestImageWidget
 // 0x0020 (0x0390 - 0x0370)
@@ -20072,10 +20654,11 @@ public:
 		return GetDefaultObjImpl<UNoticeTestImageWidget>();
 	}
 };
+DUMPER7_ASSERTS_UNoticeTestImageWidget;
 
 // Class OutGameModule.NoticeTimerWidget
 // 0x0008 (0x0410 - 0x0408)
-class UNoticeTimerWidget : public UTimeWidget
+class UNoticeTimerWidget final : public UTimeWidget
 {
 public:
 	ETextJustify                                  _justification;                                    // 0x0408(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -20095,6 +20678,7 @@ public:
 		return GetDefaultObjImpl<UNoticeTimerWidget>();
 	}
 };
+DUMPER7_ASSERTS_UNoticeTimerWidget;
 
 // Class OutGameModule.NoticeTopWidget
 // 0x0020 (0x0390 - 0x0370)
@@ -20124,6 +20708,7 @@ public:
 		return GetDefaultObjImpl<UNoticeTopWidget>();
 	}
 };
+DUMPER7_ASSERTS_UNoticeTopWidget;
 
 // Class OutGameModule.SpecialLicenseRewardWidget
 // 0x0090 (0x0440 - 0x03B0)
@@ -20164,6 +20749,7 @@ public:
 		return GetDefaultObjImpl<USpecialLicenseRewardWidget>();
 	}
 };
+DUMPER7_ASSERTS_USpecialLicenseRewardWidget;
 
 // Class OutGameModule.NoticeTopTestWidget
 // 0x0010 (0x03A0 - 0x0390)
@@ -20186,10 +20772,11 @@ public:
 		return GetDefaultObjImpl<UNoticeTopTestWidget>();
 	}
 };
+DUMPER7_ASSERTS_UNoticeTopTestWidget;
 
 // Class OutGameModule.ObserverSettingWidget
 // 0x0258 (0x05E8 - 0x0390)
-class UObserverSettingWidget : public UBaseSettingWidget
+class UObserverSettingWidget final : public UBaseSettingWidget
 {
 public:
 	class UWidgetSwitcher*                        _padImage;                                         // 0x0390(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -20242,6 +20829,7 @@ public:
 		return GetDefaultObjImpl<UObserverSettingWidget>();
 	}
 };
+DUMPER7_ASSERTS_UObserverSettingWidget;
 
 // Class OutGameModule.OutGameCharacterWidget
 // 0x0000 (0x0370 - 0x0370)
@@ -20264,6 +20852,7 @@ public:
 		return GetDefaultObjImpl<UOutGameCharacterWidget>();
 	}
 };
+DUMPER7_ASSERTS_UOutGameCharacterWidget;
 
 // Class OutGameModule.OwnerRankingDetails
 // 0x0030 (0x0448 - 0x0418)
@@ -20291,6 +20880,7 @@ public:
 		return GetDefaultObjImpl<UOwnerRankingDetails>();
 	}
 };
+DUMPER7_ASSERTS_UOwnerRankingDetails;
 
 // Class OutGameModule.PackItemEntryObject
 // 0x0028 (0x0058 - 0x0030)
@@ -20313,10 +20903,11 @@ public:
 		return GetDefaultObjImpl<UPackItemEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UPackItemEntryObject;
 
 // Class OutGameModule.PackItemListWidget
 // 0x0018 (0x0388 - 0x0370)
-class UPackItemListWidget : public UWidgetBase
+class UPackItemListWidget final : public UWidgetBase
 {
 public:
 	class UListView*                              _listView;                                         // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -20343,10 +20934,11 @@ public:
 		return GetDefaultObjImpl<UPackItemListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPackItemListWidget;
 
 // Class OutGameModule.PackItemWidget
 // 0x0010 (0x0520 - 0x0510)
-class UPackItemWidget : public UWidgetButton
+class UPackItemWidget final : public UWidgetButton
 {
 public:
 	uint8                                         Pad_510[0x8];                                      // 0x0510(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -20370,6 +20962,7 @@ public:
 		return GetDefaultObjImpl<UPackItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPackItemWidget;
 
 // Class OutGameModule.PlayerControllerDevOnlineMenu
 // 0x0010 (0x0648 - 0x0638)
@@ -20400,6 +20993,7 @@ public:
 		return GetDefaultObjImpl<APlayerControllerDevOnlineMenu>();
 	}
 };
+DUMPER7_ASSERTS_APlayerControllerDevOnlineMenu;
 
 // Class OutGameModule.PlayerControllerOutGame
 // 0x0008 (0x0640 - 0x0638)
@@ -20426,6 +21020,7 @@ public:
 		return GetDefaultObjImpl<APlayerControllerOutGame>();
 	}
 };
+DUMPER7_ASSERTS_APlayerControllerOutGame;
 
 // Class OutGameModule.PlayerIntroductionAppWidget
 // 0x0000 (0x0498 - 0x0498)
@@ -20445,6 +21040,7 @@ public:
 		return GetDefaultObjImpl<UPlayerIntroductionAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayerIntroductionAppWidget;
 
 // Class OutGameModule.PlayerNameAppWidget
 // 0x00B0 (0x0548 - 0x0498)
@@ -20490,6 +21086,7 @@ public:
 		return GetDefaultObjImpl<UPlayerNameAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayerNameAppWidget;
 
 // Class OutGameModule.RoleSlotFavoriteAppWidget
 // 0x0028 (0x04C0 - 0x0498)
@@ -20525,6 +21122,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotFavoriteAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotFavoriteAppWidget;
 
 // Class OutGameModule.PlayerNameCharacterPanel
 // 0x0008 (0x0548 - 0x0540)
@@ -20550,6 +21148,7 @@ public:
 		return GetDefaultObjImpl<UPlayerNameCharacterPanel>();
 	}
 };
+DUMPER7_ASSERTS_UPlayerNameCharacterPanel;
 
 // Class OutGameModule.PlayerNameFinalConfirmationAppWidget
 // 0x0098 (0x04B0 - 0x0418)
@@ -20599,6 +21198,7 @@ public:
 		return GetDefaultObjImpl<UPlayerNameFinalConfirmationAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayerNameFinalConfirmationAppWidget;
 
 // Class OutGameModule.PlayerNameLimitAppWidget
 // 0x0038 (0x0440 - 0x0408)
@@ -20632,10 +21232,11 @@ public:
 		return GetDefaultObjImpl<UPlayerNameLimitAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayerNameLimitAppWidget;
 
 // Class OutGameModule.PlayMenuBannerListWidget
 // 0x0040 (0x03B0 - 0x0370)
-class UPlayMenuBannerListWidget : public UWidgetBase
+class UPlayMenuBannerListWidget final : public UWidgetBase
 {
 public:
 	TMulticastInlineDelegate<void()>              _changeLeftFocusDelegate;                          // 0x0370(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -20664,10 +21265,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuBannerListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuBannerListWidget;
 
 // Class OutGameModule.PlayMenuBannerWidget
 // 0x0028 (0x0788 - 0x0760)
-class UPlayMenuBannerWidget : public UPlatformWidgetButton
+class UPlayMenuBannerWidget final : public UPlatformWidgetButton
 {
 public:
 	uint8                                         Pad_760[0x8];                                      // 0x0760(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -20690,6 +21292,7 @@ public:
 		return GetDefaultObjImpl<UPlayMenuBannerWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuBannerWidget;
 
 // Class OutGameModule.PlayMenuBannerEntryObject
 // 0x0028 (0x0058 - 0x0030)
@@ -20712,10 +21315,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuBannerEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuBannerEntryObject;
 
 // Class OutGameModule.PlayMenuBattleRuleWidget
 // 0x0190 (0x06A0 - 0x0510)
-class UPlayMenuBattleRuleWidget : public UWidgetButton
+class UPlayMenuBattleRuleWidget final : public UWidgetButton
 {
 public:
 	bool                                          _bIsGrayOut;                                       // 0x0510(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -20776,10 +21380,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuBattleRuleWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuBattleRuleWidget;
 
 // Class OutGameModule.PlayMenuBattleStartButtonWidget
 // 0x0070 (0x03E0 - 0x0370)
-class UPlayMenuBattleStartButtonWidget : public UWidgetBase
+class UPlayMenuBattleStartButtonWidget final : public UWidgetBase
 {
 public:
 	class FText                                   _setNameText;                                      // 0x0370(0x0018)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
@@ -20817,10 +21422,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuBattleStartButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuBattleStartButtonWidget;
 
 // Class OutGameModule.PlayMenuBattleStartWidget
 // 0x0240 (0x05B0 - 0x0370)
-class UPlayMenuBattleStartWidget : public UWidgetBase
+class UPlayMenuBattleStartWidget final : public UWidgetBase
 {
 public:
 	TMulticastInlineDelegate<void()>              _onBattleStartPressDelegate;                       // 0x0370(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -20906,10 +21512,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuBattleStartWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuBattleStartWidget;
 
 // Class OutGameModule.PlayMenuBelt
 // 0x0040 (0x03B0 - 0x0370)
-class UPlayMenuBelt : public UWidgetBase
+class UPlayMenuBelt final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x10];                                     // 0x0370(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
@@ -20937,10 +21544,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuBelt>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuBelt;
 
 // Class OutGameModule.PlayMenuDebugListEntryWidget
 // 0x0070 (0x03E0 - 0x0370)
-class UPlayMenuDebugListEntryWidget : public UWidgetBase
+class UPlayMenuDebugListEntryWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x18];                                     // 0x0370(0x0018)(Fixing Size After Last Property [ Dumper-7 ])
@@ -20969,10 +21577,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuDebugListEntryWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuDebugListEntryWidget;
 
 // Class OutGameModule.PlayMenuDominateRole
 // 0x0010 (0x0380 - 0x0370)
-class UPlayMenuDominateRole : public UWidgetBase
+class UPlayMenuDominateRole final : public UWidgetBase
 {
 public:
 	class UCanvasPanel*                           _base;                                             // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -20996,10 +21605,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuDominateRole>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuDominateRole;
 
 // Class OutGameModule.PlayMenuHamburgerEntryWidget
 // 0x0038 (0x03A8 - 0x0370)
-class UPlayMenuHamburgerEntryWidget : public UWidgetBase
+class UPlayMenuHamburgerEntryWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -21026,10 +21636,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuHamburgerEntryWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuHamburgerEntryWidget;
 
 // Class OutGameModule.PlayMenuHamburgerLargeIconWidget
 // 0x0080 (0x0590 - 0x0510)
-class UPlayMenuHamburgerLargeIconWidget : public UWidgetButton
+class UPlayMenuHamburgerLargeIconWidget final : public UWidgetButton
 {
 public:
 	EPlayMenuHamburgerLargeIconType               _playMenuHamburgerLargeIconType;                   // 0x0510(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -21068,6 +21679,7 @@ public:
 		return GetDefaultObjImpl<UPlayMenuHamburgerLargeIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuHamburgerLargeIconWidget;
 
 // Class OutGameModule.PlayMenuHamburgerListEntryObject
 // 0x0020 (0x0050 - 0x0030)
@@ -21096,6 +21708,7 @@ public:
 		return GetDefaultObjImpl<UPlayMenuHamburgerListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuHamburgerListEntryObject;
 
 // Class OutGameModule.PlayMenuHamburgerDebugListEntryObject
 // 0x0048 (0x0078 - 0x0030)
@@ -21121,10 +21734,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuHamburgerDebugListEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuHamburgerDebugListEntryObject;
 
 // Class OutGameModule.PlayMenuHamburgerWidget
 // 0x0068 (0x0498 - 0x0430)
-class UPlayMenuHamburgerWidget : public UCustomTileViewHasWidget
+class UPlayMenuHamburgerWidget final : public UCustomTileViewHasWidget
 {
 public:
 	class UTileView*                              _debugTileView;                                    // 0x0430(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -21182,10 +21796,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuHamburgerWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuHamburgerWidget;
 
 // Class OutGameModule.PlayMenuIconEntryWidget
 // 0x00D0 (0x05E0 - 0x0510)
-class UPlayMenuIconEntryWidget : public UWidgetButton
+class UPlayMenuIconEntryWidget final : public UWidgetButton
 {
 public:
 	class UTextBlock*                             _nameText;                                         // 0x0510(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -21226,10 +21841,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuIconEntryWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuIconEntryWidget;
 
 // Class OutGameModule.PlayMenuMaintenance
 // 0x0020 (0x0390 - 0x0370)
-class UPlayMenuMaintenance : public UWidgetBase
+class UPlayMenuMaintenance final : public UWidgetBase
 {
 public:
 	class UAdjustTextWidget*                      _adjustText;                                       // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -21256,10 +21872,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuMaintenance>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuMaintenance;
 
 // Class OutGameModule.PlayMenuMessage
 // 0x0030 (0x03A0 - 0x0370)
-class UPlayMenuMessage : public UWidgetBase
+class UPlayMenuMessage final : public UWidgetBase
 {
 public:
 	class UWidgetSwitcher*                        _messageSwitcher;                                  // 0x0370(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -21290,10 +21907,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuMessage>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuMessage;
 
 // Class OutGameModule.PlayMenuMyAD
 // 0x0070 (0x0488 - 0x0418)
-class UPlayMenuMyAD : public UAppWidget
+class UPlayMenuMyAD final : public UAppWidget
 {
 public:
 	class UPlayMenuMyADButton*                    _playMenuMyADButton;                               // 0x0418(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -21330,10 +21948,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuMyAD>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuMyAD;
 
 // Class OutGameModule.PlayMenuMyADButton
 // 0x0008 (0x0518 - 0x0510)
-class UPlayMenuMyADButton : public UWidgetButton
+class UPlayMenuMyADButton final : public UWidgetButton
 {
 public:
 	class UFocusAnimationWidget*                  _focusAnimationListItem;                           // 0x0510(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -21352,10 +21971,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuMyADButton>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuMyADButton;
 
 // Class OutGameModule.PlayMenuMyADDisplay
 // 0x0010 (0x0380 - 0x0370)
-class UPlayMenuMyADDisplay : public UWidgetBase
+class UPlayMenuMyADDisplay final : public UWidgetBase
 {
 public:
 	class UMyADDisplayWidget*                     _displayAD;                                        // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -21375,10 +21995,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuMyADDisplay>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuMyADDisplay;
 
 // Class OutGameModule.PlayMenuMyRoomWidget
 // 0x0048 (0x0558 - 0x0510)
-class UPlayMenuMyRoomWidget : public UWidgetButton
+class UPlayMenuMyRoomWidget final : public UWidgetButton
 {
 public:
 	bool                                          _bGrayOut;                                         // 0x0510(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -21409,10 +22030,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuMyRoomWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuMyRoomWidget;
 
 // Class OutGameModule.SettingButtonKeyWidget
 // 0x0068 (0x0578 - 0x0510)
-class USettingButtonKeyWidget : public UWidgetButton
+class USettingButtonKeyWidget final : public UWidgetButton
 {
 public:
 	EKeyConfigurableCommand                       _command;                                          // 0x0510(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -21447,10 +22069,11 @@ public:
 		return GetDefaultObjImpl<USettingButtonKeyWidget>();
 	}
 };
+DUMPER7_ASSERTS_USettingButtonKeyWidget;
 
 // Class OutGameModule.PlayMenuPlayerStatusEntryWidget
 // 0x02D8 (0x0648 - 0x0370)
-class UPlayMenuPlayerStatusEntryWidget : public UWidgetBase
+class UPlayMenuPlayerStatusEntryWidget final : public UWidgetBase
 {
 public:
 	TMulticastInlineDelegate<void(EUINavigation uiNavigation)> _onNavigationOutButtonEventDelegate;  // 0x0370(0x0010)(BlueprintVisible, ZeroConstructor, InstancedReference, BlueprintAssignable, BlueprintCallable, NativeAccessSpecifierPublic)
@@ -21549,10 +22172,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuPlayerStatusEntryWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuPlayerStatusEntryWidget;
 
 // Class OutGameModule.PlayMenuPlayerStatusVariationIconWidget
 // 0x0008 (0x0378 - 0x0370)
-class UPlayMenuPlayerStatusVariationIconWidget : public UWidgetBase
+class UPlayMenuPlayerStatusVariationIconWidget final : public UWidgetBase
 {
 public:
 	class UCanvasPanel*                           _basePanel;                                        // 0x0370(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -21574,10 +22198,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuPlayerStatusVariationIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuPlayerStatusVariationIconWidget;
 
 // Class OutGameModule.PlayMenuPlayerStatusWidget
 // 0x00A8 (0x0418 - 0x0370)
-class UPlayMenuPlayerStatusWidget : public UWidgetBase
+class UPlayMenuPlayerStatusWidget final : public UWidgetBase
 {
 public:
 	TMulticastInlineDelegate<void(EUINavigation uiNavigation)> _onOutNavigation;                     // 0x0370(0x0010)(BlueprintVisible, ZeroConstructor, InstancedReference, BlueprintAssignable, BlueprintCallable, NativeAccessSpecifierPublic)
@@ -21628,10 +22253,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuPlayerStatusWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuPlayerStatusWidget;
 
 // Class OutGameModule.PlayMenuRankingEliteWidget
 // 0x0048 (0x03B8 - 0x0370)
-class UPlayMenuRankingEliteWidget : public UWidgetBase
+class UPlayMenuRankingEliteWidget final : public UWidgetBase
 {
 public:
 	class UTextBlock*                             _seasonText;                                       // 0x0370(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -21658,6 +22284,7 @@ public:
 		return GetDefaultObjImpl<UPlayMenuRankingEliteWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuRankingEliteWidget;
 
 // Class OutGameModule.SettingKeyConfigPresetWidget
 // 0x0078 (0x03E8 - 0x0370)
@@ -21701,10 +22328,11 @@ public:
 		return GetDefaultObjImpl<USettingKeyConfigPresetWidget>();
 	}
 };
+DUMPER7_ASSERTS_USettingKeyConfigPresetWidget;
 
 // Class OutGameModule.PlayMenuRankingResultWidget
 // 0x01D8 (0x0548 - 0x0370)
-class UPlayMenuRankingResultWidget : public UWidgetBase
+class UPlayMenuRankingResultWidget final : public UWidgetBase
 {
 public:
 	class UWidgetButton*                          _pressButton;                                      // 0x0370(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -21768,10 +22396,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuRankingResultWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuRankingResultWidget;
 
 // Class OutGameModule.PlayMenuReadyTimerWidget
 // 0x0038 (0x03A8 - 0x0370)
-class UPlayMenuReadyTimerWidget : public UWidgetBase
+class UPlayMenuReadyTimerWidget final : public UWidgetBase
 {
 public:
 	class UTextBlock*                             _seconds100;                                       // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -21798,10 +22427,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuReadyTimerWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuReadyTimerWidget;
 
 // Class OutGameModule.PlayMenuRequestMessage
 // 0x0000 (0x0370 - 0x0370)
-class UPlayMenuRequestMessage : public UWidgetBase
+class UPlayMenuRequestMessage final : public UWidgetBase
 {
 public:
 	void OnNewInviteFlag(bool flag);
@@ -21820,10 +22450,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuRequestMessage>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuRequestMessage;
 
 // Class OutGameModule.PlayMenuSauadIdWidget
 // 0x0008 (0x0378 - 0x0370)
-class UPlayMenuSauadIdWidget : public UWidgetBase
+class UPlayMenuSauadIdWidget final : public UWidgetBase
 {
 public:
 	class UTextBlock*                             _squadIdText;                                      // 0x0370(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -21847,10 +22478,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuSauadIdWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuSauadIdWidget;
 
 // Class OutGameModule.ShopItemIconWidget
 // 0x0050 (0x03C0 - 0x0370)
-class UShopItemIconWidget : public UWidgetBase
+class UShopItemIconWidget final : public UWidgetBase
 {
 public:
 	class UItemIconImage*                         _ItemIconImage;                                    // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -21884,10 +22516,11 @@ public:
 		return GetDefaultObjImpl<UShopItemIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_UShopItemIconWidget;
 
 // Class OutGameModule.PlayMenuShortcutList
 // 0x0040 (0x03B0 - 0x0370)
-class UPlayMenuShortcutList : public UWidgetBase
+class UPlayMenuShortcutList final : public UWidgetBase
 {
 public:
 	class UPlayMenuIconEntryWidget*               _squadButton_IconEntry;                            // 0x0370(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -21928,10 +22561,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuShortcutList>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuShortcutList;
 
 // Class OutGameModule.PlayMenuSpecialEffectCharaIconWidget
 // 0x0040 (0x03B0 - 0x0370)
-class UPlayMenuSpecialEffectCharaIconWidget : public UWidgetBase
+class UPlayMenuSpecialEffectCharaIconWidget final : public UWidgetBase
 {
 public:
 	class UCanvasPanel*                           _allPanel;                                         // 0x0370(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -21956,10 +22590,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuSpecialEffectCharaIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuSpecialEffectCharaIconWidget;
 
 // Class OutGameModule.PlayMenuSpecialEffectIconList
 // 0x0050 (0x03C0 - 0x0370)
-class UPlayMenuSpecialEffectIconList : public UWidgetBase
+class UPlayMenuSpecialEffectIconList final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x10];                                     // 0x0370(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
@@ -21993,10 +22628,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuSpecialEffectIconList>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuSpecialEffectIconList;
 
 // Class OutGameModule.PlayMenuSpecialEffectIconScaleWidget
 // 0x0020 (0x0530 - 0x0510)
-class UPlayMenuSpecialEffectIconScaleWidget : public UWidgetButton
+class UPlayMenuSpecialEffectIconScaleWidget final : public UWidgetButton
 {
 public:
 	uint8                                         Pad_510[0x10];                                     // 0x0510(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
@@ -22020,10 +22656,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuSpecialEffectIconScaleWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuSpecialEffectIconScaleWidget;
 
 // Class OutGameModule.ShopItemViewWidget
 // 0x0038 (0x03A8 - 0x0370)
-class UShopItemViewWidget : public UWidgetBase
+class UShopItemViewWidget final : public UWidgetBase
 {
 public:
 	class UCanvasPanel*                           _shopItemIconCanvas;                               // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -22053,10 +22690,11 @@ public:
 		return GetDefaultObjImpl<UShopItemViewWidget>();
 	}
 };
+DUMPER7_ASSERTS_UShopItemViewWidget;
 
 // Class OutGameModule.PlayMenuSpecialEffectIconWidget
 // 0x0050 (0x0560 - 0x0510)
-class UPlayMenuSpecialEffectIconWidget : public UWidgetButton
+class UPlayMenuSpecialEffectIconWidget final : public UWidgetButton
 {
 public:
 	class USpecialEffectIconWidget*               _charaIcon;                                        // 0x0510(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -22084,10 +22722,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuSpecialEffectIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuSpecialEffectIconWidget;
 
 // Class OutGameModule.PlayMenuStatusAddButtonWidget
 // 0x0030 (0x03A0 - 0x0370)
-class UPlayMenuStatusAddButtonWidget : public UWidgetBase
+class UPlayMenuStatusAddButtonWidget final : public UWidgetBase
 {
 public:
 	TMulticastInlineDelegate<void(EUINavigation uiNavigation)> _onNavigationAddButtonEventDelegate;  // 0x0370(0x0010)(BlueprintVisible, ZeroConstructor, InstancedReference, BlueprintAssignable, BlueprintCallable, NativeAccessSpecifierPublic)
@@ -22125,10 +22764,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuStatusAddButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuStatusAddButtonWidget;
 
 // Class OutGameModule.PlayMenuTeamNameWidget
 // 0x0020 (0x0390 - 0x0370)
-class UPlayMenuTeamNameWidget : public UWidgetBase
+class UPlayMenuTeamNameWidget final : public UWidgetBase
 {
 public:
 	class UCanvasPanel*                           _teamNamePanel;                                    // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -22150,10 +22790,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuTeamNameWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuTeamNameWidget;
 
 // Class OutGameModule.PlayMenuWidget
 // 0x00E0 (0x04F8 - 0x0418)
-class UPlayMenuWidget : public UAppWidget
+class UPlayMenuWidget final : public UAppWidget
 {
 public:
 	class UPlayMenuBattleRuleWidget*              _mainMenuBattleRule;                               // 0x0418(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -22245,10 +22886,11 @@ public:
 		return GetDefaultObjImpl<UPlayMenuWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMenuWidget;
 
 // Class OutGameModule.TutorialIconWidget
 // 0x0018 (0x0528 - 0x0510)
-class UTutorialIconWidget : public UWidgetButton
+class UTutorialIconWidget final : public UWidgetButton
 {
 public:
 	ETutorialPopupScene                           _popupScene;                                       // 0x0510(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -22276,6 +22918,7 @@ public:
 		return GetDefaultObjImpl<UTutorialIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_UTutorialIconWidget;
 
 // Class OutGameModule.PriceCoinWidget
 // 0x0018 (0x0448 - 0x0430)
@@ -22300,6 +22943,7 @@ public:
 		return GetDefaultObjImpl<UPriceCoinWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPriceCoinWidget;
 
 // Class OutGameModule.ProfileAllRankListWidget
 // 0x0000 (0x0380 - 0x0380)
@@ -22319,6 +22963,7 @@ public:
 		return GetDefaultObjImpl<UProfileAllRankListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UProfileAllRankListWidget;
 
 // Class OutGameModule.ProfileAppWidget
 // 0x0058 (0x03C8 - 0x0370)
@@ -22364,6 +23009,7 @@ public:
 		return GetDefaultObjImpl<UProfileAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UProfileAppWidget;
 
 // Class OutGameModule.ProfileAppWidgetPresenter
 // 0x0000 (0x0280 - 0x0280)
@@ -22383,6 +23029,7 @@ public:
 		return GetDefaultObjImpl<AProfileAppWidgetPresenter>();
 	}
 };
+DUMPER7_ASSERTS_AProfileAppWidgetPresenter;
 
 // Class OutGameModule.UniformWidthTextHorizontalBox
 // 0x0098 (0x0408 - 0x0370)
@@ -22414,6 +23061,7 @@ public:
 		return GetDefaultObjImpl<UUniformWidthTextHorizontalBox>();
 	}
 };
+DUMPER7_ASSERTS_UUniformWidthTextHorizontalBox;
 
 // Class OutGameModule.ProfileRankListItemWidget
 // 0x0048 (0x03B8 - 0x0370)
@@ -22448,6 +23096,7 @@ public:
 		return GetDefaultObjImpl<UProfileRankListItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UProfileRankListItemWidget;
 
 // Class OutGameModule.ProfileSubMenuAppWidget
 // 0x0108 (0x0520 - 0x0418)
@@ -22503,6 +23152,7 @@ public:
 		return GetDefaultObjImpl<UProfileSubMenuAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_UProfileSubMenuAppWidget;
 
 // Class OutGameModule.ProgressDelegateWidget
 // 0x0010 (0x0390 - 0x0380)
@@ -22528,6 +23178,7 @@ public:
 		return GetDefaultObjImpl<UProgressDelegateWidget>();
 	}
 };
+DUMPER7_ASSERTS_UProgressDelegateWidget;
 
 // Class OutGameModule.PurchasePopupWidget
 // 0x0040 (0x0458 - 0x0418)
@@ -22564,6 +23215,7 @@ public:
 		return GetDefaultObjImpl<UPurchasePopupWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPurchasePopupWidget;
 
 // Class OutGameModule.VersionWindowWidget
 // 0x0050 (0x03C0 - 0x0370)
@@ -22602,10 +23254,11 @@ public:
 		return GetDefaultObjImpl<UVersionWindowWidget>();
 	}
 };
+DUMPER7_ASSERTS_UVersionWindowWidget;
 
 // Class OutGameModule.RandomPackRatio
 // 0x0038 (0x0450 - 0x0418)
-class URandomPackRatio : public UAppWidget
+class URandomPackRatio final : public UAppWidget
 {
 public:
 	class FString                                 _percent;                                          // 0x0418(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -22634,10 +23287,11 @@ public:
 		return GetDefaultObjImpl<URandomPackRatio>();
 	}
 };
+DUMPER7_ASSERTS_URandomPackRatio;
 
 // Class OutGameModule.RandomPackRatioCell
 // 0x0058 (0x0470 - 0x0418)
-class URandomPackRatioCell : public UAppWidget
+class URandomPackRatioCell final : public UAppWidget
 {
 public:
 	struct FLinearColor                           _headerColor;                                      // 0x0418(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -22661,10 +23315,11 @@ public:
 		return GetDefaultObjImpl<URandomPackRatioCell>();
 	}
 };
+DUMPER7_ASSERTS_URandomPackRatioCell;
 
 // Class OutGameModule.RankEventRewardsEntry
-// 0x00D8 (0x0448 - 0x0370)
-class URankEventRewardsEntry : public UWidgetBase
+// 0x00C0 (0x0430 - 0x0370)
+class URankEventRewardsEntry final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x38];                                     // 0x0370(0x0038)(Fixing Size After Last Property [ Dumper-7 ])
@@ -22678,13 +23333,11 @@ public:
 	class UTextBlock*                             _rankName;                                         // 0x0400(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 	class UAdjustTextWidget*                      _messageText;                                      // 0x0408(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 	class UHorizontalBox*                         _itemBox;                                          // 0x0410(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URankingRemunerationItemWidget*         _itemIcon1;                                        // 0x0418(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URankingRemunerationItemWidget*         _itemIcon2;                                        // 0x0420(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URankingRemunerationItemWidget*         _itemIcon3;                                        // 0x0428(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	class URankImage*                             _targetRank;                                       // 0x0430(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
-	uint8                                         Pad_438[0x10];                                     // 0x0438(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	class URankImage*                             _targetRank;                                       // 0x0418(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
+	uint8                                         Pad_420[0x10];                                     // 0x0420(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 
 public:
+	class URankingRemunerationItemWidget* CreateItemWidget();
 	void DoCustomWidgetNavigation(EUINavigation uiNavigation);
 	void OnAddedToFocusItemEvent(class UAppWidget* Button, EWidgetInputType inputType);
 	void OnDecideElement(class UAppWidget* Widget, EWidgetInputType inputType);
@@ -22706,10 +23359,11 @@ public:
 		return GetDefaultObjImpl<URankEventRewardsEntry>();
 	}
 };
+DUMPER7_ASSERTS_URankEventRewardsEntry;
 
 // Class OutGameModule.RankEventRewardsList
 // 0x0018 (0x0388 - 0x0370)
-class URankEventRewardsList : public UWidgetBase
+class URankEventRewardsList final : public UWidgetBase
 {
 public:
 	class UCustomScrollBox*                       _scrollBox;                                        // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -22738,10 +23392,11 @@ public:
 		return GetDefaultObjImpl<URankEventRewardsList>();
 	}
 };
+DUMPER7_ASSERTS_URankEventRewardsList;
 
 // Class OutGameModule.RankEventRewardsTab
 // 0x0040 (0x03B0 - 0x0370)
-class URankEventRewardsTab : public UWidgetBase
+class URankEventRewardsTab final : public UWidgetBase
 {
 public:
 	class UBattleRuleRankTabInfoBaseWidget*       _tabInfoBase;                                      // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -22771,6 +23426,7 @@ public:
 		return GetDefaultObjImpl<URankEventRewardsTab>();
 	}
 };
+DUMPER7_ASSERTS_URankEventRewardsTab;
 
 // Class OutGameModule.RankingBase
 // 0x0050 (0x0468 - 0x0418)
@@ -22802,6 +23458,7 @@ public:
 		return GetDefaultObjImpl<URankingBase>();
 	}
 };
+DUMPER7_ASSERTS_URankingBase;
 
 // Class OutGameModule.RankingCharacterPanel
 // 0x0018 (0x0560 - 0x0548)
@@ -22825,6 +23482,7 @@ public:
 		return GetDefaultObjImpl<URankingCharacterPanel>();
 	}
 };
+DUMPER7_ASSERTS_URankingCharacterPanel;
 
 // Class OutGameModule.RankingDetailsBase
 // 0x0028 (0x0538 - 0x0510)
@@ -22847,10 +23505,11 @@ public:
 		return GetDefaultObjImpl<URankingDetailsBase>();
 	}
 };
+DUMPER7_ASSERTS_URankingDetailsBase;
 
 // Class OutGameModule.SquadLeaveWidget
 // 0x0120 (0x0490 - 0x0370)
-class USquadLeaveWidget : public UWidgetBase
+class USquadLeaveWidget final : public UWidgetBase
 {
 public:
 	class UWidgetGeneralWindow*                   _selectMessageWindow;                              // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -22890,6 +23549,7 @@ public:
 		return GetDefaultObjImpl<USquadLeaveWidget>();
 	}
 };
+DUMPER7_ASSERTS_USquadLeaveWidget;
 
 // Class OutGameModule.RankingDetails
 // 0x0090 (0x05C8 - 0x0538)
@@ -22936,6 +23596,7 @@ public:
 		return GetDefaultObjImpl<URankingDetails>();
 	}
 };
+DUMPER7_ASSERTS_URankingDetails;
 
 // Class OutGameModule.RankingDetailsBaseWidget
 // 0x0000 (0x0370 - 0x0370)
@@ -22955,6 +23616,7 @@ public:
 		return GetDefaultObjImpl<URankingDetailsBaseWidget>();
 	}
 };
+DUMPER7_ASSERTS_URankingDetailsBaseWidget;
 
 // Class OutGameModule.RankingDetailsEntryObjectBase
 // 0x00D0 (0x0100 - 0x0030)
@@ -22977,6 +23639,7 @@ public:
 		return GetDefaultObjImpl<URankingDetailsEntryObjectBase>();
 	}
 };
+DUMPER7_ASSERTS_URankingDetailsEntryObjectBase;
 
 // Class OutGameModule.RankingDetailsEventEntryObject
 // 0x0030 (0x0130 - 0x0100)
@@ -22999,6 +23662,7 @@ public:
 		return GetDefaultObjImpl<URankingDetailsEventEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_URankingDetailsEventEntryObject;
 
 // Class OutGameModule.SquadMessageWidget
 // 0x0008 (0x0378 - 0x0370)
@@ -23021,6 +23685,7 @@ public:
 		return GetDefaultObjImpl<USquadMessageWidget>();
 	}
 };
+DUMPER7_ASSERTS_USquadMessageWidget;
 
 // Class OutGameModule.RankingEmblemWidget
 // 0x0020 (0x0390 - 0x0370)
@@ -23046,6 +23711,7 @@ public:
 		return GetDefaultObjImpl<URankingEmblemWidget>();
 	}
 };
+DUMPER7_ASSERTS_URankingEmblemWidget;
 
 // Class OutGameModule.RankingEventDetails
 // 0x0018 (0x0550 - 0x0538)
@@ -23073,6 +23739,7 @@ public:
 		return GetDefaultObjImpl<URankingEventDetails>();
 	}
 };
+DUMPER7_ASSERTS_URankingEventDetails;
 
 // Class OutGameModule.RankingEventWidget
 // 0x0030 (0x03A0 - 0x0370)
@@ -23103,6 +23770,7 @@ public:
 		return GetDefaultObjImpl<URankingEventWidget>();
 	}
 };
+DUMPER7_ASSERTS_URankingEventWidget;
 
 // Class OutGameModule.RankingLeagueWidget
 // 0x0020 (0x0390 - 0x0370)
@@ -23132,6 +23800,7 @@ public:
 		return GetDefaultObjImpl<URankingLeagueWidget>();
 	}
 };
+DUMPER7_ASSERTS_URankingLeagueWidget;
 
 // Class OutGameModule.StaffRollCell
 // 0x00F8 (0x0468 - 0x0370)
@@ -23191,6 +23860,7 @@ public:
 		return GetDefaultObjImpl<UStaffRollCell>();
 	}
 };
+DUMPER7_ASSERTS_UStaffRollCell;
 
 // Class OutGameModule.StaffRollLargeCell
 // 0x0010 (0x0478 - 0x0468)
@@ -23214,6 +23884,7 @@ public:
 		return GetDefaultObjImpl<UStaffRollLargeCell>();
 	}
 };
+DUMPER7_ASSERTS_UStaffRollLargeCell;
 
 // Class OutGameModule.RankingPointWidget
 // 0x0028 (0x0398 - 0x0370)
@@ -23240,6 +23911,7 @@ public:
 		return GetDefaultObjImpl<URankingPointWidget>();
 	}
 };
+DUMPER7_ASSERTS_URankingPointWidget;
 
 // Class OutGameModule.RankingRemunerationItemListWidget
 // 0x0068 (0x0480 - 0x0418)
@@ -23274,6 +23946,7 @@ public:
 		return GetDefaultObjImpl<URankingRemunerationItemListWidget>();
 	}
 };
+DUMPER7_ASSERTS_URankingRemunerationItemListWidget;
 
 // Class OutGameModule.RankingRemunerationEntryObject
 // 0x0068 (0x0098 - 0x0030)
@@ -23296,10 +23969,11 @@ public:
 		return GetDefaultObjImpl<URankingRemunerationEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_URankingRemunerationEntryObject;
 
 // Class OutGameModule.RankingRemunerationItemWidget
 // 0x0028 (0x0538 - 0x0510)
-class URankingRemunerationItemWidget : public UWidgetButton
+class URankingRemunerationItemWidget final : public UWidgetButton
 {
 public:
 	uint8                                         Pad_510[0x8];                                      // 0x0510(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -23320,6 +23994,7 @@ public:
 		return GetDefaultObjImpl<URankingRemunerationItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_URankingRemunerationItemWidget;
 
 // Class OutGameModule.StarDetails
 // 0x0058 (0x0610 - 0x05B8)
@@ -23358,10 +24033,11 @@ public:
 		return GetDefaultObjImpl<UStarDetails>();
 	}
 };
+DUMPER7_ASSERTS_UStarDetails;
 
 // Class OutGameModule.RankingRemunerationScoreWidget
 // 0x0060 (0x03D0 - 0x0370)
-class URankingRemunerationScoreWidget : public UWidgetBase
+class URankingRemunerationScoreWidget final : public UWidgetBase
 {
 public:
 	class URankingRemunerationEntryObject*        _entryObject;                                      // 0x0370(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -23397,6 +24073,7 @@ public:
 		return GetDefaultObjImpl<URankingRemunerationScoreWidget>();
 	}
 };
+DUMPER7_ASSERTS_URankingRemunerationScoreWidget;
 
 // Class OutGameModule.RankingRemunerationSeasonWidget
 // 0x0020 (0x0390 - 0x0370)
@@ -23422,6 +24099,7 @@ public:
 		return GetDefaultObjImpl<URankingRemunerationSeasonWidget>();
 	}
 };
+DUMPER7_ASSERTS_URankingRemunerationSeasonWidget;
 
 // Class OutGameModule.RankingRemunerationWidgetBase
 // 0x0020 (0x0390 - 0x0370)
@@ -23450,6 +24128,7 @@ public:
 		return GetDefaultObjImpl<URankingRemunerationWidgetBase>();
 	}
 };
+DUMPER7_ASSERTS_URankingRemunerationWidgetBase;
 
 // Class OutGameModule.RankingRemunerationTabWidget
 // 0x0010 (0x03A0 - 0x0390)
@@ -23477,10 +24156,11 @@ public:
 		return GetDefaultObjImpl<URankingRemunerationTabWidget>();
 	}
 };
+DUMPER7_ASSERTS_URankingRemunerationTabWidget;
 
 // Class OutGameModule.SeasonPassRankEntry
 // 0x0088 (0x03F8 - 0x0370)
-class USeasonPassRankEntry : public UWidgetBase
+class USeasonPassRankEntry final : public UWidgetBase
 {
 public:
 	float                                         _entrySpacing;                                     // 0x0370(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -23514,6 +24194,7 @@ public:
 		return GetDefaultObjImpl<USeasonPassRankEntry>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassRankEntry;
 
 // Class OutGameModule.RankingTabWidget
 // 0x0050 (0x03C0 - 0x0370)
@@ -23545,10 +24226,11 @@ public:
 		return GetDefaultObjImpl<URankingTabWidget>();
 	}
 };
+DUMPER7_ASSERTS_URankingTabWidget;
 
 // Class OutGameModule.RankLIst
 // 0x0008 (0x0378 - 0x0370)
-class URankLIst : public UWidgetBase
+class URankLIst final : public UWidgetBase
 {
 public:
 	class UCustomScrollBox*                       _rankScrollBox;                                    // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -23570,10 +24252,11 @@ public:
 		return GetDefaultObjImpl<URankLIst>();
 	}
 };
+DUMPER7_ASSERTS_URankLIst;
 
 // Class OutGameModule.RankLIstEntry
 // 0x0020 (0x0390 - 0x0370)
-class URankLIstEntry : public UWidgetBase
+class URankLIstEntry final : public UWidgetBase
 {
 public:
 	class UTextBlock*                             _maxExp;                                           // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -23595,6 +24278,7 @@ public:
 		return GetDefaultObjImpl<URankLIstEntry>();
 	}
 };
+DUMPER7_ASSERTS_URankLIstEntry;
 
 // Class OutGameModule.RankMatchRewardDirectingWidget
 // 0x0030 (0x0458 - 0x0428)
@@ -23626,10 +24310,11 @@ public:
 		return GetDefaultObjImpl<URankMatchRewardDirectingWidget>();
 	}
 };
+DUMPER7_ASSERTS_URankMatchRewardDirectingWidget;
 
 // Class OutGameModule.SeasonPassStock
 // 0x0048 (0x03B8 - 0x0370)
-class USeasonPassStock : public UWidgetBase
+class USeasonPassStock final : public UWidgetBase
 {
 public:
 	TArray<class UObject*>                        _stockObjects;                                     // 0x0370(0x0010)(Edit, BlueprintVisible, ZeroConstructor, Protected, NativeAccessSpecifierProtected)
@@ -23658,6 +24343,7 @@ public:
 		return GetDefaultObjImpl<USeasonPassStock>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassStock;
 
 // Class OutGameModule.RankMatchRewardEventTitle
 // 0x0028 (0x0398 - 0x0370)
@@ -23681,6 +24367,7 @@ public:
 		return GetDefaultObjImpl<URankMatchRewardEventTitle>();
 	}
 };
+DUMPER7_ASSERTS_URankMatchRewardEventTitle;
 
 // Class OutGameModule.RankMatchRewardItemListWidget
 // 0x0038 (0x03A8 - 0x0370)
@@ -23706,6 +24393,7 @@ public:
 		return GetDefaultObjImpl<URankMatchRewardItemListWidget>();
 	}
 };
+DUMPER7_ASSERTS_URankMatchRewardItemListWidget;
 
 // Class OutGameModule.RankMatchRewardWidget
 // 0x0030 (0x03B0 - 0x0380)
@@ -23735,6 +24423,7 @@ public:
 		return GetDefaultObjImpl<URankMatchRewardWidget>();
 	}
 };
+DUMPER7_ASSERTS_URankMatchRewardWidget;
 
 // Class OutGameModule.RankMatchRewardWindow
 // 0x0208 (0x0588 - 0x0380)
@@ -23788,10 +24477,11 @@ public:
 		return GetDefaultObjImpl<URankMatchRewardWindow>();
 	}
 };
+DUMPER7_ASSERTS_URankMatchRewardWindow;
 
 // Class OutGameModule.SeasonPassTop
 // 0x0140 (0x04B0 - 0x0370)
-class USeasonPassTop : public UWidgetBase
+class USeasonPassTop final : public UWidgetBase
 {
 public:
 	TMulticastInlineDelegate<void(int32 needRank, EItemSeasonType season)> _OnOpenBuyLicenseEventDispather; // 0x0370(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -23876,6 +24566,7 @@ public:
 		return GetDefaultObjImpl<USeasonPassTop>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassTop;
 
 // Class OutGameModule.RankNumberWidget
 // 0x0090 (0x0400 - 0x0370)
@@ -23904,10 +24595,11 @@ public:
 		return GetDefaultObjImpl<URankNumberWidget>();
 	}
 };
+DUMPER7_ASSERTS_URankNumberWidget;
 
 // Class OutGameModule.RankProgressBarWidget
 // 0x0070 (0x0510 - 0x04A0)
-class URankProgressBarWidget : public UProgressBarWidget
+class URankProgressBarWidget final : public UProgressBarWidget
 {
 public:
 	class UWidget*                                _preProgressMask;                                  // 0x04A0(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -23938,10 +24630,11 @@ public:
 		return GetDefaultObjImpl<URankProgressBarWidget>();
 	}
 };
+DUMPER7_ASSERTS_URankProgressBarWidget;
 
 // Class OutGameModule.RankRewardItem
 // 0x0088 (0x0508 - 0x0480)
-class URankRewardItem : public URankingRemunerationItemListWidget
+class URankRewardItem final : public URankingRemunerationItemListWidget
 {
 public:
 	class UWidgetSwitcher*                        _titleSwitcher;                                    // 0x0480(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -23980,10 +24673,11 @@ public:
 		return GetDefaultObjImpl<URankRewardItem>();
 	}
 };
+DUMPER7_ASSERTS_URankRewardItem;
 
 // Class OutGameModule.RecommendAppWidget
 // 0x01A0 (0x05B8 - 0x0418)
-class URecommendAppWidget : public UAppWidget
+class URecommendAppWidget final : public UAppWidget
 {
 public:
 	bool                                          _bIsDebug;                                         // 0x0418(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -24060,10 +24754,11 @@ public:
 		return GetDefaultObjImpl<URecommendAppWidget>();
 	}
 };
+DUMPER7_ASSERTS_URecommendAppWidget;
 
 // Class OutGameModule.RentalIconWidget
 // 0x0018 (0x0388 - 0x0370)
-class URentalIconWidget : public UWidgetBase
+class URentalIconWidget final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x8];                                      // 0x0370(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -24088,10 +24783,11 @@ public:
 		return GetDefaultObjImpl<URentalIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_URentalIconWidget;
 
 // Class OutGameModule.RentalWidget
 // 0x00B8 (0x0428 - 0x0370)
-class URentalWidget : public UWidgetBase
+class URentalWidget final : public UWidgetBase
 {
 public:
 	int32                                         _slotIndex;                                        // 0x0370(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -24131,6 +24827,7 @@ public:
 		return GetDefaultObjImpl<URentalWidget>();
 	}
 };
+DUMPER7_ASSERTS_URentalWidget;
 
 // Class OutGameModule.ResultItemDropWidget
 // 0x0010 (0x0428 - 0x0418)
@@ -24156,6 +24853,7 @@ public:
 		return GetDefaultObjImpl<UResultItemDropWidget>();
 	}
 };
+DUMPER7_ASSERTS_UResultItemDropWidget;
 
 // Class OutGameModule.ResultLeaderboardWidget
 // 0x0028 (0x0490 - 0x0468)
@@ -24182,6 +24880,7 @@ public:
 		return GetDefaultObjImpl<UResultLeaderboardWidget>();
 	}
 };
+DUMPER7_ASSERTS_UResultLeaderboardWidget;
 
 // Class OutGameModule.TabContentsSwitcher
 // 0x0008 (0x0140 - 0x0138)
@@ -24204,6 +24903,7 @@ public:
 		return GetDefaultObjImpl<UTabContentsSwitcher>();
 	}
 };
+DUMPER7_ASSERTS_UTabContentsSwitcher;
 
 // Class OutGameModule.ResultMissionList
 // 0x00A0 (0x0410 - 0x0370)
@@ -24240,6 +24940,7 @@ public:
 		return GetDefaultObjImpl<UResultMissionList>();
 	}
 };
+DUMPER7_ASSERTS_UResultMissionList;
 
 // Class OutGameModule.ResultMissionSubtitle
 // 0x0028 (0x0398 - 0x0370)
@@ -24266,6 +24967,7 @@ public:
 		return GetDefaultObjImpl<UResultMissionSubtitle>();
 	}
 };
+DUMPER7_ASSERTS_UResultMissionSubtitle;
 
 // Class OutGameModule.ResultNextWidget
 // 0x0028 (0x0398 - 0x0370)
@@ -24296,6 +24998,7 @@ public:
 		return GetDefaultObjImpl<UResultNextWidget>();
 	}
 };
+DUMPER7_ASSERTS_UResultNextWidget;
 
 // Class OutGameModule.ResultRewardAddValueWidget
 // 0x00A8 (0x0418 - 0x0370)
@@ -24329,10 +25032,11 @@ public:
 		return GetDefaultObjImpl<UResultRewardAddValueWidget>();
 	}
 };
+DUMPER7_ASSERTS_UResultRewardAddValueWidget;
 
 // Class OutGameModule.TenKey
 // 0x00C8 (0x0438 - 0x0370)
-class UTenKey : public UWidgetBase
+class UTenKey final : public UWidgetBase
 {
 public:
 	TMulticastInlineDelegate<void(const class FString& Number)> _decideIdDelegate;                   // 0x0370(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -24388,6 +25092,7 @@ public:
 		return GetDefaultObjImpl<UTenKey>();
 	}
 };
+DUMPER7_ASSERTS_UTenKey;
 
 // Class OutGameModule.ResultScoreDetailsWidget
 // 0x00C0 (0x0618 - 0x0558)
@@ -24434,6 +25139,7 @@ public:
 		return GetDefaultObjImpl<UResultScoreDetailsWidget>();
 	}
 };
+DUMPER7_ASSERTS_UResultScoreDetailsWidget;
 
 // Class OutGameModule.ResultScoreList
 // 0x0040 (0x03B0 - 0x0370)
@@ -24470,6 +25176,7 @@ public:
 		return GetDefaultObjImpl<UResultScoreList>();
 	}
 };
+DUMPER7_ASSERTS_UResultScoreList;
 
 // Class OutGameModule.ResultScoreWindowBase
 // 0x0098 (0x0408 - 0x0370)
@@ -24509,6 +25216,7 @@ public:
 		return GetDefaultObjImpl<UResultScoreWindowBase>();
 	}
 };
+DUMPER7_ASSERTS_UResultScoreWindowBase;
 
 // Class OutGameModule.ResultScoreWindow
 // 0x0008 (0x0410 - 0x0408)
@@ -24531,6 +25239,7 @@ public:
 		return GetDefaultObjImpl<UResultScoreWindow>();
 	}
 };
+DUMPER7_ASSERTS_UResultScoreWindow;
 
 // Class OutGameModule.TileViewScrollBarWidget
 // 0x0010 (0x0380 - 0x0370)
@@ -24558,6 +25267,7 @@ public:
 		return GetDefaultObjImpl<UTileViewScrollBarWidget>();
 	}
 };
+DUMPER7_ASSERTS_UTileViewScrollBarWidget;
 
 // Class OutGameModule.ResultScoreMagnificationWindow
 // 0x0010 (0x0420 - 0x0410)
@@ -24581,6 +25291,7 @@ public:
 		return GetDefaultObjImpl<UResultScoreMagnificationWindow>();
 	}
 };
+DUMPER7_ASSERTS_UResultScoreMagnificationWindow;
 
 // Class OutGameModule.ResultScoreRatioDetailsWidget
 // 0x0038 (0x03A8 - 0x0370)
@@ -24608,6 +25319,7 @@ public:
 		return GetDefaultObjImpl<UResultScoreRatioDetailsWidget>();
 	}
 };
+DUMPER7_ASSERTS_UResultScoreRatioDetailsWidget;
 
 // Class OutGameModule.ResultScoreRatioWindow
 // 0x0048 (0x0450 - 0x0408)
@@ -24637,6 +25349,7 @@ public:
 		return GetDefaultObjImpl<UResultScoreRatioWindow>();
 	}
 };
+DUMPER7_ASSERTS_UResultScoreRatioWindow;
 
 // Class OutGameModule.ResultScoreWidget
 // 0x0080 (0x0400 - 0x0380)
@@ -24675,10 +25388,11 @@ public:
 		return GetDefaultObjImpl<UResultScoreWidget>();
 	}
 };
+DUMPER7_ASSERTS_UResultScoreWidget;
 
 // Class OutGameModule.TrainingCarouselWidget
 // 0x0048 (0x07A8 - 0x0760)
-class UTrainingCarouselWidget : public UPlatformWidgetButton
+class UTrainingCarouselWidget final : public UPlatformWidgetButton
 {
 public:
 	bool                                          _bAvatarCharacter;                                 // 0x0760(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -24715,6 +25429,7 @@ public:
 		return GetDefaultObjImpl<UTrainingCarouselWidget>();
 	}
 };
+DUMPER7_ASSERTS_UTrainingCarouselWidget;
 
 // Class OutGameModule.ResultTabWidget
 // 0x0038 (0x03B8 - 0x0380)
@@ -24750,10 +25465,11 @@ public:
 		return GetDefaultObjImpl<UResultTabWidget>();
 	}
 };
+DUMPER7_ASSERTS_UResultTabWidget;
 
 // Class OutGameModule.RewardItemFlashListWidget
 // 0x0008 (0x0488 - 0x0480)
-class URewardItemFlashListWidget : public URankingRemunerationItemListWidget
+class URewardItemFlashListWidget final : public URankingRemunerationItemListWidget
 {
 public:
 	class UNoticeItemIconListWidget*              _flashItemList;                                    // 0x0480(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -24772,10 +25488,11 @@ public:
 		return GetDefaultObjImpl<URewardItemFlashListWidget>();
 	}
 };
+DUMPER7_ASSERTS_URewardItemFlashListWidget;
 
 // Class OutGameModule.RoleSlotEffectIconWidget
 // 0x0008 (0x0378 - 0x0370)
-class URoleSlotEffectIconWidget : public UWidgetBase
+class URoleSlotEffectIconWidget final : public UWidgetBase
 {
 public:
 	class UImage*                                 _uniqueIcon;                                       // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -24794,10 +25511,11 @@ public:
 		return GetDefaultObjImpl<URoleSlotEffectIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotEffectIconWidget;
 
 // Class OutGameModule.RoleSlotEffectListItemWidget
 // 0x00E8 (0x0458 - 0x0370)
-class URoleSlotEffectListItemWidget : public UWidgetBase
+class URoleSlotEffectListItemWidget final : public UWidgetBase
 {
 public:
 	class UImage*                                 _baseImage;                                        // 0x0370(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -24847,10 +25565,11 @@ public:
 		return GetDefaultObjImpl<URoleSlotEffectListItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotEffectListItemWidget;
 
 // Class OutGameModule.RoleSlotEffectListWidget
 // 0x0048 (0x03B8 - 0x0370)
-class URoleSlotEffectListWidget : public UWidgetBase
+class URoleSlotEffectListWidget final : public UWidgetBase
 {
 public:
 	class UGameSequenceWork*                      _gameSequenceWork;                                 // 0x0370(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -24880,6 +25599,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotEffectListWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotEffectListWidget;
 
 // Class OutGameModule.RoleSlotMassLevelUp
 // 0x00F8 (0x0468 - 0x0370)
@@ -24940,6 +25660,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotMassLevelUp>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotMassLevelUp;
 
 // Class OutGameModule.RoleSlotMassLevelUpSlotWidget
 // 0x01F8 (0x08E0 - 0x06E8)
@@ -24974,6 +25695,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotMassLevelUpSlotWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotMassLevelUpSlotWidget;
 
 // Class OutGameModule.RoleSlotMenuWidget
 // 0x0060 (0x0478 - 0x0418)
@@ -25002,6 +25724,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotMenuWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotMenuWidget;
 
 // Class OutGameModule.RoleSlotNeedCoinWidget
 // 0x0120 (0x0490 - 0x0370)
@@ -25050,6 +25773,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotNeedCoinWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotNeedCoinWidget;
 
 // Class OutGameModule.RoleSlotPopupBase
 // 0x0048 (0x03B8 - 0x0370)
@@ -25081,6 +25805,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotPopupBase>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotPopupBase;
 
 // Class OutGameModule.RoleSlotPopup
 // 0x0040 (0x03F8 - 0x03B8)
@@ -25108,6 +25833,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotPopup>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotPopup;
 
 // Class OutGameModule.RoleSlotRankingBaseDetailWidget
 // 0x0060 (0x05B8 - 0x0558)
@@ -25144,6 +25870,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotRankingBaseDetailWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotRankingBaseDetailWidget;
 
 // Class OutGameModule.RoleSlotRankingWidget
 // 0x0080 (0x0498 - 0x0418)
@@ -25189,6 +25916,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotRankingWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotRankingWidget;
 
 // Class OutGameModule.RoleSlotRecommendConfirmPartsWidget
 // 0x0040 (0x03B0 - 0x0370)
@@ -25218,6 +25946,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotRecommendConfirmPartsWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotRecommendConfirmPartsWidget;
 
 // Class OutGameModule.RoleSlotRecommendConfirmWidget
 // 0x00C8 (0x04E0 - 0x0418)
@@ -25268,6 +25997,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotRecommendConfirmWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotRecommendConfirmWidget;
 
 // Class OutGameModule.RoleSlotRecommendNoCharaDataWidget
 // 0x0010 (0x0380 - 0x0370)
@@ -25291,6 +26021,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotRecommendNoCharaDataWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotRecommendNoCharaDataWidget;
 
 // Class OutGameModule.RoleSlotRecommendWidget
 // 0x05A8 (0x09C0 - 0x0418)
@@ -25369,6 +26100,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotRecommendWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotRecommendWidget;
 
 // Class OutGameModule.RoleSlotReleaseSlotWidget
 // 0x08E0 (0x0CF8 - 0x0418)
@@ -25418,6 +26150,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotReleaseSlotWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotReleaseSlotWidget;
 
 // Class OutGameModule.RoleSlotShoppingCautionWindow
 // 0x0030 (0x03A0 - 0x0370)
@@ -25448,6 +26181,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotShoppingCautionWindow>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotShoppingCautionWindow;
 
 // Class OutGameModule.RoleSlotShoppingPopup
 // 0x00F0 (0x04E8 - 0x03F8)
@@ -25488,6 +26222,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotShoppingPopup>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotShoppingPopup;
 
 // Class OutGameModule.RoleSlotSortSettingWidget
 // 0x0030 (0x0448 - 0x0418)
@@ -25515,10 +26250,11 @@ public:
 		return GetDefaultObjImpl<URoleSlotSortSettingWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotSortSettingWidget;
 
 // Class OutGameModule.RoleSlotTipsIconWidget
 // 0x0088 (0x03F8 - 0x0370)
-class URoleSlotTipsIconWidget : public UWidgetBase
+class URoleSlotTipsIconWidget final : public UWidgetBase
 {
 public:
 	bool                                          _bSkillIconDisplay;                                // 0x0370(0x0001)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -25556,6 +26292,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotTipsIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotTipsIconWidget;
 
 // Class OutGameModule.RoleSlotTradingCheckPopup
 // 0x0008 (0x0400 - 0x03F8)
@@ -25578,6 +26315,7 @@ public:
 		return GetDefaultObjImpl<URoleSlotTradingCheckPopup>();
 	}
 };
+DUMPER7_ASSERTS_URoleSlotTradingCheckPopup;
 
 // Class OutGameModule.RoomPlayerNameFinalConfirmationWidget
 // 0x0058 (0x0470 - 0x0418)
@@ -25618,6 +26356,7 @@ public:
 		return GetDefaultObjImpl<URoomPlayerNameFinalConfirmationWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoomPlayerNameFinalConfirmationWidget;
 
 // Class OutGameModule.RoomSquadNameFinalConfirmationWidget
 // 0x0060 (0x0478 - 0x0418)
@@ -25658,6 +26397,7 @@ public:
 		return GetDefaultObjImpl<URoomSquadNameFinalConfirmationWidget>();
 	}
 };
+DUMPER7_ASSERTS_URoomSquadNameFinalConfirmationWidget;
 
 // Class OutGameModule.RPDetailsWidget
 // 0x0080 (0x0410 - 0x0390)
@@ -25694,6 +26434,7 @@ public:
 		return GetDefaultObjImpl<URPDetailsWidget>();
 	}
 };
+DUMPER7_ASSERTS_URPDetailsWidget;
 
 // Class OutGameModule.RPDiscountWidget
 // 0x0028 (0x0398 - 0x0370)
@@ -25722,6 +26463,7 @@ public:
 		return GetDefaultObjImpl<URPDiscountWidget>();
 	}
 };
+DUMPER7_ASSERTS_URPDiscountWidget;
 
 // Class OutGameModule.RPWidget
 // 0x0018 (0x0388 - 0x0370)
@@ -25746,6 +26488,7 @@ public:
 		return GetDefaultObjImpl<URPWidget>();
 	}
 };
+DUMPER7_ASSERTS_URPWidget;
 
 // Class OutGameModule.SceneCaptureCharacterLockWidget
 // 0x0030 (0x02A8 - 0x0278)
@@ -25770,6 +26513,7 @@ public:
 		return GetDefaultObjImpl<USceneCaptureCharacterLockWidget>();
 	}
 };
+DUMPER7_ASSERTS_USceneCaptureCharacterLockWidget;
 
 // Class OutGameModule.SceneCaptureCharacterWidget
 // 0x0060 (0x0570 - 0x0510)
@@ -25821,6 +26565,7 @@ public:
 		return GetDefaultObjImpl<USceneCaptureCharacterWidget>();
 	}
 };
+DUMPER7_ASSERTS_USceneCaptureCharacterWidget;
 
 // Class OutGameModule.SceneCaptureCreatorBase
 // 0x0150 (0x0370 - 0x0220)
@@ -25891,6 +26636,7 @@ public:
 		return GetDefaultObjImpl<ASceneCaptureCreatorBase>();
 	}
 };
+DUMPER7_ASSERTS_ASceneCaptureCreatorBase;
 
 // Class OutGameModule.SceneCaptureCreator
 // 0x0030 (0x03A0 - 0x0370)
@@ -25931,6 +26677,7 @@ public:
 		return GetDefaultObjImpl<ASceneCaptureCreator>();
 	}
 };
+DUMPER7_ASSERTS_ASceneCaptureCreator;
 
 // Class OutGameModule.SceneCaptureCreatorAvatar
 // 0x0010 (0x03B0 - 0x03A0)
@@ -25953,6 +26700,7 @@ public:
 		return GetDefaultObjImpl<ASceneCaptureCreatorAvatar>();
 	}
 };
+DUMPER7_ASSERTS_ASceneCaptureCreatorAvatar;
 
 // Class OutGameModule.SceneCaptureCreatorMultiple
 // 0x00C0 (0x0430 - 0x0370)
@@ -25990,6 +26738,7 @@ public:
 		return GetDefaultObjImpl<ASceneCaptureCreatorMultiple>();
 	}
 };
+DUMPER7_ASSERTS_ASceneCaptureCreatorMultiple;
 
 // Class OutGameModule.StepProgressBarWidget
 // 0x0030 (0x04D0 - 0x04A0)
@@ -26018,6 +26767,7 @@ public:
 		return GetDefaultObjImpl<UStepProgressBarWidget>();
 	}
 };
+DUMPER7_ASSERTS_UStepProgressBarWidget;
 
 // Class OutGameModule.ScoreProgressBarWidget
 // 0x0050 (0x0520 - 0x04D0)
@@ -26051,6 +26801,7 @@ public:
 		return GetDefaultObjImpl<UScoreProgressBarWidget>();
 	}
 };
+DUMPER7_ASSERTS_UScoreProgressBarWidget;
 
 // Class OutGameModule.StudyNoteCharacterIcon
 // 0x0020 (0x0390 - 0x0370)
@@ -26076,10 +26827,11 @@ public:
 		return GetDefaultObjImpl<UStudyNoteCharacterIcon>();
 	}
 };
+DUMPER7_ASSERTS_UStudyNoteCharacterIcon;
 
 // Class OutGameModule.SeasonEntry
 // 0x00C8 (0x0438 - 0x0370)
-class USeasonEntry : public UWidgetBase
+class USeasonEntry final : public UWidgetBase
 {
 public:
 	int32                                         _imageSizeX;                                       // 0x0370(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -26121,10 +26873,11 @@ public:
 		return GetDefaultObjImpl<USeasonEntry>();
 	}
 };
+DUMPER7_ASSERTS_USeasonEntry;
 
 // Class OutGameModule.SeasonPassAboutLicense
 // 0x0128 (0x0498 - 0x0370)
-class USeasonPassAboutLicense : public UWidgetBase
+class USeasonPassAboutLicense final : public UWidgetBase
 {
 public:
 	TArray<class UObject*>                        _freePassObjects;                                  // 0x0370(0x0010)(ZeroConstructor, Protected, NativeAccessSpecifierProtected)
@@ -26175,10 +26928,11 @@ public:
 		return GetDefaultObjImpl<USeasonPassAboutLicense>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassAboutLicense;
 
 // Class OutGameModule.SeasonPassAboutLicenseCell
 // 0x0058 (0x03C8 - 0x0370)
-class USeasonPassAboutLicenseCell : public UWidgetBase
+class USeasonPassAboutLicenseCell final : public UWidgetBase
 {
 public:
 	class UHorizontalBox*                         _rankBox;                                          // 0x0370(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -26204,6 +26958,7 @@ public:
 		return GetDefaultObjImpl<USeasonPassAboutLicenseCell>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassAboutLicenseCell;
 
 // Class OutGameModule.SeasonPassAboutLicenseListPanel
 // 0x0030 (0x0180 - 0x0150)
@@ -26231,6 +26986,7 @@ public:
 		return GetDefaultObjImpl<USeasonPassAboutLicenseListPanel>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassAboutLicenseListPanel;
 
 // Class OutGameModule.StudyNoteContentsListItemObject
 // 0x00C8 (0x00F0 - 0x0028)
@@ -26253,6 +27009,7 @@ public:
 		return GetDefaultObjImpl<UStudyNoteContentsListItemObject>();
 	}
 };
+DUMPER7_ASSERTS_UStudyNoteContentsListItemObject;
 
 // Class OutGameModule.SeasonPassDayEntry
 // 0x0020 (0x0390 - 0x0370)
@@ -26281,6 +27038,7 @@ public:
 		return GetDefaultObjImpl<USeasonPassDayEntry>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassDayEntry;
 
 // Class OutGameModule.SeasonPassDayList
 // 0x0038 (0x03A8 - 0x0370)
@@ -26312,6 +27070,7 @@ public:
 		return GetDefaultObjImpl<USeasonPassDayList>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassDayList;
 
 // Class OutGameModule.SeasonPassEntryBase
 // 0x0070 (0x07D0 - 0x0760)
@@ -26351,10 +27110,11 @@ public:
 		return GetDefaultObjImpl<USeasonPassEntryBase>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassEntryBase;
 
 // Class OutGameModule.SeasonPassEntry
 // 0x00D8 (0x08A8 - 0x07D0)
-class USeasonPassEntry : public USeasonPassEntryBase
+class USeasonPassEntry final : public USeasonPassEntryBase
 {
 public:
 	uint8                                         Pad_7D0[0x8];                                      // 0x07D0(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -26411,6 +27171,7 @@ public:
 		return GetDefaultObjImpl<USeasonPassEntry>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassEntry;
 
 // Class OutGameModule.StudyNoteRewardWindow
 // 0x00B8 (0x0428 - 0x0370)
@@ -26452,6 +27213,7 @@ public:
 		return GetDefaultObjImpl<UStudyNoteRewardWindow>();
 	}
 };
+DUMPER7_ASSERTS_UStudyNoteRewardWindow;
 
 // Class OutGameModule.SeasonPassGetItemWidget
 // 0x0000 (0x0370 - 0x0370)
@@ -26477,10 +27239,11 @@ public:
 		return GetDefaultObjImpl<USeasonPassGetItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassGetItemWidget;
 
 // Class OutGameModule.SeasonPassItemDetail
 // 0x0040 (0x0430 - 0x03F0)
-class USeasonPassItemDetail : public UItemDetailsWidget
+class USeasonPassItemDetail final : public UItemDetailsWidget
 {
 public:
 	class UMaterialInstance*                      _charaImageMaterial;                               // 0x03F0(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -26510,10 +27273,11 @@ public:
 		return GetDefaultObjImpl<USeasonPassItemDetail>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassItemDetail;
 
 // Class OutGameModule.SeasonPassLicenceTab
 // 0x0028 (0x0398 - 0x0370)
-class USeasonPassLicenceTab : public UWidgetBase
+class USeasonPassLicenceTab final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x10];                                     // 0x0370(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
@@ -26543,10 +27307,11 @@ public:
 		return GetDefaultObjImpl<USeasonPassLicenceTab>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassLicenceTab;
 
 // Class OutGameModule.SeasonPassLicensePurchase
 // 0x00E0 (0x0450 - 0x0370)
-class USeasonPassLicensePurchase : public UWidgetBase
+class USeasonPassLicensePurchase final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x48];                                     // 0x0370(0x0048)(Fixing Size After Last Property [ Dumper-7 ])
@@ -26592,6 +27357,7 @@ public:
 		return GetDefaultObjImpl<USeasonPassLicensePurchase>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassLicensePurchase;
 
 // Class OutGameModule.StudyNoteStarItemWidget
 // 0x0008 (0x03B0 - 0x03A8)
@@ -26614,10 +27380,11 @@ public:
 		return GetDefaultObjImpl<UStudyNoteStarItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UStudyNoteStarItemWidget;
 
 // Class OutGameModule.SeasonPassLicensePurchaseWindow
 // 0x0058 (0x03C8 - 0x0370)
-class USeasonPassLicensePurchaseWindow : public UWidgetBase
+class USeasonPassLicensePurchaseWindow final : public UWidgetBase
 {
 public:
 	class UGeneralShoppingWidget*                 _generalShoppingWindow;                            // 0x0370(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -26661,10 +27428,11 @@ public:
 		return GetDefaultObjImpl<USeasonPassLicensePurchaseWindow>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassLicensePurchaseWindow;
 
 // Class OutGameModule.SeasonPassList
 // 0x0118 (0x0488 - 0x0370)
-class USeasonPassList : public UWidgetBase
+class USeasonPassList final : public UWidgetBase
 {
 public:
 	uint8                                         Pad_370[0x10];                                     // 0x0370(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
@@ -26757,6 +27525,7 @@ public:
 		return GetDefaultObjImpl<USeasonPassList>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassList;
 
 // Class OutGameModule.SeasonPassListDayObject
 // 0x0018 (0x0040 - 0x0028)
@@ -26779,6 +27548,7 @@ public:
 		return GetDefaultObjImpl<USeasonPassListDayObject>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassListDayObject;
 
 // Class OutGameModule.SeasonPassListObject
 // 0x0070 (0x0098 - 0x0028)
@@ -26818,10 +27588,11 @@ public:
 		return GetDefaultObjImpl<USeasonPassListObject>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassListObject;
 
 // Class OutGameModule.SeasonPassScrollBar
 // 0x0028 (0x0398 - 0x0370)
-class USeasonPassScrollBar : public UWidgetBase
+class USeasonPassScrollBar final : public UWidgetBase
 {
 public:
 	class UHorizontalBox*                         _pageList;                                         // 0x0370(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -26848,10 +27619,11 @@ public:
 		return GetDefaultObjImpl<USeasonPassScrollBar>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassScrollBar;
 
 // Class OutGameModule.SeasonPassStockList
 // 0x0068 (0x03D8 - 0x0370)
-class USeasonPassStockList : public UWidgetBase
+class USeasonPassStockList final : public UWidgetBase
 {
 public:
 	class UCustomScrollBox*                       _lightBox;                                         // 0x0370(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -26887,6 +27659,7 @@ public:
 		return GetDefaultObjImpl<USeasonPassStockList>();
 	}
 };
+DUMPER7_ASSERTS_USeasonPassStockList;
 
 // Class OutGameModule.SettingBattleStyleDetailsEntryObject
 // 0x0050 (0x0080 - 0x0030)
@@ -26909,10 +27682,11 @@ public:
 		return GetDefaultObjImpl<USettingBattleStyleDetailsEntryObject>();
 	}
 };
+DUMPER7_ASSERTS_USettingBattleStyleDetailsEntryObject;
 
 // Class OutGameModule.SettingButtonDisclosureeWidget
 // 0x0070 (0x0638 - 0x05C8)
-class USettingButtonDisclosureeWidget : public USettingButtonBaseWidget
+class USettingButtonDisclosureeWidget final : public USettingButtonBaseWidget
 {
 public:
 	TMulticastInlineDelegate<void(bool bOpen)>    _onValueChangedDelegate;                           // 0x05C8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -26951,10 +27725,11 @@ public:
 		return GetDefaultObjImpl<USettingButtonDisclosureeWidget>();
 	}
 };
+DUMPER7_ASSERTS_USettingButtonDisclosureeWidget;
 
 // Class OutGameModule.SettingButtonSwitchWidget
 // 0x0048 (0x0610 - 0x05C8)
-class USettingButtonSwitchWidget : public USettingButtonBaseWidget
+class USettingButtonSwitchWidget final : public USettingButtonBaseWidget
 {
 public:
 	TMulticastInlineDelegate<void(const ESettingSwitchType value)> _onValueChangedDelegate;          // 0x05C8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -26988,6 +27763,7 @@ public:
 		return GetDefaultObjImpl<USettingButtonSwitchWidget>();
 	}
 };
+DUMPER7_ASSERTS_USettingButtonSwitchWidget;
 
 // Class OutGameModule.ShopEventListWidget
 // 0x0020 (0x0390 - 0x0370)
@@ -27018,6 +27794,7 @@ public:
 		return GetDefaultObjImpl<UShopEventListWidget>();
 	}
 };
+DUMPER7_ASSERTS_UShopEventListWidget;
 
 // Class OutGameModule.ShopItemListPanelWidget
 // 0x0050 (0x0548 - 0x04F8)
@@ -27052,10 +27829,11 @@ public:
 		return GetDefaultObjImpl<UShopItemListPanelWidget>();
 	}
 };
+DUMPER7_ASSERTS_UShopItemListPanelWidget;
 
 // Class OutGameModule.ShopPickupWidget
 // 0x0040 (0x03B0 - 0x0370)
-class UShopPickupWidget : public UWidgetBase
+class UShopPickupWidget final : public UWidgetBase
 {
 public:
 	class UShopItemViewWidget*                    _shopItemViewWidget;                               // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -27082,10 +27860,11 @@ public:
 		return GetDefaultObjImpl<UShopPickupWidget>();
 	}
 };
+DUMPER7_ASSERTS_UShopPickupWidget;
 
 // Class OutGameModule.SortTextWidget
 // 0x0030 (0x03A0 - 0x0370)
-class USortTextWidget : public UWidgetBase
+class USortTextWidget final : public UWidgetBase
 {
 public:
 	bool                                          _bSortTextHidden;                                  // 0x0370(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -27119,6 +27898,7 @@ public:
 		return GetDefaultObjImpl<USortTextWidget>();
 	}
 };
+DUMPER7_ASSERTS_USortTextWidget;
 
 // Class OutGameModule.SpecialEffectDetailItemWidget
 // 0x0048 (0x0558 - 0x0510)
@@ -27149,10 +27929,11 @@ public:
 		return GetDefaultObjImpl<USpecialEffectDetailItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_USpecialEffectDetailItemWidget;
 
 // Class OutGameModule.SpecialEffectEntryCostWidget
 // 0x0020 (0x0530 - 0x0510)
-class USpecialEffectEntryCostWidget : public UWidgetButton
+class USpecialEffectEntryCostWidget final : public UWidgetButton
 {
 public:
 	class UTextBlock*                             _originalEntryCost;                                // 0x0510(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -27174,10 +27955,11 @@ public:
 		return GetDefaultObjImpl<USpecialEffectEntryCostWidget>();
 	}
 };
+DUMPER7_ASSERTS_USpecialEffectEntryCostWidget;
 
 // Class OutGameModule.SquadFindWidget
 // 0x0058 (0x03C8 - 0x0370)
-class USquadFindWidget : public UWidgetBase
+class USquadFindWidget final : public UWidgetBase
 {
 public:
 	class UWidgetGeneralWindowFrame*              _baseWindowFrame;                                  // 0x0370(0x0008)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -27224,10 +28006,11 @@ public:
 		return GetDefaultObjImpl<USquadFindWidget>();
 	}
 };
+DUMPER7_ASSERTS_USquadFindWidget;
 
 // Class OutGameModule.SquadMemberInvitationSubMenu
 // 0x0040 (0x0458 - 0x0418)
-class USquadMemberInvitationSubMenu : public UAppWidget
+class USquadMemberInvitationSubMenu final : public UAppWidget
 {
 public:
 	class UCanvasPanel*                           _window;                                           // 0x0418(0x0008)(BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -27260,6 +28043,7 @@ public:
 		return GetDefaultObjImpl<USquadMemberInvitationSubMenu>();
 	}
 };
+DUMPER7_ASSERTS_USquadMemberInvitationSubMenu;
 
 // Class OutGameModule.StaffRollSubsystem
 // 0x0010 (0x0040 - 0x0030)
@@ -27291,6 +28075,7 @@ public:
 		return GetDefaultObjImpl<UStaffRollSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UStaffRollSubsystem;
 
 // Class OutGameModule.StarMissionDetails
 // 0x0030 (0x06C8 - 0x0698)
@@ -27316,6 +28101,7 @@ public:
 		return GetDefaultObjImpl<UStarMissionDetails>();
 	}
 };
+DUMPER7_ASSERTS_UStarMissionDetails;
 
 // Class OutGameModule.StudyNoteCharacterIconObject
 // 0x0018 (0x0040 - 0x0028)
@@ -27339,6 +28125,7 @@ public:
 		return GetDefaultObjImpl<UStudyNoteCharacterIconObject>();
 	}
 };
+DUMPER7_ASSERTS_UStudyNoteCharacterIconObject;
 
 // Class OutGameModule.StudyNoteContents
 // 0x0160 (0x04D0 - 0x0370)
@@ -27394,6 +28181,7 @@ public:
 		return GetDefaultObjImpl<UStudyNoteContents>();
 	}
 };
+DUMPER7_ASSERTS_UStudyNoteContents;
 
 // Class OutGameModule.StudyNoteRewardListItem
 // 0x00A0 (0x05B0 - 0x0510)
@@ -27430,6 +28218,7 @@ public:
 		return GetDefaultObjImpl<UStudyNoteRewardListItem>();
 	}
 };
+DUMPER7_ASSERTS_UStudyNoteRewardListItem;
 
 // Class OutGameModule.StudyNoteRewardListItemObject
 // 0x0068 (0x0090 - 0x0028)
@@ -27452,10 +28241,11 @@ public:
 		return GetDefaultObjImpl<UStudyNoteRewardListItemObject>();
 	}
 };
+DUMPER7_ASSERTS_UStudyNoteRewardListItemObject;
 
 // Class OutGameModule.StudyNotesLevelWidget
 // 0x0008 (0x0378 - 0x0370)
-class UStudyNotesLevelWidget : public UWidgetBase
+class UStudyNotesLevelWidget final : public UWidgetBase
 {
 public:
 	class UTextBlock*                             _level;                                            // 0x0370(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -27477,10 +28267,11 @@ public:
 		return GetDefaultObjImpl<UStudyNotesLevelWidget>();
 	}
 };
+DUMPER7_ASSERTS_UStudyNotesLevelWidget;
 
 // Class OutGameModule.StudyNotesNotice
 // 0x0030 (0x0540 - 0x0510)
-class UStudyNotesNotice : public UWidgetButton
+class UStudyNotesNotice final : public UWidgetButton
 {
 public:
 	class FText                                   _defaultText;                                      // 0x0510(0x0018)(Edit, Protected, NativeAccessSpecifierProtected)
@@ -27502,6 +28293,7 @@ public:
 		return GetDefaultObjImpl<UStudyNotesNotice>();
 	}
 };
+DUMPER7_ASSERTS_UStudyNotesNotice;
 
 // Class OutGameModule.StudyNoteStarWidget
 // 0x0008 (0x03C8 - 0x03C0)
@@ -27525,10 +28317,11 @@ public:
 		return GetDefaultObjImpl<UStudyNoteStarWidget>();
 	}
 };
+DUMPER7_ASSERTS_UStudyNoteStarWidget;
 
 // Class OutGameModule.TabHeaderWidget
 // 0x00C0 (0x0430 - 0x0370)
-class UTabHeaderWidget : public UWidgetBase
+class UTabHeaderWidget final : public UWidgetBase
 {
 public:
 	struct FSlateColor                            _selectColor;                                      // 0x0370(0x0028)(Edit, Protected, NativeAccessSpecifierProtected)
@@ -27563,10 +28356,11 @@ public:
 		return GetDefaultObjImpl<UTabHeaderWidget>();
 	}
 };
+DUMPER7_ASSERTS_UTabHeaderWidget;
 
 // Class OutGameModule.TabWidget
 // 0x01F0 (0x05B8 - 0x03C8)
-class UTabWidget : public USwitcherControllerWidget
+class UTabWidget final : public USwitcherControllerWidget
 {
 public:
 	TMulticastInlineDelegate<void()>              OnSetupTabWidget;                                  // 0x03C8(0x0010)(ZeroConstructor, InstancedReference, BlueprintAssignable, NativeAccessSpecifierPublic)
@@ -27638,10 +28432,11 @@ public:
 		return GetDefaultObjImpl<UTabWidget>();
 	}
 };
+DUMPER7_ASSERTS_UTabWidget;
 
 // Class OutGameModule.TermsOfServiceWidget
 // 0x0020 (0x0390 - 0x0370)
-class UTermsOfServiceWidget : public UWidgetBase
+class UTermsOfServiceWidget final : public UWidgetBase
 {
 public:
 	bool                                          _bLoginFinishedFlag;                               // 0x0370(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -27677,6 +28472,7 @@ public:
 		return GetDefaultObjImpl<UTermsOfServiceWidget>();
 	}
 };
+DUMPER7_ASSERTS_UTermsOfServiceWidget;
 
 // Class OutGameModule.TitleInitSettingWidget
 // 0x0058 (0x03C8 - 0x0370)
@@ -27730,10 +28526,11 @@ public:
 		return GetDefaultObjImpl<UTitleInitSettingWidget>();
 	}
 };
+DUMPER7_ASSERTS_UTitleInitSettingWidget;
 
 // Class OutGameModule.TitleMenuWidget
 // 0x0070 (0x03E0 - 0x0370)
-class UTitleMenuWidget final : public UWidgetBase
+class UTitleMenuWidget : public UWidgetBase
 {
 public:
 	bool                                          _bOpenSubLevel;                                    // 0x0370(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -27775,10 +28572,11 @@ public:
 		return GetDefaultObjImpl<UTitleMenuWidget>();
 	}
 };
+DUMPER7_ASSERTS_UTitleMenuWidget;
 
 // Class OutGameModule.TrainingMenuOutGameWidget
 // 0x0000 (0x0418 - 0x0418)
-class UTrainingMenuOutGameWidget : public UAppWidget
+class UTrainingMenuOutGameWidget final : public UAppWidget
 {
 public:
 	void Decide();
@@ -27805,6 +28603,7 @@ public:
 		return GetDefaultObjImpl<UTrainingMenuOutGameWidget>();
 	}
 };
+DUMPER7_ASSERTS_UTrainingMenuOutGameWidget;
 
 // Class OutGameModule.UIVisibilityIconWidget
 // 0x0020 (0x0530 - 0x0510)
@@ -27834,6 +28633,7 @@ public:
 		return GetDefaultObjImpl<UUIVisibilityIconWidget>();
 	}
 };
+DUMPER7_ASSERTS_UUIVisibilityIconWidget;
 
 // Class OutGameModule.UseCurrencySelectItemWidget
 // 0x0058 (0x03C8 - 0x0370)
@@ -27871,6 +28671,7 @@ public:
 		return GetDefaultObjImpl<UUseCurrencySelectItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UUseCurrencySelectItemWidget;
 
 // Class OutGameModule.WidgetGeneralTabWindow
 // 0x0028 (0x0620 - 0x05F8)
@@ -27895,5 +28696,7 @@ public:
 		return GetDefaultObjImpl<UWidgetGeneralTabWindow>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetGeneralTabWindow;
 
-SDK_NAMESPACE_END
+}
+

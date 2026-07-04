@@ -14,7 +14,8 @@
 #include "WBP_Menu_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_Menu.WBP_Menu_C.ExecuteUbergraph_WBP_Menu
 // (Final, UbergraphFunction, HasDefaults)
@@ -400,5 +401,5 @@ void UWBP_Menu_C::SetAllJson(const class FString& TableName)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

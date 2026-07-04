@@ -14,7 +14,8 @@
 #include "BP_ActionRunEnd_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionRunEnd.BP_ActionRunEnd_C.ExecuteUbergraph_BP_ActionRunEnd
 // (Final, UbergraphFunction)
@@ -106,5 +107,5 @@ bool UBP_ActionRunEnd_C::BP_IsEnableShiftAction(const class FName& nextAction) c
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

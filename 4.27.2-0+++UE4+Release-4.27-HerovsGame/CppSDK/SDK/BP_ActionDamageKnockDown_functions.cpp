@@ -14,7 +14,8 @@
 #include "BP_ActionDamageKnockDown_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageKnockDown.BP_ActionDamageKnockDown_C.ExecuteUbergraph_BP_ActionDamageKnockDown
 // (Final, UbergraphFunction)
@@ -111,5 +112,5 @@ void UBP_ActionDamageKnockDown_C::SetDamageAnimation()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

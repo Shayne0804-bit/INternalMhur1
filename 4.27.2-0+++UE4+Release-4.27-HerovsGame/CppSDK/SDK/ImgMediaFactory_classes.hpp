@@ -14,7 +14,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class ImgMediaFactory.ImgMediaSettings
 // 0x0040 (0x0068 - 0x0028)
@@ -49,5 +50,7 @@ public:
 		return GetDefaultObjImpl<UImgMediaSettings>();
 	}
 };
+DUMPER7_ASSERTS_UImgMediaSettings;
 
-SDK_NAMESPACE_END
+}
+

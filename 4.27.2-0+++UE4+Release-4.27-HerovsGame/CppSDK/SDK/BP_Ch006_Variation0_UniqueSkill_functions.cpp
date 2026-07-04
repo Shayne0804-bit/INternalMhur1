@@ -14,7 +14,8 @@
 #include "BP_Ch006_Variation0_UniqueSkill_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_Ch006_Variation0_UniqueSkill.BP_Ch006_Variation0_UniqueSkill_C.ExecuteUbergraph_BP_Ch006_Variation0_UniqueSkill
 // (Final, UbergraphFunction)
@@ -49,5 +50,5 @@ void UBP_Ch006_Variation0_UniqueSkill_C::BP_OnRegisterEvent()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

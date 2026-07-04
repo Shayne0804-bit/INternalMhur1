@@ -14,7 +14,8 @@
 #include "BP_CC_StoneBind_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_StoneBind.BP_CC_StoneBind_C.ExecuteUbergraph_BP_CC_StoneBind
 // (Final, UbergraphFunction)
@@ -111,5 +112,5 @@ void UBP_CC_StoneBind_C::BP_OnUpdateIntervalValue(float value)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

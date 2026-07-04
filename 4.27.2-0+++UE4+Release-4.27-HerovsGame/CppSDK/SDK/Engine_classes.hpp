@@ -24,7 +24,8 @@
 #include "PacketHandler_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class Engine.ActorComponent
 // 0x0088 (0x00B0 - 0x0028)
@@ -100,6 +101,7 @@ public:
 		return GetDefaultObjImpl<UActorComponent>();
 	}
 };
+DUMPER7_ASSERTS_UActorComponent;
 
 // Class Engine.MovementComponent
 // 0x0040 (0x00F0 - 0x00B0)
@@ -163,6 +165,7 @@ public:
 		return GetDefaultObjImpl<UMovementComponent>();
 	}
 };
+DUMPER7_ASSERTS_UMovementComponent;
 
 // Class Engine.NavMovementComponent
 // 0x0040 (0x0130 - 0x00F0)
@@ -202,6 +205,7 @@ public:
 		return GetDefaultObjImpl<UNavMovementComponent>();
 	}
 };
+DUMPER7_ASSERTS_UNavMovementComponent;
 
 // Class Engine.PawnMovementComponent
 // 0x0008 (0x0138 - 0x0130)
@@ -234,6 +238,7 @@ public:
 		return GetDefaultObjImpl<UPawnMovementComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPawnMovementComponent;
 
 // Class Engine.BodySetup
 // 0x0258 (0x02A0 - 0x0048)
@@ -272,6 +277,7 @@ public:
 		return GetDefaultObjImpl<UBodySetup>();
 	}
 };
+DUMPER7_ASSERTS_UBodySetup;
 
 // Class Engine.Actor
 // 0x01F8 (0x0220 - 0x0028)
@@ -512,6 +518,7 @@ public:
 		return GetDefaultObjImpl<AActor>();
 	}
 };
+DUMPER7_ASSERTS_AActor;
 
 // Class Engine.StreamableRenderAsset
 // 0x0038 (0x0060 - 0x0028)
@@ -545,6 +552,7 @@ public:
 		return GetDefaultObjImpl<UStreamableRenderAsset>();
 	}
 };
+DUMPER7_ASSERTS_UStreamableRenderAsset;
 
 // Class Engine.Texture
 // 0x0120 (0x0180 - 0x0060)
@@ -586,6 +594,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_UTexture;
 
 // Class Engine.Texture2D
 // 0x0020 (0x01A0 - 0x0180)
@@ -619,6 +628,7 @@ public:
 		return GetDefaultObjImpl<UTexture2D>();
 	}
 };
+DUMPER7_ASSERTS_UTexture2D;
 
 // Class Engine.ShadowMapTexture2D
 // 0x0010 (0x01B0 - 0x01A0)
@@ -642,6 +652,7 @@ public:
 		return GetDefaultObjImpl<UShadowMapTexture2D>();
 	}
 };
+DUMPER7_ASSERTS_UShadowMapTexture2D;
 
 // Class Engine.NavRelevantInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -670,6 +681,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_INavRelevantInterface;
 
 // Class Engine.OnlineSession
 // 0x0000 (0x0028 - 0x0028)
@@ -689,6 +701,7 @@ public:
 		return GetDefaultObjImpl<UOnlineSession>();
 	}
 };
+DUMPER7_ASSERTS_UOnlineSession;
 
 // Class Engine.PLAYER
 // 0x0020 (0x0048 - 0x0028)
@@ -716,6 +729,7 @@ public:
 		return GetDefaultObjImpl<UPLAYER>();
 	}
 };
+DUMPER7_ASSERTS_UPLAYER;
 
 // Class Engine.NetConnection
 // 0x1B60 (0x1BA8 - 0x0048)
@@ -754,6 +768,7 @@ public:
 		return GetDefaultObjImpl<UNetConnection>();
 	}
 };
+DUMPER7_ASSERTS_UNetConnection;
 
 // Class Engine.DemoNetConnection
 // 0x0070 (0x1C18 - 0x1BA8)
@@ -776,6 +791,7 @@ public:
 		return GetDefaultObjImpl<UDemoNetConnection>();
 	}
 };
+DUMPER7_ASSERTS_UDemoNetConnection;
 
 // Class Engine.MaterialInterface
 // 0x0060 (0x0088 - 0x0028)
@@ -813,6 +829,7 @@ public:
 		return GetDefaultObjImpl<UMaterialInterface>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialInterface;
 
 // Class Engine.Material
 // 0x03B8 (0x0440 - 0x0088)
@@ -958,6 +975,7 @@ public:
 		return GetDefaultObjImpl<UMaterial>();
 	}
 };
+DUMPER7_ASSERTS_UMaterial;
 
 // Class Engine.SceneComponent
 // 0x0150 (0x0200 - 0x00B0)
@@ -1075,6 +1093,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_USceneComponent;
 
 // Class Engine.ReflectionCaptureComponent
 // 0x0070 (0x0270 - 0x0200)
@@ -1111,6 +1130,7 @@ public:
 		return GetDefaultObjImpl<UReflectionCaptureComponent>();
 	}
 };
+DUMPER7_ASSERTS_UReflectionCaptureComponent;
 
 // Class Engine.PlaneReflectionCaptureComponent
 // 0x0020 (0x0290 - 0x0270)
@@ -1137,6 +1157,7 @@ public:
 		return GetDefaultObjImpl<UPlaneReflectionCaptureComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPlaneReflectionCaptureComponent;
 
 // Class Engine.ReplicationConnectionDriver
 // 0x0000 (0x0028 - 0x0028)
@@ -1156,6 +1177,7 @@ public:
 		return GetDefaultObjImpl<UReplicationConnectionDriver>();
 	}
 };
+DUMPER7_ASSERTS_UReplicationConnectionDriver;
 
 // Class Engine.AnimInstance
 // 0x0298 (0x02C0 - 0x0028)
@@ -1276,6 +1298,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_UAnimInstance;
 
 // Class Engine.AnimSingleNodeInstance
 // 0x0010 (0x02D0 - 0x02C0)
@@ -1315,6 +1338,7 @@ public:
 		return GetDefaultObjImpl<UAnimSingleNodeInstance>();
 	}
 };
+DUMPER7_ASSERTS_UAnimSingleNodeInstance;
 
 // Class Engine.ParticleModule
 // 0x0008 (0x0030 - 0x0028)
@@ -1350,6 +1374,7 @@ public:
 		return GetDefaultObjImpl<UParticleModule>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModule;
 
 // Class Engine.ParticleModuleBeamBase
 // 0x0000 (0x0030 - 0x0030)
@@ -1369,6 +1394,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleBeamBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleBeamBase;
 
 // Class Engine.ParticleModuleBeamNoise
 // 0x0160 (0x0190 - 0x0030)
@@ -1418,6 +1444,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleBeamNoise>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleBeamNoise;
 
 // Class Engine.InterpTrackInst
 // 0x0000 (0x0028 - 0x0028)
@@ -1437,6 +1464,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInst>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInst;
 
 // Class Engine.InterpTrackInstEvent
 // 0x0008 (0x0030 - 0x0028)
@@ -1460,6 +1488,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstEvent>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstEvent;
 
 // Class Engine.VectorField
 // 0x0020 (0x0048 - 0x0028)
@@ -1483,6 +1512,7 @@ public:
 		return GetDefaultObjImpl<UVectorField>();
 	}
 };
+DUMPER7_ASSERTS_UVectorField;
 
 // Class Engine.VectorFieldStatic
 // 0x0050 (0x0098 - 0x0048)
@@ -1509,6 +1539,7 @@ public:
 		return GetDefaultObjImpl<UVectorFieldStatic>();
 	}
 };
+DUMPER7_ASSERTS_UVectorFieldStatic;
 
 // Class Engine.AnimNotify
 // 0x0010 (0x0038 - 0x0028)
@@ -1535,6 +1566,7 @@ public:
 		return GetDefaultObjImpl<UAnimNotify>();
 	}
 };
+DUMPER7_ASSERTS_UAnimNotify;
 
 // Class Engine.AnimNotify_PlaySound
 // 0x0020 (0x0058 - 0x0038)
@@ -1563,6 +1595,7 @@ public:
 		return GetDefaultObjImpl<UAnimNotify_PlaySound>();
 	}
 };
+DUMPER7_ASSERTS_UAnimNotify_PlaySound;
 
 // Class Engine.Info
 // 0x0000 (0x0220 - 0x0220)
@@ -1582,6 +1615,7 @@ public:
 		return GetDefaultObjImpl<AInfo>();
 	}
 };
+DUMPER7_ASSERTS_AInfo;
 
 // Class Engine.Engine
 // 0x0CF8 (0x0D20 - 0x0028)
@@ -1837,6 +1871,7 @@ public:
 		return GetDefaultObjImpl<UEngine>();
 	}
 };
+DUMPER7_ASSERTS_UEngine;
 
 // Class Engine.LevelPartitionInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -1865,6 +1900,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_ILevelPartitionInterface;
 
 // Class Engine.PlatformInterfaceBase
 // 0x0010 (0x0038 - 0x0028)
@@ -1887,6 +1923,7 @@ public:
 		return GetDefaultObjImpl<UPlatformInterfaceBase>();
 	}
 };
+DUMPER7_ASSERTS_UPlatformInterfaceBase;
 
 // Class Engine.InGameAdManager
 // 0x0028 (0x0060 - 0x0038)
@@ -1912,6 +1949,7 @@ public:
 		return GetDefaultObjImpl<UInGameAdManager>();
 	}
 };
+DUMPER7_ASSERTS_UInGameAdManager;
 
 // Class Engine.PrimitiveComponent
 // 0x0250 (0x0450 - 0x0200)
@@ -2165,6 +2203,7 @@ public:
 		return GetDefaultObjImpl<UPrimitiveComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPrimitiveComponent;
 
 // Class Engine.InterpTrackInstFade
 // 0x0000 (0x0028 - 0x0028)
@@ -2184,6 +2223,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstFade>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstFade;
 
 // Class Engine.BlueprintFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -2203,6 +2243,7 @@ public:
 		return GetDefaultObjImpl<UBlueprintFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UBlueprintFunctionLibrary;
 
 // Class Engine.DataTableFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -2229,6 +2270,7 @@ public:
 		return GetDefaultObjImpl<UDataTableFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UDataTableFunctionLibrary;
 
 // Class Engine.VirtualTextureBuilder
 // 0x0010 (0x0038 - 0x0028)
@@ -2252,6 +2294,7 @@ public:
 		return GetDefaultObjImpl<UVirtualTextureBuilder>();
 	}
 };
+DUMPER7_ASSERTS_UVirtualTextureBuilder;
 
 // Class Engine.MaterialExpression
 // 0x0018 (0x0040 - 0x0028)
@@ -2277,6 +2320,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpression>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpression;
 
 // Class Engine.MaterialExpressionTextureBase
 // 0x0008 (0x0048 - 0x0040)
@@ -2299,6 +2343,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTextureBase>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTextureBase;
 
 // Class Engine.ExponentialHeightFog
 // 0x0010 (0x0230 - 0x0220)
@@ -2326,11 +2371,12 @@ public:
 		return GetDefaultObjImpl<AExponentialHeightFog>();
 	}
 };
+DUMPER7_ASSERTS_AExponentialHeightFog;
 
 // Class Engine.MeshComponent
 // 0x0030 (0x0480 - 0x0450)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) UMeshComponent : public UPrimitiveComponent
+class alignas(0x10) UMeshComponent : public UPrimitiveComponent
 {
 public:
 	TArray<class UMaterialInterface*>             OverrideMaterials;                                 // 0x0450(0x0010)(Edit, ZeroConstructor, AdvancedDisplay, NativeAccessSpecifierPublic)
@@ -2363,6 +2409,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_UMeshComponent;
 
 // Class Engine.MaterialExpressionConstant2Vector
 // 0x0008 (0x0048 - 0x0040)
@@ -2386,6 +2433,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionConstant2Vector>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionConstant2Vector;
 
 // Class Engine.GameModeBase
 // 0x00A0 (0x02C0 - 0x0220)
@@ -2457,6 +2505,7 @@ public:
 		return GetDefaultObjImpl<AGameModeBase>();
 	}
 };
+DUMPER7_ASSERTS_AGameModeBase;
 
 // Class Engine.KismetStringLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -2544,6 +2593,7 @@ public:
 		return GetDefaultObjImpl<UKismetStringLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UKismetStringLibrary;
 
 // Class Engine.ParticleModuleTypeDataBase
 // 0x0000 (0x0030 - 0x0030)
@@ -2563,6 +2613,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleTypeDataBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleTypeDataBase;
 
 // Class Engine.BlueprintAsyncActionBase
 // 0x0008 (0x0030 - 0x0028)
@@ -2588,6 +2639,7 @@ public:
 		return GetDefaultObjImpl<UBlueprintAsyncActionBase>();
 	}
 };
+DUMPER7_ASSERTS_UBlueprintAsyncActionBase;
 
 // Class Engine.IntSerialization
 // 0x0028 (0x0050 - 0x0028)
@@ -2621,6 +2673,7 @@ public:
 		return GetDefaultObjImpl<UIntSerialization>();
 	}
 };
+DUMPER7_ASSERTS_UIntSerialization;
 
 // Class Engine.ExponentialHeightFogComponent
 // 0x00A0 (0x02A0 - 0x0200)
@@ -2690,6 +2743,7 @@ public:
 		return GetDefaultObjImpl<UExponentialHeightFogComponent>();
 	}
 };
+DUMPER7_ASSERTS_UExponentialHeightFogComponent;
 
 // Class Engine.MaterialExpressionParameter
 // 0x0018 (0x0058 - 0x0040)
@@ -2713,6 +2767,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionParameter>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionParameter;
 
 // Class Engine.MaterialExpressionVectorParameter
 // 0x0018 (0x0070 - 0x0058)
@@ -2738,6 +2793,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionVectorParameter>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionVectorParameter;
 
 // Class Engine.Subsystem
 // 0x0008 (0x0030 - 0x0028)
@@ -2760,6 +2816,7 @@ public:
 		return GetDefaultObjImpl<USubsystem>();
 	}
 };
+DUMPER7_ASSERTS_USubsystem;
 
 // Class Engine.WorldSubsystem
 // 0x0000 (0x0030 - 0x0030)
@@ -2779,6 +2836,7 @@ public:
 		return GetDefaultObjImpl<UWorldSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UWorldSubsystem;
 
 // Class Engine.LocalPlayer
 // 0x0210 (0x0258 - 0x0048)
@@ -2810,6 +2868,7 @@ public:
 		return GetDefaultObjImpl<ULocalPlayer>();
 	}
 };
+DUMPER7_ASSERTS_ULocalPlayer;
 
 // Class Engine.DynamicSubsystem
 // 0x0000 (0x0030 - 0x0030)
@@ -2829,6 +2888,7 @@ public:
 		return GetDefaultObjImpl<UDynamicSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UDynamicSubsystem;
 
 // Class Engine.EngineSubsystem
 // 0x0000 (0x0030 - 0x0030)
@@ -2848,6 +2908,7 @@ public:
 		return GetDefaultObjImpl<UEngineSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UEngineSubsystem;
 
 // Class Engine.DataDrivenCVarEngineSubsystem
 // 0x0010 (0x0040 - 0x0030)
@@ -2870,6 +2931,7 @@ public:
 		return GetDefaultObjImpl<UDataDrivenCVarEngineSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UDataDrivenCVarEngineSubsystem;
 
 // Class Engine.Brush
 // 0x0038 (0x0258 - 0x0220)
@@ -2905,6 +2967,7 @@ public:
 		return GetDefaultObjImpl<ABrush>();
 	}
 };
+DUMPER7_ASSERTS_ABrush;
 
 // Class Engine.Volume
 // 0x0000 (0x0258 - 0x0258)
@@ -2924,6 +2987,7 @@ public:
 		return GetDefaultObjImpl<AVolume>();
 	}
 };
+DUMPER7_ASSERTS_AVolume;
 
 // Class Engine.PhysicsVolume
 // 0x0010 (0x0268 - 0x0258)
@@ -2951,6 +3015,7 @@ public:
 		return GetDefaultObjImpl<APhysicsVolume>();
 	}
 };
+DUMPER7_ASSERTS_APhysicsVolume;
 
 // Class Engine.KillZVolume
 // 0x0000 (0x0268 - 0x0268)
@@ -2970,6 +3035,7 @@ public:
 		return GetDefaultObjImpl<AKillZVolume>();
 	}
 };
+DUMPER7_ASSERTS_AKillZVolume;
 
 // Class Engine.KismetArrayLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -3014,6 +3080,7 @@ public:
 		return GetDefaultObjImpl<UKismetArrayLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UKismetArrayLibrary;
 
 // Class Engine.LocalPlayerSubsystem
 // 0x0000 (0x0030 - 0x0030)
@@ -3033,6 +3100,7 @@ public:
 		return GetDefaultObjImpl<ULocalPlayerSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_ULocalPlayerSubsystem;
 
 // Class Engine.KismetGuidLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -3061,6 +3129,7 @@ public:
 		return GetDefaultObjImpl<UKismetGuidLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UKismetGuidLibrary;
 
 // Class Engine.Distribution
 // 0x0008 (0x0030 - 0x0028)
@@ -3083,6 +3152,7 @@ public:
 		return GetDefaultObjImpl<UDistribution>();
 	}
 };
+DUMPER7_ASSERTS_UDistribution;
 
 // Class Engine.DistributionVector
 // 0x0008 (0x0038 - 0x0030)
@@ -3108,6 +3178,7 @@ public:
 		return GetDefaultObjImpl<UDistributionVector>();
 	}
 };
+DUMPER7_ASSERTS_UDistributionVector;
 
 // Class Engine.DistributionVectorConstant
 // 0x0018 (0x0050 - 0x0038)
@@ -3134,6 +3205,7 @@ public:
 		return GetDefaultObjImpl<UDistributionVectorConstant>();
 	}
 };
+DUMPER7_ASSERTS_UDistributionVectorConstant;
 
 // Class Engine.GameInstance
 // 0x0180 (0x01A8 - 0x0028)
@@ -3170,6 +3242,7 @@ public:
 		return GetDefaultObjImpl<UGameInstance>();
 	}
 };
+DUMPER7_ASSERTS_UGameInstance;
 
 // Class Engine.LightmappedSurfaceCollection
 // 0x0018 (0x0040 - 0x0028)
@@ -3193,6 +3266,7 @@ public:
 		return GetDefaultObjImpl<ULightmappedSurfaceCollection>();
 	}
 };
+DUMPER7_ASSERTS_ULightmappedSurfaceCollection;
 
 // Class Engine.GameInstanceSubsystem
 // 0x0000 (0x0030 - 0x0030)
@@ -3212,6 +3286,7 @@ public:
 		return GetDefaultObjImpl<UGameInstanceSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UGameInstanceSubsystem;
 
 // Class Engine.DecalActor
 // 0x0008 (0x0228 - 0x0220)
@@ -3240,6 +3315,7 @@ public:
 		return GetDefaultObjImpl<ADecalActor>();
 	}
 };
+DUMPER7_ASSERTS_ADecalActor;
 
 // Class Engine.LightMapTexture2D
 // 0x0010 (0x01B0 - 0x01A0)
@@ -3262,6 +3338,7 @@ public:
 		return GetDefaultObjImpl<ULightMapTexture2D>();
 	}
 };
+DUMPER7_ASSERTS_ULightMapTexture2D;
 
 // Class Engine.FXSystemComponent
 // 0x0000 (0x0450 - 0x0450)
@@ -3295,6 +3372,7 @@ public:
 		return GetDefaultObjImpl<UFXSystemComponent>();
 	}
 };
+DUMPER7_ASSERTS_UFXSystemComponent;
 
 // Class Engine.LODActor
 // 0x0088 (0x02A8 - 0x0220)
@@ -3325,6 +3403,7 @@ public:
 		return GetDefaultObjImpl<ALODActor>();
 	}
 };
+DUMPER7_ASSERTS_ALODActor;
 
 // Class Engine.PhysicalAnimationComponent
 // 0x0040 (0x00F0 - 0x00B0)
@@ -3359,6 +3438,7 @@ public:
 		return GetDefaultObjImpl<UPhysicalAnimationComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPhysicalAnimationComponent;
 
 // Class Engine.AssetExportTask
 // 0x0050 (0x0078 - 0x0028)
@@ -3393,6 +3473,7 @@ public:
 		return GetDefaultObjImpl<UAssetExportTask>();
 	}
 };
+DUMPER7_ASSERTS_UAssetExportTask;
 
 // Class Engine.MaterialExpressionVirtualTextureFeatureSwitch
 // 0x0028 (0x0068 - 0x0040)
@@ -3416,6 +3497,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionVirtualTextureFeatureSwitch>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionVirtualTextureFeatureSwitch;
 
 // Class Engine.Channel
 // 0x0040 (0x0068 - 0x0028)
@@ -3439,6 +3521,7 @@ public:
 		return GetDefaultObjImpl<UChannel>();
 	}
 };
+DUMPER7_ASSERTS_UChannel;
 
 // Class Engine.MaterialExpressionHairColor
 // 0x0040 (0x0080 - 0x0040)
@@ -3464,6 +3547,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionHairColor>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionHairColor;
 
 // Class Engine.AssetUserData
 // 0x0000 (0x0028 - 0x0028)
@@ -3483,6 +3567,7 @@ public:
 		return GetDefaultObjImpl<UAssetUserData>();
 	}
 };
+DUMPER7_ASSERTS_UAssetUserData;
 
 // Class Engine.NetworkPredictionInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -3511,6 +3596,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_INetworkPredictionInterface;
 
 // Class Engine.SkinnedMeshComponent
 // 0x0220 (0x06A0 - 0x0480)
@@ -3624,6 +3710,7 @@ public:
 		return GetDefaultObjImpl<USkinnedMeshComponent>();
 	}
 };
+DUMPER7_ASSERTS_USkinnedMeshComponent;
 
 // Class Engine.SkeletalMeshComponent
 // 0x0830 (0x0ED0 - 0x06A0)
@@ -3819,6 +3906,7 @@ public:
 		return GetDefaultObjImpl<USkeletalMeshComponent>();
 	}
 };
+DUMPER7_ASSERTS_USkeletalMeshComponent;
 
 // Class Engine.BoxReflectionCaptureComponent
 // 0x0020 (0x0290 - 0x0270)
@@ -3845,6 +3933,7 @@ public:
 		return GetDefaultObjImpl<UBoxReflectionCaptureComponent>();
 	}
 };
+DUMPER7_ASSERTS_UBoxReflectionCaptureComponent;
 
 // Class Engine.MaterialExpressionTextureSample
 // 0x0018 (0x0060 - 0x0048)
@@ -3868,6 +3957,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTextureSample>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTextureSample;
 
 // Class Engine.MaterialExpressionParticleSubUV
 // 0x0008 (0x0068 - 0x0060)
@@ -3891,6 +3981,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionParticleSubUV>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionParticleSubUV;
 
 // Class Engine.FXSystemAsset
 // 0x0008 (0x0030 - 0x0028)
@@ -3914,6 +4005,7 @@ public:
 		return GetDefaultObjImpl<UFXSystemAsset>();
 	}
 };
+DUMPER7_ASSERTS_UFXSystemAsset;
 
 // Class Engine.NavigationSystemConfig
 // 0x0028 (0x0050 - 0x0028)
@@ -3940,6 +4032,7 @@ public:
 		return GetDefaultObjImpl<UNavigationSystemConfig>();
 	}
 };
+DUMPER7_ASSERTS_UNavigationSystemConfig;
 
 // Class Engine.NullNavSysConfig
 // 0x0000 (0x0050 - 0x0050)
@@ -3959,6 +4052,7 @@ public:
 		return GetDefaultObjImpl<UNullNavSysConfig>();
 	}
 };
+DUMPER7_ASSERTS_UNullNavSysConfig;
 
 // Class Engine.OnlineEngineInterface
 // 0x0000 (0x0028 - 0x0028)
@@ -3978,6 +4072,7 @@ public:
 		return GetDefaultObjImpl<UOnlineEngineInterface>();
 	}
 };
+DUMPER7_ASSERTS_UOnlineEngineInterface;
 
 // Class Engine.AnimClassData
 // 0x0308 (0x0330 - 0x0028)
@@ -4025,6 +4120,7 @@ public:
 		return GetDefaultObjImpl<UAnimClassData>();
 	}
 };
+DUMPER7_ASSERTS_UAnimClassData;
 
 // Class Engine.MaterialExpressionConstant4Vector
 // 0x0010 (0x0050 - 0x0040)
@@ -4047,6 +4143,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionConstant4Vector>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionConstant4Vector;
 
 // Class Engine.ParticleModuleVelocityBase
 // 0x0008 (0x0038 - 0x0030)
@@ -4071,6 +4168,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleVelocityBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleVelocityBase;
 
 // Class Engine.ParticleModuleVelocity
 // 0x0078 (0x00B0 - 0x0038)
@@ -4094,6 +4192,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleVelocity>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleVelocity;
 
 // Class Engine.ParticleModuleVelocity_Seeded
 // 0x0020 (0x00D0 - 0x00B0)
@@ -4116,6 +4215,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleVelocity_Seeded>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleVelocity_Seeded;
 
 // Class Engine.AnimCurveCompressionCodec
 // 0x0000 (0x0028 - 0x0028)
@@ -4135,6 +4235,7 @@ public:
 		return GetDefaultObjImpl<UAnimCurveCompressionCodec>();
 	}
 };
+DUMPER7_ASSERTS_UAnimCurveCompressionCodec;
 
 // Class Engine.MaterialExpressionPixelDepth
 // 0x0000 (0x0040 - 0x0040)
@@ -4154,6 +4255,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionPixelDepth>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionPixelDepth;
 
 // Class Engine.AnimNotifyState
 // 0x0008 (0x0030 - 0x0028)
@@ -4182,6 +4284,7 @@ public:
 		return GetDefaultObjImpl<UAnimNotifyState>();
 	}
 };
+DUMPER7_ASSERTS_UAnimNotifyState;
 
 // Class Engine.NetPushModelHelpers
 // 0x0000 (0x0028 - 0x0028)
@@ -4205,6 +4308,7 @@ public:
 		return GetDefaultObjImpl<UNetPushModelHelpers>();
 	}
 };
+DUMPER7_ASSERTS_UNetPushModelHelpers;
 
 // Class Engine.Commandlet
 // 0x0058 (0x0080 - 0x0028)
@@ -4238,6 +4342,7 @@ public:
 		return GetDefaultObjImpl<UCommandlet>();
 	}
 };
+DUMPER7_ASSERTS_UCommandlet;
 
 // Class Engine.MaterialExpressionDecalDerivative
 // 0x0000 (0x0040 - 0x0040)
@@ -4257,6 +4362,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDecalDerivative>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDecalDerivative;
 
 // Class Engine.MaterialExpressionDistanceToNearestSurface
 // 0x0018 (0x0058 - 0x0040)
@@ -4280,6 +4386,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDistanceToNearestSurface>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDistanceToNearestSurface;
 
 // Class Engine.MaterialExpressionTextureSampleParameter
 // 0x0020 (0x0080 - 0x0060)
@@ -4304,6 +4411,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTextureSampleParameter>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTextureSampleParameter;
 
 // Class Engine.MaterialExpressionTextureSampleParameter2D
 // 0x0000 (0x0080 - 0x0080)
@@ -4323,6 +4431,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTextureSampleParameter2D>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTextureSampleParameter2D;
 
 // Class Engine.MaterialExpressionTextureSampleParameterSubUV
 // 0x0008 (0x0088 - 0x0080)
@@ -4346,6 +4455,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTextureSampleParameterSubUV>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTextureSampleParameterSubUV;
 
 // Class Engine.DataAsset
 // 0x0008 (0x0030 - 0x0028)
@@ -4368,11 +4478,12 @@ public:
 		return GetDefaultObjImpl<UDataAsset>();
 	}
 };
+DUMPER7_ASSERTS_UDataAsset;
 
 // Class Engine.LightComponentBase
 // 0x0030 (0x0230 - 0x0200)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) ULightComponentBase : public USceneComponent
+class alignas(0x10) ULightComponentBase : public USceneComponent
 {
 public:
 	struct FGuid                                  LightGuid;                                         // 0x01F8(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -4422,11 +4533,12 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_ULightComponentBase;
 
 // Class Engine.LightComponent
 // 0x0100 (0x0330 - 0x0230)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) ULightComponent : public ULightComponentBase
+class alignas(0x10) ULightComponent : public ULightComponentBase
 {
 public:
 	float                                         Temperature;                                       // 0x0228(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -4515,6 +4627,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_ULightComponent;
 
 // Class Engine.LocalLightComponent
 // 0x0010 (0x0340 - 0x0330)
@@ -4547,6 +4660,7 @@ public:
 		return GetDefaultObjImpl<ULocalLightComponent>();
 	}
 };
+DUMPER7_ASSERTS_ULocalLightComponent;
 
 // Class Engine.ParticleModuleRotationRateBase
 // 0x0000 (0x0030 - 0x0030)
@@ -4566,6 +4680,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleRotationRateBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleRotationRateBase;
 
 // Class Engine.ParticleModuleRotationRate
 // 0x0030 (0x0060 - 0x0030)
@@ -4588,6 +4703,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleRotationRate>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleRotationRate;
 
 // Class Engine.ParticleModuleRotationRate_Seeded
 // 0x0020 (0x0080 - 0x0060)
@@ -4610,6 +4726,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleRotationRate_Seeded>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleRotationRate_Seeded;
 
 // Class Engine.SoundBase
 // 0x0148 (0x0170 - 0x0028)
@@ -4656,6 +4773,7 @@ public:
 		return GetDefaultObjImpl<USoundBase>();
 	}
 };
+DUMPER7_ASSERTS_USoundBase;
 
 // Class Engine.SoundWave
 // 0x0200 (0x0370 - 0x0170)
@@ -4709,6 +4827,7 @@ public:
 		return GetDefaultObjImpl<USoundWave>();
 	}
 };
+DUMPER7_ASSERTS_USoundWave;
 
 // Class Engine.ParticleModuleCameraBase
 // 0x0000 (0x0030 - 0x0030)
@@ -4728,11 +4847,12 @@ public:
 		return GetDefaultObjImpl<UParticleModuleCameraBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleCameraBase;
 
 // Class Engine.ShapeComponent
 // 0x0020 (0x0470 - 0x0450)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) UShapeComponent : public UPrimitiveComponent
+class alignas(0x10) UShapeComponent : public UPrimitiveComponent
 {
 public:
 	class UBodySetup*                             ShapeBodySetup;                                    // 0x0450(0x0008)(ZeroConstructor, Transient, DuplicateTransient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -4758,6 +4878,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_UShapeComponent;
 
 // Class Engine.MaterialExpressionSceneTexelSize
 // 0x0000 (0x0040 - 0x0040)
@@ -4777,6 +4898,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSceneTexelSize>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSceneTexelSize;
 
 // Class Engine.CameraShakePattern
 // 0x0000 (0x0028 - 0x0028)
@@ -4796,6 +4918,7 @@ public:
 		return GetDefaultObjImpl<UCameraShakePattern>();
 	}
 };
+DUMPER7_ASSERTS_UCameraShakePattern;
 
 // Class Engine.InterpTrack
 // 0x0048 (0x0070 - 0x0028)
@@ -4832,6 +4955,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrack>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrack;
 
 // Class Engine.InterpTrackFloatBase
 // 0x0020 (0x0090 - 0x0070)
@@ -4856,6 +4980,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackFloatBase>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackFloatBase;
 
 // Class Engine.InterpTrackSlomo
 // 0x0000 (0x0090 - 0x0090)
@@ -4875,6 +5000,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackSlomo>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackSlomo;
 
 // Class Engine.ParticleModuleRotationRateMultiplyLife
 // 0x0030 (0x0060 - 0x0030)
@@ -4897,6 +5023,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleRotationRateMultiplyLife>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleRotationRateMultiplyLife;
 
 // Class Engine.SoundWaveProcedural
 // 0x0050 (0x03C0 - 0x0370)
@@ -4919,6 +5046,7 @@ public:
 		return GetDefaultObjImpl<USoundWaveProcedural>();
 	}
 };
+DUMPER7_ASSERTS_USoundWaveProcedural;
 
 // Class Engine.ParticleModuleCameraOffset
 // 0x0038 (0x0068 - 0x0030)
@@ -4945,6 +5073,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleCameraOffset>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleCameraOffset;
 
 // Class Engine.BoxComponent
 // 0x0010 (0x0480 - 0x0470)
@@ -4975,6 +5104,7 @@ public:
 		return GetDefaultObjImpl<UBoxComponent>();
 	}
 };
+DUMPER7_ASSERTS_UBoxComponent;
 
 // Class Engine.CameraActor
 // 0x0590 (0x07B0 - 0x0220)
@@ -5010,6 +5140,7 @@ public:
 		return GetDefaultObjImpl<ACameraActor>();
 	}
 };
+DUMPER7_ASSERTS_ACameraActor;
 
 // Class Engine.ParticleModuleColorBase
 // 0x0000 (0x0030 - 0x0030)
@@ -5029,6 +5160,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleColorBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleColorBase;
 
 // Class Engine.ParticleModuleColor
 // 0x0080 (0x00B0 - 0x0030)
@@ -5054,6 +5186,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleColor>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleColor;
 
 // Class Engine.ParticleModuleColor_Seeded
 // 0x0020 (0x00D0 - 0x00B0)
@@ -5076,6 +5209,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleColor_Seeded>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleColor_Seeded;
 
 // Class Engine.MaterialExpressionViewSize
 // 0x0000 (0x0040 - 0x0040)
@@ -5095,6 +5229,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionViewSize>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionViewSize;
 
 // Class Engine.SplineMeshActor
 // 0x0008 (0x0228 - 0x0220)
@@ -5117,6 +5252,7 @@ public:
 		return GetDefaultObjImpl<ASplineMeshActor>();
 	}
 };
+DUMPER7_ASSERTS_ASplineMeshActor;
 
 // Class Engine.ParticleModuleTypeDataRibbon
 // 0x0038 (0x0068 - 0x0030)
@@ -5163,6 +5299,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleTypeDataRibbon>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleTypeDataRibbon;
 
 // Class Engine.Controller
 // 0x0078 (0x0298 - 0x0220)
@@ -5228,6 +5365,7 @@ public:
 		return GetDefaultObjImpl<AController>();
 	}
 };
+DUMPER7_ASSERTS_AController;
 
 // Class Engine.MaterialExpressionDistance
 // 0x0028 (0x0068 - 0x0040)
@@ -5251,6 +5389,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDistance>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDistance;
 
 // Class Engine.MaterialExpressionSpeedTree
 // 0x0060 (0x00A0 - 0x0040)
@@ -5283,11 +5422,12 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSpeedTree>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSpeedTree;
 
 // Class Engine.SplineComponent
 // 0x0100 (0x0550 - 0x0450)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) USplineComponent : public UPrimitiveComponent
+class alignas(0x10) USplineComponent : public UPrimitiveComponent
 {
 public:
 	struct FSplineCurves                          SplineCurves;                                      // 0x0450(0x0070)(Edit, NativeAccessSpecifierPublic)
@@ -5427,6 +5567,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_USplineComponent;
 
 // Class Engine.TriggerVolume
 // 0x0000 (0x0258 - 0x0258)
@@ -5446,6 +5587,7 @@ public:
 		return GetDefaultObjImpl<ATriggerVolume>();
 	}
 };
+DUMPER7_ASSERTS_ATriggerVolume;
 
 // Class Engine.AnimSet
 // 0x00C8 (0x00F0 - 0x0028)
@@ -5478,6 +5620,7 @@ public:
 		return GetDefaultObjImpl<UAnimSet>();
 	}
 };
+DUMPER7_ASSERTS_UAnimSet;
 
 // Class Engine.KismetMathLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -6171,6 +6314,7 @@ public:
 		return GetDefaultObjImpl<UKismetMathLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UKismetMathLibrary;
 
 // Class Engine.SplineMetadata
 // 0x0000 (0x0028 - 0x0028)
@@ -6190,6 +6334,7 @@ public:
 		return GetDefaultObjImpl<USplineMetadata>();
 	}
 };
+DUMPER7_ASSERTS_USplineMetadata;
 
 // Class Engine.InterpTrackToggle
 // 0x0018 (0x0088 - 0x0070)
@@ -6218,6 +6363,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackToggle>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackToggle;
 
 // Class Engine.ParticleModuleSpawnBase
 // 0x0008 (0x0038 - 0x0030)
@@ -6242,6 +6388,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleSpawnBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleSpawnBase;
 
 // Class Engine.ParticleModuleSpawnPerUnit
 // 0x0040 (0x0078 - 0x0038)
@@ -6272,6 +6419,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleSpawnPerUnit>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleSpawnPerUnit;
 
 // Class Engine.AnimBoneCompressionCodec
 // 0x0010 (0x0038 - 0x0028)
@@ -6294,6 +6442,7 @@ public:
 		return GetDefaultObjImpl<UAnimBoneCompressionCodec>();
 	}
 };
+DUMPER7_ASSERTS_UAnimBoneCompressionCodec;
 
 // Class Engine.TextPropertyTestObject
 // 0x0048 (0x0070 - 0x0028)
@@ -6318,6 +6467,7 @@ public:
 		return GetDefaultObjImpl<UTextPropertyTestObject>();
 	}
 };
+DUMPER7_ASSERTS_UTextPropertyTestObject;
 
 // Class Engine.TickableWorldSubsystem
 // 0x0010 (0x0040 - 0x0030)
@@ -6340,6 +6490,7 @@ public:
 		return GetDefaultObjImpl<UTickableWorldSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UTickableWorldSubsystem;
 
 // Class Engine.EdGraphPin_Deprecated
 // 0x00F0 (0x0118 - 0x0028)
@@ -6374,6 +6525,7 @@ public:
 		return GetDefaultObjImpl<UEdGraphPin_Deprecated>();
 	}
 };
+DUMPER7_ASSERTS_UEdGraphPin_Deprecated;
 
 // Class Engine.VisualLoggerAutomationTests
 // 0x0000 (0x0028 - 0x0028)
@@ -6393,6 +6545,7 @@ public:
 		return GetDefaultObjImpl<UVisualLoggerAutomationTests>();
 	}
 };
+DUMPER7_ASSERTS_UVisualLoggerAutomationTests;
 
 // Class Engine.ParticleModuleSubUVBase
 // 0x0000 (0x0030 - 0x0030)
@@ -6412,6 +6565,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleSubUVBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleSubUVBase;
 
 // Class Engine.KismetNodeHelperLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -6446,6 +6600,7 @@ public:
 		return GetDefaultObjImpl<UKismetNodeHelperLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UKismetNodeHelperLibrary;
 
 // Class Engine.ParticleModuleVectorFieldBase
 // 0x0000 (0x0030 - 0x0030)
@@ -6465,6 +6620,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleVectorFieldBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleVectorFieldBase;
 
 // Class Engine.PlayerController
 // 0x02E8 (0x0580 - 0x0298)
@@ -6689,6 +6845,7 @@ public:
 		return GetDefaultObjImpl<APlayerController>();
 	}
 };
+DUMPER7_ASSERTS_APlayerController;
 
 // Class Engine.BlueprintCore
 // 0x0028 (0x0050 - 0x0028)
@@ -6716,6 +6873,7 @@ public:
 		return GetDefaultObjImpl<UBlueprintCore>();
 	}
 };
+DUMPER7_ASSERTS_UBlueprintCore;
 
 // Class Engine.Blueprint
 // 0x0050 (0x00A0 - 0x0050)
@@ -6749,6 +6907,7 @@ public:
 		return GetDefaultObjImpl<UBlueprint>();
 	}
 };
+DUMPER7_ASSERTS_UBlueprint;
 
 // Class Engine.NavigationDataInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -6777,6 +6936,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_INavigationDataInterface;
 
 // Class Engine.ChildActorComponent
 // 0x0030 (0x0230 - 0x0200)
@@ -6805,6 +6965,7 @@ public:
 		return GetDefaultObjImpl<UChildActorComponent>();
 	}
 };
+DUMPER7_ASSERTS_UChildActorComponent;
 
 // Class Engine.CameraShakeBase
 // 0x0088 (0x00B0 - 0x0028)
@@ -6839,6 +7000,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_UCameraShakeBase;
 
 // Class Engine.SoundNode
 // 0x0020 (0x0048 - 0x0028)
@@ -6862,6 +7024,7 @@ public:
 		return GetDefaultObjImpl<USoundNode>();
 	}
 };
+DUMPER7_ASSERTS_USoundNode;
 
 // Class Engine.SoundNodeRandom
 // 0x0030 (0x0078 - 0x0048)
@@ -6891,6 +7054,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeRandom>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeRandom;
 
 // Class Engine.Light
 // 0x0010 (0x0230 - 0x0220)
@@ -6931,6 +7095,7 @@ public:
 		return GetDefaultObjImpl<ALight>();
 	}
 };
+DUMPER7_ASSERTS_ALight;
 
 // Class Engine.PointLight
 // 0x0008 (0x0238 - 0x0230)
@@ -6957,6 +7122,7 @@ public:
 		return GetDefaultObjImpl<APointLight>();
 	}
 };
+DUMPER7_ASSERTS_APointLight;
 
 // Class Engine.SoundNodeDistanceCrossFade
 // 0x0010 (0x0058 - 0x0048)
@@ -6979,6 +7145,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeDistanceCrossFade>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeDistanceCrossFade;
 
 // Class Engine.ParticleModuleLocationBase
 // 0x0000 (0x0030 - 0x0030)
@@ -6998,6 +7165,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLocationBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLocationBase;
 
 // Class Engine.ParticleModulePivotOffset
 // 0x0008 (0x0038 - 0x0030)
@@ -7020,6 +7188,7 @@ public:
 		return GetDefaultObjImpl<UParticleModulePivotOffset>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModulePivotOffset;
 
 // Class Engine.NetDriver
 // 0x0738 (0x0760 - 0x0028)
@@ -7081,6 +7250,7 @@ public:
 		return GetDefaultObjImpl<UNetDriver>();
 	}
 };
+DUMPER7_ASSERTS_UNetDriver;
 
 // Class Engine.VOIPStatics
 // 0x0000 (0x0028 - 0x0028)
@@ -7103,6 +7273,7 @@ public:
 		return GetDefaultObjImpl<UVOIPStatics>();
 	}
 };
+DUMPER7_ASSERTS_UVOIPStatics;
 
 // Class Engine.Pawn
 // 0x0060 (0x0280 - 0x0220)
@@ -7177,11 +7348,12 @@ public:
 		return GetDefaultObjImpl<APawn>();
 	}
 };
+DUMPER7_ASSERTS_APawn;
 
 // Class Engine.Character
 // 0x0240 (0x04C0 - 0x0280)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) ACharacter : public APawn
+class alignas(0x10) ACharacter : public APawn
 {
 public:
 	class USkeletalMeshComponent*                 mesh;                                              // 0x0280(0x0008)(Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, EditConst, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -7294,6 +7466,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_ACharacter;
 
 // Class Engine.GameMode
 // 0x0048 (0x0308 - 0x02C0)
@@ -7343,6 +7516,7 @@ public:
 		return GetDefaultObjImpl<AGameMode>();
 	}
 };
+DUMPER7_ASSERTS_AGameMode;
 
 // Class Engine.DefaultPawn
 // 0x0028 (0x02A8 - 0x0280)
@@ -7378,6 +7552,7 @@ public:
 		return GetDefaultObjImpl<ADefaultPawn>();
 	}
 };
+DUMPER7_ASSERTS_ADefaultPawn;
 
 // Class Engine.SpectatorPawn
 // 0x0000 (0x02A8 - 0x02A8)
@@ -7397,6 +7572,7 @@ public:
 		return GetDefaultObjImpl<ASpectatorPawn>();
 	}
 };
+DUMPER7_ASSERTS_ASpectatorPawn;
 
 // Class Engine.ParticleModuleTypeDataAnimTrail
 // 0x0018 (0x0048 - 0x0030)
@@ -7427,6 +7603,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleTypeDataAnimTrail>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleTypeDataAnimTrail;
 
 // Class Engine.OnlineBlueprintCallProxyBase
 // 0x0000 (0x0030 - 0x0030)
@@ -7446,6 +7623,7 @@ public:
 		return GetDefaultObjImpl<UOnlineBlueprintCallProxyBase>();
 	}
 };
+DUMPER7_ASSERTS_UOnlineBlueprintCallProxyBase;
 
 // Class Engine.TextureLightProfile
 // 0x0010 (0x01B0 - 0x01A0)
@@ -7470,6 +7648,7 @@ public:
 		return GetDefaultObjImpl<UTextureLightProfile>();
 	}
 };
+DUMPER7_ASSERTS_UTextureLightProfile;
 
 // Class Engine.RigidBodyBase
 // 0x0000 (0x0220 - 0x0220)
@@ -7489,6 +7668,7 @@ public:
 		return GetDefaultObjImpl<ARigidBodyBase>();
 	}
 };
+DUMPER7_ASSERTS_ARigidBodyBase;
 
 // Class Engine.ReplicationDriver
 // 0x0000 (0x0028 - 0x0028)
@@ -7508,6 +7688,7 @@ public:
 		return GetDefaultObjImpl<UReplicationDriver>();
 	}
 };
+DUMPER7_ASSERTS_UReplicationDriver;
 
 // Class Engine.AnimNotify_ResetDynamics
 // 0x0000 (0x0038 - 0x0038)
@@ -7527,6 +7708,7 @@ public:
 		return GetDefaultObjImpl<UAnimNotify_ResetDynamics>();
 	}
 };
+DUMPER7_ASSERTS_UAnimNotify_ResetDynamics;
 
 // Class Engine.SoundNodeGroupControl
 // 0x0010 (0x0058 - 0x0048)
@@ -7549,6 +7731,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeGroupControl>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeGroupControl;
 
 // Class Engine.UserDefinedEnum
 // 0x0050 (0x00B0 - 0x0060)
@@ -7571,6 +7754,7 @@ public:
 		return GetDefaultObjImpl<UUserDefinedEnum>();
 	}
 };
+DUMPER7_ASSERTS_UUserDefinedEnum;
 
 // Class Engine.World
 // 0x0770 (0x0798 - 0x0028)
@@ -7642,6 +7826,7 @@ public:
 		return GetDefaultObjImpl<UWorld>();
 	}
 };
+DUMPER7_ASSERTS_UWorld;
 
 // Class Engine.CurveTable
 // 0x0078 (0x00A0 - 0x0028)
@@ -7664,6 +7849,7 @@ public:
 		return GetDefaultObjImpl<UCurveTable>();
 	}
 };
+DUMPER7_ASSERTS_UCurveTable;
 
 // Class Engine.CompositeCurveTable
 // 0x0028 (0x00C8 - 0x00A0)
@@ -7688,6 +7874,7 @@ public:
 		return GetDefaultObjImpl<UCompositeCurveTable>();
 	}
 };
+DUMPER7_ASSERTS_UCompositeCurveTable;
 
 // Class Engine.SoundNodeLooping
 // 0x0008 (0x0050 - 0x0048)
@@ -7712,6 +7899,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeLooping>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeLooping;
 
 // Class Engine.PlatformEventsComponent
 // 0x0020 (0x00D0 - 0x00B0)
@@ -7740,6 +7928,7 @@ public:
 		return GetDefaultObjImpl<UPlatformEventsComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPlatformEventsComponent;
 
 // Class Engine.AsyncActionLoadPrimaryAssetBase
 // 0x0048 (0x0078 - 0x0030)
@@ -7762,6 +7951,7 @@ public:
 		return GetDefaultObjImpl<UAsyncActionLoadPrimaryAssetBase>();
 	}
 };
+DUMPER7_ASSERTS_UAsyncActionLoadPrimaryAssetBase;
 
 // Class Engine.VOIPTalker
 // 0x0038 (0x00E8 - 0x00B0)
@@ -7793,6 +7983,7 @@ public:
 		return GetDefaultObjImpl<UVOIPTalker>();
 	}
 };
+DUMPER7_ASSERTS_UVOIPTalker;
 
 // Class Engine.ParticleModuleAccelerationBase
 // 0x0008 (0x0038 - 0x0030)
@@ -7816,6 +8007,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleAccelerationBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleAccelerationBase;
 
 // Class Engine.ParticleModuleAccelerationDrag
 // 0x0038 (0x0070 - 0x0038)
@@ -7839,6 +8031,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleAccelerationDrag>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleAccelerationDrag;
 
 // Class Engine.GameUserSettings
 // 0x00F8 (0x0120 - 0x0028)
@@ -7970,11 +8163,12 @@ public:
 		return GetDefaultObjImpl<UGameUserSettings>();
 	}
 };
+DUMPER7_ASSERTS_UGameUserSettings;
 
 // Class Engine.LevelStreaming
 // 0x0128 (0x0150 - 0x0028)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) ULevelStreaming : public UObject
+class alignas(0x10) ULevelStreaming : public UObject
 {
 public:
 	TSoftObjectPtr<class UWorld>                  WorldAsset;                                        // 0x0028(0x0028)(Edit, BlueprintVisible, BlueprintReadOnly, EditConst, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
@@ -8039,6 +8233,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_ULevelStreaming;
 
 // Class Engine.InterpTrackInstProperty
 // 0x0028 (0x0050 - 0x0028)
@@ -8062,6 +8257,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstProperty>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstProperty;
 
 // Class Engine.InterpTrackInstFloatProp
 // 0x0010 (0x0060 - 0x0050)
@@ -8086,6 +8282,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstFloatProp>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstFloatProp;
 
 // Class Engine.LevelStreamingDynamic
 // 0x0000 (0x0150 - 0x0150)
@@ -8114,6 +8311,7 @@ public:
 		return GetDefaultObjImpl<ULevelStreamingDynamic>();
 	}
 };
+DUMPER7_ASSERTS_ULevelStreamingDynamic;
 
 // Class Engine.AnimationAsset
 // 0x0058 (0x0080 - 0x0028)
@@ -8140,6 +8338,7 @@ public:
 		return GetDefaultObjImpl<UAnimationAsset>();
 	}
 };
+DUMPER7_ASSERTS_UAnimationAsset;
 
 // Class Engine.BlendSpaceBase
 // 0x00C8 (0x0148 - 0x0080)
@@ -8175,6 +8374,7 @@ public:
 		return GetDefaultObjImpl<UBlendSpaceBase>();
 	}
 };
+DUMPER7_ASSERTS_UBlendSpaceBase;
 
 // Class Engine.BlendSpace1D
 // 0x0008 (0x0150 - 0x0148)
@@ -8198,6 +8398,7 @@ public:
 		return GetDefaultObjImpl<UBlendSpace1D>();
 	}
 };
+DUMPER7_ASSERTS_UBlendSpace1D;
 
 // Class Engine.AimOffsetBlendSpace1D
 // 0x0000 (0x0150 - 0x0150)
@@ -8217,6 +8418,7 @@ public:
 		return GetDefaultObjImpl<UAimOffsetBlendSpace1D>();
 	}
 };
+DUMPER7_ASSERTS_UAimOffsetBlendSpace1D;
 
 // Class Engine.StaticMesh
 // 0x00F0 (0x0150 - 0x0060)
@@ -8288,6 +8490,7 @@ public:
 		return GetDefaultObjImpl<UStaticMesh>();
 	}
 };
+DUMPER7_ASSERTS_UStaticMesh;
 
 // Class Engine.ParticleModuleVectorFieldRotation
 // 0x0018 (0x0048 - 0x0030)
@@ -8311,6 +8514,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleVectorFieldRotation>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleVectorFieldRotation;
 
 // Class Engine.AnimCompress
 // 0x0008 (0x0040 - 0x0038)
@@ -8338,6 +8542,7 @@ public:
 		return GetDefaultObjImpl<UAnimCompress>();
 	}
 };
+DUMPER7_ASSERTS_UAnimCompress;
 
 // Class Engine.AnimCompress_RemoveTrivialKeys
 // 0x0010 (0x0050 - 0x0040)
@@ -8363,6 +8568,7 @@ public:
 		return GetDefaultObjImpl<UAnimCompress_RemoveTrivialKeys>();
 	}
 };
+DUMPER7_ASSERTS_UAnimCompress_RemoveTrivialKeys;
 
 // Class Engine.SoundGroups
 // 0x0060 (0x0088 - 0x0028)
@@ -8386,6 +8592,7 @@ public:
 		return GetDefaultObjImpl<USoundGroups>();
 	}
 };
+DUMPER7_ASSERTS_USoundGroups;
 
 // Class Engine.DataTable
 // 0x0088 (0x00B0 - 0x0028)
@@ -8415,6 +8622,7 @@ public:
 		return GetDefaultObjImpl<UDataTable>();
 	}
 };
+DUMPER7_ASSERTS_UDataTable;
 
 // Class Engine.AudioComponent
 // 0x0660 (0x0860 - 0x0200)
@@ -8532,6 +8740,7 @@ public:
 		return GetDefaultObjImpl<UAudioComponent>();
 	}
 };
+DUMPER7_ASSERTS_UAudioComponent;
 
 // Class Engine.AssetImportData
 // 0x0000 (0x0028 - 0x0028)
@@ -8551,6 +8760,7 @@ public:
 		return GetDefaultObjImpl<UAssetImportData>();
 	}
 };
+DUMPER7_ASSERTS_UAssetImportData;
 
 // Class Engine.MaterialFunctionInterface
 // 0x0018 (0x0040 - 0x0028)
@@ -8575,6 +8785,7 @@ public:
 		return GetDefaultObjImpl<UMaterialFunctionInterface>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialFunctionInterface;
 
 // Class Engine.MaterialFunction
 // 0x0018 (0x0058 - 0x0040)
@@ -8600,6 +8811,7 @@ public:
 		return GetDefaultObjImpl<UMaterialFunction>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialFunction;
 
 // Class Engine.MaterialFunctionMaterialLayer
 // 0x0000 (0x0058 - 0x0058)
@@ -8619,6 +8831,7 @@ public:
 		return GetDefaultObjImpl<UMaterialFunctionMaterialLayer>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialFunctionMaterialLayer;
 
 // Class Engine.GameNetworkManager
 // 0x00B0 (0x02D0 - 0x0220)
@@ -8688,6 +8901,7 @@ public:
 		return GetDefaultObjImpl<AGameNetworkManager>();
 	}
 };
+DUMPER7_ASSERTS_AGameNetworkManager;
 
 // Class Engine.MaterialExpressionFunctionOutput
 // 0x0048 (0x0088 - 0x0040)
@@ -8717,6 +8931,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionFunctionOutput>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionFunctionOutput;
 
 // Class Engine.MaterialExpressionMaterialLayerOutput
 // 0x0000 (0x0088 - 0x0088)
@@ -8736,6 +8951,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionMaterialLayerOutput>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionMaterialLayerOutput;
 
 // Class Engine.SaveGame
 // 0x0000 (0x0028 - 0x0028)
@@ -8755,6 +8971,7 @@ public:
 		return GetDefaultObjImpl<USaveGame>();
 	}
 };
+DUMPER7_ASSERTS_USaveGame;
 
 // Class Engine.RuntimeVirtualTextureComponent
 // 0x0070 (0x0270 - 0x0200)
@@ -8796,6 +9013,7 @@ public:
 		return GetDefaultObjImpl<URuntimeVirtualTextureComponent>();
 	}
 };
+DUMPER7_ASSERTS_URuntimeVirtualTextureComponent;
 
 // Class Engine.HLODProxyDesc
 // 0x0000 (0x0028 - 0x0028)
@@ -8815,6 +9033,7 @@ public:
 		return GetDefaultObjImpl<UHLODProxyDesc>();
 	}
 };
+DUMPER7_ASSERTS_UHLODProxyDesc;
 
 // Class Engine.GameStateBase
 // 0x0050 (0x0270 - 0x0220)
@@ -8859,6 +9078,7 @@ public:
 		return GetDefaultObjImpl<AGameStateBase>();
 	}
 };
+DUMPER7_ASSERTS_AGameStateBase;
 
 // Class Engine.ImportanceSamplingLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -8889,6 +9109,7 @@ public:
 		return GetDefaultObjImpl<UImportanceSamplingLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UImportanceSamplingLibrary;
 
 // Class Engine.MaterialExpressionFontSample
 // 0x0010 (0x0050 - 0x0040)
@@ -8913,6 +9134,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionFontSample>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionFontSample;
 
 // Class Engine.MaterialExpressionVectorNoise
 // 0x0028 (0x0068 - 0x0040)
@@ -8942,6 +9164,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionVectorNoise>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionVectorNoise;
 
 // Class Engine.GameState
 // 0x0020 (0x0290 - 0x0270)
@@ -8971,6 +9194,7 @@ public:
 		return GetDefaultObjImpl<AGameState>();
 	}
 };
+DUMPER7_ASSERTS_AGameState;
 
 // Class Engine.MaterialExpressionSkyAtmosphereViewLuminance
 // 0x0000 (0x0040 - 0x0040)
@@ -8990,6 +9214,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSkyAtmosphereViewLuminance>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSkyAtmosphereViewLuminance;
 
 // Class Engine.InterpFilter
 // 0x0010 (0x0038 - 0x0028)
@@ -9012,6 +9237,7 @@ public:
 		return GetDefaultObjImpl<UInterpFilter>();
 	}
 };
+DUMPER7_ASSERTS_UInterpFilter;
 
 // Class Engine.ApplicationLifecycleComponent
 // 0x0090 (0x0140 - 0x00B0)
@@ -9042,6 +9268,7 @@ public:
 		return GetDefaultObjImpl<UApplicationLifecycleComponent>();
 	}
 };
+DUMPER7_ASSERTS_UApplicationLifecycleComponent;
 
 // Class Engine.DestructibleInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -9070,6 +9297,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IDestructibleInterface;
 
 // Class Engine.PackageMapClient
 // 0x0328 (0x0408 - 0x00E0)
@@ -9092,6 +9320,7 @@ public:
 		return GetDefaultObjImpl<UPackageMapClient>();
 	}
 };
+DUMPER7_ASSERTS_UPackageMapClient;
 
 // Class Engine.MaterialExpressionArctangentFast
 // 0x0018 (0x0058 - 0x0040)
@@ -9115,6 +9344,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionArctangentFast>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionArctangentFast;
 
 // Class Engine.NavigationObjectBase
 // 0x0028 (0x0248 - 0x0220)
@@ -9142,6 +9372,7 @@ public:
 		return GetDefaultObjImpl<ANavigationObjectBase>();
 	}
 };
+DUMPER7_ASSERTS_ANavigationObjectBase;
 
 // Class Engine.PlayerStart
 // 0x0008 (0x0250 - 0x0248)
@@ -9164,6 +9395,7 @@ public:
 		return GetDefaultObjImpl<APlayerStart>();
 	}
 };
+DUMPER7_ASSERTS_APlayerStart;
 
 // Class Engine.PlayerStartPIE
 // 0x0000 (0x0250 - 0x0250)
@@ -9183,6 +9415,7 @@ public:
 		return GetDefaultObjImpl<APlayerStartPIE>();
 	}
 };
+DUMPER7_ASSERTS_APlayerStartPIE;
 
 // Class Engine.CharacterMovementComponent
 // 0x09B8 (0x0AF0 - 0x0138)
@@ -9414,6 +9647,7 @@ public:
 		return GetDefaultObjImpl<UCharacterMovementComponent>();
 	}
 };
+DUMPER7_ASSERTS_UCharacterMovementComponent;
 
 // Class Engine.TimecodeProvider
 // 0x0008 (0x0030 - 0x0028)
@@ -9448,6 +9682,7 @@ public:
 		return GetDefaultObjImpl<UTimecodeProvider>();
 	}
 };
+DUMPER7_ASSERTS_UTimecodeProvider;
 
 // Class Engine.AnimNotify_ResetClothingSimulation
 // 0x0000 (0x0038 - 0x0038)
@@ -9467,6 +9702,7 @@ public:
 		return GetDefaultObjImpl<UAnimNotify_ResetClothingSimulation>();
 	}
 };
+DUMPER7_ASSERTS_UAnimNotify_ResetClothingSimulation;
 
 // Class Engine.LevelStreamingAlwaysLoaded
 // 0x0000 (0x0150 - 0x0150)
@@ -9486,6 +9722,7 @@ public:
 		return GetDefaultObjImpl<ULevelStreamingAlwaysLoaded>();
 	}
 };
+DUMPER7_ASSERTS_ULevelStreamingAlwaysLoaded;
 
 // Class Engine.SoundEffectPreset
 // 0x0040 (0x0068 - 0x0028)
@@ -9508,6 +9745,7 @@ public:
 		return GetDefaultObjImpl<USoundEffectPreset>();
 	}
 };
+DUMPER7_ASSERTS_USoundEffectPreset;
 
 // Class Engine.KismetMaterialLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -9534,6 +9772,7 @@ public:
 		return GetDefaultObjImpl<UKismetMaterialLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UKismetMaterialLibrary;
 
 // Class Engine.ParticleModuleVectorFieldScaleOverLife
 // 0x0038 (0x0068 - 0x0030)
@@ -9557,6 +9796,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleVectorFieldScaleOverLife>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleVectorFieldScaleOverLife;
 
 // Class Engine.SoundEffectSourcePreset
 // 0x0000 (0x0068 - 0x0068)
@@ -9576,6 +9816,7 @@ public:
 		return GetDefaultObjImpl<USoundEffectSourcePreset>();
 	}
 };
+DUMPER7_ASSERTS_USoundEffectSourcePreset;
 
 // Class Engine.BlueprintGeneratedClass
 // 0x00F8 (0x0328 - 0x0230)
@@ -9612,6 +9853,7 @@ public:
 		return GetDefaultObjImpl<UBlueprintGeneratedClass>();
 	}
 };
+DUMPER7_ASSERTS_UBlueprintGeneratedClass;
 
 // Class Engine.AnimBlueprintGeneratedClass
 // 0x0288 (0x05B0 - 0x0328)
@@ -9644,6 +9886,7 @@ public:
 		return GetDefaultObjImpl<UAnimBlueprintGeneratedClass>();
 	}
 };
+DUMPER7_ASSERTS_UAnimBlueprintGeneratedClass;
 
 // Class Engine.LevelStreamingVolume
 // 0x0018 (0x0270 - 0x0258)
@@ -9671,6 +9914,7 @@ public:
 		return GetDefaultObjImpl<ALevelStreamingVolume>();
 	}
 };
+DUMPER7_ASSERTS_ALevelStreamingVolume;
 
 // Class Engine.SoundEffectSubmixPreset
 // 0x0000 (0x0068 - 0x0068)
@@ -9690,6 +9934,7 @@ public:
 		return GetDefaultObjImpl<USoundEffectSubmixPreset>();
 	}
 };
+DUMPER7_ASSERTS_USoundEffectSubmixPreset;
 
 // Class Engine.SkyLight
 // 0x0010 (0x0230 - 0x0220)
@@ -9717,6 +9962,7 @@ public:
 		return GetDefaultObjImpl<ASkyLight>();
 	}
 };
+DUMPER7_ASSERTS_ASkyLight;
 
 // Class Engine.MaterialExpressionObjectOrientation
 // 0x0000 (0x0040 - 0x0040)
@@ -9736,6 +9982,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionObjectOrientation>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionObjectOrientation;
 
 // Class Engine.TextureCube
 // 0x0050 (0x01D0 - 0x0180)
@@ -9758,6 +10005,7 @@ public:
 		return GetDefaultObjImpl<UTextureCube>();
 	}
 };
+DUMPER7_ASSERTS_UTextureCube;
 
 // Class Engine.StaticMeshComponent
 // 0x0060 (0x04E0 - 0x0480)
@@ -9816,6 +10064,7 @@ public:
 		return GetDefaultObjImpl<UStaticMeshComponent>();
 	}
 };
+DUMPER7_ASSERTS_UStaticMeshComponent;
 
 // Class Engine.MaterialExpressionEyeAdaptation
 // 0x0000 (0x0040 - 0x0040)
@@ -9835,6 +10084,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionEyeAdaptation>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionEyeAdaptation;
 
 // Class Engine.InstancedStaticMeshComponent
 // 0x00B0 (0x0590 - 0x04E0)
@@ -9887,6 +10137,7 @@ public:
 		return GetDefaultObjImpl<UInstancedStaticMeshComponent>();
 	}
 };
+DUMPER7_ASSERTS_UInstancedStaticMeshComponent;
 
 // Class Engine.SkeletalMeshSimplificationSettings
 // 0x0008 (0x0040 - 0x0038)
@@ -9909,11 +10160,12 @@ public:
 		return GetDefaultObjImpl<USkeletalMeshSimplificationSettings>();
 	}
 };
+DUMPER7_ASSERTS_USkeletalMeshSimplificationSettings;
 
 // Class Engine.HierarchicalInstancedStaticMeshComponent
 // 0x00F0 (0x0680 - 0x0590)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) UHierarchicalInstancedStaticMeshComponent : public UInstancedStaticMeshComponent
+class alignas(0x10) UHierarchicalInstancedStaticMeshComponent : public UInstancedStaticMeshComponent
 {
 public:
 	uint8                                         Pad_590[0x8];                                      // 0x0590(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
@@ -9950,6 +10202,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_UHierarchicalInstancedStaticMeshComponent;
 
 // Class Engine.MaterialExpressionQualitySwitch
 // 0x0068 (0x00A8 - 0x0040)
@@ -9974,6 +10227,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionQualitySwitch>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionQualitySwitch;
 
 // Class Engine.StaticMeshActor
 // 0x0010 (0x0230 - 0x0220)
@@ -10002,6 +10256,7 @@ public:
 		return GetDefaultObjImpl<AStaticMeshActor>();
 	}
 };
+DUMPER7_ASSERTS_AStaticMeshActor;
 
 // Class Engine.MaterialExpressionPanner
 // 0x0050 (0x0090 - 0x0040)
@@ -10031,6 +10286,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionPanner>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionPanner;
 
 // Class Engine.MaterialInstance
 // 0x0288 (0x0310 - 0x0088)
@@ -10069,6 +10325,7 @@ public:
 		return GetDefaultObjImpl<UMaterialInstance>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialInstance;
 
 // Class Engine.MaterialExpressionRuntimeVirtualTextureSample
 // 0x0050 (0x0090 - 0x0040)
@@ -10101,6 +10358,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionRuntimeVirtualTextureSample>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionRuntimeVirtualTextureSample;
 
 // Class Engine.MaterialInstanceConstant
 // 0x0008 (0x0318 - 0x0310)
@@ -10128,6 +10386,7 @@ public:
 		return GetDefaultObjImpl<UMaterialInstanceConstant>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialInstanceConstant;
 
 // Class Engine.MaterialExpressionParticleRadius
 // 0x0000 (0x0040 - 0x0040)
@@ -10147,6 +10406,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionParticleRadius>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionParticleRadius;
 
 // Class Engine.MaterialExpressionCustomOutput
 // 0x0000 (0x0040 - 0x0040)
@@ -10166,6 +10426,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionCustomOutput>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionCustomOutput;
 
 // Class Engine.EngineCustomTimeStep
 // 0x0000 (0x0028 - 0x0028)
@@ -10185,6 +10446,7 @@ public:
 		return GetDefaultObjImpl<UEngineCustomTimeStep>();
 	}
 };
+DUMPER7_ASSERTS_UEngineCustomTimeStep;
 
 // Class Engine.InterpTrackEvent
 // 0x0018 (0x0088 - 0x0070)
@@ -10212,6 +10474,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackEvent>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackEvent;
 
 // Class Engine.ArrowComponent
 // 0x0020 (0x0470 - 0x0450)
@@ -10243,6 +10506,7 @@ public:
 		return GetDefaultObjImpl<UArrowComponent>();
 	}
 };
+DUMPER7_ASSERTS_UArrowComponent;
 
 // Class Engine.DynamicBlueprintBinding
 // 0x0000 (0x0028 - 0x0028)
@@ -10262,6 +10526,7 @@ public:
 		return GetDefaultObjImpl<UDynamicBlueprintBinding>();
 	}
 };
+DUMPER7_ASSERTS_UDynamicBlueprintBinding;
 
 // Class Engine.CameraComponent
 // 0x05D0 (0x07D0 - 0x0200)
@@ -10312,6 +10577,7 @@ public:
 		return GetDefaultObjImpl<UCameraComponent>();
 	}
 };
+DUMPER7_ASSERTS_UCameraComponent;
 
 // Class Engine.CameraShakeSourceActor
 // 0x0008 (0x0228 - 0x0220)
@@ -10334,6 +10600,7 @@ public:
 		return GetDefaultObjImpl<ACameraShakeSourceActor>();
 	}
 };
+DUMPER7_ASSERTS_ACameraShakeSourceActor;
 
 // Class Engine.Model
 // 0x0230 (0x0258 - 0x0028)
@@ -10356,6 +10623,7 @@ public:
 		return GetDefaultObjImpl<UModel>();
 	}
 };
+DUMPER7_ASSERTS_UModel;
 
 // Class Engine.ActorChannel
 // 0x0228 (0x0290 - 0x0068)
@@ -10381,6 +10649,7 @@ public:
 		return GetDefaultObjImpl<UActorChannel>();
 	}
 };
+DUMPER7_ASSERTS_UActorChannel;
 
 // Class Engine.MaterialExpressionRayTracingQualitySwitch
 // 0x0028 (0x0068 - 0x0040)
@@ -10404,6 +10673,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionRayTracingQualitySwitch>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionRayTracingQualitySwitch;
 
 // Class Engine.MaterialExpressionCosine
 // 0x0018 (0x0058 - 0x0040)
@@ -10427,6 +10697,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionCosine>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionCosine;
 
 // Class Engine.BlendSpace
 // 0x0008 (0x0150 - 0x0148)
@@ -10450,6 +10721,7 @@ public:
 		return GetDefaultObjImpl<UBlendSpace>();
 	}
 };
+DUMPER7_ASSERTS_UBlendSpace;
 
 // Class Engine.SoundSubmixBase
 // 0x0010 (0x0038 - 0x0028)
@@ -10472,6 +10744,7 @@ public:
 		return GetDefaultObjImpl<USoundSubmixBase>();
 	}
 };
+DUMPER7_ASSERTS_USoundSubmixBase;
 
 // Class Engine.SoundSubmixWithParentBase
 // 0x0008 (0x0040 - 0x0038)
@@ -10494,6 +10767,7 @@ public:
 		return GetDefaultObjImpl<USoundSubmixWithParentBase>();
 	}
 };
+DUMPER7_ASSERTS_USoundSubmixWithParentBase;
 
 // Class Engine.SoundSubmix
 // 0x0080 (0x00C0 - 0x0040)
@@ -10543,6 +10817,7 @@ public:
 		return GetDefaultObjImpl<USoundSubmix>();
 	}
 };
+DUMPER7_ASSERTS_USoundSubmix;
 
 // Class Engine.ParticleModuleSubUV
 // 0x0040 (0x0070 - 0x0030)
@@ -10568,6 +10843,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleSubUV>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleSubUV;
 
 // Class Engine.ParticleModuleSubUVMovie
 // 0x0040 (0x00B0 - 0x0070)
@@ -10594,6 +10870,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleSubUVMovie>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleSubUVMovie;
 
 // Class Engine.AimOffsetBlendSpace
 // 0x0000 (0x0150 - 0x0150)
@@ -10613,6 +10890,7 @@ public:
 		return GetDefaultObjImpl<UAimOffsetBlendSpace>();
 	}
 };
+DUMPER7_ASSERTS_UAimOffsetBlendSpace;
 
 // Class Engine.MaterialExpressionParticlePositionWS
 // 0x0000 (0x0040 - 0x0040)
@@ -10632,6 +10910,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionParticlePositionWS>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionParticlePositionWS;
 
 // Class Engine.AISystemBase
 // 0x0030 (0x0058 - 0x0028)
@@ -10658,6 +10937,7 @@ public:
 		return GetDefaultObjImpl<UAISystemBase>();
 	}
 };
+DUMPER7_ASSERTS_UAISystemBase;
 
 // Class Engine.VirtualTexture2D
 // 0x0010 (0x01B0 - 0x01A0)
@@ -10683,6 +10963,7 @@ public:
 		return GetDefaultObjImpl<UVirtualTexture2D>();
 	}
 };
+DUMPER7_ASSERTS_UVirtualTexture2D;
 
 // Class Engine.AmbientSound
 // 0x0008 (0x0228 - 0x0220)
@@ -10712,6 +10993,7 @@ public:
 		return GetDefaultObjImpl<AAmbientSound>();
 	}
 };
+DUMPER7_ASSERTS_AAmbientSound;
 
 // Class Engine.AnimationSettings
 // 0x0098 (0x00D0 - 0x0038)
@@ -10749,6 +11031,7 @@ public:
 		return GetDefaultObjImpl<UAnimationSettings>();
 	}
 };
+DUMPER7_ASSERTS_UAnimationSettings;
 
 // Class Engine.LineBatchComponent
 // 0x0040 (0x0490 - 0x0450)
@@ -10771,6 +11054,7 @@ public:
 		return GetDefaultObjImpl<ULineBatchComponent>();
 	}
 };
+DUMPER7_ASSERTS_ULineBatchComponent;
 
 // Class Engine.StereoLayerShape
 // 0x0000 (0x0028 - 0x0028)
@@ -10790,6 +11074,7 @@ public:
 		return GetDefaultObjImpl<UStereoLayerShape>();
 	}
 };
+DUMPER7_ASSERTS_UStereoLayerShape;
 
 // Class Engine.AnimBlueprint
 // 0x0028 (0x00C8 - 0x00A0)
@@ -10817,6 +11102,7 @@ public:
 		return GetDefaultObjImpl<UAnimBlueprint>();
 	}
 };
+DUMPER7_ASSERTS_UAnimBlueprint;
 
 // Class Engine.AnimBoneCompressionSettings
 // 0x0010 (0x0038 - 0x0028)
@@ -10839,6 +11125,7 @@ public:
 		return GetDefaultObjImpl<UAnimBoneCompressionSettings>();
 	}
 };
+DUMPER7_ASSERTS_UAnimBoneCompressionSettings;
 
 // Class Engine.VirtualTexture
 // 0x0000 (0x0028 - 0x0028)
@@ -10858,6 +11145,7 @@ public:
 		return GetDefaultObjImpl<UVirtualTexture>();
 	}
 };
+DUMPER7_ASSERTS_UVirtualTexture;
 
 // Class Engine.LightMapVirtualTexture
 // 0x0000 (0x0028 - 0x0028)
@@ -10877,6 +11165,7 @@ public:
 		return GetDefaultObjImpl<ULightMapVirtualTexture>();
 	}
 };
+DUMPER7_ASSERTS_ULightMapVirtualTexture;
 
 // Class Engine.AnimClassInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -10905,6 +11194,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IAnimClassInterface;
 
 // Class Engine.AnimSequenceBase
 // 0x0028 (0x00A8 - 0x0080)
@@ -10933,6 +11223,7 @@ public:
 		return GetDefaultObjImpl<UAnimSequenceBase>();
 	}
 };
+DUMPER7_ASSERTS_UAnimSequenceBase;
 
 // Class Engine.AnimCompositeBase
 // 0x0000 (0x00A8 - 0x00A8)
@@ -10952,6 +11243,7 @@ public:
 		return GetDefaultObjImpl<UAnimCompositeBase>();
 	}
 };
+DUMPER7_ASSERTS_UAnimCompositeBase;
 
 // Class Engine.MaterialExpressionSceneDepth
 // 0x0038 (0x0078 - 0x0040)
@@ -10979,6 +11271,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSceneDepth>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSceneDepth;
 
 // Class Engine.AnimComposite
 // 0x0010 (0x00B8 - 0x00A8)
@@ -11001,6 +11294,7 @@ public:
 		return GetDefaultObjImpl<UAnimComposite>();
 	}
 };
+DUMPER7_ASSERTS_UAnimComposite;
 
 // Class Engine.MaterialExpressionDistanceCullFade
 // 0x0000 (0x0040 - 0x0040)
@@ -11020,6 +11314,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDistanceCullFade>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDistanceCullFade;
 
 // Class Engine.AnimCompress_BitwiseCompressOnly
 // 0x0000 (0x0040 - 0x0040)
@@ -11039,6 +11334,7 @@ public:
 		return GetDefaultObjImpl<UAnimCompress_BitwiseCompressOnly>();
 	}
 };
+DUMPER7_ASSERTS_UAnimCompress_BitwiseCompressOnly;
 
 // Class Engine.AnimCompress_LeastDestructive
 // 0x0000 (0x0040 - 0x0040)
@@ -11058,6 +11354,7 @@ public:
 		return GetDefaultObjImpl<UAnimCompress_LeastDestructive>();
 	}
 };
+DUMPER7_ASSERTS_UAnimCompress_LeastDestructive;
 
 // Class Engine.MaterialExpressionPreSkinnedNormal
 // 0x0000 (0x0040 - 0x0040)
@@ -11077,6 +11374,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionPreSkinnedNormal>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionPreSkinnedNormal;
 
 // Class Engine.AnimCompress_RemoveLinearKeys
 // 0x0020 (0x0060 - 0x0040)
@@ -11108,6 +11406,7 @@ public:
 		return GetDefaultObjImpl<UAnimCompress_RemoveLinearKeys>();
 	}
 };
+DUMPER7_ASSERTS_UAnimCompress_RemoveLinearKeys;
 
 // Class Engine.AnimCompress_PerTrackCompression
 // 0x0078 (0x00D8 - 0x0060)
@@ -11154,6 +11453,7 @@ public:
 		return GetDefaultObjImpl<UAnimCompress_PerTrackCompression>();
 	}
 };
+DUMPER7_ASSERTS_UAnimCompress_PerTrackCompression;
 
 // Class Engine.MaterialExpressionDepthOfFieldFunction
 // 0x0018 (0x0058 - 0x0040)
@@ -11178,6 +11478,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDepthOfFieldFunction>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDepthOfFieldFunction;
 
 // Class Engine.AnimCompress_RemoveEverySecondKey
 // 0x0008 (0x0048 - 0x0040)
@@ -11202,6 +11503,7 @@ public:
 		return GetDefaultObjImpl<UAnimCompress_RemoveEverySecondKey>();
 	}
 };
+DUMPER7_ASSERTS_UAnimCompress_RemoveEverySecondKey;
 
 // Class Engine.AnimCurveCompressionCodec_CompressedRichCurve
 // 0x0000 (0x0028 - 0x0028)
@@ -11221,6 +11523,7 @@ public:
 		return GetDefaultObjImpl<UAnimCurveCompressionCodec_CompressedRichCurve>();
 	}
 };
+DUMPER7_ASSERTS_UAnimCurveCompressionCodec_CompressedRichCurve;
 
 // Class Engine.MaterialExpressionArcsineFast
 // 0x0018 (0x0058 - 0x0040)
@@ -11244,6 +11547,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionArcsineFast>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionArcsineFast;
 
 // Class Engine.Texture2DArray
 // 0x0060 (0x01E0 - 0x0180)
@@ -11270,6 +11574,7 @@ public:
 		return GetDefaultObjImpl<UTexture2DArray>();
 	}
 };
+DUMPER7_ASSERTS_UTexture2DArray;
 
 // Class Engine.AnimCurveCompressionCodec_UniformIndexable
 // 0x0000 (0x0028 - 0x0028)
@@ -11289,6 +11594,7 @@ public:
 		return GetDefaultObjImpl<UAnimCurveCompressionCodec_UniformIndexable>();
 	}
 };
+DUMPER7_ASSERTS_UAnimCurveCompressionCodec_UniformIndexable;
 
 // Class Engine.InterpTrackVectorBase
 // 0x0020 (0x0090 - 0x0070)
@@ -11313,6 +11619,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackVectorBase>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackVectorBase;
 
 // Class Engine.InterpTrackColorScale
 // 0x0000 (0x0090 - 0x0090)
@@ -11332,6 +11639,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackColorScale>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackColorScale;
 
 // Class Engine.ParticleModuleRotationBase
 // 0x0000 (0x0030 - 0x0030)
@@ -11351,6 +11659,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleRotationBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleRotationBase;
 
 // Class Engine.ParticleModuleMeshRotation
 // 0x0050 (0x0080 - 0x0030)
@@ -11376,6 +11685,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleMeshRotation>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleMeshRotation;
 
 // Class Engine.ParticleModuleMeshRotation_Seeded
 // 0x0020 (0x00A0 - 0x0080)
@@ -11398,6 +11708,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleMeshRotation_Seeded>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleMeshRotation_Seeded;
 
 // Class Engine.AnimCurveCompressionCodec_UniformlySampled
 // 0x0000 (0x0028 - 0x0028)
@@ -11417,6 +11728,7 @@ public:
 		return GetDefaultObjImpl<UAnimCurveCompressionCodec_UniformlySampled>();
 	}
 };
+DUMPER7_ASSERTS_UAnimCurveCompressionCodec_UniformlySampled;
 
 // Class Engine.AnimCurveCompressionSettings
 // 0x0008 (0x0030 - 0x0028)
@@ -11439,6 +11751,7 @@ public:
 		return GetDefaultObjImpl<UAnimCurveCompressionSettings>();
 	}
 };
+DUMPER7_ASSERTS_UAnimCurveCompressionSettings;
 
 // Class Engine.AnimLayerInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -11467,6 +11780,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IAnimLayerInterface;
 
 // Class Engine.LightmassImportanceVolume
 // 0x0000 (0x0258 - 0x0258)
@@ -11486,11 +11800,12 @@ public:
 		return GetDefaultObjImpl<ALightmassImportanceVolume>();
 	}
 };
+DUMPER7_ASSERTS_ALightmassImportanceVolume;
 
 // Class Engine.PointLightComponent
 // 0x0020 (0x0360 - 0x0340)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) UPointLightComponent : public ULocalLightComponent
+class alignas(0x10) UPointLightComponent : public ULocalLightComponent
 {
 public:
 	uint8                                         bUseInverseSquaredFalloff : 1;                     // 0x0340(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Edit, BlueprintVisible, BlueprintReadOnly, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic))
@@ -11522,6 +11837,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_UPointLightComponent;
 
 // Class Engine.SpotLightComponent
 // 0x0000 (0x0360 - 0x0360)
@@ -11549,6 +11865,7 @@ public:
 		return GetDefaultObjImpl<USpotLightComponent>();
 	}
 };
+DUMPER7_ASSERTS_USpotLightComponent;
 
 // Class Engine.AnimMetaData
 // 0x0000 (0x0028 - 0x0028)
@@ -11568,6 +11885,7 @@ public:
 		return GetDefaultObjImpl<UAnimMetaData>();
 	}
 };
+DUMPER7_ASSERTS_UAnimMetaData;
 
 // Class Engine.LevelBounds
 // 0x0010 (0x0230 - 0x0220)
@@ -11592,6 +11910,7 @@ public:
 		return GetDefaultObjImpl<ALevelBounds>();
 	}
 };
+DUMPER7_ASSERTS_ALevelBounds;
 
 // Class Engine.ParticleModuleVectorFieldLocal
 // 0x0038 (0x0068 - 0x0030)
@@ -11625,6 +11944,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleVectorFieldLocal>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleVectorFieldLocal;
 
 // Class Engine.AnimMontage
 // 0x0128 (0x01D0 - 0x00A8)
@@ -11671,6 +11991,7 @@ public:
 		return GetDefaultObjImpl<UAnimMontage>();
 	}
 };
+DUMPER7_ASSERTS_UAnimMontage;
 
 // Class Engine.AnimNotify_PauseClothingSimulation
 // 0x0000 (0x0038 - 0x0038)
@@ -11690,6 +12011,7 @@ public:
 		return GetDefaultObjImpl<UAnimNotify_PauseClothingSimulation>();
 	}
 };
+DUMPER7_ASSERTS_UAnimNotify_PauseClothingSimulation;
 
 // Class Engine.AnimNotify_PlayParticleEffect
 // 0x0058 (0x0090 - 0x0038)
@@ -11720,6 +12042,7 @@ public:
 		return GetDefaultObjImpl<UAnimNotify_PlayParticleEffect>();
 	}
 };
+DUMPER7_ASSERTS_UAnimNotify_PlayParticleEffect;
 
 // Class Engine.MaterialExpressionComponentMask
 // 0x0018 (0x0058 - 0x0040)
@@ -11747,6 +12070,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionComponentMask>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionComponentMask;
 
 // Class Engine.MaterialExpressionSamplePhysicsScalarField
 // 0x0018 (0x0058 - 0x0040)
@@ -11771,6 +12095,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSamplePhysicsScalarField>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSamplePhysicsScalarField;
 
 // Class Engine.AnimNotify_ResumeClothingSimulation
 // 0x0000 (0x0038 - 0x0038)
@@ -11790,6 +12115,7 @@ public:
 		return GetDefaultObjImpl<UAnimNotify_ResumeClothingSimulation>();
 	}
 };
+DUMPER7_ASSERTS_UAnimNotify_ResumeClothingSimulation;
 
 // Class Engine.AnimNotifyState_DisableRootMotion
 // 0x0000 (0x0030 - 0x0030)
@@ -11809,6 +12135,7 @@ public:
 		return GetDefaultObjImpl<UAnimNotifyState_DisableRootMotion>();
 	}
 };
+DUMPER7_ASSERTS_UAnimNotifyState_DisableRootMotion;
 
 // Class Engine.AnimNotifyState_TimedParticleEffect
 // 0x0030 (0x0060 - 0x0030)
@@ -11836,6 +12163,7 @@ public:
 		return GetDefaultObjImpl<UAnimNotifyState_TimedParticleEffect>();
 	}
 };
+DUMPER7_ASSERTS_UAnimNotifyState_TimedParticleEffect;
 
 // Class Engine.PhysicalMaterialMask
 // 0x0008 (0x0030 - 0x0028)
@@ -11861,6 +12189,7 @@ public:
 		return GetDefaultObjImpl<UPhysicalMaterialMask>();
 	}
 };
+DUMPER7_ASSERTS_UPhysicalMaterialMask;
 
 // Class Engine.AnimNotifyState_Trail
 // 0x0028 (0x0058 - 0x0030)
@@ -11893,6 +12222,7 @@ public:
 		return GetDefaultObjImpl<UAnimNotifyState_Trail>();
 	}
 };
+DUMPER7_ASSERTS_UAnimNotifyState_Trail;
 
 // Class Engine.AnimSequence
 // 0x0118 (0x01C0 - 0x00A8)
@@ -11939,6 +12269,7 @@ public:
 		return GetDefaultObjImpl<UAnimSequence>();
 	}
 };
+DUMPER7_ASSERTS_UAnimSequence;
 
 // Class Engine.ViewportStatsSubsystem
 // 0x0020 (0x0050 - 0x0030)
@@ -11966,6 +12297,7 @@ public:
 		return GetDefaultObjImpl<UViewportStatsSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UViewportStatsSubsystem;
 
 // Class Engine.AnimStateMachineTypes
 // 0x0000 (0x0028 - 0x0028)
@@ -11985,6 +12317,7 @@ public:
 		return GetDefaultObjImpl<UAnimStateMachineTypes>();
 	}
 };
+DUMPER7_ASSERTS_UAnimStateMachineTypes;
 
 // Class Engine.AnimStreamable
 // 0x0038 (0x00E0 - 0x00A8)
@@ -12018,6 +12351,7 @@ public:
 		return GetDefaultObjImpl<UAnimStreamable>();
 	}
 };
+DUMPER7_ASSERTS_UAnimStreamable;
 
 // Class Engine.MaterialExpressionFresnel
 // 0x0048 (0x0088 - 0x0040)
@@ -12045,6 +12379,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionFresnel>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionFresnel;
 
 // Class Engine.AssetManager
 // 0x0450 (0x0478 - 0x0028)
@@ -12082,6 +12417,7 @@ public:
 		return GetDefaultObjImpl<UAssetManager>();
 	}
 };
+DUMPER7_ASSERTS_UAssetManager;
 
 // Class Engine.AssetManagerSettings
 // 0x00C8 (0x0100 - 0x0038)
@@ -12116,6 +12452,7 @@ public:
 		return GetDefaultObjImpl<UAssetManagerSettings>();
 	}
 };
+DUMPER7_ASSERTS_UAssetManagerSettings;
 
 // Class Engine.MaterialExpressionDeltaTime
 // 0x0000 (0x0040 - 0x0040)
@@ -12135,6 +12472,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDeltaTime>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDeltaTime;
 
 // Class Engine.VolumetricCloudComponent
 // 0x0040 (0x0240 - 0x0200)
@@ -12190,6 +12528,7 @@ public:
 		return GetDefaultObjImpl<UVolumetricCloudComponent>();
 	}
 };
+DUMPER7_ASSERTS_UVolumetricCloudComponent;
 
 // Class Engine.AssetMappingTable
 // 0x0010 (0x0038 - 0x0028)
@@ -12212,6 +12551,7 @@ public:
 		return GetDefaultObjImpl<UAssetMappingTable>();
 	}
 };
+DUMPER7_ASSERTS_UAssetMappingTable;
 
 // Class Engine.AsyncActionHandleSaveGame
 // 0x0038 (0x0068 - 0x0030)
@@ -12240,6 +12580,7 @@ public:
 		return GetDefaultObjImpl<UAsyncActionHandleSaveGame>();
 	}
 };
+DUMPER7_ASSERTS_UAsyncActionHandleSaveGame;
 
 // Class Engine.MaterialExpressionSingleLayerWaterMaterialOutput
 // 0x0050 (0x0090 - 0x0040)
@@ -12265,6 +12606,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSingleLayerWaterMaterialOutput>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSingleLayerWaterMaterialOutput;
 
 // Class Engine.AsyncActionLoadPrimaryAsset
 // 0x0010 (0x0088 - 0x0078)
@@ -12290,6 +12632,7 @@ public:
 		return GetDefaultObjImpl<UAsyncActionLoadPrimaryAsset>();
 	}
 };
+DUMPER7_ASSERTS_UAsyncActionLoadPrimaryAsset;
 
 // Class Engine.InterpTrackFloatMaterialParam
 // 0x0018 (0x00A8 - 0x0090)
@@ -12313,6 +12656,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackFloatMaterialParam>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackFloatMaterialParam;
 
 // Class Engine.AsyncActionLoadPrimaryAssetClass
 // 0x0010 (0x0088 - 0x0078)
@@ -12338,6 +12682,7 @@ public:
 		return GetDefaultObjImpl<UAsyncActionLoadPrimaryAssetClass>();
 	}
 };
+DUMPER7_ASSERTS_UAsyncActionLoadPrimaryAssetClass;
 
 // Class Engine.SoundNodeDoppler
 // 0x0010 (0x0058 - 0x0048)
@@ -12364,6 +12709,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeDoppler>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeDoppler;
 
 // Class Engine.AsyncActionLoadPrimaryAssetList
 // 0x0010 (0x0088 - 0x0078)
@@ -12389,6 +12735,7 @@ public:
 		return GetDefaultObjImpl<UAsyncActionLoadPrimaryAssetList>();
 	}
 };
+DUMPER7_ASSERTS_UAsyncActionLoadPrimaryAssetList;
 
 // Class Engine.AsyncActionLoadPrimaryAssetClassList
 // 0x0010 (0x0088 - 0x0078)
@@ -12414,6 +12761,7 @@ public:
 		return GetDefaultObjImpl<UAsyncActionLoadPrimaryAssetClassList>();
 	}
 };
+DUMPER7_ASSERTS_UAsyncActionLoadPrimaryAssetClassList;
 
 // Class Engine.AsyncActionChangePrimaryAssetBundles
 // 0x0010 (0x0088 - 0x0078)
@@ -12440,6 +12788,7 @@ public:
 		return GetDefaultObjImpl<UAsyncActionChangePrimaryAssetBundles>();
 	}
 };
+DUMPER7_ASSERTS_UAsyncActionChangePrimaryAssetBundles;
 
 // Class Engine.MaterialExpressionScalarParameter
 // 0x0008 (0x0060 - 0x0058)
@@ -12465,6 +12814,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionScalarParameter>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionScalarParameter;
 
 // Class Engine.VirtualTexturePoolConfig
 // 0x0018 (0x0040 - 0x0028)
@@ -12489,6 +12839,7 @@ public:
 		return GetDefaultObjImpl<UVirtualTexturePoolConfig>();
 	}
 };
+DUMPER7_ASSERTS_UVirtualTexturePoolConfig;
 
 // Class Engine.AtmosphericFog
 // 0x0008 (0x0228 - 0x0220)
@@ -12511,6 +12862,7 @@ public:
 		return GetDefaultObjImpl<AAtmosphericFog>();
 	}
 };
+DUMPER7_ASSERTS_AAtmosphericFog;
 
 // Class Engine.AtmosphericFogComponent
 // 0x0100 (0x0300 - 0x0200)
@@ -12568,6 +12920,7 @@ public:
 		return GetDefaultObjImpl<UAtmosphericFogComponent>();
 	}
 };
+DUMPER7_ASSERTS_UAtmosphericFogComponent;
 
 // Class Engine.AudioBus
 // 0x0008 (0x0030 - 0x0028)
@@ -12591,6 +12944,7 @@ public:
 		return GetDefaultObjImpl<UAudioBus>();
 	}
 };
+DUMPER7_ASSERTS_UAudioBus;
 
 // Class Engine.MaterialExpressionScreenPosition
 // 0x0000 (0x0040 - 0x0040)
@@ -12610,6 +12964,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionScreenPosition>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionScreenPosition;
 
 // Class Engine.AudioSettings
 // 0x0160 (0x0198 - 0x0038)
@@ -12662,6 +13017,7 @@ public:
 		return GetDefaultObjImpl<UAudioSettings>();
 	}
 };
+DUMPER7_ASSERTS_UAudioSettings;
 
 // Class Engine.AudioVolume
 // 0x0070 (0x02C8 - 0x0258)
@@ -12700,6 +13056,7 @@ public:
 		return GetDefaultObjImpl<AAudioVolume>();
 	}
 };
+DUMPER7_ASSERTS_AAudioVolume;
 
 // Class Engine.AutoDestroySubsystem
 // 0x0010 (0x0050 - 0x0040)
@@ -12725,6 +13082,7 @@ public:
 		return GetDefaultObjImpl<UAutoDestroySubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UAutoDestroySubsystem;
 
 // Class Engine.AutomationTestSettings
 // 0x0318 (0x0340 - 0x0028)
@@ -12763,6 +13121,7 @@ public:
 		return GetDefaultObjImpl<UAutomationTestSettings>();
 	}
 };
+DUMPER7_ASSERTS_UAutomationTestSettings;
 
 // Class Engine.InterpGroup
 // 0x0028 (0x0050 - 0x0028)
@@ -12794,6 +13153,7 @@ public:
 		return GetDefaultObjImpl<UInterpGroup>();
 	}
 };
+DUMPER7_ASSERTS_UInterpGroup;
 
 // Class Engine.InterpGroupCamera
 // 0x0010 (0x0060 - 0x0050)
@@ -12818,6 +13178,7 @@ public:
 		return GetDefaultObjImpl<UInterpGroupCamera>();
 	}
 };
+DUMPER7_ASSERTS_UInterpGroupCamera;
 
 // Class Engine.AvoidanceManager
 // 0x00B8 (0x00E0 - 0x0028)
@@ -12854,6 +13215,7 @@ public:
 		return GetDefaultObjImpl<UAvoidanceManager>();
 	}
 };
+DUMPER7_ASSERTS_UAvoidanceManager;
 
 // Class Engine.InterpTrackInstSlomo
 // 0x0008 (0x0030 - 0x0028)
@@ -12877,6 +13239,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstSlomo>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstSlomo;
 
 // Class Engine.BandwidthTestActor
 // 0x0020 (0x0240 - 0x0220)
@@ -12899,6 +13262,7 @@ public:
 		return GetDefaultObjImpl<ABandwidthTestActor>();
 	}
 };
+DUMPER7_ASSERTS_ABandwidthTestActor;
 
 // Class Engine.BillboardComponent
 // 0x0020 (0x0470 - 0x0450)
@@ -12933,6 +13297,7 @@ public:
 		return GetDefaultObjImpl<UBillboardComponent>();
 	}
 };
+DUMPER7_ASSERTS_UBillboardComponent;
 
 // Class Engine.VisualLoggerDebugSnapshotInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -12961,6 +13326,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IVisualLoggerDebugSnapshotInterface;
 
 // Class Engine.BlendableInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -12989,6 +13355,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IBlendableInterface;
 
 // Class Engine.PrimaryDataAsset
 // 0x0000 (0x0030 - 0x0030)
@@ -13008,6 +13375,7 @@ public:
 		return GetDefaultObjImpl<UPrimaryDataAsset>();
 	}
 };
+DUMPER7_ASSERTS_UPrimaryDataAsset;
 
 // Class Engine.PrimaryAssetLabel
 // 0x0038 (0x0068 - 0x0030)
@@ -13036,6 +13404,7 @@ public:
 		return GetDefaultObjImpl<UPrimaryAssetLabel>();
 	}
 };
+DUMPER7_ASSERTS_UPrimaryAssetLabel;
 
 // Class Engine.Skeleton
 // 0x0368 (0x0390 - 0x0028)
@@ -13071,6 +13440,7 @@ public:
 		return GetDefaultObjImpl<USkeleton>();
 	}
 };
+DUMPER7_ASSERTS_USkeleton;
 
 // Class Engine.MaterialExpressionAntialiasedTextureMask
 // 0x0008 (0x0088 - 0x0080)
@@ -13095,6 +13465,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionAntialiasedTextureMask>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionAntialiasedTextureMask;
 
 // Class Engine.BlendProfile
 // 0x0020 (0x0048 - 0x0028)
@@ -13119,6 +13490,7 @@ public:
 		return GetDefaultObjImpl<UBlendProfile>();
 	}
 };
+DUMPER7_ASSERTS_UBlendProfile;
 
 // Class Engine.ReplaySubsystem
 // 0x0010 (0x0040 - 0x0030)
@@ -13142,6 +13514,7 @@ public:
 		return GetDefaultObjImpl<UReplaySubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UReplaySubsystem;
 
 // Class Engine.BlockingVolume
 // 0x0000 (0x0258 - 0x0258)
@@ -13161,6 +13534,7 @@ public:
 		return GetDefaultObjImpl<ABlockingVolume>();
 	}
 };
+DUMPER7_ASSERTS_ABlockingVolume;
 
 // Class Engine.BlueprintExtension
 // 0x0000 (0x0028 - 0x0028)
@@ -13180,6 +13554,7 @@ public:
 		return GetDefaultObjImpl<UBlueprintExtension>();
 	}
 };
+DUMPER7_ASSERTS_UBlueprintExtension;
 
 // Class Engine.BlueprintMapLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -13210,6 +13585,7 @@ public:
 		return GetDefaultObjImpl<UBlueprintMapLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UBlueprintMapLibrary;
 
 // Class Engine.MaterialExpressionDistanceFieldsRenderingSwitch
 // 0x0028 (0x0068 - 0x0040)
@@ -13233,6 +13609,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDistanceFieldsRenderingSwitch>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDistanceFieldsRenderingSwitch;
 
 // Class Engine.BlueprintPathsLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -13336,6 +13713,7 @@ public:
 		return GetDefaultObjImpl<UBlueprintPathsLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UBlueprintPathsLibrary;
 
 // Class Engine.MaterialExpressionCollectionParameter
 // 0x0020 (0x0060 - 0x0040)
@@ -13360,6 +13738,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionCollectionParameter>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionCollectionParameter;
 
 // Class Engine.PlatformGameInstance
 // 0x00D0 (0x0278 - 0x01A8)
@@ -13394,6 +13773,7 @@ public:
 		return GetDefaultObjImpl<UPlatformGameInstance>();
 	}
 };
+DUMPER7_ASSERTS_UPlatformGameInstance;
 
 // Class Engine.BlueprintPlatformLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -13424,6 +13804,7 @@ public:
 		return GetDefaultObjImpl<UBlueprintPlatformLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UBlueprintPlatformLibrary;
 
 // Class Engine.InterpTrackInstMove
 // 0x0018 (0x0040 - 0x0028)
@@ -13447,6 +13828,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstMove>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstMove;
 
 // Class Engine.MaterialExpressionObjectPositionWS
 // 0x0000 (0x0040 - 0x0040)
@@ -13466,6 +13848,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionObjectPositionWS>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionObjectPositionWS;
 
 // Class Engine.BlueprintSetLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -13499,6 +13882,7 @@ public:
 		return GetDefaultObjImpl<UBlueprintSetLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UBlueprintSetLibrary;
 
 // Class Engine.BoneMaskFilter
 // 0x0010 (0x0038 - 0x0028)
@@ -13521,6 +13905,7 @@ public:
 		return GetDefaultObjImpl<UBoneMaskFilter>();
 	}
 };
+DUMPER7_ASSERTS_UBoneMaskFilter;
 
 // Class Engine.BookmarkBase
 // 0x0000 (0x0028 - 0x0028)
@@ -13540,6 +13925,7 @@ public:
 		return GetDefaultObjImpl<UBookmarkBase>();
 	}
 };
+DUMPER7_ASSERTS_UBookmarkBase;
 
 // Class Engine.InterpTrackFade
 // 0x0018 (0x00A8 - 0x0090)
@@ -13566,6 +13952,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackFade>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackFade;
 
 // Class Engine.SkeletalMeshSocket
 // 0x0038 (0x0060 - 0x0028)
@@ -13599,6 +13986,7 @@ public:
 		return GetDefaultObjImpl<USkeletalMeshSocket>();
 	}
 };
+DUMPER7_ASSERTS_USkeletalMeshSocket;
 
 // Class Engine.BookMark
 // 0x0028 (0x0050 - 0x0028)
@@ -13623,6 +14011,7 @@ public:
 		return GetDefaultObjImpl<UBookMark>();
 	}
 };
+DUMPER7_ASSERTS_UBookMark;
 
 // Class Engine.InterpTrackVisibility
 // 0x0018 (0x0088 - 0x0070)
@@ -13649,6 +14038,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackVisibility>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackVisibility;
 
 // Class Engine.BookMark2D
 // 0x0010 (0x0038 - 0x0028)
@@ -13673,6 +14063,7 @@ public:
 		return GetDefaultObjImpl<UBookMark2D>();
 	}
 };
+DUMPER7_ASSERTS_UBookMark2D;
 
 // Class Engine.SimpleConstructionScript
 // 0x0078 (0x00A0 - 0x0028)
@@ -13698,6 +14089,7 @@ public:
 		return GetDefaultObjImpl<USimpleConstructionScript>();
 	}
 };
+DUMPER7_ASSERTS_USimpleConstructionScript;
 
 // Class Engine.BoundsCopyComponent
 // 0x0070 (0x0120 - 0x00B0)
@@ -13729,6 +14121,7 @@ public:
 		return GetDefaultObjImpl<UBoundsCopyComponent>();
 	}
 };
+DUMPER7_ASSERTS_UBoundsCopyComponent;
 
 // Class Engine.ReflectionCapture
 // 0x0008 (0x0228 - 0x0220)
@@ -13751,6 +14144,7 @@ public:
 		return GetDefaultObjImpl<AReflectionCapture>();
 	}
 };
+DUMPER7_ASSERTS_AReflectionCapture;
 
 // Class Engine.RuntimeOptionsBase
 // 0x0010 (0x0038 - 0x0028)
@@ -13773,6 +14167,7 @@ public:
 		return GetDefaultObjImpl<URuntimeOptionsBase>();
 	}
 };
+DUMPER7_ASSERTS_URuntimeOptionsBase;
 
 // Class Engine.BoxReflectionCapture
 // 0x0000 (0x0228 - 0x0228)
@@ -13792,6 +14187,7 @@ public:
 		return GetDefaultObjImpl<ABoxReflectionCapture>();
 	}
 };
+DUMPER7_ASSERTS_ABoxReflectionCapture;
 
 // Class Engine.InterpTrackSound
 // 0x0018 (0x00A8 - 0x0090)
@@ -13820,6 +14216,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackSound>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackSound;
 
 // Class Engine.HierarchicalLODSetup
 // 0x0038 (0x0060 - 0x0028)
@@ -13843,6 +14240,7 @@ public:
 		return GetDefaultObjImpl<UHierarchicalLODSetup>();
 	}
 };
+DUMPER7_ASSERTS_UHierarchicalLODSetup;
 
 // Class Engine.Breakpoint
 // 0x0018 (0x0040 - 0x0028)
@@ -13871,6 +14269,7 @@ public:
 		return GetDefaultObjImpl<UBreakpoint>();
 	}
 };
+DUMPER7_ASSERTS_UBreakpoint;
 
 // Class Engine.MaterialExpressionGIReplace
 // 0x0040 (0x0080 - 0x0040)
@@ -13896,6 +14295,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionGIReplace>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionGIReplace;
 
 // Class Engine.BrushBuilder
 // 0x0058 (0x0080 - 0x0028)
@@ -13926,6 +14326,7 @@ public:
 		return GetDefaultObjImpl<UBrushBuilder>();
 	}
 };
+DUMPER7_ASSERTS_UBrushBuilder;
 
 // Class Engine.BrushComponent
 // 0x0010 (0x0460 - 0x0450)
@@ -13949,6 +14350,7 @@ public:
 		return GetDefaultObjImpl<UBrushComponent>();
 	}
 };
+DUMPER7_ASSERTS_UBrushComponent;
 
 // Class Engine.LevelStreamingPersistent
 // 0x0000 (0x0150 - 0x0150)
@@ -13968,6 +14370,7 @@ public:
 		return GetDefaultObjImpl<ULevelStreamingPersistent>();
 	}
 };
+DUMPER7_ASSERTS_ULevelStreamingPersistent;
 
 // Class Engine.PhysicsCollisionHandler
 // 0x0018 (0x0040 - 0x0028)
@@ -13994,6 +14397,7 @@ public:
 		return GetDefaultObjImpl<UPhysicsCollisionHandler>();
 	}
 };
+DUMPER7_ASSERTS_UPhysicsCollisionHandler;
 
 // Class Engine.BrushShape
 // 0x0000 (0x0258 - 0x0258)
@@ -14013,6 +14417,7 @@ public:
 		return GetDefaultObjImpl<ABrushShape>();
 	}
 };
+DUMPER7_ASSERTS_ABrushShape;
 
 // Class Engine.ButtonStyleAsset
 // 0x03A8 (0x03D0 - 0x0028)
@@ -14036,6 +14441,7 @@ public:
 		return GetDefaultObjImpl<UButtonStyleAsset>();
 	}
 };
+DUMPER7_ASSERTS_UButtonStyleAsset;
 
 // Class Engine.CameraAnim
 // 0x05A8 (0x05D0 - 0x0028)
@@ -14068,6 +14474,7 @@ public:
 		return GetDefaultObjImpl<UCameraAnim>();
 	}
 };
+DUMPER7_ASSERTS_UCameraAnim;
 
 // Class Engine.MaterialExpressionDesaturation
 // 0x0038 (0x0078 - 0x0040)
@@ -14092,6 +14499,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDesaturation>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDesaturation;
 
 // Class Engine.WindDirectionalSourceComponent
 // 0x0020 (0x0220 - 0x0200)
@@ -14128,6 +14536,7 @@ public:
 		return GetDefaultObjImpl<UWindDirectionalSourceComponent>();
 	}
 };
+DUMPER7_ASSERTS_UWindDirectionalSourceComponent;
 
 // Class Engine.CameraAnimInst
 // 0x00E8 (0x0110 - 0x0028)
@@ -14163,6 +14572,7 @@ public:
 		return GetDefaultObjImpl<UCameraAnimInst>();
 	}
 };
+DUMPER7_ASSERTS_UCameraAnimInst;
 
 // Class Engine.MaterialExpressionCustom
 // 0x0068 (0x00A8 - 0x0040)
@@ -14192,6 +14602,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionCustom>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionCustom;
 
 // Class Engine.CameraBlockingVolume
 // 0x0000 (0x0258 - 0x0258)
@@ -14211,6 +14622,7 @@ public:
 		return GetDefaultObjImpl<ACameraBlockingVolume>();
 	}
 };
+DUMPER7_ASSERTS_ACameraBlockingVolume;
 
 // Class Engine.CameraModifier
 // 0x0020 (0x0048 - 0x0028)
@@ -14251,6 +14663,7 @@ public:
 		return GetDefaultObjImpl<UCameraModifier>();
 	}
 };
+DUMPER7_ASSERTS_UCameraModifier;
 
 // Class Engine.InterpTrackInstFloatMaterialParam
 // 0x0038 (0x0060 - 0x0028)
@@ -14276,6 +14689,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstFloatMaterialParam>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstFloatMaterialParam;
 
 // Class Engine.MaterialExpressionNoise
 // 0x0050 (0x0090 - 0x0040)
@@ -14312,6 +14726,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionNoise>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionNoise;
 
 // Class Engine.CameraModifier_CameraShake
 // 0x0068 (0x00B0 - 0x0048)
@@ -14337,6 +14752,7 @@ public:
 		return GetDefaultObjImpl<UCameraModifier_CameraShake>();
 	}
 };
+DUMPER7_ASSERTS_UCameraModifier_CameraShake;
 
 // Class Engine.CameraShakeSourceComponent
 // 0x0020 (0x0220 - 0x0200)
@@ -14374,6 +14790,7 @@ public:
 		return GetDefaultObjImpl<UCameraShakeSourceComponent>();
 	}
 };
+DUMPER7_ASSERTS_UCameraShakeSourceComponent;
 
 // Class Engine.Canvas
 // 0x02A8 (0x02D0 - 0x0028)
@@ -14427,6 +14844,7 @@ public:
 		return GetDefaultObjImpl<UCanvas>();
 	}
 };
+DUMPER7_ASSERTS_UCanvas;
 
 // Class Engine.SkeletalMeshActor
 // 0x0088 (0x02A8 - 0x0220)
@@ -14464,6 +14882,7 @@ public:
 		return GetDefaultObjImpl<ASkeletalMeshActor>();
 	}
 };
+DUMPER7_ASSERTS_ASkeletalMeshActor;
 
 // Class Engine.TextureRenderTarget
 // 0x0000 (0x0180 - 0x0180)
@@ -14487,6 +14906,7 @@ public:
 		return GetDefaultObjImpl<UTextureRenderTarget>();
 	}
 };
+DUMPER7_ASSERTS_UTextureRenderTarget;
 
 // Class Engine.InterpGroupInst
 // 0x0020 (0x0048 - 0x0028)
@@ -14511,11 +14931,12 @@ public:
 		return GetDefaultObjImpl<UInterpGroupInst>();
 	}
 };
+DUMPER7_ASSERTS_UInterpGroupInst;
 
 // Class Engine.TextureRenderTarget2D
 // 0x0030 (0x01B0 - 0x0180)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) UTextureRenderTarget2D : public UTextureRenderTarget
+class alignas(0x10) UTextureRenderTarget2D : public UTextureRenderTarget
 {
 public:
 	int32                                         SizeX;                                             // 0x0180(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, AssetRegistrySearchable, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -14549,6 +14970,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_UTextureRenderTarget2D;
 
 // Class Engine.SmokeTestCommandlet
 // 0x0000 (0x0080 - 0x0080)
@@ -14568,6 +14990,7 @@ public:
 		return GetDefaultObjImpl<USmokeTestCommandlet>();
 	}
 };
+DUMPER7_ASSERTS_USmokeTestCommandlet;
 
 // Class Engine.CanvasRenderTarget2D
 // 0x0020 (0x01D0 - 0x01B0)
@@ -14600,6 +15023,7 @@ public:
 		return GetDefaultObjImpl<UCanvasRenderTarget2D>();
 	}
 };
+DUMPER7_ASSERTS_UCanvasRenderTarget2D;
 
 // Class Engine.CapsuleComponent
 // 0x0000 (0x0470 - 0x0470)
@@ -14640,6 +15064,7 @@ public:
 		return GetDefaultObjImpl<UCapsuleComponent>();
 	}
 };
+DUMPER7_ASSERTS_UCapsuleComponent;
 
 // Class Engine.MaterialExpressionMaterialProxyReplace
 // 0x0028 (0x0068 - 0x0040)
@@ -14663,6 +15088,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionMaterialProxyReplace>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionMaterialProxyReplace;
 
 // Class Engine.CheatManager
 // 0x0060 (0x0088 - 0x0028)
@@ -14745,6 +15171,7 @@ public:
 		return GetDefaultObjImpl<UCheatManager>();
 	}
 };
+DUMPER7_ASSERTS_UCheatManager;
 
 // Class Engine.CheatManagerExtension
 // 0x0000 (0x0028 - 0x0028)
@@ -14764,6 +15191,7 @@ public:
 		return GetDefaultObjImpl<UCheatManagerExtension>();
 	}
 };
+DUMPER7_ASSERTS_UCheatManagerExtension;
 
 // Class Engine.MaterialExpressionFeatureLevelSwitch
 // 0x0018 (0x0058 - 0x0040)
@@ -14787,6 +15215,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionFeatureLevelSwitch>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionFeatureLevelSwitch;
 
 // Class Engine.CheckBoxStyleAsset
 // 0x0818 (0x0840 - 0x0028)
@@ -14810,6 +15239,7 @@ public:
 		return GetDefaultObjImpl<UCheckBoxStyleAsset>();
 	}
 };
+DUMPER7_ASSERTS_UCheckBoxStyleAsset;
 
 // Class Engine.MaterialExpressionRotateAboutAxis
 // 0x0058 (0x0098 - 0x0040)
@@ -14837,6 +15267,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionRotateAboutAxis>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionRotateAboutAxis;
 
 // Class Engine.ChildConnection
 // 0x0008 (0x1BB0 - 0x1BA8)
@@ -14859,6 +15290,7 @@ public:
 		return GetDefaultObjImpl<UChildConnection>();
 	}
 };
+DUMPER7_ASSERTS_UChildConnection;
 
 // Class Engine.MaterialExpressionDivide
 // 0x0030 (0x0070 - 0x0040)
@@ -14884,6 +15316,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDivide>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDivide;
 
 // Class Engine.CloudStorageBase
 // 0x0018 (0x0050 - 0x0038)
@@ -14908,6 +15341,7 @@ public:
 		return GetDefaultObjImpl<UCloudStorageBase>();
 	}
 };
+DUMPER7_ASSERTS_UCloudStorageBase;
 
 // Class Engine.CollisionProfile
 // 0x0138 (0x0170 - 0x0038)
@@ -14935,6 +15369,7 @@ public:
 		return GetDefaultObjImpl<UCollisionProfile>();
 	}
 };
+DUMPER7_ASSERTS_UCollisionProfile;
 
 // Class Engine.InterpTrackParticleReplay
 // 0x0010 (0x0080 - 0x0070)
@@ -14957,6 +15392,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackParticleReplay>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackParticleReplay;
 
 // Class Engine.MaterialExpressionParticleSize
 // 0x0000 (0x0040 - 0x0040)
@@ -14976,6 +15412,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionParticleSize>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionParticleSize;
 
 // Class Engine.ComponentDelegateBinding
 // 0x0010 (0x0038 - 0x0028)
@@ -14998,6 +15435,7 @@ public:
 		return GetDefaultObjImpl<UComponentDelegateBinding>();
 	}
 };
+DUMPER7_ASSERTS_UComponentDelegateBinding;
 
 // Class Engine.ActorComponentInstanceDataTransientOuter
 // 0x0000 (0x0028 - 0x0028)
@@ -15017,6 +15455,7 @@ public:
 		return GetDefaultObjImpl<UActorComponentInstanceDataTransientOuter>();
 	}
 };
+DUMPER7_ASSERTS_UActorComponentInstanceDataTransientOuter;
 
 // Class Engine.LightmassCharacterIndirectDetailVolume
 // 0x0000 (0x0258 - 0x0258)
@@ -15036,6 +15475,7 @@ public:
 		return GetDefaultObjImpl<ALightmassCharacterIndirectDetailVolume>();
 	}
 };
+DUMPER7_ASSERTS_ALightmassCharacterIndirectDetailVolume;
 
 // Class Engine.CompositeDataTable
 // 0x0028 (0x00D8 - 0x00B0)
@@ -15060,6 +15500,7 @@ public:
 		return GetDefaultObjImpl<UCompositeDataTable>();
 	}
 };
+DUMPER7_ASSERTS_UCompositeDataTable;
 
 // Class Engine.TriggerBase
 // 0x0008 (0x0228 - 0x0220)
@@ -15082,6 +15523,7 @@ public:
 		return GetDefaultObjImpl<ATriggerBase>();
 	}
 };
+DUMPER7_ASSERTS_ATriggerBase;
 
 // Class Engine.TriggerSphere
 // 0x0000 (0x0228 - 0x0228)
@@ -15101,6 +15543,7 @@ public:
 		return GetDefaultObjImpl<ATriggerSphere>();
 	}
 };
+DUMPER7_ASSERTS_ATriggerSphere;
 
 // Class Engine.ScriptViewportClient
 // 0x0010 (0x0038 - 0x0028)
@@ -15123,6 +15566,7 @@ public:
 		return GetDefaultObjImpl<UScriptViewportClient>();
 	}
 };
+DUMPER7_ASSERTS_UScriptViewportClient;
 
 // Class Engine.GameViewportClient
 // 0x0328 (0x0360 - 0x0038)
@@ -15158,6 +15602,7 @@ public:
 		return GetDefaultObjImpl<UGameViewportClient>();
 	}
 };
+DUMPER7_ASSERTS_UGameViewportClient;
 
 // Class Engine.InterpTrackInstToggle
 // 0x0010 (0x0038 - 0x0028)
@@ -15184,6 +15629,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstToggle>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstToggle;
 
 // Class Engine.MaterialExpressionParticleColor
 // 0x0000 (0x0040 - 0x0040)
@@ -15203,6 +15649,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionParticleColor>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionParticleColor;
 
 // Class Engine.Console
 // 0x0108 (0x0130 - 0x0028)
@@ -15231,6 +15678,7 @@ public:
 		return GetDefaultObjImpl<UConsole>();
 	}
 };
+DUMPER7_ASSERTS_UConsole;
 
 // Class Engine.ControlChannel
 // 0x0018 (0x0080 - 0x0068)
@@ -15253,6 +15701,7 @@ public:
 		return GetDefaultObjImpl<UControlChannel>();
 	}
 };
+DUMPER7_ASSERTS_UControlChannel;
 
 // Class Engine.StreamingSettings
 // 0x0038 (0x0070 - 0x0038)
@@ -15293,6 +15742,7 @@ public:
 		return GetDefaultObjImpl<UStreamingSettings>();
 	}
 };
+DUMPER7_ASSERTS_UStreamingSettings;
 
 // Class Engine.GarbageCollectionSettings
 // 0x0020 (0x0058 - 0x0038)
@@ -15331,6 +15781,7 @@ public:
 		return GetDefaultObjImpl<UGarbageCollectionSettings>();
 	}
 };
+DUMPER7_ASSERTS_UGarbageCollectionSettings;
 
 // Class Engine.InterpTrackFloatProp
 // 0x0008 (0x0098 - 0x0090)
@@ -15353,6 +15804,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackFloatProp>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackFloatProp;
 
 // Class Engine.SlateBrushAsset
 // 0x00D8 (0x0100 - 0x0028)
@@ -15376,6 +15828,7 @@ public:
 		return GetDefaultObjImpl<USlateBrushAsset>();
 	}
 };
+DUMPER7_ASSERTS_USlateBrushAsset;
 
 // Class Engine.CullDistanceVolume
 // 0x0018 (0x0270 - 0x0258)
@@ -15400,6 +15853,7 @@ public:
 		return GetDefaultObjImpl<ACullDistanceVolume>();
 	}
 };
+DUMPER7_ASSERTS_ACullDistanceVolume;
 
 // Class Engine.InterpTrackAudioMaster
 // 0x0000 (0x0090 - 0x0090)
@@ -15419,6 +15873,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackAudioMaster>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackAudioMaster;
 
 // Class Engine.CurveBase
 // 0x0008 (0x0030 - 0x0028)
@@ -15445,6 +15900,7 @@ public:
 		return GetDefaultObjImpl<UCurveBase>();
 	}
 };
+DUMPER7_ASSERTS_UCurveBase;
 
 // Class Engine.CurveEdPresetCurve
 // 0x0000 (0x0028 - 0x0028)
@@ -15464,6 +15920,7 @@ public:
 		return GetDefaultObjImpl<UCurveEdPresetCurve>();
 	}
 };
+DUMPER7_ASSERTS_UCurveEdPresetCurve;
 
 // Class Engine.CurveFloat
 // 0x0088 (0x00B8 - 0x0030)
@@ -15491,6 +15948,7 @@ public:
 		return GetDefaultObjImpl<UCurveFloat>();
 	}
 };
+DUMPER7_ASSERTS_UCurveFloat;
 
 // Class Engine.KismetRenderingLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -15533,6 +15991,7 @@ public:
 		return GetDefaultObjImpl<UKismetRenderingLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UKismetRenderingLibrary;
 
 // Class Engine.RVOAvoidanceInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -15561,6 +16020,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IRVOAvoidanceInterface;
 
 // Class Engine.CurveLinearColor
 // 0x0220 (0x0250 - 0x0030)
@@ -15596,6 +16056,7 @@ public:
 		return GetDefaultObjImpl<UCurveLinearColor>();
 	}
 };
+DUMPER7_ASSERTS_UCurveLinearColor;
 
 // Class Engine.MaterialExpressionArcsine
 // 0x0018 (0x0058 - 0x0040)
@@ -15619,6 +16080,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionArcsine>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionArcsine;
 
 // Class Engine.Rig
 // 0x0028 (0x0050 - 0x0028)
@@ -15643,6 +16105,7 @@ public:
 		return GetDefaultObjImpl<URig>();
 	}
 };
+DUMPER7_ASSERTS_URig;
 
 // Class Engine.CurveLinearColorAtlas
 // 0x0020 (0x01C0 - 0x01A0)
@@ -15673,6 +16136,7 @@ public:
 		return GetDefaultObjImpl<UCurveLinearColorAtlas>();
 	}
 };
+DUMPER7_ASSERTS_UCurveLinearColorAtlas;
 
 // Class Engine.CurveSourceInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -15706,6 +16170,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_ICurveSourceInterface;
 
 // Class Engine.SoundNodeModulator
 // 0x0010 (0x0058 - 0x0048)
@@ -15731,6 +16196,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeModulator>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeModulator;
 
 // Class Engine.CurveVector
 // 0x0180 (0x01B0 - 0x0030)
@@ -15756,6 +16222,7 @@ public:
 		return GetDefaultObjImpl<UCurveVector>();
 	}
 };
+DUMPER7_ASSERTS_UCurveVector;
 
 // Class Engine.MaterialExpressionFrac
 // 0x0018 (0x0058 - 0x0040)
@@ -15779,6 +16246,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionFrac>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionFrac;
 
 // Class Engine.DamageType
 // 0x0018 (0x0040 - 0x0028)
@@ -15809,6 +16277,7 @@ public:
 		return GetDefaultObjImpl<UDamageType>();
 	}
 };
+DUMPER7_ASSERTS_UDamageType;
 
 // Class Engine.SoundSourceBus
 // 0x0018 (0x0388 - 0x0370)
@@ -15836,6 +16305,7 @@ public:
 		return GetDefaultObjImpl<USoundSourceBus>();
 	}
 };
+DUMPER7_ASSERTS_USoundSourceBus;
 
 // Class Engine.MaterialExpressionPixelNormalWS
 // 0x0000 (0x0040 - 0x0040)
@@ -15855,6 +16325,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionPixelNormalWS>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionPixelNormalWS;
 
 // Class Engine.DataDrivenConsoleVariableSettings
 // 0x0038 (0x0070 - 0x0038)
@@ -15879,6 +16350,7 @@ public:
 		return GetDefaultObjImpl<UDataDrivenConsoleVariableSettings>();
 	}
 };
+DUMPER7_ASSERTS_UDataDrivenConsoleVariableSettings;
 
 // Class Engine.DebugCameraController
 // 0x0100 (0x0680 - 0x0580)
@@ -15930,6 +16402,7 @@ public:
 		return GetDefaultObjImpl<ADebugCameraController>();
 	}
 };
+DUMPER7_ASSERTS_ADebugCameraController;
 
 // Class Engine.DebugCameraControllerSettings
 // 0x0010 (0x0048 - 0x0038)
@@ -15952,6 +16425,7 @@ public:
 		return GetDefaultObjImpl<UDebugCameraControllerSettings>();
 	}
 };
+DUMPER7_ASSERTS_UDebugCameraControllerSettings;
 
 // Class Engine.MaterialExpressionArccosine
 // 0x0018 (0x0058 - 0x0040)
@@ -15975,6 +16449,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionArccosine>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionArccosine;
 
 // Class Engine.SoundNodeDialoguePlayer
 // 0x0028 (0x0070 - 0x0048)
@@ -15999,6 +16474,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeDialoguePlayer>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeDialoguePlayer;
 
 // Class Engine.HUD
 // 0x00F0 (0x0310 - 0x0220)
@@ -16072,6 +16548,7 @@ public:
 		return GetDefaultObjImpl<AHUD>();
 	}
 };
+DUMPER7_ASSERTS_AHUD;
 
 // Class Engine.InterpTrackInstColorProp
 // 0x0010 (0x0060 - 0x0050)
@@ -16096,6 +16573,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstColorProp>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstColorProp;
 
 // Class Engine.DebugCameraHUD
 // 0x0000 (0x0310 - 0x0310)
@@ -16115,6 +16593,7 @@ public:
 		return GetDefaultObjImpl<ADebugCameraHUD>();
 	}
 };
+DUMPER7_ASSERTS_ADebugCameraHUD;
 
 // Class Engine.ProxyLODMeshSimplificationSettings
 // 0x0008 (0x0040 - 0x0038)
@@ -16137,6 +16616,7 @@ public:
 		return GetDefaultObjImpl<UProxyLODMeshSimplificationSettings>();
 	}
 };
+DUMPER7_ASSERTS_UProxyLODMeshSimplificationSettings;
 
 // Class Engine.DebugDrawService
 // 0x0000 (0x0028 - 0x0028)
@@ -16156,6 +16636,7 @@ public:
 		return GetDefaultObjImpl<UDebugDrawService>();
 	}
 };
+DUMPER7_ASSERTS_UDebugDrawService;
 
 // Class Engine.SubsystemBlueprintLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -16182,6 +16663,7 @@ public:
 		return GetDefaultObjImpl<USubsystemBlueprintLibrary>();
 	}
 };
+DUMPER7_ASSERTS_USubsystemBlueprintLibrary;
 
 // Class Engine.DecalComponent
 // 0x0040 (0x0240 - 0x0200)
@@ -16228,6 +16710,7 @@ public:
 		return GetDefaultObjImpl<UDecalComponent>();
 	}
 };
+DUMPER7_ASSERTS_UDecalComponent;
 
 // Class Engine.MaterialExpressionCeil
 // 0x0018 (0x0058 - 0x0040)
@@ -16251,6 +16734,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionCeil>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionCeil;
 
 // Class Engine.StereoLayerShapeCubemap
 // 0x0000 (0x0028 - 0x0028)
@@ -16270,6 +16754,7 @@ public:
 		return GetDefaultObjImpl<UStereoLayerShapeCubemap>();
 	}
 };
+DUMPER7_ASSERTS_UStereoLayerShapeCubemap;
 
 // Class Engine.DefaultPhysicsVolume
 // 0x0000 (0x0268 - 0x0268)
@@ -16289,6 +16774,7 @@ public:
 		return GetDefaultObjImpl<ADefaultPhysicsVolume>();
 	}
 };
+DUMPER7_ASSERTS_ADefaultPhysicsVolume;
 
 // Class Engine.SoundfieldEndpointSubmix
 // 0x0038 (0x0070 - 0x0038)
@@ -16316,6 +16802,7 @@ public:
 		return GetDefaultObjImpl<USoundfieldEndpointSubmix>();
 	}
 };
+DUMPER7_ASSERTS_USoundfieldEndpointSubmix;
 
 // Class Engine.MaterialExpressionVertexColor
 // 0x0000 (0x0040 - 0x0040)
@@ -16335,6 +16822,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionVertexColor>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionVertexColor;
 
 // Class Engine.DemoNetDriver
 // 0x0B78 (0x12D8 - 0x0760)
@@ -16366,6 +16854,7 @@ public:
 		return GetDefaultObjImpl<UDemoNetDriver>();
 	}
 };
+DUMPER7_ASSERTS_UDemoNetDriver;
 
 // Class Engine.MaterialExpressionBreakMaterialAttributes
 // 0x0018 (0x0058 - 0x0040)
@@ -16388,6 +16877,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionBreakMaterialAttributes>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionBreakMaterialAttributes;
 
 // Class Engine.PendingNetGame
 // 0x0098 (0x00C0 - 0x0028)
@@ -16413,6 +16903,7 @@ public:
 		return GetDefaultObjImpl<UPendingNetGame>();
 	}
 };
+DUMPER7_ASSERTS_UPendingNetGame;
 
 // Class Engine.SCS_Node
 // 0x00B0 (0x00D8 - 0x0028)
@@ -16446,6 +16937,7 @@ public:
 		return GetDefaultObjImpl<USCS_Node>();
 	}
 };
+DUMPER7_ASSERTS_USCS_Node;
 
 // Class Engine.DemoPendingNetGame
 // 0x0000 (0x00C0 - 0x00C0)
@@ -16465,6 +16957,7 @@ public:
 		return GetDefaultObjImpl<UDemoPendingNetGame>();
 	}
 };
+DUMPER7_ASSERTS_UDemoPendingNetGame;
 
 // Class Engine.MaterialExpressionRuntimeVirtualTextureReplace
 // 0x0028 (0x0068 - 0x0040)
@@ -16488,6 +16981,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionRuntimeVirtualTextureReplace>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionRuntimeVirtualTextureReplace;
 
 // Class Engine.TextureLODSettings
 // 0x0010 (0x0038 - 0x0028)
@@ -16510,6 +17004,7 @@ public:
 		return GetDefaultObjImpl<UTextureLODSettings>();
 	}
 };
+DUMPER7_ASSERTS_UTextureLODSettings;
 
 // Class Engine.DeviceProfile
 // 0x0070 (0x00A8 - 0x0038)
@@ -16537,6 +17032,7 @@ public:
 		return GetDefaultObjImpl<UDeviceProfile>();
 	}
 };
+DUMPER7_ASSERTS_UDeviceProfile;
 
 // Class Engine.MaterialExpressionDecalLifetimeOpacity
 // 0x0000 (0x0040 - 0x0040)
@@ -16556,6 +17052,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDecalLifetimeOpacity>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDecalLifetimeOpacity;
 
 // Class Engine.DeviceProfileFragment
 // 0x0010 (0x0038 - 0x0028)
@@ -16578,6 +17075,7 @@ public:
 		return GetDefaultObjImpl<UDeviceProfileFragment>();
 	}
 };
+DUMPER7_ASSERTS_UDeviceProfileFragment;
 
 // Class Engine.DeviceProfileManager
 // 0x00A0 (0x00C8 - 0x0028)
@@ -16601,6 +17099,7 @@ public:
 		return GetDefaultObjImpl<UDeviceProfileManager>();
 	}
 };
+DUMPER7_ASSERTS_UDeviceProfileManager;
 
 // Class Engine.InterpTrackVectorMaterialParam
 // 0x0018 (0x00A8 - 0x0090)
@@ -16624,6 +17123,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackVectorMaterialParam>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackVectorMaterialParam;
 
 // Class Engine.MaterialExpressionPerInstanceCustomData
 // 0x0020 (0x0060 - 0x0040)
@@ -16649,6 +17149,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionPerInstanceCustomData>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionPerInstanceCustomData;
 
 // Class Engine.DialogueSoundWaveProxy
 // 0x0018 (0x0188 - 0x0170)
@@ -16671,6 +17172,7 @@ public:
 		return GetDefaultObjImpl<UDialogueSoundWaveProxy>();
 	}
 };
+DUMPER7_ASSERTS_UDialogueSoundWaveProxy;
 
 // Class Engine.InterpTrackInstVectorProp
 // 0x0018 (0x0068 - 0x0050)
@@ -16695,6 +17197,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstVectorProp>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstVectorProp;
 
 // Class Engine.DialogueVoice
 // 0x0018 (0x0040 - 0x0028)
@@ -16721,6 +17224,7 @@ public:
 		return GetDefaultObjImpl<UDialogueVoice>();
 	}
 };
+DUMPER7_ASSERTS_UDialogueVoice;
 
 // Class Engine.DialogueWave
 // 0x0048 (0x0070 - 0x0028)
@@ -16749,6 +17253,7 @@ public:
 		return GetDefaultObjImpl<UDialogueWave>();
 	}
 };
+DUMPER7_ASSERTS_UDialogueWave;
 
 // Class Engine.MaterialExpressionActorPositionWS
 // 0x0000 (0x0040 - 0x0040)
@@ -16768,6 +17273,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionActorPositionWS>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionActorPositionWS;
 
 // Class Engine.SoundNodeAttenuation
 // 0x03B0 (0x03F8 - 0x0048)
@@ -16793,10 +17299,11 @@ public:
 		return GetDefaultObjImpl<USoundNodeAttenuation>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeAttenuation;
 
 // Class Engine.DirectionalLight
 // 0x0000 (0x0230 - 0x0230)
-class ADirectionalLight : public ALight
+class ADirectionalLight final : public ALight
 {
 public:
 	static class UClass* StaticClass()
@@ -16812,6 +17319,7 @@ public:
 		return GetDefaultObjImpl<ADirectionalLight>();
 	}
 };
+DUMPER7_ASSERTS_ADirectionalLight;
 
 // Class Engine.SoundCue
 // 0x03D8 (0x0548 - 0x0170)
@@ -16847,6 +17355,7 @@ public:
 		return GetDefaultObjImpl<USoundCue>();
 	}
 };
+DUMPER7_ASSERTS_USoundCue;
 
 // Class Engine.DirectionalLightComponent
 // 0x00C0 (0x03F0 - 0x0330)
@@ -16927,6 +17436,7 @@ public:
 		return GetDefaultObjImpl<UDirectionalLightComponent>();
 	}
 };
+DUMPER7_ASSERTS_UDirectionalLightComponent;
 
 // Class Engine.StereoLayerComponent
 // 0x00E0 (0x02E0 - 0x0200)
@@ -16983,6 +17493,7 @@ public:
 		return GetDefaultObjImpl<UStereoLayerComponent>();
 	}
 };
+DUMPER7_ASSERTS_UStereoLayerComponent;
 
 // Class Engine.KismetStringTableLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -17012,6 +17523,7 @@ public:
 		return GetDefaultObjImpl<UKismetStringTableLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UKismetStringTableLibrary;
 
 // Class Engine.DistributionFloat
 // 0x0008 (0x0038 - 0x0030)
@@ -17037,6 +17549,7 @@ public:
 		return GetDefaultObjImpl<UDistributionFloat>();
 	}
 };
+DUMPER7_ASSERTS_UDistributionFloat;
 
 // Class Engine.TextRenderComponent
 // 0x0050 (0x04A0 - 0x0450)
@@ -17090,6 +17603,7 @@ public:
 		return GetDefaultObjImpl<UTextRenderComponent>();
 	}
 };
+DUMPER7_ASSERTS_UTextRenderComponent;
 
 // Class Engine.DistributionFloatConstant
 // 0x0008 (0x0040 - 0x0038)
@@ -17113,6 +17627,7 @@ public:
 		return GetDefaultObjImpl<UDistributionFloatConstant>();
 	}
 };
+DUMPER7_ASSERTS_UDistributionFloatConstant;
 
 // Class Engine.DistributionFloatConstantCurve
 // 0x0018 (0x0050 - 0x0038)
@@ -17135,6 +17650,7 @@ public:
 		return GetDefaultObjImpl<UDistributionFloatConstantCurve>();
 	}
 };
+DUMPER7_ASSERTS_UDistributionFloatConstantCurve;
 
 // Class Engine.MaterialExpressionShadingPathSwitch
 // 0x0050 (0x0090 - 0x0040)
@@ -17158,6 +17674,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionShadingPathSwitch>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionShadingPathSwitch;
 
 // Class Engine.DistributionFloatParameterBase
 // 0x0020 (0x0060 - 0x0040)
@@ -17186,6 +17703,7 @@ public:
 		return GetDefaultObjImpl<UDistributionFloatParameterBase>();
 	}
 };
+DUMPER7_ASSERTS_UDistributionFloatParameterBase;
 
 // Class Engine.DistributionFloatParticleParameter
 // 0x0000 (0x0060 - 0x0060)
@@ -17205,6 +17723,7 @@ public:
 		return GetDefaultObjImpl<UDistributionFloatParticleParameter>();
 	}
 };
+DUMPER7_ASSERTS_UDistributionFloatParticleParameter;
 
 // Class Engine.DistributionFloatUniform
 // 0x0008 (0x0040 - 0x0038)
@@ -17228,6 +17747,7 @@ public:
 		return GetDefaultObjImpl<UDistributionFloatUniform>();
 	}
 };
+DUMPER7_ASSERTS_UDistributionFloatUniform;
 
 // Class Engine.DistributionFloatUniformCurve
 // 0x0018 (0x0050 - 0x0038)
@@ -17250,6 +17770,7 @@ public:
 		return GetDefaultObjImpl<UDistributionFloatUniformCurve>();
 	}
 };
+DUMPER7_ASSERTS_UDistributionFloatUniformCurve;
 
 // Class Engine.InterpGroupInstDirector
 // 0x0000 (0x0048 - 0x0048)
@@ -17269,6 +17790,7 @@ public:
 		return GetDefaultObjImpl<UInterpGroupInstDirector>();
 	}
 };
+DUMPER7_ASSERTS_UInterpGroupInstDirector;
 
 // Class Engine.SkeletalMeshLODSettings
 // 0x0020 (0x0050 - 0x0030)
@@ -17298,6 +17820,7 @@ public:
 		return GetDefaultObjImpl<USkeletalMeshLODSettings>();
 	}
 };
+DUMPER7_ASSERTS_USkeletalMeshLODSettings;
 
 // Class Engine.DistributionVectorConstantCurve
 // 0x0020 (0x0058 - 0x0038)
@@ -17324,6 +17847,7 @@ public:
 		return GetDefaultObjImpl<UDistributionVectorConstantCurve>();
 	}
 };
+DUMPER7_ASSERTS_UDistributionVectorConstantCurve;
 
 // Class Engine.DistributionVectorParameterBase
 // 0x0040 (0x0090 - 0x0050)
@@ -17352,6 +17876,7 @@ public:
 		return GetDefaultObjImpl<UDistributionVectorParameterBase>();
 	}
 };
+DUMPER7_ASSERTS_UDistributionVectorParameterBase;
 
 // Class Engine.MaterialExpressionBlackBody
 // 0x0018 (0x0058 - 0x0040)
@@ -17375,6 +17900,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionBlackBody>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionBlackBody;
 
 // Class Engine.RadialForceComponent
 // 0x0030 (0x0230 - 0x0200)
@@ -17412,6 +17938,7 @@ public:
 		return GetDefaultObjImpl<URadialForceComponent>();
 	}
 };
+DUMPER7_ASSERTS_URadialForceComponent;
 
 // Class Engine.DistributionVectorParticleParameter
 // 0x0000 (0x0090 - 0x0090)
@@ -17431,6 +17958,7 @@ public:
 		return GetDefaultObjImpl<UDistributionVectorParticleParameter>();
 	}
 };
+DUMPER7_ASSERTS_UDistributionVectorParticleParameter;
 
 // Class Engine.InterpTrackInstAnimControl
 // 0x0008 (0x0030 - 0x0028)
@@ -17454,6 +17982,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstAnimControl>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstAnimControl;
 
 // Class Engine.DistributionVectorUniform
 // 0x0028 (0x0060 - 0x0038)
@@ -17483,6 +18012,7 @@ public:
 		return GetDefaultObjImpl<UDistributionVectorUniform>();
 	}
 };
+DUMPER7_ASSERTS_UDistributionVectorUniform;
 
 // Class Engine.PreviewCollectionInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -17511,6 +18041,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IPreviewCollectionInterface;
 
 // Class Engine.DistributionVectorUniformCurve
 // 0x0028 (0x0060 - 0x0038)
@@ -17541,6 +18072,7 @@ public:
 		return GetDefaultObjImpl<UDistributionVectorUniformCurve>();
 	}
 };
+DUMPER7_ASSERTS_UDistributionVectorUniformCurve;
 
 // Class Engine.DocumentationActor
 // 0x0008 (0x0228 - 0x0220)
@@ -17563,6 +18095,7 @@ public:
 		return GetDefaultObjImpl<ADocumentationActor>();
 	}
 };
+DUMPER7_ASSERTS_ADocumentationActor;
 
 // Class Engine.TextureRenderTargetCube
 // 0x0020 (0x01A0 - 0x0180)
@@ -17590,6 +18123,7 @@ public:
 		return GetDefaultObjImpl<UTextureRenderTargetCube>();
 	}
 };
+DUMPER7_ASSERTS_UTextureRenderTargetCube;
 
 // Class Engine.DPICustomScalingRule
 // 0x0000 (0x0028 - 0x0028)
@@ -17609,6 +18143,7 @@ public:
 		return GetDefaultObjImpl<UDPICustomScalingRule>();
 	}
 };
+DUMPER7_ASSERTS_UDPICustomScalingRule;
 
 // Class Engine.MaterialExpressionDeriveNormalZ
 // 0x0018 (0x0058 - 0x0040)
@@ -17632,6 +18167,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDeriveNormalZ>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDeriveNormalZ;
 
 // Class Engine.MaterialExpressionStaticComponentMaskParameter
 // 0x0008 (0x0060 - 0x0058)
@@ -17658,6 +18194,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionStaticComponentMaskParameter>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionStaticComponentMaskParameter;
 
 // Class Engine.DrawFrustumComponent
 // 0x0020 (0x0470 - 0x0450)
@@ -17686,6 +18223,7 @@ public:
 		return GetDefaultObjImpl<UDrawFrustumComponent>();
 	}
 };
+DUMPER7_ASSERTS_UDrawFrustumComponent;
 
 // Class Engine.SphereComponent
 // 0x0000 (0x0470 - 0x0470)
@@ -17716,6 +18254,7 @@ public:
 		return GetDefaultObjImpl<USphereComponent>();
 	}
 };
+DUMPER7_ASSERTS_USphereComponent;
 
 // Class Engine.DrawSphereComponent
 // 0x0000 (0x0470 - 0x0470)
@@ -17735,6 +18274,7 @@ public:
 		return GetDefaultObjImpl<UDrawSphereComponent>();
 	}
 };
+DUMPER7_ASSERTS_UDrawSphereComponent;
 
 // Class Engine.MaterialExpressionArctangent
 // 0x0018 (0x0058 - 0x0040)
@@ -17758,6 +18298,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionArctangent>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionArctangent;
 
 // Class Engine.PrecomputedVisibilityOverrideVolume
 // 0x0030 (0x0288 - 0x0258)
@@ -17782,6 +18323,7 @@ public:
 		return GetDefaultObjImpl<APrecomputedVisibilityOverrideVolume>();
 	}
 };
+DUMPER7_ASSERTS_APrecomputedVisibilityOverrideVolume;
 
 // Class Engine.EdGraph
 // 0x0038 (0x0060 - 0x0028)
@@ -17809,6 +18351,7 @@ public:
 		return GetDefaultObjImpl<UEdGraph>();
 	}
 };
+DUMPER7_ASSERTS_UEdGraph;
 
 // Class Engine.InterpTrackDirector
 // 0x0018 (0x0088 - 0x0070)
@@ -17833,6 +18376,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackDirector>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackDirector;
 
 // Class Engine.GraphNodeContextMenuContext
 // 0x0028 (0x0050 - 0x0028)
@@ -17860,6 +18404,7 @@ public:
 		return GetDefaultObjImpl<UGraphNodeContextMenuContext>();
 	}
 };
+DUMPER7_ASSERTS_UGraphNodeContextMenuContext;
 
 // Class Engine.SoundNodeConcatenator
 // 0x0010 (0x0058 - 0x0048)
@@ -17882,6 +18427,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeConcatenator>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeConcatenator;
 
 // Class Engine.EdGraphNode
 // 0x0070 (0x0098 - 0x0028)
@@ -17925,6 +18471,7 @@ public:
 		return GetDefaultObjImpl<UEdGraphNode>();
 	}
 };
+DUMPER7_ASSERTS_UEdGraphNode;
 
 // Class Engine.EdGraphNode_Documentation
 // 0x0020 (0x00B8 - 0x0098)
@@ -17948,6 +18495,7 @@ public:
 		return GetDefaultObjImpl<UEdGraphNode_Documentation>();
 	}
 };
+DUMPER7_ASSERTS_UEdGraphNode_Documentation;
 
 // Class Engine.LightmassPortal
 // 0x0008 (0x0228 - 0x0220)
@@ -17970,6 +18518,7 @@ public:
 		return GetDefaultObjImpl<ALightmassPortal>();
 	}
 };
+DUMPER7_ASSERTS_ALightmassPortal;
 
 // Class Engine.LevelScriptActor
 // 0x0008 (0x0228 - 0x0220)
@@ -17999,6 +18548,7 @@ public:
 		return GetDefaultObjImpl<ALevelScriptActor>();
 	}
 };
+DUMPER7_ASSERTS_ALevelScriptActor;
 
 // Class Engine.EdGraphSchema
 // 0x0000 (0x0028 - 0x0028)
@@ -18018,6 +18568,7 @@ public:
 		return GetDefaultObjImpl<UEdGraphSchema>();
 	}
 };
+DUMPER7_ASSERTS_UEdGraphSchema;
 
 // Class Engine.ThumbnailInfo
 // 0x0000 (0x0028 - 0x0028)
@@ -18037,6 +18588,7 @@ public:
 		return GetDefaultObjImpl<UThumbnailInfo>();
 	}
 };
+DUMPER7_ASSERTS_UThumbnailInfo;
 
 // Class Engine.Emitter
 // 0x0050 (0x0270 - 0x0220)
@@ -18082,6 +18634,7 @@ public:
 		return GetDefaultObjImpl<AEmitter>();
 	}
 };
+DUMPER7_ASSERTS_AEmitter;
 
 // Class Engine.EmitterCameraLensEffectBase
 // 0x0070 (0x02E0 - 0x0270)
@@ -18115,6 +18668,7 @@ public:
 		return GetDefaultObjImpl<AEmitterCameraLensEffectBase>();
 	}
 };
+DUMPER7_ASSERTS_AEmitterCameraLensEffectBase;
 
 // Class Engine.MaterialExpressionConstant
 // 0x0008 (0x0048 - 0x0040)
@@ -18138,6 +18692,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionConstant>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionConstant;
 
 // Class Engine.SphereReflectionCaptureComponent
 // 0x0010 (0x0280 - 0x0270)
@@ -18162,6 +18717,7 @@ public:
 		return GetDefaultObjImpl<USphereReflectionCaptureComponent>();
 	}
 };
+DUMPER7_ASSERTS_USphereReflectionCaptureComponent;
 
 // Class Engine.MaterialExpressionViewProperty
 // 0x0008 (0x0048 - 0x0040)
@@ -18185,6 +18741,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionViewProperty>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionViewProperty;
 
 // Class Engine.ViewModeUtils
 // 0x0000 (0x0028 - 0x0028)
@@ -18204,6 +18761,7 @@ public:
 		return GetDefaultObjImpl<UViewModeUtils>();
 	}
 };
+DUMPER7_ASSERTS_UViewModeUtils;
 
 // Class Engine.MaterialExpressionTruncate
 // 0x0018 (0x0058 - 0x0040)
@@ -18227,6 +18785,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTruncate>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTruncate;
 
 // Class Engine.EngineBaseTypes
 // 0x0000 (0x0028 - 0x0028)
@@ -18246,6 +18805,7 @@ public:
 		return GetDefaultObjImpl<UEngineBaseTypes>();
 	}
 };
+DUMPER7_ASSERTS_UEngineBaseTypes;
 
 // Class Engine.SoundfieldSubmix
 // 0x0028 (0x0068 - 0x0040)
@@ -18271,6 +18831,7 @@ public:
 		return GetDefaultObjImpl<USoundfieldSubmix>();
 	}
 };
+DUMPER7_ASSERTS_USoundfieldSubmix;
 
 // Class Engine.EngineHandlerComponentFactory
 // 0x0000 (0x0028 - 0x0028)
@@ -18290,6 +18851,7 @@ public:
 		return GetDefaultObjImpl<UEngineHandlerComponentFactory>();
 	}
 };
+DUMPER7_ASSERTS_UEngineHandlerComponentFactory;
 
 // Class Engine.LocalMessage
 // 0x0000 (0x0028 - 0x0028)
@@ -18309,6 +18871,7 @@ public:
 		return GetDefaultObjImpl<ULocalMessage>();
 	}
 };
+DUMPER7_ASSERTS_ULocalMessage;
 
 // Class Engine.InterpTrackColorProp
 // 0x0008 (0x0098 - 0x0090)
@@ -18331,6 +18894,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackColorProp>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackColorProp;
 
 // Class Engine.MaterialExpressionTemporalSobol
 // 0x0038 (0x0078 - 0x0040)
@@ -18357,6 +18921,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTemporalSobol>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTemporalSobol;
 
 // Class Engine.EngineMessage
 // 0x0080 (0x00A8 - 0x0028)
@@ -18386,6 +18951,7 @@ public:
 		return GetDefaultObjImpl<UEngineMessage>();
 	}
 };
+DUMPER7_ASSERTS_UEngineMessage;
 
 // Class Engine.MaterialExpressionThinTranslucentMaterialOutput
 // 0x0018 (0x0058 - 0x0040)
@@ -18409,6 +18975,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionThinTranslucentMaterialOutput>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionThinTranslucentMaterialOutput;
 
 // Class Engine.EngineTypes
 // 0x0000 (0x0028 - 0x0028)
@@ -18428,6 +18995,7 @@ public:
 		return GetDefaultObjImpl<UEngineTypes>();
 	}
 };
+DUMPER7_ASSERTS_UEngineTypes;
 
 // Class Engine.ReporterBase
 // 0x0008 (0x0030 - 0x0028)
@@ -18450,6 +19018,7 @@ public:
 		return GetDefaultObjImpl<UReporterBase>();
 	}
 };
+DUMPER7_ASSERTS_UReporterBase;
 
 // Class Engine.ReporterGraph
 // 0x0078 (0x00A8 - 0x0030)
@@ -18472,6 +19041,7 @@ public:
 		return GetDefaultObjImpl<UReporterGraph>();
 	}
 };
+DUMPER7_ASSERTS_UReporterGraph;
 
 // Class Engine.Exporter
 // 0x0050 (0x0078 - 0x0028)
@@ -18511,6 +19081,7 @@ public:
 		return GetDefaultObjImpl<UExporter>();
 	}
 };
+DUMPER7_ASSERTS_UExporter;
 
 // Class Engine.MaterialBillboardComponent
 // 0x0010 (0x0460 - 0x0450)
@@ -18537,6 +19108,7 @@ public:
 		return GetDefaultObjImpl<UMaterialBillboardComponent>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialBillboardComponent;
 
 // Class Engine.FloatingPawnMovement
 // 0x0018 (0x0150 - 0x0138)
@@ -18564,6 +19136,7 @@ public:
 		return GetDefaultObjImpl<UFloatingPawnMovement>();
 	}
 };
+DUMPER7_ASSERTS_UFloatingPawnMovement;
 
 // Class Engine.RectLightComponent
 // 0x0020 (0x0360 - 0x0340)
@@ -18598,6 +19171,7 @@ public:
 		return GetDefaultObjImpl<URectLightComponent>();
 	}
 };
+DUMPER7_ASSERTS_URectLightComponent;
 
 // Class Engine.Font
 // 0x01A8 (0x01D0 - 0x0028)
@@ -18639,6 +19213,7 @@ public:
 		return GetDefaultObjImpl<UFont>();
 	}
 };
+DUMPER7_ASSERTS_UFont;
 
 // Class Engine.MaterialExpressionFunctionInput
 // 0x0080 (0x00C0 - 0x0040)
@@ -18673,6 +19248,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionFunctionInput>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionFunctionInput;
 
 // Class Engine.FontFace
 // 0x0038 (0x0060 - 0x0028)
@@ -18702,6 +19278,7 @@ public:
 		return GetDefaultObjImpl<UFontFace>();
 	}
 };
+DUMPER7_ASSERTS_UFontFace;
 
 // Class Engine.TriggerBox
 // 0x0000 (0x0228 - 0x0228)
@@ -18721,6 +19298,7 @@ public:
 		return GetDefaultObjImpl<ATriggerBox>();
 	}
 };
+DUMPER7_ASSERTS_ATriggerBox;
 
 // Class Engine.FontImportOptions
 // 0x00B0 (0x00D8 - 0x0028)
@@ -18743,6 +19321,7 @@ public:
 		return GetDefaultObjImpl<UFontImportOptions>();
 	}
 };
+DUMPER7_ASSERTS_UFontImportOptions;
 
 // Class Engine.LODSyncComponent
 // 0x0090 (0x0140 - 0x00B0)
@@ -18775,6 +19354,7 @@ public:
 		return GetDefaultObjImpl<ULODSyncComponent>();
 	}
 };
+DUMPER7_ASSERTS_ULODSyncComponent;
 
 // Class Engine.ForceFeedbackAttenuation
 // 0x00B0 (0x00D8 - 0x0028)
@@ -18797,6 +19377,7 @@ public:
 		return GetDefaultObjImpl<UForceFeedbackAttenuation>();
 	}
 };
+DUMPER7_ASSERTS_UForceFeedbackAttenuation;
 
 // Class Engine.SoundNodeOscillator
 // 0x0028 (0x0070 - 0x0048)
@@ -18830,6 +19411,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeOscillator>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeOscillator;
 
 // Class Engine.ForceFeedbackComponent
 // 0x00E0 (0x02E0 - 0x0200)
@@ -18872,6 +19454,7 @@ public:
 		return GetDefaultObjImpl<UForceFeedbackComponent>();
 	}
 };
+DUMPER7_ASSERTS_UForceFeedbackComponent;
 
 // Class Engine.ForceFeedbackEffect
 // 0x0018 (0x0040 - 0x0028)
@@ -18896,6 +19479,7 @@ public:
 		return GetDefaultObjImpl<UForceFeedbackEffect>();
 	}
 };
+DUMPER7_ASSERTS_UForceFeedbackEffect;
 
 // Class Engine.MaterialExpressionDepthFade
 // 0x0030 (0x0070 - 0x0040)
@@ -18921,6 +19505,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDepthFade>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDepthFade;
 
 // Class Engine.MaterialParameterCollectionInstance
 // 0x00F8 (0x0120 - 0x0028)
@@ -18945,6 +19530,7 @@ public:
 		return GetDefaultObjImpl<UMaterialParameterCollectionInstance>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialParameterCollectionInstance;
 
 // Class Engine.GameEngine
 // 0x0050 (0x0D70 - 0x0D20)
@@ -18973,6 +19559,7 @@ public:
 		return GetDefaultObjImpl<UGameEngine>();
 	}
 };
+DUMPER7_ASSERTS_UGameEngine;
 
 // Class Engine.GameplayStatics
 // 0x0000 (0x0028 - 0x0028)
@@ -19119,6 +19706,7 @@ public:
 		return GetDefaultObjImpl<UGameplayStatics>();
 	}
 };
+DUMPER7_ASSERTS_UGameplayStatics;
 
 // Class Engine.GameSession
 // 0x0018 (0x0238 - 0x0220)
@@ -19147,6 +19735,7 @@ public:
 		return GetDefaultObjImpl<AGameSession>();
 	}
 };
+DUMPER7_ASSERTS_AGameSession;
 
 // Class Engine.InterpTrackInstDirector
 // 0x0008 (0x0030 - 0x0028)
@@ -19169,6 +19758,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstDirector>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstDirector;
 
 // Class Engine.MaterialExpressionWorldPosition
 // 0x0008 (0x0048 - 0x0040)
@@ -19192,6 +19782,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionWorldPosition>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionWorldPosition;
 
 // Class Engine.SpotLight
 // 0x0008 (0x0238 - 0x0230)
@@ -19218,6 +19809,7 @@ public:
 		return GetDefaultObjImpl<ASpotLight>();
 	}
 };
+DUMPER7_ASSERTS_ASpotLight;
 
 // Class Engine.StaticMeshSocket
 // 0x0040 (0x0068 - 0x0028)
@@ -19245,6 +19837,7 @@ public:
 		return GetDefaultObjImpl<UStaticMeshSocket>();
 	}
 };
+DUMPER7_ASSERTS_UStaticMeshSocket;
 
 // Class Engine.GeneratedMeshAreaLight
 // 0x0000 (0x0238 - 0x0238)
@@ -19264,6 +19857,7 @@ public:
 		return GetDefaultObjImpl<AGeneratedMeshAreaLight>();
 	}
 };
+DUMPER7_ASSERTS_AGeneratedMeshAreaLight;
 
 // Class Engine.HapticFeedbackEffect_Base
 // 0x0000 (0x0028 - 0x0028)
@@ -19283,6 +19877,7 @@ public:
 		return GetDefaultObjImpl<UHapticFeedbackEffect_Base>();
 	}
 };
+DUMPER7_ASSERTS_UHapticFeedbackEffect_Base;
 
 // Class Engine.InterpTrackAnimControl
 // 0x0020 (0x00B0 - 0x0090)
@@ -19308,6 +19903,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackAnimControl>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackAnimControl;
 
 // Class Engine.ServerStatReplicator
 // 0x00C8 (0x02E8 - 0x0220)
@@ -19381,6 +19977,7 @@ public:
 		return GetDefaultObjImpl<AServerStatReplicator>();
 	}
 };
+DUMPER7_ASSERTS_AServerStatReplicator;
 
 // Class Engine.HapticFeedbackEffect_Buffer
 // 0x0018 (0x0040 - 0x0028)
@@ -19405,6 +20002,7 @@ public:
 		return GetDefaultObjImpl<UHapticFeedbackEffect_Buffer>();
 	}
 };
+DUMPER7_ASSERTS_UHapticFeedbackEffect_Buffer;
 
 // Class Engine.InterpTrackMove
 // 0x0058 (0x00C8 - 0x0070)
@@ -19441,6 +20039,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackMove>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackMove;
 
 // Class Engine.HapticFeedbackEffect_Curve
 // 0x0110 (0x0138 - 0x0028)
@@ -19463,6 +20062,7 @@ public:
 		return GetDefaultObjImpl<UHapticFeedbackEffect_Curve>();
 	}
 };
+DUMPER7_ASSERTS_UHapticFeedbackEffect_Curve;
 
 // Class Engine.HapticFeedbackEffect_SoundWave
 // 0x0020 (0x0048 - 0x0028)
@@ -19487,6 +20087,7 @@ public:
 		return GetDefaultObjImpl<UHapticFeedbackEffect_SoundWave>();
 	}
 };
+DUMPER7_ASSERTS_UHapticFeedbackEffect_SoundWave;
 
 // Class Engine.HealthSnapshotBlueprintLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -19511,6 +20112,7 @@ public:
 		return GetDefaultObjImpl<UHealthSnapshotBlueprintLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UHealthSnapshotBlueprintLibrary;
 
 // Class Engine.MaterialExpressionCameraPositionWS
 // 0x0000 (0x0040 - 0x0040)
@@ -19530,6 +20132,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionCameraPositionWS>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionCameraPositionWS;
 
 // Class Engine.RendererOverrideSettings
 // 0x0008 (0x0040 - 0x0038)
@@ -19554,6 +20157,7 @@ public:
 		return GetDefaultObjImpl<URendererOverrideSettings>();
 	}
 };
+DUMPER7_ASSERTS_URendererOverrideSettings;
 
 // Class Engine.HLODEngineSubsystem
 // 0x0000 (0x0030 - 0x0030)
@@ -19573,6 +20177,7 @@ public:
 		return GetDefaultObjImpl<UHLODEngineSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UHLODEngineSubsystem;
 
 // Class Engine.MaterialExpressionArctangent2Fast
 // 0x0028 (0x0068 - 0x0040)
@@ -19596,6 +20201,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionArctangent2Fast>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionArctangent2Fast;
 
 // Class Engine.HLODProxy
 // 0x0060 (0x0088 - 0x0028)
@@ -19619,6 +20225,7 @@ public:
 		return GetDefaultObjImpl<UHLODProxy>();
 	}
 };
+DUMPER7_ASSERTS_UHLODProxy;
 
 // Class Engine.TimelineTemplate
 // 0x0090 (0x00B8 - 0x0028)
@@ -19660,6 +20267,7 @@ public:
 		return GetDefaultObjImpl<UTimelineTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UTimelineTemplate;
 
 // Class Engine.ImportantToggleSettingInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -19688,6 +20296,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IImportantToggleSettingInterface;
 
 // Class Engine.TextureMipDataProviderFactory
 // 0x0000 (0x0028 - 0x0028)
@@ -19707,6 +20316,7 @@ public:
 		return GetDefaultObjImpl<UTextureMipDataProviderFactory>();
 	}
 };
+DUMPER7_ASSERTS_UTextureMipDataProviderFactory;
 
 // Class Engine.InheritableComponentHandler
 // 0x0020 (0x0048 - 0x0028)
@@ -19730,6 +20340,7 @@ public:
 		return GetDefaultObjImpl<UInheritableComponentHandler>();
 	}
 };
+DUMPER7_ASSERTS_UInheritableComponentHandler;
 
 // Class Engine.InputDelegateBinding
 // 0x0000 (0x0028 - 0x0028)
@@ -19749,6 +20360,7 @@ public:
 		return GetDefaultObjImpl<UInputDelegateBinding>();
 	}
 };
+DUMPER7_ASSERTS_UInputDelegateBinding;
 
 // Class Engine.InterpTrackLinearColorBase
 // 0x0020 (0x0090 - 0x0070)
@@ -19773,6 +20385,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackLinearColorBase>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackLinearColorBase;
 
 // Class Engine.MaterialFunctionInstance
 // 0x0080 (0x00C0 - 0x0040)
@@ -19803,6 +20416,7 @@ public:
 		return GetDefaultObjImpl<UMaterialFunctionInstance>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialFunctionInstance;
 
 // Class Engine.MaterialFunctionMaterialLayerBlendInstance
 // 0x0000 (0x00C0 - 0x00C0)
@@ -19822,6 +20436,7 @@ public:
 		return GetDefaultObjImpl<UMaterialFunctionMaterialLayerBlendInstance>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialFunctionMaterialLayerBlendInstance;
 
 // Class Engine.InputActionDelegateBinding
 // 0x0010 (0x0038 - 0x0028)
@@ -19844,6 +20459,7 @@ public:
 		return GetDefaultObjImpl<UInputActionDelegateBinding>();
 	}
 };
+DUMPER7_ASSERTS_UInputActionDelegateBinding;
 
 // Class Engine.MaterialExpressionConstant3Vector
 // 0x0010 (0x0050 - 0x0040)
@@ -19866,6 +20482,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionConstant3Vector>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionConstant3Vector;
 
 // Class Engine.MeshMergeCullingVolume
 // 0x0000 (0x0258 - 0x0258)
@@ -19885,6 +20502,7 @@ public:
 		return GetDefaultObjImpl<AMeshMergeCullingVolume>();
 	}
 };
+DUMPER7_ASSERTS_AMeshMergeCullingVolume;
 
 // Class Engine.InputAxisDelegateBinding
 // 0x0010 (0x0038 - 0x0028)
@@ -19907,6 +20525,7 @@ public:
 		return GetDefaultObjImpl<UInputAxisDelegateBinding>();
 	}
 };
+DUMPER7_ASSERTS_UInputAxisDelegateBinding;
 
 // Class Engine.InputAxisKeyDelegateBinding
 // 0x0010 (0x0038 - 0x0028)
@@ -19929,6 +20548,7 @@ public:
 		return GetDefaultObjImpl<UInputAxisKeyDelegateBinding>();
 	}
 };
+DUMPER7_ASSERTS_UInputAxisKeyDelegateBinding;
 
 // Class Engine.InputComponent
 // 0x0088 (0x0138 - 0x00B0)
@@ -19964,6 +20584,7 @@ public:
 		return GetDefaultObjImpl<UInputComponent>();
 	}
 };
+DUMPER7_ASSERTS_UInputComponent;
 
 // Class Engine.SoundClass
 // 0x00A0 (0x00C8 - 0x0028)
@@ -19989,6 +20610,7 @@ public:
 		return GetDefaultObjImpl<USoundClass>();
 	}
 };
+DUMPER7_ASSERTS_USoundClass;
 
 // Class Engine.InputKeyDelegateBinding
 // 0x0010 (0x0038 - 0x0028)
@@ -20011,6 +20633,7 @@ public:
 		return GetDefaultObjImpl<UInputKeyDelegateBinding>();
 	}
 };
+DUMPER7_ASSERTS_UInputKeyDelegateBinding;
 
 // Class Engine.InterpFilter_Custom
 // 0x0000 (0x0038 - 0x0038)
@@ -20030,6 +20653,7 @@ public:
 		return GetDefaultObjImpl<UInterpFilter_Custom>();
 	}
 };
+DUMPER7_ASSERTS_UInterpFilter_Custom;
 
 // Class Engine.InputSettings
 // 0x0118 (0x0140 - 0x0028)
@@ -20096,6 +20720,7 @@ public:
 		return GetDefaultObjImpl<UInputSettings>();
 	}
 };
+DUMPER7_ASSERTS_UInputSettings;
 
 // Class Engine.SkyAtmosphere
 // 0x0008 (0x0228 - 0x0220)
@@ -20118,6 +20743,7 @@ public:
 		return GetDefaultObjImpl<ASkyAtmosphere>();
 	}
 };
+DUMPER7_ASSERTS_ASkyAtmosphere;
 
 // Class Engine.InputTouchDelegateBinding
 // 0x0010 (0x0038 - 0x0028)
@@ -20140,6 +20766,7 @@ public:
 		return GetDefaultObjImpl<UInputTouchDelegateBinding>();
 	}
 };
+DUMPER7_ASSERTS_UInputTouchDelegateBinding;
 
 // Class Engine.InputVectorAxisDelegateBinding
 // 0x0000 (0x0038 - 0x0038)
@@ -20159,6 +20786,7 @@ public:
 		return GetDefaultObjImpl<UInputVectorAxisDelegateBinding>();
 	}
 };
+DUMPER7_ASSERTS_UInputVectorAxisDelegateBinding;
 
 // Class Engine.KismetTextLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -20225,6 +20853,7 @@ public:
 		return GetDefaultObjImpl<UKismetTextLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UKismetTextLibrary;
 
 // Class Engine.SceneCaptureComponent
 // 0x00B0 (0x02B0 - 0x0200)
@@ -20276,6 +20905,7 @@ public:
 		return GetDefaultObjImpl<USceneCaptureComponent>();
 	}
 };
+DUMPER7_ASSERTS_USceneCaptureComponent;
 
 // Class Engine.SceneCaptureComponentCube
 // 0x0030 (0x02E0 - 0x02B0)
@@ -20308,6 +20938,7 @@ public:
 		return GetDefaultObjImpl<USceneCaptureComponentCube>();
 	}
 };
+DUMPER7_ASSERTS_USceneCaptureComponentCube;
 
 // Class Engine.Interface_ActorSubobject
 // 0x0000 (0x0000 - 0x0000)
@@ -20336,6 +20967,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IInterface_ActorSubobject;
 
 // Class Engine.MaterialExpressionClamp
 // 0x0048 (0x0088 - 0x0040)
@@ -20364,6 +20996,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionClamp>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionClamp;
 
 // Class Engine.Interface_AssetUserData
 // 0x0000 (0x0000 - 0x0000)
@@ -20392,6 +21025,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IInterface_AssetUserData;
 
 // Class Engine.StringTable
 // 0x0018 (0x0040 - 0x0028)
@@ -20414,6 +21048,7 @@ public:
 		return GetDefaultObjImpl<UStringTable>();
 	}
 };
+DUMPER7_ASSERTS_UStringTable;
 
 // Class Engine.BoneReferenceSkeletonProvider
 // 0x0000 (0x0000 - 0x0000)
@@ -20442,6 +21077,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IBoneReferenceSkeletonProvider;
 
 // Class Engine.MaterialExpressionLogarithm10
 // 0x0018 (0x0058 - 0x0040)
@@ -20465,6 +21101,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionLogarithm10>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionLogarithm10;
 
 // Class Engine.Interface_CollisionDataProvider
 // 0x0000 (0x0000 - 0x0000)
@@ -20493,6 +21130,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IInterface_CollisionDataProvider;
 
 // Class Engine.SoundNodeQualityLevel
 // 0x0008 (0x0050 - 0x0048)
@@ -20516,6 +21154,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeQualityLevel>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeQualityLevel;
 
 // Class Engine.Interface_PostProcessVolume
 // 0x0000 (0x0000 - 0x0000)
@@ -20544,6 +21183,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IInterface_PostProcessVolume;
 
 // Class Engine.LightmassPrimitiveSettingsObject
 // 0x0018 (0x0040 - 0x0028)
@@ -20566,6 +21206,7 @@ public:
 		return GetDefaultObjImpl<ULightmassPrimitiveSettingsObject>();
 	}
 };
+DUMPER7_ASSERTS_ULightmassPrimitiveSettingsObject;
 
 // Class Engine.Interface_PreviewMeshProvider
 // 0x0000 (0x0000 - 0x0000)
@@ -20594,6 +21235,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IInterface_PreviewMeshProvider;
 
 // Class Engine.SoundNodeMature
 // 0x0000 (0x0048 - 0x0048)
@@ -20613,6 +21255,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeMature>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeMature;
 
 // Class Engine.InterpCurveEdSetup
 // 0x0018 (0x0040 - 0x0028)
@@ -20637,6 +21280,7 @@ public:
 		return GetDefaultObjImpl<UInterpCurveEdSetup>();
 	}
 };
+DUMPER7_ASSERTS_UInterpCurveEdSetup;
 
 // Class Engine.InterpData
 // 0x0048 (0x0070 - 0x0028)
@@ -20668,6 +21312,7 @@ public:
 		return GetDefaultObjImpl<UInterpData>();
 	}
 };
+DUMPER7_ASSERTS_UInterpData;
 
 // Class Engine.KismetInternationalizationLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -20703,6 +21348,7 @@ public:
 		return GetDefaultObjImpl<UKismetInternationalizationLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UKismetInternationalizationLibrary;
 
 // Class Engine.InterpFilter_Classes
 // 0x0000 (0x0038 - 0x0038)
@@ -20722,6 +21368,7 @@ public:
 		return GetDefaultObjImpl<UInterpFilter_Classes>();
 	}
 };
+DUMPER7_ASSERTS_UInterpFilter_Classes;
 
 // Class Engine.InterpGroupDirector
 // 0x0000 (0x0050 - 0x0050)
@@ -20741,6 +21388,7 @@ public:
 		return GetDefaultObjImpl<UInterpGroupDirector>();
 	}
 };
+DUMPER7_ASSERTS_UInterpGroupDirector;
 
 // Class Engine.InterpGroupInstCamera
 // 0x0000 (0x0048 - 0x0048)
@@ -20760,6 +21408,7 @@ public:
 		return GetDefaultObjImpl<UInterpGroupInstCamera>();
 	}
 };
+DUMPER7_ASSERTS_UInterpGroupInstCamera;
 
 // Class Engine.InterpToMovementComponent
 // 0x00A0 (0x0190 - 0x00F0)
@@ -20806,6 +21455,7 @@ public:
 		return GetDefaultObjImpl<UInterpToMovementComponent>();
 	}
 };
+DUMPER7_ASSERTS_UInterpToMovementComponent;
 
 // Class Engine.InterpTrackBoolProp
 // 0x0018 (0x0088 - 0x0070)
@@ -20829,6 +21479,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackBoolProp>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackBoolProp;
 
 // Class Engine.InterpTrackFloatAnimBPParam
 // 0x0020 (0x00B0 - 0x0090)
@@ -20854,6 +21505,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackFloatAnimBPParam>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackFloatAnimBPParam;
 
 // Class Engine.InterpTrackFloatParticleParam
 // 0x0008 (0x0098 - 0x0090)
@@ -20876,6 +21528,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackFloatParticleParam>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackFloatParticleParam;
 
 // Class Engine.InterpTrackInstAudioMaster
 // 0x0000 (0x0028 - 0x0028)
@@ -20895,6 +21548,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstAudioMaster>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstAudioMaster;
 
 // Class Engine.InterpTrackInstBoolProp
 // 0x0018 (0x0068 - 0x0050)
@@ -20919,6 +21573,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstBoolProp>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstBoolProp;
 
 // Class Engine.InterpTrackInstColorScale
 // 0x0000 (0x0028 - 0x0028)
@@ -20938,6 +21593,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstColorScale>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstColorScale;
 
 // Class Engine.InterpTrackInstFloatAnimBPParam
 // 0x0018 (0x0040 - 0x0028)
@@ -20962,6 +21618,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstFloatAnimBPParam>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstFloatAnimBPParam;
 
 // Class Engine.InterpTrackInstFloatParticleParam
 // 0x0008 (0x0030 - 0x0028)
@@ -20985,6 +21642,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstFloatParticleParam>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstFloatParticleParam;
 
 // Class Engine.InterpTrackInstLinearColorProp
 // 0x0018 (0x0068 - 0x0050)
@@ -21008,6 +21666,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstLinearColorProp>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstLinearColorProp;
 
 // Class Engine.InterpTrackInstParticleReplay
 // 0x0008 (0x0030 - 0x0028)
@@ -21031,6 +21690,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstParticleReplay>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstParticleReplay;
 
 // Class Engine.InterpTrackInstSound
 // 0x0010 (0x0038 - 0x0028)
@@ -21055,6 +21715,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstSound>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstSound;
 
 // Class Engine.InterpTrackInstVectorMaterialParam
 // 0x0038 (0x0060 - 0x0028)
@@ -21080,6 +21741,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstVectorMaterialParam>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstVectorMaterialParam;
 
 // Class Engine.InterpTrackInstVisibility
 // 0x0008 (0x0030 - 0x0028)
@@ -21104,6 +21766,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackInstVisibility>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackInstVisibility;
 
 // Class Engine.InterpTrackLinearColorProp
 // 0x0008 (0x0098 - 0x0090)
@@ -21126,6 +21789,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackLinearColorProp>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackLinearColorProp;
 
 // Class Engine.InterpTrackMoveAxis
 // 0x0018 (0x00A8 - 0x0090)
@@ -21150,6 +21814,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackMoveAxis>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackMoveAxis;
 
 // Class Engine.InterpTrackVectorProp
 // 0x0008 (0x0098 - 0x0090)
@@ -21172,6 +21837,7 @@ public:
 		return GetDefaultObjImpl<UInterpTrackVectorProp>();
 	}
 };
+DUMPER7_ASSERTS_UInterpTrackVectorProp;
 
 // Class Engine.KismetInputLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -21242,6 +21908,7 @@ public:
 		return GetDefaultObjImpl<UKismetInputLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UKismetInputLibrary;
 
 // Class Engine.KismetSystemLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -21511,6 +22178,7 @@ public:
 		return GetDefaultObjImpl<UKismetSystemLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UKismetSystemLibrary;
 
 // Class Engine.Layer
 // 0x0020 (0x0048 - 0x0028)
@@ -21536,6 +22204,7 @@ public:
 		return GetDefaultObjImpl<ULayer>();
 	}
 };
+DUMPER7_ASSERTS_ULayer;
 
 // Class Engine.Level
 // 0x0270 (0x0298 - 0x0028)
@@ -21589,6 +22258,7 @@ public:
 		return GetDefaultObjImpl<ULevel>();
 	}
 };
+DUMPER7_ASSERTS_ULevel;
 
 // Class Engine.LevelActorContainer
 // 0x0010 (0x0038 - 0x0028)
@@ -21611,6 +22281,7 @@ public:
 		return GetDefaultObjImpl<ULevelActorContainer>();
 	}
 };
+DUMPER7_ASSERTS_ULevelActorContainer;
 
 // Class Engine.LevelScriptBlueprint
 // 0x0000 (0x00A0 - 0x00A0)
@@ -21630,6 +22301,7 @@ public:
 		return GetDefaultObjImpl<ULevelScriptBlueprint>();
 	}
 };
+DUMPER7_ASSERTS_ULevelScriptBlueprint;
 
 // Class Engine.LightMapVirtualTexture2D
 // 0x0020 (0x01C0 - 0x01A0)
@@ -21653,6 +22325,7 @@ public:
 		return GetDefaultObjImpl<ULightMapVirtualTexture2D>();
 	}
 };
+DUMPER7_ASSERTS_ULightMapVirtualTexture2D;
 
 // Class Engine.LightmassPortalComponent
 // 0x0000 (0x0200 - 0x0200)
@@ -21675,6 +22348,7 @@ public:
 		return GetDefaultObjImpl<ULightmassPortalComponent>();
 	}
 };
+DUMPER7_ASSERTS_ULightmassPortalComponent;
 
 // Class Engine.LODSyncInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -21703,6 +22377,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_ILODSyncInterface;
 
 // Class Engine.MapBuildDataRegistry
 // 0x0210 (0x0238 - 0x0028)
@@ -21726,6 +22401,7 @@ public:
 		return GetDefaultObjImpl<UMapBuildDataRegistry>();
 	}
 };
+DUMPER7_ASSERTS_UMapBuildDataRegistry;
 
 // Class Engine.MaterialExpressionAbs
 // 0x0018 (0x0058 - 0x0040)
@@ -21749,6 +22425,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionAbs>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionAbs;
 
 // Class Engine.MaterialExpressionAdd
 // 0x0030 (0x0070 - 0x0040)
@@ -21774,6 +22451,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionAdd>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionAdd;
 
 // Class Engine.MaterialExpressionAppendVector
 // 0x0028 (0x0068 - 0x0040)
@@ -21797,6 +22475,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionAppendVector>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionAppendVector;
 
 // Class Engine.MaterialExpressionArccosineFast
 // 0x0018 (0x0058 - 0x0040)
@@ -21820,6 +22499,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionArccosineFast>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionArccosineFast;
 
 // Class Engine.MaterialExpressionArctangent2
 // 0x0028 (0x0068 - 0x0040)
@@ -21843,6 +22523,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionArctangent2>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionArctangent2;
 
 // Class Engine.MaterialExpressionAtmosphericFogColor
 // 0x0018 (0x0058 - 0x0040)
@@ -21866,6 +22547,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionAtmosphericFogColor>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionAtmosphericFogColor;
 
 // Class Engine.MaterialExpressionAtmosphericLightColor
 // 0x0000 (0x0040 - 0x0040)
@@ -21885,6 +22567,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionAtmosphericLightColor>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionAtmosphericLightColor;
 
 // Class Engine.MaterialExpressionAtmosphericLightVector
 // 0x0000 (0x0040 - 0x0040)
@@ -21904,6 +22587,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionAtmosphericLightVector>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionAtmosphericLightVector;
 
 // Class Engine.MaterialExpressionBentNormalCustomOutput
 // 0x0018 (0x0058 - 0x0040)
@@ -21927,6 +22611,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionBentNormalCustomOutput>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionBentNormalCustomOutput;
 
 // Class Engine.MaterialExpressionBlendMaterialAttributes
 // 0x0048 (0x0088 - 0x0040)
@@ -21954,6 +22639,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionBlendMaterialAttributes>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionBlendMaterialAttributes;
 
 // Class Engine.MaterialExpressionBumpOffset
 // 0x0048 (0x0088 - 0x0040)
@@ -21981,6 +22667,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionBumpOffset>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionBumpOffset;
 
 // Class Engine.MaterialExpressionCameraVectorWS
 // 0x0000 (0x0040 - 0x0040)
@@ -22000,6 +22687,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionCameraVectorWS>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionCameraVectorWS;
 
 // Class Engine.MaterialExpressionChannelMaskParameter
 // 0x0008 (0x0078 - 0x0070)
@@ -22023,6 +22711,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionChannelMaskParameter>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionChannelMaskParameter;
 
 // Class Engine.MaterialExpressionClearCoatNormalCustomOutput
 // 0x0018 (0x0058 - 0x0040)
@@ -22046,6 +22735,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionClearCoatNormalCustomOutput>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionClearCoatNormalCustomOutput;
 
 // Class Engine.MaterialExpressionCloudSampleAttribute
 // 0x0000 (0x0040 - 0x0040)
@@ -22065,6 +22755,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionCloudSampleAttribute>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionCloudSampleAttribute;
 
 // Class Engine.MaterialExpressionComment
 // 0x0030 (0x0070 - 0x0040)
@@ -22092,6 +22783,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionComment>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionComment;
 
 // Class Engine.MaterialExpressionConstantBiasScale
 // 0x0020 (0x0060 - 0x0040)
@@ -22117,6 +22809,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionConstantBiasScale>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionConstantBiasScale;
 
 // Class Engine.MaterialExpressionCrossProduct
 // 0x0028 (0x0068 - 0x0040)
@@ -22140,6 +22833,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionCrossProduct>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionCrossProduct;
 
 // Class Engine.MaterialExpressionCurveAtlasRowParameter
 // 0x0028 (0x0088 - 0x0060)
@@ -22165,6 +22859,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionCurveAtlasRowParameter>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionCurveAtlasRowParameter;
 
 // Class Engine.MaterialExpressionDDX
 // 0x0018 (0x0058 - 0x0040)
@@ -22188,6 +22883,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDDX>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDDX;
 
 // Class Engine.MaterialExpressionDDY
 // 0x0018 (0x0058 - 0x0040)
@@ -22211,6 +22907,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDDY>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDDY;
 
 // Class Engine.MaterialExpressionDecalMipmapLevel
 // 0x0020 (0x0060 - 0x0040)
@@ -22236,6 +22933,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDecalMipmapLevel>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDecalMipmapLevel;
 
 // Class Engine.MaterialExpressionDistanceFieldGradient
 // 0x0018 (0x0058 - 0x0040)
@@ -22259,6 +22957,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDistanceFieldGradient>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDistanceFieldGradient;
 
 // Class Engine.MaterialExpressionDotProduct
 // 0x0028 (0x0068 - 0x0040)
@@ -22282,6 +22981,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDotProduct>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDotProduct;
 
 // Class Engine.MaterialExpressionDynamicParameter
 // 0x0028 (0x0068 - 0x0040)
@@ -22307,6 +23007,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionDynamicParameter>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionDynamicParameter;
 
 // Class Engine.MaterialExpressionFloor
 // 0x0018 (0x0058 - 0x0040)
@@ -22330,6 +23031,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionFloor>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionFloor;
 
 // Class Engine.MaterialExpressionFmod
 // 0x0028 (0x0068 - 0x0040)
@@ -22353,6 +23055,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionFmod>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionFmod;
 
 // Class Engine.MaterialExpressionFontSampleParameter
 // 0x0020 (0x0070 - 0x0050)
@@ -22377,6 +23080,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionFontSampleParameter>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionFontSampleParameter;
 
 // Class Engine.MaterialExpressionGetMaterialAttributes
 // 0x0028 (0x0068 - 0x0040)
@@ -22400,6 +23104,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionGetMaterialAttributes>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionGetMaterialAttributes;
 
 // Class Engine.MaterialExpressionHairAttributes
 // 0x0008 (0x0048 - 0x0040)
@@ -22423,6 +23128,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionHairAttributes>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionHairAttributes;
 
 // Class Engine.MaterialExpressionIf
 // 0x0070 (0x00B0 - 0x0040)
@@ -22452,6 +23158,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionIf>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionIf;
 
 // Class Engine.MaterialExpressionInverseLinearInterpolate
 // 0x0050 (0x0090 - 0x0040)
@@ -22481,6 +23188,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionInverseLinearInterpolate>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionInverseLinearInterpolate;
 
 // Class Engine.MaterialExpressionLightmapUVs
 // 0x0000 (0x0040 - 0x0040)
@@ -22500,6 +23208,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionLightmapUVs>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionLightmapUVs;
 
 // Class Engine.MaterialExpressionLightmassReplace
 // 0x0028 (0x0068 - 0x0040)
@@ -22523,6 +23232,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionLightmassReplace>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionLightmassReplace;
 
 // Class Engine.MaterialExpressionLightVector
 // 0x0000 (0x0040 - 0x0040)
@@ -22542,6 +23252,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionLightVector>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionLightVector;
 
 // Class Engine.MaterialExpressionLinearInterpolate
 // 0x0048 (0x0088 - 0x0040)
@@ -22569,6 +23280,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionLinearInterpolate>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionLinearInterpolate;
 
 // Class Engine.MaterialExpressionLogarithm2
 // 0x0018 (0x0058 - 0x0040)
@@ -22592,6 +23304,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionLogarithm2>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionLogarithm2;
 
 // Class Engine.MaterialExpressionMakeMaterialAttributes
 // 0x0230 (0x0270 - 0x0040)
@@ -22634,6 +23347,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionMakeMaterialAttributes>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionMakeMaterialAttributes;
 
 // Class Engine.MaterialExpressionMapARPassthroughCameraUV
 // 0x0018 (0x0058 - 0x0040)
@@ -22657,6 +23371,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionMapARPassthroughCameraUV>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionMapARPassthroughCameraUV;
 
 // Class Engine.MaterialExpressionMaterialAttributeLayers
 // 0x00A8 (0x00E8 - 0x0040)
@@ -22689,6 +23404,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionMaterialAttributeLayers>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionMaterialAttributeLayers;
 
 // Class Engine.MaterialExpressionMaterialFunctionCall
 // 0x0018 (0x0058 - 0x0040)
@@ -22712,6 +23428,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionMaterialFunctionCall>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionMaterialFunctionCall;
 
 // Class Engine.MaterialExpressionMax
 // 0x0030 (0x0070 - 0x0040)
@@ -22737,6 +23454,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionMax>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionMax;
 
 // Class Engine.MaterialExpressionMin
 // 0x0030 (0x0070 - 0x0040)
@@ -22762,6 +23480,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionMin>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionMin;
 
 // Class Engine.MaterialExpressionMultiply
 // 0x0030 (0x0070 - 0x0040)
@@ -22787,6 +23506,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionMultiply>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionMultiply;
 
 // Class Engine.MaterialExpressionRerouteBase
 // 0x0000 (0x0040 - 0x0040)
@@ -22806,6 +23526,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionRerouteBase>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionRerouteBase;
 
 // Class Engine.MaterialExpressionNamedRerouteBase
 // 0x0000 (0x0040 - 0x0040)
@@ -22825,6 +23546,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionNamedRerouteBase>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionNamedRerouteBase;
 
 // Class Engine.MaterialExpressionNamedRerouteDeclaration
 // 0x0030 (0x0070 - 0x0040)
@@ -22850,6 +23572,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionNamedRerouteDeclaration>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionNamedRerouteDeclaration;
 
 // Class Engine.MaterialExpressionNamedRerouteUsage
 // 0x0018 (0x0058 - 0x0040)
@@ -22873,6 +23596,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionNamedRerouteUsage>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionNamedRerouteUsage;
 
 // Class Engine.MaterialExpressionNormalize
 // 0x0018 (0x0058 - 0x0040)
@@ -22896,6 +23620,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionNormalize>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionNormalize;
 
 // Class Engine.MaterialExpressionObjectBounds
 // 0x0000 (0x0040 - 0x0040)
@@ -22915,6 +23640,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionObjectBounds>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionObjectBounds;
 
 // Class Engine.MaterialExpressionObjectRadius
 // 0x0000 (0x0040 - 0x0040)
@@ -22934,6 +23660,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionObjectRadius>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionObjectRadius;
 
 // Class Engine.MaterialExpressionOneMinus
 // 0x0018 (0x0058 - 0x0040)
@@ -22957,6 +23684,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionOneMinus>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionOneMinus;
 
 // Class Engine.MaterialExpressionParticleDirection
 // 0x0000 (0x0040 - 0x0040)
@@ -22976,6 +23704,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionParticleDirection>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionParticleDirection;
 
 // Class Engine.MaterialExpressionParticleMacroUV
 // 0x0000 (0x0040 - 0x0040)
@@ -22995,6 +23724,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionParticleMacroUV>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionParticleMacroUV;
 
 // Class Engine.MaterialExpressionParticleMotionBlurFade
 // 0x0000 (0x0040 - 0x0040)
@@ -23014,6 +23744,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionParticleMotionBlurFade>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionParticleMotionBlurFade;
 
 // Class Engine.MaterialExpressionParticleRandom
 // 0x0000 (0x0040 - 0x0040)
@@ -23033,6 +23764,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionParticleRandom>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionParticleRandom;
 
 // Class Engine.MaterialExpressionParticleRelativeTime
 // 0x0000 (0x0040 - 0x0040)
@@ -23052,6 +23784,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionParticleRelativeTime>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionParticleRelativeTime;
 
 // Class Engine.MaterialExpressionParticleSpeed
 // 0x0000 (0x0040 - 0x0040)
@@ -23071,6 +23804,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionParticleSpeed>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionParticleSpeed;
 
 // Class Engine.MaterialExpressionParticleSubUVProperties
 // 0x0000 (0x0040 - 0x0040)
@@ -23090,6 +23824,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionParticleSubUVProperties>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionParticleSubUVProperties;
 
 // Class Engine.MaterialExpressionPerInstanceFadeAmount
 // 0x0000 (0x0040 - 0x0040)
@@ -23109,6 +23844,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionPerInstanceFadeAmount>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionPerInstanceFadeAmount;
 
 // Class Engine.MaterialExpressionPerInstanceRandom
 // 0x0000 (0x0040 - 0x0040)
@@ -23128,6 +23864,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionPerInstanceRandom>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionPerInstanceRandom;
 
 // Class Engine.MaterialExpressionPower
 // 0x0030 (0x0070 - 0x0040)
@@ -23153,6 +23890,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionPower>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionPower;
 
 // Class Engine.MaterialExpressionPrecomputedAOMask
 // 0x0000 (0x0040 - 0x0040)
@@ -23172,6 +23910,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionPrecomputedAOMask>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionPrecomputedAOMask;
 
 // Class Engine.MaterialExpressionPreSkinnedLocalBounds
 // 0x0000 (0x0040 - 0x0040)
@@ -23191,6 +23930,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionPreSkinnedLocalBounds>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionPreSkinnedLocalBounds;
 
 // Class Engine.MaterialExpressionPreSkinnedPosition
 // 0x0000 (0x0040 - 0x0040)
@@ -23210,6 +23950,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionPreSkinnedPosition>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionPreSkinnedPosition;
 
 // Class Engine.MaterialExpressionPreviousFrameSwitch
 // 0x0028 (0x0068 - 0x0040)
@@ -23233,6 +23974,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionPreviousFrameSwitch>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionPreviousFrameSwitch;
 
 // Class Engine.MaterialExpressionReflectionCapturePassSwitch
 // 0x0028 (0x0068 - 0x0040)
@@ -23256,6 +23998,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionReflectionCapturePassSwitch>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionReflectionCapturePassSwitch;
 
 // Class Engine.MaterialExpressionReflectionVectorWS
 // 0x0018 (0x0058 - 0x0040)
@@ -23280,6 +24023,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionReflectionVectorWS>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionReflectionVectorWS;
 
 // Class Engine.MaterialExpressionReroute
 // 0x0018 (0x0058 - 0x0040)
@@ -23303,6 +24047,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionReroute>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionReroute;
 
 // Class Engine.MaterialExpressionRotator
 // 0x0038 (0x0078 - 0x0040)
@@ -23330,6 +24075,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionRotator>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionRotator;
 
 // Class Engine.MaterialExpressionRound
 // 0x0018 (0x0058 - 0x0040)
@@ -23353,6 +24099,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionRound>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionRound;
 
 // Class Engine.MaterialExpressionRuntimeVirtualTextureOutput
 // 0x0090 (0x00D0 - 0x0040)
@@ -23382,6 +24129,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionRuntimeVirtualTextureOutput>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionRuntimeVirtualTextureOutput;
 
 // Class Engine.MaterialExpressionRuntimeVirtualTextureSampleParameter
 // 0x0020 (0x00B0 - 0x0090)
@@ -23406,6 +24154,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionRuntimeVirtualTextureSampleParameter>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionRuntimeVirtualTextureSampleParameter;
 
 // Class Engine.MaterialExpressionSamplePhysicsVectorField
 // 0x0018 (0x0058 - 0x0040)
@@ -23430,6 +24179,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSamplePhysicsVectorField>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSamplePhysicsVectorField;
 
 // Class Engine.MaterialExpressionSamplePhysicsIntegerField
 // 0x0018 (0x0058 - 0x0040)
@@ -23454,6 +24204,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSamplePhysicsIntegerField>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSamplePhysicsIntegerField;
 
 // Class Engine.MaterialExpressionSaturate
 // 0x0018 (0x0058 - 0x0040)
@@ -23477,6 +24228,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSaturate>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSaturate;
 
 // Class Engine.MaterialExpressionSceneColor
 // 0x0038 (0x0078 - 0x0040)
@@ -23504,6 +24256,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSceneColor>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSceneColor;
 
 // Class Engine.MaterialExpressionSceneDepthWithoutWater
 // 0x0028 (0x0068 - 0x0040)
@@ -23531,6 +24284,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSceneDepthWithoutWater>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSceneDepthWithoutWater;
 
 // Class Engine.MaterialExpressionSceneTexture
 // 0x0018 (0x0058 - 0x0040)
@@ -23556,6 +24310,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSceneTexture>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSceneTexture;
 
 // Class Engine.MaterialExpressionSetMaterialAttributes
 // 0x0020 (0x0060 - 0x0040)
@@ -23579,6 +24334,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSetMaterialAttributes>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSetMaterialAttributes;
 
 // Class Engine.MaterialExpressionShaderStageSwitch
 // 0x0028 (0x0068 - 0x0040)
@@ -23602,6 +24358,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionShaderStageSwitch>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionShaderStageSwitch;
 
 // Class Engine.MaterialExpressionShadingModel
 // 0x0008 (0x0048 - 0x0040)
@@ -23625,6 +24382,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionShadingModel>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionShadingModel;
 
 // Class Engine.MaterialExpressionShadowReplace
 // 0x0028 (0x0068 - 0x0040)
@@ -23648,6 +24406,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionShadowReplace>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionShadowReplace;
 
 // Class Engine.MaterialExpressionSign
 // 0x0018 (0x0058 - 0x0040)
@@ -23671,6 +24430,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSign>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSign;
 
 // Class Engine.MaterialExpressionSine
 // 0x0018 (0x0058 - 0x0040)
@@ -23694,6 +24454,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSine>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSine;
 
 // Class Engine.MaterialExpressionSkinningVertexOffsets
 // 0x0000 (0x0040 - 0x0040)
@@ -23713,6 +24474,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSkinningVertexOffsets>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSkinningVertexOffsets;
 
 // Class Engine.MaterialExpressionSkyAtmosphereLightDirection
 // 0x0008 (0x0048 - 0x0040)
@@ -23736,6 +24498,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSkyAtmosphereLightDirection>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSkyAtmosphereLightDirection;
 
 // Class Engine.MaterialExpressionSkyAtmosphereLightIlluminance
 // 0x0018 (0x0058 - 0x0040)
@@ -23759,6 +24522,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSkyAtmosphereLightIlluminance>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSkyAtmosphereLightIlluminance;
 
 // Class Engine.MaterialExpressionSkyAtmosphereLightDiskLuminance
 // 0x0008 (0x0048 - 0x0040)
@@ -23782,6 +24546,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSkyAtmosphereLightDiskLuminance>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSkyAtmosphereLightDiskLuminance;
 
 // Class Engine.MaterialExpressionSkyAtmosphereAerialPerspective
 // 0x0018 (0x0058 - 0x0040)
@@ -23805,6 +24570,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSkyAtmosphereAerialPerspective>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSkyAtmosphereAerialPerspective;
 
 // Class Engine.MaterialExpressionSkyAtmosphereDistantLightScatteredLuminance
 // 0x0000 (0x0040 - 0x0040)
@@ -23824,6 +24590,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSkyAtmosphereDistantLightScatteredLuminance>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSkyAtmosphereDistantLightScatteredLuminance;
 
 // Class Engine.MaterialExpressionSmoothStep
 // 0x0048 (0x0088 - 0x0040)
@@ -23851,6 +24618,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSmoothStep>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSmoothStep;
 
 // Class Engine.MaterialExpressionSobol
 // 0x0048 (0x0088 - 0x0040)
@@ -23877,6 +24645,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSobol>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSobol;
 
 // Class Engine.MaterialExpressionSphereMask
 // 0x0058 (0x0098 - 0x0040)
@@ -23904,6 +24673,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSphereMask>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSphereMask;
 
 // Class Engine.MaterialExpressionSphericalParticleOpacity
 // 0x0018 (0x0058 - 0x0040)
@@ -23927,6 +24697,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSphericalParticleOpacity>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSphericalParticleOpacity;
 
 // Class Engine.MaterialExpressionSquareRoot
 // 0x0018 (0x0058 - 0x0040)
@@ -23950,6 +24721,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSquareRoot>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSquareRoot;
 
 // Class Engine.MaterialExpressionStaticBool
 // 0x0008 (0x0048 - 0x0040)
@@ -23973,6 +24745,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionStaticBool>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionStaticBool;
 
 // Class Engine.MaterialExpressionStaticBoolParameter
 // 0x0008 (0x0060 - 0x0058)
@@ -23996,6 +24769,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionStaticBoolParameter>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionStaticBoolParameter;
 
 // Class Engine.MaterialExpressionStaticSwitch
 // 0x0040 (0x0080 - 0x0040)
@@ -24022,6 +24796,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionStaticSwitch>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionStaticSwitch;
 
 // Class Engine.MaterialExpressionStaticSwitchParameter
 // 0x0000 (0x0060 - 0x0060)
@@ -24041,6 +24816,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionStaticSwitchParameter>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionStaticSwitchParameter;
 
 // Class Engine.TwitterIntegrationBase
 // 0x0000 (0x0038 - 0x0038)
@@ -24069,6 +24845,7 @@ public:
 		return GetDefaultObjImpl<UTwitterIntegrationBase>();
 	}
 };
+DUMPER7_ASSERTS_UTwitterIntegrationBase;
 
 // Class Engine.MaterialExpressionStep
 // 0x0030 (0x0070 - 0x0040)
@@ -24094,6 +24871,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionStep>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionStep;
 
 // Class Engine.MaterialExpressionSubtract
 // 0x0030 (0x0070 - 0x0040)
@@ -24119,6 +24897,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSubtract>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSubtract;
 
 // Class Engine.MaterialExpressionTangent
 // 0x0018 (0x0058 - 0x0040)
@@ -24142,6 +24921,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTangent>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTangent;
 
 // Class Engine.MaterialExpressionTangentOutput
 // 0x0018 (0x0058 - 0x0040)
@@ -24165,6 +24945,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTangentOutput>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTangentOutput;
 
 // Class Engine.MaterialExpressionTextureCoordinate
 // 0x0010 (0x0050 - 0x0040)
@@ -24192,6 +24973,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTextureCoordinate>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTextureCoordinate;
 
 // Class Engine.MaterialExpressionTextureObject
 // 0x0000 (0x0048 - 0x0048)
@@ -24211,6 +24993,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTextureObject>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTextureObject;
 
 // Class Engine.MaterialExpressionTextureObjectParameter
 // 0x0000 (0x0080 - 0x0080)
@@ -24230,6 +25013,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTextureObjectParameter>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTextureObjectParameter;
 
 // Class Engine.VectorFieldVolume
 // 0x0008 (0x0228 - 0x0220)
@@ -24252,6 +25036,7 @@ public:
 		return GetDefaultObjImpl<AVectorFieldVolume>();
 	}
 };
+DUMPER7_ASSERTS_AVectorFieldVolume;
 
 // Class Engine.MaterialExpressionTextureProperty
 // 0x0018 (0x0058 - 0x0040)
@@ -24276,6 +25061,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTextureProperty>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTextureProperty;
 
 // Class Engine.MaterialExpressionTextureSampleParameter2DArray
 // 0x0000 (0x0080 - 0x0080)
@@ -24295,6 +25081,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTextureSampleParameter2DArray>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTextureSampleParameter2DArray;
 
 // Class Engine.MaterialExpressionTextureSampleParameterCube
 // 0x0000 (0x0080 - 0x0080)
@@ -24314,6 +25101,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTextureSampleParameterCube>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTextureSampleParameterCube;
 
 // Class Engine.RuntimeVirtualTextureStreamingProxy
 // 0x0000 (0x01A0 - 0x01A0)
@@ -24333,6 +25121,7 @@ public:
 		return GetDefaultObjImpl<URuntimeVirtualTextureStreamingProxy>();
 	}
 };
+DUMPER7_ASSERTS_URuntimeVirtualTextureStreamingProxy;
 
 // Class Engine.MaterialExpressionTextureSampleParameterVolume
 // 0x0000 (0x0080 - 0x0080)
@@ -24352,6 +25141,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTextureSampleParameterVolume>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTextureSampleParameterVolume;
 
 // Class Engine.MaterialExpressionTime
 // 0x0008 (0x0048 - 0x0040)
@@ -24377,6 +25167,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTime>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTime;
 
 // Class Engine.MaterialExpressionTransform
 // 0x0018 (0x0058 - 0x0040)
@@ -24402,6 +25193,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTransform>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTransform;
 
 // Class Engine.MaterialExpressionTransformPosition
 // 0x0018 (0x0058 - 0x0040)
@@ -24427,6 +25219,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTransformPosition>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTransformPosition;
 
 // Class Engine.MaterialExpressionTwoSidedSign
 // 0x0000 (0x0040 - 0x0040)
@@ -24446,6 +25239,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionTwoSidedSign>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionTwoSidedSign;
 
 // Class Engine.MaterialExpressionVertexInterpolator
 // 0x0020 (0x0060 - 0x0040)
@@ -24469,6 +25263,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionVertexInterpolator>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionVertexInterpolator;
 
 // Class Engine.MaterialExpressionVertexNormalWS
 // 0x0000 (0x0040 - 0x0040)
@@ -24488,6 +25283,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionVertexNormalWS>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionVertexNormalWS;
 
 // Class Engine.MaterialExpressionVertexTangentWS
 // 0x0000 (0x0040 - 0x0040)
@@ -24507,6 +25303,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionVertexTangentWS>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionVertexTangentWS;
 
 // Class Engine.MaterialExpressionVolumetricAdvancedMaterialInput
 // 0x0000 (0x0040 - 0x0040)
@@ -24526,6 +25323,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionVolumetricAdvancedMaterialInput>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionVolumetricAdvancedMaterialInput;
 
 // Class Engine.SpringArmComponent
 // 0x0080 (0x0280 - 0x0200)
@@ -24573,6 +25371,7 @@ public:
 		return GetDefaultObjImpl<USpringArmComponent>();
 	}
 };
+DUMPER7_ASSERTS_USpringArmComponent;
 
 // Class Engine.MaterialExpressionVolumetricAdvancedMaterialOutput
 // 0x00B0 (0x00F0 - 0x0040)
@@ -24614,6 +25413,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionVolumetricAdvancedMaterialOutput>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionVolumetricAdvancedMaterialOutput;
 
 // Class Engine.MaterialFunctionMaterialLayerInstance
 // 0x0000 (0x00C0 - 0x00C0)
@@ -24633,6 +25433,7 @@ public:
 		return GetDefaultObjImpl<UMaterialFunctionMaterialLayerInstance>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialFunctionMaterialLayerInstance;
 
 // Class Engine.MaterialFunctionMaterialLayerBlend
 // 0x0000 (0x0058 - 0x0058)
@@ -24652,6 +25453,7 @@ public:
 		return GetDefaultObjImpl<UMaterialFunctionMaterialLayerBlend>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialFunctionMaterialLayerBlend;
 
 // Class Engine.MaterialInstanceActor
 // 0x0010 (0x0230 - 0x0220)
@@ -24674,6 +25476,7 @@ public:
 		return GetDefaultObjImpl<AMaterialInstanceActor>();
 	}
 };
+DUMPER7_ASSERTS_AMaterialInstanceActor;
 
 // Class Engine.MaterialInstanceDynamic
 // 0x0050 (0x0360 - 0x0310)
@@ -24714,6 +25517,7 @@ public:
 		return GetDefaultObjImpl<UMaterialInstanceDynamic>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialInstanceDynamic;
 
 // Class Engine.MaterialParameterCollection
 // 0x0048 (0x0070 - 0x0028)
@@ -24739,6 +25543,7 @@ public:
 		return GetDefaultObjImpl<UMaterialParameterCollection>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialParameterCollection;
 
 // Class Engine.MatineeActor
 // 0x00A8 (0x02C8 - 0x0220)
@@ -24810,6 +25615,7 @@ public:
 		return GetDefaultObjImpl<AMatineeActor>();
 	}
 };
+DUMPER7_ASSERTS_AMatineeActor;
 
 // Class Engine.MatineeActorCameraAnim
 // 0x0008 (0x02D0 - 0x02C8)
@@ -24832,6 +25638,7 @@ public:
 		return GetDefaultObjImpl<AMatineeActorCameraAnim>();
 	}
 };
+DUMPER7_ASSERTS_AMatineeActorCameraAnim;
 
 // Class Engine.MatineeAnimInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -24860,6 +25667,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IMatineeAnimInterface;
 
 // Class Engine.MatineeInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -24888,6 +25696,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IMatineeInterface;
 
 // Class Engine.MeshSimplificationSettings
 // 0x0008 (0x0040 - 0x0038)
@@ -24910,6 +25719,7 @@ public:
 		return GetDefaultObjImpl<UMeshSimplificationSettings>();
 	}
 };
+DUMPER7_ASSERTS_UMeshSimplificationSettings;
 
 // Class Engine.MeshVertexPainterKismetLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -24934,6 +25744,7 @@ public:
 		return GetDefaultObjImpl<UMeshVertexPainterKismetLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UMeshVertexPainterKismetLibrary;
 
 // Class Engine.MicroTransactionBase
 // 0x0030 (0x0068 - 0x0038)
@@ -24958,6 +25769,7 @@ public:
 		return GetDefaultObjImpl<UMicroTransactionBase>();
 	}
 };
+DUMPER7_ASSERTS_UMicroTransactionBase;
 
 // Class Engine.ModelComponent
 // 0x0040 (0x0490 - 0x0450)
@@ -24982,6 +25794,7 @@ public:
 		return GetDefaultObjImpl<UModelComponent>();
 	}
 };
+DUMPER7_ASSERTS_UModelComponent;
 
 // Class Engine.MorphTarget
 // 0x0018 (0x0040 - 0x0028)
@@ -25005,6 +25818,7 @@ public:
 		return GetDefaultObjImpl<UMorphTarget>();
 	}
 };
+DUMPER7_ASSERTS_UMorphTarget;
 
 // Class Engine.NavAgentInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -25033,6 +25847,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_INavAgentInterface;
 
 // Class Engine.NavAreaBase
 // 0x0008 (0x0030 - 0x0028)
@@ -25055,6 +25870,7 @@ public:
 		return GetDefaultObjImpl<UNavAreaBase>();
 	}
 };
+DUMPER7_ASSERTS_UNavAreaBase;
 
 // Class Engine.NavCollisionBase
 // 0x0048 (0x0070 - 0x0028)
@@ -25078,6 +25894,7 @@ public:
 		return GetDefaultObjImpl<UNavCollisionBase>();
 	}
 };
+DUMPER7_ASSERTS_UNavCollisionBase;
 
 // Class Engine.NavEdgeProviderInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -25106,6 +25923,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_INavEdgeProviderInterface;
 
 // Class Engine.NavigationDataChunk
 // 0x0008 (0x0030 - 0x0028)
@@ -25128,6 +25946,7 @@ public:
 		return GetDefaultObjImpl<UNavigationDataChunk>();
 	}
 };
+DUMPER7_ASSERTS_UNavigationDataChunk;
 
 // Class Engine.NavigationSystemBase
 // 0x0000 (0x0028 - 0x0028)
@@ -25147,6 +25966,7 @@ public:
 		return GetDefaultObjImpl<UNavigationSystemBase>();
 	}
 };
+DUMPER7_ASSERTS_UNavigationSystemBase;
 
 // Class Engine.NavLinkDefinition
 // 0x0028 (0x0050 - 0x0028)
@@ -25171,6 +25991,7 @@ public:
 		return GetDefaultObjImpl<UNavLinkDefinition>();
 	}
 };
+DUMPER7_ASSERTS_UNavLinkDefinition;
 
 // Class Engine.NavPathObserverInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -25199,6 +26020,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_INavPathObserverInterface;
 
 // Class Engine.SimulatedClientNetConnection
 // 0x0000 (0x1BA8 - 0x1BA8)
@@ -25218,6 +26040,7 @@ public:
 		return GetDefaultObjImpl<USimulatedClientNetConnection>();
 	}
 };
+DUMPER7_ASSERTS_USimulatedClientNetConnection;
 
 // Class Engine.SkeletalMeshEditorData
 // 0x0000 (0x0028 - 0x0028)
@@ -25237,6 +26060,7 @@ public:
 		return GetDefaultObjImpl<USkeletalMeshEditorData>();
 	}
 };
+DUMPER7_ASSERTS_USkeletalMeshEditorData;
 
 // Class Engine.NetworkSettings
 // 0x0020 (0x0058 - 0x0038)
@@ -25265,6 +26089,7 @@ public:
 		return GetDefaultObjImpl<UNetworkSettings>();
 	}
 };
+DUMPER7_ASSERTS_UNetworkSettings;
 
 // Class Engine.NodeMappingContainer
 // 0x0140 (0x0168 - 0x0028)
@@ -25291,6 +26116,7 @@ public:
 		return GetDefaultObjImpl<UNodeMappingContainer>();
 	}
 };
+DUMPER7_ASSERTS_UNodeMappingContainer;
 
 // Class Engine.NodeMappingProviderInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -25319,6 +26145,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_INodeMappingProviderInterface;
 
 // Class Engine.Note
 // 0x0000 (0x0220 - 0x0220)
@@ -25338,6 +26165,7 @@ public:
 		return GetDefaultObjImpl<ANote>();
 	}
 };
+DUMPER7_ASSERTS_ANote;
 
 // Class Engine.SkyAtmosphereComponent
 // 0x00D0 (0x02D0 - 0x0200)
@@ -25406,6 +26234,7 @@ public:
 		return GetDefaultObjImpl<USkyAtmosphereComponent>();
 	}
 };
+DUMPER7_ASSERTS_USkyAtmosphereComponent;
 
 // Class Engine.ObjectLibrary
 // 0x0080 (0x00A8 - 0x0028)
@@ -25435,6 +26264,7 @@ public:
 		return GetDefaultObjImpl<UObjectLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UObjectLibrary;
 
 // Class Engine.ObjectReferencer
 // 0x0010 (0x0038 - 0x0028)
@@ -25457,6 +26287,7 @@ public:
 		return GetDefaultObjImpl<UObjectReferencer>();
 	}
 };
+DUMPER7_ASSERTS_UObjectReferencer;
 
 // Class Engine.ObjectTraceWorldSubsystem
 // 0x0008 (0x0038 - 0x0030)
@@ -25479,6 +26310,7 @@ public:
 		return GetDefaultObjImpl<UObjectTraceWorldSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UObjectTraceWorldSubsystem;
 
 // Class Engine.SlateTextureAtlasInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -25507,6 +26339,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_ISlateTextureAtlasInterface;
 
 // Class Engine.PainCausingVolume
 // 0x0028 (0x0290 - 0x0268)
@@ -25538,6 +26371,7 @@ public:
 		return GetDefaultObjImpl<APainCausingVolume>();
 	}
 };
+DUMPER7_ASSERTS_APainCausingVolume;
 
 // Class Engine.ParticleEmitter
 // 0x0190 (0x01B8 - 0x0028)
@@ -25578,6 +26412,7 @@ public:
 		return GetDefaultObjImpl<UParticleEmitter>();
 	}
 };
+DUMPER7_ASSERTS_UParticleEmitter;
 
 // Class Engine.ParticleEventManager
 // 0x0000 (0x0220 - 0x0220)
@@ -25597,6 +26432,7 @@ public:
 		return GetDefaultObjImpl<AParticleEventManager>();
 	}
 };
+DUMPER7_ASSERTS_AParticleEventManager;
 
 // Class Engine.ParticleLODLevel
 // 0x0090 (0x00B8 - 0x0028)
@@ -25634,6 +26470,7 @@ public:
 		return GetDefaultObjImpl<UParticleLODLevel>();
 	}
 };
+DUMPER7_ASSERTS_UParticleLODLevel;
 
 // Class Engine.ParticleSystem
 // 0x00E0 (0x0110 - 0x0030)
@@ -25697,6 +26534,7 @@ public:
 		return GetDefaultObjImpl<UParticleSystem>();
 	}
 };
+DUMPER7_ASSERTS_UParticleSystem;
 
 // Class Engine.ParticleModuleAcceleration
 // 0x0050 (0x0088 - 0x0038)
@@ -25721,6 +26559,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleAcceleration>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleAcceleration;
 
 // Class Engine.ParticleModuleAccelerationConstant
 // 0x0010 (0x0048 - 0x0038)
@@ -25744,6 +26583,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleAccelerationConstant>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleAccelerationConstant;
 
 // Class Engine.ParticleModuleAccelerationDragScaleOverLife
 // 0x0038 (0x0070 - 0x0038)
@@ -25767,6 +26607,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleAccelerationDragScaleOverLife>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleAccelerationDragScaleOverLife;
 
 // Class Engine.ParticleModuleAccelerationOverLifetime
 // 0x0050 (0x0088 - 0x0038)
@@ -25791,6 +26632,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleAccelerationOverLifetime>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleAccelerationOverLifetime;
 
 // Class Engine.ParticleModuleAttractorBase
 // 0x0000 (0x0030 - 0x0030)
@@ -25810,6 +26652,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleAttractorBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleAttractorBase;
 
 // Class Engine.VolumetricCloud
 // 0x0008 (0x0228 - 0x0220)
@@ -25832,6 +26675,7 @@ public:
 		return GetDefaultObjImpl<AVolumetricCloud>();
 	}
 };
+DUMPER7_ASSERTS_AVolumetricCloud;
 
 // Class Engine.ParticleModuleAttractorLine
 // 0x0078 (0x00A8 - 0x0030)
@@ -25857,6 +26701,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleAttractorLine>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleAttractorLine;
 
 // Class Engine.ParticleModuleAttractorParticle
 // 0x0080 (0x00B0 - 0x0030)
@@ -25891,6 +26736,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleAttractorParticle>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleAttractorParticle;
 
 // Class Engine.ParticleModuleAttractorPoint
 // 0x00B0 (0x00E0 - 0x0030)
@@ -25926,6 +26772,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleAttractorPoint>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleAttractorPoint;
 
 // Class Engine.ParticleModuleAttractorPointGravity
 // 0x0048 (0x0078 - 0x0030)
@@ -25951,6 +26798,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleAttractorPointGravity>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleAttractorPointGravity;
 
 // Class Engine.WorldComposition
 // 0x0040 (0x0068 - 0x0028)
@@ -25979,6 +26827,7 @@ public:
 		return GetDefaultObjImpl<UWorldComposition>();
 	}
 };
+DUMPER7_ASSERTS_UWorldComposition;
 
 // Class Engine.ParticleModuleBeamModifier
 // 0x00D8 (0x0108 - 0x0030)
@@ -26011,6 +26860,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleBeamModifier>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleBeamModifier;
 
 // Class Engine.ParticleModuleBeamSource
 // 0x00E8 (0x0118 - 0x0030)
@@ -26048,6 +26898,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleBeamSource>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleBeamSource;
 
 // Class Engine.ParticleModuleBeamTarget
 // 0x00F0 (0x0120 - 0x0030)
@@ -26087,6 +26938,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleBeamTarget>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleBeamTarget;
 
 // Class Engine.ParticleModuleCollisionBase
 // 0x0000 (0x0030 - 0x0030)
@@ -26106,6 +26958,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleCollisionBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleCollisionBase;
 
 // Class Engine.ParticleModuleCollision
 // 0x0160 (0x0190 - 0x0030)
@@ -26150,6 +27003,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleCollision>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleCollision;
 
 // Class Engine.ParticleModuleCollisionGPU
 // 0x0078 (0x00A8 - 0x0030)
@@ -26181,6 +27035,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleCollisionGPU>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleCollisionGPU;
 
 // Class Engine.ParticleModuleColorOverLife
 // 0x0080 (0x00B0 - 0x0030)
@@ -26206,6 +27061,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleColorOverLife>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleColorOverLife;
 
 // Class Engine.ParticleModuleColorScaleOverLife
 // 0x0080 (0x00B0 - 0x0030)
@@ -26231,6 +27087,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleColorScaleOverLife>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleColorScaleOverLife;
 
 // Class Engine.ParticleModuleEventBase
 // 0x0000 (0x0030 - 0x0030)
@@ -26250,6 +27107,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleEventBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleEventBase;
 
 // Class Engine.ParticleModuleEventGenerator
 // 0x0010 (0x0040 - 0x0030)
@@ -26272,6 +27130,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleEventGenerator>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleEventGenerator;
 
 // Class Engine.ParticleModuleEventReceiverBase
 // 0x0010 (0x0040 - 0x0030)
@@ -26297,6 +27156,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleEventReceiverBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleEventReceiverBase;
 
 // Class Engine.ParticleModuleEventReceiverKillParticles
 // 0x0008 (0x0048 - 0x0040)
@@ -26320,6 +27180,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleEventReceiverKillParticles>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleEventReceiverKillParticles;
 
 // Class Engine.ReverbEffect
 // 0x0038 (0x0060 - 0x0028)
@@ -26357,6 +27218,7 @@ public:
 		return GetDefaultObjImpl<UReverbEffect>();
 	}
 };
+DUMPER7_ASSERTS_UReverbEffect;
 
 // Class Engine.ParticleModuleEventReceiverSpawn
 // 0x0098 (0x00D8 - 0x0040)
@@ -26387,6 +27249,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleEventReceiverSpawn>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleEventReceiverSpawn;
 
 // Class Engine.ParticleModuleEventSendToGame
 // 0x0000 (0x0028 - 0x0028)
@@ -26406,6 +27269,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleEventSendToGame>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleEventSendToGame;
 
 // Class Engine.ParticleModuleKillBase
 // 0x0000 (0x0030 - 0x0030)
@@ -26425,6 +27289,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleKillBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleKillBase;
 
 // Class Engine.ParticleModuleKillBox
 // 0x0098 (0x00C8 - 0x0030)
@@ -26452,6 +27317,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleKillBox>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleKillBox;
 
 // Class Engine.RuntimeVirtualTexture
 // 0x0078 (0x00A0 - 0x0028)
@@ -26497,6 +27363,7 @@ public:
 		return GetDefaultObjImpl<URuntimeVirtualTexture>();
 	}
 };
+DUMPER7_ASSERTS_URuntimeVirtualTexture;
 
 // Class Engine.ParticleModuleKillHeight
 // 0x0038 (0x0068 - 0x0030)
@@ -26523,6 +27390,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleKillHeight>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleKillHeight;
 
 // Class Engine.ParticleModuleLifetimeBase
 // 0x0000 (0x0030 - 0x0030)
@@ -26542,6 +27410,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLifetimeBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLifetimeBase;
 
 // Class Engine.ParticleModuleLifetime
 // 0x0030 (0x0060 - 0x0030)
@@ -26564,6 +27433,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLifetime>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLifetime;
 
 // Class Engine.ParticleModuleLifetime_Seeded
 // 0x0020 (0x0080 - 0x0060)
@@ -26586,6 +27456,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLifetime_Seeded>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLifetime_Seeded;
 
 // Class Engine.Scene
 // 0x0000 (0x0028 - 0x0028)
@@ -26605,6 +27476,7 @@ public:
 		return GetDefaultObjImpl<UScene>();
 	}
 };
+DUMPER7_ASSERTS_UScene;
 
 // Class Engine.ParticleModuleLightBase
 // 0x0000 (0x0030 - 0x0030)
@@ -26624,6 +27496,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLightBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLightBase;
 
 // Class Engine.ParticleModuleLight
 // 0x00F0 (0x0120 - 0x0030)
@@ -26660,6 +27533,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLight>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLight;
 
 // Class Engine.ParticleModuleLight_Seeded
 // 0x0020 (0x0140 - 0x0120)
@@ -26682,6 +27556,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLight_Seeded>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLight_Seeded;
 
 // Class Engine.SceneCapture
 // 0x0010 (0x0230 - 0x0220)
@@ -26705,6 +27580,7 @@ public:
 		return GetDefaultObjImpl<ASceneCapture>();
 	}
 };
+DUMPER7_ASSERTS_ASceneCapture;
 
 // Class Engine.SceneCaptureCube
 // 0x0008 (0x0238 - 0x0230)
@@ -26730,6 +27606,7 @@ public:
 		return GetDefaultObjImpl<ASceneCaptureCube>();
 	}
 };
+DUMPER7_ASSERTS_ASceneCaptureCube;
 
 // Class Engine.ParticleModuleLocation
 // 0x0058 (0x0088 - 0x0030)
@@ -26756,6 +27633,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLocation>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLocation;
 
 // Class Engine.ParticleModuleLocation_Seeded
 // 0x0020 (0x00A8 - 0x0088)
@@ -26778,6 +27656,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLocation_Seeded>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLocation_Seeded;
 
 // Class Engine.ParticleModuleLocationBoneSocket
 // 0x0060 (0x0090 - 0x0030)
@@ -26815,6 +27694,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLocationBoneSocket>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLocationBoneSocket;
 
 // Class Engine.ParticleModuleLocationDirect
 // 0x0120 (0x0150 - 0x0030)
@@ -26840,6 +27720,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLocationDirect>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLocationDirect;
 
 // Class Engine.StereoLayerShapeCylinder
 // 0x0010 (0x0038 - 0x0028)
@@ -26870,6 +27751,7 @@ public:
 		return GetDefaultObjImpl<UStereoLayerShapeCylinder>();
 	}
 };
+DUMPER7_ASSERTS_UStereoLayerShapeCylinder;
 
 // Class Engine.ParticleModuleLocationEmitter
 // 0x0020 (0x0050 - 0x0030)
@@ -26901,6 +27783,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLocationEmitter>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLocationEmitter;
 
 // Class Engine.ParticleModuleLocationEmitterDirect
 // 0x0008 (0x0038 - 0x0030)
@@ -26923,6 +27806,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLocationEmitterDirect>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLocationEmitterDirect;
 
 // Class Engine.ParticleModuleLocationPrimitiveBase
 // 0x0080 (0x00B0 - 0x0030)
@@ -26955,6 +27839,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLocationPrimitiveBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLocationPrimitiveBase;
 
 // Class Engine.ParticleModuleLocationPrimitiveCylinder
 // 0x0070 (0x0120 - 0x00B0)
@@ -26983,6 +27868,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLocationPrimitiveCylinder>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLocationPrimitiveCylinder;
 
 // Class Engine.StereoLayerFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -27008,6 +27894,7 @@ public:
 		return GetDefaultObjImpl<UStereoLayerFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UStereoLayerFunctionLibrary;
 
 // Class Engine.ParticleModuleLocationPrimitiveCylinder_Seeded
 // 0x0020 (0x0140 - 0x0120)
@@ -27030,6 +27917,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLocationPrimitiveCylinder_Seeded>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLocationPrimitiveCylinder_Seeded;
 
 // Class Engine.ParticleModuleLocationPrimitiveSphere
 // 0x0038 (0x00E8 - 0x00B0)
@@ -27054,6 +27942,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLocationPrimitiveSphere>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLocationPrimitiveSphere;
 
 // Class Engine.ParticleModuleLocationPrimitiveSphere_Seeded
 // 0x0020 (0x0108 - 0x00E8)
@@ -27076,6 +27965,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLocationPrimitiveSphere_Seeded>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLocationPrimitiveSphere_Seeded;
 
 // Class Engine.ParticleModuleLocationPrimitiveTriangle
 // 0x00E0 (0x0110 - 0x0030)
@@ -27103,6 +27993,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLocationPrimitiveTriangle>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLocationPrimitiveTriangle;
 
 // Class Engine.SubUVAnimation
 // 0x0040 (0x0068 - 0x0028)
@@ -27132,6 +28023,7 @@ public:
 		return GetDefaultObjImpl<USubUVAnimation>();
 	}
 };
+DUMPER7_ASSERTS_USubUVAnimation;
 
 // Class Engine.ParticleModuleLocationSkelVertSurface
 // 0x0060 (0x0090 - 0x0030)
@@ -27173,6 +28065,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLocationSkelVertSurface>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLocationSkelVertSurface;
 
 // Class Engine.ParticleModuleLocationWorldOffset
 // 0x0000 (0x0088 - 0x0088)
@@ -27192,6 +28085,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLocationWorldOffset>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLocationWorldOffset;
 
 // Class Engine.ParticleModuleLocationWorldOffset_Seeded
 // 0x0020 (0x00A8 - 0x0088)
@@ -27214,6 +28108,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleLocationWorldOffset_Seeded>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleLocationWorldOffset_Seeded;
 
 // Class Engine.ParticleModuleMaterialBase
 // 0x0000 (0x0030 - 0x0030)
@@ -27233,6 +28128,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleMaterialBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleMaterialBase;
 
 // Class Engine.TextRenderActor
 // 0x0008 (0x0228 - 0x0220)
@@ -27255,6 +28151,7 @@ public:
 		return GetDefaultObjImpl<ATextRenderActor>();
 	}
 };
+DUMPER7_ASSERTS_ATextRenderActor;
 
 // Class Engine.ParticleModuleMeshMaterial
 // 0x0010 (0x0040 - 0x0030)
@@ -27277,6 +28174,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleMeshMaterial>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleMeshMaterial;
 
 // Class Engine.SoundConcurrency
 // 0x0028 (0x0050 - 0x0028)
@@ -27299,6 +28197,7 @@ public:
 		return GetDefaultObjImpl<USoundConcurrency>();
 	}
 };
+DUMPER7_ASSERTS_USoundConcurrency;
 
 // Class Engine.ParticleModuleMeshRotationRate
 // 0x0048 (0x0078 - 0x0030)
@@ -27321,6 +28220,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleMeshRotationRate>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleMeshRotationRate;
 
 // Class Engine.ParticleModuleMeshRotationRate_Seeded
 // 0x0020 (0x0098 - 0x0078)
@@ -27343,6 +28243,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleMeshRotationRate_Seeded>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleMeshRotationRate_Seeded;
 
 // Class Engine.ParticleModuleMeshRotationRateMultiplyLife
 // 0x0048 (0x0078 - 0x0030)
@@ -27365,6 +28266,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleMeshRotationRateMultiplyLife>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleMeshRotationRateMultiplyLife;
 
 // Class Engine.SoundMix
 // 0x0068 (0x0090 - 0x0028)
@@ -27395,6 +28297,7 @@ public:
 		return GetDefaultObjImpl<USoundMix>();
 	}
 };
+DUMPER7_ASSERTS_USoundMix;
 
 // Class Engine.ParticleModuleMeshRotationRateOverLife
 // 0x0050 (0x0080 - 0x0030)
@@ -27419,6 +28322,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleMeshRotationRateOverLife>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleMeshRotationRateOverLife;
 
 // Class Engine.ParticleModuleOrbitBase
 // 0x0008 (0x0038 - 0x0030)
@@ -27442,6 +28346,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleOrbitBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleOrbitBase;
 
 // Class Engine.ParticleModuleOrbit
 // 0x00F8 (0x0130 - 0x0038)
@@ -27474,6 +28379,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleOrbit>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleOrbit;
 
 // Class Engine.ParticleModuleOrientationBase
 // 0x0000 (0x0030 - 0x0030)
@@ -27493,6 +28399,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleOrientationBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleOrientationBase;
 
 // Class Engine.SoundNodeBranch
 // 0x0008 (0x0050 - 0x0048)
@@ -27515,6 +28422,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeBranch>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeBranch;
 
 // Class Engine.ParticleModuleOrientationAxisLock
 // 0x0008 (0x0038 - 0x0030)
@@ -27538,6 +28446,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleOrientationAxisLock>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleOrientationAxisLock;
 
 // Class Engine.ParticleModuleParameterBase
 // 0x0000 (0x0030 - 0x0030)
@@ -27557,6 +28466,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleParameterBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleParameterBase;
 
 // Class Engine.ParticleModuleParameterDynamic
 // 0x0018 (0x0048 - 0x0030)
@@ -27582,6 +28492,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleParameterDynamic>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleParameterDynamic;
 
 // Class Engine.ParticleModuleParameterDynamic_Seeded
 // 0x0020 (0x0068 - 0x0048)
@@ -27604,6 +28515,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleParameterDynamic_Seeded>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleParameterDynamic_Seeded;
 
 // Class Engine.ParticleModuleRequired
 // 0x0110 (0x0140 - 0x0030)
@@ -27673,6 +28585,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleRequired>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleRequired;
 
 // Class Engine.ParticleModuleRotation
 // 0x0030 (0x0060 - 0x0030)
@@ -27695,6 +28608,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleRotation>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleRotation;
 
 // Class Engine.ParticleModuleRotation_Seeded
 // 0x0020 (0x0080 - 0x0060)
@@ -27717,6 +28631,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleRotation_Seeded>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleRotation_Seeded;
 
 // Class Engine.PrecomputedVisibilityVolume
 // 0x0000 (0x0258 - 0x0258)
@@ -27736,6 +28651,7 @@ public:
 		return GetDefaultObjImpl<APrecomputedVisibilityVolume>();
 	}
 };
+DUMPER7_ASSERTS_APrecomputedVisibilityVolume;
 
 // Class Engine.ParticleModuleRotationOverLifetime
 // 0x0038 (0x0068 - 0x0030)
@@ -27760,6 +28676,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleRotationOverLifetime>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleRotationOverLifetime;
 
 // Class Engine.ProjectileMovementComponent
 // 0x00E0 (0x01D0 - 0x00F0)
@@ -27828,6 +28745,7 @@ public:
 		return GetDefaultObjImpl<UProjectileMovementComponent>();
 	}
 };
+DUMPER7_ASSERTS_UProjectileMovementComponent;
 
 // Class Engine.ParticleModuleSizeBase
 // 0x0000 (0x0030 - 0x0030)
@@ -27847,6 +28765,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleSizeBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleSizeBase;
 
 // Class Engine.ParticleModuleSize
 // 0x0048 (0x0078 - 0x0030)
@@ -27869,6 +28788,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleSize>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleSize;
 
 // Class Engine.ParticleModuleSize_Seeded
 // 0x0020 (0x0098 - 0x0078)
@@ -27891,6 +28811,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleSize_Seeded>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleSize_Seeded;
 
 // Class Engine.ParticleModuleSizeMultiplyLife
 // 0x0050 (0x0080 - 0x0030)
@@ -27918,6 +28839,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleSizeMultiplyLife>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleSizeMultiplyLife;
 
 // Class Engine.RectLight
 // 0x0008 (0x0238 - 0x0230)
@@ -27940,6 +28862,7 @@ public:
 		return GetDefaultObjImpl<ARectLight>();
 	}
 };
+DUMPER7_ASSERTS_ARectLight;
 
 // Class Engine.ParticleModuleSizeScale
 // 0x0050 (0x0080 - 0x0030)
@@ -27966,6 +28889,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleSizeScale>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleSizeScale;
 
 // Class Engine.ParticleModuleSizeScaleBySpeed
 // 0x0010 (0x0040 - 0x0030)
@@ -27989,6 +28913,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleSizeScaleBySpeed>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleSizeScaleBySpeed;
 
 // Class Engine.ParticleModuleSourceMovement
 // 0x0048 (0x0078 - 0x0030)
@@ -28011,6 +28936,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleSourceMovement>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleSourceMovement;
 
 // Class Engine.ReplayNetConnection
 // 0x0800 (0x23A8 - 0x1BA8)
@@ -28033,6 +28959,7 @@ public:
 		return GetDefaultObjImpl<UReplayNetConnection>();
 	}
 };
+DUMPER7_ASSERTS_UReplayNetConnection;
 
 // Class Engine.ParticleModuleSpawn
 // 0x00B8 (0x00F0 - 0x0038)
@@ -28064,6 +28991,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleSpawn>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleSpawn;
 
 // Class Engine.ParticleModuleTrailBase
 // 0x0000 (0x0030 - 0x0030)
@@ -28083,6 +29011,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleTrailBase>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleTrailBase;
 
 // Class Engine.ParticleModuleTrailSource
 // 0x0060 (0x0090 - 0x0030)
@@ -28117,6 +29046,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleTrailSource>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleTrailSource;
 
 // Class Engine.ParticleModuleTypeDataBeam2
 // 0x0120 (0x0150 - 0x0030)
@@ -28161,6 +29091,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleTypeDataBeam2>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleTypeDataBeam2;
 
 // Class Engine.ParticleModuleTypeDataGpu
 // 0x03F0 (0x0420 - 0x0030)
@@ -28187,6 +29118,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleTypeDataGpu>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleTypeDataGpu;
 
 // Class Engine.ParticleModuleTypeDataMesh
 // 0x0068 (0x0098 - 0x0030)
@@ -28228,6 +29160,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleTypeDataMesh>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleTypeDataMesh;
 
 // Class Engine.ParticleModuleVectorFieldGlobal
 // 0x0010 (0x0040 - 0x0030)
@@ -28254,6 +29187,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleVectorFieldGlobal>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleVectorFieldGlobal;
 
 // Class Engine.ParticleModuleVectorFieldRotationRate
 // 0x0010 (0x0040 - 0x0030)
@@ -28277,6 +29211,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleVectorFieldRotationRate>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleVectorFieldRotationRate;
 
 // Class Engine.ParticleModuleVectorFieldScale
 // 0x0038 (0x0068 - 0x0030)
@@ -28300,6 +29235,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleVectorFieldScale>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleVectorFieldScale;
 
 // Class Engine.ParticleModuleVelocityCone
 // 0x0070 (0x00A8 - 0x0038)
@@ -28325,6 +29261,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleVelocityCone>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleVelocityCone;
 
 // Class Engine.ParticleModuleVelocityInheritParent
 // 0x0048 (0x0080 - 0x0038)
@@ -28347,6 +29284,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleVelocityInheritParent>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleVelocityInheritParent;
 
 // Class Engine.ParticleModuleVelocityOverLifetime
 // 0x0050 (0x0088 - 0x0038)
@@ -28371,6 +29309,7 @@ public:
 		return GetDefaultObjImpl<UParticleModuleVelocityOverLifetime>();
 	}
 };
+DUMPER7_ASSERTS_UParticleModuleVelocityOverLifetime;
 
 // Class Engine.ParticleSpriteEmitter
 // 0x0000 (0x01B8 - 0x01B8)
@@ -28390,11 +29329,12 @@ public:
 		return GetDefaultObjImpl<UParticleSpriteEmitter>();
 	}
 };
+DUMPER7_ASSERTS_UParticleSpriteEmitter;
 
 // Class Engine.ParticleSystemComponent
 // 0x0260 (0x06B0 - 0x0450)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) UParticleSystemComponent : public UFXSystemComponent
+class alignas(0x10) UParticleSystemComponent : public UFXSystemComponent
 {
 public:
 	class UParticleSystem*                        Template;                                          // 0x0450(0x0008)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -28487,6 +29427,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_UParticleSystemComponent;
 
 // Class Engine.ParticleSystemReplay
 // 0x0018 (0x0040 - 0x0028)
@@ -28510,6 +29451,7 @@ public:
 		return GetDefaultObjImpl<UParticleSystemReplay>();
 	}
 };
+DUMPER7_ASSERTS_UParticleSystemReplay;
 
 // Class Engine.PathFollowingAgentInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -28538,6 +29480,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IPathFollowingAgentInterface;
 
 // Class Engine.PawnNoiseEmitterComponent
 // 0x0028 (0x00D8 - 0x00B0)
@@ -28571,6 +29514,7 @@ public:
 		return GetDefaultObjImpl<UPawnNoiseEmitterComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPawnNoiseEmitterComponent;
 
 // Class Engine.PhysicsAsset
 // 0x0110 (0x0138 - 0x0028)
@@ -28602,6 +29546,7 @@ public:
 		return GetDefaultObjImpl<UPhysicsAsset>();
 	}
 };
+DUMPER7_ASSERTS_UPhysicsAsset;
 
 // Class Engine.SkeletalBodySetup
 // 0x0018 (0x02B8 - 0x02A0)
@@ -28626,6 +29571,7 @@ public:
 		return GetDefaultObjImpl<USkeletalBodySetup>();
 	}
 };
+DUMPER7_ASSERTS_USkeletalBodySetup;
 
 // Class Engine.PhysicsConstraintActor
 // 0x0020 (0x0240 - 0x0220)
@@ -28652,6 +29598,7 @@ public:
 		return GetDefaultObjImpl<APhysicsConstraintActor>();
 	}
 };
+DUMPER7_ASSERTS_APhysicsConstraintActor;
 
 // Class Engine.PhysicsConstraintComponent
 // 0x0210 (0x0410 - 0x0200)
@@ -28721,6 +29668,7 @@ public:
 		return GetDefaultObjImpl<UPhysicsConstraintComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPhysicsConstraintComponent;
 
 // Class Engine.PhysicsConstraintTemplate
 // 0x02F0 (0x0318 - 0x0028)
@@ -28746,6 +29694,7 @@ public:
 		return GetDefaultObjImpl<UPhysicsConstraintTemplate>();
 	}
 };
+DUMPER7_ASSERTS_UPhysicsConstraintTemplate;
 
 // Class Engine.TextureRenderTargetVolume
 // 0x0020 (0x01A0 - 0x0180)
@@ -28775,6 +29724,7 @@ public:
 		return GetDefaultObjImpl<UTextureRenderTargetVolume>();
 	}
 };
+DUMPER7_ASSERTS_UTextureRenderTargetVolume;
 
 // Class Engine.PhysicsFieldComponent
 // 0x0070 (0x0270 - 0x0200)
@@ -28797,6 +29747,7 @@ public:
 		return GetDefaultObjImpl<UPhysicsFieldComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPhysicsFieldComponent;
 
 // Class Engine.PhysicsHandleComponent
 // 0x00B0 (0x0160 - 0x00B0)
@@ -28849,6 +29800,7 @@ public:
 		return GetDefaultObjImpl<UPhysicsHandleComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPhysicsHandleComponent;
 
 // Class Engine.PhysicsSettings
 // 0x00C0 (0x01A0 - 0x00E0)
@@ -28899,6 +29851,7 @@ public:
 		return GetDefaultObjImpl<UPhysicsSettings>();
 	}
 };
+DUMPER7_ASSERTS_UPhysicsSettings;
 
 // Class Engine.PhysicsSpringComponent
 // 0x0020 (0x0220 - 0x0200)
@@ -28935,6 +29888,7 @@ public:
 		return GetDefaultObjImpl<UPhysicsSpringComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPhysicsSpringComponent;
 
 // Class Engine.TireType
 // 0x0008 (0x0038 - 0x0030)
@@ -28958,6 +29912,7 @@ public:
 		return GetDefaultObjImpl<UTireType>();
 	}
 };
+DUMPER7_ASSERTS_UTireType;
 
 // Class Engine.PhysicsThruster
 // 0x0008 (0x0228 - 0x0220)
@@ -28980,6 +29935,7 @@ public:
 		return GetDefaultObjImpl<APhysicsThruster>();
 	}
 };
+DUMPER7_ASSERTS_APhysicsThruster;
 
 // Class Engine.PhysicsThrusterComponent
 // 0x0000 (0x0200 - 0x0200)
@@ -29003,6 +29959,7 @@ public:
 		return GetDefaultObjImpl<UPhysicsThrusterComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPhysicsThrusterComponent;
 
 // Class Engine.PlanarReflection
 // 0x0010 (0x0240 - 0x0230)
@@ -29030,6 +29987,7 @@ public:
 		return GetDefaultObjImpl<APlanarReflection>();
 	}
 };
+DUMPER7_ASSERTS_APlanarReflection;
 
 // Class Engine.TriggerCapsule
 // 0x0000 (0x0228 - 0x0228)
@@ -29049,6 +30007,7 @@ public:
 		return GetDefaultObjImpl<ATriggerCapsule>();
 	}
 };
+DUMPER7_ASSERTS_ATriggerCapsule;
 
 // Class Engine.PlanarReflectionComponent
 // 0x00F0 (0x03A0 - 0x02B0)
@@ -29085,6 +30044,7 @@ public:
 		return GetDefaultObjImpl<UPlanarReflectionComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPlanarReflectionComponent;
 
 // Class Engine.PlaneReflectionCapture
 // 0x0000 (0x0228 - 0x0228)
@@ -29104,6 +30064,7 @@ public:
 		return GetDefaultObjImpl<APlaneReflectionCapture>();
 	}
 };
+DUMPER7_ASSERTS_APlaneReflectionCapture;
 
 // Class Engine.PlatformInterfaceWebResponse
 // 0x0088 (0x00B0 - 0x0028)
@@ -29136,6 +30097,7 @@ public:
 		return GetDefaultObjImpl<UPlatformInterfaceWebResponse>();
 	}
 };
+DUMPER7_ASSERTS_UPlatformInterfaceWebResponse;
 
 // Class Engine.PlayerCameraManager
 // 0x25F0 (0x2810 - 0x0220)
@@ -29241,6 +30203,7 @@ public:
 		return GetDefaultObjImpl<APlayerCameraManager>();
 	}
 };
+DUMPER7_ASSERTS_APlayerCameraManager;
 
 // Class Engine.PlayerInput
 // 0x0380 (0x03A8 - 0x0028)
@@ -29274,6 +30237,7 @@ public:
 		return GetDefaultObjImpl<UPlayerInput>();
 	}
 };
+DUMPER7_ASSERTS_UPlayerInput;
 
 // Class Engine.SoundNodeModulatorContinuous
 // 0x0040 (0x0088 - 0x0048)
@@ -29297,6 +30261,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeModulatorContinuous>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeModulatorContinuous;
 
 // Class Engine.PlayerState
 // 0x0100 (0x0320 - 0x0220)
@@ -29352,6 +30317,7 @@ public:
 		return GetDefaultObjImpl<APlayerState>();
 	}
 };
+DUMPER7_ASSERTS_APlayerState;
 
 // Class Engine.PluginCommandlet
 // 0x0020 (0x00A0 - 0x0080)
@@ -29374,6 +30340,7 @@ public:
 		return GetDefaultObjImpl<UPluginCommandlet>();
 	}
 };
+DUMPER7_ASSERTS_UPluginCommandlet;
 
 // Class Engine.Polys
 // 0x0010 (0x0038 - 0x0028)
@@ -29396,6 +30363,7 @@ public:
 		return GetDefaultObjImpl<UPolys>();
 	}
 };
+DUMPER7_ASSERTS_UPolys;
 
 // Class Engine.PoseableMeshComponent
 // 0x0160 (0x0800 - 0x06A0)
@@ -29430,6 +30398,7 @@ public:
 		return GetDefaultObjImpl<UPoseableMeshComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPoseableMeshComponent;
 
 // Class Engine.SoundNodeAssetReferencer
 // 0x0000 (0x0048 - 0x0048)
@@ -29449,6 +30418,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeAssetReferencer>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeAssetReferencer;
 
 // Class Engine.SoundNodeWavePlayer
 // 0x0040 (0x0088 - 0x0048)
@@ -29475,6 +30445,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeWavePlayer>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeWavePlayer;
 
 // Class Engine.PoseAsset
 // 0x00B0 (0x0130 - 0x0080)
@@ -29502,6 +30473,7 @@ public:
 		return GetDefaultObjImpl<UPoseAsset>();
 	}
 };
+DUMPER7_ASSERTS_UPoseAsset;
 
 // Class Engine.PoseWatch
 // 0x0010 (0x0038 - 0x0028)
@@ -29526,6 +30498,7 @@ public:
 		return GetDefaultObjImpl<UPoseWatch>();
 	}
 };
+DUMPER7_ASSERTS_UPoseWatch;
 
 // Class Engine.PostProcessComponent
 // 0x0570 (0x0770 - 0x0200)
@@ -29558,6 +30531,7 @@ public:
 		return GetDefaultObjImpl<UPostProcessComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPostProcessComponent;
 
 // Class Engine.PostProcessVolume
 // 0x0578 (0x07D0 - 0x0258)
@@ -29590,6 +30564,7 @@ public:
 		return GetDefaultObjImpl<APostProcessVolume>();
 	}
 };
+DUMPER7_ASSERTS_APostProcessVolume;
 
 // Class Engine.PreviewMeshCollection
 // 0x0020 (0x0050 - 0x0030)
@@ -29614,6 +30589,7 @@ public:
 		return GetDefaultObjImpl<UPreviewMeshCollection>();
 	}
 };
+DUMPER7_ASSERTS_UPreviewMeshCollection;
 
 // Class Engine.RadialForceActor
 // 0x0008 (0x0228 - 0x0220)
@@ -29642,6 +30618,7 @@ public:
 		return GetDefaultObjImpl<ARadialForceActor>();
 	}
 };
+DUMPER7_ASSERTS_ARadialForceActor;
 
 // Class Engine.RendererSettings
 // 0x0110 (0x0148 - 0x0038)
@@ -29810,6 +30787,7 @@ public:
 		return GetDefaultObjImpl<URendererSettings>();
 	}
 };
+DUMPER7_ASSERTS_URendererSettings;
 
 // Class Engine.RotatingMovementComponent
 // 0x0020 (0x0110 - 0x00F0)
@@ -29835,6 +30813,7 @@ public:
 		return GetDefaultObjImpl<URotatingMovementComponent>();
 	}
 };
+DUMPER7_ASSERTS_URotatingMovementComponent;
 
 // Class Engine.RuntimeVirtualTextureVolume
 // 0x0008 (0x0228 - 0x0220)
@@ -29857,6 +30836,7 @@ public:
 		return GetDefaultObjImpl<ARuntimeVirtualTextureVolume>();
 	}
 };
+DUMPER7_ASSERTS_ARuntimeVirtualTextureVolume;
 
 // Class Engine.SceneCapture2D
 // 0x0008 (0x0238 - 0x0230)
@@ -29882,6 +30862,7 @@ public:
 		return GetDefaultObjImpl<ASceneCapture2D>();
 	}
 };
+DUMPER7_ASSERTS_ASceneCapture2D;
 
 // Class Engine.SceneCaptureComponent2D
 // 0x0610 (0x08C0 - 0x02B0)
@@ -29933,6 +30914,7 @@ public:
 		return GetDefaultObjImpl<USceneCaptureComponent2D>();
 	}
 };
+DUMPER7_ASSERTS_USceneCaptureComponent2D;
 
 // Class Engine.Selection
 // 0x0078 (0x00A0 - 0x0028)
@@ -29955,6 +30937,7 @@ public:
 		return GetDefaultObjImpl<USelection>();
 	}
 };
+DUMPER7_ASSERTS_USelection;
 
 // Class Engine.SkeletalMesh
 // 0x0340 (0x03A0 - 0x0060)
@@ -30038,6 +31021,7 @@ public:
 		return GetDefaultObjImpl<USkeletalMesh>();
 	}
 };
+DUMPER7_ASSERTS_USkeletalMesh;
 
 // Class Engine.SkyLightComponent
 // 0x01D0 (0x0400 - 0x0230)
@@ -30099,6 +31083,7 @@ public:
 		return GetDefaultObjImpl<USkyLightComponent>();
 	}
 };
+DUMPER7_ASSERTS_USkyLightComponent;
 
 // Class Engine.SoundAttenuation
 // 0x03A0 (0x03C8 - 0x0028)
@@ -30121,6 +31106,7 @@ public:
 		return GetDefaultObjImpl<USoundAttenuation>();
 	}
 };
+DUMPER7_ASSERTS_USoundAttenuation;
 
 // Class Engine.SoundEffectSourcePresetChain
 // 0x0018 (0x0040 - 0x0028)
@@ -30145,6 +31131,7 @@ public:
 		return GetDefaultObjImpl<USoundEffectSourcePresetChain>();
 	}
 };
+DUMPER7_ASSERTS_USoundEffectSourcePresetChain;
 
 // Class Engine.SoundNodeDelay
 // 0x0008 (0x0050 - 0x0048)
@@ -30168,6 +31155,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeDelay>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeDelay;
 
 // Class Engine.SoundNodeEnveloper
 // 0x0148 (0x0190 - 0x0048)
@@ -30204,6 +31192,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeEnveloper>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeEnveloper;
 
 // Class Engine.SoundNodeMixer
 // 0x0010 (0x0058 - 0x0048)
@@ -30226,6 +31215,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeMixer>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeMixer;
 
 // Class Engine.SoundNodeParamCrossFade
 // 0x0008 (0x0060 - 0x0058)
@@ -30248,6 +31238,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeParamCrossFade>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeParamCrossFade;
 
 // Class Engine.SoundNodeSoundClass
 // 0x0010 (0x0058 - 0x0048)
@@ -30271,6 +31262,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeSoundClass>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeSoundClass;
 
 // Class Engine.SoundNodeSwitch
 // 0x0008 (0x0050 - 0x0048)
@@ -30293,6 +31285,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeSwitch>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeSwitch;
 
 // Class Engine.SoundNodeWaveParam
 // 0x0008 (0x0050 - 0x0048)
@@ -30315,6 +31308,7 @@ public:
 		return GetDefaultObjImpl<USoundNodeWaveParam>();
 	}
 };
+DUMPER7_ASSERTS_USoundNodeWaveParam;
 
 // Class Engine.EndpointSubmix
 // 0x0018 (0x0050 - 0x0038)
@@ -30339,6 +31333,7 @@ public:
 		return GetDefaultObjImpl<UEndpointSubmix>();
 	}
 };
+DUMPER7_ASSERTS_UEndpointSubmix;
 
 // Class Engine.SpectatorPawnMovement
 // 0x0008 (0x0158 - 0x0150)
@@ -30362,6 +31357,7 @@ public:
 		return GetDefaultObjImpl<USpectatorPawnMovement>();
 	}
 };
+DUMPER7_ASSERTS_USpectatorPawnMovement;
 
 // Class Engine.SphereReflectionCapture
 // 0x0008 (0x0230 - 0x0228)
@@ -30384,6 +31380,7 @@ public:
 		return GetDefaultObjImpl<ASphereReflectionCapture>();
 	}
 };
+DUMPER7_ASSERTS_ASphereReflectionCapture;
 
 // Class Engine.SplineMeshComponent
 // 0x00A0 (0x0580 - 0x04E0)
@@ -30452,6 +31449,7 @@ public:
 		return GetDefaultObjImpl<USplineMeshComponent>();
 	}
 };
+DUMPER7_ASSERTS_USplineMeshComponent;
 
 // Class Engine.StereoLayerShapeQuad
 // 0x0000 (0x0028 - 0x0028)
@@ -30471,6 +31469,7 @@ public:
 		return GetDefaultObjImpl<UStereoLayerShapeQuad>();
 	}
 };
+DUMPER7_ASSERTS_UStereoLayerShapeQuad;
 
 // Class Engine.StereoLayerShapeEquirect
 // 0x0048 (0x0070 - 0x0028)
@@ -30501,6 +31500,7 @@ public:
 		return GetDefaultObjImpl<UStereoLayerShapeEquirect>();
 	}
 };
+DUMPER7_ASSERTS_UStereoLayerShapeEquirect;
 
 // Class Engine.SubsurfaceProfile
 // 0x0090 (0x00B8 - 0x0028)
@@ -30524,6 +31524,7 @@ public:
 		return GetDefaultObjImpl<USubsurfaceProfile>();
 	}
 };
+DUMPER7_ASSERTS_USubsurfaceProfile;
 
 // Class Engine.SystemTimeTimecodeProvider
 // 0x0010 (0x0040 - 0x0030)
@@ -30549,6 +31550,7 @@ public:
 		return GetDefaultObjImpl<USystemTimeTimecodeProvider>();
 	}
 };
+DUMPER7_ASSERTS_USystemTimeTimecodeProvider;
 
 // Class Engine.TargetPoint
 // 0x0000 (0x0220 - 0x0220)
@@ -30568,6 +31570,7 @@ public:
 		return GetDefaultObjImpl<ATargetPoint>();
 	}
 };
+DUMPER7_ASSERTS_ATargetPoint;
 
 // Class Engine.Texture2DDynamic
 // 0x0010 (0x0190 - 0x0180)
@@ -30592,6 +31595,7 @@ public:
 		return GetDefaultObjImpl<UTexture2DDynamic>();
 	}
 };
+DUMPER7_ASSERTS_UTexture2DDynamic;
 
 // Class Engine.TextureRenderTarget2DArray
 // 0x0020 (0x01A0 - 0x0180)
@@ -30621,6 +31625,7 @@ public:
 		return GetDefaultObjImpl<UTextureRenderTarget2DArray>();
 	}
 };
+DUMPER7_ASSERTS_UTextureRenderTarget2DArray;
 
 // Class Engine.TimelineComponent
 // 0x00A0 (0x0150 - 0x00B0)
@@ -30671,6 +31676,7 @@ public:
 		return GetDefaultObjImpl<UTimelineComponent>();
 	}
 };
+DUMPER7_ASSERTS_UTimelineComponent;
 
 // Class Engine.TouchInterface
 // 0x0030 (0x0058 - 0x0028)
@@ -30702,6 +31708,7 @@ public:
 		return GetDefaultObjImpl<UTouchInterface>();
 	}
 };
+DUMPER7_ASSERTS_UTouchInterface;
 
 // Class Engine.UserDefinedStruct
 // 0x0048 (0x0108 - 0x00C0)
@@ -30727,6 +31734,7 @@ public:
 		return GetDefaultObjImpl<UUserDefinedStruct>();
 	}
 };
+DUMPER7_ASSERTS_UUserDefinedStruct;
 
 // Class Engine.UserInterfaceSettings
 // 0x0238 (0x0270 - 0x0038)
@@ -30773,6 +31781,7 @@ public:
 		return GetDefaultObjImpl<UUserInterfaceSettings>();
 	}
 };
+DUMPER7_ASSERTS_UUserInterfaceSettings;
 
 // Class Engine.VectorFieldAnimated
 // 0x0040 (0x0088 - 0x0048)
@@ -30809,6 +31818,7 @@ public:
 		return GetDefaultObjImpl<UVectorFieldAnimated>();
 	}
 };
+DUMPER7_ASSERTS_UVectorFieldAnimated;
 
 // Class Engine.VectorFieldComponent
 // 0x0030 (0x0480 - 0x0450)
@@ -30838,6 +31848,7 @@ public:
 		return GetDefaultObjImpl<UVectorFieldComponent>();
 	}
 };
+DUMPER7_ASSERTS_UVectorFieldComponent;
 
 // Class Engine.VisualLoggerKismetLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -30865,6 +31876,7 @@ public:
 		return GetDefaultObjImpl<UVisualLoggerKismetLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UVisualLoggerKismetLibrary;
 
 // Class Engine.VoiceChannel
 // 0x0010 (0x0078 - 0x0068)
@@ -30887,6 +31899,7 @@ public:
 		return GetDefaultObjImpl<UVoiceChannel>();
 	}
 };
+DUMPER7_ASSERTS_UVoiceChannel;
 
 // Class Engine.VolumeTexture
 // 0x0050 (0x01D0 - 0x0180)
@@ -30909,6 +31922,7 @@ public:
 		return GetDefaultObjImpl<UVolumeTexture>();
 	}
 };
+DUMPER7_ASSERTS_UVolumeTexture;
 
 // Class Engine.VolumetricLightmapDensityVolume
 // 0x0008 (0x0260 - 0x0258)
@@ -30931,6 +31945,7 @@ public:
 		return GetDefaultObjImpl<AVolumetricLightmapDensityVolume>();
 	}
 };
+DUMPER7_ASSERTS_AVolumetricLightmapDensityVolume;
 
 // Class Engine.WindDirectionalSource
 // 0x0008 (0x0228 - 0x0220)
@@ -30953,6 +31968,7 @@ public:
 		return GetDefaultObjImpl<AWindDirectionalSource>();
 	}
 };
+DUMPER7_ASSERTS_AWindDirectionalSource;
 
 // Class Engine.WorldSettings
 // 0x0180 (0x03A0 - 0x0220)
@@ -31035,5 +32051,7 @@ public:
 		return GetDefaultObjImpl<AWorldSettings>();
 	}
 };
+DUMPER7_ASSERTS_AWorldSettings;
 
-SDK_NAMESPACE_END
+}
+

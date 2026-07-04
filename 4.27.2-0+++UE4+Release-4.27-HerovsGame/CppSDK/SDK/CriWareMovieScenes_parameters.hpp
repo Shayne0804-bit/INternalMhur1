@@ -13,8 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function CriWareMovieScenes.MovieSceneAtomSection.SetStartOffset
 // 0x0004 (0x0004 - 0x0000)
@@ -23,6 +23,7 @@ struct MovieSceneAtomSection_SetStartOffset final
 public:
 	struct FFrameNumber                           InStartOffset;                                     // 0x0000(0x0004)(Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MovieSceneAtomSection_SetStartOffset;
 
 // Function CriWareMovieScenes.MovieSceneAtomSection.GetStartOffset
 // 0x0004 (0x0004 - 0x0000)
@@ -31,6 +32,7 @@ struct MovieSceneAtomSection_GetStartOffset final
 public:
 	struct FFrameNumber                           ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MovieSceneAtomSection_GetStartOffset;
 
 // Function CriWareMovieScenes.MovieSceneAtomSection.IsLooping
 // 0x0001 (0x0001 - 0x0000)
@@ -39,6 +41,7 @@ struct MovieSceneAtomSection_IsLooping final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MovieSceneAtomSection_IsLooping;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

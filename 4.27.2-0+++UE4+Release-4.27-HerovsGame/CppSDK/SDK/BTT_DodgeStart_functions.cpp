@@ -14,7 +14,8 @@
 #include "BTT_DodgeStart_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BTT_DodgeStart.BTT_DodgeStart_C.ExecuteUbergraph_BTT_DodgeStart
 // (Final, UbergraphFunction)
@@ -57,5 +58,5 @@ void UBTT_DodgeStart_C::ReceiveExecuteAI(class AAIController* OwnerController, c
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

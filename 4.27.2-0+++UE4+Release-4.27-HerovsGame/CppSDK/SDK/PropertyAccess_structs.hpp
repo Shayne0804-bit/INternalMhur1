@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum PropertyAccess.EPropertyAccessCopyBatch
 // NumValues: 0x0006
@@ -85,6 +86,7 @@ public:
 	uint16                                        Flags;                                             // 0x003C(0x0002)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_3E[0x2];                                       // 0x003E(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPropertyAccessSegment;
 
 // ScriptStruct PropertyAccess.PropertyAccessPath
 // 0x000C (0x000C - 0x0000)
@@ -96,6 +98,7 @@ public:
 	uint8                                         bHasEvents : 1;                                    // 0x0008(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate))
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPropertyAccessPath;
 
 // ScriptStruct PropertyAccess.PropertyAccessCopy
 // 0x0010 (0x0010 - 0x0000)
@@ -108,6 +111,7 @@ public:
 	EPropertyAccessCopyType                       Type;                                              // 0x000C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPropertyAccessCopy;
 
 // ScriptStruct PropertyAccess.PropertyAccessCopyBatch
 // 0x0010 (0x0010 - 0x0000)
@@ -116,6 +120,7 @@ struct FPropertyAccessCopyBatch final
 public:
 	TArray<struct FPropertyAccessCopy>            Copies;                                            // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FPropertyAccessCopyBatch;
 
 // ScriptStruct PropertyAccess.PropertyAccessIndirectionChain
 // 0x0030 (0x0030 - 0x0000)
@@ -128,6 +133,7 @@ public:
 	int32                                         EventId;                                           // 0x0028(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPropertyAccessIndirectionChain;
 
 // ScriptStruct PropertyAccess.PropertyAccessIndirection
 // 0x0040 (0x0040 - 0x0000)
@@ -144,6 +150,7 @@ public:
 	EPropertyAccessIndirectionType                Type;                                              // 0x0039(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_3A[0x6];                                       // 0x003A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPropertyAccessIndirection;
 
 // ScriptStruct PropertyAccess.PropertyAccessLibrary
 // 0x00C8 (0x00C8 - 0x0000)
@@ -160,5 +167,7 @@ public:
 	TArray<int32>                                 EventAccessIndices;                                // 0x00A0(0x0010)(ZeroConstructor, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_B0[0x18];                                      // 0x00B0(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPropertyAccessLibrary;
 
-SDK_NAMESPACE_END
+}
+

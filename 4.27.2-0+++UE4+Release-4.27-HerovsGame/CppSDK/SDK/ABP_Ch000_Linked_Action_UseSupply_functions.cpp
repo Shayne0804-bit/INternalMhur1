@@ -14,7 +14,8 @@
 #include "ABP_Ch000_Linked_Action_UseSupply_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function ABP_Ch000_Linked_Action_UseSupply.ABP_Ch000_Linked_Action_UseSupply_C.ExecuteUbergraph_ABP_Ch000_Linked_Action_UseSupply
 // (Final, UbergraphFunction)
@@ -152,5 +153,5 @@ void UABP_Ch000_Linked_Action_UseSupply_C::Retarget(const struct FPoseLink& InPo
 		*Retarget_0 = std::move(Parms.Retarget_0);
 }
 
+}
 
-SDK_NAMESPACE_END

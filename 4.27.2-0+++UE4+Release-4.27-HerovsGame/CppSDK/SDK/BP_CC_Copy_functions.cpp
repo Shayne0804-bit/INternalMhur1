@@ -14,7 +14,8 @@
 #include "BP_CC_Copy_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Copy.BP_CC_Copy_C.ExecuteUbergraph_BP_CC_Copy
 // (Final, UbergraphFunction)
@@ -111,5 +112,5 @@ void UBP_CC_Copy_C::BP_OnUpdateIntervalValue(float value)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

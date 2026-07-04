@@ -16,7 +16,8 @@
 #include "VoiceChatModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_VoiceChatMenu.WBP_VoiceChatMenu_C
 // 0x0198 (0x0410 - 0x0278)
@@ -119,5 +120,7 @@ public:
 		return GetDefaultObjImpl<UWBP_VoiceChatMenu_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_VoiceChatMenu_C;
 
-SDK_NAMESPACE_END
+}
+

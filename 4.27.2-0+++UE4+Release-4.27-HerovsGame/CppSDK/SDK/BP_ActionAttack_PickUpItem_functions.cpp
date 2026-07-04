@@ -14,7 +14,8 @@
 #include "BP_ActionAttack_PickUpItem_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionAttack_PickUpItem.BP_ActionAttack_PickUpItem_C.ExecuteUbergraph_BP_ActionAttack_PickUpItem
 // (Final, UbergraphFunction)
@@ -89,5 +90,5 @@ void UBP_ActionAttack_PickUpItem_C::BP_OnBeginAction(const class FName& prevActi
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

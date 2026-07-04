@@ -13,7 +13,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass AN_ProjectileNotify.AN_ProjectileNotify_C
 // 0x0000 (0x00D8 - 0x00D8)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UAN_ProjectileNotify_C>();
 	}
 };
+DUMPER7_ASSERTS_UAN_ProjectileNotify_C;
 
-SDK_NAMESPACE_END
+}
+

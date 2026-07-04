@@ -14,7 +14,8 @@
 #include "BP_CC_Freeze_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Freeze.BP_CC_Freeze_C.ExecuteUbergraph_BP_CC_Freeze
 // (Final, UbergraphFunction)
@@ -111,5 +112,5 @@ void UBP_CC_Freeze_C::BP_OnUpdateIntervalValue(float value)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

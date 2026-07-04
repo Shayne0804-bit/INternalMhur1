@@ -14,7 +14,8 @@
 #include "BP_Ch202_FunctionLibrary_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_Ch202_FunctionLibrary.BP_Ch202_FunctionLibrary_C.Ch202_MeleeFinishHit
 // (Static, Public, HasOutParams, BlueprintCallable, BlueprintEvent)
@@ -155,5 +156,5 @@ void UBP_Ch202_FunctionLibrary_C::Ch202_BrakeTransitionByAttackAction(class ACha
 	GetDefaultObj()->ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

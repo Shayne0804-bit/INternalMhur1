@@ -13,7 +13,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_GroundElement.BP_GroundElement_C
 // 0x0000 (0x02E0 - 0x02E0)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<ABP_GroundElement_C>();
 	}
 };
+DUMPER7_ASSERTS_ABP_GroundElement_C;
 
-SDK_NAMESPACE_END
+}
+

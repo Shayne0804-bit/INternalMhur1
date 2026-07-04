@@ -14,7 +14,8 @@
 #include "DevelopMenu_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_DevelopMenu.WBP_DevelopMenu_C
 // 0x00A8 (0x03F8 - 0x0350)
@@ -79,5 +80,7 @@ public:
 		return GetDefaultObjImpl<UWBP_DevelopMenu_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_DevelopMenu_C;
 
-SDK_NAMESPACE_END
+}
+

@@ -13,7 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum MediaUtils.EMediaPlayerOptionBooleanOverride
 // NumValues: 0x0004
@@ -38,6 +39,7 @@ public:
 	int32                                         Text;                                              // 0x0014(0x0004)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Video;                                             // 0x0018(0x0004)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMediaPlayerTrackOptions;
 
 // ScriptStruct MediaUtils.MediaPlayerOptions
 // 0x0030 (0x0030 - 0x0000)
@@ -51,5 +53,7 @@ public:
 	EMediaPlayerOptionBooleanOverride             Loop;                                              // 0x0029(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_2A[0x6];                                       // 0x002A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMediaPlayerOptions;
 
-SDK_NAMESPACE_END
+}
+

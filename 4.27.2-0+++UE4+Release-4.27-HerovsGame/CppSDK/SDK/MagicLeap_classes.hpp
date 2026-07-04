@@ -17,7 +17,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MagicLeap.MagicLeapSettings
 // 0x0008 (0x0030 - 0x0028)
@@ -43,6 +44,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapSettings>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapSettings;
 
 // Class MagicLeap.InAppPurchaseComponent
 // 0x0078 (0x0128 - 0x00B0)
@@ -77,6 +79,7 @@ public:
 		return GetDefaultObjImpl<UInAppPurchaseComponent>();
 	}
 };
+DUMPER7_ASSERTS_UInAppPurchaseComponent;
 
 // Class MagicLeap.MagicLeapRaycastComponent
 // 0x0068 (0x0118 - 0x00B0)
@@ -102,6 +105,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapRaycastComponent>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapRaycastComponent;
 
 // Class MagicLeap.LuminApplicationLifecycleComponent
 // 0x0050 (0x0190 - 0x0140)
@@ -128,6 +132,7 @@ public:
 		return GetDefaultObjImpl<ULuminApplicationLifecycleComponent>();
 	}
 };
+DUMPER7_ASSERTS_ULuminApplicationLifecycleComponent;
 
 // Class MagicLeap.MagicLeapHeadTrackingNotificationsComponent
 // 0x0090 (0x01F0 - 0x0160)
@@ -154,6 +159,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapHeadTrackingNotificationsComponent>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapHeadTrackingNotificationsComponent;
 
 // Class MagicLeap.MagicLeapHMDFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -191,6 +197,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapHMDFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapHMDFunctionLibrary;
 
 // Class MagicLeap.MagicLeapMeshTrackerComponent
 // 0x0090 (0x0290 - 0x0200)
@@ -244,6 +251,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapMeshTrackerComponent>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapMeshTrackerComponent;
 
 // Class MagicLeap.MagicLeapMeshBlockSelectorInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -275,6 +283,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IMagicLeapMeshBlockSelectorInterface;
 
 // Class MagicLeap.MagicLeapRaycastFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -297,5 +306,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapRaycastFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapRaycastFunctionLibrary;
 
-SDK_NAMESPACE_END
+}
+

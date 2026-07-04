@@ -16,7 +16,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MagicLeapHandTracking.LiveLinkMagicLeapHandTrackingSourceFactory
 // 0x0000 (0x0028 - 0x0028)
@@ -36,6 +37,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkMagicLeapHandTrackingSourceFactory>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkMagicLeapHandTrackingSourceFactory;
 
 // Class MagicLeapHandTracking.MagicLeapHandTrackingFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -73,5 +75,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapHandTrackingFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapHandTrackingFunctionLibrary;
 
-SDK_NAMESPACE_END
+}
+

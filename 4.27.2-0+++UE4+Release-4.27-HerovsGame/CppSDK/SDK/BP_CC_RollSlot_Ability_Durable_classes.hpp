@@ -15,7 +15,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_CC_RollSlot_Ability_Durable.BP_CC_RollSlot_Ability_Durable_C
 // 0x0010 (0x01B8 - 0x01A8)
@@ -50,5 +51,7 @@ public:
 		return GetDefaultObjImpl<UBP_CC_RollSlot_Ability_Durable_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_CC_RollSlot_Ability_Durable_C;
 
-SDK_NAMESPACE_END
+}
+

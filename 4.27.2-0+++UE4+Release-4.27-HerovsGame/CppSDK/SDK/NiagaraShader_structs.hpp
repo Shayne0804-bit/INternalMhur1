@@ -13,7 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum NiagaraShader.FNiagaraCompileEventSeverity
 // NumValues: 0x0004
@@ -40,6 +41,7 @@ public:
 	int32                                         MinStage;                                          // 0x0028(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         MaxStage;                                          // 0x002C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSimulationStageMetaData;
 
 // ScriptStruct NiagaraShader.NiagaraDataInterfaceGeneratedFunction
 // 0x0028 (0x0028 - 0x0000)
@@ -48,6 +50,7 @@ struct alignas(0x08) FNiagaraDataInterfaceGeneratedFunction final
 public:
 	uint8                                         Pad_0[0x28];                                       // 0x0000(0x0028)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FNiagaraDataInterfaceGeneratedFunction;
 
 // ScriptStruct NiagaraShader.NiagaraDataInterfaceGPUParamInfo
 // 0x0030 (0x0030 - 0x0000)
@@ -58,6 +61,7 @@ public:
 	class FString                                 DIClassName;                                       // 0x0010(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FNiagaraDataInterfaceGeneratedFunction> GeneratedFunctions;                        // 0x0020(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNiagaraDataInterfaceGPUParamInfo;
 
 // ScriptStruct NiagaraShader.NiagaraCompileEvent
 // 0x0060 (0x0060 - 0x0000)
@@ -75,5 +79,7 @@ public:
 	uint8                                         Pad_4C[0x4];                                       // 0x004C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FGuid>                          StackGuids;                                        // 0x0050(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNiagaraCompileEvent;
 
-SDK_NAMESPACE_END
+}
+

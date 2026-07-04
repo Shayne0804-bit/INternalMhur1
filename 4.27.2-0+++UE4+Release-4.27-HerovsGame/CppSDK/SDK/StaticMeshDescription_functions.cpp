@@ -14,7 +14,8 @@
 #include "StaticMeshDescription_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function StaticMeshDescription.StaticMeshDescription.CreateCube
 // (Final, Native, Public, HasOutParams, HasDefaults, BlueprintCallable)
@@ -154,5 +155,5 @@ struct FVector2D UStaticMeshDescription::GetVertexInstanceUV(const struct FVerte
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

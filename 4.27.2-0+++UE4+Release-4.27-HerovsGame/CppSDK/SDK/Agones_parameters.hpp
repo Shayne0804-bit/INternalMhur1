@@ -13,8 +13,8 @@
 #include "Agones_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function Agones.AgonesSubsystem.Get
 // 0x0010 (0x0010 - 0x0000)
@@ -24,6 +24,7 @@ public:
 	const class UObject*                          WorldContext;                                      // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UAgonesSubsystem*                       ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_Get;
 
 // Function Agones.AgonesSubsystem.AddListValue
 // 0x0040 (0x0040 - 0x0000)
@@ -35,6 +36,7 @@ public:
 	TDelegate<void(const struct FList& Response)> SuccessDelegate;                                   // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0030(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_AddListValue;
 
 // Function Agones.AgonesSubsystem.Allocate
 // 0x0020 (0x0020 - 0x0000)
@@ -44,6 +46,7 @@ public:
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_Allocate;
 
 // Function Agones.AgonesSubsystem.ConnectSuccess
 // 0x0198 (0x0198 - 0x0000)
@@ -52,6 +55,7 @@ struct AgonesSubsystem_ConnectSuccess final
 public:
 	struct FGameServerResponse                    GameServerResponse;                                // 0x0000(0x0198)(Parm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_ConnectSuccess;
 
 // Function Agones.AgonesSubsystem.DecrementCounter
 // 0x0038 (0x0038 - 0x0000)
@@ -63,6 +67,7 @@ public:
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0018(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0028(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_DecrementCounter;
 
 // Function Agones.AgonesSubsystem.GameServer
 // 0x0020 (0x0020 - 0x0000)
@@ -72,6 +77,7 @@ public:
 	TDelegate<void(const struct FGameServerResponse& Response)> SuccessDelegate;                     // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_GameServer;
 
 // Function Agones.AgonesSubsystem.GetConnectedPlayers
 // 0x0020 (0x0020 - 0x0000)
@@ -81,6 +87,7 @@ public:
 	TDelegate<void(const struct FConnectedPlayersResponse& Response)> SuccessDelegate;               // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_GetConnectedPlayers;
 
 // Function Agones.AgonesSubsystem.GetCounter
 // 0x0030 (0x0030 - 0x0000)
@@ -91,6 +98,7 @@ public:
 	TDelegate<void(const struct FCounterResponse& Response)> SuccessDelegate;                        // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_GetCounter;
 
 // Function Agones.AgonesSubsystem.GetList
 // 0x0030 (0x0030 - 0x0000)
@@ -101,6 +109,7 @@ public:
 	TDelegate<void(const struct FList& Response)> SuccessDelegate;                                   // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_GetList;
 
 // Function Agones.AgonesSubsystem.GetPlayerCapacity
 // 0x0020 (0x0020 - 0x0000)
@@ -110,6 +119,7 @@ public:
 	TDelegate<void(const struct FCountResponse& Response)> SuccessDelegate;                          // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_GetPlayerCapacity;
 
 // Function Agones.AgonesSubsystem.GetPlayerCount
 // 0x0020 (0x0020 - 0x0000)
@@ -119,6 +129,7 @@ public:
 	TDelegate<void(const struct FCountResponse& Response)> SuccessDelegate;                          // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_GetPlayerCount;
 
 // Function Agones.AgonesSubsystem.Health
 // 0x0020 (0x0020 - 0x0000)
@@ -128,6 +139,7 @@ public:
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_Health;
 
 // Function Agones.AgonesSubsystem.HealthPing
 // 0x0004 (0x0004 - 0x0000)
@@ -136,6 +148,7 @@ struct AgonesSubsystem_HealthPing final
 public:
 	float                                         RateSeconds;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_HealthPing;
 
 // Function Agones.AgonesSubsystem.IncrementCounter
 // 0x0038 (0x0038 - 0x0000)
@@ -147,6 +160,7 @@ public:
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0018(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0028(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_IncrementCounter;
 
 // Function Agones.AgonesSubsystem.IsPlayerConnected
 // 0x0030 (0x0030 - 0x0000)
@@ -157,6 +171,7 @@ public:
 	TDelegate<void(const struct FConnectedResponse& Response)> SuccessDelegate;                      // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_IsPlayerConnected;
 
 // Function Agones.AgonesSubsystem.PlayerConnect
 // 0x0030 (0x0030 - 0x0000)
@@ -167,6 +182,7 @@ public:
 	TDelegate<void(const struct FConnectedResponse& Response)> SuccessDelegate;                      // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_PlayerConnect;
 
 // Function Agones.AgonesSubsystem.PlayerDisconnect
 // 0x0030 (0x0030 - 0x0000)
@@ -177,6 +193,7 @@ public:
 	TDelegate<void(const struct FDisconnectResponse& Response)> SuccessDelegate;                     // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_PlayerDisconnect;
 
 // Function Agones.AgonesSubsystem.Ready
 // 0x0020 (0x0020 - 0x0000)
@@ -186,6 +203,7 @@ public:
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_Ready;
 
 // Function Agones.AgonesSubsystem.RemoveListValue
 // 0x0040 (0x0040 - 0x0000)
@@ -197,6 +215,7 @@ public:
 	TDelegate<void(const struct FList& Response)> SuccessDelegate;                                   // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0030(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_RemoveListValue;
 
 // Function Agones.AgonesSubsystem.Reserve
 // 0x0028 (0x0028 - 0x0000)
@@ -207,6 +226,7 @@ public:
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0008(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0018(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_Reserve;
 
 // Function Agones.AgonesSubsystem.SetAnnotation
 // 0x0040 (0x0040 - 0x0000)
@@ -218,6 +238,7 @@ public:
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0030(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_SetAnnotation;
 
 // Function Agones.AgonesSubsystem.SetCounterCapacity
 // 0x0038 (0x0038 - 0x0000)
@@ -229,6 +250,7 @@ public:
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0018(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0028(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_SetCounterCapacity;
 
 // Function Agones.AgonesSubsystem.SetCounterCount
 // 0x0038 (0x0038 - 0x0000)
@@ -240,6 +262,7 @@ public:
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0018(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0028(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_SetCounterCount;
 
 // Function Agones.AgonesSubsystem.SetLabel
 // 0x0040 (0x0040 - 0x0000)
@@ -251,6 +274,7 @@ public:
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0020(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0030(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_SetLabel;
 
 // Function Agones.AgonesSubsystem.SetPlayerCapacity
 // 0x0028 (0x0028 - 0x0000)
@@ -261,6 +285,7 @@ public:
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0008(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0018(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_SetPlayerCapacity;
 
 // Function Agones.AgonesSubsystem.Shutdown
 // 0x0020 (0x0020 - 0x0000)
@@ -270,6 +295,7 @@ public:
 	TDelegate<void(const struct FEmptyResponse& Response)> SuccessDelegate;                          // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0010(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_Shutdown;
 
 // Function Agones.AgonesSubsystem.UpdateList
 // 0x0058 (0x0058 - 0x0000)
@@ -281,6 +307,7 @@ public:
 	TDelegate<void(const struct FList& Response)> SuccessDelegate;                                   // 0x0038(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 	TDelegate<void(const struct FAgonesError& Error)> ErrorDelegate;                                 // 0x0048(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_UpdateList;
 
 // Function Agones.AgonesSubsystem.WatchGameServer
 // 0x0010 (0x0010 - 0x0000)
@@ -289,6 +316,7 @@ struct AgonesSubsystem_WatchGameServer final
 public:
 	TDelegate<void(const struct FGameServerResponse& Response)> WatchDelegate;                       // 0x0000(0x0010)(Parm, ZeroConstructor, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AgonesSubsystem_WatchGameServer;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

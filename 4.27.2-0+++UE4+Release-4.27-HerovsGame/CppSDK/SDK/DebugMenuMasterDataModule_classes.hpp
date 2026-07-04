@@ -14,7 +14,8 @@
 #include "MasterDataModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class DebugMenuMasterDataModule.DebugMenuMasterData
 // 0x0020 (0x0050 - 0x0030)
@@ -57,5 +58,7 @@ public:
 		return GetDefaultObjImpl<UDebugMenuMasterData>();
 	}
 };
+DUMPER7_ASSERTS_UDebugMenuMasterData;
 
-SDK_NAMESPACE_END
+}
+

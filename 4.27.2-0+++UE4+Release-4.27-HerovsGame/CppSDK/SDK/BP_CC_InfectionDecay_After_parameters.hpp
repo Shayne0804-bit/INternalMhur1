@@ -13,8 +13,8 @@
 #include "CommonModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_InfectionDecay_After.BP_CC_InfectionDecay_After_C.ExecuteUbergraph_BP_CC_InfectionDecay_After
 // 0x0090 (0x0090 - 0x0000)
@@ -40,6 +40,7 @@ public:
 	bool                                          CallFunc_BP_IsValidCondition_ReturnValue;          // 0x0088(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_Not_PreBool_ReturnValue;                  // 0x0089(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_InfectionDecay_After_C_ExecuteUbergraph_BP_CC_InfectionDecay_After;
 
 // Function BP_CC_InfectionDecay_After.BP_CC_InfectionDecay_After_C.BP_OnUpdateIntervalValue
 // 0x0004 (0x0004 - 0x0000)
@@ -48,6 +49,7 @@ struct BP_CC_InfectionDecay_After_C_BP_OnUpdateIntervalValue final
 public:
 	float                                         value;                                             // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_InfectionDecay_After_C_BP_OnUpdateIntervalValue;
 
 // Function BP_CC_InfectionDecay_After.BP_CC_InfectionDecay_After_C.BP_OnChangeConditionLevel
 // 0x0008 (0x0008 - 0x0000)
@@ -57,6 +59,7 @@ public:
 	int32                                         oldLevel;                                          // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         newLevel;                                          // 0x0004(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_InfectionDecay_After_C_BP_OnChangeConditionLevel;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function MagicLeapHandMeshing.MagicLeapHandMeshingComponent.ConnectMRMesh
 // 0x0010 (0x0010 - 0x0000)
@@ -23,6 +23,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapHandMeshingComponent_ConnectMRMesh;
 
 // Function MagicLeapHandMeshing.MagicLeapHandMeshingComponent.DisconnectMRMesh
 // 0x0010 (0x0010 - 0x0000)
@@ -33,6 +34,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapHandMeshingComponent_DisconnectMRMesh;
 
 // Function MagicLeapHandMeshing.MagicLeapHandMeshingComponent.SetUseWeightedNormals
 // 0x0001 (0x0001 - 0x0000)
@@ -41,6 +43,7 @@ struct MagicLeapHandMeshingComponent_SetUseWeightedNormals final
 public:
 	bool                                          bInUseWeightedNormals;                             // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapHandMeshingComponent_SetUseWeightedNormals;
 
 // Function MagicLeapHandMeshing.MagicLeapHandMeshingFunctionLibrary.ConnectMRMesh
 // 0x0010 (0x0010 - 0x0000)
@@ -51,6 +54,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapHandMeshingFunctionLibrary_ConnectMRMesh;
 
 // Function MagicLeapHandMeshing.MagicLeapHandMeshingFunctionLibrary.CreateClient
 // 0x0001 (0x0001 - 0x0000)
@@ -59,6 +63,7 @@ struct MagicLeapHandMeshingFunctionLibrary_CreateClient final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapHandMeshingFunctionLibrary_CreateClient;
 
 // Function MagicLeapHandMeshing.MagicLeapHandMeshingFunctionLibrary.DestroyClient
 // 0x0001 (0x0001 - 0x0000)
@@ -67,6 +72,7 @@ struct MagicLeapHandMeshingFunctionLibrary_DestroyClient final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapHandMeshingFunctionLibrary_DestroyClient;
 
 // Function MagicLeapHandMeshing.MagicLeapHandMeshingFunctionLibrary.DisconnectMRMesh
 // 0x0010 (0x0010 - 0x0000)
@@ -77,6 +83,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapHandMeshingFunctionLibrary_DisconnectMRMesh;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

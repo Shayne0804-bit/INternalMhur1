@@ -15,7 +15,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class ImgMedia.ImgMediaSource
 // 0x0040 (0x00C8 - 0x0088)
@@ -55,5 +56,7 @@ public:
 		return GetDefaultObjImpl<UImgMediaSource>();
 	}
 };
+DUMPER7_ASSERTS_UImgMediaSource;
 
-SDK_NAMESPACE_END
+}
+

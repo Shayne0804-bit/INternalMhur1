@@ -14,7 +14,8 @@
 #include "OnlineSubsystemUtils_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function OnlineSubsystemUtils.AchievementBlueprintLibrary.GetCachedAchievementDescription
 // (Final, Native, Static, Public, HasOutParams, BlueprintCallable)
@@ -1590,5 +1591,5 @@ bool UVoipListenerSynthComponent::IsIdling()
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

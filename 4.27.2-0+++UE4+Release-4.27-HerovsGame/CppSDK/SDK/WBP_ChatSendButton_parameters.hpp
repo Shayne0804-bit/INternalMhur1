@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_ChatSendButton.WBP_ChatSendButton_C.ExecuteUbergraph_WBP_ChatSendButton
 // 0x0008 (0x0008 - 0x0000)
@@ -23,6 +23,7 @@ public:
 	bool                                          K2Node_Event_IsDesignTime;                         // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_IsValid_ReturnValue;                      // 0x0005(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_ChatSendButton_C_ExecuteUbergraph_WBP_ChatSendButton;
 
 // Function WBP_ChatSendButton.WBP_ChatSendButton_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -31,6 +32,7 @@ struct WBP_ChatSendButton_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_ChatSendButton_C_PreConstruct;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

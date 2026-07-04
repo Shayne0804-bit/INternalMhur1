@@ -14,7 +14,8 @@
 #include "CoreUObject_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Predefined Function
 // Finds a UObject in the global object array by name, optionally with ECastFlags to reduce heavy string comparison
@@ -164,8 +165,13 @@ bool UStruct::IsSubclassOf(const UStruct* Base) const
 	if (!Base)
 		return false;
 
-	const int32 NumParentStructBasesInChainMinusOne = Base->BaseChain.NumStructBasesInChainMinusOne;
-	return NumParentStructBasesInChainMinusOne <= BaseChain.NumStructBasesInChainMinusOne && BaseChain.StructBaseChainArray[NumParentStructBasesInChainMinusOne] == &Base->BaseChain;
+	for (const UStruct* Struct = this; Struct; Struct = Struct->SuperStruct)
+	{
+		if (Struct == Base)
+			return true;
+	}
+
+	return false;
 }
 
 
@@ -207,5 +213,5 @@ class UFunction* UClass::GetFunction(const char* ClassName, const char* FuncName
 	return nullptr;
 }
 
+}
 
-SDK_NAMESPACE_END

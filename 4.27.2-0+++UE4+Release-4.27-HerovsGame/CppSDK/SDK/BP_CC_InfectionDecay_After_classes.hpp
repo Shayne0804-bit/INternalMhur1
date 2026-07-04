@@ -15,7 +15,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_CC_InfectionDecay_After.BP_CC_InfectionDecay_After_C
 // 0x0008 (0x0158 - 0x0150)
@@ -47,5 +48,7 @@ public:
 		return GetDefaultObjImpl<UBP_CC_InfectionDecay_After_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_CC_InfectionDecay_After_C;
 
-SDK_NAMESPACE_END
+}
+

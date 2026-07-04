@@ -15,7 +15,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class CableComponent.CableActor
 // 0x0008 (0x0228 - 0x0220)
@@ -38,6 +39,7 @@ public:
 		return GetDefaultObjImpl<ACableActor>();
 	}
 };
+DUMPER7_ASSERTS_ACableActor;
 
 // Class CableComponent.CableComponent
 // 0x0090 (0x0510 - 0x0480)
@@ -96,5 +98,7 @@ public:
 		return GetDefaultObjImpl<UCableComponent>();
 	}
 };
+DUMPER7_ASSERTS_UCableComponent;
 
-SDK_NAMESPACE_END
+}
+

@@ -13,7 +13,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class AssetRegistry.AssetRegistryImpl
 // 0x0828 (0x0850 - 0x0028)
@@ -36,6 +37,7 @@ public:
 		return GetDefaultObjImpl<UAssetRegistryImpl>();
 	}
 };
+DUMPER7_ASSERTS_UAssetRegistryImpl;
 
 // Class AssetRegistry.AssetRegistryHelpers
 // 0x0000 (0x0028 - 0x0028)
@@ -70,6 +72,7 @@ public:
 		return GetDefaultObjImpl<UAssetRegistryHelpers>();
 	}
 };
+DUMPER7_ASSERTS_UAssetRegistryHelpers;
 
 // Class AssetRegistry.AssetRegistry
 // 0x0000 (0x0000 - 0x0000)
@@ -121,5 +124,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IAssetRegistry;
 
-SDK_NAMESPACE_END
+}
+

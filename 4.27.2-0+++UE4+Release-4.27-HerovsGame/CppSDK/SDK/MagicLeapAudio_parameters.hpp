@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function MagicLeapAudio.MagicLeapAudioFunctionLibrary.IsMicMuted
 // 0x0001 (0x0001 - 0x0000)
@@ -21,6 +21,7 @@ struct MagicLeapAudioFunctionLibrary_IsMicMuted final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapAudioFunctionLibrary_IsMicMuted;
 
 // Function MagicLeapAudio.MagicLeapAudioFunctionLibrary.SetMicMute
 // 0x0002 (0x0002 - 0x0000)
@@ -30,6 +31,7 @@ public:
 	bool                                          IsMuted;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapAudioFunctionLibrary_SetMicMute;
 
 // Function MagicLeapAudio.MagicLeapAudioFunctionLibrary.SetOnAudioJackPluggedDelegate
 // 0x0014 (0x0014 - 0x0000)
@@ -40,6 +42,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapAudioFunctionLibrary_SetOnAudioJackPluggedDelegate;
 
 // Function MagicLeapAudio.MagicLeapAudioFunctionLibrary.SetOnAudioJackUnpluggedDelegate
 // 0x0014 (0x0014 - 0x0000)
@@ -50,6 +53,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapAudioFunctionLibrary_SetOnAudioJackUnpluggedDelegate;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

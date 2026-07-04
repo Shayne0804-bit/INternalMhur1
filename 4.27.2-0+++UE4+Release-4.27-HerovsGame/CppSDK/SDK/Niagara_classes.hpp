@@ -21,7 +21,8 @@
 #include "DeveloperSettings_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class Niagara.MovieSceneNiagaraTrack
 // 0x0010 (0x00A0 - 0x0090)
@@ -44,6 +45,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneNiagaraTrack>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneNiagaraTrack;
 
 // Class Niagara.MovieSceneNiagaraSystemTrack
 // 0x0008 (0x00A8 - 0x00A0)
@@ -66,6 +68,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneNiagaraSystemTrack>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneNiagaraSystemTrack;
 
 // Class Niagara.NiagaraDataInterface
 // 0x0010 (0x0038 - 0x0028)
@@ -88,6 +91,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterface>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterface;
 
 // Class Niagara.NiagaraDataInterfaceSimpleCounter
 // 0x0000 (0x0038 - 0x0038)
@@ -107,6 +111,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceSimpleCounter>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceSimpleCounter;
 
 // Class Niagara.NiagaraDataInterfaceSkeletalMesh
 // 0x0090 (0x00C8 - 0x0038)
@@ -146,6 +151,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceSkeletalMesh>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceSkeletalMesh;
 
 // Class Niagara.MovieSceneNiagaraParameterTrack
 // 0x0020 (0x00C0 - 0x00A0)
@@ -168,6 +174,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneNiagaraParameterTrack>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneNiagaraParameterTrack;
 
 // Class Niagara.NiagaraDataInterfaceSpline
 // 0x0028 (0x0060 - 0x0038)
@@ -191,6 +198,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceSpline>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceSpline;
 
 // Class Niagara.MovieSceneNiagaraBoolParameterTrack
 // 0x0008 (0x00C8 - 0x00C0)
@@ -213,6 +221,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneNiagaraBoolParameterTrack>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneNiagaraBoolParameterTrack;
 
 // Class Niagara.MovieSceneNiagaraColorParameterTrack
 // 0x0008 (0x00C8 - 0x00C0)
@@ -235,6 +244,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneNiagaraColorParameterTrack>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneNiagaraColorParameterTrack;
 
 // Class Niagara.MovieSceneNiagaraFloatParameterTrack
 // 0x0008 (0x00C8 - 0x00C0)
@@ -257,6 +267,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneNiagaraFloatParameterTrack>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneNiagaraFloatParameterTrack;
 
 // Class Niagara.MovieSceneNiagaraIntegerParameterTrack
 // 0x0008 (0x00C8 - 0x00C0)
@@ -279,6 +290,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneNiagaraIntegerParameterTrack>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneNiagaraIntegerParameterTrack;
 
 // Class Niagara.MovieSceneNiagaraSystemSpawnSection
 // 0x0010 (0x00F8 - 0x00E8)
@@ -305,6 +317,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneNiagaraSystemSpawnSection>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneNiagaraSystemSpawnSection;
 
 // Class Niagara.MovieSceneNiagaraVectorParameterTrack
 // 0x0010 (0x00D0 - 0x00C0)
@@ -329,6 +342,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneNiagaraVectorParameterTrack>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneNiagaraVectorParameterTrack;
 
 // Class Niagara.NiagaraActor
 // 0x0010 (0x0230 - 0x0220)
@@ -357,6 +371,7 @@ public:
 		return GetDefaultObjImpl<ANiagaraActor>();
 	}
 };
+DUMPER7_ASSERTS_ANiagaraActor;
 
 // Class Niagara.NiagaraBakerSettings
 // 0x00F0 (0x0118 - 0x0028)
@@ -396,6 +411,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraBakerSettings>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraBakerSettings;
 
 // Class Niagara.NiagaraComponent
 // 0x01B0 (0x0600 - 0x0450)
@@ -504,6 +520,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraComponent>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraComponent;
 
 // Class Niagara.NiagaraComponentPool
 // 0x0058 (0x0080 - 0x0028)
@@ -527,6 +544,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraComponentPool>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraComponentPool;
 
 // Class Niagara.NiagaraRendererProperties
 // 0x0050 (0x0078 - 0x0028)
@@ -554,6 +572,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraRendererProperties>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraRendererProperties;
 
 // Class Niagara.NiagaraComponentRendererProperties
 // 0x0138 (0x01B0 - 0x0078)
@@ -587,6 +606,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraComponentRendererProperties>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraComponentRendererProperties;
 
 // Class Niagara.NiagaraComponentSettings
 // 0x00F0 (0x0118 - 0x0028)
@@ -611,6 +631,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraComponentSettings>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraComponentSettings;
 
 // Class Niagara.NiagaraConvertInPlaceUtilityBase
 // 0x0000 (0x0028 - 0x0028)
@@ -630,6 +651,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraConvertInPlaceUtilityBase>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraConvertInPlaceUtilityBase;
 
 // Class Niagara.NiagaraDataInterface2DArrayTexture
 // 0x0018 (0x0050 - 0x0038)
@@ -653,6 +675,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterface2DArrayTexture>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterface2DArrayTexture;
 
 // Class Niagara.NiagaraDataInterfaceArray
 // 0x0018 (0x0050 - 0x0038)
@@ -677,6 +700,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceArray>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceArray;
 
 // Class Niagara.NiagaraDataInterfaceArrayFloat
 // 0x0010 (0x0060 - 0x0050)
@@ -699,6 +723,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceArrayFloat>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceArrayFloat;
 
 // Class Niagara.NiagaraDataInterfaceArrayFloat2
 // 0x0010 (0x0060 - 0x0050)
@@ -721,6 +746,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceArrayFloat2>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceArrayFloat2;
 
 // Class Niagara.NiagaraDataInterfaceArrayFloat3
 // 0x0010 (0x0060 - 0x0050)
@@ -743,6 +769,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceArrayFloat3>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceArrayFloat3;
 
 // Class Niagara.NiagaraDataInterfaceArrayFloat4
 // 0x0010 (0x0060 - 0x0050)
@@ -765,6 +792,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceArrayFloat4>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceArrayFloat4;
 
 // Class Niagara.NiagaraDataInterfaceArrayColor
 // 0x0010 (0x0060 - 0x0050)
@@ -787,6 +815,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceArrayColor>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceArrayColor;
 
 // Class Niagara.NiagaraDataInterfaceArrayQuat
 // 0x0010 (0x0060 - 0x0050)
@@ -809,6 +838,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceArrayQuat>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceArrayQuat;
 
 // Class Niagara.NiagaraDataInterfaceArrayFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -862,6 +892,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceArrayFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceArrayFunctionLibrary;
 
 // Class Niagara.NiagaraDataInterfaceArrayInt32
 // 0x0010 (0x0060 - 0x0050)
@@ -884,6 +915,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceArrayInt32>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceArrayInt32;
 
 // Class Niagara.NiagaraDataInterfaceArrayBool
 // 0x0010 (0x0060 - 0x0050)
@@ -906,6 +938,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceArrayBool>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceArrayBool;
 
 // Class Niagara.NiagaraDataInterfaceAudioSubmix
 // 0x0008 (0x0040 - 0x0038)
@@ -928,6 +961,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceAudioSubmix>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceAudioSubmix;
 
 // Class Niagara.NiagaraDataInterfaceAudioOscilloscope
 // 0x0010 (0x0048 - 0x0038)
@@ -952,6 +986,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceAudioOscilloscope>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceAudioOscilloscope;
 
 // Class Niagara.NiagaraDataInterfaceAudioPlayer
 // 0x0038 (0x0070 - 0x0038)
@@ -982,6 +1017,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceAudioPlayer>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceAudioPlayer;
 
 // Class Niagara.NiagaraDataInterfaceAudioSpectrum
 // 0x0010 (0x0050 - 0x0040)
@@ -1007,6 +1043,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceAudioSpectrum>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceAudioSpectrum;
 
 // Class Niagara.NiagaraDataInterfaceCamera
 // 0x0008 (0x0040 - 0x0038)
@@ -1031,6 +1068,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceCamera>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceCamera;
 
 // Class Niagara.NiagaraDataInterfaceCollisionQuery
 // 0x0010 (0x0048 - 0x0038)
@@ -1053,6 +1091,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceCollisionQuery>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceCollisionQuery;
 
 // Class Niagara.NiagaraDataInterfaceCurveBase
 // 0x0038 (0x0070 - 0x0038)
@@ -1085,6 +1124,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceCurveBase>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceCurveBase;
 
 // Class Niagara.NiagaraDataInterfaceColorCurve
 // 0x0200 (0x0270 - 0x0070)
@@ -1110,6 +1150,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceColorCurve>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceColorCurve;
 
 // Class Niagara.NiagaraDataInterfaceCubeTexture
 // 0x0010 (0x0048 - 0x0038)
@@ -1133,6 +1174,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceCubeTexture>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceCubeTexture;
 
 // Class Niagara.NiagaraDataInterfaceCurlNoise
 // 0x0010 (0x0048 - 0x0038)
@@ -1156,6 +1198,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceCurlNoise>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceCurlNoise;
 
 // Class Niagara.NiagaraDataInterfaceCurve
 // 0x0080 (0x00F0 - 0x0070)
@@ -1178,6 +1221,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceCurve>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceCurve;
 
 // Class Niagara.NiagaraDataInterfaceDebugDraw
 // 0x0000 (0x0038 - 0x0038)
@@ -1197,6 +1241,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceDebugDraw>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceDebugDraw;
 
 // Class Niagara.NiagaraParticleCallbackHandler
 // 0x0000 (0x0000 - 0x0000)
@@ -1228,6 +1273,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_INiagaraParticleCallbackHandler;
 
 // Class Niagara.NiagaraDataInterfaceExport
 // 0x0030 (0x0068 - 0x0038)
@@ -1255,6 +1301,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceExport>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceExport;
 
 // Class Niagara.NiagaraDataInterfaceGBuffer
 // 0x0000 (0x0038 - 0x0038)
@@ -1274,6 +1321,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceGBuffer>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceGBuffer;
 
 // Class Niagara.NiagaraDataInterfaceRWBase
 // 0x00A0 (0x00D8 - 0x0038)
@@ -1297,6 +1345,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceRWBase>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceRWBase;
 
 // Class Niagara.NiagaraDataInterfaceGrid2D
 // 0x0020 (0x00F8 - 0x00D8)
@@ -1326,6 +1375,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceGrid2D>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceGrid2D;
 
 // Class Niagara.NiagaraDataInterfaceGrid2DCollection
 // 0x00C8 (0x01C0 - 0x00F8)
@@ -1358,6 +1408,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceGrid2DCollection>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceGrid2DCollection;
 
 // Class Niagara.NiagaraDataInterfaceGrid2DCollectionReader
 // 0x0070 (0x0168 - 0x00F8)
@@ -1382,6 +1433,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceGrid2DCollectionReader>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceGrid2DCollectionReader;
 
 // Class Niagara.NiagaraDataInterfaceGrid3D
 // 0x0028 (0x0100 - 0x00D8)
@@ -1409,6 +1461,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceGrid3D>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceGrid3D;
 
 // Class Niagara.NiagaraDataInterfaceGrid3DCollection
 // 0x0080 (0x0180 - 0x0100)
@@ -1442,6 +1495,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceGrid3DCollection>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceGrid3DCollection;
 
 // Class Niagara.NiagaraDataInterfaceIntRenderTarget2D
 // 0x0078 (0x0150 - 0x00D8)
@@ -1466,6 +1520,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceIntRenderTarget2D>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceIntRenderTarget2D;
 
 // Class Niagara.NiagaraDataInterfaceLandscape
 // 0x0020 (0x0058 - 0x0038)
@@ -1491,6 +1546,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceLandscape>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceLandscape;
 
 // Class Niagara.NiagaraDataInterfaceMeshRendererInfo
 // 0x0018 (0x0050 - 0x0038)
@@ -1514,6 +1570,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceMeshRendererInfo>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceMeshRendererInfo;
 
 // Class Niagara.NiagaraDataInterfaceNeighborGrid3D
 // 0x0008 (0x0108 - 0x0100)
@@ -1537,6 +1594,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceNeighborGrid3D>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceNeighborGrid3D;
 
 // Class Niagara.NiagaraDataInterfaceOcclusion
 // 0x0000 (0x0038 - 0x0038)
@@ -1556,6 +1614,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceOcclusion>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceOcclusion;
 
 // Class Niagara.NiagaraDataInterfaceParticleRead
 // 0x0010 (0x00E8 - 0x00D8)
@@ -1578,6 +1637,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceParticleRead>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceParticleRead;
 
 // Class Niagara.NiagaraDataInterfacePlatformSet
 // 0x0030 (0x0068 - 0x0038)
@@ -1600,6 +1660,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfacePlatformSet>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfacePlatformSet;
 
 // Class Niagara.NiagaraDataInterfaceRenderTarget2D
 // 0x00D0 (0x01A8 - 0x00D8)
@@ -1630,6 +1691,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceRenderTarget2D>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceRenderTarget2D;
 
 // Class Niagara.NiagaraDataInterfaceRenderTarget2DArray
 // 0x0080 (0x0158 - 0x00D8)
@@ -1658,6 +1720,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceRenderTarget2DArray>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceRenderTarget2DArray;
 
 // Class Niagara.NiagaraDataInterfaceRenderTargetCube
 // 0x0078 (0x0150 - 0x00D8)
@@ -1686,6 +1749,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceRenderTargetCube>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceRenderTargetCube;
 
 // Class Niagara.NiagaraDataInterfaceRenderTargetVolume
 // 0x0080 (0x0158 - 0x00D8)
@@ -1714,6 +1778,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceRenderTargetVolume>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceRenderTargetVolume;
 
 // Class Niagara.NiagaraDataInterfaceStaticMesh
 // 0x0050 (0x0088 - 0x0038)
@@ -1745,6 +1810,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceStaticMesh>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceStaticMesh;
 
 // Class Niagara.NiagaraDataInterfaceTexture
 // 0x0010 (0x0048 - 0x0038)
@@ -1768,6 +1834,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceTexture>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceTexture;
 
 // Class Niagara.NiagaraDataInterfaceVector2DCurve
 // 0x0100 (0x0170 - 0x0070)
@@ -1791,6 +1858,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceVector2DCurve>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceVector2DCurve;
 
 // Class Niagara.NiagaraDataInterfaceVector4Curve
 // 0x0200 (0x0270 - 0x0070)
@@ -1816,6 +1884,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceVector4Curve>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceVector4Curve;
 
 // Class Niagara.NiagaraDataInterfaceVectorCurve
 // 0x0180 (0x01F0 - 0x0070)
@@ -1840,6 +1909,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceVectorCurve>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceVectorCurve;
 
 // Class Niagara.NiagaraDataInterfaceVectorField
 // 0x0010 (0x0048 - 0x0038)
@@ -1866,6 +1936,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceVectorField>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceVectorField;
 
 // Class Niagara.NiagaraDataInterfaceVolumeTexture
 // 0x0018 (0x0050 - 0x0038)
@@ -1889,6 +1960,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceVolumeTexture>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceVolumeTexture;
 
 // Class Niagara.NiagaraDebugHUDSettings
 // 0x0100 (0x0128 - 0x0028)
@@ -1912,6 +1984,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDebugHUDSettings>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDebugHUDSettings;
 
 // Class Niagara.NiagaraEditorDataBase
 // 0x0000 (0x0028 - 0x0028)
@@ -1931,6 +2004,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraEditorDataBase>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraEditorDataBase;
 
 // Class Niagara.NiagaraEditorParametersAdapterBase
 // 0x0000 (0x0028 - 0x0028)
@@ -1950,6 +2024,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraEditorParametersAdapterBase>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraEditorParametersAdapterBase;
 
 // Class Niagara.NiagaraSignificanceHandler
 // 0x0000 (0x0028 - 0x0028)
@@ -1969,6 +2044,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraSignificanceHandler>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraSignificanceHandler;
 
 // Class Niagara.NiagaraSignificanceHandlerDistance
 // 0x0000 (0x0028 - 0x0028)
@@ -1988,6 +2064,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraSignificanceHandlerDistance>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraSignificanceHandlerDistance;
 
 // Class Niagara.NiagaraSignificanceHandlerAge
 // 0x0000 (0x0028 - 0x0028)
@@ -2007,6 +2084,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraSignificanceHandlerAge>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraSignificanceHandlerAge;
 
 // Class Niagara.NiagaraEffectType
 // 0x0070 (0x0098 - 0x0028)
@@ -2038,6 +2116,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraEffectType>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraEffectType;
 
 // Class Niagara.NiagaraEmitter
 // 0x0278 (0x02A0 - 0x0028)
@@ -2100,6 +2179,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraEmitter>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraEmitter;
 
 // Class Niagara.NiagaraEventReceiverEmitterAction
 // 0x0000 (0x0028 - 0x0028)
@@ -2119,6 +2199,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraEventReceiverEmitterAction>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraEventReceiverEmitterAction;
 
 // Class Niagara.NiagaraEventReceiverEmitterAction_SpawnParticles
 // 0x0008 (0x0030 - 0x0028)
@@ -2142,6 +2223,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraEventReceiverEmitterAction_SpawnParticles>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraEventReceiverEmitterAction_SpawnParticles;
 
 // Class Niagara.NiagaraFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -2173,6 +2255,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraFunctionLibrary;
 
 // Class Niagara.NiagaraLightRendererProperties
 // 0x02B8 (0x0330 - 0x0078)
@@ -2211,6 +2294,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraLightRendererProperties>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraLightRendererProperties;
 
 // Class Niagara.NiagaraMeshRendererProperties
 // 0x0820 (0x0898 - 0x0078)
@@ -2284,6 +2368,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraMeshRendererProperties>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraMeshRendererProperties;
 
 // Class Niagara.NiagaraMessageDataBase
 // 0x0000 (0x0028 - 0x0028)
@@ -2303,6 +2388,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraMessageDataBase>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraMessageDataBase;
 
 // Class Niagara.NiagaraParameterCollectionInstance
 // 0x00B8 (0x00E0 - 0x0028)
@@ -2346,6 +2432,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraParameterCollectionInstance>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraParameterCollectionInstance;
 
 // Class Niagara.NiagaraParameterCollection
 // 0x0038 (0x0060 - 0x0028)
@@ -2372,6 +2459,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraParameterCollection>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraParameterCollection;
 
 // Class Niagara.NiagaraParameterDefinitionsBase
 // 0x0000 (0x0028 - 0x0028)
@@ -2391,6 +2479,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraParameterDefinitionsBase>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraParameterDefinitionsBase;
 
 // Class Niagara.NiagaraBaselineController
 // 0x0040 (0x0068 - 0x0028)
@@ -2424,6 +2513,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraBaselineController>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraBaselineController;
 
 // Class Niagara.NiagaraBaselineController_Basic
 // 0x0018 (0x0080 - 0x0068)
@@ -2448,6 +2538,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraBaselineController_Basic>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraBaselineController_Basic;
 
 // Class Niagara.NiagaraPerfBaselineActor
 // 0x0010 (0x0230 - 0x0220)
@@ -2471,6 +2562,7 @@ public:
 		return GetDefaultObjImpl<ANiagaraPerfBaselineActor>();
 	}
 };
+DUMPER7_ASSERTS_ANiagaraPerfBaselineActor;
 
 // Class Niagara.NiagaraPrecompileContainer
 // 0x0018 (0x0040 - 0x0028)
@@ -2494,6 +2586,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraPrecompileContainer>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraPrecompileContainer;
 
 // Class Niagara.NiagaraPreviewBase
 // 0x0000 (0x0220 - 0x0220)
@@ -2517,6 +2610,7 @@ public:
 		return GetDefaultObjImpl<ANiagaraPreviewBase>();
 	}
 };
+DUMPER7_ASSERTS_ANiagaraPreviewBase;
 
 // Class Niagara.NiagaraPreviewAxis
 // 0x0000 (0x0028 - 0x0028)
@@ -2540,6 +2634,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraPreviewAxis>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraPreviewAxis;
 
 // Class Niagara.NiagaraPreviewAxis_InterpParamBase
 // 0x0010 (0x0038 - 0x0028)
@@ -2564,6 +2659,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraPreviewAxis_InterpParamBase>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraPreviewAxis_InterpParamBase;
 
 // Class Niagara.NiagaraPreviewAxis_InterpParamInt32
 // 0x0008 (0x0040 - 0x0038)
@@ -2587,6 +2683,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraPreviewAxis_InterpParamInt32>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraPreviewAxis_InterpParamInt32;
 
 // Class Niagara.NiagaraPreviewAxis_InterpParamFloat
 // 0x0008 (0x0040 - 0x0038)
@@ -2610,6 +2707,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraPreviewAxis_InterpParamFloat>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraPreviewAxis_InterpParamFloat;
 
 // Class Niagara.NiagaraPreviewAxis_InterpParamVector2D
 // 0x0010 (0x0048 - 0x0038)
@@ -2633,6 +2731,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraPreviewAxis_InterpParamVector2D>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraPreviewAxis_InterpParamVector2D;
 
 // Class Niagara.NiagaraPreviewAxis_InterpParamVector
 // 0x0018 (0x0050 - 0x0038)
@@ -2656,6 +2755,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraPreviewAxis_InterpParamVector>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraPreviewAxis_InterpParamVector;
 
 // Class Niagara.NiagaraPreviewAxis_InterpParamVector4
 // 0x0028 (0x0060 - 0x0038)
@@ -2680,6 +2780,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraPreviewAxis_InterpParamVector4>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraPreviewAxis_InterpParamVector4;
 
 // Class Niagara.NiagaraPreviewAxis_InterpParamLinearColor
 // 0x0020 (0x0058 - 0x0038)
@@ -2703,6 +2804,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraPreviewAxis_InterpParamLinearColor>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraPreviewAxis_InterpParamLinearColor;
 
 // Class Niagara.NiagaraPreviewGrid
 // 0x0050 (0x0270 - 0x0220)
@@ -2742,6 +2844,7 @@ public:
 		return GetDefaultObjImpl<ANiagaraPreviewGrid>();
 	}
 };
+DUMPER7_ASSERTS_ANiagaraPreviewGrid;
 
 // Class Niagara.NiagaraRibbonRendererProperties
 // 0x07E8 (0x0860 - 0x0078)
@@ -2808,6 +2911,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraRibbonRendererProperties>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraRibbonRendererProperties;
 
 // Class Niagara.NiagaraScript
 // 0x02B8 (0x02E0 - 0x0028)
@@ -2845,6 +2949,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraScript>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraScript;
 
 // Class Niagara.NiagaraScriptSourceBase
 // 0x0020 (0x0048 - 0x0028)
@@ -2867,6 +2972,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraScriptSourceBase>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraScriptSourceBase;
 
 // Class Niagara.NiagaraSettings
 // 0x0090 (0x00C8 - 0x0038)
@@ -2900,6 +3006,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraSettings>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraSettings;
 
 // Class Niagara.NiagaraSimulationStageBase
 // 0x0018 (0x0040 - 0x0028)
@@ -2925,6 +3032,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraSimulationStageBase>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraSimulationStageBase;
 
 // Class Niagara.NiagaraSimulationStageGeneric
 // 0x0030 (0x0070 - 0x0040)
@@ -2953,6 +3061,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraSimulationStageGeneric>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraSimulationStageGeneric;
 
 // Class Niagara.NiagaraSpriteRendererProperties
 // 0x0A38 (0x0AB0 - 0x0078)
@@ -3027,6 +3136,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraSpriteRendererProperties>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraSpriteRendererProperties;
 
 // Class Niagara.NiagaraSystem
 // 0x0468 (0x0498 - 0x0030)
@@ -3077,5 +3187,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraSystem>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraSystem;
 
-SDK_NAMESPACE_END
+}
+

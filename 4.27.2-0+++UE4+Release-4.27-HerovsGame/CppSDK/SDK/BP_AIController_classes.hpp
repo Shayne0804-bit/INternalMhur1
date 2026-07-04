@@ -14,7 +14,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_AIController.BP_AIController_C
 // 0x0020 (0x0420 - 0x0400)
@@ -49,5 +50,7 @@ public:
 		return GetDefaultObjImpl<ABP_AIController_C>();
 	}
 };
+DUMPER7_ASSERTS_ABP_AIController_C;
 
-SDK_NAMESPACE_END
+}
+

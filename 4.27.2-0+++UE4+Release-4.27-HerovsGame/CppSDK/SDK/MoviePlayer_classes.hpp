@@ -13,7 +13,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MoviePlayer.MoviePlayerSettings
 // 0x0018 (0x0040 - 0x0028)
@@ -39,5 +40,7 @@ public:
 		return GetDefaultObjImpl<UMoviePlayerSettings>();
 	}
 };
+DUMPER7_ASSERTS_UMoviePlayerSettings;
 
-SDK_NAMESPACE_END
+}
+

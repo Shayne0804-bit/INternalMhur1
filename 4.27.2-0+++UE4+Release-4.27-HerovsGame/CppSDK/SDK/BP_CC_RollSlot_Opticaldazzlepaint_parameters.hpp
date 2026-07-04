@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_RollSlot_Opticaldazzlepaint.BP_CC_RollSlot_Opticaldazzlepaint_C.ExecuteUbergraph_BP_CC_RollSlot_Opticaldazzlepaint
 // 0x00D0 (0x00D0 - 0x0000)
@@ -51,6 +51,7 @@ public:
 	class UCharacterRollSlotUniqueSkillControlComponent* CallFunc_BP_GetCharacterRollSlotUniqueSkillControlComponent_ReturnValue; // 0x00C0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class APlayerStateBattle*                     CallFunc_BP_GetOwnerPlayerState_ReturnValue_1;     // 0x00C8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_RollSlot_Opticaldazzlepaint_C_ExecuteUbergraph_BP_CC_RollSlot_Opticaldazzlepaint;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

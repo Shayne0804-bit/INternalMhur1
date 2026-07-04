@@ -14,7 +14,8 @@
 #include "BTD_DodgeCheck_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BTD_DodgeCheck.BTD_DodgeCheck_C.PerformConditionCheckAI
 // (Event, Protected, HasOutParams, BlueprintCallable, BlueprintEvent)
@@ -40,5 +41,5 @@ bool UBTD_DodgeCheck_C::PerformConditionCheckAI(class AAIController* OwnerContro
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

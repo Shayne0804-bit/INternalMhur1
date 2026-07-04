@@ -14,7 +14,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum Water.EBuoyancyEvent
 // NumValues: 0x0003
@@ -91,6 +92,7 @@ public:
 	class AWaterBody*                             CurrentWaterBody;                                  // 0x0208(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_210[0x10];                                     // 0x0210(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSphericalPontoon;
 
 // ScriptStruct Water.WaterBrushEffectBlurring
 // 0x0008 (0x0008 - 0x0000)
@@ -101,6 +103,7 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         Radius;                                            // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FWaterBrushEffectBlurring;
 
 // ScriptStruct Water.WaterBrushEffectCurlNoise
 // 0x0010 (0x0010 - 0x0000)
@@ -112,6 +115,7 @@ public:
 	float                                         Curl1Tiling;                                       // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Curl2Tiling;                                       // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FWaterBrushEffectCurlNoise;
 
 // ScriptStruct Water.WaterBrushEffectDisplacement
 // 0x0028 (0x0028 - 0x0000)
@@ -125,6 +129,7 @@ public:
 	struct FLinearColor                           Channel;                                           // 0x0014(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         WeightmapInfluence;                                // 0x0024(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FWaterBrushEffectDisplacement;
 
 // ScriptStruct Water.WaterBrushEffectSmoothBlending
 // 0x0008 (0x0008 - 0x0000)
@@ -134,6 +139,7 @@ public:
 	float                                         InnerSmoothDistance;                               // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         OuterSmoothDistance;                               // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FWaterBrushEffectSmoothBlending;
 
 // ScriptStruct Water.WaterBrushEffectTerracing
 // 0x0014 (0x0014 - 0x0000)
@@ -146,6 +152,7 @@ public:
 	float                                         MaskLength;                                        // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         MaskStartOffset;                                   // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FWaterBrushEffectTerracing;
 
 // ScriptStruct Water.WaterBrushEffects
 // 0x0060 (0x0060 - 0x0000)
@@ -159,6 +166,7 @@ public:
 	struct FWaterBrushEffectTerracing             Terracing;                                         // 0x0048(0x0014)(Edit, BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5C[0x4];                                       // 0x005C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FWaterBrushEffects;
 
 // ScriptStruct Water.BuoyancyData
 // 0x0050 (0x0050 - 0x0000)
@@ -183,6 +191,7 @@ public:
 	bool                                          bApplyDragForcesInWater;                           // 0x0048(0x0001)(Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_49[0x7];                                       // 0x0049(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBuoyancyData;
 
 // ScriptStruct Water.GerstnerWaveOctave
 // 0x0014 (0x0014 - 0x0000)
@@ -196,6 +205,7 @@ public:
 	bool                                          bUniformSpread;                                    // 0x0010(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FGerstnerWaveOctave;
 
 // ScriptStruct Water.GerstnerWave
 // 0x0030 (0x0030 - 0x0000)
@@ -212,6 +222,7 @@ public:
 	float                                         Q;                                                 // 0x0028(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         PhaseOffset;                                       // 0x002C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FGerstnerWave;
 
 // ScriptStruct Water.UnderwaterPostProcessSettings
 // 0x0580 (0x0580 - 0x0000)
@@ -227,6 +238,7 @@ public:
 	class UMaterialInterface*                     UnderwaterPostProcessMaterial;                     // 0x0570(0x0008)(ZeroConstructor, Deprecated, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_578[0x8];                                      // 0x0578(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FUnderwaterPostProcessSettings;
 
 // ScriptStruct Water.WaterFalloffSettings
 // 0x0014 (0x0014 - 0x0000)
@@ -240,6 +252,7 @@ public:
 	float                                         EdgeOffset;                                        // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ZOffset;                                           // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FWaterFalloffSettings;
 
 // ScriptStruct Water.WaterBodyHeightmapSettings
 // 0x0080 (0x0080 - 0x0000)
@@ -254,6 +267,7 @@ public:
 	int32                                         Priority;                                          // 0x0078(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_7C[0x4];                                       // 0x007C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FWaterBodyHeightmapSettings;
 
 // ScriptStruct Water.WaterBodyWeightmapSettings
 // 0x0020 (0x0020 - 0x0000)
@@ -268,6 +282,7 @@ public:
 	float                                         Midpoint;                                          // 0x0018(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         FinalOpacity;                                      // 0x001C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FWaterBodyWeightmapSettings;
 
 // ScriptStruct Water.WaterBrushEffectCurves
 // 0x0020 (0x0020 - 0x0000)
@@ -282,6 +297,7 @@ public:
 	float                                         CurveRampWidth;                                    // 0x0018(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FWaterBrushEffectCurves;
 
 // ScriptStruct Water.WaterCurveSettings
 // 0x0020 (0x0020 - 0x0000)
@@ -296,6 +312,7 @@ public:
 	float                                         CurveRampWidth;                                    // 0x0018(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FWaterCurveSettings;
 
 // ScriptStruct Water.WaterSplineCurveDefaults
 // 0x0010 (0x0010 - 0x0000)
@@ -307,5 +324,7 @@ public:
 	float                                         DefaultVelocity;                                   // 0x0008(0x0004)(Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         DefaultAudioIntensity;                             // 0x000C(0x0004)(Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FWaterSplineCurveDefaults;
 
-SDK_NAMESPACE_END
+}
+

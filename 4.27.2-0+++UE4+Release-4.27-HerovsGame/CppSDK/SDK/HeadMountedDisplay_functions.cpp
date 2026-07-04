@@ -14,7 +14,8 @@
 #include "HeadMountedDisplay_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function HeadMountedDisplay.AsyncTask_LoadXRDeviceVisComponent.AddDeviceVisualizationComponentAsync
 // (Final, Native, Static, Public, HasOutParams, HasDefaults, BlueprintCallable)
@@ -2497,5 +2498,5 @@ void UXRLoadingScreenFunctionLibrary::ShowLoadingScreen()
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

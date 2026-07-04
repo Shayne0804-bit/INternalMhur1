@@ -14,7 +14,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_PlusUltraBuffParams.BP_PlusUltraBuffParams_C
 // 0x0010 (0x0040 - 0x0030)
@@ -41,5 +42,7 @@ public:
 		return GetDefaultObjImpl<UBP_PlusUltraBuffParams_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_PlusUltraBuffParams_C;
 
-SDK_NAMESPACE_END
+}
+

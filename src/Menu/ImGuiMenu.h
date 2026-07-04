@@ -37,6 +37,7 @@ namespace ImGuiMenu
         // Global
         bool EnableGlobal = true;
         bool EnableESP = false;
+        bool EnableMenuBackgroundVideo = true;
 
         // ESP - Display
         bool EnablePlayerESP = false;
@@ -49,17 +50,19 @@ namespace ImGuiMenu
         bool ShowPU = false;        // Display Plus Ultra (when available)
         bool ShowPlatform = false;   // Display player platform (PS/Xbox/PC)
         bool ShowTeamId = false;     // Display team ID in ESP text
-        bool ShowPlayerSkeleton = false;  // Display skeleton bones (like zero1)
+        bool ShowPlayerSkeleton = false;  // Display skeleton bones
         bool ShowServerStatusOverlay = false;  // Display current server and ping overlay
 
         // Aimbot
         bool EnableAimbot = false;
         bool AimbotSmoothing = false;
-        float AimbotSmoothFactor = 0.3f;  // Default: 30% (faster targeting)
+        float AimbotSmoothFactor = 0.3f;  // 0.01-1.0 legacy factor; values above 1 add slower smoothing
         bool AimbotDrawLine = false;  // Draw line from center to target
         bool AimbotDrawFOV = false;   // Draw FOV circle on screen
+        bool AimbotDrawCrosshair = false;  // Draw the game crosshair at screen center
         float AimbotFOVRadius = 500.0f;  // FOV radius in pixels (adjustable)
-        bool AimbotRequireHold = false;  // Require holding key (Zero1 exact - reduces detection)
+        float AimbotMaxDistance = 1000.0f;  // Max 3D distance to target (meters)
+        bool AimbotRequireHold = false;  // Require holding key
         bool AimbotIgnoreDownedTargets = true;  // Skip downed/dying targets by default
         
         // Aimbot Hotkey (Keyboard/Xbox/PS4 grouped)
@@ -69,6 +72,13 @@ namespace ImGuiMenu
         bool EnableTeleportToKota = false;
         bool EnableInfiniteObjects = false;
         HotkeySet TeleportToKotaKey = HotkeySet(0x50, 0x0200);  // KB: P, Gamepad: RB
+
+        // Custom Drop (generate N unique request serials, then identify replicated FNames)
+        bool EnableCustomDrop = false;
+        int  CustomDropQuantity = 1;        // 1-100 passes
+        int  CustomDropSelectedIndex = 0;   // index into scanned world item catalog
+        int  CustomDropSerialId = 1;        // serial count per pass
+        HotkeySet CustomDropKey = HotkeySet(0x4A, 0x0400);  // KB: J, Gamepad: dpad-down
 
         // Transform Into Random ESP Target Hotkey
         bool EnableTransformIntoRandomESP = false;
@@ -94,6 +104,7 @@ namespace ImGuiMenu
         float ReloadAdjustRate = 1.0f;                    // General reload rate (1.0 = normal)
         float ReloadAdjustRate_RollSlot = 1.0f;           // Reload rate for roll slot
         float ReloadAdjustRate_WearBlueFlame = 1.0f;      // Reload rate while wearing blue flame
+        float CvNoneDamageCurveValue = 1.0f;              // CV_None damage attenuation curve key value
         
         // Training Mode - Player Character Setup
         int TrainingPlayerCharacter = 0;                  // Character ID (0=UNDEF, 1=Ch000, 2=Ch001... 44=Ch999)
@@ -127,6 +138,10 @@ namespace ImGuiMenu
         float BulletTP_MaxDistance = 5000.0f;   // Maximum distance to search for targets
         bool BulletTPIgnoreDownedTargets = true; // Skip downed/dying targets by default
 
+        // Camera FOV (SDK PlayerController::FOV / PlayerCameraManager::DefaultFOV)
+        bool EnableCameraFOV = false;
+        float CameraFOV = 90.0f;
+
         // Rebuild Myself Hotkey
         bool EnableRebuildMyself = false;
         HotkeySet RebuildMyselfKey = HotkeySet(0x4C, 0x1F00);  // KB: L, Gamepad: LT
@@ -143,6 +158,137 @@ namespace ImGuiMenu
         int SelectedRecoveryTeamIndex = -1;  // Index of selected team member for recovery
         bool EnableCH202InitTransLevel5 = false;  // Enable CH202 init trans level 5 auto-apply each frame
         bool EnableSupplyMaxStackTo100 = false;  // Enable auto-set supply max stack to 100 each frame
+        bool EnableFastPlusUltraCharge = false;  // Enable server fast reload for Plus Ultra charge
+        bool EnableNoCollision = false;  // Enable camera-driven no collision movement
+        float NoCollisionSpeed = 100.0f;
+        HotkeySet NoCollisionHoldKey = HotkeySet(0x54, 0);
+        bool EnableClearInvincibleAuto = false;
+        int ClearInvincibleTargetMode = 1;  // 0=Forward ESP, 1=All enemies, 2=All characters, 3=Selected
+        int ClearInvincibleMethod = 0;      // 0=Clear all, 1=From attack, 2=With tag
+        bool ClearInvincibleIgnoreFixed = true;
+        int ClearInvincibleAttackId = 4;    // EAttackId::MELEE
+        int ClearInvincibleIntervalMs = 250;
+        int ClearInvincibleSelectedCharacterIndex = -1;
+        char ClearInvincibleTagBuffer[64] = "";
+        bool EnableAttackChainAuto = false;
+        int AttackChainIntervalMs = 50;
+        bool AttackChainUseChainComboFlag = true;
+        float AttackChainComboFlagTime = 0.25f;
+        bool AttackChainEnableShiftAttackActions = true;
+        bool AttackChainClearShiftActionAttackFlags = true;
+        bool AttackChainUseAnimationRate = true;
+        float AttackChainAnimationRate = 2.0f;
+        bool AttackChainAnimationRateNagara = true;
+        bool AttackChainUsePhaseEndCondition = false;
+        bool AttackChainComboCommand = true;
+        bool AttackChainGrabbed = false;
+        float AttackChainEndTimer = 0.0f;
+        bool AttackChainLanding = false;
+        bool AttackChainEndAnim = true;
+        int AttackChainEndAnimSlot = 0;
+        bool AttackChainFinishCurrentPhase = false;
+        bool AttackChainTerminateAttackLayer = false;
+        bool AttackChainEnableAimingActionCancel = true;
+        int AttackChainActionCancelFlag = 255;
+        bool AttackChainOwnerActionOnly = false;
+        bool AttackChainValidateNextReservedAction = true;
+        bool EnableDownPowerAuto = false;
+        int DownPowerIntervalMs = 100;
+        int DownPowerTargetMode = 1;  // 0=Forward ESP, 1=All enemies, 2=All non-local, 3=Selected
+        int DownPowerSelectedCharacterIndex = -1;
+        bool DownPowerPatchDamageParams = true;
+        int DownPowerDamageType = 16;
+        bool DownPowerIncludeNoActionDamage = true;
+        bool DownPowerOverrideRecoverSpan = false;
+        float DownPowerRecoverSpan = 0.0f;
+        bool DownPowerApplyDurableRates = true;
+        float DownPowerDurableRate = 1.0f;
+        float DownPowerDurableAttackActionRate = 1.0f;
+        float DownPowerDurableTakeDamageRate = 1.0f;
+        float DownPowerDurableSpecialActionRate = 1.0f;
+        float DownPowerDurableRollSlotRate = 1.0f;
+        float DownPowerDurableTakeDamageRollSlotRate = 1.0f;
+        bool DownPowerApplyBreakDownSuperArmorRate = true;
+        float DownPowerBreakDownSuperArmorRate = 1.0f;
+        bool DownPowerDisableTargetSuperArmor = true;
+
+        // CH202 SDK params
+        float Ch202MeleeAChaseHeightOffset = 0.0f;
+        float Ch202MeleeAChaseStartSpeedMax = 1.0f;
+        float Ch202MeleeAChaseStartSpeedMin = 1.0f;
+        float Ch202MeleeAChaseLastSpeed = 1.0f;
+        float Ch202MeleeAChaseSpeedSpan = 1.0f;
+        float Ch202MeleeAChaseSpan = 1.0f;
+        float Ch202MeleeADistance = 1.0f;
+        float Ch202MeleeABreakTargetSpeed = 1.0f;
+        float Ch202MeleeABreakTargetSpan = 1.0f;
+        float Ch202Unique1HoldTime = 1.0f;
+        float Ch202Unique2NeedFieldTime = 1.0f;
+        float Ch202Unique2HoldTime = 1.0f;
+        float Ch202Unique2MoveTime = 1.0f;
+        float Ch202Unique2MoveSpeedMin = 1.0f;
+        float Ch202Unique2MoveSpeedMax = 1.0f;
+        float Ch202Unique2QuintupleRiseSlideSpeed = 1.0f;
+        float Ch202Unique2QuintupleRiseSlideSpan = 1.0f;
+        float Ch202Unique2QuintupleFallSlideSpeed = 1.0f;
+        float Ch202Unique2QuintupleFallSlideSpan = 1.0f;
+        int Ch202Unique2AfterLevel = 1;
+        bool Ch202Unique2QuintupleAllAmmoConsumed = false;
+        int Ch202U3InitTransMissionLevel = 1;
+        float Ch202U3EndDistanceOfFollowing = 1.0f;
+        float Ch202U3MoveSpeedStart = 1.0f;
+        float Ch202U3MoveSpeedEnd = 1.0f;
+        float Ch202U3SpeedChangeTime = 1.0f;
+        float Ch202U3ExitSpeedStart = 1.0f;
+        float Ch202U3ExitSpeedEnd = 1.0f;
+        float Ch202U3ExitChangeTime = 1.0f;
+        int Ch202U3LimitCount = 1;
+        float Ch202U3MoveMagazinePercentMin = 1.0f;
+        float Ch202U3MoveMagazinePercentMax = 1.0f;
+        float Ch202U3PunchMagazinePercentMin = 1.0f;
+        float Ch202U3PunchMagazinePercentMax = 1.0f;
+        int Ch202U3RecoverMagazineBase = 1;
+        int Ch202U3RecoverMagazineAdd = 1;
+        float Ch202U3DelayCancelTimer = 1.0f;
+        float Ch202U3LockOnSec = 1.0f;
+        float Ch202U3LockOnMinSec = 0.1f;
+        float Ch202U3LockOnRange = 1000.0f;
+        int Ch202U3LockOnAttackTargetCheckType = 0;
+        float Ch202U3CurveHorizontalDistanceMin = 1.0f;
+        float Ch202U3CurveHorizontalDistanceMax = 1.0f;
+        float Ch202U3MiddleUpOffset = 1.0f;
+        float Ch202U3TargetOffset = 1.0f;
+        float Ch202U3SplitDistance = 1.0f;
+        float Ch202U3SplitLerpRate = 1.0f;
+        float Ch202U3ControlPointsRate = 1.0f;
+        float Ch202U3MinDetroitRange = 1.0f;
+        float Ch202U3MinDetroitSpeed = 1.0f;
+        float Ch202U3MaxDetroitRange = 1.0f;
+        float Ch202U3MaxDetroitSpeed = 1.0f;
+        float Ch202U3MiddleOffsetX = 0.0f;
+        float Ch202U3MiddleOffsetY = 0.0f;
+        float Ch202U3MiddleOffsetZ = 0.0f;
+        float Ch202U3MiddleOffsetAerialX = 0.0f;
+        float Ch202U3MiddleOffsetAerialY = 0.0f;
+        float Ch202U3MiddleOffsetAerialZ = 0.0f;
+        float Ch202SpecialHoldTime = 1.0f;
+        float Ch202SpecialActivationTime = 1.0f;
+        int Ch202SpecialSmokeMagazineCost = 1;
+        int Ch202SpecialLegCount = 1;
+        float Ch202SpecialJumpVerticalSpan = 1.0f;
+        float Ch202SpecialJumpVerticalHeight = 1.0f;
+        float Ch202SpecialJumpForwardSpan = 1.0f;
+        float Ch202SpecialJumpForwardHeight = 1.0f;
+        float Ch202SpecialJumpForwardInitialSpeedH = 1.0f;
+        float Ch202SpecialJumpForwardLastSpeedH = 1.0f;
+        float Ch202SpecialJumpForwardAccelSpanH = 1.0f;
+        float Ch202SpecialWallJumpSpan = 1.0f;
+        float Ch202SpecialWallJumpHeight = 1.0f;
+        float Ch202SpecialWallJumpInitialSpeed = 1.0f;
+        float Ch202SpecialWallJumpLastSpeed = 1.0f;
+        float Ch202ConditionAnimationMultiplyRate = 1.0f;
+        float Ch202ConditionMoveMultiplyRate = 1.0f;
+        float Ch202ConditionJumpAdjustMultiplyRate = 1.0f;
     };
 
     // ============================================================================
@@ -162,6 +308,8 @@ namespace ImGuiMenu
         int AbilityMovespeedLevel = 1;
         int AbilityHealLevel = 1;
         int AbilityTechniqueLevel = 1;
+
+        bool Hack_BypassRentalTickets = false;
 
         // Character Settings for ApplyToAllControllers
         int CharacterId = 1;                  // Character ID (1-44 for Ch000-Ch999)
@@ -199,6 +347,10 @@ namespace ImGuiMenu
 
         // Player Name Change
         char ChangePlayerNameBuffer[256] = {0};              // Input buffer for new player name
+
+        // Backend Platform Test
+        int BackendPlatformCode = 3;                         // 0=Invalid, 1=PlayStation, 2=Xbox, 3=Windows, 4=Switch, 5=None
+        char FakePlatformBuffer[64] = "Windows";             // Input buffer for ForceFakePlatform
         
         // Special License EXP
         int BuyLicenseExpCount = 30000;                      // Raw Special License EXP to add locally (1-300000)
@@ -218,6 +370,8 @@ namespace ImGuiMenu
     // ============================================================================
     // PUBLIC API
     // ============================================================================
+    void SetModuleHandle(HMODULE module);
+    bool PreloadEmbeddedVideoResource(HMODULE module);
     bool Initialize(IDXGISwapChain* pSwapChain, HWND hWnd);
     void Shutdown();
     void InvalidateRenderTarget();

@@ -14,7 +14,8 @@
 #include "AnimationSharing_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function AnimationSharing.AnimSharingStateInstance.GetInstancedActors
 // (Final, Native, Protected, HasOutParams, BlueprintCallable)
@@ -213,5 +214,5 @@ void UAnimationSharingStateProcessor::ProcessActorState(int32* OutState, class A
 		*bShouldProcess = Parms.bShouldProcess;
 }
 
+}
 
-SDK_NAMESPACE_END

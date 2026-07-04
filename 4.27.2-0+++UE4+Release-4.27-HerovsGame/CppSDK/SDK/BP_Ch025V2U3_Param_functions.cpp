@@ -14,7 +14,8 @@
 #include "BP_Ch025V2U3_Param_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_Ch025V2U3_Param.BP_Ch025V2U3_Param_C.GetUnique3Param
 // (Public, HasOutParams, BlueprintCallable, BlueprintEvent, BlueprintPure, Const)
@@ -78,5 +79,5 @@ void UBP_Ch025V2U3_Param_C::GetBarrierParam(struct FFCh025V2_U3_BarrierParam* Ba
 		*BarrierParam_0 = std::move(Parms.BarrierParam_0);
 }
 
+}
 
-SDK_NAMESPACE_END

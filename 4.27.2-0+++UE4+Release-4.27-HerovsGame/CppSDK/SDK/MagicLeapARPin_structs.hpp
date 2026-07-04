@@ -13,7 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum MagicLeapARPin.EMagicLeapARPinType
 // NumValues: 0x0004
@@ -66,6 +67,7 @@ public:
 	bool                                          bSorted;                                           // 0x0064(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_65[0x3];                                       // 0x0065(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMagicLeapARPinQuery;
 
 // ScriptStruct MagicLeapARPin.MagicLeapARPinState
 // 0x0014 (0x0014 - 0x0000)
@@ -79,6 +81,7 @@ public:
 	EMagicLeapARPinType                           PinType;                                           // 0x0010(0x0001)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMagicLeapARPinState;
 
 // ScriptStruct MagicLeapARPin.MagicLeapARPinObjectIdList
 // 0x0050 (0x0050 - 0x0000)
@@ -87,5 +90,7 @@ struct FMagicLeapARPinObjectIdList final
 public:
 	TSet<class FString>                           ObjectIdList;                                      // 0x0000(0x0050)(Edit, EditConst, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapARPinObjectIdList;
 
-SDK_NAMESPACE_END
+}
+

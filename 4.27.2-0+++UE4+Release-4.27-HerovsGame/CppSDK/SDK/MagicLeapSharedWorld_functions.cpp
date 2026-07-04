@@ -14,7 +14,8 @@
 #include "MagicLeapSharedWorld_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function MagicLeapSharedWorld.MagicLeapSharedWorldGameMode.DetermineSharedWorldData
 // (BlueprintAuthorityOnly, Native, Event, Public, HasOutParams, BlueprintCallable, BlueprintEvent)
@@ -292,5 +293,5 @@ bool AMagicLeapSharedWorldPlayerController::IsChosenOne() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

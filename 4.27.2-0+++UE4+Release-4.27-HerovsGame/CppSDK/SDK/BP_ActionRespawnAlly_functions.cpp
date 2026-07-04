@@ -14,7 +14,8 @@
 #include "BP_ActionRespawnAlly_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionRespawnAlly.BP_ActionRespawnAlly_C.ExecuteUbergraph_BP_ActionRespawnAlly
 // (Final, UbergraphFunction)
@@ -161,5 +162,5 @@ bool UBP_ActionRespawnAlly_C::BP_IsEnableShiftAction(const class FName& nextActi
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

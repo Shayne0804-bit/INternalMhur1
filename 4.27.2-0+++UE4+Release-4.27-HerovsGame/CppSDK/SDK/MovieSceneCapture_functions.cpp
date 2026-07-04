@@ -14,7 +14,8 @@
 #include "MovieSceneCapture_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function MovieSceneCapture.MovieSceneCaptureProtocolBase.GetState
 // (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
@@ -686,5 +687,5 @@ void UUserDefinedImageCaptureProtocol::WriteImageToDisk(const struct FCapturedPi
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

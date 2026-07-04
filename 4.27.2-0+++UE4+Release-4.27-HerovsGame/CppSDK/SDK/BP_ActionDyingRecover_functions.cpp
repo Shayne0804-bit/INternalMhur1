@@ -14,7 +14,8 @@
 #include "BP_ActionDyingRecover_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDyingRecover.BP_ActionDyingRecover_C.ExecuteUbergraph_BP_ActionDyingRecover
 // (Final, UbergraphFunction)
@@ -182,5 +183,5 @@ bool UBP_ActionDyingRecover_C::BP_IsEnableShiftAction(const class FName& nextAct
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

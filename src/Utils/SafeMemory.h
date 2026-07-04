@@ -3,9 +3,21 @@
 #include <Windows.h>
 #include <cstdint>
 #include <type_traits>
+#include "Logger.h"
 
 namespace SafeMemory
 {
+    inline const char* AccessMode(bool requireWrite, bool requireExecute)
+    {
+        if (requireWrite)
+            return "write";
+
+        if (requireExecute)
+            return "execute";
+
+        return "read";
+    }
+
     inline bool HasReadableProtection(DWORD protect)
     {
         if ((protect & PAGE_GUARD) != 0 || (protect & PAGE_NOACCESS) != 0)
@@ -46,15 +58,26 @@ namespace SafeMemory
 
     inline bool IsAccessibleRange(const void* address, size_t size, bool requireWrite, bool requireExecute)
     {
+        const char* accessMode = AccessMode(requireWrite, requireExecute);
+
         if (!address || size == 0)
+        {
+            Logger::LogMemoryCheckFailure(accessMode, address, size, "null_or_zero_size");
             return false;
+        }
 
         const auto start = reinterpret_cast<uintptr_t>(address);
         if (start < 0x10000)
+        {
+            Logger::LogMemoryCheckFailure(accessMode, address, size, "low_address");
             return false;
+        }
 
         if (start + size < start)
+        {
+            Logger::LogMemoryCheckFailure(accessMode, address, size, "range_overflow");
             return false;
+        }
 
         uintptr_t current = start;
         const uintptr_t end = start + size;
@@ -63,10 +86,30 @@ namespace SafeMemory
         {
             MEMORY_BASIC_INFORMATION mbi{};
             if (VirtualQuery(reinterpret_cast<const void*>(current), &mbi, sizeof(mbi)) != sizeof(mbi))
+            {
+                Logger::LogMemoryCheckFailure(
+                    accessMode,
+                    address,
+                    size,
+                    "virtualquery_failed",
+                    reinterpret_cast<const void*>(current));
                 return false;
+            }
 
             if (mbi.State != MEM_COMMIT)
+            {
+                Logger::LogMemoryCheckFailure(
+                    accessMode,
+                    address,
+                    size,
+                    "not_committed",
+                    reinterpret_cast<const void*>(current),
+                    mbi.State,
+                    mbi.Protect,
+                    mbi.BaseAddress,
+                    mbi.RegionSize);
                 return false;
+            }
 
             const bool protectionOk = requireWrite
                 ? HasWritableProtection(mbi.Protect)
@@ -75,12 +118,36 @@ namespace SafeMemory
                     : HasReadableProtection(mbi.Protect);
 
             if (!protectionOk)
+            {
+                Logger::LogMemoryCheckFailure(
+                    accessMode,
+                    address,
+                    size,
+                    "bad_protection",
+                    reinterpret_cast<const void*>(current),
+                    mbi.State,
+                    mbi.Protect,
+                    mbi.BaseAddress,
+                    mbi.RegionSize);
                 return false;
+            }
 
             const uintptr_t regionBase = reinterpret_cast<uintptr_t>(mbi.BaseAddress);
             const uintptr_t regionEnd = regionBase + mbi.RegionSize;
             if (regionEnd <= current)
+            {
+                Logger::LogMemoryCheckFailure(
+                    accessMode,
+                    address,
+                    size,
+                    "bad_region_bounds",
+                    reinterpret_cast<const void*>(current),
+                    mbi.State,
+                    mbi.Protect,
+                    mbi.BaseAddress,
+                    mbi.RegionSize);
                 return false;
+            }
 
             current = regionEnd;
         }
@@ -124,6 +191,7 @@ namespace SafeMemory
         }
         __except (EXCEPTION_EXECUTE_HANDLER)
         {
+            Logger::LogMemoryCheckFailure("read", source, sizeof(T), "seh_exception");
             return false;
         }
     }
@@ -143,6 +211,7 @@ namespace SafeMemory
         }
         __except (EXCEPTION_EXECUTE_HANDLER)
         {
+            Logger::LogMemoryCheckFailure("write", target, sizeof(T), "seh_exception");
             return false;
         }
     }

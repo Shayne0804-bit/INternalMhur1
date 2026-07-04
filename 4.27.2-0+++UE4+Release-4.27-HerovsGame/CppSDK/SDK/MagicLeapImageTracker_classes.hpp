@@ -15,7 +15,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MagicLeapImageTracker.MagicLeapImageTrackerComponent
 // 0x0070 (0x0270 - 0x0200)
@@ -54,6 +55,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapImageTrackerComponent>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapImageTrackerComponent;
 
 // Class MagicLeapImageTracker.MagicLeapImageTrackerFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -79,5 +81,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapImageTrackerFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapImageTrackerFunctionLibrary;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "VoiceChatModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class DebugMenuVoiceChatModule.DebugMenuVoiceChat
 // 0x01B0 (0x01E0 - 0x0030)
@@ -64,5 +65,7 @@ public:
 		return GetDefaultObjImpl<UDebugMenuVoiceChat>();
 	}
 };
+DUMPER7_ASSERTS_UDebugMenuVoiceChat;
 
-SDK_NAMESPACE_END
+}
+

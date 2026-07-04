@@ -14,7 +14,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionThrowned.BP_ActionThrowned_C
 // 0x0010 (0x0290 - 0x0280)
@@ -47,5 +48,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionThrowned_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionThrowned_C;
 
-SDK_NAMESPACE_END
+}
+

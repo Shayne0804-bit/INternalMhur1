@@ -14,7 +14,8 @@
 #include "BP_CC_InfectionDecay_After_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_InfectionDecay_After.BP_CC_InfectionDecay_After_C.ExecuteUbergraph_BP_CC_InfectionDecay_After
 // (Final, UbergraphFunction)
@@ -133,5 +134,5 @@ void UBP_CC_InfectionDecay_After_C::BP_OnHiddenCondition()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

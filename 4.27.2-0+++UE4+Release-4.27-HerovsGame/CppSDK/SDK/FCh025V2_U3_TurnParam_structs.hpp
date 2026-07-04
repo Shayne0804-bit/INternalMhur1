@@ -13,7 +13,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // UserDefinedStruct FCh025V2_U3_TurnParam.FCh025V2_U3_TurnParam
 // 0x0014 (0x0014 - 0x0000)
@@ -27,5 +28,7 @@ public:
 	float                                         BlendExp_15_9066E547448161562983D7BBD6B92EE4;      // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         Steps_16_0D474BFA4F0E303630B654BFCC4F4F3F;         // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_FFCh025V2_U3_TurnParam;
 
-SDK_NAMESPACE_END
+}
+

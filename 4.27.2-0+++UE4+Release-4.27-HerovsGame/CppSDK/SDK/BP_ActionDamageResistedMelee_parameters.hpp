@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamageResistedMelee.BP_ActionDamageResistedMelee_C.ExecuteUbergraph_BP_ActionDamageResistedMelee
 // 0x0038 (0x0038 - 0x0000)
@@ -35,6 +35,7 @@ public:
 	uint8                                         Pad_29[0x7];                                       // 0x0029(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UCharacterState*                        CallFunc_BP_GetOwnerState_ReturnValue;             // 0x0030(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageResistedMelee_C_ExecuteUbergraph_BP_ActionDamageResistedMelee;
 
 // Function BP_ActionDamageResistedMelee.BP_ActionDamageResistedMelee_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -43,6 +44,7 @@ struct BP_ActionDamageResistedMelee_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageResistedMelee_C_BP_OnBeginAction;
 
 // Function BP_ActionDamageResistedMelee.BP_ActionDamageResistedMelee_C.UpdateOnce
 // 0x0028 (0x0028 - 0x0000)
@@ -54,6 +56,7 @@ public:
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue;    // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_Multiply_VectorFloat_ReturnValue;         // 0x0018(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageResistedMelee_C_UpdateOnce;
 
 // Function BP_ActionDamageResistedMelee.BP_ActionDamageResistedMelee_C.DecideAnimationId
 // 0x0018 (0x0018 - 0x0000)
@@ -69,6 +72,7 @@ public:
 	bool                                          CallFunc_BP_IsOnGround_ReturnValue;                // 0x0010(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	EAnimationId                                  K2Node_Select_Default;                             // 0x0011(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageResistedMelee_C_DecideAnimationId;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "AnimationBudgetAllocator_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function AnimationBudgetAllocator.AnimationBudgetBlueprintLibrary.EnableAnimationBudget
 // (Final, Native, Static, Private, BlueprintCallable)
@@ -94,5 +95,5 @@ void USkeletalMeshComponentBudgeted::SetAutoRegisterWithBudgetAllocator(bool bIn
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

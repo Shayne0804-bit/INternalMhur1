@@ -15,7 +15,8 @@
 #include "ClothingSystemRuntimeInterface_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class ClothingSystemRuntimeInterface.ClothPhysicalMeshDataBase_Legacy
 // 0x00B8 (0x00E0 - 0x0028)
@@ -46,6 +47,7 @@ public:
 		return GetDefaultObjImpl<UClothPhysicalMeshDataBase_Legacy>();
 	}
 };
+DUMPER7_ASSERTS_UClothPhysicalMeshDataBase_Legacy;
 
 // Class ClothingSystemRuntimeInterface.ClothConfigBase
 // 0x0000 (0x0028 - 0x0028)
@@ -65,6 +67,7 @@ public:
 		return GetDefaultObjImpl<UClothConfigBase>();
 	}
 };
+DUMPER7_ASSERTS_UClothConfigBase;
 
 // Class ClothingSystemRuntimeInterface.ClothingSimulationFactory
 // 0x0000 (0x0028 - 0x0028)
@@ -84,6 +87,7 @@ public:
 		return GetDefaultObjImpl<UClothingSimulationFactory>();
 	}
 };
+DUMPER7_ASSERTS_UClothingSimulationFactory;
 
 // Class ClothingSystemRuntimeInterface.ClothingAssetBase
 // 0x0020 (0x0048 - 0x0028)
@@ -107,6 +111,7 @@ public:
 		return GetDefaultObjImpl<UClothingAssetBase>();
 	}
 };
+DUMPER7_ASSERTS_UClothingAssetBase;
 
 // Class ClothingSystemRuntimeInterface.ClothingInteractor
 // 0x0008 (0x0030 - 0x0028)
@@ -129,6 +134,7 @@ public:
 		return GetDefaultObjImpl<UClothingInteractor>();
 	}
 };
+DUMPER7_ASSERTS_UClothingInteractor;
 
 // Class ClothingSystemRuntimeInterface.ClothingSimulationInteractor
 // 0x0068 (0x0090 - 0x0028)
@@ -169,6 +175,7 @@ public:
 		return GetDefaultObjImpl<UClothingSimulationInteractor>();
 	}
 };
+DUMPER7_ASSERTS_UClothingSimulationInteractor;
 
 // Class ClothingSystemRuntimeInterface.ClothSharedSimConfigBase
 // 0x0000 (0x0028 - 0x0028)
@@ -188,5 +195,7 @@ public:
 		return GetDefaultObjImpl<UClothSharedSimConfigBase>();
 	}
 };
+DUMPER7_ASSERTS_UClothSharedSimConfigBase;
 
-SDK_NAMESPACE_END
+}
+

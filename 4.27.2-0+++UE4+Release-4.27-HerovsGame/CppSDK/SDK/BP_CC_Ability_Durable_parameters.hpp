@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_Ability_Durable.BP_CC_Ability_Durable_C.ExecuteUbergraph_BP_CC_Ability_Durable
 // 0x0038 (0x0038 - 0x0000)
@@ -29,6 +29,7 @@ public:
 	int32                                         K2Node_Event_newLevel;                             // 0x002C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_BP_GetEfficacyValue_ReturnValue;          // 0x0030(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Ability_Durable_C_ExecuteUbergraph_BP_CC_Ability_Durable;
 
 // Function BP_CC_Ability_Durable.BP_CC_Ability_Durable_C.BP_OnChangeConditionLevel
 // 0x0008 (0x0008 - 0x0000)
@@ -38,6 +39,7 @@ public:
 	int32                                         oldLevel;                                          // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         newLevel;                                          // 0x0004(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Ability_Durable_C_BP_OnChangeConditionLevel;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

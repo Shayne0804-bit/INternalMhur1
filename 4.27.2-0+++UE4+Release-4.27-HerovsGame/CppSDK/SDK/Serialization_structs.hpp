@@ -13,7 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct Serialization.StructSerializerNumericTestStruct
 // 0x0030 (0x0030 - 0x0000)
@@ -34,6 +35,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	double                                        Double;                                            // 0x0028(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStructSerializerNumericTestStruct;
 
 // ScriptStruct Serialization.StructSerializerBooleanTestStruct
 // 0x0003 (0x0003 - 0x0000)
@@ -51,6 +53,7 @@ public:
 	uint8                                         Bitfield6 : 1;                                     // 0x0002(0x0001)(BitIndex: 0x06, PropSize: 0x0001 (NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Bitfield7Set : 1;                                  // 0x0002(0x0001)(BitIndex: 0x07, PropSize: 0x0001 (NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 };
+DUMPER7_ASSERTS_FStructSerializerBooleanTestStruct;
 
 // ScriptStruct Serialization.StructSerializerObjectTestStruct
 // 0x00A0 (0x00A0 - 0x0000)
@@ -66,6 +69,7 @@ public:
 	struct FSoftClassPath                         ClassPath;                                         // 0x0070(0x0018)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FSoftObjectPath                        ObjectPath;                                        // 0x0088(0x0018)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStructSerializerObjectTestStruct;
 
 // ScriptStruct Serialization.StructSerializerBuiltinTestStruct
 // 0x0090 (0x0090 - 0x0000)
@@ -85,6 +89,7 @@ public:
 	struct FColor                                 Color;                                             // 0x0080(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_84[0xC];                                       // 0x0084(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FStructSerializerBuiltinTestStruct;
 
 // ScriptStruct Serialization.StructSerializerArrayTestStruct
 // 0x0060 (0x0060 - 0x0000)
@@ -100,6 +105,7 @@ public:
 	TArray<struct FVector>                        vectorArray;                                       // 0x0040(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FStructSerializerBuiltinTestStruct> StructArray;                                   // 0x0050(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStructSerializerArrayTestStruct;
 
 // ScriptStruct Serialization.StructSerializerMapTestStruct
 // 0x0140 (0x0140 - 0x0000)
@@ -111,6 +117,7 @@ public:
 	TMap<class FString, struct FVector>           StrToVec;                                          // 0x00A0(0x0050)(NativeAccessSpecifierPublic)
 	TMap<class FString, struct FStructSerializerBuiltinTestStruct> StrToStruct;                      // 0x00F0(0x0050)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStructSerializerMapTestStruct;
 
 // ScriptStruct Serialization.StructSerializerSetTestStruct
 // 0x0140 (0x0140 - 0x0000)
@@ -122,6 +129,7 @@ public:
 	TSet<class FName>                             NameSet;                                           // 0x00A0(0x0050)(NativeAccessSpecifierPublic)
 	TSet<struct FStructSerializerBuiltinTestStruct> StructSet;                                       // 0x00F0(0x0050)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStructSerializerSetTestStruct;
 
 // ScriptStruct Serialization.StructSerializerTestStruct
 // 0x0450 (0x0450 - 0x0000)
@@ -138,6 +146,7 @@ public:
 	struct FStructSerializerMapTestStruct         Maps;                                              // 0x01D0(0x0140)(NativeAccessSpecifierPublic)
 	struct FStructSerializerSetTestStruct         Sets;                                              // 0x0310(0x0140)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStructSerializerTestStruct;
 
 // ScriptStruct Serialization.StructSerializerByteArray
 // 0x0038 (0x0038 - 0x0000)
@@ -153,5 +162,7 @@ public:
 	int32                                         Dummy3;                                            // 0x0030(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FStructSerializerByteArray;
 
-SDK_NAMESPACE_END
+}
+

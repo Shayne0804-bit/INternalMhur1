@@ -14,7 +14,8 @@
 #include "BackendSubsystem_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BackendSubsystem.DbpDedicatedServer.GetCustomize
 // (Final, Native, Public, HasOutParams, BlueprintCallable, BlueprintPure, Const)
@@ -28778,5 +28779,5 @@ void UMasterDataCache::GetVariation(int32 code, struct FMasterDataVariation* mas
 		*masterData = std::move(Parms.masterData);
 }
 
+}
 
-SDK_NAMESPACE_END

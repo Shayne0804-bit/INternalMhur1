@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function Water.GerstnerWaterWaveGeneratorBase.GenerateGerstnerWaves
 // 0x0010 (0x0010 - 0x0000)
@@ -24,6 +24,7 @@ struct GerstnerWaterWaveGeneratorBase_GenerateGerstnerWaves final
 public:
 	TArray<struct FGerstnerWave>                  OutWaves;                                          // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GerstnerWaterWaveGeneratorBase_GenerateGerstnerWaves;
 
 // Function Water.BuoyancyComponent.GetLastWaterSurfaceInfo
 // 0x0038 (0x0038 - 0x0000)
@@ -37,6 +38,7 @@ public:
 	int32                                         OutWaterBodyIdx;                                   // 0x0028(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                OutWaterVelocity;                                  // 0x002C(0x000C)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BuoyancyComponent_GetLastWaterSurfaceInfo;
 
 // Function Water.BuoyancyComponent.OnPontoonEnteredWater
 // 0x0220 (0x0220 - 0x0000)
@@ -45,6 +47,7 @@ struct BuoyancyComponent_OnPontoonEnteredWater final
 public:
 	struct FSphericalPontoon                      Pontoon;                                           // 0x0000(0x0220)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BuoyancyComponent_OnPontoonEnteredWater;
 
 // Function Water.BuoyancyComponent.OnPontoonExitedWater
 // 0x0220 (0x0220 - 0x0000)
@@ -53,6 +56,7 @@ struct BuoyancyComponent_OnPontoonExitedWater final
 public:
 	struct FSphericalPontoon                      Pontoon;                                           // 0x0000(0x0220)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BuoyancyComponent_OnPontoonExitedWater;
 
 // Function Water.BuoyancyComponent.IsInWaterBody
 // 0x0001 (0x0001 - 0x0000)
@@ -61,6 +65,7 @@ struct BuoyancyComponent_IsInWaterBody final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BuoyancyComponent_IsInWaterBody;
 
 // Function Water.BuoyancyManager.GetBuoyancyComponentManager
 // 0x0018 (0x0018 - 0x0000)
@@ -72,6 +77,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BuoyancyManager_GetBuoyancyComponentManager;
 
 // Function Water.NiagaraWaterFunctionLibrary.SetWaterBody
 // 0x0020 (0x0020 - 0x0000)
@@ -82,6 +88,7 @@ public:
 	class FString                                 OverrideName;                                      // 0x0008(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class AWaterBody*                             WaterBody;                                         // 0x0018(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NiagaraWaterFunctionLibrary_SetWaterBody;
 
 // Function Water.WaterBody.GetRiverToLakeTransitionMaterialInstance
 // 0x0008 (0x0008 - 0x0000)
@@ -90,6 +97,7 @@ struct WaterBody_GetRiverToLakeTransitionMaterialInstance final
 public:
 	class UMaterialInstanceDynamic*               ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterBody_GetRiverToLakeTransitionMaterialInstance;
 
 // Function Water.WaterBody.GetRiverToOceanTransitionMaterialInstance
 // 0x0008 (0x0008 - 0x0000)
@@ -98,6 +106,7 @@ struct WaterBody_GetRiverToOceanTransitionMaterialInstance final
 public:
 	class UMaterialInstanceDynamic*               ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterBody_GetRiverToOceanTransitionMaterialInstance;
 
 // Function Water.WaterBody.GetUnderwaterPostProcessMaterialInstance
 // 0x0008 (0x0008 - 0x0000)
@@ -106,6 +115,7 @@ struct WaterBody_GetUnderwaterPostProcessMaterialInstance final
 public:
 	class UMaterialInstanceDynamic*               ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterBody_GetUnderwaterPostProcessMaterialInstance;
 
 // Function Water.WaterBody.GetWaterMaterialInstance
 // 0x0008 (0x0008 - 0x0000)
@@ -114,6 +124,7 @@ struct WaterBody_GetWaterMaterialInstance final
 public:
 	class UMaterialInstanceDynamic*               ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterBody_GetWaterMaterialInstance;
 
 // Function Water.WaterBody.OnWaterBodyChanged
 // 0x0002 (0x0002 - 0x0000)
@@ -123,6 +134,7 @@ public:
 	bool                                          bShapeOrPositionChanged;                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          bWeightmapSettingsChanged;                         // 0x0001(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterBody_OnWaterBodyChanged;
 
 // Function Water.WaterBody.SetWaterWaves
 // 0x0008 (0x0008 - 0x0000)
@@ -131,6 +143,7 @@ struct WaterBody_SetWaterWaves final
 public:
 	class UWaterWavesBase*                        InWaterWaves;                                      // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterBody_SetWaterWaves;
 
 // Function Water.WaterBody.GetExclusionVolumes
 // 0x0010 (0x0010 - 0x0000)
@@ -139,6 +152,7 @@ struct WaterBody_GetExclusionVolumes final
 public:
 	TArray<class AWaterBodyExclusionVolume*>      ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterBody_GetExclusionVolumes;
 
 // Function Water.WaterBody.GetIslands
 // 0x0010 (0x0010 - 0x0000)
@@ -147,6 +161,7 @@ struct WaterBody_GetIslands final
 public:
 	TArray<class AWaterBodyIsland*>               ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterBody_GetIslands;
 
 // Function Water.WaterBody.GetMaxWaveHeight
 // 0x0004 (0x0004 - 0x0000)
@@ -155,6 +170,7 @@ struct WaterBody_GetMaxWaveHeight final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterBody_GetMaxWaveHeight;
 
 // Function Water.WaterBody.GetWaterMaterial
 // 0x0008 (0x0008 - 0x0000)
@@ -163,6 +179,7 @@ struct WaterBody_GetWaterMaterial final
 public:
 	class UMaterialInterface*                     ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterBody_GetWaterMaterial;
 
 // Function Water.WaterBody.GetWaterSpline
 // 0x0008 (0x0008 - 0x0000)
@@ -171,6 +188,7 @@ struct WaterBody_GetWaterSpline final
 public:
 	class UWaterSplineComponent*                  ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterBody_GetWaterSpline;
 
 // Function Water.WaterBodyIsland.GetWaterSpline
 // 0x0008 (0x0008 - 0x0000)
@@ -179,6 +197,7 @@ struct WaterBodyIsland_GetWaterSpline final
 public:
 	class UWaterSplineComponent*                  ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterBodyIsland_GetWaterSpline;
 
 // Function Water.WaterMeshComponent.IsEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -187,6 +206,7 @@ struct WaterMeshComponent_IsEnabled final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterMeshComponent_IsEnabled;
 
 // Function Water.WaterSubsystem.GetShallowWaterMaxDynamicForces
 // 0x0004 (0x0004 - 0x0000)
@@ -195,6 +215,7 @@ struct WaterSubsystem_GetShallowWaterMaxDynamicForces final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterSubsystem_GetShallowWaterMaxDynamicForces;
 
 // Function Water.WaterSubsystem.GetShallowWaterMaxImpulseForces
 // 0x0004 (0x0004 - 0x0000)
@@ -203,6 +224,7 @@ struct WaterSubsystem_GetShallowWaterMaxImpulseForces final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterSubsystem_GetShallowWaterMaxImpulseForces;
 
 // Function Water.WaterSubsystem.GetShallowWaterSimulationRenderTargetSize
 // 0x0004 (0x0004 - 0x0000)
@@ -211,6 +233,7 @@ struct WaterSubsystem_GetShallowWaterSimulationRenderTargetSize final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterSubsystem_GetShallowWaterSimulationRenderTargetSize;
 
 // Function Water.WaterSubsystem.PrintToWaterLog
 // 0x0018 (0x0018 - 0x0000)
@@ -221,6 +244,7 @@ public:
 	bool                                          bWarning;                                          // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_WaterSubsystem_PrintToWaterLog;
 
 // Function Water.WaterSubsystem.SetOceanFloodHeight
 // 0x0004 (0x0004 - 0x0000)
@@ -229,6 +253,7 @@ struct WaterSubsystem_SetOceanFloodHeight final
 public:
 	float                                         InFloodHeight;                                     // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterSubsystem_SetOceanFloodHeight;
 
 // Function Water.WaterSubsystem.GetCameraUnderwaterDepth
 // 0x0004 (0x0004 - 0x0000)
@@ -237,6 +262,7 @@ struct WaterSubsystem_GetCameraUnderwaterDepth final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterSubsystem_GetCameraUnderwaterDepth;
 
 // Function Water.WaterSubsystem.GetOceanBaseHeight
 // 0x0004 (0x0004 - 0x0000)
@@ -245,6 +271,7 @@ struct WaterSubsystem_GetOceanBaseHeight final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterSubsystem_GetOceanBaseHeight;
 
 // Function Water.WaterSubsystem.GetOceanFloodHeight
 // 0x0004 (0x0004 - 0x0000)
@@ -253,6 +280,7 @@ struct WaterSubsystem_GetOceanFloodHeight final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterSubsystem_GetOceanFloodHeight;
 
 // Function Water.WaterSubsystem.GetOceanTotalHeight
 // 0x0004 (0x0004 - 0x0000)
@@ -261,6 +289,7 @@ struct WaterSubsystem_GetOceanTotalHeight final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterSubsystem_GetOceanTotalHeight;
 
 // Function Water.WaterSubsystem.GetSmoothedWorldTimeSeconds
 // 0x0004 (0x0004 - 0x0000)
@@ -269,6 +298,7 @@ struct WaterSubsystem_GetSmoothedWorldTimeSeconds final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterSubsystem_GetSmoothedWorldTimeSeconds;
 
 // Function Water.WaterSubsystem.GetWaterTimeSeconds
 // 0x0004 (0x0004 - 0x0000)
@@ -277,6 +307,7 @@ struct WaterSubsystem_GetWaterTimeSeconds final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterSubsystem_GetWaterTimeSeconds;
 
 // Function Water.WaterSubsystem.IsShallowWaterSimulationEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -285,6 +316,7 @@ struct WaterSubsystem_IsShallowWaterSimulationEnabled final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterSubsystem_IsShallowWaterSimulationEnabled;
 
 // Function Water.WaterSubsystem.IsUnderwaterPostProcessEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -293,6 +325,7 @@ struct WaterSubsystem_IsUnderwaterPostProcessEnabled final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterSubsystem_IsUnderwaterPostProcessEnabled;
 
 // Function Water.WaterSubsystem.IsWaterRenderingEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -301,6 +334,7 @@ struct WaterSubsystem_IsWaterRenderingEnabled final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaterSubsystem_IsWaterRenderingEnabled;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class SignificanceManager.SignificanceManager
 // 0x00F8 (0x0120 - 0x0028)
@@ -38,5 +39,7 @@ public:
 		return GetDefaultObjImpl<USignificanceManager>();
 	}
 };
+DUMPER7_ASSERTS_USignificanceManager;
 
-SDK_NAMESPACE_END
+}
+

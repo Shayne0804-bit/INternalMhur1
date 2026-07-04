@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionRespawned.BP_ActionRespawned_C.ExecuteUbergraph_BP_ActionRespawned
 // 0x0078 (0x0078 - 0x0000)
@@ -36,6 +36,7 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_4; // 0x0068(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UMaterialControlComponent*              CallFunc_BP_GetMaterialControl_ReturnValue_4;      // 0x0070(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionRespawned_C_ExecuteUbergraph_BP_ActionRespawned;
 
 // Function BP_ActionRespawned.BP_ActionRespawned_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -44,6 +45,7 @@ struct BP_ActionRespawned_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionRespawned_C_BP_OnEndAction;
 
 // Function BP_ActionRespawned.BP_ActionRespawned_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -52,6 +54,7 @@ struct BP_ActionRespawned_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionRespawned_C_BP_OnBeginAction;
 
 // Function BP_ActionRespawned.BP_ActionRespawned_C.UniqueRollSkillBroadcast
 // 0x0028 (0x0028 - 0x0000)
@@ -65,6 +68,7 @@ public:
 	class APlayerStateBattle*                     CallFunc_BP_GetPlayerStateBattle_ReturnValue_1;    // 0x0018(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterRollSlotUniqueSkillControlComponent* CallFunc_BP_GetCharacterRollSlotUniqueSkillControlComponent_ReturnValue_1; // 0x0020(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionRespawned_C_UniqueRollSkillBroadcast;
 
 // Function BP_ActionRespawned.BP_ActionRespawned_C.BP_IsEnableShiftAction
 // 0x000C (0x000C - 0x0000)
@@ -75,6 +79,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
 	bool                                          K2Node_SwitchName_CmpSuccess;                      // 0x0009(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionRespawned_C_BP_IsEnableShiftAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

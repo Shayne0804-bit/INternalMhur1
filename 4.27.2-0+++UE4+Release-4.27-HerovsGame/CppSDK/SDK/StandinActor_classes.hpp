@@ -15,7 +15,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class StandinActor.StandInMeshActor
 // 0x0008 (0x0228 - 0x0220)
@@ -38,6 +39,7 @@ public:
 		return GetDefaultObjImpl<AStandInMeshActor>();
 	}
 };
+DUMPER7_ASSERTS_AStandInMeshActor;
 
 // Class StandinActor.StandinProxyContainer
 // 0x0010 (0x0038 - 0x0028)
@@ -60,5 +62,7 @@ public:
 		return GetDefaultObjImpl<UStandinProxyContainer>();
 	}
 };
+DUMPER7_ASSERTS_UStandinProxyContainer;
 
-SDK_NAMESPACE_END
+}
+

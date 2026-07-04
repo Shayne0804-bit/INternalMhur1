@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum ActionCamera.EActionCameraPriorityType
 // NumValues: 0x0003
@@ -43,4 +44,5 @@ enum class EActionCameraDirType : uint8
 	EActionCameraDirType_MAX                 = 14,
 };
 
-SDK_NAMESPACE_END
+}
+

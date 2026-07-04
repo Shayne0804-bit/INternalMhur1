@@ -14,7 +14,8 @@
 #include "BP_ActionOpenBox_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionOpenBox.BP_ActionOpenBox_C.ExecuteUbergraph_BP_ActionOpenBox
 // (Final, UbergraphFunction)
@@ -264,5 +265,5 @@ bool UBP_ActionOpenBox_C::BP_IsEnableShiftAction(const class FName& nextAction) 
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

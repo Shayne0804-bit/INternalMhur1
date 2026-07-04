@@ -14,7 +14,8 @@
 #include "BP_ActionDamageGuardStrong_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageGuardStrong.BP_ActionDamageGuardStrong_C.ExecuteUbergraph_BP_ActionDamageGuardStrong
 // (Final, UbergraphFunction, HasDefaults)
@@ -117,5 +118,5 @@ void UBP_ActionDamageGuardStrong_C::BP_ActionRemote()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

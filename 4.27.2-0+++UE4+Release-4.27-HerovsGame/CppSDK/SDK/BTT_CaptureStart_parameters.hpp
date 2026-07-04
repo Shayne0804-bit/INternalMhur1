@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BTT_CaptureStart.BTT_CaptureStart_C.ExecuteUbergraph_BTT_CaptureStart
 // 0x0030 (0x0030 - 0x0000)
@@ -29,6 +29,7 @@ public:
 	uint8                                         Pad_22[0x6];                                       // 0x0022(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	class AActor*                                 CallFunc_BP_GetTargetPoint_ReturnValue;            // 0x0028(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BTT_CaptureStart_C_ExecuteUbergraph_BTT_CaptureStart;
 
 // Function BTT_CaptureStart.BTT_CaptureStart_C.ReceiveExecuteAI
 // 0x0010 (0x0010 - 0x0000)
@@ -38,6 +39,7 @@ public:
 	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BTT_CaptureStart_C_ReceiveExecuteAI;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

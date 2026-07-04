@@ -14,7 +14,8 @@
 #include "BB_CC_CH025_WAVE_BARRIER_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BB_CC_CH025_WAVE_BARRIER.BB_CC_CH025_WAVE_BARRIER_C.ExecuteUbergraph_BB_CC_CH025_WAVE_BARRIER
 // (Final, UbergraphFunction)
@@ -352,5 +353,5 @@ void UBB_CC_CH025_WAVE_BARRIER_C::GetEndBreakEffect(class UParticleSystem** Emit
 		*Emitter_Template_0 = Parms.Emitter_Template_0;
 }
 
+}
 
-SDK_NAMESPACE_END

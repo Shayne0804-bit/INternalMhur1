@@ -17,8 +17,8 @@
 #include "ChaosSolverEngine_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function GeometryCollectionEngine.ChaosDestructionListener.AddChaosSolverActor
 // 0x0008 (0x0008 - 0x0000)
@@ -27,6 +27,7 @@ struct ChaosDestructionListener_AddChaosSolverActor final
 public:
 	class AChaosSolverActor*                      ChaosSolverActor;                                  // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ChaosDestructionListener_AddChaosSolverActor;
 
 // Function GeometryCollectionEngine.ChaosDestructionListener.AddGeometryCollectionActor
 // 0x0008 (0x0008 - 0x0000)
@@ -35,6 +36,7 @@ struct ChaosDestructionListener_AddGeometryCollectionActor final
 public:
 	class AGeometryCollectionActor*               GeometryCollectionActor;                           // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ChaosDestructionListener_AddGeometryCollectionActor;
 
 // Function GeometryCollectionEngine.ChaosDestructionListener.RemoveChaosSolverActor
 // 0x0008 (0x0008 - 0x0000)
@@ -43,6 +45,7 @@ struct ChaosDestructionListener_RemoveChaosSolverActor final
 public:
 	class AChaosSolverActor*                      ChaosSolverActor;                                  // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ChaosDestructionListener_RemoveChaosSolverActor;
 
 // Function GeometryCollectionEngine.ChaosDestructionListener.RemoveGeometryCollectionActor
 // 0x0008 (0x0008 - 0x0000)
@@ -51,6 +54,7 @@ struct ChaosDestructionListener_RemoveGeometryCollectionActor final
 public:
 	class AGeometryCollectionActor*               GeometryCollectionActor;                           // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ChaosDestructionListener_RemoveGeometryCollectionActor;
 
 // Function GeometryCollectionEngine.ChaosDestructionListener.SetBreakingEventEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -59,6 +63,7 @@ struct ChaosDestructionListener_SetBreakingEventEnabled final
 public:
 	bool                                          bIsEnabled;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ChaosDestructionListener_SetBreakingEventEnabled;
 
 // Function GeometryCollectionEngine.ChaosDestructionListener.SetBreakingEventRequestSettings
 // 0x0018 (0x0018 - 0x0000)
@@ -67,6 +72,7 @@ struct ChaosDestructionListener_SetBreakingEventRequestSettings final
 public:
 	struct FChaosBreakingEventRequestSettings     InSettings;                                        // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ChaosDestructionListener_SetBreakingEventRequestSettings;
 
 // Function GeometryCollectionEngine.ChaosDestructionListener.SetCollisionEventEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -75,6 +81,7 @@ struct ChaosDestructionListener_SetCollisionEventEnabled final
 public:
 	bool                                          bIsEnabled;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ChaosDestructionListener_SetCollisionEventEnabled;
 
 // Function GeometryCollectionEngine.ChaosDestructionListener.SetCollisionEventRequestSettings
 // 0x0018 (0x0018 - 0x0000)
@@ -83,6 +90,7 @@ struct ChaosDestructionListener_SetCollisionEventRequestSettings final
 public:
 	struct FChaosCollisionEventRequestSettings    InSettings;                                        // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ChaosDestructionListener_SetCollisionEventRequestSettings;
 
 // Function GeometryCollectionEngine.ChaosDestructionListener.SetTrailingEventEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -91,6 +99,7 @@ struct ChaosDestructionListener_SetTrailingEventEnabled final
 public:
 	bool                                          bIsEnabled;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ChaosDestructionListener_SetTrailingEventEnabled;
 
 // Function GeometryCollectionEngine.ChaosDestructionListener.SetTrailingEventRequestSettings
 // 0x0018 (0x0018 - 0x0000)
@@ -99,6 +108,7 @@ struct ChaosDestructionListener_SetTrailingEventRequestSettings final
 public:
 	struct FChaosTrailingEventRequestSettings     InSettings;                                        // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ChaosDestructionListener_SetTrailingEventRequestSettings;
 
 // Function GeometryCollectionEngine.ChaosDestructionListener.SortBreakingEvents
 // 0x0018 (0x0018 - 0x0000)
@@ -109,6 +119,7 @@ public:
 	EChaosBreakingSortMethod                      SortMethod;                                        // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ChaosDestructionListener_SortBreakingEvents;
 
 // Function GeometryCollectionEngine.ChaosDestructionListener.SortCollisionEvents
 // 0x0018 (0x0018 - 0x0000)
@@ -119,6 +130,7 @@ public:
 	EChaosCollisionSortMethod                     SortMethod;                                        // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ChaosDestructionListener_SortCollisionEvents;
 
 // Function GeometryCollectionEngine.ChaosDestructionListener.SortTrailingEvents
 // 0x0018 (0x0018 - 0x0000)
@@ -129,6 +141,7 @@ public:
 	EChaosTrailingSortMethod                      SortMethod;                                        // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ChaosDestructionListener_SortTrailingEvents;
 
 // Function GeometryCollectionEngine.ChaosDestructionListener.IsEventListening
 // 0x0001 (0x0001 - 0x0000)
@@ -137,6 +150,7 @@ struct ChaosDestructionListener_IsEventListening final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ChaosDestructionListener_IsEventListening;
 
 // Function GeometryCollectionEngine.GeometryCollectionActor.RaycastSingle
 // 0x00A4 (0x00A4 - 0x0000)
@@ -149,6 +163,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x00A0(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_A1[0x3];                                       // 0x00A1(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_GeometryCollectionActor_RaycastSingle;
 
 // Function GeometryCollectionEngine.GeometryCollectionComponent.ApplyKinematicField
 // 0x0010 (0x0010 - 0x0000)
@@ -158,6 +173,7 @@ public:
 	float                                         Radius;                                            // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                Position;                                          // 0x0004(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GeometryCollectionComponent_ApplyKinematicField;
 
 // Function GeometryCollectionEngine.GeometryCollectionComponent.ApplyPhysicsField
 // 0x0018 (0x0018 - 0x0000)
@@ -170,6 +186,7 @@ public:
 	class UFieldSystemMetaData*                   MetaData;                                          // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UFieldNodeBase*                         Field;                                             // 0x0010(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GeometryCollectionComponent_ApplyPhysicsField;
 
 // Function GeometryCollectionEngine.GeometryCollectionComponent.NetAbandonCluster
 // 0x0004 (0x0004 - 0x0000)
@@ -178,6 +195,7 @@ struct GeometryCollectionComponent_NetAbandonCluster final
 public:
 	int32                                         TransformIndex;                                    // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GeometryCollectionComponent_NetAbandonCluster;
 
 // Function GeometryCollectionEngine.GeometryCollectionComponent.OnRep_RepData
 // 0x0018 (0x0018 - 0x0000)
@@ -186,6 +204,7 @@ struct GeometryCollectionComponent_OnRep_RepData final
 public:
 	struct FGeometryCollectionRepData             OldData;                                           // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GeometryCollectionComponent_OnRep_RepData;
 
 // Function GeometryCollectionEngine.GeometryCollectionComponent.ReceivePhysicsCollision
 // 0x0070 (0x0070 - 0x0000)
@@ -194,6 +213,7 @@ struct GeometryCollectionComponent_ReceivePhysicsCollision final
 public:
 	struct FChaosPhysicsCollisionInfo             CollisionInfo;                                     // 0x0000(0x0070)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GeometryCollectionComponent_ReceivePhysicsCollision;
 
 // Function GeometryCollectionEngine.GeometryCollectionComponent.SetNotifyBreaks
 // 0x0001 (0x0001 - 0x0000)
@@ -202,6 +222,7 @@ struct GeometryCollectionComponent_SetNotifyBreaks final
 public:
 	bool                                          bNewNotifyBreaks;                                  // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GeometryCollectionComponent_SetNotifyBreaks;
 
 // Function GeometryCollectionEngine.SkeletalMeshSimulationComponent.ReceivePhysicsCollision
 // 0x0070 (0x0070 - 0x0000)
@@ -210,6 +231,7 @@ struct SkeletalMeshSimulationComponent_ReceivePhysicsCollision final
 public:
 	struct FChaosPhysicsCollisionInfo             CollisionInfo;                                     // 0x0000(0x0070)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SkeletalMeshSimulationComponent_ReceivePhysicsCollision;
 
 // Function GeometryCollectionEngine.StaticMeshSimulationComponent.ReceivePhysicsCollision
 // 0x0070 (0x0070 - 0x0000)
@@ -218,6 +240,7 @@ struct StaticMeshSimulationComponent_ReceivePhysicsCollision final
 public:
 	struct FChaosPhysicsCollisionInfo             CollisionInfo;                                     // 0x0000(0x0070)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_StaticMeshSimulationComponent_ReceivePhysicsCollision;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

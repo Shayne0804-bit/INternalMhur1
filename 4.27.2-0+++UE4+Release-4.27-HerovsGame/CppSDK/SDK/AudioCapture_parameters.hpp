@@ -13,8 +13,8 @@
 #include "AudioCapture_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function AudioCapture.AudioCapture.GetAudioCaptureDeviceInfo
 // 0x0014 (0x0014 - 0x0000)
@@ -25,6 +25,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AudioCapture_GetAudioCaptureDeviceInfo;
 
 // Function AudioCapture.AudioCapture.IsCapturingAudio
 // 0x0001 (0x0001 - 0x0000)
@@ -33,6 +34,7 @@ struct AudioCapture_IsCapturingAudio final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AudioCapture_IsCapturingAudio;
 
 // Function AudioCapture.AudioCaptureFunctionLibrary.CreateAudioCapture
 // 0x0008 (0x0008 - 0x0000)
@@ -41,6 +43,7 @@ struct AudioCaptureFunctionLibrary_CreateAudioCapture final
 public:
 	class UAudioCapture*                          ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AudioCaptureFunctionLibrary_CreateAudioCapture;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

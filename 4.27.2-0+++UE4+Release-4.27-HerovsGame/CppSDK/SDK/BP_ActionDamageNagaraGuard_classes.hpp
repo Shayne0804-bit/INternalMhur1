@@ -15,7 +15,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionDamageNagaraGuard.BP_ActionDamageNagaraGuard_C
 // 0x0010 (0x0318 - 0x0308)
@@ -48,5 +49,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionDamageNagaraGuard_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionDamageNagaraGuard_C;
 
-SDK_NAMESPACE_END
+}
+

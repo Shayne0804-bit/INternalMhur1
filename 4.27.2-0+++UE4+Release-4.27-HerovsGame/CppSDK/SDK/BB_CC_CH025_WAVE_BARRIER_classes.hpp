@@ -16,7 +16,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BB_CC_CH025_WAVE_BARRIER.BB_CC_CH025_WAVE_BARRIER_C
 // 0x0068 (0x0308 - 0x02A0)
@@ -80,5 +81,7 @@ public:
 		return GetDefaultObjImpl<UBB_CC_CH025_WAVE_BARRIER_C>();
 	}
 };
+DUMPER7_ASSERTS_UBB_CC_CH025_WAVE_BARRIER_C;
 
-SDK_NAMESPACE_END
+}
+

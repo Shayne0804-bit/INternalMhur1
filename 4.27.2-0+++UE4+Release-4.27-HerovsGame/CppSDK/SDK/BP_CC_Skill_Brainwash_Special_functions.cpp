@@ -14,7 +14,8 @@
 #include "BP_CC_Skill_Brainwash_Special_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Skill_Brainwash_Special.BP_CC_Skill_Brainwash_Special_C.ExecuteUbergraph_BP_CC_Skill_Brainwash_Special
 // (Final, UbergraphFunction)
@@ -111,5 +112,5 @@ void UBP_CC_Skill_Brainwash_Special_C::BP_OnVisibleCondition()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

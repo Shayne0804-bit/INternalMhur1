@@ -13,7 +13,8 @@
 #include "GameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_ChatMemberWidget.WBP_ChatMemberWidget_C
 // 0x0000 (0x0390 - 0x0390)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UWBP_ChatMemberWidget_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_ChatMemberWidget_C;
 
-SDK_NAMESPACE_END
+}
+

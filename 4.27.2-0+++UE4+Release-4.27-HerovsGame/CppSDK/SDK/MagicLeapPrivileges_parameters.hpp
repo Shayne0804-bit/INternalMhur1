@@ -13,8 +13,8 @@
 #include "MagicLeapPrivileges_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function MagicLeapPrivileges.MagicLeapPrivilegesFunctionLibrary.CheckPrivilege
 // 0x0002 (0x0002 - 0x0000)
@@ -24,6 +24,7 @@ public:
 	EMagicLeapPrivilege                           Privilege;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapPrivilegesFunctionLibrary_CheckPrivilege;
 
 // Function MagicLeapPrivileges.MagicLeapPrivilegesFunctionLibrary.RequestPrivilege
 // 0x0002 (0x0002 - 0x0000)
@@ -33,6 +34,7 @@ public:
 	EMagicLeapPrivilege                           Privilege;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapPrivilegesFunctionLibrary_RequestPrivilege;
 
 // Function MagicLeapPrivileges.MagicLeapPrivilegesFunctionLibrary.RequestPrivilegeAsync
 // 0x0018 (0x0018 - 0x0000)
@@ -45,6 +47,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0014(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapPrivilegesFunctionLibrary_RequestPrivilegeAsync;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

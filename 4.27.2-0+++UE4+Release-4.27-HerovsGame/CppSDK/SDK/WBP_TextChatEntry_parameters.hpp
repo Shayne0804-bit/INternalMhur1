@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_TextChatEntry.WBP_TextChatEntry_C.ExecuteUbergraph_WBP_TextChatEntry
 // 0x0040 (0x0040 - 0x0000)
@@ -33,6 +33,7 @@ public:
 	bool                                          K2Node_Event_bIsSelected;                          // 0x0039(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          K2Node_Event_bIsExpanded;                          // 0x003A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChatEntry_C_ExecuteUbergraph_WBP_TextChatEntry;
 
 // Function WBP_TextChatEntry.WBP_TextChatEntry_C.OnListItemObjectSet
 // 0x0008 (0x0008 - 0x0000)
@@ -41,6 +42,7 @@ struct WBP_TextChatEntry_C_OnListItemObjectSet final
 public:
 	class UObject*                                ListItemObject;                                    // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_TextChatEntry_C_OnListItemObjectSet;
 
 // Function WBP_TextChatEntry.WBP_TextChatEntry_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -49,6 +51,7 @@ struct WBP_TextChatEntry_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChatEntry_C_PreConstruct;
 
 // Function WBP_TextChatEntry.WBP_TextChatEntry_C.BP_OnItemSelectionChanged
 // 0x0001 (0x0001 - 0x0000)
@@ -57,6 +60,7 @@ struct WBP_TextChatEntry_C_BP_OnItemSelectionChanged final
 public:
 	bool                                          bIsSelected;                                       // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChatEntry_C_BP_OnItemSelectionChanged;
 
 // Function WBP_TextChatEntry.WBP_TextChatEntry_C.BP_OnItemExpansionChanged
 // 0x0001 (0x0001 - 0x0000)
@@ -65,6 +69,7 @@ struct WBP_TextChatEntry_C_BP_OnItemExpansionChanged final
 public:
 	bool                                          bIsExpanded;                                       // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChatEntry_C_BP_OnItemExpansionChanged;
 
 // Function WBP_TextChatEntry.WBP_TextChatEntry_C.Set Up Canvas
 // 0x0038 (0x0038 - 0x0000)
@@ -78,6 +83,7 @@ public:
 	class FString                                 CallFunc_BP_GetLocalPlayerUniqueId_ReturnValue;    // 0x0020(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 	bool                                          CallFunc_EqualEqual_StrStr_ReturnValue;            // 0x0030(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChatEntry_C_Set_Up_Canvas;
 
 // Function WBP_TextChatEntry.WBP_TextChatEntry_C.PlayEntryAnimation
 // 0x0058 (0x0058 - 0x0000)
@@ -97,6 +103,7 @@ public:
 	class UUMGSequencePlayer*                     CallFunc_PlayAnimation_ReturnValue;                // 0x0048(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UUMGSequencePlayer*                     CallFunc_PlayAnimation_ReturnValue_1;              // 0x0050(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_TextChatEntry_C_PlayEntryAnimation;
 
 // Function WBP_TextChatEntry.WBP_TextChatEntry_C.Check UnreadMessage
 // 0x0020 (0x0020 - 0x0000)
@@ -108,6 +115,7 @@ public:
 	class UTextChatWidget*                        CallFunc_BP_GetTextChatWidget_ReturnValue;         // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_BP_IsUnreadMessage_ReturnValue;           // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChatEntry_C_Check_UnreadMessage;
 
 // Function WBP_TextChatEntry.WBP_TextChatEntry_C.SetUpAlreadyRead
 // 0x0018 (0x0018 - 0x0000)
@@ -118,6 +126,7 @@ public:
 	class UTextChatSubsystem*                     CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_GetIngameWindowOpenFlag_ReturnValue;      // 0x0010(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChatEntry_C_SetUpAlreadyRead;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

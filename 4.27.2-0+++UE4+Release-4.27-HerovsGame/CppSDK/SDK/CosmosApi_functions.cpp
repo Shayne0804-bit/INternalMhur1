@@ -14,7 +14,8 @@
 #include "CosmosApi_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function CosmosApi.NetHttp.Create
 // (Final, Native, Static, Public, BlueprintCallable, BlueprintPure)
@@ -1417,5 +1418,5 @@ bool UNetSquad::IsLeader() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

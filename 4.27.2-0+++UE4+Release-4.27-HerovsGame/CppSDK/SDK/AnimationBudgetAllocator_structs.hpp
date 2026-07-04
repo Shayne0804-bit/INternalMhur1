@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct AnimationBudgetAllocator.AnimationBudgetAllocatorParameters
 // 0x0050 (0x0050 - 0x0000)
@@ -39,5 +40,7 @@ public:
 	int32                                         ReducedWorkThrottleMaxPerFrame;                    // 0x0048(0x0004)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         BudgetPressureBeforeEmergencyReducedWork;          // 0x004C(0x0004)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimationBudgetAllocatorParameters;
 
-SDK_NAMESPACE_END
+}
+

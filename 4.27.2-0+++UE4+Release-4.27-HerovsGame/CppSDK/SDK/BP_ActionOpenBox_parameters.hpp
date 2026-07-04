@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionOpenBox.BP_ActionOpenBox_C.ExecuteUbergraph_BP_ActionOpenBox
 // 0x00D0 (0x00D0 - 0x0000)
@@ -64,6 +64,7 @@ public:
 	uint8                                         Pad_C1[0x7];                                       // 0x00C1(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue_2;            // 0x00C8(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionOpenBox_C_ExecuteUbergraph_BP_ActionOpenBox;
 
 // Function BP_ActionOpenBox.BP_ActionOpenBox_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -72,6 +73,7 @@ struct BP_ActionOpenBox_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionOpenBox_C_BP_OnEndAction;
 
 // Function BP_ActionOpenBox.BP_ActionOpenBox_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -80,6 +82,7 @@ struct BP_ActionOpenBox_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionOpenBox_C_BP_OnBeginAction;
 
 // Function BP_ActionOpenBox.BP_ActionOpenBox_C.Initialize
 // 0x0028 (0x0028 - 0x0000)
@@ -93,6 +96,7 @@ public:
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue;    // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue_1;  // 0x0020(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionOpenBox_C_Initialize;
 
 // Function BP_ActionOpenBox.BP_ActionOpenBox_C.InitializeOpenStyle
 // 0x0060 (0x0060 - 0x0000)
@@ -116,6 +120,7 @@ public:
 	bool                                          CallFunc_Less_FloatFloat_ReturnValue;              // 0x0058(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_BooleanAND_ReturnValue;                   // 0x0059(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionOpenBox_C_InitializeOpenStyle;
 
 // Function BP_ActionOpenBox.BP_ActionOpenBox_C.Turning
 // 0x0060 (0x0060 - 0x0000)
@@ -135,6 +140,7 @@ public:
 	float                                         CallFunc_BreakVector_Z;                            // 0x004C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_MakeVector_ReturnValue;                   // 0x0050(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionOpenBox_C_Turning;
 
 // Function BP_ActionOpenBox.BP_ActionOpenBox_C.Begin
 // 0x0028 (0x0028 - 0x0000)
@@ -155,6 +161,7 @@ public:
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue_1;            // 0x0020(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionOpenBox_C_Begin;
 
 // Function BP_ActionOpenBox.BP_ActionOpenBox_C.Open
 // 0x0020 (0x0020 - 0x0000)
@@ -169,6 +176,7 @@ public:
 	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue_1;            // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EAnimationId                                  K2Node_Select_Default;                             // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionOpenBox_C_Open;
 
 // Function BP_ActionOpenBox.BP_ActionOpenBox_C.Complete
 // 0x0020 (0x0020 - 0x0000)
@@ -184,6 +192,7 @@ public:
 	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue_1;            // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EAnimationId                                  K2Node_Select_Default;                             // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionOpenBox_C_Complete;
 
 // Function BP_ActionOpenBox.BP_ActionOpenBox_C.IsOpenBoxAnimation
 // 0x0018 (0x0018 - 0x0000)
@@ -200,6 +209,7 @@ public:
 	bool                                          CallFunc_BooleanOR_ReturnValue;                    // 0x0014(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_BooleanOR_ReturnValue_1;                  // 0x0015(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionOpenBox_C_IsOpenBoxAnimation;
 
 // Function BP_ActionOpenBox.BP_ActionOpenBox_C.BP_IsEnableShiftAction
 // 0x000C (0x000C - 0x0000)
@@ -210,6 +220,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
 	bool                                          K2Node_SwitchName_CmpSuccess;                      // 0x0009(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionOpenBox_C_BP_IsEnableShiftAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

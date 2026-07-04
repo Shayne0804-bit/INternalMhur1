@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum ACLPlugin.ACLCompressionLevel
 // NumValues: 0x0006
@@ -44,4 +45,5 @@ enum class EACLRotationFormat : uint8
 	ACLRF_MAX                                = 3,
 };
 
-SDK_NAMESPACE_END
+}
+

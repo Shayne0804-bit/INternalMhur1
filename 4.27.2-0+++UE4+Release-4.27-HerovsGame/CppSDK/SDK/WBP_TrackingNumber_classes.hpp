@@ -13,7 +13,8 @@
 #include "GameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_TrackingNumber.WBP_TrackingNumber_C
 // 0x0000 (0x0378 - 0x0378)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UWBP_TrackingNumber_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_TrackingNumber_C;
 
-SDK_NAMESPACE_END
+}
+

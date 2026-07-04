@@ -13,11 +13,12 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_CharacterBattleDefault.BP_CharacterBattleDefault_C
 // 0x0000 (0x0CF0 - 0x0CF0)
-class ABP_CharacterBattleDefault_C : public ACharacterBattle
+class ABP_CharacterBattleDefault_C final : public ACharacterBattle
 {
 public:
 	static class UClass* StaticClass()
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<ABP_CharacterBattleDefault_C>();
 	}
 };
+DUMPER7_ASSERTS_ABP_CharacterBattleDefault_C;
 
-SDK_NAMESPACE_END
+}
+

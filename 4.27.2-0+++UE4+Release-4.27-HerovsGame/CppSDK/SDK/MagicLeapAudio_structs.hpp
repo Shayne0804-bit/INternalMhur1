@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct MagicLeapAudio.MagicLeapAudioDummyStruct
 // 0x0001 (0x0001 - 0x0000)
@@ -20,5 +21,7 @@ struct FMagicLeapAudioDummyStruct final
 public:
 	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMagicLeapAudioDummyStruct;
 
-SDK_NAMESPACE_END
+}
+

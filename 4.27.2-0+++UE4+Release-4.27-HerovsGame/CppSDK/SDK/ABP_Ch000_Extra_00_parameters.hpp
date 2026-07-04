@@ -15,8 +15,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function ABP_Ch000_Extra_00.ABP_Ch000_Extra_00_C.ExecuteUbergraph_ABP_Ch000_Extra_00
 // 0x0070 (0x0070 - 0x0000)
@@ -46,6 +46,7 @@ public:
 	float                                         CallFunc_BP_GetAvatarBodyPhysique_ReturnValue_1;   // 0x0068(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_BP_GetAvatarBodyScale_ReturnValue_1;      // 0x006C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_ABP_Ch000_Extra_00_C_ExecuteUbergraph_ABP_Ch000_Extra_00;
 
 // Function ABP_Ch000_Extra_00.ABP_Ch000_Extra_00_C.CalcAvatarBoneScale
 // 0x0038 (0x0038 - 0x0000)
@@ -63,6 +64,7 @@ public:
 	float                                         CallFunc_Divide_FloatFloat_ReturnValue_1;          // 0x0028(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_Conv_FloatToVector_ReturnValue_1;         // 0x002C(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_ABP_Ch000_Extra_00_C_CalcAvatarBoneScale;
 
 // Function ABP_Ch000_Extra_00.ABP_Ch000_Extra_00_C.AnimGraph
 // 0x0020 (0x0020 - 0x0000)
@@ -72,6 +74,7 @@ public:
 	struct FPoseLink                              InPose;                                            // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, NoDestructor)
 	struct FPoseLink                              AnimGraph_0;                                       // 0x0010(0x0010)(Parm, OutParm, NoDestructor)
 };
+DUMPER7_ASSERTS_ABP_Ch000_Extra_00_C_AnimGraph;
 
 // Function ABP_Ch000_Extra_00.ABP_Ch000_Extra_00_C.OuterMeshExtensions
 // 0x0020 (0x0020 - 0x0000)
@@ -81,6 +84,7 @@ public:
 	struct FPoseLink                              InPose;                                            // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, NoDestructor)
 	struct FPoseLink                              OuterMeshExtensions_0;                             // 0x0010(0x0010)(Parm, OutParm, NoDestructor)
 };
+DUMPER7_ASSERTS_ABP_Ch000_Extra_00_C_OuterMeshExtensions;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

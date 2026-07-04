@@ -14,7 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class ArchVisCharacter.ArchVisCharacter
 // 0x0060 (0x0520 - 0x04C0)
@@ -44,6 +45,7 @@ public:
 		return GetDefaultObjImpl<AArchVisCharacter>();
 	}
 };
+DUMPER7_ASSERTS_AArchVisCharacter;
 
 // Class ArchVisCharacter.ArchVisCharMovementComponent
 // 0x0050 (0x0B40 - 0x0AF0)
@@ -74,5 +76,7 @@ public:
 		return GetDefaultObjImpl<UArchVisCharMovementComponent>();
 	}
 };
+DUMPER7_ASSERTS_UArchVisCharMovementComponent;
 
-SDK_NAMESPACE_END
+}
+

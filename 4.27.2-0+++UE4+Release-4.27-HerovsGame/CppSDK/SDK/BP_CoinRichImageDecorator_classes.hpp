@@ -13,7 +13,8 @@
 #include "UIFramework_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_CoinRichImageDecorator.BP_CoinRichImageDecorator_C
 // 0x0000 (0x0038 - 0x0038)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UBP_CoinRichImageDecorator_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_CoinRichImageDecorator_C;
 
-SDK_NAMESPACE_END
+}
+

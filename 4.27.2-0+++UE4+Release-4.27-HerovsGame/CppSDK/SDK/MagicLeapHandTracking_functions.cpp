@@ -14,7 +14,8 @@
 #include "MagicLeapHandTracking_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function MagicLeapHandTracking.MagicLeapHandTrackingFunctionLibrary.GetConfiguration
 // (Final, Native, Static, Public, HasOutParams, BlueprintCallable)
@@ -532,5 +533,5 @@ void UMagicLeapHandTrackingFunctionLibrary::SetStaticGestureConfidenceThreshold(
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

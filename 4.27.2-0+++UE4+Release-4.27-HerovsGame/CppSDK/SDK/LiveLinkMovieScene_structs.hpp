@@ -15,7 +15,8 @@
 #include "MovieSceneTracks_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct LiveLinkMovieScene.LiveLinkPropertyData
 // 0x0058 (0x0058 - 0x0000)
@@ -29,6 +30,7 @@ public:
 	TArray<struct FMovieSceneBoolChannel>         BoolChannel;                                       // 0x0038(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FMovieSceneByteChannel>         ByteChannel;                                       // 0x0048(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLiveLinkPropertyData;
 
 // ScriptStruct LiveLinkMovieScene.LiveLinkSubSectionData
 // 0x0010 (0x0010 - 0x0000)
@@ -37,6 +39,7 @@ struct FLiveLinkSubSectionData final
 public:
 	TArray<struct FLiveLinkPropertyData>          Properties;                                        // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLiveLinkSubSectionData;
 
 // ScriptStruct LiveLinkMovieScene.MovieSceneLiveLinkSectionTemplate
 // 0x0080 (0x00B8 - 0x0038)
@@ -48,5 +51,7 @@ public:
 	TArray<struct FLiveLinkSubSectionData>        SubSectionsData;                                   // 0x0080(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_90[0x28];                                      // 0x0090(0x0028)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMovieSceneLiveLinkSectionTemplate;
 
-SDK_NAMESPACE_END
+}
+

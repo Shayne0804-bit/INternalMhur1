@@ -13,8 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDashBegin.BP_ActionDashBegin_C.ExecuteUbergraph_BP_ActionDashBegin
 // 0x0078 (0x0078 - 0x0000)
@@ -39,6 +39,7 @@ public:
 	uint8                                         Pad_69[0x7];                                       // 0x0069(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UCharacterState*                        CallFunc_BP_GetOwnerState_ReturnValue_3;           // 0x0070(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDashBegin_C_ExecuteUbergraph_BP_ActionDashBegin;
 
 // Function BP_ActionDashBegin.BP_ActionDashBegin_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -47,6 +48,7 @@ struct BP_ActionDashBegin_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDashBegin_C_BP_OnEndAction;
 
 // Function BP_ActionDashBegin.BP_ActionDashBegin_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -55,6 +57,7 @@ struct BP_ActionDashBegin_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDashBegin_C_BP_OnBeginAction;
 
 // Function BP_ActionDashBegin.BP_ActionDashBegin_C.UpdateMoveDirection
 // 0x0020 (0x0020 - 0x0000)
@@ -66,6 +69,7 @@ public:
 	struct FVector                                CallFunc_BP_GetMoveDirection_ReturnValue;          // 0x0010(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_BP_GetDeltaSeconds_ReturnValue;           // 0x001C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDashBegin_C_UpdateMoveDirection;
 
 // Function BP_ActionDashBegin.BP_ActionDashBegin_C.UpdateCharacterDirection
 // 0x0018 (0x0018 - 0x0000)
@@ -75,6 +79,7 @@ public:
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue;    // 0x0000(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_BP_GetMoveDirection_ReturnValue;          // 0x0008(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDashBegin_C_UpdateCharacterDirection;
 
 // Function BP_ActionDashBegin.BP_ActionDashBegin_C.UpdateSpeedRate
 // 0x0018 (0x0018 - 0x0000)
@@ -85,6 +90,7 @@ public:
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue;    // 0x0008(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_BP_GetMoveRate_ReturnValue;               // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDashBegin_C_UpdateSpeedRate;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

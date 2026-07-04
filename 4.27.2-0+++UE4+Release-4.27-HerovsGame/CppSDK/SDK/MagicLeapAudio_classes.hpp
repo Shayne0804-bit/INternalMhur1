@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MagicLeapAudio.MagicLeapAudioFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -39,5 +40,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapAudioFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapAudioFunctionLibrary;
 
-SDK_NAMESPACE_END
+}
+

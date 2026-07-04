@@ -14,7 +14,8 @@
 #include "BP_ActionDamageRecover_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageRecover.BP_ActionDamageRecover_C.ExecuteUbergraph_BP_ActionDamageRecover
 // (Final, UbergraphFunction, HasDefaults)
@@ -103,5 +104,5 @@ void UBP_ActionDamageRecover_C::BP_OnBeginAction(const class FName& prevAction)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

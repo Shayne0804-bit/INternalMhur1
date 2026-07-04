@@ -14,7 +14,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class BuildPatchServices.BuildPatchManifest
 // 0x00F8 (0x0120 - 0x0028)
@@ -51,5 +52,7 @@ public:
 		return GetDefaultObjImpl<UBuildPatchManifest>();
 	}
 };
+DUMPER7_ASSERTS_UBuildPatchManifest;
 
-SDK_NAMESPACE_END
+}
+

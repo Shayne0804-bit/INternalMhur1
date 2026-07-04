@@ -14,7 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum MagicLeapController.EMagicLeapTouchpadGestureDirection
 // NumValues: 0x000A
@@ -186,5 +187,7 @@ public:
 	float                                         Radius;                                            // 0x0028(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Angle;                                             // 0x002C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapTouchpadGesture;
 
-SDK_NAMESPACE_END
+}
+

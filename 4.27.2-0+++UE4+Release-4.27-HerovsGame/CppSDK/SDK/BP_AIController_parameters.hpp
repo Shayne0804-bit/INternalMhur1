@@ -13,8 +13,8 @@
 #include "InGameModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_AIController.BP_AIController_C.ExecuteUbergraph_BP_AIController
 // 0x0068 (0x0068 - 0x0000)
@@ -43,6 +43,7 @@ public:
 	uint8                                         Pad_62[0x2];                                       // 0x0062(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         Temp_int_Variable;                                 // 0x0064(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_AIController_C_ExecuteUbergraph_BP_AIController;
 
 // Function BP_AIController.BP_AIController_C.BP_SkillAction
 // 0x0018 (0x0018 - 0x0000)
@@ -54,6 +55,7 @@ public:
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         interval;                                          // 0x0014(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_AIController_C_BP_SkillAction;
 
 // Function BP_AIController.BP_AIController_C.BP_MoveAction
 // 0x0020 (0x0020 - 0x0000)
@@ -62,6 +64,7 @@ struct BP_AIController_C_BP_MoveAction final
 public:
 	struct FAIMoveCommand                         Command;                                           // 0x0000(0x0020)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ReferenceParm, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_AIController_C_BP_MoveAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -13,7 +13,8 @@
 #include "BP_AIController_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_DominationAIController.BP_DominationAIController_C
 // 0x0000 (0x0420 - 0x0420)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<ABP_DominationAIController_C>();
 	}
 };
+DUMPER7_ASSERTS_ABP_DominationAIController_C;
 
-SDK_NAMESPACE_END
+}
+

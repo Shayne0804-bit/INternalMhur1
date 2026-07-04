@@ -14,7 +14,8 @@
 #include "MagicLeapIdentity_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function MagicLeapIdentity.MagicLeapIdentity.GetAllAvailableAttributes
 // (Final, Native, Public, HasOutParams, BlueprintCallable)
@@ -131,5 +132,5 @@ EMagicLeapIdentityError UMagicLeapIdentity::RequestAttributeValueAsync(const TAr
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -14,7 +14,8 @@
 #include "BP_ActionDamageDyingDead_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageDyingDead.BP_ActionDamageDyingDead_C.ExecuteUbergraph_BP_ActionDamageDyingDead
 // (Final, UbergraphFunction)
@@ -106,5 +107,5 @@ bool UBP_ActionDamageDyingDead_C::BP_IsEnableShiftAction(const class FName& next
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

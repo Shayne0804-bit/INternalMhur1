@@ -16,7 +16,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionSuperJumpRise.BP_ActionSuperJumpRise_C
 // 0x0028 (0x02A0 - 0x0278)
@@ -53,5 +54,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionSuperJumpRise_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionSuperJumpRise_C;
 
-SDK_NAMESPACE_END
+}
+

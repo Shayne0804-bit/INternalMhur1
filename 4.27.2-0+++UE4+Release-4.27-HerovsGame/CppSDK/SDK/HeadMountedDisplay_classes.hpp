@@ -15,7 +15,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class HeadMountedDisplay.AsyncTask_LoadXRDeviceVisComponent
 // 0x0030 (0x0060 - 0x0030)
@@ -45,6 +46,7 @@ public:
 		return GetDefaultObjImpl<UAsyncTask_LoadXRDeviceVisComponent>();
 	}
 };
+DUMPER7_ASSERTS_UAsyncTask_LoadXRDeviceVisComponent;
 
 // Class HeadMountedDisplay.VRNotificationsComponent
 // 0x00B0 (0x0160 - 0x00B0)
@@ -77,6 +79,7 @@ public:
 		return GetDefaultObjImpl<UVRNotificationsComponent>();
 	}
 };
+DUMPER7_ASSERTS_UVRNotificationsComponent;
 
 // Class HeadMountedDisplay.HeadMountedDisplayFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -145,6 +148,7 @@ public:
 		return GetDefaultObjImpl<UHeadMountedDisplayFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UHeadMountedDisplayFunctionLibrary;
 
 // Class HeadMountedDisplay.HandKeypointConversion
 // 0x0000 (0x0028 - 0x0028)
@@ -167,6 +171,7 @@ public:
 		return GetDefaultObjImpl<UHandKeypointConversion>();
 	}
 };
+DUMPER7_ASSERTS_UHandKeypointConversion;
 
 // Class HeadMountedDisplay.MotionControllerComponent
 // 0x00C0 (0x0510 - 0x0450)
@@ -217,6 +222,7 @@ public:
 		return GetDefaultObjImpl<UMotionControllerComponent>();
 	}
 };
+DUMPER7_ASSERTS_UMotionControllerComponent;
 
 // Class HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -256,6 +262,7 @@ public:
 		return GetDefaultObjImpl<UMotionTrackedDeviceFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UMotionTrackedDeviceFunctionLibrary;
 
 // Class HeadMountedDisplay.XRAssetFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -279,6 +286,7 @@ public:
 		return GetDefaultObjImpl<UXRAssetFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UXRAssetFunctionLibrary;
 
 // Class HeadMountedDisplay.XRLoadingScreenFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -305,5 +313,7 @@ public:
 		return GetDefaultObjImpl<UXRLoadingScreenFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UXRLoadingScreenFunctionLibrary;
 
-SDK_NAMESPACE_END
+}
+

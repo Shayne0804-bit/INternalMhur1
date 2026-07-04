@@ -16,11 +16,12 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionAttack_Finisher.BP_ActionAttack_Finisher_C
 // 0x0030 (0x0538 - 0x0508)
-class UBP_ActionAttack_Finisher_C : public UActionAttackFinisher
+class UBP_ActionAttack_Finisher_C final : public UActionAttackFinisher
 {
 public:
 	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0508(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
@@ -65,5 +66,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionAttack_Finisher_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionAttack_Finisher_C;
 
-SDK_NAMESPACE_END
+}
+

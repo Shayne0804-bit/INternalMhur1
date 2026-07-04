@@ -14,7 +14,8 @@
 #include "BP_ActionAttack_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionAttack.BP_ActionAttack_C.ExecuteUbergraph_BP_ActionAttack
 // (Final, UbergraphFunction)
@@ -89,5 +90,5 @@ void UBP_ActionAttack_C::BP_ActionMain()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

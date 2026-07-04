@@ -17,7 +17,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionDamageTeleportWeak.BP_ActionDamageTeleportWeak_C
 // 0x0030 (0x0338 - 0x0308)
@@ -54,5 +55,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionDamageTeleportWeak_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionDamageTeleportWeak_C;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "BP_CC_Disp_Location_On_Hit_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Disp_Location_On_Hit.BP_CC_Disp_Location_On_Hit_C.ExecuteUbergraph_BP_CC_Disp_Location_On_Hit
 // (Final, UbergraphFunction)
@@ -63,5 +64,5 @@ void UBP_CC_Disp_Location_On_Hit_C::BP_OnBeginCondition()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

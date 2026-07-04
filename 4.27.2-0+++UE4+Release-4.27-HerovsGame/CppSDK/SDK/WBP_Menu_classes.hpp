@@ -16,7 +16,8 @@
 #include "MasterDataModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_Menu.WBP_Menu_C
 // 0x00F8 (0x0370 - 0x0278)
@@ -88,5 +89,7 @@ public:
 		return GetDefaultObjImpl<UWBP_Menu_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_Menu_C;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "AppleImageUtils_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function AppleImageUtils.AppleImageUtilsBaseAsyncTaskBlueprintProxy.CreateProxyObjectForConvertToHEIF
 // (Final, Native, Static, Public, BlueprintCallable)
@@ -163,5 +164,5 @@ class UAppleImageUtilsBaseAsyncTaskBlueprintProxy* UAppleImageUtilsBaseAsyncTask
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

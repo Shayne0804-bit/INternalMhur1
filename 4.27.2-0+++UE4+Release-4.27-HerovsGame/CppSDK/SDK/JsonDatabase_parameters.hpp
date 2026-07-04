@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function JsonDatabase.JsonFunctionLibrary.BP_GetJsonParamAsArrayNum
 // 0x0028 (0x0028 - 0x0000)
@@ -24,6 +24,7 @@ public:
 	int32                                         ReturnValue;                                       // 0x0020(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_JsonFunctionLibrary_BP_GetJsonParamAsArrayNum;
 
 // Function JsonDatabase.JsonFunctionLibrary.BP_GetJsonParamAsString
 // 0x0030 (0x0030 - 0x0000)
@@ -34,6 +35,7 @@ public:
 	class FString                                 ParamName;                                         // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0020(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_JsonFunctionLibrary_BP_GetJsonParamAsString;
 
 // Function JsonDatabase.JsonFunctionLibrary.BP_GetJsonParamAsStringFromArray
 // 0x0038 (0x0038 - 0x0000)
@@ -46,6 +48,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 ReturnValue;                                       // 0x0028(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_JsonFunctionLibrary_BP_GetJsonParamAsStringFromArray;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

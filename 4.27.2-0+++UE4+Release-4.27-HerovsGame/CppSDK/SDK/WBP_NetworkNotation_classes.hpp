@@ -13,7 +13,8 @@
 #include "GameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_NetworkNotation.WBP_NetworkNotation_C
 // 0x0000 (0x04D8 - 0x04D8)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UWBP_NetworkNotation_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_NetworkNotation_C;
 
-SDK_NAMESPACE_END
+}
+

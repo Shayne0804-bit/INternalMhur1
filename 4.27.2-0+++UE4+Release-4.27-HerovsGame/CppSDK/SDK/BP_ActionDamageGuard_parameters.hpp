@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamageGuard.BP_ActionDamageGuard_C.ExecuteUbergraph_BP_ActionDamageGuard
 // 0x0028 (0x0028 - 0x0000)
@@ -29,6 +29,7 @@ public:
 	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue;              // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EAnimationId                                  CallFunc_DecideAnimationId_Animation_Id;           // 0x0020(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageGuard_C_ExecuteUbergraph_BP_ActionDamageGuard;
 
 // Function BP_ActionDamageGuard.BP_ActionDamageGuard_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -37,6 +38,7 @@ struct BP_ActionDamageGuard_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageGuard_C_BP_OnBeginAction;
 
 // Function BP_ActionDamageGuard.BP_ActionDamageGuard_C.UpdateOnce
 // 0x000C (0x000C - 0x0000)
@@ -45,6 +47,7 @@ struct BP_ActionDamageGuard_C_UpdateOnce final
 public:
 	struct FVector                                CallFunc_BP_GetMoveDirection_ReturnValue;          // 0x0000(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageGuard_C_UpdateOnce;
 
 // Function BP_ActionDamageGuard.BP_ActionDamageGuard_C.DecideAnimationId
 // 0x0018 (0x0018 - 0x0000)
@@ -60,6 +63,7 @@ public:
 	bool                                          CallFunc_BP_IsOnGround_ReturnValue;                // 0x0010(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	EAnimationId                                  K2Node_Select_Default;                             // 0x0011(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageGuard_C_DecideAnimationId;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

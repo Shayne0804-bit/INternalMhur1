@@ -15,7 +15,8 @@
 #include "AsyncLoadingScreen_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class AsyncLoadingScreen.AsyncLoadingScreenLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -44,6 +45,7 @@ public:
 		return GetDefaultObjImpl<UAsyncLoadingScreenLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UAsyncLoadingScreenLibrary;
 
 // Class AsyncLoadingScreen.LoadingScreenSettings
 // 0x1028 (0x1060 - 0x0038)
@@ -73,5 +75,7 @@ public:
 		return GetDefaultObjImpl<ULoadingScreenSettings>();
 	}
 };
+DUMPER7_ASSERTS_ULoadingScreenSettings;
 
-SDK_NAMESPACE_END
+}
+

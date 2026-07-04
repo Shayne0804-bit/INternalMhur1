@@ -14,7 +14,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class LightPropagationVolumeRuntime.LightPropagationVolumeBlendable
 // 0x0050 (0x0078 - 0x0028)
@@ -40,5 +41,7 @@ public:
 		return GetDefaultObjImpl<ULightPropagationVolumeBlendable>();
 	}
 };
+DUMPER7_ASSERTS_ULightPropagationVolumeBlendable;
 
-SDK_NAMESPACE_END
+}
+

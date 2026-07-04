@@ -14,7 +14,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class AppleImageUtils.AppleImageUtilsBaseAsyncTaskBlueprintProxy
 // 0x0060 (0x0088 - 0x0028)
@@ -48,6 +49,7 @@ public:
 		return GetDefaultObjImpl<UAppleImageUtilsBaseAsyncTaskBlueprintProxy>();
 	}
 };
+DUMPER7_ASSERTS_UAppleImageUtilsBaseAsyncTaskBlueprintProxy;
 
 // Class AppleImageUtils.AppleImageInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -76,5 +78,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IAppleImageInterface;
 
-SDK_NAMESPACE_END
+}
+

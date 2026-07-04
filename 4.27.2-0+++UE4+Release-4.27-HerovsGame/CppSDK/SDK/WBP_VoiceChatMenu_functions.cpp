@@ -14,7 +14,8 @@
 #include "WBP_VoiceChatMenu_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.ExecuteUbergraph_WBP_VoiceChatMenu
 // (Final, UbergraphFunction, HasDefaults)
@@ -632,5 +633,5 @@ void UWBP_VoiceChatMenu_C::Clear_All_Lists()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

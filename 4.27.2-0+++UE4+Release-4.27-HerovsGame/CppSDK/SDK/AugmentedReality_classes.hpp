@@ -16,7 +16,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class AugmentedReality.AROriginActor
 // 0x0000 (0x0220 - 0x0220)
@@ -36,11 +37,12 @@ public:
 		return GetDefaultObjImpl<AAROriginActor>();
 	}
 };
+DUMPER7_ASSERTS_AAROriginActor;
 
 // Class AugmentedReality.ARTrackedGeometry
 // 0x00D8 (0x0100 - 0x0028)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) UARTrackedGeometry : public UObject
+class alignas(0x10) UARTrackedGeometry : public UObject
 {
 public:
 	struct FGuid                                  uniqueId;                                          // 0x0028(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -87,6 +89,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_UARTrackedGeometry;
 
 // Class AugmentedReality.ARTrackedPoint
 // 0x0000 (0x0100 - 0x0100)
@@ -106,6 +109,7 @@ public:
 		return GetDefaultObjImpl<UARTrackedPoint>();
 	}
 };
+DUMPER7_ASSERTS_UARTrackedPoint;
 
 // Class AugmentedReality.ARSessionConfig
 // 0x00E0 (0x0110 - 0x0030)
@@ -214,6 +218,7 @@ public:
 		return GetDefaultObjImpl<UARSessionConfig>();
 	}
 };
+DUMPER7_ASSERTS_UARSessionConfig;
 
 // Class AugmentedReality.ARTraceResultLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -241,6 +246,7 @@ public:
 		return GetDefaultObjImpl<UARTraceResultLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UARTraceResultLibrary;
 
 // Class AugmentedReality.ARLightEstimate
 // 0x0000 (0x0028 - 0x0028)
@@ -260,6 +266,7 @@ public:
 		return GetDefaultObjImpl<UARLightEstimate>();
 	}
 };
+DUMPER7_ASSERTS_UARLightEstimate;
 
 // Class AugmentedReality.ARMeshGeometry
 // 0x0000 (0x0100 - 0x0100)
@@ -282,6 +289,7 @@ public:
 		return GetDefaultObjImpl<UARMeshGeometry>();
 	}
 };
+DUMPER7_ASSERTS_UARMeshGeometry;
 
 // Class AugmentedReality.ARBasicLightEstimate
 // 0x0018 (0x0040 - 0x0028)
@@ -311,6 +319,7 @@ public:
 		return GetDefaultObjImpl<UARBasicLightEstimate>();
 	}
 };
+DUMPER7_ASSERTS_UARBasicLightEstimate;
 
 // Class AugmentedReality.ARBlueprintLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -393,6 +402,7 @@ public:
 		return GetDefaultObjImpl<UARBlueprintLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UARBlueprintLibrary;
 
 // Class AugmentedReality.ARSharedWorldPlayerController
 // 0x0008 (0x0588 - 0x0580)
@@ -421,6 +431,7 @@ public:
 		return GetDefaultObjImpl<AARSharedWorldPlayerController>();
 	}
 };
+DUMPER7_ASSERTS_AARSharedWorldPlayerController;
 
 // Class AugmentedReality.ARCandidateImage
 // 0x0028 (0x0058 - 0x0030)
@@ -455,6 +466,7 @@ public:
 		return GetDefaultObjImpl<UARCandidateImage>();
 	}
 };
+DUMPER7_ASSERTS_UARCandidateImage;
 
 // Class AugmentedReality.ARActor
 // 0x0000 (0x0220 - 0x0220)
@@ -477,6 +489,7 @@ public:
 		return GetDefaultObjImpl<AARActor>();
 	}
 };
+DUMPER7_ASSERTS_AARActor;
 
 // Class AugmentedReality.ARBaseAsyncTaskBlueprintProxy
 // 0x0020 (0x0050 - 0x0030)
@@ -499,6 +512,7 @@ public:
 		return GetDefaultObjImpl<UARBaseAsyncTaskBlueprintProxy>();
 	}
 };
+DUMPER7_ASSERTS_UARBaseAsyncTaskBlueprintProxy;
 
 // Class AugmentedReality.ARSaveWorldAsyncTaskBlueprintProxy
 // 0x0030 (0x0080 - 0x0050)
@@ -526,6 +540,7 @@ public:
 		return GetDefaultObjImpl<UARSaveWorldAsyncTaskBlueprintProxy>();
 	}
 };
+DUMPER7_ASSERTS_UARSaveWorldAsyncTaskBlueprintProxy;
 
 // Class AugmentedReality.ARGetCandidateObjectAsyncTaskBlueprintProxy
 // 0x0048 (0x0098 - 0x0050)
@@ -553,11 +568,12 @@ public:
 		return GetDefaultObjImpl<UARGetCandidateObjectAsyncTaskBlueprintProxy>();
 	}
 };
+DUMPER7_ASSERTS_UARGetCandidateObjectAsyncTaskBlueprintProxy;
 
 // Class AugmentedReality.ARComponent
 // 0x0080 (0x0280 - 0x0200)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) UARComponent : public USceneComponent
+class alignas(0x10) UARComponent : public USceneComponent
 {
 public:
 	struct FGuid                                  NativeID;                                          // 0x01F8(0x0010)(Net, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -592,6 +608,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_UARComponent;
 
 // Class AugmentedReality.ARPlaneComponent
 // 0x0080 (0x0300 - 0x0280)
@@ -624,6 +641,7 @@ public:
 		return GetDefaultObjImpl<UARPlaneComponent>();
 	}
 };
+DUMPER7_ASSERTS_UARPlaneComponent;
 
 // Class AugmentedReality.ARPointComponent
 // 0x0000 (0x0280 - 0x0280)
@@ -652,6 +670,7 @@ public:
 		return GetDefaultObjImpl<UARPointComponent>();
 	}
 };
+DUMPER7_ASSERTS_UARPointComponent;
 
 // Class AugmentedReality.ARFaceComponent
 // 0x0060 (0x02E0 - 0x0280)
@@ -686,6 +705,7 @@ public:
 		return GetDefaultObjImpl<UARFaceComponent>();
 	}
 };
+DUMPER7_ASSERTS_UARFaceComponent;
 
 // Class AugmentedReality.ARImageComponent
 // 0x0060 (0x02E0 - 0x0280)
@@ -716,6 +736,7 @@ public:
 		return GetDefaultObjImpl<UARImageComponent>();
 	}
 };
+DUMPER7_ASSERTS_UARImageComponent;
 
 // Class AugmentedReality.ARQRCodeComponent
 // 0x0070 (0x02F0 - 0x0280)
@@ -746,6 +767,7 @@ public:
 		return GetDefaultObjImpl<UARQRCodeComponent>();
 	}
 };
+DUMPER7_ASSERTS_UARQRCodeComponent;
 
 // Class AugmentedReality.ARPoseComponent
 // 0x0040 (0x02C0 - 0x0280)
@@ -776,6 +798,7 @@ public:
 		return GetDefaultObjImpl<UARPoseComponent>();
 	}
 };
+DUMPER7_ASSERTS_UARPoseComponent;
 
 // Class AugmentedReality.AREnvironmentProbeComponent
 // 0x0030 (0x02B0 - 0x0280)
@@ -804,6 +827,7 @@ public:
 		return GetDefaultObjImpl<UAREnvironmentProbeComponent>();
 	}
 };
+DUMPER7_ASSERTS_UAREnvironmentProbeComponent;
 
 // Class AugmentedReality.ARObjectComponent
 // 0x0030 (0x02B0 - 0x0280)
@@ -832,6 +856,7 @@ public:
 		return GetDefaultObjImpl<UARObjectComponent>();
 	}
 };
+DUMPER7_ASSERTS_UARObjectComponent;
 
 // Class AugmentedReality.ARMeshComponent
 // 0x0060 (0x02E0 - 0x0280)
@@ -860,6 +885,7 @@ public:
 		return GetDefaultObjImpl<UARMeshComponent>();
 	}
 };
+DUMPER7_ASSERTS_UARMeshComponent;
 
 // Class AugmentedReality.ARGeoAnchorComponent
 // 0x0070 (0x02F0 - 0x0280)
@@ -890,6 +916,7 @@ public:
 		return GetDefaultObjImpl<UARGeoAnchorComponent>();
 	}
 };
+DUMPER7_ASSERTS_UARGeoAnchorComponent;
 
 // Class AugmentedReality.ARDependencyHandler
 // 0x0000 (0x0028 - 0x0028)
@@ -917,6 +944,7 @@ public:
 		return GetDefaultObjImpl<UARDependencyHandler>();
 	}
 };
+DUMPER7_ASSERTS_UARDependencyHandler;
 
 // Class AugmentedReality.ARGeoTrackingSupport
 // 0x0000 (0x0028 - 0x0028)
@@ -946,6 +974,7 @@ public:
 		return GetDefaultObjImpl<UARGeoTrackingSupport>();
 	}
 };
+DUMPER7_ASSERTS_UARGeoTrackingSupport;
 
 // Class AugmentedReality.CheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy
 // 0x0050 (0x00A0 - 0x0050)
@@ -974,6 +1003,7 @@ public:
 		return GetDefaultObjImpl<UCheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy>();
 	}
 };
+DUMPER7_ASSERTS_UCheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy;
 
 // Class AugmentedReality.GetGeoLocationAsyncTaskBlueprintProxy
 // 0x0050 (0x00A0 - 0x0050)
@@ -1001,6 +1031,7 @@ public:
 		return GetDefaultObjImpl<UGetGeoLocationAsyncTaskBlueprintProxy>();
 	}
 };
+DUMPER7_ASSERTS_UGetGeoLocationAsyncTaskBlueprintProxy;
 
 // Class AugmentedReality.ARLifeCycleComponent
 // 0x0030 (0x0230 - 0x0200)
@@ -1029,6 +1060,7 @@ public:
 		return GetDefaultObjImpl<UARLifeCycleComponent>();
 	}
 };
+DUMPER7_ASSERTS_UARLifeCycleComponent;
 
 // Class AugmentedReality.ARPin
 // 0x00C8 (0x00F0 - 0x0028)
@@ -1069,6 +1101,7 @@ public:
 		return GetDefaultObjImpl<UARPin>();
 	}
 };
+DUMPER7_ASSERTS_UARPin;
 
 // Class AugmentedReality.ARSharedWorldGameMode
 // 0x0068 (0x0370 - 0x0308)
@@ -1098,6 +1131,7 @@ public:
 		return GetDefaultObjImpl<AARSharedWorldGameMode>();
 	}
 };
+DUMPER7_ASSERTS_AARSharedWorldGameMode;
 
 // Class AugmentedReality.ARSharedWorldGameState
 // 0x0038 (0x02C8 - 0x0290)
@@ -1129,6 +1163,7 @@ public:
 		return GetDefaultObjImpl<AARSharedWorldGameState>();
 	}
 };
+DUMPER7_ASSERTS_AARSharedWorldGameState;
 
 // Class AugmentedReality.ARSkyLight
 // 0x0010 (0x0240 - 0x0230)
@@ -1155,11 +1190,12 @@ public:
 		return GetDefaultObjImpl<AARSkyLight>();
 	}
 };
+DUMPER7_ASSERTS_AARSkyLight;
 
 // Class AugmentedReality.ARTexture
 // 0x0020 (0x01A0 - 0x0180)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) UARTexture : public UTexture
+class alignas(0x10) UARTexture : public UTexture
 {
 public:
 	EARTextureType                                TextureType;                                       // 0x0178(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
@@ -1183,6 +1219,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_UARTexture;
 
 // Class AugmentedReality.ARTextureCameraImage
 // 0x0000 (0x01A0 - 0x01A0)
@@ -1202,6 +1239,7 @@ public:
 		return GetDefaultObjImpl<UARTextureCameraImage>();
 	}
 };
+DUMPER7_ASSERTS_UARTextureCameraImage;
 
 // Class AugmentedReality.ARTextureCameraDepth
 // 0x0000 (0x01A0 - 0x01A0)
@@ -1227,6 +1265,7 @@ public:
 		return GetDefaultObjImpl<UARTextureCameraDepth>();
 	}
 };
+DUMPER7_ASSERTS_UARTextureCameraDepth;
 
 // Class AugmentedReality.AREnvironmentCaptureProbeTexture
 // 0x0020 (0x01F0 - 0x01D0)
@@ -1253,6 +1292,7 @@ public:
 		return GetDefaultObjImpl<UAREnvironmentCaptureProbeTexture>();
 	}
 };
+DUMPER7_ASSERTS_UAREnvironmentCaptureProbeTexture;
 
 // Class AugmentedReality.ARTraceResultDummy
 // 0x0000 (0x0028 - 0x0028)
@@ -1272,6 +1312,7 @@ public:
 		return GetDefaultObjImpl<UARTraceResultDummy>();
 	}
 };
+DUMPER7_ASSERTS_UARTraceResultDummy;
 
 // Class AugmentedReality.ARPlaneGeometry
 // 0x0030 (0x0130 - 0x0100)
@@ -1307,11 +1348,12 @@ public:
 		return GetDefaultObjImpl<UARPlaneGeometry>();
 	}
 };
+DUMPER7_ASSERTS_UARPlaneGeometry;
 
 // Class AugmentedReality.ARTrackedImage
 // 0x0010 (0x0110 - 0x0100)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) UARTrackedImage : public UARTrackedGeometry
+class alignas(0x10) UARTrackedImage : public UARTrackedGeometry
 {
 public:
 	class UARCandidateImage*                      DetectedImage;                                     // 0x00F8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
@@ -1337,6 +1379,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_UARTrackedImage;
 
 // Class AugmentedReality.ARTrackedQRCode
 // 0x0010 (0x0120 - 0x0110)
@@ -1361,6 +1404,7 @@ public:
 		return GetDefaultObjImpl<UARTrackedQRCode>();
 	}
 };
+DUMPER7_ASSERTS_UARTrackedQRCode;
 
 // Class AugmentedReality.ARFaceGeometry
 // 0x00F0 (0x01F0 - 0x0100)
@@ -1395,6 +1439,7 @@ public:
 		return GetDefaultObjImpl<UARFaceGeometry>();
 	}
 };
+DUMPER7_ASSERTS_UARFaceGeometry;
 
 // Class AugmentedReality.AREnvironmentCaptureProbe
 // 0x0010 (0x0110 - 0x0100)
@@ -1424,6 +1469,7 @@ public:
 		return GetDefaultObjImpl<UAREnvironmentCaptureProbe>();
 	}
 };
+DUMPER7_ASSERTS_UAREnvironmentCaptureProbe;
 
 // Class AugmentedReality.ARTrackedObject
 // 0x0000 (0x0100 - 0x0100)
@@ -1449,6 +1495,7 @@ public:
 		return GetDefaultObjImpl<UARTrackedObject>();
 	}
 };
+DUMPER7_ASSERTS_UARTrackedObject;
 
 // Class AugmentedReality.ARTrackedPose
 // 0x0050 (0x0150 - 0x0100)
@@ -1475,6 +1522,7 @@ public:
 		return GetDefaultObjImpl<UARTrackedPose>();
 	}
 };
+DUMPER7_ASSERTS_UARTrackedPose;
 
 // Class AugmentedReality.ARGeoAnchor
 // 0x0010 (0x0110 - 0x0100)
@@ -1503,6 +1551,7 @@ public:
 		return GetDefaultObjImpl<UARGeoAnchor>();
 	}
 };
+DUMPER7_ASSERTS_UARGeoAnchor;
 
 // Class AugmentedReality.ARTrackableNotifyComponent
 // 0x0150 (0x0200 - 0x00B0)
@@ -1545,6 +1594,7 @@ public:
 		return GetDefaultObjImpl<UARTrackableNotifyComponent>();
 	}
 };
+DUMPER7_ASSERTS_UARTrackableNotifyComponent;
 
 // Class AugmentedReality.ARTypesDummyClass
 // 0x0000 (0x0028 - 0x0028)
@@ -1564,6 +1614,7 @@ public:
 		return GetDefaultObjImpl<UARTypesDummyClass>();
 	}
 };
+DUMPER7_ASSERTS_UARTypesDummyClass;
 
 // Class AugmentedReality.ARCandidateObject
 // 0x0040 (0x0070 - 0x0030)
@@ -1598,5 +1649,7 @@ public:
 		return GetDefaultObjImpl<UARCandidateObject>();
 	}
 };
+DUMPER7_ASSERTS_UARCandidateObject;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_Ch202_FunctionLibrary.BP_Ch202_FunctionLibrary_C
 // 0x0000 (0x0028 - 0x0028)
@@ -42,5 +43,7 @@ public:
 		return GetDefaultObjImpl<UBP_Ch202_FunctionLibrary_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_Ch202_FunctionLibrary_C;
 
-SDK_NAMESPACE_END
+}
+

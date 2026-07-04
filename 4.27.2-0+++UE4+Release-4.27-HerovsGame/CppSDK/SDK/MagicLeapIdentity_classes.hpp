@@ -14,7 +14,8 @@
 #include "MagicLeapIdentity_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MagicLeapIdentity.MagicLeapIdentity
 // 0x0010 (0x0038 - 0x0028)
@@ -43,5 +44,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapIdentity>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapIdentity;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "MagicLeapARPinInfoActor_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function MagicLeapARPinInfoActor.MagicLeapARPinInfoActor_C.ExecuteUbergraph_MagicLeapARPinInfoActor
 // (Final, UbergraphFunction, HasDefaults)
@@ -97,5 +98,5 @@ void AMagicLeapARPinInfoActor_C::UpdatePinState()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -13,7 +13,8 @@
 #include "OutGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_AccountLinkage.WBP_AccountLinkage_C
 // 0x0000 (0x03B8 - 0x03B8)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UWBP_AccountLinkage_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_AccountLinkage_C;
 
-SDK_NAMESPACE_END
+}
+

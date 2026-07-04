@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_Ch002_Variation0_UniqueSkill.BP_Ch002_Variation0_UniqueSkill_C.ExecuteUbergraph_BP_Ch002_Variation0_UniqueSkill
 // 0x0004 (0x0004 - 0x0000)
@@ -21,6 +21,7 @@ struct BP_Ch002_Variation0_UniqueSkill_C_ExecuteUbergraph_BP_Ch002_Variation0_Un
 public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_Ch002_Variation0_UniqueSkill_C_ExecuteUbergraph_BP_Ch002_Variation0_UniqueSkill;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

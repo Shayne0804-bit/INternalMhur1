@@ -14,7 +14,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class KawaiiPhysics.KawaiiPhysicsLimitsDataAsset
 // 0x0030 (0x0060 - 0x0030)
@@ -39,5 +40,7 @@ public:
 		return GetDefaultObjImpl<UKawaiiPhysicsLimitsDataAsset>();
 	}
 };
+DUMPER7_ASSERTS_UKawaiiPhysicsLimitsDataAsset;
 
-SDK_NAMESPACE_END
+}
+

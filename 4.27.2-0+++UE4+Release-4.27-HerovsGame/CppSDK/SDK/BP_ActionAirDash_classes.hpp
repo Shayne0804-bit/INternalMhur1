@@ -17,7 +17,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionAirDash.BP_ActionAirDash_C
 // 0x0028 (0x02A0 - 0x0278)
@@ -64,5 +65,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionAirDash_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionAirDash_C;
 
-SDK_NAMESPACE_END
+}
+

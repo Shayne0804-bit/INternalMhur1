@@ -14,7 +14,8 @@
 #include "WBP_InputTextBox_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_InputTextBox.WBP_InputTextBox_C.ExecuteUbergraph_WBP_InputTextBox
 // (Final, UbergraphFunction, HasDefaults)
@@ -215,5 +216,5 @@ void UWBP_InputTextBox_C::DecideEvent(class UAppWidget* Widget, EWidgetInputType
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -10,7 +10,6 @@
 
 #include "../imgui.h"
 
-#define IMADD_ANIMATIONS_SPEED			0.07f
 #define IMADD_ITEM_WIDTH_MULTIPILIER	0.65f
 
 struct ImGuiWindow;

@@ -13,7 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct MagicLeapHandMeshing.MagicLeapHandMeshBlock
 // 0x0028 (0x0028 - 0x0000)
@@ -25,6 +26,7 @@ public:
 	TArray<struct FVector>                        Vertex;                                            // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<int32>                                 Index;                                             // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapHandMeshBlock;
 
 // ScriptStruct MagicLeapHandMeshing.MagicLeapHandMesh
 // 0x0018 (0x0018 - 0x0000)
@@ -35,5 +37,7 @@ public:
 	int32                                         DataCount;                                         // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FMagicLeapHandMeshBlock>        Data;                                              // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapHandMesh;
 
-SDK_NAMESPACE_END
+}
+

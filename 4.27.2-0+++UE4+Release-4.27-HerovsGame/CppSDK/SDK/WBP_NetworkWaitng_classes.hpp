@@ -13,7 +13,8 @@
 #include "GameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_NetworkWaitng.WBP_NetworkWaitng_C
 // 0x0028 (0x03E8 - 0x03C0)
@@ -40,5 +41,7 @@ public:
 		return GetDefaultObjImpl<UWBP_NetworkWaitng_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_NetworkWaitng_C;
 
-SDK_NAMESPACE_END
+}
+

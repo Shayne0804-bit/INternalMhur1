@@ -15,8 +15,8 @@
 #include "GameModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamageStrongCarryFront.BP_ActionDamageStrongCarryFront_C.ExecuteUbergraph_BP_ActionDamageStrongCarryFront
 // 0x00F8 (0x00F8 - 0x0000)
@@ -31,6 +31,7 @@ public:
 	class UCharacterState*                        CallFunc_BP_GetOwnerState_ReturnValue;             // 0x00E8(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EAnimationId                                  CallFunc_DecideAnimationId_AnimationId;            // 0x00F0(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStrongCarryFront_C_ExecuteUbergraph_BP_ActionDamageStrongCarryFront;
 
 // Function BP_ActionDamageStrongCarryFront.BP_ActionDamageStrongCarryFront_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -39,6 +40,7 @@ struct BP_ActionDamageStrongCarryFront_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStrongCarryFront_C_BP_OnBeginAction;
 
 // Function BP_ActionDamageStrongCarryFront.BP_ActionDamageStrongCarryFront_C.DecideAnimationId
 // 0x0002 (0x0002 - 0x0000)
@@ -48,6 +50,7 @@ public:
 	EAnimationId                                  animationId;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	uint8                                         CallFunc_MakeLiteralByte_ReturnValue;              // 0x0001(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStrongCarryFront_C_DecideAnimationId;
 
 // Function BP_ActionDamageStrongCarryFront.BP_ActionDamageStrongCarryFront_C.GetCharacterBattleZ
 // 0x0028 (0x0028 - 0x0000)
@@ -62,6 +65,7 @@ public:
 	float                                         CallFunc_BreakVector_Y;                            // 0x0020(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_BreakVector_Z;                            // 0x0024(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStrongCarryFront_C_GetCharacterBattleZ;
 
 // Function BP_ActionDamageStrongCarryFront.BP_ActionDamageStrongCarryFront_C.GetCharacterBattleTime
 // 0x0018 (0x0018 - 0x0000)
@@ -73,6 +77,7 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue;   // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_GetGameTimeSinceCreation_ReturnValue;     // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStrongCarryFront_C_GetCharacterBattleTime;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

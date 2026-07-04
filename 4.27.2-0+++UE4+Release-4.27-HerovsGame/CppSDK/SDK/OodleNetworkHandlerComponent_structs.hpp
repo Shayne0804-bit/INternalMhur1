@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum OodleNetworkHandlerComponent.EOodleEnableMode
 // NumValues: 0x0003
@@ -22,4 +23,5 @@ enum class EOodleEnableMode : uint8
 	EOodleEnableMode_MAX                     = 2,
 };
 
-SDK_NAMESPACE_END
+}
+

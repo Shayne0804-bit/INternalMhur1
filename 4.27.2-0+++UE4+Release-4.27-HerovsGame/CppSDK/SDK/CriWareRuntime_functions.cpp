@@ -14,7 +14,8 @@
 #include "CriWareRuntime_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function CriWareRuntime.Atom3dRegion.GetHandle
 // (Final, Native, Public, BlueprintCallable)
@@ -9289,5 +9290,5 @@ int32 USoundAtomCueSheet::GetNumCues() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

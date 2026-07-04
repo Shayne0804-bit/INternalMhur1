@@ -14,7 +14,8 @@
 #include "AIModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BTT_EscapeFinish.BTT_EscapeFinish_C
 // 0x0008 (0x00B0 - 0x00A8)
@@ -42,5 +43,7 @@ public:
 		return GetDefaultObjImpl<UBTT_EscapeFinish_C>();
 	}
 };
+DUMPER7_ASSERTS_UBTT_EscapeFinish_C;
 
-SDK_NAMESPACE_END
+}
+

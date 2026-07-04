@@ -14,7 +14,8 @@
 #include "OutGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_VersionWindow.WBP_VersionWindow_C
 // 0x0048 (0x0408 - 0x03C0)
@@ -50,5 +51,7 @@ public:
 		return GetDefaultObjImpl<UWBP_VersionWindow_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_VersionWindow_C;
 
-SDK_NAMESPACE_END
+}
+

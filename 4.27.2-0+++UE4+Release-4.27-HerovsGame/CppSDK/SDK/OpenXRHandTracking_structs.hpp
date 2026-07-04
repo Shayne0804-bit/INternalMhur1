@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum OpenXRHandTracking.EQuatSwizzleAxisB
 // NumValues: 0x0009
@@ -28,4 +29,5 @@ enum class EQuatSwizzleAxisB : uint8
 	EQuatSwizzleAxisB_MAX                    = 8,
 };
 
-SDK_NAMESPACE_END
+}
+

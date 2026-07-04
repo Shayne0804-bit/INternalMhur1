@@ -13,8 +13,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function ABP_Extra_LayerInterface.ABP_Extra_LayerInterface_C.OuterMeshExtensions
 // 0x0020 (0x0020 - 0x0000)
@@ -24,6 +24,7 @@ public:
 	struct FPoseLink                              InPose;                                            // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, NoDestructor)
 	struct FPoseLink                              OuterMeshExtensions_0;                             // 0x0010(0x0010)(Parm, OutParm, NoDestructor)
 };
+DUMPER7_ASSERTS_ABP_Extra_LayerInterface_C_OuterMeshExtensions;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

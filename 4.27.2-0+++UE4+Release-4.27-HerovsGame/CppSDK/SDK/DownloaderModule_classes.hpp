@@ -13,7 +13,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class DownloaderModule.MasterDataDownloader
 // 0x0098 (0x00C0 - 0x0028)
@@ -36,5 +37,7 @@ public:
 		return GetDefaultObjImpl<UMasterDataDownloader>();
 	}
 };
+DUMPER7_ASSERTS_UMasterDataDownloader;
 
-SDK_NAMESPACE_END
+}
+

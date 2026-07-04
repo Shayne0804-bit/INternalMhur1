@@ -13,7 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum MagicLeapImageTracker.EMagicLeapImageTargetOrientation
 // NumValues: 0x0003
@@ -44,6 +45,7 @@ public:
 	struct FVector                                Location;                                          // 0x0004(0x000C)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FRotator                               Rotation;                                          // 0x0010(0x000C)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapImageTargetState;
 
 // ScriptStruct MagicLeapImageTracker.MagicLeapImageTargetSettings
 // 0x0020 (0x0020 - 0x0000)
@@ -57,5 +59,7 @@ public:
 	bool                                          bIsEnabled;                                        // 0x001D(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1E[0x2];                                       // 0x001E(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMagicLeapImageTargetSettings;
 
-SDK_NAMESPACE_END
+}
+

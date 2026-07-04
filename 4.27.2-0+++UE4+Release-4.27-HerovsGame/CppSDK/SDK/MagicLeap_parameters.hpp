@@ -14,8 +14,8 @@
 #include "MagicLeap_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function MagicLeap.InAppPurchaseComponent.TryGetItemsDetailsAsync
 // 0x0018 (0x0018 - 0x0000)
@@ -26,6 +26,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_InAppPurchaseComponent_TryGetItemsDetailsAsync;
 
 // Function MagicLeap.InAppPurchaseComponent.TryGetPurchaseHistoryAsync
 // 0x0008 (0x0008 - 0x0000)
@@ -36,6 +37,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_InAppPurchaseComponent_TryGetPurchaseHistoryAsync;
 
 // Function MagicLeap.InAppPurchaseComponent.TryPurchaseItemAsync
 // 0x0048 (0x0048 - 0x0000)
@@ -46,6 +48,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0040(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_41[0x7];                                       // 0x0041(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_InAppPurchaseComponent_TryPurchaseItemAsync;
 
 // Function MagicLeap.MagicLeapRaycastComponent.RequestRaycast
 // 0x004C (0x004C - 0x0000)
@@ -57,6 +60,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0048(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_49[0x3];                                       // 0x0049(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapRaycastComponent_RequestRaycast;
 
 // Function MagicLeap.MagicLeapHMDFunctionLibrary.GetGraphicsClientPerformanceInfo
 // 0x0020 (0x0020 - 0x0000)
@@ -67,6 +71,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x001C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapHMDFunctionLibrary_GetGraphicsClientPerformanceInfo;
 
 // Function MagicLeap.MagicLeapHMDFunctionLibrary.GetHeadTrackingMapEvents
 // 0x0058 (0x0058 - 0x0000)
@@ -77,6 +82,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0050(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_51[0x7];                                       // 0x0051(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapHMDFunctionLibrary_GetHeadTrackingMapEvents;
 
 // Function MagicLeap.MagicLeapHMDFunctionLibrary.GetHeadTrackingState
 // 0x000C (0x000C - 0x0000)
@@ -87,6 +93,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapHMDFunctionLibrary_GetHeadTrackingState;
 
 // Function MagicLeap.MagicLeapHMDFunctionLibrary.GetMinimumAPILevel
 // 0x0004 (0x0004 - 0x0000)
@@ -95,6 +102,7 @@ struct MagicLeapHMDFunctionLibrary_GetMinimumAPILevel final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapHMDFunctionLibrary_GetMinimumAPILevel;
 
 // Function MagicLeap.MagicLeapHMDFunctionLibrary.GetMLSDKVersion
 // 0x0010 (0x0010 - 0x0000)
@@ -103,6 +111,7 @@ struct MagicLeapHMDFunctionLibrary_GetMLSDKVersion final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapHMDFunctionLibrary_GetMLSDKVersion;
 
 // Function MagicLeap.MagicLeapHMDFunctionLibrary.GetMLSDKVersionMajor
 // 0x0004 (0x0004 - 0x0000)
@@ -111,6 +120,7 @@ struct MagicLeapHMDFunctionLibrary_GetMLSDKVersionMajor final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapHMDFunctionLibrary_GetMLSDKVersionMajor;
 
 // Function MagicLeap.MagicLeapHMDFunctionLibrary.GetMLSDKVersionMinor
 // 0x0004 (0x0004 - 0x0000)
@@ -119,6 +129,7 @@ struct MagicLeapHMDFunctionLibrary_GetMLSDKVersionMinor final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapHMDFunctionLibrary_GetMLSDKVersionMinor;
 
 // Function MagicLeap.MagicLeapHMDFunctionLibrary.GetMLSDKVersionRevision
 // 0x0004 (0x0004 - 0x0000)
@@ -127,6 +138,7 @@ struct MagicLeapHMDFunctionLibrary_GetMLSDKVersionRevision final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapHMDFunctionLibrary_GetMLSDKVersionRevision;
 
 // Function MagicLeap.MagicLeapHMDFunctionLibrary.GetPlatformAPILevel
 // 0x0004 (0x0004 - 0x0000)
@@ -135,6 +147,7 @@ struct MagicLeapHMDFunctionLibrary_GetPlatformAPILevel final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapHMDFunctionLibrary_GetPlatformAPILevel;
 
 // Function MagicLeap.MagicLeapHMDFunctionLibrary.IsRunningOnMagicLeapHMD
 // 0x0001 (0x0001 - 0x0000)
@@ -143,6 +156,7 @@ struct MagicLeapHMDFunctionLibrary_IsRunningOnMagicLeapHMD final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapHMDFunctionLibrary_IsRunningOnMagicLeapHMD;
 
 // Function MagicLeap.MagicLeapHMDFunctionLibrary.SetAppReady
 // 0x0001 (0x0001 - 0x0000)
@@ -151,6 +165,7 @@ struct MagicLeapHMDFunctionLibrary_SetAppReady final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapHMDFunctionLibrary_SetAppReady;
 
 // Function MagicLeap.MagicLeapHMDFunctionLibrary.SetBaseOrientation
 // 0x0010 (0x0010 - 0x0000)
@@ -159,6 +174,7 @@ struct MagicLeapHMDFunctionLibrary_SetBaseOrientation final
 public:
 	struct FQuat                                  InBaseOrientation;                                 // 0x0000(0x0010)(ConstParm, Parm, OutParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapHMDFunctionLibrary_SetBaseOrientation;
 
 // Function MagicLeap.MagicLeapHMDFunctionLibrary.SetBasePosition
 // 0x000C (0x000C - 0x0000)
@@ -167,6 +183,7 @@ struct MagicLeapHMDFunctionLibrary_SetBasePosition final
 public:
 	struct FVector                                InBasePosition;                                    // 0x0000(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapHMDFunctionLibrary_SetBasePosition;
 
 // Function MagicLeap.MagicLeapHMDFunctionLibrary.SetBaseRotation
 // 0x000C (0x000C - 0x0000)
@@ -175,6 +192,7 @@ struct MagicLeapHMDFunctionLibrary_SetBaseRotation final
 public:
 	struct FRotator                               InBaseRotation;                                    // 0x0000(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapHMDFunctionLibrary_SetBaseRotation;
 
 // Function MagicLeap.MagicLeapHMDFunctionLibrary.SetFocusActor
 // 0x0010 (0x0010 - 0x0000)
@@ -185,6 +203,7 @@ public:
 	bool                                          bSetStabilizationActor;                            // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapHMDFunctionLibrary_SetFocusActor;
 
 // Function MagicLeap.MagicLeapHMDFunctionLibrary.SetStabilizationDepthActor
 // 0x0010 (0x0010 - 0x0000)
@@ -195,6 +214,7 @@ public:
 	bool                                          bSetFocusActor;                                    // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapHMDFunctionLibrary_SetStabilizationDepthActor;
 
 // Function MagicLeap.MagicLeapMeshTrackerComponent.ConnectBlockSelector
 // 0x0010 (0x0010 - 0x0000)
@@ -203,6 +223,7 @@ struct MagicLeapMeshTrackerComponent_ConnectBlockSelector final
 public:
 	TScriptInterface<class IMagicLeapMeshBlockSelectorInterface> Selector;                           // 0x0000(0x0010)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapMeshTrackerComponent_ConnectBlockSelector;
 
 // Function MagicLeap.MagicLeapMeshTrackerComponent.ConnectMRMesh
 // 0x0008 (0x0008 - 0x0000)
@@ -211,6 +232,7 @@ struct MagicLeapMeshTrackerComponent_ConnectMRMesh final
 public:
 	class UMRMeshComponent*                       InMRMeshPtr;                                       // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapMeshTrackerComponent_ConnectMRMesh;
 
 // Function MagicLeap.MagicLeapMeshTrackerComponent.DisconnectMRMesh
 // 0x0008 (0x0008 - 0x0000)
@@ -219,6 +241,7 @@ struct MagicLeapMeshTrackerComponent_DisconnectMRMesh final
 public:
 	class UMRMeshComponent*                       InMRMeshPtr;                                       // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapMeshTrackerComponent_DisconnectMRMesh;
 
 // Function MagicLeap.MagicLeapMeshTrackerComponent.GetNumQueuedBlockUpdates
 // 0x0004 (0x0004 - 0x0000)
@@ -227,6 +250,7 @@ struct MagicLeapMeshTrackerComponent_GetNumQueuedBlockUpdates final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapMeshTrackerComponent_GetNumQueuedBlockUpdates;
 
 // Function MagicLeap.MagicLeapMeshTrackerComponent.SelectMeshBlocks
 // 0x0028 (0x0028 - 0x0000)
@@ -236,6 +260,7 @@ public:
 	struct FMagicLeapTrackingMeshInfo             NewMeshInfo;                                       // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<struct FMagicLeapMeshBlockRequest>     RequestedMesh;                                     // 0x0018(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapMeshTrackerComponent_SelectMeshBlocks;
 
 // Function MagicLeap.MagicLeapMeshBlockSelectorInterface.SelectMeshBlocks
 // 0x0028 (0x0028 - 0x0000)
@@ -245,6 +270,7 @@ public:
 	struct FMagicLeapTrackingMeshInfo             NewMeshInfo;                                       // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<struct FMagicLeapMeshBlockRequest>     RequestedMesh;                                     // 0x0018(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapMeshBlockSelectorInterface_SelectMeshBlocks;
 
 // Function MagicLeap.MagicLeapRaycastFunctionLibrary.MakeRaycastQueryParams
 // 0x0070 (0x0070 - 0x0000)
@@ -262,6 +288,7 @@ public:
 	int32                                         UserData;                                          // 0x0034(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FMagicLeapRaycastQueryParams           ReturnValue;                                       // 0x0038(0x0038)(Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapRaycastFunctionLibrary_MakeRaycastQueryParams;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

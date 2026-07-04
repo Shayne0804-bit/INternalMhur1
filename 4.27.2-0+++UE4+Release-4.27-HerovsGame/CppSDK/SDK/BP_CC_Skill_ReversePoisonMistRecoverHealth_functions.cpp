@@ -14,7 +14,8 @@
 #include "BP_CC_Skill_ReversePoisonMistRecoverHealth_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Skill_ReversePoisonMistRecoverHealth.BP_CC_Skill_ReversePoisonMistRecoverHealth_C.ExecuteUbergraph_BP_CC_Skill_ReversePoisonMistRecoverHealth
 // (Final, UbergraphFunction)
@@ -55,5 +56,5 @@ void UBP_CC_Skill_ReversePoisonMistRecoverHealth_C::BP_OnUpdateIntervalValue(flo
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

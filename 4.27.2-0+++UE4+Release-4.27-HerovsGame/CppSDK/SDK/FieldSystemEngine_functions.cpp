@@ -14,7 +14,8 @@
 #include "FieldSystemEngine_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function FieldSystemEngine.FieldSystemComponent.AddFieldCommand
 // (Final, Native, Public, BlueprintCallable)
@@ -933,5 +934,5 @@ class UReturnResultsTerminal* UReturnResultsTerminal::SetReturnResultsTerminal()
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

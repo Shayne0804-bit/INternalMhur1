@@ -20,7 +20,8 @@
 #include "UMG_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class LevelSequence.AnimSequenceLevelSequenceLink
 // 0x0028 (0x0050 - 0x0028)
@@ -44,6 +45,7 @@ public:
 		return GetDefaultObjImpl<UAnimSequenceLevelSequenceLink>();
 	}
 };
+DUMPER7_ASSERTS_UAnimSequenceLevelSequenceLink;
 
 // Class LevelSequence.DefaultLevelSequenceInstanceData
 // 0x0048 (0x0070 - 0x0028)
@@ -69,6 +71,7 @@ public:
 		return GetDefaultObjImpl<UDefaultLevelSequenceInstanceData>();
 	}
 };
+DUMPER7_ASSERTS_UDefaultLevelSequenceInstanceData;
 
 // Class LevelSequence.LevelSequenceMetaData
 // 0x0000 (0x0000 - 0x0000)
@@ -97,6 +100,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_ILevelSequenceMetaData;
 
 // Class LevelSequence.LevelSequence
 // 0x0168 (0x01C8 - 0x0060)
@@ -132,6 +136,7 @@ public:
 		return GetDefaultObjImpl<ULevelSequence>();
 	}
 };
+DUMPER7_ASSERTS_ULevelSequence;
 
 // Class LevelSequence.LevelSequenceBurnInInitSettings
 // 0x0000 (0x0028 - 0x0028)
@@ -151,6 +156,7 @@ public:
 		return GetDefaultObjImpl<ULevelSequenceBurnInInitSettings>();
 	}
 };
+DUMPER7_ASSERTS_ULevelSequenceBurnInInitSettings;
 
 // Class LevelSequence.LevelSequenceBurnInOptions
 // 0x0028 (0x0050 - 0x0028)
@@ -179,6 +185,7 @@ public:
 		return GetDefaultObjImpl<ULevelSequenceBurnInOptions>();
 	}
 };
+DUMPER7_ASSERTS_ULevelSequenceBurnInOptions;
 
 // Class LevelSequence.LevelSequenceActor
 // 0x0088 (0x02A8 - 0x0220)
@@ -237,6 +244,7 @@ public:
 		return GetDefaultObjImpl<ALevelSequenceActor>();
 	}
 };
+DUMPER7_ASSERTS_ALevelSequenceActor;
 
 // Class LevelSequence.LevelSequenceAnimSequenceLink
 // 0x0010 (0x0038 - 0x0028)
@@ -259,6 +267,7 @@ public:
 		return GetDefaultObjImpl<ULevelSequenceAnimSequenceLink>();
 	}
 };
+DUMPER7_ASSERTS_ULevelSequenceAnimSequenceLink;
 
 // Class LevelSequence.LevelSequenceBurnIn
 // 0x00C0 (0x0338 - 0x0278)
@@ -287,6 +296,7 @@ public:
 		return GetDefaultObjImpl<ULevelSequenceBurnIn>();
 	}
 };
+DUMPER7_ASSERTS_ULevelSequenceBurnIn;
 
 // Class LevelSequence.LevelSequenceDirector
 // 0x0010 (0x0038 - 0x0028)
@@ -319,6 +329,7 @@ public:
 		return GetDefaultObjImpl<ULevelSequenceDirector>();
 	}
 };
+DUMPER7_ASSERTS_ULevelSequenceDirector;
 
 // Class LevelSequence.LegacyLevelSequenceDirectorBlueprint
 // 0x0000 (0x00A0 - 0x00A0)
@@ -338,6 +349,7 @@ public:
 		return GetDefaultObjImpl<ULegacyLevelSequenceDirectorBlueprint>();
 	}
 };
+DUMPER7_ASSERTS_ULegacyLevelSequenceDirectorBlueprint;
 
 // Class LevelSequence.LevelSequencePlayer
 // 0x0118 (0x0600 - 0x04E8)
@@ -366,6 +378,7 @@ public:
 		return GetDefaultObjImpl<ULevelSequencePlayer>();
 	}
 };
+DUMPER7_ASSERTS_ULevelSequencePlayer;
 
 // Class LevelSequence.LevelSequenceProjectSettings
 // 0x0030 (0x0068 - 0x0038)
@@ -393,6 +406,7 @@ public:
 		return GetDefaultObjImpl<ULevelSequenceProjectSettings>();
 	}
 };
+DUMPER7_ASSERTS_ULevelSequenceProjectSettings;
 
 // Class LevelSequence.LevelSequenceMediaController
 // 0x0028 (0x0248 - 0x0220)
@@ -427,5 +441,7 @@ public:
 		return GetDefaultObjImpl<ALevelSequenceMediaController>();
 	}
 };
+DUMPER7_ASSERTS_ALevelSequenceMediaController;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "ActionCamera_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function ActionCamera.ActionCameraSubsystem.BP_EndActionCamera
 // (Final, Native, Public, BlueprintCallable)
@@ -40,5 +41,5 @@ void UActionCameraSubsystem::BP_EndActionCamera(EActionCameraPriorityType Priori
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

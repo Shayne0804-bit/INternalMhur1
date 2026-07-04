@@ -14,7 +14,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_ChatAnker.WBP_ChatAnker_C
 // 0x0008 (0x0388 - 0x0380)
@@ -41,5 +42,7 @@ public:
 		return GetDefaultObjImpl<UWBP_ChatAnker_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_ChatAnker_C;
 
-SDK_NAMESPACE_END
+}
+

@@ -15,8 +15,8 @@
 #include "FCh025V2_U3_Param_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_Ch025V2U3_Param.BP_Ch025V2U3_Param_C.GetUnique3Param
 // 0x0040 (0x0040 - 0x0000)
@@ -25,6 +25,7 @@ struct BP_Ch025V2U3_Param_C_GetUnique3Param final
 public:
 	struct FFCh025V2_U3_Param                     Data;                                              // 0x0000(0x0040)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_Ch025V2U3_Param_C_GetUnique3Param;
 
 // Function BP_Ch025V2U3_Param.BP_Ch025V2U3_Param_C.GetUnique3TurnParam
 // 0x0014 (0x0014 - 0x0000)
@@ -33,6 +34,7 @@ struct BP_Ch025V2U3_Param_C_GetUnique3TurnParam final
 public:
 	struct FFCh025V2_U3_TurnParam                 turnParamData_0;                                   // 0x0000(0x0014)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_Ch025V2U3_Param_C_GetUnique3TurnParam;
 
 // Function BP_Ch025V2U3_Param.BP_Ch025V2U3_Param_C.GetBarrierParam
 // 0x0028 (0x0028 - 0x0000)
@@ -41,6 +43,7 @@ struct BP_Ch025V2U3_Param_C_GetBarrierParam final
 public:
 	struct FFCh025V2_U3_BarrierParam              BarrierParam_0;                                    // 0x0000(0x0028)(Parm, OutParm, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_Ch025V2U3_Param_C_GetBarrierParam;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

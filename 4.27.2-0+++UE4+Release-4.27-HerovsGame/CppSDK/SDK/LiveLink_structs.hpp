@@ -14,7 +14,8 @@
 #include "LiveLinkInterface_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum LiveLink.ELiveLinkAxis
 // NumValues: 0x0007
@@ -50,6 +51,7 @@ public:
 	class ULiveLinkRetargetAsset*                 CurrentRetargetAsset;                              // 0x0030(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_38[0x18];                                      // 0x0038(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_LiveLinkPose;
 
 // ScriptStruct LiveLink.LiveLinkInstanceProxy
 // 0x0050 (0x07C0 - 0x0770)
@@ -58,6 +60,7 @@ struct FLiveLinkInstanceProxy final : public FAnimInstanceProxy
 public:
 	struct FAnimNode_LiveLinkPose                 PoseNode;                                          // 0x0770(0x0050)(Edit, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLiveLinkInstanceProxy;
 
 // ScriptStruct LiveLink.ProviderPollResult
 // 0x0038 (0x0038 - 0x0000)
@@ -69,6 +72,7 @@ public:
 	class FString                                 MachineName;                                       // 0x0020(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	double                                        MachineTimeOffset;                                 // 0x0030(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FProviderPollResult;
 
 // ScriptStruct LiveLink.LiveLinkRetargetAssetReference
 // 0x0001 (0x0001 - 0x0000)
@@ -77,6 +81,7 @@ struct FLiveLinkRetargetAssetReference final
 public:
 	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FLiveLinkRetargetAssetReference;
 
 // ScriptStruct LiveLink.LiveLinkRoleProjectSetting
 // 0x0028 (0x0028 - 0x0000)
@@ -88,5 +93,7 @@ public:
 	TSubclassOf<class ULiveLinkFrameInterpolationProcessor> FrameInterpolationProcessor;             // 0x0010(0x0008)(Edit, ZeroConstructor, Config, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<TSubclassOf<class ULiveLinkFramePreProcessor>> FramePreProcessors;                        // 0x0018(0x0010)(Edit, ZeroConstructor, Config, UObjectWrapper, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLiveLinkRoleProjectSetting;
 
-SDK_NAMESPACE_END
+}
+

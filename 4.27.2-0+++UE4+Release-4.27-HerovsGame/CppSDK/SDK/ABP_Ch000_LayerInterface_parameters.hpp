@@ -13,8 +13,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function ABP_Ch000_LayerInterface.ABP_Ch000_LayerInterface_C.ActionCustom
 // 0x0020 (0x0020 - 0x0000)
@@ -24,6 +24,7 @@ public:
 	struct FPoseLink                              InPose;                                            // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, NoDestructor)
 	struct FPoseLink                              ActionCustom_0;                                    // 0x0010(0x0010)(Parm, OutParm, NoDestructor)
 };
+DUMPER7_ASSERTS_ABP_Ch000_LayerInterface_C_ActionCustom;
 
 // Function ABP_Ch000_LayerInterface.ABP_Ch000_LayerInterface_C.NagaraBlend
 // 0x0038 (0x0038 - 0x0000)
@@ -36,6 +37,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FPoseLink                              NagaraBlend_0;                                     // 0x0028(0x0010)(Parm, OutParm, NoDestructor)
 };
+DUMPER7_ASSERTS_ABP_Ch000_LayerInterface_C_NagaraBlend;
 
 // Function ABP_Ch000_LayerInterface.ABP_Ch000_LayerInterface_C.Retarget
 // 0x0020 (0x0020 - 0x0000)
@@ -45,6 +47,7 @@ public:
 	struct FPoseLink                              InPose_0;                                          // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, NoDestructor)
 	struct FPoseLink                              Retarget_0;                                        // 0x0010(0x0010)(Parm, OutParm, NoDestructor)
 };
+DUMPER7_ASSERTS_ABP_Ch000_LayerInterface_C_Retarget;
 
 // Function ABP_Ch000_LayerInterface.ABP_Ch000_LayerInterface_C.AimingBlend
 // 0x0020 (0x0020 - 0x0000)
@@ -54,6 +57,7 @@ public:
 	struct FPoseLink                              InPose_1;                                          // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, NoDestructor)
 	struct FPoseLink                              AimingBlend_0;                                     // 0x0010(0x0010)(Parm, OutParm, NoDestructor)
 };
+DUMPER7_ASSERTS_ABP_Ch000_LayerInterface_C_AimingBlend;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

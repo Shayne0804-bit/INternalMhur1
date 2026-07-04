@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct StandinActor.StandinProxyEntry
 // 0x0048 (0x0048 - 0x0000)
@@ -25,5 +26,7 @@ public:
 	TArray<class UTexture2D*>                     Textures;                                          // 0x0030(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPrivate)
 	class FName                                   Key;                                               // 0x0040(0x0008)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FStandinProxyEntry;
 
-SDK_NAMESPACE_END
+}
+

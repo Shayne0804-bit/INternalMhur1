@@ -15,7 +15,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MediaCompositing.MovieSceneMediaPlayerPropertySection
 // 0x0010 (0x00F8 - 0x00E8)
@@ -40,6 +41,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneMediaPlayerPropertySection>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneMediaPlayerPropertySection;
 
 // Class MediaCompositing.MovieSceneMediaPlayerPropertyTrack
 // 0x0008 (0x00C8 - 0x00C0)
@@ -62,6 +64,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneMediaPlayerPropertyTrack>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneMediaPlayerPropertyTrack;
 
 // Class MediaCompositing.MovieSceneMediaSection
 // 0x0030 (0x0118 - 0x00E8)
@@ -92,6 +95,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneMediaSection>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneMediaSection;
 
 // Class MediaCompositing.MovieSceneMediaTrack
 // 0x0018 (0x00A8 - 0x0090)
@@ -115,5 +119,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneMediaTrack>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneMediaTrack;
 
-SDK_NAMESPACE_END
+}
+

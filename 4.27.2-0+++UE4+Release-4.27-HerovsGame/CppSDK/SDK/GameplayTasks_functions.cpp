@@ -14,7 +14,8 @@
 #include "GameplayTasks_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function GameplayTasks.GameplayTask.EndTask
 // (Final, Native, Public, BlueprintCallable)
@@ -303,5 +304,5 @@ void UGameplayTasksComponent::OnRep_SimulatedTasks()
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

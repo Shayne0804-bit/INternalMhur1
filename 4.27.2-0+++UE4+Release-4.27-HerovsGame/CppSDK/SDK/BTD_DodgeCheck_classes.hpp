@@ -14,7 +14,8 @@
 #include "AIModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BTD_DodgeCheck.BTD_DodgeCheck_C
 // 0x0028 (0x00C8 - 0x00A0)
@@ -40,5 +41,7 @@ public:
 		return GetDefaultObjImpl<UBTD_DodgeCheck_C>();
 	}
 };
+DUMPER7_ASSERTS_UBTD_DodgeCheck_C;
 
-SDK_NAMESPACE_END
+}
+

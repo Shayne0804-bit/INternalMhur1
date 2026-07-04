@@ -14,7 +14,8 @@
 #include "AudioMixer_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function AudioMixer.SynthComponent.SetLowPassFilterEnabled
 // (Final, Native, Public, BlueprintCallable)
@@ -2702,5 +2703,5 @@ bool UQuartzSubsystem::IsQuartzEnabled()
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

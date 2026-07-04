@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_Skill_WearBlueFlame.BP_CC_Skill_WearBlueFlame_C.ExecuteUbergraph_BP_CC_Skill_WearBlueFlame
 // 0x0078 (0x0078 - 0x0000)
@@ -44,6 +44,7 @@ public:
 	uint8                                         Pad_71[0x3];                                       // 0x0071(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         K2Node_Event_value_1;                              // 0x0074(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_WearBlueFlame_C_ExecuteUbergraph_BP_CC_Skill_WearBlueFlame;
 
 // Function BP_CC_Skill_WearBlueFlame.BP_CC_Skill_WearBlueFlame_C.BP_ReceiveConditionPing
 // 0x0008 (0x0008 - 0x0000)
@@ -53,6 +54,7 @@ public:
 	int32                                         Index_0;                                           // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         value;                                             // 0x0004(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_WearBlueFlame_C_BP_ReceiveConditionPing;
 
 // Function BP_CC_Skill_WearBlueFlame.BP_CC_Skill_WearBlueFlame_C.BP_OnChangeConditionLevel
 // 0x0008 (0x0008 - 0x0000)
@@ -62,6 +64,7 @@ public:
 	int32                                         oldLevel;                                          // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         newLevel;                                          // 0x0004(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_WearBlueFlame_C_BP_OnChangeConditionLevel;
 
 // Function BP_CC_Skill_WearBlueFlame.BP_CC_Skill_WearBlueFlame_C.BP_OnUpdateIntervalValue
 // 0x0004 (0x0004 - 0x0000)
@@ -70,6 +73,7 @@ struct BP_CC_Skill_WearBlueFlame_C_BP_OnUpdateIntervalValue final
 public:
 	float                                         value;                                             // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_WearBlueFlame_C_BP_OnUpdateIntervalValue;
 
 // Function BP_CC_Skill_WearBlueFlame.BP_CC_Skill_WearBlueFlame_C.RevertParam
 // 0x0010 (0x0010 - 0x0000)
@@ -79,6 +83,7 @@ public:
 	class APlayerStateBattle*                     CallFunc_BP_GetOwnerPlayerState_ReturnValue;       // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UBuffParam*                             CallFunc_BP_GetBuffParam_ReturnValue;              // 0x0008(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_WearBlueFlame_C_RevertParam;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

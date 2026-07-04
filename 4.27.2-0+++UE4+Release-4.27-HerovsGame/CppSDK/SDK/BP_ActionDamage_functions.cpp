@@ -14,7 +14,8 @@
 #include "BP_ActionDamage_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamage.BP_ActionDamage_C.ExecuteUbergraph_BP_ActionDamage
 // (Final, UbergraphFunction)
@@ -83,5 +84,5 @@ void UBP_ActionDamage_C::UpdateOnce()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

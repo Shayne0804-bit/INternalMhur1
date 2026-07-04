@@ -13,7 +13,8 @@
 #include "GameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_NetworkAnnounce.WBP_NetworkAnnounce_C
 // 0x0018 (0x03A8 - 0x0390)
@@ -38,5 +39,7 @@ public:
 		return GetDefaultObjImpl<UWBP_NetworkAnnounce_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_NetworkAnnounce_C;
 
-SDK_NAMESPACE_END
+}
+

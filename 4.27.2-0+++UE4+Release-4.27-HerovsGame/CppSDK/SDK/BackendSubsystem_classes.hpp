@@ -18,7 +18,8 @@
 #include "VoiceChatModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class BackendSubsystem.DbpDedicatedServer
 // 0x0008 (0x0030 - 0x0028)
@@ -46,6 +47,7 @@ public:
 		return GetDefaultObjImpl<UDbpDedicatedServer>();
 	}
 };
+DUMPER7_ASSERTS_UDbpDedicatedServer;
 
 // Class BackendSubsystem.BackendSubsystem
 // 0x0D30 (0x0D60 - 0x0030)
@@ -861,6 +863,7 @@ public:
 		return GetDefaultObjImpl<UBackendSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UBackendSubsystem;
 
 // Class BackendSubsystem.DatabaseParams
 // 0x9188 (0x91B0 - 0x0028)
@@ -964,6 +967,7 @@ public:
 		return GetDefaultObjImpl<UDatabaseParams>();
 	}
 };
+DUMPER7_ASSERTS_UDatabaseParams;
 
 // Class BackendSubsystem.DbpLoading
 // 0x0200 (0x0228 - 0x0028)
@@ -990,6 +994,7 @@ public:
 		return GetDefaultObjImpl<UDbpLoading>();
 	}
 };
+DUMPER7_ASSERTS_UDbpLoading;
 
 // Class BackendSubsystem.SendRoleSlotData
 // 0x0020 (0x0048 - 0x0028)
@@ -1012,6 +1017,7 @@ public:
 		return GetDefaultObjImpl<USendRoleSlotData>();
 	}
 };
+DUMPER7_ASSERTS_USendRoleSlotData;
 
 // Class BackendSubsystem.DbpMissionCategoryList
 // 0x0008 (0x0030 - 0x0028)
@@ -1038,6 +1044,7 @@ public:
 		return GetDefaultObjImpl<UDbpMissionCategoryList>();
 	}
 };
+DUMPER7_ASSERTS_UDbpMissionCategoryList;
 
 // Class BackendSubsystem.DbpBillboardChart
 // 0x0008 (0x0030 - 0x0028)
@@ -1065,6 +1072,7 @@ public:
 		return GetDefaultObjImpl<UDbpBillboardChart>();
 	}
 };
+DUMPER7_ASSERTS_UDbpBillboardChart;
 
 // Class BackendSubsystem.DbpCharacterCustomize
 // 0x1098 (0x10C0 - 0x0028)
@@ -1109,6 +1117,7 @@ public:
 		return GetDefaultObjImpl<UDbpCharacterCustomize>();
 	}
 };
+DUMPER7_ASSERTS_UDbpCharacterCustomize;
 
 // Class BackendSubsystem.DbpChat
 // 0x0008 (0x0030 - 0x0028)
@@ -1136,6 +1145,7 @@ public:
 		return GetDefaultObjImpl<UDbpChat>();
 	}
 };
+DUMPER7_ASSERTS_UDbpChat;
 
 // Class BackendSubsystem.DbpCustomMatching
 // 0x0008 (0x0030 - 0x0028)
@@ -1174,6 +1184,7 @@ public:
 		return GetDefaultObjImpl<UDbpCustomMatching>();
 	}
 };
+DUMPER7_ASSERTS_UDbpCustomMatching;
 
 // Class BackendSubsystem.DbpEquippedCustomize
 // 0x0020 (0x0048 - 0x0028)
@@ -1209,6 +1220,7 @@ public:
 		return GetDefaultObjImpl<UDbpEquippedCustomize>();
 	}
 };
+DUMPER7_ASSERTS_UDbpEquippedCustomize;
 
 // Class BackendSubsystem.DbpEvent
 // 0x0008 (0x0030 - 0x0028)
@@ -1235,6 +1247,7 @@ public:
 		return GetDefaultObjImpl<UDbpEvent>();
 	}
 };
+DUMPER7_ASSERTS_UDbpEvent;
 
 // Class BackendSubsystem.DbpGallery
 // 0x0010 (0x0038 - 0x0028)
@@ -1269,6 +1282,7 @@ public:
 		return GetDefaultObjImpl<UDbpGallery>();
 	}
 };
+DUMPER7_ASSERTS_UDbpGallery;
 
 // Class BackendSubsystem.DbpGuild
 // 0x0010 (0x0038 - 0x0028)
@@ -1298,6 +1312,7 @@ public:
 		return GetDefaultObjImpl<UDbpGuild>();
 	}
 };
+DUMPER7_ASSERTS_UDbpGuild;
 
 // Class BackendSubsystem.DbpInventory
 // 0x0008 (0x0030 - 0x0028)
@@ -1323,6 +1338,7 @@ public:
 		return GetDefaultObjImpl<UDbpInventory>();
 	}
 };
+DUMPER7_ASSERTS_UDbpInventory;
 
 // Class BackendSubsystem.DbpLoginBonus
 // 0x0010 (0x0038 - 0x0028)
@@ -1363,6 +1379,7 @@ public:
 		return GetDefaultObjImpl<UDbpLoginBonus>();
 	}
 };
+DUMPER7_ASSERTS_UDbpLoginBonus;
 
 // Class BackendSubsystem.DbpLotteryHistory
 // 0x0010 (0x0038 - 0x0028)
@@ -1389,6 +1406,7 @@ public:
 		return GetDefaultObjImpl<UDbpLotteryHistory>();
 	}
 };
+DUMPER7_ASSERTS_UDbpLotteryHistory;
 
 // Class BackendSubsystem.DbpLotteryList
 // 0x0010 (0x0038 - 0x0028)
@@ -1418,6 +1436,7 @@ public:
 		return GetDefaultObjImpl<UDbpLotteryList>();
 	}
 };
+DUMPER7_ASSERTS_UDbpLotteryList;
 
 // Class BackendSubsystem.DbpLotteryRate
 // 0x0010 (0x0038 - 0x0028)
@@ -1443,6 +1462,7 @@ public:
 		return GetDefaultObjImpl<UDbpLotteryRate>();
 	}
 };
+DUMPER7_ASSERTS_UDbpLotteryRate;
 
 // Class BackendSubsystem.DbpLotteryResult
 // 0x0018 (0x0040 - 0x0028)
@@ -1470,6 +1490,7 @@ public:
 		return GetDefaultObjImpl<UDbpLotteryResult>();
 	}
 };
+DUMPER7_ASSERTS_UDbpLotteryResult;
 
 // Class BackendSubsystem.DbpMainMenu
 // 0x01C8 (0x01F0 - 0x0028)
@@ -1537,6 +1558,7 @@ public:
 		return GetDefaultObjImpl<UDbpMainMenu>();
 	}
 };
+DUMPER7_ASSERTS_UDbpMainMenu;
 
 // Class BackendSubsystem.DbpMyAd
 // 0x0060 (0x0088 - 0x0028)
@@ -1571,6 +1593,7 @@ public:
 		return GetDefaultObjImpl<UDbpMyAd>();
 	}
 };
+DUMPER7_ASSERTS_UDbpMyAd;
 
 // Class BackendSubsystem.DbpMyProfile
 // 0x04A0 (0x04C8 - 0x0028)
@@ -1616,6 +1639,7 @@ public:
 		return GetDefaultObjImpl<UDbpMyProfile>();
 	}
 };
+DUMPER7_ASSERTS_UDbpMyProfile;
 
 // Class BackendSubsystem.DbpNotice
 // 0x0108 (0x0130 - 0x0028)
@@ -1650,6 +1674,7 @@ public:
 		return GetDefaultObjImpl<UDbpNotice>();
 	}
 };
+DUMPER7_ASSERTS_UDbpNotice;
 
 // Class BackendSubsystem.DbpPlayableCharacterList
 // 0x0008 (0x0030 - 0x0028)
@@ -1675,6 +1700,7 @@ public:
 		return GetDefaultObjImpl<UDbpPlayableCharacterList>();
 	}
 };
+DUMPER7_ASSERTS_UDbpPlayableCharacterList;
 
 // Class BackendSubsystem.DbpPlayerList
 // 0x0008 (0x0030 - 0x0028)
@@ -1703,6 +1729,7 @@ public:
 		return GetDefaultObjImpl<UDbpPlayerList>();
 	}
 };
+DUMPER7_ASSERTS_UDbpPlayerList;
 
 // Class BackendSubsystem.DbpRanking
 // 0x0008 (0x0030 - 0x0028)
@@ -1735,6 +1762,7 @@ public:
 		return GetDefaultObjImpl<UDbpRanking>();
 	}
 };
+DUMPER7_ASSERTS_UDbpRanking;
 
 // Class BackendSubsystem.DbpResearchNote
 // 0x0008 (0x0030 - 0x0028)
@@ -1760,6 +1788,7 @@ public:
 		return GetDefaultObjImpl<UDbpResearchNote>();
 	}
 };
+DUMPER7_ASSERTS_UDbpResearchNote;
 
 // Class BackendSubsystem.DbpResult
 // 0x0020 (0x0048 - 0x0028)
@@ -1805,6 +1834,7 @@ public:
 		return GetDefaultObjImpl<UDbpResult>();
 	}
 };
+DUMPER7_ASSERTS_UDbpResult;
 
 // Class BackendSubsystem.DbpSeason
 // 0x0018 (0x0040 - 0x0028)
@@ -1853,6 +1883,7 @@ public:
 		return GetDefaultObjImpl<UDbpSeason>();
 	}
 };
+DUMPER7_ASSERTS_UDbpSeason;
 
 // Class BackendSubsystem.DbpSetting
 // 0x0008 (0x0030 - 0x0028)
@@ -1896,6 +1927,7 @@ public:
 		return GetDefaultObjImpl<UDbpSetting>();
 	}
 };
+DUMPER7_ASSERTS_UDbpSetting;
 
 // Class BackendSubsystem.DbpShopList
 // 0x0058 (0x0080 - 0x0028)
@@ -1928,6 +1960,7 @@ public:
 		return GetDefaultObjImpl<UDbpShopList>();
 	}
 };
+DUMPER7_ASSERTS_UDbpShopList;
 
 // Class BackendSubsystem.InformationData
 // 0x0018 (0x0040 - 0x0028)
@@ -1950,6 +1983,7 @@ public:
 		return GetDefaultObjImpl<UInformationData>();
 	}
 };
+DUMPER7_ASSERTS_UInformationData;
 
 // Class BackendSubsystem.InformationDataDownloader
 // 0x00B8 (0x00E0 - 0x0028)
@@ -1972,6 +2006,7 @@ public:
 		return GetDefaultObjImpl<UInformationDataDownloader>();
 	}
 };
+DUMPER7_ASSERTS_UInformationDataDownloader;
 
 // Class BackendSubsystem.MasterDataCache
 // 0x0000 (0x0028 - 0x0028)
@@ -2083,6 +2118,7 @@ public:
 		return GetDefaultObjImpl<UMasterDataCache>();
 	}
 };
+DUMPER7_ASSERTS_UMasterDataCache;
 
 // Class BackendSubsystem.WebApiCacheManager
 // 0x0148 (0x0170 - 0x0028)
@@ -2106,5 +2142,7 @@ public:
 		return GetDefaultObjImpl<UWebApiCacheManager>();
 	}
 };
+DUMPER7_ASSERTS_UWebApiCacheManager;
 
-SDK_NAMESPACE_END
+}
+

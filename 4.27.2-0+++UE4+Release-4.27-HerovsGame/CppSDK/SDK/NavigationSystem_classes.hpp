@@ -17,7 +17,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class NavigationSystem.NavigationData
 // 0x0208 (0x0428 - 0x0220)
@@ -56,6 +57,7 @@ public:
 		return GetDefaultObjImpl<ANavigationData>();
 	}
 };
+DUMPER7_ASSERTS_ANavigationData;
 
 // Class NavigationSystem.AbstractNavData
 // 0x0000 (0x0428 - 0x0428)
@@ -75,6 +77,7 @@ public:
 		return GetDefaultObjImpl<AAbstractNavData>();
 	}
 };
+DUMPER7_ASSERTS_AAbstractNavData;
 
 // Class NavigationSystem.CrowdManagerBase
 // 0x0000 (0x0028 - 0x0028)
@@ -94,6 +97,7 @@ public:
 		return GetDefaultObjImpl<UCrowdManagerBase>();
 	}
 };
+DUMPER7_ASSERTS_UCrowdManagerBase;
 
 // Class NavigationSystem.NavArea
 // 0x0018 (0x0048 - 0x0030)
@@ -136,6 +140,7 @@ public:
 		return GetDefaultObjImpl<UNavArea>();
 	}
 };
+DUMPER7_ASSERTS_UNavArea;
 
 // Class NavigationSystem.NavArea_Default
 // 0x0000 (0x0048 - 0x0048)
@@ -155,6 +160,7 @@ public:
 		return GetDefaultObjImpl<UNavArea_Default>();
 	}
 };
+DUMPER7_ASSERTS_UNavArea_Default;
 
 // Class NavigationSystem.NavArea_LowHeight
 // 0x0000 (0x0048 - 0x0048)
@@ -174,6 +180,7 @@ public:
 		return GetDefaultObjImpl<UNavArea_LowHeight>();
 	}
 };
+DUMPER7_ASSERTS_UNavArea_LowHeight;
 
 // Class NavigationSystem.NavArea_Null
 // 0x0000 (0x0048 - 0x0048)
@@ -193,6 +200,7 @@ public:
 		return GetDefaultObjImpl<UNavArea_Null>();
 	}
 };
+DUMPER7_ASSERTS_UNavArea_Null;
 
 // Class NavigationSystem.NavArea_Obstacle
 // 0x0000 (0x0048 - 0x0048)
@@ -212,6 +220,7 @@ public:
 		return GetDefaultObjImpl<UNavArea_Obstacle>();
 	}
 };
+DUMPER7_ASSERTS_UNavArea_Obstacle;
 
 // Class NavigationSystem.NavAreaMeta
 // 0x0000 (0x0048 - 0x0048)
@@ -231,6 +240,7 @@ public:
 		return GetDefaultObjImpl<UNavAreaMeta>();
 	}
 };
+DUMPER7_ASSERTS_UNavAreaMeta;
 
 // Class NavigationSystem.NavAreaMeta_SwitchByAgent
 // 0x0080 (0x00C8 - 0x0048)
@@ -268,6 +278,7 @@ public:
 		return GetDefaultObjImpl<UNavAreaMeta_SwitchByAgent>();
 	}
 };
+DUMPER7_ASSERTS_UNavAreaMeta_SwitchByAgent;
 
 // Class NavigationSystem.NavCollision
 // 0x0068 (0x00D8 - 0x0070)
@@ -296,6 +307,7 @@ public:
 		return GetDefaultObjImpl<UNavCollision>();
 	}
 };
+DUMPER7_ASSERTS_UNavCollision;
 
 // Class NavigationSystem.NavigationGraph
 // 0x0000 (0x0428 - 0x0428)
@@ -315,6 +327,7 @@ public:
 		return GetDefaultObjImpl<ANavigationGraph>();
 	}
 };
+DUMPER7_ASSERTS_ANavigationGraph;
 
 // Class NavigationSystem.NavigationGraphNode
 // 0x0000 (0x0220 - 0x0220)
@@ -334,6 +347,7 @@ public:
 		return GetDefaultObjImpl<ANavigationGraphNode>();
 	}
 };
+DUMPER7_ASSERTS_ANavigationGraphNode;
 
 // Class NavigationSystem.NavigationGraphNodeComponent
 // 0x0020 (0x0220 - 0x0200)
@@ -358,6 +372,7 @@ public:
 		return GetDefaultObjImpl<UNavigationGraphNodeComponent>();
 	}
 };
+DUMPER7_ASSERTS_UNavigationGraphNodeComponent;
 
 // Class NavigationSystem.NavigationInvokerComponent
 // 0x0008 (0x00B8 - 0x00B0)
@@ -381,6 +396,7 @@ public:
 		return GetDefaultObjImpl<UNavigationInvokerComponent>();
 	}
 };
+DUMPER7_ASSERTS_UNavigationInvokerComponent;
 
 // Class NavigationSystem.NavigationPath
 // 0x0060 (0x0088 - 0x0028)
@@ -417,6 +433,7 @@ public:
 		return GetDefaultObjImpl<UNavigationPath>();
 	}
 };
+DUMPER7_ASSERTS_UNavigationPath;
 
 // Class NavigationSystem.NavigationPathGenerator
 // 0x0000 (0x0000 - 0x0000)
@@ -445,6 +462,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_INavigationPathGenerator;
 
 // Class NavigationSystem.NavigationQueryFilter
 // 0x0020 (0x0048 - 0x0028)
@@ -470,6 +488,7 @@ public:
 		return GetDefaultObjImpl<UNavigationQueryFilter>();
 	}
 };
+DUMPER7_ASSERTS_UNavigationQueryFilter;
 
 // Class NavigationSystem.NavigationSystemV1
 // 0x15B8 (0x15E0 - 0x0028)
@@ -550,6 +569,7 @@ public:
 		return GetDefaultObjImpl<UNavigationSystemV1>();
 	}
 };
+DUMPER7_ASSERTS_UNavigationSystemV1;
 
 // Class NavigationSystem.NavigationSystemModuleConfig
 // 0x0008 (0x0058 - 0x0050)
@@ -576,6 +596,7 @@ public:
 		return GetDefaultObjImpl<UNavigationSystemModuleConfig>();
 	}
 };
+DUMPER7_ASSERTS_UNavigationSystemModuleConfig;
 
 // Class NavigationSystem.NavigationTestingActor
 // 0x00F0 (0x0310 - 0x0220)
@@ -636,6 +657,7 @@ public:
 		return GetDefaultObjImpl<ANavigationTestingActor>();
 	}
 };
+DUMPER7_ASSERTS_ANavigationTestingActor;
 
 // Class NavigationSystem.NavLinkComponent
 // 0x0020 (0x0470 - 0x0450)
@@ -660,6 +682,7 @@ public:
 		return GetDefaultObjImpl<UNavLinkComponent>();
 	}
 };
+DUMPER7_ASSERTS_UNavLinkComponent;
 
 // Class NavigationSystem.NavRelevantComponent
 // 0x0030 (0x00E0 - 0x00B0)
@@ -688,6 +711,7 @@ public:
 		return GetDefaultObjImpl<UNavRelevantComponent>();
 	}
 };
+DUMPER7_ASSERTS_UNavRelevantComponent;
 
 // Class NavigationSystem.NavLinkCustomComponent
 // 0x00B0 (0x0190 - 0x00E0)
@@ -732,6 +756,7 @@ public:
 		return GetDefaultObjImpl<UNavLinkCustomComponent>();
 	}
 };
+DUMPER7_ASSERTS_UNavLinkCustomComponent;
 
 // Class NavigationSystem.NavLinkCustomInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -760,6 +785,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_INavLinkCustomInterface;
 
 // Class NavigationSystem.NavLinkHostInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -788,6 +814,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_INavLinkHostInterface;
 
 // Class NavigationSystem.NavLinkRenderingComponent
 // 0x0000 (0x0450 - 0x0450)
@@ -807,6 +834,7 @@ public:
 		return GetDefaultObjImpl<UNavLinkRenderingComponent>();
 	}
 };
+DUMPER7_ASSERTS_UNavLinkRenderingComponent;
 
 // Class NavigationSystem.NavLinkTrivial
 // 0x0000 (0x0050 - 0x0050)
@@ -826,6 +854,7 @@ public:
 		return GetDefaultObjImpl<UNavLinkTrivial>();
 	}
 };
+DUMPER7_ASSERTS_UNavLinkTrivial;
 
 // Class NavigationSystem.NavMeshBoundsVolume
 // 0x0008 (0x0260 - 0x0258)
@@ -849,6 +878,7 @@ public:
 		return GetDefaultObjImpl<ANavMeshBoundsVolume>();
 	}
 };
+DUMPER7_ASSERTS_ANavMeshBoundsVolume;
 
 // Class NavigationSystem.NavMeshRenderingComponent
 // 0x0010 (0x0460 - 0x0450)
@@ -871,6 +901,7 @@ public:
 		return GetDefaultObjImpl<UNavMeshRenderingComponent>();
 	}
 };
+DUMPER7_ASSERTS_UNavMeshRenderingComponent;
 
 // Class NavigationSystem.RecastNavMeshDataChunk
 // 0x0010 (0x0040 - 0x0030)
@@ -893,6 +924,7 @@ public:
 		return GetDefaultObjImpl<URecastNavMeshDataChunk>();
 	}
 };
+DUMPER7_ASSERTS_URecastNavMeshDataChunk;
 
 // Class NavigationSystem.NavModifierComponent
 // 0x0060 (0x0140 - 0x00E0)
@@ -921,6 +953,7 @@ public:
 		return GetDefaultObjImpl<UNavModifierComponent>();
 	}
 };
+DUMPER7_ASSERTS_UNavModifierComponent;
 
 // Class NavigationSystem.NavModifierVolume
 // 0x0018 (0x0270 - 0x0258)
@@ -949,6 +982,7 @@ public:
 		return GetDefaultObjImpl<ANavModifierVolume>();
 	}
 };
+DUMPER7_ASSERTS_ANavModifierVolume;
 
 // Class NavigationSystem.NavNodeInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -977,6 +1011,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_INavNodeInterface;
 
 // Class NavigationSystem.NavSystemConfigOverride
 // 0x0010 (0x0230 - 0x0220)
@@ -1002,6 +1037,7 @@ public:
 		return GetDefaultObjImpl<ANavSystemConfigOverride>();
 	}
 };
+DUMPER7_ASSERTS_ANavSystemConfigOverride;
 
 // Class NavigationSystem.NavTestRenderingComponent
 // 0x0000 (0x0450 - 0x0450)
@@ -1021,6 +1057,7 @@ public:
 		return GetDefaultObjImpl<UNavTestRenderingComponent>();
 	}
 };
+DUMPER7_ASSERTS_UNavTestRenderingComponent;
 
 // Class NavigationSystem.RecastFilter_UseDefaultArea
 // 0x0000 (0x0048 - 0x0048)
@@ -1040,6 +1077,7 @@ public:
 		return GetDefaultObjImpl<URecastFilter_UseDefaultArea>();
 	}
 };
+DUMPER7_ASSERTS_URecastFilter_UseDefaultArea;
 
 // Class NavigationSystem.RecastNavMesh
 // 0x00B0 (0x04D8 - 0x0428)
@@ -1128,5 +1166,7 @@ public:
 		return GetDefaultObjImpl<ARecastNavMesh>();
 	}
 };
+DUMPER7_ASSERTS_ARecastNavMesh;
 
-SDK_NAMESPACE_END
+}
+

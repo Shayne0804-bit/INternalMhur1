@@ -13,8 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionCrouchMove.BP_ActionCrouchMove_C.ExecuteUbergraph_BP_ActionCrouchMove
 // 0x00C0 (0x00C0 - 0x0000)
@@ -50,6 +50,7 @@ public:
 	class UCharacterParam*                        CallFunc_BP_GetParam_ReturnValue_2;                // 0x00B0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterState*                        CallFunc_BP_GetOwnerState_ReturnValue_2;           // 0x00B8(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionCrouchMove_C_ExecuteUbergraph_BP_ActionCrouchMove;
 
 // Function BP_ActionCrouchMove.BP_ActionCrouchMove_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -58,6 +59,7 @@ struct BP_ActionCrouchMove_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionCrouchMove_C_BP_OnEndAction;
 
 // Function BP_ActionCrouchMove.BP_ActionCrouchMove_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -66,6 +68,7 @@ struct BP_ActionCrouchMove_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionCrouchMove_C_BP_OnBeginAction;
 
 // Function BP_ActionCrouchMove.BP_ActionCrouchMove_C.UpdateMoveDirection
 // 0x0020 (0x0020 - 0x0000)
@@ -77,6 +80,7 @@ public:
 	struct FVector                                CallFunc_BP_GetMoveDirection_ReturnValue;          // 0x0010(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_BP_GetDeltaSeconds_ReturnValue;           // 0x001C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionCrouchMove_C_UpdateMoveDirection;
 
 // Function BP_ActionCrouchMove.BP_ActionCrouchMove_C.UpdateCharacterDirection
 // 0x0020 (0x0020 - 0x0000)
@@ -87,6 +91,7 @@ public:
 	struct FVector                                CallFunc_BP_GetMoveDirection_ReturnValue;          // 0x0008(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_BP_GetForwardDirectionForBaseActionMovement_ReturnValue; // 0x0014(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionCrouchMove_C_UpdateCharacterDirection;
 
 // Function BP_ActionCrouchMove.BP_ActionCrouchMove_C.UpdateSpeedRate
 // 0x0028 (0x0028 - 0x0000)
@@ -100,6 +105,7 @@ public:
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue;    // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_Multiply_FloatFloat_ReturnValue;          // 0x0020(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionCrouchMove_C_UpdateSpeedRate;
 
 // Function BP_ActionCrouchMove.BP_ActionCrouchMove_C.BP_IsEnableShiftAction
 // 0x000C (0x000C - 0x0000)
@@ -110,6 +116,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
 	bool                                          K2Node_SwitchName_CmpSuccess;                      // 0x0009(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionCrouchMove_C_BP_IsEnableShiftAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

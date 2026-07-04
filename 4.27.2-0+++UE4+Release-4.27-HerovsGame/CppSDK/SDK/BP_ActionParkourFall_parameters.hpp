@@ -13,8 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionParkourFall.BP_ActionParkourFall_C.ExecuteUbergraph_BP_ActionParkourFall
 // 0x00C8 (0x00C8 - 0x0000)
@@ -50,6 +50,7 @@ public:
 	uint8                                         Pad_BD[0x3];                                       // 0x00BD(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class FName                                   K2Node_Event_prevAction;                           // 0x00C0(0x0008)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionParkourFall_C_ExecuteUbergraph_BP_ActionParkourFall;
 
 // Function BP_ActionParkourFall.BP_ActionParkourFall_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -58,6 +59,7 @@ struct BP_ActionParkourFall_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionParkourFall_C_BP_OnEndAction;
 
 // Function BP_ActionParkourFall.BP_ActionParkourFall_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -66,6 +68,7 @@ struct BP_ActionParkourFall_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionParkourFall_C_BP_OnBeginAction;
 
 // Function BP_ActionParkourFall.BP_ActionParkourFall_C.BP_IsEnableShiftAction
 // 0x0030 (0x0030 - 0x0000)
@@ -82,6 +85,7 @@ public:
 	bool                                          CallFunc_BP_IsEmpty_ReturnValue;                   // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_Not_PreBool_ReturnValue;                  // 0x0029(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionParkourFall_C_BP_IsEnableShiftAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

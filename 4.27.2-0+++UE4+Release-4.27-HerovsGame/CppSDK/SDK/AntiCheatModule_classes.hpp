@@ -14,7 +14,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class AntiCheatModule.AntiCheatGameMode
 // 0x0000 (0x0308 - 0x0308)
@@ -34,6 +35,7 @@ public:
 		return GetDefaultObjImpl<AAntiCheatGameMode>();
 	}
 };
+DUMPER7_ASSERTS_AAntiCheatGameMode;
 
 // Class AntiCheatModule.AntiCheatObject
 // 0x00A8 (0x00D0 - 0x0028)
@@ -56,6 +58,7 @@ public:
 		return GetDefaultObjImpl<UAntiCheatObject>();
 	}
 };
+DUMPER7_ASSERTS_UAntiCheatObject;
 
 // Class AntiCheatModule.AntiCheatPlayerController
 // 0x0008 (0x0588 - 0x0580)
@@ -82,5 +85,7 @@ public:
 		return GetDefaultObjImpl<AAntiCheatPlayerController>();
 	}
 };
+DUMPER7_ASSERTS_AAntiCheatPlayerController;
 
-SDK_NAMESPACE_END
+}
+

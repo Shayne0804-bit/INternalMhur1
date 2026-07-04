@@ -13,7 +13,8 @@
 #include "GameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_PlayerName.WBP_PlayerName_C
 // 0x0000 (0x0720 - 0x0720)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UWBP_PlayerName_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_PlayerName_C;
 
-SDK_NAMESPACE_END
+}
+

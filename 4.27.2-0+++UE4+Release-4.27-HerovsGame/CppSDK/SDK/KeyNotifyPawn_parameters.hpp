@@ -13,8 +13,8 @@
 #include "InputCore_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function KeyNotifyPawn.KeyNotifyPawn_C.ExecuteUbergraph_KeyNotifyPawn
 // 0x0170 (0x0170 - 0x0000)
@@ -49,6 +49,7 @@ public:
 	struct FKey                                   K2Node_InputKeyEvent_Key_6;                        // 0x0148(0x0018)(HasGetValueTypeHash)
 	TScriptInterface<class IKeyNotifyInterface_C> CallFunc_PadTableListDown_self_CastInput;          // 0x0160(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_KeyNotifyPawn_C_ExecuteUbergraph_KeyNotifyPawn;
 
 // Function KeyNotifyPawn.KeyNotifyPawn_C.SetWidget
 // 0x0008 (0x0008 - 0x0000)
@@ -57,6 +58,7 @@ struct KeyNotifyPawn_C_SetWidget final
 public:
 	class UWBP_Menu_C*                            Widget_0;                                          // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_KeyNotifyPawn_C_SetWidget;
 
 // Function KeyNotifyPawn.KeyNotifyPawn_C.InpActEvt_Gamepad_RightShoulder_K2Node_InputKeyEvent_0
 // 0x0018 (0x0018 - 0x0000)
@@ -65,6 +67,7 @@ struct KeyNotifyPawn_C_InpActEvt_Gamepad_RightShoulder_K2Node_InputKeyEvent_0 fi
 public:
 	struct FKey                                   Key;                                               // 0x0000(0x0018)(BlueprintVisible, BlueprintReadOnly, Parm, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_KeyNotifyPawn_C_InpActEvt_Gamepad_RightShoulder_K2Node_InputKeyEvent_0;
 
 // Function KeyNotifyPawn.KeyNotifyPawn_C.InpActEvt_Gamepad_LeftThumbstick_K2Node_InputKeyEvent_1
 // 0x0018 (0x0018 - 0x0000)
@@ -73,6 +76,7 @@ struct KeyNotifyPawn_C_InpActEvt_Gamepad_LeftThumbstick_K2Node_InputKeyEvent_1 f
 public:
 	struct FKey                                   Key;                                               // 0x0000(0x0018)(BlueprintVisible, BlueprintReadOnly, Parm, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_KeyNotifyPawn_C_InpActEvt_Gamepad_LeftThumbstick_K2Node_InputKeyEvent_1;
 
 // Function KeyNotifyPawn.KeyNotifyPawn_C.InpActEvt_Gamepad_FaceButton_Top_K2Node_InputKeyEvent_2
 // 0x0018 (0x0018 - 0x0000)
@@ -81,6 +85,7 @@ struct KeyNotifyPawn_C_InpActEvt_Gamepad_FaceButton_Top_K2Node_InputKeyEvent_2 f
 public:
 	struct FKey                                   Key;                                               // 0x0000(0x0018)(BlueprintVisible, BlueprintReadOnly, Parm, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_KeyNotifyPawn_C_InpActEvt_Gamepad_FaceButton_Top_K2Node_InputKeyEvent_2;
 
 // Function KeyNotifyPawn.KeyNotifyPawn_C.InpActEvt_Gamepad_LeftShoulder_K2Node_InputKeyEvent_3
 // 0x0018 (0x0018 - 0x0000)
@@ -89,6 +94,7 @@ struct KeyNotifyPawn_C_InpActEvt_Gamepad_LeftShoulder_K2Node_InputKeyEvent_3 fin
 public:
 	struct FKey                                   Key;                                               // 0x0000(0x0018)(BlueprintVisible, BlueprintReadOnly, Parm, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_KeyNotifyPawn_C_InpActEvt_Gamepad_LeftShoulder_K2Node_InputKeyEvent_3;
 
 // Function KeyNotifyPawn.KeyNotifyPawn_C.InpActEvt_Gamepad_DPad_Down_K2Node_InputKeyEvent_4
 // 0x0018 (0x0018 - 0x0000)
@@ -97,6 +103,7 @@ struct KeyNotifyPawn_C_InpActEvt_Gamepad_DPad_Down_K2Node_InputKeyEvent_4 final
 public:
 	struct FKey                                   Key;                                               // 0x0000(0x0018)(BlueprintVisible, BlueprintReadOnly, Parm, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_KeyNotifyPawn_C_InpActEvt_Gamepad_DPad_Down_K2Node_InputKeyEvent_4;
 
 // Function KeyNotifyPawn.KeyNotifyPawn_C.InpActEvt_Gamepad_DPad_Up_K2Node_InputKeyEvent_5
 // 0x0018 (0x0018 - 0x0000)
@@ -105,6 +112,7 @@ struct KeyNotifyPawn_C_InpActEvt_Gamepad_DPad_Up_K2Node_InputKeyEvent_5 final
 public:
 	struct FKey                                   Key;                                               // 0x0000(0x0018)(BlueprintVisible, BlueprintReadOnly, Parm, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_KeyNotifyPawn_C_InpActEvt_Gamepad_DPad_Up_K2Node_InputKeyEvent_5;
 
 // Function KeyNotifyPawn.KeyNotifyPawn_C.InpActEvt_Gamepad_DPad_Left_K2Node_InputKeyEvent_6
 // 0x0018 (0x0018 - 0x0000)
@@ -113,6 +121,7 @@ struct KeyNotifyPawn_C_InpActEvt_Gamepad_DPad_Left_K2Node_InputKeyEvent_6 final
 public:
 	struct FKey                                   Key;                                               // 0x0000(0x0018)(BlueprintVisible, BlueprintReadOnly, Parm, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_KeyNotifyPawn_C_InpActEvt_Gamepad_DPad_Left_K2Node_InputKeyEvent_6;
 
 // Function KeyNotifyPawn.KeyNotifyPawn_C.InpActEvt_Gamepad_DPad_Right_K2Node_InputKeyEvent_7
 // 0x0018 (0x0018 - 0x0000)
@@ -121,6 +130,7 @@ struct KeyNotifyPawn_C_InpActEvt_Gamepad_DPad_Right_K2Node_InputKeyEvent_7 final
 public:
 	struct FKey                                   Key;                                               // 0x0000(0x0018)(BlueprintVisible, BlueprintReadOnly, Parm, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_KeyNotifyPawn_C_InpActEvt_Gamepad_DPad_Right_K2Node_InputKeyEvent_7;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

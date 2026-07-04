@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass SL_ExitGame.SL_ExitGame_C
 // 0x0000 (0x0228 - 0x0228)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<ASL_ExitGame_C>();
 	}
 };
+DUMPER7_ASSERTS_ASL_ExitGame_C;
 
-SDK_NAMESPACE_END
+}
+

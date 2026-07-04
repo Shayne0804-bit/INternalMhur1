@@ -14,7 +14,8 @@
 #include "BTT_CombatChaseFinish_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BTT_CombatChaseFinish.BTT_CombatChaseFinish_C.ExecuteUbergraph_BTT_CombatChaseFinish
 // (Final, UbergraphFunction)
@@ -79,5 +80,5 @@ void UBTT_CombatChaseFinish_C::ReceiveExecuteAI(class AAIController* OwnerContro
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

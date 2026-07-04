@@ -14,7 +14,8 @@
 #include "BP_ActionDyingLand_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDyingLand.BP_ActionDyingLand_C.ExecuteUbergraph_BP_ActionDyingLand
 // (Final, UbergraphFunction)
@@ -83,5 +84,5 @@ void UBP_ActionDyingLand_C::BP_ActionMain()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

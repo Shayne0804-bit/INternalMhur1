@@ -14,7 +14,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_CC_Skill_SpeedUp.BP_CC_Skill_SpeedUp_C
 // 0x0008 (0x0158 - 0x0150)
@@ -48,5 +49,7 @@ public:
 		return GetDefaultObjImpl<UBP_CC_Skill_SpeedUp_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_CC_Skill_SpeedUp_C;
 
-SDK_NAMESPACE_END
+}
+

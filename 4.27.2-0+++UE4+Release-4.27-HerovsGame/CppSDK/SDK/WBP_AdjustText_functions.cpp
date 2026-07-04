@@ -14,7 +14,8 @@
 #include "WBP_AdjustText_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_AdjustText.WBP_AdjustText_C.ExecuteUbergraph_WBP_AdjustText
 // (Final, UbergraphFunction)
@@ -69,5 +70,5 @@ void UWBP_AdjustText_C::PreConstruct(bool IsDesignTime)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

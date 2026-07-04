@@ -13,7 +13,8 @@
 #include "GameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_ClipboardCopyButton.WBP_ClipboardCopyButton_C
 // 0x0048 (0x07E0 - 0x0798)
@@ -44,5 +45,7 @@ public:
 		return GetDefaultObjImpl<UWBP_ClipboardCopyButton_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_ClipboardCopyButton_C;
 
-SDK_NAMESPACE_END
+}
+

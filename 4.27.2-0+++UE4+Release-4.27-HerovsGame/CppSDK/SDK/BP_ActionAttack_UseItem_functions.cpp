@@ -14,7 +14,8 @@
 #include "BP_ActionAttack_UseItem_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionAttack_UseItem.BP_ActionAttack_UseItem_C.ExecuteUbergraph_BP_ActionAttack_UseItem
 // (Final, UbergraphFunction, HasDefaults)
@@ -214,5 +215,5 @@ bool UBP_ActionAttack_UseItem_C::BP_IsEnableShiftAction(const class FName& nextA
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

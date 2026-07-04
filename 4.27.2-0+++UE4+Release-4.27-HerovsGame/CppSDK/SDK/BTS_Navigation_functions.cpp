@@ -14,7 +14,8 @@
 #include "BTS_Navigation_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BTS_Navigation.BTS_Navigation_C.ExecuteUbergraph_BTS_Navigation
 // (Final, UbergraphFunction)
@@ -59,5 +60,5 @@ void UBTS_Navigation_C::ReceiveTickAI(class AAIController* OwnerController, clas
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_Burn.BP_CC_Burn_C.ExecuteUbergraph_BP_CC_Burn
 // 0x0030 (0x0030 - 0x0000)
@@ -28,6 +28,7 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_1; // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterDamageComponent*              CallFunc_BP_GetDamageComponent_ReturnValue;        // 0x0028(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Burn_C_ExecuteUbergraph_BP_CC_Burn;
 
 // Function BP_CC_Burn.BP_CC_Burn_C.BP_OnUpdateIntervalValue
 // 0x0004 (0x0004 - 0x0000)
@@ -36,6 +37,7 @@ struct BP_CC_Burn_C_BP_OnUpdateIntervalValue final
 public:
 	float                                         value;                                             // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Burn_C_BP_OnUpdateIntervalValue;
 
 // Function BP_CC_Burn.BP_CC_Burn_C.BP_IsEnableChangeCondition
 // 0x0038 (0x0038 - 0x0000)
@@ -59,6 +61,7 @@ public:
 	float                                         CallFunc_Multiply_FloatFloat_ReturnValue_1;        // 0x0030(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_GreaterEqual_FloatFloat_ReturnValue;      // 0x0034(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_Burn_C_BP_IsEnableChangeCondition;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

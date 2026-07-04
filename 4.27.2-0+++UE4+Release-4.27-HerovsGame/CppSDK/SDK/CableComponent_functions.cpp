@@ -14,7 +14,8 @@
 #include "CableComponent_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function CableComponent.CableComponent.AddForceIndex
 // (Final, Native, Public, HasOutParams, HasDefaults, BlueprintCallable)
@@ -317,5 +318,5 @@ void UCableComponent::GetCableParticleMoves(TArray<struct FVector>* moves) const
 		*moves = std::move(Parms.moves);
 }
 
+}
 
-SDK_NAMESPACE_END

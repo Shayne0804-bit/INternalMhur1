@@ -14,7 +14,8 @@
 #include "AIModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BTS_CapturePolling.BTS_CapturePolling_C
 // 0x0008 (0x00A0 - 0x0098)
@@ -41,5 +42,7 @@ public:
 		return GetDefaultObjImpl<UBTS_CapturePolling_C>();
 	}
 };
+DUMPER7_ASSERTS_UBTS_CapturePolling_C;
 
-SDK_NAMESPACE_END
+}
+

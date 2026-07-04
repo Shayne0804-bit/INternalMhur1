@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDodge.BP_ActionDodge_C.ExecuteUbergraph_BP_ActionDodge
 // 0x0078 (0x0078 - 0x0000)
@@ -33,6 +33,7 @@ public:
 	class FName                                   K2Node_Event_nextAction;                           // 0x0068(0x0008)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue;              // 0x0070(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDodge_C_ExecuteUbergraph_BP_ActionDodge;
 
 // Function BP_ActionDodge.BP_ActionDodge_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -41,6 +42,7 @@ struct BP_ActionDodge_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDodge_C_BP_OnBeginAction;
 
 // Function BP_ActionDodge.BP_ActionDodge_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -49,6 +51,7 @@ struct BP_ActionDodge_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDodge_C_BP_OnEndAction;
 
 // Function BP_ActionDodge.BP_ActionDodge_C.TurnInitial
 // 0x0048 (0x0048 - 0x0000)
@@ -65,6 +68,7 @@ public:
 	uint8                                         Pad_39[0x3];                                       // 0x0039(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FVector                                CallFunc_SelectVector_ReturnValue;                 // 0x003C(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDodge_C_TurnInitial;
 
 // Function BP_ActionDodge.BP_ActionDodge_C.SetSpeed
 // 0x0010 (0x0010 - 0x0000)
@@ -74,6 +78,7 @@ public:
 	class UCharacterParam*                        CallFunc_BP_GetParam_ReturnValue;                  // 0x0000(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue;    // 0x0008(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDodge_C_SetSpeed;
 
 // Function BP_ActionDodge.BP_ActionDodge_C.ClearSpeed
 // 0x0010 (0x0010 - 0x0000)
@@ -83,6 +88,7 @@ public:
 	class UCharacterParam*                        CallFunc_BP_GetParam_ReturnValue;                  // 0x0000(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue;    // 0x0008(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDodge_C_ClearSpeed;
 
 // Function BP_ActionDodge.BP_ActionDodge_C.UpdateDirection
 // 0x0060 (0x0060 - 0x0000)
@@ -102,6 +108,7 @@ public:
 	uint8                                         Pad_54[0x4];                                       // 0x0054(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue;    // 0x0058(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDodge_C_UpdateDirection;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

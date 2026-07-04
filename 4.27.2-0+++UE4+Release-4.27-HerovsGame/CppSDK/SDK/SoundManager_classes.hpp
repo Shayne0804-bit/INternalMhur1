@@ -15,7 +15,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class SoundManager.SoundManager
 // 0x0030 (0x0060 - 0x0030)
@@ -43,5 +44,7 @@ public:
 		return GetDefaultObjImpl<USoundManager>();
 	}
 };
+DUMPER7_ASSERTS_USoundManager;
 
-SDK_NAMESPACE_END
+}
+

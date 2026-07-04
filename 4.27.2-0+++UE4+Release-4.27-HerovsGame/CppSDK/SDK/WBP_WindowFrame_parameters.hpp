@@ -14,8 +14,8 @@
 #include "UMG_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_WindowFrame.WBP_WindowFrame_C.ExecuteUbergraph_WBP_WindowFrame
 // 0x0018 (0x0018 - 0x0000)
@@ -27,6 +27,7 @@ public:
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	TDelegate<void()>                             K2Node_CreateDelegate_OutputDelegate;              // 0x0008(0x0010)(ZeroConstructor, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_WindowFrame_C_ExecuteUbergraph_WBP_WindowFrame;
 
 // Function WBP_WindowFrame.WBP_WindowFrame_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -35,6 +36,7 @@ struct WBP_WindowFrame_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_WindowFrame_C_PreConstruct;
 
 // Function WBP_WindowFrame.WBP_WindowFrame_C.OnFinishedAni_In
 // 0x0090 (0x0090 - 0x0000)
@@ -54,6 +56,7 @@ public:
 	class FString                                 CallFunc_GetDisplayName_ReturnValue_2;             // 0x0070(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 	class FString                                 CallFunc_Concat_StrStr_ReturnValue_2;              // 0x0080(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_WindowFrame_C_OnFinishedAni_In;
 
 // Function WBP_WindowFrame.WBP_WindowFrame_C.SetButtonSize
 // 0x0038 (0x0038 - 0x0000)
@@ -70,6 +73,7 @@ public:
 	class UCanvasPanelSlot*                       CallFunc_SlotAsCanvasSlot_ReturnValue_1;           // 0x0028(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_IsValid_ReturnValue_1;                    // 0x0030(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_WindowFrame_C_SetButtonSize;
 
 // Function WBP_WindowFrame.WBP_WindowFrame_C.SetButtonSpaceSize
 // 0x000C (0x000C - 0x0000)
@@ -79,6 +83,7 @@ public:
 	float                                         Size;                                              // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector2D                              CallFunc_MakeVector2D_ReturnValue;                 // 0x0004(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_WindowFrame_C_SetButtonSpaceSize;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

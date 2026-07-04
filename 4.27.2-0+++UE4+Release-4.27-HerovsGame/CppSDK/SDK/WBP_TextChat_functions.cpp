@@ -14,7 +14,8 @@
 #include "WBP_TextChat_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_TextChat.WBP_TextChat_C.ExecuteUbergraph_WBP_TextChat
 // (Final, UbergraphFunction)
@@ -400,5 +401,5 @@ struct FEventReply UWBP_TextChat_C::On_BGImage_MouseButtonDown_0(const struct FG
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

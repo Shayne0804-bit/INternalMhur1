@@ -17,7 +17,8 @@
 #include "DeveloperSettings_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class GameplayTags.BlueprintGameplayTagLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -69,6 +70,7 @@ public:
 		return GetDefaultObjImpl<UBlueprintGameplayTagLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UBlueprintGameplayTagLibrary;
 
 // Class GameplayTags.GameplayTagAssetInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -103,6 +105,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IGameplayTagAssetInterface;
 
 // Class GameplayTags.EditableGameplayTagQuery
 // 0x0070 (0x0098 - 0x0028)
@@ -128,6 +131,7 @@ public:
 		return GetDefaultObjImpl<UEditableGameplayTagQuery>();
 	}
 };
+DUMPER7_ASSERTS_UEditableGameplayTagQuery;
 
 // Class GameplayTags.EditableGameplayTagQueryExpression
 // 0x0000 (0x0028 - 0x0028)
@@ -147,6 +151,7 @@ public:
 		return GetDefaultObjImpl<UEditableGameplayTagQueryExpression>();
 	}
 };
+DUMPER7_ASSERTS_UEditableGameplayTagQueryExpression;
 
 // Class GameplayTags.EditableGameplayTagQueryExpression_AnyTagsMatch
 // 0x0020 (0x0048 - 0x0028)
@@ -169,6 +174,7 @@ public:
 		return GetDefaultObjImpl<UEditableGameplayTagQueryExpression_AnyTagsMatch>();
 	}
 };
+DUMPER7_ASSERTS_UEditableGameplayTagQueryExpression_AnyTagsMatch;
 
 // Class GameplayTags.EditableGameplayTagQueryExpression_AllTagsMatch
 // 0x0020 (0x0048 - 0x0028)
@@ -191,6 +197,7 @@ public:
 		return GetDefaultObjImpl<UEditableGameplayTagQueryExpression_AllTagsMatch>();
 	}
 };
+DUMPER7_ASSERTS_UEditableGameplayTagQueryExpression_AllTagsMatch;
 
 // Class GameplayTags.EditableGameplayTagQueryExpression_NoTagsMatch
 // 0x0020 (0x0048 - 0x0028)
@@ -213,6 +220,7 @@ public:
 		return GetDefaultObjImpl<UEditableGameplayTagQueryExpression_NoTagsMatch>();
 	}
 };
+DUMPER7_ASSERTS_UEditableGameplayTagQueryExpression_NoTagsMatch;
 
 // Class GameplayTags.EditableGameplayTagQueryExpression_AnyExprMatch
 // 0x0010 (0x0038 - 0x0028)
@@ -235,6 +243,7 @@ public:
 		return GetDefaultObjImpl<UEditableGameplayTagQueryExpression_AnyExprMatch>();
 	}
 };
+DUMPER7_ASSERTS_UEditableGameplayTagQueryExpression_AnyExprMatch;
 
 // Class GameplayTags.EditableGameplayTagQueryExpression_AllExprMatch
 // 0x0010 (0x0038 - 0x0028)
@@ -257,6 +266,7 @@ public:
 		return GetDefaultObjImpl<UEditableGameplayTagQueryExpression_AllExprMatch>();
 	}
 };
+DUMPER7_ASSERTS_UEditableGameplayTagQueryExpression_AllExprMatch;
 
 // Class GameplayTags.EditableGameplayTagQueryExpression_NoExprMatch
 // 0x0010 (0x0038 - 0x0028)
@@ -279,6 +289,7 @@ public:
 		return GetDefaultObjImpl<UEditableGameplayTagQueryExpression_NoExprMatch>();
 	}
 };
+DUMPER7_ASSERTS_UEditableGameplayTagQueryExpression_NoExprMatch;
 
 // Class GameplayTags.GameplayTagsManager
 // 0x0218 (0x0240 - 0x0028)
@@ -304,6 +315,7 @@ public:
 		return GetDefaultObjImpl<UGameplayTagsManager>();
 	}
 };
+DUMPER7_ASSERTS_UGameplayTagsManager;
 
 // Class GameplayTags.GameplayTagsList
 // 0x0020 (0x0048 - 0x0028)
@@ -327,6 +339,7 @@ public:
 		return GetDefaultObjImpl<UGameplayTagsList>();
 	}
 };
+DUMPER7_ASSERTS_UGameplayTagsList;
 
 // Class GameplayTags.RestrictedGameplayTagsList
 // 0x0020 (0x0048 - 0x0028)
@@ -350,6 +363,7 @@ public:
 		return GetDefaultObjImpl<URestrictedGameplayTagsList>();
 	}
 };
+DUMPER7_ASSERTS_URestrictedGameplayTagsList;
 
 // Class GameplayTags.GameplayTagsSettings
 // 0x0070 (0x00B8 - 0x0048)
@@ -384,6 +398,7 @@ public:
 		return GetDefaultObjImpl<UGameplayTagsSettings>();
 	}
 };
+DUMPER7_ASSERTS_UGameplayTagsSettings;
 
 // Class GameplayTags.GameplayTagsDeveloperSettings
 // 0x0018 (0x0050 - 0x0038)
@@ -407,5 +422,7 @@ public:
 		return GetDefaultObjImpl<UGameplayTagsDeveloperSettings>();
 	}
 };
+DUMPER7_ASSERTS_UGameplayTagsDeveloperSettings;
 
-SDK_NAMESPACE_END
+}
+

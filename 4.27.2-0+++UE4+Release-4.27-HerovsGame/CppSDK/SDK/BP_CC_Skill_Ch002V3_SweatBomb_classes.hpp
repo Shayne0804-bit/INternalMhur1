@@ -15,7 +15,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_CC_Skill_Ch002V3_SweatBomb.BP_CC_Skill_Ch002V3_SweatBomb_C
 // 0x0070 (0x01C0 - 0x0150)
@@ -56,5 +57,7 @@ public:
 		return GetDefaultObjImpl<UBP_CC_Skill_Ch002V3_SweatBomb_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_CC_Skill_Ch002V3_SweatBomb_C;
 
-SDK_NAMESPACE_END
+}
+

@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum AssetTags.ECollectionScriptingShareType
 // NumValues: 0x0004
@@ -23,4 +24,5 @@ enum class ECollectionScriptingShareType : uint8
 	ECollectionScriptingShareType_MAX        = 3,
 };
 
-SDK_NAMESPACE_END
+}
+

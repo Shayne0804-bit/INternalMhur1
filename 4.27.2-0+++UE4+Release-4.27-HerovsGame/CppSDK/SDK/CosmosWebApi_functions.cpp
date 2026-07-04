@@ -14,7 +14,8 @@
 #include "CosmosWebApi_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function CosmosWebApi.CosmosBlueprintLibrary.AppendLastSlash
 // (Final, Native, Static, Public, HasOutParams, BlueprintCallable)
@@ -1218,5 +1219,5 @@ class UWebApiConnect* UWebApiConnect::UserLoginV2(class UObject* WorldContextObj
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

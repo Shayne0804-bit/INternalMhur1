@@ -13,8 +13,8 @@
 #include "MagicLeapEyeTracker_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function MagicLeapEyeTracker.MagicLeapEyeTrackerFunctionLibrary.GetCalibrationStatus
 // 0x0001 (0x0001 - 0x0000)
@@ -23,6 +23,7 @@ struct MagicLeapEyeTrackerFunctionLibrary_GetCalibrationStatus final
 public:
 	EMagicLeapEyeTrackingCalibrationStatus        ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapEyeTrackerFunctionLibrary_GetCalibrationStatus;
 
 // Function MagicLeapEyeTracker.MagicLeapEyeTrackerFunctionLibrary.GetEyeBlinkState
 // 0x0003 (0x0003 - 0x0000)
@@ -32,6 +33,7 @@ public:
 	struct FMagicLeapEyeBlinkState                BlinkState;                                        // 0x0000(0x0002)(Parm, OutParm, NoDestructor, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0002(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapEyeTrackerFunctionLibrary_GetEyeBlinkState;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

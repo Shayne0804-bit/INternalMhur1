@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum OnlineSubsystem.EInAppPurchaseState
 // NumValues: 0x0009
@@ -63,6 +64,7 @@ public:
 	class FString                                 GroupingSeparator;                                 // 0x0088(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 ReceiptData;                                       // 0x0098(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FInAppPurchaseProductInfo;
 
 // ScriptStruct OnlineSubsystem.InAppPurchaseRestoreInfo
 // 0x0030 (0x0030 - 0x0000)
@@ -73,6 +75,7 @@ public:
 	class FString                                 ReceiptData;                                       // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 TransactionIdentifier;                             // 0x0020(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FInAppPurchaseRestoreInfo;
 
 // ScriptStruct OnlineSubsystem.NamedInterfaceDef
 // 0x0018 (0x0018 - 0x0000)
@@ -82,6 +85,7 @@ public:
 	class FName                                   InterfaceName;                                     // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 InterfaceClassName;                                // 0x0008(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNamedInterfaceDef;
 
 // ScriptStruct OnlineSubsystem.NamedInterface
 // 0x0010 (0x0010 - 0x0000)
@@ -91,6 +95,7 @@ public:
 	class FName                                   InterfaceName;                                     // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UObject*                                InterfaceObject;                                   // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNamedInterface;
 
 // ScriptStruct OnlineSubsystem.InAppPurchaseProductRequest
 // 0x0018 (0x0018 - 0x0000)
@@ -101,5 +106,7 @@ public:
 	bool                                          bIsConsumable;                                     // 0x0010(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FInAppPurchaseProductRequest;
 
-SDK_NAMESPACE_END
+}
+

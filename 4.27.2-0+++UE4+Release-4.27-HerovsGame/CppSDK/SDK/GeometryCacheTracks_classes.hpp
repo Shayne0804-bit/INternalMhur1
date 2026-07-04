@@ -14,7 +14,8 @@
 #include "MovieScene_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class GeometryCacheTracks.MovieSceneGeometryCacheSection
 // 0x0040 (0x0128 - 0x00E8)
@@ -37,6 +38,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneGeometryCacheSection>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneGeometryCacheSection;
 
 // Class GeometryCacheTracks.MovieSceneGeometryCacheTrack
 // 0x0018 (0x00A8 - 0x0090)
@@ -60,5 +62,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneGeometryCacheTrack>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneGeometryCacheTrack;
 
-SDK_NAMESPACE_END
+}
+

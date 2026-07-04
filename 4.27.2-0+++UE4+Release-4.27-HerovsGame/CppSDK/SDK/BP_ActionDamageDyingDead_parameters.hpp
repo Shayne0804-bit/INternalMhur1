@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamageDyingDead.BP_ActionDamageDyingDead_C.ExecuteUbergraph_BP_ActionDamageDyingDead
 // 0x0020 (0x0020 - 0x0000)
@@ -25,6 +25,7 @@ public:
 	class FName                                   K2Node_Event_prevAction;                           // 0x0010(0x0008)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue;              // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageDyingDead_C_ExecuteUbergraph_BP_ActionDamageDyingDead;
 
 // Function BP_ActionDamageDyingDead.BP_ActionDamageDyingDead_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -33,6 +34,7 @@ struct BP_ActionDamageDyingDead_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageDyingDead_C_BP_OnBeginAction;
 
 // Function BP_ActionDamageDyingDead.BP_ActionDamageDyingDead_C.BP_IsEnableShiftAction
 // 0x000C (0x000C - 0x0000)
@@ -42,6 +44,7 @@ public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionDamageDyingDead_C_BP_IsEnableShiftAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

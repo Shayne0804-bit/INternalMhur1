@@ -15,7 +15,8 @@
 #include "UIFramework_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_WindowButton.WBP_WindowButton_C
 // 0x0030 (0x0790 - 0x0760)
@@ -50,5 +51,7 @@ public:
 		return GetDefaultObjImpl<UWBP_WindowButton_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_WindowButton_C;
 
-SDK_NAMESPACE_END
+}
+

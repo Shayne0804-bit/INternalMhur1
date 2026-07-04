@@ -13,7 +13,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionGrabbed.BP_ActionGrabbed_C
 // 0x0000 (0x0278 - 0x0278)
@@ -36,5 +37,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionGrabbed_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionGrabbed_C;
 
-SDK_NAMESPACE_END
+}
+

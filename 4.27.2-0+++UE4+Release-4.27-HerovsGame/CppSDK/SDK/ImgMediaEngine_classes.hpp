@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class ImgMediaEngine.ImgMediaPlaybackComponent
 // 0x0028 (0x00D8 - 0x00B0)
@@ -38,5 +39,7 @@ public:
 		return GetDefaultObjImpl<UImgMediaPlaybackComponent>();
 	}
 };
+DUMPER7_ASSERTS_UImgMediaPlaybackComponent;
 
-SDK_NAMESPACE_END
+}
+

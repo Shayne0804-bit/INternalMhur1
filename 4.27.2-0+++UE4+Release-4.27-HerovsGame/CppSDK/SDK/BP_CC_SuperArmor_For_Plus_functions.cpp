@@ -14,7 +14,8 @@
 #include "BP_CC_SuperArmor_For_Plus_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_SuperArmor_For_Plus.BP_CC_SuperArmor_For_Plus_C.ExecuteUbergraph_BP_CC_SuperArmor_For_Plus
 // (Final, UbergraphFunction)
@@ -63,5 +64,5 @@ void UBP_CC_SuperArmor_For_Plus_C::BP_OnVisibleCondition()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

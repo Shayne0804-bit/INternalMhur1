@@ -14,8 +14,8 @@
 #include "MagicLeapController_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function MagicLeapController.MagicLeapControllerFunctionLibrary.GetControllerMapping
 // 0x0008 (0x0008 - 0x0000)
@@ -27,6 +27,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0005(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_6[0x2];                                        // 0x0006(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapControllerFunctionLibrary_GetControllerMapping;
 
 // Function MagicLeapController.MagicLeapControllerFunctionLibrary.GetControllerTrackingMode
 // 0x0001 (0x0001 - 0x0000)
@@ -35,6 +36,7 @@ struct MagicLeapControllerFunctionLibrary_GetControllerTrackingMode final
 public:
 	EMagicLeapControllerTrackingMode              ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapControllerFunctionLibrary_GetControllerTrackingMode;
 
 // Function MagicLeapController.MagicLeapControllerFunctionLibrary.GetControllerType
 // 0x000C (0x000C - 0x0000)
@@ -45,6 +47,7 @@ public:
 	EMagicLeapControllerType                      ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapControllerFunctionLibrary_GetControllerType;
 
 // Function MagicLeapController.MagicLeapControllerFunctionLibrary.GetHandForMotionSource
 // 0x000C (0x000C - 0x0000)
@@ -55,6 +58,7 @@ public:
 	EControllerHand                               ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapControllerFunctionLibrary_GetHandForMotionSource;
 
 // Function MagicLeapController.MagicLeapControllerFunctionLibrary.GetMLControllerType
 // 0x0002 (0x0002 - 0x0000)
@@ -64,6 +68,7 @@ public:
 	EControllerHand                               Hand;                                              // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	EMagicLeapControllerType                      ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapControllerFunctionLibrary_GetMLControllerType;
 
 // Function MagicLeapController.MagicLeapControllerFunctionLibrary.GetMotionSourceForHand
 // 0x000C (0x000C - 0x0000)
@@ -74,6 +79,7 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class FName                                   ReturnValue;                                       // 0x0004(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapControllerFunctionLibrary_GetMotionSourceForHand;
 
 // Function MagicLeapController.MagicLeapControllerFunctionLibrary.IsMLControllerConnected
 // 0x000C (0x000C - 0x0000)
@@ -84,6 +90,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapControllerFunctionLibrary_IsMLControllerConnected;
 
 // Function MagicLeapController.MagicLeapControllerFunctionLibrary.MaxSupportedMagicLeapControllers
 // 0x0004 (0x0004 - 0x0000)
@@ -92,6 +99,7 @@ struct MagicLeapControllerFunctionLibrary_MaxSupportedMagicLeapControllers final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapControllerFunctionLibrary_MaxSupportedMagicLeapControllers;
 
 // Function MagicLeapController.MagicLeapControllerFunctionLibrary.PlayControllerHapticFeedback
 // 0x0004 (0x0004 - 0x0000)
@@ -103,6 +111,7 @@ public:
 	EMagicLeapControllerHapticIntensity           Intensity;                                         // 0x0002(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0003(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapControllerFunctionLibrary_PlayControllerHapticFeedback;
 
 // Function MagicLeapController.MagicLeapControllerFunctionLibrary.PlayControllerLED
 // 0x000C (0x000C - 0x0000)
@@ -117,6 +126,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapControllerFunctionLibrary_PlayControllerLED;
 
 // Function MagicLeapController.MagicLeapControllerFunctionLibrary.PlayControllerLEDEffect
 // 0x0010 (0x0010 - 0x0000)
@@ -133,6 +143,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapControllerFunctionLibrary_PlayControllerLEDEffect;
 
 // Function MagicLeapController.MagicLeapControllerFunctionLibrary.PlayHapticPattern
 // 0x000C (0x000C - 0x0000)
@@ -145,6 +156,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000A(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_B[0x1];                                        // 0x000B(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapControllerFunctionLibrary_PlayHapticPattern;
 
 // Function MagicLeapController.MagicLeapControllerFunctionLibrary.PlayLEDEffect
 // 0x0014 (0x0014 - 0x0000)
@@ -160,6 +172,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapControllerFunctionLibrary_PlayLEDEffect;
 
 // Function MagicLeapController.MagicLeapControllerFunctionLibrary.PlayLEDPattern
 // 0x0014 (0x0014 - 0x0000)
@@ -174,6 +187,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapControllerFunctionLibrary_PlayLEDPattern;
 
 // Function MagicLeapController.MagicLeapControllerFunctionLibrary.SetControllerTrackingMode
 // 0x0002 (0x0002 - 0x0000)
@@ -183,6 +197,7 @@ public:
 	EMagicLeapControllerTrackingMode              TrackingMode;                                      // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapControllerFunctionLibrary_SetControllerTrackingMode;
 
 // Function MagicLeapController.MagicLeapControllerFunctionLibrary.SetMotionSourceForHand
 // 0x0010 (0x0010 - 0x0000)
@@ -195,6 +210,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapControllerFunctionLibrary_SetMotionSourceForHand;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

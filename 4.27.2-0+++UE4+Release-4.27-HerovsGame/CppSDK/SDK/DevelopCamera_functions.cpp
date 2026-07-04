@@ -14,7 +14,8 @@
 #include "DevelopCamera_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function DevelopCamera.DevelopCameraActor.IsPlayInEditor
 // (Final, Native, Public, BlueprintCallable, BlueprintPure, Const)
@@ -40,5 +41,5 @@ bool ADevelopCameraActor::IsPlayInEditor() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

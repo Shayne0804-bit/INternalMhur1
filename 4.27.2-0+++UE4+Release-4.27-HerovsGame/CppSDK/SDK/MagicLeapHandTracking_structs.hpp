@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum MagicLeapHandTracking.EMagicLeapGestureTransformSpace
 // NumValues: 0x0004
@@ -92,4 +93,5 @@ enum class EMagicLeapHandTrackingKeypoint : uint8
 	EMagicLeapHandTrackingKeypoint_MAX       = 24,
 };
 
-SDK_NAMESPACE_END
+}
+

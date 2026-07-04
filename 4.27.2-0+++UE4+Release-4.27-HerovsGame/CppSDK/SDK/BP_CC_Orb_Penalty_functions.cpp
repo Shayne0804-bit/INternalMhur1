@@ -14,7 +14,8 @@
 #include "BP_CC_Orb_Penalty_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Orb_Penalty.BP_CC_Orb_Penalty_C.ExecuteUbergraph_BP_CC_Orb_Penalty
 // (Final, UbergraphFunction)
@@ -83,5 +84,5 @@ void UBP_CC_Orb_Penalty_C::BP_OnUpdateIntervalValue(float value)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -14,7 +14,8 @@
 #include "BP_CC_Unbreakable_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Unbreakable.BP_CC_Unbreakable_C.ExecuteUbergraph_BP_CC_Unbreakable
 // (Final, UbergraphFunction)
@@ -133,5 +134,5 @@ void UBP_CC_Unbreakable_C::BP_OnUpdateIntervalValue(float value)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

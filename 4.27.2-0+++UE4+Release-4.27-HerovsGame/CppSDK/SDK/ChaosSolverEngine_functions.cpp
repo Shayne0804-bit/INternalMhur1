@@ -14,7 +14,8 @@
 #include "ChaosSolverEngine_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function ChaosSolverEngine.ChaosSolverEngineBlueprintLibrary.ConvertPhysicsCollisionToHitResult
 // (Final, Native, Static, Public, HasOutParams, BlueprintCallable, BlueprintPure)
@@ -87,5 +88,5 @@ void AChaosSolverActor::SetSolverActive(bool bActive)
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -13,7 +13,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class PropertyAccess.PropertyAccess
 // 0x0000 (0x0000 - 0x0000)
@@ -42,6 +43,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IPropertyAccess;
 
 // Class PropertyAccess.PropertyEventBroadcaster
 // 0x0000 (0x0000 - 0x0000)
@@ -70,6 +72,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IPropertyEventBroadcaster;
 
 // Class PropertyAccess.PropertyEventSubscriber
 // 0x0000 (0x0000 - 0x0000)
@@ -98,5 +101,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IPropertyEventSubscriber;
 
-SDK_NAMESPACE_END
+}
+

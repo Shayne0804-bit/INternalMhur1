@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum VectorVM.EVectorVMOp
 // NumValues: 0x0060
@@ -136,4 +137,5 @@ enum class EVectorVMBaseTypes : uint8
 	EVectorVMBaseTypes_MAX                   = 4,
 };
 
-SDK_NAMESPACE_END
+}
+

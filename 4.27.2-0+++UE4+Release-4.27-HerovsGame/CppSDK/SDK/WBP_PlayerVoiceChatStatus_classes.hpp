@@ -13,7 +13,8 @@
 #include "GameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_PlayerVoiceChatStatus.WBP_PlayerVoiceChatStatus_C
 // 0x0000 (0x03C0 - 0x03C0)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UWBP_PlayerVoiceChatStatus_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_PlayerVoiceChatStatus_C;
 
-SDK_NAMESPACE_END
+}
+

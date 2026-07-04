@@ -13,8 +13,8 @@
 #include "InGameModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamageShock.BP_ActionDamageShock_C.ExecuteUbergraph_BP_ActionDamageShock
 // 0x02F0 (0x02F0 - 0x0000)
@@ -41,6 +41,7 @@ public:
 	class UCharacterRollSlotUniqueSkillControlComponent* CallFunc_BP_GetCharacterRollSlotUniqueSkillControlComponent_ReturnValue_2; // 0x02E0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_IsValid_ReturnValue;                      // 0x02E8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionDamageShock_C_ExecuteUbergraph_BP_ActionDamageShock;
 
 // Function BP_ActionDamageShock.BP_ActionDamageShock_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -49,6 +50,7 @@ struct BP_ActionDamageShock_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageShock_C_BP_OnEndAction;
 
 // Function BP_ActionDamageShock.BP_ActionDamageShock_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -57,6 +59,7 @@ struct BP_ActionDamageShock_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageShock_C_BP_OnBeginAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

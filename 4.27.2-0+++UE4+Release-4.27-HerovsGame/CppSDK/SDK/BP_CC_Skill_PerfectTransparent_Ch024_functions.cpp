@@ -14,7 +14,8 @@
 #include "BP_CC_Skill_PerfectTransparent_Ch024_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Skill_PerfectTransparent_Ch024.BP_CC_Skill_PerfectTransparent_Ch024_C.ExecuteUbergraph_BP_CC_Skill_PerfectTransparent_Ch024
 // (Final, UbergraphFunction)
@@ -111,5 +112,5 @@ bool UBP_CC_Skill_PerfectTransparent_Ch024_C::IsNormalTransparent()
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

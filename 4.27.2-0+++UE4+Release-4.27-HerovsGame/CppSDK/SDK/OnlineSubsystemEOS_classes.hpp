@@ -16,7 +16,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class OnlineSubsystemEOS.EOSArtifactSettings
 // 0x0000 (0x0030 - 0x0030)
@@ -36,6 +37,7 @@ public:
 		return GetDefaultObjImpl<UEOSArtifactSettings>();
 	}
 };
+DUMPER7_ASSERTS_UEOSArtifactSettings;
 
 // Class OnlineSubsystemEOS.EOSSettings
 // 0x0058 (0x0080 - 0x0028)
@@ -75,6 +77,7 @@ public:
 		return GetDefaultObjImpl<UEOSSettings>();
 	}
 };
+DUMPER7_ASSERTS_UEOSSettings;
 
 // Class OnlineSubsystemEOS.NetConnectionEOS
 // 0x0008 (0x1C50 - 0x1C48)
@@ -97,6 +100,7 @@ public:
 		return GetDefaultObjImpl<UNetConnectionEOS>();
 	}
 };
+DUMPER7_ASSERTS_UNetConnectionEOS;
 
 // Class OnlineSubsystemEOS.NetDriverEOS
 // 0x0008 (0x07D8 - 0x07D0)
@@ -121,5 +125,7 @@ public:
 		return GetDefaultObjImpl<UNetDriverEOS>();
 	}
 };
+DUMPER7_ASSERTS_UNetDriverEOS;
 
-SDK_NAMESPACE_END
+}
+

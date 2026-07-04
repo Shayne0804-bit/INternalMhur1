@@ -14,7 +14,8 @@
 #include "BP_CC_Transform_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Transform.BP_CC_Transform_C.ExecuteUbergraph_BP_CC_Transform
 // (Final, UbergraphFunction)
@@ -111,5 +112,5 @@ void UBP_CC_Transform_C::BP_OnVisibleCondition()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

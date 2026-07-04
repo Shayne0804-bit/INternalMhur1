@@ -17,7 +17,8 @@
 #include "CriWareRuntime_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class CriWareRuntime.Atom3dRegionHandle
 // 0x0008 (0x0030 - 0x0028)
@@ -40,6 +41,7 @@ public:
 		return GetDefaultObjImpl<UAtom3dRegionHandle>();
 	}
 };
+DUMPER7_ASSERTS_UAtom3dRegionHandle;
 
 // Class CriWareRuntime.Atom3dRegion
 // 0x0020 (0x0048 - 0x0028)
@@ -67,6 +69,7 @@ public:
 		return GetDefaultObjImpl<UAtom3dRegion>();
 	}
 };
+DUMPER7_ASSERTS_UAtom3dRegion;
 
 // Class CriWareRuntime.Atom3dSourceBaseComponent
 // 0x0090 (0x0290 - 0x0200)
@@ -109,6 +112,7 @@ public:
 		return GetDefaultObjImpl<UAtom3dSourceBaseComponent>();
 	}
 };
+DUMPER7_ASSERTS_UAtom3dSourceBaseComponent;
 
 // Class CriWareRuntime.Atom3dTransceiverComponent
 // 0x0030 (0x02C0 - 0x0290)
@@ -137,6 +141,7 @@ public:
 		return GetDefaultObjImpl<UAtom3dTransceiverComponent>();
 	}
 };
+DUMPER7_ASSERTS_UAtom3dTransceiverComponent;
 
 // Class CriWareRuntime.AtomAreaSoundVolume
 // 0x0040 (0x0298 - 0x0258)
@@ -181,6 +186,7 @@ public:
 		return GetDefaultObjImpl<AAtomAreaSoundVolume>();
 	}
 };
+DUMPER7_ASSERTS_AAtomAreaSoundVolume;
 
 // Class CriWareRuntime.AtomAsrRack
 // 0x0018 (0x0040 - 0x0028)
@@ -219,6 +225,7 @@ public:
 		return GetDefaultObjImpl<UAtomAsrRack>();
 	}
 };
+DUMPER7_ASSERTS_UAtomAsrRack;
 
 // Class CriWareRuntime.AtomEntranceVolume
 // 0x0020 (0x0278 - 0x0258)
@@ -252,6 +259,7 @@ public:
 		return GetDefaultObjImpl<AAtomEntranceVolume>();
 	}
 };
+DUMPER7_ASSERTS_AAtomEntranceVolume;
 
 // Class CriWareRuntime.AtomAudioVolume
 // 0x0088 (0x02E0 - 0x0258)
@@ -297,6 +305,7 @@ public:
 		return GetDefaultObjImpl<AAtomAudioVolume>();
 	}
 };
+DUMPER7_ASSERTS_AAtomAudioVolume;
 
 // Class CriWareRuntime.AtomAudioVolumeSettings
 // 0x0040 (0x0068 - 0x0028)
@@ -319,6 +328,7 @@ public:
 		return GetDefaultObjImpl<UAtomAudioVolumeSettings>();
 	}
 };
+DUMPER7_ASSERTS_UAtomAudioVolumeSettings;
 
 // Class CriWareRuntime.AtomBusSampler
 // 0x0048 (0x0070 - 0x0028)
@@ -359,6 +369,7 @@ public:
 		return GetDefaultObjImpl<UAtomBusSampler>();
 	}
 };
+DUMPER7_ASSERTS_UAtomBusSampler;
 
 // Class CriWareRuntime.AtomCallback
 // 0x0000 (0x0000 - 0x0000)
@@ -387,6 +398,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IAtomCallback;
 
 // Class CriWareRuntime.AtomCallbackManager
 // 0x0028 (0x0050 - 0x0028)
@@ -413,6 +425,7 @@ public:
 		return GetDefaultObjImpl<UAtomCallbackManager>();
 	}
 };
+DUMPER7_ASSERTS_UAtomCallbackManager;
 
 // Class CriWareRuntime.AtomCategory
 // 0x0000 (0x0028 - 0x0028)
@@ -449,6 +462,7 @@ public:
 		return GetDefaultObjImpl<UAtomCategory>();
 	}
 };
+DUMPER7_ASSERTS_UAtomCategory;
 
 // Class CriWareRuntime.AtomComponent
 // 0x1040 (0x1240 - 0x0200)
@@ -580,6 +594,7 @@ public:
 		return GetDefaultObjImpl<UAtomComponent>();
 	}
 };
+DUMPER7_ASSERTS_UAtomComponent;
 
 // Class CriWareRuntime.AtomComponentPool
 // 0x0040 (0x0068 - 0x0028)
@@ -603,6 +618,7 @@ public:
 		return GetDefaultObjImpl<UAtomComponentPool>();
 	}
 };
+DUMPER7_ASSERTS_UAtomComponentPool;
 
 // Class CriWareRuntime.AtomCueSheetLoaderComponent
 // 0x0090 (0x0290 - 0x0200)
@@ -638,6 +654,7 @@ public:
 		return GetDefaultObjImpl<UAtomCueSheetLoaderComponent>();
 	}
 };
+DUMPER7_ASSERTS_UAtomCueSheetLoaderComponent;
 
 // Class CriWareRuntime.AtomDeviceWatcher
 // 0x0028 (0x0050 - 0x0028)
@@ -665,6 +682,7 @@ public:
 		return GetDefaultObjImpl<UAtomDeviceWatcher>();
 	}
 };
+DUMPER7_ASSERTS_UAtomDeviceWatcher;
 
 // Class CriWareRuntime.AtomDisposer
 // 0x0010 (0x0230 - 0x0220)
@@ -687,6 +705,7 @@ public:
 		return GetDefaultObjImpl<AAtomDisposer>();
 	}
 };
+DUMPER7_ASSERTS_AAtomDisposer;
 
 // Class CriWareRuntime.AtomListenerFocusPoint
 // 0x0010 (0x0210 - 0x0200)
@@ -711,6 +730,7 @@ public:
 		return GetDefaultObjImpl<UAtomListenerFocusPoint>();
 	}
 };
+DUMPER7_ASSERTS_UAtomListenerFocusPoint;
 
 // Class CriWareRuntime.AtomParameterComponent
 // 0x0010 (0x00C0 - 0x00B0)
@@ -734,6 +754,7 @@ public:
 		return GetDefaultObjImpl<UAtomParameterComponent>();
 	}
 };
+DUMPER7_ASSERTS_UAtomParameterComponent;
 
 // Class CriWareRuntime.AtomProfileData
 // 0x0000 (0x0028 - 0x0028)
@@ -757,6 +778,7 @@ public:
 		return GetDefaultObjImpl<UAtomProfileData>();
 	}
 };
+DUMPER7_ASSERTS_UAtomProfileData;
 
 // Class CriWareRuntime.AtomSound
 // 0x0008 (0x0228 - 0x0220)
@@ -779,6 +801,7 @@ public:
 		return GetDefaultObjImpl<AAtomSound>();
 	}
 };
+DUMPER7_ASSERTS_AAtomSound;
 
 // Class CriWareRuntime.AtomSoundData
 // 0x0010 (0x0230 - 0x0220)
@@ -802,6 +825,7 @@ public:
 		return GetDefaultObjImpl<AAtomSoundData>();
 	}
 };
+DUMPER7_ASSERTS_AAtomSoundData;
 
 // Class CriWareRuntime.AtomSoundObject
 // 0x0018 (0x0048 - 0x0030)
@@ -826,6 +850,7 @@ public:
 		return GetDefaultObjImpl<UAtomSoundObject>();
 	}
 };
+DUMPER7_ASSERTS_UAtomSoundObject;
 
 // Class CriWareRuntime.AtomSpectrumAnalyzer
 // 0x0000 (0x0028 - 0x0028)
@@ -850,6 +875,7 @@ public:
 		return GetDefaultObjImpl<UAtomSpectrumAnalyzer>();
 	}
 };
+DUMPER7_ASSERTS_UAtomSpectrumAnalyzer;
 
 // Class CriWareRuntime.AtomStatics
 // 0x0000 (0x0028 - 0x0028)
@@ -905,6 +931,7 @@ public:
 		return GetDefaultObjImpl<UAtomStatics>();
 	}
 };
+DUMPER7_ASSERTS_UAtomStatics;
 
 // Class CriWareRuntime.AtomTriggerTableFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -927,6 +954,7 @@ public:
 		return GetDefaultObjImpl<UAtomTriggerTableFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UAtomTriggerTableFunctionLibrary;
 
 // Class CriWareRuntime.AtomUnrealSoundRenderer
 // 0x8050 (0x8410 - 0x03C0)
@@ -949,6 +977,7 @@ public:
 		return GetDefaultObjImpl<UAtomUnrealSoundRenderer>();
 	}
 };
+DUMPER7_ASSERTS_UAtomUnrealSoundRenderer;
 
 // Class CriWareRuntime.AtomWavePlayer
 // 0x00F8 (0x0120 - 0x0028)
@@ -999,6 +1028,7 @@ public:
 		return GetDefaultObjImpl<UAtomWavePlayer>();
 	}
 };
+DUMPER7_ASSERTS_UAtomWavePlayer;
 
 // Class CriWareRuntime.CriFsBinderComponent
 // 0x0050 (0x0250 - 0x0200)
@@ -1029,6 +1059,7 @@ public:
 		return GetDefaultObjImpl<UCriFsBinderComponent>();
 	}
 };
+DUMPER7_ASSERTS_UCriFsBinderComponent;
 
 // Class CriWareRuntime.CriFsLoader
 // 0x0008 (0x0228 - 0x0220)
@@ -1051,6 +1082,7 @@ public:
 		return GetDefaultObjImpl<ACriFsLoader>();
 	}
 };
+DUMPER7_ASSERTS_ACriFsLoader;
 
 // Class CriWareRuntime.CriFsLoaderComponent
 // 0x0070 (0x0270 - 0x0200)
@@ -1081,6 +1113,7 @@ public:
 		return GetDefaultObjImpl<UCriFsLoaderComponent>();
 	}
 };
+DUMPER7_ASSERTS_UCriFsLoaderComponent;
 
 // Class CriWareRuntime.CriWareError
 // 0x0028 (0x0050 - 0x0028)
@@ -1108,6 +1141,7 @@ public:
 		return GetDefaultObjImpl<UCriWareError>();
 	}
 };
+DUMPER7_ASSERTS_UCriWareError;
 
 // Class CriWareRuntime.CriWareFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -1133,6 +1167,7 @@ public:
 		return GetDefaultObjImpl<UCriWareFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UCriWareFunctionLibrary;
 
 // Class CriWareRuntime.CriWareInitializer
 // 0x0000 (0x0028 - 0x0028)
@@ -1152,6 +1187,7 @@ public:
 		return GetDefaultObjImpl<UCriWareInitializer>();
 	}
 };
+DUMPER7_ASSERTS_UCriWareInitializer;
 
 // Class CriWareRuntime.CriWarePluginSettings
 // 0x0490 (0x04B8 - 0x0028)
@@ -1331,6 +1367,7 @@ public:
 		return GetDefaultObjImpl<UCriWarePluginSettings>();
 	}
 };
+DUMPER7_ASSERTS_UCriWarePluginSettings;
 
 // Class CriWareRuntime.ManaComponent
 // 0x01F8 (0x02A8 - 0x00B0)
@@ -1439,6 +1476,7 @@ public:
 		return GetDefaultObjImpl<UManaComponent>();
 	}
 };
+DUMPER7_ASSERTS_UManaComponent;
 
 // Class CriWareRuntime.ManaComponentTexture
 // 0x0050 (0x01D0 - 0x0180)
@@ -1467,6 +1505,7 @@ public:
 		return GetDefaultObjImpl<UManaComponentTexture>();
 	}
 };
+DUMPER7_ASSERTS_UManaComponentTexture;
 
 // Class CriWareRuntime.ManaSource
 // 0x0000 (0x0028 - 0x0028)
@@ -1486,6 +1525,7 @@ public:
 		return GetDefaultObjImpl<UManaSource>();
 	}
 };
+DUMPER7_ASSERTS_UManaSource;
 
 // Class CriWareRuntime.ManaMovie
 // 0x0078 (0x00A0 - 0x0028)
@@ -1523,6 +1563,7 @@ public:
 		return GetDefaultObjImpl<UManaMovie>();
 	}
 };
+DUMPER7_ASSERTS_UManaMovie;
 
 // Class CriWareRuntime.FileManaMovie
 // 0x0018 (0x00B8 - 0x00A0)
@@ -1550,6 +1591,7 @@ public:
 		return GetDefaultObjImpl<UFileManaMovie>();
 	}
 };
+DUMPER7_ASSERTS_UFileManaMovie;
 
 // Class CriWareRuntime.DataManaMovie
 // 0x0008 (0x00A8 - 0x00A0)
@@ -1576,6 +1618,7 @@ public:
 		return GetDefaultObjImpl<UDataManaMovie>();
 	}
 };
+DUMPER7_ASSERTS_UDataManaMovie;
 
 // Class CriWareRuntime.StreamManaMovie
 // 0x0010 (0x00B0 - 0x00A0)
@@ -1598,6 +1641,7 @@ public:
 		return GetDefaultObjImpl<UStreamManaMovie>();
 	}
 };
+DUMPER7_ASSERTS_UStreamManaMovie;
 
 // Class CriWareRuntime.ManaPlayer
 // 0x0198 (0x01C0 - 0x0028)
@@ -1702,6 +1746,7 @@ public:
 		return GetDefaultObjImpl<UManaPlayer>();
 	}
 };
+DUMPER7_ASSERTS_UManaPlayer;
 
 // Class CriWareRuntime.ManaPlaylist
 // 0x0018 (0x0040 - 0x0028)
@@ -1742,6 +1787,7 @@ public:
 		return GetDefaultObjImpl<UManaPlaylist>();
 	}
 };
+DUMPER7_ASSERTS_UManaPlaylist;
 
 // Class CriWareRuntime.ManaTexture
 // 0x00F0 (0x0270 - 0x0180)
@@ -1788,6 +1834,7 @@ public:
 		return GetDefaultObjImpl<UManaTexture>();
 	}
 };
+DUMPER7_ASSERTS_UManaTexture;
 
 // Class CriWareRuntime.MaterialExpressionManaColorSpaceConverter
 // 0x0070 (0x00B0 - 0x0040)
@@ -1820,6 +1867,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionManaColorSpaceConverter>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionManaColorSpaceConverter;
 
 // Class CriWareRuntime.MaterialExpressionManaMovieFormatSwitch
 // 0x0068 (0x00A8 - 0x0040)
@@ -1843,6 +1891,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionManaMovieFormatSwitch>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionManaMovieFormatSwitch;
 
 // Class CriWareRuntime.PlatformManaMovie
 // 0x0008 (0x00A8 - 0x00A0)
@@ -1865,6 +1914,7 @@ public:
 		return GetDefaultObjImpl<UPlatformManaMovie>();
 	}
 };
+DUMPER7_ASSERTS_UPlatformManaMovie;
 
 // Class CriWareRuntime.SoundAtomConfig
 // 0x0038 (0x0060 - 0x0028)
@@ -1891,6 +1941,7 @@ public:
 		return GetDefaultObjImpl<USoundAtomConfig>();
 	}
 };
+DUMPER7_ASSERTS_USoundAtomConfig;
 
 // Class CriWareRuntime.SoundAtomCue
 // 0x00B0 (0x00D8 - 0x0028)
@@ -1974,6 +2025,7 @@ public:
 		return GetDefaultObjImpl<USoundAtomCue>();
 	}
 };
+DUMPER7_ASSERTS_USoundAtomCue;
 
 // Class CriWareRuntime.SoundAtomCueSheet
 // 0x00F0 (0x0118 - 0x0028)
@@ -2024,5 +2076,7 @@ public:
 		return GetDefaultObjImpl<USoundAtomCueSheet>();
 	}
 };
+DUMPER7_ASSERTS_USoundAtomCueSheet;
 
-SDK_NAMESPACE_END
+}
+

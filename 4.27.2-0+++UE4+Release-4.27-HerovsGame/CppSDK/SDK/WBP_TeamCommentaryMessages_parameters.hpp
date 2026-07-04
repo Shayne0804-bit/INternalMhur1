@@ -13,8 +13,8 @@
 #include "GameModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_TeamCommentaryMessages.WBP_TeamCommentaryMessages_C.ExecuteUbergraph_WBP_TeamCommentaryMessages
 // 0x0050 (0x0050 - 0x0000)
@@ -37,6 +37,7 @@ public:
 	int32                                         CallFunc_GetTabIndex_ReturnValue;                  // 0x0044(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_EqualEqual_IntInt_ReturnValue;            // 0x0048(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TeamCommentaryMessages_C_ExecuteUbergraph_WBP_TeamCommentaryMessages;
 
 // Function WBP_TeamCommentaryMessages.WBP_TeamCommentaryMessages_C.OnRequestMessage
 // 0x0001 (0x0001 - 0x0000)
@@ -45,6 +46,7 @@ struct WBP_TeamCommentaryMessages_C_OnRequestMessage final
 public:
 	ETeamCommentaryMessage                        MessageType;                                       // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_TeamCommentaryMessages_C_OnRequestMessage;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

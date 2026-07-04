@@ -14,7 +14,8 @@
 #include "BP_CC_RollSlot_Acceleration_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_RollSlot_Acceleration.BP_CC_RollSlot_Acceleration_C.ExecuteUbergraph_BP_CC_RollSlot_Acceleration
 // (Final, UbergraphFunction)
@@ -91,5 +92,5 @@ void UBP_CC_RollSlot_Acceleration_C::BP_OnEndCondition()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -18,7 +18,8 @@
 #include "BackendSubsystem_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_InputTextBox.WBP_InputTextBox_C
 // 0x0080 (0x0888 - 0x0808)
@@ -66,5 +67,7 @@ public:
 		return GetDefaultObjImpl<UWBP_InputTextBox_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_InputTextBox_C;
 
-SDK_NAMESPACE_END
+}
+

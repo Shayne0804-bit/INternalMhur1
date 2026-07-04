@@ -13,8 +13,8 @@
 #include "UIFramework_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_FocusAnimationListItem.WBP_FocusAnimationListItem_C.ExecuteUbergraph_WBP_FocusAnimationListItem
 // 0x0040 (0x0040 - 0x0000)
@@ -33,6 +33,7 @@ public:
 	class UAppWidget*                             K2Node_DynamicCast_AsApp_Widget;                   // 0x0030(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x0038(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_FocusAnimationListItem_C_ExecuteUbergraph_WBP_FocusAnimationListItem;
 
 // Function WBP_FocusAnimationListItem.WBP_FocusAnimationListItem_C.OnRemovedFromFocusDelegate
 // 0x0010 (0x0010 - 0x0000)
@@ -42,6 +43,7 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_FocusAnimationListItem_C_OnRemovedFromFocusDelegate;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

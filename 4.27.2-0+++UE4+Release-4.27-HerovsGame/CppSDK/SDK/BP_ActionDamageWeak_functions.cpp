@@ -14,7 +14,8 @@
 #include "BP_ActionDamageWeak_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageWeak.BP_ActionDamageWeak_C.ExecuteUbergraph_BP_ActionDamageWeak
 // (Final, UbergraphFunction)
@@ -118,5 +119,5 @@ void UBP_ActionDamageWeak_C::DecideAnimationId(EAnimationId* Animation_Id)
 		*Animation_Id = Parms.Animation_Id;
 }
 
+}
 
-SDK_NAMESPACE_END

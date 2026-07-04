@@ -15,7 +15,8 @@
 #include "UIFramework_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_NetworkError.WBP_NetworkError_C
 // 0x0008 (0x03B0 - 0x03A8)
@@ -42,5 +43,7 @@ public:
 		return GetDefaultObjImpl<UWBP_NetworkError_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_NetworkError_C;
 
-SDK_NAMESPACE_END
+}
+

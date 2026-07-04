@@ -15,7 +15,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionJumpBeginForward.BP_ActionJumpBeginForward_C
 // 0x0010 (0x0288 - 0x0278)
@@ -48,5 +49,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionJumpBeginForward_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionJumpBeginForward_C;
 
-SDK_NAMESPACE_END
+}
+

@@ -15,7 +15,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionDyingFall.BP_ActionDyingFall_C
 // 0x0018 (0x0290 - 0x0278)
@@ -50,5 +51,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionDyingFall_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionDyingFall_C;
 
-SDK_NAMESPACE_END
+}
+

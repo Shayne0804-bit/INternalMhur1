@@ -14,7 +14,8 @@
 #include "BP_ActionDamageZeroGravity_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageZeroGravity.BP_ActionDamageZeroGravity_C.ExecuteUbergraph_BP_ActionDamageZeroGravity
 // (Final, UbergraphFunction, HasDefaults)
@@ -132,5 +133,5 @@ void UBP_ActionDamageZeroGravity_C::DecideAnimation(EAnimationId* animationId)
 		*animationId = Parms.animationId;
 }
 
+}
 
-SDK_NAMESPACE_END

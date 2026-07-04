@@ -20,7 +20,8 @@
 #include "UMG_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_TextChatWindow.WBP_TextChatWindow_C
 // 0x0060 (0x0540 - 0x04E0)
@@ -63,7 +64,7 @@ public:
 	void Construct();
 	void PreConstruct(bool IsDesignTime);
 	void checkTextEmpty(const class FText& Text, bool* NewParam);
-	void setUpColor(const struct FSlateColor& NewParam);
+	void SetUpColor(const struct FSlateColor& NewParam);
 	void SetupList();
 	struct FEventReply OnAnalogValueChanged(const struct FGeometry& MyGeometry, const struct FAnalogInputEvent& InAnalogInputEvent);
 	void RequesetSendTeamUpChatTestCommand(const class FText& message);
@@ -92,5 +93,7 @@ public:
 		return GetDefaultObjImpl<UWBP_TextChatWindow_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_TextChatWindow_C;
 
-SDK_NAMESPACE_END
+}
+

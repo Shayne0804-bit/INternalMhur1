@@ -14,7 +14,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_CC_RollSlot_Invincible.BP_CC_RollSlot_Invincible_C
 // 0x0008 (0x0160 - 0x0158)
@@ -43,5 +44,7 @@ public:
 		return GetDefaultObjImpl<UBP_CC_RollSlot_Invincible_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_CC_RollSlot_Invincible_C;
 
-SDK_NAMESPACE_END
+}
+

@@ -15,8 +15,8 @@
 #include "HeadMountedDisplay_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function HeadMountedDisplay.AsyncTask_LoadXRDeviceVisComponent.AddDeviceVisualizationComponentAsync
 // 0x0060 (0x0060 - 0x0000)
@@ -31,6 +31,7 @@ public:
 	class UPrimitiveComponent*                    NewComponent;                                      // 0x0050(0x0008)(Parm, OutParm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UAsyncTask_LoadXRDeviceVisComponent*    ReturnValue;                                       // 0x0058(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AsyncTask_LoadXRDeviceVisComponent_AddDeviceVisualizationComponentAsync;
 
 // Function HeadMountedDisplay.AsyncTask_LoadXRDeviceVisComponent.AddNamedDeviceVisualizationComponentAsync
 // 0x0070 (0x0070 - 0x0000)
@@ -48,6 +49,7 @@ public:
 	class UPrimitiveComponent*                    NewComponent;                                      // 0x0060(0x0008)(Parm, OutParm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UAsyncTask_LoadXRDeviceVisComponent*    ReturnValue;                                       // 0x0068(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AsyncTask_LoadXRDeviceVisComponent_AddNamedDeviceVisualizationComponentAsync;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.BreakKey
 // 0x0058 (0x0058 - 0x0000)
@@ -63,6 +65,7 @@ public:
 	class FString                                 Indentifier;                                       // 0x0038(0x0010)(Parm, OutParm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 Component;                                         // 0x0048(0x0010)(Parm, OutParm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_BreakKey;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.CalibrateExternalTrackingToHMD
 // 0x0030 (0x0030 - 0x0000)
@@ -71,6 +74,7 @@ struct HeadMountedDisplayFunctionLibrary_CalibrateExternalTrackingToHMD final
 public:
 	struct FTransform                             ExternalTrackingTransform;                         // 0x0000(0x0030)(ConstParm, Parm, OutParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_CalibrateExternalTrackingToHMD;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.ClearXRTimedInputActionDelegate
 // 0x0008 (0x0008 - 0x0000)
@@ -79,6 +83,7 @@ struct HeadMountedDisplayFunctionLibrary_ClearXRTimedInputActionDelegate final
 public:
 	class FName                                   ActionPath;                                        // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_ClearXRTimedInputActionDelegate;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.ConfigureGestures
 // 0x0007 (0x0007 - 0x0000)
@@ -88,6 +93,7 @@ public:
 	struct FXRGestureConfig                       GestureConfig;                                     // 0x0000(0x0006)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0006(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_ConfigureGestures;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.ConnectRemoteXRDevice
 // 0x0018 (0x0018 - 0x0000)
@@ -99,6 +105,7 @@ public:
 	EXRDeviceConnectionResult                     ReturnValue;                                       // 0x0014(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_ConnectRemoteXRDevice;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.EnableHMD
 // 0x0002 (0x0002 - 0x0000)
@@ -108,6 +115,7 @@ public:
 	bool                                          bEnable;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_EnableHMD;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.EnableLowPersistenceMode
 // 0x0001 (0x0001 - 0x0000)
@@ -116,6 +124,7 @@ struct HeadMountedDisplayFunctionLibrary_EnableLowPersistenceMode final
 public:
 	bool                                          bEnable;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_EnableLowPersistenceMode;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.EnumerateTrackedDevices
 // 0x0020 (0x0020 - 0x0000)
@@ -127,6 +136,7 @@ public:
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FXRDeviceId>                    ReturnValue;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_EnumerateTrackedDevices;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetControllerTransformForTime
 // 0x0070 (0x0070 - 0x0000)
@@ -154,6 +164,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x006C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_6D[0x3];                                       // 0x006D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetControllerTransformForTime;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetDevicePose
 // 0x002C (0x002C - 0x0000)
@@ -168,6 +179,7 @@ public:
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FVector                                Position;                                          // 0x0020(0x000C)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetDevicePose;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetDeviceWorldPose
 // 0x0038 (0x0038 - 0x0000)
@@ -184,6 +196,7 @@ public:
 	struct FVector                                Position;                                          // 0x0028(0x000C)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetDeviceWorldPose;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetHMDData
 // 0x0050 (0x0050 - 0x0000)
@@ -194,6 +207,7 @@ public:
 	uint8                                         Pad_8[0x8];                                        // 0x0008(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FXRHMDData                             HMDData;                                           // 0x0010(0x0040)(Parm, OutParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetHMDData;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetHMDDeviceName
 // 0x0008 (0x0008 - 0x0000)
@@ -202,6 +216,7 @@ struct HeadMountedDisplayFunctionLibrary_GetHMDDeviceName final
 public:
 	class FName                                   ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetHMDDeviceName;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetHMDWornState
 // 0x0001 (0x0001 - 0x0000)
@@ -210,6 +225,7 @@ struct HeadMountedDisplayFunctionLibrary_GetHMDWornState final
 public:
 	EHMDWornState                                 ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetHMDWornState;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetMotionControllerData
 // 0x00B0 (0x00B0 - 0x0000)
@@ -221,6 +237,7 @@ public:
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FXRMotionControllerData                MotionControllerData;                              // 0x0010(0x00A0)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetMotionControllerData;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetNumOfTrackingSensors
 // 0x0004 (0x0004 - 0x0000)
@@ -229,6 +246,7 @@ struct HeadMountedDisplayFunctionLibrary_GetNumOfTrackingSensors final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetNumOfTrackingSensors;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetOrientationAndPosition
 // 0x0018 (0x0018 - 0x0000)
@@ -238,6 +256,7 @@ public:
 	struct FRotator                               DeviceRotation;                                    // 0x0000(0x000C)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 	struct FVector                                DevicePosition;                                    // 0x000C(0x000C)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetOrientationAndPosition;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetPixelDensity
 // 0x0004 (0x0004 - 0x0000)
@@ -246,6 +265,7 @@ struct HeadMountedDisplayFunctionLibrary_GetPixelDensity final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetPixelDensity;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetPlayAreaBounds
 // 0x000C (0x000C - 0x0000)
@@ -256,6 +276,7 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FVector2D                              ReturnValue;                                       // 0x0004(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetPlayAreaBounds;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetPlayAreaRect
 // 0x0040 (0x0040 - 0x0000)
@@ -267,6 +288,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0038(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_39[0x7];                                       // 0x0039(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetPlayAreaRect;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetPositionalTrackingCameraParameters
 // 0x002C (0x002C - 0x0000)
@@ -281,6 +303,7 @@ public:
 	float                                         NearPlane;                                         // 0x0024(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         FarPlane;                                          // 0x0028(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetPositionalTrackingCameraParameters;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetScreenPercentage
 // 0x0004 (0x0004 - 0x0000)
@@ -289,6 +312,7 @@ struct HeadMountedDisplayFunctionLibrary_GetScreenPercentage final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetScreenPercentage;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetTrackingOrigin
 // 0x0001 (0x0001 - 0x0000)
@@ -297,6 +321,7 @@ struct HeadMountedDisplayFunctionLibrary_GetTrackingOrigin final
 public:
 	EHMDTrackingOrigin                            ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetTrackingOrigin;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetTrackingOriginTransform
 // 0x0050 (0x0050 - 0x0000)
@@ -309,6 +334,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0040(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_41[0xF];                                       // 0x0041(0x000F)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetTrackingOriginTransform;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetTrackingSensorParameters
 // 0x003C (0x003C - 0x0000)
@@ -328,6 +354,7 @@ public:
 	uint8                                         Pad_35[0x3];                                       // 0x0035(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         Index_0;                                           // 0x0038(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetTrackingSensorParameters;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetTrackingToWorldTransform
 // 0x0040 (0x0040 - 0x0000)
@@ -338,6 +365,7 @@ public:
 	uint8                                         Pad_8[0x8];                                        // 0x0008(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FTransform                             ReturnValue;                                       // 0x0010(0x0030)(Parm, OutParm, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetTrackingToWorldTransform;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetVersionString
 // 0x0010 (0x0010 - 0x0000)
@@ -346,6 +374,7 @@ struct HeadMountedDisplayFunctionLibrary_GetVersionString final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetVersionString;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetVRFocusState
 // 0x0002 (0x0002 - 0x0000)
@@ -355,6 +384,7 @@ public:
 	bool                                          bUseFocus;                                         // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          bHasFocus;                                         // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetVRFocusState;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetWorldToMetersScale
 // 0x0010 (0x0010 - 0x0000)
@@ -365,6 +395,7 @@ public:
 	float                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetWorldToMetersScale;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.GetXRSystemFlags
 // 0x0004 (0x0004 - 0x0000)
@@ -373,6 +404,7 @@ struct HeadMountedDisplayFunctionLibrary_GetXRSystemFlags final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_GetXRSystemFlags;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.HasValidTrackingPosition
 // 0x0001 (0x0001 - 0x0000)
@@ -381,6 +413,7 @@ struct HeadMountedDisplayFunctionLibrary_HasValidTrackingPosition final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_HasValidTrackingPosition;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.IsDeviceTracking
 // 0x0010 (0x0010 - 0x0000)
@@ -391,6 +424,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_IsDeviceTracking;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.IsHeadMountedDisplayConnected
 // 0x0001 (0x0001 - 0x0000)
@@ -399,6 +433,7 @@ struct HeadMountedDisplayFunctionLibrary_IsHeadMountedDisplayConnected final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_IsHeadMountedDisplayConnected;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.IsHeadMountedDisplayEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -407,6 +442,7 @@ struct HeadMountedDisplayFunctionLibrary_IsHeadMountedDisplayEnabled final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_IsHeadMountedDisplayEnabled;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.IsInLowPersistenceMode
 // 0x0001 (0x0001 - 0x0000)
@@ -415,6 +451,7 @@ struct HeadMountedDisplayFunctionLibrary_IsInLowPersistenceMode final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_IsInLowPersistenceMode;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.IsSpectatorScreenModeControllable
 // 0x0001 (0x0001 - 0x0000)
@@ -423,6 +460,7 @@ struct HeadMountedDisplayFunctionLibrary_IsSpectatorScreenModeControllable final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_IsSpectatorScreenModeControllable;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.ResetOrientationAndPosition
 // 0x0008 (0x0008 - 0x0000)
@@ -433,6 +471,7 @@ public:
 	EOrientPositionSelector                       Options;                                           // 0x0004(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_ResetOrientationAndPosition;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.SetClippingPlanes
 // 0x0008 (0x0008 - 0x0000)
@@ -442,6 +481,7 @@ public:
 	float                                         Near;                                              // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Far;                                               // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_SetClippingPlanes;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.SetSpectatorScreenMode
 // 0x0001 (0x0001 - 0x0000)
@@ -450,6 +490,7 @@ struct HeadMountedDisplayFunctionLibrary_SetSpectatorScreenMode final
 public:
 	ESpectatorScreenMode                          Mode;                                              // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_SetSpectatorScreenMode;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.SetSpectatorScreenModeTexturePlusEyeLayout
 // 0x0024 (0x0024 - 0x0000)
@@ -465,6 +506,7 @@ public:
 	bool                                          bUseAlpha;                                         // 0x0022(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_23[0x1];                                       // 0x0023(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_SetSpectatorScreenModeTexturePlusEyeLayout;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.SetSpectatorScreenTexture
 // 0x0008 (0x0008 - 0x0000)
@@ -473,6 +515,7 @@ struct HeadMountedDisplayFunctionLibrary_SetSpectatorScreenTexture final
 public:
 	class UTexture*                               InTexture;                                         // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_SetSpectatorScreenTexture;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.SetTrackingOrigin
 // 0x0001 (0x0001 - 0x0000)
@@ -481,6 +524,7 @@ struct HeadMountedDisplayFunctionLibrary_SetTrackingOrigin final
 public:
 	EHMDTrackingOrigin                            Origin;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_SetTrackingOrigin;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.SetWorldToMetersScale
 // 0x0010 (0x0010 - 0x0000)
@@ -491,6 +535,7 @@ public:
 	float                                         NewScale;                                          // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_SetWorldToMetersScale;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.SetXRDisconnectDelegate
 // 0x0010 (0x0010 - 0x0000)
@@ -499,6 +544,7 @@ struct HeadMountedDisplayFunctionLibrary_SetXRDisconnectDelegate final
 public:
 	TDelegate<void(const class FString& OutReason)> InDisconnectedDelegate;                          // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_SetXRDisconnectDelegate;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.SetXRTimedInputActionDelegate
 // 0x0018 (0x0018 - 0x0000)
@@ -508,6 +554,7 @@ public:
 	class FName                                   ActionName;                                        // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TDelegate<void(const float value, const struct FTimespan& Time)> InDelegate;                     // 0x0008(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_SetXRTimedInputActionDelegate;
 
 // Function HeadMountedDisplay.HeadMountedDisplayFunctionLibrary.UpdateExternalTrackingHMDPosition
 // 0x0030 (0x0030 - 0x0000)
@@ -516,6 +563,7 @@ struct HeadMountedDisplayFunctionLibrary_UpdateExternalTrackingHMDPosition final
 public:
 	struct FTransform                             ExternalTrackingTransform;                         // 0x0000(0x0030)(ConstParm, Parm, OutParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HeadMountedDisplayFunctionLibrary_UpdateExternalTrackingHMDPosition;
 
 // Function HeadMountedDisplay.HandKeypointConversion.Conv_HandKeypointToInt32
 // 0x0008 (0x0008 - 0x0000)
@@ -526,6 +574,7 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HandKeypointConversion_Conv_HandKeypointToInt32;
 
 // Function HeadMountedDisplay.MotionControllerComponent.GetHandJointPosition
 // 0x0014 (0x0014 - 0x0000)
@@ -537,6 +586,7 @@ public:
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FVector                                ReturnValue;                                       // 0x0008(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionControllerComponent_GetHandJointPosition;
 
 // Function HeadMountedDisplay.MotionControllerComponent.GetParameterValue
 // 0x0010 (0x0010 - 0x0000)
@@ -548,6 +598,7 @@ public:
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         ReturnValue;                                       // 0x000C(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionControllerComponent_GetParameterValue;
 
 // Function HeadMountedDisplay.MotionControllerComponent.SetAssociatedPlayerIndex
 // 0x0004 (0x0004 - 0x0000)
@@ -556,6 +607,7 @@ struct MotionControllerComponent_SetAssociatedPlayerIndex final
 public:
 	int32                                         NewPlayer;                                         // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionControllerComponent_SetAssociatedPlayerIndex;
 
 // Function HeadMountedDisplay.MotionControllerComponent.SetCustomDisplayMesh
 // 0x0008 (0x0008 - 0x0000)
@@ -564,6 +616,7 @@ struct MotionControllerComponent_SetCustomDisplayMesh final
 public:
 	class UStaticMesh*                            NewDisplayMesh;                                    // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionControllerComponent_SetCustomDisplayMesh;
 
 // Function HeadMountedDisplay.MotionControllerComponent.SetDisplayModelSource
 // 0x0008 (0x0008 - 0x0000)
@@ -572,6 +625,7 @@ struct MotionControllerComponent_SetDisplayModelSource final
 public:
 	class FName                                   NewDisplayModelSource;                             // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionControllerComponent_SetDisplayModelSource;
 
 // Function HeadMountedDisplay.MotionControllerComponent.SetShowDeviceModel
 // 0x0001 (0x0001 - 0x0000)
@@ -580,6 +634,7 @@ struct MotionControllerComponent_SetShowDeviceModel final
 public:
 	bool                                          bShowControllerModel;                              // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionControllerComponent_SetShowDeviceModel;
 
 // Function HeadMountedDisplay.MotionControllerComponent.SetTrackingMotionSource
 // 0x0008 (0x0008 - 0x0000)
@@ -588,6 +643,7 @@ struct MotionControllerComponent_SetTrackingMotionSource final
 public:
 	class FName                                   NewSource;                                         // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionControllerComponent_SetTrackingMotionSource;
 
 // Function HeadMountedDisplay.MotionControllerComponent.SetTrackingSource
 // 0x0001 (0x0001 - 0x0000)
@@ -596,6 +652,7 @@ struct MotionControllerComponent_SetTrackingSource final
 public:
 	EControllerHand                               NewSource;                                         // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionControllerComponent_SetTrackingSource;
 
 // Function HeadMountedDisplay.MotionControllerComponent.GetTrackingSource
 // 0x0001 (0x0001 - 0x0000)
@@ -604,6 +661,7 @@ struct MotionControllerComponent_GetTrackingSource final
 public:
 	EControllerHand                               ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionControllerComponent_GetTrackingSource;
 
 // Function HeadMountedDisplay.MotionControllerComponent.IsTracked
 // 0x0001 (0x0001 - 0x0000)
@@ -612,6 +670,7 @@ struct MotionControllerComponent_IsTracked final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionControllerComponent_IsTracked;
 
 // Function HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary.DisableMotionTrackingForComponent
 // 0x0008 (0x0008 - 0x0000)
@@ -620,6 +679,7 @@ struct MotionTrackedDeviceFunctionLibrary_DisableMotionTrackingForComponent fina
 public:
 	const class UMotionControllerComponent*       MotionControllerComponent;                         // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionTrackedDeviceFunctionLibrary_DisableMotionTrackingForComponent;
 
 // Function HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary.DisableMotionTrackingOfControllersForPlayer
 // 0x0004 (0x0004 - 0x0000)
@@ -628,6 +688,7 @@ struct MotionTrackedDeviceFunctionLibrary_DisableMotionTrackingOfControllersForP
 public:
 	int32                                         PlayerIndex;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionTrackedDeviceFunctionLibrary_DisableMotionTrackingOfControllersForPlayer;
 
 // Function HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary.DisableMotionTrackingOfDevice
 // 0x0008 (0x0008 - 0x0000)
@@ -638,6 +699,7 @@ public:
 	EControllerHand                               Hand;                                              // 0x0004(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MotionTrackedDeviceFunctionLibrary_DisableMotionTrackingOfDevice;
 
 // Function HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary.DisableMotionTrackingOfSource
 // 0x000C (0x000C - 0x0000)
@@ -647,6 +709,7 @@ public:
 	int32                                         PlayerIndex;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   SourceName;                                        // 0x0004(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionTrackedDeviceFunctionLibrary_DisableMotionTrackingOfSource;
 
 // Function HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary.EnableMotionTrackingForComponent
 // 0x0010 (0x0010 - 0x0000)
@@ -657,6 +720,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MotionTrackedDeviceFunctionLibrary_EnableMotionTrackingForComponent;
 
 // Function HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary.EnableMotionTrackingOfDevice
 // 0x0008 (0x0008 - 0x0000)
@@ -668,6 +732,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0005(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_6[0x2];                                        // 0x0006(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MotionTrackedDeviceFunctionLibrary_EnableMotionTrackingOfDevice;
 
 // Function HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary.EnableMotionTrackingOfSource
 // 0x0010 (0x0010 - 0x0000)
@@ -679,6 +744,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MotionTrackedDeviceFunctionLibrary_EnableMotionTrackingOfSource;
 
 // Function HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary.EnumerateMotionSources
 // 0x0010 (0x0010 - 0x0000)
@@ -687,6 +753,7 @@ struct MotionTrackedDeviceFunctionLibrary_EnumerateMotionSources final
 public:
 	TArray<class FName>                           ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionTrackedDeviceFunctionLibrary_EnumerateMotionSources;
 
 // Function HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary.GetActiveTrackingSystemName
 // 0x0008 (0x0008 - 0x0000)
@@ -695,6 +762,7 @@ struct MotionTrackedDeviceFunctionLibrary_GetActiveTrackingSystemName final
 public:
 	class FName                                   ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionTrackedDeviceFunctionLibrary_GetActiveTrackingSystemName;
 
 // Function HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary.GetMaximumMotionTrackedControllerCount
 // 0x0004 (0x0004 - 0x0000)
@@ -703,6 +771,7 @@ struct MotionTrackedDeviceFunctionLibrary_GetMaximumMotionTrackedControllerCount
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionTrackedDeviceFunctionLibrary_GetMaximumMotionTrackedControllerCount;
 
 // Function HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary.GetMotionTrackingEnabledControllerCount
 // 0x0004 (0x0004 - 0x0000)
@@ -711,6 +780,7 @@ struct MotionTrackedDeviceFunctionLibrary_GetMotionTrackingEnabledControllerCoun
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionTrackedDeviceFunctionLibrary_GetMotionTrackingEnabledControllerCount;
 
 // Function HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary.IsMotionSourceTracking
 // 0x0010 (0x0010 - 0x0000)
@@ -722,6 +792,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MotionTrackedDeviceFunctionLibrary_IsMotionSourceTracking;
 
 // Function HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary.IsMotionTrackedDeviceCountManagementNecessary
 // 0x0001 (0x0001 - 0x0000)
@@ -730,6 +801,7 @@ struct MotionTrackedDeviceFunctionLibrary_IsMotionTrackedDeviceCountManagementNe
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionTrackedDeviceFunctionLibrary_IsMotionTrackedDeviceCountManagementNecessary;
 
 // Function HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary.IsMotionTrackingEnabledForComponent
 // 0x0010 (0x0010 - 0x0000)
@@ -740,6 +812,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MotionTrackedDeviceFunctionLibrary_IsMotionTrackingEnabledForComponent;
 
 // Function HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary.IsMotionTrackingEnabledForDevice
 // 0x0008 (0x0008 - 0x0000)
@@ -751,6 +824,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0005(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_6[0x2];                                        // 0x0006(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MotionTrackedDeviceFunctionLibrary_IsMotionTrackingEnabledForDevice;
 
 // Function HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary.IsMotionTrackingEnabledForSource
 // 0x0010 (0x0010 - 0x0000)
@@ -762,6 +836,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MotionTrackedDeviceFunctionLibrary_IsMotionTrackingEnabledForSource;
 
 // Function HeadMountedDisplay.MotionTrackedDeviceFunctionLibrary.SetIsControllerMotionTrackingEnabledByDefault
 // 0x0001 (0x0001 - 0x0000)
@@ -770,6 +845,7 @@ struct MotionTrackedDeviceFunctionLibrary_SetIsControllerMotionTrackingEnabledBy
 public:
 	bool                                          enable;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MotionTrackedDeviceFunctionLibrary_SetIsControllerMotionTrackingEnabledByDefault;
 
 // Function HeadMountedDisplay.XRAssetFunctionLibrary.AddDeviceVisualizationComponentBlocking
 // 0x0060 (0x0060 - 0x0000)
@@ -784,6 +860,7 @@ public:
 	class UPrimitiveComponent*                    ReturnValue;                                       // 0x0050(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_58[0x8];                                       // 0x0058(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_XRAssetFunctionLibrary_AddDeviceVisualizationComponentBlocking;
 
 // Function HeadMountedDisplay.XRAssetFunctionLibrary.AddNamedDeviceVisualizationComponentBlocking
 // 0x0070 (0x0070 - 0x0000)
@@ -801,6 +878,7 @@ public:
 	class UPrimitiveComponent*                    ReturnValue;                                       // 0x0060(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_68[0x8];                                       // 0x0068(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_XRAssetFunctionLibrary_AddNamedDeviceVisualizationComponentBlocking;
 
 // Function HeadMountedDisplay.XRLoadingScreenFunctionLibrary.AddLoadingScreenSplash
 // 0x0038 (0x0038 - 0x0000)
@@ -815,6 +893,7 @@ public:
 	bool                                          bClearBeforeAdd;                                   // 0x0034(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_35[0x3];                                       // 0x0035(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_XRLoadingScreenFunctionLibrary_AddLoadingScreenSplash;
 
 // Function HeadMountedDisplay.XRLoadingScreenFunctionLibrary.SetLoadingScreen
 // 0x0020 (0x0020 - 0x0000)
@@ -828,6 +907,7 @@ public:
 	bool                                          bShowOnSet;                                        // 0x001D(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1E[0x2];                                       // 0x001E(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_XRLoadingScreenFunctionLibrary_SetLoadingScreen;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_NetworkLoadingIcon.WBP_NetworkLoadingIcon_C
 // 0x0028 (0x03A8 - 0x0380)
@@ -45,5 +46,7 @@ public:
 		return GetDefaultObjImpl<UWBP_NetworkLoadingIcon_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_NetworkLoadingIcon_C;
 
-SDK_NAMESPACE_END
+}
+

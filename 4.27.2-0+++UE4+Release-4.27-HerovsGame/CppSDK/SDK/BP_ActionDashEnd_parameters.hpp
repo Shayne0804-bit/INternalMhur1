@@ -13,8 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDashEnd.BP_ActionDashEnd_C.ExecuteUbergraph_BP_ActionDashEnd
 // 0x0030 (0x0030 - 0x0000)
@@ -29,6 +29,7 @@ public:
 	class UCharacterCommandComponent*             CallFunc_BP_GetOwnerCommand_ReturnValue;           // 0x0020(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class FName                                   K2Node_Event_prevAction;                           // 0x0028(0x0008)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDashEnd_C_ExecuteUbergraph_BP_ActionDashEnd;
 
 // Function BP_ActionDashEnd.BP_ActionDashEnd_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -37,6 +38,7 @@ struct BP_ActionDashEnd_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDashEnd_C_BP_OnBeginAction;
 
 // Function BP_ActionDashEnd.BP_ActionDashEnd_C.GetDestMoveDirection
 // 0x0050 (0x0050 - 0x0000)
@@ -55,6 +57,7 @@ public:
 	uint8                                         Pad_3D[0x3];                                       // 0x003D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FVector                                K2Node_Select_Default;                             // 0x0040(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDashEnd_C_GetDestMoveDirection;
 
 // Function BP_ActionDashEnd.BP_ActionDashEnd_C.UpdateMoveDirection
 // 0x0020 (0x0020 - 0x0000)
@@ -66,6 +69,7 @@ public:
 	class UCharacterParam*                        CallFunc_BP_GetParam_ReturnValue;                  // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_BP_GetDeltaSeconds_ReturnValue;           // 0x0018(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDashEnd_C_UpdateMoveDirection;
 
 // Function BP_ActionDashEnd.BP_ActionDashEnd_C.UpdateCharacterDirection
 // 0x0018 (0x0018 - 0x0000)
@@ -75,6 +79,7 @@ public:
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue;    // 0x0000(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_BP_GetMoveDirection_ReturnValue;          // 0x0008(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDashEnd_C_UpdateCharacterDirection;
 
 // Function BP_ActionDashEnd.BP_ActionDashEnd_C.BP_IsEnableShiftAction
 // 0x000C (0x000C - 0x0000)
@@ -85,6 +90,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
 	bool                                          K2Node_SwitchName_CmpSuccess;                      // 0x0009(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionDashEnd_C_BP_IsEnableShiftAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

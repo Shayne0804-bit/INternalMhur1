@@ -14,7 +14,8 @@
 #include "OutGameModule_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function OutGameModule.AboutDataUsage.OnDecideAgreeButtonEvent
 // (Final, Native, Protected)
@@ -64706,6 +64707,26 @@ void URandomPackRatio::SetUpMainText()
 }
 
 
+// Function OutGameModule.RankEventRewardsEntry.CreateItemWidget
+// (Event, Public, BlueprintCallable, BlueprintEvent)
+// Parameters:
+// class URankingRemunerationItemWidget*   ReturnValue                                            (ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+
+class URankingRemunerationItemWidget* URankEventRewardsEntry::CreateItemWidget()
+{
+	static class UFunction* Func = nullptr;
+
+	if (Func == nullptr)
+		Func = Class->GetFunction("RankEventRewardsEntry", "CreateItemWidget");
+
+	Params::RankEventRewardsEntry_CreateItemWidget Parms{};
+
+	UObject::ProcessEvent(Func, &Parms);
+
+	return Parms.ReturnValue;
+}
+
+
 // Function OutGameModule.RankEventRewardsEntry.DoCustomWidgetNavigation
 // (Final, Native, Public)
 // Parameters:
@@ -78092,5 +78113,5 @@ void UUseCurrencySelectItemWidget::OnFadeOutEnd()
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

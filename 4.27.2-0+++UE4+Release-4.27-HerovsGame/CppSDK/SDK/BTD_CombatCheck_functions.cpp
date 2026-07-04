@@ -14,7 +14,8 @@
 #include "BTD_CombatCheck_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BTD_CombatCheck.BTD_CombatCheck_C.PerformConditionCheckAI
 // (Event, Protected, HasOutParams, BlueprintCallable, BlueprintEvent)
@@ -40,5 +41,5 @@ bool UBTD_CombatCheck_C::PerformConditionCheckAI(class AAIController* OwnerContr
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

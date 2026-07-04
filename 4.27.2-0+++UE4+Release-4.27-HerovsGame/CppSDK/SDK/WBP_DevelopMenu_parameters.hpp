@@ -15,8 +15,8 @@
 #include "InputCore_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_DevelopMenu.WBP_DevelopMenu_C.ExecuteUbergraph_WBP_DevelopMenu
 // 0x00B8 (0x00B8 - 0x0000)
@@ -56,6 +56,7 @@ public:
 	uint8                                         Pad_B1[0x3];                                       // 0x00B1(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         CallFunc_Add_IntInt_ReturnValue;                   // 0x00B4(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_DevelopMenu_C_ExecuteUbergraph_WBP_DevelopMenu;
 
 // Function WBP_DevelopMenu.WBP_DevelopMenu_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -64,6 +65,7 @@ struct WBP_DevelopMenu_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_DevelopMenu_C_PreConstruct;
 
 // Function WBP_DevelopMenu.WBP_DevelopMenu_C.Tick
 // 0x003C (0x003C - 0x0000)
@@ -73,6 +75,7 @@ public:
 	struct FGeometry                              MyGeometry;                                        // 0x0000(0x0038)(BlueprintVisible, BlueprintReadOnly, Parm, IsPlainOldData, NoDestructor)
 	float                                         InDeltaTime;                                       // 0x0038(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_DevelopMenu_C_Tick;
 
 // Function WBP_DevelopMenu.WBP_DevelopMenu_C.OnKeyDown
 // 0x0200 (0x0200 - 0x0000)
@@ -88,6 +91,7 @@ public:
 	uint8                                         Pad_142[0x6];                                      // 0x0142(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FEventReply                            CallFunc_Handled_ReturnValue;                      // 0x0148(0x00B8)()
 };
+DUMPER7_ASSERTS_WBP_DevelopMenu_C_OnKeyDown;
 
 // Function WBP_DevelopMenu.WBP_DevelopMenu_C.OnKeyUp
 // 0x0200 (0x0200 - 0x0000)
@@ -103,6 +107,7 @@ public:
 	uint8                                         Pad_142[0x6];                                      // 0x0142(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FEventReply                            CallFunc_Handled_ReturnValue;                      // 0x0148(0x00B8)()
 };
+DUMPER7_ASSERTS_WBP_DevelopMenu_C_OnKeyUp;
 
 // Function WBP_DevelopMenu.WBP_DevelopMenu_C.SetupButton
 // 0x0620 (0x0620 - 0x0000)
@@ -116,6 +121,7 @@ public:
 	struct FSlateBrush                            K2Node_MakeStruct_SlateBrush_2;                    // 0x01B0(0x00D0)()
 	struct FButtonStyle                           K2Node_MakeStruct_ButtonStyle;                     // 0x0280(0x03A0)()
 };
+DUMPER7_ASSERTS_WBP_DevelopMenu_C_SetupButton;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

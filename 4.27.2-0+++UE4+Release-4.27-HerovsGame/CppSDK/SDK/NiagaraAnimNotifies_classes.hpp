@@ -14,7 +14,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class NiagaraAnimNotifies.AnimNotify_PlayNiagaraEffect
 // 0x0058 (0x0090 - 0x0038)
@@ -49,6 +50,7 @@ public:
 		return GetDefaultObjImpl<UAnimNotify_PlayNiagaraEffect>();
 	}
 };
+DUMPER7_ASSERTS_UAnimNotify_PlayNiagaraEffect;
 
 // Class NiagaraAnimNotifies.AnimNotifyState_TimedNiagaraEffect
 // 0x0030 (0x0060 - 0x0030)
@@ -79,6 +81,7 @@ public:
 		return GetDefaultObjImpl<UAnimNotifyState_TimedNiagaraEffect>();
 	}
 };
+DUMPER7_ASSERTS_UAnimNotifyState_TimedNiagaraEffect;
 
 // Class NiagaraAnimNotifies.AnimNotifyState_TimedNiagaraEffectAdvanced
 // 0x0050 (0x00B0 - 0x0060)
@@ -104,5 +107,7 @@ public:
 		return GetDefaultObjImpl<UAnimNotifyState_TimedNiagaraEffectAdvanced>();
 	}
 };
+DUMPER7_ASSERTS_UAnimNotifyState_TimedNiagaraEffectAdvanced;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "BP_ActionRecoverAlly_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionRecoverAlly.BP_ActionRecoverAlly_C.ExecuteUbergraph_BP_ActionRecoverAlly
 // (Final, UbergraphFunction)
@@ -271,5 +272,5 @@ bool UBP_ActionRecoverAlly_C::BP_IsEnableShiftAction(const class FName& nextActi
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

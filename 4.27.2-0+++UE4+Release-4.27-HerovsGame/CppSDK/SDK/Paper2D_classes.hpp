@@ -16,7 +16,8 @@
 #include "Paper2D_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class Paper2D.PaperGroupedSpriteComponent
 // 0x0030 (0x04B0 - 0x0480)
@@ -52,6 +53,7 @@ public:
 		return GetDefaultObjImpl<UPaperGroupedSpriteComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPaperGroupedSpriteComponent;
 
 // Class Paper2D.MaterialExpressionSpriteTextureSampler
 // 0x0020 (0x00A0 - 0x0080)
@@ -77,6 +79,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionSpriteTextureSampler>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionSpriteTextureSampler;
 
 // Class Paper2D.PaperCharacter
 // 0x0000 (0x04C0 - 0x04C0)
@@ -99,6 +102,7 @@ public:
 		return GetDefaultObjImpl<APaperCharacter>();
 	}
 };
+DUMPER7_ASSERTS_APaperCharacter;
 
 // Class Paper2D.PaperFlipbook
 // 0x0028 (0x0050 - 0x0028)
@@ -135,6 +139,7 @@ public:
 		return GetDefaultObjImpl<UPaperFlipbook>();
 	}
 };
+DUMPER7_ASSERTS_UPaperFlipbook;
 
 // Class Paper2D.PaperFlipbookActor
 // 0x0008 (0x0228 - 0x0220)
@@ -157,6 +162,7 @@ public:
 		return GetDefaultObjImpl<APaperFlipbookActor>();
 	}
 };
+DUMPER7_ASSERTS_APaperFlipbookActor;
 
 // Class Paper2D.PaperFlipbookComponent
 // 0x0040 (0x04C0 - 0x0480)
@@ -217,6 +223,7 @@ public:
 		return GetDefaultObjImpl<UPaperFlipbookComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPaperFlipbookComponent;
 
 // Class Paper2D.PaperGroupedSpriteActor
 // 0x0008 (0x0228 - 0x0220)
@@ -239,6 +246,7 @@ public:
 		return GetDefaultObjImpl<APaperGroupedSpriteActor>();
 	}
 };
+DUMPER7_ASSERTS_APaperGroupedSpriteActor;
 
 // Class Paper2D.PaperRuntimeSettings
 // 0x0008 (0x0030 - 0x0028)
@@ -264,6 +272,7 @@ public:
 		return GetDefaultObjImpl<UPaperRuntimeSettings>();
 	}
 };
+DUMPER7_ASSERTS_UPaperRuntimeSettings;
 
 // Class Paper2D.PaperSprite
 // 0x0080 (0x00A8 - 0x0028)
@@ -300,6 +309,7 @@ public:
 		return GetDefaultObjImpl<UPaperSprite>();
 	}
 };
+DUMPER7_ASSERTS_UPaperSprite;
 
 // Class Paper2D.PaperSpriteActor
 // 0x0008 (0x0228 - 0x0220)
@@ -322,6 +332,7 @@ public:
 		return GetDefaultObjImpl<APaperSpriteActor>();
 	}
 };
+DUMPER7_ASSERTS_APaperSpriteActor;
 
 // Class Paper2D.PaperSpriteAtlas
 // 0x0000 (0x0028 - 0x0028)
@@ -341,6 +352,7 @@ public:
 		return GetDefaultObjImpl<UPaperSpriteAtlas>();
 	}
 };
+DUMPER7_ASSERTS_UPaperSpriteAtlas;
 
 // Class Paper2D.PaperSpriteBlueprintLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -363,6 +375,7 @@ public:
 		return GetDefaultObjImpl<UPaperSpriteBlueprintLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UPaperSpriteBlueprintLibrary;
 
 // Class Paper2D.PaperSpriteComponent
 // 0x0020 (0x04A0 - 0x0480)
@@ -393,6 +406,7 @@ public:
 		return GetDefaultObjImpl<UPaperSpriteComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPaperSpriteComponent;
 
 // Class Paper2D.PaperTerrainActor
 // 0x0018 (0x0238 - 0x0220)
@@ -417,6 +431,7 @@ public:
 		return GetDefaultObjImpl<APaperTerrainActor>();
 	}
 };
+DUMPER7_ASSERTS_APaperTerrainActor;
 
 // Class Paper2D.PaperTerrainComponent
 // 0x0060 (0x04B0 - 0x0450)
@@ -456,6 +471,7 @@ public:
 		return GetDefaultObjImpl<UPaperTerrainComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPaperTerrainComponent;
 
 // Class Paper2D.PaperTerrainMaterial
 // 0x0018 (0x0048 - 0x0030)
@@ -479,6 +495,7 @@ public:
 		return GetDefaultObjImpl<UPaperTerrainMaterial>();
 	}
 };
+DUMPER7_ASSERTS_UPaperTerrainMaterial;
 
 // Class Paper2D.PaperTerrainSplineComponent
 // 0x0010 (0x0560 - 0x0550)
@@ -501,6 +518,7 @@ public:
 		return GetDefaultObjImpl<UPaperTerrainSplineComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPaperTerrainSplineComponent;
 
 // Class Paper2D.PaperTileLayer
 // 0x0070 (0x0098 - 0x0028)
@@ -539,6 +557,7 @@ public:
 		return GetDefaultObjImpl<UPaperTileLayer>();
 	}
 };
+DUMPER7_ASSERTS_UPaperTileLayer;
 
 // Class Paper2D.PaperTileMap
 // 0x0080 (0x00A8 - 0x0028)
@@ -580,6 +599,7 @@ public:
 		return GetDefaultObjImpl<UPaperTileMap>();
 	}
 };
+DUMPER7_ASSERTS_UPaperTileMap;
 
 // Class Paper2D.PaperTileMapActor
 // 0x0008 (0x0228 - 0x0220)
@@ -602,6 +622,7 @@ public:
 		return GetDefaultObjImpl<APaperTileMapActor>();
 	}
 };
+DUMPER7_ASSERTS_APaperTileMapActor;
 
 // Class Paper2D.PaperTileMapComponent
 // 0x0050 (0x04D0 - 0x0480)
@@ -658,6 +679,7 @@ public:
 		return GetDefaultObjImpl<UPaperTileMapComponent>();
 	}
 };
+DUMPER7_ASSERTS_UPaperTileMapComponent;
 
 // Class Paper2D.PaperTileSet
 // 0x0080 (0x00A8 - 0x0028)
@@ -695,6 +717,7 @@ public:
 		return GetDefaultObjImpl<UPaperTileSet>();
 	}
 };
+DUMPER7_ASSERTS_UPaperTileSet;
 
 // Class Paper2D.TileMapBlueprintLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -720,5 +743,7 @@ public:
 		return GetDefaultObjImpl<UTileMapBlueprintLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UTileMapBlueprintLibrary;
 
-SDK_NAMESPACE_END
+}
+

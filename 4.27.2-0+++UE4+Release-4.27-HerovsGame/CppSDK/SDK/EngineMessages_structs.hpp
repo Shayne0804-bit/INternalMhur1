@@ -13,7 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct EngineMessages.EngineServiceNotification
 // 0x0018 (0x0018 - 0x0000)
@@ -23,6 +24,7 @@ public:
 	class FString                                 Text;                                              // 0x0000(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	double                                        TimeSeconds;                                       // 0x0010(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FEngineServiceNotification;
 
 // ScriptStruct EngineMessages.EngineServiceTerminate
 // 0x0010 (0x0010 - 0x0000)
@@ -31,6 +33,7 @@ struct FEngineServiceTerminate final
 public:
 	class FString                                 UserName;                                          // 0x0000(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FEngineServiceTerminate;
 
 // ScriptStruct EngineMessages.EngineServiceExecuteCommand
 // 0x0020 (0x0020 - 0x0000)
@@ -40,6 +43,7 @@ public:
 	class FString                                 Command;                                           // 0x0000(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 UserName;                                          // 0x0010(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FEngineServiceExecuteCommand;
 
 // ScriptStruct EngineMessages.EngineServiceAuthGrant
 // 0x0020 (0x0020 - 0x0000)
@@ -49,6 +53,7 @@ public:
 	class FString                                 UserName;                                          // 0x0000(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 UserToGrant;                                       // 0x0010(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FEngineServiceAuthGrant;
 
 // ScriptStruct EngineMessages.EngineServiceAuthDeny
 // 0x0020 (0x0020 - 0x0000)
@@ -58,6 +63,7 @@ public:
 	class FString                                 UserName;                                          // 0x0000(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 UserToDeny;                                        // 0x0010(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FEngineServiceAuthDeny;
 
 // ScriptStruct EngineMessages.EngineServicePong
 // 0x0050 (0x0050 - 0x0000)
@@ -74,6 +80,7 @@ public:
 	float                                         WorldTimeSeconds;                                  // 0x0048(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_4C[0x4];                                       // 0x004C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FEngineServicePong;
 
 // ScriptStruct EngineMessages.EngineServicePing
 // 0x0001 (0x0001 - 0x0000)
@@ -82,5 +89,7 @@ struct FEngineServicePing final
 public:
 	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FEngineServicePing;
 
-SDK_NAMESPACE_END
+}
+

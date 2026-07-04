@@ -13,8 +13,8 @@
 #include "GameModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.ExecuteUbergraph_BP_ActionPlusUltra
 // 0x0118 (0x0118 - 0x0000)
@@ -83,6 +83,7 @@ public:
 	bool                                          CallFunc_IsPlusUltraCancelled_ReturnValue_2;       // 0x0115(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_Not_PreBool_ReturnValue_3;                // 0x0116(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionPlusUltra_C_ExecuteUbergraph_BP_ActionPlusUltra;
 
 // Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.BP_OnRecieveActionPing
 // 0x0004 (0x0004 - 0x0000)
@@ -91,6 +92,7 @@ struct BP_ActionPlusUltra_C_BP_OnRecieveActionPing final
 public:
 	int32                                         ping;                                              // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionPlusUltra_C_BP_OnRecieveActionPing;
 
 // Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -99,6 +101,7 @@ struct BP_ActionPlusUltra_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionPlusUltra_C_BP_OnBeginAction;
 
 // Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.BP_OnAnimNotify
 // 0x0010 (0x0010 - 0x0000)
@@ -108,6 +111,7 @@ public:
 	class FName                                   Type;                                              // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class FName                                   Event;                                             // 0x0008(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionPlusUltra_C_BP_OnAnimNotify;
 
 // Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -116,6 +120,7 @@ struct BP_ActionPlusUltra_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionPlusUltra_C_BP_OnEndAction;
 
 // Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.BroadcastRollSlotUniqueSkill
 // 0x0038 (0x0038 - 0x0000)
@@ -131,6 +136,7 @@ public:
 	class APlayerStateBattle*                     CallFunc_BP_GetPlayerStateBattle_ReturnValue_2;    // 0x0028(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterRollSlotUniqueSkillControlComponent* CallFunc_BP_GetCharacterRollSlotUniqueSkillControlComponent_ReturnValue_2; // 0x0030(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionPlusUltra_C_BroadcastRollSlotUniqueSkill;
 
 // Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.BroadcastRollSlotUniqueSkill_OnBegin
 // 0x0038 (0x0038 - 0x0000)
@@ -146,6 +152,7 @@ public:
 	class APlayerStateBattle*                     CallFunc_BP_GetPlayerStateBattle_ReturnValue_2;    // 0x0028(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterRollSlotUniqueSkillControlComponent* CallFunc_BP_GetCharacterRollSlotUniqueSkillControlComponent_ReturnValue_2; // 0x0030(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionPlusUltra_C_BroadcastRollSlotUniqueSkill_OnBegin;
 
 // Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.IsPlusUltraCancelled
 // 0x0030 (0x0030 - 0x0000)
@@ -164,6 +171,7 @@ public:
 	bool                                          CallFunc_BooleanOR_ReturnValue;                    // 0x0029(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_BooleanOR_ReturnValue_1;                  // 0x002A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionPlusUltra_C_IsPlusUltraCancelled;
 
 // Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.ClearGrabbed
 // 0x0050 (0x0050 - 0x0000)
@@ -182,6 +190,7 @@ public:
 	class UCharacterState*                        CallFunc_BP_GetState_ReturnValue_3;                // 0x0040(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_BP_IsGrabbed_ReturnValue;                 // 0x0048(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionPlusUltra_C_ClearGrabbed;
 
 // Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.ResetBuffCondition
 // 0x0028 (0x0028 - 0x0000)
@@ -194,6 +203,7 @@ public:
 	class UCharacterConditionControlComponent*    CallFunc_BP_GetConditionControlComponent_ReturnValue_1; // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_BP_IsValidCondition_ReturnValue;          // 0x0020(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionPlusUltra_C_ResetBuffCondition;
 
 // Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.AnimationSelecter
 // 0x0020 (0x0020 - 0x0000)
@@ -209,6 +219,7 @@ public:
 	bool                                          CallFunc_BP_IsOnGround_ReturnValue;                // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	EAnimationId                                  K2Node_Select_Default;                             // 0x0019(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionPlusUltra_C_AnimationSelecter;
 
 // Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.ConditionSelecter
 // 0x0030 (0x0030 - 0x0000)
@@ -224,6 +235,7 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_1; // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterConditionControlComponent*    CallFunc_BP_GetConditionControlComponent_ReturnValue_1; // 0x0028(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionPlusUltra_C_ConditionSelecter;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

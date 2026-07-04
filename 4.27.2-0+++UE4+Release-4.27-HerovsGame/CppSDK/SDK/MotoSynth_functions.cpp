@@ -14,7 +14,8 @@
 #include "MotoSynth_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function MotoSynth.SynthComponentMoto.GetRPMRange
 // (Final, Native, Public, HasOutParams, BlueprintCallable)
@@ -122,5 +123,5 @@ bool USynthComponentMoto::IsEnabled() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -14,7 +14,8 @@
 #include "BP_ActionRecoverCitizen_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionRecoverCitizen.BP_ActionRecoverCitizen_C.ExecuteUbergraph_BP_ActionRecoverCitizen
 // (Final, UbergraphFunction)
@@ -251,5 +252,5 @@ bool UBP_ActionRecoverCitizen_C::BP_IsEnableShiftAction(const class FName& nextA
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

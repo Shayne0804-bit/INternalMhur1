@@ -14,7 +14,8 @@
 #include "BP_ActionDamageGrabbed_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageGrabbed.BP_ActionDamageGrabbed_C.ExecuteUbergraph_BP_ActionDamageGrabbed
 // (Final, UbergraphFunction)
@@ -97,5 +98,5 @@ void UBP_ActionDamageGrabbed_C::BP_ActionMain()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

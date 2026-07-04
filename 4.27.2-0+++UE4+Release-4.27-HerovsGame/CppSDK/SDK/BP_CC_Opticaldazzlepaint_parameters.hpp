@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_Opticaldazzlepaint.BP_CC_Opticaldazzlepaint_C.ExecuteUbergraph_BP_CC_Opticaldazzlepaint
 // 0x0048 (0x0048 - 0x0000)
@@ -32,6 +32,7 @@ public:
 	uint8                                         Pad_3A[0x6];                                       // 0x003A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	class APlayerStateBattle*                     CallFunc_BP_GetOwnerPlayerState_ReturnValue;       // 0x0040(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Opticaldazzlepaint_C_ExecuteUbergraph_BP_CC_Opticaldazzlepaint;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

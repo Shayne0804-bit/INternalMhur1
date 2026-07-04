@@ -14,7 +14,8 @@
 #include "BP_ActionDamageStrongBlowOff_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageStrongBlowOff.BP_ActionDamageStrongBlowOff_C.ExecuteUbergraph_BP_ActionDamageStrongBlowOff
 // (Final, UbergraphFunction, HasDefaults)
@@ -131,5 +132,5 @@ void UBP_ActionDamageStrongBlowOff_C::PlayAnimation()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -14,7 +14,8 @@
 #include "BP_ActionDamageAirRecover_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageAirRecover.BP_ActionDamageAirRecover_C.ExecuteUbergraph_BP_ActionDamageAirRecover
 // (Final, UbergraphFunction, HasDefaults)
@@ -103,5 +104,5 @@ void UBP_ActionDamageAirRecover_C::BP_OnBeginAction(const class FName& prevActio
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

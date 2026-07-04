@@ -13,7 +13,8 @@
 #include "GameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_TeamCommentaryMessageItem.WBP_TeamCommentaryMessageItem_C
 // 0x0018 (0x0400 - 0x03E8)
@@ -38,5 +39,7 @@ public:
 		return GetDefaultObjImpl<UWBP_TeamCommentaryMessageItem_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_TeamCommentaryMessageItem_C;
 
-SDK_NAMESPACE_END
+}
+

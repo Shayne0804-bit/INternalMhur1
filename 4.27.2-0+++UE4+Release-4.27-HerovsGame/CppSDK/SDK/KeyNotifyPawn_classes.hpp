@@ -14,7 +14,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass KeyNotifyPawn.KeyNotifyPawn_C
 // 0x0018 (0x0298 - 0x0280)
@@ -59,5 +60,7 @@ public:
 		return GetDefaultObjImpl<AKeyNotifyPawn_C>();
 	}
 };
+DUMPER7_ASSERTS_AKeyNotifyPawn_C;
 
-SDK_NAMESPACE_END
+}
+

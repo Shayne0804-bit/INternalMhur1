@@ -14,7 +14,8 @@
 #include "BP_ActionGrabbed_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionGrabbed.BP_ActionGrabbed_C.BP_IsEnableShiftAction
 // (Event, Protected, HasOutParams, BlueprintCallable, BlueprintEvent, Const)
@@ -38,5 +39,5 @@ bool UBP_ActionGrabbed_C::BP_IsEnableShiftAction(const class FName& nextAction) 
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

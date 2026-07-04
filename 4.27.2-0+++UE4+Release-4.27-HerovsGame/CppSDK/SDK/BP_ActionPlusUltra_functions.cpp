@@ -14,7 +14,8 @@
 #include "BP_ActionPlusUltra_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionPlusUltra.BP_ActionPlusUltra_C.ExecuteUbergraph_BP_ActionPlusUltra
 // (Final, UbergraphFunction)
@@ -290,5 +291,5 @@ void UBP_ActionPlusUltra_C::ConditionSelecter(float InSpan, float InValue, bool 
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

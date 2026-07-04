@@ -194,9 +194,9 @@ namespace UC
 		template<typename SetType>
 		class SetElement
 		{
-		public:
-			template<typename SetElementType>
-			friend class UC::TSet;
+		private:
+			template<typename SetDataType>
+			friend class TSet;
 
 		private:
 			SetType Value;
@@ -907,6 +907,7 @@ namespace UC
 
 		public:
 			inline TContainerIterator& operator++() { ++BitIterator; return *this; }
+			inline TContainerIterator& operator--() { --BitIterator; return *this; }
 
 			inline       auto& operator*()       { return IteratedContainer[GetIndex()]; }
 			inline const auto& operator*() const { return IteratedContainer[GetIndex()]; }

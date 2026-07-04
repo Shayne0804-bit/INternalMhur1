@@ -13,7 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum SimplygonUObjects.EGeometryDataFieldType
 // NumValues: 0x0009
@@ -265,6 +266,7 @@ struct alignas(0x08) FSimplygonPipelineSettings
 public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSimplygonPipelineSettings;
 
 // ScriptStruct SimplygonUObjects.ImpostorFromSingleViewSettings
 // 0x001C (0x001C - 0x0000)
@@ -279,6 +281,7 @@ public:
 	struct FVector                                ViewDirection;                                     // 0x000C(0x000C)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         TexCoordPadding;                                   // 0x0018(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FImpostorFromSingleViewSettings;
 
 // ScriptStruct SimplygonUObjects.ParameterizerSettings
 // 0x0008 (0x0008 - 0x0000)
@@ -288,6 +291,7 @@ public:
 	float                                         MaxStretch;                                        // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         LargeChartsImportance;                             // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FParameterizerSettings;
 
 // ScriptStruct SimplygonUObjects.InputMaterialSettings
 // 0x0004 (0x0004 - 0x0000)
@@ -296,6 +300,7 @@ struct FInputMaterialSettings final
 public:
 	int32                                         MaterialMapping;                                   // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FInputMaterialSettings;
 
 // ScriptStruct SimplygonUObjects.OutputMaterialSettings
 // 0x0010 (0x0010 - 0x0000)
@@ -307,6 +312,7 @@ public:
 	int32                                         MultisamplingLevel;                                // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         GutterSpace;                                       // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FOutputMaterialSettings;
 
 // ScriptStruct SimplygonUObjects.ChartAggregatorSettings
 // 0x0038 (0x0038 - 0x0000)
@@ -324,6 +330,7 @@ public:
 	uint8                                         LockUVRotation : 1;                                // 0x0030(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Edit, BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_31[0x7];                                       // 0x0031(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FChartAggregatorSettings;
 
 // ScriptStruct SimplygonUObjects.MappingImageSettings
 // 0x00A0 (0x00A0 - 0x0000)
@@ -358,6 +365,7 @@ public:
 	struct FChartAggregatorSettings               ChartAggregatorSettings;                           // 0x0060(0x0038)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 	struct FParameterizerSettings                 ParameterizerSettings;                             // 0x0098(0x0008)(Edit, BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMappingImageSettings;
 
 // ScriptStruct SimplygonUObjects.ImpostorFromSingleViewPipelineSettings
 // 0x00D0 (0x00D8 - 0x0008)
@@ -369,6 +377,7 @@ public:
 	struct FMappingImageSettings                  MappingImageSettings;                              // 0x0028(0x00A0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 	TArray<class USimplygonMaterialCaster*>       MaterialPropertyCasters;                           // 0x00C8(0x0010)(Edit, ExportObject, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FImpostorFromSingleViewPipelineSettings;
 
 // ScriptStruct SimplygonUObjects.FlipbookSettings
 // 0x001C (0x001C - 0x0000)
@@ -379,6 +388,7 @@ public:
 	struct FVector                                ViewDirection;                                     // 0x0004(0x000C)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                UpVector;                                          // 0x0010(0x000C)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FFlipbookSettings;
 
 // ScriptStruct SimplygonUObjects.FlipbookPipelineSettings
 // 0x00D0 (0x00D8 - 0x0008)
@@ -390,6 +400,7 @@ public:
 	struct FMappingImageSettings                  MappingImageSettings;                              // 0x0028(0x00A0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 	TArray<class USimplygonMaterialCaster*>       MaterialPropertyCasters;                           // 0x00C8(0x0010)(Edit, ExportObject, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FFlipbookPipelineSettings;
 
 // ScriptStruct SimplygonUObjects.FoliageSettings
 // 0x0018 (0x0018 - 0x0000)
@@ -404,6 +415,7 @@ public:
 	float                                         SeparateFoliageSizeThreshold;                      // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         TrunkReductionRatio;                               // 0x0014(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FFoliageSettings;
 
 // ScriptStruct SimplygonUObjects.BillboardCloudSettings
 // 0x0034 (0x0034 - 0x0000)
@@ -421,6 +433,7 @@ public:
 	struct FVector                                UpVector;                                          // 0x0010(0x000C)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FFoliageSettings                       FoliageSettings;                                   // 0x001C(0x0018)(Edit, BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBillboardCloudSettings;
 
 // ScriptStruct SimplygonUObjects.BillboardCloudVegetationPipelineSettings
 // 0x00E8 (0x00F0 - 0x0008)
@@ -432,6 +445,7 @@ public:
 	struct FMappingImageSettings                  MappingImageSettings;                              // 0x0040(0x00A0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 	TArray<class USimplygonMaterialCaster*>       MaterialPropertyCasters;                           // 0x00E0(0x0010)(Edit, ExportObject, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBillboardCloudVegetationPipelineSettings;
 
 // ScriptStruct SimplygonUObjects.BillboardCloudPipelineSettings
 // 0x00E8 (0x00F0 - 0x0008)
@@ -443,6 +457,7 @@ public:
 	struct FMappingImageSettings                  MappingImageSettings;                              // 0x0040(0x00A0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 	TArray<class USimplygonMaterialCaster*>       MaterialPropertyCasters;                           // 0x00E0(0x0010)(Edit, ExportObject, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBillboardCloudPipelineSettings;
 
 // ScriptStruct SimplygonUObjects.AggregationSettings
 // 0x0028 (0x0028 - 0x0000)
@@ -461,6 +476,7 @@ public:
 	uint8                                         Pad_21[0x3];                                       // 0x0021(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         SubdivisionTileSize;                               // 0x0024(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAggregationSettings;
 
 // ScriptStruct SimplygonUObjects.VisibilitySettings
 // 0x0040 (0x0040 - 0x0000)
@@ -486,6 +502,7 @@ public:
 	EComputeVisibilityMode                        ComputeVisibilityMode;                             // 0x003D(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_3E[0x2];                                       // 0x003E(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FVisibilitySettings;
 
 // ScriptStruct SimplygonUObjects.GeometryCullingSettings
 // 0x0030 (0x0030 - 0x0000)
@@ -501,6 +518,7 @@ public:
 	int32                                         ClippingGeometrySelectionSetID;                    // 0x001C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 ClippingGeometrySelectionSetName;                  // 0x0020(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FGeometryCullingSettings;
 
 // ScriptStruct SimplygonUObjects.VertexWeightSettings
 // 0x0028 (0x0028 - 0x0000)
@@ -518,6 +536,7 @@ public:
 	EWeightsFromColorMode                         WeightsFromColorMode;                              // 0x0024(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_25[0x3];                                       // 0x0025(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FVertexWeightSettings;
 
 // ScriptStruct SimplygonUObjects.GenerateLightmapTexCoordSettings
 // 0x0028 (0x0028 - 0x0000)
@@ -534,6 +553,7 @@ public:
 	int32                                         TextureHeight;                                     // 0x0020(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         GutterSpace;                                       // 0x0024(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FGenerateLightmapTexCoordSettings;
 
 // ScriptStruct SimplygonUObjects.AggregationPipelineSettings
 // 0x0198 (0x01A0 - 0x0008)
@@ -548,6 +568,7 @@ public:
 	struct FGenerateLightmapTexCoordSettings      GenerateLightmapTexCoordSettings;                  // 0x0168(0x0028)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 	TArray<class USimplygonMaterialCaster*>       MaterialPropertyCasters;                           // 0x0190(0x0010)(Edit, ExportObject, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAggregationPipelineSettings;
 
 // ScriptStruct SimplygonUObjects.RemeshingSettings
 // 0x0038 (0x0038 - 0x0000)
@@ -572,6 +593,7 @@ public:
 	uint8                                         KeepUnprocessedSceneMeshes : 1;                    // 0x0030(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Edit, BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_31[0x7];                                       // 0x0031(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FRemeshingSettings;
 
 // ScriptStruct SimplygonUObjects.BoneSettings
 // 0x0048 (0x0048 - 0x0000)
@@ -599,6 +621,7 @@ public:
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 RemoveBoneSelectionSetName;                        // 0x0038(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBoneSettings;
 
 // ScriptStruct SimplygonUObjects.RemeshingPipelineSettings
 // 0x01A0 (0x01A8 - 0x0008)
@@ -612,6 +635,7 @@ public:
 	struct FMappingImageSettings                  MappingImageSettings;                              // 0x00F8(0x00A0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 	TArray<class USimplygonMaterialCaster*>       MaterialPropertyCasters;                           // 0x0198(0x0010)(Edit, ExportObject, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRemeshingPipelineSettings;
 
 // ScriptStruct SimplygonUObjects.ReductionSettings
 // 0x0088 (0x0088 - 0x0000)
@@ -667,6 +691,7 @@ public:
 	uint8                                         LockGeometricBorder : 1;                           // 0x0080(0x0001)(BitIndex: 0x02, PropSize: 0x0001 (Edit, BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_81[0x7];                                       // 0x0081(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FReductionSettings;
 
 // ScriptStruct SimplygonUObjects.RepairSettings
 // 0x0014 (0x0014 - 0x0000)
@@ -685,6 +710,7 @@ public:
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         ProgressivePasses;                                 // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRepairSettings;
 
 // ScriptStruct SimplygonUObjects.NormalCalculationSettings
 // 0x000C (0x000C - 0x0000)
@@ -702,6 +728,7 @@ public:
 	uint8                                         SnapNormalsToFlatSurfaces : 1;                     // 0x0008(0x0001)(BitIndex: 0x04, PropSize: 0x0001 (Edit, BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FNormalCalculationSettings;
 
 // ScriptStruct SimplygonUObjects.ReductionPipelineSettings
 // 0x0208 (0x0210 - 0x0008)
@@ -717,6 +744,7 @@ public:
 	struct FMappingImageSettings                  MappingImageSettings;                              // 0x0160(0x00A0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 	TArray<class USimplygonMaterialCaster*>       MaterialPropertyCasters;                           // 0x0200(0x0010)(Edit, ExportObject, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FReductionPipelineSettings;
 
 // ScriptStruct SimplygonUObjects.VertexColorCasterSettings
 // 0x0050 (0x0050 - 0x0000)
@@ -741,6 +769,7 @@ public:
 	uint8                                         Pad_49[0x3];                                       // 0x0049(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         ColorSpaceEdgeThreshold;                           // 0x004C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVertexColorCasterSettings;
 
 // ScriptStruct SimplygonUObjects.GeometryDataCasterSettings
 // 0x0060 (0x0060 - 0x0000)
@@ -766,6 +795,7 @@ public:
 	struct FVector4                               MappingInf;                                        // 0x0040(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector4                               MappingSup;                                        // 0x0050(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FGeometryDataCasterSettings;
 
 // ScriptStruct SimplygonUObjects.AmbientOcclusionCasterSettings
 // 0x0048 (0x0048 - 0x0000)
@@ -792,6 +822,7 @@ public:
 	uint8                                         UseSimpleOcclusionMode : 1;                        // 0x0044(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Edit, BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_45[0x3];                                       // 0x0045(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAmbientOcclusionCasterSettings;
 
 // ScriptStruct SimplygonUObjects.DisplacementCasterSettings
 // 0x0040 (0x0040 - 0x0000)
@@ -817,6 +848,7 @@ public:
 	uint8                                         Pad_3B[0x1];                                       // 0x003B(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         NormalMapTexCoordLevel;                            // 0x003C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDisplacementCasterSettings;
 
 // ScriptStruct SimplygonUObjects.NormalCasterSettings
 // 0x0038 (0x0038 - 0x0000)
@@ -842,6 +874,7 @@ public:
 	uint8                                         NormalizeInterpolatedTangentSpace : 1;             // 0x0032(0x0001)(BitIndex: 0x02, PropSize: 0x0001 (Edit, BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_33[0x5];                                       // 0x0033(0x0005)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FNormalCasterSettings;
 
 // ScriptStruct SimplygonUObjects.OpacityCasterSettings
 // 0x0038 (0x0038 - 0x0000)
@@ -864,6 +897,7 @@ public:
 	EOutputPixelFormat                            OutputPixelFormat;                                 // 0x0031(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_32[0x6];                                       // 0x0032(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FOpacityCasterSettings;
 
 // ScriptStruct SimplygonUObjects.ColorCasterSettings
 // 0x0038 (0x0038 - 0x0000)
@@ -888,5 +922,7 @@ public:
 	uint8                                         OutputSRGB : 1;                                    // 0x0032(0x0001)(BitIndex: 0x01, PropSize: 0x0001 (Edit, BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_33[0x5];                                       // 0x0033(0x0005)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FColorCasterSettings;
 
-SDK_NAMESPACE_END
+}
+

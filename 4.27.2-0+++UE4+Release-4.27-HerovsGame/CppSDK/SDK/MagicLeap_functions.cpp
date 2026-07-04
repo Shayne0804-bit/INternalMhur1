@@ -14,7 +14,8 @@
 #include "MagicLeap_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function MagicLeap.InAppPurchaseComponent.TryGetItemsDetailsAsync
 // (Final, Native, Public, HasOutParams, BlueprintCallable)
@@ -764,5 +765,5 @@ struct FMagicLeapRaycastQueryParams UMagicLeapRaycastFunctionLibrary::MakeRaycas
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

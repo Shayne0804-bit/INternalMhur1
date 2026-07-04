@@ -14,7 +14,8 @@
 #include "EyeTracker_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function EyeTracker.EyeTrackerFunctionLibrary.GetGazeData
 // (Final, Native, Static, Public, HasOutParams, BlueprintCallable)
@@ -148,5 +149,5 @@ void UEyeTrackerFunctionLibrary::SetEyeTrackedPlayer(class APlayerController* Pl
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

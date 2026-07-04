@@ -20,7 +20,8 @@
 #include "TimeManagement_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class LiveLink.LiveLinkAnimationVirtualSubject
 // 0x0008 (0x0168 - 0x0160)
@@ -45,6 +46,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkAnimationVirtualSubject>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkAnimationVirtualSubject;
 
 // Class LiveLink.LiveLinkRetargetAsset
 // 0x0000 (0x0028 - 0x0028)
@@ -64,6 +66,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkRetargetAsset>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkRetargetAsset;
 
 // Class LiveLink.LiveLinkTransformAxisSwitchPreProcessor
 // 0x0030 (0x0058 - 0x0028)
@@ -94,6 +97,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkTransformAxisSwitchPreProcessor>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkTransformAxisSwitchPreProcessor;
 
 // Class LiveLink.LiveLinkAnimationAxisSwitchPreProcessor
 // 0x0000 (0x0058 - 0x0058)
@@ -113,6 +117,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkAnimationAxisSwitchPreProcessor>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkAnimationAxisSwitchPreProcessor;
 
 // Class LiveLink.LiveLinkBasicFrameInterpolationProcessor
 // 0x0018 (0x0040 - 0x0028)
@@ -136,6 +141,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkBasicFrameInterpolationProcessor>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkBasicFrameInterpolationProcessor;
 
 // Class LiveLink.LiveLinkBlueprintLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -191,6 +197,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkBlueprintLibrary>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkBlueprintLibrary;
 
 // Class LiveLink.LiveLinkAnimationFrameInterpolationProcessor
 // 0x0010 (0x0050 - 0x0040)
@@ -213,6 +220,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkAnimationFrameInterpolationProcessor>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkAnimationFrameInterpolationProcessor;
 
 // Class LiveLink.LiveLinkAnimationRoleToTransform
 // 0x0018 (0x0040 - 0x0028)
@@ -236,6 +244,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkAnimationRoleToTransform>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkAnimationRoleToTransform;
 
 // Class LiveLink.LiveLinkBlueprintVirtualSubject
 // 0x0028 (0x0188 - 0x0160)
@@ -264,6 +273,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkBlueprintVirtualSubject>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkBlueprintVirtualSubject;
 
 // Class LiveLink.LiveLinkComponent
 // 0x0020 (0x00D0 - 0x00B0)
@@ -293,6 +303,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkComponent>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkComponent;
 
 // Class LiveLink.LiveLinkDrivenComponent
 // 0x0018 (0x00C8 - 0x00B0)
@@ -319,6 +330,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkDrivenComponent>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkDrivenComponent;
 
 // Class LiveLink.LiveLinkInstance
 // 0x0000 (0x02C0 - 0x02C0)
@@ -345,6 +357,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkInstance>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkInstance;
 
 // Class LiveLink.LiveLinkMessageBusFinder
 // 0x0058 (0x0080 - 0x0028)
@@ -373,6 +386,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkMessageBusFinder>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkMessageBusFinder;
 
 // Class LiveLink.LiveLinkMessageBusSourceFactory
 // 0x0000 (0x0028 - 0x0028)
@@ -392,6 +406,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkMessageBusSourceFactory>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkMessageBusSourceFactory;
 
 // Class LiveLink.LiveLinkMessageBusSourceSettings
 // 0x0000 (0x00A0 - 0x00A0)
@@ -411,6 +426,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkMessageBusSourceSettings>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkMessageBusSourceSettings;
 
 // Class LiveLink.LiveLinkPreset
 // 0x0020 (0x0048 - 0x0028)
@@ -440,6 +456,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkPreset>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkPreset;
 
 // Class LiveLink.LiveLinkRemapAsset
 // 0x00A0 (0x00C8 - 0x0028)
@@ -467,6 +484,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkRemapAsset>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkRemapAsset;
 
 // Class LiveLink.LiveLinkSettings
 // 0x00A8 (0x00D0 - 0x0028)
@@ -505,6 +523,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkSettings>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkSettings;
 
 // Class LiveLink.LiveLinkTimecodeProvider
 // 0x0090 (0x00C0 - 0x0030)
@@ -533,6 +552,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkTimecodeProvider>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkTimecodeProvider;
 
 // Class LiveLink.LiveLinkTimeSynchronizationSource
 // 0x0050 (0x0080 - 0x0030)
@@ -556,6 +576,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkTimeSynchronizationSource>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkTimeSynchronizationSource;
 
 // Class LiveLink.LiveLinkVirtualSubjectSourceSettings
 // 0x0008 (0x00A8 - 0x00A0)
@@ -578,5 +599,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkVirtualSubjectSourceSettings>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkVirtualSubjectSourceSettings;
 
-SDK_NAMESPACE_END
+}
+

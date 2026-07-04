@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_Skill_ReversePoisonMistRecoverHealth.BP_CC_Skill_ReversePoisonMistRecoverHealth_C.ExecuteUbergraph_BP_CC_Skill_ReversePoisonMistRecoverHealth
 // 0x0010 (0x0010 - 0x0000)
@@ -25,6 +25,7 @@ public:
 	float                                         K2Node_Event_value;                                // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_BP_GetCurrentPoisonMistDamage_ReturnValue; // 0x000C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_ReversePoisonMistRecoverHealth_C_ExecuteUbergraph_BP_CC_Skill_ReversePoisonMistRecoverHealth;
 
 // Function BP_CC_Skill_ReversePoisonMistRecoverHealth.BP_CC_Skill_ReversePoisonMistRecoverHealth_C.BP_OnUpdateIntervalValue
 // 0x0004 (0x0004 - 0x0000)
@@ -33,6 +34,7 @@ struct BP_CC_Skill_ReversePoisonMistRecoverHealth_C_BP_OnUpdateIntervalValue fin
 public:
 	float                                         value;                                             // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_ReversePoisonMistRecoverHealth_C_BP_OnUpdateIntervalValue;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

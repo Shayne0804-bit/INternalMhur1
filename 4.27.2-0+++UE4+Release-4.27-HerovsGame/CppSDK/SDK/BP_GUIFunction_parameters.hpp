@@ -15,8 +15,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_GUIFunction.BP_GUIFunction_C.OpenLevel
 // 0x0080 (0x0080 - 0x0000)
@@ -36,6 +36,7 @@ public:
 	uint8                                         Pad_75[0x3];                                       // 0x0075(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class ULevelStreaming*                        CallFunc_GetStreamingLevel_ReturnValue;            // 0x0078(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_GUIFunction_C_OpenLevel;
 
 // Function BP_GUIFunction.BP_GUIFunction_C.CloseLevel
 // 0x0020 (0x0020 - 0x0000)
@@ -47,6 +48,7 @@ public:
 	class ULevelStreaming*                        CallFunc_GetStreamingLevel_ReturnValue;            // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_IsValid_ReturnValue;                      // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_GUIFunction_C_CloseLevel;
 
 // Function BP_GUIFunction.BP_GUIFunction_C.GetLevelName
 // 0x0078 (0x0078 - 0x0000)
@@ -63,6 +65,7 @@ public:
 	uint8                                         Pad_69[0x3];                                       // 0x0069(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class FName                                   CallFunc_Conv_StringToName_ReturnValue;            // 0x006C(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_GUIFunction_C_GetLevelName;
 
 // Function BP_GUIFunction.BP_GUIFunction_C.SetupInputIcon
 // 0x0108 (0x0108 - 0x0000)
@@ -80,6 +83,7 @@ public:
 	TArray<struct FFormatArgumentData>            K2Node_MakeArray_Array;                            // 0x00E0(0x0010)(ReferenceParm)
 	class FText                                   CallFunc_Format_ReturnValue;                       // 0x00F0(0x0018)()
 };
+DUMPER7_ASSERTS_BP_GUIFunction_C_SetupInputIcon;
 
 // Function BP_GUIFunction.BP_GUIFunction_C.CalcAnchors
 // 0x00E0 (0x00E0 - 0x0000)
@@ -115,6 +119,7 @@ public:
 	struct FVector2D                              CallFunc_Divide_Vector2DVector2D_ReturnValue_1;    // 0x00C8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FAnchors                               K2Node_MakeStruct_Anchors_1;                       // 0x00D0(0x0010)(NoDestructor)
 };
+DUMPER7_ASSERTS_BP_GUIFunction_C_CalcAnchors;
 
 // Function BP_GUIFunction.BP_GUIFunction_C.LoadDynamicLevel
 // 0x0088 (0x0088 - 0x0000)
@@ -134,6 +139,7 @@ public:
 	uint8                                         Pad_79[0x7];                                       // 0x0079(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class ULevelStreamingDynamic*                 CallFunc_LoadStreamLevel_ReturnValue;              // 0x0080(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_GUIFunction_C_LoadDynamicLevel;
 
 // Function BP_GUIFunction.BP_GUIFunction_C.UnLoadDynamicLevel
 // 0x0028 (0x0028 - 0x0000)
@@ -145,6 +151,7 @@ public:
 	class FString                                 CallFunc_Conv_NameToString_ReturnValue;            // 0x0010(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 	class ULevelLoaderWork*                       CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_GUIFunction_C_UnLoadDynamicLevel;
 
 // Function BP_GUIFunction.BP_GUIFunction_C.Set Master Data Name
 // 0x0040 (0x0040 - 0x0000)
@@ -158,6 +165,7 @@ public:
 	class UObject*                                __WorldContext;                                    // 0x0020(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class FText                                   CallFunc_GetMasterDataNameText_ReturnValue;        // 0x0028(0x0018)()
 };
+DUMPER7_ASSERTS_BP_GUIFunction_C_Set_Master_Data_Name;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

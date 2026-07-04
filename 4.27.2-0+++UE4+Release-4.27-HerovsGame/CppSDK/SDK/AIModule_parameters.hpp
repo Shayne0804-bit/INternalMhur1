@@ -17,8 +17,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function AIModule.AIAsyncTaskBlueprintProxy.OnMoveCompleted
 // 0x0008 (0x0008 - 0x0000)
@@ -29,6 +29,7 @@ public:
 	EPathFollowingResult                          MovementResult;                                    // 0x0004(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIAsyncTaskBlueprintProxy_OnMoveCompleted;
 
 // Function AIModule.AIBlueprintHelperLibrary.CreateMoveToProxyObject
 // 0x0038 (0x0038 - 0x0000)
@@ -45,6 +46,7 @@ public:
 	uint8                                         Pad_2D[0x3];                                       // 0x002D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAIAsyncTaskBlueprintProxy*             ReturnValue;                                       // 0x0030(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIBlueprintHelperLibrary_CreateMoveToProxyObject;
 
 // Function AIModule.AIBlueprintHelperLibrary.GetAIController
 // 0x0010 (0x0010 - 0x0000)
@@ -54,6 +56,7 @@ public:
 	class AActor*                                 ControlledActor;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class AAIController*                          ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIBlueprintHelperLibrary_GetAIController;
 
 // Function AIModule.AIBlueprintHelperLibrary.GetBlackboard
 // 0x0010 (0x0010 - 0x0000)
@@ -63,6 +66,7 @@ public:
 	class AActor*                                 Target;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UBlackboardComponent*                   ReturnValue;                                       // 0x0008(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIBlueprintHelperLibrary_GetBlackboard;
 
 // Function AIModule.AIBlueprintHelperLibrary.GetCurrentPath
 // 0x0010 (0x0010 - 0x0000)
@@ -72,6 +76,7 @@ public:
 	class AController*                            Controller;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UNavigationPath*                        ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIBlueprintHelperLibrary_GetCurrentPath;
 
 // Function AIModule.AIBlueprintHelperLibrary.GetCurrentPathIndex
 // 0x0010 (0x0010 - 0x0000)
@@ -82,6 +87,7 @@ public:
 	int32                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIBlueprintHelperLibrary_GetCurrentPathIndex;
 
 // Function AIModule.AIBlueprintHelperLibrary.GetCurrentPathPoints
 // 0x0018 (0x0018 - 0x0000)
@@ -91,6 +97,7 @@ public:
 	class AController*                            Controller;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FVector>                        ReturnValue;                                       // 0x0008(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIBlueprintHelperLibrary_GetCurrentPathPoints;
 
 // Function AIModule.AIBlueprintHelperLibrary.GetNextNavLinkIndex
 // 0x0010 (0x0010 - 0x0000)
@@ -101,6 +108,7 @@ public:
 	int32                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIBlueprintHelperLibrary_GetNextNavLinkIndex;
 
 // Function AIModule.AIBlueprintHelperLibrary.IsValidAIDirection
 // 0x0010 (0x0010 - 0x0000)
@@ -111,6 +119,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIBlueprintHelperLibrary_IsValidAIDirection;
 
 // Function AIModule.AIBlueprintHelperLibrary.IsValidAILocation
 // 0x0010 (0x0010 - 0x0000)
@@ -121,6 +130,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIBlueprintHelperLibrary_IsValidAILocation;
 
 // Function AIModule.AIBlueprintHelperLibrary.IsValidAIRotation
 // 0x0010 (0x0010 - 0x0000)
@@ -131,6 +141,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIBlueprintHelperLibrary_IsValidAIRotation;
 
 // Function AIModule.AIBlueprintHelperLibrary.LockAIResourcesWithAnimation
 // 0x0010 (0x0010 - 0x0000)
@@ -142,6 +153,7 @@ public:
 	bool                                          LockAILogic;                                       // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIBlueprintHelperLibrary_LockAIResourcesWithAnimation;
 
 // Function AIModule.AIBlueprintHelperLibrary.SendAIMessage
 // 0x0020 (0x0020 - 0x0000)
@@ -154,6 +166,7 @@ public:
 	bool                                          bSuccess;                                          // 0x0018(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIBlueprintHelperLibrary_SendAIMessage;
 
 // Function AIModule.AIBlueprintHelperLibrary.SimpleMoveToActor
 // 0x0010 (0x0010 - 0x0000)
@@ -163,6 +176,7 @@ public:
 	class AController*                            Controller;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	const class AActor*                           Goal;                                              // 0x0008(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIBlueprintHelperLibrary_SimpleMoveToActor;
 
 // Function AIModule.AIBlueprintHelperLibrary.SimpleMoveToLocation
 // 0x0018 (0x0018 - 0x0000)
@@ -173,6 +187,7 @@ public:
 	struct FVector                                Goal;                                              // 0x0008(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIBlueprintHelperLibrary_SimpleMoveToLocation;
 
 // Function AIModule.AIBlueprintHelperLibrary.SpawnAIFromClass
 // 0x0048 (0x0048 - 0x0000)
@@ -189,6 +204,7 @@ public:
 	class AActor*                                 Owner;                                             // 0x0038(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class APawn*                                  ReturnValue;                                       // 0x0040(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIBlueprintHelperLibrary_SpawnAIFromClass;
 
 // Function AIModule.AIBlueprintHelperLibrary.UnlockAIResourcesWithAnimation
 // 0x0010 (0x0010 - 0x0000)
@@ -200,6 +216,7 @@ public:
 	bool                                          UnlockAILogic;                                     // 0x0009(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_A[0x6];                                        // 0x000A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIBlueprintHelperLibrary_UnlockAIResourcesWithAnimation;
 
 // Function AIModule.AIController.ClaimTaskResource
 // 0x0008 (0x0008 - 0x0000)
@@ -208,6 +225,7 @@ struct AIController_ClaimTaskResource final
 public:
 	TSubclassOf<class UGameplayTaskResource>      ResourceClass;                                     // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIController_ClaimTaskResource;
 
 // Function AIModule.AIController.GetAIPerceptionComponent
 // 0x0008 (0x0008 - 0x0000)
@@ -216,6 +234,7 @@ struct AIController_GetAIPerceptionComponent final
 public:
 	class UAIPerceptionComponent*                 ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIController_GetAIPerceptionComponent;
 
 // Function AIModule.AIController.K2_SetFocalPoint
 // 0x000C (0x000C - 0x0000)
@@ -224,6 +243,7 @@ struct AIController_K2_SetFocalPoint final
 public:
 	struct FVector                                FP;                                                // 0x0000(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIController_K2_SetFocalPoint;
 
 // Function AIModule.AIController.K2_SetFocus
 // 0x0008 (0x0008 - 0x0000)
@@ -232,6 +252,7 @@ struct AIController_K2_SetFocus final
 public:
 	class AActor*                                 NewFocus;                                          // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIController_K2_SetFocus;
 
 // Function AIModule.AIController.MoveToActor
 // 0x0020 (0x0020 - 0x0000)
@@ -249,6 +270,7 @@ public:
 	EPathFollowingRequestResult                   ReturnValue;                                       // 0x0019(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1A[0x6];                                       // 0x001A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIController_MoveToActor;
 
 // Function AIModule.AIController.MoveToLocation
 // 0x0028 (0x0028 - 0x0000)
@@ -267,6 +289,7 @@ public:
 	EPathFollowingRequestResult                   ReturnValue;                                       // 0x0021(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_22[0x6];                                       // 0x0022(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIController_MoveToLocation;
 
 // Function AIModule.AIController.OnGameplayTaskResourcesClaimed
 // 0x0004 (0x0004 - 0x0000)
@@ -276,6 +299,7 @@ public:
 	struct FGameplayResourceSet                   NewlyClaimed;                                      // 0x0000(0x0002)(Parm, NoDestructor, NativeAccessSpecifierPublic)
 	struct FGameplayResourceSet                   FreshlyReleased;                                   // 0x0002(0x0002)(Parm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIController_OnGameplayTaskResourcesClaimed;
 
 // Function AIModule.AIController.OnUsingBlackBoard
 // 0x0010 (0x0010 - 0x0000)
@@ -285,6 +309,7 @@ public:
 	class UBlackboardComponent*                   BlackboardComp;                                    // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UBlackboardData*                        BlackboardAsset;                                   // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIController_OnUsingBlackBoard;
 
 // Function AIModule.AIController.RunBehaviorTree
 // 0x0010 (0x0010 - 0x0000)
@@ -295,6 +320,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIController_RunBehaviorTree;
 
 // Function AIModule.AIController.SetMoveBlockDetection
 // 0x0001 (0x0001 - 0x0000)
@@ -303,6 +329,7 @@ struct AIController_SetMoveBlockDetection final
 public:
 	bool                                          bEnable;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIController_SetMoveBlockDetection;
 
 // Function AIModule.AIController.SetPathFollowingComponent
 // 0x0008 (0x0008 - 0x0000)
@@ -311,6 +338,7 @@ struct AIController_SetPathFollowingComponent final
 public:
 	class UPathFollowingComponent*                NewPFComponent;                                    // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIController_SetPathFollowingComponent;
 
 // Function AIModule.AIController.UnclaimTaskResource
 // 0x0008 (0x0008 - 0x0000)
@@ -319,6 +347,7 @@ struct AIController_UnclaimTaskResource final
 public:
 	TSubclassOf<class UGameplayTaskResource>      ResourceClass;                                     // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIController_UnclaimTaskResource;
 
 // Function AIModule.AIController.UseBlackboard
 // 0x0018 (0x0018 - 0x0000)
@@ -330,6 +359,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIController_UseBlackboard;
 
 // Function AIModule.AIController.GetFocalPoint
 // 0x000C (0x000C - 0x0000)
@@ -338,6 +368,7 @@ struct AIController_GetFocalPoint final
 public:
 	struct FVector                                ReturnValue;                                       // 0x0000(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIController_GetFocalPoint;
 
 // Function AIModule.AIController.GetFocalPointOnActor
 // 0x0018 (0x0018 - 0x0000)
@@ -348,6 +379,7 @@ public:
 	struct FVector                                ReturnValue;                                       // 0x0008(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIController_GetFocalPointOnActor;
 
 // Function AIModule.AIController.GetFocusActor
 // 0x0008 (0x0008 - 0x0000)
@@ -356,6 +388,7 @@ struct AIController_GetFocusActor final
 public:
 	class AActor*                                 ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIController_GetFocusActor;
 
 // Function AIModule.AIController.GetImmediateMoveDestination
 // 0x000C (0x000C - 0x0000)
@@ -364,6 +397,7 @@ struct AIController_GetImmediateMoveDestination final
 public:
 	struct FVector                                ReturnValue;                                       // 0x0000(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIController_GetImmediateMoveDestination;
 
 // Function AIModule.AIController.GetMoveStatus
 // 0x0001 (0x0001 - 0x0000)
@@ -372,6 +406,7 @@ struct AIController_GetMoveStatus final
 public:
 	EPathFollowingStatus                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIController_GetMoveStatus;
 
 // Function AIModule.AIController.GetPathFollowingComponent
 // 0x0008 (0x0008 - 0x0000)
@@ -380,6 +415,7 @@ struct AIController_GetPathFollowingComponent final
 public:
 	class UPathFollowingComponent*                ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIController_GetPathFollowingComponent;
 
 // Function AIModule.AIController.HasPartialPath
 // 0x0001 (0x0001 - 0x0000)
@@ -388,6 +424,7 @@ struct AIController_HasPartialPath final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIController_HasPartialPath;
 
 // Function AIModule.AIPerceptionComponent.GetActorsPerception
 // 0x0030 (0x0030 - 0x0000)
@@ -399,6 +436,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0028(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_29[0x7];                                       // 0x0029(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIPerceptionComponent_GetActorsPerception;
 
 // Function AIModule.AIPerceptionComponent.OnOwnerEndPlay
 // 0x0010 (0x0010 - 0x0000)
@@ -409,6 +447,7 @@ public:
 	EEndPlayReason                                EndPlayReason;                                     // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIPerceptionComponent_OnOwnerEndPlay;
 
 // Function AIModule.AIPerceptionComponent.SetSenseEnabled
 // 0x0010 (0x0010 - 0x0000)
@@ -419,6 +458,7 @@ public:
 	bool                                          bEnable;                                           // 0x0008(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIPerceptionComponent_SetSenseEnabled;
 
 // Function AIModule.AIPerceptionComponent.GetCurrentlyPerceivedActors
 // 0x0018 (0x0018 - 0x0000)
@@ -428,6 +468,7 @@ public:
 	TSubclassOf<class UAISense>                   SenseToUse;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<class AActor*>                         OutActors;                                         // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIPerceptionComponent_GetCurrentlyPerceivedActors;
 
 // Function AIModule.AIPerceptionComponent.GetKnownPerceivedActors
 // 0x0018 (0x0018 - 0x0000)
@@ -437,6 +478,7 @@ public:
 	TSubclassOf<class UAISense>                   SenseToUse;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<class AActor*>                         OutActors;                                         // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIPerceptionComponent_GetKnownPerceivedActors;
 
 // Function AIModule.AIPerceptionComponent.GetPerceivedActors
 // 0x0018 (0x0018 - 0x0000)
@@ -446,6 +488,7 @@ public:
 	TSubclassOf<class UAISense>                   SenseToUse;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<class AActor*>                         OutActors;                                         // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIPerceptionComponent_GetPerceivedActors;
 
 // Function AIModule.AIPerceptionComponent.GetPerceivedHostileActors
 // 0x0010 (0x0010 - 0x0000)
@@ -454,6 +497,7 @@ struct AIPerceptionComponent_GetPerceivedHostileActors final
 public:
 	TArray<class AActor*>                         OutActors;                                         // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIPerceptionComponent_GetPerceivedHostileActors;
 
 // Function AIModule.AIPerceptionComponent.GetPerceivedHostileActorsBySense
 // 0x0018 (0x0018 - 0x0000)
@@ -463,6 +507,7 @@ public:
 	TSubclassOf<class UAISense>                   SenseToUse;                                        // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<class AActor*>                         OutActors;                                         // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIPerceptionComponent_GetPerceivedHostileActorsBySense;
 
 // Function AIModule.AIPerceptionStimuliSourceComponent.RegisterForSense
 // 0x0008 (0x0008 - 0x0000)
@@ -471,6 +516,7 @@ struct AIPerceptionStimuliSourceComponent_RegisterForSense final
 public:
 	TSubclassOf<class UAISense>                   SenseClass;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIPerceptionStimuliSourceComponent_RegisterForSense;
 
 // Function AIModule.AIPerceptionStimuliSourceComponent.UnregisterFromSense
 // 0x0008 (0x0008 - 0x0000)
@@ -479,6 +525,7 @@ struct AIPerceptionStimuliSourceComponent_UnregisterFromSense final
 public:
 	TSubclassOf<class UAISense>                   SenseClass;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIPerceptionStimuliSourceComponent_UnregisterFromSense;
 
 // Function AIModule.AIPerceptionSystem.GetSenseClassForStimulus
 // 0x0050 (0x0050 - 0x0000)
@@ -490,6 +537,7 @@ public:
 	uint8                                         Pad_44[0x4];                                       // 0x0044(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TSubclassOf<class UAISense>                   ReturnValue;                                       // 0x0048(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIPerceptionSystem_GetSenseClassForStimulus;
 
 // Function AIModule.AIPerceptionSystem.RegisterPerceptionStimuliSource
 // 0x0020 (0x0020 - 0x0000)
@@ -502,6 +550,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0018(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIPerceptionSystem_RegisterPerceptionStimuliSource;
 
 // Function AIModule.AIPerceptionSystem.ReportPerceptionEvent
 // 0x0010 (0x0010 - 0x0000)
@@ -511,6 +560,7 @@ public:
 	class UObject*                                WorldContextObject;                                // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UAISenseEvent*                          PerceptionEvent;                                   // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIPerceptionSystem_ReportPerceptionEvent;
 
 // Function AIModule.AIPerceptionSystem.OnPerceptionStimuliSourceEndPlay
 // 0x0010 (0x0010 - 0x0000)
@@ -521,6 +571,7 @@ public:
 	EEndPlayReason                                EndPlayReason;                                     // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AIPerceptionSystem_OnPerceptionStimuliSourceEndPlay;
 
 // Function AIModule.AIPerceptionSystem.ReportEvent
 // 0x0008 (0x0008 - 0x0000)
@@ -529,6 +580,7 @@ struct AIPerceptionSystem_ReportEvent final
 public:
 	class UAISenseEvent*                          PerceptionEvent;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AIPerceptionSystem_ReportEvent;
 
 // Function AIModule.AISense_Blueprint.K2_OnNewPawn
 // 0x0008 (0x0008 - 0x0000)
@@ -537,6 +589,7 @@ struct AISense_Blueprint_K2_OnNewPawn final
 public:
 	class APawn*                                  NewPawn;                                           // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AISense_Blueprint_K2_OnNewPawn;
 
 // Function AIModule.AISense_Blueprint.OnListenerRegistered
 // 0x0010 (0x0010 - 0x0000)
@@ -546,6 +599,7 @@ public:
 	class AActor*                                 ActorListener;                                     // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UAIPerceptionComponent*                 PerceptionComponent;                               // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AISense_Blueprint_OnListenerRegistered;
 
 // Function AIModule.AISense_Blueprint.OnListenerUnregistered
 // 0x0010 (0x0010 - 0x0000)
@@ -555,6 +609,7 @@ public:
 	class AActor*                                 ActorListener;                                     // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UAIPerceptionComponent*                 PerceptionComponent;                               // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AISense_Blueprint_OnListenerUnregistered;
 
 // Function AIModule.AISense_Blueprint.OnListenerUpdated
 // 0x0010 (0x0010 - 0x0000)
@@ -564,6 +619,7 @@ public:
 	class AActor*                                 ActorListener;                                     // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UAIPerceptionComponent*                 PerceptionComponent;                               // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AISense_Blueprint_OnListenerUpdated;
 
 // Function AIModule.AISense_Blueprint.OnUpdate
 // 0x0018 (0x0018 - 0x0000)
@@ -574,6 +630,7 @@ public:
 	float                                         ReturnValue;                                       // 0x0010(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AISense_Blueprint_OnUpdate;
 
 // Function AIModule.AISense_Blueprint.GetAllListenerActors
 // 0x0010 (0x0010 - 0x0000)
@@ -582,6 +639,7 @@ struct AISense_Blueprint_GetAllListenerActors final
 public:
 	TArray<class AActor*>                         ListenerActors;                                    // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AISense_Blueprint_GetAllListenerActors;
 
 // Function AIModule.AISense_Blueprint.GetAllListenerComponents
 // 0x0010 (0x0010 - 0x0000)
@@ -590,6 +648,7 @@ struct AISense_Blueprint_GetAllListenerComponents final
 public:
 	TArray<class UAIPerceptionComponent*>         ListenerComponents;                                // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AISense_Blueprint_GetAllListenerComponents;
 
 // Function AIModule.AISense_Damage.ReportDamageEvent
 // 0x0040 (0x0040 - 0x0000)
@@ -605,6 +664,7 @@ public:
 	class FName                                   Tag;                                               // 0x0034(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_3C[0x4];                                       // 0x003C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AISense_Damage_ReportDamageEvent;
 
 // Function AIModule.AISense_Hearing.ReportNoiseEvent
 // 0x0030 (0x0030 - 0x0000)
@@ -619,6 +679,7 @@ public:
 	class FName                                   Tag;                                               // 0x0024(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AISense_Hearing_ReportNoiseEvent;
 
 // Function AIModule.AISense_Prediction.RequestControllerPredictionEvent
 // 0x0018 (0x0018 - 0x0000)
@@ -630,6 +691,7 @@ public:
 	float                                         PredictionTime;                                    // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AISense_Prediction_RequestControllerPredictionEvent;
 
 // Function AIModule.AISense_Prediction.RequestPawnPredictionEvent
 // 0x0018 (0x0018 - 0x0000)
@@ -641,6 +703,7 @@ public:
 	float                                         PredictionTime;                                    // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AISense_Prediction_RequestPawnPredictionEvent;
 
 // Function AIModule.AITask_MoveTo.AIMoveTo
 // 0x0038 (0x0038 - 0x0000)
@@ -661,6 +724,7 @@ public:
 	uint8                                         Pad_2A[0x6];                                       // 0x002A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAITask_MoveTo*                         ReturnValue;                                       // 0x0030(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AITask_MoveTo_AIMoveTo;
 
 // Function AIModule.AITask_RunEQS.RunEQS
 // 0x0018 (0x0018 - 0x0000)
@@ -671,6 +735,7 @@ public:
 	class UEnvQuery*                              QueryTemplate;                                     // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UAITask_RunEQS*                         ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AITask_RunEQS_RunEQS;
 
 // Function AIModule.BrainComponent.StopLogic
 // 0x0010 (0x0010 - 0x0000)
@@ -679,6 +744,7 @@ struct BrainComponent_StopLogic final
 public:
 	class FString                                 reason;                                            // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BrainComponent_StopLogic;
 
 // Function AIModule.BrainComponent.IsPaused
 // 0x0001 (0x0001 - 0x0000)
@@ -687,6 +753,7 @@ struct BrainComponent_IsPaused final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BrainComponent_IsPaused;
 
 // Function AIModule.BrainComponent.IsRunning
 // 0x0001 (0x0001 - 0x0000)
@@ -695,6 +762,7 @@ struct BrainComponent_IsRunning final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BrainComponent_IsRunning;
 
 // Function AIModule.BehaviorTreeComponent.AddCooldownTagDuration
 // 0x0010 (0x0010 - 0x0000)
@@ -706,6 +774,7 @@ public:
 	bool                                          bAddToExistingDuration;                            // 0x000C(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BehaviorTreeComponent_AddCooldownTagDuration;
 
 // Function AIModule.BehaviorTreeComponent.SetDynamicSubtree
 // 0x0010 (0x0010 - 0x0000)
@@ -715,6 +784,7 @@ public:
 	struct FGameplayTag                           InjectTag;                                         // 0x0000(0x0008)(Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UBehaviorTree*                          BehaviorAsset;                                     // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BehaviorTreeComponent_SetDynamicSubtree;
 
 // Function AIModule.BehaviorTreeComponent.GetTagCooldownEndTime
 // 0x000C (0x000C - 0x0000)
@@ -724,6 +794,7 @@ public:
 	struct FGameplayTag                           CooldownTag;                                       // 0x0000(0x0008)(Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BehaviorTreeComponent_GetTagCooldownEndTime;
 
 // Function AIModule.BlackboardAssetProvider.GetBlackboardAsset
 // 0x0008 (0x0008 - 0x0000)
@@ -732,6 +803,7 @@ struct BlackboardAssetProvider_GetBlackboardAsset final
 public:
 	class UBlackboardData*                        ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardAssetProvider_GetBlackboardAsset;
 
 // Function AIModule.BlackboardComponent.ClearValue
 // 0x0008 (0x0008 - 0x0000)
@@ -740,6 +812,7 @@ struct BlackboardComponent_ClearValue final
 public:
 	class FName                                   KeyName;                                           // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardComponent_ClearValue;
 
 // Function AIModule.BlackboardComponent.SetValueAsBool
 // 0x000C (0x000C - 0x0000)
@@ -750,6 +823,7 @@ public:
 	bool                                          BoolValue;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BlackboardComponent_SetValueAsBool;
 
 // Function AIModule.BlackboardComponent.SetValueAsClass
 // 0x0010 (0x0010 - 0x0000)
@@ -759,6 +833,7 @@ public:
 	class FName                                   KeyName;                                           // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UClass*                                 ClassValue;                                        // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardComponent_SetValueAsClass;
 
 // Function AIModule.BlackboardComponent.SetValueAsEnum
 // 0x000C (0x000C - 0x0000)
@@ -769,6 +844,7 @@ public:
 	uint8                                         EnumValue;                                         // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BlackboardComponent_SetValueAsEnum;
 
 // Function AIModule.BlackboardComponent.SetValueAsFloat
 // 0x000C (0x000C - 0x0000)
@@ -778,6 +854,7 @@ public:
 	class FName                                   KeyName;                                           // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         FloatValue;                                        // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardComponent_SetValueAsFloat;
 
 // Function AIModule.BlackboardComponent.SetValueAsInt
 // 0x000C (0x000C - 0x0000)
@@ -787,6 +864,7 @@ public:
 	class FName                                   KeyName;                                           // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         IntValue;                                          // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardComponent_SetValueAsInt;
 
 // Function AIModule.BlackboardComponent.SetValueAsName
 // 0x0010 (0x0010 - 0x0000)
@@ -796,6 +874,7 @@ public:
 	class FName                                   KeyName;                                           // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   NameValue;                                         // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardComponent_SetValueAsName;
 
 // Function AIModule.BlackboardComponent.SetValueAsObject
 // 0x0010 (0x0010 - 0x0000)
@@ -805,6 +884,7 @@ public:
 	class FName                                   KeyName;                                           // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UObject*                                ObjectValue;                                       // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardComponent_SetValueAsObject;
 
 // Function AIModule.BlackboardComponent.SetValueAsRotator
 // 0x0014 (0x0014 - 0x0000)
@@ -814,6 +894,7 @@ public:
 	class FName                                   KeyName;                                           // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FRotator                               VectorValue;                                       // 0x0008(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardComponent_SetValueAsRotator;
 
 // Function AIModule.BlackboardComponent.SetValueAsString
 // 0x0018 (0x0018 - 0x0000)
@@ -823,6 +904,7 @@ public:
 	class FName                                   KeyName;                                           // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 StringValue;                                       // 0x0008(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardComponent_SetValueAsString;
 
 // Function AIModule.BlackboardComponent.SetValueAsVector
 // 0x0014 (0x0014 - 0x0000)
@@ -832,6 +914,7 @@ public:
 	class FName                                   KeyName;                                           // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                VectorValue;                                       // 0x0008(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardComponent_SetValueAsVector;
 
 // Function AIModule.BlackboardComponent.GetLocationFromEntry
 // 0x0018 (0x0018 - 0x0000)
@@ -843,6 +926,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0014(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BlackboardComponent_GetLocationFromEntry;
 
 // Function AIModule.BlackboardComponent.GetRotationFromEntry
 // 0x0018 (0x0018 - 0x0000)
@@ -854,6 +938,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0014(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BlackboardComponent_GetRotationFromEntry;
 
 // Function AIModule.BlackboardComponent.GetValueAsBool
 // 0x000C (0x000C - 0x0000)
@@ -864,6 +949,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BlackboardComponent_GetValueAsBool;
 
 // Function AIModule.BlackboardComponent.GetValueAsClass
 // 0x0010 (0x0010 - 0x0000)
@@ -873,6 +959,7 @@ public:
 	class FName                                   KeyName;                                           // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UClass*                                 ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardComponent_GetValueAsClass;
 
 // Function AIModule.BlackboardComponent.GetValueAsEnum
 // 0x000C (0x000C - 0x0000)
@@ -883,6 +970,7 @@ public:
 	uint8                                         ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BlackboardComponent_GetValueAsEnum;
 
 // Function AIModule.BlackboardComponent.GetValueAsFloat
 // 0x000C (0x000C - 0x0000)
@@ -892,6 +980,7 @@ public:
 	class FName                                   KeyName;                                           // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardComponent_GetValueAsFloat;
 
 // Function AIModule.BlackboardComponent.GetValueAsInt
 // 0x000C (0x000C - 0x0000)
@@ -901,6 +990,7 @@ public:
 	class FName                                   KeyName;                                           // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardComponent_GetValueAsInt;
 
 // Function AIModule.BlackboardComponent.GetValueAsName
 // 0x0010 (0x0010 - 0x0000)
@@ -910,6 +1000,7 @@ public:
 	class FName                                   KeyName;                                           // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardComponent_GetValueAsName;
 
 // Function AIModule.BlackboardComponent.GetValueAsObject
 // 0x0010 (0x0010 - 0x0000)
@@ -919,6 +1010,7 @@ public:
 	class FName                                   KeyName;                                           // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UObject*                                ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardComponent_GetValueAsObject;
 
 // Function AIModule.BlackboardComponent.GetValueAsRotator
 // 0x0014 (0x0014 - 0x0000)
@@ -928,6 +1020,7 @@ public:
 	class FName                                   KeyName;                                           // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FRotator                               ReturnValue;                                       // 0x0008(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardComponent_GetValueAsRotator;
 
 // Function AIModule.BlackboardComponent.GetValueAsString
 // 0x0018 (0x0018 - 0x0000)
@@ -937,6 +1030,7 @@ public:
 	class FName                                   KeyName;                                           // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardComponent_GetValueAsString;
 
 // Function AIModule.BlackboardComponent.GetValueAsVector
 // 0x0014 (0x0014 - 0x0000)
@@ -946,6 +1040,7 @@ public:
 	class FName                                   KeyName;                                           // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                ReturnValue;                                       // 0x0008(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BlackboardComponent_GetValueAsVector;
 
 // Function AIModule.BlackboardComponent.IsVectorValueSet
 // 0x000C (0x000C - 0x0000)
@@ -956,6 +1051,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BlackboardComponent_IsVectorValueSet;
 
 // Function AIModule.BTDecorator_BlueprintBase.PerformConditionCheck
 // 0x0010 (0x0010 - 0x0000)
@@ -966,6 +1062,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTDecorator_BlueprintBase_PerformConditionCheck;
 
 // Function AIModule.BTDecorator_BlueprintBase.PerformConditionCheckAI
 // 0x0018 (0x0018 - 0x0000)
@@ -977,6 +1074,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTDecorator_BlueprintBase_PerformConditionCheckAI;
 
 // Function AIModule.BTDecorator_BlueprintBase.ReceiveExecutionFinish
 // 0x0010 (0x0010 - 0x0000)
@@ -987,6 +1085,7 @@ public:
 	EBTNodeResult                                 NodeResult;                                        // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTDecorator_BlueprintBase_ReceiveExecutionFinish;
 
 // Function AIModule.BTDecorator_BlueprintBase.ReceiveExecutionFinishAI
 // 0x0018 (0x0018 - 0x0000)
@@ -998,6 +1097,7 @@ public:
 	EBTNodeResult                                 NodeResult;                                        // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTDecorator_BlueprintBase_ReceiveExecutionFinishAI;
 
 // Function AIModule.BTDecorator_BlueprintBase.ReceiveExecutionStart
 // 0x0008 (0x0008 - 0x0000)
@@ -1006,6 +1106,7 @@ struct BTDecorator_BlueprintBase_ReceiveExecutionStart final
 public:
 	class AActor*                                 OwnerActor;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTDecorator_BlueprintBase_ReceiveExecutionStart;
 
 // Function AIModule.BTDecorator_BlueprintBase.ReceiveExecutionStartAI
 // 0x0010 (0x0010 - 0x0000)
@@ -1015,6 +1116,7 @@ public:
 	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTDecorator_BlueprintBase_ReceiveExecutionStartAI;
 
 // Function AIModule.BTDecorator_BlueprintBase.ReceiveObserverActivated
 // 0x0008 (0x0008 - 0x0000)
@@ -1023,6 +1125,7 @@ struct BTDecorator_BlueprintBase_ReceiveObserverActivated final
 public:
 	class AActor*                                 OwnerActor;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTDecorator_BlueprintBase_ReceiveObserverActivated;
 
 // Function AIModule.BTDecorator_BlueprintBase.ReceiveObserverActivatedAI
 // 0x0010 (0x0010 - 0x0000)
@@ -1032,6 +1135,7 @@ public:
 	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTDecorator_BlueprintBase_ReceiveObserverActivatedAI;
 
 // Function AIModule.BTDecorator_BlueprintBase.ReceiveObserverDeactivated
 // 0x0008 (0x0008 - 0x0000)
@@ -1040,6 +1144,7 @@ struct BTDecorator_BlueprintBase_ReceiveObserverDeactivated final
 public:
 	class AActor*                                 OwnerActor;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTDecorator_BlueprintBase_ReceiveObserverDeactivated;
 
 // Function AIModule.BTDecorator_BlueprintBase.ReceiveObserverDeactivatedAI
 // 0x0010 (0x0010 - 0x0000)
@@ -1049,6 +1154,7 @@ public:
 	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTDecorator_BlueprintBase_ReceiveObserverDeactivatedAI;
 
 // Function AIModule.BTDecorator_BlueprintBase.ReceiveTick
 // 0x0010 (0x0010 - 0x0000)
@@ -1059,6 +1165,7 @@ public:
 	float                                         DeltaSeconds;                                      // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTDecorator_BlueprintBase_ReceiveTick;
 
 // Function AIModule.BTDecorator_BlueprintBase.ReceiveTickAI
 // 0x0018 (0x0018 - 0x0000)
@@ -1070,6 +1177,7 @@ public:
 	float                                         DeltaSeconds;                                      // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTDecorator_BlueprintBase_ReceiveTickAI;
 
 // Function AIModule.BTDecorator_BlueprintBase.IsDecoratorExecutionActive
 // 0x0001 (0x0001 - 0x0000)
@@ -1078,6 +1186,7 @@ struct BTDecorator_BlueprintBase_IsDecoratorExecutionActive final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTDecorator_BlueprintBase_IsDecoratorExecutionActive;
 
 // Function AIModule.BTDecorator_BlueprintBase.IsDecoratorObserverActive
 // 0x0001 (0x0001 - 0x0000)
@@ -1086,6 +1195,7 @@ struct BTDecorator_BlueprintBase_IsDecoratorObserverActive final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTDecorator_BlueprintBase_IsDecoratorObserverActive;
 
 // Function AIModule.BTFunctionLibrary.ClearBlackboardValue
 // 0x0030 (0x0030 - 0x0000)
@@ -1095,6 +1205,7 @@ public:
 	class UBTNode*                                NodeOwner;                                         // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FBlackboardKeySelector                 Key;                                               // 0x0008(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_ClearBlackboardValue;
 
 // Function AIModule.BTFunctionLibrary.ClearBlackboardValueAsVector
 // 0x0030 (0x0030 - 0x0000)
@@ -1104,6 +1215,7 @@ public:
 	class UBTNode*                                NodeOwner;                                         // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FBlackboardKeySelector                 Key;                                               // 0x0008(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_ClearBlackboardValueAsVector;
 
 // Function AIModule.BTFunctionLibrary.GetBlackboardValueAsActor
 // 0x0038 (0x0038 - 0x0000)
@@ -1114,6 +1226,7 @@ public:
 	struct FBlackboardKeySelector                 Key;                                               // 0x0008(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	class AActor*                                 ReturnValue;                                       // 0x0030(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_GetBlackboardValueAsActor;
 
 // Function AIModule.BTFunctionLibrary.GetBlackboardValueAsBool
 // 0x0038 (0x0038 - 0x0000)
@@ -1125,6 +1238,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0030(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_31[0x7];                                       // 0x0031(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_GetBlackboardValueAsBool;
 
 // Function AIModule.BTFunctionLibrary.GetBlackboardValueAsClass
 // 0x0038 (0x0038 - 0x0000)
@@ -1135,6 +1249,7 @@ public:
 	struct FBlackboardKeySelector                 Key;                                               // 0x0008(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	class UClass*                                 ReturnValue;                                       // 0x0030(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_GetBlackboardValueAsClass;
 
 // Function AIModule.BTFunctionLibrary.GetBlackboardValueAsEnum
 // 0x0038 (0x0038 - 0x0000)
@@ -1146,6 +1261,7 @@ public:
 	uint8                                         ReturnValue;                                       // 0x0030(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_31[0x7];                                       // 0x0031(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_GetBlackboardValueAsEnum;
 
 // Function AIModule.BTFunctionLibrary.GetBlackboardValueAsFloat
 // 0x0038 (0x0038 - 0x0000)
@@ -1157,6 +1273,7 @@ public:
 	float                                         ReturnValue;                                       // 0x0030(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_GetBlackboardValueAsFloat;
 
 // Function AIModule.BTFunctionLibrary.GetBlackboardValueAsInt
 // 0x0038 (0x0038 - 0x0000)
@@ -1168,6 +1285,7 @@ public:
 	int32                                         ReturnValue;                                       // 0x0030(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_GetBlackboardValueAsInt;
 
 // Function AIModule.BTFunctionLibrary.GetBlackboardValueAsName
 // 0x0038 (0x0038 - 0x0000)
@@ -1178,6 +1296,7 @@ public:
 	struct FBlackboardKeySelector                 Key;                                               // 0x0008(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	class FName                                   ReturnValue;                                       // 0x0030(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_GetBlackboardValueAsName;
 
 // Function AIModule.BTFunctionLibrary.GetBlackboardValueAsObject
 // 0x0038 (0x0038 - 0x0000)
@@ -1188,6 +1307,7 @@ public:
 	struct FBlackboardKeySelector                 Key;                                               // 0x0008(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	class UObject*                                ReturnValue;                                       // 0x0030(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_GetBlackboardValueAsObject;
 
 // Function AIModule.BTFunctionLibrary.GetBlackboardValueAsRotator
 // 0x0040 (0x0040 - 0x0000)
@@ -1199,6 +1319,7 @@ public:
 	struct FRotator                               ReturnValue;                                       // 0x0030(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_3C[0x4];                                       // 0x003C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_GetBlackboardValueAsRotator;
 
 // Function AIModule.BTFunctionLibrary.GetBlackboardValueAsString
 // 0x0040 (0x0040 - 0x0000)
@@ -1209,6 +1330,7 @@ public:
 	struct FBlackboardKeySelector                 Key;                                               // 0x0008(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0030(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_GetBlackboardValueAsString;
 
 // Function AIModule.BTFunctionLibrary.GetBlackboardValueAsVector
 // 0x0040 (0x0040 - 0x0000)
@@ -1220,6 +1342,7 @@ public:
 	struct FVector                                ReturnValue;                                       // 0x0030(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_3C[0x4];                                       // 0x003C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_GetBlackboardValueAsVector;
 
 // Function AIModule.BTFunctionLibrary.GetOwnerComponent
 // 0x0010 (0x0010 - 0x0000)
@@ -1229,6 +1352,7 @@ public:
 	class UBTNode*                                NodeOwner;                                         // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UBehaviorTreeComponent*                 ReturnValue;                                       // 0x0008(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_GetOwnerComponent;
 
 // Function AIModule.BTFunctionLibrary.GetOwnersBlackboard
 // 0x0010 (0x0010 - 0x0000)
@@ -1238,6 +1362,7 @@ public:
 	class UBTNode*                                NodeOwner;                                         // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UBlackboardComponent*                   ReturnValue;                                       // 0x0008(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_GetOwnersBlackboard;
 
 // Function AIModule.BTFunctionLibrary.SetBlackboardValueAsBool
 // 0x0038 (0x0038 - 0x0000)
@@ -1249,6 +1374,7 @@ public:
 	bool                                          value;                                             // 0x0030(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_31[0x7];                                       // 0x0031(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_SetBlackboardValueAsBool;
 
 // Function AIModule.BTFunctionLibrary.SetBlackboardValueAsClass
 // 0x0038 (0x0038 - 0x0000)
@@ -1259,6 +1385,7 @@ public:
 	struct FBlackboardKeySelector                 Key;                                               // 0x0008(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	class UClass*                                 value;                                             // 0x0030(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_SetBlackboardValueAsClass;
 
 // Function AIModule.BTFunctionLibrary.SetBlackboardValueAsEnum
 // 0x0038 (0x0038 - 0x0000)
@@ -1270,6 +1397,7 @@ public:
 	uint8                                         value;                                             // 0x0030(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_31[0x7];                                       // 0x0031(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_SetBlackboardValueAsEnum;
 
 // Function AIModule.BTFunctionLibrary.SetBlackboardValueAsFloat
 // 0x0038 (0x0038 - 0x0000)
@@ -1281,6 +1409,7 @@ public:
 	float                                         value;                                             // 0x0030(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_SetBlackboardValueAsFloat;
 
 // Function AIModule.BTFunctionLibrary.SetBlackboardValueAsInt
 // 0x0038 (0x0038 - 0x0000)
@@ -1292,6 +1421,7 @@ public:
 	int32                                         value;                                             // 0x0030(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_SetBlackboardValueAsInt;
 
 // Function AIModule.BTFunctionLibrary.SetBlackboardValueAsName
 // 0x0038 (0x0038 - 0x0000)
@@ -1302,6 +1432,7 @@ public:
 	struct FBlackboardKeySelector                 Key;                                               // 0x0008(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	class FName                                   value;                                             // 0x0030(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_SetBlackboardValueAsName;
 
 // Function AIModule.BTFunctionLibrary.SetBlackboardValueAsObject
 // 0x0038 (0x0038 - 0x0000)
@@ -1312,6 +1443,7 @@ public:
 	struct FBlackboardKeySelector                 Key;                                               // 0x0008(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	class UObject*                                value;                                             // 0x0030(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_SetBlackboardValueAsObject;
 
 // Function AIModule.BTFunctionLibrary.SetBlackboardValueAsRotator
 // 0x0040 (0x0040 - 0x0000)
@@ -1323,6 +1455,7 @@ public:
 	struct FRotator                               value;                                             // 0x0030(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_3C[0x4];                                       // 0x003C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_SetBlackboardValueAsRotator;
 
 // Function AIModule.BTFunctionLibrary.SetBlackboardValueAsString
 // 0x0040 (0x0040 - 0x0000)
@@ -1333,6 +1466,7 @@ public:
 	struct FBlackboardKeySelector                 Key;                                               // 0x0008(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	class FString                                 value;                                             // 0x0030(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_SetBlackboardValueAsString;
 
 // Function AIModule.BTFunctionLibrary.SetBlackboardValueAsVector
 // 0x0040 (0x0040 - 0x0000)
@@ -1344,6 +1478,7 @@ public:
 	struct FVector                                value;                                             // 0x0030(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_3C[0x4];                                       // 0x003C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_SetBlackboardValueAsVector;
 
 // Function AIModule.BTFunctionLibrary.StartUsingExternalEvent
 // 0x0010 (0x0010 - 0x0000)
@@ -1353,6 +1488,7 @@ public:
 	class UBTNode*                                NodeOwner;                                         // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class AActor*                                 OwningActor;                                       // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_StartUsingExternalEvent;
 
 // Function AIModule.BTFunctionLibrary.StopUsingExternalEvent
 // 0x0008 (0x0008 - 0x0000)
@@ -1361,6 +1497,7 @@ struct BTFunctionLibrary_StopUsingExternalEvent final
 public:
 	class UBTNode*                                NodeOwner;                                         // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTFunctionLibrary_StopUsingExternalEvent;
 
 // Function AIModule.BTService_BlueprintBase.ReceiveActivation
 // 0x0008 (0x0008 - 0x0000)
@@ -1369,6 +1506,7 @@ struct BTService_BlueprintBase_ReceiveActivation final
 public:
 	class AActor*                                 OwnerActor;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTService_BlueprintBase_ReceiveActivation;
 
 // Function AIModule.BTService_BlueprintBase.ReceiveActivationAI
 // 0x0010 (0x0010 - 0x0000)
@@ -1378,6 +1516,7 @@ public:
 	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTService_BlueprintBase_ReceiveActivationAI;
 
 // Function AIModule.BTService_BlueprintBase.ReceiveDeactivation
 // 0x0008 (0x0008 - 0x0000)
@@ -1386,6 +1525,7 @@ struct BTService_BlueprintBase_ReceiveDeactivation final
 public:
 	class AActor*                                 OwnerActor;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTService_BlueprintBase_ReceiveDeactivation;
 
 // Function AIModule.BTService_BlueprintBase.ReceiveDeactivationAI
 // 0x0010 (0x0010 - 0x0000)
@@ -1395,6 +1535,7 @@ public:
 	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTService_BlueprintBase_ReceiveDeactivationAI;
 
 // Function AIModule.BTService_BlueprintBase.ReceiveSearchStart
 // 0x0008 (0x0008 - 0x0000)
@@ -1403,6 +1544,7 @@ struct BTService_BlueprintBase_ReceiveSearchStart final
 public:
 	class AActor*                                 OwnerActor;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTService_BlueprintBase_ReceiveSearchStart;
 
 // Function AIModule.BTService_BlueprintBase.ReceiveSearchStartAI
 // 0x0010 (0x0010 - 0x0000)
@@ -1412,6 +1554,7 @@ public:
 	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTService_BlueprintBase_ReceiveSearchStartAI;
 
 // Function AIModule.BTService_BlueprintBase.ReceiveTick
 // 0x0010 (0x0010 - 0x0000)
@@ -1422,6 +1565,7 @@ public:
 	float                                         DeltaSeconds;                                      // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTService_BlueprintBase_ReceiveTick;
 
 // Function AIModule.BTService_BlueprintBase.ReceiveTickAI
 // 0x0018 (0x0018 - 0x0000)
@@ -1433,6 +1577,7 @@ public:
 	float                                         DeltaSeconds;                                      // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTService_BlueprintBase_ReceiveTickAI;
 
 // Function AIModule.BTService_BlueprintBase.IsServiceActive
 // 0x0001 (0x0001 - 0x0000)
@@ -1441,6 +1586,7 @@ struct BTService_BlueprintBase_IsServiceActive final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTService_BlueprintBase_IsServiceActive;
 
 // Function AIModule.BTTask_BlueprintBase.FinishExecute
 // 0x0001 (0x0001 - 0x0000)
@@ -1449,6 +1595,7 @@ struct BTTask_BlueprintBase_FinishExecute final
 public:
 	bool                                          bSuccess;                                          // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTTask_BlueprintBase_FinishExecute;
 
 // Function AIModule.BTTask_BlueprintBase.ReceiveAbort
 // 0x0008 (0x0008 - 0x0000)
@@ -1457,6 +1604,7 @@ struct BTTask_BlueprintBase_ReceiveAbort final
 public:
 	class AActor*                                 OwnerActor;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTTask_BlueprintBase_ReceiveAbort;
 
 // Function AIModule.BTTask_BlueprintBase.ReceiveAbortAI
 // 0x0010 (0x0010 - 0x0000)
@@ -1466,6 +1614,7 @@ public:
 	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTTask_BlueprintBase_ReceiveAbortAI;
 
 // Function AIModule.BTTask_BlueprintBase.ReceiveExecute
 // 0x0008 (0x0008 - 0x0000)
@@ -1474,6 +1623,7 @@ struct BTTask_BlueprintBase_ReceiveExecute final
 public:
 	class AActor*                                 OwnerActor;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTTask_BlueprintBase_ReceiveExecute;
 
 // Function AIModule.BTTask_BlueprintBase.ReceiveExecuteAI
 // 0x0010 (0x0010 - 0x0000)
@@ -1483,6 +1633,7 @@ public:
 	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTTask_BlueprintBase_ReceiveExecuteAI;
 
 // Function AIModule.BTTask_BlueprintBase.ReceiveTick
 // 0x0010 (0x0010 - 0x0000)
@@ -1493,6 +1644,7 @@ public:
 	float                                         DeltaSeconds;                                      // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTTask_BlueprintBase_ReceiveTick;
 
 // Function AIModule.BTTask_BlueprintBase.ReceiveTickAI
 // 0x0018 (0x0018 - 0x0000)
@@ -1504,6 +1656,7 @@ public:
 	float                                         DeltaSeconds;                                      // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_BTTask_BlueprintBase_ReceiveTickAI;
 
 // Function AIModule.BTTask_BlueprintBase.SetFinishOnMessage
 // 0x0008 (0x0008 - 0x0000)
@@ -1512,6 +1665,7 @@ struct BTTask_BlueprintBase_SetFinishOnMessage final
 public:
 	class FName                                   MessageName;                                       // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTTask_BlueprintBase_SetFinishOnMessage;
 
 // Function AIModule.BTTask_BlueprintBase.SetFinishOnMessageWithId
 // 0x000C (0x000C - 0x0000)
@@ -1521,6 +1675,7 @@ public:
 	class FName                                   MessageName;                                       // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         requestId;                                         // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTTask_BlueprintBase_SetFinishOnMessageWithId;
 
 // Function AIModule.BTTask_BlueprintBase.IsTaskAborting
 // 0x0001 (0x0001 - 0x0000)
@@ -1529,6 +1684,7 @@ struct BTTask_BlueprintBase_IsTaskAborting final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTTask_BlueprintBase_IsTaskAborting;
 
 // Function AIModule.BTTask_BlueprintBase.IsTaskExecuting
 // 0x0001 (0x0001 - 0x0000)
@@ -1537,6 +1693,7 @@ struct BTTask_BlueprintBase_IsTaskExecuting final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BTTask_BlueprintBase_IsTaskExecuting;
 
 // Function AIModule.PathFollowingComponent.OnActorBump
 // 0x00A8 (0x00A8 - 0x0000)
@@ -1549,6 +1706,7 @@ public:
 	struct FHitResult                             Hit;                                               // 0x001C(0x0088)(ConstParm, Parm, OutParm, ReferenceParm, IsPlainOldData, NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 	uint8                                         Pad_A4[0x4];                                       // 0x00A4(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PathFollowingComponent_OnActorBump;
 
 // Function AIModule.PathFollowingComponent.OnNavDataRegistered
 // 0x0008 (0x0008 - 0x0000)
@@ -1557,6 +1715,7 @@ struct PathFollowingComponent_OnNavDataRegistered final
 public:
 	class ANavigationData*                        NavData;                                           // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PathFollowingComponent_OnNavDataRegistered;
 
 // Function AIModule.PathFollowingComponent.GetPathActionType
 // 0x0001 (0x0001 - 0x0000)
@@ -1565,6 +1724,7 @@ struct PathFollowingComponent_GetPathActionType final
 public:
 	EPathFollowingAction                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PathFollowingComponent_GetPathActionType;
 
 // Function AIModule.PathFollowingComponent.GetPathDestination
 // 0x000C (0x000C - 0x0000)
@@ -1573,6 +1733,7 @@ struct PathFollowingComponent_GetPathDestination final
 public:
 	struct FVector                                ReturnValue;                                       // 0x0000(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PathFollowingComponent_GetPathDestination;
 
 // Function AIModule.CrowdFollowingComponent.SuspendCrowdSteering
 // 0x0001 (0x0001 - 0x0000)
@@ -1581,6 +1742,7 @@ struct CrowdFollowingComponent_SuspendCrowdSteering final
 public:
 	bool                                          bSuspend;                                          // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CrowdFollowingComponent_SuspendCrowdSteering;
 
 // Function AIModule.EnvQueryContext_BlueprintBase.ProvideActorsSet
 // 0x0020 (0x0020 - 0x0000)
@@ -1591,6 +1753,7 @@ public:
 	class AActor*                                 QuerierActor;                                      // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<class AActor*>                         ResultingActorsSet;                                // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EnvQueryContext_BlueprintBase_ProvideActorsSet;
 
 // Function AIModule.EnvQueryContext_BlueprintBase.ProvideLocationsSet
 // 0x0020 (0x0020 - 0x0000)
@@ -1601,6 +1764,7 @@ public:
 	class AActor*                                 QuerierActor;                                      // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FVector>                        ResultingLocationSet;                              // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EnvQueryContext_BlueprintBase_ProvideLocationsSet;
 
 // Function AIModule.EnvQueryContext_BlueprintBase.ProvideSingleActor
 // 0x0018 (0x0018 - 0x0000)
@@ -1611,6 +1775,7 @@ public:
 	class AActor*                                 QuerierActor;                                      // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class AActor*                                 ResultingActor;                                    // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EnvQueryContext_BlueprintBase_ProvideSingleActor;
 
 // Function AIModule.EnvQueryContext_BlueprintBase.ProvideSingleLocation
 // 0x0020 (0x0020 - 0x0000)
@@ -1622,6 +1787,7 @@ public:
 	struct FVector                                ResultingLocation;                                 // 0x0010(0x000C)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_EnvQueryContext_BlueprintBase_ProvideSingleLocation;
 
 // Function AIModule.EnvQueryGenerator_BlueprintBase.AddGeneratedActor
 // 0x0008 (0x0008 - 0x0000)
@@ -1630,6 +1796,7 @@ struct EnvQueryGenerator_BlueprintBase_AddGeneratedActor final
 public:
 	class AActor*                                 GeneratedActor;                                    // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EnvQueryGenerator_BlueprintBase_AddGeneratedActor;
 
 // Function AIModule.EnvQueryGenerator_BlueprintBase.AddGeneratedVector
 // 0x000C (0x000C - 0x0000)
@@ -1638,6 +1805,7 @@ struct EnvQueryGenerator_BlueprintBase_AddGeneratedVector final
 public:
 	struct FVector                                GeneratedVector;                                   // 0x0000(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EnvQueryGenerator_BlueprintBase_AddGeneratedVector;
 
 // Function AIModule.EnvQueryGenerator_BlueprintBase.DoItemGeneration
 // 0x0010 (0x0010 - 0x0000)
@@ -1646,6 +1814,7 @@ struct EnvQueryGenerator_BlueprintBase_DoItemGeneration final
 public:
 	TArray<struct FVector>                        ContextLocations;                                  // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EnvQueryGenerator_BlueprintBase_DoItemGeneration;
 
 // Function AIModule.EnvQueryGenerator_BlueprintBase.GetQuerier
 // 0x0008 (0x0008 - 0x0000)
@@ -1654,6 +1823,7 @@ struct EnvQueryGenerator_BlueprintBase_GetQuerier final
 public:
 	class UObject*                                ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EnvQueryGenerator_BlueprintBase_GetQuerier;
 
 // Function AIModule.EnvQueryInstanceBlueprintWrapper.SetNamedParam
 // 0x000C (0x000C - 0x0000)
@@ -1663,6 +1833,7 @@ public:
 	class FName                                   ParamName;                                         // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         value;                                             // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EnvQueryInstanceBlueprintWrapper_SetNamedParam;
 
 // Function AIModule.EnvQueryInstanceBlueprintWrapper.GetItemScore
 // 0x0008 (0x0008 - 0x0000)
@@ -1672,6 +1843,7 @@ public:
 	int32                                         itemIndex;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EnvQueryInstanceBlueprintWrapper_GetItemScore;
 
 // Function AIModule.EnvQueryInstanceBlueprintWrapper.GetQueryResultsAsActors
 // 0x0018 (0x0018 - 0x0000)
@@ -1682,6 +1854,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_EnvQueryInstanceBlueprintWrapper_GetQueryResultsAsActors;
 
 // Function AIModule.EnvQueryInstanceBlueprintWrapper.GetQueryResultsAsLocations
 // 0x0018 (0x0018 - 0x0000)
@@ -1692,6 +1865,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_EnvQueryInstanceBlueprintWrapper_GetQueryResultsAsLocations;
 
 // Function AIModule.EnvQueryInstanceBlueprintWrapper.GetResultsAsActors
 // 0x0010 (0x0010 - 0x0000)
@@ -1700,6 +1874,7 @@ struct EnvQueryInstanceBlueprintWrapper_GetResultsAsActors final
 public:
 	TArray<class AActor*>                         ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EnvQueryInstanceBlueprintWrapper_GetResultsAsActors;
 
 // Function AIModule.EnvQueryInstanceBlueprintWrapper.GetResultsAsLocations
 // 0x0010 (0x0010 - 0x0000)
@@ -1708,6 +1883,7 @@ struct EnvQueryInstanceBlueprintWrapper_GetResultsAsLocations final
 public:
 	TArray<struct FVector>                        ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EnvQueryInstanceBlueprintWrapper_GetResultsAsLocations;
 
 // Function AIModule.EnvQueryManager.RunEQSQuery
 // 0x0030 (0x0030 - 0x0000)
@@ -1722,6 +1898,7 @@ public:
 	TSubclassOf<class UEnvQueryInstanceBlueprintWrapper> WrapperClass;                               // 0x0020(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UEnvQueryInstanceBlueprintWrapper*      ReturnValue;                                       // 0x0028(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EnvQueryManager_RunEQSQuery;
 
 // Function AIModule.NavLinkProxy.ReceiveSmartLinkReached
 // 0x0018 (0x0018 - 0x0000)
@@ -1732,6 +1909,7 @@ public:
 	struct FVector                                Destination;                                       // 0x0008(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_NavLinkProxy_ReceiveSmartLinkReached;
 
 // Function AIModule.NavLinkProxy.ResumePathFollowing
 // 0x0008 (0x0008 - 0x0000)
@@ -1740,6 +1918,7 @@ struct NavLinkProxy_ResumePathFollowing final
 public:
 	class AActor*                                 Agent;                                             // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NavLinkProxy_ResumePathFollowing;
 
 // Function AIModule.NavLinkProxy.SetSmartLinkEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -1748,6 +1927,7 @@ struct NavLinkProxy_SetSmartLinkEnabled final
 public:
 	bool                                          bEnabled;                                          // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NavLinkProxy_SetSmartLinkEnabled;
 
 // Function AIModule.NavLinkProxy.HasMovingAgents
 // 0x0001 (0x0001 - 0x0000)
@@ -1756,6 +1936,7 @@ struct NavLinkProxy_HasMovingAgents final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NavLinkProxy_HasMovingAgents;
 
 // Function AIModule.NavLinkProxy.IsSmartLinkEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -1764,6 +1945,7 @@ struct NavLinkProxy_IsSmartLinkEnabled final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NavLinkProxy_IsSmartLinkEnabled;
 
 // Function AIModule.NavLocalGridManager.AddLocalNavigationGridForBox
 // 0x0040 (0x0040 - 0x0000)
@@ -1781,6 +1963,7 @@ public:
 	int32                                         ReturnValue;                                       // 0x0038(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_3C[0x4];                                       // 0x003C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_NavLocalGridManager_AddLocalNavigationGridForBox;
 
 // Function AIModule.NavLocalGridManager.AddLocalNavigationGridForCapsule
 // 0x0030 (0x0030 - 0x0000)
@@ -1798,6 +1981,7 @@ public:
 	int32                                         ReturnValue;                                       // 0x0028(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_NavLocalGridManager_AddLocalNavigationGridForCapsule;
 
 // Function AIModule.NavLocalGridManager.AddLocalNavigationGridForPoint
 // 0x0028 (0x0028 - 0x0000)
@@ -1813,6 +1997,7 @@ public:
 	int32                                         ReturnValue;                                       // 0x0020(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_NavLocalGridManager_AddLocalNavigationGridForPoint;
 
 // Function AIModule.NavLocalGridManager.AddLocalNavigationGridForPoints
 // 0x0028 (0x0028 - 0x0000)
@@ -1827,6 +2012,7 @@ public:
 	uint8                                         Pad_21[0x3];                                       // 0x0021(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         ReturnValue;                                       // 0x0024(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NavLocalGridManager_AddLocalNavigationGridForPoints;
 
 // Function AIModule.NavLocalGridManager.FindLocalNavigationGridPath
 // 0x0038 (0x0038 - 0x0000)
@@ -1840,6 +2026,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0030(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_31[0x7];                                       // 0x0031(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_NavLocalGridManager_FindLocalNavigationGridPath;
 
 // Function AIModule.NavLocalGridManager.RemoveLocalNavigationGrid
 // 0x0010 (0x0010 - 0x0000)
@@ -1851,6 +2038,7 @@ public:
 	bool                                          bRebuildGrids;                                     // 0x000C(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_NavLocalGridManager_RemoveLocalNavigationGrid;
 
 // Function AIModule.NavLocalGridManager.SetLocalNavigationGridDensity
 // 0x0010 (0x0010 - 0x0000)
@@ -1862,6 +2050,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_NavLocalGridManager_SetLocalNavigationGridDensity;
 
 // Function AIModule.PawnAction.CreateActionInstance
 // 0x0018 (0x0018 - 0x0000)
@@ -1872,6 +2061,7 @@ public:
 	TSubclassOf<class UPawnAction>                ActionClass;                                       // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UPawnAction*                            ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PawnAction_CreateActionInstance;
 
 // Function AIModule.PawnAction.Finish
 // 0x0001 (0x0001 - 0x0000)
@@ -1880,6 +2070,7 @@ struct PawnAction_Finish final
 public:
 	EPawnActionResult                             WithResult;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PawnAction_Finish;
 
 // Function AIModule.PawnAction.GetActionPriority
 // 0x0001 (0x0001 - 0x0000)
@@ -1888,6 +2079,7 @@ struct PawnAction_GetActionPriority final
 public:
 	EAIRequestPriority                            ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PawnAction_GetActionPriority;
 
 // Function AIModule.PawnAction_BlueprintBase.ActionFinished
 // 0x0010 (0x0010 - 0x0000)
@@ -1898,6 +2090,7 @@ public:
 	EPawnActionResult                             WithResult;                                        // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PawnAction_BlueprintBase_ActionFinished;
 
 // Function AIModule.PawnAction_BlueprintBase.ActionPause
 // 0x0008 (0x0008 - 0x0000)
@@ -1906,6 +2099,7 @@ struct PawnAction_BlueprintBase_ActionPause final
 public:
 	class APawn*                                  ControlledPawn;                                    // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PawnAction_BlueprintBase_ActionPause;
 
 // Function AIModule.PawnAction_BlueprintBase.ActionResume
 // 0x0008 (0x0008 - 0x0000)
@@ -1914,6 +2108,7 @@ struct PawnAction_BlueprintBase_ActionResume final
 public:
 	class APawn*                                  ControlledPawn;                                    // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PawnAction_BlueprintBase_ActionResume;
 
 // Function AIModule.PawnAction_BlueprintBase.ActionStart
 // 0x0008 (0x0008 - 0x0000)
@@ -1922,6 +2117,7 @@ struct PawnAction_BlueprintBase_ActionStart final
 public:
 	class APawn*                                  ControlledPawn;                                    // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PawnAction_BlueprintBase_ActionStart;
 
 // Function AIModule.PawnAction_BlueprintBase.ActionTick
 // 0x0010 (0x0010 - 0x0000)
@@ -1932,6 +2128,7 @@ public:
 	float                                         DeltaSeconds;                                      // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PawnAction_BlueprintBase_ActionTick;
 
 // Function AIModule.PawnActionsComponent.K2_PerformAction
 // 0x0018 (0x0018 - 0x0000)
@@ -1944,6 +2141,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0011(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_12[0x6];                                       // 0x0012(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PawnActionsComponent_K2_PerformAction;
 
 // Function AIModule.PawnActionsComponent.K2_AbortAction
 // 0x0010 (0x0010 - 0x0000)
@@ -1954,6 +2152,7 @@ public:
 	EPawnActionAbortState                         ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PawnActionsComponent_K2_AbortAction;
 
 // Function AIModule.PawnActionsComponent.K2_ForceAbortAction
 // 0x0010 (0x0010 - 0x0000)
@@ -1964,6 +2163,7 @@ public:
 	EPawnActionAbortState                         ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PawnActionsComponent_K2_ForceAbortAction;
 
 // Function AIModule.PawnActionsComponent.K2_PushAction
 // 0x0020 (0x0020 - 0x0000)
@@ -1977,6 +2177,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0018(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PawnActionsComponent_K2_PushAction;
 
 // Function AIModule.PawnSensingComponent.SetPeripheralVisionAngle
 // 0x0004 (0x0004 - 0x0000)
@@ -1985,6 +2186,7 @@ struct PawnSensingComponent_SetPeripheralVisionAngle final
 public:
 	float                                         NewPeripheralVisionAngle;                          // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PawnSensingComponent_SetPeripheralVisionAngle;
 
 // Function AIModule.PawnSensingComponent.SetSensingInterval
 // 0x0004 (0x0004 - 0x0000)
@@ -1993,6 +2195,7 @@ struct PawnSensingComponent_SetSensingInterval final
 public:
 	float                                         NewSensingInterval;                                // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PawnSensingComponent_SetSensingInterval;
 
 // Function AIModule.PawnSensingComponent.SetSensingUpdatesEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -2001,6 +2204,7 @@ struct PawnSensingComponent_SetSensingUpdatesEnabled final
 public:
 	bool                                          bEnabled;                                          // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PawnSensingComponent_SetSensingUpdatesEnabled;
 
 // Function AIModule.PawnSensingComponent.GetPeripheralVisionAngle
 // 0x0004 (0x0004 - 0x0000)
@@ -2009,6 +2213,7 @@ struct PawnSensingComponent_GetPeripheralVisionAngle final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PawnSensingComponent_GetPeripheralVisionAngle;
 
 // Function AIModule.PawnSensingComponent.GetPeripheralVisionCosine
 // 0x0004 (0x0004 - 0x0000)
@@ -2017,6 +2222,7 @@ struct PawnSensingComponent_GetPeripheralVisionCosine final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PawnSensingComponent_GetPeripheralVisionCosine;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

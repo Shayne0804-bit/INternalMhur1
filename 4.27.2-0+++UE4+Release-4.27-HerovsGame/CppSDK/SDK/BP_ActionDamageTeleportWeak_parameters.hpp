@@ -16,8 +16,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamageTeleportWeak.BP_ActionDamageTeleportWeak_C.ExecuteUbergraph_BP_ActionDamageTeleportWeak
 // 0x01F0 (0x01F0 - 0x0000)
@@ -54,6 +54,7 @@ public:
 	struct FDamageInfo                            CallFunc_BP_GetDamageInfo_ReturnValue;             // 0x0158(0x0090)(ConstParm, NoDestructor)
 	class UBattleCustomParticleSystemComponent*   CallFunc_SpawnEmitterAtLocation_ReturnValue;       // 0x01E8(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageTeleportWeak_C_ExecuteUbergraph_BP_ActionDamageTeleportWeak;
 
 // Function BP_ActionDamageTeleportWeak.BP_ActionDamageTeleportWeak_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -62,6 +63,7 @@ struct BP_ActionDamageTeleportWeak_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageTeleportWeak_C_BP_OnBeginAction;
 
 // Function BP_ActionDamageTeleportWeak.BP_ActionDamageTeleportWeak_C.UpdateOnce
 // 0x00B8 (0x00B8 - 0x0000)
@@ -74,6 +76,7 @@ public:
 	struct FDamageInfo                            CallFunc_BP_GetDamageInfo_ReturnValue;             // 0x0018(0x0090)(ConstParm, NoDestructor)
 	struct FVector                                CallFunc_BP_GetDamageDirection_ReturnValue;        // 0x00A8(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageTeleportWeak_C_UpdateOnce;
 
 // Function BP_ActionDamageTeleportWeak.BP_ActionDamageTeleportWeak_C.DecideAnimationId
 // 0x00A0 (0x00A0 - 0x0000)
@@ -91,6 +94,7 @@ public:
 	struct FDamageInfo                            CallFunc_BP_GetDamageInfo_ReturnValue;             // 0x0008(0x0090)(ConstParm, NoDestructor)
 	EAnimationId                                  K2Node_Select_Default;                             // 0x0098(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageTeleportWeak_C_DecideAnimationId;
 
 // Function BP_ActionDamageTeleportWeak.BP_ActionDamageTeleportWeak_C.SetTeleportLocation
 // 0x0300 (0x0300 - 0x0000)
@@ -164,6 +168,7 @@ public:
 	struct FVector                                CallFunc_Multiply_VectorFloat_ReturnValue_1;       // 0x02E4(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_Add_VectorVector_ReturnValue_1;           // 0x02F0(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageTeleportWeak_C_SetTeleportLocation;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

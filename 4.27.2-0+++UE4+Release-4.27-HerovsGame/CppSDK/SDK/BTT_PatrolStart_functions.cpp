@@ -14,7 +14,8 @@
 #include "BTT_PatrolStart_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BTT_PatrolStart.BTT_PatrolStart_C.ExecuteUbergraph_BTT_PatrolStart
 // (Final, UbergraphFunction)
@@ -57,5 +58,5 @@ void UBTT_PatrolStart_C::ReceiveExecuteAI(class AAIController* OwnerController, 
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

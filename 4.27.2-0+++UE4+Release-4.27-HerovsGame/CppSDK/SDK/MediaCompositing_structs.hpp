@@ -14,7 +14,8 @@
 #include "MovieScene_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct MediaCompositing.MovieSceneMediaPlayerPropertySectionTemplate
 // 0x0010 (0x0048 - 0x0038)
@@ -26,6 +27,7 @@ public:
 	bool                                          bLoop;                                             // 0x0044(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_45[0x3];                                       // 0x0045(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMovieSceneMediaPlayerPropertySectionTemplate;
 
 // ScriptStruct MediaCompositing.MovieSceneMediaSectionParams
 // 0x0030 (0x0030 - 0x0000)
@@ -42,6 +44,7 @@ public:
 	uint8                                         Pad_29[0x3];                                       // 0x0029(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FFrameNumber                           StartFrameOffset;                                  // 0x002C(0x0004)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMovieSceneMediaSectionParams;
 
 // ScriptStruct MediaCompositing.MovieSceneMediaSectionTemplate
 // 0x0030 (0x0050 - 0x0020)
@@ -50,5 +53,7 @@ struct FMovieSceneMediaSectionTemplate final : public FMovieSceneEvalTemplate
 public:
 	struct FMovieSceneMediaSectionParams          params;                                            // 0x0020(0x0030)(NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FMovieSceneMediaSectionTemplate;
 
-SDK_NAMESPACE_END
+}
+

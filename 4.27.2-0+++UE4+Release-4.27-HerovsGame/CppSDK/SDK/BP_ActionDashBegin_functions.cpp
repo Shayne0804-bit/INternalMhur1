@@ -14,7 +14,8 @@
 #include "BP_ActionDashBegin_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDashBegin.BP_ActionDashBegin_C.ExecuteUbergraph_BP_ActionDashBegin
 // (Final, UbergraphFunction)
@@ -173,5 +174,5 @@ void UBP_ActionDashBegin_C::UpdateSpeedRate()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

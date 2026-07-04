@@ -14,7 +14,8 @@
 #include "WBP_ChatSendButton_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_ChatSendButton.WBP_ChatSendButton_C.ExecuteUbergraph_WBP_ChatSendButton
 // (Final, UbergraphFunction)
@@ -83,5 +84,5 @@ void UWBP_ChatSendButton_C::PreConstruct(bool IsDesignTime)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

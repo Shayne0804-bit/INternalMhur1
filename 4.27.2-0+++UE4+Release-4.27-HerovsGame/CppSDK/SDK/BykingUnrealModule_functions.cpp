@@ -14,7 +14,8 @@
 #include "BykingUnrealModule_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BykingUnrealModule.ActionBase.BP_ActionDelay
 // (Final, Native, Protected, BlueprintCallable)
@@ -2148,5 +2149,5 @@ bool USystemUtility::IsDigitFString(const class FString& Str)
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

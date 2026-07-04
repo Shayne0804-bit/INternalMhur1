@@ -14,7 +14,8 @@
 #include "ABP_Ch000_Extra_00_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function ABP_Ch000_Extra_00.ABP_Ch000_Extra_00_C.ExecuteUbergraph_ABP_Ch000_Extra_00
 // (Final, UbergraphFunction)
@@ -133,5 +134,5 @@ void UABP_Ch000_Extra_00_C::OuterMeshExtensions(const struct FPoseLink& InPose, 
 		*OuterMeshExtensions_0 = std::move(Parms.OuterMeshExtensions_0);
 }
 
+}
 
-SDK_NAMESPACE_END

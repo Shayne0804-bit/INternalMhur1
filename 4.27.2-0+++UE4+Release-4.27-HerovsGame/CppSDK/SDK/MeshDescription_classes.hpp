@@ -13,7 +13,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MeshDescription.MeshDescription
 // 0x0000 (0x0028 - 0x0028)
@@ -33,6 +34,7 @@ public:
 		return GetDefaultObjImpl<UMeshDescription>();
 	}
 };
+DUMPER7_ASSERTS_UMeshDescription;
 
 // Class MeshDescription.MeshDescriptionBase
 // 0x0368 (0x0390 - 0x0028)
@@ -143,5 +145,7 @@ public:
 		return GetDefaultObjImpl<UMeshDescriptionBase>();
 	}
 };
+DUMPER7_ASSERTS_UMeshDescriptionBase;
 
-SDK_NAMESPACE_END
+}
+

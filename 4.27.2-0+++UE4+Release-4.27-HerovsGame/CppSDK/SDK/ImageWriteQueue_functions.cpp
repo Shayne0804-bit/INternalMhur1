@@ -14,7 +14,8 @@
 #include "ImageWriteQueue_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function ImageWriteQueue.ImageWriteBlueprintLibrary.ExportToDisk
 // (Final, RequiredAPI, Native, Static, Public, HasOutParams, BlueprintCallable)
@@ -44,5 +45,5 @@ void UImageWriteBlueprintLibrary::ExportToDisk(class UTexture* Texture, const cl
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -14,7 +14,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionParkourDashJump.BP_ActionParkourDashJump_C
 // 0x0010 (0x0290 - 0x0280)
@@ -50,5 +51,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionParkourDashJump_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionParkourDashJump_C;
 
-SDK_NAMESPACE_END
+}
+

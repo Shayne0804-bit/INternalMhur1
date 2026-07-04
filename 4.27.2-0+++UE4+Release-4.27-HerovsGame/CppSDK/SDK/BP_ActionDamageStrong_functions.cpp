@@ -14,7 +14,8 @@
 #include "BP_ActionDamageStrong_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageStrong.BP_ActionDamageStrong_C.ExecuteUbergraph_BP_ActionDamageStrong
 // (Final, UbergraphFunction, HasDefaults)
@@ -178,5 +179,5 @@ float UBP_ActionDamageStrong_C::GetCharacterBattleTime()
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

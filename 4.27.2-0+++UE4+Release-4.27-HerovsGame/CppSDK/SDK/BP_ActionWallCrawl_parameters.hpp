@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionWallCrawl.BP_ActionWallCrawl_C.ExecuteUbergraph_BP_ActionWallCrawl
 // 0x00C0 (0x00C0 - 0x0000)
@@ -59,6 +59,7 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue;   // 0x00A8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_GetActorUpVector_ReturnValue;             // 0x00B0(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionWallCrawl_C_ExecuteUbergraph_BP_ActionWallCrawl;
 
 // Function BP_ActionWallCrawl.BP_ActionWallCrawl_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -67,6 +68,7 @@ struct BP_ActionWallCrawl_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionWallCrawl_C_BP_OnBeginAction;
 
 // Function BP_ActionWallCrawl.BP_ActionWallCrawl_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -75,6 +77,7 @@ struct BP_ActionWallCrawl_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionWallCrawl_C_BP_OnEndAction;
 
 // Function BP_ActionWallCrawl.BP_ActionWallCrawl_C.UpdateMoveDirection
 // 0x0020 (0x0020 - 0x0000)
@@ -86,6 +89,7 @@ public:
 	struct FVector                                CallFunc_BP_GetMoveDirectionForWall_ReturnValue;   // 0x0010(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_BP_GetDeltaSeconds_ReturnValue;           // 0x001C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionWallCrawl_C_UpdateMoveDirection;
 
 // Function BP_ActionWallCrawl.BP_ActionWallCrawl_C.UpdateSpeedRate
 // 0x0018 (0x0018 - 0x0000)
@@ -97,6 +101,7 @@ public:
 	float                                         CallFunc_BP_GetMoveRate_ReturnValue;               // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_Multiply_FloatFloat_ReturnValue;          // 0x0014(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionWallCrawl_C_UpdateSpeedRate;
 
 // Function BP_ActionWallCrawl.BP_ActionWallCrawl_C.UpdateCharacterDirection
 // 0x0018 (0x0018 - 0x0000)
@@ -107,6 +112,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue;    // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionWallCrawl_C_UpdateCharacterDirection;
 
 // Function BP_ActionWallCrawl.BP_ActionWallCrawl_C.UpdateCharacterVertical
 // 0x0020 (0x0020 - 0x0000)
@@ -117,6 +123,7 @@ public:
 	struct FVector                                CallFunc_BP_GetDestForwardDirection_ReturnValue;   // 0x000C(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue;    // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionWallCrawl_C_UpdateCharacterVertical;
 
 // Function BP_ActionWallCrawl.BP_ActionWallCrawl_C.InitializeMoveSpeed
 // 0x0010 (0x0010 - 0x0000)
@@ -126,6 +133,7 @@ public:
 	class UCharacterParam*                        CallFunc_BP_GetParam_ReturnValue;                  // 0x0000(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue;    // 0x0008(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionWallCrawl_C_InitializeMoveSpeed;
 
 // Function BP_ActionWallCrawl.BP_ActionWallCrawl_C.InitializeMoveDirection
 // 0x0018 (0x0018 - 0x0000)
@@ -135,6 +143,7 @@ public:
 	class UCharacterCommandComponent*             CallFunc_BP_GetOwnerCommand_ReturnValue;           // 0x0000(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_BP_GetMoveDirectionForWall_ReturnValue;   // 0x0008(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionWallCrawl_C_InitializeMoveDirection;
 
 // Function BP_ActionWallCrawl.BP_ActionWallCrawl_C.InitializeCharacterDirection
 // 0x0030 (0x0030 - 0x0000)
@@ -147,6 +156,7 @@ public:
 	struct FVector                                CallFunc_Multiply_VectorFloat_ReturnValue;         // 0x001C(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue;    // 0x0028(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionWallCrawl_C_InitializeCharacterDirection;
 
 // Function BP_ActionWallCrawl.BP_ActionWallCrawl_C.InitializeCharacterVertical
 // 0x0028 (0x0028 - 0x0000)
@@ -158,6 +168,7 @@ public:
 	class UCharacterParam*                        CallFunc_BP_GetParam_ReturnValue;                  // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue;    // 0x0020(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionWallCrawl_C_InitializeCharacterVertical;
 
 // Function BP_ActionWallCrawl.BP_ActionWallCrawl_C.BP_IsEnableShiftAction
 // 0x000C (0x000C - 0x0000)
@@ -168,6 +179,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
 	bool                                          K2Node_SwitchName_CmpSuccess;                      // 0x0009(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionWallCrawl_C_BP_IsEnableShiftAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

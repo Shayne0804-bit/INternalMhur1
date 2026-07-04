@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct Renderer.LightPropagationVolumeSettings
 // 0x0040 (0x0040 - 0x0000)
@@ -48,5 +49,7 @@ public:
 	float                                         LPVFadeRange;                                      // 0x0038(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         LPVDirectionalOcclusionFadeRange;                  // 0x003C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLightPropagationVolumeSettings;
 
-SDK_NAMESPACE_END
+}
+

@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct FieldSystemEngine.FieldObjectCommands
 // 0x0030 (0x0030 - 0x0000)
@@ -22,5 +23,7 @@ public:
 	TArray<class UFieldNodeBase*>                 RootNodes;                                         // 0x0010(0x0010)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 	TArray<class UFieldSystemMetaData*>           MetaDatas;                                         // 0x0020(0x0010)(Edit, BlueprintVisible, ExportObject, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FFieldObjectCommands;
 
-SDK_NAMESPACE_END
+}
+

@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BTD_CombatCheck.BTD_CombatCheck_C.PerformConditionCheckAI
 // 0x0028 (0x0028 - 0x0000)
@@ -27,6 +27,7 @@ public:
 	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x0020(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_BP_CombatCheck_ReturnValue;               // 0x0021(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BTD_CombatCheck_C_PerformConditionCheckAI;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

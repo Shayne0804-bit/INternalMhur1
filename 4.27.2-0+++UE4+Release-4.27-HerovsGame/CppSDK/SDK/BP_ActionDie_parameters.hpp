@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDie.BP_ActionDie_C.ExecuteUbergraph_BP_ActionDie
 // 0x0260 (0x0260 - 0x0000)
@@ -114,6 +114,7 @@ public:
 	EBattleSequence                               CallFunc_GetBattleSequence_ReturnValue_1;          // 0x025A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_Less_ByteByte_ReturnValue_1;              // 0x025B(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionDie_C_ExecuteUbergraph_BP_ActionDie;
 
 // Function BP_ActionDie.BP_ActionDie_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -122,6 +123,7 @@ struct BP_ActionDie_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDie_C_BP_OnEndAction;
 
 // Function BP_ActionDie.BP_ActionDie_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -130,6 +132,7 @@ struct BP_ActionDie_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDie_C_BP_OnBeginAction;
 
 // Function BP_ActionDie.BP_ActionDie_C.ToSpectatingStepProcess
 // 0x0001 (0x0001 - 0x0000)
@@ -138,6 +141,7 @@ struct BP_ActionDie_C_ToSpectatingStepProcess final
 public:
 	bool                                          SkipDelay;                                         // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionDie_C_ToSpectatingStepProcess;
 
 // Function BP_ActionDie.BP_ActionDie_C.BattleSequenceValidateStepProcess
 // 0x0001 (0x0001 - 0x0000)
@@ -146,6 +150,7 @@ struct BP_ActionDie_C_BattleSequenceValidateStepProcess final
 public:
 	bool                                          SkipDelay;                                         // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionDie_C_BattleSequenceValidateStepProcess;
 
 // Function BP_ActionDie.BP_ActionDie_C.SetActionStep
 // 0x0008 (0x0008 - 0x0000)
@@ -155,6 +160,7 @@ public:
 	int32                                         nextStep;                                          // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         LLastActionStep;                                   // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDie_C_SetActionStep;
 
 // Function BP_ActionDie.BP_ActionDie_C.GetCharacterGameTimeSinceCreation
 // 0x0018 (0x0018 - 0x0000)
@@ -166,6 +172,7 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue;   // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_GetGameTimeSinceCreation_ReturnValue;     // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDie_C_GetCharacterGameTimeSinceCreation;
 
 // Function BP_ActionDie.BP_ActionDie_C.GetRemainedAwaitTime
 // 0x001C (0x001C - 0x0000)
@@ -183,6 +190,7 @@ public:
 	bool                                          CallFunc_Less_FloatFloat_ReturnValue;              // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_BooleanAND_ReturnValue;                   // 0x0019(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionDie_C_GetRemainedAwaitTime;
 
 // Function BP_ActionDie.BP_ActionDie_C.BP_IsEnableShiftAction
 // 0x000C (0x000C - 0x0000)
@@ -192,6 +200,7 @@ public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionDie_C_BP_IsEnableShiftAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

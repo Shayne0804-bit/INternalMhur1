@@ -14,7 +14,8 @@
 #include "BP_ActionAirJumpBegin_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionAirJumpBegin.BP_ActionAirJumpBegin_C.ExecuteUbergraph_BP_ActionAirJumpBegin
 // (Final, UbergraphFunction, HasDefaults)
@@ -109,5 +110,5 @@ float UBP_ActionAirJumpBegin_C::GetBrakeSpan()
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

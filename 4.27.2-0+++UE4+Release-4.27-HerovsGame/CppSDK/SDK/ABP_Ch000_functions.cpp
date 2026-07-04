@@ -14,7 +14,8 @@
 #include "ABP_Ch000_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function ABP_Ch000.ABP_Ch000_C.ExecuteUbergraph_ABP_Ch000
 // (Final, UbergraphFunction)
@@ -156,5 +157,5 @@ void UABP_Ch000_C::AimingBlend(const struct FPoseLink& InPose_1, struct FPoseLin
 		*AimingBlend_0 = std::move(Parms.AimingBlend_0);
 }
 
+}
 
-SDK_NAMESPACE_END

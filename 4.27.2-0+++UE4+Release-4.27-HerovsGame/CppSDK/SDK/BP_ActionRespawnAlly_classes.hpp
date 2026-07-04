@@ -14,7 +14,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionRespawnAlly.BP_ActionRespawnAlly_C
 // 0x0008 (0x0288 - 0x0280)
@@ -48,5 +49,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionRespawnAlly_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionRespawnAlly_C;
 
-SDK_NAMESPACE_END
+}
+

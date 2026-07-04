@@ -14,7 +14,8 @@
 #include "BP_CC_Skill_PiggyBack_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Skill_PiggyBack.BP_CC_Skill_PiggyBack_C.ExecuteUbergraph_BP_CC_Skill_PiggyBack
 // (Final, UbergraphFunction)
@@ -63,5 +64,5 @@ void UBP_CC_Skill_PiggyBack_C::BP_OnBeginCondition()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -15,7 +15,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum AnimBlueprintNodes.EMuscleSourceType
 // NumValues: 0x0003
@@ -39,6 +40,7 @@ public:
 	float                                         InertializationTimeToChangeBlendSpace;             // 0x0104(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_108[0x8];                                      // 0x0108(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_AimOffset2;
 
 // ScriptStruct AnimBlueprintNodes.AnimNode_DynamicRetarget
 // 0x0020 (0x00E8 - 0x00C8)
@@ -48,6 +50,7 @@ public:
 	struct FBoneReference                         ScaledBone;                                        // 0x00C8(0x0010)(Edit, NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D8[0x10];                                      // 0x00D8(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_DynamicRetarget;
 
 // ScriptStruct AnimBlueprintNodes.AnimNode_MuscleEx
 // 0x00F8 (0x01C0 - 0x00C8)
@@ -66,5 +69,7 @@ public:
 	struct FBox                                   RotationByZ;                                       // 0x0178(0x001C)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_194[0x2C];                                     // 0x0194(0x002C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_MuscleEx;
 
-SDK_NAMESPACE_END
+}
+

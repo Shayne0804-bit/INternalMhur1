@@ -13,8 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_NLP_Test.BP_NLP_Test_C.ExecuteUbergraph_BP_NLP_Test
 // 0x0020 (0x0020 - 0x0000)
@@ -26,6 +26,7 @@ public:
 	class AActor*                                 K2Node_Event_Agent;                                // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                K2Node_Event_Destination;                          // 0x0010(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_NLP_Test_C_ExecuteUbergraph_BP_NLP_Test;
 
 // Function BP_NLP_Test.BP_NLP_Test_C.ReceiveSmartLinkReached
 // 0x0018 (0x0018 - 0x0000)
@@ -35,6 +36,7 @@ public:
 	class AActor*                                 Agent;                                             // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                Destination;                                       // 0x0008(0x000C)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_NLP_Test_C_ReceiveSmartLinkReached;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

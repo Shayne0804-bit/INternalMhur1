@@ -14,7 +14,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class AudioCapture.AudioCapture
 // 0x0008 (0x00B0 - 0x00A8)
@@ -43,6 +44,7 @@ public:
 		return GetDefaultObjImpl<UAudioCapture>();
 	}
 };
+DUMPER7_ASSERTS_UAudioCapture;
 
 // Class AudioCapture.AudioCaptureFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -65,6 +67,7 @@ public:
 		return GetDefaultObjImpl<UAudioCaptureFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UAudioCaptureFunctionLibrary;
 
 // Class AudioCapture.AudioCaptureComponent
 // 0x00C0 (0x0780 - 0x06C0)
@@ -88,5 +91,7 @@ public:
 		return GetDefaultObjImpl<UAudioCaptureComponent>();
 	}
 };
+DUMPER7_ASSERTS_UAudioCaptureComponent;
 
-SDK_NAMESPACE_END
+}
+

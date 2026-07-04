@@ -14,7 +14,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionDamageStrongBlowOff.BP_ActionDamageStrongBlowOff_C
 // 0x0018 (0x0350 - 0x0338)
@@ -51,5 +52,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionDamageStrongBlowOff_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionDamageStrongBlowOff_C;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionJumpFall.BP_ActionJumpFall_C.ExecuteUbergraph_BP_ActionJumpFall
 // 0x0100 (0x0100 - 0x0000)
@@ -72,6 +72,7 @@ public:
 	struct FVector                                CallFunc_GetActorForwardVector_ReturnValue;        // 0x00F0(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_BP_IsForwardJump_ReturnValue_2;           // 0x00FC(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionJumpFall_C_ExecuteUbergraph_BP_ActionJumpFall;
 
 // Function BP_ActionJumpFall.BP_ActionJumpFall_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -80,6 +81,7 @@ struct BP_ActionJumpFall_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionJumpFall_C_BP_OnBeginAction;
 
 // Function BP_ActionJumpFall.BP_ActionJumpFall_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -88,6 +90,7 @@ struct BP_ActionJumpFall_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionJumpFall_C_BP_OnEndAction;
 
 // Function BP_ActionJumpFall.BP_ActionJumpFall_C.BP_IsEnableShiftAction
 // 0x0030 (0x0030 - 0x0000)
@@ -104,6 +107,7 @@ public:
 	bool                                          CallFunc_BP_IsEmpty_ReturnValue;                   // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_Not_PreBool_ReturnValue;                  // 0x0029(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionJumpFall_C_BP_IsEnableShiftAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

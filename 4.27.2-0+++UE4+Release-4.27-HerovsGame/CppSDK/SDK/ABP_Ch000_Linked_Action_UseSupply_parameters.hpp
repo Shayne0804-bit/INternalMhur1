@@ -13,8 +13,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function ABP_Ch000_Linked_Action_UseSupply.ABP_Ch000_Linked_Action_UseSupply_C.ExecuteUbergraph_ABP_Ch000_Linked_Action_UseSupply
 // 0x0008 (0x0008 - 0x0000)
@@ -24,6 +24,7 @@ public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         K2Node_Event_DeltaTimeX;                           // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_ABP_Ch000_Linked_Action_UseSupply_C_ExecuteUbergraph_ABP_Ch000_Linked_Action_UseSupply;
 
 // Function ABP_Ch000_Linked_Action_UseSupply.ABP_Ch000_Linked_Action_UseSupply_C.BlueprintUpdateAnimation
 // 0x0004 (0x0004 - 0x0000)
@@ -32,6 +33,7 @@ struct ABP_Ch000_Linked_Action_UseSupply_C_BlueprintUpdateAnimation final
 public:
 	float                                         DeltaTimeX;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_ABP_Ch000_Linked_Action_UseSupply_C_BlueprintUpdateAnimation;
 
 // Function ABP_Ch000_Linked_Action_UseSupply.ABP_Ch000_Linked_Action_UseSupply_C.AnimGraph
 // 0x0010 (0x0010 - 0x0000)
@@ -40,6 +42,7 @@ struct ABP_Ch000_Linked_Action_UseSupply_C_AnimGraph final
 public:
 	struct FPoseLink                              AnimGraph_0;                                       // 0x0000(0x0010)(Parm, OutParm, NoDestructor)
 };
+DUMPER7_ASSERTS_ABP_Ch000_Linked_Action_UseSupply_C_AnimGraph;
 
 // Function ABP_Ch000_Linked_Action_UseSupply.ABP_Ch000_Linked_Action_UseSupply_C.NagaraBlend
 // 0x0038 (0x0038 - 0x0000)
@@ -52,6 +55,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FPoseLink                              NagaraBlend_0;                                     // 0x0028(0x0010)(Parm, OutParm, NoDestructor)
 };
+DUMPER7_ASSERTS_ABP_Ch000_Linked_Action_UseSupply_C_NagaraBlend;
 
 // Function ABP_Ch000_Linked_Action_UseSupply.ABP_Ch000_Linked_Action_UseSupply_C.ActionCustom
 // 0x0020 (0x0020 - 0x0000)
@@ -61,6 +65,7 @@ public:
 	struct FPoseLink                              InPose;                                            // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, NoDestructor)
 	struct FPoseLink                              ActionCustom_0;                                    // 0x0010(0x0010)(Parm, OutParm, NoDestructor)
 };
+DUMPER7_ASSERTS_ABP_Ch000_Linked_Action_UseSupply_C_ActionCustom;
 
 // Function ABP_Ch000_Linked_Action_UseSupply.ABP_Ch000_Linked_Action_UseSupply_C.Retarget
 // 0x0020 (0x0020 - 0x0000)
@@ -70,6 +75,7 @@ public:
 	struct FPoseLink                              InPose_0;                                          // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, NoDestructor)
 	struct FPoseLink                              Retarget_0;                                        // 0x0010(0x0010)(Parm, OutParm, NoDestructor)
 };
+DUMPER7_ASSERTS_ABP_Ch000_Linked_Action_UseSupply_C_Retarget;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

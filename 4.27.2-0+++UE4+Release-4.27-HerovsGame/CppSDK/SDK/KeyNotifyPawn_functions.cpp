@@ -14,7 +14,8 @@
 #include "KeyNotifyPawn_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function KeyNotifyPawn.KeyNotifyPawn_C.ExecuteUbergraph_KeyNotifyPawn
 // (Final, UbergraphFunction, HasDefaults)
@@ -327,5 +328,5 @@ void AKeyNotifyPawn_C::InpActEvt_Gamepad_DPad_Right_K2Node_InputKeyEvent_7(const
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

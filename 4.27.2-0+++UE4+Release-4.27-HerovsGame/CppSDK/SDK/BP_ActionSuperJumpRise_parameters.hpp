@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionSuperJumpRise.BP_ActionSuperJumpRise_C.ExecuteUbergraph_BP_ActionSuperJumpRise
 // 0x0260 (0x0260 - 0x0000)
@@ -122,6 +122,7 @@ public:
 	EAnimationId                                  Temp_byte_Variable_1;                              // 0x0258(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EAnimationId                                  K2Node_Select_Default;                             // 0x0259(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionSuperJumpRise_C_ExecuteUbergraph_BP_ActionSuperJumpRise;
 
 // Function BP_ActionSuperJumpRise.BP_ActionSuperJumpRise_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -130,6 +131,7 @@ struct BP_ActionSuperJumpRise_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionSuperJumpRise_C_BP_OnEndAction;
 
 // Function BP_ActionSuperJumpRise.BP_ActionSuperJumpRise_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -138,6 +140,7 @@ struct BP_ActionSuperJumpRise_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionSuperJumpRise_C_BP_OnBeginAction;
 
 // Function BP_ActionSuperJumpRise.BP_ActionSuperJumpRise_C.CalcSpeedH
 // 0x00F8 (0x00F8 - 0x0000)
@@ -203,6 +206,7 @@ public:
 	float                                         CallFunc_Multiply_FloatFloat_ReturnValue_1;        // 0x00EC(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_Multiply_FloatFloat_ReturnValue_2;        // 0x00F0(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionSuperJumpRise_C_CalcSpeedH;
 
 // Function BP_ActionSuperJumpRise.BP_ActionSuperJumpRise_C.CalcJumpParam
 // 0x0008 (0x0008 - 0x0000)
@@ -212,6 +216,7 @@ public:
 	float                                         Speed;                                             // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         span;                                              // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionSuperJumpRise_C_CalcJumpParam;
 
 // Function BP_ActionSuperJumpRise.BP_ActionSuperJumpRise_C.BP_IsEnableShiftAction
 // 0x0030 (0x0030 - 0x0000)
@@ -228,6 +233,7 @@ public:
 	bool                                          CallFunc_BP_IsEmpty_ReturnValue;                   // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_Not_PreBool_ReturnValue;                  // 0x0029(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionSuperJumpRise_C_BP_IsEnableShiftAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

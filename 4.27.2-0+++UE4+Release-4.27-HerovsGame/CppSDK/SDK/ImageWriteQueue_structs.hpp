@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum ImageWriteQueue.EDesiredImageFormat
 // NumValues: 0x0005
@@ -37,5 +38,7 @@ public:
 	bool                                          bAsync;                                            // 0x0019(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1A[0x46];                                      // 0x001A(0x0046)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FImageWriteOptions;
 
-SDK_NAMESPACE_END
+}
+

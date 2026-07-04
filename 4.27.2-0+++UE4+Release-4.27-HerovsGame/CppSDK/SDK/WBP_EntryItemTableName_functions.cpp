@@ -14,7 +14,8 @@
 #include "WBP_EntryItemTableName_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_EntryItemTableName.WBP_EntryItemTableName_C.ExecuteUbergraph_WBP_EntryItemTableName
 // (Final, UbergraphFunction)
@@ -109,5 +110,5 @@ void UWBP_EntryItemTableName_C::BP_OnEntryReleased()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

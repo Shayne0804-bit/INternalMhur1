@@ -14,7 +14,8 @@
 #include "MaterialShaderQualitySettings_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MaterialShaderQualitySettings.MaterialShaderQualitySettings
 // 0x0050 (0x0078 - 0x0028)
@@ -37,6 +38,7 @@ public:
 		return GetDefaultObjImpl<UMaterialShaderQualitySettings>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialShaderQualitySettings;
 
 // Class MaterialShaderQualitySettings.ShaderPlatformQualitySettings
 // 0x0038 (0x0060 - 0x0028)
@@ -60,5 +62,7 @@ public:
 		return GetDefaultObjImpl<UShaderPlatformQualitySettings>();
 	}
 };
+DUMPER7_ASSERTS_UShaderPlatformQualitySettings;
 
-SDK_NAMESPACE_END
+}
+

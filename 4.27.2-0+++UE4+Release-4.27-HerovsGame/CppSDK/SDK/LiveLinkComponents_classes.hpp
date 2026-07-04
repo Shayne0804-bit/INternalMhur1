@@ -17,7 +17,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class LiveLinkComponents.LiveLinkComponentController
 // 0x00A8 (0x0158 - 0x00B0)
@@ -48,6 +49,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkComponentController>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkComponentController;
 
 // Class LiveLinkComponents.LiveLinkComponentSettings
 // 0x0050 (0x0078 - 0x0028)
@@ -70,6 +72,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkComponentSettings>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkComponentSettings;
 
 // Class LiveLinkComponents.LiveLinkControllerBase
 // 0x0018 (0x0040 - 0x0028)
@@ -92,6 +95,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkControllerBase>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkControllerBase;
 
 // Class LiveLinkComponents.LiveLinkLightController
 // 0x0000 (0x0040 - 0x0040)
@@ -111,6 +115,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkLightController>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkLightController;
 
 // Class LiveLinkComponents.LiveLinkTransformController
 // 0x0008 (0x0048 - 0x0040)
@@ -134,5 +139,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkTransformController>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkTransformController;
 
-SDK_NAMESPACE_END
+}
+

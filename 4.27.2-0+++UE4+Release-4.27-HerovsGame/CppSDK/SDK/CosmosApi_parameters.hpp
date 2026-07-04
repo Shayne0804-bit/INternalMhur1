@@ -13,8 +13,8 @@
 #include "CosmosApi_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function CosmosApi.NetHttp.Create
 // 0x0010 (0x0010 - 0x0000)
@@ -24,6 +24,7 @@ public:
 	class UObject*                                WorldContextObject;                                // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UNetHttp*                               ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetHttp_Create;
 
 // Function CosmosApi.NetHttp.PostRequest
 // 0x0030 (0x0030 - 0x0000)
@@ -37,6 +38,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UNetHttp*                               ReturnValue;                                       // 0x0028(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetHttp_PostRequest;
 
 // Function CosmosApi.NetHttp.SetHeader
 // 0x0048 (0x0048 - 0x0000)
@@ -51,6 +53,7 @@ public:
 	uint8                                         Pad_3C[0x4];                                       // 0x003C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UNetHttp*                               ReturnValue;                                       // 0x0040(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetHttp_SetHeader;
 
 // Function CosmosApi.NetMessage.Create
 // 0x0010 (0x0010 - 0x0000)
@@ -60,6 +63,7 @@ public:
 	class UObject*                                WorldContextObject;                                // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UNetMessage*                            ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetMessage_Create;
 
 // Function CosmosApi.NetMessage.Dump
 // 0x0020 (0x0020 - 0x0000)
@@ -69,6 +73,7 @@ public:
 	class FString                                 prefix;                                            // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetMessage_Dump;
 
 // Function CosmosApi.NetMessage.DumpHttp
 // 0x0020 (0x0020 - 0x0000)
@@ -78,6 +83,7 @@ public:
 	class FString                                 prefix;                                            // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetMessage_DumpHttp;
 
 // Function CosmosApi.NetMessage.DumpHttpHeader
 // 0x0020 (0x0020 - 0x0000)
@@ -87,6 +93,7 @@ public:
 	class FString                                 prefix;                                            // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetMessage_DumpHttpHeader;
 
 // Function CosmosApi.NetMessage.Set
 // 0x0020 (0x0020 - 0x0000)
@@ -98,6 +105,7 @@ public:
 	TArray<uint8>                                 Data;                                              // 0x0008(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	class UNetMessage*                            ReturnValue;                                       // 0x0018(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetMessage_Set;
 
 // Function CosmosApi.NetMessage.ToJson
 // 0x0010 (0x0010 - 0x0000)
@@ -106,6 +114,7 @@ struct NetMessage_ToJson final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetMessage_ToJson;
 
 // Function CosmosApi.NetSocketFacadeInterface.SetCipherMode
 // 0x0018 (0x0018 - 0x0000)
@@ -116,6 +125,7 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 Key;                                               // 0x0008(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSocketFacadeInterface_SetCipherMode;
 
 // Function CosmosApi.NetSocketFacadeInterface.SetUseTickReceive
 // 0x0001 (0x0001 - 0x0000)
@@ -124,6 +134,7 @@ struct NetSocketFacadeInterface_SetUseTickReceive final
 public:
 	bool                                          use;                                               // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSocketFacadeInterface_SetUseTickReceive;
 
 // Function CosmosApi.NetSquad.Appeal
 // 0x0010 (0x0010 - 0x0000)
@@ -132,6 +143,7 @@ struct NetSquad_Appeal final
 public:
 	class FString                                 AppealMessage;                                     // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_Appeal;
 
 // Function CosmosApi.NetSquad.AppealCustomSquad
 // 0x0028 (0x0028 - 0x0000)
@@ -143,6 +155,7 @@ public:
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 Appeal;                                            // 0x0018(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_AppealCustomSquad;
 
 // Function CosmosApi.NetSquad.CancelCustomLobbyMatching
 // 0x0010 (0x0010 - 0x0000)
@@ -151,6 +164,7 @@ struct NetSquad_CancelCustomLobbyMatching final
 public:
 	class FString                                 customRoomId;                                      // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_CancelCustomLobbyMatching;
 
 // Function CosmosApi.NetSquad.ChangePlayMode
 // 0x0004 (0x0004 - 0x0000)
@@ -159,6 +173,7 @@ struct NetSquad_ChangePlayMode final
 public:
 	int32                                         newPlayMode;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_ChangePlayMode;
 
 // Function CosmosApi.NetSquad.ConnectMatchingServer
 // 0x0004 (0x0004 - 0x0000)
@@ -167,6 +182,7 @@ struct NetSquad_ConnectMatchingServer final
 public:
 	int32                                         Score;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_ConnectMatchingServer;
 
 // Function CosmosApi.NetSquad.CreateCustomRoom
 // 0x0048 (0x0048 - 0x0000)
@@ -180,6 +196,7 @@ public:
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 UserName;                                          // 0x0038(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_CreateCustomRoom;
 
 // Function CosmosApi.NetSquad.CreateSquad
 // 0x0108 (0x0108 - 0x0000)
@@ -188,6 +205,7 @@ struct NetSquad_CreateSquad final
 public:
 	struct FCreateSquadParam                      Param;                                             // 0x0000(0x0108)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_CreateSquad;
 
 // Function CosmosApi.NetSquad.FindSquad
 // 0x0020 (0x0020 - 0x0000)
@@ -200,6 +218,7 @@ public:
 	int32                                         ConnectionServerPort;                              // 0x0018(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_NetSquad_FindSquad;
 
 // Function CosmosApi.NetSquad.FinishCustomGame
 // 0x0010 (0x0010 - 0x0000)
@@ -208,6 +227,7 @@ struct NetSquad_FinishCustomGame final
 public:
 	class FString                                 customRoomId;                                      // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_FinishCustomGame;
 
 // Function CosmosApi.NetSquad.GetBattleServerAddress
 // 0x0018 (0x0018 - 0x0000)
@@ -219,6 +239,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0014(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_NetSquad_GetBattleServerAddress;
 
 // Function CosmosApi.NetSquad.GetConnectionServerAddress
 // 0x0018 (0x0018 - 0x0000)
@@ -230,6 +251,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0014(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_NetSquad_GetConnectionServerAddress;
 
 // Function CosmosApi.NetSquad.GetCustomLobbyServer
 // 0x0010 (0x0010 - 0x0000)
@@ -238,6 +260,7 @@ struct NetSquad_GetCustomLobbyServer final
 public:
 	class FString                                 customRoomId;                                      // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_GetCustomLobbyServer;
 
 // Function CosmosApi.NetSquad.GetCustomRoomData
 // 0x0010 (0x0010 - 0x0000)
@@ -246,6 +269,7 @@ struct NetSquad_GetCustomRoomData final
 public:
 	class FString                                 customRoomId;                                      // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_GetCustomRoomData;
 
 // Function CosmosApi.NetSquad.Initialize
 // 0x0060 (0x0060 - 0x0000)
@@ -257,6 +281,7 @@ public:
 	bool                                          bUseP2P;                                           // 0x0059(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5A[0x6];                                       // 0x005A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_NetSquad_Initialize;
 
 // Function CosmosApi.NetSquad.JoinCustomRoom
 // 0x0030 (0x0030 - 0x0000)
@@ -267,6 +292,7 @@ public:
 	class FString                                 UserData;                                          // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 UserName;                                          // 0x0020(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_JoinCustomRoom;
 
 // Function CosmosApi.NetSquad.JoinInvitedSquad
 // 0x00D0 (0x00D0 - 0x0000)
@@ -276,6 +302,7 @@ public:
 	class FString                                 JoinSquadId;                                       // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FNetSquadMemberData                    OutMemberData;                                     // 0x0010(0x00C0)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_JoinInvitedSquad;
 
 // Function CosmosApi.NetSquad.JoinMatchingSquad
 // 0x00D0 (0x00D0 - 0x0000)
@@ -285,6 +312,7 @@ public:
 	class FString                                 JoinSquadId;                                       // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FNetSquadMemberData                    MemberData;                                        // 0x0010(0x00C0)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_JoinMatchingSquad;
 
 // Function CosmosApi.NetSquad.KickCustomRoom
 // 0x0020 (0x0020 - 0x0000)
@@ -294,6 +322,7 @@ public:
 	class FString                                 customRoomId;                                      // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 UserId;                                            // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_KickCustomRoom;
 
 // Function CosmosApi.NetSquad.KickSquadMember
 // 0x0010 (0x0010 - 0x0000)
@@ -302,6 +331,7 @@ struct NetSquad_KickSquadMember final
 public:
 	class FString                                 UserId;                                            // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_KickSquadMember;
 
 // Function CosmosApi.NetSquad.LeaveCustomRoom
 // 0x0010 (0x0010 - 0x0000)
@@ -310,6 +340,7 @@ struct NetSquad_LeaveCustomRoom final
 public:
 	class FString                                 customRoomId;                                      // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_LeaveCustomRoom;
 
 // Function CosmosApi.NetSquad.ReadyCustomRoom
 // 0x0010 (0x0010 - 0x0000)
@@ -318,6 +349,7 @@ struct NetSquad_ReadyCustomRoom final
 public:
 	class FString                                 customRoomId;                                      // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_ReadyCustomRoom;
 
 // Function CosmosApi.NetSquad.SendCustomSquadChat
 // 0x0030 (0x0030 - 0x0000)
@@ -331,6 +363,7 @@ public:
 	int32                                         IsAllChat;                                         // 0x0028(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_NetSquad_SendCustomSquadChat;
 
 // Function CosmosApi.NetSquad.SendSquadChatMessage
 // 0x0010 (0x0010 - 0x0000)
@@ -339,6 +372,7 @@ struct NetSquad_SendSquadChatMessage final
 public:
 	class FString                                 message;                                           // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_SendSquadChatMessage;
 
 // Function CosmosApi.NetSquad.SetCustomMemberData
 // 0x0030 (0x0030 - 0x0000)
@@ -349,6 +383,7 @@ public:
 	class FString                                 UserData;                                          // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 CustomUserName;                                    // 0x0020(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_SetCustomMemberData;
 
 // Function CosmosApi.NetSquad.SetCustomRoomMember
 // 0x0030 (0x0030 - 0x0000)
@@ -359,6 +394,7 @@ public:
 	TArray<struct FCosmosCustomRoomSquadList>     RoomSquadList;                                     // 0x0010(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosCustomSquadMember>       RoomObserverUserList;                              // 0x0020(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_SetCustomRoomMember;
 
 // Function CosmosApi.NetSquad.SetCustomRoomSettings
 // 0x0028 (0x0028 - 0x0000)
@@ -370,6 +406,7 @@ public:
 	int32                                         CustomRoomPlayMode;                                // 0x0020(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_NetSquad_SetCustomRoomSettings;
 
 // Function CosmosApi.NetSquad.SetMyRoomData
 // 0x0020 (0x0020 - 0x0000)
@@ -379,6 +416,7 @@ public:
 	class FString                                 squadId;                                           // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 MyRoomData;                                        // 0x0010(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_SetMyRoomData;
 
 // Function CosmosApi.NetSquad.SetSquadMemberData
 // 0x00C0 (0x00C0 - 0x0000)
@@ -387,6 +425,7 @@ struct NetSquad_SetSquadMemberData final
 public:
 	struct FNetSquadMemberData                    MemberData;                                        // 0x0000(0x00C0)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_SetSquadMemberData;
 
 // Function CosmosApi.NetSquad.StartSquadMatching
 // 0x0008 (0x0008 - 0x0000)
@@ -396,6 +435,7 @@ public:
 	int32                                         PlayMode;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Skill;                                             // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_StartSquadMatching;
 
 // Function CosmosApi.NetSquad.GetPlayMode
 // 0x0004 (0x0004 - 0x0000)
@@ -404,6 +444,7 @@ struct NetSquad_GetPlayMode final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_GetPlayMode;
 
 // Function CosmosApi.NetSquad.GetSquadId
 // 0x0010 (0x0010 - 0x0000)
@@ -412,6 +453,7 @@ struct NetSquad_GetSquadId final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_GetSquadId;
 
 // Function CosmosApi.NetSquad.GetSquadMemberData
 // 0x00D8 (0x00D8 - 0x0000)
@@ -423,6 +465,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x00D0(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D1[0x7];                                       // 0x00D1(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_NetSquad_GetSquadMemberData;
 
 // Function CosmosApi.NetSquad.GetSquadMemberList
 // 0x0010 (0x0010 - 0x0000)
@@ -431,6 +474,7 @@ struct NetSquad_GetSquadMemberList final
 public:
 	TArray<class FString>                         ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_GetSquadMemberList;
 
 // Function CosmosApi.NetSquad.GetUserId
 // 0x0010 (0x0010 - 0x0000)
@@ -439,6 +483,7 @@ struct NetSquad_GetUserId final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_GetUserId;
 
 // Function CosmosApi.NetSquad.IsLeader
 // 0x0001 (0x0001 - 0x0000)
@@ -447,6 +492,7 @@ struct NetSquad_IsLeader final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_NetSquad_IsLeader;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

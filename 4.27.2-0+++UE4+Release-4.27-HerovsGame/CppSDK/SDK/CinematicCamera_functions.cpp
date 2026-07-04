@@ -14,7 +14,8 @@
 #include "CinematicCamera_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function CinematicCamera.CameraRig_Rail.GetRailSplineComponent
 // (Final, Native, Public, BlueprintCallable, BlueprintPure)
@@ -315,5 +316,5 @@ float UCineCameraComponent::GetVerticalFieldOfView() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

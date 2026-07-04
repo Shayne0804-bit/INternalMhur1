@@ -14,7 +14,8 @@
 #include "ABP_Ch000_LayerInterface_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function ABP_Ch000_LayerInterface.ABP_Ch000_LayerInterface_C.ActionCustom
 // (HasOutParams, BlueprintCallable, BlueprintEvent)
@@ -115,5 +116,5 @@ void IABP_Ch000_LayerInterface_C::AimingBlend(const struct FPoseLink& InPose_1, 
 		*AimingBlend_0 = std::move(Parms.AimingBlend_0);
 }
 
+}
 
-SDK_NAMESPACE_END

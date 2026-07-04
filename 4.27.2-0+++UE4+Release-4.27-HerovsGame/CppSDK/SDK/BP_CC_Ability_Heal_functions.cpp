@@ -14,7 +14,8 @@
 #include "BP_CC_Ability_Heal_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Ability_Heal.BP_CC_Ability_Heal_C.ExecuteUbergraph_BP_CC_Ability_Heal
 // (Final, UbergraphFunction)
@@ -55,5 +56,5 @@ void UBP_CC_Ability_Heal_C::BP_OnUpdateIntervalValue(float value)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

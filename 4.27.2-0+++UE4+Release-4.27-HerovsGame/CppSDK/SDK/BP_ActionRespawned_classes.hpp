@@ -15,7 +15,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionRespawned.BP_ActionRespawned_C
 // 0x0030 (0x02A8 - 0x0278)
@@ -52,5 +53,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionRespawned_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionRespawned_C;
 
-SDK_NAMESPACE_END
+}
+

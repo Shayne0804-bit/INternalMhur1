@@ -15,7 +15,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionDamageStrong.BP_ActionDamageStrong_C
 // 0x0020 (0x0358 - 0x0338)
@@ -56,5 +57,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionDamageStrong_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionDamageStrong_C;
 
-SDK_NAMESPACE_END
+}
+

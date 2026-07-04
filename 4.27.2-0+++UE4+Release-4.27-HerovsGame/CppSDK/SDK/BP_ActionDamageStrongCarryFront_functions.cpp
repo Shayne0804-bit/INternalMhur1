@@ -14,7 +14,8 @@
 #include "BP_ActionDamageStrongCarryFront_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageStrongCarryFront.BP_ActionDamageStrongCarryFront_C.ExecuteUbergraph_BP_ActionDamageStrongCarryFront
 // (Final, UbergraphFunction, HasDefaults)
@@ -158,5 +159,5 @@ float UBP_ActionDamageStrongCarryFront_C::GetCharacterBattleTime()
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

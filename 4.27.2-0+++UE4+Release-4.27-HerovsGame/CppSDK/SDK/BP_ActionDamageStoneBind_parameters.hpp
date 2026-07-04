@@ -14,8 +14,8 @@
 #include "InGameModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamageStoneBind.BP_ActionDamageStoneBind_C.ExecuteUbergraph_BP_ActionDamageStoneBind
 // 0x0128 (0x0128 - 0x0000)
@@ -36,6 +36,7 @@ public:
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue_2;  // 0x0118(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue_3;  // 0x0120(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStoneBind_C_ExecuteUbergraph_BP_ActionDamageStoneBind;
 
 // Function BP_ActionDamageStoneBind.BP_ActionDamageStoneBind_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -44,6 +45,7 @@ struct BP_ActionDamageStoneBind_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStoneBind_C_BP_OnBeginAction;
 
 // Function BP_ActionDamageStoneBind.BP_ActionDamageStoneBind_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -52,6 +54,7 @@ struct BP_ActionDamageStoneBind_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStoneBind_C_BP_OnEndAction;
 
 // Function BP_ActionDamageStoneBind.BP_ActionDamageStoneBind_C.UpdateOnce
 // 0x00B8 (0x00B8 - 0x0000)
@@ -64,6 +67,7 @@ public:
 	struct FDamageInfo                            CallFunc_BP_GetDamageInfo_ReturnValue;             // 0x0018(0x0090)(ConstParm, NoDestructor)
 	struct FVector                                CallFunc_BP_GetDamageDirection_ReturnValue;        // 0x00A8(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStoneBind_C_UpdateOnce;
 
 // Function BP_ActionDamageStoneBind.BP_ActionDamageStoneBind_C.SetCondition
 // 0x02C0 (0x02C0 - 0x0000)
@@ -87,6 +91,7 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue;   // 0x02B0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_IsValid_ReturnValue_1;                    // 0x02B8(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStoneBind_C_SetCondition;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

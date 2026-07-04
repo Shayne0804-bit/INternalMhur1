@@ -14,7 +14,8 @@
 #include "BP_CC_RollSlot_SPAction_ReloadSpeed_Accel_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_RollSlot_SPAction_ReloadSpeed_Accel.BP_CC_RollSlot_SPAction_ReloadSpeed_Accel_C.ExecuteUbergraph_BP_CC_RollSlot_SPAction_ReloadSpeed_Accel
 // (Final, UbergraphFunction)
@@ -99,5 +100,5 @@ void UBP_CC_RollSlot_SPAction_ReloadSpeed_Accel_C::BP_OnVisibleCondition()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

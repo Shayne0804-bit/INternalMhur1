@@ -14,7 +14,8 @@
 #include "MovieSceneTracks_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function MovieSceneTracks.MovieSceneTransformOrigin.BP_GetTransformOrigin
 // (Event, Protected, HasDefaults, BlueprintCallable, BlueprintEvent, BlueprintPure, Const)
@@ -753,5 +754,5 @@ void UMovieSceneParameterSection::GetParameterNames(TSet<class FName>* Parameter
 		*ParameterNames = std::move(Parms.ParameterNames);
 }
 
+}
 
-SDK_NAMESPACE_END

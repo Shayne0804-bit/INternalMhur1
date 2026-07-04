@@ -14,7 +14,8 @@
 #include "BP_ActionWallCrawl_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionWallCrawl.BP_ActionWallCrawl_C.ExecuteUbergraph_BP_ActionWallCrawl
 // (Final, UbergraphFunction)
@@ -308,5 +309,5 @@ bool UBP_ActionWallCrawl_C::BP_IsEnableShiftAction(const class FName& nextAction
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -14,8 +14,8 @@
 #include "VoiceChatModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.ExecuteUbergraph_WBP_VoiceChatMenu
 // 0x0308 (0x0308 - 0x0000)
@@ -121,6 +121,7 @@ public:
 	class FString                                 CallFunc_GetPlayerName_ReturnValue;                // 0x02E8(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 	class FString                                 CallFunc_GetInputDeviceIdByIndex_ReturnValue;      // 0x02F8(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_ExecuteUbergraph_WBP_VoiceChatMenu;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.BndEvt__WBP_VoiceChatMenu_SpinBoxPlayerVolume_K2Node_ComponentBoundEvent_14_OnSpinBoxValueChangedEvent__DelegateSignature
 // 0x0004 (0x0004 - 0x0000)
@@ -129,6 +130,7 @@ struct WBP_VoiceChatMenu_C_BndEvt__WBP_VoiceChatMenu_SpinBoxPlayerVolume_K2Node_
 public:
 	float                                         InValue;                                           // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_BndEvt__WBP_VoiceChatMenu_SpinBoxPlayerVolume_K2Node_ComponentBoundEvent_14_OnSpinBoxValueChangedEvent__DelegateSignature;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.BndEvt__WBP_VoiceChatMenu_ListChatMembers_K2Node_ComponentBoundEvent_12_OnListItemSelectionChangedDynamic__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -138,6 +140,7 @@ public:
 	class UObject*                                Item;                                              // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          bIsSelected;                                       // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_BndEvt__WBP_VoiceChatMenu_ListChatMembers_K2Node_ComponentBoundEvent_12_OnListItemSelectionChangedDynamic__DelegateSignature;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.プレイヤーの状態変化
 // 0x0018 (0x0018 - 0x0000)
@@ -149,6 +152,7 @@ public:
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         value;                                             // 0x0014(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_プレイヤーの状態変化;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.BndEvt__WBP_VoiceChatMenu_SpinBoxSpeakerVolume_K2Node_ComponentBoundEvent_6_OnSpinBoxValueChangedEvent__DelegateSignature
 // 0x0004 (0x0004 - 0x0000)
@@ -157,6 +161,7 @@ struct WBP_VoiceChatMenu_C_BndEvt__WBP_VoiceChatMenu_SpinBoxSpeakerVolume_K2Node
 public:
 	float                                         InValue;                                           // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_BndEvt__WBP_VoiceChatMenu_SpinBoxSpeakerVolume_K2Node_ComponentBoundEvent_6_OnSpinBoxValueChangedEvent__DelegateSignature;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.BndEvt__WBP_VoiceChatMenu_SpinBoxMicVolume_K2Node_ComponentBoundEvent_5_OnSpinBoxValueChangedEvent__DelegateSignature
 // 0x0004 (0x0004 - 0x0000)
@@ -165,6 +170,7 @@ struct WBP_VoiceChatMenu_C_BndEvt__WBP_VoiceChatMenu_SpinBoxMicVolume_K2Node_Com
 public:
 	float                                         InValue;                                           // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_BndEvt__WBP_VoiceChatMenu_SpinBoxMicVolume_K2Node_ComponentBoundEvent_5_OnSpinBoxValueChangedEvent__DelegateSignature;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.BndEvt__WBP_VoiceChatMenu_EditableTextChanelName_K2Node_ComponentBoundEvent_4_OnEditableTextBoxChangedEvent__DelegateSignature
 // 0x0018 (0x0018 - 0x0000)
@@ -173,6 +179,7 @@ struct WBP_VoiceChatMenu_C_BndEvt__WBP_VoiceChatMenu_EditableTextChanelName_K2No
 public:
 	class FText                                   Text;                                              // 0x0000(0x0018)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ReferenceParm)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_BndEvt__WBP_VoiceChatMenu_EditableTextChanelName_K2Node_ComponentBoundEvent_4_OnEditableTextBoxChangedEvent__DelegateSignature;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.BndEvt__WBP_VoiceChatMenu_CheckBoxMicMute_K2Node_ComponentBoundEvent_2_OnCheckBoxComponentStateChanged__DelegateSignature
 // 0x0001 (0x0001 - 0x0000)
@@ -181,6 +188,7 @@ struct WBP_VoiceChatMenu_C_BndEvt__WBP_VoiceChatMenu_CheckBoxMicMute_K2Node_Comp
 public:
 	bool                                          bIsChecked;                                        // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_BndEvt__WBP_VoiceChatMenu_CheckBoxMicMute_K2Node_ComponentBoundEvent_2_OnCheckBoxComponentStateChanged__DelegateSignature;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.BndEvt__WBP_VoiceChatMenu_ComboBoxMode_K2Node_ComponentBoundEvent_3_OnSelectionChangedEvent__DelegateSignature
 // 0x0018 (0x0018 - 0x0000)
@@ -190,6 +198,7 @@ public:
 	class FString                                 SelectedItem;                                      // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, HasGetValueTypeHash)
 	ESelectInfo                                   SelectionType;                                     // 0x0010(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_BndEvt__WBP_VoiceChatMenu_ComboBoxMode_K2Node_ComponentBoundEvent_3_OnSelectionChangedEvent__DelegateSignature;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.BndEvt__WBP_VoiceChatMenu_ComboBoxMicDevice_K2Node_ComponentBoundEvent_48_OnSelectionChangedEvent__DelegateSignature
 // 0x0018 (0x0018 - 0x0000)
@@ -199,6 +208,7 @@ public:
 	class FString                                 SelectedItem;                                      // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, HasGetValueTypeHash)
 	ESelectInfo                                   SelectionType;                                     // 0x0010(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_BndEvt__WBP_VoiceChatMenu_ComboBoxMicDevice_K2Node_ComponentBoundEvent_48_OnSelectionChangedEvent__DelegateSignature;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.BndEvt__WBP_VoiceChatMenu_ComboBoxSpeakerDevice_K2Node_ComponentBoundEvent_47_OnSelectionChangedEvent__DelegateSignature
 // 0x0018 (0x0018 - 0x0000)
@@ -208,6 +218,7 @@ public:
 	class FString                                 SelectedItem;                                      // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, HasGetValueTypeHash)
 	ESelectInfo                                   SelectionType;                                     // 0x0010(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_BndEvt__WBP_VoiceChatMenu_ComboBoxSpeakerDevice_K2Node_ComponentBoundEvent_47_OnSelectionChangedEvent__DelegateSignature;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.BndEvt__WBP_VoiceChatMenu_CheckBoxMute_K2Node_ComponentBoundEvent_45_OnCheckBoxComponentStateChanged__DelegateSignature
 // 0x0001 (0x0001 - 0x0000)
@@ -216,6 +227,7 @@ struct WBP_VoiceChatMenu_C_BndEvt__WBP_VoiceChatMenu_CheckBoxMute_K2Node_Compone
 public:
 	bool                                          bIsChecked;                                        // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_BndEvt__WBP_VoiceChatMenu_CheckBoxMute_K2Node_ComponentBoundEvent_45_OnCheckBoxComponentStateChanged__DelegateSignature;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.Tick
 // 0x003C (0x003C - 0x0000)
@@ -225,6 +237,7 @@ public:
 	struct FGeometry                              MyGeometry;                                        // 0x0000(0x0038)(BlueprintVisible, BlueprintReadOnly, Parm, IsPlainOldData, NoDestructor)
 	float                                         InDeltaTime;                                       // 0x0038(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_Tick;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.SetSelectedMode
 // 0x0020 (0x0020 - 0x0000)
@@ -237,6 +250,7 @@ public:
 	int32                                         CallFunc_GetSelectedIndex_ReturnValue;             // 0x0018(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_SwitchInteger_CmpSuccess;                   // 0x001C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_SetSelectedMode;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.UpdateMemberList
 // 0x0060 (0x0060 - 0x0000)
@@ -255,6 +269,7 @@ public:
 	int32                                         CallFunc_Array_Length_ReturnValue;                 // 0x0058(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_Less_IntInt_ReturnValue;                  // 0x005C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_UpdateMemberList;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.Get Selected Member
 // 0x0038 (0x0038 - 0x0000)
@@ -268,6 +283,7 @@ public:
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 CallFunc_Conv_TextToString_ReturnValue;            // 0x0028(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_Get_Selected_Member;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.Update Talking Member List
 // 0x0060 (0x0060 - 0x0000)
@@ -287,6 +303,7 @@ public:
 	uint8                                         Pad_55[0x3];                                       // 0x0055(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWBP_EntryItemMemberName_C*             CallFunc_SpawnObject_ReturnValue;                  // 0x0058(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_Update_Talking_Member_List;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.Update Muted Member List
 // 0x0060 (0x0060 - 0x0000)
@@ -305,6 +322,7 @@ public:
 	int32                                         CallFunc_Array_Length_ReturnValue;                 // 0x0058(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_Less_IntInt_ReturnValue;                  // 0x005C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_Update_Muted_Member_List;
 
 // Function WBP_VoiceChatMenu.WBP_VoiceChatMenu_C.Update Member Volume List
 // 0x0060 (0x0060 - 0x0000)
@@ -324,6 +342,7 @@ public:
 	uint8                                         Pad_55[0x3];                                       // 0x0055(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWBP_EntryItemMemberName_C*             CallFunc_SpawnObject_ReturnValue;                  // 0x0058(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_VoiceChatMenu_C_Update_Member_Volume_List;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

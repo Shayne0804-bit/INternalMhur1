@@ -18,7 +18,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MagicLeapAR.LuminARSessionFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -41,6 +42,7 @@ public:
 		return GetDefaultObjImpl<ULuminARSessionFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_ULuminARSessionFunctionLibrary;
 
 // Class MagicLeapAR.LuminARFrameFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -64,6 +66,7 @@ public:
 		return GetDefaultObjImpl<ULuminARFrameFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_ULuminARFrameFunctionLibrary;
 
 // Class MagicLeapAR.LuminARLightEstimate
 // 0x0010 (0x0050 - 0x0040)
@@ -89,6 +92,7 @@ public:
 		return GetDefaultObjImpl<ULuminARLightEstimate>();
 	}
 };
+DUMPER7_ASSERTS_ULuminARLightEstimate;
 
 // Class MagicLeapAR.LuminARImageTrackingFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -112,6 +116,7 @@ public:
 		return GetDefaultObjImpl<ULuminARImageTrackingFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_ULuminARImageTrackingFunctionLibrary;
 
 // Class MagicLeapAR.LuminAROrigin
 // 0x00C0 (0x02E0 - 0x0220)
@@ -137,6 +142,7 @@ public:
 		return GetDefaultObjImpl<ALuminAROrigin>();
 	}
 };
+DUMPER7_ASSERTS_ALuminAROrigin;
 
 // Class MagicLeapAR.LuminARSessionConfig
 // 0x0090 (0x01A0 - 0x0110)
@@ -168,6 +174,7 @@ public:
 		return GetDefaultObjImpl<ULuminARSessionConfig>();
 	}
 };
+DUMPER7_ASSERTS_ULuminARSessionConfig;
 
 // Class MagicLeapAR.LuminARCandidateImage
 // 0x0008 (0x0060 - 0x0058)
@@ -198,5 +205,7 @@ public:
 		return GetDefaultObjImpl<ULuminARCandidateImage>();
 	}
 };
+DUMPER7_ASSERTS_ULuminARCandidateImage;
 
-SDK_NAMESPACE_END
+}
+

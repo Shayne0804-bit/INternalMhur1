@@ -14,7 +14,8 @@
 #include "BP_ActionDyingFall_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDyingFall.BP_ActionDyingFall_C.ExecuteUbergraph_BP_ActionDyingFall
 // (Final, UbergraphFunction)
@@ -140,5 +141,5 @@ bool UBP_ActionDyingFall_C::BP_IsEnableShiftAction(const class FName& nextAction
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

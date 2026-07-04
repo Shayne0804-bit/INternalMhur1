@@ -15,7 +15,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class LocationServicesBPLibrary.LocationServices
 // 0x0000 (0x0028 - 0x0028)
@@ -44,6 +45,7 @@ public:
 		return GetDefaultObjImpl<ULocationServices>();
 	}
 };
+DUMPER7_ASSERTS_ULocationServices;
 
 // Class LocationServicesBPLibrary.LocationServicesImpl
 // 0x0010 (0x0038 - 0x0028)
@@ -66,5 +68,7 @@ public:
 		return GetDefaultObjImpl<ULocationServicesImpl>();
 	}
 };
+DUMPER7_ASSERTS_ULocationServicesImpl;
 
-SDK_NAMESPACE_END
+}
+

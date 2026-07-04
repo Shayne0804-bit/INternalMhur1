@@ -14,7 +14,8 @@
 #include "Paper2D_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function Paper2D.PaperGroupedSpriteComponent.AddInstance
 // (Final, Native, Public, HasOutParams, HasDefaults, BlueprintCallable)
@@ -1835,5 +1836,5 @@ struct FPaperTileInfo UTileMapBlueprintLibrary::MakeTile(int32 TileIndex, class 
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

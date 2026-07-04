@@ -13,7 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum ChaosSolverEngine.EClusterConnectionTypeEnum
 // NumValues: 0x0007
@@ -35,6 +36,7 @@ struct alignas(0x10) FBreakEventCallbackWrapper final
 public:
 	uint8                                         Pad_0[0x40];                                       // 0x0000(0x0040)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBreakEventCallbackWrapper;
 
 // ScriptStruct ChaosSolverEngine.ChaosPhysicsCollisionInfo
 // 0x0070 (0x0070 - 0x0000)
@@ -54,6 +56,7 @@ public:
 	float                                         OtherMass;                                         // 0x0068(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_6C[0x4];                                       // 0x006C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FChaosPhysicsCollisionInfo;
 
 // ScriptStruct ChaosSolverEngine.ChaosDebugSubstepControl
 // 0x0003 (0x0003 - 0x0000)
@@ -64,6 +67,7 @@ public:
 	bool                                          bSubstep;                                          // 0x0001(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          bStep;                                             // 0x0002(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FChaosDebugSubstepControl;
 
 // ScriptStruct ChaosSolverEngine.ChaosBreakEvent
 // 0x0030 (0x0030 - 0x0000)
@@ -76,6 +80,7 @@ public:
 	struct FVector                                AngularVelocity;                                   // 0x0020(0x000C)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Mass;                                              // 0x002C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FChaosBreakEvent;
 
 // ScriptStruct ChaosSolverEngine.ChaosHandlerSet
 // 0x0058 (0x0058 - 0x0000)
@@ -85,5 +90,7 @@ public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
 	TSet<class UObject*>                          ChaosHandlers;                                     // 0x0008(0x0050)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FChaosHandlerSet;
 
-SDK_NAMESPACE_END
+}
+

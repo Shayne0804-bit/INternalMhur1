@@ -14,7 +14,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // AnimBlueprintGeneratedClass ABP_Ch000_Linked_Action_UseSupply.ABP_Ch000_Linked_Action_UseSupply_C
 // 0x06C0 (0x0980 - 0x02C0)
@@ -59,5 +60,7 @@ public:
 		return GetDefaultObjImpl<UABP_Ch000_Linked_Action_UseSupply_C>();
 	}
 };
+DUMPER7_ASSERTS_UABP_Ch000_Linked_Action_UseSupply_C;
 
-SDK_NAMESPACE_END
+}
+

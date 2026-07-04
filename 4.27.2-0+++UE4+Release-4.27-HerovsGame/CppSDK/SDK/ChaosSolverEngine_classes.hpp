@@ -18,7 +18,8 @@
 #include "DeveloperSettings_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class ChaosSolverEngine.ChaosDebugDrawComponent
 // 0x0008 (0x00B8 - 0x00B0)
@@ -41,6 +42,7 @@ public:
 		return GetDefaultObjImpl<UChaosDebugDrawComponent>();
 	}
 };
+DUMPER7_ASSERTS_UChaosDebugDrawComponent;
 
 // Class ChaosSolverEngine.ChaosEventListenerComponent
 // 0x0008 (0x00B8 - 0x00B0)
@@ -63,6 +65,7 @@ public:
 		return GetDefaultObjImpl<UChaosEventListenerComponent>();
 	}
 };
+DUMPER7_ASSERTS_UChaosEventListenerComponent;
 
 // Class ChaosSolverEngine.ChaosGameplayEventDispatcher
 // 0x01B8 (0x0270 - 0x00B8)
@@ -88,6 +91,7 @@ public:
 		return GetDefaultObjImpl<UChaosGameplayEventDispatcher>();
 	}
 };
+DUMPER7_ASSERTS_UChaosGameplayEventDispatcher;
 
 // Class ChaosSolverEngine.ChaosNotifyHandlerInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -116,6 +120,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IChaosNotifyHandlerInterface;
 
 // Class ChaosSolverEngine.ChaosSolverEngineBlueprintLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -138,6 +143,7 @@ public:
 		return GetDefaultObjImpl<UChaosSolverEngineBlueprintLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UChaosSolverEngineBlueprintLibrary;
 
 // Class ChaosSolverEngine.ChaosSolver
 // 0x0000 (0x0028 - 0x0028)
@@ -157,6 +163,7 @@ public:
 		return GetDefaultObjImpl<UChaosSolver>();
 	}
 };
+DUMPER7_ASSERTS_UChaosSolver;
 
 // Class ChaosSolverEngine.ChaosSolverActor
 // 0x00F8 (0x0318 - 0x0220)
@@ -209,6 +216,7 @@ public:
 		return GetDefaultObjImpl<AChaosSolverActor>();
 	}
 };
+DUMPER7_ASSERTS_AChaosSolverActor;
 
 // Class ChaosSolverEngine.ChaosSolverSettings
 // 0x0020 (0x0058 - 0x0038)
@@ -232,5 +240,7 @@ public:
 		return GetDefaultObjImpl<UChaosSolverSettings>();
 	}
 };
+DUMPER7_ASSERTS_UChaosSolverSettings;
 
-SDK_NAMESPACE_END
+}
+

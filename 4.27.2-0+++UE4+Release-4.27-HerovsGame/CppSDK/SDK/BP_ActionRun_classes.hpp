@@ -14,7 +14,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionRun.BP_ActionRun_C
 // 0x0008 (0x0280 - 0x0278)
@@ -51,5 +52,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionRun_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionRun_C;
 
-SDK_NAMESPACE_END
+}
+

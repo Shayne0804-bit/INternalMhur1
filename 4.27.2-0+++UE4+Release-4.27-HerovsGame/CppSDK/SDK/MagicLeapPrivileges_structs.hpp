@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum MagicLeapPrivileges.EMagicLeapPrivilege
 // NumValues: 0x0028
@@ -59,4 +60,5 @@ enum class EMagicLeapPrivilege : uint8
 	EMagicLeapPrivilege_MAX                  = 38,
 };
 
-SDK_NAMESPACE_END
+}
+

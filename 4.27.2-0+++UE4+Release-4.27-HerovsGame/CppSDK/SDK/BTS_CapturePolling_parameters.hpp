@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BTS_CapturePolling.BTS_CapturePolling_C.ExecuteUbergraph_BTS_CapturePolling
 // 0x0030 (0x0030 - 0x0000)
@@ -28,6 +28,7 @@ public:
 	class AAIControllerBattle*                    K2Node_DynamicCast_AsAIController_Battle;          // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BTS_CapturePolling_C_ExecuteUbergraph_BTS_CapturePolling;
 
 // Function BTS_CapturePolling.BTS_CapturePolling_C.ReceiveTickAI
 // 0x0018 (0x0018 - 0x0000)
@@ -38,6 +39,7 @@ public:
 	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         DeltaSeconds;                                      // 0x0010(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BTS_CapturePolling_C_ReceiveTickAI;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

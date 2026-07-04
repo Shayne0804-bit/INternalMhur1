@@ -13,8 +13,8 @@
 #include "ActionCamera_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function ActionCamera.ActionCameraSubsystem.BP_EndActionCamera
 // 0x0001 (0x0001 - 0x0000)
@@ -23,6 +23,7 @@ struct ActionCameraSubsystem_BP_EndActionCamera final
 public:
 	EActionCameraPriorityType                     PriorityType;                                      // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ActionCameraSubsystem_BP_EndActionCamera;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

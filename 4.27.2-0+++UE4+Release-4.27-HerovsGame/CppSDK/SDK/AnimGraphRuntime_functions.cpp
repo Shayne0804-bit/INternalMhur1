@@ -14,7 +14,8 @@
 #include "AnimGraphRuntime_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function AnimGraphRuntime.KismetAnimationLibrary.K2_CalculateVelocityFromPositionHistory
 // (Final, Native, Static, Public, HasOutParams, HasDefaults, BlueprintCallable)
@@ -539,5 +540,5 @@ void UPlayMontageCallbackProxy::OnNotifyEndReceived(class FName NotifyName, cons
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

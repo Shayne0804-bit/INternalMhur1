@@ -14,7 +14,8 @@
 #include "WBP_WindowButton_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_WindowButton.WBP_WindowButton_C.ExecuteUbergraph_WBP_WindowButton
 // (Final, UbergraphFunction)
@@ -117,5 +118,5 @@ void UWBP_WindowButton_C::UpdateArrow(bool bUpView, bool bDownView, bool bLeftVi
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

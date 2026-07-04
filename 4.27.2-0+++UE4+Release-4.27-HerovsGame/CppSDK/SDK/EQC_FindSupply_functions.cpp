@@ -14,7 +14,8 @@
 #include "EQC_FindSupply_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function EQC_FindSupply.EQC_FindSupply_C.ProvideSingleActor
 // (Event, Public, HasOutParams, BlueprintCallable, BlueprintEvent, Const)
@@ -41,5 +42,5 @@ void UEQC_FindSupply_C::ProvideSingleActor(class UObject* QuerierObject, class A
 		*ResultingActor = Parms.ResultingActor;
 }
 
+}
 
-SDK_NAMESPACE_END

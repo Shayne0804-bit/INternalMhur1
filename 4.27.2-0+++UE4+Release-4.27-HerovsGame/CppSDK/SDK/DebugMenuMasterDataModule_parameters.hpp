@@ -13,8 +13,8 @@
 #include "MasterDataModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function DebugMenuMasterDataModule.DebugMenuMasterData.GetAllJson
 // 0x0020 (0x0020 - 0x0000)
@@ -24,6 +24,7 @@ public:
 	class FString                                 TableName;                                         // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuMasterData_GetAllJson;
 
 // Function DebugMenuMasterDataModule.DebugMenuMasterData.GetDatabaseFilePath
 // 0x0010 (0x0010 - 0x0000)
@@ -32,6 +33,7 @@ struct DebugMenuMasterData_GetDatabaseFilePath final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuMasterData_GetDatabaseFilePath;
 
 // Function DebugMenuMasterDataModule.DebugMenuMasterData.GetDatabasePassword
 // 0x0010 (0x0010 - 0x0000)
@@ -40,6 +42,7 @@ struct DebugMenuMasterData_GetDatabasePassword final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuMasterData_GetDatabasePassword;
 
 // Function DebugMenuMasterDataModule.DebugMenuMasterData.GetDataFileVersion
 // 0x0010 (0x0010 - 0x0000)
@@ -48,6 +51,7 @@ struct DebugMenuMasterData_GetDataFileVersion final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuMasterData_GetDataFileVersion;
 
 // Function DebugMenuMasterDataModule.DebugMenuMasterData.GetLanguage
 // 0x0001 (0x0001 - 0x0000)
@@ -56,6 +60,7 @@ struct DebugMenuMasterData_GetLanguage final
 public:
 	EMdLocalization                               ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuMasterData_GetLanguage;
 
 // Function DebugMenuMasterDataModule.DebugMenuMasterData.GetModuleCodeVersion
 // 0x0010 (0x0010 - 0x0000)
@@ -64,6 +69,7 @@ struct DebugMenuMasterData_GetModuleCodeVersion final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuMasterData_GetModuleCodeVersion;
 
 // Function DebugMenuMasterDataModule.DebugMenuMasterData.GetSourceFilePath
 // 0x0010 (0x0010 - 0x0000)
@@ -72,6 +78,7 @@ struct DebugMenuMasterData_GetSourceFilePath final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuMasterData_GetSourceFilePath;
 
 // Function DebugMenuMasterDataModule.DebugMenuMasterData.GetTableList
 // 0x0010 (0x0010 - 0x0000)
@@ -80,6 +87,7 @@ struct DebugMenuMasterData_GetTableList final
 public:
 	TArray<class FString>                         ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuMasterData_GetTableList;
 
 // Function DebugMenuMasterDataModule.DebugMenuMasterData.IsMasterDataInitialized
 // 0x0001 (0x0001 - 0x0000)
@@ -88,6 +96,7 @@ struct DebugMenuMasterData_IsMasterDataInitialized final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuMasterData_IsMasterDataInitialized;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -15,7 +15,8 @@
 #include "SlateCore_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class Slate.ButtonWidgetStyle
 // 0x03A0 (0x03D0 - 0x0030)
@@ -38,6 +39,7 @@ public:
 		return GetDefaultObjImpl<UButtonWidgetStyle>();
 	}
 };
+DUMPER7_ASSERTS_UButtonWidgetStyle;
 
 // Class Slate.CheckBoxWidgetStyle
 // 0x0810 (0x0840 - 0x0030)
@@ -60,6 +62,7 @@ public:
 		return GetDefaultObjImpl<UCheckBoxWidgetStyle>();
 	}
 };
+DUMPER7_ASSERTS_UCheckBoxWidgetStyle;
 
 // Class Slate.ComboBoxWidgetStyle
 // 0x05C0 (0x05F0 - 0x0030)
@@ -82,6 +85,7 @@ public:
 		return GetDefaultObjImpl<UComboBoxWidgetStyle>();
 	}
 };
+DUMPER7_ASSERTS_UComboBoxWidgetStyle;
 
 // Class Slate.ComboButtonWidgetStyle
 // 0x0580 (0x05B0 - 0x0030)
@@ -104,6 +108,7 @@ public:
 		return GetDefaultObjImpl<UComboButtonWidgetStyle>();
 	}
 };
+DUMPER7_ASSERTS_UComboButtonWidgetStyle;
 
 // Class Slate.EditableTextBoxWidgetStyle
 // 0x0BB0 (0x0BE0 - 0x0030)
@@ -126,6 +131,7 @@ public:
 		return GetDefaultObjImpl<UEditableTextBoxWidgetStyle>();
 	}
 };
+DUMPER7_ASSERTS_UEditableTextBoxWidgetStyle;
 
 // Class Slate.ToolMenuBase
 // 0x0000 (0x0028 - 0x0028)
@@ -145,6 +151,7 @@ public:
 		return GetDefaultObjImpl<UToolMenuBase>();
 	}
 };
+DUMPER7_ASSERTS_UToolMenuBase;
 
 // Class Slate.EditableTextWidgetStyle
 // 0x0300 (0x0330 - 0x0030)
@@ -167,6 +174,7 @@ public:
 		return GetDefaultObjImpl<UEditableTextWidgetStyle>();
 	}
 };
+DUMPER7_ASSERTS_UEditableTextWidgetStyle;
 
 // Class Slate.ProgressWidgetStyle
 // 0x0280 (0x02B0 - 0x0030)
@@ -189,6 +197,7 @@ public:
 		return GetDefaultObjImpl<UProgressWidgetStyle>();
 	}
 };
+DUMPER7_ASSERTS_UProgressWidgetStyle;
 
 // Class Slate.ScrollBarWidgetStyle
 // 0x0760 (0x0790 - 0x0030)
@@ -211,6 +220,7 @@ public:
 		return GetDefaultObjImpl<UScrollBarWidgetStyle>();
 	}
 };
+DUMPER7_ASSERTS_UScrollBarWidgetStyle;
 
 // Class Slate.ScrollBoxWidgetStyle
 // 0x0350 (0x0380 - 0x0030)
@@ -233,6 +243,7 @@ public:
 		return GetDefaultObjImpl<UScrollBoxWidgetStyle>();
 	}
 };
+DUMPER7_ASSERTS_UScrollBoxWidgetStyle;
 
 // Class Slate.SlateSettings
 // 0x0008 (0x0030 - 0x0028)
@@ -256,6 +267,7 @@ public:
 		return GetDefaultObjImpl<USlateSettings>();
 	}
 };
+DUMPER7_ASSERTS_USlateSettings;
 
 // Class Slate.SpinBoxWidgetStyle
 // 0x0460 (0x0490 - 0x0030)
@@ -278,6 +290,7 @@ public:
 		return GetDefaultObjImpl<USpinBoxWidgetStyle>();
 	}
 };
+DUMPER7_ASSERTS_USpinBoxWidgetStyle;
 
 // Class Slate.TextBlockWidgetStyle
 // 0x0350 (0x0380 - 0x0030)
@@ -300,5 +313,7 @@ public:
 		return GetDefaultObjImpl<UTextBlockWidgetStyle>();
 	}
 };
+DUMPER7_ASSERTS_UTextBlockWidgetStyle;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionAirJumpBegin.BP_ActionAirJumpBegin_C
 // 0x0008 (0x0280 - 0x0278)
@@ -44,5 +45,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionAirJumpBegin_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionAirJumpBegin_C;
 
-SDK_NAMESPACE_END
+}
+

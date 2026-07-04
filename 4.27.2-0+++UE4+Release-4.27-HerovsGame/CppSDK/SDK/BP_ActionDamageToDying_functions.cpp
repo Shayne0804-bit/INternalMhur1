@@ -14,7 +14,8 @@
 #include "BP_ActionDamageToDying_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageToDying.BP_ActionDamageToDying_C.ExecuteUbergraph_BP_ActionDamageToDying
 // (Final, UbergraphFunction, HasDefaults)
@@ -83,5 +84,5 @@ void UBP_ActionDamageToDying_C::BP_ActionMain()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

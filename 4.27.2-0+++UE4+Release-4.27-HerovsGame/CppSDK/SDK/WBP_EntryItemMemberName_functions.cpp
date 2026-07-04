@@ -14,7 +14,8 @@
 #include "WBP_EntryItemMemberName_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_EntryItemMemberName.WBP_EntryItemMemberName_C.ExecuteUbergraph_WBP_EntryItemMemberName
 // (Final, UbergraphFunction)
@@ -109,5 +110,5 @@ void UWBP_EntryItemMemberName_C::BP_OnEntryReleased()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

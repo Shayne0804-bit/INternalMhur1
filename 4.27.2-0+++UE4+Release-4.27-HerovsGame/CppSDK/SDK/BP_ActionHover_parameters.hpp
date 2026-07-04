@@ -16,8 +16,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionHover.BP_ActionHover_C.ExecuteUbergraph_BP_ActionHover
 // 0x0108 (0x0108 - 0x0000)
@@ -69,6 +69,7 @@ public:
 	float                                         CallFunc_BP_GetSpeed_ReturnValue;                  // 0x0100(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_Less_FloatFloat_ReturnValue;              // 0x0104(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionHover_C_ExecuteUbergraph_BP_ActionHover;
 
 // Function BP_ActionHover.BP_ActionHover_C.BP_OnBeginCondition
 // 0x0018 (0x0018 - 0x0000)
@@ -82,6 +83,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class APlayerStateBattle*                     instigatedPlayer;                                  // 0x0010(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionHover_C_BP_OnBeginCondition;
 
 // Function BP_ActionHover.BP_ActionHover_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -90,6 +92,7 @@ struct BP_ActionHover_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionHover_C_BP_OnEndAction;
 
 // Function BP_ActionHover.BP_ActionHover_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -98,6 +101,7 @@ struct BP_ActionHover_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionHover_C_BP_OnBeginAction;
 
 // Function BP_ActionHover.BP_ActionHover_C.UpdateMoveDirection
 // 0x0048 (0x0048 - 0x0000)
@@ -115,6 +119,7 @@ public:
 	uint8                                         Pad_35[0x3];                                       // 0x0035(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FVector                                K2Node_Select_Default;                             // 0x0038(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionHover_C_UpdateMoveDirection;
 
 // Function BP_ActionHover.BP_ActionHover_C.UpdateCharacterDirection
 // 0x0020 (0x0020 - 0x0000)
@@ -125,6 +130,7 @@ public:
 	struct FVector                                CallFunc_BP_GetMoveDirection_ReturnValue;          // 0x0008(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_BP_GetForwardDirectionForBaseActionMovement_ReturnValue; // 0x0014(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionHover_C_UpdateCharacterDirection;
 
 // Function BP_ActionHover.BP_ActionHover_C.UpdateMoveSpeed
 // 0x0018 (0x0018 - 0x0000)
@@ -135,6 +141,7 @@ public:
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue;    // 0x0008(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_BP_GetMoveRate_ReturnValue;               // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionHover_C_UpdateMoveSpeed;
 
 // Function BP_ActionHover.BP_ActionHover_C.UpdateLocation
 // 0x00E0 (0x00E0 - 0x0000)
@@ -161,6 +168,7 @@ public:
 	struct FHitResult                             CallFunc_K2_SetActorLocation_SweepHitResult;       // 0x0054(0x0088)(IsPlainOldData, NoDestructor, ContainsInstancedReference)
 	bool                                          CallFunc_K2_SetActorLocation_ReturnValue;          // 0x00DC(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionHover_C_UpdateLocation;
 
 // Function BP_ActionHover.BP_ActionHover_C.BP_IsEnableShiftAction
 // 0x000C (0x000C - 0x0000)
@@ -171,6 +179,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
 	bool                                          K2Node_SwitchName_CmpSuccess;                      // 0x0009(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionHover_C_BP_IsEnableShiftAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

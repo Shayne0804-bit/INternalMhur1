@@ -14,7 +14,8 @@
 #include "MovieScene_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class GeometryCollectionTracks.MovieSceneGeometryCollectionSection
 // 0x0030 (0x0118 - 0x00E8)
@@ -37,6 +38,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneGeometryCollectionSection>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneGeometryCollectionSection;
 
 // Class GeometryCollectionTracks.MovieSceneGeometryCollectionTrack
 // 0x0018 (0x00A8 - 0x0090)
@@ -60,5 +62,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneGeometryCollectionTrack>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneGeometryCollectionTrack;
 
-SDK_NAMESPACE_END
+}
+

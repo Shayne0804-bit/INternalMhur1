@@ -15,7 +15,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionFailedWallThrough.BP_ActionFailedWallThrough_C
 // 0x0040 (0x02B8 - 0x0278)
@@ -51,5 +52,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionFailedWallThrough_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionFailedWallThrough_C;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "BP_CC_Skill_Special_Ch007_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Skill_Special_Ch007.BP_CC_Skill_Special_Ch007_C.ExecuteUbergraph_BP_CC_Skill_Special_Ch007
 // (Final, UbergraphFunction)
@@ -111,5 +112,5 @@ void UBP_CC_Skill_Special_Ch007_C::BP_OnUpdateIntervalValue(float value)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

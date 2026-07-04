@@ -16,12 +16,12 @@
 #include "AnimBlueprintNodes_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // AnimBlueprintGeneratedClass ABP_Ch000.ABP_Ch000_C
 // 0x3010 (0x3490 - 0x0480)
-#pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) UABP_Ch000_C : public UAnimInstanceGame
+class UABP_Ch000_C final : public UAnimInstanceGame
 {
 public:
 	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0480(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
@@ -122,6 +122,7 @@ public:
 		return GetDefaultObjImpl<UABP_Ch000_C>();
 	}
 };
-#pragma pack(pop)
+DUMPER7_ASSERTS_UABP_Ch000_C;
 
-SDK_NAMESPACE_END
+}
+

@@ -15,7 +15,8 @@
 #include "MagicLeapARPin_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass MagicLeapARPinInfoActor.MagicLeapARPinInfoActor_C
 // 0x0090 (0x02C8 - 0x0238)
@@ -62,5 +63,7 @@ public:
 		return GetDefaultObjImpl<AMagicLeapARPinInfoActor_C>();
 	}
 };
+DUMPER7_ASSERTS_AMagicLeapARPinInfoActor_C;
 
-SDK_NAMESPACE_END
+}
+

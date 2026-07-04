@@ -13,8 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function CableComponent.CableComponent.AddForceIndex
 // 0x0014 (0x0014 - 0x0000)
@@ -26,6 +26,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_CableComponent_AddForceIndex;
 
 // Function CableComponent.CableComponent.ResetAnchor
 // 0x0008 (0x0008 - 0x0000)
@@ -36,6 +37,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_CableComponent_ResetAnchor;
 
 // Function CableComponent.CableComponent.SetAnchor
 // 0x0014 (0x0014 - 0x0000)
@@ -47,6 +49,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_CableComponent_SetAnchor;
 
 // Function CableComponent.CableComponent.SetAttachEndTo
 // 0x0018 (0x0018 - 0x0000)
@@ -57,6 +60,7 @@ public:
 	class FName                                   ComponentProperty;                                 // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   SocketName;                                        // 0x0010(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CableComponent_SetAttachEndTo;
 
 // Function CableComponent.CableComponent.SetAttachEndToComponent
 // 0x0010 (0x0010 - 0x0000)
@@ -66,6 +70,7 @@ public:
 	class USceneComponent*                        Component;                                         // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   SocketName;                                        // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CableComponent_SetAttachEndToComponent;
 
 // Function CableComponent.CableComponent.SetVerletSkipFlag
 // 0x0002 (0x0002 - 0x0000)
@@ -75,6 +80,7 @@ public:
 	bool                                          Skip;                                              // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CableComponent_SetVerletSkipFlag;
 
 // Function CableComponent.CableComponent.GetAttachedActor
 // 0x0008 (0x0008 - 0x0000)
@@ -83,6 +89,7 @@ struct CableComponent_GetAttachedActor final
 public:
 	class AActor*                                 ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CableComponent_GetAttachedActor;
 
 // Function CableComponent.CableComponent.GetAttachedComponent
 // 0x0008 (0x0008 - 0x0000)
@@ -91,6 +98,7 @@ struct CableComponent_GetAttachedComponent final
 public:
 	class USceneComponent*                        ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CableComponent_GetAttachedComponent;
 
 // Function CableComponent.CableComponent.GetCableParticleLocation
 // 0x0010 (0x0010 - 0x0000)
@@ -100,6 +108,7 @@ public:
 	int32                                         idx;                                               // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                ReturnValue;                                       // 0x0004(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CableComponent_GetCableParticleLocation;
 
 // Function CableComponent.CableComponent.GetCableParticleLocations
 // 0x0010 (0x0010 - 0x0000)
@@ -108,6 +117,7 @@ struct CableComponent_GetCableParticleLocations final
 public:
 	TArray<struct FVector>                        Locations;                                         // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CableComponent_GetCableParticleLocations;
 
 // Function CableComponent.CableComponent.GetCableParticleMoves
 // 0x0010 (0x0010 - 0x0000)
@@ -116,6 +126,7 @@ struct CableComponent_GetCableParticleMoves final
 public:
 	TArray<struct FVector>                        moves;                                             // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CableComponent_GetCableParticleMoves;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -13,7 +13,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class PacketHandler.HandlerComponentFactory
 // 0x0000 (0x0028 - 0x0028)
@@ -33,6 +34,7 @@ public:
 		return GetDefaultObjImpl<UHandlerComponentFactory>();
 	}
 };
+DUMPER7_ASSERTS_UHandlerComponentFactory;
 
 // Class PacketHandler.PacketHandlerProfileConfig
 // 0x0010 (0x0038 - 0x0028)
@@ -55,5 +57,7 @@ public:
 		return GetDefaultObjImpl<UPacketHandlerProfileConfig>();
 	}
 };
+DUMPER7_ASSERTS_UPacketHandlerProfileConfig;
 
-SDK_NAMESPACE_END
+}
+

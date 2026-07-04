@@ -13,7 +13,8 @@
 #include "OutGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_Consent.WBP_Consent_C
 // 0x0018 (0x04C0 - 0x04A8)
@@ -38,5 +39,7 @@ public:
 		return GetDefaultObjImpl<UWBP_Consent_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_Consent_C;
 
-SDK_NAMESPACE_END
+}
+

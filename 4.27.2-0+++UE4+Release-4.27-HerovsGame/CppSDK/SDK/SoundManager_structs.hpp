@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct SoundManager.LipParam
 // 0x0018 (0x0018 - 0x0000)
@@ -22,5 +23,7 @@ public:
 	class UAtomComponent*                         _atomComponent;                                    // 0x0008(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_10[0x8];                                       // 0x0010(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FLipParam;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_CC_RollSlot_Ability_Ch015_RECOVERY_HEALTH_GUARDPOINT.BP_CC_RollSlot_Ability_Ch015_RECOVERY_HEALTH_GUARDPOINT_C
 // 0x0018 (0x0168 - 0x0150)
@@ -49,5 +50,7 @@ public:
 		return GetDefaultObjImpl<UBP_CC_RollSlot_Ability_Ch015_RECOVERY_HEALTH_GUARDPOINT_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_CC_RollSlot_Ability_Ch015_RECOVERY_HEALTH_GUARDPOINT_C;
 
-SDK_NAMESPACE_END
+}
+

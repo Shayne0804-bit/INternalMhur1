@@ -15,7 +15,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_CC_PlusUltra.BP_CC_PlusUltra_C
 // 0x0020 (0x0170 - 0x0150)
@@ -57,5 +58,7 @@ public:
 		return GetDefaultObjImpl<UBP_CC_PlusUltra_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_CC_PlusUltra_C;
 
-SDK_NAMESPACE_END
+}
+

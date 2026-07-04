@@ -14,7 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct CriWareMovieScenes.MovieSceneAtomSectionTemplate
 // 0x0008 (0x0028 - 0x0020)
@@ -23,6 +24,7 @@ struct FMovieSceneAtomSectionTemplate final : public FMovieSceneEvalTemplate
 public:
 	class UMovieSceneAtomSection*                 AtomSection;                                       // 0x0020(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMovieSceneAtomSectionTemplate;
 
 // ScriptStruct CriWareMovieScenes.MovieSceneManaSectionParams
 // 0x0030 (0x0030 - 0x0000)
@@ -39,6 +41,7 @@ public:
 	uint8                                         Pad_29[0x3];                                       // 0x0029(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FFrameNumber                           StartFrameOffset;                                  // 0x002C(0x0004)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMovieSceneManaSectionParams;
 
 // ScriptStruct CriWareMovieScenes.MovieSceneManaSectionTemplate
 // 0x0038 (0x0058 - 0x0020)
@@ -48,5 +51,7 @@ public:
 	struct FMovieSceneManaSectionParams           params;                                            // 0x0020(0x0030)(NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_50[0x8];                                       // 0x0050(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMovieSceneManaSectionTemplate;
 
-SDK_NAMESPACE_END
+}
+

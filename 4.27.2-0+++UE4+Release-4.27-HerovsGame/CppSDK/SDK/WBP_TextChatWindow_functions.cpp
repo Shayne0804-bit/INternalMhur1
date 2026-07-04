@@ -14,7 +14,8 @@
 #include "WBP_TextChatWindow_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_TextChatWindow.WBP_TextChatWindow_C.ExecuteUbergraph_WBP_TextChatWindow
 // (Final, UbergraphFunction, HasDefaults)
@@ -430,19 +431,19 @@ void UWBP_TextChatWindow_C::checkTextEmpty(const class FText& Text, bool* NewPar
 }
 
 
-// Function WBP_TextChatWindow.WBP_TextChatWindow_C.setUpColor
+// Function WBP_TextChatWindow.WBP_TextChatWindow_C.SetUpColor
 // (Public, BlueprintCallable, BlueprintEvent)
 // Parameters:
 // const struct FSlateColor&               NewParam                                               (BlueprintVisible, BlueprintReadOnly, Parm)
 
-void UWBP_TextChatWindow_C::setUpColor(const struct FSlateColor& NewParam)
+void UWBP_TextChatWindow_C::SetUpColor(const struct FSlateColor& NewParam)
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_TextChatWindow_C", "setUpColor");
+		Func = Class->GetFunction("WBP_TextChatWindow_C", "SetUpColor");
 
-	Params::WBP_TextChatWindow_C_setUpColor Parms{};
+	Params::WBP_TextChatWindow_C_SetUpColor Parms{};
 
 	Parms.NewParam = std::move(NewParam);
 
@@ -705,5 +706,5 @@ void UWBP_TextChatWindow_C::SetStartTime()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

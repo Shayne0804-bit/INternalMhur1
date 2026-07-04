@@ -14,7 +14,8 @@
 #include "WBP_SafeGeneralWindow_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_SafeGeneralWindow.WBP_SafeGeneralWindow_C.ExecuteUbergraph_WBP_SafeGeneralWindow
 // (Final, UbergraphFunction)
@@ -88,5 +89,5 @@ struct FEventReply UWBP_SafeGeneralWindow_C::On_BlockBG_MouseButtonDown_0(const 
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

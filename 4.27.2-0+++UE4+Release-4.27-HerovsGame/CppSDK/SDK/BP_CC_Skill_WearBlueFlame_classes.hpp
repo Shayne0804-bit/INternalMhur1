@@ -14,7 +14,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_CC_Skill_WearBlueFlame.BP_CC_Skill_WearBlueFlame_C
 // 0x0018 (0x0188 - 0x0170)
@@ -52,5 +53,7 @@ public:
 		return GetDefaultObjImpl<UBP_CC_Skill_WearBlueFlame_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_CC_Skill_WearBlueFlame_C;
 
-SDK_NAMESPACE_END
+}
+

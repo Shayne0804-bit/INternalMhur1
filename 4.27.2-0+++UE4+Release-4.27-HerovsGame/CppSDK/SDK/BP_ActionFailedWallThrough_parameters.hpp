@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionFailedWallThrough.BP_ActionFailedWallThrough_C.ExecuteUbergraph_BP_ActionFailedWallThrough
 // 0x0148 (0x0148 - 0x0000)
@@ -51,6 +51,7 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_4; // 0x0138(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_IsEditor_ReturnValue;                     // 0x0140(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionFailedWallThrough_C_ExecuteUbergraph_BP_ActionFailedWallThrough;
 
 // Function BP_ActionFailedWallThrough.BP_ActionFailedWallThrough_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -59,6 +60,7 @@ struct BP_ActionFailedWallThrough_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionFailedWallThrough_C_BP_OnBeginAction;
 
 // Function BP_ActionFailedWallThrough.BP_ActionFailedWallThrough_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -67,6 +69,7 @@ struct BP_ActionFailedWallThrough_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionFailedWallThrough_C_BP_OnEndAction;
 
 // Function BP_ActionFailedWallThrough.BP_ActionFailedWallThrough_C.GetReturnLocation
 // 0x0230 (0x0230 - 0x0000)
@@ -138,6 +141,7 @@ public:
 	float                                         CallFunc_GetScaledCapsuleHalfHeight_ReturnValue;   // 0x021C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_MakeVector_ReturnValue;                   // 0x0220(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionFailedWallThrough_C_GetReturnLocation;
 
 // Function BP_ActionFailedWallThrough.BP_ActionFailedWallThrough_C.BP_IsEnableShiftAction
 // 0x000C (0x000C - 0x0000)
@@ -147,6 +151,7 @@ public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionFailedWallThrough_C_BP_IsEnableShiftAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

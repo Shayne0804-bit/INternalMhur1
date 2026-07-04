@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_Skill_Special_Ch007.BP_CC_Skill_Special_Ch007_C.ExecuteUbergraph_BP_CC_Skill_Special_Ch007
 // 0x0040 (0x0040 - 0x0000)
@@ -36,6 +36,7 @@ public:
 	bool                                          CallFunc_BooleanOR_ReturnValue_2;                  // 0x003E(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_BooleanOR_ReturnValue_3;                  // 0x003F(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_Special_Ch007_C_ExecuteUbergraph_BP_CC_Skill_Special_Ch007;
 
 // Function BP_CC_Skill_Special_Ch007.BP_CC_Skill_Special_Ch007_C.BP_OnUpdateIntervalValue
 // 0x0004 (0x0004 - 0x0000)
@@ -44,6 +45,7 @@ struct BP_CC_Skill_Special_Ch007_C_BP_OnUpdateIntervalValue final
 public:
 	float                                         value;                                             // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_Special_Ch007_C_BP_OnUpdateIntervalValue;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -17,7 +17,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class DevelopMenu.DevelopMenuButtonWidget
 // 0x0050 (0x02C8 - 0x0278)
@@ -48,6 +49,7 @@ public:
 		return GetDefaultObjImpl<UDevelopMenuButtonWidget>();
 	}
 };
+DUMPER7_ASSERTS_UDevelopMenuButtonWidget;
 
 // Class DevelopMenu.DevelopMenuEditorSettings
 // 0x0008 (0x0040 - 0x0038)
@@ -72,6 +74,7 @@ public:
 		return GetDefaultObjImpl<UDevelopMenuEditorSettings>();
 	}
 };
+DUMPER7_ASSERTS_UDevelopMenuEditorSettings;
 
 // Class DevelopMenu.DevelopMenuItemWidget
 // 0x0050 (0x02C8 - 0x0278)
@@ -114,6 +117,7 @@ public:
 		return GetDefaultObjImpl<UDevelopMenuItemWidget>();
 	}
 };
+DUMPER7_ASSERTS_UDevelopMenuItemWidget;
 
 // Class DevelopMenu.DevelopMenuWaitWidget
 // 0x0008 (0x0280 - 0x0278)
@@ -136,6 +140,7 @@ public:
 		return GetDefaultObjImpl<UDevelopMenuWaitWidget>();
 	}
 };
+DUMPER7_ASSERTS_UDevelopMenuWaitWidget;
 
 // Class DevelopMenu.DevelopMenuWidget
 // 0x00D8 (0x0350 - 0x0278)
@@ -189,6 +194,7 @@ public:
 		return GetDefaultObjImpl<UDevelopMenuWidget>();
 	}
 };
+DUMPER7_ASSERTS_UDevelopMenuWidget;
 
 // Class DevelopMenu.DevelopMenuWork
 // 0x0100 (0x0130 - 0x0030)
@@ -221,5 +227,7 @@ public:
 		return GetDefaultObjImpl<UDevelopMenuWork>();
 	}
 };
+DUMPER7_ASSERTS_UDevelopMenuWork;
 
-SDK_NAMESPACE_END
+}
+

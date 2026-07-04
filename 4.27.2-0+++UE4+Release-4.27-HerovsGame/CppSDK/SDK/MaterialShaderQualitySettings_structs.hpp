@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum MaterialShaderQualitySettings.EMobileShadowQuality
 // NumValues: 0x0005
@@ -39,5 +40,7 @@ public:
 	bool                                          bDisableMaterialNormalCalculation;                 // 0x0007(0x0001)(Edit, ZeroConstructor, Config, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	EMobileShadowQuality                          MobileShadowQuality;                               // 0x0008(0x0001)(Edit, ZeroConstructor, Config, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMaterialQualityOverrides;
 
-SDK_NAMESPACE_END
+}
+

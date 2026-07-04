@@ -14,7 +14,8 @@
 #include "BP_CC_RollSlot_Ability_Ch015_RECOVERY_HEALTH_GUARDPOINT_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_RollSlot_Ability_Ch015_RECOVERY_HEALTH_GUARDPOINT.BP_CC_RollSlot_Ability_Ch015_RECOVERY_HEALTH_GUARDPOINT_C.ExecuteUbergraph_BP_CC_RollSlot_Ability_Ch015_RECOVERY_HEALTH_GUARDPOINT
 // (Final, UbergraphFunction)
@@ -139,5 +140,5 @@ void UBP_CC_RollSlot_Ability_Ch015_RECOVERY_HEALTH_GUARDPOINT_C::FinishActivateE
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

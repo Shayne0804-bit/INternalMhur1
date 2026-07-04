@@ -13,7 +13,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class AudioExtensions.SoundfieldEndpointSettingsBase
 // 0x0000 (0x0028 - 0x0028)
@@ -33,6 +34,7 @@ public:
 		return GetDefaultObjImpl<USoundfieldEndpointSettingsBase>();
 	}
 };
+DUMPER7_ASSERTS_USoundfieldEndpointSettingsBase;
 
 // Class AudioExtensions.SoundfieldEncodingSettingsBase
 // 0x0000 (0x0028 - 0x0028)
@@ -52,6 +54,7 @@ public:
 		return GetDefaultObjImpl<USoundfieldEncodingSettingsBase>();
 	}
 };
+DUMPER7_ASSERTS_USoundfieldEncodingSettingsBase;
 
 // Class AudioExtensions.AudioEndpointSettingsBase
 // 0x0000 (0x0028 - 0x0028)
@@ -71,6 +74,7 @@ public:
 		return GetDefaultObjImpl<UAudioEndpointSettingsBase>();
 	}
 };
+DUMPER7_ASSERTS_UAudioEndpointSettingsBase;
 
 // Class AudioExtensions.DummyEndpointSettings
 // 0x0000 (0x0028 - 0x0028)
@@ -90,6 +94,7 @@ public:
 		return GetDefaultObjImpl<UDummyEndpointSettings>();
 	}
 };
+DUMPER7_ASSERTS_UDummyEndpointSettings;
 
 // Class AudioExtensions.SpatializationPluginSourceSettingsBase
 // 0x0000 (0x0028 - 0x0028)
@@ -109,6 +114,7 @@ public:
 		return GetDefaultObjImpl<USpatializationPluginSourceSettingsBase>();
 	}
 };
+DUMPER7_ASSERTS_USpatializationPluginSourceSettingsBase;
 
 // Class AudioExtensions.OcclusionPluginSourceSettingsBase
 // 0x0000 (0x0028 - 0x0028)
@@ -128,6 +134,7 @@ public:
 		return GetDefaultObjImpl<UOcclusionPluginSourceSettingsBase>();
 	}
 };
+DUMPER7_ASSERTS_UOcclusionPluginSourceSettingsBase;
 
 // Class AudioExtensions.ReverbPluginSourceSettingsBase
 // 0x0000 (0x0028 - 0x0028)
@@ -147,6 +154,7 @@ public:
 		return GetDefaultObjImpl<UReverbPluginSourceSettingsBase>();
 	}
 };
+DUMPER7_ASSERTS_UReverbPluginSourceSettingsBase;
 
 // Class AudioExtensions.SoundModulatorBase
 // 0x0000 (0x0028 - 0x0028)
@@ -166,6 +174,7 @@ public:
 		return GetDefaultObjImpl<USoundModulatorBase>();
 	}
 };
+DUMPER7_ASSERTS_USoundModulatorBase;
 
 // Class AudioExtensions.SoundfieldEffectSettingsBase
 // 0x0000 (0x0028 - 0x0028)
@@ -185,6 +194,7 @@ public:
 		return GetDefaultObjImpl<USoundfieldEffectSettingsBase>();
 	}
 };
+DUMPER7_ASSERTS_USoundfieldEffectSettingsBase;
 
 // Class AudioExtensions.SoundfieldEffectBase
 // 0x0008 (0x0030 - 0x0028)
@@ -207,5 +217,7 @@ public:
 		return GetDefaultObjImpl<USoundfieldEffectBase>();
 	}
 };
+DUMPER7_ASSERTS_USoundfieldEffectBase;
 
-SDK_NAMESPACE_END
+}
+

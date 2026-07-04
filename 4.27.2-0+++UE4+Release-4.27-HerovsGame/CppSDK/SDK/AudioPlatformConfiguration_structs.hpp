@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum AudioPlatformConfiguration.ESoundwaveSampleRateSettings
 // NumValues: 0x0006
@@ -36,5 +37,7 @@ public:
 	int32                                         MaxNumRandomBranches;                              // 0x0008(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         SoundCueQualityIndex;                              // 0x000C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPlatformRuntimeAudioCompressionOverrides;
 
-SDK_NAMESPACE_END
+}
+

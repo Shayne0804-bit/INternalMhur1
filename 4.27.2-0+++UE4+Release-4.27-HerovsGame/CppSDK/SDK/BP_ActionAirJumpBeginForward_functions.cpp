@@ -14,7 +14,8 @@
 #include "BP_ActionAirJumpBeginForward_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionAirJumpBeginForward.BP_ActionAirJumpBeginForward_C.ExecuteUbergraph_BP_ActionAirJumpBeginForward
 // (Final, UbergraphFunction, HasDefaults)
@@ -89,5 +90,5 @@ void UBP_ActionAirJumpBeginForward_C::BP_OnBeginAction(const class FName& prevAc
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

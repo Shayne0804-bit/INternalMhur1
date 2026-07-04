@@ -14,7 +14,8 @@
 #include "BP_CC_Noise_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Noise.BP_CC_Noise_C.ExecuteUbergraph_BP_CC_Noise
 // (Final, UbergraphFunction)
@@ -91,5 +92,5 @@ void UBP_CC_Noise_C::BP_OnHiddenCondition()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

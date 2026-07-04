@@ -14,7 +14,8 @@
 #include "CriWareAdxLipSync_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function CriWareAdxLipSync.LipsAnalyzerBase.Init
 // (Final, Native, Public, BlueprintCallable)
@@ -284,5 +285,5 @@ void ULipsAtomAnalyzer::Detach()
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -13,8 +13,8 @@
 #include "VoiceChatModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function DebugMenuVoiceChatModule.DebugMenuVoiceChat.GetChannelMemberNames
 // 0x0010 (0x0010 - 0x0000)
@@ -23,6 +23,7 @@ struct DebugMenuVoiceChat_GetChannelMemberNames final
 public:
 	TArray<class FString>                         ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuVoiceChat_GetChannelMemberNames;
 
 // Function DebugMenuVoiceChatModule.DebugMenuVoiceChat.GetInputDeviceIdByIndex
 // 0x0018 (0x0018 - 0x0000)
@@ -33,6 +34,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuVoiceChat_GetInputDeviceIdByIndex;
 
 // Function DebugMenuVoiceChatModule.DebugMenuVoiceChat.GetInputDeviceNames
 // 0x0010 (0x0010 - 0x0000)
@@ -41,6 +43,7 @@ struct DebugMenuVoiceChat_GetInputDeviceNames final
 public:
 	TArray<class FString>                         ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuVoiceChat_GetInputDeviceNames;
 
 // Function DebugMenuVoiceChatModule.DebugMenuVoiceChat.GetMemberVolumes
 // 0x0010 (0x0010 - 0x0000)
@@ -49,6 +52,7 @@ struct DebugMenuVoiceChat_GetMemberVolumes final
 public:
 	TArray<class FString>                         ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuVoiceChat_GetMemberVolumes;
 
 // Function DebugMenuVoiceChatModule.DebugMenuVoiceChat.GetMuteMemberNames
 // 0x0010 (0x0010 - 0x0000)
@@ -57,6 +61,7 @@ struct DebugMenuVoiceChat_GetMuteMemberNames final
 public:
 	TArray<class FString>                         ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuVoiceChat_GetMuteMemberNames;
 
 // Function DebugMenuVoiceChatModule.DebugMenuVoiceChat.GetOutputDeviceIdByIndex
 // 0x0018 (0x0018 - 0x0000)
@@ -67,6 +72,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuVoiceChat_GetOutputDeviceIdByIndex;
 
 // Function DebugMenuVoiceChatModule.DebugMenuVoiceChat.GetOutputDeviceNames
 // 0x0010 (0x0010 - 0x0000)
@@ -75,6 +81,7 @@ struct DebugMenuVoiceChat_GetOutputDeviceNames final
 public:
 	TArray<class FString>                         ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuVoiceChat_GetOutputDeviceNames;
 
 // Function DebugMenuVoiceChatModule.DebugMenuVoiceChat.GetPlayerName
 // 0x0010 (0x0010 - 0x0000)
@@ -83,6 +90,7 @@ struct DebugMenuVoiceChat_GetPlayerName final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuVoiceChat_GetPlayerName;
 
 // Function DebugMenuVoiceChatModule.DebugMenuVoiceChat.GetStatusText
 // 0x0010 (0x0010 - 0x0000)
@@ -91,6 +99,7 @@ struct DebugMenuVoiceChat_GetStatusText final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuVoiceChat_GetStatusText;
 
 // Function DebugMenuVoiceChatModule.DebugMenuVoiceChat.GetTalkingMemberNames
 // 0x0010 (0x0010 - 0x0000)
@@ -99,6 +108,7 @@ struct DebugMenuVoiceChat_GetTalkingMemberNames final
 public:
 	TArray<class FString>                         ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuVoiceChat_GetTalkingMemberNames;
 
 // Function DebugMenuVoiceChatModule.DebugMenuVoiceChat.OnVoiceChatChangePlayerStatus
 // 0x0018 (0x0018 - 0x0000)
@@ -110,6 +120,7 @@ public:
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         value;                                             // 0x0014(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuVoiceChat_OnVoiceChatChangePlayerStatus;
 
 // Function DebugMenuVoiceChatModule.DebugMenuVoiceChat.OnVoiceChatChangeStatus
 // 0x0001 (0x0001 - 0x0000)
@@ -118,6 +129,7 @@ struct DebugMenuVoiceChat_OnVoiceChatChangeStatus final
 public:
 	EVoiceChatStatus                              Status;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuVoiceChat_OnVoiceChatChangeStatus;
 
 // Function DebugMenuVoiceChatModule.DebugMenuVoiceChat.OnVoiceChatError
 // 0x0018 (0x0018 - 0x0000)
@@ -128,6 +140,7 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 msg;                                               // 0x0008(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DebugMenuVoiceChat_OnVoiceChatError;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

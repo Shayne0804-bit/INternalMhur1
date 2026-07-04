@@ -13,8 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionCarried.BP_ActionCarried_C.ExecuteUbergraph_BP_ActionCarried
 // 0x00E0 (0x00E0 - 0x0000)
@@ -57,6 +57,7 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_2; // 0x00C8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterConditionControlComponent*    CallFunc_BP_GetConditionControlComponent_ReturnValue_1; // 0x00D0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionCarried_C_ExecuteUbergraph_BP_ActionCarried;
 
 // Function BP_ActionCarried.BP_ActionCarried_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -65,6 +66,7 @@ struct BP_ActionCarried_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionCarried_C_BP_OnEndAction;
 
 // Function BP_ActionCarried.BP_ActionCarried_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -73,6 +75,7 @@ struct BP_ActionCarried_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionCarried_C_BP_OnBeginAction;
 
 // Function BP_ActionCarried.BP_ActionCarried_C.BP_IsEnableShiftAction
 // 0x000C (0x000C - 0x0000)
@@ -82,6 +85,7 @@ public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionCarried_C_BP_IsEnableShiftAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

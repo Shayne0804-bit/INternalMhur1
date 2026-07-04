@@ -14,7 +14,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_TextChatButtonGuide.WBP_TextChatButtonGuide_C
 // 0x0008 (0x0398 - 0x0390)
@@ -41,5 +42,7 @@ public:
 		return GetDefaultObjImpl<UWBP_TextChatButtonGuide_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_TextChatButtonGuide_C;
 
-SDK_NAMESPACE_END
+}
+

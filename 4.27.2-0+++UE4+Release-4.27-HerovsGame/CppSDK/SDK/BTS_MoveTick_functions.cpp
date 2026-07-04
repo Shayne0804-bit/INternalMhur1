@@ -14,7 +14,8 @@
 #include "BTS_MoveTick_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BTS_MoveTick.BTS_MoveTick_C.ExecuteUbergraph_BTS_MoveTick
 // (Final, UbergraphFunction)
@@ -59,5 +60,5 @@ void UBTS_MoveTick_C::ReceiveTickAI(class AAIController* OwnerController, class 
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

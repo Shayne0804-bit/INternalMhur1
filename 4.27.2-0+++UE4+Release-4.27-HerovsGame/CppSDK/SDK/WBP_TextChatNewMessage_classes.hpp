@@ -15,7 +15,8 @@
 #include "UIFramework_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_TextChatNewMessage.WBP_TextChatNewMessage_C
 // 0x00A0 (0x0410 - 0x0370)
@@ -46,7 +47,7 @@ public:
 	void FadeOutAnimation();
 	void OnAnimationFinished(const class UWidgetAnimation* Animation);
 	void Construct();
-	void setUpColor();
+	void SetUpColor();
 	void PlayEntryAnimation(const class FString& playerId, bool OwnEntry);
 	void Set_Message(class UTextChatListObject* newObject);
 	void PlayNewMessageAnimation();
@@ -67,5 +68,7 @@ public:
 		return GetDefaultObjImpl<UWBP_TextChatNewMessage_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_TextChatNewMessage_C;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "BP_CC_Speed_Down_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Speed_Down.BP_CC_Speed_Down_C.ExecuteUbergraph_BP_CC_Speed_Down
 // (Final, UbergraphFunction)
@@ -83,5 +84,5 @@ void UBP_CC_Speed_Down_C::BP_OnUpdateIntervalValue(float value)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

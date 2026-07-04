@@ -15,8 +15,8 @@
 #include "GameModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamageStrong.BP_ActionDamageStrong_C.ExecuteUbergraph_BP_ActionDamageStrong
 // 0x0198 (0x0198 - 0x0000)
@@ -70,6 +70,7 @@ public:
 	float                                         CallFunc_BP_GetHitSlowSecond_ReturnValue;          // 0x018C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_Multiply_FloatFloat_ReturnValue;          // 0x0190(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStrong_C_ExecuteUbergraph_BP_ActionDamageStrong;
 
 // Function BP_ActionDamageStrong.BP_ActionDamageStrong_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -78,6 +79,7 @@ struct BP_ActionDamageStrong_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStrong_C_BP_OnEndAction;
 
 // Function BP_ActionDamageStrong.BP_ActionDamageStrong_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -86,6 +88,7 @@ struct BP_ActionDamageStrong_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStrong_C_BP_OnBeginAction;
 
 // Function BP_ActionDamageStrong.BP_ActionDamageStrong_C.DecideAnimationId
 // 0x00A0 (0x00A0 - 0x0000)
@@ -101,6 +104,7 @@ public:
 	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x0098(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	EAnimationId                                  K2Node_Select_Default;                             // 0x0099(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStrong_C_DecideAnimationId;
 
 // Function BP_ActionDamageStrong.BP_ActionDamageStrong_C.GetCharacterBattleZ
 // 0x0028 (0x0028 - 0x0000)
@@ -115,6 +119,7 @@ public:
 	float                                         CallFunc_BreakVector_Y;                            // 0x0020(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_BreakVector_Z;                            // 0x0024(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStrong_C_GetCharacterBattleZ;
 
 // Function BP_ActionDamageStrong.BP_ActionDamageStrong_C.GetCharacterBattleTime
 // 0x0018 (0x0018 - 0x0000)
@@ -126,6 +131,7 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue;   // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_GetGameTimeSinceCreation_ReturnValue;     // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStrong_C_GetCharacterBattleTime;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

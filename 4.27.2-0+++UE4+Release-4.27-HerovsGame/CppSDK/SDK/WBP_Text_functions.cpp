@@ -14,7 +14,8 @@
 #include "WBP_Text_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_Text.WBP_Text_C.ExecuteUbergraph_WBP_Text
 // (Final, UbergraphFunction)
@@ -55,5 +56,5 @@ void UWBP_Text_C::PreConstruct(bool IsDesignTime)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

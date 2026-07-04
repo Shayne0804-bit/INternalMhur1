@@ -14,7 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum EditableMesh.ETriangleTessellationMode
 // NumValues: 0x0003
@@ -87,6 +88,7 @@ struct alignas(0x10) FMeshElementAttributeValue final
 public:
 	uint8                                         Pad_0[0x50];                                       // 0x0000(0x0050)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMeshElementAttributeValue;
 
 // ScriptStruct EditableMesh.MeshElementAttributeData
 // 0x0060 (0x0060 - 0x0000)
@@ -98,6 +100,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FMeshElementAttributeValue             AttributeValue;                                    // 0x0010(0x0050)(BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMeshElementAttributeData;
 
 // ScriptStruct EditableMesh.MeshElementAttributeList
 // 0x0010 (0x0010 - 0x0000)
@@ -106,6 +109,7 @@ struct FMeshElementAttributeList final
 public:
 	TArray<struct FMeshElementAttributeData>      Attributes;                                        // 0x0000(0x0010)(BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMeshElementAttributeList;
 
 // ScriptStruct EditableMesh.AdaptorPolygon2Group
 // 0x0048 (0x0048 - 0x0000)
@@ -117,12 +121,14 @@ public:
 	int32                                         MaxTriangles;                                      // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x3C];                                       // 0x000C(0x003C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAdaptorPolygon2Group;
 
 // ScriptStruct EditableMesh.AdaptorTriangleID
 // 0x0000 (0x0004 - 0x0004)
 struct FAdaptorTriangleID final : public FElementID
 {
 };
+DUMPER7_ASSERTS_FAdaptorTriangleID;
 
 // ScriptStruct EditableMesh.AdaptorPolygon
 // 0x0018 (0x0018 - 0x0000)
@@ -133,6 +139,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FAdaptorTriangleID>             TriangulatedPolygonTriangleIndices;                // 0x0008(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAdaptorPolygon;
 
 // ScriptStruct EditableMesh.PolygonGroupForPolygon
 // 0x0008 (0x0008 - 0x0000)
@@ -142,6 +149,7 @@ public:
 	struct FPolygonID                             PolygonID;                                         // 0x0000(0x0004)(BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FPolygonGroupID                        PolygonGroupID;                                    // 0x0004(0x0004)(BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPolygonGroupForPolygon;
 
 // ScriptStruct EditableMesh.PolygonGroupToCreate
 // 0x0018 (0x0018 - 0x0000)
@@ -152,6 +160,7 @@ public:
 	struct FPolygonGroupID                        OriginalPolygonGroupID;                            // 0x0010(0x0004)(BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPolygonGroupToCreate;
 
 // ScriptStruct EditableMesh.VertexToMove
 // 0x0010 (0x0010 - 0x0000)
@@ -161,6 +170,7 @@ public:
 	struct FVertexID                              VertexID;                                          // 0x0000(0x0004)(BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                NewVertexPosition;                                 // 0x0004(0x000C)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVertexToMove;
 
 // ScriptStruct EditableMesh.VertexIndexAndInstanceID
 // 0x0008 (0x0008 - 0x0000)
@@ -170,6 +180,7 @@ public:
 	int32                                         ContourIndex;                                      // 0x0000(0x0004)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVertexInstanceID                      VertexInstanceID;                                  // 0x0004(0x0004)(BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVertexIndexAndInstanceID;
 
 // ScriptStruct EditableMesh.VertexInstancesForPolygonHole
 // 0x0010 (0x0010 - 0x0000)
@@ -178,6 +189,7 @@ struct FVertexInstancesForPolygonHole final
 public:
 	TArray<struct FVertexIndexAndInstanceID>      VertexIndicesAndInstanceIDs;                       // 0x0000(0x0010)(BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVertexInstancesForPolygonHole;
 
 // ScriptStruct EditableMesh.ChangeVertexInstancesForPolygon
 // 0x0028 (0x0028 - 0x0000)
@@ -189,6 +201,7 @@ public:
 	TArray<struct FVertexIndexAndInstanceID>      PerimeterVertexIndicesAndInstanceIDs;              // 0x0008(0x0010)(BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FVertexInstancesForPolygonHole> VertexIndicesAndInstanceIDsForEachHole;            // 0x0018(0x0010)(BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FChangeVertexInstancesForPolygon;
 
 // ScriptStruct EditableMesh.VertexAttributesForPolygonHole
 // 0x0010 (0x0010 - 0x0000)
@@ -197,6 +210,7 @@ struct FVertexAttributesForPolygonHole final
 public:
 	TArray<struct FMeshElementAttributeList>      VertexAttributeList;                               // 0x0000(0x0010)(BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVertexAttributesForPolygonHole;
 
 // ScriptStruct EditableMesh.VertexAttributesForPolygon
 // 0x0028 (0x0028 - 0x0000)
@@ -208,6 +222,7 @@ public:
 	TArray<struct FMeshElementAttributeList>      PerimeterVertexAttributeLists;                     // 0x0008(0x0010)(BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FVertexAttributesForPolygonHole> VertexAttributeListsForEachHole;                  // 0x0018(0x0010)(BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVertexAttributesForPolygon;
 
 // ScriptStruct EditableMesh.AttributesForEdge
 // 0x0018 (0x0018 - 0x0000)
@@ -218,6 +233,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FMeshElementAttributeList              EdgeAttributes;                                    // 0x0008(0x0010)(BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAttributesForEdge;
 
 // ScriptStruct EditableMesh.AttributesForVertexInstance
 // 0x0018 (0x0018 - 0x0000)
@@ -228,6 +244,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FMeshElementAttributeList              VertexInstanceAttributes;                          // 0x0008(0x0010)(BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAttributesForVertexInstance;
 
 // ScriptStruct EditableMesh.AttributesForVertex
 // 0x0018 (0x0018 - 0x0000)
@@ -238,6 +255,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FMeshElementAttributeList              VertexAttributes;                                  // 0x0008(0x0010)(BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAttributesForVertex;
 
 // ScriptStruct EditableMesh.VertexPair
 // 0x0008 (0x0008 - 0x0000)
@@ -247,6 +265,7 @@ public:
 	struct FVertexID                              VertexID0;                                         // 0x0000(0x0004)(BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVertexID                              VertexID1;                                         // 0x0004(0x0004)(BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVertexPair;
 
 // ScriptStruct EditableMesh.PolygonToSplit
 // 0x0018 (0x0018 - 0x0000)
@@ -257,6 +276,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FVertexPair>                    VertexPairsToSplitAt;                              // 0x0008(0x0010)(BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPolygonToSplit;
 
 // ScriptStruct EditableMesh.VertexAndAttributes
 // 0x0018 (0x0018 - 0x0000)
@@ -267,6 +287,7 @@ public:
 	struct FVertexID                              VertexID;                                          // 0x0004(0x0004)(BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FMeshElementAttributeList              PolygonVertexAttributes;                           // 0x0008(0x0010)(BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVertexAndAttributes;
 
 // ScriptStruct EditableMesh.PolygonToCreate
 // 0x0020 (0x0020 - 0x0000)
@@ -280,6 +301,7 @@ public:
 	EPolygonEdgeHardness                          PolygonEdgeHardness;                               // 0x001C(0x0001)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPolygonToCreate;
 
 // ScriptStruct EditableMesh.EdgeToCreate
 // 0x0020 (0x0020 - 0x0000)
@@ -292,6 +314,7 @@ public:
 	struct FEdgeID                                OriginalEdgeID;                                    // 0x0018(0x0004)(BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FEdgeToCreate;
 
 // ScriptStruct EditableMesh.VertexInstanceToCreate
 // 0x0020 (0x0020 - 0x0000)
@@ -304,6 +327,7 @@ public:
 	struct FVertexInstanceID                      OriginalVertexInstanceID;                          // 0x0018(0x0004)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FVertexInstanceToCreate;
 
 // ScriptStruct EditableMesh.VertexToCreate
 // 0x0018 (0x0018 - 0x0000)
@@ -314,6 +338,7 @@ public:
 	struct FVertexID                              OriginalVertexID;                                  // 0x0010(0x0004)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FVertexToCreate;
 
 // ScriptStruct EditableMesh.SubdividedQuadVertex
 // 0x0034 (0x0034 - 0x0000)
@@ -328,6 +353,7 @@ public:
 	struct FVector                                VertexTangent;                                     // 0x0024(0x000C)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         VertexBinormalSign;                                // 0x0030(0x0004)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSubdividedQuadVertex;
 
 // ScriptStruct EditableMesh.SubdividedQuad
 // 0x00D0 (0x00D0 - 0x0000)
@@ -339,6 +365,7 @@ public:
 	struct FSubdividedQuadVertex                  QuadVertex2;                                       // 0x0068(0x0034)(BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 	struct FSubdividedQuadVertex                  QuadVertex3;                                       // 0x009C(0x0034)(BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSubdividedQuad;
 
 // ScriptStruct EditableMesh.SubdivisionLimitSection
 // 0x0010 (0x0010 - 0x0000)
@@ -347,6 +374,7 @@ struct FSubdivisionLimitSection final
 public:
 	TArray<struct FSubdividedQuad>                SubdividedQuads;                                   // 0x0000(0x0010)(BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSubdivisionLimitSection;
 
 // ScriptStruct EditableMesh.SubdividedWireEdge
 // 0x000C (0x000C - 0x0000)
@@ -357,6 +385,7 @@ public:
 	int32                                         EdgeVertex1PositionIndex;                          // 0x0004(0x0004)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_8[0x4];                                        // 0x0008(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSubdividedWireEdge;
 
 // ScriptStruct EditableMesh.SubdivisionLimitData
 // 0x0030 (0x0030 - 0x0000)
@@ -367,6 +396,7 @@ public:
 	TArray<struct FSubdivisionLimitSection>       Sections;                                          // 0x0010(0x0010)(BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FSubdividedWireEdge>            SubdividedWireEdges;                               // 0x0020(0x0010)(BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSubdivisionLimitData;
 
 // ScriptStruct EditableMesh.RenderingPolygonGroup
 // 0x0048 (0x0048 - 0x0000)
@@ -378,6 +408,7 @@ public:
 	int32                                         MaxTriangles;                                      // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x3C];                                       // 0x000C(0x003C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FRenderingPolygonGroup;
 
 // ScriptStruct EditableMesh.RenderingPolygon
 // 0x0018 (0x0018 - 0x0000)
@@ -388,5 +419,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FTriangleID>                    TriangulatedPolygonTriangleIndices;                // 0x0008(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRenderingPolygon;
 
-SDK_NAMESPACE_END
+}
+

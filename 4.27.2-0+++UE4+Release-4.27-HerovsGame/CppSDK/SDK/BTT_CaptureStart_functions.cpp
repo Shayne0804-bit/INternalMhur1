@@ -14,7 +14,8 @@
 #include "BTT_CaptureStart_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BTT_CaptureStart.BTT_CaptureStart_C.ExecuteUbergraph_BTT_CaptureStart
 // (Final, UbergraphFunction)
@@ -57,5 +58,5 @@ void UBTT_CaptureStart_C::ReceiveExecuteAI(class AAIController* OwnerController,
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -15,7 +15,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionDamageZeroGravity.BP_ActionDamageZeroGravity_C
 // 0x0008 (0x0340 - 0x0338)
@@ -47,5 +48,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionDamageZeroGravity_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionDamageZeroGravity_C;
 
-SDK_NAMESPACE_END
+}
+

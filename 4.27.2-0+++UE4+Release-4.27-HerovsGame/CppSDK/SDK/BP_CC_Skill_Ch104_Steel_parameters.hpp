@@ -15,8 +15,8 @@
 #include "GameModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_Skill_Ch104_Steel.BP_CC_Skill_Ch104_Steel_C.ExecuteUbergraph_BP_CC_Skill_Ch104_Steel
 // 0x0238 (0x0238 - 0x0000)
@@ -95,6 +95,7 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_15; // 0x0228(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_IsLocallyControlled_ReturnValue_1;        // 0x0230(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_Ch104_Steel_C_ExecuteUbergraph_BP_CC_Skill_Ch104_Steel;
 
 // Function BP_CC_Skill_Ch104_Steel.BP_CC_Skill_Ch104_Steel_C.BP_OnUpdateIntervalValue
 // 0x0004 (0x0004 - 0x0000)
@@ -103,6 +104,7 @@ struct BP_CC_Skill_Ch104_Steel_C_BP_OnUpdateIntervalValue final
 public:
 	float                                         value;                                             // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_Ch104_Steel_C_BP_OnUpdateIntervalValue;
 
 // Function BP_CC_Skill_Ch104_Steel.BP_CC_Skill_Ch104_Steel_C.BP_OnBootDamage
 // 0x0098 (0x0098 - 0x0000)
@@ -112,6 +114,7 @@ public:
 	struct FDamageInfo                            Info;                                              // 0x0000(0x0090)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ReferenceParm, NoDestructor)
 	ECharacterConditionId                         receivedConditionId;                               // 0x0090(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_Ch104_Steel_C_BP_OnBootDamage;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

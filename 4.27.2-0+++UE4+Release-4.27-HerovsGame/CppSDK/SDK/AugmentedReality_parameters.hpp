@@ -15,8 +15,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function AugmentedReality.ARTrackedGeometry.GetUnderlyingMesh
 // 0x0008 (0x0008 - 0x0000)
@@ -25,6 +25,7 @@ struct ARTrackedGeometry_GetUnderlyingMesh final
 public:
 	class UMRMeshComponent*                       ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTrackedGeometry_GetUnderlyingMesh;
 
 // Function AugmentedReality.ARTrackedGeometry.GetDebugName
 // 0x0008 (0x0008 - 0x0000)
@@ -33,6 +34,7 @@ struct ARTrackedGeometry_GetDebugName final
 public:
 	class FName                                   ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTrackedGeometry_GetDebugName;
 
 // Function AugmentedReality.ARTrackedGeometry.GetLastUpdateFrameNumber
 // 0x0004 (0x0004 - 0x0000)
@@ -41,6 +43,7 @@ struct ARTrackedGeometry_GetLastUpdateFrameNumber final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTrackedGeometry_GetLastUpdateFrameNumber;
 
 // Function AugmentedReality.ARTrackedGeometry.GetLastUpdateTimestamp
 // 0x0004 (0x0004 - 0x0000)
@@ -49,6 +52,7 @@ struct ARTrackedGeometry_GetLastUpdateTimestamp final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTrackedGeometry_GetLastUpdateTimestamp;
 
 // Function AugmentedReality.ARTrackedGeometry.GetLocalToTrackingTransform
 // 0x0030 (0x0030 - 0x0000)
@@ -57,6 +61,7 @@ struct ARTrackedGeometry_GetLocalToTrackingTransform final
 public:
 	struct FTransform                             ReturnValue;                                       // 0x0000(0x0030)(Parm, OutParm, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTrackedGeometry_GetLocalToTrackingTransform;
 
 // Function AugmentedReality.ARTrackedGeometry.GetLocalToWorldTransform
 // 0x0030 (0x0030 - 0x0000)
@@ -65,6 +70,7 @@ struct ARTrackedGeometry_GetLocalToWorldTransform final
 public:
 	struct FTransform                             ReturnValue;                                       // 0x0000(0x0030)(Parm, OutParm, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTrackedGeometry_GetLocalToWorldTransform;
 
 // Function AugmentedReality.ARTrackedGeometry.GetName
 // 0x0010 (0x0010 - 0x0000)
@@ -73,6 +79,7 @@ struct ARTrackedGeometry_GetName final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTrackedGeometry_GetName;
 
 // Function AugmentedReality.ARTrackedGeometry.GetObjectClassification
 // 0x0001 (0x0001 - 0x0000)
@@ -81,6 +88,7 @@ struct ARTrackedGeometry_GetObjectClassification final
 public:
 	EARObjectClassification                       ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTrackedGeometry_GetObjectClassification;
 
 // Function AugmentedReality.ARTrackedGeometry.GetTrackingState
 // 0x0001 (0x0001 - 0x0000)
@@ -89,6 +97,7 @@ struct ARTrackedGeometry_GetTrackingState final
 public:
 	EARTrackingState                              ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTrackedGeometry_GetTrackingState;
 
 // Function AugmentedReality.ARTrackedGeometry.HasSpatialMeshUsageFlag
 // 0x0002 (0x0002 - 0x0000)
@@ -98,6 +107,7 @@ public:
 	EARSpatialMeshUsageFlags                      InFlag;                                            // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTrackedGeometry_HasSpatialMeshUsageFlag;
 
 // Function AugmentedReality.ARTrackedGeometry.IsTracked
 // 0x0001 (0x0001 - 0x0000)
@@ -106,6 +116,7 @@ struct ARTrackedGeometry_IsTracked final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTrackedGeometry_IsTracked;
 
 // Function AugmentedReality.ARSessionConfig.AddCandidateImage
 // 0x0008 (0x0008 - 0x0000)
@@ -114,6 +125,7 @@ struct ARSessionConfig_AddCandidateImage final
 public:
 	class UARCandidateImage*                      NewCandidateImage;                                 // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_AddCandidateImage;
 
 // Function AugmentedReality.ARSessionConfig.AddCandidateObject
 // 0x0008 (0x0008 - 0x0000)
@@ -122,6 +134,7 @@ struct ARSessionConfig_AddCandidateObject final
 public:
 	class UARCandidateObject*                     CandidateObject;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_AddCandidateObject;
 
 // Function AugmentedReality.ARSessionConfig.SetCandidateObjectList
 // 0x0010 (0x0010 - 0x0000)
@@ -130,6 +143,7 @@ struct ARSessionConfig_SetCandidateObjectList final
 public:
 	TArray<class UARCandidateObject*>             InCandidateObjects;                                // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_SetCandidateObjectList;
 
 // Function AugmentedReality.ARSessionConfig.SetDesiredVideoFormat
 // 0x000C (0x000C - 0x0000)
@@ -138,6 +152,7 @@ struct ARSessionConfig_SetDesiredVideoFormat final
 public:
 	struct FARVideoFormat                         NewFormat;                                         // 0x0000(0x000C)(Parm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_SetDesiredVideoFormat;
 
 // Function AugmentedReality.ARSessionConfig.SetEnableAutoFocus
 // 0x0001 (0x0001 - 0x0000)
@@ -146,6 +161,7 @@ struct ARSessionConfig_SetEnableAutoFocus final
 public:
 	bool                                          bNewValue;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_SetEnableAutoFocus;
 
 // Function AugmentedReality.ARSessionConfig.SetFaceTrackingDirection
 // 0x0001 (0x0001 - 0x0000)
@@ -154,6 +170,7 @@ struct ARSessionConfig_SetFaceTrackingDirection final
 public:
 	EARFaceTrackingDirection                      InDirection;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_SetFaceTrackingDirection;
 
 // Function AugmentedReality.ARSessionConfig.SetFaceTrackingUpdate
 // 0x0001 (0x0001 - 0x0000)
@@ -162,6 +179,7 @@ struct ARSessionConfig_SetFaceTrackingUpdate final
 public:
 	EARFaceTrackingUpdate                         InUpdate;                                          // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_SetFaceTrackingUpdate;
 
 // Function AugmentedReality.ARSessionConfig.SetResetCameraTracking
 // 0x0001 (0x0001 - 0x0000)
@@ -170,6 +188,7 @@ struct ARSessionConfig_SetResetCameraTracking final
 public:
 	bool                                          bNewValue;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_SetResetCameraTracking;
 
 // Function AugmentedReality.ARSessionConfig.SetResetTrackedObjects
 // 0x0001 (0x0001 - 0x0000)
@@ -178,6 +197,7 @@ struct ARSessionConfig_SetResetTrackedObjects final
 public:
 	bool                                          bNewValue;                                         // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_SetResetTrackedObjects;
 
 // Function AugmentedReality.ARSessionConfig.SetSceneReconstructionMethod
 // 0x0001 (0x0001 - 0x0000)
@@ -186,6 +206,7 @@ struct ARSessionConfig_SetSceneReconstructionMethod final
 public:
 	EARSceneReconstruction                        InSceneReconstructionMethod;                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_SetSceneReconstructionMethod;
 
 // Function AugmentedReality.ARSessionConfig.SetSessionTrackingFeatureToEnable
 // 0x0001 (0x0001 - 0x0000)
@@ -194,6 +215,7 @@ struct ARSessionConfig_SetSessionTrackingFeatureToEnable final
 public:
 	EARSessionTrackingFeature                     InSessionTrackingFeature;                          // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_SetSessionTrackingFeatureToEnable;
 
 // Function AugmentedReality.ARSessionConfig.SetWorldMapData
 // 0x0010 (0x0010 - 0x0000)
@@ -202,6 +224,7 @@ struct ARSessionConfig_SetWorldMapData final
 public:
 	TArray<uint8>                                 WorldMapData_0;                                    // 0x0000(0x0010)(Parm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_SetWorldMapData;
 
 // Function AugmentedReality.ARSessionConfig.GetCandidateImageList
 // 0x0010 (0x0010 - 0x0000)
@@ -210,6 +233,7 @@ struct ARSessionConfig_GetCandidateImageList final
 public:
 	TArray<class UARCandidateImage*>              ReturnValue;                                       // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_GetCandidateImageList;
 
 // Function AugmentedReality.ARSessionConfig.GetCandidateObjectList
 // 0x0010 (0x0010 - 0x0000)
@@ -218,6 +242,7 @@ struct ARSessionConfig_GetCandidateObjectList final
 public:
 	TArray<class UARCandidateObject*>             ReturnValue;                                       // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_GetCandidateObjectList;
 
 // Function AugmentedReality.ARSessionConfig.GetDesiredVideoFormat
 // 0x000C (0x000C - 0x0000)
@@ -226,6 +251,7 @@ struct ARSessionConfig_GetDesiredVideoFormat final
 public:
 	struct FARVideoFormat                         ReturnValue;                                       // 0x0000(0x000C)(Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_GetDesiredVideoFormat;
 
 // Function AugmentedReality.ARSessionConfig.GetEnabledSessionTrackingFeature
 // 0x0001 (0x0001 - 0x0000)
@@ -234,6 +260,7 @@ struct ARSessionConfig_GetEnabledSessionTrackingFeature final
 public:
 	EARSessionTrackingFeature                     ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_GetEnabledSessionTrackingFeature;
 
 // Function AugmentedReality.ARSessionConfig.GetEnvironmentCaptureProbeType
 // 0x0001 (0x0001 - 0x0000)
@@ -242,6 +269,7 @@ struct ARSessionConfig_GetEnvironmentCaptureProbeType final
 public:
 	EAREnvironmentCaptureProbeType                ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_GetEnvironmentCaptureProbeType;
 
 // Function AugmentedReality.ARSessionConfig.GetFaceTrackingDirection
 // 0x0001 (0x0001 - 0x0000)
@@ -250,6 +278,7 @@ struct ARSessionConfig_GetFaceTrackingDirection final
 public:
 	EARFaceTrackingDirection                      ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_GetFaceTrackingDirection;
 
 // Function AugmentedReality.ARSessionConfig.GetFaceTrackingUpdate
 // 0x0001 (0x0001 - 0x0000)
@@ -258,6 +287,7 @@ struct ARSessionConfig_GetFaceTrackingUpdate final
 public:
 	EARFaceTrackingUpdate                         ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_GetFaceTrackingUpdate;
 
 // Function AugmentedReality.ARSessionConfig.GetFrameSyncMode
 // 0x0001 (0x0001 - 0x0000)
@@ -266,6 +296,7 @@ struct ARSessionConfig_GetFrameSyncMode final
 public:
 	EARFrameSyncMode                              ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_GetFrameSyncMode;
 
 // Function AugmentedReality.ARSessionConfig.GetLightEstimationMode
 // 0x0001 (0x0001 - 0x0000)
@@ -274,6 +305,7 @@ struct ARSessionConfig_GetLightEstimationMode final
 public:
 	EARLightEstimationMode                        ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_GetLightEstimationMode;
 
 // Function AugmentedReality.ARSessionConfig.GetMaxNumSimultaneousImagesTracked
 // 0x0004 (0x0004 - 0x0000)
@@ -282,6 +314,7 @@ struct ARSessionConfig_GetMaxNumSimultaneousImagesTracked final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_GetMaxNumSimultaneousImagesTracked;
 
 // Function AugmentedReality.ARSessionConfig.GetPlaneDetectionMode
 // 0x0001 (0x0001 - 0x0000)
@@ -290,6 +323,7 @@ struct ARSessionConfig_GetPlaneDetectionMode final
 public:
 	EARPlaneDetectionMode                         ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_GetPlaneDetectionMode;
 
 // Function AugmentedReality.ARSessionConfig.GetSceneReconstructionMethod
 // 0x0001 (0x0001 - 0x0000)
@@ -298,6 +332,7 @@ struct ARSessionConfig_GetSceneReconstructionMethod final
 public:
 	EARSceneReconstruction                        ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_GetSceneReconstructionMethod;
 
 // Function AugmentedReality.ARSessionConfig.GetSessionType
 // 0x0001 (0x0001 - 0x0000)
@@ -306,6 +341,7 @@ struct ARSessionConfig_GetSessionType final
 public:
 	EARSessionType                                ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_GetSessionType;
 
 // Function AugmentedReality.ARSessionConfig.GetWorldAlignment
 // 0x0001 (0x0001 - 0x0000)
@@ -314,6 +350,7 @@ struct ARSessionConfig_GetWorldAlignment final
 public:
 	EARWorldAlignment                             ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_GetWorldAlignment;
 
 // Function AugmentedReality.ARSessionConfig.GetWorldMapData
 // 0x0010 (0x0010 - 0x0000)
@@ -322,6 +359,7 @@ struct ARSessionConfig_GetWorldMapData final
 public:
 	TArray<uint8>                                 ReturnValue;                                       // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_GetWorldMapData;
 
 // Function AugmentedReality.ARSessionConfig.ShouldEnableAutoFocus
 // 0x0001 (0x0001 - 0x0000)
@@ -330,6 +368,7 @@ struct ARSessionConfig_ShouldEnableAutoFocus final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_ShouldEnableAutoFocus;
 
 // Function AugmentedReality.ARSessionConfig.ShouldEnableCameraTracking
 // 0x0001 (0x0001 - 0x0000)
@@ -338,6 +377,7 @@ struct ARSessionConfig_ShouldEnableCameraTracking final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_ShouldEnableCameraTracking;
 
 // Function AugmentedReality.ARSessionConfig.ShouldRenderCameraOverlay
 // 0x0001 (0x0001 - 0x0000)
@@ -346,6 +386,7 @@ struct ARSessionConfig_ShouldRenderCameraOverlay final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_ShouldRenderCameraOverlay;
 
 // Function AugmentedReality.ARSessionConfig.ShouldResetCameraTracking
 // 0x0001 (0x0001 - 0x0000)
@@ -354,6 +395,7 @@ struct ARSessionConfig_ShouldResetCameraTracking final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_ShouldResetCameraTracking;
 
 // Function AugmentedReality.ARSessionConfig.ShouldResetTrackedObjects
 // 0x0001 (0x0001 - 0x0000)
@@ -362,6 +404,7 @@ struct ARSessionConfig_ShouldResetTrackedObjects final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSessionConfig_ShouldResetTrackedObjects;
 
 // Function AugmentedReality.ARTraceResultLibrary.GetDistanceFromCamera
 // 0x0070 (0x0070 - 0x0000)
@@ -372,6 +415,7 @@ public:
 	float                                         ReturnValue;                                       // 0x0060(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_64[0xC];                                       // 0x0064(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARTraceResultLibrary_GetDistanceFromCamera;
 
 // Function AugmentedReality.ARTraceResultLibrary.GetLocalToTrackingTransform
 // 0x0090 (0x0090 - 0x0000)
@@ -381,6 +425,7 @@ public:
 	struct FARTraceResult                         TraceResult;                                       // 0x0000(0x0060)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	struct FTransform                             ReturnValue;                                       // 0x0060(0x0030)(Parm, OutParm, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTraceResultLibrary_GetLocalToTrackingTransform;
 
 // Function AugmentedReality.ARTraceResultLibrary.GetLocalToWorldTransform
 // 0x0090 (0x0090 - 0x0000)
@@ -390,6 +435,7 @@ public:
 	struct FARTraceResult                         TraceResult;                                       // 0x0000(0x0060)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	struct FTransform                             ReturnValue;                                       // 0x0060(0x0030)(Parm, OutParm, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTraceResultLibrary_GetLocalToWorldTransform;
 
 // Function AugmentedReality.ARTraceResultLibrary.GetLocalTransform
 // 0x0090 (0x0090 - 0x0000)
@@ -399,6 +445,7 @@ public:
 	struct FARTraceResult                         TraceResult;                                       // 0x0000(0x0060)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	struct FTransform                             ReturnValue;                                       // 0x0060(0x0030)(Parm, OutParm, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTraceResultLibrary_GetLocalTransform;
 
 // Function AugmentedReality.ARTraceResultLibrary.GetTraceChannel
 // 0x0070 (0x0070 - 0x0000)
@@ -409,6 +456,7 @@ public:
 	EARLineTraceChannels                          ReturnValue;                                       // 0x0060(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_61[0xF];                                       // 0x0061(0x000F)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARTraceResultLibrary_GetTraceChannel;
 
 // Function AugmentedReality.ARTraceResultLibrary.GetTrackedGeometry
 // 0x0070 (0x0070 - 0x0000)
@@ -419,6 +467,7 @@ public:
 	class UARTrackedGeometry*                     ReturnValue;                                       // 0x0060(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_68[0x8];                                       // 0x0068(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARTraceResultLibrary_GetTrackedGeometry;
 
 // Function AugmentedReality.ARMeshGeometry.GetObjectClassificationAtLocation
 // 0x0024 (0x0024 - 0x0000)
@@ -433,6 +482,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0020(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_21[0x3];                                       // 0x0021(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARMeshGeometry_GetObjectClassificationAtLocation;
 
 // Function AugmentedReality.ARBasicLightEstimate.GetAmbientColor
 // 0x0010 (0x0010 - 0x0000)
@@ -441,6 +491,7 @@ struct ARBasicLightEstimate_GetAmbientColor final
 public:
 	struct FLinearColor                           ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBasicLightEstimate_GetAmbientColor;
 
 // Function AugmentedReality.ARBasicLightEstimate.GetAmbientColorTemperatureKelvin
 // 0x0004 (0x0004 - 0x0000)
@@ -449,6 +500,7 @@ struct ARBasicLightEstimate_GetAmbientColorTemperatureKelvin final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBasicLightEstimate_GetAmbientColorTemperatureKelvin;
 
 // Function AugmentedReality.ARBasicLightEstimate.GetAmbientIntensityLumens
 // 0x0004 (0x0004 - 0x0000)
@@ -457,6 +509,7 @@ struct ARBasicLightEstimate_GetAmbientIntensityLumens final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBasicLightEstimate_GetAmbientIntensityLumens;
 
 // Function AugmentedReality.ARBlueprintLibrary.AddManualEnvironmentCaptureProbe
 // 0x001C (0x001C - 0x0000)
@@ -468,6 +521,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0018(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x3];                                       // 0x0019(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_AddManualEnvironmentCaptureProbe;
 
 // Function AugmentedReality.ARBlueprintLibrary.AddRuntimeCandidateImage
 // 0x0030 (0x0030 - 0x0000)
@@ -481,6 +535,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UARCandidateImage*                      ReturnValue;                                       // 0x0028(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_AddRuntimeCandidateImage;
 
 // Function AugmentedReality.ARBlueprintLibrary.AddTrackedPointWithName
 // 0x0050 (0x0050 - 0x0000)
@@ -493,6 +548,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0041(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_42[0xE];                                       // 0x0042(0x000E)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_AddTrackedPointWithName;
 
 // Function AugmentedReality.ARBlueprintLibrary.CalculateAlignmentTransform
 // 0x0090 (0x0090 - 0x0000)
@@ -503,6 +559,7 @@ public:
 	struct FTransform                             TransformInSecondCoordinateSystem;                 // 0x0030(0x0030)(ConstParm, Parm, OutParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 	struct FTransform                             AlignmentTransform;                                // 0x0060(0x0030)(Parm, OutParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_CalculateAlignmentTransform;
 
 // Function AugmentedReality.ARBlueprintLibrary.CalculateClosestIntersection
 // 0x0030 (0x0030 - 0x0000)
@@ -514,6 +571,7 @@ public:
 	struct FVector                                ClosestIntersection;                               // 0x0020(0x000C)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_CalculateClosestIntersection;
 
 // Function AugmentedReality.ARBlueprintLibrary.DebugDrawPin
 // 0x0028 (0x0028 - 0x0000)
@@ -526,6 +584,7 @@ public:
 	float                                         Scale;                                             // 0x0020(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         PersistForSeconds;                                 // 0x0024(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_DebugDrawPin;
 
 // Function AugmentedReality.ARBlueprintLibrary.DebugDrawTrackedGeometry
 // 0x0028 (0x0028 - 0x0000)
@@ -538,6 +597,7 @@ public:
 	float                                         OutlineThickness;                                  // 0x0020(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         PersistForSeconds;                                 // 0x0024(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_DebugDrawTrackedGeometry;
 
 // Function AugmentedReality.ARBlueprintLibrary.FindTrackedPointsByName
 // 0x0020 (0x0020 - 0x0000)
@@ -547,6 +607,7 @@ public:
 	class FString                                 PointName;                                         // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<class UARTrackedPoint*>                ReturnValue;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_FindTrackedPointsByName;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetAlignmentTransform
 // 0x0030 (0x0030 - 0x0000)
@@ -555,6 +616,7 @@ struct ARBlueprintLibrary_GetAlignmentTransform final
 public:
 	struct FTransform                             ReturnValue;                                       // 0x0000(0x0030)(Parm, OutParm, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetAlignmentTransform;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetAllGeometries
 // 0x0010 (0x0010 - 0x0000)
@@ -563,6 +625,7 @@ struct ARBlueprintLibrary_GetAllGeometries final
 public:
 	TArray<class UARTrackedGeometry*>             ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetAllGeometries;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetAllGeometriesByClass
 // 0x0018 (0x0018 - 0x0000)
@@ -572,6 +635,7 @@ public:
 	TSubclassOf<class UARTrackedGeometry>         GeometryClass;                                     // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<class UARTrackedGeometry*>             ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetAllGeometriesByClass;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetAllPins
 // 0x0010 (0x0010 - 0x0000)
@@ -580,6 +644,7 @@ struct ARBlueprintLibrary_GetAllPins final
 public:
 	TArray<class UARPin*>                         ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetAllPins;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetAllTracked2DPoses
 // 0x0010 (0x0010 - 0x0000)
@@ -588,6 +653,7 @@ struct ARBlueprintLibrary_GetAllTracked2DPoses final
 public:
 	TArray<struct FARPose2D>                      ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetAllTracked2DPoses;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetAllTrackedEnvironmentCaptureProbes
 // 0x0010 (0x0010 - 0x0000)
@@ -596,6 +662,7 @@ struct ARBlueprintLibrary_GetAllTrackedEnvironmentCaptureProbes final
 public:
 	TArray<class UAREnvironmentCaptureProbe*>     ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetAllTrackedEnvironmentCaptureProbes;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetAllTrackedImages
 // 0x0010 (0x0010 - 0x0000)
@@ -604,6 +671,7 @@ struct ARBlueprintLibrary_GetAllTrackedImages final
 public:
 	TArray<class UARTrackedImage*>                ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetAllTrackedImages;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetAllTrackedPlanes
 // 0x0010 (0x0010 - 0x0000)
@@ -612,6 +680,7 @@ struct ARBlueprintLibrary_GetAllTrackedPlanes final
 public:
 	TArray<class UARPlaneGeometry*>               ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetAllTrackedPlanes;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetAllTrackedPoints
 // 0x0010 (0x0010 - 0x0000)
@@ -620,6 +689,7 @@ struct ARBlueprintLibrary_GetAllTrackedPoints final
 public:
 	TArray<class UARTrackedPoint*>                ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetAllTrackedPoints;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetAllTrackedPoses
 // 0x0010 (0x0010 - 0x0000)
@@ -628,6 +698,7 @@ struct ARBlueprintLibrary_GetAllTrackedPoses final
 public:
 	TArray<class UARTrackedPose*>                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetAllTrackedPoses;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetARSessionStatus
 // 0x0018 (0x0018 - 0x0000)
@@ -636,6 +707,7 @@ struct ARBlueprintLibrary_GetARSessionStatus final
 public:
 	struct FARSessionStatus                       ReturnValue;                                       // 0x0000(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetARSessionStatus;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetARTexture
 // 0x0010 (0x0010 - 0x0000)
@@ -646,6 +718,7 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UARTexture*                             ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetARTexture;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetARWorldScale
 // 0x0004 (0x0004 - 0x0000)
@@ -654,6 +727,7 @@ struct ARBlueprintLibrary_GetARWorldScale final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetARWorldScale;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetCameraDepth
 // 0x0008 (0x0008 - 0x0000)
@@ -662,6 +736,7 @@ struct ARBlueprintLibrary_GetCameraDepth final
 public:
 	class UARTextureCameraDepth*                  ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetCameraDepth;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetCameraImage
 // 0x0008 (0x0008 - 0x0000)
@@ -670,6 +745,7 @@ struct ARBlueprintLibrary_GetCameraImage final
 public:
 	class UARTextureCameraImage*                  ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetCameraImage;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetCameraIntrinsics
 // 0x001C (0x001C - 0x0000)
@@ -680,6 +756,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0018(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x3];                                       // 0x0019(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetCameraIntrinsics;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetCurrentLightEstimate
 // 0x0008 (0x0008 - 0x0000)
@@ -688,6 +765,7 @@ struct ARBlueprintLibrary_GetCurrentLightEstimate final
 public:
 	class UARLightEstimate*                       ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetCurrentLightEstimate;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetNumberOfTrackedFacesSupported
 // 0x0004 (0x0004 - 0x0000)
@@ -696,6 +774,7 @@ struct ARBlueprintLibrary_GetNumberOfTrackedFacesSupported final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetNumberOfTrackedFacesSupported;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetObjectClassificationAtLocation
 // 0x0024 (0x0024 - 0x0000)
@@ -710,6 +789,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0020(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_21[0x3];                                       // 0x0021(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetObjectClassificationAtLocation;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetPersonSegmentationDepthImage
 // 0x0008 (0x0008 - 0x0000)
@@ -718,6 +798,7 @@ struct ARBlueprintLibrary_GetPersonSegmentationDepthImage final
 public:
 	class UARTexture*                             ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetPersonSegmentationDepthImage;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetPersonSegmentationImage
 // 0x0008 (0x0008 - 0x0000)
@@ -726,6 +807,7 @@ struct ARBlueprintLibrary_GetPersonSegmentationImage final
 public:
 	class UARTexture*                             ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetPersonSegmentationImage;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetPointCloud
 // 0x0010 (0x0010 - 0x0000)
@@ -734,6 +816,7 @@ struct ARBlueprintLibrary_GetPointCloud final
 public:
 	TArray<struct FVector>                        ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetPointCloud;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetSessionConfig
 // 0x0008 (0x0008 - 0x0000)
@@ -742,6 +825,7 @@ struct ARBlueprintLibrary_GetSessionConfig final
 public:
 	class UARSessionConfig*                       ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetSessionConfig;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetSupportedVideoFormats
 // 0x0018 (0x0018 - 0x0000)
@@ -752,6 +836,7 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FARVideoFormat>                 ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetSupportedVideoFormats;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetTrackingQuality
 // 0x0001 (0x0001 - 0x0000)
@@ -760,6 +845,7 @@ struct ARBlueprintLibrary_GetTrackingQuality final
 public:
 	EARTrackingQuality                            ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetTrackingQuality;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetTrackingQualityReason
 // 0x0001 (0x0001 - 0x0000)
@@ -768,6 +854,7 @@ struct ARBlueprintLibrary_GetTrackingQualityReason final
 public:
 	EARTrackingQualityReason                      ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetTrackingQualityReason;
 
 // Function AugmentedReality.ARBlueprintLibrary.GetWorldMappingStatus
 // 0x0001 (0x0001 - 0x0000)
@@ -776,6 +863,7 @@ struct ARBlueprintLibrary_GetWorldMappingStatus final
 public:
 	EARWorldMappingState                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_GetWorldMappingStatus;
 
 // Function AugmentedReality.ARBlueprintLibrary.IsARPinLocalStoreReady
 // 0x0001 (0x0001 - 0x0000)
@@ -784,6 +872,7 @@ struct ARBlueprintLibrary_IsARPinLocalStoreReady final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_IsARPinLocalStoreReady;
 
 // Function AugmentedReality.ARBlueprintLibrary.IsARPinLocalStoreSupported
 // 0x0001 (0x0001 - 0x0000)
@@ -792,6 +881,7 @@ struct ARBlueprintLibrary_IsARPinLocalStoreSupported final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_IsARPinLocalStoreSupported;
 
 // Function AugmentedReality.ARBlueprintLibrary.IsARSupported
 // 0x0001 (0x0001 - 0x0000)
@@ -800,6 +890,7 @@ struct ARBlueprintLibrary_IsARSupported final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_IsARSupported;
 
 // Function AugmentedReality.ARBlueprintLibrary.IsSceneReconstructionSupported
 // 0x0003 (0x0003 - 0x0000)
@@ -810,6 +901,7 @@ public:
 	EARSceneReconstruction                        SceneReconstructionMethod;                         // 0x0001(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0002(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_IsSceneReconstructionSupported;
 
 // Function AugmentedReality.ARBlueprintLibrary.IsSessionTrackingFeatureSupported
 // 0x0003 (0x0003 - 0x0000)
@@ -820,6 +912,7 @@ public:
 	EARSessionTrackingFeature                     SessionTrackingFeature;                            // 0x0001(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0002(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_IsSessionTrackingFeatureSupported;
 
 // Function AugmentedReality.ARBlueprintLibrary.IsSessionTypeSupported
 // 0x0002 (0x0002 - 0x0000)
@@ -829,6 +922,7 @@ public:
 	EARSessionType                                SessionType;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_IsSessionTypeSupported;
 
 // Function AugmentedReality.ARBlueprintLibrary.LineTraceTrackedObjects
 // 0x0020 (0x0020 - 0x0000)
@@ -843,6 +937,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FARTraceResult>                 ReturnValue;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_LineTraceTrackedObjects;
 
 // Function AugmentedReality.ARBlueprintLibrary.LineTraceTrackedObjects3D
 // 0x0030 (0x0030 - 0x0000)
@@ -858,6 +953,7 @@ public:
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FARTraceResult>                 ReturnValue;                                       // 0x0020(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_LineTraceTrackedObjects3D;
 
 // Function AugmentedReality.ARBlueprintLibrary.LoadARPinsFromLocalStore
 // 0x0050 (0x0050 - 0x0000)
@@ -866,6 +962,7 @@ struct ARBlueprintLibrary_LoadARPinsFromLocalStore final
 public:
 	TMap<class FName, class UARPin*>              ReturnValue;                                       // 0x0000(0x0050)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_LoadARPinsFromLocalStore;
 
 // Function AugmentedReality.ARBlueprintLibrary.PinComponent
 // 0x0060 (0x0060 - 0x0000)
@@ -880,6 +977,7 @@ public:
 	class UARPin*                                 ReturnValue;                                       // 0x0050(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_58[0x8];                                       // 0x0058(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_PinComponent;
 
 // Function AugmentedReality.ARBlueprintLibrary.PinComponentToARPin
 // 0x0018 (0x0018 - 0x0000)
@@ -891,6 +989,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_PinComponentToARPin;
 
 // Function AugmentedReality.ARBlueprintLibrary.PinComponentToTraceResult
 // 0x0080 (0x0080 - 0x0000)
@@ -903,6 +1002,7 @@ public:
 	class FName                                   DebugName;                                         // 0x0070(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UARPin*                                 ReturnValue;                                       // 0x0078(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_PinComponentToTraceResult;
 
 // Function AugmentedReality.ARBlueprintLibrary.RemoveARPinFromLocalStore
 // 0x0008 (0x0008 - 0x0000)
@@ -911,6 +1011,7 @@ struct ARBlueprintLibrary_RemoveARPinFromLocalStore final
 public:
 	class FName                                   InSaveName;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_RemoveARPinFromLocalStore;
 
 // Function AugmentedReality.ARBlueprintLibrary.RemovePin
 // 0x0008 (0x0008 - 0x0000)
@@ -919,6 +1020,7 @@ struct ARBlueprintLibrary_RemovePin final
 public:
 	class UARPin*                                 PinToRemove;                                       // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_RemovePin;
 
 // Function AugmentedReality.ARBlueprintLibrary.ResizeXRCamera
 // 0x0010 (0x0010 - 0x0000)
@@ -928,6 +1030,7 @@ public:
 	struct FIntPoint                              InSize;                                            // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FIntPoint                              ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_ResizeXRCamera;
 
 // Function AugmentedReality.ARBlueprintLibrary.SaveARPinToLocalStore
 // 0x0018 (0x0018 - 0x0000)
@@ -939,6 +1042,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_SaveARPinToLocalStore;
 
 // Function AugmentedReality.ARBlueprintLibrary.SetAlignmentTransform
 // 0x0030 (0x0030 - 0x0000)
@@ -947,6 +1051,7 @@ struct ARBlueprintLibrary_SetAlignmentTransform final
 public:
 	struct FTransform                             InAlignmentTransform;                              // 0x0000(0x0030)(ConstParm, Parm, OutParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_SetAlignmentTransform;
 
 // Function AugmentedReality.ARBlueprintLibrary.SetARWorldOriginLocationAndRotation
 // 0x001C (0x001C - 0x0000)
@@ -959,6 +1064,7 @@ public:
 	bool                                          bMaintainUpDirection;                              // 0x0019(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1A[0x2];                                       // 0x001A(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_SetARWorldOriginLocationAndRotation;
 
 // Function AugmentedReality.ARBlueprintLibrary.SetARWorldScale
 // 0x0004 (0x0004 - 0x0000)
@@ -967,6 +1073,7 @@ struct ARBlueprintLibrary_SetARWorldScale final
 public:
 	float                                         InWorldScale;                                      // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_SetARWorldScale;
 
 // Function AugmentedReality.ARBlueprintLibrary.SetEnabledXRCamera
 // 0x0001 (0x0001 - 0x0000)
@@ -975,6 +1082,7 @@ struct ARBlueprintLibrary_SetEnabledXRCamera final
 public:
 	bool                                          bOnOff;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_SetEnabledXRCamera;
 
 // Function AugmentedReality.ARBlueprintLibrary.StartARSession
 // 0x0008 (0x0008 - 0x0000)
@@ -983,6 +1091,7 @@ struct ARBlueprintLibrary_StartARSession final
 public:
 	class UARSessionConfig*                       SessionConfig;                                     // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_StartARSession;
 
 // Function AugmentedReality.ARBlueprintLibrary.ToggleARCapture
 // 0x0003 (0x0003 - 0x0000)
@@ -993,6 +1102,7 @@ public:
 	EARCaptureType                                CaptureType;                                       // 0x0001(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0002(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_ToggleARCapture;
 
 // Function AugmentedReality.ARBlueprintLibrary.UnpinComponent
 // 0x0008 (0x0008 - 0x0000)
@@ -1001,6 +1111,7 @@ struct ARBlueprintLibrary_UnpinComponent final
 public:
 	class USceneComponent*                        ComponentToUnpin;                                  // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARBlueprintLibrary_UnpinComponent;
 
 // Function AugmentedReality.ARSharedWorldPlayerController.ClientInitSharedWorld
 // 0x0008 (0x0008 - 0x0000)
@@ -1010,6 +1121,7 @@ public:
 	int32                                         PreviewImageSize;                                  // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ARWorldDataSize;                                   // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSharedWorldPlayerController_ClientInitSharedWorld;
 
 // Function AugmentedReality.ARSharedWorldPlayerController.ClientUpdateARWorldData
 // 0x0018 (0x0018 - 0x0000)
@@ -1020,6 +1132,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<uint8>                                 Buffer;                                            // 0x0008(0x0010)(ConstParm, Parm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSharedWorldPlayerController_ClientUpdateARWorldData;
 
 // Function AugmentedReality.ARSharedWorldPlayerController.ClientUpdatePreviewImageData
 // 0x0018 (0x0018 - 0x0000)
@@ -1030,6 +1143,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<uint8>                                 Buffer;                                            // 0x0008(0x0010)(ConstParm, Parm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSharedWorldPlayerController_ClientUpdatePreviewImageData;
 
 // Function AugmentedReality.ARCandidateImage.GetCandidateTexture
 // 0x0008 (0x0008 - 0x0000)
@@ -1038,6 +1152,7 @@ struct ARCandidateImage_GetCandidateTexture final
 public:
 	class UTexture2D*                             ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARCandidateImage_GetCandidateTexture;
 
 // Function AugmentedReality.ARCandidateImage.GetFriendlyName
 // 0x0010 (0x0010 - 0x0000)
@@ -1046,6 +1161,7 @@ struct ARCandidateImage_GetFriendlyName final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARCandidateImage_GetFriendlyName;
 
 // Function AugmentedReality.ARCandidateImage.GetOrientation
 // 0x0001 (0x0001 - 0x0000)
@@ -1054,6 +1170,7 @@ struct ARCandidateImage_GetOrientation final
 public:
 	EARCandidateImageOrientation                  ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARCandidateImage_GetOrientation;
 
 // Function AugmentedReality.ARCandidateImage.GetPhysicalHeight
 // 0x0004 (0x0004 - 0x0000)
@@ -1062,6 +1179,7 @@ struct ARCandidateImage_GetPhysicalHeight final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARCandidateImage_GetPhysicalHeight;
 
 // Function AugmentedReality.ARCandidateImage.GetPhysicalWidth
 // 0x0004 (0x0004 - 0x0000)
@@ -1070,6 +1188,7 @@ struct ARCandidateImage_GetPhysicalWidth final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARCandidateImage_GetPhysicalWidth;
 
 // Function AugmentedReality.ARActor.AddARComponent
 // 0x0020 (0x0020 - 0x0000)
@@ -1080,6 +1199,7 @@ public:
 	struct FGuid                                  NativeID;                                          // 0x0008(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UARComponent*                           ReturnValue;                                       // 0x0018(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARActor_AddARComponent;
 
 // Function AugmentedReality.ARSaveWorldAsyncTaskBlueprintProxy.ARSaveWorld
 // 0x0010 (0x0010 - 0x0000)
@@ -1089,6 +1209,7 @@ public:
 	class UObject*                                WorldContextObject;                                // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UARSaveWorldAsyncTaskBlueprintProxy*    ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSaveWorldAsyncTaskBlueprintProxy_ARSaveWorld;
 
 // Function AugmentedReality.ARGetCandidateObjectAsyncTaskBlueprintProxy.ARGetCandidateObject
 // 0x0028 (0x0028 - 0x0000)
@@ -1100,6 +1221,7 @@ public:
 	struct FVector                                Extent;                                            // 0x0014(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UARGetCandidateObjectAsyncTaskBlueprintProxy* ReturnValue;                                 // 0x0020(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARGetCandidateObjectAsyncTaskBlueprintProxy_ARGetCandidateObject;
 
 // Function AugmentedReality.ARComponent.GetMRMesh
 // 0x0008 (0x0008 - 0x0000)
@@ -1108,6 +1230,7 @@ struct ARComponent_GetMRMesh final
 public:
 	class UMRMeshComponent*                       ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARComponent_GetMRMesh;
 
 // Function AugmentedReality.ARComponent.SetNativeID
 // 0x0010 (0x0010 - 0x0000)
@@ -1116,6 +1239,7 @@ struct ARComponent_SetNativeID final
 public:
 	struct FGuid                                  NativeID_0;                                        // 0x0000(0x0010)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARComponent_SetNativeID;
 
 // Function AugmentedReality.ARPlaneComponent.GetObjectClassificationDebugColors
 // 0x0050 (0x0050 - 0x0000)
@@ -1124,6 +1248,7 @@ struct ARPlaneComponent_GetObjectClassificationDebugColors final
 public:
 	TMap<EARObjectClassification, struct FLinearColor> ReturnValue;                                  // 0x0000(0x0050)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPlaneComponent_GetObjectClassificationDebugColors;
 
 // Function AugmentedReality.ARPlaneComponent.SetObjectClassificationDebugColors
 // 0x0050 (0x0050 - 0x0000)
@@ -1132,6 +1257,7 @@ struct ARPlaneComponent_SetObjectClassificationDebugColors final
 public:
 	TMap<EARObjectClassification, struct FLinearColor> InColors;                                     // 0x0000(0x0050)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPlaneComponent_SetObjectClassificationDebugColors;
 
 // Function AugmentedReality.ARPlaneComponent.SetPlaneComponentDebugMode
 // 0x0001 (0x0001 - 0x0000)
@@ -1140,6 +1266,7 @@ struct ARPlaneComponent_SetPlaneComponentDebugMode final
 public:
 	EPlaneComponentDebugMode                      NewDebugMode;                                      // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPlaneComponent_SetPlaneComponentDebugMode;
 
 // Function AugmentedReality.ARPlaneComponent.ReceiveAdd
 // 0x0080 (0x0080 - 0x0000)
@@ -1148,6 +1275,7 @@ struct ARPlaneComponent_ReceiveAdd final
 public:
 	struct FARPlaneUpdatePayload                  Payload;                                           // 0x0000(0x0080)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPlaneComponent_ReceiveAdd;
 
 // Function AugmentedReality.ARPlaneComponent.ReceiveUpdate
 // 0x0080 (0x0080 - 0x0000)
@@ -1156,6 +1284,7 @@ struct ARPlaneComponent_ReceiveUpdate final
 public:
 	struct FARPlaneUpdatePayload                  Payload;                                           // 0x0000(0x0080)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPlaneComponent_ReceiveUpdate;
 
 // Function AugmentedReality.ARPlaneComponent.ServerUpdatePayload
 // 0x0080 (0x0080 - 0x0000)
@@ -1164,6 +1293,7 @@ struct ARPlaneComponent_ServerUpdatePayload final
 public:
 	struct FARPlaneUpdatePayload                  NewPayload;                                        // 0x0000(0x0080)(ConstParm, Parm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPlaneComponent_ServerUpdatePayload;
 
 // Function AugmentedReality.ARPointComponent.ReceiveAdd
 // 0x0001 (0x0001 - 0x0000)
@@ -1172,6 +1302,7 @@ struct ARPointComponent_ReceiveAdd final
 public:
 	struct FARPointUpdatePayload                  Payload;                                           // 0x0000(0x0001)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPointComponent_ReceiveAdd;
 
 // Function AugmentedReality.ARPointComponent.ReceiveUpdate
 // 0x0001 (0x0001 - 0x0000)
@@ -1180,6 +1311,7 @@ struct ARPointComponent_ReceiveUpdate final
 public:
 	struct FARPointUpdatePayload                  Payload;                                           // 0x0000(0x0001)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPointComponent_ReceiveUpdate;
 
 // Function AugmentedReality.ARPointComponent.ServerUpdatePayload
 // 0x0001 (0x0001 - 0x0000)
@@ -1188,6 +1320,7 @@ struct ARPointComponent_ServerUpdatePayload final
 public:
 	struct FARPointUpdatePayload                  NewPayload;                                        // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPointComponent_ServerUpdatePayload;
 
 // Function AugmentedReality.ARFaceComponent.SetFaceComponentDebugMode
 // 0x0001 (0x0001 - 0x0000)
@@ -1196,6 +1329,7 @@ struct ARFaceComponent_SetFaceComponentDebugMode final
 public:
 	EFaceComponentDebugMode                       NewDebugMode;                                      // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARFaceComponent_SetFaceComponentDebugMode;
 
 // Function AugmentedReality.ARFaceComponent.ReceiveAdd
 // 0x0040 (0x0040 - 0x0000)
@@ -1204,6 +1338,7 @@ struct ARFaceComponent_ReceiveAdd final
 public:
 	struct FARFaceUpdatePayload                   Payload;                                           // 0x0000(0x0040)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARFaceComponent_ReceiveAdd;
 
 // Function AugmentedReality.ARFaceComponent.ReceiveUpdate
 // 0x0040 (0x0040 - 0x0000)
@@ -1212,6 +1347,7 @@ struct ARFaceComponent_ReceiveUpdate final
 public:
 	struct FARFaceUpdatePayload                   Payload;                                           // 0x0000(0x0040)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARFaceComponent_ReceiveUpdate;
 
 // Function AugmentedReality.ARFaceComponent.ServerUpdatePayload
 // 0x0040 (0x0040 - 0x0000)
@@ -1220,6 +1356,7 @@ struct ARFaceComponent_ServerUpdatePayload final
 public:
 	struct FARFaceUpdatePayload                   NewPayload;                                        // 0x0000(0x0040)(ConstParm, Parm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARFaceComponent_ServerUpdatePayload;
 
 // Function AugmentedReality.ARImageComponent.SetImageComponentDebugMode
 // 0x0001 (0x0001 - 0x0000)
@@ -1228,6 +1365,7 @@ struct ARImageComponent_SetImageComponentDebugMode final
 public:
 	EImageComponentDebugMode                      NewDebugMode;                                      // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARImageComponent_SetImageComponentDebugMode;
 
 // Function AugmentedReality.ARImageComponent.ReceiveAdd
 // 0x0060 (0x0060 - 0x0000)
@@ -1236,6 +1374,7 @@ struct ARImageComponent_ReceiveAdd final
 public:
 	struct FARImageUpdatePayload                  Payload;                                           // 0x0000(0x0060)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARImageComponent_ReceiveAdd;
 
 // Function AugmentedReality.ARImageComponent.ReceiveUpdate
 // 0x0060 (0x0060 - 0x0000)
@@ -1244,6 +1383,7 @@ struct ARImageComponent_ReceiveUpdate final
 public:
 	struct FARImageUpdatePayload                  Payload;                                           // 0x0000(0x0060)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARImageComponent_ReceiveUpdate;
 
 // Function AugmentedReality.ARImageComponent.ServerUpdatePayload
 // 0x0060 (0x0060 - 0x0000)
@@ -1252,6 +1392,7 @@ struct ARImageComponent_ServerUpdatePayload final
 public:
 	struct FARImageUpdatePayload                  NewPayload;                                        // 0x0000(0x0060)(ConstParm, Parm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARImageComponent_ServerUpdatePayload;
 
 // Function AugmentedReality.ARQRCodeComponent.SetQRCodeComponentDebugMode
 // 0x0001 (0x0001 - 0x0000)
@@ -1260,6 +1401,7 @@ struct ARQRCodeComponent_SetQRCodeComponentDebugMode final
 public:
 	EQRCodeComponentDebugMode                     NewDebugMode;                                      // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARQRCodeComponent_SetQRCodeComponentDebugMode;
 
 // Function AugmentedReality.ARQRCodeComponent.ReceiveAdd
 // 0x0070 (0x0070 - 0x0000)
@@ -1268,6 +1410,7 @@ struct ARQRCodeComponent_ReceiveAdd final
 public:
 	struct FARQRCodeUpdatePayload                 Payload;                                           // 0x0000(0x0070)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARQRCodeComponent_ReceiveAdd;
 
 // Function AugmentedReality.ARQRCodeComponent.ReceiveUpdate
 // 0x0070 (0x0070 - 0x0000)
@@ -1276,6 +1419,7 @@ struct ARQRCodeComponent_ReceiveUpdate final
 public:
 	struct FARQRCodeUpdatePayload                 Payload;                                           // 0x0000(0x0070)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARQRCodeComponent_ReceiveUpdate;
 
 // Function AugmentedReality.ARQRCodeComponent.ServerUpdatePayload
 // 0x0070 (0x0070 - 0x0000)
@@ -1284,6 +1428,7 @@ struct ARQRCodeComponent_ServerUpdatePayload final
 public:
 	struct FARQRCodeUpdatePayload                 NewPayload;                                        // 0x0000(0x0070)(ConstParm, Parm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARQRCodeComponent_ServerUpdatePayload;
 
 // Function AugmentedReality.ARPoseComponent.SetPoseComponentDebugMode
 // 0x0001 (0x0001 - 0x0000)
@@ -1292,6 +1437,7 @@ struct ARPoseComponent_SetPoseComponentDebugMode final
 public:
 	EPoseComponentDebugMode                       NewDebugMode;                                      // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPoseComponent_SetPoseComponentDebugMode;
 
 // Function AugmentedReality.ARPoseComponent.ReceiveAdd
 // 0x0040 (0x0040 - 0x0000)
@@ -1300,6 +1446,7 @@ struct ARPoseComponent_ReceiveAdd final
 public:
 	struct FARPoseUpdatePayload                   Payload;                                           // 0x0000(0x0040)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPoseComponent_ReceiveAdd;
 
 // Function AugmentedReality.ARPoseComponent.ReceiveUpdate
 // 0x0040 (0x0040 - 0x0000)
@@ -1308,6 +1455,7 @@ struct ARPoseComponent_ReceiveUpdate final
 public:
 	struct FARPoseUpdatePayload                   Payload;                                           // 0x0000(0x0040)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPoseComponent_ReceiveUpdate;
 
 // Function AugmentedReality.ARPoseComponent.ServerUpdatePayload
 // 0x0040 (0x0040 - 0x0000)
@@ -1316,6 +1464,7 @@ struct ARPoseComponent_ServerUpdatePayload final
 public:
 	struct FARPoseUpdatePayload                   NewPayload;                                        // 0x0000(0x0040)(ConstParm, Parm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPoseComponent_ServerUpdatePayload;
 
 // Function AugmentedReality.AREnvironmentProbeComponent.ReceiveAdd
 // 0x0030 (0x0030 - 0x0000)
@@ -1324,6 +1473,7 @@ struct AREnvironmentProbeComponent_ReceiveAdd final
 public:
 	struct FAREnvironmentProbeUpdatePayload       Payload;                                           // 0x0000(0x0030)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AREnvironmentProbeComponent_ReceiveAdd;
 
 // Function AugmentedReality.AREnvironmentProbeComponent.ReceiveUpdate
 // 0x0030 (0x0030 - 0x0000)
@@ -1332,6 +1482,7 @@ struct AREnvironmentProbeComponent_ReceiveUpdate final
 public:
 	struct FAREnvironmentProbeUpdatePayload       Payload;                                           // 0x0000(0x0030)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AREnvironmentProbeComponent_ReceiveUpdate;
 
 // Function AugmentedReality.AREnvironmentProbeComponent.ServerUpdatePayload
 // 0x0030 (0x0030 - 0x0000)
@@ -1340,6 +1491,7 @@ struct AREnvironmentProbeComponent_ServerUpdatePayload final
 public:
 	struct FAREnvironmentProbeUpdatePayload       NewPayload;                                        // 0x0000(0x0030)(ConstParm, Parm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AREnvironmentProbeComponent_ServerUpdatePayload;
 
 // Function AugmentedReality.ARObjectComponent.ReceiveAdd
 // 0x0030 (0x0030 - 0x0000)
@@ -1348,6 +1500,7 @@ struct ARObjectComponent_ReceiveAdd final
 public:
 	struct FARObjectUpdatePayload                 Payload;                                           // 0x0000(0x0030)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARObjectComponent_ReceiveAdd;
 
 // Function AugmentedReality.ARObjectComponent.ReceiveUpdate
 // 0x0030 (0x0030 - 0x0000)
@@ -1356,6 +1509,7 @@ struct ARObjectComponent_ReceiveUpdate final
 public:
 	struct FARObjectUpdatePayload                 Payload;                                           // 0x0000(0x0030)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARObjectComponent_ReceiveUpdate;
 
 // Function AugmentedReality.ARObjectComponent.ServerUpdatePayload
 // 0x0030 (0x0030 - 0x0000)
@@ -1364,6 +1518,7 @@ struct ARObjectComponent_ServerUpdatePayload final
 public:
 	struct FARObjectUpdatePayload                 NewPayload;                                        // 0x0000(0x0030)(ConstParm, Parm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARObjectComponent_ServerUpdatePayload;
 
 // Function AugmentedReality.ARMeshComponent.ReceiveAdd
 // 0x0060 (0x0060 - 0x0000)
@@ -1372,6 +1527,7 @@ struct ARMeshComponent_ReceiveAdd final
 public:
 	struct FARMeshUpdatePayload                   Payload;                                           // 0x0000(0x0060)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARMeshComponent_ReceiveAdd;
 
 // Function AugmentedReality.ARMeshComponent.ReceiveUpdate
 // 0x0060 (0x0060 - 0x0000)
@@ -1380,6 +1536,7 @@ struct ARMeshComponent_ReceiveUpdate final
 public:
 	struct FARMeshUpdatePayload                   Payload;                                           // 0x0000(0x0060)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARMeshComponent_ReceiveUpdate;
 
 // Function AugmentedReality.ARMeshComponent.ServerUpdatePayload
 // 0x0060 (0x0060 - 0x0000)
@@ -1388,6 +1545,7 @@ struct ARMeshComponent_ServerUpdatePayload final
 public:
 	struct FARMeshUpdatePayload                   NewPayload;                                        // 0x0000(0x0060)(ConstParm, Parm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARMeshComponent_ServerUpdatePayload;
 
 // Function AugmentedReality.ARGeoAnchorComponent.SetGeoAnchorComponentDebugMode
 // 0x0001 (0x0001 - 0x0000)
@@ -1396,6 +1554,7 @@ struct ARGeoAnchorComponent_SetGeoAnchorComponentDebugMode final
 public:
 	EGeoAnchorComponentDebugMode                  NewDebugMode;                                      // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARGeoAnchorComponent_SetGeoAnchorComponentDebugMode;
 
 // Function AugmentedReality.ARGeoAnchorComponent.ReceiveAdd
 // 0x0070 (0x0070 - 0x0000)
@@ -1404,6 +1563,7 @@ struct ARGeoAnchorComponent_ReceiveAdd final
 public:
 	struct FARGeoAnchorUpdatePayload              Payload;                                           // 0x0000(0x0070)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARGeoAnchorComponent_ReceiveAdd;
 
 // Function AugmentedReality.ARGeoAnchorComponent.ReceiveUpdate
 // 0x0070 (0x0070 - 0x0000)
@@ -1412,6 +1572,7 @@ struct ARGeoAnchorComponent_ReceiveUpdate final
 public:
 	struct FARGeoAnchorUpdatePayload              Payload;                                           // 0x0000(0x0070)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARGeoAnchorComponent_ReceiveUpdate;
 
 // Function AugmentedReality.ARGeoAnchorComponent.ServerUpdatePayload
 // 0x0070 (0x0070 - 0x0000)
@@ -1420,6 +1581,7 @@ struct ARGeoAnchorComponent_ServerUpdatePayload final
 public:
 	struct FARGeoAnchorUpdatePayload              NewPayload;                                        // 0x0000(0x0070)(ConstParm, Parm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARGeoAnchorComponent_ServerUpdatePayload;
 
 // Function AugmentedReality.ARDependencyHandler.GetARDependencyHandler
 // 0x0008 (0x0008 - 0x0000)
@@ -1428,6 +1590,7 @@ struct ARDependencyHandler_GetARDependencyHandler final
 public:
 	class UARDependencyHandler*                   ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARDependencyHandler_GetARDependencyHandler;
 
 // Function AugmentedReality.ARDependencyHandler.CheckARServiceAvailability
 // 0x0028 (0x0028 - 0x0000)
@@ -1439,6 +1602,7 @@ public:
 	EARServiceAvailability                        OutAvailability;                                   // 0x0020(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARDependencyHandler_CheckARServiceAvailability;
 
 // Function AugmentedReality.ARDependencyHandler.InstallARService
 // 0x0028 (0x0028 - 0x0000)
@@ -1450,6 +1614,7 @@ public:
 	EARServiceInstallRequestResult                OutInstallResult;                                  // 0x0020(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARDependencyHandler_InstallARService;
 
 // Function AugmentedReality.ARDependencyHandler.RequestARSessionPermission
 // 0x0030 (0x0030 - 0x0000)
@@ -1462,6 +1627,7 @@ public:
 	EARServicePermissionRequestResult             OutPermissionResult;                               // 0x0028(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_29[0x7];                                       // 0x0029(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARDependencyHandler_RequestARSessionPermission;
 
 // Function AugmentedReality.ARDependencyHandler.StartARSessionLatent
 // 0x0028 (0x0028 - 0x0000)
@@ -1472,6 +1638,7 @@ public:
 	class UARSessionConfig*                       SessionConfig;                                     // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FLatentActionInfo                      LatentInfo;                                        // 0x0010(0x0018)(Parm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARDependencyHandler_StartARSessionLatent;
 
 // Function AugmentedReality.ARGeoTrackingSupport.GetGeoTrackingSupport
 // 0x0008 (0x0008 - 0x0000)
@@ -1480,6 +1647,7 @@ struct ARGeoTrackingSupport_GetGeoTrackingSupport final
 public:
 	class UARGeoTrackingSupport*                  ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARGeoTrackingSupport_GetGeoTrackingSupport;
 
 // Function AugmentedReality.ARGeoTrackingSupport.AddGeoAnchorAtLocation
 // 0x0020 (0x0020 - 0x0000)
@@ -1492,6 +1660,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0018(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARGeoTrackingSupport_AddGeoAnchorAtLocation;
 
 // Function AugmentedReality.ARGeoTrackingSupport.AddGeoAnchorAtLocationWithAltitude
 // 0x0028 (0x0028 - 0x0000)
@@ -1506,6 +1675,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0020(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ARGeoTrackingSupport_AddGeoAnchorAtLocationWithAltitude;
 
 // Function AugmentedReality.ARGeoTrackingSupport.GetGeoTrackingAccuracy
 // 0x0001 (0x0001 - 0x0000)
@@ -1514,6 +1684,7 @@ struct ARGeoTrackingSupport_GetGeoTrackingAccuracy final
 public:
 	EARGeoTrackingAccuracy                        ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARGeoTrackingSupport_GetGeoTrackingAccuracy;
 
 // Function AugmentedReality.ARGeoTrackingSupport.GetGeoTrackingState
 // 0x0001 (0x0001 - 0x0000)
@@ -1522,6 +1693,7 @@ struct ARGeoTrackingSupport_GetGeoTrackingState final
 public:
 	EARGeoTrackingState                           ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARGeoTrackingSupport_GetGeoTrackingState;
 
 // Function AugmentedReality.ARGeoTrackingSupport.GetGeoTrackingStateReason
 // 0x0001 (0x0001 - 0x0000)
@@ -1530,6 +1702,7 @@ struct ARGeoTrackingSupport_GetGeoTrackingStateReason final
 public:
 	EARGeoTrackingStateReason                     ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARGeoTrackingSupport_GetGeoTrackingStateReason;
 
 // Function AugmentedReality.CheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy.CheckGeoTrackingAvailability
 // 0x0010 (0x0010 - 0x0000)
@@ -1539,6 +1712,7 @@ public:
 	class UObject*                                WorldContextObject;                                // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UCheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy* ReturnValue;                         // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy_CheckGeoTrackingAvailability;
 
 // Function AugmentedReality.CheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy.CheckGeoTrackingAvailabilityAtLocation
 // 0x0018 (0x0018 - 0x0000)
@@ -1550,6 +1724,7 @@ public:
 	float                                         Latitude;                                          // 0x000C(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UCheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy* ReturnValue;                         // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CheckGeoTrackingAvailabilityAsyncTaskBlueprintProxy_CheckGeoTrackingAvailabilityAtLocation;
 
 // Function AugmentedReality.GetGeoLocationAsyncTaskBlueprintProxy.GetGeoLocationAtWorldPosition
 // 0x0020 (0x0020 - 0x0000)
@@ -1561,6 +1736,7 @@ public:
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UGetGeoLocationAsyncTaskBlueprintProxy* ReturnValue;                                       // 0x0018(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GetGeoLocationAsyncTaskBlueprintProxy_GetGeoLocationAtWorldPosition;
 
 // Function AugmentedReality.ARLifeCycleComponent.ServerDestroyARActor
 // 0x0008 (0x0008 - 0x0000)
@@ -1569,6 +1745,7 @@ struct ARLifeCycleComponent_ServerDestroyARActor final
 public:
 	class AARActor*                               Actor;                                             // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARLifeCycleComponent_ServerDestroyARActor;
 
 // Function AugmentedReality.ARLifeCycleComponent.ServerSpawnARActor
 // 0x0018 (0x0018 - 0x0000)
@@ -1578,6 +1755,7 @@ public:
 	class UClass*                                 ComponentClass;                                    // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FGuid                                  NativeID;                                          // 0x0008(0x0010)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARLifeCycleComponent_ServerSpawnARActor;
 
 // Function AugmentedReality.ARPin.DebugDraw
 // 0x0020 (0x0020 - 0x0000)
@@ -1589,6 +1767,7 @@ public:
 	float                                         Scale;                                             // 0x0018(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         PersistForSeconds;                                 // 0x001C(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPin_DebugDraw;
 
 // Function AugmentedReality.ARPin.GetDebugName
 // 0x0008 (0x0008 - 0x0000)
@@ -1597,6 +1776,7 @@ struct ARPin_GetDebugName final
 public:
 	class FName                                   ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPin_GetDebugName;
 
 // Function AugmentedReality.ARPin.GetLocalToTrackingTransform
 // 0x0030 (0x0030 - 0x0000)
@@ -1605,6 +1785,7 @@ struct ARPin_GetLocalToTrackingTransform final
 public:
 	struct FTransform                             ReturnValue;                                       // 0x0000(0x0030)(Parm, OutParm, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPin_GetLocalToTrackingTransform;
 
 // Function AugmentedReality.ARPin.GetLocalToWorldTransform
 // 0x0030 (0x0030 - 0x0000)
@@ -1613,6 +1794,7 @@ struct ARPin_GetLocalToWorldTransform final
 public:
 	struct FTransform                             ReturnValue;                                       // 0x0000(0x0030)(Parm, OutParm, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPin_GetLocalToWorldTransform;
 
 // Function AugmentedReality.ARPin.GetPinnedComponent
 // 0x0008 (0x0008 - 0x0000)
@@ -1621,6 +1803,7 @@ struct ARPin_GetPinnedComponent final
 public:
 	class USceneComponent*                        ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPin_GetPinnedComponent;
 
 // Function AugmentedReality.ARPin.GetTrackedGeometry
 // 0x0008 (0x0008 - 0x0000)
@@ -1629,6 +1812,7 @@ struct ARPin_GetTrackedGeometry final
 public:
 	class UARTrackedGeometry*                     ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPin_GetTrackedGeometry;
 
 // Function AugmentedReality.ARPin.GetTrackingState
 // 0x0001 (0x0001 - 0x0000)
@@ -1637,6 +1821,7 @@ struct ARPin_GetTrackingState final
 public:
 	EARTrackingState                              ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPin_GetTrackingState;
 
 // Function AugmentedReality.ARSharedWorldGameMode.GetARSharedWorldGameState
 // 0x0008 (0x0008 - 0x0000)
@@ -1645,6 +1830,7 @@ struct ARSharedWorldGameMode_GetARSharedWorldGameState final
 public:
 	class AARSharedWorldGameState*                ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSharedWorldGameMode_GetARSharedWorldGameState;
 
 // Function AugmentedReality.ARSharedWorldGameMode.SetARSharedWorldData
 // 0x0010 (0x0010 - 0x0000)
@@ -1653,6 +1839,7 @@ struct ARSharedWorldGameMode_SetARSharedWorldData final
 public:
 	TArray<uint8>                                 ARWorldData;                                       // 0x0000(0x0010)(Parm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSharedWorldGameMode_SetARSharedWorldData;
 
 // Function AugmentedReality.ARSharedWorldGameMode.SetPreviewImageData
 // 0x0010 (0x0010 - 0x0000)
@@ -1661,6 +1848,7 @@ struct ARSharedWorldGameMode_SetPreviewImageData final
 public:
 	TArray<uint8>                                 ImageData;                                         // 0x0000(0x0010)(Parm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSharedWorldGameMode_SetPreviewImageData;
 
 // Function AugmentedReality.ARSkyLight.SetEnvironmentCaptureProbe
 // 0x0008 (0x0008 - 0x0000)
@@ -1669,6 +1857,7 @@ struct ARSkyLight_SetEnvironmentCaptureProbe final
 public:
 	class UAREnvironmentCaptureProbe*             InCaptureProbe;                                    // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARSkyLight_SetEnvironmentCaptureProbe;
 
 // Function AugmentedReality.ARPlaneGeometry.GetBoundaryPolygonInLocalSpace
 // 0x0010 (0x0010 - 0x0000)
@@ -1677,6 +1866,7 @@ struct ARPlaneGeometry_GetBoundaryPolygonInLocalSpace final
 public:
 	TArray<struct FVector>                        ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPlaneGeometry_GetBoundaryPolygonInLocalSpace;
 
 // Function AugmentedReality.ARPlaneGeometry.GetCenter
 // 0x000C (0x000C - 0x0000)
@@ -1685,6 +1875,7 @@ struct ARPlaneGeometry_GetCenter final
 public:
 	struct FVector                                ReturnValue;                                       // 0x0000(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPlaneGeometry_GetCenter;
 
 // Function AugmentedReality.ARPlaneGeometry.GetExtent
 // 0x000C (0x000C - 0x0000)
@@ -1693,6 +1884,7 @@ struct ARPlaneGeometry_GetExtent final
 public:
 	struct FVector                                ReturnValue;                                       // 0x0000(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPlaneGeometry_GetExtent;
 
 // Function AugmentedReality.ARPlaneGeometry.GetOrientation
 // 0x0001 (0x0001 - 0x0000)
@@ -1701,6 +1893,7 @@ struct ARPlaneGeometry_GetOrientation final
 public:
 	EARPlaneOrientation                           ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPlaneGeometry_GetOrientation;
 
 // Function AugmentedReality.ARPlaneGeometry.GetSubsumedBy
 // 0x0008 (0x0008 - 0x0000)
@@ -1709,6 +1902,7 @@ struct ARPlaneGeometry_GetSubsumedBy final
 public:
 	class UARPlaneGeometry*                       ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARPlaneGeometry_GetSubsumedBy;
 
 // Function AugmentedReality.ARTrackedImage.GetEstimateSize
 // 0x0008 (0x0008 - 0x0000)
@@ -1717,6 +1911,7 @@ struct ARTrackedImage_GetEstimateSize final
 public:
 	struct FVector2D                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTrackedImage_GetEstimateSize;
 
 // Function AugmentedReality.ARTrackedImage.GetDetectedImage
 // 0x0008 (0x0008 - 0x0000)
@@ -1725,6 +1920,7 @@ struct ARTrackedImage_GetDetectedImage final
 public:
 	class UARCandidateImage*                      ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTrackedImage_GetDetectedImage;
 
 // Function AugmentedReality.ARFaceGeometry.GetBlendShapes
 // 0x0050 (0x0050 - 0x0000)
@@ -1733,6 +1929,7 @@ struct ARFaceGeometry_GetBlendShapes final
 public:
 	TMap<EARFaceBlendShape, float>                ReturnValue;                                       // 0x0000(0x0050)(ConstParm, Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARFaceGeometry_GetBlendShapes;
 
 // Function AugmentedReality.ARFaceGeometry.GetBlendShapeValue
 // 0x0008 (0x0008 - 0x0000)
@@ -1743,6 +1940,7 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARFaceGeometry_GetBlendShapeValue;
 
 // Function AugmentedReality.ARFaceGeometry.GetLocalSpaceEyeTransform
 // 0x0040 (0x0040 - 0x0000)
@@ -1753,6 +1951,7 @@ public:
 	uint8                                         Pad_1[0xF];                                        // 0x0001(0x000F)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FTransform                             ReturnValue;                                       // 0x0010(0x0030)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARFaceGeometry_GetLocalSpaceEyeTransform;
 
 // Function AugmentedReality.ARFaceGeometry.GetWorldSpaceEyeTransform
 // 0x0040 (0x0040 - 0x0000)
@@ -1763,6 +1962,7 @@ public:
 	uint8                                         Pad_1[0xF];                                        // 0x0001(0x000F)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FTransform                             ReturnValue;                                       // 0x0010(0x0030)(Parm, OutParm, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARFaceGeometry_GetWorldSpaceEyeTransform;
 
 // Function AugmentedReality.AREnvironmentCaptureProbe.GetEnvironmentCaptureTexture
 // 0x0008 (0x0008 - 0x0000)
@@ -1771,6 +1971,7 @@ struct AREnvironmentCaptureProbe_GetEnvironmentCaptureTexture final
 public:
 	class UAREnvironmentCaptureProbeTexture*      ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AREnvironmentCaptureProbe_GetEnvironmentCaptureTexture;
 
 // Function AugmentedReality.AREnvironmentCaptureProbe.GetExtent
 // 0x000C (0x000C - 0x0000)
@@ -1779,6 +1980,7 @@ struct AREnvironmentCaptureProbe_GetExtent final
 public:
 	struct FVector                                ReturnValue;                                       // 0x0000(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AREnvironmentCaptureProbe_GetExtent;
 
 // Function AugmentedReality.ARTrackedObject.GetDetectedObject
 // 0x0008 (0x0008 - 0x0000)
@@ -1787,6 +1989,7 @@ struct ARTrackedObject_GetDetectedObject final
 public:
 	class UARCandidateObject*                     ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTrackedObject_GetDetectedObject;
 
 // Function AugmentedReality.ARTrackedPose.GetTrackedPoseData
 // 0x0050 (0x0050 - 0x0000)
@@ -1795,6 +1998,7 @@ struct ARTrackedPose_GetTrackedPoseData final
 public:
 	struct FARPose3D                              ReturnValue;                                       // 0x0000(0x0050)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARTrackedPose_GetTrackedPoseData;
 
 // Function AugmentedReality.ARGeoAnchor.GetAltitudeMeters
 // 0x0004 (0x0004 - 0x0000)
@@ -1803,6 +2007,7 @@ struct ARGeoAnchor_GetAltitudeMeters final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARGeoAnchor_GetAltitudeMeters;
 
 // Function AugmentedReality.ARGeoAnchor.GetAltitudeSource
 // 0x0001 (0x0001 - 0x0000)
@@ -1811,6 +2016,7 @@ struct ARGeoAnchor_GetAltitudeSource final
 public:
 	EARAltitudeSource                             ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARGeoAnchor_GetAltitudeSource;
 
 // Function AugmentedReality.ARGeoAnchor.GetLatitude
 // 0x0004 (0x0004 - 0x0000)
@@ -1819,6 +2025,7 @@ struct ARGeoAnchor_GetLatitude final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARGeoAnchor_GetLatitude;
 
 // Function AugmentedReality.ARGeoAnchor.GetLongitude
 // 0x0004 (0x0004 - 0x0000)
@@ -1827,6 +2034,7 @@ struct ARGeoAnchor_GetLongitude final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARGeoAnchor_GetLongitude;
 
 // Function AugmentedReality.ARCandidateObject.SetBoundingBox
 // 0x001C (0x001C - 0x0000)
@@ -1835,6 +2043,7 @@ struct ARCandidateObject_SetBoundingBox final
 public:
 	struct FBox                                   InBoundingBox;                                     // 0x0000(0x001C)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARCandidateObject_SetBoundingBox;
 
 // Function AugmentedReality.ARCandidateObject.SetCandidateObjectData
 // 0x0010 (0x0010 - 0x0000)
@@ -1843,6 +2052,7 @@ struct ARCandidateObject_SetCandidateObjectData final
 public:
 	TArray<uint8>                                 InCandidateObject;                                 // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARCandidateObject_SetCandidateObjectData;
 
 // Function AugmentedReality.ARCandidateObject.SetFriendlyName
 // 0x0010 (0x0010 - 0x0000)
@@ -1851,6 +2061,7 @@ struct ARCandidateObject_SetFriendlyName final
 public:
 	class FString                                 NewName;                                           // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARCandidateObject_SetFriendlyName;
 
 // Function AugmentedReality.ARCandidateObject.GetBoundingBox
 // 0x001C (0x001C - 0x0000)
@@ -1859,6 +2070,7 @@ struct ARCandidateObject_GetBoundingBox final
 public:
 	struct FBox                                   ReturnValue;                                       // 0x0000(0x001C)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARCandidateObject_GetBoundingBox;
 
 // Function AugmentedReality.ARCandidateObject.GetCandidateObjectData
 // 0x0010 (0x0010 - 0x0000)
@@ -1867,6 +2079,7 @@ struct ARCandidateObject_GetCandidateObjectData final
 public:
 	TArray<uint8>                                 ReturnValue;                                       // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARCandidateObject_GetCandidateObjectData;
 
 // Function AugmentedReality.ARCandidateObject.GetFriendlyName
 // 0x0010 (0x0010 - 0x0000)
@@ -1875,6 +2088,7 @@ struct ARCandidateObject_GetFriendlyName final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ARCandidateObject_GetFriendlyName;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

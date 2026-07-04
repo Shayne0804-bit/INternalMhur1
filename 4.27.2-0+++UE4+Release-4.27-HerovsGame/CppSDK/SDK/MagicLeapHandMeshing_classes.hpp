@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MagicLeapHandMeshing.MagicLeapHandMeshingComponent
 // 0x0000 (0x00B0 - 0x00B0)
@@ -38,6 +39,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapHandMeshingComponent>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapHandMeshingComponent;
 
 // Class MagicLeapHandMeshing.MagicLeapHandMeshingFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -63,5 +65,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapHandMeshingFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapHandMeshingFunctionLibrary;
 
-SDK_NAMESPACE_END
+}
+

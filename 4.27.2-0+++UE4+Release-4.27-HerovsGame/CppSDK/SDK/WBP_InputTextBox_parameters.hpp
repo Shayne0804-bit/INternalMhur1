@@ -16,8 +16,8 @@
 #include "BykingUnrealModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_InputTextBox.WBP_InputTextBox_C.ExecuteUbergraph_WBP_InputTextBox
 // 0x01D8 (0x01D8 - 0x0000)
@@ -80,6 +80,7 @@ public:
 	bool                                          CallFunc_NotEqual_ByteByte_ReturnValue;            // 0x01D4(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_HasFocusedDescendants_ReturnValue;        // 0x01D5(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_InputTextBox_C_ExecuteUbergraph_WBP_InputTextBox;
 
 // Function WBP_InputTextBox.WBP_InputTextBox_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -88,6 +89,7 @@ struct WBP_InputTextBox_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_InputTextBox_C_PreConstruct;
 
 // Function WBP_InputTextBox.WBP_InputTextBox_C.OnShowSteamGamePadTextInputEvent
 // 0x0001 (0x0001 - 0x0000)
@@ -96,6 +98,7 @@ struct WBP_InputTextBox_C_OnShowSteamGamePadTextInputEvent final
 public:
 	bool                                          flag;                                              // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_InputTextBox_C_OnShowSteamGamePadTextInputEvent;
 
 // Function WBP_InputTextBox.WBP_InputTextBox_C.BndEvt__WBP_InputTextBox__textBox_K2Node_ComponentBoundEvent_1_OnEditableTextBoxChangedEvent__DelegateSignature
 // 0x0018 (0x0018 - 0x0000)
@@ -104,6 +107,7 @@ struct WBP_InputTextBox_C_BndEvt__WBP_InputTextBox__textBox_K2Node_ComponentBoun
 public:
 	class FText                                   Text_0;                                            // 0x0000(0x0018)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ReferenceParm)
 };
+DUMPER7_ASSERTS_WBP_InputTextBox_C_BndEvt__WBP_InputTextBox__textBox_K2Node_ComponentBoundEvent_1_OnEditableTextBoxChangedEvent__DelegateSignature;
 
 // Function WBP_InputTextBox.WBP_InputTextBox_C.BndEvt__WBP_GuildSearchInputText_TextBoxGuildId_1_K2Node_ComponentBoundEvent_0_OnEditableTextBoxCommittedEvent__DelegateSignature
 // 0x0020 (0x0020 - 0x0000)
@@ -113,6 +117,7 @@ public:
 	class FText                                   Text_0;                                            // 0x0000(0x0018)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ReferenceParm)
 	ETextCommit                                   CommitMethod;                                      // 0x0018(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_InputTextBox_C_BndEvt__WBP_GuildSearchInputText_TextBoxGuildId_1_K2Node_ComponentBoundEvent_0_OnEditableTextBoxCommittedEvent__DelegateSignature;
 
 // Function WBP_InputTextBox.WBP_InputTextBox_C.SetText
 // 0x0018 (0x0018 - 0x0000)
@@ -121,6 +126,7 @@ struct WBP_InputTextBox_C_SetText final
 public:
 	class FText                                   InText;                                            // 0x0000(0x0018)(BlueprintVisible, BlueprintReadOnly, Parm)
 };
+DUMPER7_ASSERTS_WBP_InputTextBox_C_SetText;
 
 // Function WBP_InputTextBox.WBP_InputTextBox_C.DecideEvent
 // 0x0010 (0x0010 - 0x0000)
@@ -130,6 +136,7 @@ public:
 	class UAppWidget*                             Widget;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_InputTextBox_C_DecideEvent;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

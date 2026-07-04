@@ -14,7 +14,8 @@
 #include "BTS_EscapePolling_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BTS_EscapePolling.BTS_EscapePolling_C.ExecuteUbergraph_BTS_EscapePolling
 // (Final, UbergraphFunction)
@@ -59,5 +60,5 @@ void UBTS_EscapePolling_C::ReceiveTickAI(class AAIController* OwnerController, c
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

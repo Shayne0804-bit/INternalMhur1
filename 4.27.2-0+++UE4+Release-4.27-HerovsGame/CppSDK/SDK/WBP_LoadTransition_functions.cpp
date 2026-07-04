@@ -14,7 +14,8 @@
 #include "WBP_LoadTransition_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_LoadTransition.WBP_LoadTransition_C.ExecuteUbergraph_WBP_LoadTransition
 // (Final, UbergraphFunction)
@@ -83,5 +84,5 @@ void UWBP_LoadTransition_C::Construct()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function AutomationUtils.AutomationUtilsBlueprintLibrary.TakeGameplayAutomationScreenshot
 // 0x0028 (0x0028 - 0x0000)
@@ -24,6 +24,7 @@ public:
 	float                                         MaxLocalError;                                     // 0x0014(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 MapNameOverride;                                   // 0x0018(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AutomationUtilsBlueprintLibrary_TakeGameplayAutomationScreenshot;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

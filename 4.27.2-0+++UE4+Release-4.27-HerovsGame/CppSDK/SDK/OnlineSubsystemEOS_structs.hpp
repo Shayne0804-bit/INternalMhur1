@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct OnlineSubsystemEOS.ArtifactSettings
 // 0x0070 (0x0070 - 0x0000)
@@ -26,5 +27,7 @@ public:
 	class FString                                 DeploymentId;                                      // 0x0050(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, Config, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 EncryptionKey;                                     // 0x0060(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, Config, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FArtifactSettings;
 
-SDK_NAMESPACE_END
+}
+

@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_SuperArmor_For_Plus.BP_CC_SuperArmor_For_Plus_C.ExecuteUbergraph_BP_CC_SuperArmor_For_Plus
 // 0x0070 (0x0070 - 0x0000)
@@ -40,6 +40,7 @@ public:
 	bool                                          CallFunc_BooleanOR_ReturnValue_1;                  // 0x006A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_Not_PreBool_ReturnValue;                  // 0x006B(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_SuperArmor_For_Plus_C_ExecuteUbergraph_BP_CC_SuperArmor_For_Plus;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

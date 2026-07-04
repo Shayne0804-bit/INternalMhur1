@@ -13,7 +13,8 @@
 #include "AIModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass EQC_FindSupply.EQC_FindSupply_C
 // 0x0000 (0x0030 - 0x0030)
@@ -36,5 +37,7 @@ public:
 		return GetDefaultObjImpl<UEQC_FindSupply_C>();
 	}
 };
+DUMPER7_ASSERTS_UEQC_FindSupply_C;
 
-SDK_NAMESPACE_END
+}
+

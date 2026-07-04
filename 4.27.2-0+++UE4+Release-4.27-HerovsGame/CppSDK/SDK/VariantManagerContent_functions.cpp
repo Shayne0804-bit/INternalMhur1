@@ -14,7 +14,8 @@
 #include "VariantManagerContent_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function VariantManagerContent.LevelVariantSets.GetNumVariantSets
 // (Final, Native, Public, BlueprintCallable, BlueprintPure)
@@ -1107,5 +1108,5 @@ int32 UVariantSet::GetNumVariants() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

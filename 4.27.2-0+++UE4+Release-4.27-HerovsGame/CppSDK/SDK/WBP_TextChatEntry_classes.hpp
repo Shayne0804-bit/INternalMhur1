@@ -15,7 +15,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_TextChatEntry.WBP_TextChatEntry_C
 // 0x0108 (0x04D0 - 0x03C8)
@@ -77,5 +78,7 @@ public:
 		return GetDefaultObjImpl<UWBP_TextChatEntry_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_TextChatEntry_C;
 
-SDK_NAMESPACE_END
+}
+

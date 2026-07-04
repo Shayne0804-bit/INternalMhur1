@@ -14,7 +14,8 @@
 #include "LevelSequence_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function LevelSequence.LevelSequence.CopyMetaData
 // (Final, Native, Public, BlueprintCallable)
@@ -952,5 +953,5 @@ class ALevelSequenceActor* ALevelSequenceMediaController::GetSequence() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

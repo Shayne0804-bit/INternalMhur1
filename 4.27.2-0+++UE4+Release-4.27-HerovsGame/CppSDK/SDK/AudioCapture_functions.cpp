@@ -14,7 +14,8 @@
 #include "AudioCapture_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function AudioCapture.AudioCapture.GetAudioCaptureDeviceInfo
 // (Final, Native, Public, HasOutParams, BlueprintCallable)
@@ -132,5 +133,5 @@ class UAudioCapture* UAudioCaptureFunctionLibrary::CreateAudioCapture()
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -14,7 +14,8 @@
 #include "Water_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function Water.GerstnerWaterWaveGeneratorBase.GenerateGerstnerWaves
 // (Native, Event, Public, HasOutParams, BlueprintEvent, Const)
@@ -902,5 +903,5 @@ bool UWaterSubsystem::IsWaterRenderingEnabled() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

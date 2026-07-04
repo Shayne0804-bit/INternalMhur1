@@ -15,8 +15,8 @@
 #include "SlateCore_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_Menu.WBP_Menu_C.ExecuteUbergraph_WBP_Menu
 // 0x0180 (0x0180 - 0x0000)
@@ -65,6 +65,7 @@ public:
 	class UObject*                                CallFunc_BP_GetSelectedItem_ReturnValue_2;         // 0x0160(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class FString                                 CallFunc_ToTableNameString_TableName_3;            // 0x0168(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_Menu_C_ExecuteUbergraph_WBP_Menu;
 
 // Function WBP_Menu.WBP_Menu_C.BndEvt__ListTableName_K2Node_ComponentBoundEvent_0_SimpleListItemEventDynamic__DelegateSignature
 // 0x0008 (0x0008 - 0x0000)
@@ -73,6 +74,7 @@ struct WBP_Menu_C_BndEvt__ListTableName_K2Node_ComponentBoundEvent_0_SimpleListI
 public:
 	class UObject*                                Item_0;                                            // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_Menu_C_BndEvt__ListTableName_K2Node_ComponentBoundEvent_0_SimpleListItemEventDynamic__DelegateSignature;
 
 // Function WBP_Menu.WBP_Menu_C.Tick
 // 0x003C (0x003C - 0x0000)
@@ -82,6 +84,7 @@ public:
 	struct FGeometry                              MyGeometry;                                        // 0x0000(0x0038)(BlueprintVisible, BlueprintReadOnly, Parm, IsPlainOldData, NoDestructor)
 	float                                         InDeltaTime;                                       // 0x0038(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_Menu_C_Tick;
 
 // Function WBP_Menu.WBP_Menu_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -90,6 +93,7 @@ struct WBP_Menu_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_Menu_C_PreConstruct;
 
 // Function WBP_Menu.WBP_Menu_C.SetTextsFunction
 // 0x0150 (0x0150 - 0x0000)
@@ -118,6 +122,7 @@ public:
 	class FString                                 CallFunc_GetSourceFilePath_ReturnValue;            // 0x0128(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 	class FText                                   CallFunc_Conv_StringToText_ReturnValue_6;          // 0x0138(0x0018)()
 };
+DUMPER7_ASSERTS_WBP_Menu_C_SetTextsFunction;
 
 // Function WBP_Menu.WBP_Menu_C.SetTableNamesFunction
 // 0x0068 (0x0068 - 0x0000)
@@ -137,6 +142,7 @@ public:
 	class FText                                   CallFunc_Conv_StringToText_ReturnValue;            // 0x0048(0x0018)()
 	bool                                          CallFunc_Less_IntInt_ReturnValue;                  // 0x0060(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_Menu_C_SetTableNamesFunction;
 
 // Function WBP_Menu.WBP_Menu_C.Get Selected Index
 // 0x0018 (0x0018 - 0x0000)
@@ -148,6 +154,7 @@ public:
 	class UObject*                                CallFunc_BP_GetSelectedItem_ReturnValue;           // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         CallFunc_GetIndexForItem_ReturnValue;              // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_Menu_C_Get_Selected_Index;
 
 // Function WBP_Menu.WBP_Menu_C.ToTableNameString
 // 0x0038 (0x0038 - 0x0000)
@@ -161,6 +168,7 @@ public:
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 CallFunc_Conv_TextToString_ReturnValue;            // 0x0028(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_Menu_C_ToTableNameString;
 
 // Function WBP_Menu.WBP_Menu_C.SetAllJson
 // 0x0040 (0x0040 - 0x0000)
@@ -172,6 +180,7 @@ public:
 	class FString                                 CallFunc_GetAllJson_ReturnValue;                   // 0x0018(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 	class FText                                   CallFunc_Conv_StringToText_ReturnValue;            // 0x0028(0x0018)()
 };
+DUMPER7_ASSERTS_WBP_Menu_C_SetAllJson;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

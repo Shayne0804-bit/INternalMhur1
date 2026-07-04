@@ -14,7 +14,8 @@
 #include "BP_CC_Dying_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Dying.BP_CC_Dying_C.ExecuteUbergraph_BP_CC_Dying
 // (Final, UbergraphFunction)
@@ -83,5 +84,5 @@ void UBP_CC_Dying_C::BP_OnUpdateIntervalValue(float value)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

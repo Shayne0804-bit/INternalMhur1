@@ -10,12 +10,12 @@
 
 #include "Basic.hpp"
 
-#include "BykingUnrealModule_structs.hpp"
 #include "FPlusUltraBuffParam_structs.hpp"
+#include "BykingUnrealModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_PlusUltra.BP_CC_PlusUltra_C.ExecuteUbergraph_BP_CC_PlusUltra
 // 0x01C0 (0x01C0 - 0x0000)
@@ -97,6 +97,7 @@ public:
 	uint8                                         Pad_1B5[0x3];                                      // 0x01B5(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FFPlusUltraBuffParam                   CallFunc_GetPlusUltraBuffParam_ReturnValue_1;      // 0x01B8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_PlusUltra_C_ExecuteUbergraph_BP_CC_PlusUltra;
 
 // Function BP_CC_PlusUltra.BP_CC_PlusUltra_C.CharacterSpawn
 // 0x0008 (0x0008 - 0x0000)
@@ -105,6 +106,7 @@ struct BP_CC_PlusUltra_C_CharacterSpawn final
 public:
 	const class ACharacterGame*                   spawnedCharacter;                                  // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_PlusUltra_C_CharacterSpawn;
 
 // Function BP_CC_PlusUltra.BP_CC_PlusUltra_C.BP_OnChangeConditionLevel
 // 0x0008 (0x0008 - 0x0000)
@@ -114,6 +116,7 @@ public:
 	int32                                         oldLevel;                                          // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         newLevel;                                          // 0x0004(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_PlusUltra_C_BP_OnChangeConditionLevel;
 
 // Function BP_CC_PlusUltra.BP_CC_PlusUltra_C.BroadcastRollSlotUniqueSkill
 // 0x0038 (0x0038 - 0x0000)
@@ -129,6 +132,7 @@ public:
 	class APlayerStateBattle*                     CallFunc_BP_GetOwnerPlayerState_ReturnValue_2;     // 0x0028(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterRollSlotUniqueSkillControlComponent* CallFunc_BP_GetCharacterRollSlotUniqueSkillControlComponent_ReturnValue_2; // 0x0030(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_PlusUltra_C_BroadcastRollSlotUniqueSkill;
 
 // Function BP_CC_PlusUltra.BP_CC_PlusUltra_C.IsStrengthPlusCharacter
 // 0x0001 (0x0001 - 0x0000)
@@ -137,6 +141,7 @@ struct BP_CC_PlusUltra_C_IsStrengthPlusCharacter final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_PlusUltra_C_IsStrengthPlusCharacter;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -1,16 +1,11 @@
 #pragma once
 
 #include <imgui.h>
-#include <map>
-#include <string>
 
 namespace ImGuiHelper
 {
-    static std::map<std::string, float> g_ToggleAnimations;
-    static constexpr float ANIMATION_SPEED = 0.15f;
-
     /**
-     * @brief Custom toggle switch with animation
+     * @brief Custom toggle switch
      * Adapted for RUGIR-INTERNAL color scheme (Magenta/Purple accent)
      * 
      * @param label Display label
@@ -31,12 +26,6 @@ namespace ImGuiHelper
         ImVec2 size = ImVec2(40.0f, 20.0f);
         float radius = size.y * 0.5f;
 
-        std::string animKey = std::string(label) + "##toggle";
-        if (g_ToggleAnimations.find(animKey) == g_ToggleAnimations.end())
-        {
-            g_ToggleAnimations[animKey] = *v ? 1.0f : 0.0f;
-        }
-
         ImGui::InvisibleButton(label, size);
         bool toggled = false;
         if (ImGui::IsItemClicked())
@@ -46,7 +35,6 @@ namespace ImGuiHelper
         }
 
         float targetPos = *v ? 1.0f : 0.0f;
-        g_ToggleAnimations[animKey] += (targetPos - g_ToggleAnimations[animKey]) * ANIMATION_SPEED;
 
         ImVec2 p_min = pos;
         ImVec2 p_max = ImVec2(pos.x + size.x, pos.y + size.y);
@@ -67,7 +55,7 @@ namespace ImGuiHelper
         }
 
         // Knob - WHITE
-        float knobX = pos.x + radius + (g_ToggleAnimations[animKey] * (size.x - 2 * radius));
+        float knobX = pos.x + radius + (targetPos * (size.x - 2 * radius));
         ImVec2 knobCenter = ImVec2(knobX, pos.y + radius);
         ImU32 knobColor = ImGui::GetColorU32(ImVec4(0.94f, 0.98f, 1.0f, 1.0f));
         drawList->AddCircleFilled(knobCenter, radius * 0.65f, knobColor, 12);
@@ -96,12 +84,6 @@ namespace ImGuiHelper
         ImVec2 size = ImVec2(56.0f, 28.0f);
         float radius = size.y * 0.5f;
 
-        std::string animKey = std::string(label) + "##toggle_large";
-        if (g_ToggleAnimations.find(animKey) == g_ToggleAnimations.end())
-        {
-            g_ToggleAnimations[animKey] = *v ? 1.0f : 0.0f;
-        }
-
         ImGui::InvisibleButton(label, size);
         bool toggled = false;
         if (ImGui::IsItemClicked())
@@ -111,7 +93,6 @@ namespace ImGuiHelper
         }
 
         float targetPos = *v ? 1.0f : 0.0f;
-        g_ToggleAnimations[animKey] += (targetPos - g_ToggleAnimations[animKey]) * ANIMATION_SPEED;
 
         ImVec2 p_min = pos;
         ImVec2 p_max = ImVec2(pos.x + size.x, pos.y + size.y);
@@ -132,7 +113,7 @@ namespace ImGuiHelper
         }
 
         // Knob - WHITE
-        float knobX = pos.x + radius + (g_ToggleAnimations[animKey] * (size.x - 2 * radius));
+        float knobX = pos.x + radius + (targetPos * (size.x - 2 * radius));
         ImVec2 knobCenter = ImVec2(knobX, pos.y + radius);
         ImU32 knobColor = ImGui::GetColorU32(ImVec4(0.94f, 0.98f, 1.0f, 1.0f));
         drawList->AddCircleFilled(knobCenter, radius * 0.7f, knobColor, 14);

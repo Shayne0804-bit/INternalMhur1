@@ -14,7 +14,8 @@
 #include "BP_ActionIdle_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionIdle.BP_ActionIdle_C.ExecuteUbergraph_BP_ActionIdle
 // (Final, UbergraphFunction)
@@ -92,5 +93,5 @@ bool UBP_ActionIdle_C::BP_IsEnableShiftAction(const class FName& nextAction) con
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

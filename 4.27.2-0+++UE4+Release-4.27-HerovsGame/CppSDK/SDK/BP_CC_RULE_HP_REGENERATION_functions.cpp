@@ -14,7 +14,8 @@
 #include "BP_CC_RULE_HP_REGENERATION_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_RULE_HP_REGENERATION.BP_CC_RULE_HP_REGENERATION_C.ExecuteUbergraph_BP_CC_RULE_HP_REGENERATION
 // (Final, UbergraphFunction)
@@ -83,5 +84,5 @@ void UBP_CC_RULE_HP_REGENERATION_C::BP_OnUpdateIntervalValue(float value)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

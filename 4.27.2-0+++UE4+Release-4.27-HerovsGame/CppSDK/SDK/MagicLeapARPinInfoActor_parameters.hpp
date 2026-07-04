@@ -15,8 +15,8 @@
 #include "MagicLeapARPin_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function MagicLeapARPinInfoActor.MagicLeapARPinInfoActor_C.ExecuteUbergraph_MagicLeapARPinInfoActor
 // 0x02D8 (0x02D8 - 0x0000)
@@ -58,6 +58,7 @@ public:
 	class FText                                   CallFunc_Conv_FloatToText_ReturnValue_1;           // 0x02A8(0x0018)()
 	class FText                                   CallFunc_Conv_FloatToText_ReturnValue_2;           // 0x02C0(0x0018)()
 };
+DUMPER7_ASSERTS_MagicLeapARPinInfoActor_C_ExecuteUbergraph_MagicLeapARPinInfoActor;
 
 // Function MagicLeapARPinInfoActor.MagicLeapARPinInfoActor_C.ReceiveTick
 // 0x0004 (0x0004 - 0x0000)
@@ -66,6 +67,7 @@ struct MagicLeapARPinInfoActor_C_ReceiveTick final
 public:
 	float                                         DeltaSeconds;                                      // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_MagicLeapARPinInfoActor_C_ReceiveTick;
 
 // Function MagicLeapARPinInfoActor.MagicLeapARPinInfoActor_C.UserConstructionScript
 // 0x0018 (0x0018 - 0x0000)
@@ -76,6 +78,7 @@ public:
 	class UMaterialInstanceDynamic*               CallFunc_CreateDynamicMaterialInstance_ReturnValue_1; // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UMaterialInstanceDynamic*               CallFunc_CreateDynamicMaterialInstance_ReturnValue_2; // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_MagicLeapARPinInfoActor_C_UserConstructionScript;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

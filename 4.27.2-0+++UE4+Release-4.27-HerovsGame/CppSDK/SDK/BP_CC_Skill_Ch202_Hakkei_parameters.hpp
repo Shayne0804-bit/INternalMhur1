@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_Skill_Ch202_Hakkei.BP_CC_Skill_Ch202_Hakkei_C.ExecuteUbergraph_BP_CC_Skill_Ch202_Hakkei
 // 0x0018 (0x0018 - 0x0000)
@@ -24,6 +24,7 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue;   // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_1; // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_Ch202_Hakkei_C_ExecuteUbergraph_BP_CC_Skill_Ch202_Hakkei;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

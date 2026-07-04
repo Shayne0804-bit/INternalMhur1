@@ -14,7 +14,8 @@
 #include "UIFramework_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function UIFramework.WidgetBase.BlockLowPriorityInput
 // (Final, Native, Public, BlueprintCallable)
@@ -6630,5 +6631,5 @@ float UWidgetWindowFrame::GetWindowSize() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

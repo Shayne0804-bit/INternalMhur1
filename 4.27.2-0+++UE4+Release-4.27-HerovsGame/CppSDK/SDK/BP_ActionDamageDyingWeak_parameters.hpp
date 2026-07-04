@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamageDyingWeak.BP_ActionDamageDyingWeak_C.ExecuteUbergraph_BP_ActionDamageDyingWeak
 // 0x0040 (0x0040 - 0x0000)
@@ -36,6 +36,7 @@ public:
 	uint8                                         Pad_3A[0x2];                                       // 0x003A(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         K2Node_Event_ping;                                 // 0x003C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageDyingWeak_C_ExecuteUbergraph_BP_ActionDamageDyingWeak;
 
 // Function BP_ActionDamageDyingWeak.BP_ActionDamageDyingWeak_C.BP_OnRecieveActionPing
 // 0x0004 (0x0004 - 0x0000)
@@ -44,6 +45,7 @@ struct BP_ActionDamageDyingWeak_C_BP_OnRecieveActionPing final
 public:
 	int32                                         ping;                                              // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageDyingWeak_C_BP_OnRecieveActionPing;
 
 // Function BP_ActionDamageDyingWeak.BP_ActionDamageDyingWeak_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -52,6 +54,7 @@ struct BP_ActionDamageDyingWeak_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageDyingWeak_C_BP_OnBeginAction;
 
 // Function BP_ActionDamageDyingWeak.BP_ActionDamageDyingWeak_C.UpdateOnce
 // 0x0020 (0x0020 - 0x0000)
@@ -62,6 +65,7 @@ public:
 	struct FVector                                CallFunc_BP_GetMoveDirection_ReturnValue;          // 0x0008(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_BP_GetDamageDirection_ReturnValue;        // 0x0014(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageDyingWeak_C_UpdateOnce;
 
 // Function BP_ActionDamageDyingWeak.BP_ActionDamageDyingWeak_C.DecideAnimationId
 // 0x0001 (0x0001 - 0x0000)
@@ -70,6 +74,7 @@ struct BP_ActionDamageDyingWeak_C_DecideAnimationId final
 public:
 	EAnimationId                                  Animation_Id;                                      // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageDyingWeak_C_DecideAnimationId;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

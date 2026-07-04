@@ -14,7 +14,8 @@
 #include "AutomationUtils_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function AutomationUtils.AutomationUtilsBlueprintLibrary.TakeGameplayAutomationScreenshot
 // (Final, Native, Static, Public, BlueprintCallable)
@@ -46,5 +47,5 @@ void UAutomationUtilsBlueprintLibrary::TakeGameplayAutomationScreenshot(const cl
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

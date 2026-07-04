@@ -14,7 +14,8 @@
 #include "DebugMenuVoiceChatModule_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function DebugMenuVoiceChatModule.DebugMenuVoiceChat.Close
 // (Final, Native, Public, BlueprintCallable)
@@ -409,5 +410,5 @@ void UDebugMenuVoiceChat::Open()
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

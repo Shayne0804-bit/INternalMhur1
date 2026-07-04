@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_SuperArmor_For_Attack.BP_CC_SuperArmor_For_Attack_C.ExecuteUbergraph_BP_CC_SuperArmor_For_Attack
 // 0x0068 (0x0068 - 0x0000)
@@ -40,6 +40,7 @@ public:
 	bool                                          CallFunc_BooleanOR_ReturnValue_1;                  // 0x0063(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_Not_PreBool_ReturnValue;                  // 0x0064(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_SuperArmor_For_Attack_C_ExecuteUbergraph_BP_CC_SuperArmor_For_Attack;
 
 // Function BP_CC_SuperArmor_For_Attack.BP_CC_SuperArmor_For_Attack_C.BP_OnUpdateIntervalValue
 // 0x0004 (0x0004 - 0x0000)
@@ -48,6 +49,7 @@ struct BP_CC_SuperArmor_For_Attack_C_BP_OnUpdateIntervalValue final
 public:
 	float                                         value;                                             // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_SuperArmor_For_Attack_C_BP_OnUpdateIntervalValue;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

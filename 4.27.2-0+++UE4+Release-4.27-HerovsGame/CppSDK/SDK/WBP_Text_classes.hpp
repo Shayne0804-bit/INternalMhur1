@@ -17,7 +17,8 @@
 #include "UIFramework_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_Text.WBP_Text_C
 // 0x01A0 (0x0540 - 0x03A0)
@@ -59,5 +60,7 @@ public:
 		return GetDefaultObjImpl<UWBP_Text_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_Text_C;
 
-SDK_NAMESPACE_END
+}
+

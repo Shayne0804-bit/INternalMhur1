@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionSPJumpPadBegin.BP_ActionSPJumpPadBegin_C.ExecuteUbergraph_BP_ActionSPJumpPadBegin
 // 0x00A0 (0x00A0 - 0x0000)
@@ -44,6 +44,7 @@ public:
 	class UCharacterState*                        CallFunc_BP_GetOwnerState_ReturnValue_6;           // 0x0090(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue_1;            // 0x0098(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionSPJumpPadBegin_C_ExecuteUbergraph_BP_ActionSPJumpPadBegin;
 
 // Function BP_ActionSPJumpPadBegin.BP_ActionSPJumpPadBegin_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -52,6 +53,7 @@ struct BP_ActionSPJumpPadBegin_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionSPJumpPadBegin_C_BP_OnEndAction;
 
 // Function BP_ActionSPJumpPadBegin.BP_ActionSPJumpPadBegin_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -60,6 +62,7 @@ struct BP_ActionSPJumpPadBegin_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionSPJumpPadBegin_C_BP_OnBeginAction;
 
 // Function BP_ActionSPJumpPadBegin.BP_ActionSPJumpPadBegin_C.BP_IsEnableShiftAction
 // 0x000C (0x000C - 0x0000)
@@ -70,6 +73,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
 	bool                                          K2Node_SwitchName_CmpSuccess;                      // 0x0009(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionSPJumpPadBegin_C_BP_IsEnableShiftAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

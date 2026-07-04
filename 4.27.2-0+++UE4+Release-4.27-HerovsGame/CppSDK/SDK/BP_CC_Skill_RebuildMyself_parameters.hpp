@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_Skill_RebuildMyself.BP_CC_Skill_RebuildMyself_C.ExecuteUbergraph_BP_CC_Skill_RebuildMyself
 // 0x0030 (0x0030 - 0x0000)
@@ -28,6 +28,7 @@ public:
 	class UCharacterMaterialControlComponent*     CallFunc_BP_GetCharacterMaterialControl_ReturnValue; // 0x0020(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_BP_GetMainHealthMax_ReturnValue;          // 0x0028(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_RebuildMyself_C_ExecuteUbergraph_BP_CC_Skill_RebuildMyself;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

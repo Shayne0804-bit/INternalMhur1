@@ -14,7 +14,8 @@
 #include "BP_ActionHover_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionHover.BP_ActionHover_C.ExecuteUbergraph_BP_ActionHover
 // (Final, UbergraphFunction)
@@ -236,5 +237,5 @@ bool UBP_ActionHover_C::BP_IsEnableShiftAction(const class FName& nextAction) co
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

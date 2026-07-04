@@ -13,8 +13,8 @@
 #include "UIFramework_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_NetworkError.WBP_NetworkError_C.ExecuteUbergraph_WBP_NetworkError
 // 0x0018 (0x0018 - 0x0000)
@@ -27,6 +27,7 @@ public:
 	EWidgetInputType                              K2Node_ComponentBoundEvent_inputType;              // 0x0010(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_ComponentBoundEvent_leftButton;             // 0x0011(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_NetworkError_C_ExecuteUbergraph_WBP_NetworkError;
 
 // Function WBP_NetworkError.WBP_NetworkError_C.BndEvt__WBP_NetworkError__errorWindow_K2Node_ComponentBoundEvent_1_OnWindowInputEventDelegate__DelegateSignature
 // 0x0010 (0x0010 - 0x0000)
@@ -37,6 +38,7 @@ public:
 	EWidgetInputType                              inputType;                                         // 0x0008(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          leftButton;                                        // 0x0009(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_NetworkError_C_BndEvt__WBP_NetworkError__errorWindow_K2Node_ComponentBoundEvent_1_OnWindowInputEventDelegate__DelegateSignature;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -17,7 +17,8 @@
 #include "InputCore_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum Engine.ETextGender
 // NumValues: 0x0004
@@ -5065,6 +5066,7 @@ public:
 	class FString                                 ActionName;                                        // 0x0000(0x0010)(BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_10[0x8];                                       // 0x0010(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FUserActivity;
 
 // ScriptStruct Engine.DirectoryPath
 // 0x0010 (0x0010 - 0x0000)
@@ -5073,6 +5075,7 @@ struct FDirectoryPath final
 public:
 	class FString                                 Path;                                              // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDirectoryPath;
 
 // ScriptStruct Engine.PrimaryAssetRules
 // 0x000C (0x000C - 0x0000)
@@ -5085,6 +5088,7 @@ public:
 	EPrimaryAssetCookRule                         CookRule;                                          // 0x0009(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_A[0x2];                                        // 0x000A(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPrimaryAssetRules;
 
 // ScriptStruct Engine.PrimaryAssetTypeInfo
 // 0x0088 (0x0088 - 0x0000)
@@ -5106,6 +5110,7 @@ public:
 	uint8                                         Pad_81[0x3];                                       // 0x0081(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         NumberOfAssets;                                    // 0x0084(0x0004)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPrimaryAssetTypeInfo;
 
 // ScriptStruct Engine.ParticleRandomSeedInfo
 // 0x0020 (0x0020 - 0x0000)
@@ -5120,6 +5125,7 @@ public:
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<int32>                                 RandomSeeds;                                       // 0x0010(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FParticleRandomSeedInfo;
 
 // ScriptStruct Engine.DistributionLookupTable
 // 0x0020 (0x0020 - 0x0000)
@@ -5136,6 +5142,7 @@ public:
 	uint8                                         LockFlag;                                          // 0x001C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FDistributionLookupTable;
 
 // ScriptStruct Engine.CollisionResponseContainer
 // 0x0020 (0x0020 - 0x0000)
@@ -5175,6 +5182,7 @@ public:
 	ECollisionResponse                            GameTraceChannel17;                                // 0x001E(0x0001)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	ECollisionResponse                            GameTraceChannel18;                                // 0x001F(0x0001)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCollisionResponseContainer;
 
 // ScriptStruct Engine.BookmarkBaseJumpToSettings
 // 0x0001 (0x0001 - 0x0000)
@@ -5183,12 +5191,14 @@ struct FBookmarkBaseJumpToSettings
 public:
 	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBookmarkBaseJumpToSettings;
 
 // ScriptStruct Engine.BookmarkJumpToSettings
 // 0x0000 (0x0001 - 0x0001)
 struct FBookmarkJumpToSettings final : public FBookmarkBaseJumpToSettings
 {
 };
+DUMPER7_ASSERTS_FBookmarkJumpToSettings;
 
 // ScriptStruct Engine.SmartName
 // 0x000C (0x000C - 0x0000)
@@ -5198,6 +5208,7 @@ public:
 	class FName                                   DisplayName;                                       // 0x0000(0x0008)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_8[0x4];                                        // 0x0008(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSmartName;
 
 // ScriptStruct Engine.SoundWaveEnvelopeDataPerSound
 // 0x0010 (0x0010 - 0x0000)
@@ -5208,6 +5219,7 @@ public:
 	float                                         PlaybackTime;                                      // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class USoundWave*                             SoundWave;                                         // 0x0008(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSoundWaveEnvelopeDataPerSound;
 
 // ScriptStruct Engine.SoundAttenuationPluginSettings
 // 0x0030 (0x0030 - 0x0000)
@@ -5218,6 +5230,7 @@ public:
 	TArray<class UOcclusionPluginSourceSettingsBase*> OcclusionPluginSettingsArray;                  // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<class UReverbPluginSourceSettingsBase*> ReverbPluginSettingsArray;                        // 0x0020(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSoundAttenuationPluginSettings;
 
 // ScriptStruct Engine.PerBoneBlendWeight
 // 0x0008 (0x0008 - 0x0000)
@@ -5227,6 +5240,7 @@ public:
 	int32                                         SourceIndex;                                       // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         BlendWeight;                                       // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPerBoneBlendWeight;
 
 // ScriptStruct Engine.PerBoneBlendWeights
 // 0x0010 (0x0010 - 0x0000)
@@ -5235,6 +5249,7 @@ struct FPerBoneBlendWeights final
 public:
 	TArray<struct FPerBoneBlendWeight>            BoneBlendWeights;                                  // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPerBoneBlendWeights;
 
 // ScriptStruct Engine.RawDistribution
 // 0x0020 (0x0020 - 0x0000)
@@ -5243,6 +5258,7 @@ struct FRawDistribution
 public:
 	struct FDistributionLookupTable               Table;                                             // 0x0000(0x0020)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRawDistribution;
 
 // ScriptStruct Engine.BandwidthTestItem
 // 0x0010 (0x0010 - 0x0000)
@@ -5251,6 +5267,7 @@ struct FBandwidthTestItem final
 public:
 	TArray<uint8>                                 Kilobyte;                                          // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBandwidthTestItem;
 
 // ScriptStruct Engine.RichCurveKey
 // 0x001C (0x001C - 0x0000)
@@ -5268,6 +5285,7 @@ public:
 	float                                         LeaveTangent;                                      // 0x0014(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         LeaveTangentWeight;                                // 0x0018(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRichCurveKey;
 
 // ScriptStruct Engine.KeyHandleMap
 // 0x0060 (0x0060 - 0x0000)
@@ -5276,6 +5294,7 @@ struct alignas(0x08) FKeyHandleMap final
 public:
 	uint8                                         Pad_0[0x60];                                       // 0x0000(0x0060)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FKeyHandleMap;
 
 // ScriptStruct Engine.IndexedCurve
 // 0x0068 (0x0068 - 0x0000)
@@ -5285,6 +5304,7 @@ public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FKeyHandleMap                          KeyHandlesToIndices;                               // 0x0008(0x0060)(Transient, Protected, NativeAccessSpecifierProtected)
 };
+DUMPER7_ASSERTS_FIndexedCurve;
 
 // ScriptStruct Engine.RealCurve
 // 0x0008 (0x0070 - 0x0068)
@@ -5296,6 +5316,7 @@ public:
 	ERichCurveExtrapolation                       PostInfinityExtrap;                                // 0x006D(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_6E[0x2];                                       // 0x006E(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FRealCurve;
 
 // ScriptStruct Engine.RichCurve
 // 0x0010 (0x0080 - 0x0070)
@@ -5304,6 +5325,7 @@ struct FRichCurve final : public FRealCurve
 public:
 	TArray<struct FRichCurveKey>                  Keys;                                              // 0x0070(0x0010)(Edit, EditFixedSize, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRichCurve;
 
 // ScriptStruct Engine.RuntimeFloatCurve
 // 0x0088 (0x0088 - 0x0000)
@@ -5313,6 +5335,7 @@ public:
 	struct FRichCurve                             EditorCurveData;                                   // 0x0000(0x0080)(NativeAccessSpecifierPublic)
 	class UCurveFloat*                            ExternalCurve;                                     // 0x0080(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRuntimeFloatCurve;
 
 // ScriptStruct Engine.SoundSourceBusSendInfo
 // 0x00B8 (0x00B8 - 0x0000)
@@ -5331,6 +5354,7 @@ public:
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FRuntimeFloatCurve                     CustomSendLevelCurve;                              // 0x0030(0x0088)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSoundSourceBusSendInfo;
 
 // ScriptStruct Engine.ResponseChannel
 // 0x000C (0x000C - 0x0000)
@@ -5341,6 +5365,7 @@ public:
 	ECollisionResponse                            Response;                                          // 0x0008(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FResponseChannel;
 
 // ScriptStruct Engine.CollisionResponseTemplate
 // 0x0048 (0x0048 - 0x0000)
@@ -5356,6 +5381,7 @@ public:
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FResponseChannel>               CustomResponses;                                   // 0x0038(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCollisionResponseTemplate;
 
 // ScriptStruct Engine.FloatDistribution
 // 0x0020 (0x0020 - 0x0000)
@@ -5364,6 +5390,7 @@ struct FFloatDistribution final
 public:
 	struct FDistributionLookupTable               Table;                                             // 0x0000(0x0020)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FFloatDistribution;
 
 // ScriptStruct Engine.AnimLinkableElement
 // 0x0030 (0x0030 - 0x0000)
@@ -5382,6 +5409,7 @@ public:
 	float                                         LinkValue;                                         // 0x0024(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 	class UAnimSequenceBase*                      LinkedSequence;                                    // 0x0028(0x0008)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, AdvancedDisplay, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 };
+DUMPER7_ASSERTS_FAnimLinkableElement;
 
 // ScriptStruct Engine.AnimNotifyEvent
 // 0x0088 (0x00B8 - 0x0030)
@@ -5411,6 +5439,7 @@ public:
 	int32                                         TrackIndex;                                        // 0x00A4(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_A8[0x10];                                      // 0x00A8(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNotifyEvent;
 
 // ScriptStruct Engine.VectorDistribution
 // 0x0020 (0x0020 - 0x0000)
@@ -5419,6 +5448,7 @@ struct FVectorDistribution final
 public:
 	struct FDistributionLookupTable               Table;                                             // 0x0000(0x0020)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVectorDistribution;
 
 // ScriptStruct Engine.NamedVector
 // 0x0014 (0x0014 - 0x0000)
@@ -5428,6 +5458,7 @@ public:
 	struct FVector                                value;                                             // 0x0000(0x000C)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   Name;                                              // 0x000C(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNamedVector;
 
 // ScriptStruct Engine.PlatformInterfaceData
 // 0x0030 (0x0030 - 0x0000)
@@ -5443,6 +5474,7 @@ public:
 	class FString                                 StringValue;                                       // 0x0018(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UObject*                                ObjectValue;                                       // 0x0028(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPlatformInterfaceData;
 
 // ScriptStruct Engine.PlatformInterfaceDelegateResult
 // 0x0038 (0x0038 - 0x0000)
@@ -5453,6 +5485,7 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FPlatformInterfaceData                 Data;                                              // 0x0008(0x0030)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPlatformInterfaceDelegateResult;
 
 // ScriptStruct Engine.AnimationTransitionRule
 // 0x0010 (0x0010 - 0x0000)
@@ -5464,6 +5497,7 @@ public:
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         TransitionIndex;                                   // 0x000C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimationTransitionRule;
 
 // ScriptStruct Engine.MovementProperties
 // 0x0001 (0x0001 - 0x0000)
@@ -5476,6 +5510,7 @@ public:
 	uint8                                         bCanSwim : 1;                                      // 0x0000(0x0001)(BitIndex: 0x03, PropSize: 0x0001 (Edit, BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         bCanFly : 1;                                       // 0x0000(0x0001)(BitIndex: 0x04, PropSize: 0x0001 (Edit, BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 };
+DUMPER7_ASSERTS_FMovementProperties;
 
 // ScriptStruct Engine.NavAgentProperties
 // 0x002F (0x0030 - 0x0001)
@@ -5490,6 +5525,7 @@ public:
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FSoftClassPath                         PreferredNavData;                                  // 0x0018(0x0018)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNavAgentProperties;
 
 // ScriptStruct Engine.NavDataConfig
 // 0x0048 (0x0078 - 0x0030)
@@ -5502,6 +5538,7 @@ public:
 	TSubclassOf<class AActor>                     NavigationDataClass;                               // 0x0048(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TSoftClassPtr<class UClass>                   NavDataClass;                                      // 0x0050(0x0028)(Edit, BlueprintVisible, Protected, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 };
+DUMPER7_ASSERTS_FNavDataConfig;
 
 // ScriptStruct Engine.Vector4Distribution
 // 0x0020 (0x0020 - 0x0000)
@@ -5510,6 +5547,7 @@ struct FVector4Distribution final
 public:
 	struct FDistributionLookupTable               Table;                                             // 0x0000(0x0020)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVector4Distribution;
 
 // ScriptStruct Engine.AnimNotifyEventReference
 // 0x0010 (0x0010 - 0x0000)
@@ -5519,6 +5557,7 @@ public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
 	class UObject*                                NotifySource;                                      // 0x0008(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FAnimNotifyEventReference;
 
 // ScriptStruct Engine.AnimNotifyArray
 // 0x0010 (0x0010 - 0x0000)
@@ -5527,6 +5566,7 @@ struct FAnimNotifyArray final
 public:
 	TArray<struct FAnimNotifyEventReference>      Notifies;                                          // 0x0000(0x0010)(ZeroConstructor, Transient, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimNotifyArray;
 
 // ScriptStruct Engine.FloatRK4SpringInterpolator
 // 0x0008 (0x0008 - 0x0000)
@@ -5536,12 +5576,14 @@ public:
 	float                                         StiffnessConstant;                                 // 0x0000(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         DampeningRatio;                                    // 0x0004(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FFloatRK4SpringInterpolator;
 
 // ScriptStruct Engine.Vector_NetQuantize100
 // 0x0000 (0x000C - 0x000C)
 struct FVector_NetQuantize100 final : public FVector
 {
 };
+DUMPER7_ASSERTS_FVector_NetQuantize100;
 
 // ScriptStruct Engine.RigidBodyState
 // 0x0040 (0x0040 - 0x0000)
@@ -5556,6 +5598,7 @@ public:
 	uint8                                         Flags;                                             // 0x0038(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_39[0x7];                                       // 0x0039(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FRigidBodyState;
 
 // ScriptStruct Engine.BranchingPointNotifyPayload
 // 0x0020 (0x0020 - 0x0000)
@@ -5564,6 +5607,7 @@ struct alignas(0x08) FBranchingPointNotifyPayload final
 public:
 	uint8                                         Pad_0[0x20];                                       // 0x0000(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBranchingPointNotifyPayload;
 
 // ScriptStruct Engine.BakedStateExitTransition
 // 0x0020 (0x0020 - 0x0000)
@@ -5578,6 +5622,7 @@ public:
 	uint8                                         Pad_E[0x2];                                        // 0x000E(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<int32>                                 PoseEvaluatorLinks;                                // 0x0010(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBakedStateExitTransition;
 
 // ScriptStruct Engine.NodeItem
 // 0x0040 (0x0040 - 0x0000)
@@ -5588,6 +5633,7 @@ public:
 	uint8                                         Pad_8[0x8];                                        // 0x0008(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FTransform                             Transform;                                         // 0x0010(0x0030)(IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNodeItem;
 
 // ScriptStruct Engine.VectorRK4SpringInterpolator
 // 0x0008 (0x0008 - 0x0000)
@@ -5597,12 +5643,14 @@ public:
 	float                                         StiffnessConstant;                                 // 0x0000(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         DampeningRatio;                                    // 0x0004(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVectorRK4SpringInterpolator;
 
 // ScriptStruct Engine.Vector_NetQuantize10
 // 0x0000 (0x000C - 0x000C)
 struct FVector_NetQuantize10 final : public FVector
 {
 };
+DUMPER7_ASSERTS_FVector_NetQuantize10;
 
 // ScriptStruct Engine.FormatArgumentData
 // 0x0040 (0x0040 - 0x0000)
@@ -5618,6 +5666,7 @@ public:
 	ETextGender                                   ArgumentValueGender;                               // 0x0038(0x0001)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnTemplate, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_39[0x7];                                       // 0x0039(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FFormatArgumentData;
 
 // ScriptStruct Engine.GeomSelection
 // 0x000C (0x000C - 0x0000)
@@ -5628,6 +5677,7 @@ public:
 	int32                                         Index;                                             // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         SelectionIndex;                                    // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FGeomSelection;
 
 // ScriptStruct Engine.BranchingPointMarker
 // 0x000C (0x000C - 0x0000)
@@ -5639,6 +5689,7 @@ public:
 	EAnimNotifyEventType                          NotifyEventType;                                   // 0x0008(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBranchingPointMarker;
 
 // ScriptStruct Engine.WalkableSlopeOverride
 // 0x0010 (0x0010 - 0x0000)
@@ -5650,6 +5701,7 @@ public:
 	float                                         WalkableSlopeAngle;                                // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_8[0x8];                                        // 0x0008(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FWalkableSlopeOverride;
 
 // ScriptStruct Engine.NodeToCodeAssociation
 // 0x0014 (0x0014 - 0x0000)
@@ -5658,6 +5710,7 @@ struct alignas(0x04) FNodeToCodeAssociation final
 public:
 	uint8                                         Pad_0[0x14];                                       // 0x0000(0x0014)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FNodeToCodeAssociation;
 
 // ScriptStruct Engine.ExpressionInput
 // 0x0014 (0x0014 - 0x0000)
@@ -5668,6 +5721,7 @@ public:
 	class FName                                   InputName;                                         // 0x0004(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   ExpressionName;                                    // 0x000C(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FExpressionInput;
 
 // ScriptStruct Engine.ParticleEmitterReplayFrame
 // 0x0010 (0x0010 - 0x0000)
@@ -5676,6 +5730,7 @@ struct alignas(0x08) FParticleEmitterReplayFrame final
 public:
 	uint8                                         Pad_0[0x10];                                       // 0x0000(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FParticleEmitterReplayFrame;
 
 // ScriptStruct Engine.LatentActionInfo
 // 0x0018 (0x0018 - 0x0000)
@@ -5687,6 +5742,7 @@ public:
 	class FName                                   ExecutionFunction;                                 // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UObject*                                CallbackTarget;                                    // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLatentActionInfo;
 
 // ScriptStruct Engine.NamedCurveValue
 // 0x000C (0x000C - 0x0000)
@@ -5696,6 +5752,7 @@ public:
 	class FName                                   Name;                                              // 0x0000(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         value;                                             // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNamedCurveValue;
 
 // ScriptStruct Engine.MaterialAttributesInput
 // 0x0004 (0x0018 - 0x0014)
@@ -5704,6 +5761,7 @@ struct FMaterialAttributesInput final : public FExpressionInput
 public:
 	int32                                         PropertyConnectedBitmask;                          // 0x0014(0x0004)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMaterialAttributesInput;
 
 // ScriptStruct Engine.MeshSectionInfo
 // 0x0008 (0x0008 - 0x0000)
@@ -5716,6 +5774,7 @@ public:
 	bool                                          bVisibleInRayTracing;                              // 0x0006(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          bForceOpaque;                                      // 0x0007(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMeshSectionInfo;
 
 // ScriptStruct Engine.DummySpacerCameraTypes
 // 0x0001 (0x0001 - 0x0000)
@@ -5724,6 +5783,7 @@ struct FDummySpacerCameraTypes final
 public:
 	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FDummySpacerCameraTypes;
 
 // ScriptStruct Engine.ExpressionOutput
 // 0x0008 (0x0008 - 0x0000)
@@ -5732,6 +5792,7 @@ struct FExpressionOutput final
 public:
 	class FName                                   OutputName;                                        // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FExpressionOutput;
 
 // ScriptStruct Engine.AnimInstanceProxy
 // 0x0770 (0x0770 - 0x0000)
@@ -5740,6 +5801,7 @@ struct alignas(0x10) FAnimInstanceProxy
 public:
 	uint8                                         Pad_0[0x770];                                      // 0x0000(0x0770)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimInstanceProxy;
 
 // ScriptStruct Engine.FilePath
 // 0x0010 (0x0010 - 0x0000)
@@ -5748,6 +5810,7 @@ struct FFilePath final
 public:
 	class FString                                 FilePath;                                          // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FFilePath;
 
 // ScriptStruct Engine.ImportFactorySettingValues
 // 0x0020 (0x0020 - 0x0000)
@@ -5757,6 +5820,7 @@ public:
 	class FString                                 SettingName;                                       // 0x0000(0x0010)(Edit, ZeroConstructor, Config, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 value;                                             // 0x0010(0x0010)(Edit, ZeroConstructor, Config, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FImportFactorySettingValues;
 
 // ScriptStruct Engine.EditorImportWorkflowDefinition
 // 0x0020 (0x0020 - 0x0000)
@@ -5766,6 +5830,7 @@ public:
 	struct FFilePath                              ImportFilePath;                                    // 0x0000(0x0010)(Edit, Config, NativeAccessSpecifierPublic)
 	TArray<struct FImportFactorySettingValues>    FactorySettings;                                   // 0x0010(0x0010)(Edit, ZeroConstructor, Config, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FEditorImportWorkflowDefinition;
 
 // ScriptStruct Engine.MaterialInput
 // 0x0014 (0x0014 - 0x0000)
@@ -5776,6 +5841,7 @@ public:
 	class FName                                   InputName;                                         // 0x0004(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   ExpressionName;                                    // 0x000C(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMaterialInput;
 
 // ScriptStruct Engine.KShapeElem
 // 0x0030 (0x0030 - 0x0000)
@@ -5790,6 +5856,7 @@ public:
 	ECollisionEnabled                             CollisionEnabled;                                  // 0x0019(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_1A[0x16];                                      // 0x001A(0x0016)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FKShapeElem;
 
 // ScriptStruct Engine.CustomPrimitiveData
 // 0x0010 (0x0010 - 0x0000)
@@ -5798,6 +5865,7 @@ struct FCustomPrimitiveData final
 public:
 	TArray<float>                                 Data;                                              // 0x0000(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCustomPrimitiveData;
 
 // ScriptStruct Engine.RawDistributionVector
 // 0x0028 (0x0048 - 0x0020)
@@ -5810,12 +5878,14 @@ public:
 	struct FVector                                MaxValueVec;                                       // 0x0034(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	class UDistributionVector*                    Distribution;                                      // 0x0040(0x0008)(Edit, ExportObject, ZeroConstructor, InstancedReference, NoClear, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRawDistributionVector;
 
 // ScriptStruct Engine.ColorMaterialInput
 // 0x0000 (0x0014 - 0x0014)
 struct FColorMaterialInput final : public FMaterialInput
 {
 };
+DUMPER7_ASSERTS_FColorMaterialInput;
 
 // ScriptStruct Engine.WeightedBlendable
 // 0x0010 (0x0010 - 0x0000)
@@ -5826,6 +5896,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UObject*                                Object;                                            // 0x0008(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FWeightedBlendable;
 
 // ScriptStruct Engine.WeightedBlendables
 // 0x0010 (0x0010 - 0x0000)
@@ -5834,6 +5905,7 @@ struct FWeightedBlendables final
 public:
 	TArray<struct FWeightedBlendable>             Array;                                             // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FWeightedBlendables;
 
 // ScriptStruct Engine.PostProcessSettings
 // 0x0560 (0x0560 - 0x0000)
@@ -6237,6 +6309,7 @@ public:
 	uint8                                         Pad_54C[0x4];                                      // 0x054C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FWeightedBlendables                    WeightedBlendables;                                // 0x0550(0x0010)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPostProcessSettings;
 
 // ScriptStruct Engine.MinimalViewInfo
 // 0x05F0 (0x05F0 - 0x0000)
@@ -6262,6 +6335,7 @@ public:
 	struct FVector2D                              OffCenterProjectionOffset;                         // 0x05A0(0x0008)(Edit, BlueprintVisible, ZeroConstructor, DisableEditOnTemplate, Transient, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5A8[0x48];                                     // 0x05A8(0x0048)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMinimalViewInfo;
 
 // ScriptStruct Engine.CameraShakeUpdateParams
 // 0x0600 (0x0600 - 0x0000)
@@ -6274,6 +6348,7 @@ public:
 	float                                         BlendingWeight;                                    // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FMinimalViewInfo                       POV;                                               // 0x0010(0x05F0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCameraShakeUpdateParams;
 
 // ScriptStruct Engine.BlueprintDebugData
 // 0x0001 (0x0001 - 0x0000)
@@ -6282,6 +6357,7 @@ struct FBlueprintDebugData final
 public:
 	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBlueprintDebugData;
 
 // ScriptStruct Engine.AnimCurveBase
 // 0x0018 (0x0018 - 0x0000)
@@ -6292,6 +6368,7 @@ public:
 	struct FSmartName                             Name;                                              // 0x0008(0x000C)(NoDestructor, NativeAccessSpecifierPublic)
 	int32                                         CurveTypeFlags;                                    // 0x0014(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FAnimCurveBase;
 
 // ScriptStruct Engine.VectorCurve
 // 0x0180 (0x0198 - 0x0018)
@@ -6300,6 +6377,7 @@ struct FVectorCurve final : public FAnimCurveBase
 public:
 	struct FRichCurve                             FloatCurves[0x3];                                  // 0x0018(0x0080)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVectorCurve;
 
 // ScriptStruct Engine.TransformCurve
 // 0x04C8 (0x04E0 - 0x0018)
@@ -6310,6 +6388,7 @@ public:
 	struct FVectorCurve                           RotationCurve;                                     // 0x01B0(0x0198)(NativeAccessSpecifierPublic)
 	struct FVectorCurve                           ScaleCurve;                                        // 0x0348(0x0198)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTransformCurve;
 
 // ScriptStruct Engine.CollisionProfileName
 // 0x0008 (0x0008 - 0x0000)
@@ -6318,6 +6397,7 @@ struct FCollisionProfileName final
 public:
 	class FName                                   Name;                                              // 0x0000(0x0008)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCollisionProfileName;
 
 // ScriptStruct Engine.SolverIterations
 // 0x001C (0x001C - 0x0000)
@@ -6332,6 +6412,7 @@ public:
 	int32                                         JointPushOutIterations;                            // 0x0014(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         CollisionPushOutIterations;                        // 0x0018(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSolverIterations;
 
 // ScriptStruct Engine.SwarmDebugOptions
 // 0x0004 (0x0004 - 0x0000)
@@ -6343,12 +6424,14 @@ public:
 	uint8                                         bInitialized : 1;                                  // 0x0000(0x0001)(BitIndex: 0x02, PropSize: 0x0001 (NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSwarmDebugOptions;
 
 // ScriptStruct Engine.ScalarMaterialInput
 // 0x0000 (0x0014 - 0x0014)
 struct FScalarMaterialInput final : public FMaterialInput
 {
 };
+DUMPER7_ASSERTS_FScalarMaterialInput;
 
 // ScriptStruct Engine.TickFunction
 // 0x0028 (0x0028 - 0x0000)
@@ -6366,6 +6449,7 @@ public:
 	float                                         TickInterval;                                      // 0x000C(0x0004)(Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_10[0x18];                                      // 0x0010(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTickFunction;
 
 // ScriptStruct Engine.SkeletalMeshComponentClothTickFunction
 // 0x0008 (0x0030 - 0x0028)
@@ -6374,6 +6458,7 @@ struct FSkeletalMeshComponentClothTickFunction final : public FTickFunction
 public:
 	uint8                                         Pad_28[0x8];                                       // 0x0028(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSkeletalMeshComponentClothTickFunction;
 
 // ScriptStruct Engine.EditorMapPerformanceTestDefinition
 // 0x0020 (0x0020 - 0x0000)
@@ -6384,12 +6469,14 @@ public:
 	int32                                         TestTimer;                                         // 0x0018(0x0004)(Edit, ZeroConstructor, Config, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FEditorMapPerformanceTestDefinition;
 
 // ScriptStruct Engine.ShadingModelMaterialInput
 // 0x0000 (0x0014 - 0x0014)
 struct FShadingModelMaterialInput final : public FMaterialInput
 {
 };
+DUMPER7_ASSERTS_FShadingModelMaterialInput;
 
 // ScriptStruct Engine.AudioQualitySettings
 // 0x0020 (0x0020 - 0x0000)
@@ -6400,12 +6487,14 @@ public:
 	int32                                         MaxChannels;                                       // 0x0018(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAudioQualitySettings;
 
 // ScriptStruct Engine.VectorMaterialInput
 // 0x0000 (0x0014 - 0x0014)
 struct FVectorMaterialInput final : public FMaterialInput
 {
 };
+DUMPER7_ASSERTS_FVectorMaterialInput;
 
 // ScriptStruct Engine.ClothPhysicsProperties_Legacy
 // 0x0050 (0x0050 - 0x0000)
@@ -6433,6 +6522,7 @@ public:
 	float                                         FiberExpansion;                                    // 0x0048(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         FiberResistance;                                   // 0x004C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FClothPhysicsProperties_Legacy;
 
 // ScriptStruct Engine.InstancedStaticMeshInstanceData
 // 0x0040 (0x0040 - 0x0000)
@@ -6441,12 +6531,14 @@ struct FInstancedStaticMeshInstanceData final
 public:
 	struct FMatrix                                Transform;                                         // 0x0000(0x0040)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FInstancedStaticMeshInstanceData;
 
 // ScriptStruct Engine.Vector2MaterialInput
 // 0x0000 (0x0014 - 0x0014)
 struct FVector2MaterialInput final : public FMaterialInput
 {
 };
+DUMPER7_ASSERTS_FVector2MaterialInput;
 
 // ScriptStruct Engine.RepAttachment
 // 0x0040 (0x0040 - 0x0000)
@@ -6461,6 +6553,7 @@ public:
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class USceneComponent*                        AttachComponent;                                   // 0x0038(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRepAttachment;
 
 // ScriptStruct Engine.FastArraySerializer
 // 0x0108 (0x0108 - 0x0000)
@@ -6473,6 +6566,7 @@ public:
 	EFastArraySerializerDeltaFlags                DeltaFlags;                                        // 0x0100(0x0001)(ZeroConstructor, Transient, IsPlainOldData, RepSkip, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_101[0x7];                                      // 0x0101(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FFastArraySerializer;
 
 // ScriptStruct Engine.ConstrainComponentPropName
 // 0x0008 (0x0008 - 0x0000)
@@ -6481,18 +6575,21 @@ struct FConstrainComponentPropName final
 public:
 	class FName                                   ComponentName;                                     // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FConstrainComponentPropName;
 
 // ScriptStruct Engine.Vector_NetQuantize
 // 0x0000 (0x000C - 0x000C)
 struct FVector_NetQuantize final : public FVector
 {
 };
+DUMPER7_ASSERTS_FVector_NetQuantize;
 
 // ScriptStruct Engine.Vector_NetQuantizeNormal
 // 0x0000 (0x000C - 0x000C)
 struct FVector_NetQuantizeNormal final : public FVector
 {
 };
+DUMPER7_ASSERTS_FVector_NetQuantizeNormal;
 
 // ScriptStruct Engine.HitResult
 // 0x0088 (0x0088 - 0x0000)
@@ -6520,6 +6617,7 @@ public:
 	class FName                                   BoneName;                                          // 0x0078(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   MyBoneName;                                        // 0x0080(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FHitResult;
 
 // ScriptStruct Engine.ChildActorAttachedActorInfo
 // 0x0040 (0x0040 - 0x0000)
@@ -6530,6 +6628,7 @@ public:
 	class FName                                   SocketName;                                        // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FTransform                             RelativeTransform;                                 // 0x0010(0x0030)(IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FChildActorAttachedActorInfo;
 
 // ScriptStruct Engine.ActorComponentDuplicatedObjectData
 // 0x0010 (0x0010 - 0x0000)
@@ -6538,6 +6637,7 @@ struct alignas(0x08) FActorComponentDuplicatedObjectData final
 public:
 	uint8                                         Pad_0[0x10];                                       // 0x0000(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FActorComponentDuplicatedObjectData;
 
 // ScriptStruct Engine.ActorComponentInstanceData
 // 0x0068 (0x0068 - 0x0000)
@@ -6555,6 +6655,7 @@ public:
 	TArray<class UObject*>                        ReferencedObjects;                                 // 0x0048(0x0010)(ZeroConstructor, Protected, NativeAccessSpecifierProtected)
 	TArray<class FName>                           ReferencedNames;                                   // 0x0058(0x0010)(ZeroConstructor, Protected, NativeAccessSpecifierProtected)
 };
+DUMPER7_ASSERTS_FActorComponentInstanceData;
 
 // ScriptStruct Engine.SceneComponentInstanceData
 // 0x0050 (0x00B8 - 0x0068)
@@ -6563,6 +6664,7 @@ struct FSceneComponentInstanceData : public FActorComponentInstanceData
 public:
 	TMap<class USceneComponent*, struct FTransform> AttachedInstanceComponents;                      // 0x0068(0x0050)(ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSceneComponentInstanceData;
 
 // ScriptStruct Engine.ChildActorComponentInstanceData
 // 0x0030 (0x00E8 - 0x00B8)
@@ -6574,6 +6676,7 @@ public:
 	TArray<struct FChildActorAttachedActorInfo>   AttachedActors;                                    // 0x00C8(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D8[0x10];                                      // 0x00D8(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FChildActorComponentInstanceData;
 
 // ScriptStruct Engine.GenericStruct
 // 0x0004 (0x0004 - 0x0000)
@@ -6582,6 +6685,7 @@ struct FGenericStruct final
 public:
 	int32                                         Data;                                              // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FGenericStruct;
 
 // ScriptStruct Engine.SimpleMemberReference
 // 0x0020 (0x0020 - 0x0000)
@@ -6592,6 +6696,7 @@ public:
 	class FName                                   MemberName;                                        // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FGuid                                  MemberGuid;                                        // 0x0010(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSimpleMemberReference;
 
 // ScriptStruct Engine.SkeletalMeshSamplingLODBuiltData
 // 0x0048 (0x0048 - 0x0000)
@@ -6600,6 +6705,7 @@ struct alignas(0x08) FSkeletalMeshSamplingLODBuiltData final
 public:
 	uint8                                         Pad_0[0x48];                                       // 0x0000(0x0048)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSkeletalMeshSamplingLODBuiltData;
 
 // ScriptStruct Engine.MaterialInstanceBasePropertyOverrides
 // 0x0008 (0x0008 - 0x0000)
@@ -6619,6 +6725,7 @@ public:
 	EMaterialShadingModel                         ShadingModel;                                      // 0x0003(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         OpacityMaskClipValue;                              // 0x0004(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMaterialInstanceBasePropertyOverrides;
 
 // ScriptStruct Engine.TimerHandle
 // 0x0008 (0x0008 - 0x0000)
@@ -6627,6 +6734,7 @@ struct FTimerHandle final
 public:
 	uint64                                        Handle;                                            // 0x0000(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FTimerHandle;
 
 // ScriptStruct Engine.ReferencePose
 // 0x0018 (0x0018 - 0x0000)
@@ -6636,6 +6744,7 @@ public:
 	class FName                                   PoseName;                                          // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FTransform>                     ReferencePose;                                     // 0x0008(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FReferencePose;
 
 // ScriptStruct Engine.ActorComponentTickFunction
 // 0x0008 (0x0030 - 0x0028)
@@ -6644,6 +6753,7 @@ struct FActorComponentTickFunction final : public FTickFunction
 public:
 	uint8                                         Pad_28[0x8];                                       // 0x0028(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FActorComponentTickFunction;
 
 // ScriptStruct Engine.ExposedValueCopyRecord
 // 0x0008 (0x0008 - 0x0000)
@@ -6654,6 +6764,7 @@ public:
 	EPostCopyOperation                            PostCopyOperation;                                 // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FExposedValueCopyRecord;
 
 // ScriptStruct Engine.ExposedValueHandler
 // 0x0050 (0x0050 - 0x0000)
@@ -6666,6 +6777,7 @@ public:
 	TFieldPath<class FStructProperty>             ValueHandlerNodeProperty;                          // 0x0020(0x0020)(HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_40[0x10];                                      // 0x0040(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FExposedValueHandler;
 
 // ScriptStruct Engine.RigTransformConstraint
 // 0x0010 (0x0010 - 0x0000)
@@ -6677,6 +6789,7 @@ public:
 	class FName                                   ParentSpace;                                       // 0x0004(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Weight;                                            // 0x000C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRigTransformConstraint;
 
 // ScriptStruct Engine.TransformBaseConstraint
 // 0x0010 (0x0010 - 0x0000)
@@ -6685,6 +6798,7 @@ struct FTransformBaseConstraint final
 public:
 	TArray<struct FRigTransformConstraint>        TransformConstraints;                              // 0x0000(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTransformBaseConstraint;
 
 // ScriptStruct Engine.TransformBase
 // 0x0028 (0x0028 - 0x0000)
@@ -6694,6 +6808,7 @@ public:
 	class FName                                   Node;                                              // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FTransformBaseConstraint               Constraints[0x2];                                  // 0x0008(0x0010)(Edit, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTransformBase;
 
 // ScriptStruct Engine.SubtitleCue
 // 0x0020 (0x0020 - 0x0000)
@@ -6704,6 +6819,7 @@ public:
 	float                                         Time;                                              // 0x0018(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSubtitleCue;
 
 // ScriptStruct Engine.AnimationStateBase
 // 0x0008 (0x0008 - 0x0000)
@@ -6712,6 +6828,7 @@ struct FAnimationStateBase
 public:
 	class FName                                   StateName;                                         // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimationStateBase;
 
 // ScriptStruct Engine.AnimationTransitionBetweenStates
 // 0x0038 (0x0040 - 0x0008)
@@ -6731,6 +6848,7 @@ public:
 	ETransitionLogicType                          LogicType;                                         // 0x0038(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_39[0x7];                                       // 0x0039(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimationTransitionBetweenStates;
 
 // ScriptStruct Engine.InterpControlPoint
 // 0x001C (0x001C - 0x0000)
@@ -6741,6 +6859,7 @@ public:
 	bool                                          bPositionIsRelative;                               // 0x000C(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0xF];                                        // 0x000D(0x000F)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FInterpControlPoint;
 
 // ScriptStruct Engine.DirectorTrackCut
 // 0x0014 (0x0014 - 0x0000)
@@ -6752,6 +6871,7 @@ public:
 	class FName                                   TargetCamGroup;                                    // 0x0008(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ShotNumber;                                        // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDirectorTrackCut;
 
 // ScriptStruct Engine.CharacterNetworkSerializationPackedBits
 // 0x0098 (0x0098 - 0x0000)
@@ -6760,6 +6880,7 @@ struct alignas(0x08) FCharacterNetworkSerializationPackedBits
 public:
 	uint8                                         Pad_0[0x98];                                       // 0x0000(0x0098)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCharacterNetworkSerializationPackedBits;
 
 // ScriptStruct Engine.VisibilityTrackKey
 // 0x0008 (0x0008 - 0x0000)
@@ -6771,6 +6892,7 @@ public:
 	EVisibilityTrackCondition                     ActiveCondition;                                   // 0x0005(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_6[0x2];                                        // 0x0006(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FVisibilityTrackKey;
 
 // ScriptStruct Engine.GaussianSumBloomSettings
 // 0x0084 (0x0084 - 0x0000)
@@ -6793,6 +6915,7 @@ public:
 	struct FLinearColor                           Filter5Tint;                                       // 0x0064(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FLinearColor                           Filter6Tint;                                       // 0x0074(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FGaussianSumBloomSettings;
 
 // ScriptStruct Engine.ConvolutionBloomSettings
 // 0x0028 (0x0028 - 0x0000)
@@ -6808,6 +6931,7 @@ public:
 	float                                         BufferScale;                                       // 0x0020(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FConvolutionBloomSettings;
 
 // ScriptStruct Engine.LensBloomSettings
 // 0x00B8 (0x00B8 - 0x0000)
@@ -6820,6 +6944,7 @@ public:
 	EBloomMethod                                  Method;                                            // 0x00B0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_B1[0x7];                                       // 0x00B1(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FLensBloomSettings;
 
 // ScriptStruct Engine.LensImperfectionSettings
 // 0x0020 (0x0020 - 0x0000)
@@ -6831,6 +6956,7 @@ public:
 	struct FLinearColor                           DirtMaskTint;                                      // 0x000C(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FLensImperfectionSettings;
 
 // ScriptStruct Engine.LensSettings
 // 0x00E0 (0x00E0 - 0x0000)
@@ -6842,6 +6968,7 @@ public:
 	float                                         ChromaticAberration;                               // 0x00D8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_DC[0x4];                                       // 0x00DC(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FLensSettings;
 
 // ScriptStruct Engine.RepMovement
 // 0x0034 (0x0034 - 0x0000)
@@ -6858,6 +6985,7 @@ public:
 	EVectorQuantization                           VelocityQuantizationLevel;                         // 0x0032(0x0001)(Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	ERotatorQuantization                          RotationQuantizationLevel;                         // 0x0033(0x0001)(Edit, ZeroConstructor, DisableEditOnInstance, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRepMovement;
 
 // ScriptStruct Engine.DebugFloatHistory
 // 0x0020 (0x0020 - 0x0000)
@@ -6871,6 +6999,7 @@ public:
 	bool                                          bAutoAdjustMinMax;                                 // 0x001C(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FDebugFloatHistory;
 
 // ScriptStruct Engine.ActiveCameraShakeInfo
 // 0x0018 (0x0018 - 0x0000)
@@ -6882,6 +7011,7 @@ public:
 	bool                                          bIsCustomInitialized;                              // 0x0010(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FActiveCameraShakeInfo;
 
 // ScriptStruct Engine.StaticMeshOptimizationSettings
 // 0x001C (0x001C - 0x0000)
@@ -6901,6 +7031,7 @@ public:
 	uint8                                         ShadingImportance;                                 // 0x001A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1B[0x1];                                       // 0x001B(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FStaticMeshOptimizationSettings;
 
 // ScriptStruct Engine.BaseAttenuationSettings
 // 0x00B0 (0x00B0 - 0x0000)
@@ -6919,6 +7050,7 @@ public:
 	float                                         FalloffDistance;                                   // 0x0024(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FRuntimeFloatCurve                     CustomAttenuationCurve;                            // 0x0028(0x0088)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBaseAttenuationSettings;
 
 // ScriptStruct Engine.DebuggingInfoForSingleFunction
 // 0x0190 (0x0190 - 0x0000)
@@ -6927,6 +7059,7 @@ struct alignas(0x08) FDebuggingInfoForSingleFunction final
 public:
 	uint8                                         Pad_0[0x190];                                      // 0x0000(0x0190)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FDebuggingInfoForSingleFunction;
 
 // ScriptStruct Engine.RootMotionExtractionStep
 // 0x0010 (0x0010 - 0x0000)
@@ -6937,6 +7070,7 @@ public:
 	float                                         startPosition;                                     // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         EndPosition;                                       // 0x000C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRootMotionExtractionStep;
 
 // ScriptStruct Engine.SoundModulationDestinationSettings
 // 0x0010 (0x0010 - 0x0000)
@@ -6947,6 +7081,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class USoundModulatorBase*                    Modulator;                                         // 0x0008(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSoundModulationDestinationSettings;
 
 // ScriptStruct Engine.SoundModulationDefaultSettings
 // 0x0040 (0x0040 - 0x0000)
@@ -6958,6 +7093,7 @@ public:
 	struct FSoundModulationDestinationSettings    HighpassModulationDestination;                     // 0x0020(0x0010)(Edit, BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 	struct FSoundModulationDestinationSettings    LowpassModulationDestination;                      // 0x0030(0x0010)(Edit, BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSoundModulationDefaultSettings;
 
 // ScriptStruct Engine.SoundModulationDefaultRoutingSettings
 // 0x0008 (0x0048 - 0x0040)
@@ -6970,6 +7106,7 @@ public:
 	EModulationRouting                            LowpassRouting;                                    // 0x0043(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_44[0x4];                                       // 0x0044(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSoundModulationDefaultRoutingSettings;
 
 // ScriptStruct Engine.AttenuationSubmixSendSettings
 // 0x00A8 (0x00A8 - 0x0000)
@@ -6986,6 +7123,7 @@ public:
 	float                                         ManualSubmixSendLevel;                             // 0x001C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FRuntimeFloatCurve                     CustomSubmixSendCurve;                             // 0x0020(0x0088)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAttenuationSubmixSendSettings;
 
 // ScriptStruct Engine.SoundAttenuationSettings
 // 0x02F0 (0x03A0 - 0x00B0)
@@ -7051,6 +7189,7 @@ public:
 	struct FRuntimeFloatCurve                     CustomPriorityAttenuationCurve;                    // 0x02E8(0x0088)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 	struct FSoundAttenuationPluginSettings        PluginSettings;                                    // 0x0370(0x0030)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSoundAttenuationSettings;
 
 // ScriptStruct Engine.AnimBlueprintDebugData
 // 0x0001 (0x0001 - 0x0000)
@@ -7059,6 +7198,7 @@ struct FAnimBlueprintDebugData final
 public:
 	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimBlueprintDebugData;
 
 // ScriptStruct Engine.MaterialParameterInfo
 // 0x0010 (0x0010 - 0x0000)
@@ -7070,6 +7210,7 @@ public:
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         Index;                                             // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMaterialParameterInfo;
 
 // ScriptStruct Engine.ScalarParameterValue
 // 0x0024 (0x0024 - 0x0000)
@@ -7080,6 +7221,7 @@ public:
 	float                                         ParameterValue;                                    // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FGuid                                  ExpressionGUID;                                    // 0x0014(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FScalarParameterValue;
 
 // ScriptStruct Engine.BuildPromotionNewProjectSettings
 // 0x0020 (0x0020 - 0x0000)
@@ -7089,6 +7231,7 @@ public:
 	struct FDirectoryPath                         NewProjectFolderOverride;                          // 0x0000(0x0010)(Edit, NativeAccessSpecifierPublic)
 	class FString                                 NewProjectNameOverride;                            // 0x0010(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBuildPromotionNewProjectSettings;
 
 // ScriptStruct Engine.NameMapping
 // 0x0010 (0x0010 - 0x0000)
@@ -7098,6 +7241,7 @@ public:
 	class FName                                   NodeName;                                          // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   BoneName;                                          // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNameMapping;
 
 // ScriptStruct Engine.ParameterChannelNames
 // 0x0060 (0x0060 - 0x0000)
@@ -7109,6 +7253,7 @@ public:
 	class FText                                   B;                                                 // 0x0030(0x0018)(Edit, NativeAccessSpecifierPublic)
 	class FText                                   A;                                                 // 0x0048(0x0018)(Edit, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FParameterChannelNames;
 
 // ScriptStruct Engine.AnimNotifyQueue
 // 0x0070 (0x0070 - 0x0000)
@@ -7119,6 +7264,7 @@ public:
 	TArray<struct FAnimNotifyEventReference>      AnimNotifies;                                      // 0x0010(0x0010)(ZeroConstructor, Transient, NativeAccessSpecifierPublic)
 	TMap<class FName, struct FAnimNotifyArray>    UnfilteredMontageAnimNotifies;                     // 0x0020(0x0050)(Transient, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimNotifyQueue;
 
 // ScriptStruct Engine.PerPlatformFloat
 // 0x0004 (0x0004 - 0x0000)
@@ -7127,6 +7273,7 @@ struct FPerPlatformFloat final
 public:
 	float                                         Default;                                           // 0x0000(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPerPlatformFloat;
 
 // ScriptStruct Engine.MarkerSyncAnimPosition
 // 0x0014 (0x0014 - 0x0000)
@@ -7137,6 +7284,7 @@ public:
 	class FName                                   NextMarkerName;                                    // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         PositionBetweenMarkers;                            // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMarkerSyncAnimPosition;
 
 // ScriptStruct Engine.BlendSampleData
 // 0x0040 (0x0040 - 0x0000)
@@ -7152,6 +7300,7 @@ public:
 	float                                         SamplePlayRate;                                    // 0x001C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_20[0x20];                                      // 0x0020(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBlendSampleData;
 
 // ScriptStruct Engine.CollisionResponse
 // 0x0030 (0x0030 - 0x0000)
@@ -7161,6 +7310,7 @@ public:
 	struct FCollisionResponseContainer            ResponseToChannels;                                // 0x0000(0x0020)(Transient, NoDestructor, NativeAccessSpecifierPrivate)
 	TArray<struct FResponseChannel>               ResponseArray;                                     // 0x0020(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FCollisionResponse;
 
 // ScriptStruct Engine.BodyInstance
 // 0x0140 (0x0158 - 0x0018)
@@ -7215,6 +7365,7 @@ public:
 	float                                         PhysicsBlendWeight;                                // 0x011C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_120[0x38];                                     // 0x0120(0x0038)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBodyInstance;
 
 // ScriptStruct Engine.MeshUVChannelInfo
 // 0x0014 (0x0014 - 0x0000)
@@ -7226,6 +7377,7 @@ public:
 	uint8                                         Pad_2[0x2];                                        // 0x0002(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         LocalUVDensities[0x4];                             // 0x0004(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMeshUVChannelInfo;
 
 // ScriptStruct Engine.StaticMaterial
 // 0x0030 (0x0030 - 0x0000)
@@ -7238,6 +7390,7 @@ public:
 	struct FMeshUVChannelInfo                     UVChannelData;                                     // 0x0018(0x0014)(Edit, BlueprintVisible, BlueprintReadOnly, EditConst, NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FStaticMaterial;
 
 // ScriptStruct Engine.DialogueContext
 // 0x0018 (0x0018 - 0x0000)
@@ -7247,6 +7400,7 @@ public:
 	class UDialogueVoice*                         Speaker;                                           // 0x0000(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<class UDialogueVoice*>                 Targets;                                           // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDialogueContext;
 
 // ScriptStruct Engine.DialogueContextMapping
 // 0x0038 (0x0038 - 0x0000)
@@ -7258,6 +7412,7 @@ public:
 	class FString                                 LocalizationKeyFormat;                             // 0x0020(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UDialogueSoundWaveProxy*                Proxy;                                             // 0x0030(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDialogueContextMapping;
 
 // ScriptStruct Engine.SkeletalMeshClothBuildParams
 // 0x0058 (0x0058 - 0x0000)
@@ -7275,6 +7430,7 @@ public:
 	uint8                                         Pad_29[0x7];                                       // 0x0029(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	TSoftObjectPtr<class UPhysicsAsset>           PhysicsAsset;                                      // 0x0030(0x0028)(Edit, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSkeletalMeshClothBuildParams;
 
 // ScriptStruct Engine.LightingChannels
 // 0x0001 (0x0001 - 0x0000)
@@ -7285,6 +7441,7 @@ public:
 	uint8                                         bChannel1 : 1;                                     // 0x0000(0x0001)(BitIndex: 0x01, PropSize: 0x0001 (Edit, BlueprintVisible, BlueprintReadOnly, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         bChannel2 : 1;                                     // 0x0000(0x0001)(BitIndex: 0x02, PropSize: 0x0001 (Edit, BlueprintVisible, BlueprintReadOnly, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 };
+DUMPER7_ASSERTS_FLightingChannels;
 
 // ScriptStruct Engine.MeshBuildSettings
 // 0x0030 (0x0030 - 0x0000)
@@ -7313,6 +7470,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UStaticMesh*                            DistanceFieldReplacementMesh;                      // 0x0028(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMeshBuildSettings;
 
 // ScriptStruct Engine.InputRange
 // 0x0008 (0x0008 - 0x0000)
@@ -7322,6 +7480,7 @@ public:
 	float                                         Min;                                               // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Max;                                               // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FInputRange;
 
 // ScriptStruct Engine.InputScaleBiasClamp
 // 0x0030 (0x0030 - 0x0000)
@@ -7342,6 +7501,7 @@ public:
 	float                                         InterpSpeedDecreasing;                             // 0x0028(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FInputScaleBiasClamp;
 
 // ScriptStruct Engine.NetDriverDefinition
 // 0x0018 (0x0018 - 0x0000)
@@ -7352,6 +7512,7 @@ public:
 	class FName                                   DriverClassName;                                   // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   DriverClassNameFallback;                           // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNetDriverDefinition;
 
 // ScriptStruct Engine.ActorTickFunction
 // 0x0008 (0x0030 - 0x0028)
@@ -7360,6 +7521,7 @@ struct FActorTickFunction final : public FTickFunction
 public:
 	uint8                                         Pad_28[0x8];                                       // 0x0028(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FActorTickFunction;
 
 // ScriptStruct Engine.PurchaseInfo
 // 0x0040 (0x0040 - 0x0000)
@@ -7371,6 +7533,7 @@ public:
 	class FString                                 DisplayDescription;                                // 0x0020(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 DisplayPrice;                                      // 0x0030(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPurchaseInfo;
 
 // ScriptStruct Engine.PoseSnapshot
 // 0x0038 (0x0038 - 0x0000)
@@ -7384,6 +7547,7 @@ public:
 	bool                                          bIsValid;                                          // 0x0030(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_31[0x7];                                       // 0x0031(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPoseSnapshot;
 
 // ScriptStruct Engine.FontParameterValue
 // 0x0030 (0x0030 - 0x0000)
@@ -7396,6 +7560,7 @@ public:
 	struct FGuid                                  ExpressionGUID;                                    // 0x001C(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FFontParameterValue;
 
 // ScriptStruct Engine.InputAxisKeyMapping
 // 0x0028 (0x0028 - 0x0000)
@@ -7407,6 +7572,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FKey                                   Key;                                               // 0x0010(0x0018)(Edit, BlueprintVisible, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FInputAxisKeyMapping;
 
 // ScriptStruct Engine.CameraShakeStopParams
 // 0x0001 (0x0001 - 0x0000)
@@ -7415,6 +7581,7 @@ struct FCameraShakeStopParams final
 public:
 	bool                                          bImmediately;                                      // 0x0000(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCameraShakeStopParams;
 
 // ScriptStruct Engine.InputActionKeyMapping
 // 0x0028 (0x0028 - 0x0000)
@@ -7429,6 +7596,7 @@ public:
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FKey                                   Key;                                               // 0x0010(0x0018)(Edit, BlueprintVisible, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FInputActionKeyMapping;
 
 // ScriptStruct Engine.AssetManagerSearchRules
 // 0x0050 (0x0050 - 0x0000)
@@ -7445,6 +7613,7 @@ public:
 	bool                                          bSkipManagerIncludeCheck;                          // 0x003B(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_3C[0x14];                                      // 0x003C(0x0014)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAssetManagerSearchRules;
 
 // ScriptStruct Engine.TableRowBase
 // 0x0008 (0x0008 - 0x0000)
@@ -7453,6 +7622,7 @@ struct alignas(0x08) FTableRowBase
 public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTableRowBase;
 
 // ScriptStruct Engine.LocationBoneSocketInfo
 // 0x0014 (0x0014 - 0x0000)
@@ -7462,6 +7632,7 @@ public:
 	class FName                                   BoneSocketName;                                    // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                Offset;                                            // 0x0008(0x000C)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLocationBoneSocketInfo;
 
 // ScriptStruct Engine.UniqueNetIdRepl
 // 0x0027 (0x0028 - 0x0001)
@@ -7471,6 +7642,7 @@ public:
 	uint8                                         Pad_1[0x17];                                       // 0x0001(0x0017)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<uint8>                                 ReplicationBytes;                                  // 0x0018(0x0010)(ZeroConstructor, Transient, Protected, NativeAccessSpecifierProtected)
 };
+DUMPER7_ASSERTS_FUniqueNetIdRepl;
 
 // ScriptStruct Engine.FontImportOptionsData
 // 0x00B0 (0x00B0 - 0x0000)
@@ -7514,6 +7686,7 @@ public:
 	float                                         DistanceFieldScanRadiusScale;                      // 0x00A8(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_AC[0x4];                                       // 0x00AC(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FFontImportOptionsData;
 
 // ScriptStruct Engine.BeamTargetData
 // 0x000C (0x000C - 0x0000)
@@ -7523,6 +7696,7 @@ public:
 	class FName                                   TargetName;                                        // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         TargetPercentage;                                  // 0x0008(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBeamTargetData;
 
 // ScriptStruct Engine.ForceFeedbackParameters
 // 0x000C (0x000C - 0x0000)
@@ -7535,6 +7709,7 @@ public:
 	bool                                          bPlayWhilePaused;                                  // 0x000A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_B[0x1];                                        // 0x000B(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FForceFeedbackParameters;
 
 // ScriptStruct Engine.VirtualBone
 // 0x0018 (0x0018 - 0x0000)
@@ -7545,6 +7720,7 @@ public:
 	class FName                                   TargetBoneName;                                    // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   VirtualBoneName;                                   // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVirtualBone;
 
 // ScriptStruct Engine.ViewTargetTransitionParams
 // 0x0010 (0x0010 - 0x0000)
@@ -7558,6 +7734,7 @@ public:
 	uint8                                         bLockOutgoing : 1;                                 // 0x000C(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Edit, BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FViewTargetTransitionParams;
 
 // ScriptStruct Engine.LaunchOnTestSettings
 // 0x0020 (0x0020 - 0x0000)
@@ -7567,6 +7744,7 @@ public:
 	struct FFilePath                              LaunchOnTestmap;                                   // 0x0000(0x0010)(Edit, Config, NativeAccessSpecifierPublic)
 	class FString                                 DeviceID;                                          // 0x0010(0x0010)(Edit, ZeroConstructor, Config, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLaunchOnTestSettings;
 
 // ScriptStruct Engine.QuartzPulseOverrideStep
 // 0x0008 (0x0008 - 0x0000)
@@ -7577,6 +7755,7 @@ public:
 	EQuartzCommandQuantization                    PulseDuration;                                     // 0x0004(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FQuartzPulseOverrideStep;
 
 // ScriptStruct Engine.UpdateLevelStreamingLevelStatus
 // 0x0010 (0x0010 - 0x0000)
@@ -7590,6 +7769,7 @@ public:
 	bool                                          bNewShouldBlockOnLoad;                             // 0x000E(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_F[0x1];                                        // 0x000F(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FUpdateLevelStreamingLevelStatus;
 
 // ScriptStruct Engine.UpdateLevelVisibilityLevelInfo
 // 0x0014 (0x0014 - 0x0000)
@@ -7601,6 +7781,7 @@ public:
 	uint8                                         bIsVisible : 1;                                    // 0x0010(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FUpdateLevelVisibilityLevelInfo;
 
 // ScriptStruct Engine.KSphylElem
 // 0x0020 (0x0050 - 0x0030)
@@ -7612,6 +7793,7 @@ public:
 	float                                         Radius;                                            // 0x0048(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Length;                                            // 0x004C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FKSphylElem;
 
 // ScriptStruct Engine.FindFloorResult
 // 0x0094 (0x0094 - 0x0000)
@@ -7626,6 +7808,7 @@ public:
 	float                                         LineDist;                                          // 0x0008(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, DisableEditOnTemplate, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FHitResult                             HitResult;                                         // 0x000C(0x0088)(Edit, BlueprintVisible, BlueprintReadOnly, DisableEditOnTemplate, EditConst, IsPlainOldData, NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FFindFloorResult;
 
 // ScriptStruct Engine.ActiveForceFeedbackEffect
 // 0x0018 (0x0018 - 0x0000)
@@ -7635,6 +7818,7 @@ public:
 	class UForceFeedbackEffect*                   ForceFeedbackEffect;                               // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_8[0x10];                                       // 0x0008(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FActiveForceFeedbackEffect;
 
 // ScriptStruct Engine.InterpLookupPoint
 // 0x000C (0x000C - 0x0000)
@@ -7644,6 +7828,7 @@ public:
 	class FName                                   GroupName;                                         // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Time;                                              // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FInterpLookupPoint;
 
 // ScriptStruct Engine.InterpLookupTrack
 // 0x0010 (0x0010 - 0x0000)
@@ -7652,6 +7837,7 @@ struct FInterpLookupTrack final
 public:
 	TArray<struct FInterpLookupPoint>             Points;                                            // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FInterpLookupTrack;
 
 // ScriptStruct Engine.LightmassPrimitiveSettings
 // 0x0018 (0x0018 - 0x0000)
@@ -7669,6 +7855,7 @@ public:
 	float                                         DiffuseBoost;                                      // 0x0010(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         FullyOccludedSamplesFraction;                      // 0x0014(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLightmassPrimitiveSettings;
 
 // ScriptStruct Engine.AudioEffectParameters
 // 0x0008 (0x0008 - 0x0000)
@@ -7677,6 +7864,7 @@ struct alignas(0x08) FAudioEffectParameters
 public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAudioEffectParameters;
 
 // ScriptStruct Engine.StreamingTextureBuildInfo
 // 0x000C (0x000C - 0x0000)
@@ -7687,6 +7875,7 @@ public:
 	int32                                         TextureLevelIndex;                                 // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         TexelFactor;                                       // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStreamingTextureBuildInfo;
 
 // ScriptStruct Engine.StaticMeshComponentLODInfo
 // 0x0090 (0x0090 - 0x0000)
@@ -7695,6 +7884,7 @@ struct alignas(0x08) FStaticMeshComponentLODInfo final
 public:
 	uint8                                         Pad_0[0x90];                                       // 0x0000(0x0090)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FStaticMeshComponentLODInfo;
 
 // ScriptStruct Engine.PacketSimulationSettings
 // 0x0034 (0x0034 - 0x0000)
@@ -7715,6 +7905,7 @@ public:
 	int32                                         PktIncomingLoss;                                   // 0x002C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         PktJitter;                                         // 0x0030(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPacketSimulationSettings;
 
 // ScriptStruct Engine.PoseLinkBase
 // 0x0010 (0x0010 - 0x0000)
@@ -7724,12 +7915,14 @@ public:
 	int32                                         LinkID;                                            // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_4[0xC];                                        // 0x0004(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPoseLinkBase;
 
 // ScriptStruct Engine.PoseLink
 // 0x0000 (0x0010 - 0x0010)
 struct FPoseLink final : public FPoseLinkBase
 {
 };
+DUMPER7_ASSERTS_FPoseLink;
 
 // ScriptStruct Engine.AnimNode_Base
 // 0x0010 (0x0010 - 0x0000)
@@ -7738,6 +7931,7 @@ struct alignas(0x08) FAnimNode_Base
 public:
 	uint8                                         Pad_0[0x10];                                       // 0x0000(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_Base;
 
 // ScriptStruct Engine.AnimNode_CustomProperty
 // 0x0048 (0x0058 - 0x0010)
@@ -7749,6 +7943,7 @@ public:
 	class UObject*                                TargetInstance;                                    // 0x0030(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 	uint8                                         Pad_38[0x20];                                      // 0x0038(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_CustomProperty;
 
 // ScriptStruct Engine.AnimNode_LinkedAnimGraph
 // 0x0048 (0x00A0 - 0x0058)
@@ -7764,6 +7959,7 @@ public:
 	uint8                                         bPropagateNotifiesToLinkedInstances : 1;           // 0x009C(0x0001)(BitIndex: 0x01, PropSize: 0x0001 (Edit, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_9D[0x3];                                       // 0x009D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_LinkedAnimGraph;
 
 // ScriptStruct Engine.InstancedStaticMeshMappingInfo
 // 0x0008 (0x0008 - 0x0000)
@@ -7772,6 +7968,7 @@ struct alignas(0x08) FInstancedStaticMeshMappingInfo final
 public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FInstancedStaticMeshMappingInfo;
 
 // ScriptStruct Engine.SingleAnimationPlayData
 // 0x0018 (0x0018 - 0x0000)
@@ -7786,6 +7983,7 @@ public:
 	float                                         SavedPlayRate;                                     // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSingleAnimationPlayData;
 
 // ScriptStruct Engine.SkeletalMaterial
 // 0x0028 (0x0028 - 0x0000)
@@ -7797,6 +7995,7 @@ public:
 	struct FMeshUVChannelInfo                     UVChannelData;                                     // 0x0010(0x0014)(Edit, BlueprintVisible, BlueprintReadOnly, EditConst, NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSkeletalMaterial;
 
 // ScriptStruct Engine.SoundDebugEntry
 // 0x0020 (0x0020 - 0x0000)
@@ -7806,6 +8005,7 @@ public:
 	class FName                                   DebugName;                                         // 0x0000(0x0008)(Edit, ZeroConstructor, Config, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FSoftObjectPath                        Sound;                                             // 0x0008(0x0018)(Edit, ZeroConstructor, Config, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSoundDebugEntry;
 
 // ScriptStruct Engine.KeyHandleLookupTable
 // 0x0060 (0x0060 - 0x0000)
@@ -7814,6 +8014,7 @@ struct alignas(0x08) FKeyHandleLookupTable
 public:
 	uint8                                         Pad_0[0x60];                                       // 0x0000(0x0060)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FKeyHandleLookupTable;
 
 // ScriptStruct Engine.StateMachineDebugData
 // 0x00B0 (0x00B0 - 0x0000)
@@ -7822,6 +8023,7 @@ struct alignas(0x08) FStateMachineDebugData final
 public:
 	uint8                                         Pad_0[0xB0];                                       // 0x0000(0x00B0)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FStateMachineDebugData;
 
 // ScriptStruct Engine.CollectionParameterBase
 // 0x0018 (0x0018 - 0x0000)
@@ -7831,6 +8033,7 @@ public:
 	class FName                                   ParameterName;                                     // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FGuid                                  ID;                                                // 0x0008(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCollectionParameterBase;
 
 // ScriptStruct Engine.CollectionScalarParameter
 // 0x0004 (0x001C - 0x0018)
@@ -7839,6 +8042,7 @@ struct FCollectionScalarParameter final : public FCollectionParameterBase
 public:
 	float                                         DefaultValue;                                      // 0x0018(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCollectionScalarParameter;
 
 // ScriptStruct Engine.AnimSyncMarker
 // 0x000C (0x000C - 0x0000)
@@ -7848,6 +8052,7 @@ public:
 	class FName                                   MarkerName;                                        // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Time;                                              // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimSyncMarker;
 
 // ScriptStruct Engine.AnimNode_AssetPlayerBase
 // 0x0028 (0x0038 - 0x0010)
@@ -7863,6 +8068,7 @@ public:
 	float                                         InternalTimeAccumulator;                           // 0x0020(0x0004)(BlueprintVisible, ZeroConstructor, Transient, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 	uint8                                         Pad_24[0x14];                                      // 0x0024(0x0014)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_AssetPlayerBase;
 
 // ScriptStruct Engine.Redirector
 // 0x0010 (0x0010 - 0x0000)
@@ -7872,6 +8078,7 @@ public:
 	class FName                                   OldName;                                           // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   NewName;                                           // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRedirector;
 
 // ScriptStruct Engine.AlphaBlend
 // 0x0030 (0x0030 - 0x0000)
@@ -7884,6 +8091,7 @@ public:
 	EAlphaBlendOption                             BlendOption;                                       // 0x0024(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_25[0xB];                                       // 0x0025(0x000B)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAlphaBlend;
 
 // ScriptStruct Engine.InputAlphaBoolBlend
 // 0x0048 (0x0048 - 0x0000)
@@ -7898,6 +8106,7 @@ public:
 	class UCurveFloat*                            CustomCurve;                                       // 0x0010(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FAlphaBlend                            AlphaBlend;                                        // 0x0018(0x0030)(Transient, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FInputAlphaBoolBlend;
 
 // ScriptStruct Engine.ComponentKey
 // 0x0020 (0x0020 - 0x0000)
@@ -7908,6 +8117,7 @@ public:
 	class FName                                   SCSVariableName;                                   // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	struct FGuid                                  AssociatedGuid;                                    // 0x0010(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FComponentKey;
 
 // ScriptStruct Engine.BlueprintComponentChangedPropertyInfo
 // 0x0018 (0x0018 - 0x0000)
@@ -7919,6 +8129,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UStruct*                                PropertyScope;                                     // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBlueprintComponentChangedPropertyInfo;
 
 // ScriptStruct Engine.BlueprintCookedComponentInstancingData
 // 0x0048 (0x0048 - 0x0000)
@@ -7930,6 +8141,7 @@ public:
 	bool                                          bHasValidCookedData;                               // 0x0021(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_22[0x26];                                      // 0x0022(0x0026)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBlueprintCookedComponentInstancingData;
 
 // ScriptStruct Engine.ComponentOverrideRecord
 // 0x0078 (0x0078 - 0x0000)
@@ -7941,6 +8153,7 @@ public:
 	struct FComponentKey                          ComponentKey;                                      // 0x0010(0x0020)(NoDestructor, NativeAccessSpecifierPublic)
 	struct FBlueprintCookedComponentInstancingData CookedComponentInstancingData;                    // 0x0030(0x0048)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FComponentOverrideRecord;
 
 // ScriptStruct Engine.InputScaleBias
 // 0x0008 (0x0008 - 0x0000)
@@ -7950,6 +8163,7 @@ public:
 	float                                         Scale;                                             // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Bias;                                              // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FInputScaleBias;
 
 // ScriptStruct Engine.NamedNetDriver
 // 0x0010 (0x0010 - 0x0000)
@@ -7959,6 +8173,7 @@ public:
 	class UNetDriver*                             NetDriver;                                         // 0x0000(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_8[0x8];                                        // 0x0008(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FNamedNetDriver;
 
 // ScriptStruct Engine.BoneReference
 // 0x0010 (0x0010 - 0x0000)
@@ -7968,6 +8183,7 @@ public:
 	class FName                                   BoneName;                                          // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_8[0x8];                                        // 0x0008(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBoneReference;
 
 // ScriptStruct Engine.ConstraintBaseParams
 // 0x0014 (0x0014 - 0x0000)
@@ -7981,6 +8197,7 @@ public:
 	uint8                                         bSoftConstraint : 1;                               // 0x0010(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Edit, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FConstraintBaseParams;
 
 // ScriptStruct Engine.ConeConstraint
 // 0x000C (0x0020 - 0x0014)
@@ -7993,12 +8210,14 @@ public:
 	EAngularConstraintMotion                      Swing2Motion;                                      // 0x001D(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1E[0x2];                                       // 0x001E(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FConeConstraint;
 
 // ScriptStruct Engine.ComponentSpacePoseLink
 // 0x0000 (0x0010 - 0x0010)
 struct FComponentSpacePoseLink final : public FPoseLinkBase
 {
 };
+DUMPER7_ASSERTS_FComponentSpacePoseLink;
 
 // ScriptStruct Engine.ConstraintDrive
 // 0x0010 (0x0010 - 0x0000)
@@ -8012,6 +8231,7 @@ public:
 	uint8                                         bEnableVelocityDrive : 1;                          // 0x000C(0x0001)(BitIndex: 0x01, PropSize: 0x0001 (Edit, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FConstraintDrive;
 
 // ScriptStruct Engine.LinearDriveConstraint
 // 0x004C (0x004C - 0x0000)
@@ -8026,6 +8246,7 @@ public:
 	uint8                                         bEnablePositionDrive : 1;                          // 0x0048(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Edit, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_49[0x3];                                       // 0x0049(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FLinearDriveConstraint;
 
 // ScriptStruct Engine.PerPlatformInt
 // 0x0004 (0x0004 - 0x0000)
@@ -8034,6 +8255,7 @@ struct FPerPlatformInt final
 public:
 	int32                                         Default;                                           // 0x0000(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPerPlatformInt;
 
 // ScriptStruct Engine.InterpolationParameter
 // 0x0008 (0x0008 - 0x0000)
@@ -8044,6 +8266,7 @@ public:
 	EFilterInterpolationType                      InterpolationType;                                 // 0x0004(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FInterpolationParameter;
 
 // ScriptStruct Engine.NamedColor
 // 0x000C (0x000C - 0x0000)
@@ -8053,6 +8276,7 @@ public:
 	struct FColor                                 value;                                             // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   Name;                                              // 0x0004(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNamedColor;
 
 // ScriptStruct Engine.AnimTickRecord
 // 0x0048 (0x0048 - 0x0000)
@@ -8062,6 +8286,7 @@ public:
 	class UAnimationAsset*                        SourceAsset;                                       // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_8[0x40];                                       // 0x0008(0x0040)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimTickRecord;
 
 // ScriptStruct Engine.PerPlatformBool
 // 0x0001 (0x0001 - 0x0000)
@@ -8070,6 +8295,7 @@ struct FPerPlatformBool final
 public:
 	bool                                          Default;                                           // 0x0000(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPerPlatformBool;
 
 // ScriptStruct Engine.MeshInstancingSettings
 // 0x0018 (0x0018 - 0x0000)
@@ -8084,6 +8310,7 @@ public:
 	uint8                                         Pad_F[0x1];                                        // 0x000F(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
 	TSubclassOf<class UInstancedStaticMeshComponent> ISMComponentToUse;                              // 0x0010(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMeshInstancingSettings;
 
 // ScriptStruct Engine.BranchFilter
 // 0x000C (0x000C - 0x0000)
@@ -8093,6 +8320,7 @@ public:
 	class FName                                   BoneName;                                          // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         BlendDepth;                                        // 0x0008(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBranchFilter;
 
 // ScriptStruct Engine.InputBlendPose
 // 0x0010 (0x0010 - 0x0000)
@@ -8101,6 +8329,7 @@ struct FInputBlendPose final
 public:
 	TArray<struct FBranchFilter>                  BranchFilters;                                     // 0x0000(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FInputBlendPose;
 
 // ScriptStruct Engine.DrawToRenderTargetContext
 // 0x0010 (0x0010 - 0x0000)
@@ -8110,6 +8339,7 @@ public:
 	class UTextureRenderTarget2D*                 RenderTarget;                                      // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_8[0x8];                                        // 0x0008(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FDrawToRenderTargetContext;
 
 // ScriptStruct Engine.AnimNode_Root
 // 0x0020 (0x0030 - 0x0010)
@@ -8120,6 +8350,7 @@ public:
 	class FName                                   Name;                                              // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   Group;                                             // 0x0028(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimNode_Root;
 
 // ScriptStruct Engine.CurveAtlasColorAdjustments
 // 0x0024 (0x0024 - 0x0000)
@@ -8137,6 +8368,7 @@ public:
 	float                                         AdjustMinAlpha;                                    // 0x001C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         AdjustMaxAlpha;                                    // 0x0020(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCurveAtlasColorAdjustments;
 
 // ScriptStruct Engine.AnimCurveParam
 // 0x000C (0x000C - 0x0000)
@@ -8146,6 +8378,7 @@ public:
 	class FName                                   Name;                                              // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_8[0x4];                                        // 0x0008(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimCurveParam;
 
 // ScriptStruct Engine.PredictProjectilePathPointData
 // 0x001C (0x001C - 0x0000)
@@ -8156,6 +8389,7 @@ public:
 	struct FVector                                Velocity;                                          // 0x000C(0x000C)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Time;                                              // 0x0018(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPredictProjectilePathPointData;
 
 // ScriptStruct Engine.PredictProjectilePathResult
 // 0x00B8 (0x00B8 - 0x0000)
@@ -8167,6 +8401,7 @@ public:
 	struct FHitResult                             HitResult;                                         // 0x002C(0x0088)(Edit, BlueprintVisible, BlueprintReadOnly, EditConst, IsPlainOldData, NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 	uint8                                         Pad_B4[0x4];                                       // 0x00B4(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPredictProjectilePathResult;
 
 // ScriptStruct Engine.RootMotionSourceSettings
 // 0x0001 (0x0001 - 0x0000)
@@ -8175,6 +8410,7 @@ struct FRootMotionSourceSettings final
 public:
 	uint8                                         Flags;                                             // 0x0000(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRootMotionSourceSettings;
 
 // ScriptStruct Engine.RootMotionSourceGroup
 // 0x0038 (0x0038 - 0x0000)
@@ -8190,6 +8426,7 @@ public:
 	uint8                                         Pad_2A[0x2];                                       // 0x002A(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FVector_NetQuantize10                  LastPreAdditiveVelocity;                           // 0x002C(0x000C)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRootMotionSourceGroup;
 
 // ScriptStruct Engine.RepRootMotionMontage
 // 0x0098 (0x0098 - 0x0000)
@@ -8212,6 +8449,7 @@ public:
 	struct FVector_NetQuantize10                  Acceleration;                                      // 0x0080(0x000C)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector_NetQuantize10                  LinearVelocity;                                    // 0x008C(0x000C)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRepRootMotionMontage;
 
 // ScriptStruct Engine.SimulatedRootMotionReplicatedMove
 // 0x00A0 (0x00A0 - 0x0000)
@@ -8222,6 +8460,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FRepRootMotionMontage                  RootMotion;                                        // 0x0008(0x0098)(ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSimulatedRootMotionReplicatedMove;
 
 // ScriptStruct Engine.KSphereElem
 // 0x0010 (0x0040 - 0x0030)
@@ -8231,6 +8470,7 @@ public:
 	struct FVector                                Center;                                            // 0x0030(0x000C)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Radius;                                            // 0x003C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FKSphereElem;
 
 // ScriptStruct Engine.KBoxElem
 // 0x0028 (0x0058 - 0x0030)
@@ -8244,6 +8484,7 @@ public:
 	float                                         Z;                                                 // 0x0050(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_54[0x4];                                       // 0x0054(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FKBoxElem;
 
 // ScriptStruct Engine.KConvexElem
 // 0x0080 (0x00B0 - 0x0030)
@@ -8257,6 +8498,7 @@ public:
 	struct FTransform                             Transform;                                         // 0x0070(0x0030)(IsPlainOldData, NoDestructor, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_A0[0x10];                                      // 0x00A0(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FKConvexElem;
 
 // ScriptStruct Engine.KTaperedCapsuleElem
 // 0x0028 (0x0058 - 0x0030)
@@ -8270,6 +8512,7 @@ public:
 	float                                         Length;                                            // 0x0050(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_54[0x4];                                       // 0x0054(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FKTaperedCapsuleElem;
 
 // ScriptStruct Engine.KAggregateGeom
 // 0x0058 (0x0058 - 0x0000)
@@ -8283,6 +8526,7 @@ public:
 	TArray<struct FKTaperedCapsuleElem>           TaperedCapsuleElems;                               // 0x0040(0x0010)(Edit, EditFixedSize, ZeroConstructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_50[0x8];                                       // 0x0050(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FKAggregateGeom;
 
 // ScriptStruct Engine.BlendProfileBoneEntry
 // 0x0014 (0x0014 - 0x0000)
@@ -8292,6 +8536,7 @@ public:
 	struct FBoneReference                         BoneReference;                                     // 0x0000(0x0010)(Edit, NoDestructor, NativeAccessSpecifierPublic)
 	float                                         BlendScale;                                        // 0x0010(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBlendProfileBoneEntry;
 
 // ScriptStruct Engine.MaterialEditorPromotionSettings
 // 0x0030 (0x0030 - 0x0000)
@@ -8302,6 +8547,7 @@ public:
 	struct FFilePath                              DefaultDiffuseTexture;                             // 0x0010(0x0010)(Edit, NativeAccessSpecifierPublic)
 	struct FFilePath                              DefaultNormalTexture;                              // 0x0020(0x0010)(Edit, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMaterialEditorPromotionSettings;
 
 // ScriptStruct Engine.BuildPromotionOpenAssetSettings
 // 0x0060 (0x0060 - 0x0000)
@@ -8315,6 +8561,7 @@ public:
 	struct FFilePath                              StaticMeshAsset;                                   // 0x0040(0x0010)(Edit, Config, NativeAccessSpecifierPublic)
 	struct FFilePath                              TextureAsset;                                      // 0x0050(0x0010)(Edit, Config, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBuildPromotionOpenAssetSettings;
 
 // ScriptStruct Engine.AnimationGroupReference
 // 0x000C (0x000C - 0x0000)
@@ -8326,6 +8573,7 @@ public:
 	EAnimSyncGroupScope                           GroupScope;                                        // 0x0009(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_A[0x2];                                        // 0x000A(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimationGroupReference;
 
 // ScriptStruct Engine.RootMotionMovementParams
 // 0x0040 (0x0040 - 0x0000)
@@ -8338,6 +8586,7 @@ public:
 	uint8                                         Pad_8[0x8];                                        // 0x0008(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FTransform                             RootMotionTransform;                               // 0x0010(0x0030)(IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRootMotionMovementParams;
 
 // ScriptStruct Engine.BandwidthTestGenerator
 // 0x0020 (0x0020 - 0x0000)
@@ -8347,6 +8596,7 @@ public:
 	TArray<struct FBandwidthTestItem>             ReplicatedBuffers;                                 // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_10[0x10];                                      // 0x0010(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBandwidthTestGenerator;
 
 // ScriptStruct Engine.AnimGroupInstance
 // 0x0070 (0x0070 - 0x0000)
@@ -8355,6 +8605,7 @@ struct alignas(0x08) FAnimGroupInstance final
 public:
 	uint8                                         Pad_0[0x70];                                       // 0x0000(0x0070)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimGroupInstance;
 
 // ScriptStruct Engine.EditedDocumentInfo
 // 0x0030 (0x0030 - 0x0000)
@@ -8367,6 +8618,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UObject*                                EditedObject;                                      // 0x0028(0x0008)(ZeroConstructor, Deprecated, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FEditedDocumentInfo;
 
 // ScriptStruct Engine.ComponentSync
 // 0x000C (0x000C - 0x0000)
@@ -8377,6 +8629,7 @@ public:
 	ESyncOption                                   SyncOption;                                        // 0x0008(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FComponentSync;
 
 // ScriptStruct Engine.BlendFilter
 // 0x0078 (0x0078 - 0x0000)
@@ -8385,6 +8638,7 @@ struct alignas(0x08) FBlendFilter final
 public:
 	uint8                                         Pad_0[0x78];                                       // 0x0000(0x0078)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBlendFilter;
 
 // ScriptStruct Engine.EditorElement
 // 0x0018 (0x0018 - 0x0000)
@@ -8394,6 +8648,7 @@ public:
 	int32                                         Indices[0x3];                                      // 0x0000(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Weights[0x3];                                      // 0x000C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FEditorElement;
 
 // ScriptStruct Engine.GridBlendSample
 // 0x001C (0x001C - 0x0000)
@@ -8403,6 +8658,7 @@ public:
 	struct FEditorElement                         GridElement;                                       // 0x0000(0x0018)(NoDestructor, NativeAccessSpecifierPublic)
 	float                                         BlendWeight;                                       // 0x0018(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FGridBlendSample;
 
 // ScriptStruct Engine.AnimationRecordingSettings
 // 0x0014 (0x0014 - 0x0000)
@@ -8422,6 +8678,7 @@ public:
 	bool                                          bRecordCurves;                                     // 0x0010(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimationRecordingSettings;
 
 // ScriptStruct Engine.ComponentSpacePose
 // 0x0020 (0x0020 - 0x0000)
@@ -8431,6 +8688,7 @@ public:
 	TArray<struct FTransform>                     Transforms;                                        // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<class FName>                           names;                                             // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FComponentSpacePose;
 
 // ScriptStruct Engine.ExternalToolDefinition
 // 0x0060 (0x0060 - 0x0000)
@@ -8444,6 +8702,7 @@ public:
 	class FString                                 ScriptExtension;                                   // 0x0040(0x0010)(Edit, ZeroConstructor, Config, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FDirectoryPath                         ScriptDirectory;                                   // 0x0050(0x0010)(Edit, Config, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FExternalToolDefinition;
 
 // ScriptStruct Engine.LocalSpacePose
 // 0x0020 (0x0020 - 0x0000)
@@ -8453,6 +8712,7 @@ public:
 	TArray<struct FTransform>                     Transforms;                                        // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<class FName>                           names;                                             // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLocalSpacePose;
 
 // ScriptStruct Engine.BatchedLine
 // 0x0034 (0x0034 - 0x0000)
@@ -8467,6 +8727,7 @@ public:
 	uint8                                         DepthPriority;                                     // 0x0030(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_31[0x3];                                       // 0x0031(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBatchedLine;
 
 // ScriptStruct Engine.NamedTransform
 // 0x0040 (0x0040 - 0x0000)
@@ -8477,6 +8738,7 @@ public:
 	class FName                                   Name;                                              // 0x0030(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_38[0x8];                                       // 0x0038(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FNamedTransform;
 
 // ScriptStruct Engine.BPComponentClassOverride
 // 0x0010 (0x0010 - 0x0000)
@@ -8486,6 +8748,7 @@ public:
 	class FName                                   ComponentName;                                     // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UClass*                                 ComponentClass;                                    // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBPComponentClassOverride;
 
 // ScriptStruct Engine.MaterialCachedParameterEntry
 // 0x0030 (0x0030 - 0x0000)
@@ -8496,6 +8759,7 @@ public:
 	TArray<struct FMaterialParameterInfo>         ParameterInfos;                                    // 0x0010(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FGuid>                          ExpressionGuids;                                   // 0x0020(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMaterialCachedParameterEntry;
 
 // ScriptStruct Engine.NamedFloat
 // 0x000C (0x000C - 0x0000)
@@ -8505,6 +8769,7 @@ public:
 	float                                         value;                                             // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   Name;                                              // 0x0004(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNamedFloat;
 
 // ScriptStruct Engine.LODMappingData
 // 0x0020 (0x0020 - 0x0000)
@@ -8514,6 +8779,7 @@ public:
 	TArray<int32>                                 Mapping;                                           // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<int32>                                 InverseMapping;                                    // 0x0010(0x0010)(ZeroConstructor, Transient, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLODMappingData;
 
 // ScriptStruct Engine.AnimParentNodeAssetOverride
 // 0x0018 (0x0018 - 0x0000)
@@ -8523,6 +8789,7 @@ public:
 	class UAnimationAsset*                        NewAsset;                                          // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FGuid                                  ParentNodeGuid;                                    // 0x0008(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimParentNodeAssetOverride;
 
 // ScriptStruct Engine.EdGraphTerminalType
 // 0x001C (0x001C - 0x0000)
@@ -8537,6 +8804,7 @@ public:
 	bool                                          bTerminalIsUObjectWrapper;                         // 0x001A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1B[0x1];                                       // 0x001B(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FEdGraphTerminalType;
 
 // ScriptStruct Engine.EdGraphPinType
 // 0x0058 (0x0058 - 0x0000)
@@ -8556,6 +8824,7 @@ public:
 	uint8                                         bIsUObjectWrapper : 1;                             // 0x0055(0x0001)(BitIndex: 0x04, PropSize: 0x0001 (NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_56[0x2];                                       // 0x0056(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FEdGraphPinType;
 
 // ScriptStruct Engine.BPVariableMetaDataEntry
 // 0x0018 (0x0018 - 0x0000)
@@ -8565,6 +8834,7 @@ public:
 	class FName                                   DataKey;                                           // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 DataValue;                                         // 0x0008(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBPVariableMetaDataEntry;
 
 // ScriptStruct Engine.BPVariableDescription
 // 0x00D0 (0x00D0 - 0x0000)
@@ -8583,6 +8853,7 @@ public:
 	TArray<struct FBPVariableMetaDataEntry>       MetaDataArray;                                     // 0x00B0(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPublic)
 	class FString                                 DefaultValue;                                      // 0x00C0(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBPVariableDescription;
 
 // ScriptStruct Engine.AnimGroupInfo
 // 0x0018 (0x0018 - 0x0000)
@@ -8592,6 +8863,7 @@ public:
 	class FName                                   Name;                                              // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FLinearColor                           Color;                                             // 0x0008(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimGroupInfo;
 
 // ScriptStruct Engine.BlendSample
 // 0x0018 (0x0018 - 0x0000)
@@ -8602,6 +8874,7 @@ public:
 	struct FVector                                SampleValue;                                       // 0x0008(0x000C)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         RateScale;                                         // 0x0014(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBlendSample;
 
 // ScriptStruct Engine.BatchedPoint
 // 0x0028 (0x0028 - 0x0000)
@@ -8615,6 +8888,7 @@ public:
 	uint8                                         DepthPriority;                                     // 0x0024(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_25[0x3];                                       // 0x0025(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBatchedPoint;
 
 // ScriptStruct Engine.AnimationFrameSnapshot
 // 0x0001 (0x0001 - 0x0000)
@@ -8623,6 +8897,7 @@ struct FAnimationFrameSnapshot final
 public:
 	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimationFrameSnapshot;
 
 // ScriptStruct Engine.AnimNode_SingleNode
 // 0x0020 (0x0030 - 0x0010)
@@ -8632,6 +8907,7 @@ public:
 	struct FPoseLink                              SourcePose;                                        // 0x0010(0x0010)(Edit, BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_20[0x10];                                      // 0x0020(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_SingleNode;
 
 // ScriptStruct Engine.StateMachineStateDebugData
 // 0x0010 (0x0010 - 0x0000)
@@ -8640,6 +8916,7 @@ struct alignas(0x04) FStateMachineStateDebugData final
 public:
 	uint8                                         Pad_0[0x10];                                       // 0x0000(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FStateMachineStateDebugData;
 
 // ScriptStruct Engine.AnimBlueprintFunctionData
 // 0x0040 (0x0040 - 0x0000)
@@ -8650,6 +8927,7 @@ public:
 	TArray<TFieldPath<class FStructProperty>>     InputPoseNodeProperties;                           // 0x0020(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<TFieldPath<class FProperty>>           InputProperties;                                   // 0x0030(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimBlueprintFunctionData;
 
 // ScriptStruct Engine.AnimCurveType
 // 0x0002 (0x0002 - 0x0000)
@@ -8658,6 +8936,7 @@ struct FAnimCurveType final
 public:
 	uint8                                         Pad_0[0x2];                                        // 0x0000(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimCurveType;
 
 // ScriptStruct Engine.AnimGraphBlendOptions
 // 0x0008 (0x0008 - 0x0000)
@@ -8667,6 +8946,7 @@ public:
 	float                                         BlendInTime;                                       // 0x0000(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         BlendOutTime;                                      // 0x0004(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimGraphBlendOptions;
 
 // ScriptStruct Engine.GraphAssetPlayerInformation
 // 0x0010 (0x0010 - 0x0000)
@@ -8675,6 +8955,7 @@ struct FGraphAssetPlayerInformation final
 public:
 	TArray<int32>                                 PlayerNodeIndices;                                 // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FGraphAssetPlayerInformation;
 
 // ScriptStruct Engine.BakedAnimationState
 // 0x0058 (0x0058 - 0x0000)
@@ -8695,6 +8976,7 @@ public:
 	bool                                          bAlwaysResetOnEntry;                               // 0x0050(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_51[0x7];                                       // 0x0051(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBakedAnimationState;
 
 // ScriptStruct Engine.CachedPoseIndices
 // 0x0010 (0x0010 - 0x0000)
@@ -8703,6 +8985,7 @@ struct FCachedPoseIndices final
 public:
 	TArray<int32>                                 OrderedSavedPoseNodeIndices;                       // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCachedPoseIndices;
 
 // ScriptStruct Engine.AnimBlueprintFunction
 // 0x0068 (0x0068 - 0x0000)
@@ -8719,6 +9002,7 @@ public:
 	bool                                          bImplemented;                                      // 0x0060(0x0001)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_61[0x7];                                       // 0x0061(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimBlueprintFunction;
 
 // ScriptStruct Engine.AnimSetMeshLinkup
 // 0x0010 (0x0010 - 0x0000)
@@ -8727,6 +9011,7 @@ struct FAnimSetMeshLinkup final
 public:
 	TArray<int32>                                 BoneToTrackTable;                                  // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimSetMeshLinkup;
 
 // ScriptStruct Engine.AnimSegment
 // 0x0020 (0x0020 - 0x0000)
@@ -8741,6 +9026,7 @@ public:
 	int32                                         LoopingCount;                                      // 0x0018(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimSegment;
 
 // ScriptStruct Engine.AnimTrack
 // 0x0010 (0x0010 - 0x0000)
@@ -8749,6 +9035,7 @@ struct FAnimTrack final
 public:
 	TArray<struct FAnimSegment>                   AnimSegments;                                      // 0x0000(0x0010)(Edit, EditFixedSize, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimTrack;
 
 // ScriptStruct Engine.AnimationErrorStats
 // 0x0010 (0x0010 - 0x0000)
@@ -8757,6 +9044,7 @@ struct alignas(0x04) FAnimationErrorStats final
 public:
 	uint8                                         Pad_0[0x10];                                       // 0x0000(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimationErrorStats;
 
 // ScriptStruct Engine.CachedAnimAssetPlayerData
 // 0x0018 (0x0018 - 0x0000)
@@ -8767,6 +9055,7 @@ public:
 	class FName                                   StateName;                                         // 0x0008(0x0008)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_10[0x8];                                       // 0x0010(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCachedAnimAssetPlayerData;
 
 // ScriptStruct Engine.FloatCurve
 // 0x0080 (0x0098 - 0x0018)
@@ -8775,6 +9064,7 @@ struct FFloatCurve final : public FAnimCurveBase
 public:
 	struct FRichCurve                             FloatCurve;                                        // 0x0018(0x0080)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FFloatCurve;
 
 // ScriptStruct Engine.RawCurveTracks
 // 0x0010 (0x0010 - 0x0000)
@@ -8783,6 +9073,7 @@ struct FRawCurveTracks final
 public:
 	TArray<struct FFloatCurve>                    FloatCurves;                                       // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRawCurveTracks;
 
 // ScriptStruct Engine.CachedAnimTransitionData
 // 0x0024 (0x0024 - 0x0000)
@@ -8794,6 +9085,7 @@ public:
 	class FName                                   ToStateName;                                       // 0x0010(0x0008)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_18[0xC];                                       // 0x0018(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCachedAnimTransitionData;
 
 // ScriptStruct Engine.SlotEvaluationPose
 // 0x00E0 (0x00E0 - 0x0000)
@@ -8805,6 +9097,7 @@ public:
 	float                                         Weight;                                            // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_8[0xD8];                                       // 0x0008(0x00D8)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSlotEvaluationPose;
 
 // ScriptStruct Engine.A2Pose
 // 0x0010 (0x0010 - 0x0000)
@@ -8813,6 +9106,7 @@ struct FA2Pose
 public:
 	TArray<struct FTransform>                     Bones;                                             // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FA2Pose;
 
 // ScriptStruct Engine.CameraShakeUpdateResult
 // 0x0590 (0x0590 - 0x0000)
@@ -8821,6 +9115,7 @@ struct alignas(0x10) FCameraShakeUpdateResult final
 public:
 	uint8                                         Pad_0[0x590];                                      // 0x0000(0x0590)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCameraShakeUpdateResult;
 
 // ScriptStruct Engine.A2CSPose
 // 0x0018 (0x0028 - 0x0010)
@@ -8830,6 +9125,7 @@ public:
 	uint8                                         Pad_10[0x8];                                       // 0x0010(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<uint8>                                 ComponentSpaceFlags;                               // 0x0018(0x0010)(ZeroConstructor, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FA2CSPose;
 
 // ScriptStruct Engine.QueuedDrawDebugItem
 // 0x0068 (0x0068 - 0x0000)
@@ -8853,6 +9149,7 @@ public:
 	class FString                                 message;                                           // 0x0050(0x0010)(ZeroConstructor, Transient, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector2D                              TextScale;                                         // 0x0060(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FQueuedDrawDebugItem;
 
 // ScriptStruct Engine.CachedAnimStateData
 // 0x001C (0x001C - 0x0000)
@@ -8863,6 +9160,7 @@ public:
 	class FName                                   StateName;                                         // 0x0008(0x0008)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_10[0xC];                                       // 0x0010(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCachedAnimStateData;
 
 // ScriptStruct Engine.AnimInstanceSubsystemData
 // 0x0001 (0x0001 - 0x0000)
@@ -8871,6 +9169,7 @@ struct FAnimInstanceSubsystemData final
 public:
 	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimInstanceSubsystemData;
 
 // ScriptStruct Engine.AnimMontageInstance
 // 0x01B0 (0x01B0 - 0x0000)
@@ -8894,6 +9193,7 @@ public:
 	int32                                         DisableRootMotionCount;                            // 0x018C(0x0004)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_190[0x20];                                     // 0x0190(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimMontageInstance;
 
 // ScriptStruct Engine.BranchingPoint
 // 0x0010 (0x0040 - 0x0030)
@@ -8904,6 +9204,7 @@ public:
 	float                                         DisplayTime;                                       // 0x0038(0x0004)(ZeroConstructor, Deprecated, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         TriggerTimeOffset;                                 // 0x003C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBranchingPoint;
 
 // ScriptStruct Engine.CameraShakeDuration
 // 0x0008 (0x0008 - 0x0000)
@@ -8914,6 +9215,7 @@ public:
 	ECameraShakeDurationType                      Type;                                              // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCameraShakeDuration;
 
 // ScriptStruct Engine.SlotAnimationTrack
 // 0x0018 (0x0018 - 0x0000)
@@ -8923,6 +9225,7 @@ public:
 	class FName                                   SlotName;                                          // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FAnimTrack                             AnimTrack;                                         // 0x0008(0x0010)(Edit, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSlotAnimationTrack;
 
 // ScriptStruct Engine.CompositeSection
 // 0x0028 (0x0058 - 0x0030)
@@ -8935,6 +9238,7 @@ public:
 	uint8                                         Pad_44[0x4];                                       // 0x0044(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<class UAnimMetaData*>                  MetaData;                                          // 0x0048(0x0010)(Edit, ExportObject, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCompositeSection;
 
 // ScriptStruct Engine.TextSizingParameters
 // 0x0028 (0x0028 - 0x0000)
@@ -8949,6 +9253,7 @@ public:
 	class UFont*                                  DrawFont;                                          // 0x0018(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector2D                              SpacingAdjust;                                     // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTextSizingParameters;
 
 // ScriptStruct Engine.AnimNode_ApplyMeshSpaceAdditive
 // 0x00C0 (0x00D0 - 0x0010)
@@ -8969,6 +9274,7 @@ public:
 	int32                                         LODThreshold;                                      // 0x00C8(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_CC[0x4];                                       // 0x00CC(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_ApplyMeshSpaceAdditive;
 
 // ScriptStruct Engine.AnimNode_Inertialization
 // 0x0060 (0x0070 - 0x0010)
@@ -8978,6 +9284,7 @@ public:
 	struct FPoseLink                              Source;                                            // 0x0010(0x0010)(Edit, BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_20[0x50];                                      // 0x0020(0x0050)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_Inertialization;
 
 // ScriptStruct Engine.InertializationPoseDiff
 // 0x0028 (0x0028 - 0x0000)
@@ -8986,6 +9293,7 @@ struct alignas(0x08) FInertializationPoseDiff final
 public:
 	uint8                                         Pad_0[0x28];                                       // 0x0000(0x0028)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FInertializationPoseDiff;
 
 // ScriptStruct Engine.PooledCameraShakes
 // 0x0010 (0x0010 - 0x0000)
@@ -8994,6 +9302,7 @@ struct FPooledCameraShakes final
 public:
 	TArray<class UCameraShakeBase*>               PooledShakes;                                      // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPooledCameraShakes;
 
 // ScriptStruct Engine.InertializationCurveDiff
 // 0x0008 (0x0008 - 0x0000)
@@ -9002,6 +9311,7 @@ struct alignas(0x04) FInertializationCurveDiff final
 public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FInertializationCurveDiff;
 
 // ScriptStruct Engine.InertializationBoneDiff
 // 0x003C (0x003C - 0x0000)
@@ -9010,6 +9320,7 @@ struct alignas(0x04) FInertializationBoneDiff final
 public:
 	uint8                                         Pad_0[0x3C];                                       // 0x0000(0x003C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FInertializationBoneDiff;
 
 // ScriptStruct Engine.SkeletalMeshSamplingRegionMaterialFilter
 // 0x0008 (0x0008 - 0x0000)
@@ -9018,6 +9329,7 @@ struct FSkeletalMeshSamplingRegionMaterialFilter final
 public:
 	class FName                                   MaterialName;                                      // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSkeletalMeshSamplingRegionMaterialFilter;
 
 // ScriptStruct Engine.SkeletalMeshSamplingRegionBoneFilter
 // 0x000C (0x000C - 0x0000)
@@ -9029,6 +9341,7 @@ public:
 	uint8                                         bApplyToChildren : 1;                              // 0x0008(0x0001)(BitIndex: 0x01, PropSize: 0x0001 (Edit, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSkeletalMeshSamplingRegionBoneFilter;
 
 // ScriptStruct Engine.SkeletalMeshSamplingRegion
 // 0x0030 (0x0030 - 0x0000)
@@ -9042,6 +9355,7 @@ public:
 	TArray<struct FSkeletalMeshSamplingRegionMaterialFilter> MaterialFilters;                        // 0x0010(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FSkeletalMeshSamplingRegionBoneFilter> BoneFilters;                                // 0x0020(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSkeletalMeshSamplingRegion;
 
 // ScriptStruct Engine.SkeletalMeshSamplingRegionBuiltData
 // 0x0078 (0x0078 - 0x0000)
@@ -9050,6 +9364,7 @@ struct alignas(0x08) FSkeletalMeshSamplingRegionBuiltData final
 public:
 	uint8                                         Pad_0[0x78];                                       // 0x0000(0x0078)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSkeletalMeshSamplingRegionBuiltData;
 
 // ScriptStruct Engine.SkeletalMeshSamplingBuiltData
 // 0x0020 (0x0020 - 0x0000)
@@ -9059,6 +9374,7 @@ public:
 	TArray<struct FSkeletalMeshSamplingLODBuiltData> WholeMeshBuiltData;                             // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FSkeletalMeshSamplingRegionBuiltData> RegionBuiltData;                             // 0x0010(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSkeletalMeshSamplingBuiltData;
 
 // ScriptStruct Engine.SkeletalMeshSamplingInfo
 // 0x0030 (0x0030 - 0x0000)
@@ -9068,6 +9384,7 @@ public:
 	TArray<struct FSkeletalMeshSamplingRegion>    Regions;                                           // 0x0000(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPublic)
 	struct FSkeletalMeshSamplingBuiltData         BuiltData;                                         // 0x0010(0x0020)(NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FSkeletalMeshSamplingInfo;
 
 // ScriptStruct Engine.InertializationPose
 // 0x00A0 (0x00A0 - 0x0000)
@@ -9076,6 +9393,7 @@ struct alignas(0x10) FInertializationPose final
 public:
 	uint8                                         Pad_0[0xA0];                                       // 0x0000(0x00A0)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FInertializationPose;
 
 // ScriptStruct Engine.AnimNode_LinkedAnimLayer
 // 0x0010 (0x00B0 - 0x00A0)
@@ -9085,6 +9403,7 @@ public:
 	TSubclassOf<class IAnimLayerInterface>        Interface;                                         // 0x00A0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   Layer;                                             // 0x00A8(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimNode_LinkedAnimLayer;
 
 // ScriptStruct Engine.AnimNode_LinkedInputPose
 // 0x0108 (0x0118 - 0x0010)
@@ -9096,6 +9415,7 @@ public:
 	struct FPoseLink                              InputPose;                                         // 0x0020(0x0010)(NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_30[0xE8];                                      // 0x0030(0x00E8)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_LinkedInputPose;
 
 // ScriptStruct Engine.AnimNode_SaveCachedPose
 // 0x0148 (0x0158 - 0x0010)
@@ -9106,6 +9426,7 @@ public:
 	class FName                                   CachePoseName;                                     // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_28[0x130];                                     // 0x0028(0x0130)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_SaveCachedPose;
 
 // ScriptStruct Engine.AnimNode_SequencePlayer
 // 0x0048 (0x0080 - 0x0038)
@@ -9120,6 +9441,7 @@ public:
 	bool                                          bLoopAnimation;                                    // 0x007C(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_7D[0x3];                                       // 0x007D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_SequencePlayer;
 
 // ScriptStruct Engine.AnimNode_StateMachine
 // 0x00A0 (0x00B0 - 0x0010)
@@ -9132,6 +9454,7 @@ public:
 	bool                                          bReinitializeOnBecomingRelevant;                   // 0x0019(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1A[0x96];                                      // 0x001A(0x0096)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_StateMachine;
 
 // ScriptStruct Engine.AnimationPotentialTransition
 // 0x0030 (0x0030 - 0x0000)
@@ -9140,6 +9463,7 @@ struct alignas(0x08) FAnimationPotentialTransition final
 public:
 	uint8                                         Pad_0[0x30];                                       // 0x0000(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimationPotentialTransition;
 
 // ScriptStruct Engine.AnimSlotGroup
 // 0x0018 (0x0018 - 0x0000)
@@ -9149,6 +9473,7 @@ public:
 	class FName                                   GroupName;                                         // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<class FName>                           SlotNames;                                         // 0x0008(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimSlotGroup;
 
 // ScriptStruct Engine.AnimationActiveTransitionEntry
 // 0x00C8 (0x00C8 - 0x0000)
@@ -9159,6 +9484,7 @@ public:
 	class UBlendProfile*                          BlendProfile;                                      // 0x00B8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C0[0x8];                                       // 0x00C0(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimationActiveTransitionEntry;
 
 // ScriptStruct Engine.AnimNode_TransitionPoseEvaluator
 // 0x00E8 (0x00F8 - 0x0010)
@@ -9172,6 +9498,7 @@ public:
 	EEvaluatorMode                                EvaluatorMode;                                     // 0x00F1(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_F2[0x6];                                       // 0x00F2(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_TransitionPoseEvaluator;
 
 // ScriptStruct Engine.AnimNode_TransitionResult
 // 0x0018 (0x0028 - 0x0010)
@@ -9181,6 +9508,7 @@ public:
 	bool                                          bCanEnterTransition;                               // 0x0010(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x17];                                      // 0x0011(0x0017)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNode_TransitionResult;
 
 // ScriptStruct Engine.AnimNode_UseCachedPose
 // 0x0018 (0x0028 - 0x0010)
@@ -9190,6 +9518,7 @@ public:
 	struct FPoseLink                              LinkToCachingNode;                                 // 0x0010(0x0010)(NoDestructor, NativeAccessSpecifierPublic)
 	class FName                                   CachePoseName;                                     // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimNode_UseCachedPose;
 
 // ScriptStruct Engine.AnimNode_ConvertLocalToComponentSpace
 // 0x0010 (0x0020 - 0x0010)
@@ -9198,6 +9527,7 @@ struct FAnimNode_ConvertLocalToComponentSpace final : public FAnimNode_Base
 public:
 	struct FPoseLink                              LocalPose;                                         // 0x0010(0x0010)(Edit, BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimNode_ConvertLocalToComponentSpace;
 
 // ScriptStruct Engine.AnimNode_ConvertComponentToLocalSpace
 // 0x0010 (0x0020 - 0x0010)
@@ -9206,6 +9536,7 @@ struct FAnimNode_ConvertComponentToLocalSpace final : public FAnimNode_Base
 public:
 	struct FComponentSpacePoseLink                ComponentPose;                                     // 0x0010(0x0010)(Edit, BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimNode_ConvertComponentToLocalSpace;
 
 // ScriptStruct Engine.PreviewAttachedObjectPair
 // 0x0038 (0x0038 - 0x0000)
@@ -9216,6 +9547,7 @@ public:
 	class UObject*                                Object;                                            // 0x0028(0x0008)(ZeroConstructor, Deprecated, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	class FName                                   AttachedTo;                                        // 0x0030(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPreviewAttachedObjectPair;
 
 // ScriptStruct Engine.CompressedTrack
 // 0x0038 (0x0038 - 0x0000)
@@ -9227,6 +9559,7 @@ public:
 	float                                         Mins[0x3];                                         // 0x0020(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Ranges[0x3];                                       // 0x002C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCompressedTrack;
 
 // ScriptStruct Engine.CurveTrack
 // 0x0018 (0x0018 - 0x0000)
@@ -9236,6 +9569,7 @@ public:
 	class FName                                   CurveName;                                         // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<float>                                 CurveWeights;                                      // 0x0008(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCurveTrack;
 
 // ScriptStruct Engine.ScaleTrack
 // 0x0020 (0x0020 - 0x0000)
@@ -9245,6 +9579,7 @@ public:
 	TArray<struct FVector>                        ScaleKeys;                                         // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<float>                                 Times;                                             // 0x0010(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FScaleTrack;
 
 // ScriptStruct Engine.RotationTrack
 // 0x0020 (0x0020 - 0x0000)
@@ -9254,6 +9589,7 @@ public:
 	TArray<struct FQuat>                          RotKeys;                                           // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<float>                                 Times;                                             // 0x0010(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRotationTrack;
 
 // ScriptStruct Engine.QuartzTimeSignature
 // 0x0018 (0x0018 - 0x0000)
@@ -9265,6 +9601,7 @@ public:
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FQuartzPulseOverrideStep>       OptionalPulseOverride;                             // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FQuartzTimeSignature;
 
 // ScriptStruct Engine.QuartzClockSettings
 // 0x0020 (0x0020 - 0x0000)
@@ -9275,6 +9612,7 @@ public:
 	bool                                          bIgnoreLevelChange;                                // 0x0018(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FQuartzClockSettings;
 
 // ScriptStruct Engine.TranslationTrack
 // 0x0020 (0x0020 - 0x0000)
@@ -9284,6 +9622,7 @@ public:
 	TArray<struct FVector>                        PosKeys;                                           // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<float>                                 Times;                                             // 0x0010(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTranslationTrack;
 
 // ScriptStruct Engine.RawAnimSequenceTrack
 // 0x0030 (0x0030 - 0x0000)
@@ -9294,6 +9633,7 @@ public:
 	TArray<struct FQuat>                          RotKeys;                                           // 0x0010(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FVector>                        ScaleKeys;                                         // 0x0020(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRawAnimSequenceTrack;
 
 // ScriptStruct Engine.AnimSequenceTrackContainer
 // 0x0020 (0x0020 - 0x0000)
@@ -9303,6 +9643,7 @@ public:
 	TArray<struct FRawAnimSequenceTrack>          AnimationTracks;                                   // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<class FName>                           TrackNames;                                        // 0x0010(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimSequenceTrackContainer;
 
 // ScriptStruct Engine.QuartzTransportTimeStamp
 // 0x0010 (0x0010 - 0x0000)
@@ -9314,6 +9655,7 @@ public:
 	float                                         BeatFraction;                                      // 0x0008(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Seconds;                                           // 0x000C(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FQuartzTransportTimeStamp;
 
 // ScriptStruct Engine.AnimSingleNodeInstanceProxy
 // 0x0150 (0x08C0 - 0x0770)
@@ -9322,6 +9664,7 @@ struct FAnimSingleNodeInstanceProxy final : public FAnimInstanceProxy
 public:
 	uint8                                         Pad_770[0x150];                                    // 0x0770(0x0150)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimSingleNodeInstanceProxy;
 
 // ScriptStruct Engine.BakedAnimationStateMachine
 // 0x0030 (0x0030 - 0x0000)
@@ -9334,6 +9677,7 @@ public:
 	TArray<struct FBakedAnimationState>           States;                                            // 0x0010(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FAnimationTransitionBetweenStates> Transitions;                                    // 0x0020(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBakedAnimationStateMachine;
 
 // ScriptStruct Engine.AnimationState
 // 0x0020 (0x0028 - 0x0008)
@@ -9346,6 +9690,7 @@ public:
 	int32                                         EndNotify;                                         // 0x0020(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         FullyBlendedNotify;                                // 0x0024(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimationState;
 
 // ScriptStruct Engine.TrackToSkeletonMap
 // 0x0004 (0x0004 - 0x0000)
@@ -9354,6 +9699,7 @@ struct FTrackToSkeletonMap final
 public:
 	int32                                         BoneTreeIndex;                                     // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTrackToSkeletonMap;
 
 // ScriptStruct Engine.MarkerSyncData
 // 0x0020 (0x0020 - 0x0000)
@@ -9363,6 +9709,7 @@ public:
 	TArray<struct FAnimSyncMarker>                AuthoredSyncMarkers;                               // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_10[0x10];                                      // 0x0010(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMarkerSyncData;
 
 // ScriptStruct Engine.AnimNotifyTrack
 // 0x0038 (0x0038 - 0x0000)
@@ -9373,6 +9720,7 @@ public:
 	struct FLinearColor                           TrackColor;                                        // 0x0008(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_18[0x20];                                      // 0x0018(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimNotifyTrack;
 
 // ScriptStruct Engine.NavAgentSelector
 // 0x0004 (0x0004 - 0x0000)
@@ -9397,6 +9745,7 @@ public:
 	uint8                                         bSupportsAgent15 : 1;                              // 0x0001(0x0001)(BitIndex: 0x07, PropSize: 0x0001 (Edit, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_2[0x2];                                        // 0x0002(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FNavAgentSelector;
 
 // ScriptStruct Engine.NavigationLinkBase
 // 0x0030 (0x0030 - 0x0000)
@@ -9441,6 +9790,7 @@ public:
 	TSubclassOf<class UNavAreaBase>               AreaClass;                                         // 0x0020(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_28[0x8];                                       // 0x0028(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FNavigationLinkBase;
 
 // ScriptStruct Engine.NavigationLink
 // 0x0018 (0x0048 - 0x0030)
@@ -9450,6 +9800,7 @@ public:
 	struct FVector                                Left;                                              // 0x0030(0x000C)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                Right;                                             // 0x003C(0x000C)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNavigationLink;
 
 // ScriptStruct Engine.AssetImportInfo
 // 0x0001 (0x0001 - 0x0000)
@@ -9458,6 +9809,7 @@ struct FAssetImportInfo final
 public:
 	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAssetImportInfo;
 
 // ScriptStruct Engine.PrimaryAssetRulesCustomOverride
 // 0x0038 (0x0038 - 0x0000)
@@ -9470,6 +9822,7 @@ public:
 	struct FPrimaryAssetRules                     Rules;                                             // 0x0028(0x000C)(Edit, NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPrimaryAssetRulesCustomOverride;
 
 // ScriptStruct Engine.FastArraySerializerItem
 // 0x000C (0x000C - 0x0000)
@@ -9480,6 +9833,7 @@ public:
 	int32                                         ReplicationKey;                                    // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, RepSkip, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         MostRecentArrayReplicationKey;                     // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, RepSkip, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FFastArraySerializerItem;
 
 // ScriptStruct Engine.PrimaryAssetRulesOverride
 // 0x001C (0x001C - 0x0000)
@@ -9489,6 +9843,7 @@ public:
 	struct FPrimaryAssetId                        PrimaryAssetId;                                    // 0x0000(0x0010)(Edit, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FPrimaryAssetRules                     Rules;                                             // 0x0010(0x000C)(Edit, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPrimaryAssetRulesOverride;
 
 // ScriptStruct Engine.AssetManagerRedirect
 // 0x0020 (0x0020 - 0x0000)
@@ -9498,6 +9853,7 @@ public:
 	class FString                                 Old;                                               // 0x0000(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 New;                                               // 0x0010(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAssetManagerRedirect;
 
 // ScriptStruct Engine.AssetMapping
 // 0x0010 (0x0010 - 0x0000)
@@ -9507,6 +9863,7 @@ public:
 	class UAnimationAsset*                        SourceAsset;                                       // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UAnimationAsset*                        TargetAsset;                                       // 0x0008(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAssetMapping;
 
 // ScriptStruct Engine.AtmospherePrecomputeInstanceData
 // 0x00A8 (0x0160 - 0x00B8)
@@ -9515,6 +9872,7 @@ struct FAtmospherePrecomputeInstanceData final : public FSceneComponentInstanceD
 public:
 	uint8                                         Pad_B8[0xA8];                                      // 0x00B8(0x00A8)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAtmospherePrecomputeInstanceData;
 
 // ScriptStruct Engine.AtmospherePrecomputeParameters
 // 0x002C (0x002C - 0x0000)
@@ -9533,6 +9891,7 @@ public:
 	int32                                         InscatterMuSNum;                                   // 0x0024(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         InscatterNuNum;                                    // 0x0028(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtmospherePrecomputeParameters;
 
 // ScriptStruct Engine.ColorGradePerRangeSettings
 // 0x0050 (0x0050 - 0x0000)
@@ -9545,6 +9904,7 @@ public:
 	struct FVector4                               Gain;                                              // 0x0030(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector4                               Offset;                                            // 0x0040(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FColorGradePerRangeSettings;
 
 // ScriptStruct Engine.AudioComponentParam
 // 0x0020 (0x0020 - 0x0000)
@@ -9559,6 +9919,7 @@ public:
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class USoundWave*                             SoundWaveParam;                                    // 0x0018(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAudioComponentParam;
 
 // ScriptStruct Engine.AudioReverbEffect
 // 0x0040 (0x0048 - 0x0008)
@@ -9567,6 +9928,7 @@ struct FAudioReverbEffect final : public FAudioEffectParameters
 public:
 	uint8                                         Pad_8[0x40];                                       // 0x0008(0x0040)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAudioReverbEffect;
 
 // ScriptStruct Engine.DefaultAudioBusSettings
 // 0x0018 (0x0018 - 0x0000)
@@ -9575,6 +9937,7 @@ struct FDefaultAudioBusSettings final
 public:
 	struct FSoftObjectPath                        AudioBus;                                          // 0x0000(0x0018)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDefaultAudioBusSettings;
 
 // ScriptStruct Engine.InteriorSettings
 // 0x0024 (0x0024 - 0x0000)
@@ -9592,6 +9955,7 @@ public:
 	float                                         InteriorLPF;                                       // 0x001C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         InteriorLPFTime;                                   // 0x0020(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FInteriorSettings;
 
 // ScriptStruct Engine.AudioVolumeSubmixOverrideSettings
 // 0x0020 (0x0020 - 0x0000)
@@ -9603,6 +9967,7 @@ public:
 	float                                         CrossfadeTime;                                     // 0x0018(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAudioVolumeSubmixOverrideSettings;
 
 // ScriptStruct Engine.SkeletalMeshOptimizationSettings
 // 0x00C0 (0x00C0 - 0x0000)
@@ -9644,6 +10009,7 @@ public:
 	class FString                                 CustomVertexWeightsString6;                        // 0x00A0(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 CustomVertexWeightsString7;                        // 0x00B0(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSkeletalMeshOptimizationSettings;
 
 // ScriptStruct Engine.SoundSubmixSendInfo
 // 0x00B0 (0x00B0 - 0x0000)
@@ -9662,6 +10028,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FRuntimeFloatCurve                     CustomSendLevelCurve;                              // 0x0028(0x0088)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSoundSubmixSendInfo;
 
 // ScriptStruct Engine.AudioVolumeSubmixSendSettings
 // 0x0018 (0x0018 - 0x0000)
@@ -9673,6 +10040,7 @@ public:
 	uint8                                         Pad_2[0x6];                                        // 0x0002(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FSoundSubmixSendInfo>           SubmixSends;                                       // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAudioVolumeSubmixSendSettings;
 
 // ScriptStruct Engine.BuildPromotionImportWorkflowSettings
 // 0x0150 (0x0150 - 0x0000)
@@ -9691,6 +10059,7 @@ public:
 	struct FEditorImportWorkflowDefinition        SurroundSound;                                     // 0x0120(0x0020)(Edit, Config, NativeAccessSpecifierPublic)
 	TArray<struct FEditorImportWorkflowDefinition> OtherAssetsToImport;                              // 0x0140(0x0010)(Edit, ZeroConstructor, Config, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBuildPromotionImportWorkflowSettings;
 
 // ScriptStruct Engine.BuildPromotionTestSettings
 // 0x01F0 (0x01F0 - 0x0000)
@@ -9703,6 +10072,7 @@ public:
 	struct FBuildPromotionNewProjectSettings      NewProjectSettings;                                // 0x01C0(0x0020)(Edit, NativeAccessSpecifierPublic)
 	struct FFilePath                              SourceControlMaterial;                             // 0x01E0(0x0010)(Edit, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBuildPromotionTestSettings;
 
 // ScriptStruct Engine.StaticParameterBase
 // 0x0024 (0x0024 - 0x0000)
@@ -9714,6 +10084,7 @@ public:
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FGuid                                  ExpressionGUID;                                    // 0x0014(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStaticParameterBase;
 
 // ScriptStruct Engine.MaterialLayersFunctions
 // 0x0040 (0x0040 - 0x0000)
@@ -9725,6 +10096,7 @@ public:
 	TArray<bool>                                  LayerStates;                                       // 0x0020(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPublic)
 	class FString                                 KeyString;                                         // 0x0030(0x0010)(ZeroConstructor, Deprecated, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMaterialLayersFunctions;
 
 // ScriptStruct Engine.StaticMaterialLayersParameter
 // 0x0044 (0x0068 - 0x0024)
@@ -9734,6 +10106,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FMaterialLayersFunctions               value;                                             // 0x0028(0x0040)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStaticMaterialLayersParameter;
 
 // ScriptStruct Engine.BlueprintEditorPromotionSettings
 // 0x0030 (0x0030 - 0x0000)
@@ -9744,6 +10117,7 @@ public:
 	struct FFilePath                              SecondMeshPath;                                    // 0x0010(0x0010)(Edit, NativeAccessSpecifierPublic)
 	struct FFilePath                              DefaultParticleAsset;                              // 0x0020(0x0010)(Edit, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBlueprintEditorPromotionSettings;
 
 // ScriptStruct Engine.EquirectProps
 // 0x0048 (0x0048 - 0x0000)
@@ -9757,6 +10131,7 @@ public:
 	struct FVector2D                              LeftBias;                                          // 0x0038(0x0008)(Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector2D                              RightBias;                                         // 0x0040(0x0008)(Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FEquirectProps;
 
 // ScriptStruct Engine.ParticleEditorPromotionSettings
 // 0x0010 (0x0010 - 0x0000)
@@ -9765,6 +10140,7 @@ struct FParticleEditorPromotionSettings final
 public:
 	struct FFilePath                              DefaultParticleAsset;                              // 0x0000(0x0010)(Edit, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FParticleEditorPromotionSettings;
 
 // ScriptStruct Engine.EditorImportExportTestDefinition
 // 0x0038 (0x0038 - 0x0000)
@@ -9777,6 +10153,7 @@ public:
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FImportFactorySettingValues>    FactorySettings;                                   // 0x0028(0x0010)(Edit, ZeroConstructor, Config, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FEditorImportExportTestDefinition;
 
 // ScriptStruct Engine.TextureSource
 // 0x0038 (0x0038 - 0x0000)
@@ -9785,6 +10162,7 @@ struct alignas(0x08) FTextureSource final
 public:
 	uint8                                         Pad_0[0x38];                                       // 0x0000(0x0038)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTextureSource;
 
 // ScriptStruct Engine.NavAvoidanceData
 // 0x003C (0x003C - 0x0000)
@@ -9793,6 +10171,7 @@ struct alignas(0x04) FNavAvoidanceData final
 public:
 	uint8                                         Pad_0[0x3C];                                       // 0x0000(0x003C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FNavAvoidanceData;
 
 // ScriptStruct Engine.TimelineLinearColorTrack
 // 0x0040 (0x0040 - 0x0000)
@@ -9805,6 +10184,7 @@ public:
 	class FName                                   LinearColorPropertyName;                           // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_28[0x18];                                      // 0x0028(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTimelineLinearColorTrack;
 
 // ScriptStruct Engine.TimelineEventEntry
 // 0x0014 (0x0014 - 0x0000)
@@ -9814,6 +10194,7 @@ public:
 	float                                         Time;                                              // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TDelegate<void()>                             EventFunc;                                         // 0x0004(0x0010)(ZeroConstructor, InstancedReference, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTimelineEventEntry;
 
 // ScriptStruct Engine.TimelineVectorTrack
 // 0x0040 (0x0040 - 0x0000)
@@ -9826,6 +10207,7 @@ public:
 	class FName                                   VectorPropertyName;                                // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_28[0x18];                                      // 0x0028(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTimelineVectorTrack;
 
 // ScriptStruct Engine.TimelineFloatTrack
 // 0x0040 (0x0040 - 0x0000)
@@ -9838,6 +10220,7 @@ public:
 	class FName                                   FloatPropertyName;                                 // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_28[0x18];                                      // 0x0028(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTimelineFloatTrack;
 
 // ScriptStruct Engine.Timeline
 // 0x0098 (0x0098 - 0x0000)
@@ -9862,6 +10245,7 @@ public:
 	class FName                                   DirectionPropertyName;                             // 0x0078(0x0008)(ZeroConstructor, IsPlainOldData, RepSkip, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_80[0x18];                                      // 0x0080(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTimeline;
 
 // ScriptStruct Engine.PerBoneInterpolation
 // 0x0014 (0x0014 - 0x0000)
@@ -9871,6 +10255,7 @@ public:
 	struct FBoneReference                         BoneReference;                                     // 0x0000(0x0010)(Edit, NoDestructor, NativeAccessSpecifierPublic)
 	float                                         InterpolationSpeedPerSec;                          // 0x0010(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPerBoneInterpolation;
 
 // ScriptStruct Engine.SkelMeshComponentLODInfo
 // 0x0048 (0x0048 - 0x0000)
@@ -9880,6 +10265,7 @@ public:
 	TArray<bool>                                  HiddenMaterials;                                   // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_10[0x38];                                      // 0x0010(0x0038)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSkelMeshComponentLODInfo;
 
 // ScriptStruct Engine.BlendParameter
 // 0x0020 (0x0020 - 0x0000)
@@ -9892,6 +10278,7 @@ public:
 	int32                                         GridNum;                                           // 0x0018(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBlendParameter;
 
 // ScriptStruct Engine.BPEditorBookmarkNode
 // 0x0038 (0x0038 - 0x0000)
@@ -9902,6 +10289,7 @@ public:
 	struct FGuid                                  ParentGuid;                                        // 0x0010(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FText                                   DisplayName;                                       // 0x0020(0x0018)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBPEditorBookmarkNode;
 
 // ScriptStruct Engine.TentDistribution
 // 0x000C (0x000C - 0x0000)
@@ -9912,6 +10300,7 @@ public:
 	float                                         TipValue;                                          // 0x0004(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Width;                                             // 0x0008(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTentDistribution;
 
 // ScriptStruct Engine.BPInterfaceDescription
 // 0x0018 (0x0018 - 0x0000)
@@ -9921,6 +10310,7 @@ public:
 	TSubclassOf<class IInterface>                 Interface;                                         // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<class UEdGraph*>                       Graphs;                                            // 0x0008(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBPInterfaceDescription;
 
 // ScriptStruct Engine.MaterialCachedParameters
 // 0x0150 (0x0150 - 0x0000)
@@ -9935,6 +10325,7 @@ public:
 	TArray<int32>                                 FontPageValues;                                    // 0x0130(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<class URuntimeVirtualTexture*>         RuntimeVirtualTextureValues;                       // 0x0140(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMaterialCachedParameters;
 
 // ScriptStruct Engine.MaterialFunctionInfo
 // 0x0018 (0x0018 - 0x0000)
@@ -9944,6 +10335,7 @@ public:
 	struct FGuid                                  StateId;                                           // 0x0000(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UMaterialFunctionInterface*             Function;                                          // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMaterialFunctionInfo;
 
 // ScriptStruct Engine.MaterialParameterCollectionInfo
 // 0x0018 (0x0018 - 0x0000)
@@ -9953,6 +10345,7 @@ public:
 	struct FGuid                                  StateId;                                           // 0x0000(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UMaterialParameterCollection*           ParameterCollection;                               // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMaterialParameterCollectionInfo;
 
 // ScriptStruct Engine.MaterialCachedExpressionData
 // 0x01D8 (0x01D8 - 0x0000)
@@ -9972,6 +10365,7 @@ public:
 	uint8                                         bHasSceneColor : 1;                                // 0x01D0(0x0001)(BitIndex: 0x01, PropSize: 0x0001 (NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_1D1[0x7];                                      // 0x01D1(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMaterialCachedExpressionData;
 
 // ScriptStruct Engine.CurveMetaData
 // 0x0018 (0x0018 - 0x0000)
@@ -9980,6 +10374,7 @@ struct alignas(0x08) FCurveMetaData final
 public:
 	uint8                                         Pad_0[0x18];                                       // 0x0000(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCurveMetaData;
 
 // ScriptStruct Engine.BlueprintMacroCosmeticInfo
 // 0x0001 (0x0001 - 0x0000)
@@ -9988,6 +10383,7 @@ struct FBlueprintMacroCosmeticInfo final
 public:
 	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBlueprintMacroCosmeticInfo;
 
 // ScriptStruct Engine.CompilerNativizationOptions
 // 0x0080 (0x0080 - 0x0000)
@@ -10003,6 +10399,7 @@ public:
 	TSet<struct FSoftObjectPath>                  ExcludedAssets;                                    // 0x0020(0x0050)(NativeAccessSpecifierPublic)
 	TArray<class FString>                         ExcludedFolderPaths;                               // 0x0070(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCompilerNativizationOptions;
 
 // ScriptStruct Engine.SoundClassEditorData
 // 0x0008 (0x0008 - 0x0000)
@@ -10011,6 +10408,7 @@ struct alignas(0x04) FSoundClassEditorData final
 public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSoundClassEditorData;
 
 // ScriptStruct Engine.EventGraphFastCallPair
 // 0x0010 (0x0010 - 0x0000)
@@ -10021,6 +10419,7 @@ public:
 	int32                                         EventGraphCallOffset;                              // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FEventGraphFastCallPair;
 
 // ScriptStruct Engine.RootMotionSourceStatus
 // 0x0001 (0x0001 - 0x0000)
@@ -10029,6 +10428,7 @@ struct FRootMotionSourceStatus final
 public:
 	uint8                                         Flags;                                             // 0x0000(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRootMotionSourceStatus;
 
 // ScriptStruct Engine.RootMotionFinishVelocitySettings
 // 0x0014 (0x0014 - 0x0000)
@@ -10040,11 +10440,12 @@ public:
 	struct FVector                                SetVelocity;                                       // 0x0004(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ClampVelocity;                                     // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRootMotionFinishVelocitySettings;
 
 // ScriptStruct Engine.RootMotionSource
 // 0x00A0 (0x00A0 - 0x0000)
 #pragma pack(push, 0x1)
-struct SDK_ALIGN(0x10) FRootMotionSource
+struct alignas(0x10) FRootMotionSource
 {
 public:
 	uint8                                         Pad_0[0x10];                                       // 0x0000(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
@@ -10066,6 +10467,7 @@ public:
 	uint8                                         Pad_94[0x4];                                       // 0x0094(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_FRootMotionSource;
 
 // ScriptStruct Engine.PointerToUberGraphFrame
 // 0x0008 (0x0008 - 0x0000)
@@ -10074,6 +10476,7 @@ struct alignas(0x08) FPointerToUberGraphFrame final
 public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPointerToUberGraphFrame;
 
 // ScriptStruct Engine.RootMotionSource_MoveToDynamicForce
 // 0x0030 (0x00D0 - 0x00A0)
@@ -10088,6 +10491,7 @@ public:
 	class UCurveVector*                           PathOffsetCurve;                                   // 0x00C0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UCurveFloat*                            TimeMappingCurve;                                  // 0x00C8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRootMotionSource_MoveToDynamicForce;
 
 // ScriptStruct Engine.Bookmark2DJumpToSettings
 // 0x0001 (0x0001 - 0x0000)
@@ -10096,6 +10500,7 @@ struct FBookmark2DJumpToSettings final
 public:
 	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBookmark2DJumpToSettings;
 
 // ScriptStruct Engine.CameraExposureSettings
 // 0x0040 (0x0040 - 0x0000)
@@ -10119,6 +10524,7 @@ public:
 	uint8                                         ApplyPhysicalCameraExposure : 1;                   // 0x003C(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Edit, BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_3D[0x3];                                       // 0x003D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCameraExposureSettings;
 
 // ScriptStruct Engine.BuilderPoly
 // 0x0020 (0x0020 - 0x0000)
@@ -10130,6 +10536,7 @@ public:
 	class FName                                   ItemName;                                          // 0x0014(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         PolyFlags;                                         // 0x001C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBuilderPoly;
 
 // ScriptStruct Engine.CachedAnimRelevancyData
 // 0x001C (0x001C - 0x0000)
@@ -10140,6 +10547,7 @@ public:
 	class FName                                   StateName;                                         // 0x0008(0x0008)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_10[0xC];                                       // 0x0010(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCachedAnimRelevancyData;
 
 // ScriptStruct Engine.CachedAnimStateArray
 // 0x0018 (0x0018 - 0x0000)
@@ -10149,6 +10557,7 @@ public:
 	TArray<struct FCachedAnimStateData>           States;                                            // 0x0000(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_10[0x8];                                       // 0x0010(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCachedAnimStateArray;
 
 // ScriptStruct Engine.SplineCurves
 // 0x0070 (0x0070 - 0x0000)
@@ -10163,6 +10572,7 @@ public:
 	uint32                                        Version;                                           // 0x0068(0x0004)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_6C[0x4];                                       // 0x006C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSplineCurves;
 
 // ScriptStruct Engine.CameraShakeInfo
 // 0x0010 (0x0010 - 0x0000)
@@ -10173,6 +10583,7 @@ public:
 	float                                         BlendIn;                                           // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         BlendOut;                                          // 0x000C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCameraShakeInfo;
 
 // ScriptStruct Engine.MaterialRemapIndex
 // 0x0018 (0x0018 - 0x0000)
@@ -10183,6 +10594,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<int32>                                 MaterialRemap;                                     // 0x0008(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMaterialRemapIndex;
 
 // ScriptStruct Engine.CameraShakeScrubParams
 // 0x0600 (0x0600 - 0x0000)
@@ -10195,6 +10607,7 @@ public:
 	float                                         BlendingWeight;                                    // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FMinimalViewInfo                       POV;                                               // 0x0010(0x05F0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCameraShakeScrubParams;
 
 // ScriptStruct Engine.CameraShakeStartParams
 // 0x0001 (0x0001 - 0x0000)
@@ -10203,6 +10616,7 @@ struct FCameraShakeStartParams final
 public:
 	bool                                          bIsRestarting;                                     // 0x0000(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCameraShakeStartParams;
 
 // ScriptStruct Engine.CanvasIcon
 // 0x0018 (0x0018 - 0x0000)
@@ -10215,6 +10629,7 @@ public:
 	float                                         UL;                                                // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         VL;                                                // 0x0014(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCanvasIcon;
 
 // ScriptStruct Engine.WrappedStringElement
 // 0x0018 (0x0018 - 0x0000)
@@ -10224,6 +10639,7 @@ public:
 	class FString                                 value;                                             // 0x0000(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector2D                              LineExtent;                                        // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FWrappedStringElement;
 
 // ScriptStruct Engine.PaintedVertex
 // 0x0020 (0x0020 - 0x0000)
@@ -10234,6 +10650,7 @@ public:
 	struct FColor                                 Color;                                             // 0x000C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector4                               Normal;                                            // 0x0010(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPaintedVertex;
 
 // ScriptStruct Engine.StaticMeshVertexColorLODData
 // 0x0028 (0x0028 - 0x0000)
@@ -10245,6 +10662,7 @@ public:
 	uint32                                        LODIndex;                                          // 0x0020(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FStaticMeshVertexColorLODData;
 
 // ScriptStruct Engine.BasedMovementInfo
 // 0x0030 (0x0030 - 0x0000)
@@ -10260,6 +10678,7 @@ public:
 	bool                                          bServerHasVelocity;                                // 0x002A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_2B[0x5];                                       // 0x002B(0x0005)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBasedMovementInfo;
 
 // ScriptStruct Engine.CurveEdEntry
 // 0x0038 (0x0038 - 0x0000)
@@ -10277,6 +10696,7 @@ public:
 	float                                         ClampLow;                                          // 0x0030(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ClampHigh;                                         // 0x0034(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCurveEdEntry;
 
 // ScriptStruct Engine.CharacterMovementComponentPostPhysicsTickFunction
 // 0x0008 (0x0030 - 0x0028)
@@ -10285,12 +10705,14 @@ struct FCharacterMovementComponentPostPhysicsTickFunction final : public FTickFu
 public:
 	uint8                                         Pad_28[0x8];                                       // 0x0028(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCharacterMovementComponentPostPhysicsTickFunction;
 
 // ScriptStruct Engine.CharacterMoveResponsePackedBits
 // 0x0000 (0x0098 - 0x0098)
 struct FCharacterMoveResponsePackedBits final : public FCharacterNetworkSerializationPackedBits
 {
 };
+DUMPER7_ASSERTS_FCharacterMoveResponsePackedBits;
 
 // ScriptStruct Engine.ScalarParameterAtlasInstanceData
 // 0x0058 (0x0058 - 0x0000)
@@ -10302,12 +10724,14 @@ public:
 	TSoftObjectPtr<class UCurveLinearColor>       Curve;                                             // 0x0008(0x0028)(UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TSoftObjectPtr<class UCurveLinearColorAtlas>  Atlas;                                             // 0x0030(0x0028)(UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FScalarParameterAtlasInstanceData;
 
 // ScriptStruct Engine.CharacterServerMovePackedBits
 // 0x0000 (0x0098 - 0x0098)
 struct FCharacterServerMovePackedBits final : public FCharacterNetworkSerializationPackedBits
 {
 };
+DUMPER7_ASSERTS_FCharacterServerMovePackedBits;
 
 // ScriptStruct Engine.LatentActionManager
 // 0x0060 (0x0060 - 0x0000)
@@ -10316,6 +10740,7 @@ struct alignas(0x08) FLatentActionManager final
 public:
 	uint8                                         Pad_0[0x60];                                       // 0x0000(0x0060)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FLatentActionManager;
 
 // ScriptStruct Engine.CustomProfile
 // 0x0018 (0x0018 - 0x0000)
@@ -10325,6 +10750,7 @@ public:
 	class FName                                   Name;                                              // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FResponseChannel>               CustomResponses;                                   // 0x0008(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCustomProfile;
 
 // ScriptStruct Engine.EventTrackKey
 // 0x000C (0x000C - 0x0000)
@@ -10334,6 +10760,7 @@ public:
 	float                                         Time;                                              // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   EventName;                                         // 0x0004(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FEventTrackKey;
 
 // ScriptStruct Engine.CustomChannelSetup
 // 0x000C (0x000C - 0x0000)
@@ -10346,6 +10773,7 @@ public:
 	bool                                          bStaticObject;                                     // 0x0003(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   Name;                                              // 0x0004(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCustomChannelSetup;
 
 // ScriptStruct Engine.BlueprintComponentDelegateBinding
 // 0x0018 (0x0018 - 0x0000)
@@ -10356,6 +10784,7 @@ public:
 	class FName                                   DelegatePropertyName;                              // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   FunctionNameToBind;                                // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBlueprintComponentDelegateBinding;
 
 // ScriptStruct Engine.MaterialProxySettings
 // 0x0088 (0x0088 - 0x0000)
@@ -10398,6 +10827,7 @@ public:
 	struct FIntPoint                              OpacityMaskTextureSize;                            // 0x0078(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FIntPoint                              AmbientOcclusionTextureSize;                       // 0x0080(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMaterialProxySettings;
 
 // ScriptStruct Engine.BlueprintInputDelegateBinding
 // 0x0004 (0x0004 - 0x0000)
@@ -10409,6 +10839,7 @@ public:
 	uint8                                         bOverrideParentBinding : 1;                        // 0x0000(0x0001)(BitIndex: 0x02, PropSize: 0x0001 (NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBlueprintInputDelegateBinding;
 
 // ScriptStruct Engine.BlueprintInputTouchDelegateBinding
 // 0x000C (0x0010 - 0x0004)
@@ -10419,6 +10850,7 @@ public:
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class FName                                   FunctionNameToBind;                                // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBlueprintInputTouchDelegateBinding;
 
 // ScriptStruct Engine.AutoCompleteNode
 // 0x0028 (0x0028 - 0x0000)
@@ -10430,6 +10862,7 @@ public:
 	TArray<int32>                                 AutoCompleteListIndices;                           // 0x0008(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_18[0x10];                                      // 0x0018(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAutoCompleteNode;
 
 // ScriptStruct Engine.AngularDriveConstraint
 // 0x004C (0x004C - 0x0000)
@@ -10444,6 +10877,7 @@ public:
 	EAngularDriveMode                             AngularDriveMode;                                  // 0x0048(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_49[0x3];                                       // 0x0049(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAngularDriveConstraint;
 
 // ScriptStruct Engine.OrbitOptions
 // 0x0004 (0x0004 - 0x0000)
@@ -10455,6 +10889,7 @@ public:
 	uint8                                         bUseEmitterTime : 1;                               // 0x0000(0x0001)(BitIndex: 0x02, PropSize: 0x0001 (Edit, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FOrbitOptions;
 
 // ScriptStruct Engine.FloatSpringState
 // 0x0008 (0x0008 - 0x0000)
@@ -10463,6 +10898,7 @@ struct alignas(0x04) FFloatSpringState final
 public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FFloatSpringState;
 
 // ScriptStruct Engine.ConstraintInstanceBase
 // 0x0018 (0x0018 - 0x0000)
@@ -10471,6 +10907,7 @@ struct alignas(0x08) FConstraintInstanceBase
 public:
 	uint8                                         Pad_0[0x18];                                       // 0x0000(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FConstraintInstanceBase;
 
 // ScriptStruct Engine.LinearConstraint
 // 0x0008 (0x001C - 0x0014)
@@ -10483,6 +10920,7 @@ public:
 	ELinearConstraintMotion                       ZMotion;                                           // 0x001A(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1B[0x1];                                       // 0x001B(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FLinearConstraint;
 
 // ScriptStruct Engine.TwistConstraint
 // 0x0008 (0x001C - 0x0014)
@@ -10493,6 +10931,7 @@ public:
 	EAngularConstraintMotion                      TwistMotion;                                       // 0x0018(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x3];                                       // 0x0019(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTwistConstraint;
 
 // ScriptStruct Engine.ConstraintProfileProperties
 // 0x0114 (0x0114 - 0x0000)
@@ -10522,6 +10961,7 @@ public:
 	uint8                                         bLinearPlasticity : 1;                             // 0x0110(0x0001)(BitIndex: 0x07, PropSize: 0x0001 (Edit, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_111[0x3];                                      // 0x0111(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FConstraintProfileProperties;
 
 // ScriptStruct Engine.ConstraintInstance
 // 0x01B0 (0x01C8 - 0x0018)
@@ -10543,6 +10983,7 @@ public:
 	struct FConstraintProfileProperties           ProfileInstance;                                   // 0x008C(0x0114)(Edit, NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1A0[0x28];                                     // 0x01A0(0x0028)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FConstraintInstance;
 
 // ScriptStruct Engine.GPUSpriteLocalVectorFieldInfo
 // 0x0070 (0x0070 - 0x0000)
@@ -10564,6 +11005,7 @@ public:
 	uint8                                         bUseFixDT : 1;                                     // 0x006C(0x0001)(BitIndex: 0x04, PropSize: 0x0001 (NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_6D[0x3];                                       // 0x006D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FGPUSpriteLocalVectorFieldInfo;
 
 // ScriptStruct Engine.RawDistributionFloat
 // 0x0010 (0x0030 - 0x0020)
@@ -10574,6 +11016,7 @@ public:
 	float                                         MaxValue;                                          // 0x0024(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	class UDistributionFloat*                     Distribution;                                      // 0x0028(0x0008)(Edit, ExportObject, ZeroConstructor, InstancedReference, NoClear, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRawDistributionFloat;
 
 // ScriptStruct Engine.GPUSpriteEmitterInfo
 // 0x0280 (0x0280 - 0x0000)
@@ -10616,6 +11059,7 @@ public:
 	struct FRawDistributionFloat                  DynamicAlphaScale;                                 // 0x0240(0x0030)(ContainsInstancedReference, NativeAccessSpecifierPublic)
 	uint8                                         Pad_270[0x10];                                     // 0x0270(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FGPUSpriteEmitterInfo;
 
 // ScriptStruct Engine.SupportedSubTrackInfo
 // 0x0020 (0x0020 - 0x0000)
@@ -10627,6 +11071,7 @@ public:
 	int32                                         GroupIndex;                                        // 0x0018(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSupportedSubTrackInfo;
 
 // ScriptStruct Engine.ParticleSystemLOD
 // 0x0001 (0x0001 - 0x0000)
@@ -10635,6 +11080,7 @@ struct FParticleSystemLOD final
 public:
 	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FParticleSystemLOD;
 
 // ScriptStruct Engine.CullDistanceSizePair
 // 0x0008 (0x0008 - 0x0000)
@@ -10644,6 +11090,7 @@ public:
 	float                                         Size;                                              // 0x0000(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         CullDistance;                                      // 0x0004(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCullDistanceSizePair;
 
 // ScriptStruct Engine.StreamableTextureInstance
 // 0x0028 (0x0028 - 0x0000)
@@ -10652,6 +11099,7 @@ struct alignas(0x04) FStreamableTextureInstance
 public:
 	uint8                                         Pad_0[0x28];                                       // 0x0000(0x0028)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FStreamableTextureInstance;
 
 // ScriptStruct Engine.DynamicTextureInstance
 // 0x0010 (0x0038 - 0x0028)
@@ -10663,6 +11111,7 @@ public:
 	uint8                                         Pad_31[0x3];                                       // 0x0031(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         OriginalRadius;                                    // 0x0034(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDynamicTextureInstance;
 
 // ScriptStruct Engine.RuntimeCurveLinearColor
 // 0x0208 (0x0208 - 0x0000)
@@ -10672,6 +11121,7 @@ public:
 	struct FRichCurve                             ColorCurves[0x4];                                  // 0x0000(0x0080)(NativeAccessSpecifierPublic)
 	class UCurveLinearColor*                      ExternalCurve;                                     // 0x0200(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRuntimeCurveLinearColor;
 
 // ScriptStruct Engine.CurveTableRowHandle
 // 0x0010 (0x0010 - 0x0000)
@@ -10681,6 +11131,7 @@ public:
 	class UCurveTable*                            CurveTable;                                        // 0x0000(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   RowName;                                           // 0x0008(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCurveTableRowHandle;
 
 // ScriptStruct Engine.SoundTrackKey
 // 0x0018 (0x0018 - 0x0000)
@@ -10693,6 +11144,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class USoundBase*                             Sound;                                             // 0x0010(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSoundTrackKey;
 
 // ScriptStruct Engine.StringCurveKey
 // 0x0018 (0x0018 - 0x0000)
@@ -10703,6 +11155,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 value;                                             // 0x0008(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStringCurveKey;
 
 // ScriptStruct Engine.StringCurve
 // 0x0020 (0x0088 - 0x0068)
@@ -10712,6 +11165,7 @@ public:
 	class FString                                 DefaultValue;                                      // 0x0068(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FStringCurveKey>                Keys;                                              // 0x0078(0x0010)(Edit, EditFixedSize, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStringCurve;
 
 // ScriptStruct Engine.BakedStringCustomAttribute
 // 0x0090 (0x0090 - 0x0000)
@@ -10721,6 +11175,7 @@ public:
 	class FName                                   AttributeName;                                     // 0x0000(0x0008)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FStringCurve                           StringCurve;                                       // 0x0008(0x0088)(Edit, EditConst, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBakedStringCustomAttribute;
 
 // ScriptStruct Engine.IntegralKey
 // 0x0008 (0x0008 - 0x0000)
@@ -10730,6 +11185,7 @@ public:
 	float                                         Time;                                              // 0x0000(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         value;                                             // 0x0004(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FIntegralKey;
 
 // ScriptStruct Engine.IntegralCurve
 // 0x0018 (0x0080 - 0x0068)
@@ -10741,6 +11197,7 @@ public:
 	bool                                          bUseDefaultValueBeforeFirstKey;                    // 0x007C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_7D[0x3];                                       // 0x007D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FIntegralCurve;
 
 // ScriptStruct Engine.BakedIntegerCustomAttribute
 // 0x0088 (0x0088 - 0x0000)
@@ -10750,6 +11207,7 @@ public:
 	class FName                                   AttributeName;                                     // 0x0000(0x0008)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FIntegralCurve                         IntCurve;                                          // 0x0008(0x0080)(Edit, EditConst, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBakedIntegerCustomAttribute;
 
 // ScriptStruct Engine.SimpleCurveKey
 // 0x0008 (0x0008 - 0x0000)
@@ -10759,6 +11217,7 @@ public:
 	float                                         Time;                                              // 0x0000(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         value;                                             // 0x0004(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSimpleCurveKey;
 
 // ScriptStruct Engine.SimpleCurve
 // 0x0018 (0x0088 - 0x0070)
@@ -10769,6 +11228,7 @@ public:
 	uint8                                         Pad_71[0x7];                                       // 0x0071(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FSimpleCurveKey>                Keys;                                              // 0x0078(0x0010)(Edit, EditFixedSize, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSimpleCurve;
 
 // ScriptStruct Engine.BakedFloatCustomAttribute
 // 0x0090 (0x0090 - 0x0000)
@@ -10778,6 +11238,7 @@ public:
 	class FName                                   AttributeName;                                     // 0x0000(0x0008)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FSimpleCurve                           FloatCurve;                                        // 0x0008(0x0088)(Edit, EditConst, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBakedFloatCustomAttribute;
 
 // ScriptStruct Engine.BakedCustomAttributePerBoneData
 // 0x0038 (0x0038 - 0x0000)
@@ -10790,6 +11251,7 @@ public:
 	TArray<struct FBakedIntegerCustomAttribute>   IntAttributes;                                     // 0x0018(0x0010)(Edit, EditFixedSize, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
 	TArray<struct FBakedFloatCustomAttribute>     FloatAttributes;                                   // 0x0028(0x0010)(Edit, EditFixedSize, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBakedCustomAttributePerBoneData;
 
 // ScriptStruct Engine.CustomDefine
 // 0x0020 (0x0020 - 0x0000)
@@ -10799,6 +11261,7 @@ public:
 	class FString                                 DefineName;                                        // 0x0000(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 DefineValue;                                       // 0x0010(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCustomDefine;
 
 // ScriptStruct Engine.SoundGroup
 // 0x0020 (0x0020 - 0x0000)
@@ -10812,6 +11275,7 @@ public:
 	uint8                                         Pad_19[0x3];                                       // 0x0019(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         DecompressedDuration;                              // 0x001C(0x0004)(ZeroConstructor, Config, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSoundGroup;
 
 // ScriptStruct Engine.ParameterGroupData
 // 0x0018 (0x0018 - 0x0000)
@@ -10822,6 +11286,7 @@ public:
 	int32                                         GroupSortPriority;                                 // 0x0010(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FParameterGroupData;
 
 // ScriptStruct Engine.FunctionExpressionInput
 // 0x0030 (0x0030 - 0x0000)
@@ -10833,6 +11298,7 @@ public:
 	struct FExpressionInput                       Input;                                             // 0x0018(0x0014)(NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FFunctionExpressionInput;
 
 // ScriptStruct Engine.DistanceDatum
 // 0x0014 (0x0014 - 0x0000)
@@ -10845,6 +11311,7 @@ public:
 	float                                         FadeOutDistanceEnd;                                // 0x000C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Volume;                                            // 0x0010(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDistanceDatum;
 
 // ScriptStruct Engine.CustomAttribute
 // 0x0030 (0x0030 - 0x0000)
@@ -10857,6 +11324,7 @@ public:
 	TArray<float>                                 Times;                                             // 0x0010(0x0010)(Edit, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
 	uint8                                         Pad_20[0x10];                                      // 0x0020(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCustomAttribute;
 
 // ScriptStruct Engine.CustomAttributePerBoneData
 // 0x0018 (0x0018 - 0x0000)
@@ -10867,6 +11335,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCustomAttribute>               Attributes;                                        // 0x0008(0x0010)(Edit, EditFixedSize, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCustomAttributePerBoneData;
 
 // ScriptStruct Engine.VectorParameterValue
 // 0x0030 (0x0030 - 0x0000)
@@ -10877,6 +11346,7 @@ public:
 	struct FLinearColor                           ParameterValue;                                    // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FGuid                                  ExpressionGUID;                                    // 0x0020(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVectorParameterValue;
 
 // ScriptStruct Engine.SoundWaveEnvelopeTimeData
 // 0x0008 (0x0008 - 0x0000)
@@ -10886,6 +11356,7 @@ public:
 	float                                         Amplitude;                                         // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         TimeSec;                                           // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSoundWaveEnvelopeTimeData;
 
 // ScriptStruct Engine.StaticComponentMaskValue
 // 0x0004 (0x0004 - 0x0000)
@@ -10897,6 +11368,7 @@ public:
 	bool                                          B;                                                 // 0x0002(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          A;                                                 // 0x0003(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStaticComponentMaskValue;
 
 // ScriptStruct Engine.CustomAttributeSetting
 // 0x0020 (0x0020 - 0x0000)
@@ -10906,6 +11378,7 @@ public:
 	class FString                                 Name;                                              // 0x0000(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 Meaning;                                           // 0x0010(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCustomAttributeSetting;
 
 // ScriptStruct Engine.DataDrivenConsoleVariable
 // 0x0050 (0x0050 - 0x0000)
@@ -10921,6 +11394,7 @@ public:
 	bool                                          DefaultValueBool;                                  // 0x0030(0x0001)(Edit, ZeroConstructor, Config, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_31[0x1F];                                      // 0x0031(0x001F)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FDataDrivenConsoleVariable;
 
 // ScriptStruct Engine.DataTableCategoryHandle
 // 0x0018 (0x0018 - 0x0000)
@@ -10931,6 +11405,7 @@ public:
 	class FName                                   ColumnName;                                        // 0x0008(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   RowContents;                                       // 0x0010(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDataTableCategoryHandle;
 
 // ScriptStruct Engine.MaterialTextureInfo
 // 0x0010 (0x0010 - 0x0000)
@@ -10941,6 +11416,7 @@ public:
 	int32                                         UVChannelIndex;                                    // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   TextureName;                                       // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMaterialTextureInfo;
 
 // ScriptStruct Engine.SoundWaveSpectralData
 // 0x000C (0x000C - 0x0000)
@@ -10951,6 +11427,7 @@ public:
 	float                                         Magnitude;                                         // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         NormalizedMagnitude;                               // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSoundWaveSpectralData;
 
 // ScriptStruct Engine.SoundWaveSpectralDataPerSound
 // 0x0020 (0x0020 - 0x0000)
@@ -10962,6 +11439,7 @@ public:
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class USoundWave*                             SoundWave;                                         // 0x0018(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSoundWaveSpectralDataPerSound;
 
 // ScriptStruct Engine.DataTableRowHandle
 // 0x0010 (0x0010 - 0x0000)
@@ -10971,6 +11449,7 @@ public:
 	class UDataTable*                             DataTable;                                         // 0x0000(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   RowName;                                           // 0x0008(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDataTableRowHandle;
 
 // ScriptStruct Engine.ClientReceiveData
 // 0x0040 (0x0040 - 0x0000)
@@ -10986,6 +11465,7 @@ public:
 	class APlayerState*                           RelatedPlayerState_2;                              // 0x0030(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UObject*                                OptionalObject;                                    // 0x0038(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FClientReceiveData;
 
 // ScriptStruct Engine.DebugCameraControllerSettingsViewModeIndex
 // 0x0010 (0x0010 - 0x0000)
@@ -10996,6 +11476,7 @@ public:
 	EViewModeIndex                                ViewModeIndex;                                     // 0x0008(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FDebugCameraControllerSettingsViewModeIndex;
 
 // ScriptStruct Engine.DebugDisplayProperty
 // 0x0020 (0x0020 - 0x0000)
@@ -11006,6 +11487,7 @@ public:
 	TSubclassOf<class UObject>                    WithinClass;                                       // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_10[0x10];                                      // 0x0010(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FDebugDisplayProperty;
 
 // ScriptStruct Engine.DebugTextInfo
 // 0x0060 (0x0060 - 0x0000)
@@ -11029,6 +11511,7 @@ public:
 	float                                         FontScale;                                         // 0x0058(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5C[0x4];                                       // 0x005C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FDebugTextInfo;
 
 // ScriptStruct Engine.CachedKeyToActionInfo
 // 0x0070 (0x0070 - 0x0000)
@@ -11038,6 +11521,7 @@ public:
 	class UPlayerInput*                           PlayerInput;                                       // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_8[0x68];                                       // 0x0008(0x0068)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCachedKeyToActionInfo;
 
 // ScriptStruct Engine.MulticastRecordOptions
 // 0x0018 (0x0018 - 0x0000)
@@ -11049,6 +11533,7 @@ public:
 	bool                                          bClientSkip;                                       // 0x0011(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_12[0x6];                                       // 0x0012(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMulticastRecordOptions;
 
 // ScriptStruct Engine.RuntimeVirtualTextureParameterValue
 // 0x0028 (0x0028 - 0x0000)
@@ -11059,6 +11544,7 @@ public:
 	class URuntimeVirtualTexture*                 ParameterValue;                                    // 0x0010(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FGuid                                  ExpressionGUID;                                    // 0x0018(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRuntimeVirtualTextureParameterValue;
 
 // ScriptStruct Engine.RollbackNetStartupActorInfo
 // 0x00B0 (0x00B0 - 0x0000)
@@ -11072,6 +11558,7 @@ public:
 	uint8                                         Pad_40[0x60];                                      // 0x0040(0x0060)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<class UObject*>                        ObjReferences;                                     // 0x00A0(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRollbackNetStartupActorInfo;
 
 // ScriptStruct Engine.DialogueWaveParameter
 // 0x0020 (0x0020 - 0x0000)
@@ -11081,6 +11568,7 @@ public:
 	class UDialogueWave*                          DialogueWave;                                      // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FDialogueContext                       Context;                                           // 0x0008(0x0018)(Edit, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDialogueWaveParameter;
 
 // ScriptStruct Engine.InstancedStaticMeshLightMapInstanceData
 // 0x0040 (0x0040 - 0x0000)
@@ -11090,6 +11578,7 @@ public:
 	struct FTransform                             Transform;                                         // 0x0000(0x0030)(IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 	TArray<struct FGuid>                          MapBuildDataIds;                                   // 0x0030(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FInstancedStaticMeshLightMapInstanceData;
 
 // ScriptStruct Engine.GraphReference
 // 0x0020 (0x0020 - 0x0000)
@@ -11100,6 +11589,7 @@ public:
 	class UBlueprint*                             GraphBlueprint;                                    // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 	struct FGuid                                  GraphGuid;                                         // 0x0010(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 };
+DUMPER7_ASSERTS_FGraphReference;
 
 // ScriptStruct Engine.CameraPreviewInfo
 // 0x0030 (0x0030 - 0x0000)
@@ -11112,6 +11602,7 @@ public:
 	struct FRotator                               Rotation;                                          // 0x001C(0x000C)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 	class APawn*                                  PawnInst;                                          // 0x0028(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCameraPreviewInfo;
 
 // ScriptStruct Engine.EdGraphPinReference
 // 0x0018 (0x0018 - 0x0000)
@@ -11121,6 +11612,7 @@ public:
 	TWeakObjectPtr<class UEdGraphNode>            OwningNode;                                        // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	struct FGuid                                  PinId;                                             // 0x0008(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FEdGraphPinReference;
 
 // ScriptStruct Engine.EdGraphSchemaAction
 // 0x0100 (0x0100 - 0x0000)
@@ -11144,6 +11636,7 @@ public:
 	TArray<class FString>                         LocalizedFullSearchCategoryArray;                  // 0x00E0(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	class FString                                 SearchText;                                        // 0x00F0(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FEdGraphSchemaAction;
 
 // ScriptStruct Engine.EdGraphSchemaAction_NewNode
 // 0x0008 (0x0108 - 0x0100)
@@ -11152,6 +11645,7 @@ struct FEdGraphSchemaAction_NewNode final : public FEdGraphSchemaAction
 public:
 	class UEdGraphNode*                           NodeTemplate;                                      // 0x0100(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FEdGraphSchemaAction_NewNode;
 
 // ScriptStruct Engine.PluginRedirect
 // 0x0020 (0x0020 - 0x0000)
@@ -11161,6 +11655,7 @@ public:
 	class FString                                 OldPluginName;                                     // 0x0000(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 NewPluginName;                                     // 0x0010(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPluginRedirect;
 
 // ScriptStruct Engine.BoolTrackKey
 // 0x0008 (0x0008 - 0x0000)
@@ -11171,6 +11666,7 @@ public:
 	uint8                                         value : 1;                                         // 0x0004(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Edit, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBoolTrackKey;
 
 // ScriptStruct Engine.StructRedirect
 // 0x0010 (0x0010 - 0x0000)
@@ -11180,6 +11676,7 @@ public:
 	class FName                                   OldStructName;                                     // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   NewStructName;                                     // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStructRedirect;
 
 // ScriptStruct Engine.CustomInput
 // 0x001C (0x001C - 0x0000)
@@ -11189,6 +11686,7 @@ public:
 	class FName                                   InputName;                                         // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FExpressionInput                       Input;                                             // 0x0008(0x0014)(NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCustomInput;
 
 // ScriptStruct Engine.ClassRedirect
 // 0x003C (0x003C - 0x0000)
@@ -11205,6 +11703,7 @@ public:
 	bool                                          InstanceOnly;                                      // 0x0038(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_39[0x3];                                       // 0x0039(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FClassRedirect;
 
 // ScriptStruct Engine.GameNameRedirect
 // 0x0010 (0x0010 - 0x0000)
@@ -11214,6 +11713,7 @@ public:
 	class FName                                   OldGameName;                                       // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   NewGameName;                                       // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FGameNameRedirect;
 
 // ScriptStruct Engine.ScreenMessageString
 // 0x0030 (0x0030 - 0x0000)
@@ -11228,6 +11728,7 @@ public:
 	struct FVector2D                              TextScale;                                         // 0x0024(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FScreenMessageString;
 
 // ScriptStruct Engine.DropNoteInfo
 // 0x0028 (0x0028 - 0x0000)
@@ -11238,6 +11739,7 @@ public:
 	struct FRotator                               Rotation;                                          // 0x000C(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 	class FString                                 Comment;                                           // 0x0018(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDropNoteInfo;
 
 // ScriptStruct Engine.MeshMergingSettings
 // 0x00A0 (0x00A0 - 0x0000)
@@ -11266,6 +11768,7 @@ public:
 	uint8                                         bAllowDistanceField : 1;                           // 0x009E(0x0001)(BitIndex: 0x05, PropSize: 0x0001 (Edit, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_9F[0x1];                                       // 0x009F(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMeshMergingSettings;
 
 // ScriptStruct Engine.StatColorMapEntry
 // 0x0008 (0x0008 - 0x0000)
@@ -11275,6 +11778,7 @@ public:
 	float                                         In;                                                // 0x0000(0x0004)(ZeroConstructor, Config, GlobalConfig, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FColor                                 Out;                                               // 0x0004(0x0004)(ZeroConstructor, Config, GlobalConfig, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStatColorMapEntry;
 
 // ScriptStruct Engine.StatColorMapping
 // 0x0028 (0x0028 - 0x0000)
@@ -11286,6 +11790,7 @@ public:
 	uint8                                         DisableBlend : 1;                                  // 0x0020(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Config, GlobalConfig, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FStatColorMapping;
 
 // ScriptStruct Engine.URL
 // 0x0068 (0x0068 - 0x0000)
@@ -11301,6 +11806,7 @@ public:
 	TArray<class FString>                         Op;                                                // 0x0048(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	class FString                                 Portal;                                            // 0x0058(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FURL;
 
 // ScriptStruct Engine.FullyLoadedPackagesInfo
 // 0x0038 (0x0038 - 0x0000)
@@ -11313,6 +11819,7 @@ public:
 	TArray<class FName>                           PackagesToLoad;                                    // 0x0018(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<class UObject*>                        LoadedObjects;                                     // 0x0028(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FFullyLoadedPackagesInfo;
 
 // ScriptStruct Engine.LevelStreamingStatus
 // 0x0010 (0x0010 - 0x0000)
@@ -11325,6 +11832,7 @@ public:
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	uint32                                        LODIndex;                                          // 0x000C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLevelStreamingStatus;
 
 // ScriptStruct Engine.WorldContext
 // 0x0288 (0x0288 - 0x0000)
@@ -11346,6 +11854,7 @@ public:
 	TArray<struct FNamedNetDriver>                ActiveNetDrivers;                                  // 0x0220(0x0010)(ZeroConstructor, Transient, NativeAccessSpecifierPublic)
 	uint8                                         Pad_230[0x58];                                     // 0x0230(0x0058)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FWorldContext;
 
 // ScriptStruct Engine.ChannelDefinition
 // 0x0028 (0x0028 - 0x0000)
@@ -11363,6 +11872,7 @@ public:
 	bool                                          bInitialClient;                                    // 0x0020(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FChannelDefinition;
 
 // ScriptStruct Engine.NetworkEmulationProfileDescription
 // 0x0020 (0x0020 - 0x0000)
@@ -11372,6 +11882,7 @@ public:
 	class FString                                 ProfileName;                                       // 0x0000(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 Tooltip;                                           // 0x0010(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNetworkEmulationProfileDescription;
 
 // ScriptStruct Engine.ExposureSettings
 // 0x0008 (0x0008 - 0x0000)
@@ -11382,6 +11893,7 @@ public:
 	bool                                          bFixed;                                            // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FExposureSettings;
 
 // ScriptStruct Engine.TickPrerequisite
 // 0x0010 (0x0010 - 0x0000)
@@ -11390,6 +11902,7 @@ struct alignas(0x08) FTickPrerequisite final
 public:
 	uint8                                         Pad_0[0x10];                                       // 0x0000(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTickPrerequisite;
 
 // ScriptStruct Engine.CanvasUVTri
 // 0x0060 (0x0060 - 0x0000)
@@ -11406,6 +11919,7 @@ public:
 	struct FVector2D                              V2_UV;                                             // 0x0048(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FLinearColor                           V2_Color;                                          // 0x0050(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCanvasUVTri;
 
 // ScriptStruct Engine.ParticleCurvePair
 // 0x0018 (0x0018 - 0x0000)
@@ -11415,6 +11929,7 @@ public:
 	class FString                                 CurveName;                                         // 0x0000(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UObject*                                CurveObject;                                       // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FParticleCurvePair;
 
 // ScriptStruct Engine.DepthFieldGlowInfo
 // 0x0024 (0x0024 - 0x0000)
@@ -11427,6 +11942,7 @@ public:
 	struct FVector2D                              GlowOuterRadius;                                   // 0x0014(0x0008)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector2D                              GlowInnerRadius;                                   // 0x001C(0x0008)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDepthFieldGlowInfo;
 
 // ScriptStruct Engine.FontRenderInfo
 // 0x0028 (0x0028 - 0x0000)
@@ -11438,6 +11954,7 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FDepthFieldGlowInfo                    GlowInfo;                                          // 0x0004(0x0024)(BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FFontRenderInfo;
 
 // ScriptStruct Engine.InterpGroupActorInfo
 // 0x0018 (0x0018 - 0x0000)
@@ -11447,6 +11964,7 @@ public:
 	class FName                                   ObjectName;                                        // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<class AActor*>                         Actors;                                            // 0x0008(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FInterpGroupActorInfo;
 
 // ScriptStruct Engine.EngineShowFlagsSetting
 // 0x0018 (0x0018 - 0x0000)
@@ -11457,6 +11975,7 @@ public:
 	bool                                          Enabled;                                           // 0x0010(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FEngineShowFlagsSetting;
 
 // ScriptStruct Engine.CollectionReference
 // 0x0008 (0x0008 - 0x0000)
@@ -11465,6 +11984,7 @@ struct FCollectionReference final
 public:
 	class FName                                   CollectionName;                                    // 0x0000(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCollectionReference;
 
 // ScriptStruct Engine.ComponentReference
 // 0x0028 (0x0028 - 0x0000)
@@ -11476,6 +11996,7 @@ public:
 	class FString                                 PathToComponent;                                   // 0x0010(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_20[0x8];                                       // 0x0020(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FComponentReference;
 
 // ScriptStruct Engine.DamageEvent
 // 0x0010 (0x0010 - 0x0000)
@@ -11485,6 +12006,7 @@ public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
 	TSubclassOf<class UDamageType>                DamageTypeClass;                                   // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDamageEvent;
 
 // ScriptStruct Engine.ClothingAssetData_Legacy
 // 0x0078 (0x0078 - 0x0000)
@@ -11498,6 +12020,7 @@ public:
 	struct FClothPhysicsProperties_Legacy         PhysicsProperties;                                 // 0x001C(0x0050)(NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_6C[0xC];                                       // 0x006C(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FClothingAssetData_Legacy;
 
 // ScriptStruct Engine.RadialDamageParams
 // 0x0014 (0x0014 - 0x0000)
@@ -11510,6 +12033,7 @@ public:
 	float                                         OuterRadius;                                       // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         DamageFalloff;                                     // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRadialDamageParams;
 
 // ScriptStruct Engine.RadialDamageEvent
 // 0x0030 (0x0040 - 0x0010)
@@ -11520,6 +12044,7 @@ public:
 	struct FVector                                Origin;                                            // 0x0024(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FHitResult>                     ComponentHits;                                     // 0x0030(0x0010)(ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRadialDamageEvent;
 
 // ScriptStruct Engine.NameCurveKey
 // 0x000C (0x000C - 0x0000)
@@ -11529,6 +12054,7 @@ public:
 	float                                         Time;                                              // 0x0000(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   value;                                             // 0x0004(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNameCurveKey;
 
 // ScriptStruct Engine.NameCurve
 // 0x0010 (0x0078 - 0x0068)
@@ -11537,6 +12063,7 @@ struct FNameCurve final : public FIndexedCurve
 public:
 	TArray<struct FNameCurveKey>                  Keys;                                              // 0x0068(0x0010)(Edit, EditFixedSize, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNameCurve;
 
 // ScriptStruct Engine.PointDamageEvent
 // 0x0098 (0x00A8 - 0x0010)
@@ -11547,6 +12074,7 @@ public:
 	struct FVector_NetQuantizeNormal              ShotDirection;                                     // 0x0014(0x000C)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FHitResult                             HitInfo;                                           // 0x0020(0x0088)(IsPlainOldData, NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPointDamageEvent;
 
 // ScriptStruct Engine.SkeletalMeshBuildSettings
 // 0x0014 (0x0014 - 0x0000)
@@ -11567,6 +12095,7 @@ public:
 	float                                         ThresholdUV;                                       // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         MorphThresholdPosition;                            // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSkeletalMeshBuildSettings;
 
 // ScriptStruct Engine.POV
 // 0x001C (0x001C - 0x0000)
@@ -11577,6 +12106,7 @@ public:
 	struct FRotator                               Rotation;                                          // 0x000C(0x000C)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 	float                                         FOV;                                               // 0x0018(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPOV;
 
 // ScriptStruct Engine.AnimUpdateRateParameters
 // 0x0088 (0x0088 - 0x0000)
@@ -11603,6 +12133,7 @@ public:
 	int32                                         SkippedUpdateFrames;                               // 0x0080(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         SkippedEvalFrames;                                 // 0x0084(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimUpdateRateParameters;
 
 // ScriptStruct Engine.AnimSlotDesc
 // 0x000C (0x000C - 0x0000)
@@ -11612,6 +12143,7 @@ public:
 	class FName                                   SlotName;                                          // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         NumChannels;                                       // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimSlotDesc;
 
 // ScriptStruct Engine.SkeletalMeshComponentEndPhysicsTickFunction
 // 0x0008 (0x0030 - 0x0028)
@@ -11620,6 +12152,7 @@ struct FSkeletalMeshComponentEndPhysicsTickFunction final : public FTickFunction
 public:
 	uint8                                         Pad_28[0x8];                                       // 0x0028(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSkeletalMeshComponentEndPhysicsTickFunction;
 
 // ScriptStruct Engine.AnimSlotInfo
 // 0x0018 (0x0018 - 0x0000)
@@ -11629,6 +12162,7 @@ public:
 	class FName                                   SlotName;                                          // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<float>                                 ChannelWeights;                                    // 0x0008(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimSlotInfo;
 
 // ScriptStruct Engine.MTDResult
 // 0x0010 (0x0010 - 0x0000)
@@ -11638,6 +12172,7 @@ public:
 	struct FVector                                Direction;                                         // 0x0000(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Distance;                                          // 0x000C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMTDResult;
 
 // ScriptStruct Engine.NavigationSegmentLink
 // 0x0030 (0x0060 - 0x0030)
@@ -11649,6 +12184,7 @@ public:
 	struct FVector                                RightStart;                                        // 0x0048(0x000C)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                RightEnd;                                          // 0x0054(0x000C)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNavigationSegmentLink;
 
 // ScriptStruct Engine.OverlapResult
 // 0x0018 (0x0018 - 0x0000)
@@ -11661,6 +12197,7 @@ public:
 	uint8                                         bBlockingHit : 1;                                  // 0x0014(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FOverlapResult;
 
 // ScriptStruct Engine.PrimitiveMaterialRef
 // 0x0018 (0x0018 - 0x0000)
@@ -11672,6 +12209,7 @@ public:
 	int32                                         ElementIndex;                                      // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPrimitiveMaterialRef;
 
 // ScriptStruct Engine.LightmassDebugOptions
 // 0x0010 (0x0010 - 0x0000)
@@ -11697,6 +12235,7 @@ public:
 	uint8                                         Pad_A[0x2];                                        // 0x000A(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         ExecutionTimeDivisor;                              // 0x000C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLightmassDebugOptions;
 
 // ScriptStruct Engine.LightmassLightSettings
 // 0x000C (0x000C - 0x0000)
@@ -11708,6 +12247,7 @@ public:
 	bool                                          bUseAreaShadowsForStationaryLight;                 // 0x0008(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FLightmassLightSettings;
 
 // ScriptStruct Engine.LightmassDirectionalLightSettings
 // 0x0004 (0x0010 - 0x000C)
@@ -11716,6 +12256,7 @@ struct FLightmassDirectionalLightSettings final : public FLightmassLightSettings
 public:
 	float                                         LightSourceAngle;                                  // 0x000C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLightmassDirectionalLightSettings;
 
 // ScriptStruct Engine.DelegateArray
 // 0x0010 (0x0010 - 0x0000)
@@ -11724,12 +12265,14 @@ struct FDelegateArray final
 public:
 	TArray<TDelegate<void(const struct FPlatformInterfaceDelegateResult& Result)>> Delegates;        // 0x0000(0x0010)(ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDelegateArray;
 
 // ScriptStruct Engine.LightmassPointLightSettings
 // 0x0000 (0x000C - 0x000C)
 struct FLightmassPointLightSettings final : public FLightmassLightSettings
 {
 };
+DUMPER7_ASSERTS_FLightmassPointLightSettings;
 
 // ScriptStruct Engine.BasedPosition
 // 0x0038 (0x0038 - 0x0000)
@@ -11742,6 +12285,7 @@ public:
 	struct FRotator                               CachedBaseRotation;                                // 0x0020(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 	struct FVector                                CachedTransPosition;                               // 0x002C(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBasedPosition;
 
 // ScriptStruct Engine.ReplicatedStaticActorDestructionInfo
 // 0x0038 (0x0038 - 0x0000)
@@ -11751,6 +12295,7 @@ public:
 	uint8                                         Pad_0[0x30];                                       // 0x0000(0x0030)(Fixing Size After Last Property [ Dumper-7 ])
 	class UClass*                                 ObjClass;                                          // 0x0030(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FReplicatedStaticActorDestructionInfo;
 
 // ScriptStruct Engine.FractureEffect
 // 0x0010 (0x0010 - 0x0000)
@@ -11760,6 +12305,7 @@ public:
 	class UParticleSystem*                        ParticleSystem;                                    // 0x0000(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class USoundBase*                             Sound;                                             // 0x0008(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FFractureEffect;
 
 // ScriptStruct Engine.RigidBodyContactInfo
 // 0x0030 (0x0030 - 0x0000)
@@ -11772,6 +12318,7 @@ public:
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UPhysicalMaterial*                      PhysMaterial[0x2];                                 // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRigidBodyContactInfo;
 
 // ScriptStruct Engine.CollisionImpactData
 // 0x0030 (0x0030 - 0x0000)
@@ -11784,6 +12331,7 @@ public:
 	bool                                          bIsVelocityDeltaUnderThreshold;                    // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_29[0x7];                                       // 0x0029(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCollisionImpactData;
 
 // ScriptStruct Engine.InputAxisProperties
 // 0x0010 (0x0010 - 0x0000)
@@ -11796,6 +12344,7 @@ public:
 	uint8                                         bInvert : 1;                                       // 0x000C(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Edit, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FInputAxisProperties;
 
 // ScriptStruct Engine.InputAxisConfigEntry
 // 0x0018 (0x0018 - 0x0000)
@@ -11805,6 +12354,7 @@ public:
 	class FName                                   AxisKeyName;                                       // 0x0000(0x0008)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FInputAxisProperties                   AxisProperties;                                    // 0x0008(0x0010)(Edit, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FInputAxisConfigEntry;
 
 // ScriptStruct Engine.RigidBodyErrorCorrection
 // 0x0034 (0x0034 - 0x0000)
@@ -11825,6 +12375,7 @@ public:
 	float                                         ErrorAccumulationDistanceSq;                       // 0x002C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ErrorAccumulationSimilarity;                       // 0x0030(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRigidBodyErrorCorrection;
 
 // ScriptStruct Engine.MaterialShadingModelField
 // 0x0002 (0x0002 - 0x0000)
@@ -11833,6 +12384,7 @@ struct FMaterialShadingModelField final
 public:
 	uint16                                        ShadingModelField;                                 // 0x0000(0x0002)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FMaterialShadingModelField;
 
 // ScriptStruct Engine.PoseData
 // 0x0070 (0x0070 - 0x0000)
@@ -11843,6 +12395,7 @@ public:
 	TMap<int32, int32>                            TrackToBufferIndex;                                // 0x0010(0x0050)(NativeAccessSpecifierPublic)
 	TArray<float>                                 CurveData;                                         // 0x0060(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPoseData;
 
 // ScriptStruct Engine.PoseDataContainer
 // 0x0090 (0x0090 - 0x0000)
@@ -11855,6 +12408,7 @@ public:
 	TArray<struct FPoseData>                      Poses;                                             // 0x0070(0x0010)(ZeroConstructor, NativeAccessSpecifierPrivate)
 	TArray<struct FAnimCurveBase>                 Curves;                                            // 0x0080(0x0010)(ZeroConstructor, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FPoseDataContainer;
 
 // ScriptStruct Engine.ExponentialHeightFogData
 // 0x000C (0x000C - 0x0000)
@@ -11865,6 +12419,7 @@ public:
 	float                                         FogHeightFalloff;                                  // 0x0004(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         FogHeightOffset;                                   // 0x0008(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FExponentialHeightFogData;
 
 // ScriptStruct Engine.FontCharacter
 // 0x0018 (0x0018 - 0x0000)
@@ -11879,12 +12434,14 @@ public:
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         VerticalOffset;                                    // 0x0014(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FFontCharacter;
 
 // ScriptStruct Engine.ForceFeedbackAttenuationSettings
 // 0x0000 (0x00B0 - 0x00B0)
 struct FForceFeedbackAttenuationSettings final : public FBaseAttenuationSettings
 {
 };
+DUMPER7_ASSERTS_FForceFeedbackAttenuationSettings;
 
 // ScriptStruct Engine.ForceFeedbackChannelDetails
 // 0x0090 (0x0090 - 0x0000)
@@ -11898,6 +12455,7 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FRuntimeFloatCurve                     Curve;                                             // 0x0008(0x0088)(Edit, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FForceFeedbackChannelDetails;
 
 // ScriptStruct Engine.CollectionVectorParameter
 // 0x0010 (0x0028 - 0x0018)
@@ -11906,6 +12464,7 @@ struct FCollectionVectorParameter final : public FCollectionParameterBase
 public:
 	struct FLinearColor                           DefaultValue;                                      // 0x0018(0x0010)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCollectionVectorParameter;
 
 // ScriptStruct Engine.PredictProjectilePathParams
 // 0x0060 (0x0060 - 0x0000)
@@ -11931,6 +12490,7 @@ public:
 	bool                                          bTraceComplex;                                     // 0x0058(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_59[0x7];                                       // 0x0059(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPredictProjectilePathParams;
 
 // ScriptStruct Engine.ActiveHapticFeedbackEffect
 // 0x0048 (0x0048 - 0x0000)
@@ -11940,6 +12500,7 @@ public:
 	class UHapticFeedbackEffect_Base*             HapticEffect;                                      // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_8[0x40];                                       // 0x0008(0x0040)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FActiveHapticFeedbackEffect;
 
 // ScriptStruct Engine.MemberReference
 // 0x0038 (0x0038 - 0x0000)
@@ -11954,6 +12515,7 @@ public:
 	bool                                          bWasDeprecated;                                    // 0x0031(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 	uint8                                         Pad_32[0x6];                                       // 0x0032(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMemberReference;
 
 // ScriptStruct Engine.HapticFeedbackDetails_Curve
 // 0x0110 (0x0110 - 0x0000)
@@ -11963,6 +12525,7 @@ public:
 	struct FRuntimeFloatCurve                     Frequency;                                         // 0x0000(0x0088)(Edit, NativeAccessSpecifierPublic)
 	struct FRuntimeFloatCurve                     Amplitude;                                         // 0x0088(0x0088)(Edit, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FHapticFeedbackDetails_Curve;
 
 // ScriptStruct Engine.ClusterNode
 // 0x0040 (0x0040 - 0x0000)
@@ -11978,6 +12541,7 @@ public:
 	struct FVector                                MinInstanceScale;                                  // 0x0028(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                MaxInstanceScale;                                  // 0x0034(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FClusterNode;
 
 // ScriptStruct Engine.ClusterNode_DEPRECATED
 // 0x0028 (0x0028 - 0x0000)
@@ -11991,6 +12555,7 @@ public:
 	int32                                         FirstInstance;                                     // 0x0020(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         LastInstance;                                      // 0x0024(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FClusterNode_DEPRECATED;
 
 // ScriptStruct Engine.HLODISMComponentDesc
 // 0x0020 (0x0020 - 0x0000)
@@ -12001,6 +12566,7 @@ public:
 	class UMaterialInterface*                     Material;                                          // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FTransform>                     Instances;                                         // 0x0010(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FHLODISMComponentDesc;
 
 // ScriptStruct Engine.MeshReductionSettings
 // 0x0024 (0x0024 - 0x0000)
@@ -12027,6 +12593,7 @@ public:
 	EMeshFeatureImportance                        VertexColorImportance;                             // 0x0022(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_23[0x1];                                       // 0x0023(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMeshReductionSettings;
 
 // ScriptStruct Engine.HLODProxyMesh
 // 0x0030 (0x0030 - 0x0000)
@@ -12038,6 +12605,7 @@ public:
 	class UStaticMesh*                            StaticMesh;                                        // 0x0020(0x0008)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	class FName                                   Key;                                               // 0x0028(0x0008)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FHLODProxyMesh;
 
 // ScriptStruct Engine.ImportanceTexture
 // 0x0050 (0x0050 - 0x0000)
@@ -12054,6 +12622,7 @@ public:
 	EImportanceWeight                             Weighting;                                         // 0x0048(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_49[0x7];                                       // 0x0049(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FImportanceTexture;
 
 // ScriptStruct Engine.NavAvoidanceMask
 // 0x0004 (0x0004 - 0x0000)
@@ -12093,6 +12662,7 @@ public:
 	uint8                                         bGroup30 : 1;                                      // 0x0003(0x0001)(BitIndex: 0x06, PropSize: 0x0001 (Edit, BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         bGroup31 : 1;                                      // 0x0003(0x0001)(BitIndex: 0x07, PropSize: 0x0001 (Edit, BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 };
+DUMPER7_ASSERTS_FNavAvoidanceMask;
 
 // ScriptStruct Engine.BlueprintInputActionDelegateBinding
 // 0x0014 (0x0018 - 0x0004)
@@ -12104,6 +12674,7 @@ public:
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class FName                                   FunctionNameToBind;                                // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBlueprintInputActionDelegateBinding;
 
 // ScriptStruct Engine.BlueprintInputAxisDelegateBinding
 // 0x0010 (0x0014 - 0x0004)
@@ -12113,6 +12684,7 @@ public:
 	class FName                                   InputAxisName;                                     // 0x0004(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   FunctionNameToBind;                                // 0x000C(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBlueprintInputAxisDelegateBinding;
 
 // ScriptStruct Engine.BlueprintInputAxisKeyDelegateBinding
 // 0x0024 (0x0028 - 0x0004)
@@ -12123,6 +12695,7 @@ public:
 	struct FKey                                   AxisKey;                                           // 0x0008(0x0018)(HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   FunctionNameToBind;                                // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBlueprintInputAxisKeyDelegateBinding;
 
 // ScriptStruct Engine.BlueprintInputKeyDelegateBinding
 // 0x0034 (0x0038 - 0x0004)
@@ -12136,6 +12709,7 @@ public:
 	class FName                                   FunctionNameToBind;                                // 0x002C(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBlueprintInputKeyDelegateBinding;
 
 // ScriptStruct Engine.InstancedStaticMeshComponentInstanceData
 // 0x0098 (0x0150 - 0x00B8)
@@ -12150,6 +12724,7 @@ public:
 	int32                                         InstancingRandomSeed;                              // 0x0140(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_144[0xC];                                      // 0x0144(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FInstancedStaticMeshComponentInstanceData;
 
 // ScriptStruct Engine.CurveEdTab
 // 0x0030 (0x0030 - 0x0000)
@@ -12163,6 +12738,7 @@ public:
 	float                                         ViewStartOutput;                                   // 0x0028(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ViewEndOutput;                                     // 0x002C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCurveEdTab;
 
 // ScriptStruct Engine.InterpEdSelKey
 // 0x0018 (0x0018 - 0x0000)
@@ -12174,6 +12750,7 @@ public:
 	int32                                         KeyIndex;                                          // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         UnsnappedPosition;                                 // 0x0014(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FInterpEdSelKey;
 
 // ScriptStruct Engine.SubTrackGroup
 // 0x0028 (0x0028 - 0x0000)
@@ -12186,6 +12763,7 @@ public:
 	uint8                                         bIsSelected : 1;                                   // 0x0020(0x0001)(BitIndex: 0x01, PropSize: 0x0001 (Transient, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSubTrackGroup;
 
 // ScriptStruct Engine.AnimControlTrackKey
 // 0x0020 (0x0020 - 0x0000)
@@ -12202,6 +12780,7 @@ public:
 	uint8                                         bReverse : 1;                                      // 0x001C(0x0001)(BitIndex: 0x01, PropSize: 0x0001 (NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimControlTrackKey;
 
 // ScriptStruct Engine.ParticleReplayTrackKey
 // 0x000C (0x000C - 0x0000)
@@ -12212,6 +12791,7 @@ public:
 	float                                         Duration;                                          // 0x0004(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ClipIDNumber;                                      // 0x0008(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FParticleReplayTrackKey;
 
 // ScriptStruct Engine.ToggleTrackKey
 // 0x0008 (0x0008 - 0x0000)
@@ -12222,6 +12802,7 @@ public:
 	ETrackToggleAction                            ToggleAction;                                      // 0x0004(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FToggleTrackKey;
 
 // ScriptStruct Engine.VectorSpringState
 // 0x0018 (0x0018 - 0x0000)
@@ -12230,6 +12811,7 @@ struct alignas(0x04) FVectorSpringState final
 public:
 	uint8                                         Pad_0[0x18];                                       // 0x0000(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FVectorSpringState;
 
 // ScriptStruct Engine.LayerActorStats
 // 0x0010 (0x0010 - 0x0000)
@@ -12240,6 +12822,7 @@ public:
 	int32                                         Total;                                             // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FLayerActorStats;
 
 // ScriptStruct Engine.LevelSimplificationDetails
 // 0x012C (0x012C - 0x0000)
@@ -12266,6 +12849,7 @@ public:
 	bool                                          bGenerateLandscapeSpecularMap;                     // 0x0129(0x0001)(ZeroConstructor, Deprecated, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_12A[0x2];                                      // 0x012A(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FLevelSimplificationDetails;
 
 // ScriptStruct Engine.PrecomputedLightInstanceData
 // 0x0058 (0x0110 - 0x00B8)
@@ -12278,6 +12862,7 @@ public:
 	int32                                         PreviewShadowMapChannel;                           // 0x0100(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_104[0xC];                                      // 0x0104(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPrecomputedLightInstanceData;
 
 // ScriptStruct Engine.HLODInstancingKey
 // 0x0010 (0x0010 - 0x0000)
@@ -12287,6 +12872,7 @@ public:
 	class UStaticMesh*                            StaticMesh;                                        // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UMaterialInterface*                     Material;                                          // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FHLODInstancingKey;
 
 // ScriptStruct Engine.MaterialSpriteElement
 // 0x0028 (0x0028 - 0x0000)
@@ -12302,6 +12888,7 @@ public:
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UCurveFloat*                            DistanceToSizeCurve;                               // 0x0020(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMaterialSpriteElement;
 
 // ScriptStruct Engine.CustomOutput
 // 0x000C (0x000C - 0x0000)
@@ -12312,6 +12899,7 @@ public:
 	ECustomMaterialOutputType                     OutputType;                                        // 0x0008(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCustomOutput;
 
 // ScriptStruct Engine.FunctionExpressionOutput
 // 0x0020 (0x0020 - 0x0000)
@@ -12322,6 +12910,7 @@ public:
 	struct FGuid                                  ExpressionOutputId;                                // 0x0008(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FExpressionOutput                      output;                                            // 0x0018(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FFunctionExpressionOutput;
 
 // ScriptStruct Engine.TextureParameterValue
 // 0x0028 (0x0028 - 0x0000)
@@ -12332,6 +12921,7 @@ public:
 	class UTexture*                               ParameterValue;                                    // 0x0010(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FGuid                                  ExpressionGUID;                                    // 0x0018(0x0010)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTextureParameterValue;
 
 // ScriptStruct Engine.LightmassMaterialInterfaceSettings
 // 0x0010 (0x0010 - 0x0000)
@@ -12348,6 +12938,7 @@ public:
 	uint8                                         bOverrideExportResolutionScale : 1;                // 0x000C(0x0001)(BitIndex: 0x04, PropSize: 0x0001 (NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FLightmassMaterialInterfaceSettings;
 
 // ScriptStruct Engine.CameraCutInfo
 // 0x0010 (0x0010 - 0x0000)
@@ -12357,6 +12948,7 @@ public:
 	struct FVector                                Location;                                          // 0x0000(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Timestamp;                                         // 0x000C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCameraCutInfo;
 
 // ScriptStruct Engine.MeshProxySettings
 // 0x00A8 (0x00A8 - 0x0000)
@@ -12387,6 +12979,7 @@ public:
 	uint8                                         bAllowVertexColors : 1;                            // 0x00A7(0x0001)(BitIndex: 0x03, PropSize: 0x0001 (Edit, BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         bGenerateLightmapUVs : 1;                          // 0x00A7(0x0001)(BitIndex: 0x04, PropSize: 0x0001 (Edit, BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 };
+DUMPER7_ASSERTS_FMeshProxySettings;
 
 // ScriptStruct Engine.ParticleBurst
 // 0x000C (0x000C - 0x0000)
@@ -12397,6 +12990,7 @@ public:
 	int32                                         CountLow;                                          // 0x0004(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Time;                                              // 0x0008(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FParticleBurst;
 
 // ScriptStruct Engine.BeamModifierOptions
 // 0x0004 (0x0004 - 0x0000)
@@ -12408,6 +13002,7 @@ public:
 	uint8                                         bLock : 1;                                         // 0x0000(0x0001)(BitIndex: 0x02, PropSize: 0x0001 (Edit, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBeamModifierOptions;
 
 // ScriptStruct Engine.ParticleEvent_GenerateInfo
 // 0x0028 (0x0028 - 0x0000)
@@ -12426,6 +13021,7 @@ public:
 	class FName                                   customName;                                        // 0x0010(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<class UParticleModuleEventSendToGame*> ParticleModuleEventsToSendToGame;                  // 0x0018(0x0010)(Edit, ExportObject, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FParticleEvent_GenerateInfo;
 
 // ScriptStruct Engine.EmitterDynamicParameter
 // 0x0048 (0x0048 - 0x0000)
@@ -12442,6 +13038,7 @@ public:
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FRawDistributionFloat                  ParamValue;                                        // 0x0018(0x0030)(Edit, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FEmitterDynamicParameter;
 
 // ScriptStruct Engine.GPUSpriteResourceData
 // 0x0160 (0x0160 - 0x0000)
@@ -12492,6 +13089,7 @@ public:
 	float                                         MaxFacingCameraBlendDistance;                      // 0x0158(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_15C[0x4];                                      // 0x015C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FGPUSpriteResourceData;
 
 // ScriptStruct Engine.NamedEmitterMaterial
 // 0x0010 (0x0010 - 0x0000)
@@ -12501,6 +13099,7 @@ public:
 	class FName                                   Name;                                              // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UMaterialInterface*                     Material;                                          // 0x0008(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNamedEmitterMaterial;
 
 // ScriptStruct Engine.LODSoloTrack
 // 0x0010 (0x0010 - 0x0000)
@@ -12509,6 +13108,7 @@ struct FLODSoloTrack final
 public:
 	TArray<uint8>                                 SoloEnableSetting;                                 // 0x0000(0x0010)(ZeroConstructor, Transient, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLODSoloTrack;
 
 // ScriptStruct Engine.ParticleSysParam
 // 0x0080 (0x0080 - 0x0000)
@@ -12527,6 +13127,7 @@ public:
 	class UMaterialInterface*                     Material;                                          // 0x0038(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_40[0x40];                                      // 0x0040(0x0040)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FParticleSysParam;
 
 // ScriptStruct Engine.ParticleSystemWorldManagerTickFunction
 // 0x0008 (0x0030 - 0x0028)
@@ -12535,6 +13136,7 @@ struct FParticleSystemWorldManagerTickFunction final : public FTickFunction
 public:
 	uint8                                         Pad_28[0x8];                                       // 0x0028(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FParticleSystemWorldManagerTickFunction;
 
 // ScriptStruct Engine.ParticleSystemReplayFrame
 // 0x0010 (0x0010 - 0x0000)
@@ -12543,6 +13145,7 @@ struct alignas(0x08) FParticleSystemReplayFrame final
 public:
 	uint8                                         Pad_0[0x10];                                       // 0x0000(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FParticleSystemReplayFrame;
 
 // ScriptStruct Engine.FreezablePerPlatformInt
 // 0x0004 (0x0004 - 0x0000)
@@ -12551,6 +13154,7 @@ struct alignas(0x04) FFreezablePerPlatformInt final
 public:
 	uint8                                         Pad_0[0x4];                                        // 0x0000(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FFreezablePerPlatformInt;
 
 // ScriptStruct Engine.PhysicalAnimationData
 // 0x0024 (0x0024 - 0x0000)
@@ -12567,6 +13171,7 @@ public:
 	float                                         MaxLinearForce;                                    // 0x001C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         MaxAngularForce;                                   // 0x0020(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPhysicalAnimationData;
 
 // ScriptStruct Engine.PhysicalAnimationProfile
 // 0x002C (0x002C - 0x0000)
@@ -12576,6 +13181,7 @@ public:
 	class FName                                   ProfileName;                                       // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FPhysicalAnimationData                 PhysicalAnimationData;                             // 0x0008(0x0024)(Edit, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPhysicalAnimationProfile;
 
 // ScriptStruct Engine.PhysicsConstraintProfileHandle
 // 0x011C (0x011C - 0x0000)
@@ -12585,6 +13191,7 @@ public:
 	struct FConstraintProfileProperties           ProfileProperties;                                 // 0x0000(0x0114)(NoDestructor, NativeAccessSpecifierPublic)
 	class FName                                   ProfileName;                                       // 0x0114(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPhysicsConstraintProfileHandle;
 
 // ScriptStruct Engine.ChaosPhysicsSettings
 // 0x0003 (0x0003 - 0x0000)
@@ -12595,6 +13202,7 @@ public:
 	EChaosSolverTickMode                          DedicatedThreadTickMode;                           // 0x0001(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	EChaosBufferMode                              DedicatedThreadBufferMode;                         // 0x0002(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FChaosPhysicsSettings;
 
 // ScriptStruct Engine.PhysicalSurfaceName
 // 0x000C (0x000C - 0x0000)
@@ -12605,6 +13213,7 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class FName                                   Name;                                              // 0x0004(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPhysicalSurfaceName;
 
 // ScriptStruct Engine.TViewTarget
 // 0x0610 (0x0610 - 0x0000)
@@ -12617,6 +13226,7 @@ public:
 	class APlayerState*                           PlayerState;                                       // 0x0600(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 	uint8                                         Pad_608[0x8];                                      // 0x0608(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTViewTarget;
 
 // ScriptStruct Engine.CameraCacheEntry
 // 0x0600 (0x0600 - 0x0000)
@@ -12627,6 +13237,7 @@ public:
 	uint8                                         Pad_4[0xC];                                        // 0x0004(0x000C)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FMinimalViewInfo                       POV;                                               // 0x0010(0x05F0)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCameraCacheEntry;
 
 // ScriptStruct Engine.InputActionSpeechMapping
 // 0x0010 (0x0010 - 0x0000)
@@ -12636,6 +13247,7 @@ public:
 	class FName                                   ActionName;                                        // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	class FName                                   SpeechKeyword;                                     // 0x0008(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FInputActionSpeechMapping;
 
 // ScriptStruct Engine.KeyBind
 // 0x0030 (0x0030 - 0x0000)
@@ -12655,6 +13267,7 @@ public:
 	uint8                                         bDisabled : 1;                                     // 0x0029(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Transient, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_2A[0x6];                                       // 0x002A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FKeyBind;
 
 // ScriptStruct Engine.PlayerMuteList
 // 0x0038 (0x0038 - 0x0000)
@@ -12666,6 +13279,7 @@ public:
 	uint8                                         Pad_31[0x3];                                       // 0x0031(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         VoiceChannelIdx;                                   // 0x0034(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPlayerMuteList;
 
 // ScriptStruct Engine.PreviewAssetAttachContainer
 // 0x0010 (0x0010 - 0x0000)
@@ -12674,6 +13288,7 @@ struct FPreviewAssetAttachContainer final
 public:
 	TArray<struct FPreviewAttachedObjectPair>     AttachedObjects;                                   // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FPreviewAssetAttachContainer;
 
 // ScriptStruct Engine.PreviewMeshCollectionEntry
 // 0x0028 (0x0028 - 0x0000)
@@ -12682,6 +13297,7 @@ struct FPreviewMeshCollectionEntry final
 public:
 	TSoftObjectPtr<class USkeletalMesh>           SkeletalMesh;                                      // 0x0000(0x0028)(Edit, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPreviewMeshCollectionEntry;
 
 // ScriptStruct Engine.PrimitiveComponentInstanceData
 // 0x0048 (0x0100 - 0x00B8)
@@ -12694,6 +13310,7 @@ public:
 	uint8                                         Pad_F4[0x4];                                       // 0x00F4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UPrimitiveComponent*                    LODParent;                                         // 0x00F8(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FPrimitiveComponentInstanceData;
 
 // ScriptStruct Engine.SpriteCategoryInfo
 // 0x0038 (0x0038 - 0x0000)
@@ -12704,6 +13321,7 @@ public:
 	class FText                                   DisplayName;                                       // 0x0008(0x0018)(NativeAccessSpecifierPublic)
 	class FText                                   Description;                                       // 0x0020(0x0018)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSpriteCategoryInfo;
 
 // ScriptStruct Engine.QuartzQuantizationBoundary
 // 0x000C (0x000C - 0x0000)
@@ -12717,6 +13335,7 @@ public:
 	bool                                          bFireOnClockStart;                                 // 0x0009(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_A[0x2];                                        // 0x000A(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FQuartzQuantizationBoundary;
 
 // ScriptStruct Engine.LevelNameAndTime
 // 0x0018 (0x0018 - 0x0000)
@@ -12727,6 +13346,7 @@ public:
 	uint32                                        LevelChangeTimeInMS;                               // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FLevelNameAndTime;
 
 // ScriptStruct Engine.ReverbSettings
 // 0x0020 (0x0020 - 0x0000)
@@ -12740,6 +13360,7 @@ public:
 	float                                         Volume;                                            // 0x0018(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         FadeTime;                                          // 0x001C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FReverbSettings;
 
 // ScriptStruct Engine.CompressedRichCurve
 // 0x0018 (0x0018 - 0x0000)
@@ -12748,6 +13369,7 @@ struct alignas(0x08) FCompressedRichCurve final
 public:
 	uint8                                         Pad_0[0x18];                                       // 0x0000(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCompressedRichCurve;
 
 // ScriptStruct Engine.Node
 // 0x0060 (0x0060 - 0x0000)
@@ -12761,6 +13383,7 @@ public:
 	bool                                          bAdvanced;                                         // 0x0050(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_51[0xF];                                       // 0x0051(0x000F)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FNode;
 
 // ScriptStruct Engine.RootMotionSource_JumpForce
 // 0x0030 (0x00D0 - 0x00A0)
@@ -12776,6 +13399,7 @@ public:
 	class UCurveFloat*                            TimeMappingCurve;                                  // 0x00B8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C0[0x10];                                      // 0x00C0(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FRootMotionSource_JumpForce;
 
 // ScriptStruct Engine.RootMotionSource_MoveToForce
 // 0x0020 (0x00C0 - 0x00A0)
@@ -12788,6 +13412,7 @@ public:
 	uint8                                         Pad_B1[0x7];                                       // 0x00B1(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UCurveVector*                           PathOffsetCurve;                                   // 0x00B8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRootMotionSource_MoveToForce;
 
 // ScriptStruct Engine.RootMotionSource_RadialForce
 // 0x0040 (0x00E0 - 0x00A0)
@@ -12808,6 +13433,7 @@ public:
 	uint8                                         Pad_D1[0x3];                                       // 0x00D1(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FRotator                               FixedWorldDirection;                               // 0x00D4(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRootMotionSource_RadialForce;
 
 // ScriptStruct Engine.RootMotionSource_ConstantForce
 // 0x0010 (0x00B0 - 0x00A0)
@@ -12818,6 +13444,7 @@ public:
 	uint8                                         Pad_A4[0x4];                                       // 0x00A4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UCurveFloat*                            StrengthOverTime;                                  // 0x00A8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRootMotionSource_ConstantForce;
 
 // ScriptStruct Engine.FilmStockSettings
 // 0x0014 (0x0014 - 0x0000)
@@ -12830,6 +13457,7 @@ public:
 	float                                         BlackClip;                                         // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         WhiteClip;                                         // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FFilmStockSettings;
 
 // ScriptStruct Engine.ColorGradingSettings
 // 0x0150 (0x0150 - 0x0000)
@@ -12844,6 +13472,7 @@ public:
 	float                                         HighlightsMin;                                     // 0x0144(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_148[0x8];                                      // 0x0148(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FColorGradingSettings;
 
 // ScriptStruct Engine.SceneViewExtensionIsActiveFunctor
 // 0x0050 (0x0050 - 0x0000)
@@ -12852,6 +13481,7 @@ struct alignas(0x10) FSceneViewExtensionIsActiveFunctor final
 public:
 	uint8                                         Pad_0[0x50];                                       // 0x0000(0x0050)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSceneViewExtensionIsActiveFunctor;
 
 // ScriptStruct Engine.SkeletalMeshLODInfo
 // 0x0140 (0x0140 - 0x0000)
@@ -12878,6 +13508,7 @@ public:
 	uint8                                         bSupportUniformlyDistributedSampling : 1;          // 0x0139(0x0001)(BitIndex: 0x03, PropSize: 0x0001 (Edit, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_13A[0x6];                                      // 0x013A(0x0006)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSkeletalMeshLODInfo;
 
 // ScriptStruct Engine.BoneMirrorExport
 // 0x0014 (0x0014 - 0x0000)
@@ -12889,6 +13520,7 @@ public:
 	EAxis                                         BoneFlipAxis;                                      // 0x0010(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBoneMirrorExport;
 
 // ScriptStruct Engine.BoneMirrorInfo
 // 0x0008 (0x0008 - 0x0000)
@@ -12899,6 +13531,7 @@ public:
 	EAxis                                         BoneFlipAxis;                                      // 0x0004(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBoneMirrorInfo;
 
 // ScriptStruct Engine.BoneFilter
 // 0x000C (0x000C - 0x0000)
@@ -12909,6 +13542,7 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class FName                                   BoneName;                                          // 0x0004(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBoneFilter;
 
 // ScriptStruct Engine.SkeletalMeshLODGroupSettings
 // 0x0100 (0x0100 - 0x0000)
@@ -12926,6 +13560,7 @@ public:
 	class UAnimSequence*                          BakePose;                                          // 0x0038(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FSkeletalMeshOptimizationSettings      ReductionSettings;                                 // 0x0040(0x00C0)(Edit, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSkeletalMeshLODGroupSettings;
 
 // ScriptStruct Engine.RigConfiguration
 // 0x0018 (0x0018 - 0x0000)
@@ -12935,6 +13570,7 @@ public:
 	class URig*                                   Rig;                                               // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FNameMapping>                   BoneMappingTable;                                  // 0x0008(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FRigConfiguration;
 
 // ScriptStruct Engine.BoneReductionSetting
 // 0x0010 (0x0010 - 0x0000)
@@ -12943,6 +13579,7 @@ struct FBoneReductionSetting final
 public:
 	TArray<class FName>                           BonesToRemove;                                     // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBoneReductionSetting;
 
 // ScriptStruct Engine.BoneNode
 // 0x0010 (0x0010 - 0x0000)
@@ -12954,6 +13591,7 @@ public:
 	EBoneTranslationRetargetingMode               TranslationRetargetingMode;                        // 0x000C(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBoneNode;
 
 // ScriptStruct Engine.SkeletonToMeshLinkup
 // 0x0020 (0x0020 - 0x0000)
@@ -12963,6 +13601,7 @@ public:
 	TArray<int32>                                 SkeletonToMeshTable;                               // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<int32>                                 MeshToSkeletonTable;                               // 0x0010(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSkeletonToMeshLinkup;
 
 // ScriptStruct Engine.VertexOffsetUsage
 // 0x0004 (0x0004 - 0x0000)
@@ -12971,6 +13610,7 @@ struct FVertexOffsetUsage final
 public:
 	int32                                         Usage;                                             // 0x0000(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVertexOffsetUsage;
 
 // ScriptStruct Engine.SkelMeshSkinWeightInfo
 // 0x003C (0x003C - 0x0000)
@@ -12980,6 +13620,7 @@ public:
 	int32                                         Bones[0xC];                                        // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Weights[0xC];                                      // 0x0030(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSkelMeshSkinWeightInfo;
 
 // ScriptStruct Engine.SkinWeightProfileInfo
 // 0x0010 (0x0010 - 0x0000)
@@ -12991,6 +13632,7 @@ public:
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FPerPlatformInt                        DefaultProfileFromLODIndex;                        // 0x000C(0x0004)(Edit, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSkinWeightProfileInfo;
 
 // ScriptStruct Engine.SkinWeightProfileManagerTickFunction
 // 0x0008 (0x0030 - 0x0028)
@@ -12999,6 +13641,7 @@ struct FSkinWeightProfileManagerTickFunction final : public FTickFunction
 public:
 	uint8                                         Pad_28[0x8];                                       // 0x0028(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSkinWeightProfileManagerTickFunction;
 
 // ScriptStruct Engine.PrecomputedSkyLightInstanceData
 // 0x00B8 (0x0170 - 0x00B8)
@@ -13009,6 +13652,7 @@ public:
 	float                                         AverageBrightness;                                 // 0x00C8(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_CC[0xA4];                                      // 0x00CC(0x00A4)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPrecomputedSkyLightInstanceData;
 
 // ScriptStruct Engine.SmartNameContainer
 // 0x0050 (0x0050 - 0x0000)
@@ -13017,6 +13661,7 @@ struct alignas(0x08) FSmartNameContainer final
 public:
 	uint8                                         Pad_0[0x50];                                       // 0x0000(0x0050)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSmartNameContainer;
 
 // ScriptStruct Engine.SmartNameMapping
 // 0x0070 (0x0070 - 0x0000)
@@ -13025,6 +13670,7 @@ struct alignas(0x08) FSmartNameMapping final
 public:
 	uint8                                         Pad_0[0x70];                                       // 0x0000(0x0070)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSmartNameMapping;
 
 // ScriptStruct Engine.PassiveSoundMixModifier
 // 0x0010 (0x0010 - 0x0000)
@@ -13035,6 +13681,7 @@ public:
 	float                                         MinVolumeThreshold;                                // 0x0008(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         MaxVolumeThreshold;                                // 0x000C(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPassiveSoundMixModifier;
 
 // ScriptStruct Engine.SoundClassProperties
 // 0x0078 (0x0078 - 0x0000)
@@ -13064,6 +13711,7 @@ public:
 	uint8                                         Pad_6A[0x6];                                       // 0x006A(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	class USoundSubmix*                           DefaultSubmix;                                     // 0x0070(0x0008)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSoundClassProperties;
 
 // ScriptStruct Engine.SoundConcurrencySettings
 // 0x0028 (0x0028 - 0x0000)
@@ -13084,6 +13732,7 @@ public:
 	float                                         VolumeScaleReleaseTime;                            // 0x0020(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         VoiceStealReleaseTime;                             // 0x0024(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSoundConcurrencySettings;
 
 // ScriptStruct Engine.SoundNodeEditorData
 // 0x0008 (0x0008 - 0x0000)
@@ -13092,6 +13741,7 @@ struct alignas(0x04) FSoundNodeEditorData final
 public:
 	uint8                                         Pad_0[0x8];                                        // 0x0000(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSoundNodeEditorData;
 
 // ScriptStruct Engine.SourceEffectChainEntry
 // 0x0010 (0x0010 - 0x0000)
@@ -13102,6 +13752,7 @@ public:
 	uint8                                         bBypass : 1;                                       // 0x0008(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Edit, BlueprintVisible, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSourceEffectChainEntry;
 
 // ScriptStruct Engine.SoundClassAdjuster
 // 0x0020 (0x0020 - 0x0000)
@@ -13117,6 +13768,7 @@ public:
 	float                                         VoiceCenterChannelVolumeAdjuster;                  // 0x0018(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSoundClassAdjuster;
 
 // ScriptStruct Engine.AudioEQEffect
 // 0x0038 (0x0040 - 0x0008)
@@ -13137,6 +13789,7 @@ public:
 	float                                         Gain3;                                             // 0x0038(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Bandwidth3;                                        // 0x003C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAudioEQEffect;
 
 // ScriptStruct Engine.ModulatorContinuousParams
 // 0x0020 (0x0020 - 0x0000)
@@ -13152,6 +13805,7 @@ public:
 	EModulationParamMode                          ParamMode;                                         // 0x001C(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FModulatorContinuousParams;
 
 // ScriptStruct Engine.SoundSubmixSpectralAnalysisBandSettings
 // 0x0010 (0x0010 - 0x0000)
@@ -13163,6 +13817,7 @@ public:
 	int32                                         ReleaseTimeMsec;                                   // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         QFactor;                                           // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSoundSubmixSpectralAnalysisBandSettings;
 
 // ScriptStruct Engine.SoundWaveSpectralDataEntry
 // 0x0008 (0x0008 - 0x0000)
@@ -13172,6 +13827,7 @@ public:
 	float                                         Magnitude;                                         // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         NormalizedMagnitude;                               // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSoundWaveSpectralDataEntry;
 
 // ScriptStruct Engine.SoundWaveSpectralTimeData
 // 0x0018 (0x0018 - 0x0000)
@@ -13182,6 +13838,7 @@ public:
 	float                                         TimeSec;                                           // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSoundWaveSpectralTimeData;
 
 // ScriptStruct Engine.StreamedAudioPlatformData
 // 0x0020 (0x0020 - 0x0000)
@@ -13190,6 +13847,7 @@ struct alignas(0x08) FStreamedAudioPlatformData final
 public:
 	uint8                                         Pad_0[0x20];                                       // 0x0000(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FStreamedAudioPlatformData;
 
 // ScriptStruct Engine.SplineInstanceData
 // 0x00E8 (0x01A0 - 0x00B8)
@@ -13201,6 +13859,7 @@ public:
 	struct FSplineCurves                          SplineCurves;                                      // 0x00C0(0x0070)(NativeAccessSpecifierPublic)
 	struct FSplineCurves                          SplineCurvesPreUCS;                                // 0x0130(0x0070)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSplineInstanceData;
 
 // ScriptStruct Engine.SplinePoint
 // 0x0044 (0x0044 - 0x0000)
@@ -13216,6 +13875,7 @@ public:
 	ESplinePointType                              Type;                                              // 0x0040(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_41[0x3];                                       // 0x0041(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSplinePoint;
 
 // ScriptStruct Engine.SplineMeshInstanceData
 // 0x0030 (0x00E8 - 0x00B8)
@@ -13227,6 +13887,7 @@ public:
 	struct FVector                                StartTangent;                                      // 0x00D0(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                EndTangent;                                        // 0x00DC(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSplineMeshInstanceData;
 
 // ScriptStruct Engine.SplineMeshParams
 // 0x0058 (0x0058 - 0x0000)
@@ -13244,6 +13905,7 @@ public:
 	float                                         EndRoll;                                           // 0x004C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector2D                              EndOffset;                                         // 0x0050(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSplineMeshParams;
 
 // ScriptStruct Engine.AssetEditorOrbitCameraPosition
 // 0x0028 (0x0028 - 0x0000)
@@ -13256,6 +13918,7 @@ public:
 	struct FVector                                CamOrbitZoom;                                      // 0x0010(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FRotator                               CamOrbitRotation;                                  // 0x001C(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAssetEditorOrbitCameraPosition;
 
 // ScriptStruct Engine.MeshSectionInfoMap
 // 0x0050 (0x0050 - 0x0000)
@@ -13264,6 +13927,7 @@ struct FMeshSectionInfoMap final
 public:
 	TMap<uint32, struct FMeshSectionInfo>         Map;                                               // 0x0000(0x0050)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMeshSectionInfoMap;
 
 // ScriptStruct Engine.StaticMeshSourceModel
 // 0x0070 (0x0070 - 0x0000)
@@ -13277,6 +13941,7 @@ public:
 	uint8                                         Pad_5C[0x4];                                       // 0x005C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 SourceImportFilename;                              // 0x0060(0x0010)(Edit, ZeroConstructor, EditConst, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStaticMeshSourceModel;
 
 // ScriptStruct Engine.StaticMeshComponentInstanceData
 // 0x0040 (0x0140 - 0x0100)
@@ -13289,6 +13954,7 @@ public:
 	TArray<struct FStreamingTextureBuildInfo>     StreamingTextureData;                              // 0x0128(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_138[0x8];                                      // 0x0138(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FStaticMeshComponentInstanceData;
 
 // ScriptStruct Engine.StaticSwitchParameter
 // 0x0004 (0x0028 - 0x0024)
@@ -13298,6 +13964,7 @@ public:
 	bool                                          value;                                             // 0x0024(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_25[0x3];                                       // 0x0025(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FStaticSwitchParameter;
 
 // ScriptStruct Engine.StaticComponentMaskParameter
 // 0x0004 (0x0028 - 0x0024)
@@ -13309,6 +13976,7 @@ public:
 	bool                                          B;                                                 // 0x0026(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          A;                                                 // 0x0027(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStaticComponentMaskParameter;
 
 // ScriptStruct Engine.StaticTerrainLayerWeightParameter
 // 0x0008 (0x002C - 0x0024)
@@ -13319,6 +13987,7 @@ public:
 	bool                                          bWeightBasedBlend;                                 // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_29[0x3];                                       // 0x0029(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FStaticTerrainLayerWeightParameter;
 
 // ScriptStruct Engine.StaticParameterSet
 // 0x0040 (0x0040 - 0x0000)
@@ -13330,6 +13999,7 @@ public:
 	TArray<struct FStaticTerrainLayerWeightParameter> TerrainLayerWeightParameters;                  // 0x0020(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FStaticMaterialLayersParameter> MaterialLayersParameters;                          // 0x0030(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStaticParameterSet;
 
 // ScriptStruct Engine.SubsurfaceProfileStruct
 // 0x008C (0x008C - 0x0000)
@@ -13355,6 +14025,7 @@ public:
 	float                                         LobeMix;                                           // 0x0078(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FLinearColor                           TransmissionTintColor;                             // 0x007C(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSubsurfaceProfileStruct;
 
 // ScriptStruct Engine.TextureFormatSettings
 // 0x0002 (0x0002 - 0x0000)
@@ -13367,6 +14038,7 @@ public:
 	uint8                                         CompressionYCoCg : 1;                              // 0x0001(0x0001)(BitIndex: 0x02, PropSize: 0x0001 (NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         sRGB : 1;                                          // 0x0001(0x0001)(BitIndex: 0x03, PropSize: 0x0001 (NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 };
+DUMPER7_ASSERTS_FTextureFormatSettings;
 
 // ScriptStruct Engine.TexturePlatformData
 // 0x0030 (0x0030 - 0x0000)
@@ -13375,6 +14047,7 @@ struct alignas(0x08) FTexturePlatformData final
 public:
 	uint8                                         Pad_0[0x30];                                       // 0x0000(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTexturePlatformData;
 
 // ScriptStruct Engine.TextureSourceBlock
 // 0x0018 (0x0018 - 0x0000)
@@ -13388,6 +14061,7 @@ public:
 	int32                                         NumSlices;                                         // 0x0010(0x0004)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         NumMips;                                           // 0x0014(0x0004)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTextureSourceBlock;
 
 // ScriptStruct Engine.TextureLODGroup
 // 0x0068 (0x0068 - 0x0000)
@@ -13424,6 +14098,7 @@ public:
 	ETextureLossyCompressionAmount                LossyCompressionAmount;                            // 0x0064(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_65[0x3];                                       // 0x0065(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTextureLODGroup;
 
 // ScriptStruct Engine.StreamingRenderAssetPrimitiveInfo
 // 0x0030 (0x0030 - 0x0000)
@@ -13437,6 +14112,7 @@ public:
 	uint8                                         bAllowInvalidTexelFactorWhenUnregistered : 1;      // 0x002C(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Transient, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_2D[0x3];                                       // 0x002D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FStreamingRenderAssetPrimitiveInfo;
 
 // ScriptStruct Engine.TTTrackBase
 // 0x0018 (0x0018 - 0x0000)
@@ -13448,6 +14124,7 @@ public:
 	bool                                          bIsExternalCurve;                                  // 0x0010(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTTTrackBase;
 
 // ScriptStruct Engine.TTPropertyTrack
 // 0x0008 (0x0020 - 0x0018)
@@ -13456,6 +14133,7 @@ struct FTTPropertyTrack : public FTTTrackBase
 public:
 	class FName                                   PropertyName;                                      // 0x0018(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FTTPropertyTrack;
 
 // ScriptStruct Engine.TTLinearColorTrack
 // 0x0008 (0x0028 - 0x0020)
@@ -13464,6 +14142,7 @@ struct FTTLinearColorTrack final : public FTTPropertyTrack
 public:
 	class UCurveLinearColor*                      CurveLinearColor;                                  // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTTLinearColorTrack;
 
 // ScriptStruct Engine.TTVectorTrack
 // 0x0008 (0x0028 - 0x0020)
@@ -13472,6 +14151,7 @@ struct FTTVectorTrack final : public FTTPropertyTrack
 public:
 	class UCurveVector*                           CurveVector;                                       // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTTVectorTrack;
 
 // ScriptStruct Engine.TTFloatTrack
 // 0x0008 (0x0028 - 0x0020)
@@ -13480,6 +14160,7 @@ struct FTTFloatTrack final : public FTTPropertyTrack
 public:
 	class UCurveFloat*                            CurveFloat;                                        // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTTFloatTrack;
 
 // ScriptStruct Engine.TTEventTrack
 // 0x0010 (0x0028 - 0x0018)
@@ -13489,6 +14170,7 @@ public:
 	class FName                                   FunctionName;                                      // 0x0018(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	class UCurveFloat*                            CurveKeys;                                         // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTTEventTrack;
 
 // ScriptStruct Engine.TTTrackId
 // 0x0008 (0x0008 - 0x0000)
@@ -13498,6 +14180,7 @@ public:
 	int32                                         TrackType;                                         // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         TrackIndex;                                        // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTTTrackId;
 
 // ScriptStruct Engine.TimeStretchCurveInstance
 // 0x0030 (0x0030 - 0x0000)
@@ -13507,6 +14190,7 @@ public:
 	bool                                          bHasValidData;                                     // 0x0000(0x0001)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_1[0x2F];                                       // 0x0001(0x002F)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTimeStretchCurveInstance;
 
 // ScriptStruct Engine.TimeStretchCurveMarker
 // 0x0010 (0x0010 - 0x0000)
@@ -13516,6 +14200,7 @@ public:
 	float                                         Time[0x3];                                         // 0x0000(0x0004)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Alpha;                                             // 0x000C(0x0004)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTimeStretchCurveMarker;
 
 // ScriptStruct Engine.TimeStretchCurve
 // 0x0028 (0x0028 - 0x0000)
@@ -13528,6 +14213,7 @@ public:
 	float                                         Sum_dT_i_by_C_i[0x3];                              // 0x0018(0x0004)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTimeStretchCurve;
 
 // ScriptStruct Engine.TouchInputControl
 // 0x0068 (0x0068 - 0x0000)
@@ -13544,6 +14230,7 @@ public:
 	struct FKey                                   MainInputKey;                                      // 0x0038(0x0018)(Edit, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FKey                                   AltInputKey;                                       // 0x0050(0x0018)(Edit, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTouchInputControl;
 
 // ScriptStruct Engine.HardwareCursorReference
 // 0x0010 (0x0010 - 0x0000)
@@ -13553,6 +14240,7 @@ public:
 	class FName                                   CursorPath;                                        // 0x0000(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector2D                              HotSpot;                                           // 0x0008(0x0008)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FHardwareCursorReference;
 
 // ScriptStruct Engine.VirtualTextureBuildSettings
 // 0x000C (0x000C - 0x0000)
@@ -13565,6 +14253,7 @@ public:
 	bool                                          bEnableCompressZlib;                               // 0x0009(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_A[0x2];                                        // 0x000A(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FVirtualTextureBuildSettings;
 
 // ScriptStruct Engine.VirtualTextureSpacePoolConfig
 // 0x0028 (0x0028 - 0x0000)
@@ -13580,6 +14269,7 @@ public:
 	uint32                                        ScalabilityGroup;                                  // 0x0020(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FVirtualTextureSpacePoolConfig;
 
 // ScriptStruct Engine.VoiceSettings
 // 0x0018 (0x0018 - 0x0000)
@@ -13590,6 +14280,7 @@ public:
 	class USoundAttenuation*                      AttenuationSettings;                               // 0x0008(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class USoundEffectSourcePresetChain*          SourceEffectChain;                                 // 0x0010(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FVoiceSettings;
 
 // ScriptStruct Engine.StreamingLevelsToConsider
 // 0x0028 (0x0028 - 0x0000)
@@ -13599,6 +14290,7 @@ public:
 	TArray<class ULevelStreaming*>                StreamingLevels;                                   // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_10[0x18];                                      // 0x0010(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FStreamingLevelsToConsider;
 
 // ScriptStruct Engine.LevelCollection
 // 0x0078 (0x0078 - 0x0000)
@@ -13612,6 +14304,7 @@ public:
 	class ULevel*                                 PersistentLevel;                                   // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	TSet<class ULevel*>                           levels;                                            // 0x0028(0x0050)(NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FLevelCollection;
 
 // ScriptStruct Engine.EndPhysicsTickFunction
 // 0x0008 (0x0030 - 0x0028)
@@ -13620,6 +14313,7 @@ struct FEndPhysicsTickFunction final : public FTickFunction
 public:
 	uint8                                         Pad_28[0x8];                                       // 0x0028(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FEndPhysicsTickFunction;
 
 // ScriptStruct Engine.StartPhysicsTickFunction
 // 0x0008 (0x0030 - 0x0028)
@@ -13628,6 +14322,7 @@ struct FStartPhysicsTickFunction final : public FTickFunction
 public:
 	uint8                                         Pad_28[0x8];                                       // 0x0028(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FStartPhysicsTickFunction;
 
 // ScriptStruct Engine.LevelViewportInfo
 // 0x0020 (0x0020 - 0x0000)
@@ -13640,6 +14335,7 @@ public:
 	bool                                          CamUpdated;                                        // 0x001C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FLevelViewportInfo;
 
 // ScriptStruct Engine.PSCPoolElem
 // 0x0010 (0x0010 - 0x0000)
@@ -13649,6 +14345,7 @@ public:
 	class UParticleSystemComponent*               PSC;                                               // 0x0000(0x0008)(ExportObject, ZeroConstructor, Transient, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_8[0x8];                                        // 0x0008(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPSCPoolElem;
 
 // ScriptStruct Engine.PSCPool
 // 0x0010 (0x0010 - 0x0000)
@@ -13657,6 +14354,7 @@ struct FPSCPool final
 public:
 	TArray<struct FPSCPoolElem>                   FreeElements;                                      // 0x0000(0x0010)(ZeroConstructor, Transient, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPSCPool;
 
 // ScriptStruct Engine.WorldPSCPool
 // 0x0058 (0x0058 - 0x0000)
@@ -13666,6 +14364,7 @@ public:
 	TMap<class UParticleSystem*, struct FPSCPool> WorldParticleSystemPools;                          // 0x0000(0x0050)(ContainsInstancedReference, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_50[0x8];                                       // 0x0050(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FWorldPSCPool;
 
 // ScriptStruct Engine.BroadphaseSettings
 // 0x0040 (0x0040 - 0x0000)
@@ -13680,6 +14379,7 @@ public:
 	struct FBox                                   MBPOuterBounds;                                    // 0x0020(0x001C)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 	uint32                                        MBPNumSubdivs;                                     // 0x003C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBroadphaseSettings;
 
 // ScriptStruct Engine.HierarchicalSimplification
 // 0x0160 (0x0160 - 0x0000)
@@ -13700,6 +14400,7 @@ public:
 	float                                         DesiredFillingPercentage;                          // 0x0158(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         MinNumberOfActorsToBuild;                          // 0x015C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FHierarchicalSimplification;
 
 // ScriptStruct Engine.NetViewer
 // 0x0030 (0x0030 - 0x0000)
@@ -13712,6 +14413,7 @@ public:
 	struct FVector                                ViewLocation;                                      // 0x0018(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                ViewDir;                                           // 0x0024(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNetViewer;
 
 // ScriptStruct Engine.LightmassWorldInfoSettings
 // 0x004C (0x004C - 0x0000)
@@ -13744,5 +14446,7 @@ public:
 	float                                         FullyOccludedSamplesFraction;                      // 0x0044(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         MaxOcclusionDistance;                              // 0x0048(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLightmassWorldInfoSettings;
 
-SDK_NAMESPACE_END
+}
+

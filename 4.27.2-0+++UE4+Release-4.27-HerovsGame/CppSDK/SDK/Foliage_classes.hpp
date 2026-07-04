@@ -17,7 +17,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class Foliage.InteractiveFoliageComponent
 // 0x0010 (0x04F0 - 0x04E0)
@@ -40,6 +41,7 @@ public:
 		return GetDefaultObjImpl<UInteractiveFoliageComponent>();
 	}
 };
+DUMPER7_ASSERTS_UInteractiveFoliageComponent;
 
 // Class Foliage.FoliageInstancedStaticMeshComponent
 // 0x0030 (0x06B0 - 0x0680)
@@ -65,6 +67,7 @@ public:
 		return GetDefaultObjImpl<UFoliageInstancedStaticMeshComponent>();
 	}
 };
+DUMPER7_ASSERTS_UFoliageInstancedStaticMeshComponent;
 
 // Class Foliage.FoliageStatistics
 // 0x0000 (0x0028 - 0x0028)
@@ -88,6 +91,7 @@ public:
 		return GetDefaultObjImpl<UFoliageStatistics>();
 	}
 };
+DUMPER7_ASSERTS_UFoliageStatistics;
 
 // Class Foliage.FoliageType
 // 0x0388 (0x03B0 - 0x0028)
@@ -220,6 +224,7 @@ public:
 		return GetDefaultObjImpl<UFoliageType>();
 	}
 };
+DUMPER7_ASSERTS_UFoliageType;
 
 // Class Foliage.FoliageType_Actor
 // 0x0010 (0x03C0 - 0x03B0)
@@ -244,6 +249,7 @@ public:
 		return GetDefaultObjImpl<UFoliageType_Actor>();
 	}
 };
+DUMPER7_ASSERTS_UFoliageType_Actor;
 
 // Class Foliage.FoliageType_InstancedStaticMesh
 // 0x0020 (0x03D0 - 0x03B0)
@@ -268,6 +274,7 @@ public:
 		return GetDefaultObjImpl<UFoliageType_InstancedStaticMesh>();
 	}
 };
+DUMPER7_ASSERTS_UFoliageType_InstancedStaticMesh;
 
 // Class Foliage.InstancedFoliageActor
 // 0x0050 (0x0270 - 0x0220)
@@ -290,6 +297,7 @@ public:
 		return GetDefaultObjImpl<AInstancedFoliageActor>();
 	}
 };
+DUMPER7_ASSERTS_AInstancedFoliageActor;
 
 // Class Foliage.InteractiveFoliageActor
 // 0x0060 (0x0290 - 0x0230)
@@ -329,6 +337,7 @@ public:
 		return GetDefaultObjImpl<AInteractiveFoliageActor>();
 	}
 };
+DUMPER7_ASSERTS_AInteractiveFoliageActor;
 
 // Class Foliage.ProceduralFoliageBlockingVolume
 // 0x0008 (0x0260 - 0x0258)
@@ -351,6 +360,7 @@ public:
 		return GetDefaultObjImpl<AProceduralFoliageBlockingVolume>();
 	}
 };
+DUMPER7_ASSERTS_AProceduralFoliageBlockingVolume;
 
 // Class Foliage.ProceduralFoliageComponent
 // 0x0028 (0x00D8 - 0x00B0)
@@ -377,6 +387,7 @@ public:
 		return GetDefaultObjImpl<UProceduralFoliageComponent>();
 	}
 };
+DUMPER7_ASSERTS_UProceduralFoliageComponent;
 
 // Class Foliage.ProceduralFoliageSpawner
 // 0x0040 (0x0068 - 0x0028)
@@ -408,6 +419,7 @@ public:
 		return GetDefaultObjImpl<UProceduralFoliageSpawner>();
 	}
 };
+DUMPER7_ASSERTS_UProceduralFoliageSpawner;
 
 // Class Foliage.ProceduralFoliageTile
 // 0x0130 (0x0158 - 0x0028)
@@ -433,6 +445,7 @@ public:
 		return GetDefaultObjImpl<UProceduralFoliageTile>();
 	}
 };
+DUMPER7_ASSERTS_UProceduralFoliageTile;
 
 // Class Foliage.ProceduralFoliageVolume
 // 0x0008 (0x0260 - 0x0258)
@@ -455,5 +468,7 @@ public:
 		return GetDefaultObjImpl<AProceduralFoliageVolume>();
 	}
 };
+DUMPER7_ASSERTS_AProceduralFoliageVolume;
 
-SDK_NAMESPACE_END
+}
+

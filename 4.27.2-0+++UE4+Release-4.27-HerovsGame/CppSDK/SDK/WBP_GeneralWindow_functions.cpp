@@ -14,7 +14,8 @@
 #include "WBP_GeneralWindow_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_GeneralWindow.WBP_GeneralWindow_C.ExecuteUbergraph_WBP_GeneralWindow
 // (Final, UbergraphFunction)
@@ -210,5 +211,5 @@ void UWBP_GeneralWindow_C::SetOverrideNegativeAtomCue(class USoundAtomCue* overr
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -18,7 +18,8 @@
 #include "ChaosSolverEngine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class GeometryCollectionEngine.ChaosDestructionListener
 // 0x0220 (0x0420 - 0x0200)
@@ -71,6 +72,7 @@ public:
 		return GetDefaultObjImpl<UChaosDestructionListener>();
 	}
 };
+DUMPER7_ASSERTS_UChaosDestructionListener;
 
 // Class GeometryCollectionEngine.GeometryCollectionActor
 // 0x0010 (0x0230 - 0x0220)
@@ -97,6 +99,7 @@ public:
 		return GetDefaultObjImpl<AGeometryCollectionActor>();
 	}
 };
+DUMPER7_ASSERTS_AGeometryCollectionActor;
 
 // Class GeometryCollectionEngine.GeometryCollectionCache
 // 0x0028 (0x0050 - 0x0028)
@@ -121,6 +124,7 @@ public:
 		return GetDefaultObjImpl<UGeometryCollectionCache>();
 	}
 };
+DUMPER7_ASSERTS_UGeometryCollectionCache;
 
 // Class GeometryCollectionEngine.GeometryCollectionComponent
 // 0x0480 (0x0900 - 0x0480)
@@ -196,6 +200,7 @@ public:
 		return GetDefaultObjImpl<UGeometryCollectionComponent>();
 	}
 };
+DUMPER7_ASSERTS_UGeometryCollectionComponent;
 
 // Class GeometryCollectionEngine.GeometryCollectionDebugDrawActor
 // 0x00E8 (0x0308 - 0x0220)
@@ -282,6 +287,7 @@ public:
 		return GetDefaultObjImpl<AGeometryCollectionDebugDrawActor>();
 	}
 };
+DUMPER7_ASSERTS_AGeometryCollectionDebugDrawActor;
 
 // Class GeometryCollectionEngine.GeometryCollectionDebugDrawComponent
 // 0x0018 (0x00C8 - 0x00B0)
@@ -306,6 +312,7 @@ public:
 		return GetDefaultObjImpl<UGeometryCollectionDebugDrawComponent>();
 	}
 };
+DUMPER7_ASSERTS_UGeometryCollectionDebugDrawComponent;
 
 // Class GeometryCollectionEngine.GeometryCollection
 // 0x00E0 (0x0108 - 0x0028)
@@ -361,6 +368,7 @@ public:
 		return GetDefaultObjImpl<UGeometryCollection>();
 	}
 };
+DUMPER7_ASSERTS_UGeometryCollection;
 
 // Class GeometryCollectionEngine.GeometryCollectionRenderLevelSetActor
 // 0x00A0 (0x02C0 - 0x0220)
@@ -389,6 +397,7 @@ public:
 		return GetDefaultObjImpl<AGeometryCollectionRenderLevelSetActor>();
 	}
 };
+DUMPER7_ASSERTS_AGeometryCollectionRenderLevelSetActor;
 
 // Class GeometryCollectionEngine.SkeletalMeshSimulationComponent
 // 0x0088 (0x0138 - 0x00B0)
@@ -438,6 +447,7 @@ public:
 		return GetDefaultObjImpl<USkeletalMeshSimulationComponent>();
 	}
 };
+DUMPER7_ASSERTS_USkeletalMeshSimulationComponent;
 
 // Class GeometryCollectionEngine.StaticMeshSimulationComponent
 // 0x0088 (0x0138 - 0x00B0)
@@ -486,5 +496,7 @@ public:
 		return GetDefaultObjImpl<UStaticMeshSimulationComponent>();
 	}
 };
+DUMPER7_ASSERTS_UStaticMeshSimulationComponent;
 
-SDK_NAMESPACE_END
+}
+

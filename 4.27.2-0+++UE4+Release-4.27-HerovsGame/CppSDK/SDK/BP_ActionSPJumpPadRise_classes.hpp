@@ -16,7 +16,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionSPJumpPadRise.BP_ActionSPJumpPadRise_C
 // 0x0018 (0x0290 - 0x0278)
@@ -51,5 +52,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionSPJumpPadRise_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionSPJumpPadRise_C;
 
-SDK_NAMESPACE_END
+}
+

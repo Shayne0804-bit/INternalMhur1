@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_Compressition_Regeneration.BP_CC_Compressition_Regeneration_C.ExecuteUbergraph_BP_CC_Compressition_Regeneration
 // 0x0028 (0x0028 - 0x0000)
@@ -27,6 +27,7 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue;   // 0x0018(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue_1; // 0x0020(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Compressition_Regeneration_C_ExecuteUbergraph_BP_CC_Compressition_Regeneration;
 
 // Function BP_CC_Compressition_Regeneration.BP_CC_Compressition_Regeneration_C.BP_OnUpdateIntervalValue
 // 0x0004 (0x0004 - 0x0000)
@@ -35,6 +36,7 @@ struct BP_CC_Compressition_Regeneration_C_BP_OnUpdateIntervalValue final
 public:
 	float                                         value;                                             // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Compressition_Regeneration_C_BP_OnUpdateIntervalValue;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

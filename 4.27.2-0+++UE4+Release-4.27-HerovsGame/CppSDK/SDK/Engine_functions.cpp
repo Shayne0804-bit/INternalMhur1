@@ -14,7 +14,8 @@
 #include "Engine_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function Engine.ActorComponent.Activate
 // (Native, Public, BlueprintCallable)
@@ -97285,5 +97286,5 @@ void AWorldSettings::OnRep_WorldGravityZ()
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

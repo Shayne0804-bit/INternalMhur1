@@ -13,8 +13,8 @@
 #include "LocationServicesBPLibrary_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function LocationServicesBPLibrary.LocationServices.AreLocationServicesEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -23,6 +23,7 @@ struct LocationServices_AreLocationServicesEnabled final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LocationServices_AreLocationServicesEnabled;
 
 // Function LocationServicesBPLibrary.LocationServices.GetLastKnownLocation
 // 0x0018 (0x0018 - 0x0000)
@@ -31,6 +32,7 @@ struct LocationServices_GetLastKnownLocation final
 public:
 	struct FLocationServicesData                  ReturnValue;                                       // 0x0000(0x0018)(Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LocationServices_GetLastKnownLocation;
 
 // Function LocationServicesBPLibrary.LocationServices.GetLocationServicesImpl
 // 0x0008 (0x0008 - 0x0000)
@@ -39,6 +41,7 @@ struct LocationServices_GetLocationServicesImpl final
 public:
 	class ULocationServicesImpl*                  ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LocationServices_GetLocationServicesImpl;
 
 // Function LocationServicesBPLibrary.LocationServices.InitLocationServices
 // 0x0010 (0x0010 - 0x0000)
@@ -52,6 +55,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_LocationServices_InitLocationServices;
 
 // Function LocationServicesBPLibrary.LocationServices.IsLocationAccuracyAvailable
 // 0x0002 (0x0002 - 0x0000)
@@ -61,6 +65,7 @@ public:
 	ELocationAccuracy                             Accuracy;                                          // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LocationServices_IsLocationAccuracyAvailable;
 
 // Function LocationServicesBPLibrary.LocationServices.StartLocationServices
 // 0x0001 (0x0001 - 0x0000)
@@ -69,6 +74,7 @@ struct LocationServices_StartLocationServices final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LocationServices_StartLocationServices;
 
 // Function LocationServicesBPLibrary.LocationServices.StopLocationServices
 // 0x0001 (0x0001 - 0x0000)
@@ -77,6 +83,7 @@ struct LocationServices_StopLocationServices final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LocationServices_StopLocationServices;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

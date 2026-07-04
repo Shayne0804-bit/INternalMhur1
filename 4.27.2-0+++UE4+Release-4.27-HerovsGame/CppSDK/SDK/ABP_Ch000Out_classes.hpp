@@ -15,11 +15,12 @@
 #include "AnimGraphRuntime_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // AnimBlueprintGeneratedClass ABP_Ch000Out.ABP_Ch000Out_C
 // 0x1310 (0x1790 - 0x0480)
-class UABP_Ch000Out_C : public UAnimInstanceGame
+class UABP_Ch000Out_C final : public UAnimInstanceGame
 {
 public:
 	struct FPointerToUberGraphFrame               UberGraphFrame;                                    // 0x0480(0x0008)(ZeroConstructor, Transient, DuplicateTransient)
@@ -77,5 +78,7 @@ public:
 		return GetDefaultObjImpl<UABP_Ch000Out_C>();
 	}
 };
+DUMPER7_ASSERTS_UABP_Ch000Out_C;
 
-SDK_NAMESPACE_END
+}
+

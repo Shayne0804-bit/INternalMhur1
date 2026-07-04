@@ -14,7 +14,8 @@
 #include "MagicLeapHandMeshing_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function MagicLeapHandMeshing.MagicLeapHandMeshingComponent.ConnectMRMesh
 // (Final, Native, Public, BlueprintCallable)
@@ -202,5 +203,5 @@ bool UMagicLeapHandMeshingFunctionLibrary::DisconnectMRMesh(class UMRMeshCompone
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -14,7 +14,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_AdjustText.WBP_AdjustText_C
 // 0x0008 (0x0488 - 0x0480)
@@ -42,5 +43,7 @@ public:
 		return GetDefaultObjImpl<UWBP_AdjustText_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_AdjustText_C;
 
-SDK_NAMESPACE_END
+}
+

@@ -13,7 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum MagicLeapPlanes.EMagicLeapPlaneQueryFlags
 // NumValues: 0x000A
@@ -47,6 +48,7 @@ struct FMagicLeapPolygon final
 public:
 	TArray<struct FVector>                        Vertices;                                          // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapPolygon;
 
 // ScriptStruct MagicLeapPlanes.MagicLeapPlaneBoundary
 // 0x0020 (0x0020 - 0x0000)
@@ -56,6 +58,7 @@ public:
 	struct FMagicLeapPolygon                      Polygon;                                           // 0x0000(0x0010)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 	TArray<struct FMagicLeapPolygon>              Holes;                                             // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapPlaneBoundary;
 
 // ScriptStruct MagicLeapPlanes.MagicLeapPlaneBoundaries
 // 0x0020 (0x0020 - 0x0000)
@@ -65,6 +68,7 @@ public:
 	struct FGuid                                  ID;                                                // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FMagicLeapPlaneBoundary>        Boundaries;                                        // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapPlaneBoundaries;
 
 // ScriptStruct MagicLeapPlanes.MagicLeapPlanesQuery
 // 0x0060 (0x0060 - 0x0000)
@@ -84,6 +88,7 @@ public:
 	bool                                          bResultTrackingSpace;                              // 0x0051(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_52[0xE];                                       // 0x0052(0x000E)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMagicLeapPlanesQuery;
 
 // ScriptStruct MagicLeapPlanes.MagicLeapPlaneResult
 // 0x0060 (0x0060 - 0x0000)
@@ -99,5 +104,7 @@ public:
 	struct FGuid                                  ID;                                                // 0x0040(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FGuid                                  InnerID;                                           // 0x0050(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapPlaneResult;
 
-SDK_NAMESPACE_END
+}
+

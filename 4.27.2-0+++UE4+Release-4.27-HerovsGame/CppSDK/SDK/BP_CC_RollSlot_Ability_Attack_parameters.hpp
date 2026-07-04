@@ -14,8 +14,8 @@
 #include "CommonModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_RollSlot_Ability_Attack.BP_CC_RollSlot_Ability_Attack_C.ExecuteUbergraph_BP_CC_RollSlot_Ability_Attack
 // 0x00E0 (0x00E0 - 0x0000)
@@ -47,6 +47,7 @@ public:
 	class UBuffParam*                             CallFunc_BP_GetBuffParam_ReturnValue_1;            // 0x00C0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class FText                                   CallFunc_Format_ReturnValue;                       // 0x00C8(0x0018)()
 };
+DUMPER7_ASSERTS_BP_CC_RollSlot_Ability_Attack_C_ExecuteUbergraph_BP_CC_RollSlot_Ability_Attack;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

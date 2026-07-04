@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum VoiceChatModule.EVoiceChatStatus
 // NumValues: 0x0006
@@ -53,4 +54,5 @@ enum class EVoiceChatPlayerStatus : uint8
 	Max                                      = 5,
 };
 
-SDK_NAMESPACE_END
+}
+

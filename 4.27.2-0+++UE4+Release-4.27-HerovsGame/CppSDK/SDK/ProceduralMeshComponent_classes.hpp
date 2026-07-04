@@ -16,7 +16,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class ProceduralMeshComponent.KismetProceduralMeshLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -48,6 +49,7 @@ public:
 		return GetDefaultObjImpl<UKismetProceduralMeshLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UKismetProceduralMeshLibrary;
 
 // Class ProceduralMeshComponent.ProceduralMeshComponent
 // 0x0060 (0x04E0 - 0x0480)
@@ -93,5 +95,7 @@ public:
 		return GetDefaultObjImpl<UProceduralMeshComponent>();
 	}
 };
+DUMPER7_ASSERTS_UProceduralMeshComponent;
 
-SDK_NAMESPACE_END
+}
+

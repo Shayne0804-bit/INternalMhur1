@@ -14,7 +14,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class SimplygonUObjects.SimplygonStandinPipeline
 // 0x0038 (0x0060 - 0x0028)
@@ -37,6 +38,7 @@ public:
 		return GetDefaultObjImpl<USimplygonStandinPipeline>();
 	}
 };
+DUMPER7_ASSERTS_USimplygonStandinPipeline;
 
 // Class SimplygonUObjects.StandinNearPipeline
 // 0x01A0 (0x0200 - 0x0060)
@@ -59,6 +61,7 @@ public:
 		return GetDefaultObjImpl<UStandinNearPipeline>();
 	}
 };
+DUMPER7_ASSERTS_UStandinNearPipeline;
 
 // Class SimplygonUObjects.StandinFarPipeline
 // 0x01A8 (0x0208 - 0x0060)
@@ -81,6 +84,7 @@ public:
 		return GetDefaultObjImpl<UStandinFarPipeline>();
 	}
 };
+DUMPER7_ASSERTS_UStandinFarPipeline;
 
 // Class SimplygonUObjects.BillboardCloudPipeline
 // 0x00F0 (0x0150 - 0x0060)
@@ -103,6 +107,7 @@ public:
 		return GetDefaultObjImpl<UBillboardCloudPipeline>();
 	}
 };
+DUMPER7_ASSERTS_UBillboardCloudPipeline;
 
 // Class SimplygonUObjects.SimplygonPipeline
 // 0x0000 (0x0028 - 0x0028)
@@ -122,6 +127,7 @@ public:
 		return GetDefaultObjImpl<USimplygonPipeline>();
 	}
 };
+DUMPER7_ASSERTS_USimplygonPipeline;
 
 // Class SimplygonUObjects.FlipbookPipeline
 // 0x00D8 (0x0100 - 0x0028)
@@ -144,6 +150,7 @@ public:
 		return GetDefaultObjImpl<UFlipbookPipeline>();
 	}
 };
+DUMPER7_ASSERTS_UFlipbookPipeline;
 
 // Class SimplygonUObjects.BillboardCloudVegetationPipeline
 // 0x00F0 (0x0118 - 0x0028)
@@ -166,6 +173,7 @@ public:
 		return GetDefaultObjImpl<UBillboardCloudVegetationPipeline>();
 	}
 };
+DUMPER7_ASSERTS_UBillboardCloudVegetationPipeline;
 
 // Class SimplygonUObjects.SimplygonMaterialCaster
 // 0x0000 (0x0028 - 0x0028)
@@ -185,6 +193,7 @@ public:
 		return GetDefaultObjImpl<USimplygonMaterialCaster>();
 	}
 };
+DUMPER7_ASSERTS_USimplygonMaterialCaster;
 
 // Class SimplygonUObjects.SimplygonColorCaster
 // 0x0038 (0x0060 - 0x0028)
@@ -207,6 +216,7 @@ public:
 		return GetDefaultObjImpl<USimplygonColorCaster>();
 	}
 };
+DUMPER7_ASSERTS_USimplygonColorCaster;
 
 // Class SimplygonUObjects.BaseColorCaster
 // 0x0000 (0x0060 - 0x0060)
@@ -226,6 +236,7 @@ public:
 		return GetDefaultObjImpl<UBaseColorCaster>();
 	}
 };
+DUMPER7_ASSERTS_UBaseColorCaster;
 
 // Class SimplygonUObjects.MetallicCaster
 // 0x0000 (0x0060 - 0x0060)
@@ -245,6 +256,7 @@ public:
 		return GetDefaultObjImpl<UMetallicCaster>();
 	}
 };
+DUMPER7_ASSERTS_UMetallicCaster;
 
 // Class SimplygonUObjects.SpecualarCaster
 // 0x0000 (0x0060 - 0x0060)
@@ -264,6 +276,7 @@ public:
 		return GetDefaultObjImpl<USpecualarCaster>();
 	}
 };
+DUMPER7_ASSERTS_USpecualarCaster;
 
 // Class SimplygonUObjects.RoughnessCaster
 // 0x0000 (0x0060 - 0x0060)
@@ -283,6 +296,7 @@ public:
 		return GetDefaultObjImpl<URoughnessCaster>();
 	}
 };
+DUMPER7_ASSERTS_URoughnessCaster;
 
 // Class SimplygonUObjects.SimplygonNormalCaster
 // 0x0038 (0x0060 - 0x0028)
@@ -305,6 +319,7 @@ public:
 		return GetDefaultObjImpl<USimplygonNormalCaster>();
 	}
 };
+DUMPER7_ASSERTS_USimplygonNormalCaster;
 
 // Class SimplygonUObjects.NormalCaster
 // 0x0000 (0x0060 - 0x0060)
@@ -324,6 +339,7 @@ public:
 		return GetDefaultObjImpl<UNormalCaster>();
 	}
 };
+DUMPER7_ASSERTS_UNormalCaster;
 
 // Class SimplygonUObjects.SimplygonOpacityCaster
 // 0x0038 (0x0060 - 0x0028)
@@ -346,6 +362,7 @@ public:
 		return GetDefaultObjImpl<USimplygonOpacityCaster>();
 	}
 };
+DUMPER7_ASSERTS_USimplygonOpacityCaster;
 
 // Class SimplygonUObjects.OpacityCaster
 // 0x0000 (0x0060 - 0x0060)
@@ -365,6 +382,7 @@ public:
 		return GetDefaultObjImpl<UOpacityCaster>();
 	}
 };
+DUMPER7_ASSERTS_UOpacityCaster;
 
 // Class SimplygonUObjects.EmissiveCaster
 // 0x0000 (0x0060 - 0x0060)
@@ -384,6 +402,7 @@ public:
 		return GetDefaultObjImpl<UEmissiveCaster>();
 	}
 };
+DUMPER7_ASSERTS_UEmissiveCaster;
 
 // Class SimplygonUObjects.OpacityMaskCaster
 // 0x0000 (0x0060 - 0x0060)
@@ -403,6 +422,7 @@ public:
 		return GetDefaultObjImpl<UOpacityMaskCaster>();
 	}
 };
+DUMPER7_ASSERTS_UOpacityMaskCaster;
 
 // Class SimplygonUObjects.AmbientOcclusionMaskCaster
 // 0x0000 (0x0060 - 0x0060)
@@ -422,6 +442,7 @@ public:
 		return GetDefaultObjImpl<UAmbientOcclusionMaskCaster>();
 	}
 };
+DUMPER7_ASSERTS_UAmbientOcclusionMaskCaster;
 
 // Class SimplygonUObjects.ReductionPipeline
 // 0x0210 (0x0238 - 0x0028)
@@ -444,6 +465,7 @@ public:
 		return GetDefaultObjImpl<UReductionPipeline>();
 	}
 };
+DUMPER7_ASSERTS_UReductionPipeline;
 
 // Class SimplygonUObjects.RemeshingPipeline
 // 0x01A8 (0x01D0 - 0x0028)
@@ -466,6 +488,7 @@ public:
 		return GetDefaultObjImpl<URemeshingPipeline>();
 	}
 };
+DUMPER7_ASSERTS_URemeshingPipeline;
 
 // Class SimplygonUObjects.AggregationPipeline
 // 0x01A0 (0x01C8 - 0x0028)
@@ -488,6 +511,7 @@ public:
 		return GetDefaultObjImpl<UAggregationPipeline>();
 	}
 };
+DUMPER7_ASSERTS_UAggregationPipeline;
 
 // Class SimplygonUObjects.SimplygonDisplacementCaster
 // 0x0040 (0x0068 - 0x0028)
@@ -510,6 +534,7 @@ public:
 		return GetDefaultObjImpl<USimplygonDisplacementCaster>();
 	}
 };
+DUMPER7_ASSERTS_USimplygonDisplacementCaster;
 
 // Class SimplygonUObjects.SimplygonAmbientOcclusionCaster
 // 0x0048 (0x0070 - 0x0028)
@@ -532,6 +557,7 @@ public:
 		return GetDefaultObjImpl<USimplygonAmbientOcclusionCaster>();
 	}
 };
+DUMPER7_ASSERTS_USimplygonAmbientOcclusionCaster;
 
 // Class SimplygonUObjects.SimplygonGeometryDataCaster
 // 0x0068 (0x0090 - 0x0028)
@@ -555,6 +581,7 @@ public:
 		return GetDefaultObjImpl<USimplygonGeometryDataCaster>();
 	}
 };
+DUMPER7_ASSERTS_USimplygonGeometryDataCaster;
 
 // Class SimplygonUObjects.SimplygonVertexColorCaster
 // 0x0050 (0x0078 - 0x0028)
@@ -577,5 +604,7 @@ public:
 		return GetDefaultObjImpl<USimplygonVertexColorCaster>();
 	}
 };
+DUMPER7_ASSERTS_USimplygonVertexColorCaster;
 
-SDK_NAMESPACE_END
+}
+

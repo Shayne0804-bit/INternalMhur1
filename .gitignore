@@ -17,6 +17,8 @@
 !src/Hooks/**
 !src/Hacks/
 !src/Hacks/**
+!src/Assets/
+!src/Assets/**
 !src/Menu/
 !src/Menu/**
 !src/SDK/

@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // UserDefinedStruct FCh025V2_U3_BarrierParam.FCh025V2_U3_BarrierParam
 // 0x0028 (0x0028 - 0x0000)
@@ -23,5 +24,7 @@ public:
 	TArray<float>                                 OwnerBarrierValueList_72_D978A7BF44BBD35FE2DC3DA6493F9CD9; // 0x0008(0x0010)(Edit, BlueprintVisible)
 	TArray<float>                                 AllyBarrierValueList_73_30C06349428B8DAE0B880FA82B6AEDC4; // 0x0018(0x0010)(Edit, BlueprintVisible)
 };
+DUMPER7_ASSERTS_FFCh025V2_U3_BarrierParam;
 
-SDK_NAMESPACE_END
+}
+

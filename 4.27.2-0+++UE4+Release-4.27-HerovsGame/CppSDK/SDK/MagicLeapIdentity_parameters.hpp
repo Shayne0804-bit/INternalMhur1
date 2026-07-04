@@ -13,8 +13,8 @@
 #include "MagicLeapIdentity_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function MagicLeapIdentity.MagicLeapIdentity.GetAllAvailableAttributes
 // 0x0018 (0x0018 - 0x0000)
@@ -25,6 +25,7 @@ public:
 	EMagicLeapIdentityError                       ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapIdentity_GetAllAvailableAttributes;
 
 // Function MagicLeapIdentity.MagicLeapIdentity.GetAllAvailableAttributesAsync
 // 0x0010 (0x0010 - 0x0000)
@@ -33,6 +34,7 @@ struct MagicLeapIdentity_GetAllAvailableAttributesAsync final
 public:
 	TDelegate<void(EMagicLeapIdentityError ResultCode, const TArray<EMagicLeapIdentityKey>& AvailableAttributes)> ResultDelegate; // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapIdentity_GetAllAvailableAttributesAsync;
 
 // Function MagicLeapIdentity.MagicLeapIdentity.RequestAttributeValue
 // 0x0028 (0x0028 - 0x0000)
@@ -44,6 +46,7 @@ public:
 	EMagicLeapIdentityError                       ReturnValue;                                       // 0x0020(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapIdentity_RequestAttributeValue;
 
 // Function MagicLeapIdentity.MagicLeapIdentity.RequestAttributeValueAsync
 // 0x0028 (0x0028 - 0x0000)
@@ -55,6 +58,7 @@ public:
 	EMagicLeapIdentityError                       ReturnValue;                                       // 0x0020(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapIdentity_RequestAttributeValueAsync;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

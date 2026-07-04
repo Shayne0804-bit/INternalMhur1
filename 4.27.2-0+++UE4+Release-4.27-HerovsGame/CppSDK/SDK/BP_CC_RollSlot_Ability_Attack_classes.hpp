@@ -15,7 +15,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_CC_RollSlot_Ability_Attack.BP_CC_RollSlot_Ability_Attack_C
 // 0x0010 (0x01B8 - 0x01A8)
@@ -48,5 +49,7 @@ public:
 		return GetDefaultObjImpl<UBP_CC_RollSlot_Ability_Attack_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_CC_RollSlot_Ability_Attack_C;
 
-SDK_NAMESPACE_END
+}
+

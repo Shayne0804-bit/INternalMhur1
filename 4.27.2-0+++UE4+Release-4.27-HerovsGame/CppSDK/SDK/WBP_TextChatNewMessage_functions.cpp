@@ -14,7 +14,8 @@
 #include "WBP_TextChatNewMessage_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_TextChatNewMessage.WBP_TextChatNewMessage_C.ExecuteUbergraph_WBP_TextChatNewMessage
 // (Final, UbergraphFunction, HasDefaults)
@@ -124,15 +125,15 @@ void UWBP_TextChatNewMessage_C::Construct()
 }
 
 
-// Function WBP_TextChatNewMessage.WBP_TextChatNewMessage_C.setUpColor
+// Function WBP_TextChatNewMessage.WBP_TextChatNewMessage_C.SetUpColor
 // (Public, HasDefaults, BlueprintCallable, BlueprintEvent)
 
-void UWBP_TextChatNewMessage_C::setUpColor()
+void UWBP_TextChatNewMessage_C::SetUpColor()
 {
 	static class UFunction* Func = nullptr;
 
 	if (Func == nullptr)
-		Func = Class->GetFunction("WBP_TextChatNewMessage_C", "setUpColor");
+		Func = Class->GetFunction("WBP_TextChatNewMessage_C", "SetUpColor");
 
 	UObject::ProcessEvent(Func, nullptr);
 }
@@ -227,5 +228,5 @@ void UWBP_TextChatNewMessage_C::UpdatePivot(const struct FVector2D& Pivot)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

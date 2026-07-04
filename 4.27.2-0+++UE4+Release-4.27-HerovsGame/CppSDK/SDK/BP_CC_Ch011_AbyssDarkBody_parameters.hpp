@@ -14,8 +14,8 @@
 #include "InGameModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_Ch011_AbyssDarkBody.BP_CC_Ch011_AbyssDarkBody_C.ExecuteUbergraph_BP_CC_Ch011_AbyssDarkBody
 // 0x0118 (0x0118 - 0x0000)
@@ -70,6 +70,7 @@ public:
 	class UCharacterConditionControlComponent*    CallFunc_BP_GetConditionControlComponent_ReturnValue; // 0x0108(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_BP_IsValidCondition_ReturnValue;          // 0x0110(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_Ch011_AbyssDarkBody_C_ExecuteUbergraph_BP_CC_Ch011_AbyssDarkBody;
 
 // Function BP_CC_Ch011_AbyssDarkBody.BP_CC_Ch011_AbyssDarkBody_C.CharacterMeshName
 // 0x0008 (0x0008 - 0x0000)
@@ -78,6 +79,7 @@ struct BP_CC_Ch011_AbyssDarkBody_C_CharacterMeshName final
 public:
 	class FName                                   Result;                                            // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Ch011_AbyssDarkBody_C_CharacterMeshName;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

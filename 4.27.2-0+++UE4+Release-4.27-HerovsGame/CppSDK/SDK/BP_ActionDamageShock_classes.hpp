@@ -14,7 +14,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionDamageShock.BP_ActionDamageShock_C
 // 0x0010 (0x0318 - 0x0308)
@@ -45,5 +46,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionDamageShock_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionDamageShock_C;
 
-SDK_NAMESPACE_END
+}
+

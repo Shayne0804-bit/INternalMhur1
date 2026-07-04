@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_DevelopMenuWait.WBP_DevelopMenuWait_C.ExecuteUbergraph_WBP_DevelopMenuWait
 // 0x0014 (0x0014 - 0x0000)
@@ -22,6 +22,7 @@ public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	TDelegate<void()>                             K2Node_CreateDelegate_OutputDelegate;              // 0x0004(0x0010)(ZeroConstructor, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_DevelopMenuWait_C_ExecuteUbergraph_WBP_DevelopMenuWait;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

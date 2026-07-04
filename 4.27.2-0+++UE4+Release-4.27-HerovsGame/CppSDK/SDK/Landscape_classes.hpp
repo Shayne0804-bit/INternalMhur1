@@ -18,7 +18,8 @@
 #include "DeveloperSettings_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class Landscape.ControlPointMeshActor
 // 0x0008 (0x0228 - 0x0220)
@@ -41,6 +42,7 @@ public:
 		return GetDefaultObjImpl<AControlPointMeshActor>();
 	}
 };
+DUMPER7_ASSERTS_AControlPointMeshActor;
 
 // Class Landscape.ControlPointMeshComponent
 // 0x0010 (0x04F0 - 0x04E0)
@@ -64,6 +66,7 @@ public:
 		return GetDefaultObjImpl<UControlPointMeshComponent>();
 	}
 };
+DUMPER7_ASSERTS_UControlPointMeshComponent;
 
 // Class Landscape.LandscapeProxy
 // 0x0378 (0x0598 - 0x0220)
@@ -184,6 +187,7 @@ public:
 		return GetDefaultObjImpl<ALandscapeProxy>();
 	}
 };
+DUMPER7_ASSERTS_ALandscapeProxy;
 
 // Class Landscape.Landscape
 // 0x0000 (0x0598 - 0x0598)
@@ -203,6 +207,7 @@ public:
 		return GetDefaultObjImpl<ALandscape>();
 	}
 };
+DUMPER7_ASSERTS_ALandscape;
 
 // Class Landscape.LandscapeBlueprintBrushBase
 // 0x0000 (0x0220 - 0x0220)
@@ -228,6 +233,7 @@ public:
 		return GetDefaultObjImpl<ALandscapeBlueprintBrushBase>();
 	}
 };
+DUMPER7_ASSERTS_ALandscapeBlueprintBrushBase;
 
 // Class Landscape.LandscapeLODStreamingProxy
 // 0x0008 (0x0068 - 0x0060)
@@ -250,6 +256,7 @@ public:
 		return GetDefaultObjImpl<ULandscapeLODStreamingProxy>();
 	}
 };
+DUMPER7_ASSERTS_ULandscapeLODStreamingProxy;
 
 // Class Landscape.LandscapeComponent
 // 0x0220 (0x0670 - 0x0450)
@@ -320,6 +327,7 @@ public:
 		return GetDefaultObjImpl<ULandscapeComponent>();
 	}
 };
+DUMPER7_ASSERTS_ULandscapeComponent;
 
 // Class Landscape.LandscapeGizmoActor
 // 0x0000 (0x0220 - 0x0220)
@@ -339,6 +347,7 @@ public:
 		return GetDefaultObjImpl<ALandscapeGizmoActor>();
 	}
 };
+DUMPER7_ASSERTS_ALandscapeGizmoActor;
 
 // Class Landscape.LandscapeGizmoActiveActor
 // 0x0050 (0x0270 - 0x0220)
@@ -361,6 +370,7 @@ public:
 		return GetDefaultObjImpl<ALandscapeGizmoActiveActor>();
 	}
 };
+DUMPER7_ASSERTS_ALandscapeGizmoActiveActor;
 
 // Class Landscape.LandscapeGizmoRenderComponent
 // 0x0000 (0x0450 - 0x0450)
@@ -380,6 +390,7 @@ public:
 		return GetDefaultObjImpl<ULandscapeGizmoRenderComponent>();
 	}
 };
+DUMPER7_ASSERTS_ULandscapeGizmoRenderComponent;
 
 // Class Landscape.LandscapeGrassType
 // 0x0038 (0x0060 - 0x0028)
@@ -412,6 +423,7 @@ public:
 		return GetDefaultObjImpl<ULandscapeGrassType>();
 	}
 };
+DUMPER7_ASSERTS_ULandscapeGrassType;
 
 // Class Landscape.LandscapeHeightfieldCollisionComponent
 // 0x00E0 (0x0530 - 0x0450)
@@ -450,6 +462,7 @@ public:
 		return GetDefaultObjImpl<ULandscapeHeightfieldCollisionComponent>();
 	}
 };
+DUMPER7_ASSERTS_ULandscapeHeightfieldCollisionComponent;
 
 // Class Landscape.LandscapeInfo
 // 0x01E8 (0x0210 - 0x0028)
@@ -480,6 +493,7 @@ public:
 		return GetDefaultObjImpl<ULandscapeInfo>();
 	}
 };
+DUMPER7_ASSERTS_ULandscapeInfo;
 
 // Class Landscape.LandscapeInfoMap
 // 0x0058 (0x0080 - 0x0028)
@@ -502,6 +516,7 @@ public:
 		return GetDefaultObjImpl<ULandscapeInfoMap>();
 	}
 };
+DUMPER7_ASSERTS_ULandscapeInfoMap;
 
 // Class Landscape.LandscapeLayerInfoObject
 // 0x0028 (0x0050 - 0x0028)
@@ -528,6 +543,7 @@ public:
 		return GetDefaultObjImpl<ULandscapeLayerInfoObject>();
 	}
 };
+DUMPER7_ASSERTS_ULandscapeLayerInfoObject;
 
 // Class Landscape.LandscapeMaterialInstanceConstant
 // 0x0018 (0x0330 - 0x0318)
@@ -555,6 +571,7 @@ public:
 		return GetDefaultObjImpl<ULandscapeMaterialInstanceConstant>();
 	}
 };
+DUMPER7_ASSERTS_ULandscapeMaterialInstanceConstant;
 
 // Class Landscape.LandscapeMeshCollisionComponent
 // 0x0020 (0x0550 - 0x0530)
@@ -578,6 +595,7 @@ public:
 		return GetDefaultObjImpl<ULandscapeMeshCollisionComponent>();
 	}
 };
+DUMPER7_ASSERTS_ULandscapeMeshCollisionComponent;
 
 // Class Landscape.LandscapeMeshProxyActor
 // 0x0008 (0x0228 - 0x0220)
@@ -600,6 +618,7 @@ public:
 		return GetDefaultObjImpl<ALandscapeMeshProxyActor>();
 	}
 };
+DUMPER7_ASSERTS_ALandscapeMeshProxyActor;
 
 // Class Landscape.LandscapeMeshProxyComponent
 // 0x0030 (0x0510 - 0x04E0)
@@ -625,6 +644,7 @@ public:
 		return GetDefaultObjImpl<ULandscapeMeshProxyComponent>();
 	}
 };
+DUMPER7_ASSERTS_ULandscapeMeshProxyComponent;
 
 // Class Landscape.LandscapeSettings
 // 0x0008 (0x0040 - 0x0038)
@@ -648,6 +668,7 @@ public:
 		return GetDefaultObjImpl<ULandscapeSettings>();
 	}
 };
+DUMPER7_ASSERTS_ULandscapeSettings;
 
 // Class Landscape.LandscapeSplinesComponent
 // 0x0030 (0x0480 - 0x0450)
@@ -675,6 +696,7 @@ public:
 		return GetDefaultObjImpl<ULandscapeSplinesComponent>();
 	}
 };
+DUMPER7_ASSERTS_ULandscapeSplinesComponent;
 
 // Class Landscape.LandscapeSplineControlPoint
 // 0x0080 (0x00A8 - 0x0028)
@@ -711,6 +733,7 @@ public:
 		return GetDefaultObjImpl<ULandscapeSplineControlPoint>();
 	}
 };
+DUMPER7_ASSERTS_ULandscapeSplineControlPoint;
 
 // Class Landscape.LandscapeSplineSegment
 // 0x0088 (0x00B0 - 0x0028)
@@ -738,6 +761,7 @@ public:
 		return GetDefaultObjImpl<ULandscapeSplineSegment>();
 	}
 };
+DUMPER7_ASSERTS_ULandscapeSplineSegment;
 
 // Class Landscape.LandscapeStreamingProxy
 // 0x0020 (0x05B8 - 0x0598)
@@ -761,6 +785,7 @@ public:
 		return GetDefaultObjImpl<ALandscapeStreamingProxy>();
 	}
 };
+DUMPER7_ASSERTS_ALandscapeStreamingProxy;
 
 // Class Landscape.LandscapeSubsystem
 // 0x0010 (0x0050 - 0x0040)
@@ -783,6 +808,7 @@ public:
 		return GetDefaultObjImpl<ULandscapeSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_ULandscapeSubsystem;
 
 // Class Landscape.LandscapeWeightmapUsage
 // 0x0030 (0x0058 - 0x0028)
@@ -806,6 +832,7 @@ public:
 		return GetDefaultObjImpl<ULandscapeWeightmapUsage>();
 	}
 };
+DUMPER7_ASSERTS_ULandscapeWeightmapUsage;
 
 // Class Landscape.MaterialExpressionLandscapeGrassOutput
 // 0x0010 (0x0050 - 0x0040)
@@ -828,6 +855,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionLandscapeGrassOutput>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionLandscapeGrassOutput;
 
 // Class Landscape.MaterialExpressionLandscapeLayerBlend
 // 0x0020 (0x0060 - 0x0040)
@@ -851,6 +879,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionLandscapeLayerBlend>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionLandscapeLayerBlend;
 
 // Class Landscape.MaterialExpressionLandscapeLayerCoords
 // 0x0018 (0x0058 - 0x0040)
@@ -880,6 +909,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionLandscapeLayerCoords>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionLandscapeLayerCoords;
 
 // Class Landscape.MaterialExpressionLandscapeLayerSample
 // 0x0020 (0x0060 - 0x0040)
@@ -905,6 +935,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionLandscapeLayerSample>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionLandscapeLayerSample;
 
 // Class Landscape.MaterialExpressionLandscapeLayerSwitch
 // 0x0048 (0x0088 - 0x0040)
@@ -933,6 +964,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionLandscapeLayerSwitch>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionLandscapeLayerSwitch;
 
 // Class Landscape.MaterialExpressionLandscapeLayerWeight
 // 0x0050 (0x0090 - 0x0040)
@@ -960,6 +992,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionLandscapeLayerWeight>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionLandscapeLayerWeight;
 
 // Class Landscape.MaterialExpressionLandscapePhysicalMaterialOutput
 // 0x0010 (0x0050 - 0x0040)
@@ -982,6 +1015,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionLandscapePhysicalMaterialOutput>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionLandscapePhysicalMaterialOutput;
 
 // Class Landscape.MaterialExpressionLandscapeVisibilityMask
 // 0x0010 (0x0050 - 0x0040)
@@ -1004,5 +1038,7 @@ public:
 		return GetDefaultObjImpl<UMaterialExpressionLandscapeVisibilityMask>();
 	}
 };
+DUMPER7_ASSERTS_UMaterialExpressionLandscapeVisibilityMask;
 
-SDK_NAMESPACE_END
+}
+

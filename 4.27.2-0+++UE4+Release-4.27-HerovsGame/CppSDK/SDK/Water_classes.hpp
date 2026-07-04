@@ -20,7 +20,8 @@
 #include "DeveloperSettings_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class Water.GerstnerWaterWaveGeneratorBase
 // 0x0000 (0x0028 - 0x0028)
@@ -43,6 +44,7 @@ public:
 		return GetDefaultObjImpl<UGerstnerWaterWaveGeneratorBase>();
 	}
 };
+DUMPER7_ASSERTS_UGerstnerWaterWaveGeneratorBase;
 
 // Class Water.BuoyancyComponent
 // 0x0128 (0x01D8 - 0x00B0)
@@ -78,6 +80,7 @@ public:
 		return GetDefaultObjImpl<UBuoyancyComponent>();
 	}
 };
+DUMPER7_ASSERTS_UBuoyancyComponent;
 
 // Class Water.GerstnerWaterWaveSubsystem
 // 0x0018 (0x0048 - 0x0030)
@@ -100,6 +103,7 @@ public:
 		return GetDefaultObjImpl<UGerstnerWaterWaveSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UGerstnerWaterWaveSubsystem;
 
 // Class Water.GerstnerWaterWaveGeneratorSimple
 // 0x0038 (0x0060 - 0x0028)
@@ -135,6 +139,7 @@ public:
 		return GetDefaultObjImpl<UGerstnerWaterWaveGeneratorSimple>();
 	}
 };
+DUMPER7_ASSERTS_UGerstnerWaterWaveGeneratorSimple;
 
 // Class Water.BuoyancyManager
 // 0x00B8 (0x02D8 - 0x0220)
@@ -162,6 +167,7 @@ public:
 		return GetDefaultObjImpl<ABuoyancyManager>();
 	}
 };
+DUMPER7_ASSERTS_ABuoyancyManager;
 
 // Class Water.NiagaraDataInterfaceWater
 // 0x0008 (0x0040 - 0x0038)
@@ -184,6 +190,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraDataInterfaceWater>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraDataInterfaceWater;
 
 // Class Water.ConvertWaterBodyActorsCommandlet
 // 0x0000 (0x0080 - 0x0080)
@@ -203,6 +210,7 @@ public:
 		return GetDefaultObjImpl<UConvertWaterBodyActorsCommandlet>();
 	}
 };
+DUMPER7_ASSERTS_UConvertWaterBodyActorsCommandlet;
 
 // Class Water.EnvQueryTest_InsideWaterBody
 // 0x0008 (0x0200 - 0x01F8)
@@ -228,6 +236,7 @@ public:
 		return GetDefaultObjImpl<UEnvQueryTest_InsideWaterBody>();
 	}
 };
+DUMPER7_ASSERTS_UEnvQueryTest_InsideWaterBody;
 
 // Class Water.WaterWavesBase
 // 0x0000 (0x0028 - 0x0028)
@@ -247,6 +256,7 @@ public:
 		return GetDefaultObjImpl<UWaterWavesBase>();
 	}
 };
+DUMPER7_ASSERTS_UWaterWavesBase;
 
 // Class Water.GerstnerWaterWaveGeneratorSpectrum
 // 0x0018 (0x0040 - 0x0028)
@@ -271,6 +281,7 @@ public:
 		return GetDefaultObjImpl<UGerstnerWaterWaveGeneratorSpectrum>();
 	}
 };
+DUMPER7_ASSERTS_UGerstnerWaterWaveGeneratorSpectrum;
 
 // Class Water.WaterWaves
 // 0x0000 (0x0028 - 0x0028)
@@ -290,6 +301,7 @@ public:
 		return GetDefaultObjImpl<UWaterWaves>();
 	}
 };
+DUMPER7_ASSERTS_UWaterWaves;
 
 // Class Water.GerstnerWaterWaves
 // 0x0020 (0x0048 - 0x0028)
@@ -315,6 +327,7 @@ public:
 		return GetDefaultObjImpl<UGerstnerWaterWaves>();
 	}
 };
+DUMPER7_ASSERTS_UGerstnerWaterWaves;
 
 // Class Water.LakeCollisionComponent
 // 0x0020 (0x0470 - 0x0450)
@@ -339,6 +352,7 @@ public:
 		return GetDefaultObjImpl<ULakeCollisionComponent>();
 	}
 };
+DUMPER7_ASSERTS_ULakeCollisionComponent;
 
 // Class Water.NiagaraWaterFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -361,6 +375,7 @@ public:
 		return GetDefaultObjImpl<UNiagaraWaterFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UNiagaraWaterFunctionLibrary;
 
 // Class Water.OceanCollisionComponent
 // 0x0030 (0x0480 - 0x0450)
@@ -384,6 +399,7 @@ public:
 		return GetDefaultObjImpl<UOceanCollisionComponent>();
 	}
 };
+DUMPER7_ASSERTS_UOceanCollisionComponent;
 
 // Class Water.OceanBoxCollisionComponent
 // 0x0000 (0x0480 - 0x0480)
@@ -403,11 +419,12 @@ public:
 		return GetDefaultObjImpl<UOceanBoxCollisionComponent>();
 	}
 };
+DUMPER7_ASSERTS_UOceanBoxCollisionComponent;
 
 // Class Water.WaterBody
 // 0x0BD0 (0x0DF0 - 0x0220)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) AWaterBody : public AActor
+class alignas(0x10) AWaterBody : public AActor
 {
 public:
 	uint8                                         Pad_220[0x10];                                     // 0x0220(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
@@ -473,6 +490,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_AWaterBody;
 
 // Class Water.WaterBodyGenerator
 // 0x0000 (0x0028 - 0x0028)
@@ -492,6 +510,7 @@ public:
 		return GetDefaultObjImpl<UWaterBodyGenerator>();
 	}
 };
+DUMPER7_ASSERTS_UWaterBodyGenerator;
 
 // Class Water.CustomMeshGenerator
 // 0x0008 (0x0030 - 0x0028)
@@ -514,6 +533,7 @@ public:
 		return GetDefaultObjImpl<UCustomMeshGenerator>();
 	}
 };
+DUMPER7_ASSERTS_UCustomMeshGenerator;
 
 // Class Water.WaterBodyCustom
 // 0x0000 (0x0DF0 - 0x0DF0)
@@ -536,6 +556,7 @@ public:
 		return GetDefaultObjImpl<AWaterBodyCustom>();
 	}
 };
+DUMPER7_ASSERTS_AWaterBodyCustom;
 
 // Class Water.WaterBodyExclusionVolume
 // 0x0018 (0x0280 - 0x0268)
@@ -560,6 +581,7 @@ public:
 		return GetDefaultObjImpl<AWaterBodyExclusionVolume>();
 	}
 };
+DUMPER7_ASSERTS_AWaterBodyExclusionVolume;
 
 // Class Water.WaterBodyIsland
 // 0x0010 (0x0230 - 0x0220)
@@ -586,6 +608,7 @@ public:
 		return GetDefaultObjImpl<AWaterBodyIsland>();
 	}
 };
+DUMPER7_ASSERTS_AWaterBodyIsland;
 
 // Class Water.LakeGenerator
 // 0x0018 (0x0040 - 0x0028)
@@ -610,6 +633,7 @@ public:
 		return GetDefaultObjImpl<ULakeGenerator>();
 	}
 };
+DUMPER7_ASSERTS_ULakeGenerator;
 
 // Class Water.WaterBodyLake
 // 0x0000 (0x0DF0 - 0x0DF0)
@@ -632,6 +656,7 @@ public:
 		return GetDefaultObjImpl<AWaterBodyLake>();
 	}
 };
+DUMPER7_ASSERTS_AWaterBodyLake;
 
 // Class Water.OceanGenerator
 // 0x0020 (0x0048 - 0x0028)
@@ -655,6 +680,7 @@ public:
 		return GetDefaultObjImpl<UOceanGenerator>();
 	}
 };
+DUMPER7_ASSERTS_UOceanGenerator;
 
 // Class Water.WaterBodyOcean
 // 0x0010 (0x0E00 - 0x0DF0)
@@ -679,6 +705,7 @@ public:
 		return GetDefaultObjImpl<AWaterBodyOcean>();
 	}
 };
+DUMPER7_ASSERTS_AWaterBodyOcean;
 
 // Class Water.RiverGenerator
 // 0x0010 (0x0038 - 0x0028)
@@ -701,6 +728,7 @@ public:
 		return GetDefaultObjImpl<URiverGenerator>();
 	}
 };
+DUMPER7_ASSERTS_URiverGenerator;
 
 // Class Water.WaterBodyRiver
 // 0x0020 (0x0E10 - 0x0DF0)
@@ -727,6 +755,7 @@ public:
 		return GetDefaultObjImpl<AWaterBodyRiver>();
 	}
 };
+DUMPER7_ASSERTS_AWaterBodyRiver;
 
 // Class Water.WaterBrushActorInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -755,6 +784,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IWaterBrushActorInterface;
 
 // Class Water.WaterMeshActor
 // 0x0010 (0x0230 - 0x0220)
@@ -778,6 +808,7 @@ public:
 		return GetDefaultObjImpl<AWaterMeshActor>();
 	}
 };
+DUMPER7_ASSERTS_AWaterMeshActor;
 
 // Class Water.WaterMeshComponent
 // 0x0120 (0x05A0 - 0x0480)
@@ -815,6 +846,7 @@ public:
 		return GetDefaultObjImpl<UWaterMeshComponent>();
 	}
 };
+DUMPER7_ASSERTS_UWaterMeshComponent;
 
 // Class Water.WaterRuntimeSettings
 // 0x0040 (0x0078 - 0x0038)
@@ -842,6 +874,7 @@ public:
 		return GetDefaultObjImpl<UWaterRuntimeSettings>();
 	}
 };
+DUMPER7_ASSERTS_UWaterRuntimeSettings;
 
 // Class Water.WaterSplineComponent
 // 0x0020 (0x0570 - 0x0550)
@@ -866,6 +899,7 @@ public:
 		return GetDefaultObjImpl<UWaterSplineComponent>();
 	}
 };
+DUMPER7_ASSERTS_UWaterSplineComponent;
 
 // Class Water.WaterSplineMetadata
 // 0x0078 (0x00A0 - 0x0028)
@@ -892,6 +926,7 @@ public:
 		return GetDefaultObjImpl<UWaterSplineMetadata>();
 	}
 };
+DUMPER7_ASSERTS_UWaterSplineMetadata;
 
 // Class Water.WaterSubsystem
 // 0x00C8 (0x0108 - 0x0040)
@@ -941,6 +976,7 @@ public:
 		return GetDefaultObjImpl<UWaterSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UWaterSubsystem;
 
 // Class Water.WaterWavesAsset
 // 0x0008 (0x0030 - 0x0028)
@@ -963,6 +999,7 @@ public:
 		return GetDefaultObjImpl<UWaterWavesAsset>();
 	}
 };
+DUMPER7_ASSERTS_UWaterWavesAsset;
 
 // Class Water.WaterWavesAssetReference
 // 0x0008 (0x0030 - 0x0028)
@@ -985,5 +1022,7 @@ public:
 		return GetDefaultObjImpl<UWaterWavesAssetReference>();
 	}
 };
+DUMPER7_ASSERTS_UWaterWavesAssetReference;
 
-SDK_NAMESPACE_END
+}
+

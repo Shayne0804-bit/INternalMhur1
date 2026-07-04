@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_Skill_PiggyBack_Ch005.BP_CC_Skill_PiggyBack_Ch005_C.ExecuteUbergraph_BP_CC_Skill_PiggyBack_Ch005
 // 0x0004 (0x0004 - 0x0000)
@@ -21,6 +21,7 @@ struct BP_CC_Skill_PiggyBack_Ch005_C_ExecuteUbergraph_BP_CC_Skill_PiggyBack_Ch00
 public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Skill_PiggyBack_Ch005_C_ExecuteUbergraph_BP_CC_Skill_PiggyBack_Ch005;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

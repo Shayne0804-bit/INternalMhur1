@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function ClothingSystemRuntimeNv.ClothingSimulationInteractorNv.SetAnimDriveDamperStiffness
 // 0x0004 (0x0004 - 0x0000)
@@ -21,6 +21,7 @@ struct ClothingSimulationInteractorNv_SetAnimDriveDamperStiffness final
 public:
 	float                                         InStiffness;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ClothingSimulationInteractorNv_SetAnimDriveDamperStiffness;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

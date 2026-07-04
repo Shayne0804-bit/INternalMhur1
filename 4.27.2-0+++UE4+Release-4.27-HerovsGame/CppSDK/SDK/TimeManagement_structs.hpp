@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum TimeManagement.EFrameNumberDisplayFormats
 // NumValues: 0x0006
@@ -53,6 +54,7 @@ public:
 	float                                         DistanceToNewestSampleSeconds;                     // 0x0000(0x0004)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         DistanceToOldestSampleSeconds;                     // 0x0004(0x0004)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FTimedDataInputEvaluationData;
 
 // ScriptStruct TimeManagement.TimedDataChannelSampleTime
 // 0x0018 (0x0018 - 0x0000)
@@ -61,5 +63,7 @@ struct alignas(0x08) FTimedDataChannelSampleTime final
 public:
 	uint8                                         Pad_0[0x18];                                       // 0x0000(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTimedDataChannelSampleTime;
 
-SDK_NAMESPACE_END
+}
+

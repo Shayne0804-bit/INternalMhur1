@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BTS_CombatPolling.BTS_CombatPolling_C.ExecuteUbergraph_BTS_CombatPolling
 // 0x0040 (0x0040 - 0x0000)
@@ -31,6 +31,7 @@ public:
 	class AActor*                                 CallFunc_BP_GetTargetMemory_ReturnValue;           // 0x0030(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_BP_SkillPerform_ReturnValue;              // 0x0038(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BTS_CombatPolling_C_ExecuteUbergraph_BTS_CombatPolling;
 
 // Function BTS_CombatPolling.BTS_CombatPolling_C.ReceiveTickAI
 // 0x0018 (0x0018 - 0x0000)
@@ -41,6 +42,7 @@ public:
 	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         DeltaSeconds;                                      // 0x0010(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BTS_CombatPolling_C_ReceiveTickAI;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

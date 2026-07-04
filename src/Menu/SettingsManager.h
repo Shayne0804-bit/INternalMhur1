@@ -152,6 +152,7 @@ namespace SettingsManager
 			// Global
 			file << "    \"EnableGlobal\": " << BoolToJson(menuSettings.EnableGlobal) << ",\n";
 			file << "    \"EnableESP\": " << BoolToJson(menuSettings.EnableESP) << ",\n";
+			file << "    \"EnableMenuBackgroundVideo\": " << BoolToJson(menuSettings.EnableMenuBackgroundVideo) << ",\n";
 
 			// ESP - Display
 			file << "    \"EnablePlayerESP\": " << BoolToJson(menuSettings.EnablePlayerESP) << ",\n";
@@ -173,7 +174,9 @@ namespace SettingsManager
 			file << "    \"AimbotSmoothFactor\": " << FloatToJson(menuSettings.AimbotSmoothFactor) << ",\n";
 			file << "    \"AimbotDrawLine\": " << BoolToJson(menuSettings.AimbotDrawLine) << ",\n";
 			file << "    \"AimbotDrawFOV\": " << BoolToJson(menuSettings.AimbotDrawFOV) << ",\n";
+			file << "    \"AimbotDrawCrosshair\": " << BoolToJson(menuSettings.AimbotDrawCrosshair) << ",\n";
 			file << "    \"AimbotFOVRadius\": " << FloatToJson(menuSettings.AimbotFOVRadius) << ",\n";
+			file << "    \"AimbotMaxDistance\": " << FloatToJson(menuSettings.AimbotMaxDistance) << ",\n";
 			file << "    \"AimbotRequireHold\": " << BoolToJson(menuSettings.AimbotRequireHold) << ",\n";
 			file << "    \"AimbotIgnoreDownedTargets\": " << BoolToJson(menuSettings.AimbotIgnoreDownedTargets) << ",\n";
 
@@ -186,6 +189,14 @@ namespace SettingsManager
 			file << "    \"EnableInfiniteObjects\": " << BoolToJson(menuSettings.EnableInfiniteObjects) << ",\n";
 			file << "    \"TeleportToKotaKey_Keyboard\": " << IntToJson(menuSettings.TeleportToKotaKey.Keyboard) << ",\n";
 			file << "    \"TeleportToKotaKey_Xbox\": " << IntToJson(menuSettings.TeleportToKotaKey.Xbox) << ",\n";
+
+			// Custom Drop
+			file << "    \"EnableCustomDrop\": " << BoolToJson(menuSettings.EnableCustomDrop) << ",\n";
+			file << "    \"CustomDropQuantity\": " << IntToJson(menuSettings.CustomDropQuantity) << ",\n";
+			file << "    \"CustomDropSelectedIndex\": " << IntToJson(menuSettings.CustomDropSelectedIndex) << ",\n";
+			file << "    \"CustomDropSerialId\": " << IntToJson(menuSettings.CustomDropSerialId) << ",\n";
+			file << "    \"CustomDropKey_Keyboard\": " << IntToJson(menuSettings.CustomDropKey.Keyboard) << ",\n";
+			file << "    \"CustomDropKey_Xbox\": " << IntToJson(menuSettings.CustomDropKey.Xbox) << ",\n";
 
 			// Transform Into Random ESP Target
 			file << "    \"EnableTransformIntoRandomESP\": " << BoolToJson(menuSettings.EnableTransformIntoRandomESP) << ",\n";
@@ -215,6 +226,7 @@ namespace SettingsManager
 			file << "    \"ReloadAdjustRate\": " << FloatToJson(menuSettings.ReloadAdjustRate) << ",\n";
 			file << "    \"ReloadAdjustRate_RollSlot\": " << FloatToJson(menuSettings.ReloadAdjustRate_RollSlot) << ",\n";
 			file << "    \"ReloadAdjustRate_WearBlueFlame\": " << FloatToJson(menuSettings.ReloadAdjustRate_WearBlueFlame) << ",\n";
+			file << "    \"CvNoneDamageCurveValue\": " << FloatToJson(menuSettings.CvNoneDamageCurveValue) << ",\n";
 
 			// Training Mode
 			file << "    \"TrainingPlayerCharacter\": " << IntToJson(menuSettings.TrainingPlayerCharacter) << ",\n";
@@ -248,6 +260,8 @@ namespace SettingsManager
 			file << "    \"BulletTP_FOVRadius\": " << FloatToJson(menuSettings.BulletTP_FOVRadius) << ",\n";
 			file << "    \"BulletTP_MaxDistance\": " << FloatToJson(menuSettings.BulletTP_MaxDistance) << ",\n";
 			file << "    \"BulletTPIgnoreDownedTargets\": " << BoolToJson(menuSettings.BulletTPIgnoreDownedTargets) << ",\n";
+			file << "    \"EnableCameraFOV\": " << BoolToJson(menuSettings.EnableCameraFOV) << ",\n";
+			file << "    \"CameraFOV\": " << FloatToJson(menuSettings.CameraFOV) << ",\n";
 
 			// Rebuild Myself
 			file << "    \"EnableRebuildMyself\": " << BoolToJson(menuSettings.EnableRebuildMyself) << ",\n";
@@ -265,7 +279,137 @@ namespace SettingsManager
 			file << "    \"SelectedCharacterIndex\": " << IntToJson(menuSettings.SelectedCharacterIndex) << ",\n";
 			file << "    \"SelectedRecoveryTeamIndex\": " << IntToJson(menuSettings.SelectedRecoveryTeamIndex) << ",\n";
 			file << "    \"EnableCH202InitTransLevel5\": " << BoolToJson(menuSettings.EnableCH202InitTransLevel5) << ",\n";
-			file << "    \"EnableSupplyMaxStackTo100\": " << BoolToJson(menuSettings.EnableSupplyMaxStackTo100) << "\n";
+			file << "    \"EnableSupplyMaxStackTo100\": " << BoolToJson(menuSettings.EnableSupplyMaxStackTo100) << ",\n";
+			file << "    \"EnableFastPlusUltraCharge\": " << BoolToJson(menuSettings.EnableFastPlusUltraCharge) << ",\n";
+			file << "    \"EnableNoCollision\": " << BoolToJson(menuSettings.EnableNoCollision) << ",\n";
+			file << "    \"NoCollisionSpeed\": " << FloatToJson(menuSettings.NoCollisionSpeed) << ",\n";
+			file << "    \"NoCollisionHoldKey_Keyboard\": " << IntToJson(menuSettings.NoCollisionHoldKey.Keyboard) << ",\n";
+			file << "    \"NoCollisionHoldKey_Xbox\": " << IntToJson(menuSettings.NoCollisionHoldKey.Xbox) << ",\n";
+			file << "    \"EnableClearInvincibleAuto\": " << BoolToJson(menuSettings.EnableClearInvincibleAuto) << ",\n";
+			file << "    \"ClearInvincibleTargetMode\": " << IntToJson(menuSettings.ClearInvincibleTargetMode) << ",\n";
+			file << "    \"ClearInvincibleMethod\": " << IntToJson(menuSettings.ClearInvincibleMethod) << ",\n";
+			file << "    \"ClearInvincibleIgnoreFixed\": " << BoolToJson(menuSettings.ClearInvincibleIgnoreFixed) << ",\n";
+			file << "    \"ClearInvincibleAttackId\": " << IntToJson(menuSettings.ClearInvincibleAttackId) << ",\n";
+			file << "    \"ClearInvincibleIntervalMs\": " << IntToJson(menuSettings.ClearInvincibleIntervalMs) << ",\n";
+			file << "    \"ClearInvincibleSelectedCharacterIndex\": " << IntToJson(menuSettings.ClearInvincibleSelectedCharacterIndex) << ",\n";
+			file << "    \"ClearInvincibleTagBuffer\": \"" << EscapeJsonString(menuSettings.ClearInvincibleTagBuffer) << "\",\n";
+			file << "    \"EnableAttackChainAuto\": " << BoolToJson(menuSettings.EnableAttackChainAuto) << ",\n";
+			file << "    \"AttackChainIntervalMs\": " << IntToJson(menuSettings.AttackChainIntervalMs) << ",\n";
+			file << "    \"AttackChainUseChainComboFlag\": " << BoolToJson(menuSettings.AttackChainUseChainComboFlag) << ",\n";
+			file << "    \"AttackChainComboFlagTime\": " << FloatToJson(menuSettings.AttackChainComboFlagTime) << ",\n";
+			file << "    \"AttackChainEnableShiftAttackActions\": " << BoolToJson(menuSettings.AttackChainEnableShiftAttackActions) << ",\n";
+			file << "    \"AttackChainClearShiftActionAttackFlags\": " << BoolToJson(menuSettings.AttackChainClearShiftActionAttackFlags) << ",\n";
+			file << "    \"AttackChainUseAnimationRate\": " << BoolToJson(menuSettings.AttackChainUseAnimationRate) << ",\n";
+			file << "    \"AttackChainAnimationRate\": " << FloatToJson(menuSettings.AttackChainAnimationRate) << ",\n";
+			file << "    \"AttackChainAnimationRateNagara\": " << BoolToJson(menuSettings.AttackChainAnimationRateNagara) << ",\n";
+			file << "    \"AttackChainUsePhaseEndCondition\": " << BoolToJson(menuSettings.AttackChainUsePhaseEndCondition) << ",\n";
+			file << "    \"AttackChainComboCommand\": " << BoolToJson(menuSettings.AttackChainComboCommand) << ",\n";
+			file << "    \"AttackChainGrabbed\": " << BoolToJson(menuSettings.AttackChainGrabbed) << ",\n";
+			file << "    \"AttackChainEndTimer\": " << FloatToJson(menuSettings.AttackChainEndTimer) << ",\n";
+			file << "    \"AttackChainLanding\": " << BoolToJson(menuSettings.AttackChainLanding) << ",\n";
+			file << "    \"AttackChainEndAnim\": " << BoolToJson(menuSettings.AttackChainEndAnim) << ",\n";
+			file << "    \"AttackChainEndAnimSlot\": " << IntToJson(menuSettings.AttackChainEndAnimSlot) << ",\n";
+			file << "    \"AttackChainFinishCurrentPhase\": " << BoolToJson(menuSettings.AttackChainFinishCurrentPhase) << ",\n";
+			file << "    \"AttackChainTerminateAttackLayer\": " << BoolToJson(menuSettings.AttackChainTerminateAttackLayer) << ",\n";
+			file << "    \"AttackChainEnableAimingActionCancel\": " << BoolToJson(menuSettings.AttackChainEnableAimingActionCancel) << ",\n";
+			file << "    \"AttackChainActionCancelFlag\": " << IntToJson(menuSettings.AttackChainActionCancelFlag) << ",\n";
+			file << "    \"AttackChainOwnerActionOnly\": " << BoolToJson(menuSettings.AttackChainOwnerActionOnly) << ",\n";
+			file << "    \"AttackChainValidateNextReservedAction\": " << BoolToJson(menuSettings.AttackChainValidateNextReservedAction) << ",\n";
+			file << "    \"EnableDownPowerAuto\": " << BoolToJson(menuSettings.EnableDownPowerAuto) << ",\n";
+			file << "    \"DownPowerIntervalMs\": " << IntToJson(menuSettings.DownPowerIntervalMs) << ",\n";
+			file << "    \"DownPowerTargetMode\": " << IntToJson(menuSettings.DownPowerTargetMode) << ",\n";
+			file << "    \"DownPowerSelectedCharacterIndex\": " << IntToJson(menuSettings.DownPowerSelectedCharacterIndex) << ",\n";
+			file << "    \"DownPowerPatchDamageParams\": " << BoolToJson(menuSettings.DownPowerPatchDamageParams) << ",\n";
+			file << "    \"DownPowerDamageType\": " << IntToJson(menuSettings.DownPowerDamageType) << ",\n";
+			file << "    \"DownPowerIncludeNoActionDamage\": " << BoolToJson(menuSettings.DownPowerIncludeNoActionDamage) << ",\n";
+			file << "    \"DownPowerOverrideRecoverSpan\": " << BoolToJson(menuSettings.DownPowerOverrideRecoverSpan) << ",\n";
+			file << "    \"DownPowerRecoverSpan\": " << FloatToJson(menuSettings.DownPowerRecoverSpan) << ",\n";
+			file << "    \"DownPowerApplyDurableRates\": " << BoolToJson(menuSettings.DownPowerApplyDurableRates) << ",\n";
+			file << "    \"DownPowerDurableRate\": " << FloatToJson(menuSettings.DownPowerDurableRate) << ",\n";
+			file << "    \"DownPowerDurableAttackActionRate\": " << FloatToJson(menuSettings.DownPowerDurableAttackActionRate) << ",\n";
+			file << "    \"DownPowerDurableTakeDamageRate\": " << FloatToJson(menuSettings.DownPowerDurableTakeDamageRate) << ",\n";
+			file << "    \"DownPowerDurableSpecialActionRate\": " << FloatToJson(menuSettings.DownPowerDurableSpecialActionRate) << ",\n";
+			file << "    \"DownPowerDurableRollSlotRate\": " << FloatToJson(menuSettings.DownPowerDurableRollSlotRate) << ",\n";
+			file << "    \"DownPowerDurableTakeDamageRollSlotRate\": " << FloatToJson(menuSettings.DownPowerDurableTakeDamageRollSlotRate) << ",\n";
+			file << "    \"DownPowerApplyBreakDownSuperArmorRate\": " << BoolToJson(menuSettings.DownPowerApplyBreakDownSuperArmorRate) << ",\n";
+			file << "    \"DownPowerBreakDownSuperArmorRate\": " << FloatToJson(menuSettings.DownPowerBreakDownSuperArmorRate) << ",\n";
+			file << "    \"DownPowerDisableTargetSuperArmor\": " << BoolToJson(menuSettings.DownPowerDisableTargetSuperArmor) << ",\n";
+			file << "    \"Ch202MeleeAChaseHeightOffset\": " << FloatToJson(menuSettings.Ch202MeleeAChaseHeightOffset) << ",\n";
+			file << "    \"Ch202MeleeAChaseStartSpeedMax\": " << FloatToJson(menuSettings.Ch202MeleeAChaseStartSpeedMax) << ",\n";
+			file << "    \"Ch202MeleeAChaseStartSpeedMin\": " << FloatToJson(menuSettings.Ch202MeleeAChaseStartSpeedMin) << ",\n";
+			file << "    \"Ch202MeleeAChaseLastSpeed\": " << FloatToJson(menuSettings.Ch202MeleeAChaseLastSpeed) << ",\n";
+			file << "    \"Ch202MeleeAChaseSpeedSpan\": " << FloatToJson(menuSettings.Ch202MeleeAChaseSpeedSpan) << ",\n";
+			file << "    \"Ch202MeleeAChaseSpan\": " << FloatToJson(menuSettings.Ch202MeleeAChaseSpan) << ",\n";
+			file << "    \"Ch202MeleeADistance\": " << FloatToJson(menuSettings.Ch202MeleeADistance) << ",\n";
+			file << "    \"Ch202MeleeABreakTargetSpeed\": " << FloatToJson(menuSettings.Ch202MeleeABreakTargetSpeed) << ",\n";
+			file << "    \"Ch202MeleeABreakTargetSpan\": " << FloatToJson(menuSettings.Ch202MeleeABreakTargetSpan) << ",\n";
+			file << "    \"Ch202Unique1HoldTime\": " << FloatToJson(menuSettings.Ch202Unique1HoldTime) << ",\n";
+			file << "    \"Ch202Unique2NeedFieldTime\": " << FloatToJson(menuSettings.Ch202Unique2NeedFieldTime) << ",\n";
+			file << "    \"Ch202Unique2HoldTime\": " << FloatToJson(menuSettings.Ch202Unique2HoldTime) << ",\n";
+			file << "    \"Ch202Unique2MoveTime\": " << FloatToJson(menuSettings.Ch202Unique2MoveTime) << ",\n";
+			file << "    \"Ch202Unique2MoveSpeedMin\": " << FloatToJson(menuSettings.Ch202Unique2MoveSpeedMin) << ",\n";
+			file << "    \"Ch202Unique2MoveSpeedMax\": " << FloatToJson(menuSettings.Ch202Unique2MoveSpeedMax) << ",\n";
+			file << "    \"Ch202Unique2QuintupleRiseSlideSpeed\": " << FloatToJson(menuSettings.Ch202Unique2QuintupleRiseSlideSpeed) << ",\n";
+			file << "    \"Ch202Unique2QuintupleRiseSlideSpan\": " << FloatToJson(menuSettings.Ch202Unique2QuintupleRiseSlideSpan) << ",\n";
+			file << "    \"Ch202Unique2QuintupleFallSlideSpeed\": " << FloatToJson(menuSettings.Ch202Unique2QuintupleFallSlideSpeed) << ",\n";
+			file << "    \"Ch202Unique2QuintupleFallSlideSpan\": " << FloatToJson(menuSettings.Ch202Unique2QuintupleFallSlideSpan) << ",\n";
+			file << "    \"Ch202Unique2AfterLevel\": " << IntToJson(menuSettings.Ch202Unique2AfterLevel) << ",\n";
+			file << "    \"Ch202Unique2QuintupleAllAmmoConsumed\": " << BoolToJson(menuSettings.Ch202Unique2QuintupleAllAmmoConsumed) << ",\n";
+			file << "    \"Ch202U3InitTransMissionLevel\": " << IntToJson(menuSettings.Ch202U3InitTransMissionLevel) << ",\n";
+			file << "    \"Ch202U3EndDistanceOfFollowing\": " << FloatToJson(menuSettings.Ch202U3EndDistanceOfFollowing) << ",\n";
+			file << "    \"Ch202U3MoveSpeedStart\": " << FloatToJson(menuSettings.Ch202U3MoveSpeedStart) << ",\n";
+			file << "    \"Ch202U3MoveSpeedEnd\": " << FloatToJson(menuSettings.Ch202U3MoveSpeedEnd) << ",\n";
+			file << "    \"Ch202U3SpeedChangeTime\": " << FloatToJson(menuSettings.Ch202U3SpeedChangeTime) << ",\n";
+			file << "    \"Ch202U3ExitSpeedStart\": " << FloatToJson(menuSettings.Ch202U3ExitSpeedStart) << ",\n";
+			file << "    \"Ch202U3ExitSpeedEnd\": " << FloatToJson(menuSettings.Ch202U3ExitSpeedEnd) << ",\n";
+			file << "    \"Ch202U3ExitChangeTime\": " << FloatToJson(menuSettings.Ch202U3ExitChangeTime) << ",\n";
+			file << "    \"Ch202U3LimitCount\": " << IntToJson(menuSettings.Ch202U3LimitCount) << ",\n";
+			file << "    \"Ch202U3MoveMagazinePercentMin\": " << FloatToJson(menuSettings.Ch202U3MoveMagazinePercentMin) << ",\n";
+			file << "    \"Ch202U3MoveMagazinePercentMax\": " << FloatToJson(menuSettings.Ch202U3MoveMagazinePercentMax) << ",\n";
+			file << "    \"Ch202U3PunchMagazinePercentMin\": " << FloatToJson(menuSettings.Ch202U3PunchMagazinePercentMin) << ",\n";
+			file << "    \"Ch202U3PunchMagazinePercentMax\": " << FloatToJson(menuSettings.Ch202U3PunchMagazinePercentMax) << ",\n";
+			file << "    \"Ch202U3RecoverMagazineBase\": " << IntToJson(menuSettings.Ch202U3RecoverMagazineBase) << ",\n";
+			file << "    \"Ch202U3RecoverMagazineAdd\": " << IntToJson(menuSettings.Ch202U3RecoverMagazineAdd) << ",\n";
+			file << "    \"Ch202U3DelayCancelTimer\": " << FloatToJson(menuSettings.Ch202U3DelayCancelTimer) << ",\n";
+			file << "    \"Ch202U3LockOnSec\": " << FloatToJson(menuSettings.Ch202U3LockOnSec) << ",\n";
+			file << "    \"Ch202U3LockOnMinSec\": " << FloatToJson(menuSettings.Ch202U3LockOnMinSec) << ",\n";
+			file << "    \"Ch202U3LockOnRange\": " << FloatToJson(menuSettings.Ch202U3LockOnRange) << ",\n";
+			file << "    \"Ch202U3LockOnAttackTargetCheckType\": " << IntToJson(menuSettings.Ch202U3LockOnAttackTargetCheckType) << ",\n";
+			file << "    \"Ch202U3CurveHorizontalDistanceMin\": " << FloatToJson(menuSettings.Ch202U3CurveHorizontalDistanceMin) << ",\n";
+			file << "    \"Ch202U3CurveHorizontalDistanceMax\": " << FloatToJson(menuSettings.Ch202U3CurveHorizontalDistanceMax) << ",\n";
+			file << "    \"Ch202U3MiddleUpOffset\": " << FloatToJson(menuSettings.Ch202U3MiddleUpOffset) << ",\n";
+			file << "    \"Ch202U3TargetOffset\": " << FloatToJson(menuSettings.Ch202U3TargetOffset) << ",\n";
+			file << "    \"Ch202U3SplitDistance\": " << FloatToJson(menuSettings.Ch202U3SplitDistance) << ",\n";
+			file << "    \"Ch202U3SplitLerpRate\": " << FloatToJson(menuSettings.Ch202U3SplitLerpRate) << ",\n";
+			file << "    \"Ch202U3ControlPointsRate\": " << FloatToJson(menuSettings.Ch202U3ControlPointsRate) << ",\n";
+			file << "    \"Ch202U3MinDetroitRange\": " << FloatToJson(menuSettings.Ch202U3MinDetroitRange) << ",\n";
+			file << "    \"Ch202U3MinDetroitSpeed\": " << FloatToJson(menuSettings.Ch202U3MinDetroitSpeed) << ",\n";
+			file << "    \"Ch202U3MaxDetroitRange\": " << FloatToJson(menuSettings.Ch202U3MaxDetroitRange) << ",\n";
+			file << "    \"Ch202U3MaxDetroitSpeed\": " << FloatToJson(menuSettings.Ch202U3MaxDetroitSpeed) << ",\n";
+			file << "    \"Ch202U3MiddleOffsetX\": " << FloatToJson(menuSettings.Ch202U3MiddleOffsetX) << ",\n";
+			file << "    \"Ch202U3MiddleOffsetY\": " << FloatToJson(menuSettings.Ch202U3MiddleOffsetY) << ",\n";
+			file << "    \"Ch202U3MiddleOffsetZ\": " << FloatToJson(menuSettings.Ch202U3MiddleOffsetZ) << ",\n";
+			file << "    \"Ch202U3MiddleOffsetAerialX\": " << FloatToJson(menuSettings.Ch202U3MiddleOffsetAerialX) << ",\n";
+			file << "    \"Ch202U3MiddleOffsetAerialY\": " << FloatToJson(menuSettings.Ch202U3MiddleOffsetAerialY) << ",\n";
+			file << "    \"Ch202U3MiddleOffsetAerialZ\": " << FloatToJson(menuSettings.Ch202U3MiddleOffsetAerialZ) << ",\n";
+			file << "    \"Ch202SpecialHoldTime\": " << FloatToJson(menuSettings.Ch202SpecialHoldTime) << ",\n";
+			file << "    \"Ch202SpecialActivationTime\": " << FloatToJson(menuSettings.Ch202SpecialActivationTime) << ",\n";
+			file << "    \"Ch202SpecialSmokeMagazineCost\": " << IntToJson(menuSettings.Ch202SpecialSmokeMagazineCost) << ",\n";
+			file << "    \"Ch202SpecialLegCount\": " << IntToJson(menuSettings.Ch202SpecialLegCount) << ",\n";
+			file << "    \"Ch202SpecialJumpVerticalSpan\": " << FloatToJson(menuSettings.Ch202SpecialJumpVerticalSpan) << ",\n";
+			file << "    \"Ch202SpecialJumpVerticalHeight\": " << FloatToJson(menuSettings.Ch202SpecialJumpVerticalHeight) << ",\n";
+			file << "    \"Ch202SpecialJumpForwardSpan\": " << FloatToJson(menuSettings.Ch202SpecialJumpForwardSpan) << ",\n";
+			file << "    \"Ch202SpecialJumpForwardHeight\": " << FloatToJson(menuSettings.Ch202SpecialJumpForwardHeight) << ",\n";
+			file << "    \"Ch202SpecialJumpForwardInitialSpeedH\": " << FloatToJson(menuSettings.Ch202SpecialJumpForwardInitialSpeedH) << ",\n";
+			file << "    \"Ch202SpecialJumpForwardLastSpeedH\": " << FloatToJson(menuSettings.Ch202SpecialJumpForwardLastSpeedH) << ",\n";
+			file << "    \"Ch202SpecialJumpForwardAccelSpanH\": " << FloatToJson(menuSettings.Ch202SpecialJumpForwardAccelSpanH) << ",\n";
+			file << "    \"Ch202SpecialWallJumpSpan\": " << FloatToJson(menuSettings.Ch202SpecialWallJumpSpan) << ",\n";
+			file << "    \"Ch202SpecialWallJumpHeight\": " << FloatToJson(menuSettings.Ch202SpecialWallJumpHeight) << ",\n";
+			file << "    \"Ch202SpecialWallJumpInitialSpeed\": " << FloatToJson(menuSettings.Ch202SpecialWallJumpInitialSpeed) << ",\n";
+			file << "    \"Ch202SpecialWallJumpLastSpeed\": " << FloatToJson(menuSettings.Ch202SpecialWallJumpLastSpeed) << ",\n";
+			file << "    \"Ch202ConditionAnimationMultiplyRate\": " << FloatToJson(menuSettings.Ch202ConditionAnimationMultiplyRate) << ",\n";
+			file << "    \"Ch202ConditionMoveMultiplyRate\": " << FloatToJson(menuSettings.Ch202ConditionMoveMultiplyRate) << ",\n";
+			file << "    \"Ch202ConditionJumpAdjustMultiplyRate\": " << FloatToJson(menuSettings.Ch202ConditionJumpAdjustMultiplyRate) << "\n";
 
 			file << "  },\n";
 
@@ -306,6 +450,9 @@ namespace SettingsManager
 			file << "    \"CharCondition_Interval\": " << FloatToJson(hackSettings.CharCondition_Interval) << ",\n";
 			file << "    \"CharCondition_SubLevel\": " << IntToJson(hackSettings.CharCondition_SubLevel) << ",\n";
 			file << "    \"CharCondition_TimeOverwrite\": " << BoolToJson(hackSettings.CharCondition_TimeOverwrite) << ",\n";
+			file << "    \"ChangePlayerNameBuffer\": \"" << EscapeJsonString(hackSettings.ChangePlayerNameBuffer) << "\",\n";
+			file << "    \"BackendPlatformCode\": " << IntToJson(hackSettings.BackendPlatformCode) << ",\n";
+			file << "    \"FakePlatformBuffer\": \"" << EscapeJsonString(hackSettings.FakePlatformBuffer) << "\",\n";
 			file << "    \"BuyLicenseExpCount\": " << IntToJson(hackSettings.BuyLicenseExpCount) << ",\n";
 			file << "    \"LicenseClaimSeasonCode\": " << IntToJson(hackSettings.LicenseClaimSeasonCode) << ",\n";
 			file << "    \"LicenseClaimFreeRank\": " << IntToJson(hackSettings.LicenseClaimFreeRank) << ",\n";
@@ -339,6 +486,7 @@ namespace SettingsManager
 		// Disable all MenuSettings bools
 		emptyMenu.EnableGlobal = false;
 		emptyMenu.EnableESP = false;
+		emptyMenu.EnableMenuBackgroundVideo = true;
 		emptyMenu.EnablePlayerESP = false;
 		emptyMenu.Player_Box = false;
 		emptyMenu.Player_Health = false;
@@ -356,6 +504,7 @@ namespace SettingsManager
 		emptyMenu.AimbotSmoothing = false;
 		emptyMenu.AimbotDrawLine = false;
 		emptyMenu.AimbotDrawFOV = false;
+		emptyMenu.AimbotDrawCrosshair = false;
 		emptyMenu.AimbotRequireHold = false;
 		emptyMenu.AimbotIgnoreDownedTargets = true;
 
@@ -389,12 +538,15 @@ namespace SettingsManager
 		// Initialize all float sliders to 0
 		emptyMenu.AimbotSmoothFactor = 0.0f;
 		emptyMenu.AimbotFOVRadius = 0.0f;
+		emptyMenu.AimbotMaxDistance = 0.0f;
 		emptyMenu.DuplicateImitationLifeTime = 0.0f;
 		emptyMenu.ReloadAdjustRate = 1.0f;  // Keep at 1.0f (normal speed) not 0
 		emptyMenu.ReloadAdjustRate_RollSlot = 1.0f;  // Keep at 1.0f
 		emptyMenu.ReloadAdjustRate_WearBlueFlame = 1.0f;  // Keep at 1.0f
+		emptyMenu.CvNoneDamageCurveValue = 1.0f;  // Keep original CV_None curve values
 		emptyMenu.BulletTP_FOVRadius = 0.0f;
 		emptyMenu.BulletTP_MaxDistance = 0.0f;
+		emptyMenu.CameraFOV = 90.0f;
 		emptyMenu.Player_DrawDistance = 0.0f;
 
 		// Initialize all int values to 0 or default
@@ -413,12 +565,143 @@ namespace SettingsManager
 		// Initialize all hotkeys to 0
 		emptyMenu.AimbotHoldKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.TeleportToKotaKey = ImGuiMenu::HotkeySet(0, 0);
+		emptyMenu.CustomDropKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.TransformIntoRandomESPKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.DuplicateIntoImitationRandomESPKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.CopySkillsFromNearestEnemyKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.GenerateProjectileKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.SetInvincibleKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.RebuildMyselfKey = ImGuiMenu::HotkeySet(0, 0);
+		emptyMenu.NoCollisionHoldKey = ImGuiMenu::HotkeySet(0, 0);
+		emptyMenu.EnableFastPlusUltraCharge = false;
+		emptyMenu.EnableNoCollision = false;
+		emptyMenu.EnableCameraFOV = false;
+		emptyMenu.NoCollisionSpeed = 0.0f;
+		emptyMenu.EnableClearInvincibleAuto = false;
+		emptyMenu.ClearInvincibleTargetMode = 1;
+		emptyMenu.ClearInvincibleMethod = 0;
+		emptyMenu.ClearInvincibleIgnoreFixed = true;
+		emptyMenu.ClearInvincibleAttackId = 4;
+		emptyMenu.ClearInvincibleIntervalMs = 250;
+		emptyMenu.ClearInvincibleSelectedCharacterIndex = -1;
+		emptyMenu.ClearInvincibleTagBuffer[0] = '\0';
+		emptyMenu.EnableAttackChainAuto = false;
+		emptyMenu.AttackChainIntervalMs = 50;
+		emptyMenu.AttackChainUseChainComboFlag = true;
+		emptyMenu.AttackChainComboFlagTime = 0.25f;
+		emptyMenu.AttackChainEnableShiftAttackActions = true;
+		emptyMenu.AttackChainClearShiftActionAttackFlags = true;
+		emptyMenu.AttackChainUseAnimationRate = true;
+		emptyMenu.AttackChainAnimationRate = 2.0f;
+		emptyMenu.AttackChainAnimationRateNagara = true;
+		emptyMenu.AttackChainUsePhaseEndCondition = false;
+		emptyMenu.AttackChainComboCommand = true;
+		emptyMenu.AttackChainGrabbed = false;
+		emptyMenu.AttackChainEndTimer = 0.0f;
+		emptyMenu.AttackChainLanding = false;
+		emptyMenu.AttackChainEndAnim = true;
+		emptyMenu.AttackChainEndAnimSlot = 0;
+		emptyMenu.AttackChainFinishCurrentPhase = false;
+		emptyMenu.AttackChainTerminateAttackLayer = false;
+		emptyMenu.AttackChainEnableAimingActionCancel = true;
+		emptyMenu.AttackChainActionCancelFlag = 255;
+		emptyMenu.AttackChainOwnerActionOnly = false;
+		emptyMenu.AttackChainValidateNextReservedAction = true;
+		emptyMenu.EnableDownPowerAuto = false;
+		emptyMenu.DownPowerIntervalMs = 100;
+		emptyMenu.DownPowerTargetMode = 1;
+		emptyMenu.DownPowerSelectedCharacterIndex = -1;
+		emptyMenu.DownPowerPatchDamageParams = true;
+		emptyMenu.DownPowerDamageType = 16;
+		emptyMenu.DownPowerIncludeNoActionDamage = true;
+		emptyMenu.DownPowerOverrideRecoverSpan = false;
+		emptyMenu.DownPowerRecoverSpan = 0.0f;
+		emptyMenu.DownPowerApplyDurableRates = true;
+		emptyMenu.DownPowerDurableRate = 1.0f;
+		emptyMenu.DownPowerDurableAttackActionRate = 1.0f;
+		emptyMenu.DownPowerDurableTakeDamageRate = 1.0f;
+		emptyMenu.DownPowerDurableSpecialActionRate = 1.0f;
+		emptyMenu.DownPowerDurableRollSlotRate = 1.0f;
+		emptyMenu.DownPowerDurableTakeDamageRollSlotRate = 1.0f;
+		emptyMenu.DownPowerApplyBreakDownSuperArmorRate = true;
+		emptyMenu.DownPowerBreakDownSuperArmorRate = 1.0f;
+		emptyMenu.DownPowerDisableTargetSuperArmor = true;
+		emptyMenu.Ch202MeleeAChaseHeightOffset = 0.0f;
+		emptyMenu.Ch202MeleeAChaseStartSpeedMax = 1.0f;
+		emptyMenu.Ch202MeleeAChaseStartSpeedMin = 1.0f;
+		emptyMenu.Ch202MeleeAChaseLastSpeed = 1.0f;
+		emptyMenu.Ch202MeleeAChaseSpeedSpan = 1.0f;
+		emptyMenu.Ch202MeleeAChaseSpan = 1.0f;
+		emptyMenu.Ch202MeleeADistance = 1.0f;
+		emptyMenu.Ch202MeleeABreakTargetSpeed = 1.0f;
+		emptyMenu.Ch202MeleeABreakTargetSpan = 1.0f;
+		emptyMenu.Ch202Unique1HoldTime = 1.0f;
+		emptyMenu.Ch202Unique2NeedFieldTime = 1.0f;
+		emptyMenu.Ch202Unique2HoldTime = 1.0f;
+		emptyMenu.Ch202Unique2MoveTime = 1.0f;
+		emptyMenu.Ch202Unique2MoveSpeedMin = 1.0f;
+		emptyMenu.Ch202Unique2MoveSpeedMax = 1.0f;
+		emptyMenu.Ch202Unique2QuintupleRiseSlideSpeed = 1.0f;
+		emptyMenu.Ch202Unique2QuintupleRiseSlideSpan = 1.0f;
+		emptyMenu.Ch202Unique2QuintupleFallSlideSpeed = 1.0f;
+		emptyMenu.Ch202Unique2QuintupleFallSlideSpan = 1.0f;
+		emptyMenu.Ch202Unique2AfterLevel = 1;
+		emptyMenu.Ch202Unique2QuintupleAllAmmoConsumed = false;
+		emptyMenu.Ch202U3InitTransMissionLevel = 1;
+		emptyMenu.Ch202U3EndDistanceOfFollowing = 1.0f;
+		emptyMenu.Ch202U3MoveSpeedStart = 1.0f;
+		emptyMenu.Ch202U3MoveSpeedEnd = 1.0f;
+		emptyMenu.Ch202U3SpeedChangeTime = 1.0f;
+		emptyMenu.Ch202U3ExitSpeedStart = 1.0f;
+		emptyMenu.Ch202U3ExitSpeedEnd = 1.0f;
+		emptyMenu.Ch202U3ExitChangeTime = 1.0f;
+		emptyMenu.Ch202U3LimitCount = 1;
+		emptyMenu.Ch202U3MoveMagazinePercentMin = 1.0f;
+		emptyMenu.Ch202U3MoveMagazinePercentMax = 1.0f;
+		emptyMenu.Ch202U3PunchMagazinePercentMin = 1.0f;
+		emptyMenu.Ch202U3PunchMagazinePercentMax = 1.0f;
+		emptyMenu.Ch202U3RecoverMagazineBase = 1;
+		emptyMenu.Ch202U3RecoverMagazineAdd = 1;
+		emptyMenu.Ch202U3DelayCancelTimer = 1.0f;
+		emptyMenu.Ch202U3LockOnSec = 1.0f;
+		emptyMenu.Ch202U3LockOnMinSec = 0.1f;
+		emptyMenu.Ch202U3LockOnRange = 1000.0f;
+		emptyMenu.Ch202U3LockOnAttackTargetCheckType = 0;
+		emptyMenu.Ch202U3CurveHorizontalDistanceMin = 1.0f;
+		emptyMenu.Ch202U3CurveHorizontalDistanceMax = 1.0f;
+		emptyMenu.Ch202U3MiddleUpOffset = 1.0f;
+		emptyMenu.Ch202U3TargetOffset = 1.0f;
+		emptyMenu.Ch202U3SplitDistance = 1.0f;
+		emptyMenu.Ch202U3SplitLerpRate = 1.0f;
+		emptyMenu.Ch202U3ControlPointsRate = 1.0f;
+		emptyMenu.Ch202U3MinDetroitRange = 1.0f;
+		emptyMenu.Ch202U3MinDetroitSpeed = 1.0f;
+		emptyMenu.Ch202U3MaxDetroitRange = 1.0f;
+		emptyMenu.Ch202U3MaxDetroitSpeed = 1.0f;
+		emptyMenu.Ch202U3MiddleOffsetX = 0.0f;
+		emptyMenu.Ch202U3MiddleOffsetY = 0.0f;
+		emptyMenu.Ch202U3MiddleOffsetZ = 0.0f;
+		emptyMenu.Ch202U3MiddleOffsetAerialX = 0.0f;
+		emptyMenu.Ch202U3MiddleOffsetAerialY = 0.0f;
+		emptyMenu.Ch202U3MiddleOffsetAerialZ = 0.0f;
+		emptyMenu.Ch202SpecialHoldTime = 1.0f;
+		emptyMenu.Ch202SpecialActivationTime = 1.0f;
+		emptyMenu.Ch202SpecialSmokeMagazineCost = 1;
+		emptyMenu.Ch202SpecialLegCount = 1;
+		emptyMenu.Ch202SpecialJumpVerticalSpan = 1.0f;
+		emptyMenu.Ch202SpecialJumpVerticalHeight = 1.0f;
+		emptyMenu.Ch202SpecialJumpForwardSpan = 1.0f;
+		emptyMenu.Ch202SpecialJumpForwardHeight = 1.0f;
+		emptyMenu.Ch202SpecialJumpForwardInitialSpeedH = 1.0f;
+		emptyMenu.Ch202SpecialJumpForwardLastSpeedH = 1.0f;
+		emptyMenu.Ch202SpecialJumpForwardAccelSpanH = 1.0f;
+		emptyMenu.Ch202SpecialWallJumpSpan = 1.0f;
+		emptyMenu.Ch202SpecialWallJumpHeight = 1.0f;
+		emptyMenu.Ch202SpecialWallJumpInitialSpeed = 1.0f;
+		emptyMenu.Ch202SpecialWallJumpLastSpeed = 1.0f;
+		emptyMenu.Ch202ConditionAnimationMultiplyRate = 1.0f;
+		emptyMenu.Ch202ConditionMoveMultiplyRate = 1.0f;
+		emptyMenu.Ch202ConditionJumpAdjustMultiplyRate = 1.0f;
 
 		// Disable all HackSettings
 		emptyHack.EnableInvincible = false;
@@ -462,6 +745,9 @@ namespace SettingsManager
 		emptyHack.CharCondition_Interval = 0.0f;
 		emptyHack.CharCondition_SubLevel = 0;
 		emptyHack.CharCondition_TimeOverwrite = false;
+		emptyHack.ChangePlayerNameBuffer[0] = '\0';
+		emptyHack.BackendPlatformCode = 3;
+		strcpy_s(emptyHack.FakePlatformBuffer, sizeof(emptyHack.FakePlatformBuffer), "Windows");
 		emptyHack.BuyLicenseExpCount = 30000;
 		emptyHack.LicenseClaimSeasonCode = 1;
 		emptyHack.LicenseClaimFreeRank = 1;
@@ -592,6 +878,7 @@ namespace SettingsManager
 			// Load MenuSettings
 			menuSettings.EnableGlobal = ExtractBool("EnableGlobal");
 			menuSettings.EnableESP = ExtractBool("EnableESP");
+			menuSettings.EnableMenuBackgroundVideo = ExtractBoolDefault("EnableMenuBackgroundVideo", true);
 			menuSettings.EnablePlayerESP = ExtractBool("EnablePlayerESP");
 			menuSettings.Player_Box = ExtractBool("Player_Box");
 			menuSettings.Player_Health = ExtractBool("Player_Health");
@@ -610,7 +897,9 @@ namespace SettingsManager
 			menuSettings.AimbotSmoothFactor = ExtractFloat("AimbotSmoothFactor");
 			menuSettings.AimbotDrawLine = ExtractBool("AimbotDrawLine");
 			menuSettings.AimbotDrawFOV = ExtractBool("AimbotDrawFOV");
+			menuSettings.AimbotDrawCrosshair = ExtractBool("AimbotDrawCrosshair");
 			menuSettings.AimbotFOVRadius = ExtractFloat("AimbotFOVRadius");
+			menuSettings.AimbotMaxDistance = ExtractFloat("AimbotMaxDistance");
 			menuSettings.AimbotRequireHold = ExtractBool("AimbotRequireHold");
 			menuSettings.AimbotIgnoreDownedTargets = ExtractBoolDefault("AimbotIgnoreDownedTargets", true);
 
@@ -623,6 +912,14 @@ namespace SettingsManager
 			menuSettings.TeleportToKotaKey.Keyboard = ExtractInt("TeleportToKotaKey_Keyboard");
 			menuSettings.TeleportToKotaKey.Xbox = ExtractInt("TeleportToKotaKey_Xbox");
 			menuSettings.TeleportToKotaKey.PS4 = menuSettings.TeleportToKotaKey.Xbox;
+
+			menuSettings.EnableCustomDrop = ExtractBool("EnableCustomDrop");
+			menuSettings.CustomDropQuantity = ExtractIntDefault("CustomDropQuantity", 1);
+			menuSettings.CustomDropSelectedIndex = ExtractInt("CustomDropSelectedIndex");
+			menuSettings.CustomDropSerialId = ExtractIntDefault("CustomDropSerialId", 1);
+			menuSettings.CustomDropKey.Keyboard = ExtractInt("CustomDropKey_Keyboard");
+			menuSettings.CustomDropKey.Xbox = ExtractInt("CustomDropKey_Xbox");
+			menuSettings.CustomDropKey.PS4 = menuSettings.CustomDropKey.Xbox;
 
 			menuSettings.EnableTransformIntoRandomESP = ExtractBool("EnableTransformIntoRandomESP");
 			menuSettings.TransformIntoRandomESPKey.Keyboard = ExtractInt("TransformIntoRandomESPKey_Keyboard");
@@ -651,6 +948,7 @@ namespace SettingsManager
 			menuSettings.ReloadAdjustRate = ExtractFloat("ReloadAdjustRate");
 			menuSettings.ReloadAdjustRate_RollSlot = ExtractFloat("ReloadAdjustRate_RollSlot");
 			menuSettings.ReloadAdjustRate_WearBlueFlame = ExtractFloat("ReloadAdjustRate_WearBlueFlame");
+			menuSettings.CvNoneDamageCurveValue = ExtractFloatDefault("CvNoneDamageCurveValue", 1.0f);
 
 			menuSettings.TrainingPlayerCharacter = ExtractInt("TrainingPlayerCharacter");
 			menuSettings.TrainingPlayerVariationId = ExtractInt("TrainingPlayerVariationId");
@@ -680,6 +978,8 @@ namespace SettingsManager
 			menuSettings.BulletTP_FOVRadius = ExtractFloat("BulletTP_FOVRadius");
 			menuSettings.BulletTP_MaxDistance = ExtractFloat("BulletTP_MaxDistance");
 			menuSettings.BulletTPIgnoreDownedTargets = ExtractBoolDefault("BulletTPIgnoreDownedTargets", true);
+			menuSettings.EnableCameraFOV = ExtractBoolDefault("EnableCameraFOV", false);
+			menuSettings.CameraFOV = ExtractFloatDefault("CameraFOV", 90.0f);
 
 			menuSettings.EnableRebuildMyself = ExtractBool("EnableRebuildMyself");
 			menuSettings.RebuildMyselfKey.Keyboard = ExtractInt("RebuildMyselfKey_Keyboard");
@@ -696,6 +996,140 @@ namespace SettingsManager
 			menuSettings.SelectedRecoveryTeamIndex = ExtractInt("SelectedRecoveryTeamIndex");
 			menuSettings.EnableCH202InitTransLevel5 = ExtractBool("EnableCH202InitTransLevel5");
 			menuSettings.EnableSupplyMaxStackTo100 = ExtractBool("EnableSupplyMaxStackTo100");
+			menuSettings.EnableFastPlusUltraCharge = ExtractBoolDefault("EnableFastPlusUltraCharge", false);
+			menuSettings.EnableNoCollision = ExtractBoolDefault("EnableNoCollision", false);
+			menuSettings.NoCollisionSpeed = ExtractFloatDefault("NoCollisionSpeed", 100.0f);
+			menuSettings.NoCollisionHoldKey.Keyboard = ExtractIntDefault("NoCollisionHoldKey_Keyboard", 0x54);
+			menuSettings.NoCollisionHoldKey.Xbox = ExtractIntDefault("NoCollisionHoldKey_Xbox", 0);
+			menuSettings.NoCollisionHoldKey.PS4 = menuSettings.NoCollisionHoldKey.Xbox;
+			menuSettings.EnableClearInvincibleAuto = ExtractBoolDefault("EnableClearInvincibleAuto", false);
+			menuSettings.ClearInvincibleTargetMode = ExtractIntDefault("ClearInvincibleTargetMode", 1);
+			menuSettings.ClearInvincibleMethod = ExtractIntDefault("ClearInvincibleMethod", 0);
+			menuSettings.ClearInvincibleIgnoreFixed = ExtractBoolDefault("ClearInvincibleIgnoreFixed", true);
+			menuSettings.ClearInvincibleAttackId = ExtractIntDefault("ClearInvincibleAttackId", 4);
+			menuSettings.ClearInvincibleIntervalMs = ExtractIntDefault("ClearInvincibleIntervalMs", 250);
+			menuSettings.ClearInvincibleSelectedCharacterIndex = ExtractIntDefault("ClearInvincibleSelectedCharacterIndex", -1);
+			{
+				std::string clearInvincibleTag = ExtractString("ClearInvincibleTagBuffer");
+				strncpy_s(menuSettings.ClearInvincibleTagBuffer, sizeof(menuSettings.ClearInvincibleTagBuffer), clearInvincibleTag.c_str(), _TRUNCATE);
+			}
+			menuSettings.EnableAttackChainAuto = ExtractBoolDefault("EnableAttackChainAuto", false);
+			menuSettings.AttackChainIntervalMs = ExtractIntDefault("AttackChainIntervalMs", 50);
+			menuSettings.AttackChainUseChainComboFlag = ExtractBoolDefault("AttackChainUseChainComboFlag", true);
+			menuSettings.AttackChainComboFlagTime = ExtractFloatDefault("AttackChainComboFlagTime", 0.25f);
+			menuSettings.AttackChainEnableShiftAttackActions = ExtractBoolDefault("AttackChainEnableShiftAttackActions", true);
+			menuSettings.AttackChainClearShiftActionAttackFlags = ExtractBoolDefault("AttackChainClearShiftActionAttackFlags", true);
+			menuSettings.AttackChainUseAnimationRate = ExtractBoolDefault("AttackChainUseAnimationRate", true);
+			menuSettings.AttackChainAnimationRate = ExtractFloatDefault("AttackChainAnimationRate", 2.0f);
+			menuSettings.AttackChainAnimationRateNagara = ExtractBoolDefault("AttackChainAnimationRateNagara", true);
+			menuSettings.AttackChainUsePhaseEndCondition = ExtractBoolDefault("AttackChainUsePhaseEndCondition", false);
+			menuSettings.AttackChainComboCommand = ExtractBoolDefault("AttackChainComboCommand", true);
+			menuSettings.AttackChainGrabbed = ExtractBoolDefault("AttackChainGrabbed", false);
+			menuSettings.AttackChainEndTimer = ExtractFloatDefault("AttackChainEndTimer", 0.0f);
+			menuSettings.AttackChainLanding = ExtractBoolDefault("AttackChainLanding", false);
+			menuSettings.AttackChainEndAnim = ExtractBoolDefault("AttackChainEndAnim", true);
+			menuSettings.AttackChainEndAnimSlot = ExtractIntDefault("AttackChainEndAnimSlot", 0);
+			menuSettings.AttackChainFinishCurrentPhase = ExtractBoolDefault("AttackChainFinishCurrentPhase", false);
+			menuSettings.AttackChainTerminateAttackLayer = ExtractBoolDefault("AttackChainTerminateAttackLayer", false);
+			menuSettings.AttackChainEnableAimingActionCancel = ExtractBoolDefault("AttackChainEnableAimingActionCancel", true);
+			menuSettings.AttackChainActionCancelFlag = ExtractIntDefault("AttackChainActionCancelFlag", 255);
+			menuSettings.AttackChainOwnerActionOnly = ExtractBoolDefault("AttackChainOwnerActionOnly", false);
+			menuSettings.AttackChainValidateNextReservedAction = ExtractBoolDefault("AttackChainValidateNextReservedAction", true);
+			menuSettings.EnableDownPowerAuto = ExtractBoolDefault("EnableDownPowerAuto", false);
+			menuSettings.DownPowerIntervalMs = ExtractIntDefault("DownPowerIntervalMs", 100);
+			menuSettings.DownPowerTargetMode = ExtractIntDefault("DownPowerTargetMode", 1);
+			menuSettings.DownPowerSelectedCharacterIndex = ExtractIntDefault("DownPowerSelectedCharacterIndex", -1);
+			menuSettings.DownPowerPatchDamageParams = ExtractBoolDefault("DownPowerPatchDamageParams", true);
+			menuSettings.DownPowerDamageType = ExtractIntDefault("DownPowerDamageType", 16);
+			menuSettings.DownPowerIncludeNoActionDamage = ExtractBoolDefault("DownPowerIncludeNoActionDamage", true);
+			menuSettings.DownPowerOverrideRecoverSpan = ExtractBoolDefault("DownPowerOverrideRecoverSpan", false);
+			menuSettings.DownPowerRecoverSpan = ExtractFloatDefault("DownPowerRecoverSpan", 0.0f);
+			menuSettings.DownPowerApplyDurableRates = ExtractBoolDefault("DownPowerApplyDurableRates", true);
+			menuSettings.DownPowerDurableRate = ExtractFloatDefault("DownPowerDurableRate", 1.0f);
+			menuSettings.DownPowerDurableAttackActionRate = ExtractFloatDefault("DownPowerDurableAttackActionRate", 1.0f);
+			menuSettings.DownPowerDurableTakeDamageRate = ExtractFloatDefault("DownPowerDurableTakeDamageRate", 1.0f);
+			menuSettings.DownPowerDurableSpecialActionRate = ExtractFloatDefault("DownPowerDurableSpecialActionRate", 1.0f);
+			menuSettings.DownPowerDurableRollSlotRate = ExtractFloatDefault("DownPowerDurableRollSlotRate", 1.0f);
+			menuSettings.DownPowerDurableTakeDamageRollSlotRate = ExtractFloatDefault("DownPowerDurableTakeDamageRollSlotRate", 1.0f);
+			menuSettings.DownPowerApplyBreakDownSuperArmorRate = ExtractBoolDefault("DownPowerApplyBreakDownSuperArmorRate", true);
+			menuSettings.DownPowerBreakDownSuperArmorRate = ExtractFloatDefault("DownPowerBreakDownSuperArmorRate", 1.0f);
+			menuSettings.DownPowerDisableTargetSuperArmor = ExtractBoolDefault("DownPowerDisableTargetSuperArmor", true);
+			menuSettings.Ch202MeleeAChaseHeightOffset = ExtractFloatDefault("Ch202MeleeAChaseHeightOffset", 0.0f);
+			menuSettings.Ch202MeleeAChaseStartSpeedMax = ExtractFloatDefault("Ch202MeleeAChaseStartSpeedMax", 1.0f);
+			menuSettings.Ch202MeleeAChaseStartSpeedMin = ExtractFloatDefault("Ch202MeleeAChaseStartSpeedMin", 1.0f);
+			menuSettings.Ch202MeleeAChaseLastSpeed = ExtractFloatDefault("Ch202MeleeAChaseLastSpeed", 1.0f);
+			menuSettings.Ch202MeleeAChaseSpeedSpan = ExtractFloatDefault("Ch202MeleeAChaseSpeedSpan", 1.0f);
+			menuSettings.Ch202MeleeAChaseSpan = ExtractFloatDefault("Ch202MeleeAChaseSpan", 1.0f);
+			menuSettings.Ch202MeleeADistance = ExtractFloatDefault("Ch202MeleeADistance", 1.0f);
+			menuSettings.Ch202MeleeABreakTargetSpeed = ExtractFloatDefault("Ch202MeleeABreakTargetSpeed", 1.0f);
+			menuSettings.Ch202MeleeABreakTargetSpan = ExtractFloatDefault("Ch202MeleeABreakTargetSpan", 1.0f);
+			menuSettings.Ch202Unique1HoldTime = ExtractFloatDefault("Ch202Unique1HoldTime", 1.0f);
+			menuSettings.Ch202Unique2NeedFieldTime = ExtractFloatDefault("Ch202Unique2NeedFieldTime", 1.0f);
+			menuSettings.Ch202Unique2HoldTime = ExtractFloatDefault("Ch202Unique2HoldTime", 1.0f);
+			menuSettings.Ch202Unique2MoveTime = ExtractFloatDefault("Ch202Unique2MoveTime", 1.0f);
+			menuSettings.Ch202Unique2MoveSpeedMin = ExtractFloatDefault("Ch202Unique2MoveSpeedMin", 1.0f);
+			menuSettings.Ch202Unique2MoveSpeedMax = ExtractFloatDefault("Ch202Unique2MoveSpeedMax", 1.0f);
+			menuSettings.Ch202Unique2QuintupleRiseSlideSpeed = ExtractFloatDefault("Ch202Unique2QuintupleRiseSlideSpeed", 1.0f);
+			menuSettings.Ch202Unique2QuintupleRiseSlideSpan = ExtractFloatDefault("Ch202Unique2QuintupleRiseSlideSpan", 1.0f);
+			menuSettings.Ch202Unique2QuintupleFallSlideSpeed = ExtractFloatDefault("Ch202Unique2QuintupleFallSlideSpeed", 1.0f);
+			menuSettings.Ch202Unique2QuintupleFallSlideSpan = ExtractFloatDefault("Ch202Unique2QuintupleFallSlideSpan", 1.0f);
+			menuSettings.Ch202Unique2AfterLevel = ExtractIntDefault("Ch202Unique2AfterLevel", 1);
+			menuSettings.Ch202Unique2QuintupleAllAmmoConsumed = ExtractBoolDefault("Ch202Unique2QuintupleAllAmmoConsumed", false);
+			menuSettings.Ch202U3InitTransMissionLevel = ExtractIntDefault("Ch202U3InitTransMissionLevel", 1);
+			menuSettings.Ch202U3EndDistanceOfFollowing = ExtractFloatDefault("Ch202U3EndDistanceOfFollowing", 1.0f);
+			menuSettings.Ch202U3MoveSpeedStart = ExtractFloatDefault("Ch202U3MoveSpeedStart", 1.0f);
+			menuSettings.Ch202U3MoveSpeedEnd = ExtractFloatDefault("Ch202U3MoveSpeedEnd", 1.0f);
+			menuSettings.Ch202U3SpeedChangeTime = ExtractFloatDefault("Ch202U3SpeedChangeTime", 1.0f);
+			menuSettings.Ch202U3ExitSpeedStart = ExtractFloatDefault("Ch202U3ExitSpeedStart", 1.0f);
+			menuSettings.Ch202U3ExitSpeedEnd = ExtractFloatDefault("Ch202U3ExitSpeedEnd", 1.0f);
+			menuSettings.Ch202U3ExitChangeTime = ExtractFloatDefault("Ch202U3ExitChangeTime", 1.0f);
+			menuSettings.Ch202U3LimitCount = ExtractIntDefault("Ch202U3LimitCount", 1);
+			menuSettings.Ch202U3MoveMagazinePercentMin = ExtractFloatDefault("Ch202U3MoveMagazinePercentMin", 1.0f);
+			menuSettings.Ch202U3MoveMagazinePercentMax = ExtractFloatDefault("Ch202U3MoveMagazinePercentMax", 1.0f);
+			menuSettings.Ch202U3PunchMagazinePercentMin = ExtractFloatDefault("Ch202U3PunchMagazinePercentMin", 1.0f);
+			menuSettings.Ch202U3PunchMagazinePercentMax = ExtractFloatDefault("Ch202U3PunchMagazinePercentMax", 1.0f);
+			menuSettings.Ch202U3RecoverMagazineBase = ExtractIntDefault("Ch202U3RecoverMagazineBase", 1);
+			menuSettings.Ch202U3RecoverMagazineAdd = ExtractIntDefault("Ch202U3RecoverMagazineAdd", 1);
+			menuSettings.Ch202U3DelayCancelTimer = ExtractFloatDefault("Ch202U3DelayCancelTimer", 1.0f);
+			menuSettings.Ch202U3LockOnSec = ExtractFloatDefault("Ch202U3LockOnSec", 1.0f);
+			menuSettings.Ch202U3LockOnMinSec = ExtractFloatDefault("Ch202U3LockOnMinSec", 0.1f);
+			menuSettings.Ch202U3LockOnRange = ExtractFloatDefault("Ch202U3LockOnRange", 1000.0f);
+			menuSettings.Ch202U3LockOnAttackTargetCheckType = ExtractIntDefault("Ch202U3LockOnAttackTargetCheckType", 0);
+			menuSettings.Ch202U3CurveHorizontalDistanceMin = ExtractFloatDefault("Ch202U3CurveHorizontalDistanceMin", 1.0f);
+			menuSettings.Ch202U3CurveHorizontalDistanceMax = ExtractFloatDefault("Ch202U3CurveHorizontalDistanceMax", 1.0f);
+			menuSettings.Ch202U3MiddleUpOffset = ExtractFloatDefault("Ch202U3MiddleUpOffset", 1.0f);
+			menuSettings.Ch202U3TargetOffset = ExtractFloatDefault("Ch202U3TargetOffset", 1.0f);
+			menuSettings.Ch202U3SplitDistance = ExtractFloatDefault("Ch202U3SplitDistance", 1.0f);
+			menuSettings.Ch202U3SplitLerpRate = ExtractFloatDefault("Ch202U3SplitLerpRate", 1.0f);
+			menuSettings.Ch202U3ControlPointsRate = ExtractFloatDefault("Ch202U3ControlPointsRate", 1.0f);
+			menuSettings.Ch202U3MinDetroitRange = ExtractFloatDefault("Ch202U3MinDetroitRange", 1.0f);
+			menuSettings.Ch202U3MinDetroitSpeed = ExtractFloatDefault("Ch202U3MinDetroitSpeed", 1.0f);
+			menuSettings.Ch202U3MaxDetroitRange = ExtractFloatDefault("Ch202U3MaxDetroitRange", 1.0f);
+			menuSettings.Ch202U3MaxDetroitSpeed = ExtractFloatDefault("Ch202U3MaxDetroitSpeed", 1.0f);
+			menuSettings.Ch202U3MiddleOffsetX = ExtractFloatDefault("Ch202U3MiddleOffsetX", 0.0f);
+			menuSettings.Ch202U3MiddleOffsetY = ExtractFloatDefault("Ch202U3MiddleOffsetY", 0.0f);
+			menuSettings.Ch202U3MiddleOffsetZ = ExtractFloatDefault("Ch202U3MiddleOffsetZ", 0.0f);
+			menuSettings.Ch202U3MiddleOffsetAerialX = ExtractFloatDefault("Ch202U3MiddleOffsetAerialX", 0.0f);
+			menuSettings.Ch202U3MiddleOffsetAerialY = ExtractFloatDefault("Ch202U3MiddleOffsetAerialY", 0.0f);
+			menuSettings.Ch202U3MiddleOffsetAerialZ = ExtractFloatDefault("Ch202U3MiddleOffsetAerialZ", 0.0f);
+			menuSettings.Ch202SpecialHoldTime = ExtractFloatDefault("Ch202SpecialHoldTime", 1.0f);
+			menuSettings.Ch202SpecialActivationTime = ExtractFloatDefault("Ch202SpecialActivationTime", 1.0f);
+			menuSettings.Ch202SpecialSmokeMagazineCost = ExtractIntDefault("Ch202SpecialSmokeMagazineCost", 1);
+			menuSettings.Ch202SpecialLegCount = ExtractIntDefault("Ch202SpecialLegCount", 1);
+			menuSettings.Ch202SpecialJumpVerticalSpan = ExtractFloatDefault("Ch202SpecialJumpVerticalSpan", 1.0f);
+			menuSettings.Ch202SpecialJumpVerticalHeight = ExtractFloatDefault("Ch202SpecialJumpVerticalHeight", 1.0f);
+			menuSettings.Ch202SpecialJumpForwardSpan = ExtractFloatDefault("Ch202SpecialJumpForwardSpan", 1.0f);
+			menuSettings.Ch202SpecialJumpForwardHeight = ExtractFloatDefault("Ch202SpecialJumpForwardHeight", 1.0f);
+			menuSettings.Ch202SpecialJumpForwardInitialSpeedH = ExtractFloatDefault("Ch202SpecialJumpForwardInitialSpeedH", 1.0f);
+			menuSettings.Ch202SpecialJumpForwardLastSpeedH = ExtractFloatDefault("Ch202SpecialJumpForwardLastSpeedH", 1.0f);
+			menuSettings.Ch202SpecialJumpForwardAccelSpanH = ExtractFloatDefault("Ch202SpecialJumpForwardAccelSpanH", 1.0f);
+			menuSettings.Ch202SpecialWallJumpSpan = ExtractFloatDefault("Ch202SpecialWallJumpSpan", 1.0f);
+			menuSettings.Ch202SpecialWallJumpHeight = ExtractFloatDefault("Ch202SpecialWallJumpHeight", 1.0f);
+			menuSettings.Ch202SpecialWallJumpInitialSpeed = ExtractFloatDefault("Ch202SpecialWallJumpInitialSpeed", 1.0f);
+			menuSettings.Ch202SpecialWallJumpLastSpeed = ExtractFloatDefault("Ch202SpecialWallJumpLastSpeed", 1.0f);
+			menuSettings.Ch202ConditionAnimationMultiplyRate = ExtractFloatDefault("Ch202ConditionAnimationMultiplyRate", 1.0f);
+			menuSettings.Ch202ConditionMoveMultiplyRate = ExtractFloatDefault("Ch202ConditionMoveMultiplyRate", 1.0f);
+			menuSettings.Ch202ConditionJumpAdjustMultiplyRate = ExtractFloatDefault("Ch202ConditionJumpAdjustMultiplyRate", 1.0f);
 
 			// Load HackSettings
 			hackSettings.EnableInvincible = ExtractBool("EnableInvincible");
@@ -733,6 +1167,17 @@ namespace SettingsManager
 			hackSettings.CharCondition_Interval = ExtractFloatDefault("CharCondition_Interval", 0.0f);
 			hackSettings.CharCondition_SubLevel = ExtractIntDefault("CharCondition_SubLevel", 0);
 			hackSettings.CharCondition_TimeOverwrite = ExtractBool("CharCondition_TimeOverwrite");
+			{
+				std::string playerNameBuffer = ExtractString("ChangePlayerNameBuffer");
+				strncpy_s(hackSettings.ChangePlayerNameBuffer, sizeof(hackSettings.ChangePlayerNameBuffer), playerNameBuffer.c_str(), _TRUNCATE);
+			}
+			hackSettings.BackendPlatformCode = ExtractIntDefault("BackendPlatformCode", 3);
+			{
+				std::string fakePlatformBuffer = ExtractString("FakePlatformBuffer");
+				if (fakePlatformBuffer.empty())
+					fakePlatformBuffer = "Windows";
+				strncpy_s(hackSettings.FakePlatformBuffer, sizeof(hackSettings.FakePlatformBuffer), fakePlatformBuffer.c_str(), _TRUNCATE);
+			}
 			hackSettings.BuyLicenseExpCount = ExtractIntDefault("BuyLicenseExpCount", 30000);
 			hackSettings.LicenseClaimSeasonCode = ExtractIntDefault("LicenseClaimSeasonCode", 1);
 			hackSettings.LicenseClaimFreeRank = ExtractIntDefault("LicenseClaimFreeRank", 1);

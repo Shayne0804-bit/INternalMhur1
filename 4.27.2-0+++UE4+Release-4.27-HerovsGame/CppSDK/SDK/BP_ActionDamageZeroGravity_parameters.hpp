@@ -14,8 +14,8 @@
 #include "InGameModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamageZeroGravity.BP_ActionDamageZeroGravity_C.ExecuteUbergraph_BP_ActionDamageZeroGravity
 // 0x01B8 (0x01B8 - 0x0000)
@@ -40,6 +40,7 @@ public:
 	struct FDamageParam                           CallFunc_BP_GetDamageParam_ReturnValue;            // 0x00E0(0x00D0)(ConstParm)
 	class UCharacterState*                        CallFunc_BP_GetOwnerState_ReturnValue_4;           // 0x01B0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageZeroGravity_C_ExecuteUbergraph_BP_ActionDamageZeroGravity;
 
 // Function BP_ActionDamageZeroGravity.BP_ActionDamageZeroGravity_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -48,6 +49,7 @@ struct BP_ActionDamageZeroGravity_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageZeroGravity_C_BP_OnBeginAction;
 
 // Function BP_ActionDamageZeroGravity.BP_ActionDamageZeroGravity_C.DecideAnimation
 // 0x00A0 (0x00A0 - 0x0000)
@@ -63,6 +65,7 @@ public:
 	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x0098(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	EAnimationId                                  K2Node_Select_Default;                             // 0x0099(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageZeroGravity_C_DecideAnimation;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum MoviePlayer.EMoviePlaybackType
 // NumValues: 0x0004
@@ -23,4 +24,5 @@ enum class EMoviePlaybackType : uint8
 	MT_MAX                                   = 3,
 };
 
-SDK_NAMESPACE_END
+}
+

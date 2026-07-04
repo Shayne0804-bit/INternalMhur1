@@ -14,7 +14,8 @@
 #include "BP_ActionThrowned_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionThrowned.BP_ActionThrowned_C.ExecuteUbergraph_BP_ActionThrowned
 // (Final, UbergraphFunction)
@@ -131,5 +132,5 @@ void UBP_ActionThrowned_C::BP_OnEndAction(const class FName& nextAction)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

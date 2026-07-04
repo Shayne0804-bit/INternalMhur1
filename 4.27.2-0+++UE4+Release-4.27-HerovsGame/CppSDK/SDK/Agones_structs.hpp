@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct Agones.Address
 // 0x0020 (0x0020 - 0x0000)
@@ -21,6 +22,7 @@ public:
 	class FString                                 Type;                                              // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 Address;                                           // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAddress;
 
 // ScriptStruct Agones.Port
 // 0x0018 (0x0018 - 0x0000)
@@ -31,6 +33,7 @@ public:
 	int32                                         Port;                                              // 0x0010(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPort;
 
 // ScriptStruct Agones.Counter
 // 0x0010 (0x0010 - 0x0000)
@@ -40,6 +43,7 @@ public:
 	int64                                         count;                                             // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int64                                         Capacity;                                          // 0x0008(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCounter;
 
 // ScriptStruct Agones.Status
 // 0x0090 (0x0090 - 0x0000)
@@ -52,6 +56,7 @@ public:
 	TArray<struct FPort>                          Ports;                                             // 0x0030(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 	TMap<class FString, struct FCounter>          Counters;                                          // 0x0040(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FStatus;
 
 // ScriptStruct Agones.AgonesError
 // 0x0010 (0x0010 - 0x0000)
@@ -60,6 +65,7 @@ struct FAgonesError final
 public:
 	class FString                                 errorMessage;                                      // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAgonesError;
 
 // ScriptStruct Agones.EmptyResponse
 // 0x0001 (0x0001 - 0x0000)
@@ -68,6 +74,7 @@ struct FEmptyResponse final
 public:
 	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FEmptyResponse;
 
 // ScriptStruct Agones.ObjectMeta
 // 0x00F8 (0x00F8 - 0x0000)
@@ -84,6 +91,7 @@ public:
 	TMap<class FString, class FString>            Annotations;                                       // 0x0058(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 	TMap<class FString, class FString>            Labels;                                            // 0x00A8(0x0050)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FObjectMeta;
 
 // ScriptStruct Agones.Health
 // 0x0010 (0x0010 - 0x0000)
@@ -96,6 +104,7 @@ public:
 	int32                                         FailureThreshold;                                  // 0x0008(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         InitialDelaySeconds;                               // 0x000C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FHealth;
 
 // ScriptStruct Agones.Spec
 // 0x0010 (0x0010 - 0x0000)
@@ -104,6 +113,7 @@ struct FSpec final
 public:
 	struct FHealth                                Health;                                            // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSpec;
 
 // ScriptStruct Agones.GameServerResponse
 // 0x0198 (0x0198 - 0x0000)
@@ -114,6 +124,7 @@ public:
 	struct FObjectMeta                            ObjectMeta;                                        // 0x0090(0x00F8)(BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 	struct FSpec                                  Spec;                                              // 0x0188(0x0010)(BlueprintVisible, BlueprintReadOnly, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FGameServerResponse;
 
 // ScriptStruct Agones.ConnectedPlayersResponse
 // 0x0010 (0x0010 - 0x0000)
@@ -122,6 +133,7 @@ struct FConnectedPlayersResponse final
 public:
 	TArray<class FString>                         ConnectedPlayers;                                  // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FConnectedPlayersResponse;
 
 // ScriptStruct Agones.CountResponse
 // 0x0008 (0x0008 - 0x0000)
@@ -130,6 +142,7 @@ struct FCountResponse final
 public:
 	int64                                         count;                                             // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCountResponse;
 
 // ScriptStruct Agones.ConnectedResponse
 // 0x0001 (0x0001 - 0x0000)
@@ -138,6 +151,7 @@ struct FConnectedResponse final
 public:
 	bool                                          bConnected;                                        // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FConnectedResponse;
 
 // ScriptStruct Agones.DisconnectResponse
 // 0x0001 (0x0001 - 0x0000)
@@ -146,6 +160,7 @@ struct FDisconnectResponse final
 public:
 	bool                                          bDisconnected;                                     // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDisconnectResponse;
 
 // ScriptStruct Agones.CounterResponse
 // 0x0010 (0x0010 - 0x0000)
@@ -155,6 +170,7 @@ public:
 	int64                                         count;                                             // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int64                                         Capacity;                                          // 0x0008(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCounterResponse;
 
 // ScriptStruct Agones.List
 // 0x0028 (0x0028 - 0x0000)
@@ -165,6 +181,7 @@ public:
 	int64                                         Capacity;                                          // 0x0010(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<class FString>                         Values;                                            // 0x0018(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FList;
 
 // ScriptStruct Agones.ListValue
 // 0x0010 (0x0010 - 0x0000)
@@ -173,6 +190,7 @@ struct FListValue final
 public:
 	class FString                                 value;                                             // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FListValue;
 
 // ScriptStruct Agones.PlayerCapacity
 // 0x0008 (0x0008 - 0x0000)
@@ -181,6 +199,7 @@ struct FPlayerCapacity final
 public:
 	int64                                         count;                                             // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPlayerCapacity;
 
 // ScriptStruct Agones.AgonesPlayer
 // 0x0010 (0x0010 - 0x0000)
@@ -189,6 +208,7 @@ struct FAgonesPlayer final
 public:
 	class FString                                 playerId;                                          // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAgonesPlayer;
 
 // ScriptStruct Agones.Duration
 // 0x0008 (0x0008 - 0x0000)
@@ -197,6 +217,7 @@ struct FDuration final
 public:
 	int64                                         Seconds;                                           // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDuration;
 
 // ScriptStruct Agones.KeyValuePair
 // 0x0020 (0x0020 - 0x0000)
@@ -206,5 +227,7 @@ public:
 	class FString                                 Key;                                               // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 value;                                             // 0x0010(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FKeyValuePair;
 
-SDK_NAMESPACE_END
+}
+

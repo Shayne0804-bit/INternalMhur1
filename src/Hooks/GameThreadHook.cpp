@@ -1,390 +1,922 @@
 #include "GameThreadHook.h"
-#include "../SDK/SDKInit.h"
-#include "../Hacks/InGameModuleHacks.h"
-#include <fstream>
-#include <sstream>
-#include <chrono>
-#include <cstring>
-#include <cstdarg>
-#include <atomic>
-#include <Windows.h>
+
 #include "../Core/UnloadManager.h"
+#include "../Hacks/Character_Changer.h"
+#include "../Hacks/HackThread.h"
+#include "../Hacks/InGameModuleHacks.h"
+#include "../Menu/ImGuiMenu.h"
+#include "../SDK/SDKInit.h"
+#include "../Utils/Logger.h"
+#include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/Engine_classes.hpp"
+#include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/Basic.hpp"
 
-// Forward declarations
-namespace UE4 {
-    class UObject;
-    class UFunction;
-    class APlayerController;
-}
+#include <Windows.h>
+#include <algorithm>
+#include <atomic>
+#include <cstdarg>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <functional>
+#include <mutex>
+#include <queue>
+#include <vector>
 
-// Get PlayerController
-typedef void* (*GetPlayerControllerFn)();
-extern "C" void* SDK_GetPlayerController();
+extern "C" SDK::APlayerController* SDK_GetPlayerController();
+extern "C" void SDK_RunTeleportToKota();
 
 namespace GameThreadHook
 {
-	static bool g_Initialized = false;
-	static std::ofstream g_LogFile;
-	static constexpr bool GAME_THREAD_DEBUG_LOGGING = false;
-	static std::atomic<int> g_ProcessEventCallDepth(0);
+    using ProcessEventFn = void(*)(const SDK::UObject*, SDK::UFunction*, void*);
 
-	// Logging helper
-	void Log(const char* format, ...)
-	{
-		(void)format;
-	}
+    struct HookRecord
+    {
+        SDK::UObject* object = nullptr;
+        uintptr_t* originalVTable = nullptr;
+        uintptr_t* shadowVTable = nullptr;
+        int vtableSize = 0;
+        ProcessEventFn originalProcessEvent = nullptr;
+    };
 
-	// Utility to check valid pointer
-	inline bool ValidPtr(void* ptr)
-	{
-		return ptr && (uintptr_t)ptr > 0x10000;
-	}
+    static std::mutex g_HookMutex;
+    static std::vector<HookRecord> g_Hooks;
+    static std::atomic<bool> g_Initialized(false);
+    static std::atomic<int> g_ProcessEventCallDepth(0);
+    static DWORD g_LastRefreshTick = 0;
+    static constexpr DWORD REFRESH_INTERVAL_MS = 1000;
+    static constexpr int PROCESS_EVENT_INDEX = SDK::Offsets::ProcessEventIdx;
+    static constexpr int MAX_VTABLE_SCAN = 512;
+    static constexpr int MIN_REASONABLE_VTABLE_SIZE = PROCESS_EVENT_INDEX + 1;
+    static constexpr size_t MAX_HOOKED_OBJECTS = 8;
 
-	// ProcessEvent Interceptor with VMT Shadowing
-	class ProcessEventInterceptor
-	{
-	public:
-		typedef void(*ProcessEventFn)(void*, class UE4::UFunction*, void*);
+    static std::mutex g_TaskMutex;
+    static std::queue<std::function<void()>> g_GameThreadTasks;
+    static constexpr size_t MAX_GAME_THREAD_TASKS = 64;
+    static constexpr int MAX_TASKS_PER_EVENT = 4;
+    static thread_local bool g_IsPumpingTasks = false;
+    static std::atomic<uint64_t> g_ProcessEventHits(0);
+    static std::atomic<uint64_t> g_TasksExecuted(0);
+    static std::atomic<uint64_t> g_TasksFailed(0);
 
-	private:
-		uintptr_t* m_vtable = nullptr;
-		uintptr_t* m_vtable_cache = nullptr;
-		int m_vtablesize = -1;
-		int m_eventindex = -1;
-		uintptr_t m_class = 0;
-		ProcessEventFn m_original_processevent = nullptr;
+    static int HandleAccessViolation(_EXCEPTION_POINTERS* exceptionInfo)
+    {
+        if (!exceptionInfo || !exceptionInfo->ExceptionRecord)
+            return EXCEPTION_CONTINUE_SEARCH;
 
-		static constexpr int INDEX_PROCESSEVENT = 0x44; // UE4 default index
-		static constexpr uintptr_t ProcessEventOffset = 0x019F76A0; // Will be scanned
+        const DWORD code = exceptionInfo->ExceptionRecord->ExceptionCode;
+        return (code == EXCEPTION_ACCESS_VIOLATION || code == EXCEPTION_IN_PAGE_ERROR)
+            ? EXCEPTION_EXECUTE_HANDLER
+            : EXCEPTION_CONTINUE_SEARCH;
+    }
 
-	public:
-		ProcessEventInterceptor() = default;
+    static bool IsValidBattleModeNoThrow(const char* context)
+    {
+        __try
+        {
+            return IsValidBattleMode();
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+            return false;
+        }
+    }
 
-		// Get VTable size by scanning for null entries
-		int GetVTableSize()
-		{
-			if (!ValidPtr((void*)m_vtable))
-				return -1;
+    static void TickInfiniteObjectsNoThrow()
+    {
+        __try
+        {
+            InGameHack_TickInfiniteObjectsSDK();
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+        }
+    }
 
-			int count = 0;
-			for (int i = 0; i < 512; i++)
-			{
-				auto entry = m_vtable[i];
-				if (!ValidPtr((void*)entry))
-					break;
-				count++;
-			}
+    static void ResetInfiniteObjectsNoThrow()
+    {
+        __try
+        {
+            InGameHack_ResetInfiniteObjectsSDK();
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+        }
+    }
 
-			Log("[VMT] VTable size: %d", count);
-			return count;
-		}
+    static void FrameUpdateHacksNoThrow()
+    {
+        __try
+        {
+            HackThreadManager::GetInstance().FrameUpdateHacks();
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+        }
+    }
 
-		// Find ProcessEvent index by brute-force scanning
-		int FindProcessEventIndex()
-		{
-			if (!ValidPtr((void*)m_vtable) || m_vtablesize == -1)
-				return -1;
+    static void SetInitTransMissionLevelNoThrow(int levelIndex, int value)
+    {
+        __try
+        {
+            InGameHack_SetInitTransMissionLevel(levelIndex, value);
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+        }
+    }
 
-			// Try default index first
-			auto func = m_vtable[INDEX_PROCESSEVENT];
-			if (ValidPtr((void*)func))
-			{
-				Log("[VMT] Found ProcessEvent at default index: %d", INDEX_PROCESSEVENT);
-				return INDEX_PROCESSEVENT;
-			}
+    static void SetReloadAdjustRateNoThrow(float value)
+    {
+        __try
+        {
+            InGameHack_SetReloadAdjustRate(value);
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+        }
+    }
 
-			// Fallback
-			Log("[VMT] ProcessEvent not found, using known index: %d", INDEX_PROCESSEVENT);
-			return INDEX_PROCESSEVENT;
-		}
+    static void SetReloadAdjustRateRollSlotNoThrow(float value)
+    {
+        __try
+        {
+            InGameHack_SetReloadAdjustRate_RollSlot(value);
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+        }
+    }
 
-		// Get object name for debugging
-		std::string GetObjectName(uintptr_t pClass)
-		{
-			try
-			{
-				// UObject::Name at offset 0x18 (FName structure)
-				uintptr_t nameAddr = pClass + 0x18;
-				return "Object_0x" + std::to_string(pClass);
-			}
-			catch (...)
-			{
-				return "Error";
-			}
-		}
+    static void SetReloadAdjustRateWearBlueFlameNoThrow(float value)
+    {
+        __try
+        {
+            InGameHack_SetReloadAdjustRate_WearBlueFlame(value);
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+        }
+    }
 
-		// Apply Shadow VMT Hook
-		void ApplyHook(uintptr_t pClass, ProcessEventFn pFunc)
-		{
-			if (m_eventindex == -1 || m_vtablesize == -1)
-			{
-				Log("[VMT] Cannot apply hook: invalid state (eventindex=%d, vtablesize=%d)", m_eventindex, m_vtablesize);
-				return;
-			}
+    static void SetCvNoneCurveValueNoThrow(float value)
+    {
+        __try
+        {
+            InGameHack_SetCvNoneCurveValue(value);
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+        }
+    }
 
-			if (pClass != m_class)
-			{
-				this->m_vtable = *reinterpret_cast<uintptr_t**>(pClass);
+    static void RunTeleportToKotaNoThrow()
+    {
+        __try
+        {
+            SDK_RunTeleportToKota();
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+        }
+    }
 
-				if (!ValidPtr((void*)m_vtable))
-				{
-					Log("[VMT] Invalid vtable pointer: 0x%llX", (uintptr_t)m_vtable);
-					return;
-				}
+    static std::atomic<uint64_t> g_FrameUpdates(0);
+    static DWORD g_LastProcessEventLogTick = 0;
+    static DWORD g_LastFrameUpdateTick = 0;
+    static DWORD g_LastFrameUpdateLogTick = 0;
+    static DWORD g_LastInfiniteObjectsPatchSyncTick = 0;
+    static DWORD g_LastReloadAdjustSyncTick = 0;
+    static DWORD g_LastCvNoneCurveSyncTick = 0;
+    static bool g_LastInfiniteObjectsPatchTarget = false;
+    static bool g_HasInfiniteObjectsPatchTarget = false;
+    static thread_local bool g_IsRunningFrameUpdate = false;
+    static constexpr DWORD GAME_FRAME_UPDATE_INTERVAL_MS = 16;
+    static constexpr DWORD INFINITE_OBJECTS_RESYNC_MS = 1000;
+    static constexpr DWORD RELOAD_ADJUST_SYNC_MS = 500;
+    static constexpr DWORD CV_NONE_CURVE_RESYNC_MS = 1000;
 
-				// Allocate new shadow vtable
-				this->m_vtable_cache = reinterpret_cast<uintptr_t*>(malloc(m_vtablesize * 0x8));
+    static void SyncCH202InitTransNoThrow()
+    {
+        __try
+        {
+            if (ImGuiMenu::g_Settings.EnableCH202InitTransLevel5 &&
+                IsValidBattleModeNoThrow("IsValidBattleMode:CH202InitTrans"))
+            {
+                SetInitTransMissionLevelNoThrow(0, 5);
+                ImGuiMenu::g_Settings.EnableCH202InitTransLevel5 = false;
+            }
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+        }
+    }
 
-				if (!m_vtable_cache)
-				{
-					Log("[VMT] Failed to allocate vtable cache (%d * 8 bytes)", m_vtablesize);
-					return;
-				}
+    static void SyncReloadAdjustNoThrow(DWORD now)
+    {
+        __try
+        {
+            const bool needsReloadAdjust =
+                ImGuiMenu::g_Settings.ReloadAdjustRate != 1.0f ||
+                ImGuiMenu::g_Settings.ReloadAdjustRate_RollSlot != 1.0f ||
+                ImGuiMenu::g_Settings.ReloadAdjustRate_WearBlueFlame != 1.0f;
 
-				Log("[VMT] Allocated shadow vtable: 0x%llX (size: %d entries)", (uintptr_t)m_vtable_cache, m_vtablesize);
+            const bool reloadAdjustDue =
+                g_LastReloadAdjustSyncTick == 0 ||
+                now - g_LastReloadAdjustSyncTick >= RELOAD_ADJUST_SYNC_MS;
 
-				// Copy original vtable
-				memcpy(m_vtable_cache, m_vtable, m_vtablesize * 0x8);
-				Log("[VMT] Copied original vtable to cache");
+            if (needsReloadAdjust &&
+                reloadAdjustDue &&
+                IsValidBattleModeNoThrow("IsValidBattleMode:ReloadAdjust"))
+            {
+                g_LastReloadAdjustSyncTick = now;
 
-				// Save original ProcessEvent function
-				m_original_processevent = (ProcessEventFn)m_vtable_cache[m_eventindex];
-				Log("[VMT] Original ProcessEvent at index %d: 0x%llX", m_eventindex, (uintptr_t)m_original_processevent);
+                if (ImGuiMenu::g_Settings.ReloadAdjustRate != 1.0f)
+                    SetReloadAdjustRateNoThrow(ImGuiMenu::g_Settings.ReloadAdjustRate);
 
-				// Replace ProcessEvent entry with our hook
-				m_vtable_cache[m_eventindex] = reinterpret_cast<uintptr_t>(pFunc);
-				Log("[VMT] Replaced ProcessEvent with hook: 0x%llX", reinterpret_cast<uintptr_t>(pFunc));
+                if (ImGuiMenu::g_Settings.ReloadAdjustRate_RollSlot != 1.0f)
+                    SetReloadAdjustRateRollSlotNoThrow(ImGuiMenu::g_Settings.ReloadAdjustRate_RollSlot);
 
-				// Point object to new shadow vtable
-				*(uintptr_t**)pClass = m_vtable_cache;
-				Log("[VMT] Redirected object 0x%llX to shadow vtable", pClass);
+                if (ImGuiMenu::g_Settings.ReloadAdjustRate_WearBlueFlame != 1.0f)
+                    SetReloadAdjustRateWearBlueFlameNoThrow(ImGuiMenu::g_Settings.ReloadAdjustRate_WearBlueFlame);
+            }
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+        }
+    }
 
-				this->m_class = pClass;
-				Log("[VMT] Hook applied successfully to object: %s (0x%llX)", GetObjectName(pClass).c_str(), pClass);
-			}
-		}
+    static void SyncCvNoneCurveNoThrow(DWORD now)
+    {
+        __try
+        {
+            const float cvNoneCurveValue = ImGuiMenu::g_Settings.CvNoneDamageCurveValue;
+            const bool needsCvNoneCurveSync = cvNoneCurveValue != 1.0f;
+            const bool cvNoneCurveDue =
+                g_LastCvNoneCurveSyncTick == 0 ||
+                now - g_LastCvNoneCurveSyncTick >= CV_NONE_CURVE_RESYNC_MS;
 
-		void Initialize(uintptr_t pClass)
-		{
-			Log("[VMT] Initializing ProcessEventInterceptor for object: 0x%llX", pClass);
+            if (needsCvNoneCurveSync && cvNoneCurveDue)
+            {
+                g_LastCvNoneCurveSyncTick = now;
+                SetCvNoneCurveValueNoThrow(cvNoneCurveValue);
+            }
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+        }
+    }
 
-			if (pClass < 0x10000)
-			{
-				Log("[VMT] Invalid class pointer: 0x%llX", pClass);
-				return;
-			}
+    void Log(const char* format, ...)
+    {
+        char message[1024] = {};
 
-			this->m_vtable = *(uintptr_t**)pClass;
-			this->m_vtablesize = GetVTableSize();
-			this->m_eventindex = FindProcessEventIndex();
+        va_list args;
+        va_start(args, format);
+        vsnprintf(message, sizeof(message), format, args);
+        va_end(args);
 
-			Log("[VMT] Initialized: vtable=0x%llX, vtable_size=%d, PE_index=%d", 
-				(uintptr_t)m_vtable, m_vtablesize, m_eventindex);
-		}
+        Logger::LogRaw(message);
 
-		ProcessEventFn GetOriginalProcessEvent() const
-		{
-			return m_original_processevent;
-		}
+        if (!GetConsoleWindow())
+            return;
 
-		void RestoreHook()
-		{
-			if (!m_class || !m_vtable || !m_vtable_cache)
-				return;
+        const DWORD now = GetTickCount();
+        const DWORD threadId = GetCurrentThreadId();
+        std::printf("[%08lu][T:%lu] %s\n", now, threadId, message);
+        std::fflush(stdout);
+    }
 
-			__try
-			{
-				uintptr_t** objectVTable = reinterpret_cast<uintptr_t**>(m_class);
-				if (objectVTable && *objectVTable == m_vtable_cache)
-				{
-					*objectVTable = m_vtable;
-					Log("[VMT] Restored original vtable for object: 0x%llX", m_class);
-				}
-			}
-			__except (EXCEPTION_EXECUTE_HANDLER)
-			{
-				Log("[VMT] Exception while restoring original vtable");
-			}
-		}
+    static bool IsReadable(const void* ptr, size_t size)
+    {
+        if (!ptr || reinterpret_cast<uintptr_t>(ptr) < 0x10000)
+            return false;
 
-		void NeutralizeHookNoFree()
-		{
-			if (m_vtable_cache && m_eventindex >= 0 && m_original_processevent)
-			{
-				m_vtable_cache[m_eventindex] = reinterpret_cast<uintptr_t>(m_original_processevent);
-			}
+        MEMORY_BASIC_INFORMATION mbi{};
+        if (VirtualQuery(ptr, &mbi, sizeof(mbi)) != sizeof(mbi))
+            return false;
 
-			RestoreHook();
-		}
+        if (mbi.State != MEM_COMMIT || (mbi.Protect & (PAGE_NOACCESS | PAGE_GUARD)) != 0)
+            return false;
 
-		void FreeCache()
-		{
-			RestoreHook();
+        const uintptr_t start = reinterpret_cast<uintptr_t>(ptr);
+        const uintptr_t end = start + size;
+        const uintptr_t regionEnd = reinterpret_cast<uintptr_t>(mbi.BaseAddress) + mbi.RegionSize;
+        return end >= start && end <= regionEnd;
+    }
 
-			if (m_vtable_cache)
-			{
-				Log("[VMT] Freeing shadow vtable cache: 0x%llX", (uintptr_t)m_vtable_cache);
-				free(m_vtable_cache);
-				m_vtable_cache = nullptr;
-			}
+    static bool IsWritableObjectPointer(SDK::UObject* object)
+    {
+        if (!IsReadable(object, sizeof(void*) * 3))
+            return false;
 
-			m_vtable = nullptr;
-			m_vtablesize = -1;
-			m_eventindex = -1;
-			m_class = 0;
-			m_original_processevent = nullptr;
-		}
+        SDK::UClass* klass = nullptr;
+        __try
+        {
+            klass = object->Class;
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+            return false;
+        }
 
-		~ProcessEventInterceptor()
-		{
-			if (UnloadManager::IsUnloadRequested())
-			{
-				NeutralizeHookNoFree();
-				return;
-			}
+        return IsReadable(klass, sizeof(void*));
+    }
 
-			FreeCache();
-		}
-	};
+    static int GetVTableSize(uintptr_t* vtable)
+    {
+        if (!IsReadable(vtable, sizeof(uintptr_t) * MIN_REASONABLE_VTABLE_SIZE))
+            return -1;
 
-	// Global interceptor instance
-	static ProcessEventInterceptor g_interceptor;
+        int count = 0;
+        for (int i = 0; i < MAX_VTABLE_SCAN; ++i)
+        {
+            uintptr_t entry = 0;
+            __try
+            {
+                entry = vtable[i];
+            }
+            __except (HandleAccessViolation(GetExceptionInformation()))
+            {
+                break;
+            }
 
-	// Hooked ProcessEvent function
-	void HookedProcessEvent(void* pThis, class UE4::UFunction* pFunction, void* pParams)
-	{
-		struct ProcessEventScope
-		{
-			ProcessEventScope()
-			{
-				g_ProcessEventCallDepth.fetch_add(1, std::memory_order_acq_rel);
-			}
+            if (!IsReadable(reinterpret_cast<void*>(entry), 1))
+                break;
 
-			~ProcessEventScope()
-			{
-				g_ProcessEventCallDepth.fetch_sub(1, std::memory_order_acq_rel);
-			}
-		} processEventScope;
+            ++count;
+        }
 
-		// Call original ProcessEvent
-		auto original = g_interceptor.GetOriginalProcessEvent();
-		if (original)
-		{
-			original(pThis, pFunction, pParams);
-		}
-		else
-		{
-			Log("[HOOK] ERROR: Original ProcessEvent is null!");
-			return;
-		}
+        return count >= MIN_REASONABLE_VTABLE_SIZE ? count : -1;
+    }
 
-		// ===== CALL SDK FEATURES ON GAME THREAD =====
-	}
+    static bool IsAlreadyHookedLocked(SDK::UObject* object)
+    {
+        return std::any_of(g_Hooks.begin(), g_Hooks.end(), [object](const HookRecord& hook) {
+            return hook.object == object;
+        });
+    }
 
-	// Initialize - Hook ProcessEvent using VMT Shadowing
-	bool Initialize()
-	{
-		if (g_Initialized)
-		{
-			Log("[Init] Already initialized");
-			return true;
-		}
+    static bool IsHookRecordActiveLocked(const HookRecord& hook)
+    {
+        if (!hook.object || !hook.originalVTable || !hook.shadowVTable)
+            return false;
 
-		Log("[Init] Starting GameThreadHook initialization...");
+        __try
+        {
+            uintptr_t** objectVTable = reinterpret_cast<uintptr_t**>(hook.object);
+            return IsReadable(objectVTable, sizeof(uintptr_t*)) && *objectVTable == hook.shadowVTable;
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+            return false;
+        }
+    }
 
-		try
-		{
-			// Initialize SDKInit module first
-			Log("[Init] Initializing SDKInit module...");
-			if (SDKInit::Initialize())
-			{
-				Log("[Init] ✅ SDKInit initialized successfully!");
-			}
-			else
-			{
-				Log("[Init] ⚠️  SDKInit initialization failed (spawn may not work)");
-			}
+    static bool RestoreHookLocked(const HookRecord& hook)
+    {
+        if (!hook.object || !hook.originalVTable || !hook.shadowVTable)
+            return false;
 
-			// ========== CRITICAL: GET PLAYERCONTROLLER AND HOOK IT ==========
-			Log("[Init] Attempting to get PlayerController...");
-			void* pPlayerController = SDK_GetPlayerController();
+        __try
+        {
+            uintptr_t** objectVTable = reinterpret_cast<uintptr_t**>(hook.object);
+            if (IsReadable(objectVTable, sizeof(uintptr_t*)) && *objectVTable == hook.shadowVTable)
+                *objectVTable = hook.originalVTable;
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+            return false;
+        }
 
-			if (!pPlayerController || (uintptr_t)pPlayerController < 0x10000)
-			{
-				Log("[Init] ⚠️  PlayerController not available yet (game may still be loading)");
-				Log("[Init] VMT hook will be set up on next Initialize() call");
-				// Don't mark as initialized - let it retry next frame
-				return false;
-			}
+        return true;
+    }
 
-			Log("[Init] ✅ PlayerController obtained: 0x%llX", (uintptr_t)pPlayerController);
-			Log("[Init] 🔧 Applying VMT shadowing hook to PlayerController...");
-			
-			// NOW ACTUALLY HOOK THE PLAYERCONTROLLER
-			HookProcessEvent((uintptr_t)pPlayerController);
-			Log("[Init] ✅ PlayerController hooked successfully!");
+    static void NeutralizeHookLocked(const HookRecord& hook)
+    {
+        if (hook.shadowVTable && hook.originalProcessEvent)
+            hook.shadowVTable[PROCESS_EVENT_INDEX] = reinterpret_cast<uintptr_t>(hook.originalProcessEvent);
 
-			// ========== TEST TRAINING HACKS ==========
-			DWORD threadId = GetCurrentThreadId();
-			Log("[Training] Current Thread ID: 0x%X (%u)", threadId, threadId);
-			Log("[Training] Calling TrainingHack_ChangeCharacterOnServer from GameThreadHook (Thread 0x%X)...", threadId);
-			
-			// Note: This is just for testing/logging. In production, this would be called from the game
-			// when needed, not during initialization.
+        RestoreHookLocked(hook);
+    }
 
-			g_Initialized = true;
-			Log("[Init] GameThreadHook initialization complete - VMT shadowing hook ACTIVE");
-			return true;
-		}
-		catch (const std::exception& e)
-		{
-			Log("[Init] Exception during initialization: %s", e.what());
-			return false;
-		}
-	}
+    static void ClearTasks()
+    {
+        std::lock_guard<std::mutex> lock(g_TaskMutex);
+        const size_t oldSize = g_GameThreadTasks.size();
+        std::queue<std::function<void()>> empty;
+        g_GameThreadTasks.swap(empty);
+        if (oldSize > 0)
+            Log("[GameThreadHook] cleared %zu queued task(s)", oldSize);
+    }
 
-	// Shutdown
-	void Shutdown()
-	{
-		Log("[Shutdown] Shutting down GameThreadHook...");
-		SDKInit::Shutdown();
-		g_interceptor.NeutralizeHookNoFree();
+    static size_t GetQueuedTaskCount()
+    {
+        std::lock_guard<std::mutex> lock(g_TaskMutex);
+        return g_GameThreadTasks.size();
+    }
 
-		for (int i = 0; i < 200 && g_ProcessEventCallDepth.load(std::memory_order_acquire) > 0; ++i)
-			Sleep(1);
+    static bool ExecuteTaskNoThrow(std::function<void()>* task)
+    {
+        __try
+        {
+            if (task && *task)
+                (*task)();
+            return true;
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+            return false;
+        }
+    }
 
-		if (!UnloadManager::IsUnloadRequested())
-			g_interceptor.FreeCache();
+    static bool InitializeSdkNoThrow()
+    {
+        __try
+        {
+            return SDKInit::Initialize();
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+            return false;
+        }
+    }
 
-		g_Initialized = false;
-		
-		if (g_LogFile.is_open())
-		{
-			g_LogFile.close();
-		}
-		Log("[Shutdown] Done");
-	}
+    static void ShutdownSdkNoThrow()
+    {
+        __try
+        {
+            SDKInit::Shutdown();
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+        }
+    }
 
-	// IsHookActive
-	bool IsHookActive()
-	{
-		return g_Initialized;
-	}
+    static void CallOriginalProcessEventNoThrow(ProcessEventFn original, const SDK::UObject* object, SDK::UFunction* function, void* params)
+    {
+        if (!original)
+            return;
 
-	// Hook ProcessEvent on a specific object
-	void HookProcessEvent(uintptr_t pObjectAddress)
-	{
-		Log("[HookPE] Attempting to hook ProcessEvent on object: 0x%llX", pObjectAddress);
+        __try
+        {
+            original(object, function, params);
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+        }
+    }
 
-		try
-		{
-			g_interceptor.Initialize(pObjectAddress);
-			g_interceptor.ApplyHook(pObjectAddress, &HookedProcessEvent);
-			Log("[HookPE] Successfully hooked ProcessEvent");
-		}
-		catch (const std::exception& e)
-		{
-			Log("[HookPE] Exception: %s", e.what());
-		}
-	}
+    static void PumpTasks()
+    {
+        if (g_IsPumpingTasks || !g_Initialized.load(std::memory_order_acquire) || UnloadManager::IsUnloadRequested())
+            return;
+
+        struct PumpScope
+        {
+            PumpScope() { g_IsPumpingTasks = true; }
+            ~PumpScope() { g_IsPumpingTasks = false; }
+        } pumpScope;
+
+        for (int i = 0; i < MAX_TASKS_PER_EVENT; ++i)
+        {
+            std::function<void()> task;
+            {
+                std::lock_guard<std::mutex> lock(g_TaskMutex);
+                if (g_GameThreadTasks.empty())
+                    break;
+
+                task = std::move(g_GameThreadTasks.front());
+                g_GameThreadTasks.pop();
+            }
+
+            if (task && ExecuteTaskNoThrow(&task))
+            {
+                const uint64_t executed = g_TasksExecuted.fetch_add(1, std::memory_order_relaxed) + 1;
+                Log("[GameThreadHook] executed queued task #%llu", static_cast<unsigned long long>(executed));
+            }
+            else if (task)
+            {
+                const uint64_t failed = g_TasksFailed.fetch_add(1, std::memory_order_relaxed) + 1;
+                Log("[GameThreadHook] queued task crashed, failed=%llu", static_cast<unsigned long long>(failed));
+                Log("[GameThreadHook] queued task crashed");
+            }
+        }
+    }
+
+    static bool NeedsFrameHackUpdate()
+    {
+        const auto& settings = ImGuiMenu::g_Settings;
+        return settings.EnableTransformIntoRandomESP ||
+            settings.EnableDuplicateIntoImitationRandomESP ||
+            settings.EnableCustomDrop ||
+            settings.EnableRebuildMyself ||
+            settings.EnableCopySkillsFromNearestEnemy ||
+            settings.EnableGenerateProjectile ||
+            ImGuiMenu::g_HackSettings.EnableInvincible ||
+            ImGuiMenu::g_HackSettings.Hack_BypassRentalTickets ||
+            ImGuiMenu::g_HackSettings.EnableInfinitePlusUltra ||
+            settings.EnableFastPlusUltraCharge ||
+            settings.EnableNoCollision ||
+            settings.EnableRecoveryMe ||
+            settings.EnableRecoveryTeam ||
+            settings.EnableRecoverySelectedTeam ||
+            settings.EnableRecoveryAllESP ||
+            settings.EnableBulletTP ||
+            Cheats::IsAllPlayersActive() ||
+            Cheats::IsEnemiesOnlyActive() ||
+            Cheats::IsTeammatesOnlyActive();
+    }
+
+    static void RunGameFrameUpdate()
+    {
+        if (g_IsRunningFrameUpdate || !g_Initialized.load(std::memory_order_acquire) || UnloadManager::IsUnloadRequested())
+            return;
+
+        const DWORD now = GetTickCount();
+        if (now - g_LastFrameUpdateTick < GAME_FRAME_UPDATE_INTERVAL_MS)
+            return;
+
+        g_LastFrameUpdateTick = now;
+
+        struct FrameUpdateScope
+        {
+            FrameUpdateScope() { g_IsRunningFrameUpdate = true; }
+            ~FrameUpdateScope() { g_IsRunningFrameUpdate = false; }
+        } frameUpdateScope;
+
+        const uint64_t updates = g_FrameUpdates.fetch_add(1, std::memory_order_relaxed) + 1;
+        if (updates == 1 || now - g_LastFrameUpdateLogTick >= 5000)
+        {
+            g_LastFrameUpdateLogTick = now;
+            Log("[GameThreadHook] gameplay frame update heartbeat updates=%llu",
+                static_cast<unsigned long long>(updates));
+        }
+
+        const bool infiniteObjectsTarget =
+            ImGuiMenu::g_Settings.EnableGlobal &&
+            ImGuiMenu::g_Settings.EnableInfiniteObjects &&
+            IsValidBattleModeNoThrow("IsValidBattleMode:InfiniteObjects");
+
+        if (infiniteObjectsTarget)
+            TickInfiniteObjectsNoThrow();
+        else if (g_HasInfiniteObjectsPatchTarget && g_LastInfiniteObjectsPatchTarget)
+            ResetInfiniteObjectsNoThrow();
+
+        g_LastInfiniteObjectsPatchTarget = infiniteObjectsTarget;
+        g_HasInfiniteObjectsPatchTarget = true;
+        g_LastInfiniteObjectsPatchSyncTick = now;
+
+        if (!ImGuiMenu::g_Settings.EnableGlobal)
+            return;
+
+        if (NeedsFrameHackUpdate())
+        {
+            FrameUpdateHacksNoThrow();
+        }
+
+        if (ImGuiMenu::g_Settings.EnableTeleportToKota)
+        {
+            RunTeleportToKotaNoThrow();
+        }
+
+        SyncCH202InitTransNoThrow();
+        SyncReloadAdjustNoThrow(now);
+        SyncCvNoneCurveNoThrow(now);
+    }
+
+    static void HookedProcessEvent(const SDK::UObject* object, SDK::UFunction* function, void* params)
+    {
+        struct Scope
+        {
+            Scope() { g_ProcessEventCallDepth.fetch_add(1, std::memory_order_acq_rel); }
+            ~Scope() { g_ProcessEventCallDepth.fetch_sub(1, std::memory_order_acq_rel); }
+        } scope;
+
+        ProcessEventFn original = nullptr;
+        {
+            std::lock_guard<std::mutex> lock(g_HookMutex);
+            for (const HookRecord& hook : g_Hooks)
+            {
+                if (hook.object == object)
+                {
+                    original = hook.originalProcessEvent;
+                    break;
+                }
+            }
+        }
+
+        const uint64_t hits = g_ProcessEventHits.fetch_add(1, std::memory_order_relaxed) + 1;
+        const DWORD now = GetTickCount();
+        if (hits == 1 || now - g_LastProcessEventLogTick >= 5000)
+        {
+            g_LastProcessEventLogTick = now;
+            Log("[GameThreadHook] ProcessEvent heartbeat hits=%llu hookedObject=0x%p original=0x%p queued=%zu",
+                static_cast<unsigned long long>(hits),
+                object,
+                reinterpret_cast<void*>(original),
+                GetQueuedTaskCount());
+        }
+
+        if (original)
+            CallOriginalProcessEventNoThrow(original, object, function, params);
+
+        PumpTasks();
+        RunGameFrameUpdate();
+    }
+
+    static bool HookObjectLocked(SDK::UObject* object)
+    {
+        if (!IsWritableObjectPointer(object) || IsAlreadyHookedLocked(object))
+            return false;
+
+        if (g_Hooks.size() >= MAX_HOOKED_OBJECTS)
+            return false;
+
+        uintptr_t* originalVTable = nullptr;
+        __try
+        {
+            originalVTable = *reinterpret_cast<uintptr_t**>(object);
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+            return false;
+        }
+
+        const int vtableSize = GetVTableSize(originalVTable);
+        if (vtableSize < MIN_REASONABLE_VTABLE_SIZE)
+            return false;
+
+        auto* shadowVTable = reinterpret_cast<uintptr_t*>(malloc(sizeof(uintptr_t) * vtableSize));
+        if (!shadowVTable)
+            return false;
+
+        std::memcpy(shadowVTable, originalVTable, sizeof(uintptr_t) * vtableSize);
+
+        HookRecord record{};
+        record.object = object;
+        record.originalVTable = originalVTable;
+        record.shadowVTable = shadowVTable;
+        record.vtableSize = vtableSize;
+        record.originalProcessEvent = reinterpret_cast<ProcessEventFn>(shadowVTable[PROCESS_EVENT_INDEX]);
+
+        if (!record.originalProcessEvent)
+        {
+            free(shadowVTable);
+            return false;
+        }
+
+        shadowVTable[PROCESS_EVENT_INDEX] = reinterpret_cast<uintptr_t>(&HookedProcessEvent);
+
+        __try
+        {
+            *reinterpret_cast<uintptr_t**>(object) = shadowVTable;
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+            free(shadowVTable);
+            return false;
+        }
+
+        g_Hooks.push_back(record);
+        Log("[GameThreadHook] hooked object=0x%p vtableSize=%d originalPE=0x%p hooks=%zu",
+            object,
+            vtableSize,
+            reinterpret_cast<void*>(record.originalProcessEvent),
+            g_Hooks.size());
+        return true;
+    }
+
+    static void AddCandidate(std::vector<SDK::UObject*>& candidates, SDK::UObject* object)
+    {
+        if (!object)
+            return;
+
+        if (std::find(candidates.begin(), candidates.end(), object) == candidates.end())
+            candidates.push_back(object);
+    }
+
+    static SDK::UEngine* GetEngineSafe()
+    {
+        __try
+        {
+            return SDK::UEngine::GetEngine();
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+            return nullptr;
+        }
+    }
+
+    static SDK::UWorld* GetWorldSafe()
+    {
+        __try
+        {
+            return SDK::UWorld::GetWorld();
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+            return nullptr;
+        }
+    }
+
+    static SDK::APlayerController* GetPlayerControllerSafe()
+    {
+        __try
+        {
+            return SDK_GetPlayerController();
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+            return nullptr;
+        }
+    }
+
+    static SDK::UGameViewportClient* ReadGameViewportSafe(SDK::UEngine* engine)
+    {
+        if (!engine)
+            return nullptr;
+
+        __try
+        {
+            return engine->GameViewport;
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+            return nullptr;
+        }
+    }
+
+    static SDK::UGameInstance* ReadGameInstanceSafe(SDK::UGameViewportClient* viewport)
+    {
+        if (!viewport)
+            return nullptr;
+
+        __try
+        {
+            return viewport->GameInstance;
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+            return nullptr;
+        }
+    }
+
+    static std::vector<SDK::UObject*> CollectHookCandidates()
+    {
+        std::vector<SDK::UObject*> candidates;
+        candidates.reserve(MAX_HOOKED_OBJECTS);
+
+        SDK::UEngine* engine = GetEngineSafe();
+        if (engine)
+        {
+            AddCandidate(candidates, engine);
+            SDK::UGameViewportClient* viewport = ReadGameViewportSafe(engine);
+            AddCandidate(candidates, viewport);
+            AddCandidate(candidates, ReadGameInstanceSafe(viewport));
+        }
+
+        return candidates;
+    }
+
+    static void RefreshHooks(bool force)
+    {
+        const DWORD now = GetTickCount();
+        if (!force && now - g_LastRefreshTick < REFRESH_INTERVAL_MS)
+            return;
+
+        g_LastRefreshTick = now;
+        Log("[GameThreadHook] refresh hooks force=%d", force ? 1 : 0);
+
+        std::vector<SDK::UObject*> candidates = CollectHookCandidates();
+        std::lock_guard<std::mutex> lock(g_HookMutex);
+        const bool canEraseHooks = g_ProcessEventCallDepth.load(std::memory_order_acquire) == 0;
+
+        Log("[GameThreadHook] candidates=%zu currentHooks=%zu canErase=%d",
+            candidates.size(),
+            g_Hooks.size(),
+            canEraseHooks ? 1 : 0);
+
+        for (auto it = g_Hooks.begin(); it != g_Hooks.end();)
+        {
+            if (!IsWritableObjectPointer(it->object) ||
+                std::find(candidates.begin(), candidates.end(), it->object) == candidates.end() ||
+                !IsHookRecordActiveLocked(*it))
+            {
+                Log("[GameThreadHook] neutralize stale hook object=0x%p", it->object);
+                NeutralizeHookLocked(*it);
+                if (canEraseHooks)
+                {
+                    it = g_Hooks.erase(it);
+                    continue;
+                }
+
+                ++it;
+                continue;
+            }
+
+            ++it;
+        }
+
+        for (SDK::UObject* candidate : candidates)
+        {
+            if (g_Hooks.size() >= MAX_HOOKED_OBJECTS)
+                break;
+
+            HookObjectLocked(candidate);
+        }
+    }
+
+    bool Initialize()
+    {
+        if (UnloadManager::IsUnloadRequested())
+            return false;
+
+        Log("[GameThreadHook] Initialize begin initialized=%d", g_Initialized.load(std::memory_order_acquire) ? 1 : 0);
+        const bool sdkReady = InitializeSdkNoThrow();
+        Log("[GameThreadHook] SDKInit::Initialize returned %d", sdkReady ? 1 : 0);
+
+        g_Initialized.store(true, std::memory_order_release);
+        RefreshHooks(true);
+        const bool active = IsHookActive();
+        Log("[GameThreadHook] Initialize end active=%d", active ? 1 : 0);
+        return active;
+    }
+
+    void Shutdown()
+    {
+        Log("[GameThreadHook] Shutdown begin hooks=%zu peHits=%llu tasksOk=%llu tasksFailed=%llu",
+            g_Hooks.size(),
+            static_cast<unsigned long long>(g_ProcessEventHits.load(std::memory_order_relaxed)),
+            static_cast<unsigned long long>(g_TasksExecuted.load(std::memory_order_relaxed)),
+            static_cast<unsigned long long>(g_TasksFailed.load(std::memory_order_relaxed)));
+        g_Initialized.store(false, std::memory_order_release);
+        ClearTasks();
+
+        {
+            std::lock_guard<std::mutex> lock(g_HookMutex);
+            for (HookRecord& hook : g_Hooks)
+                NeutralizeHookLocked(hook);
+        }
+
+        for (int i = 0; i < 200 && g_ProcessEventCallDepth.load(std::memory_order_acquire) > 0; ++i)
+            Sleep(1);
+
+        {
+            std::lock_guard<std::mutex> lock(g_HookMutex);
+            g_Hooks.clear();
+        }
+
+        ShutdownSdkNoThrow();
+        Log("[GameThreadHook] Shutdown end");
+    }
+
+    bool IsHookActive()
+    {
+        if (!g_Initialized.load(std::memory_order_acquire))
+            return false;
+
+        RefreshHooks(false);
+
+        std::lock_guard<std::mutex> lock(g_HookMutex);
+        return !g_Hooks.empty();
+    }
+
+    void TickFrameHacks()
+    {
+        PumpTasks();
+        RunGameFrameUpdate();
+    }
+
+    bool EnqueueTask(std::function<void()> task)
+    {
+        if (!task || UnloadManager::IsUnloadRequested())
+            return false;
+
+        if (!g_Initialized.load(std::memory_order_acquire))
+            Initialize();
+        else
+            RefreshHooks(false);
+
+        std::lock_guard<std::mutex> taskLock(g_TaskMutex);
+        if (g_GameThreadTasks.size() >= MAX_GAME_THREAD_TASKS)
+        {
+            Log("[GameThreadHook] enqueue rejected queue full size=%zu", g_GameThreadTasks.size());
+            return false;
+        }
+
+        g_GameThreadTasks.push(std::move(task));
+        Log("[GameThreadHook] task queued size=%zu", g_GameThreadTasks.size());
+        return true;
+    }
+
+    void HookProcessEvent(uintptr_t objectAddress)
+    {
+        if (!objectAddress || UnloadManager::IsUnloadRequested())
+            return;
+
+        Log("[GameThreadHook] manual HookProcessEvent object=0x%p", reinterpret_cast<void*>(objectAddress));
+        g_Initialized.store(true, std::memory_order_release);
+        std::lock_guard<std::mutex> lock(g_HookMutex);
+        HookObjectLocked(reinterpret_cast<SDK::UObject*>(objectAddress));
+    }
 }

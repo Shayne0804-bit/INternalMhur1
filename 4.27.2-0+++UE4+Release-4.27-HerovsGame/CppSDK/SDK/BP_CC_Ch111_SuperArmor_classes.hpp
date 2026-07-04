@@ -15,7 +15,8 @@
 #include "BykingUnrealModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_CC_Ch111_SuperArmor.BP_CC_Ch111_SuperArmor_C
 // 0x0010 (0x0160 - 0x0150)
@@ -50,5 +51,7 @@ public:
 		return GetDefaultObjImpl<UBP_CC_Ch111_SuperArmor_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_CC_Ch111_SuperArmor_C;
 
-SDK_NAMESPACE_END
+}
+

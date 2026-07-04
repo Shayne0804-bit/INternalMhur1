@@ -14,7 +14,8 @@
 #include "BP_ActionCrouch_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionCrouch.BP_ActionCrouch_C.ExecuteUbergraph_BP_ActionCrouch
 // (Final, UbergraphFunction)
@@ -140,5 +141,5 @@ bool UBP_ActionCrouch_C::BP_IsEnableShiftAction(const class FName& nextAction) c
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -13,7 +13,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_Dash_NormalSkill.BP_Dash_NormalSkill_C
 // 0x0000 (0x0430 - 0x0430)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UBP_Dash_NormalSkill_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_Dash_NormalSkill_C;
 
-SDK_NAMESPACE_END
+}
+

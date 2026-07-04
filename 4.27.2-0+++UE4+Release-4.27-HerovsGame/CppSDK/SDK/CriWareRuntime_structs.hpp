@@ -14,7 +14,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum CriWareRuntime.EAtomAudioVolumeType
 // NumValues: 0x0006
@@ -369,6 +370,7 @@ struct FAtomSoundManager final
 public:
 	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAtomSoundManager;
 
 // ScriptStruct CriWareRuntime.AtomBeatSyncInfo
 // 0x0028 (0x0028 - 0x0000)
@@ -377,6 +379,7 @@ struct alignas(0x08) FAtomBeatSyncInfo final
 public:
 	uint8                                         Pad_0[0x28];                                       // 0x0000(0x0028)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAtomBeatSyncInfo;
 
 // ScriptStruct CriWareRuntime.AtomCueInfoBusSendParam
 // 0x0018 (0x0018 - 0x0000)
@@ -388,6 +391,7 @@ public:
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         Level;                                             // 0x0014(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomCueInfoBusSendParam;
 
 // ScriptStruct CriWareRuntime.AtomSequenceInfo
 // 0x0028 (0x0028 - 0x0000)
@@ -396,6 +400,7 @@ struct alignas(0x08) FAtomSequenceInfo final
 public:
 	uint8                                         Pad_0[0x28];                                       // 0x0000(0x0028)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAtomSequenceInfo;
 
 // ScriptStruct CriWareRuntime.BusSendLevelParam
 // 0x0008 (0x0008 - 0x0000)
@@ -405,6 +410,7 @@ public:
 	int32                                         BusId;                                             // 0x0000(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Level;                                             // 0x0004(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBusSendLevelParam;
 
 // ScriptStruct CriWareRuntime.BusSendLevelByNameParam
 // 0x0018 (0x0018 - 0x0000)
@@ -415,6 +421,7 @@ public:
 	float                                         Level;                                             // 0x0010(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBusSendLevelByNameParam;
 
 // ScriptStruct CriWareRuntime.AtomSelectorParam
 // 0x0020 (0x0020 - 0x0000)
@@ -424,6 +431,7 @@ public:
 	class FString                                 Selector;                                          // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 Label;                                             // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomSelectorParam;
 
 // ScriptStruct CriWareRuntime.BusSendLevelOffsetParam
 // 0x0008 (0x0008 - 0x0000)
@@ -433,6 +441,7 @@ public:
 	int32                                         BusId;                                             // 0x0000(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         LevelOffset;                                       // 0x0004(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FBusSendLevelOffsetParam;
 
 // ScriptStruct CriWareRuntime.BusSendLevelOffsetByNameParam
 // 0x0018 (0x0018 - 0x0000)
@@ -443,6 +452,7 @@ public:
 	float                                         LevelOffset;                                       // 0x0010(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBusSendLevelOffsetByNameParam;
 
 // ScriptStruct CriWareRuntime.AtomAppliedValueParam
 // 0x0080 (0x0080 - 0x0000)
@@ -460,6 +470,7 @@ public:
 	struct FAtomSelectorParam                     AtomSelectorParam;                                 // 0x0050(0x0020)(Edit, BlueprintVisible, BlueprintReadOnly, EditConst, NativeAccessSpecifierPublic)
 	TArray<int32>                                 AsrRackIDs;                                        // 0x0070(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomAppliedValueParam;
 
 // ScriptStruct CriWareRuntime.AtomAsrRackConfigUI
 // 0x0008 (0x0008 - 0x0000)
@@ -470,6 +481,7 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         ElementID;                                         // 0x0004(0x0004)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomAsrRackConfigUI;
 
 // ScriptStruct CriWareRuntime.AtomCueInfoSelectorParam
 // 0x0020 (0x0020 - 0x0000)
@@ -479,6 +491,7 @@ public:
 	class FString                                 Name;                                              // 0x0000(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 Label;                                             // 0x0010(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomCueInfoSelectorParam;
 
 // ScriptStruct CriWareRuntime.AtomWaveInfo
 // 0x0014 (0x0014 - 0x0000)
@@ -493,6 +506,7 @@ public:
 	uint8                                         bIsStreamed : 1;                                   // 0x0010(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Edit, BlueprintVisible, BlueprintReadOnly, EditConst, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAtomWaveInfo;
 
 // ScriptStruct CriWareRuntime.AtomAisacControlWithVelocityParam
 // 0x0018 (0x0018 - 0x0000)
@@ -503,6 +517,7 @@ public:
 	float                                         MinVelocity;                                       // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         MaxVelocity;                                       // 0x0014(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomAisacControlWithVelocityParam;
 
 // ScriptStruct CriWareRuntime.AtomCueInfoAttachedAisacControlParam
 // 0x0018 (0x0018 - 0x0000)
@@ -513,6 +528,7 @@ public:
 	int32                                         ID;                                                // 0x0010(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAtomCueInfoAttachedAisacControlParam;
 
 // ScriptStruct CriWareRuntime.AtomAisacControlParam
 // 0x0018 (0x0018 - 0x0000)
@@ -523,6 +539,7 @@ public:
 	float                                         value;                                             // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAtomAisacControlParam;
 
 // ScriptStruct CriWareRuntime.AtomStringWithComment
 // 0x0010 (0x0010 - 0x0000)
@@ -531,6 +548,7 @@ struct FAtomStringWithComment final
 public:
 	class FString                                 Name;                                              // 0x0000(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomStringWithComment;
 
 // ScriptStruct CriWareRuntime.AtomSelectorSettingsParam
 // 0x0030 (0x0030 - 0x0000)
@@ -541,6 +559,7 @@ public:
 	class FString                                 DefaultSelectorLabel;                              // 0x0010(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FAtomStringWithComment>         Labels;                                            // 0x0020(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomSelectorSettingsParam;
 
 // ScriptStruct CriWareRuntime.ManaPlayerTrackOptions
 // 0x0018 (0x0018 - 0x0000)
@@ -554,6 +573,7 @@ public:
 	int32                                         Video;                                             // 0x0010(0x0004)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Alpha;                                             // 0x0014(0x0004)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FManaPlayerTrackOptions;
 
 // ScriptStruct CriWareRuntime.ManaPlayerOptions
 // 0x0030 (0x0030 - 0x0000)
@@ -570,6 +590,7 @@ public:
 	uint8                                         Pad_25[0x3];                                       // 0x0025(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         TimeSyncedSource;                                  // 0x0028(0x0008)(BlueprintVisible, ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FManaPlayerOptions;
 
 // ScriptStruct CriWareRuntime.CriWareErrorInfo
 // 0x0028 (0x0028 - 0x0000)
@@ -581,6 +602,7 @@ public:
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 message;                                           // 0x0018(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCriWareErrorInfo;
 
 // ScriptStruct CriWareRuntime.ManaEventPointInfo
 // 0x0028 (0x0028 - 0x0000)
@@ -592,6 +614,7 @@ public:
 	int32                                         Type;                                              // 0x0014(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 Parameter;                                         // 0x0018(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FManaEventPointInfo;
 
 // ScriptStruct CriWareRuntime.AtomAttenuationDistanceParam
 // 0x0008 (0x0008 - 0x0000)
@@ -601,6 +624,7 @@ public:
 	float                                         MinDistance;                                       // 0x0000(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         MaxDistance;                                       // 0x0004(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomAttenuationDistanceParam;
 
 // ScriptStruct CriWareRuntime.AtomCueInfo
 // 0x0060 (0x0060 - 0x0000)
@@ -620,6 +644,7 @@ public:
 	uint8                                         bIsParameterPalletAssigned : 1;                    // 0x0058(0x0001)(BitIndex: 0x01, PropSize: 0x0001 (Edit, BlueprintVisible, BlueprintReadOnly, EditConst, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_59[0x7];                                       // 0x0059(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAtomCueInfo;
 
 // ScriptStruct CriWareRuntime.AtomListenerFocusPointInfo
 // 0x0018 (0x0018 - 0x0000)
@@ -631,6 +656,7 @@ public:
 	float                                         DistanceLevel;                                     // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         DirectionLevel;                                    // 0x0014(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomListenerFocusPointInfo;
 
 // ScriptStruct CriWareRuntime.AtomAisacInfo
 // 0x0030 (0x0030 - 0x0000)
@@ -645,6 +671,7 @@ public:
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 ControlName;                                       // 0x0020(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomAisacInfo;
 
 // ScriptStruct CriWareRuntime.ManaSubtitleTrackInfo
 // 0x0030 (0x0030 - 0x0000)
@@ -656,6 +683,7 @@ public:
 	EManaSubtitlesEncoding                        Encoding;                                          // 0x0028(0x0001)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_29[0x7];                                       // 0x0029(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FManaSubtitleTrackInfo;
 
 // ScriptStruct CriWareRuntime.SnapshotSwitchSettings
 // 0x0038 (0x0038 - 0x0000)
@@ -671,6 +699,7 @@ public:
 	float                                         FadeTime;                                          // 0x0030(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSnapshotSwitchSettings;
 
 // ScriptStruct CriWareRuntime.BusSendInterpolationSettings
 // 0x0048 (0x0048 - 0x0000)
@@ -688,6 +717,7 @@ public:
 	float                                         Width;                                             // 0x0038(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_3C[0xC];                                       // 0x003C(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBusSendInterpolationSettings;
 
 // ScriptStruct CriWareRuntime.AisacControlInterpolationSettings
 // 0x0030 (0x0030 - 0x0000)
@@ -702,6 +732,7 @@ public:
 	float                                         Width;                                             // 0x0020(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_24[0xC];                                       // 0x0024(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAisacControlInterpolationSettings;
 
 // ScriptStruct CriWareRuntime.AtomAudioVolumeParameters
 // 0x0040 (0x0040 - 0x0000)
@@ -720,6 +751,7 @@ public:
 	TArray<struct FBusSendInterpolationSettings>  BusSendInterpolateSettings;                        // 0x0020(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FAisacControlInterpolationSettings> AisacControlInterpolateSettings;               // 0x0030(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomAudioVolumeParameters;
 
 // ScriptStruct CriWareRuntime.AtomAisacControlSettingsParam
 // 0x0018 (0x0018 - 0x0000)
@@ -730,6 +762,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 Name;                                              // 0x0008(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomAisacControlSettingsParam;
 
 // ScriptStruct CriWareRuntime.AtomGameVariableParam
 // 0x0018 (0x0018 - 0x0000)
@@ -740,6 +773,7 @@ public:
 	float                                         value;                                             // 0x0010(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAtomGameVariableParam;
 
 // ScriptStruct CriWareRuntime.AtomGlobalAisacSettingsParam
 // 0x0010 (0x0010 - 0x0000)
@@ -748,6 +782,7 @@ struct FAtomGlobalAisacSettingsParam final
 public:
 	class FString                                 AisacControl;                                      // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomGlobalAisacSettingsParam;
 
 // ScriptStruct CriWareRuntime.AtomCategoryParam
 // 0x0030 (0x0030 - 0x0000)
@@ -761,6 +796,7 @@ public:
 	float                                         Volume;                                            // 0x0028(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAtomCategoryParam;
 
 // ScriptStruct CriWareRuntime.AtomDspBusSettingsParam
 // 0x0030 (0x0030 - 0x0000)
@@ -771,6 +807,7 @@ public:
 	TArray<struct FAtomStringWithComment>         Snapshot;                                          // 0x0010(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
 	TArray<struct FAtomStringWithComment>         Bus;                                               // 0x0020(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomDspBusSettingsParam;
 
 // ScriptStruct CriWareRuntime.AtomConfigDataTable
 // 0x00B0 (0x00B8 - 0x0008)
@@ -798,12 +835,14 @@ public:
 	TArray<struct FAtomDspBusSettingsParam>       DspBusSettings;                                    // 0x0098(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
 	TArray<struct FAtomStringWithComment>         React;                                             // 0x00A8(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomConfigDataTable;
 
 // ScriptStruct CriWareRuntime.AcfDataTable
 // 0x0000 (0x00B8 - 0x00B8)
 struct FAcfDataTable final : public FAtomConfigDataTable
 {
 };
+DUMPER7_ASSERTS_FAcfDataTable;
 
 // ScriptStruct CriWareRuntime.AtomCueInfoCategoryParam
 // 0x0010 (0x0010 - 0x0000)
@@ -812,6 +851,7 @@ struct FAtomCueInfoCategoryParam final
 public:
 	class FString                                 Name;                                              // 0x0000(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomCueInfoCategoryParam;
 
 // ScriptStruct CriWareRuntime.AtomCueInfoTrackParam
 // 0x0038 (0x0038 - 0x0000)
@@ -823,6 +863,7 @@ public:
 	class FString                                 Name;                                              // 0x0008(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FAtomCueInfoSelectorParam              Selector;                                          // 0x0018(0x0020)(Edit, BlueprintVisible, BlueprintReadOnly, EditConst, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomCueInfoTrackParam;
 
 // ScriptStruct CriWareRuntime.AtomCueInfoBlocksParam
 // 0x0018 (0x0018 - 0x0000)
@@ -833,6 +874,7 @@ public:
 	int32                                         startPosition;                                     // 0x0010(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Length;                                            // 0x0014(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomCueInfoBlocksParam;
 
 // ScriptStruct CriWareRuntime.AtomCueInfoAttachedSelectorParam
 // 0x0010 (0x0010 - 0x0000)
@@ -841,6 +883,7 @@ struct FAtomCueInfoAttachedSelectorParam final
 public:
 	class FString                                 Name;                                              // 0x0000(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomCueInfoAttachedSelectorParam;
 
 // ScriptStruct CriWareRuntime.AtomCueInfoDataTable
 // 0x00F8 (0x0100 - 0x0008)
@@ -875,6 +918,7 @@ public:
 	TArray<struct FAtomCueInfoAttachedSelectorParam> AttachedSelector;                               // 0x00E0(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
 	TArray<struct FAtomCueInfoAttachedAisacControlParam> AttachedAisacControl;                       // 0x00F0(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomCueInfoDataTable;
 
 // ScriptStruct CriWareRuntime.AtomCueSheetDataTable
 // 0x0068 (0x0070 - 0x0008)
@@ -894,6 +938,7 @@ public:
 	uint8                                         Pad_5C[0x4];                                       // 0x005C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FAtomCueInfoDataTable>          Cue;                                               // 0x0060(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomCueSheetDataTable;
 
 // ScriptStruct CriWareRuntime.AtomProfileItem
 // 0x0080 (0x0080 - 0x0000)
@@ -914,6 +959,7 @@ public:
 	class FString                                 ConcurrencyName;                                   // 0x0050(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_60[0x20];                                      // 0x0060(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAtomProfileItem;
 
 // ScriptStruct CriWareRuntime.AtomComponentParams
 // 0x0060 (0x0060 - 0x0000)
@@ -940,6 +986,7 @@ public:
 	uint8                                         Pad_51[0x3];                                       // 0x0051(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FRotator                               Rotation;                                          // 0x0054(0x000C)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomComponentParams;
 
 // ScriptStruct CriWareRuntime.AtomTriggerRow
 // 0x0018 (0x0020 - 0x0008)
@@ -951,6 +998,7 @@ public:
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class USoundAtomCue*                          Cue;                                               // 0x0018(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomTriggerRow;
 
 // ScriptStruct CriWareRuntime.AtomAsrRackConfig
 // 0x0008 (0x0008 - 0x0000)
@@ -960,6 +1008,7 @@ public:
 	int32                                         SoundRendererType;                                 // 0x0000(0x0004)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ElementID;                                         // 0x0004(0x0004)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAtomAsrRackConfig;
 
 // ScriptStruct CriWareRuntime.ManaAudioTrackInfo
 // 0x0010 (0x0010 - 0x0000)
@@ -973,6 +1022,7 @@ public:
 	EManaSoundType                                Type;                                              // 0x000D(0x0001)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_E[0x2];                                        // 0x000E(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FManaAudioTrackInfo;
 
 // ScriptStruct CriWareRuntime.ManaVideoTrackInfo
 // 0x001C (0x001C - 0x0000)
@@ -987,6 +1037,7 @@ public:
 	EManaMovieType                                Type;                                              // 0x0019(0x0001)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1A[0x2];                                       // 0x001A(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FManaVideoTrackInfo;
 
 // ScriptStruct CriWareRuntime.AtomCategoryInfoParam
 // 0x0020 (0x0020 - 0x0000)
@@ -1000,5 +1051,7 @@ public:
 	bool                                          IsPaused;                                          // 0x001C(0x0001)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAtomCategoryInfoParam;
 
-SDK_NAMESPACE_END
+}
+

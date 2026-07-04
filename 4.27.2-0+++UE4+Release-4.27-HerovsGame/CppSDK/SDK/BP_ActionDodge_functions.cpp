@@ -14,7 +14,8 @@
 #include "BP_ActionDodge_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDodge.BP_ActionDodge_C.ExecuteUbergraph_BP_ActionDodge
 // (Final, UbergraphFunction, HasDefaults)
@@ -159,5 +160,5 @@ void UBP_ActionDodge_C::UpdateDirection()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

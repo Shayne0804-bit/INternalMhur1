@@ -16,7 +16,8 @@
 #include "VariantManagerContent_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class VariantManagerContent.LevelVariantSets
 // 0x0068 (0x0090 - 0x0028)
@@ -46,6 +47,7 @@ public:
 		return GetDefaultObjImpl<ULevelVariantSets>();
 	}
 };
+DUMPER7_ASSERTS_ULevelVariantSets;
 
 // Class VariantManagerContent.LevelVariantSetsActor
 // 0x0068 (0x0288 - 0x0220)
@@ -75,6 +77,7 @@ public:
 		return GetDefaultObjImpl<ALevelVariantSetsActor>();
 	}
 };
+DUMPER7_ASSERTS_ALevelVariantSetsActor;
 
 // Class VariantManagerContent.LevelVariantSetsFunctionDirector
 // 0x0018 (0x0040 - 0x0028)
@@ -97,6 +100,7 @@ public:
 		return GetDefaultObjImpl<ULevelVariantSetsFunctionDirector>();
 	}
 };
+DUMPER7_ASSERTS_ULevelVariantSetsFunctionDirector;
 
 // Class VariantManagerContent.PropertyValue
 // 0x0190 (0x01B8 - 0x0028)
@@ -137,6 +141,7 @@ public:
 		return GetDefaultObjImpl<UPropertyValue>();
 	}
 };
+DUMPER7_ASSERTS_UPropertyValue;
 
 // Class VariantManagerContent.PropertyValueTransform
 // 0x0000 (0x01B8 - 0x01B8)
@@ -156,6 +161,7 @@ public:
 		return GetDefaultObjImpl<UPropertyValueTransform>();
 	}
 };
+DUMPER7_ASSERTS_UPropertyValueTransform;
 
 // Class VariantManagerContent.PropertyValueVisibility
 // 0x0000 (0x01B8 - 0x01B8)
@@ -175,6 +181,7 @@ public:
 		return GetDefaultObjImpl<UPropertyValueVisibility>();
 	}
 };
+DUMPER7_ASSERTS_UPropertyValueVisibility;
 
 // Class VariantManagerContent.PropertyValueColor
 // 0x0000 (0x01B8 - 0x01B8)
@@ -194,6 +201,7 @@ public:
 		return GetDefaultObjImpl<UPropertyValueColor>();
 	}
 };
+DUMPER7_ASSERTS_UPropertyValueColor;
 
 // Class VariantManagerContent.PropertyValueMaterial
 // 0x0000 (0x01B8 - 0x01B8)
@@ -213,6 +221,7 @@ public:
 		return GetDefaultObjImpl<UPropertyValueMaterial>();
 	}
 };
+DUMPER7_ASSERTS_UPropertyValueMaterial;
 
 // Class VariantManagerContent.PropertyValueOption
 // 0x0000 (0x01B8 - 0x01B8)
@@ -232,6 +241,7 @@ public:
 		return GetDefaultObjImpl<UPropertyValueOption>();
 	}
 };
+DUMPER7_ASSERTS_UPropertyValueOption;
 
 // Class VariantManagerContent.PropertyValueSoftObject
 // 0x0000 (0x01B8 - 0x01B8)
@@ -251,6 +261,7 @@ public:
 		return GetDefaultObjImpl<UPropertyValueSoftObject>();
 	}
 };
+DUMPER7_ASSERTS_UPropertyValueSoftObject;
 
 // Class VariantManagerContent.SwitchActor
 // 0x0028 (0x0248 - 0x0220)
@@ -282,6 +293,7 @@ public:
 		return GetDefaultObjImpl<ASwitchActor>();
 	}
 };
+DUMPER7_ASSERTS_ASwitchActor;
 
 // Class VariantManagerContent.Variant
 // 0x0058 (0x0080 - 0x0028)
@@ -329,6 +341,7 @@ public:
 		return GetDefaultObjImpl<UVariant>();
 	}
 };
+DUMPER7_ASSERTS_UVariant;
 
 // Class VariantManagerContent.VariantObjectBinding
 // 0x0068 (0x0090 - 0x0028)
@@ -356,6 +369,7 @@ public:
 		return GetDefaultObjImpl<UVariantObjectBinding>();
 	}
 };
+DUMPER7_ASSERTS_UVariantObjectBinding;
 
 // Class VariantManagerContent.VariantSet
 // 0x0050 (0x0078 - 0x0028)
@@ -397,5 +411,7 @@ public:
 		return GetDefaultObjImpl<UVariantSet>();
 	}
 };
+DUMPER7_ASSERTS_UVariantSet;
 
-SDK_NAMESPACE_END
+}
+

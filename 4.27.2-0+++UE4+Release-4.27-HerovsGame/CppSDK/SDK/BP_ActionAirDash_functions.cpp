@@ -14,7 +14,8 @@
 #include "BP_ActionAirDash_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionAirDash.BP_ActionAirDash_C.ExecuteUbergraph_BP_ActionAirDash
 // (Final, UbergraphFunction)
@@ -264,5 +265,5 @@ bool UBP_ActionAirDash_C::BP_IsEnableShiftAction(const class FName& nextAction) 
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

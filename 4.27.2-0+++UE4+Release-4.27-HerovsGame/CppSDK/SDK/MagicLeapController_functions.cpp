@@ -14,7 +14,8 @@
 #include "MagicLeapController_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function MagicLeapController.MagicLeapControllerFunctionLibrary.GetControllerMapping
 // (Final, Native, Static, Public, HasOutParams, BlueprintCallable)
@@ -522,5 +523,5 @@ bool UMagicLeapControllerFunctionLibrary::SetMotionSourceForHand(EControllerHand
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

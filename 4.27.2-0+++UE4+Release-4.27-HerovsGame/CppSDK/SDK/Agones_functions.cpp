@@ -14,7 +14,8 @@
 #include "Agones_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function Agones.AgonesSubsystem.Get
 // (Final, Native, Static, Public, BlueprintCallable, BlueprintPure)
@@ -835,5 +836,5 @@ void UAgonesSubsystem::WatchGameServer(TDelegate<void(const struct FGameServerRe
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

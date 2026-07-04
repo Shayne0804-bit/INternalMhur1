@@ -14,7 +14,8 @@
 #include "BP_ActionDamageStandUp_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageStandUp.BP_ActionDamageStandUp_C.ExecuteUbergraph_BP_ActionDamageStandUp
 // (Final, UbergraphFunction, HasDefaults)
@@ -138,5 +139,5 @@ void UBP_ActionDamageStandUp_C::DecideAnimationId(EAnimationId* animationId)
 		*animationId = Parms.animationId;
 }
 
+}
 
-SDK_NAMESPACE_END

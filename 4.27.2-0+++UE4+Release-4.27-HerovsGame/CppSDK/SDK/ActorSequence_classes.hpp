@@ -16,7 +16,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class ActorSequence.ActorSequence
 // 0x0028 (0x0088 - 0x0060)
@@ -40,6 +41,7 @@ public:
 		return GetDefaultObjImpl<UActorSequence>();
 	}
 };
+DUMPER7_ASSERTS_UActorSequence;
 
 // Class ActorSequence.ActorSequenceComponent
 // 0x0028 (0x00D8 - 0x00B0)
@@ -65,6 +67,7 @@ public:
 		return GetDefaultObjImpl<UActorSequenceComponent>();
 	}
 };
+DUMPER7_ASSERTS_UActorSequenceComponent;
 
 // Class ActorSequence.ActorSequencePlayer
 // 0x0000 (0x04E8 - 0x04E8)
@@ -84,5 +87,7 @@ public:
 		return GetDefaultObjImpl<UActorSequencePlayer>();
 	}
 };
+DUMPER7_ASSERTS_UActorSequencePlayer;
 
-SDK_NAMESPACE_END
+}
+

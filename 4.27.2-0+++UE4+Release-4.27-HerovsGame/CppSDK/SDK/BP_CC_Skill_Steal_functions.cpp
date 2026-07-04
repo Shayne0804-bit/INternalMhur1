@@ -14,7 +14,8 @@
 #include "BP_CC_Skill_Steal_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Skill_Steal.BP_CC_Skill_Steal_C.ExecuteUbergraph_BP_CC_Skill_Steal
 // (Final, UbergraphFunction)
@@ -91,5 +92,5 @@ void UBP_CC_Skill_Steal_C::BP_OnBeginCondition()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

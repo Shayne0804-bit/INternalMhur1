@@ -14,7 +14,8 @@
 #include "GeometryCollectionEngine_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function GeometryCollectionEngine.ChaosDestructionListener.AddChaosSolverActor
 // (Final, Native, Public, BlueprintCallable)
@@ -623,5 +624,5 @@ void UStaticMeshSimulationComponent::ReceivePhysicsCollision(const struct FChaos
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -14,7 +14,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_NLP_Test.BP_NLP_Test_C
 // 0x0008 (0x0290 - 0x0288)
@@ -41,5 +42,7 @@ public:
 		return GetDefaultObjImpl<ABP_NLP_Test_C>();
 	}
 };
+DUMPER7_ASSERTS_ABP_NLP_Test_C;
 
-SDK_NAMESPACE_END
+}
+

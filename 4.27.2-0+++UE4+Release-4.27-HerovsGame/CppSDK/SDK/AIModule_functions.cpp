@@ -14,7 +14,8 @@
 #include "AIModule_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function AIModule.AIAsyncTaskBlueprintProxy.OnMoveCompleted
 // (Final, Native, Public)
@@ -5765,5 +5766,5 @@ float UPawnSensingComponent::GetPeripheralVisionCosine() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

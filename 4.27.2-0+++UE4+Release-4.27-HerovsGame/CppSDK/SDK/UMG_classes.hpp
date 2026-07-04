@@ -23,7 +23,8 @@
 #include "MovieScene_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class UMG.Visual
 // 0x0000 (0x0028 - 0x0028)
@@ -43,6 +44,7 @@ public:
 		return GetDefaultObjImpl<UVisual>();
 	}
 };
+DUMPER7_ASSERTS_UVisual;
 
 // Class UMG.PanelSlot
 // 0x0010 (0x0038 - 0x0028)
@@ -66,6 +68,7 @@ public:
 		return GetDefaultObjImpl<UPanelSlot>();
 	}
 };
+DUMPER7_ASSERTS_UPanelSlot;
 
 // Class UMG.Widget
 // 0x00E0 (0x0108 - 0x0028)
@@ -165,11 +168,12 @@ public:
 		return GetDefaultObjImpl<UWidget>();
 	}
 };
+DUMPER7_ASSERTS_UWidget;
 
 // Class UMG.EditableTextBox
 // 0x0CF8 (0x0E00 - 0x0108)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) UEditableTextBox : public UWidget
+class alignas(0x10) UEditableTextBox : public UWidget
 {
 public:
 	class FText                                   Text;                                              // 0x0108(0x0018)(Edit, NativeAccessSpecifierPublic)
@@ -232,6 +236,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_UEditableTextBox;
 
 // Class UMG.UserWidget
 // 0x0170 (0x0278 - 0x0108)
@@ -375,6 +380,7 @@ public:
 		return GetDefaultObjImpl<UUserWidget>();
 	}
 };
+DUMPER7_ASSERTS_UUserWidget;
 
 // Class UMG.MovieSceneMarginSection
 // 0x0288 (0x0370 - 0x00E8)
@@ -401,6 +407,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneMarginSection>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneMarginSection;
 
 // Class UMG.ListViewBase
 // 0x0110 (0x0218 - 0x0108)
@@ -445,6 +452,7 @@ public:
 		return GetDefaultObjImpl<UListViewBase>();
 	}
 };
+DUMPER7_ASSERTS_UListViewBase;
 
 // Class UMG.ListView
 // 0x0150 (0x0368 - 0x0218)
@@ -510,6 +518,7 @@ public:
 		return GetDefaultObjImpl<UListView>();
 	}
 };
+DUMPER7_ASSERTS_UListView;
 
 // Class UMG.TextLayoutWidget
 // 0x0020 (0x0128 - 0x0108)
@@ -542,6 +551,7 @@ public:
 		return GetDefaultObjImpl<UTextLayoutWidget>();
 	}
 };
+DUMPER7_ASSERTS_UTextLayoutWidget;
 
 // Class UMG.PropertyBinding
 // 0x0038 (0x0060 - 0x0028)
@@ -566,6 +576,7 @@ public:
 		return GetDefaultObjImpl<UPropertyBinding>();
 	}
 };
+DUMPER7_ASSERTS_UPropertyBinding;
 
 // Class UMG.FloatBinding
 // 0x0000 (0x0060 - 0x0060)
@@ -588,11 +599,12 @@ public:
 		return GetDefaultObjImpl<UFloatBinding>();
 	}
 };
+DUMPER7_ASSERTS_UFloatBinding;
 
 // Class UMG.MultiLineEditableText
 // 0x0448 (0x0570 - 0x0128)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) UMultiLineEditableText : public UTextLayoutWidget
+class alignas(0x10) UMultiLineEditableText : public UTextLayoutWidget
 {
 public:
 	class FText                                   Text;                                              // 0x0128(0x0018)(Edit, NativeAccessSpecifierPublic)
@@ -640,6 +652,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_UMultiLineEditableText;
 
 // Class UMG.ButtonSlot
 // 0x0028 (0x0060 - 0x0038)
@@ -670,6 +683,7 @@ public:
 		return GetDefaultObjImpl<UButtonSlot>();
 	}
 };
+DUMPER7_ASSERTS_UButtonSlot;
 
 // Class UMG.PanelWidget
 // 0x0018 (0x0120 - 0x0108)
@@ -706,6 +720,7 @@ public:
 		return GetDefaultObjImpl<UPanelWidget>();
 	}
 };
+DUMPER7_ASSERTS_UPanelWidget;
 
 // Class UMG.CanvasPanel
 // 0x0010 (0x0130 - 0x0120)
@@ -731,6 +746,7 @@ public:
 		return GetDefaultObjImpl<UCanvasPanel>();
 	}
 };
+DUMPER7_ASSERTS_UCanvasPanel;
 
 // Class UMG.ContentWidget
 // 0x0000 (0x0120 - 0x0120)
@@ -756,6 +772,7 @@ public:
 		return GetDefaultObjImpl<UContentWidget>();
 	}
 };
+DUMPER7_ASSERTS_UContentWidget;
 
 // Class UMG.SafeZone
 // 0x0018 (0x0138 - 0x0120)
@@ -785,6 +802,7 @@ public:
 		return GetDefaultObjImpl<USafeZone>();
 	}
 };
+DUMPER7_ASSERTS_USafeZone;
 
 // Class UMG.Border
 // 0x01A0 (0x02C0 - 0x0120)
@@ -839,6 +857,7 @@ public:
 		return GetDefaultObjImpl<UBorder>();
 	}
 };
+DUMPER7_ASSERTS_UBorder;
 
 // Class UMG.ScaleBox
 // 0x0020 (0x0140 - 0x0120)
@@ -872,6 +891,7 @@ public:
 		return GetDefaultObjImpl<UScaleBox>();
 	}
 };
+DUMPER7_ASSERTS_UScaleBox;
 
 // Class UMG.InvalidationBox
 // 0x0018 (0x0138 - 0x0120)
@@ -902,6 +922,7 @@ public:
 		return GetDefaultObjImpl<UInvalidationBox>();
 	}
 };
+DUMPER7_ASSERTS_UInvalidationBox;
 
 // Class UMG.WrapBox
 // 0x0028 (0x0148 - 0x0120)
@@ -934,11 +955,12 @@ public:
 		return GetDefaultObjImpl<UWrapBox>();
 	}
 };
+DUMPER7_ASSERTS_UWrapBox;
 
 // Class UMG.ScrollBox
 // 0x0B20 (0x0C40 - 0x0120)
 #pragma pack(push, 0x1)
-class SDK_ALIGN(0x10) UScrollBox : public UPanelWidget
+class alignas(0x10) UScrollBox : public UPanelWidget
 {
 public:
 	struct FScrollBoxStyle                        WidgetStyle;                                       // 0x0120(0x0350)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
@@ -1001,6 +1023,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_UScrollBox;
 
 // Class UMG.ComboBoxString
 // 0x12C8 (0x13D0 - 0x0108)
@@ -1057,6 +1080,7 @@ public:
 		return GetDefaultObjImpl<UComboBoxString>();
 	}
 };
+DUMPER7_ASSERTS_UComboBoxString;
 
 // Class UMG.WidgetAnimationPlayCallbackProxy
 // 0x0020 (0x0048 - 0x0028)
@@ -1084,6 +1108,7 @@ public:
 		return GetDefaultObjImpl<UWidgetAnimationPlayCallbackProxy>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetAnimationPlayCallbackProxy;
 
 // Class UMG.TileView
 // 0x0020 (0x0388 - 0x0368)
@@ -1117,6 +1142,7 @@ public:
 		return GetDefaultObjImpl<UTileView>();
 	}
 };
+DUMPER7_ASSERTS_UTileView;
 
 // Class UMG.DynamicEntryBoxBase
 // 0x00D0 (0x01D8 - 0x0108)
@@ -1158,6 +1184,7 @@ public:
 		return GetDefaultObjImpl<UDynamicEntryBoxBase>();
 	}
 };
+DUMPER7_ASSERTS_UDynamicEntryBoxBase;
 
 // Class UMG.DynamicEntryBox
 // 0x0008 (0x01E0 - 0x01D8)
@@ -1186,6 +1213,7 @@ public:
 		return GetDefaultObjImpl<UDynamicEntryBox>();
 	}
 };
+DUMPER7_ASSERTS_UDynamicEntryBox;
 
 // Class UMG.RichTextBlockDecorator
 // 0x0008 (0x0030 - 0x0028)
@@ -1208,6 +1236,7 @@ public:
 		return GetDefaultObjImpl<URichTextBlockDecorator>();
 	}
 };
+DUMPER7_ASSERTS_URichTextBlockDecorator;
 
 // Class UMG.EditableText
 // 0x0448 (0x0550 - 0x0108)
@@ -1271,6 +1300,7 @@ public:
 		return GetDefaultObjImpl<UEditableText>();
 	}
 };
+DUMPER7_ASSERTS_UEditableText;
 
 // Class UMG.RichTextBlockImageDecorator
 // 0x0008 (0x0038 - 0x0030)
@@ -1293,6 +1323,7 @@ public:
 		return GetDefaultObjImpl<URichTextBlockImageDecorator>();
 	}
 };
+DUMPER7_ASSERTS_URichTextBlockImageDecorator;
 
 // Class UMG.TextBlock
 // 0x01C8 (0x02F0 - 0x0128)
@@ -1345,6 +1376,7 @@ public:
 		return GetDefaultObjImpl<UTextBlock>();
 	}
 };
+DUMPER7_ASSERTS_UTextBlock;
 
 // Class UMG.AsyncTaskDownloadImage
 // 0x0020 (0x0050 - 0x0030)
@@ -1371,6 +1403,7 @@ public:
 		return GetDefaultObjImpl<UAsyncTaskDownloadImage>();
 	}
 };
+DUMPER7_ASSERTS_UAsyncTaskDownloadImage;
 
 // Class UMG.BackgroundBlur
 // 0x0110 (0x0230 - 0x0120)
@@ -1414,6 +1447,7 @@ public:
 		return GetDefaultObjImpl<UBackgroundBlur>();
 	}
 };
+DUMPER7_ASSERTS_UBackgroundBlur;
 
 // Class UMG.BackgroundBlurSlot
 // 0x0028 (0x0060 - 0x0038)
@@ -1444,6 +1478,7 @@ public:
 		return GetDefaultObjImpl<UBackgroundBlurSlot>();
 	}
 };
+DUMPER7_ASSERTS_UBackgroundBlurSlot;
 
 // Class UMG.BoolBinding
 // 0x0000 (0x0060 - 0x0060)
@@ -1466,6 +1501,7 @@ public:
 		return GetDefaultObjImpl<UBoolBinding>();
 	}
 };
+DUMPER7_ASSERTS_UBoolBinding;
 
 // Class UMG.BorderSlot
 // 0x0028 (0x0060 - 0x0038)
@@ -1496,6 +1532,7 @@ public:
 		return GetDefaultObjImpl<UBorderSlot>();
 	}
 };
+DUMPER7_ASSERTS_UBorderSlot;
 
 // Class UMG.BrushBinding
 // 0x0008 (0x0068 - 0x0060)
@@ -1521,6 +1558,7 @@ public:
 		return GetDefaultObjImpl<UBrushBinding>();
 	}
 };
+DUMPER7_ASSERTS_UBrushBinding;
 
 // Class UMG.Button
 // 0x0440 (0x0560 - 0x0120)
@@ -1568,6 +1606,7 @@ public:
 		return GetDefaultObjImpl<UButton>();
 	}
 };
+DUMPER7_ASSERTS_UButton;
 
 // Class UMG.CanvasPanelSlot
 // 0x0038 (0x0070 - 0x0038)
@@ -1615,6 +1654,7 @@ public:
 		return GetDefaultObjImpl<UCanvasPanelSlot>();
 	}
 };
+DUMPER7_ASSERTS_UCanvasPanelSlot;
 
 // Class UMG.CheckBox
 // 0x08F0 (0x0A10 - 0x0120)
@@ -1674,6 +1714,7 @@ public:
 		return GetDefaultObjImpl<UCheckBox>();
 	}
 };
+DUMPER7_ASSERTS_UCheckBox;
 
 // Class UMG.CheckedStateBinding
 // 0x0008 (0x0068 - 0x0060)
@@ -1699,6 +1740,7 @@ public:
 		return GetDefaultObjImpl<UCheckedStateBinding>();
 	}
 };
+DUMPER7_ASSERTS_UCheckedStateBinding;
 
 // Class UMG.CircularThrobber
 // 0x0108 (0x0210 - 0x0108)
@@ -1733,6 +1775,7 @@ public:
 		return GetDefaultObjImpl<UCircularThrobber>();
 	}
 };
+DUMPER7_ASSERTS_UCircularThrobber;
 
 // Class UMG.ColorBinding
 // 0x0008 (0x0068 - 0x0060)
@@ -1759,6 +1802,7 @@ public:
 		return GetDefaultObjImpl<UColorBinding>();
 	}
 };
+DUMPER7_ASSERTS_UColorBinding;
 
 // Class UMG.ComboBox
 // 0x0038 (0x0140 - 0x0108)
@@ -1784,6 +1828,7 @@ public:
 		return GetDefaultObjImpl<UComboBox>();
 	}
 };
+DUMPER7_ASSERTS_UComboBox;
 
 // Class UMG.DragDropOperation
 // 0x0060 (0x0088 - 0x0028)
@@ -1820,6 +1865,7 @@ public:
 		return GetDefaultObjImpl<UDragDropOperation>();
 	}
 };
+DUMPER7_ASSERTS_UDragDropOperation;
 
 // Class UMG.ExpandableArea
 // 0x0318 (0x0420 - 0x0108)
@@ -1860,6 +1906,7 @@ public:
 		return GetDefaultObjImpl<UExpandableArea>();
 	}
 };
+DUMPER7_ASSERTS_UExpandableArea;
 
 // Class UMG.GridPanel
 // 0x0030 (0x0150 - 0x0120)
@@ -1889,6 +1936,7 @@ public:
 		return GetDefaultObjImpl<UGridPanel>();
 	}
 };
+DUMPER7_ASSERTS_UGridPanel;
 
 // Class UMG.GridSlot
 // 0x0038 (0x0070 - 0x0038)
@@ -1932,6 +1980,7 @@ public:
 		return GetDefaultObjImpl<UGridSlot>();
 	}
 };
+DUMPER7_ASSERTS_UGridSlot;
 
 // Class UMG.HorizontalBox
 // 0x0010 (0x0130 - 0x0120)
@@ -1957,6 +2006,7 @@ public:
 		return GetDefaultObjImpl<UHorizontalBox>();
 	}
 };
+DUMPER7_ASSERTS_UHorizontalBox;
 
 // Class UMG.HorizontalBoxSlot
 // 0x0028 (0x0060 - 0x0038)
@@ -1992,6 +2042,7 @@ public:
 		return GetDefaultObjImpl<UHorizontalBoxSlot>();
 	}
 };
+DUMPER7_ASSERTS_UHorizontalBoxSlot;
 
 // Class UMG.Image
 // 0x0158 (0x0260 - 0x0108)
@@ -2038,6 +2089,7 @@ public:
 		return GetDefaultObjImpl<UImage>();
 	}
 };
+DUMPER7_ASSERTS_UImage;
 
 // Class UMG.InputKeySelector
 // 0x0808 (0x0910 - 0x0108)
@@ -2086,6 +2138,7 @@ public:
 		return GetDefaultObjImpl<UInputKeySelector>();
 	}
 };
+DUMPER7_ASSERTS_UInputKeySelector;
 
 // Class UMG.Int32Binding
 // 0x0000 (0x0060 - 0x0060)
@@ -2108,6 +2161,7 @@ public:
 		return GetDefaultObjImpl<UInt32Binding>();
 	}
 };
+DUMPER7_ASSERTS_UInt32Binding;
 
 // Class UMG.UserListEntry
 // 0x0000 (0x0000 - 0x0000)
@@ -2141,6 +2195,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IUserListEntry;
 
 // Class UMG.UserListEntryLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -2165,6 +2220,7 @@ public:
 		return GetDefaultObjImpl<UUserListEntryLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UUserListEntryLibrary;
 
 // Class UMG.UserObjectListEntry
 // 0x0000 (0x0000 - 0x0000)
@@ -2196,6 +2252,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IUserObjectListEntry;
 
 // Class UMG.UserObjectListEntryLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -2218,6 +2275,7 @@ public:
 		return GetDefaultObjImpl<UUserObjectListEntryLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UUserObjectListEntryLibrary;
 
 // Class UMG.ListViewDesignerPreviewItem
 // 0x0000 (0x0028 - 0x0028)
@@ -2237,6 +2295,7 @@ public:
 		return GetDefaultObjImpl<UListViewDesignerPreviewItem>();
 	}
 };
+DUMPER7_ASSERTS_UListViewDesignerPreviewItem;
 
 // Class UMG.MenuAnchor
 // 0x0050 (0x0170 - 0x0120)
@@ -2280,6 +2339,7 @@ public:
 		return GetDefaultObjImpl<UMenuAnchor>();
 	}
 };
+DUMPER7_ASSERTS_UMenuAnchor;
 
 // Class UMG.MouseCursorBinding
 // 0x0000 (0x0060 - 0x0060)
@@ -2302,6 +2362,7 @@ public:
 		return GetDefaultObjImpl<UMouseCursorBinding>();
 	}
 };
+DUMPER7_ASSERTS_UMouseCursorBinding;
 
 // Class UMG.MovieScene2DTransformPropertySystem
 // 0x0000 (0x0058 - 0x0058)
@@ -2321,6 +2382,7 @@ public:
 		return GetDefaultObjImpl<UMovieScene2DTransformPropertySystem>();
 	}
 };
+DUMPER7_ASSERTS_UMovieScene2DTransformPropertySystem;
 
 // Class UMG.MovieScene2DTransformSection
 // 0x0470 (0x0558 - 0x00E8)
@@ -2349,6 +2411,7 @@ public:
 		return GetDefaultObjImpl<UMovieScene2DTransformSection>();
 	}
 };
+DUMPER7_ASSERTS_UMovieScene2DTransformSection;
 
 // Class UMG.MovieScene2DTransformTrack
 // 0x0000 (0x00C0 - 0x00C0)
@@ -2368,6 +2431,7 @@ public:
 		return GetDefaultObjImpl<UMovieScene2DTransformTrack>();
 	}
 };
+DUMPER7_ASSERTS_UMovieScene2DTransformTrack;
 
 // Class UMG.MovieSceneMarginPropertySystem
 // 0x0000 (0x0058 - 0x0058)
@@ -2387,6 +2451,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneMarginPropertySystem>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneMarginPropertySystem;
 
 // Class UMG.MovieSceneMarginTrack
 // 0x0000 (0x00C0 - 0x00C0)
@@ -2406,6 +2471,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneMarginTrack>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneMarginTrack;
 
 // Class UMG.MovieSceneWidgetMaterialTrack
 // 0x0020 (0x00C0 - 0x00A0)
@@ -2430,6 +2496,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneWidgetMaterialTrack>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneWidgetMaterialTrack;
 
 // Class UMG.MultiLineEditableTextBox
 // 0x1018 (0x1140 - 0x0128)
@@ -2481,6 +2548,7 @@ public:
 		return GetDefaultObjImpl<UMultiLineEditableTextBox>();
 	}
 };
+DUMPER7_ASSERTS_UMultiLineEditableTextBox;
 
 // Class UMG.NamedSlot
 // 0x0010 (0x0130 - 0x0120)
@@ -2503,6 +2571,7 @@ public:
 		return GetDefaultObjImpl<UNamedSlot>();
 	}
 };
+DUMPER7_ASSERTS_UNamedSlot;
 
 // Class UMG.NamedSlotInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -2531,6 +2600,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_INamedSlotInterface;
 
 // Class UMG.NativeWidgetHost
 // 0x0010 (0x0118 - 0x0108)
@@ -2553,6 +2623,7 @@ public:
 		return GetDefaultObjImpl<UNativeWidgetHost>();
 	}
 };
+DUMPER7_ASSERTS_UNativeWidgetHost;
 
 // Class UMG.Overlay
 // 0x0010 (0x0130 - 0x0120)
@@ -2578,6 +2649,7 @@ public:
 		return GetDefaultObjImpl<UOverlay>();
 	}
 };
+DUMPER7_ASSERTS_UOverlay;
 
 // Class UMG.OverlaySlot
 // 0x0020 (0x0058 - 0x0038)
@@ -2609,6 +2681,7 @@ public:
 		return GetDefaultObjImpl<UOverlaySlot>();
 	}
 };
+DUMPER7_ASSERTS_UOverlaySlot;
 
 // Class UMG.ProgressBar
 // 0x02F8 (0x0400 - 0x0108)
@@ -2650,6 +2723,7 @@ public:
 		return GetDefaultObjImpl<UProgressBar>();
 	}
 };
+DUMPER7_ASSERTS_UProgressBar;
 
 // Class UMG.RetainerBox
 // 0x0030 (0x0150 - 0x0120)
@@ -2690,6 +2764,7 @@ public:
 		return GetDefaultObjImpl<URetainerBox>();
 	}
 };
+DUMPER7_ASSERTS_URetainerBox;
 
 // Class UMG.RichTextBlock
 // 0x0738 (0x0860 - 0x0128)
@@ -2744,6 +2819,7 @@ public:
 		return GetDefaultObjImpl<URichTextBlock>();
 	}
 };
+DUMPER7_ASSERTS_URichTextBlock;
 
 // Class UMG.SafeZoneSlot
 // 0x0028 (0x0060 - 0x0038)
@@ -2772,6 +2848,7 @@ public:
 		return GetDefaultObjImpl<USafeZoneSlot>();
 	}
 };
+DUMPER7_ASSERTS_USafeZoneSlot;
 
 // Class UMG.ScaleBoxSlot
 // 0x0028 (0x0060 - 0x0038)
@@ -2802,6 +2879,7 @@ public:
 		return GetDefaultObjImpl<UScaleBoxSlot>();
 	}
 };
+DUMPER7_ASSERTS_UScaleBoxSlot;
 
 // Class UMG.ScrollBar
 // 0x07A8 (0x08B0 - 0x0108)
@@ -2836,6 +2914,7 @@ public:
 		return GetDefaultObjImpl<UScrollBar>();
 	}
 };
+DUMPER7_ASSERTS_UScrollBar;
 
 // Class UMG.ScrollBoxSlot
 // 0x0020 (0x0058 - 0x0038)
@@ -2866,6 +2945,7 @@ public:
 		return GetDefaultObjImpl<UScrollBoxSlot>();
 	}
 };
+DUMPER7_ASSERTS_UScrollBoxSlot;
 
 // Class UMG.SizeBox
 // 0x0038 (0x0158 - 0x0120)
@@ -2923,6 +3003,7 @@ public:
 		return GetDefaultObjImpl<USizeBox>();
 	}
 };
+DUMPER7_ASSERTS_USizeBox;
 
 // Class UMG.SizeBoxSlot
 // 0x0028 (0x0060 - 0x0038)
@@ -2954,6 +3035,7 @@ public:
 		return GetDefaultObjImpl<USizeBoxSlot>();
 	}
 };
+DUMPER7_ASSERTS_USizeBoxSlot;
 
 // Class UMG.SlateBlueprintLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -2991,6 +3073,7 @@ public:
 		return GetDefaultObjImpl<USlateBlueprintLibrary>();
 	}
 };
+DUMPER7_ASSERTS_USlateBlueprintLibrary;
 
 // Class UMG.SlateVectorArtData
 // 0x0038 (0x0060 - 0x0028)
@@ -3017,6 +3100,7 @@ public:
 		return GetDefaultObjImpl<USlateVectorArtData>();
 	}
 };
+DUMPER7_ASSERTS_USlateVectorArtData;
 
 // Class UMG.SlateAccessibleWidgetData
 // 0x0058 (0x0080 - 0x0028)
@@ -3046,6 +3130,7 @@ public:
 		return GetDefaultObjImpl<USlateAccessibleWidgetData>();
 	}
 };
+DUMPER7_ASSERTS_USlateAccessibleWidgetData;
 
 // Class UMG.Slider
 // 0x05B8 (0x06C0 - 0x0108)
@@ -3103,6 +3188,7 @@ public:
 		return GetDefaultObjImpl<USlider>();
 	}
 };
+DUMPER7_ASSERTS_USlider;
 
 // Class UMG.Spacer
 // 0x0018 (0x0120 - 0x0108)
@@ -3129,6 +3215,7 @@ public:
 		return GetDefaultObjImpl<USpacer>();
 	}
 };
+DUMPER7_ASSERTS_USpacer;
 
 // Class UMG.SpinBox
 // 0x0598 (0x06A0 - 0x0108)
@@ -3210,6 +3297,7 @@ public:
 		return GetDefaultObjImpl<USpinBox>();
 	}
 };
+DUMPER7_ASSERTS_USpinBox;
 
 // Class UMG.TextBinding
 // 0x0008 (0x0068 - 0x0060)
@@ -3236,6 +3324,7 @@ public:
 		return GetDefaultObjImpl<UTextBinding>();
 	}
 };
+DUMPER7_ASSERTS_UTextBinding;
 
 // Class UMG.Throbber
 // 0x00F8 (0x0200 - 0x0108)
@@ -3272,6 +3361,7 @@ public:
 		return GetDefaultObjImpl<UThrobber>();
 	}
 };
+DUMPER7_ASSERTS_UThrobber;
 
 // Class UMG.TreeView
 // 0x0058 (0x03C0 - 0x0368)
@@ -3302,6 +3392,7 @@ public:
 		return GetDefaultObjImpl<UTreeView>();
 	}
 };
+DUMPER7_ASSERTS_UTreeView;
 
 // Class UMG.UMGSequencePlayer
 // 0x03A0 (0x03C8 - 0x0028)
@@ -3333,6 +3424,7 @@ public:
 		return GetDefaultObjImpl<UUMGSequencePlayer>();
 	}
 };
+DUMPER7_ASSERTS_UUMGSequencePlayer;
 
 // Class UMG.UMGSequenceTickManager
 // 0x00F8 (0x0120 - 0x0028)
@@ -3357,6 +3449,7 @@ public:
 		return GetDefaultObjImpl<UUMGSequenceTickManager>();
 	}
 };
+DUMPER7_ASSERTS_UUMGSequenceTickManager;
 
 // Class UMG.UniformGridPanel
 // 0x0028 (0x0148 - 0x0120)
@@ -3388,6 +3481,7 @@ public:
 		return GetDefaultObjImpl<UUniformGridPanel>();
 	}
 };
+DUMPER7_ASSERTS_UUniformGridPanel;
 
 // Class UMG.UniformGridSlot
 // 0x0018 (0x0050 - 0x0038)
@@ -3423,6 +3517,7 @@ public:
 		return GetDefaultObjImpl<UUniformGridSlot>();
 	}
 };
+DUMPER7_ASSERTS_UUniformGridSlot;
 
 // Class UMG.VerticalBox
 // 0x0010 (0x0130 - 0x0120)
@@ -3448,6 +3543,7 @@ public:
 		return GetDefaultObjImpl<UVerticalBox>();
 	}
 };
+DUMPER7_ASSERTS_UVerticalBox;
 
 // Class UMG.VerticalBoxSlot
 // 0x0030 (0x0068 - 0x0038)
@@ -3483,6 +3579,7 @@ public:
 		return GetDefaultObjImpl<UVerticalBoxSlot>();
 	}
 };
+DUMPER7_ASSERTS_UVerticalBoxSlot;
 
 // Class UMG.Viewport
 // 0x0048 (0x0168 - 0x0120)
@@ -3515,6 +3612,7 @@ public:
 		return GetDefaultObjImpl<UViewport>();
 	}
 };
+DUMPER7_ASSERTS_UViewport;
 
 // Class UMG.VisibilityBinding
 // 0x0000 (0x0060 - 0x0060)
@@ -3537,6 +3635,7 @@ public:
 		return GetDefaultObjImpl<UVisibilityBinding>();
 	}
 };
+DUMPER7_ASSERTS_UVisibilityBinding;
 
 // Class UMG.WidgetAnimation
 // 0x0030 (0x0090 - 0x0060)
@@ -3574,6 +3673,7 @@ public:
 		return GetDefaultObjImpl<UWidgetAnimation>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetAnimation;
 
 // Class UMG.WidgetAnimationDelegateBinding
 // 0x0010 (0x0038 - 0x0028)
@@ -3596,6 +3696,7 @@ public:
 		return GetDefaultObjImpl<UWidgetAnimationDelegateBinding>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetAnimationDelegateBinding;
 
 // Class UMG.WidgetBinding
 // 0x0000 (0x0060 - 0x0060)
@@ -3618,6 +3719,7 @@ public:
 		return GetDefaultObjImpl<UWidgetBinding>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetBinding;
 
 // Class UMG.WidgetBlueprintGeneratedClass
 // 0x0040 (0x0368 - 0x0328)
@@ -3645,6 +3747,7 @@ public:
 		return GetDefaultObjImpl<UWidgetBlueprintGeneratedClass>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetBlueprintGeneratedClass;
 
 // Class UMG.WidgetBlueprintLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -3721,6 +3824,7 @@ public:
 		return GetDefaultObjImpl<UWidgetBlueprintLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetBlueprintLibrary;
 
 // Class UMG.WidgetComponent
 // 0x0130 (0x05B0 - 0x0480)
@@ -3833,6 +3937,7 @@ public:
 		return GetDefaultObjImpl<UWidgetComponent>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetComponent;
 
 // Class UMG.WidgetInteractionComponent
 // 0x01F0 (0x03F0 - 0x0200)
@@ -3896,6 +4001,7 @@ public:
 		return GetDefaultObjImpl<UWidgetInteractionComponent>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetInteractionComponent;
 
 // Class UMG.WidgetLayoutLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -3939,6 +4045,7 @@ public:
 		return GetDefaultObjImpl<UWidgetLayoutLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetLayoutLibrary;
 
 // Class UMG.WidgetNavigation
 // 0x00D8 (0x0100 - 0x0028)
@@ -3966,6 +4073,7 @@ public:
 		return GetDefaultObjImpl<UWidgetNavigation>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetNavigation;
 
 // Class UMG.WidgetSwitcher
 // 0x0018 (0x0138 - 0x0120)
@@ -3998,6 +4106,7 @@ public:
 		return GetDefaultObjImpl<UWidgetSwitcher>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetSwitcher;
 
 // Class UMG.WidgetSwitcherSlot
 // 0x0020 (0x0058 - 0x0038)
@@ -4029,6 +4138,7 @@ public:
 		return GetDefaultObjImpl<UWidgetSwitcherSlot>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetSwitcherSlot;
 
 // Class UMG.WidgetTree
 // 0x0008 (0x0030 - 0x0028)
@@ -4051,6 +4161,7 @@ public:
 		return GetDefaultObjImpl<UWidgetTree>();
 	}
 };
+DUMPER7_ASSERTS_UWidgetTree;
 
 // Class UMG.WindowTitleBarArea
 // 0x0020 (0x0140 - 0x0120)
@@ -4080,6 +4191,7 @@ public:
 		return GetDefaultObjImpl<UWindowTitleBarArea>();
 	}
 };
+DUMPER7_ASSERTS_UWindowTitleBarArea;
 
 // Class UMG.WindowTitleBarAreaSlot
 // 0x0028 (0x0060 - 0x0038)
@@ -4110,6 +4222,7 @@ public:
 		return GetDefaultObjImpl<UWindowTitleBarAreaSlot>();
 	}
 };
+DUMPER7_ASSERTS_UWindowTitleBarAreaSlot;
 
 // Class UMG.WrapBoxSlot
 // 0x0028 (0x0060 - 0x0038)
@@ -4145,5 +4258,7 @@ public:
 		return GetDefaultObjImpl<UWrapBoxSlot>();
 	}
 };
+DUMPER7_ASSERTS_UWrapBoxSlot;
 
-SDK_NAMESPACE_END
+}
+

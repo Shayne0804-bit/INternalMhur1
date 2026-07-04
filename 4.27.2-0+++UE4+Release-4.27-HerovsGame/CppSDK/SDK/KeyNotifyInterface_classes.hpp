@@ -13,7 +13,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass KeyNotifyInterface.KeyNotifyInterface_C
 // 0x0000 (0x0000 - 0x0000)
@@ -52,5 +53,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IKeyNotifyInterface_C;
 
-SDK_NAMESPACE_END
+}
+

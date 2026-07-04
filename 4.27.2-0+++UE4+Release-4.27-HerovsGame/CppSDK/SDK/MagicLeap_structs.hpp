@@ -13,7 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum MagicLeap.PurchaseType
 // NumValues: 0x0004
@@ -140,6 +141,7 @@ public:
 	float                                         FrameInternalDurationCPUTimeMs;                    // 0x0014(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         FrameInternalDurationGPUTimeMs;                    // 0x0018(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapGraphicsClientPerformanceInfo;
 
 // ScriptStruct MagicLeap.MagicLeapRaycastQueryParams
 // 0x0038 (0x0038 - 0x0000)
@@ -156,6 +158,7 @@ public:
 	uint8                                         Pad_31[0x3];                                       // 0x0031(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         UserData;                                          // 0x0034(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapRaycastQueryParams;
 
 // ScriptStruct MagicLeap.MagicLeapMeshBlockInfo
 // 0x0048 (0x0048 - 0x0000)
@@ -171,6 +174,7 @@ public:
 	EMagicLeapMeshState                           BlockState;                                        // 0x0040(0x0001)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_41[0x7];                                       // 0x0041(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMagicLeapMeshBlockInfo;
 
 // ScriptStruct MagicLeap.PurchaseItemDetails
 // 0x0040 (0x0040 - 0x0000)
@@ -183,6 +187,7 @@ public:
 	EPurchaseType                                 Type;                                              // 0x0030(0x0001)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_31[0xF];                                       // 0x0031(0x000F)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPurchaseItemDetails;
 
 // ScriptStruct MagicLeap.PurchaseConfirmation
 // 0x0050 (0x0050 - 0x0000)
@@ -195,6 +200,7 @@ public:
 	EPurchaseType                                 Type;                                              // 0x0048(0x0001)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_49[0x7];                                       // 0x0049(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPurchaseConfirmation;
 
 // ScriptStruct MagicLeap.MagicLeapRaycastHitResult
 // 0x0024 (0x0024 - 0x0000)
@@ -208,6 +214,7 @@ public:
 	float                                         Confidence;                                        // 0x001C(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         UserData;                                          // 0x0020(0x0004)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapRaycastHitResult;
 
 // ScriptStruct MagicLeap.MagicLeapMeshBlockRequest
 // 0x0014 (0x0014 - 0x0000)
@@ -218,6 +225,7 @@ public:
 	EMagicLeapMeshLOD                             LevelOfDetail;                                     // 0x0010(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMagicLeapMeshBlockRequest;
 
 // ScriptStruct MagicLeap.MagicLeapTrackingMeshInfo
 // 0x0018 (0x0018 - 0x0000)
@@ -227,6 +235,7 @@ public:
 	struct FTimespan                              Timestamp;                                         // 0x0000(0x0008)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FMagicLeapMeshBlockInfo>        BlockData;                                         // 0x0008(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapTrackingMeshInfo;
 
 // ScriptStruct MagicLeap.MagicLeapHeadTrackingState
 // 0x0008 (0x0008 - 0x0000)
@@ -238,6 +247,7 @@ public:
 	uint8                                         Pad_2[0x2];                                        // 0x0002(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         Confidence;                                        // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapHeadTrackingState;
 
 // ScriptStruct MagicLeap.MagicLeapResult
 // 0x0018 (0x0018 - 0x0000)
@@ -248,5 +258,7 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 AdditionalInfo;                                    // 0x0008(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapResult;
 
-SDK_NAMESPACE_END
+}
+

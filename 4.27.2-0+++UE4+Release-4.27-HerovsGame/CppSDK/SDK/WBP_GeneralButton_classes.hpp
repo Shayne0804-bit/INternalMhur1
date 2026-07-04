@@ -13,7 +13,8 @@
 #include "UIFramework_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_GeneralButton.WBP_GeneralButton_C
 // 0x0050 (0x0560 - 0x0510)
@@ -45,5 +46,7 @@ public:
 		return GetDefaultObjImpl<UWBP_GeneralButton_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_GeneralButton_C;
 
-SDK_NAMESPACE_END
+}
+

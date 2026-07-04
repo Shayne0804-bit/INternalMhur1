@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamageFreeze.BP_ActionDamageFreeze_C.ExecuteUbergraph_BP_ActionDamageFreeze
 // 0x02F0 (0x02F0 - 0x0000)
@@ -42,6 +42,7 @@ public:
 	class APlayerStateBattle*                     CallFunc_BP_GetPlayerStateBattle_ReturnValue_1;    // 0x02E0(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterRollSlotUniqueSkillControlComponent* CallFunc_BP_GetCharacterRollSlotUniqueSkillControlComponent_ReturnValue_1; // 0x02E8(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageFreeze_C_ExecuteUbergraph_BP_ActionDamageFreeze;
 
 // Function BP_ActionDamageFreeze.BP_ActionDamageFreeze_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -50,6 +51,7 @@ struct BP_ActionDamageFreeze_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageFreeze_C_BP_OnBeginAction;
 
 // Function BP_ActionDamageFreeze.BP_ActionDamageFreeze_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -58,6 +60,7 @@ struct BP_ActionDamageFreeze_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageFreeze_C_BP_OnEndAction;
 
 // Function BP_ActionDamageFreeze.BP_ActionDamageFreeze_C.UpdateOnce
 // 0x00B8 (0x00B8 - 0x0000)
@@ -70,6 +73,7 @@ public:
 	struct FDamageInfo                            CallFunc_BP_GetDamageInfo_ReturnValue;             // 0x0018(0x0090)(ConstParm, NoDestructor)
 	struct FVector                                CallFunc_BP_GetDamageDirection_ReturnValue;        // 0x00A8(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageFreeze_C_UpdateOnce;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

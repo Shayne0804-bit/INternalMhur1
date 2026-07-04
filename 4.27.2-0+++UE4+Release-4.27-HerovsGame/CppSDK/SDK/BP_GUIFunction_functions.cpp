@@ -14,7 +14,8 @@
 #include "BP_GUIFunction_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_GUIFunction.BP_GUIFunction_C.OpenLevel
 // (Static, Public, HasOutParams, BlueprintCallable, BlueprintEvent)
@@ -228,5 +229,5 @@ void UBP_GUIFunction_C::Set_Master_Data_Name(const class FString& tableKey, int3
 	GetDefaultObj()->ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

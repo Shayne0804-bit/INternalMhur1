@@ -14,7 +14,8 @@
 #include "AndroidPermission_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function AndroidPermission.AndroidPermissionFunctionLibrary.AcquirePermissions
 // (Final, Native, Static, Public, HasOutParams, BlueprintCallable)
@@ -71,5 +72,5 @@ bool UAndroidPermissionFunctionLibrary::CheckPermission(const class FString& per
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

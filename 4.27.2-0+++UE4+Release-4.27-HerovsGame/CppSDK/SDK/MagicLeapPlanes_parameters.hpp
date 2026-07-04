@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function MagicLeapPlanes.MagicLeapPlanesComponent.RequestPlanesAsync
 // 0x0001 (0x0001 - 0x0000)
@@ -24,6 +24,7 @@ struct MagicLeapPlanesComponent_RequestPlanesAsync final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapPlanesComponent_RequestPlanesAsync;
 
 // Function MagicLeapPlanes.MagicLeapPlanesFunctionLibrary.AddPersistentQuery
 // 0x0014 (0x0014 - 0x0000)
@@ -34,6 +35,7 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FGuid                                  ReturnValue;                                       // 0x0004(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapPlanesFunctionLibrary_AddPersistentQuery;
 
 // Function MagicLeapPlanes.MagicLeapPlanesFunctionLibrary.CreateTracker
 // 0x0001 (0x0001 - 0x0000)
@@ -42,6 +44,7 @@ struct MagicLeapPlanesFunctionLibrary_CreateTracker final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapPlanesFunctionLibrary_CreateTracker;
 
 // Function MagicLeapPlanes.MagicLeapPlanesFunctionLibrary.DestroyTracker
 // 0x0001 (0x0001 - 0x0000)
@@ -50,6 +53,7 @@ struct MagicLeapPlanesFunctionLibrary_DestroyTracker final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapPlanesFunctionLibrary_DestroyTracker;
 
 // Function MagicLeapPlanes.MagicLeapPlanesFunctionLibrary.GetContentScale
 // 0x00A0 (0x00A0 - 0x0000)
@@ -61,6 +65,7 @@ public:
 	uint8                                         Pad_68[0x8];                                       // 0x0068(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FTransform                             ReturnValue;                                       // 0x0070(0x0030)(Parm, OutParm, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapPlanesFunctionLibrary_GetContentScale;
 
 // Function MagicLeapPlanes.MagicLeapPlanesFunctionLibrary.IsTrackerValid
 // 0x0001 (0x0001 - 0x0000)
@@ -69,6 +74,7 @@ struct MagicLeapPlanesFunctionLibrary_IsTrackerValid final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapPlanesFunctionLibrary_IsTrackerValid;
 
 // Function MagicLeapPlanes.MagicLeapPlanesFunctionLibrary.PlanesPersistentQueryBeginAsync
 // 0x0090 (0x0090 - 0x0000)
@@ -81,6 +87,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0080(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_81[0xF];                                       // 0x0081(0x000F)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapPlanesFunctionLibrary_PlanesPersistentQueryBeginAsync;
 
 // Function MagicLeapPlanes.MagicLeapPlanesFunctionLibrary.PlanesQueryBeginAsync
 // 0x0080 (0x0080 - 0x0000)
@@ -92,6 +99,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0070(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_71[0xF];                                       // 0x0071(0x000F)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapPlanesFunctionLibrary_PlanesQueryBeginAsync;
 
 // Function MagicLeapPlanes.MagicLeapPlanesFunctionLibrary.RemoveFlagsNotInQuery
 // 0x0030 (0x0030 - 0x0000)
@@ -102,6 +110,7 @@ public:
 	TArray<EMagicLeapPlaneQueryFlags>             InResultFlags;                                     // 0x0010(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<EMagicLeapPlaneQueryFlags>             OutFlags;                                          // 0x0020(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapPlanesFunctionLibrary_RemoveFlagsNotInQuery;
 
 // Function MagicLeapPlanes.MagicLeapPlanesFunctionLibrary.RemovePersistentQuery
 // 0x0014 (0x0014 - 0x0000)
@@ -112,6 +121,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x3];                                       // 0x0011(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapPlanesFunctionLibrary_RemovePersistentQuery;
 
 // Function MagicLeapPlanes.MagicLeapPlanesFunctionLibrary.ReorderPlaneFlags
 // 0x0030 (0x0030 - 0x0000)
@@ -122,6 +132,7 @@ public:
 	TArray<EMagicLeapPlaneQueryFlags>             InFlagsToReorder;                                  // 0x0010(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<EMagicLeapPlaneQueryFlags>             OutReorderedFlags;                                 // 0x0020(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapPlanesFunctionLibrary_ReorderPlaneFlags;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

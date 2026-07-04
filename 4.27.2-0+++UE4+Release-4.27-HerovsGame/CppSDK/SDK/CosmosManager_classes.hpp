@@ -14,7 +14,8 @@
 #include "CosmosApi_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class CosmosManager.CosmosManager
 // 0x11B8 (0x11E0 - 0x0028)
@@ -59,5 +60,7 @@ public:
 		return GetDefaultObjImpl<UCosmosManager>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosManager;
 
-SDK_NAMESPACE_END
+}
+

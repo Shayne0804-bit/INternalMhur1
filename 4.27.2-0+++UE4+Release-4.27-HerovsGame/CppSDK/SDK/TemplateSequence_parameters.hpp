@@ -13,8 +13,8 @@
 #include "MovieScene_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function TemplateSequence.TemplateSequenceActor.SetBinding
 // 0x0010 (0x0010 - 0x0000)
@@ -25,6 +25,7 @@ public:
 	bool                                          bOverridesDefault;                                 // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_TemplateSequenceActor_SetBinding;
 
 // Function TemplateSequence.TemplateSequenceActor.SetSequence
 // 0x0008 (0x0008 - 0x0000)
@@ -33,6 +34,7 @@ struct TemplateSequenceActor_SetSequence final
 public:
 	class UTemplateSequence*                      InSequence;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_TemplateSequenceActor_SetSequence;
 
 // Function TemplateSequence.TemplateSequenceActor.GetSequence
 // 0x0008 (0x0008 - 0x0000)
@@ -41,6 +43,7 @@ struct TemplateSequenceActor_GetSequence final
 public:
 	class UTemplateSequence*                      ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_TemplateSequenceActor_GetSequence;
 
 // Function TemplateSequence.TemplateSequenceActor.GetSequencePlayer
 // 0x0008 (0x0008 - 0x0000)
@@ -49,6 +52,7 @@ struct TemplateSequenceActor_GetSequencePlayer final
 public:
 	class UTemplateSequencePlayer*                ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_TemplateSequenceActor_GetSequencePlayer;
 
 // Function TemplateSequence.TemplateSequenceActor.LoadSequence
 // 0x0008 (0x0008 - 0x0000)
@@ -57,6 +61,7 @@ struct TemplateSequenceActor_LoadSequence final
 public:
 	class UTemplateSequence*                      ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_TemplateSequenceActor_LoadSequence;
 
 // Function TemplateSequence.TemplateSequencePlayer.CreateTemplateSequencePlayer
 // 0x0038 (0x0038 - 0x0000)
@@ -70,6 +75,7 @@ public:
 	class ATemplateSequenceActor*                 OutActor;                                          // 0x0028(0x0008)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UTemplateSequencePlayer*                ReturnValue;                                       // 0x0030(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_TemplateSequencePlayer_CreateTemplateSequencePlayer;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

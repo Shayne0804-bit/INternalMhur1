@@ -14,7 +14,8 @@
 #include "UIFramework_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_GeneralWindowFrame.WBP_GeneralWindowFrame_C
 // 0x00A0 (0x06B0 - 0x0610)
@@ -69,5 +70,7 @@ public:
 		return GetDefaultObjImpl<UWBP_GeneralWindowFrame_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_GeneralWindowFrame_C;
 
-SDK_NAMESPACE_END
+}
+

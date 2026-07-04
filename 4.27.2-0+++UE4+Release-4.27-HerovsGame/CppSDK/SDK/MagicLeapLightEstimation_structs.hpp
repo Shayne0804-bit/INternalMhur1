@@ -13,7 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum MagicLeapLightEstimation.EMagicLeapLightEstimationCamera
 // NumValues: 0x0005
@@ -36,6 +37,7 @@ public:
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FTimespan                              Timestamp;                                         // 0x0018(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapLightEstimationColorTemperatureState;
 
 // ScriptStruct MagicLeapLightEstimation.MagicLeapLightEstimationAmbientGlobalState
 // 0x0018 (0x0018 - 0x0000)
@@ -45,5 +47,7 @@ public:
 	TArray<float>                                 AmbientIntensityNits;                              // 0x0000(0x0010)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NativeAccessSpecifierPublic)
 	struct FTimespan                              Timestamp;                                         // 0x0010(0x0008)(BlueprintVisible, BlueprintReadOnly, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapLightEstimationAmbientGlobalState;
 
-SDK_NAMESPACE_END
+}
+

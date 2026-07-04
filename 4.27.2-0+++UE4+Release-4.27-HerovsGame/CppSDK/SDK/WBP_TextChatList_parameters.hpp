@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_TextChatList.WBP_TextChatList_C.ExecuteUbergraph_WBP_TextChatList
 // 0x00B8 (0x00B8 - 0x0000)
@@ -42,6 +42,7 @@ public:
 	class UBackendSubsystem*                      CallFunc_GetGameInstanceSubsystem_ReturnValue_3;   // 0x00A8(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_IsRecieveBlockMessage_ReturnValue;        // 0x00B0(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChatList_C_ExecuteUbergraph_WBP_TextChatList;
 
 // Function WBP_TextChatList.WBP_TextChatList_C.SetUpNewMessage
 // 0x0038 (0x0038 - 0x0000)
@@ -54,6 +55,7 @@ public:
 	bool                                          bLock;                                             // 0x0030(0x0001)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          isSTT;                                             // 0x0031(0x0001)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChatList_C_SetUpNewMessage;
 
 // Function WBP_TextChatList.WBP_TextChatList_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -62,6 +64,7 @@ struct WBP_TextChatList_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChatList_C_PreConstruct;
 
 // Function WBP_TextChatList.WBP_TextChatList_C.OnTeamUpChatReceivedEventDispatcherEvent
 // 0x0038 (0x0038 - 0x0000)
@@ -73,6 +76,7 @@ public:
 	class FString                                 message;                                           // 0x0020(0x0010)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, HasGetValueTypeHash)
 	bool                                          bBlock;                                            // 0x0030(0x0001)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChatList_C_OnTeamUpChatReceivedEventDispatcherEvent;
 
 // Function WBP_TextChatList.WBP_TextChatList_C.AddItem
 // 0x0008 (0x0008 - 0x0000)
@@ -81,6 +85,7 @@ struct WBP_TextChatList_C_AddItem final
 public:
 	class UTextChatListObject*                    NewParam;                                          // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_TextChatList_C_AddItem;
 
 // Function WBP_TextChatList.WBP_TextChatList_C.SetUpUnreadMessage
 // 0x0018 (0x0018 - 0x0000)
@@ -92,6 +97,7 @@ public:
 	int32                                         CallFunc_Array_Add_ReturnValue;                    // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_GetIngameWindowOpenFlag_ReturnValue;      // 0x0014(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChatList_C_SetUpUnreadMessage;
 
 // Function WBP_TextChatList.WBP_TextChatList_C.UpdateUnreadMessage
 // 0x0020 (0x0020 - 0x0000)
@@ -106,6 +112,7 @@ public:
 	int32                                         CallFunc_Array_Length_ReturnValue;                 // 0x0018(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_Less_IntInt_ReturnValue;                  // 0x001C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChatList_C_UpdateUnreadMessage;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

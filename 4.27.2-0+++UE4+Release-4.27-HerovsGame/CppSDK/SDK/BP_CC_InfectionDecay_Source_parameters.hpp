@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_InfectionDecay_Source.BP_CC_InfectionDecay_Source_C.ExecuteUbergraph_BP_CC_InfectionDecay_Source
 // 0x0068 (0x0068 - 0x0000)
@@ -37,6 +37,7 @@ public:
 	class UCharacterDamageComponent*              CallFunc_BP_GetDamageComponent_ReturnValue;        // 0x0058(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_Not_PreBool_ReturnValue;                  // 0x0060(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_InfectionDecay_Source_C_ExecuteUbergraph_BP_CC_InfectionDecay_Source;
 
 // Function BP_CC_InfectionDecay_Source.BP_CC_InfectionDecay_Source_C.BP_OnChangeConditionLevel
 // 0x0008 (0x0008 - 0x0000)
@@ -46,6 +47,7 @@ public:
 	int32                                         oldLevel;                                          // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         newLevel;                                          // 0x0004(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_InfectionDecay_Source_C_BP_OnChangeConditionLevel;
 
 // Function BP_CC_InfectionDecay_Source.BP_CC_InfectionDecay_Source_C.BP_OnUpdateIntervalValue
 // 0x0004 (0x0004 - 0x0000)
@@ -54,6 +56,7 @@ struct BP_CC_InfectionDecay_Source_C_BP_OnUpdateIntervalValue final
 public:
 	float                                         value;                                             // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_InfectionDecay_Source_C_BP_OnUpdateIntervalValue;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

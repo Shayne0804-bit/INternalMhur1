@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // AnimBlueprintGeneratedClass ABP_Extra_LayerInterface.ABP_Extra_LayerInterface_C
 // 0x0000 (0x0000 - 0x0000)
@@ -45,5 +46,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IABP_Extra_LayerInterface_C;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "MagicLeapARPin_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct MagicLeapSharedWorld.MagicLeapSharedWorldAlignmentTransforms
 // 0x0010 (0x0010 - 0x0000)
@@ -23,6 +24,7 @@ struct FMagicLeapSharedWorldAlignmentTransforms final
 public:
 	TArray<struct FTransform>                     AlignmentTransforms;                               // 0x0000(0x0010)(BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapSharedWorldAlignmentTransforms;
 
 // ScriptStruct MagicLeapSharedWorld.MagicLeapSharedWorldSharedData
 // 0x0010 (0x0010 - 0x0000)
@@ -31,6 +33,7 @@ struct FMagicLeapSharedWorldSharedData final
 public:
 	TArray<struct FGuid>                          PinIDs;                                            // 0x0000(0x0010)(BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapSharedWorldSharedData;
 
 // ScriptStruct MagicLeapSharedWorld.MagicLeapSharedWorldPinData
 // 0x0024 (0x0024 - 0x0000)
@@ -40,6 +43,7 @@ public:
 	struct FGuid                                  PinId;                                             // 0x0000(0x0010)(BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FMagicLeapARPinState                   PinState;                                          // 0x0010(0x0014)(BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapSharedWorldPinData;
 
 // ScriptStruct MagicLeapSharedWorld.MagicLeapSharedWorldLocalData
 // 0x0010 (0x0010 - 0x0000)
@@ -48,5 +52,7 @@ struct FMagicLeapSharedWorldLocalData final
 public:
 	TArray<struct FMagicLeapSharedWorldPinData>   LocalPins;                                         // 0x0000(0x0010)(BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMagicLeapSharedWorldLocalData;
 
-SDK_NAMESPACE_END
+}
+

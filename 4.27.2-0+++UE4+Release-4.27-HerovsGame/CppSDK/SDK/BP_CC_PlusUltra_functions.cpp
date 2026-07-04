@@ -14,7 +14,8 @@
 #include "BP_CC_PlusUltra_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_PlusUltra.BP_CC_PlusUltra_C.ExecuteUbergraph_BP_CC_PlusUltra
 // (Final, UbergraphFunction)
@@ -167,5 +168,5 @@ bool UBP_CC_PlusUltra_C::IsStrengthPlusCharacter() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

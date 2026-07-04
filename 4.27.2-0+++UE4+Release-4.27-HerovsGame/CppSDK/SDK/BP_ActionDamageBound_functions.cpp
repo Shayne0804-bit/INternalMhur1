@@ -14,7 +14,8 @@
 #include "BP_ActionDamageBound_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageBound.BP_ActionDamageBound_C.ExecuteUbergraph_BP_ActionDamageBound
 // (Final, UbergraphFunction, HasDefaults)
@@ -138,5 +139,5 @@ void UBP_ActionDamageBound_C::DecideAnimationId(EAnimationId* animationId)
 		*animationId = Parms.animationId;
 }
 
+}
 
-SDK_NAMESPACE_END

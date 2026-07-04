@@ -15,7 +15,8 @@
 #include "UIFramework_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_ExitGameWindow.WBP_ExitGameWindow_C
 // 0x0010 (0x0380 - 0x0370)
@@ -45,5 +46,7 @@ public:
 		return GetDefaultObjImpl<UWBP_ExitGameWindow_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_ExitGameWindow_C;
 
-SDK_NAMESPACE_END
+}
+

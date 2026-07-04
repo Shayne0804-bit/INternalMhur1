@@ -24,7 +24,7 @@ namespace Cheats
         {  10, "Momo Yaoyorozu",     0,  10,  { "Support", nullptr,   nullptr } },
         {  11, "Fumikage Tokoyami",  0,  11,  { "Assault", nullptr,   nullptr } },
         {  12, "All Might",          1,  12,  { "Assault", "Rapid",   nullptr } },
-        {  13, "Shota Aizawa",       0,  13,  { "Tech",    nullptr,   nullptr } },
+        {  13, "Shota Aizawa",       1,  13,  { "Tech",    "Strike",  nullptr } },
         {  15, "Tomura Shigaraki",   2,  15,  { "Strike",  "Assault", "Tech"  } },
         {  16, "All For One",        1,  16,  { "Tech",    "Strike",   nullptr } },
         {  17, "Dabi",               1,  17,  { "Tech",    "Strike",  nullptr } },

@@ -14,7 +14,8 @@
 #include "BP_CC_RollSlot_Ability_Durable_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_RollSlot_Ability_Durable.BP_CC_RollSlot_Ability_Durable_C.ExecuteUbergraph_BP_CC_RollSlot_Ability_Durable
 // (Final, UbergraphFunction, HasDefaults)
@@ -159,5 +160,5 @@ void UBP_CC_RollSlot_Ability_Durable_C::DefultRate()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

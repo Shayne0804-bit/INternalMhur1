@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function FieldSystemEngine.FieldSystemComponent.AddFieldCommand
 // 0x0018 (0x0018 - 0x0000)
@@ -28,6 +28,7 @@ public:
 	class UFieldSystemMetaData*                   MetaData;                                          // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UFieldNodeBase*                         Field;                                             // 0x0010(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FieldSystemComponent_AddFieldCommand;
 
 // Function FieldSystemEngine.FieldSystemComponent.AddPersistentField
 // 0x0018 (0x0018 - 0x0000)
@@ -40,6 +41,7 @@ public:
 	class UFieldSystemMetaData*                   MetaData;                                          // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UFieldNodeBase*                         Field;                                             // 0x0010(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FieldSystemComponent_AddPersistentField;
 
 // Function FieldSystemEngine.FieldSystemComponent.ApplyLinearForce
 // 0x0014 (0x0014 - 0x0000)
@@ -51,6 +53,7 @@ public:
 	struct FVector                                Direction;                                         // 0x0004(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Magnitude;                                         // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FieldSystemComponent_ApplyLinearForce;
 
 // Function FieldSystemEngine.FieldSystemComponent.ApplyPhysicsField
 // 0x0018 (0x0018 - 0x0000)
@@ -63,6 +66,7 @@ public:
 	class UFieldSystemMetaData*                   MetaData;                                          // 0x0008(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UFieldNodeBase*                         Field;                                             // 0x0010(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FieldSystemComponent_ApplyPhysicsField;
 
 // Function FieldSystemEngine.FieldSystemComponent.ApplyRadialForce
 // 0x0014 (0x0014 - 0x0000)
@@ -74,6 +78,7 @@ public:
 	struct FVector                                Position;                                          // 0x0004(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Magnitude;                                         // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FieldSystemComponent_ApplyRadialForce;
 
 // Function FieldSystemEngine.FieldSystemComponent.ApplyRadialVectorFalloffForce
 // 0x0018 (0x0018 - 0x0000)
@@ -86,6 +91,7 @@ public:
 	float                                         Radius;                                            // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Magnitude;                                         // 0x0014(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FieldSystemComponent_ApplyRadialVectorFalloffForce;
 
 // Function FieldSystemEngine.FieldSystemComponent.ApplyStayDynamicField
 // 0x0014 (0x0014 - 0x0000)
@@ -97,6 +103,7 @@ public:
 	struct FVector                                Position;                                          // 0x0004(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Radius;                                            // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FieldSystemComponent_ApplyStayDynamicField;
 
 // Function FieldSystemEngine.FieldSystemComponent.ApplyStrainField
 // 0x001C (0x001C - 0x0000)
@@ -110,6 +117,7 @@ public:
 	float                                         Magnitude;                                         // 0x0014(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Iterations;                                        // 0x0018(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FieldSystemComponent_ApplyStrainField;
 
 // Function FieldSystemEngine.FieldSystemComponent.ApplyUniformVectorFalloffForce
 // 0x0024 (0x0024 - 0x0000)
@@ -123,6 +131,7 @@ public:
 	float                                         Radius;                                            // 0x001C(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Magnitude;                                         // 0x0020(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FieldSystemComponent_ApplyUniformVectorFalloffForce;
 
 // Function FieldSystemEngine.FieldSystemMetaDataIteration.SetMetaDataIteration
 // 0x0010 (0x0010 - 0x0000)
@@ -133,6 +142,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UFieldSystemMetaDataIteration*          ReturnValue;                                       // 0x0008(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FieldSystemMetaDataIteration_SetMetaDataIteration;
 
 // Function FieldSystemEngine.FieldSystemMetaDataProcessingResolution.SetMetaDataaProcessingResolutionType
 // 0x0010 (0x0010 - 0x0000)
@@ -143,6 +153,7 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UFieldSystemMetaDataProcessingResolution* ReturnValue;                                     // 0x0008(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FieldSystemMetaDataProcessingResolution_SetMetaDataaProcessingResolutionType;
 
 // Function FieldSystemEngine.FieldSystemMetaDataFilter.SetMetaDataFilterType
 // 0x0010 (0x0010 - 0x0000)
@@ -153,6 +164,7 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UFieldSystemMetaDataFilter*             ReturnValue;                                       // 0x0008(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FieldSystemMetaDataFilter_SetMetaDataFilterType;
 
 // Function FieldSystemEngine.UniformInteger.SetUniformInteger
 // 0x0010 (0x0010 - 0x0000)
@@ -163,6 +175,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UUniformInteger*                        ReturnValue;                                       // 0x0008(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_UniformInteger_SetUniformInteger;
 
 // Function FieldSystemEngine.RadialIntMask.SetRadialIntMask
 // 0x0028 (0x0028 - 0x0000)
@@ -177,6 +190,7 @@ public:
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class URadialIntMask*                         ReturnValue;                                       // 0x0020(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_RadialIntMask_SetRadialIntMask;
 
 // Function FieldSystemEngine.UniformScalar.SetUniformScalar
 // 0x0010 (0x0010 - 0x0000)
@@ -187,6 +201,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UUniformScalar*                         ReturnValue;                                       // 0x0008(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_UniformScalar_SetUniformScalar;
 
 // Function FieldSystemEngine.WaveScalar.SetWaveScalar
 // 0x0028 (0x0028 - 0x0000)
@@ -203,6 +218,7 @@ public:
 	uint8                                         Pad_1E[0x2];                                       // 0x001E(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWaveScalar*                            ReturnValue;                                       // 0x0020(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WaveScalar_SetWaveScalar;
 
 // Function FieldSystemEngine.RadialFalloff.SetRadialFalloff
 // 0x0030 (0x0030 - 0x0000)
@@ -219,6 +235,7 @@ public:
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class URadialFalloff*                         ReturnValue;                                       // 0x0028(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_RadialFalloff_SetRadialFalloff;
 
 // Function FieldSystemEngine.PlaneFalloff.SetPlaneFalloff
 // 0x0038 (0x0038 - 0x0000)
@@ -236,6 +253,7 @@ public:
 	uint8                                         Pad_2D[0x3];                                       // 0x002D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class UPlaneFalloff*                          ReturnValue;                                       // 0x0030(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PlaneFalloff_SetPlaneFalloff;
 
 // Function FieldSystemEngine.BoxFalloff.SetBoxFalloff
 // 0x0050 (0x0050 - 0x0000)
@@ -251,6 +269,7 @@ public:
 	uint8                                         Pad_41[0x7];                                       // 0x0041(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UBoxFalloff*                            ReturnValue;                                       // 0x0048(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_BoxFalloff_SetBoxFalloff;
 
 // Function FieldSystemEngine.NoiseField.SetNoiseField
 // 0x0050 (0x0050 - 0x0000)
@@ -264,6 +283,7 @@ public:
 	class UNoiseField*                            ReturnValue;                                       // 0x0040(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_48[0x8];                                       // 0x0048(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_NoiseField_SetNoiseField;
 
 // Function FieldSystemEngine.UniformVector.SetUniformVector
 // 0x0018 (0x0018 - 0x0000)
@@ -274,6 +294,7 @@ public:
 	struct FVector                                Direction_0;                                       // 0x0004(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UUniformVector*                         ReturnValue;                                       // 0x0010(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_UniformVector_SetUniformVector;
 
 // Function FieldSystemEngine.RadialVector.SetRadialVector
 // 0x0018 (0x0018 - 0x0000)
@@ -284,6 +305,7 @@ public:
 	struct FVector                                Position_0;                                        // 0x0004(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class URadialVector*                          ReturnValue;                                       // 0x0010(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_RadialVector_SetRadialVector;
 
 // Function FieldSystemEngine.RandomVector.SetRandomVector
 // 0x0010 (0x0010 - 0x0000)
@@ -294,6 +316,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class URandomVector*                          ReturnValue;                                       // 0x0008(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_RandomVector_SetRandomVector;
 
 // Function FieldSystemEngine.OperatorField.SetOperatorField
 // 0x0028 (0x0028 - 0x0000)
@@ -308,6 +331,7 @@ public:
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UOperatorField*                         ReturnValue;                                       // 0x0020(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_OperatorField_SetOperatorField;
 
 // Function FieldSystemEngine.ToIntegerField.SetToIntegerField
 // 0x0010 (0x0010 - 0x0000)
@@ -317,6 +341,7 @@ public:
 	const class UFieldNodeFloat*                  FloatField_0;                                      // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UToIntegerField*                        ReturnValue;                                       // 0x0008(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ToIntegerField_SetToIntegerField;
 
 // Function FieldSystemEngine.ToFloatField.SetToFloatField
 // 0x0010 (0x0010 - 0x0000)
@@ -326,6 +351,7 @@ public:
 	const class UFieldNodeInt*                    IntegerField;                                      // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UToFloatField*                          ReturnValue;                                       // 0x0008(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ToFloatField_SetToFloatField;
 
 // Function FieldSystemEngine.CullingField.SetCullingField
 // 0x0020 (0x0020 - 0x0000)
@@ -338,6 +364,7 @@ public:
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UCullingField*                          ReturnValue;                                       // 0x0018(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CullingField_SetCullingField;
 
 // Function FieldSystemEngine.ReturnResultsTerminal.SetReturnResultsTerminal
 // 0x0008 (0x0008 - 0x0000)
@@ -346,6 +373,7 @@ struct ReturnResultsTerminal_SetReturnResultsTerminal final
 public:
 	class UReturnResultsTerminal*                 ReturnValue;                                       // 0x0000(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ReturnResultsTerminal_SetReturnResultsTerminal;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

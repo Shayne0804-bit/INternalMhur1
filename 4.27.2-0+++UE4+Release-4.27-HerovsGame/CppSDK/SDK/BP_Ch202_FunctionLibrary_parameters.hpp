@@ -14,8 +14,8 @@
 #include "CommonModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_Ch202_FunctionLibrary.BP_Ch202_FunctionLibrary_C.Ch202_MeleeFinishHit
 // 0x0080 (0x0080 - 0x0000)
@@ -47,6 +47,7 @@ public:
 	class UCharacterConditionControlComponent*    CallFunc_BP_GetConditionControlComponent_ReturnValue; // 0x0070(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_BP_IsValidCondition_ReturnValue;          // 0x0078(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_Ch202_FunctionLibrary_C_Ch202_MeleeFinishHit;
 
 // Function BP_Ch202_FunctionLibrary.BP_Ch202_FunctionLibrary_C.Ch202_EnableMaterialArm
 // 0x0038 (0x0038 - 0x0000)
@@ -58,6 +59,7 @@ public:
 	struct FTransitionMaterialScalarParamArgment  NewLocalVar_1;                                     // 0x0010(0x0020)(Edit, BlueprintVisible, NoDestructor)
 	class UMaterialControlComponent*              CallFunc_BP_GetMaterialControl_ReturnValue;        // 0x0030(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_Ch202_FunctionLibrary_C_Ch202_EnableMaterialArm;
 
 // Function BP_Ch202_FunctionLibrary.BP_Ch202_FunctionLibrary_C.Ch202_DisableMaterialArm
 // 0x0038 (0x0038 - 0x0000)
@@ -69,6 +71,7 @@ public:
 	struct FTransitionMaterialScalarParamArgment  NewLocalVar_2;                                     // 0x0010(0x0020)(Edit, BlueprintVisible, NoDestructor)
 	class UMaterialControlComponent*              CallFunc_BP_GetMaterialControl_ReturnValue;        // 0x0030(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_Ch202_FunctionLibrary_C_Ch202_DisableMaterialArm;
 
 // Function BP_Ch202_FunctionLibrary.BP_Ch202_FunctionLibrary_C.Ch202_EnableMaterialLeg
 // 0x0038 (0x0038 - 0x0000)
@@ -80,6 +83,7 @@ public:
 	struct FTransitionMaterialScalarParamArgment  NewLocalVar_1;                                     // 0x0010(0x0020)(Edit, BlueprintVisible, NoDestructor)
 	class UMaterialControlComponent*              CallFunc_BP_GetMaterialControl_ReturnValue;        // 0x0030(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_Ch202_FunctionLibrary_C_Ch202_EnableMaterialLeg;
 
 // Function BP_Ch202_FunctionLibrary.BP_Ch202_FunctionLibrary_C.Ch202_DisableMaterialLeg
 // 0x0038 (0x0038 - 0x0000)
@@ -91,6 +95,7 @@ public:
 	struct FTransitionMaterialScalarParamArgment  NewLocalVar_2;                                     // 0x0010(0x0020)(Edit, BlueprintVisible, NoDestructor)
 	class UMaterialControlComponent*              CallFunc_BP_GetMaterialControl_ReturnValue;        // 0x0030(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_Ch202_FunctionLibrary_C_Ch202_DisableMaterialLeg;
 
 // Function BP_Ch202_FunctionLibrary.BP_Ch202_FunctionLibrary_C.Ch202_BrakeTransitionByAttackAction
 // 0x0058 (0x0058 - 0x0000)
@@ -118,6 +123,7 @@ public:
 	float                                         CallFunc_BP_GetSpeed_ReturnValue;                  // 0x004C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x0050(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_Ch202_FunctionLibrary_C_Ch202_BrakeTransitionByAttackAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

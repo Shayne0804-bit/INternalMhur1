@@ -15,7 +15,8 @@
 #include "UIFramework_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_ChatSendButton.WBP_ChatSendButton_C
 // 0x0070 (0x0580 - 0x0510)
@@ -54,5 +55,7 @@ public:
 		return GetDefaultObjImpl<UWBP_ChatSendButton_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_ChatSendButton_C;
 
-SDK_NAMESPACE_END
+}
+

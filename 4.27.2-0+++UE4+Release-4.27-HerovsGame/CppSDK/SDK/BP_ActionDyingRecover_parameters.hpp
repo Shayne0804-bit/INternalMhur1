@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDyingRecover.BP_ActionDyingRecover_C.ExecuteUbergraph_BP_ActionDyingRecover
 // 0x0060 (0x0060 - 0x0000)
@@ -37,6 +37,7 @@ public:
 	class UCharacterState*                        CallFunc_BP_GetOwnerState_ReturnValue_2;           // 0x0050(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterBattleVoiceComponent*         CallFunc_BP_GetBattleVoiceComponent_ReturnValue;   // 0x0058(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDyingRecover_C_ExecuteUbergraph_BP_ActionDyingRecover;
 
 // Function BP_ActionDyingRecover.BP_ActionDyingRecover_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -45,6 +46,7 @@ struct BP_ActionDyingRecover_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDyingRecover_C_BP_OnEndAction;
 
 // Function BP_ActionDyingRecover.BP_ActionDyingRecover_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -53,6 +55,7 @@ struct BP_ActionDyingRecover_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDyingRecover_C_BP_OnBeginAction;
 
 // Function BP_ActionDyingRecover.BP_ActionDyingRecover_C.UpdateMoveDirection
 // 0x0020 (0x0020 - 0x0000)
@@ -64,6 +67,7 @@ public:
 	struct FVector                                CallFunc_BP_GetMoveDirection_ReturnValue;          // 0x0010(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_BP_GetDeltaSeconds_ReturnValue;           // 0x001C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDyingRecover_C_UpdateMoveDirection;
 
 // Function BP_ActionDyingRecover.BP_ActionDyingRecover_C.UpdateSpeedRate
 // 0x0018 (0x0018 - 0x0000)
@@ -75,6 +79,7 @@ public:
 	float                                         CallFunc_BP_GetMoveRate_ReturnValue;               // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_Multiply_FloatFloat_ReturnValue;          // 0x0014(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDyingRecover_C_UpdateSpeedRate;
 
 // Function BP_ActionDyingRecover.BP_ActionDyingRecover_C.UpdateCharacterDirection
 // 0x0018 (0x0018 - 0x0000)
@@ -84,6 +89,7 @@ public:
 	class UMovementComponentBattle*               CallFunc_BP_GetOwnerMovementBattle_ReturnValue;    // 0x0000(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_BP_GetMoveDirection_ReturnValue;          // 0x0008(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDyingRecover_C_UpdateCharacterDirection;
 
 // Function BP_ActionDyingRecover.BP_ActionDyingRecover_C.PlayAnimation
 // 0x0020 (0x0020 - 0x0000)
@@ -100,6 +106,7 @@ public:
 	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x0019(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	EAnimationId                                  K2Node_Select_Default;                             // 0x001A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDyingRecover_C_PlayAnimation;
 
 // Function BP_ActionDyingRecover.BP_ActionDyingRecover_C.BP_IsEnableShiftAction
 // 0x000C (0x000C - 0x0000)
@@ -109,6 +116,7 @@ public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionDyingRecover_C_BP_IsEnableShiftAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

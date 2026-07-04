@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct CosmosWebApi.CosmosAttachedItemData
 // 0x000C (0x000C - 0x0000)
@@ -22,6 +23,7 @@ public:
 	int32                                         ItemCode;                                          // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ItemNum;                                           // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosAttachedItemData;
 
 // ScriptStruct CosmosWebApi.CosmosLogData
 // 0x0050 (0x0050 - 0x0000)
@@ -37,6 +39,7 @@ public:
 	int32                                         suffix;                                            // 0x0048(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Background;                                        // 0x004C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosLogData;
 
 // ScriptStruct CosmosWebApi.CosmosChatLogResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -47,6 +50,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosLogData>                 logList;                                           // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosChatLogResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosMyadAdCreateResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -57,6 +61,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 myAdId;                                            // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMyadAdCreateResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSerialCheckSerialCodeResponseParam
 // 0x0028 (0x0028 - 0x0000)
@@ -68,6 +73,7 @@ public:
 	class FString                                 limitTime;                                         // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosAttachedItemData>        receivedItemInfos;                                 // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSerialCheckSerialCodeResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSerialGetSerialCodeIsCheckableResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -78,6 +84,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 limitTime;                                         // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSerialGetSerialCodeIsCheckableResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosRandompackLotteryRandomPackResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -88,6 +95,7 @@ public:
 	int32                                         restPackNum;                                       // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosAttachedItemData>        randompackResultList;                              // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRandompackLotteryRandomPackResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosRandompackItemData
 // 0x0010 (0x0010 - 0x0000)
@@ -99,6 +107,7 @@ public:
 	int32                                         ItemNum;                                           // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ItemRarityRate;                                    // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRandompackItemData;
 
 // ScriptStruct CosmosWebApi.CosmosRandompackStatusData
 // 0x0018 (0x0018 - 0x0000)
@@ -109,6 +118,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosRandompackItemData>      randompackItemList;                                // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRandompackStatusData;
 
 // ScriptStruct CosmosWebApi.CosmosRandompackGetProbabilityResponseParam
 // 0x0020 (0x0020 - 0x0000)
@@ -119,6 +129,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FCosmosRandompackStatusData            randompackStatusList;                              // 0x0008(0x0018)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRandompackGetProbabilityResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosInfoDataJsonData
 // 0x0018 (0x0018 - 0x0000)
@@ -129,6 +140,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 infoDataJson;                                      // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosInfoDataJsonData;
 
 // ScriptStruct CosmosWebApi.CosmosMyRoomGetPresetListResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -139,6 +151,7 @@ public:
 	int32                                         unlockedPreset;                                    // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosInfoDataJsonData>        infoDataJsonList;                                  // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMyRoomGetPresetListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosMyRoomGetInfoResponseParam
 // 0x0020 (0x0020 - 0x0000)
@@ -151,6 +164,7 @@ public:
 	int32                                         LikeCount;                                         // 0x0018(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         remainSetLikeNum;                                  // 0x001C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMyRoomGetInfoResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosNamePlateData
 // 0x0020 (0x0020 - 0x0000)
@@ -163,6 +177,7 @@ public:
 	int32                                         isSetting;                                         // 0x0018(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosNamePlateData;
 
 // ScriptStruct CosmosWebApi.CosmosNameplateGetListResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -173,6 +188,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosNamePlateData>           lists;                                             // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosNameplateGetListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosBlockSetPlatformBlockUserListResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -183,6 +199,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<class FString>                         remainUserList;                                    // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosBlockSetPlatformBlockUserListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosBlockSetBlockUserResponseParam
 // 0x0008 (0x0008 - 0x0000)
@@ -192,6 +209,7 @@ public:
 	int32                                         Status;                                            // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         isFriend;                                          // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosBlockSetBlockUserResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosBlockUserData
 // 0x0050 (0x0050 - 0x0000)
@@ -207,6 +225,7 @@ public:
 	int32                                         Background;                                        // 0x003C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 UserName;                                          // 0x0040(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosBlockUserData;
 
 // ScriptStruct CosmosWebApi.CosmosBlockGetBlockUserListResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -217,6 +236,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosBlockUserData>           blockUserList;                                     // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosBlockGetBlockUserListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSlotChangedData
 // 0x0008 (0x0008 - 0x0000)
@@ -226,6 +246,7 @@ public:
 	int32                                         slotNo;                                            // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         SlotLevel;                                         // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSlotChangedData;
 
 // ScriptStruct CosmosWebApi.CosmosSkillChangedData
 // 0x0008 (0x0008 - 0x0000)
@@ -235,6 +256,7 @@ public:
 	int32                                         skillNo;                                           // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         skillLevel;                                        // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSkillChangedData;
 
 // ScriptStruct CosmosWebApi.CosmosRoleslotAllSlotSkillLevelUpResponseParam
 // 0x0038 (0x0038 - 0x0000)
@@ -247,6 +269,7 @@ public:
 	TArray<struct FCosmosSkillChangedData>        skillChangedList;                                  // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosAttachedItemData>        itemConsumedList;                                  // 0x0028(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRoleslotAllSlotSkillLevelUpResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosRoleslotSkillLevelUpResponseParam
 // 0x0014 (0x0014 - 0x0000)
@@ -259,6 +282,7 @@ public:
 	int32                                         ItemCode;                                          // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ItemNum;                                           // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRoleslotSkillLevelUpResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosRoleslotSlotLevelUpResponseParam
 // 0x0014 (0x0014 - 0x0000)
@@ -271,6 +295,7 @@ public:
 	int32                                         ItemCode;                                          // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ItemNum;                                           // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRoleslotSlotLevelUpResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSlotData
 // 0x000C (0x000C - 0x0000)
@@ -281,6 +306,7 @@ public:
 	int32                                         SlotLevel;                                         // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         characterMedalCode;                                // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSlotData;
 
 // ScriptStruct CosmosWebApi.CosmosSkillData
 // 0x000C (0x000C - 0x0000)
@@ -291,6 +317,7 @@ public:
 	int32                                         skillLevel;                                        // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         characterMedalCode;                                // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSkillData;
 
 // ScriptStruct CosmosWebApi.CosmosRoleslotUnlockSlotPurResponseParam
 // 0x0040 (0x0040 - 0x0000)
@@ -305,6 +332,7 @@ public:
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosAttachedItemData>        consumedItemList;                                  // 0x0030(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRoleslotUnlockSlotPurResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosRoleslotUnlockSlotResponseParam
 // 0x0038 (0x0038 - 0x0000)
@@ -317,6 +345,7 @@ public:
 	TArray<struct FCosmosSkillData>               SkillList;                                         // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosAttachedItemData>        consumedItemList;                                  // 0x0028(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRoleslotUnlockSlotResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosRoleSetItemData
 // 0x000C (0x000C - 0x0000)
@@ -327,6 +356,7 @@ public:
 	int32                                         ItemCode;                                          // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ItemNum;                                           // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRoleSetItemData;
 
 // ScriptStruct CosmosWebApi.CosmosRoleslotSetAllSlotSkillResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -337,6 +367,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosRoleSetItemData>         ItemList;                                          // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRoleslotSetAllSlotSkillResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosRoleslotSetSkillResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -347,6 +378,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosRoleSetItemData>         ItemList;                                          // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRoleslotSetSkillResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosRoleslotSetSlotResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -357,6 +389,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosRoleSetItemData>         ItemList;                                          // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRoleslotSetSlotResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosRoleSlotData
 // 0x0028 (0x0028 - 0x0000)
@@ -368,6 +401,7 @@ public:
 	TArray<struct FCosmosSlotData>                SlotList;                                          // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosSkillData>               SkillList;                                         // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRoleSlotData;
 
 // ScriptStruct CosmosWebApi.CosmosRoleslotGetListResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -378,6 +412,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosRoleSlotData>            roleslotList;                                      // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRoleslotGetListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosResearchNoteReceiveResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -388,6 +423,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosAttachedItemData>        rewards;                                           // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosResearchNoteReceiveResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosBaseRewardData
 // 0x0014 (0x0014 - 0x0000)
@@ -400,6 +436,7 @@ public:
 	int32                                         ItemNum;                                           // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         isReceived;                                        // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosBaseRewardData;
 
 // ScriptStruct CosmosWebApi.CosmosResearchNoteListRewardsResponseParam
 // 0x0030 (0x0030 - 0x0000)
@@ -413,6 +450,7 @@ public:
 	TArray<struct FCosmosBaseRewardData>          baseRewards;                                       // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosBaseRewardData>          achievementRewards;                                // 0x0020(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosResearchNoteListRewardsResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosGetPopupData
 // 0x0008 (0x0008 - 0x0000)
@@ -422,6 +460,7 @@ public:
 	int32                                         code;                                              // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         RemainNum;                                         // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosGetPopupData;
 
 // ScriptStruct CosmosWebApi.CosmosPopupGetUserPopupListResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -432,6 +471,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosGetPopupData>            popupList;                                         // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosPopupGetUserPopupListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosInformationData
 // 0x0088 (0x0088 - 0x0000)
@@ -449,6 +489,7 @@ public:
 	TArray<struct FCosmosAttachedItemData>        ItemList;                                          // 0x0068(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	class FString                                 updateTime;                                        // 0x0078(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosInformationData;
 
 // ScriptStruct CosmosWebApi.CosmosInformationGetInformationListResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -459,6 +500,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosInformationData>         InformationList;                                   // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosInformationGetInformationListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosCustomMatchGetResultResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -469,6 +511,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<class FString>                         Results;                                           // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomMatchGetResultResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosCustomMatchGetRoomInfoResponseParam
 // 0x0040 (0x0040 - 0x0000)
@@ -483,6 +526,7 @@ public:
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 createTime;                                        // 0x0030(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomMatchGetRoomInfoResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosCustomMatchCreateRoomIdResponseParam
 // 0x0038 (0x0038 - 0x0000)
@@ -495,6 +539,7 @@ public:
 	class FString                                 customRoomId;                                      // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 createTime;                                        // 0x0028(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomMatchCreateRoomIdResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosUseItemData
 // 0x000C (0x000C - 0x0000)
@@ -505,6 +550,7 @@ public:
 	int32                                         ItemCode;                                          // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ItemNum;                                           // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosUseItemData;
 
 // ScriptStruct CosmosWebApi.CosmosAwardData
 // 0x0014 (0x0014 - 0x0000)
@@ -517,6 +563,7 @@ public:
 	int32                                         awardItemNum;                                      // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         receivedFlag;                                      // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosAwardData;
 
 // ScriptStruct CosmosWebApi.CosmosSpecialpassReceiveResponseParam
 // 0x0028 (0x0028 - 0x0000)
@@ -528,6 +575,7 @@ public:
 	TArray<struct FCosmosUseItemData>             receiveItems;                                      // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosAwardData>               rankAwards;                                        // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSpecialpassReceiveResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSpecialpassGetMasterListResponseParam
 // 0x0020 (0x0020 - 0x0000)
@@ -540,6 +588,7 @@ public:
 	int32                                         MaxExp;                                            // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosAwardData>               rankAwards;                                        // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSpecialpassGetMasterListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosBnidClientEntryResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -550,6 +599,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 URL;                                               // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosBnidClientEntryResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosBnidClientCheckStatusResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -560,6 +610,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 Text;                                              // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosBnidClientCheckStatusResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosEventInfo
 // 0x0020 (0x0020 - 0x0000)
@@ -575,6 +626,7 @@ public:
 	int32                                         Rank;                                              // 0x0018(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         RankPoint;                                         // 0x001C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosEventInfo;
 
 // ScriptStruct CosmosWebApi.CosmosEventGetEventInfoResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -585,6 +637,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosEventInfo>               eventInfos;                                        // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosEventGetEventInfoResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosChatReceiveResponseParam
 // 0x0008 (0x0008 - 0x0000)
@@ -594,6 +647,7 @@ public:
 	int32                                         Status;                                            // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         newChat;                                           // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosChatReceiveResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosRecommendNoticeGetRecommendNoticeResponseParam
 // 0x0078 (0x0078 - 0x0000)
@@ -613,6 +667,7 @@ public:
 	int32                                         targetSuffix;                                      // 0x0070(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         targetUserBackground;                              // 0x0074(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRecommendNoticeGetRecommendNoticeResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosGalleryData
 // 0x0030 (0x0030 - 0x0000)
@@ -629,6 +684,7 @@ public:
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<int32>                                 panel;                                             // 0x0020(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosGalleryData;
 
 // ScriptStruct CosmosWebApi.CosmosGalleryGetGalleryListResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -639,6 +695,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosGalleryData>             GalleryList;                                       // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosGalleryGetGalleryListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSysF2pGetPasswordResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -649,6 +706,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 password;                                          // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSysF2pGetPasswordResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSquadMemberData
 // 0x0058 (0x0058 - 0x0000)
@@ -666,6 +724,7 @@ public:
 	int32                                         suffix;                                            // 0x0050(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Background;                                        // 0x0054(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSquadMemberData;
 
 // ScriptStruct CosmosWebApi.CosmosSysF2pGetJoinServerResponseParam
 // 0x0040 (0x0040 - 0x0000)
@@ -680,6 +739,7 @@ public:
 	class FString                                 squadId;                                           // 0x0020(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosSquadMemberData>         MemberList;                                        // 0x0030(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSysF2pGetJoinServerResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSysF2pGetServerInfoResponseParam
 // 0x0048 (0x0048 - 0x0000)
@@ -693,6 +753,7 @@ public:
 	class FString                                 serverVersion;                                     // 0x0028(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 matchingServerVersion;                             // 0x0038(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSysF2pGetServerInfoResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSysF2pGetMasterUrlResponseParam
 // 0x0048 (0x0048 - 0x0000)
@@ -706,6 +767,7 @@ public:
 	class FString                                 checksum;                                          // 0x0028(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 masterDataVersion;                                 // 0x0038(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSysF2pGetMasterUrlResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSysF2pGetVersionResponseParam
 // 0x0028 (0x0028 - 0x0000)
@@ -717,6 +779,7 @@ public:
 	class FString                                 serverName;                                        // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 serverVersion;                                     // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSysF2pGetVersionResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosServerData
 // 0x0040 (0x0040 - 0x0000)
@@ -731,6 +794,7 @@ public:
 	class FString                                 dedicateIp;                                        // 0x0020(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 regionName;                                        // 0x0030(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosServerData;
 
 // ScriptStruct CosmosWebApi.CosmosSysF2pGetServerListResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -741,6 +805,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosServerData>              serverList;                                        // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSysF2pGetServerListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSysF2pGetServerTimeResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -751,6 +816,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 serverTime;                                        // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSysF2pGetServerTimeResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSettingGetSettingInfoResponseParam
 // 0x0048 (0x0048 - 0x0000)
@@ -770,6 +836,7 @@ public:
 	int32                                         AuraDisplayArea;                                   // 0x0040(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         crossPlayFlg;                                      // 0x0044(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSettingGetSettingInfoResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosPickupSelectedItemData
 // 0x000C (0x000C - 0x0000)
@@ -780,6 +847,7 @@ public:
 	int32                                         itemCategory;                                      // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ItemCode;                                          // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosPickupSelectedItemData;
 
 // ScriptStruct CosmosWebApi.CosmosSelectableItemInfo
 // 0x0008 (0x0008 - 0x0000)
@@ -789,6 +857,7 @@ public:
 	int32                                         itemCategory;                                      // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ItemCode;                                          // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSelectableItemInfo;
 
 // ScriptStruct CosmosWebApi.CosmosLootboxGetSelectPickupItemResponseParam
 // 0x0038 (0x0038 - 0x0000)
@@ -801,6 +870,7 @@ public:
 	TArray<struct FCosmosSelectableItemInfo>      selectableItemInfos;                               // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<int32>                                 pickupSelectCodeList;                              // 0x0028(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosLootboxGetSelectPickupItemResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosHistoryData
 // 0x0020 (0x0020 - 0x0000)
@@ -813,6 +883,7 @@ public:
 	int32                                         ItemNum;                                           // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 created;                                           // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosHistoryData;
 
 // ScriptStruct CosmosWebApi.CosmosLootboxGetHistoriesResponseParam
 // 0x0020 (0x0020 - 0x0000)
@@ -825,6 +896,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosHistoryData>             historyList;                                       // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosLootboxGetHistoriesResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosRarityItemData
 // 0x0048 (0x0048 - 0x0000)
@@ -844,6 +916,7 @@ public:
 	int32                                         boxCount;                                          // 0x0040(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         boxRemaining;                                      // 0x0044(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRarityItemData;
 
 // ScriptStruct CosmosWebApi.CosmosLootboxStatusData
 // 0x0018 (0x0018 - 0x0000)
@@ -854,6 +927,7 @@ public:
 	int32                                         securityRarityFlg;                                 // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosRarityItemData>          rarityItemList;                                    // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosLootboxStatusData;
 
 // ScriptStruct CosmosWebApi.CosmosLootboxGetProbabilityResponseParam
 // 0x0028 (0x0028 - 0x0000)
@@ -865,6 +939,7 @@ public:
 	class FString                                 lootboxType;                                       // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosLootboxStatusData>       lootboxStatusList;                                 // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosLootboxGetProbabilityResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosExItemData
 // 0x000C (0x000C - 0x0000)
@@ -875,6 +950,7 @@ public:
 	int32                                         exItemCode;                                        // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         exItemNum;                                         // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosExItemData;
 
 // ScriptStruct CosmosWebApi.CosmosAddItemData
 // 0x000C (0x000C - 0x0000)
@@ -885,6 +961,7 @@ public:
 	int32                                         addItemCode;                                       // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         addItemNum;                                        // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosAddItemData;
 
 // ScriptStruct CosmosWebApi.CosmosLootboxMileageExchangeResponseParam
 // 0x0038 (0x0038 - 0x0000)
@@ -900,6 +977,7 @@ public:
 	TArray<struct FCosmosExItemData>              ExItems;                                           // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosAddItemData>             addItemList;                                       // 0x0028(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosLootboxMileageExchangeResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosAddItemByCountData
 // 0x0018 (0x0018 - 0x0000)
@@ -910,6 +988,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosAddItemData>             addItemList;                                       // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosAddItemByCountData;
 
 // ScriptStruct CosmosWebApi.CosmosMileageItemData
 // 0x0040 (0x0040 - 0x0000)
@@ -924,6 +1003,7 @@ public:
 	TArray<struct FCosmosExItemData>              ExItems;                                           // 0x0020(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosAddItemByCountData>      addItemListByCounts;                               // 0x0030(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMileageItemData;
 
 // ScriptStruct CosmosWebApi.CosmosLootboxGetMileageItemListResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -934,6 +1014,7 @@ public:
 	int32                                         LootboxCode;                                       // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosMileageItemData>         mileageItemList;                                   // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosLootboxGetMileageItemListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosLootboxResultData
 // 0x0060 (0x0060 - 0x0000)
@@ -956,6 +1037,7 @@ public:
 	int32                                         skillLevelUpItemFlag;                              // 0x0058(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5C[0x4];                                       // 0x005C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosLootboxResultData;
 
 // ScriptStruct CosmosWebApi.CosmosLootboxRunResponseParam
 // 0x0030 (0x0030 - 0x0000)
@@ -969,6 +1051,7 @@ public:
 	int32                                         UserRotation;                                      // 0x0028(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         StepUpFlag;                                        // 0x002C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosLootboxRunResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosPickUpItemInfo
 // 0x000C (0x000C - 0x0000)
@@ -979,6 +1062,7 @@ public:
 	int32                                         ItemType;                                          // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ItemCode;                                          // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosPickUpItemInfo;
 
 // ScriptStruct CosmosWebApi.CosmosPaymentInfo
 // 0x0018 (0x0018 - 0x0000)
@@ -989,6 +1073,7 @@ public:
 	int32                                         pushFlg;                                           // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         getMileage;                                        // 0x0014(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosPaymentInfo;
 
 // ScriptStruct CosmosWebApi.CosmosOtherItemInfo
 // 0x0008 (0x0008 - 0x0000)
@@ -998,6 +1083,7 @@ public:
 	int32                                         ItemType;                                          // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ItemCode;                                          // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosOtherItemInfo;
 
 // ScriptStruct CosmosWebApi.CosmosStepInfo
 // 0x0038 (0x0038 - 0x0000)
@@ -1010,6 +1096,7 @@ public:
 	TArray<struct FCosmosPaymentInfo>             paymentInfos;                                      // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosOtherItemInfo>           otherItemInfos;                                    // 0x0028(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosStepInfo;
 
 // ScriptStruct CosmosWebApi.CosmosLootboxData
 // 0x0050 (0x0050 - 0x0000)
@@ -1034,6 +1121,7 @@ public:
 	int32                                         PickupSelectNum;                                   // 0x0048(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_4C[0x4];                                       // 0x004C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosLootboxData;
 
 // ScriptStruct CosmosWebApi.CosmosConvertItemData
 // 0x0014 (0x0014 - 0x0000)
@@ -1046,6 +1134,7 @@ public:
 	int32                                         convertItemCode;                                   // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         convertItemNum;                                    // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosConvertItemData;
 
 // ScriptStruct CosmosWebApi.CosmosLootboxGetListResponseParam
 // 0x0028 (0x0028 - 0x0000)
@@ -1057,6 +1146,7 @@ public:
 	TArray<struct FCosmosLootboxData>             lootboxList;                                       // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosConvertItemData>         convertItemList;                                   // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosLootboxGetListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosRankingData
 // 0x00A0 (0x00A0 - 0x0000)
@@ -1083,6 +1173,7 @@ public:
 	int32                                         suffix;                                            // 0x0098(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Background;                                        // 0x009C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRankingData;
 
 // ScriptStruct CosmosWebApi.CosmosRankingGetRankingResponseParam
 // 0x0028 (0x0028 - 0x0000)
@@ -1097,6 +1188,7 @@ public:
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosRankingData>             rankingList;                                       // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRankingGetRankingResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosNoticeItem
 // 0x0020 (0x0020 - 0x0000)
@@ -1109,6 +1201,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosExItemData>              ExItems;                                           // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosNoticeItem;
 
 // ScriptStruct CosmosWebApi.CosmosMissionGetAchievementResponseParam
 // 0x0030 (0x0030 - 0x0000)
@@ -1125,6 +1218,7 @@ public:
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosNoticeItem>              receiveItems;                                      // 0x0020(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMissionGetAchievementResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosMissionData
 // 0x0028 (0x0028 - 0x0000)
@@ -1139,6 +1233,7 @@ public:
 	int32                                         missionStarPoint;                                  // 0x0020(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosMissionData;
 
 // ScriptStruct CosmosWebApi.CosmosMissionStatusData
 // 0x0040 (0x0040 - 0x0000)
@@ -1153,6 +1248,7 @@ public:
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosMissionData>             missionList;                                       // 0x0030(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMissionStatusData;
 
 // ScriptStruct CosmosWebApi.CosmosMissionGetListResponseParam
 // 0x0028 (0x0028 - 0x0000)
@@ -1167,6 +1263,7 @@ public:
 	int32                                         researchExp;                                       // 0x0020(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         isRemindsResearchRewards;                          // 0x0024(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMissionGetListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosCommonpurchaseGetFundSettlementTextResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1177,6 +1274,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 Text;                                              // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCommonpurchaseGetFundSettlementTextResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosCommonpurchaseTokushoResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1187,6 +1285,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 Text;                                              // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCommonpurchaseTokushoResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosCommonpurchaseGetPurchaseStatusResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1197,6 +1296,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 purchaseInfoId;                                    // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCommonpurchaseGetPurchaseStatusResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosCommonpurchaseStartPurchaseResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1207,6 +1307,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 purchaseInfoId;                                    // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCommonpurchaseStartPurchaseResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosCatalogData
 // 0x0070 (0x0070 - 0x0000)
@@ -1221,6 +1322,7 @@ public:
 	class FString                                 CurrentPrice;                                      // 0x0050(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 Option;                                            // 0x0060(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCatalogData;
 
 // ScriptStruct CosmosWebApi.CosmosCommonpurchaseGetCatalogResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1231,6 +1333,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosCatalogData>             catalogList;                                       // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCommonpurchaseGetCatalogResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosCurrencyData
 // 0x0028 (0x0028 - 0x0000)
@@ -1242,6 +1345,7 @@ public:
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 chargedFlag;                                       // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCurrencyData;
 
 // ScriptStruct CosmosWebApi.CosmosGamecurrencyGetLimitedOwnedResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1252,6 +1356,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosCurrencyData>            currencyList;                                      // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosGamecurrencyGetLimitedOwnedResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosGamecurrencyGetOwnedResponseParam
 // 0x0038 (0x0038 - 0x0000)
@@ -1267,6 +1372,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 recentChargedFlag;                                 // 0x0028(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosGamecurrencyGetOwnedResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosCheckUserItemData
 // 0x000C (0x000C - 0x0000)
@@ -1277,6 +1383,7 @@ public:
 	int32                                         ItemCode;                                          // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         isOwned;                                           // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCheckUserItemData;
 
 // ScriptStruct CosmosWebApi.CosmosItemCheckUserItemResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1287,6 +1394,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosCheckUserItemData>       ItemList;                                          // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosItemCheckUserItemResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSpecialEffectOwnedItemData
 // 0x0010 (0x0010 - 0x0000)
@@ -1298,6 +1406,7 @@ public:
 	int32                                         specialEffectPoint;                                // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ItemNum;                                           // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSpecialEffectOwnedItemData;
 
 // ScriptStruct CosmosWebApi.CosmosItemRankSpecialEffectOwnedResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1308,6 +1417,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosSpecialEffectOwnedItemData> specialEffectItemList;                          // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosItemRankSpecialEffectOwnedResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosItemItemPossessionResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1318,6 +1428,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosUseItemData>             ItemList;                                          // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosItemItemPossessionResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosOwnedItemData
 // 0x0020 (0x0020 - 0x0000)
@@ -1330,6 +1441,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 limitTime;                                         // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosOwnedItemData;
 
 // ScriptStruct CosmosWebApi.CosmosItemGetOwnedResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1340,6 +1452,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosOwnedItemData>           Items;                                             // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosItemGetOwnedResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosPartsData
 // 0x0018 (0x0018 - 0x0000)
@@ -1350,6 +1463,7 @@ public:
 	int32                                         partsCode;                                         // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosPartsData;
 
 // ScriptStruct CosmosWebApi.CosmosMyadGetMyadResponseParam
 // 0x0098 (0x0098 - 0x0000)
@@ -1374,6 +1488,7 @@ public:
 	int32                                         targetSuffix;                                      // 0x0090(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         targetBackground;                                  // 0x0094(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMyadGetMyadResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosMyAdData
 // 0x00A8 (0x00A8 - 0x0000)
@@ -1399,6 +1514,7 @@ public:
 	int32                                         targetSuffix;                                      // 0x00A0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         targetBackground;                                  // 0x00A4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMyAdData;
 
 // ScriptStruct CosmosWebApi.CosmosMyadGetListResponseParam
 // 0x0020 (0x0020 - 0x0000)
@@ -1411,6 +1527,7 @@ public:
 	int32                                         haveGold;                                          // 0x0018(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         count;                                             // 0x001C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMyadGetListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosColorRankingData
 // 0x0008 (0x0008 - 0x0000)
@@ -1420,6 +1537,7 @@ public:
 	int32                                         characterMedalCode;                                // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Ranking;                                           // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosColorRankingData;
 
 // ScriptStruct CosmosWebApi.CosmosAssignRankingData
 // 0x0018 (0x0018 - 0x0000)
@@ -1430,6 +1548,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosColorRankingData>        colorRankingList;                                  // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosAssignRankingData;
 
 // ScriptStruct CosmosWebApi.CosmosSlotRankingData
 // 0x0020 (0x0020 - 0x0000)
@@ -1439,6 +1558,7 @@ public:
 	class FString                                 slotAssign;                                        // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosAssignRankingData>       assignRankingList;                                 // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSlotRankingData;
 
 // ScriptStruct CosmosWebApi.CosmosCostumeData
 // 0x0018 (0x0018 - 0x0000)
@@ -1449,6 +1569,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosSlotRankingData>         skillRankingList;                                  // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCostumeData;
 
 // ScriptStruct CosmosWebApi.CosmosCustomizeGetSpecialCharacterMedalRankingResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1459,6 +1580,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosCostumeData>             costumeList;                                       // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomizeGetSpecialCharacterMedalRankingResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosCustomizeGetNormalCharacterMedalRankingResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1469,6 +1591,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosSlotRankingData>         slotRankingList;                                   // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomizeGetNormalCharacterMedalRankingResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosCostumeRankingData
 // 0x0010 (0x0010 - 0x0000)
@@ -1480,6 +1603,7 @@ public:
 	int32                                         Ranking;                                           // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         mvpCount;                                          // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCostumeRankingData;
 
 // ScriptStruct CosmosWebApi.CosmosCustomizeGetTuningCostumeRankingResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1490,6 +1614,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosCostumeRankingData>      rankingList;                                       // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomizeGetTuningCostumeRankingResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosVoiceParam
 // 0x0008 (0x0008 - 0x0000)
@@ -1499,6 +1624,7 @@ public:
 	int32                                         voiceNo;                                           // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         voiceCode;                                         // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosVoiceParam;
 
 // ScriptStruct CosmosWebApi.CosmosEmoteParam
 // 0x0008 (0x0008 - 0x0000)
@@ -1508,6 +1634,7 @@ public:
 	int32                                         emoteNo;                                           // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         emoteCode;                                         // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosEmoteParam;
 
 // ScriptStruct CosmosWebApi.CosmosEmblemParam
 // 0x0008 (0x0008 - 0x0000)
@@ -1517,6 +1644,7 @@ public:
 	int32                                         emblemNo;                                          // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         emblemCode;                                        // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosEmblemParam;
 
 // ScriptStruct CosmosWebApi.CosmosCustomizeData
 // 0x0080 (0x0080 - 0x0000)
@@ -1538,6 +1666,7 @@ public:
 	TArray<struct FCosmosSlotData>                SlotList;                                          // 0x0060(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosSkillData>               SkillList;                                         // 0x0070(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomizeData;
 
 // ScriptStruct CosmosWebApi.CosmosCustomizeGetCustomizeResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1548,6 +1677,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosCustomizeData>           Customizes;                                        // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomizeGetCustomizeResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosCustomizeParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1561,6 +1691,7 @@ public:
 	int32                                         settingAura;                                       // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         roleslotCostumeFlg;                                // 0x0014(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomizeParam;
 
 // ScriptStruct CosmosWebApi.CosmosCustomizeGetCustomizeListResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1571,6 +1702,7 @@ public:
 	int32                                         userModelCharacterCode;                            // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosCustomizeParam>          params;                                            // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomizeGetCustomizeListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosInvitingData
 // 0x0070 (0x0070 - 0x0000)
@@ -1588,6 +1720,7 @@ public:
 	int32                                         suffix;                                            // 0x0068(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Background;                                        // 0x006C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosInvitingData;
 
 // ScriptStruct CosmosWebApi.CosmosSquadInvitingListResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1598,6 +1731,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosInvitingData>            InvitingList;                                      // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSquadInvitingListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosInvitedData
 // 0x0098 (0x0098 - 0x0000)
@@ -1619,6 +1753,7 @@ public:
 	int32                                         suffix;                                            // 0x0090(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Background;                                        // 0x0094(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosInvitedData;
 
 // ScriptStruct CosmosWebApi.CosmosSquadInvitedListResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1629,6 +1764,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosInvitedData>             invitedList;                                       // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSquadInvitedListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSeasonPassData
 // 0x0020 (0x0020 - 0x0000)
@@ -1638,6 +1774,7 @@ public:
 	TArray<struct FCosmosAwardData>               freeAwards;                                        // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosAwardData>               limitedAwards;                                     // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSeasonPassData;
 
 // ScriptStruct CosmosWebApi.CosmosSeasonpassReceiveResponseParam
 // 0x0048 (0x0048 - 0x0000)
@@ -1650,6 +1787,7 @@ public:
 	TArray<struct FCosmosNoticeItem>              limitedReceiveItems;                               // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	struct FCosmosSeasonPassData                  seasonPass;                                        // 0x0028(0x0020)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSeasonpassReceiveResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSeasonpassGetMasterListResponseParam
 // 0x0068 (0x0068 - 0x0000)
@@ -1670,6 +1808,7 @@ public:
 	uint8                                         Pad_44[0x4];                                       // 0x0044(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FCosmosSeasonPassData                  seasonPass;                                        // 0x0048(0x0020)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSeasonpassGetMasterListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosReceivedNoticeInfo
 // 0x0090 (0x0090 - 0x0000)
@@ -1689,6 +1828,7 @@ public:
 	class FString                                 targetGuildId;                                     // 0x0070(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 targetGuildName;                                   // 0x0080(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosReceivedNoticeInfo;
 
 // ScriptStruct CosmosWebApi.CosmosNoticeAddItem
 // 0x0030 (0x0030 - 0x0000)
@@ -1702,6 +1842,7 @@ public:
 	TArray<struct FCosmosExItemData>              ExItems;                                           // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosAddItemData>             addItemsList;                                      // 0x0020(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosNoticeAddItem;
 
 // ScriptStruct CosmosWebApi.CosmosNoticeGetNoticeReceiveResponseParam
 // 0x0030 (0x0030 - 0x0000)
@@ -1715,6 +1856,7 @@ public:
 	int32                                         seasonPassRemindFlg;                               // 0x0028(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         specialPassRemindFlg;                              // 0x002C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosNoticeGetNoticeReceiveResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosNoticeInfo
 // 0x00E8 (0x00E8 - 0x0000)
@@ -1744,6 +1886,7 @@ public:
 	uint8                                         Pad_D4[0x4];                                       // 0x00D4(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 targetDate;                                        // 0x00D8(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosNoticeInfo;
 
 // ScriptStruct CosmosWebApi.CosmosNoticeGetNoticeListResponseParam
 // 0x0028 (0x0028 - 0x0000)
@@ -1758,6 +1901,7 @@ public:
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosNoticeInfo>              notices;                                           // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosNoticeGetNoticeListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosVoterData
 // 0x0078 (0x0078 - 0x0000)
@@ -1780,6 +1924,7 @@ public:
 	int32                                         namePlateSuffix;                                   // 0x0070(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         namePlateBackground;                               // 0x0074(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosVoterData;
 
 // ScriptStruct CosmosWebApi.CosmosBillboardGetChartListResponseParam
 // 0x0020 (0x0020 - 0x0000)
@@ -1792,6 +1937,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosVoterData>               VoterList;                                         // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosBillboardGetChartListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosLoginBonusItem
 // 0x0030 (0x0030 - 0x0000)
@@ -1805,6 +1951,7 @@ public:
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosExItemData>              ExItems;                                           // 0x0020(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosLoginBonusItem;
 
 // ScriptStruct CosmosWebApi.CosmosLoginBonusItemData
 // 0x0028 (0x0028 - 0x0000)
@@ -1816,6 +1963,7 @@ public:
 	class FString                                 loginBonusType;                                    // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosLoginBonusItem>          ItemList;                                          // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosLoginBonusItemData;
 
 // ScriptStruct CosmosWebApi.CosmosLoginbonusGetBonusResponseParam
 // 0x0028 (0x0028 - 0x0000)
@@ -1827,6 +1975,7 @@ public:
 	class FString                                 workId;                                            // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosLoginBonusItemData>      loginBonusList;                                    // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosLoginbonusGetBonusResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosProgressData
 // 0x0028 (0x0028 - 0x0000)
@@ -1841,6 +1990,7 @@ public:
 	int32                                         ItemNum;                                           // 0x0020(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosProgressData;
 
 // ScriptStruct CosmosWebApi.CosmosLoginBonusData
 // 0x0058 (0x0058 - 0x0000)
@@ -1855,6 +2005,7 @@ public:
 	TArray<struct FCosmosProgressData>            progressList;                                      // 0x0038(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	class FString                                 premiumEnd;                                        // 0x0048(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosLoginBonusData;
 
 // ScriptStruct CosmosWebApi.CosmosLoginbonusGetListResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1865,6 +2016,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosLoginBonusData>          LoginBonus;                                        // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosLoginbonusGetListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosShopPurchaseItemResponseParam
 // 0x0020 (0x0020 - 0x0000)
@@ -1877,6 +2029,7 @@ public:
 	int32                                         RemainNum;                                         // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosNoticeItem>              ItemList;                                          // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosShopPurchaseItemResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosShopItemData
 // 0x0010 (0x0010 - 0x0000)
@@ -1888,6 +2041,7 @@ public:
 	int32                                         RemainNum;                                         // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         eventCode;                                         // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosShopItemData;
 
 // ScriptStruct CosmosWebApi.CosmosShopData
 // 0x0018 (0x0018 - 0x0000)
@@ -1898,6 +2052,7 @@ public:
 	int32                                         GroupCode;                                         // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosShopItemData>            shopItems;                                         // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosShopData;
 
 // ScriptStruct CosmosWebApi.CosmosShopCurrencyData
 // 0x000C (0x000C - 0x0000)
@@ -1908,6 +2063,7 @@ public:
 	int32                                         possessionNum;                                     // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         eventCode;                                         // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosShopCurrencyData;
 
 // ScriptStruct CosmosWebApi.CosmosShopGetShopResponseParam
 // 0x0028 (0x0028 - 0x0000)
@@ -1919,6 +2075,7 @@ public:
 	TArray<struct FCosmosShopData>                shopList;                                          // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosShopCurrencyData>        shopCurrencyList;                                  // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosShopGetShopResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosGuildUseBoostResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1929,6 +2086,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 boostTime;                                         // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosGuildUseBoostResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosGuildSetFundsResponseParam
 // 0x0014 (0x0014 - 0x0000)
@@ -1941,6 +2099,7 @@ public:
 	int32                                         getBoostNum;                                       // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         upMemberLimit;                                     // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosGuildSetFundsResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosRecordData
 // 0x0080 (0x0080 - 0x0000)
@@ -1962,6 +2121,7 @@ public:
 	int32                                         suffix;                                            // 0x0078(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Background;                                        // 0x007C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosRecordData;
 
 // ScriptStruct CosmosWebApi.CosmosGuildGetRecordsResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -1972,6 +2132,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosRecordData>              Records;                                           // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosGuildGetRecordsResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosGuildMemberData
 // 0x0080 (0x0080 - 0x0000)
@@ -1996,6 +2157,7 @@ public:
 	int32                                         suffix;                                            // 0x0078(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Background;                                        // 0x007C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosGuildMemberData;
 
 // ScriptStruct CosmosWebApi.CosmosGuildGetMemberListResponseParam
 // 0x0020 (0x0020 - 0x0000)
@@ -2008,6 +2170,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosGuildMemberData>         members;                                           // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosGuildGetMemberListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosGuildSetJoinResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -2018,6 +2181,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 guildId;                                           // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosGuildSetJoinResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosGuildGuildCreateResponseParam
 // 0x0028 (0x0028 - 0x0000)
@@ -2029,6 +2193,7 @@ public:
 	class FString                                 guildId;                                           // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 frontId;                                           // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosGuildGuildCreateResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosLevelData
 // 0x000C (0x000C - 0x0000)
@@ -2039,6 +2204,7 @@ public:
 	int32                                         currentCoin;                                       // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         targetCoin;                                        // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosLevelData;
 
 // ScriptStruct CosmosWebApi.CosmosUserIdData
 // 0x0020 (0x0020 - 0x0000)
@@ -2048,6 +2214,7 @@ public:
 	class FString                                 CosmosUserId;                                      // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 platformUserId;                                    // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosUserIdData;
 
 // ScriptStruct CosmosWebApi.CosmosGuildGetGuildInfoResponseParam
 // 0x0118 (0x0118 - 0x0000)
@@ -2092,6 +2259,7 @@ public:
 	int32                                         suffix;                                            // 0x0110(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Background;                                        // 0x0114(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosGuildGetGuildInfoResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosGuildData
 // 0x0050 (0x0050 - 0x0000)
@@ -2110,6 +2278,7 @@ public:
 	int32                                         proposeStatus;                                     // 0x0048(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_4C[0x4];                                       // 0x004C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosGuildData;
 
 // ScriptStruct CosmosWebApi.CosmosGuildGetGuildListResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -2120,6 +2289,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosGuildData>               guildList;                                         // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosGuildGetGuildListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosBonusData
 // 0x0008 (0x0008 - 0x0000)
@@ -2129,6 +2299,7 @@ public:
 	int32                                         bonusCode;                                         // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Bonus;                                             // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosBonusData;
 
 // ScriptStruct CosmosWebApi.CosmosBonusUserData
 // 0x0020 (0x0020 - 0x0000)
@@ -2138,6 +2309,7 @@ public:
 	class FString                                 UserId;                                            // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosBonusData>               BonusList;                                         // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosBonusUserData;
 
 // ScriptStruct CosmosWebApi.CosmosBattleGameStartResponseParam
 // 0x0028 (0x0028 - 0x0000)
@@ -2149,6 +2321,7 @@ public:
 	class FString                                 gameId;                                            // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosBonusUserData>           userList;                                          // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosBattleGameStartResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosBattleCalcSkillBaseResponseParam
 // 0x0010 (0x0010 - 0x0000)
@@ -2160,6 +2333,7 @@ public:
 	int32                                         penaltyLevel;                                      // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         liveTime;                                          // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosBattleCalcSkillBaseResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosItemDropData
 // 0x0020 (0x0020 - 0x0000)
@@ -2172,6 +2346,7 @@ public:
 	int32                                         DropType;                                          // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosExItemData>              ExItems;                                           // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosItemDropData;
 
 // ScriptStruct CosmosWebApi.CosmosDropUserData
 // 0x0020 (0x0020 - 0x0000)
@@ -2181,6 +2356,7 @@ public:
 	class FString                                 UserId;                                            // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosItemDropData>            itemDropList;                                      // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosDropUserData;
 
 // ScriptStruct CosmosWebApi.CosmosBattleUserResultResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -2191,6 +2367,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosDropUserData>            userList;                                          // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosBattleUserResultResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSeasonBattleData
 // 0x0060 (0x0060 - 0x0000)
@@ -2222,6 +2399,7 @@ public:
 	int32                                         TotalLikeCount;                                    // 0x0058(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         TotalPvCount;                                      // 0x005C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSeasonBattleData;
 
 // ScriptStruct CosmosWebApi.CosmosBattleGetBattleRecordListResponseParam
 // 0x0070 (0x0070 - 0x0000)
@@ -2254,6 +2432,7 @@ public:
 	int32                                         TotalPvCount;                                      // 0x005C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosSeasonBattleData>        seasonBattleList;                                  // 0x0060(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosBattleGetBattleRecordListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosFriendInfo
 // 0x0078 (0x0078 - 0x0000)
@@ -2273,6 +2452,7 @@ public:
 	int32                                         suffix;                                            // 0x0070(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Background;                                        // 0x0074(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosFriendInfo;
 
 // ScriptStruct CosmosWebApi.CosmosFriendGetFriendshipListResponseParam
 // 0x0020 (0x0020 - 0x0000)
@@ -2285,6 +2465,7 @@ public:
 	int32                                         maxpage;                                           // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosFriendInfo>              friendList;                                        // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosFriendGetFriendshipListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosPresetParam
 // 0x000C (0x000C - 0x0000)
@@ -2295,6 +2476,7 @@ public:
 	int32                                         Type;                                              // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         paramCode;                                         // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosPresetParam;
 
 // ScriptStruct CosmosWebApi.CosmosPresetSubData
 // 0x0040 (0x0040 - 0x0000)
@@ -2309,6 +2491,7 @@ public:
 	TArray<struct FCosmosSlotData>                SlotList;                                          // 0x0020(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosSkillData>               SkillList;                                         // 0x0030(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosPresetSubData;
 
 // ScriptStruct CosmosWebApi.CosmosPresetData
 // 0x0018 (0x0018 - 0x0000)
@@ -2319,6 +2502,7 @@ public:
 	int32                                         unlockedPreset;                                    // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosPresetSubData>           params;                                            // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosPresetData;
 
 // ScriptStruct CosmosWebApi.CosmosPresetGetPresetListResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -2329,6 +2513,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosPresetData>              Presets;                                           // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosPresetGetPresetListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosProfileReducePlayerNameChangeLimitTimeResponseParam
 // 0x0008 (0x0008 - 0x0000)
@@ -2338,6 +2523,7 @@ public:
 	int32                                         Status;                                            // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ownedCurrencyNum;                                  // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosProfileReducePlayerNameChangeLimitTimeResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosProfileGetPlayerNameChangeLimitTimeResponseParam
 // 0x0020 (0x0020 - 0x0000)
@@ -2350,6 +2536,7 @@ public:
 	int32                                         nameChangeLimitCount;                              // 0x0018(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosProfileGetPlayerNameChangeLimitTimeResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosProfileGetDedprofileResponseParam
 // 0x0128 (0x0128 - 0x0000)
@@ -2395,6 +2582,7 @@ public:
 	int32                                         suffix;                                            // 0x0120(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Background;                                        // 0x0124(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosProfileGetDedprofileResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosProfileGetProfileResponseParam
 // 0x0130 (0x0130 - 0x0000)
@@ -2442,6 +2630,7 @@ public:
 	int32                                         isBlock;                                           // 0x0128(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         myRoomLikeCount;                                   // 0x012C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosProfileGetProfileResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosMainGetVersionResponseParam
 // 0x0028 (0x0028 - 0x0000)
@@ -2453,6 +2642,7 @@ public:
 	class FString                                 serverVersion;                                     // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 masterVersion;                                     // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMainGetVersionResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosMenuRankingData
 // 0x0010 (0x0010 - 0x0000)
@@ -2464,6 +2654,7 @@ public:
 	int32                                         Result;                                            // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         leagueJudge;                                       // 0x000C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMenuRankingData;
 
 // ScriptStruct CosmosWebApi.CosmosMenuCurrencyData
 // 0x0020 (0x0020 - 0x0000)
@@ -2476,6 +2667,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 limitDate;                                         // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMenuCurrencyData;
 
 // ScriptStruct CosmosWebApi.CosmosMainGetMenuResponseParam
 // 0x00D0 (0x00D0 - 0x0000)
@@ -2511,6 +2703,7 @@ public:
 	int32                                         specialPassRemindFlg;                              // 0x00BC(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<int32>                                 pastRemainRewardSeasons;                           // 0x00C0(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMainGetMenuResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosMainStartupResponseParam
 // 0x0028 (0x0028 - 0x0000)
@@ -2525,6 +2718,7 @@ public:
 	int32                                         tutorialStatus;                                    // 0x0020(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         isCrossplayForcedOff;                              // 0x0024(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMainStartupResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSkillLevelUpData
 // 0x0008 (0x0008 - 0x0000)
@@ -2534,6 +2728,7 @@ public:
 	int32                                         skillNo;                                           // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         levelUpNum;                                        // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSkillLevelUpData;
 
 // ScriptStruct CosmosWebApi.CosmosSlotLevelUpData
 // 0x0008 (0x0008 - 0x0000)
@@ -2543,6 +2738,7 @@ public:
 	int32                                         slotNo;                                            // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         levelUpNum;                                        // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSlotLevelUpData;
 
 // ScriptStruct CosmosWebApi.CosmosSkillSetData
 // 0x0008 (0x0008 - 0x0000)
@@ -2552,6 +2748,7 @@ public:
 	int32                                         skillNo;                                           // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         characterMedalCode;                                // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSkillSetData;
 
 // ScriptStruct CosmosWebApi.CosmosSlotSetData
 // 0x0008 (0x0008 - 0x0000)
@@ -2561,6 +2758,7 @@ public:
 	int32                                         slotNo;                                            // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         characterMedalCode;                                // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSlotSetData;
 
 // ScriptStruct CosmosWebApi.CosmosAddPopupData
 // 0x0008 (0x0008 - 0x0000)
@@ -2570,6 +2768,7 @@ public:
 	int32                                         code;                                              // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ViewNum;                                           // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosAddPopupData;
 
 // ScriptStruct CosmosWebApi.CosmosSquadUserData
 // 0x0020 (0x0020 - 0x0000)
@@ -2579,6 +2778,7 @@ public:
 	class FString                                 squadId;                                           // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 UserId;                                            // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSquadUserData;
 
 // ScriptStruct CosmosWebApi.CosmosRentalUserData
 // 0x0018 (0x0018 - 0x0000)
@@ -2589,6 +2789,7 @@ public:
 	int32                                         consumePoint;                                      // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosRentalUserData;
 
 // ScriptStruct CosmosWebApi.CosmosKpiColumn
 // 0x0018 (0x0018 - 0x0000)
@@ -2599,6 +2800,7 @@ public:
 	int32                                         Type;                                              // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosKpiColumn;
 
 // ScriptStruct CosmosWebApi.CosmosKpiData
 // 0x0010 (0x0010 - 0x0000)
@@ -2607,6 +2809,7 @@ struct FCosmosKpiData final
 public:
 	TArray<class FString>                         kpiData;                                           // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosKpiData;
 
 // ScriptStruct CosmosWebApi.CosmosKpiNoColumnData
 // 0x0028 (0x0028 - 0x0000)
@@ -2618,6 +2821,7 @@ public:
 	TArray<struct FCosmosKpiColumn>               kpiColumnList;                                     // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosKpiData>                 kpiDataList;                                       // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosKpiNoColumnData;
 
 // ScriptStruct CosmosWebApi.CosmosF2PKpiData
 // 0x0020 (0x0020 - 0x0000)
@@ -2627,6 +2831,7 @@ public:
 	class FString                                 UserId;                                            // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosKpiNoColumnData>         kpiNoList;                                         // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosF2PKpiData;
 
 // ScriptStruct CosmosWebApi.CosmosUserMissionData
 // 0x0020 (0x0020 - 0x0000)
@@ -2639,6 +2844,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 TargetType;                                        // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosUserMissionData;
 
 // ScriptStruct CosmosWebApi.CosmosMissionResultData
 // 0x0020 (0x0020 - 0x0000)
@@ -2648,6 +2854,7 @@ public:
 	class FString                                 UserId;                                            // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosUserMissionData>         userMissions;                                      // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMissionResultData;
 
 // ScriptStruct CosmosWebApi.CosmosItemPartsData
 // 0x0008 (0x0008 - 0x0000)
@@ -2657,6 +2864,7 @@ public:
 	int32                                         ItemCategoryCode;                                  // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ItemCode;                                          // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosItemPartsData;
 
 // ScriptStruct CosmosWebApi.CosmosCustomizeUserData
 // 0x0018 (0x0018 - 0x0000)
@@ -2667,6 +2875,7 @@ public:
 	int32                                         CharacterCode;                                     // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosCustomizeUserData;
 
 // ScriptStruct CosmosWebApi.CosmosCustomizeParamData
 // 0x0008 (0x0008 - 0x0000)
@@ -2676,6 +2885,7 @@ public:
 	int32                                         customizeNo;                                       // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         customizeCode;                                     // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomizeParamData;
 
 // ScriptStruct CosmosWebApi.CosmosUsersLikeData
 // 0x0018 (0x0018 - 0x0000)
@@ -2686,6 +2896,7 @@ public:
 	int32                                         LikeCount;                                         // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         LikeType;                                          // 0x0014(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosUsersLikeData;
 
 // ScriptStruct CosmosWebApi.CosmosLoginBonusDay
 // 0x0018 (0x0018 - 0x0000)
@@ -2696,6 +2907,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<class FString>                         loginBonusDayNum;                                  // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosLoginBonusDay;
 
 // ScriptStruct CosmosWebApi.CosmosRecordLikeData
 // 0x0018 (0x0018 - 0x0000)
@@ -2706,6 +2918,7 @@ public:
 	int32                                         LikeCount;                                         // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosRecordLikeData;
 
 // ScriptStruct CosmosWebApi.CosmosPenaltyUserData
 // 0x0028 (0x0028 - 0x0000)
@@ -2717,6 +2930,7 @@ public:
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 reporterUserId;                                    // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosPenaltyUserData;
 
 // ScriptStruct CosmosWebApi.CosmosPhaseLikeData
 // 0x000C (0x000C - 0x0000)
@@ -2727,6 +2941,7 @@ public:
 	int32                                         LikeCount;                                         // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         LikeType;                                          // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosPhaseLikeData;
 
 // ScriptStruct CosmosWebApi.CosmosBattleUserData
 // 0x0020 (0x0020 - 0x0000)
@@ -2736,6 +2951,7 @@ public:
 	class FString                                 UserId;                                            // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 squadId;                                           // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosBattleUserData;
 
 // ScriptStruct CosmosWebApi.CosmosBillBoardLikeData
 // 0x0028 (0x0028 - 0x0000)
@@ -2747,6 +2963,7 @@ public:
 	int32                                         LikeCount;                                         // 0x0020(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         LikeType;                                          // 0x0024(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosBillBoardLikeData;
 
 // ScriptStruct CosmosWebApi.CosmosPhaseData
 // 0x0030 (0x0030 - 0x0000)
@@ -2760,6 +2977,7 @@ public:
 	int32                                         resultPoint;                                       // 0x0028(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         resultType;                                        // 0x002C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosPhaseData;
 
 // ScriptStruct CosmosWebApi.CosmosSpecialEffectItemData
 // 0x000C (0x000C - 0x0000)
@@ -2770,6 +2988,7 @@ public:
 	int32                                         ItemCode;                                          // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         specialEffectPoint;                                // 0x0008(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSpecialEffectItemData;
 
 // ScriptStruct CosmosWebApi.CosmosEventRankData
 // 0x0008 (0x0008 - 0x0000)
@@ -2779,6 +2998,7 @@ public:
 	int32                                         eventCode;                                         // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         eventRankPoint;                                    // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosEventRankData;
 
 // ScriptStruct CosmosWebApi.CosmosUserResultData
 // 0x00E0 (0x00E0 - 0x0000)
@@ -2824,6 +3044,7 @@ public:
 	uint8                                         Pad_CC[0x4];                                       // 0x00CC(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosEventRankData>           EventRankList;                                     // 0x00D0(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosUserResultData;
 
 // ScriptStruct CosmosWebApi.CosmosTssInfo
 // 0x0018 (0x0018 - 0x0000)
@@ -2834,6 +3055,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 tssData;                                           // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosTssInfo;
 
 // ScriptStruct CosmosWebApi.CosmosTssReadListResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -2844,6 +3066,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosTssInfo>                 tssDataList;                                       // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosTssReadListResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosTssReadResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -2854,6 +3077,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 tssData;                                           // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosTssReadResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSysGetEnvV3ResponseParam
 // 0x0028 (0x0028 - 0x0000)
@@ -2865,6 +3089,7 @@ public:
 	class FString                                 URL;                                               // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 urlTitle;                                          // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSysGetEnvV3ResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSysGetEnvV2SeparateProjectResponseParam
 // 0x0028 (0x0028 - 0x0000)
@@ -2876,6 +3101,7 @@ public:
 	class FString                                 URL;                                               // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 urlTitle;                                          // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSysGetEnvV2SeparateProjectResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSysGetEnvV2ResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -2886,6 +3112,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 URL;                                               // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSysGetEnvV2ResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSysGetEnvSeparateProjectResponseParam
 // 0x0028 (0x0028 - 0x0000)
@@ -2897,6 +3124,7 @@ public:
 	class FString                                 URL;                                               // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 urlTitle;                                          // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSysGetEnvSeparateProjectResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosSysGetEnvResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -2907,6 +3135,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 URL;                                               // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosSysGetEnvResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosUserGetCountryResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -2917,6 +3146,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 country;                                           // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosUserGetCountryResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosUserGetTrackingNumResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -2927,6 +3157,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 tracking_num;                                      // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosUserGetTrackingNumResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosUserRedirectUrl
 // 0x0030 (0x0030 - 0x0000)
@@ -2937,6 +3168,7 @@ public:
 	class FString                                 basicId;                                           // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 basicPass;                                         // 0x0020(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosUserRedirectUrl;
 
 // ScriptStruct CosmosWebApi.CosmosUserLinkBnidResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -2947,6 +3179,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosUserRedirectUrl>         redirectUrl;                                       // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosUserLinkBnidResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosUserConvertInfo
 // 0x0020 (0x0020 - 0x0000)
@@ -2956,6 +3189,7 @@ public:
 	class FString                                 pUserId;                                           // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 UserId;                                            // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosUserConvertInfo;
 
 // ScriptStruct CosmosWebApi.CosmosUserConvertUserIdResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -2966,6 +3200,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosUserConvertInfo>         userconvertInfo;                                   // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosUserConvertUserIdResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosUserData
 // 0x0018 (0x0018 - 0x0000)
@@ -2976,6 +3211,7 @@ public:
 	int32                                         registerStatus;                                    // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosUserData;
 
 // ScriptStruct CosmosWebApi.CosmosUserAuthResponseParam
 // 0x0020 (0x0020 - 0x0000)
@@ -2986,6 +3222,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FCosmosUserData                        userInfo;                                          // 0x0008(0x0018)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosUserAuthResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosUserLoginV2ResponseParam
 // 0x0020 (0x0020 - 0x0000)
@@ -2996,6 +3233,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FCosmosUserData                        userInfo;                                          // 0x0008(0x0018)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosUserLoginV2ResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosUserInfo
 // 0x0010 (0x0010 - 0x0000)
@@ -3004,6 +3242,7 @@ struct FCosmosUserInfo final
 public:
 	class FString                                 UserId;                                            // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosUserInfo;
 
 // ScriptStruct CosmosWebApi.CosmosUserLoginResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -3014,6 +3253,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FCosmosUserInfo                        userInfo;                                          // 0x0008(0x0010)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosUserLoginResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosUserCreateResponseParam
 // 0x0018 (0x0018 - 0x0000)
@@ -3024,6 +3264,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FCosmosUserInfo                        userInfo;                                          // 0x0008(0x0010)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosUserCreateResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosCommonResponseParam
 // 0x0004 (0x0004 - 0x0000)
@@ -3032,6 +3273,7 @@ struct FCosmosCommonResponseParam final
 public:
 	int32                                         Status;                                            // 0x0000(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCommonResponseParam;
 
 // ScriptStruct CosmosWebApi.CosmosResponseHeader
 // 0x0028 (0x0028 - 0x0000)
@@ -3043,5 +3285,7 @@ public:
 	class FString                                 session;                                           // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 Date;                                              // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosResponseHeader;
 
-SDK_NAMESPACE_END
+}
+

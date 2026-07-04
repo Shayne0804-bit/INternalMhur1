@@ -15,7 +15,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionDamageDyingWeak.BP_ActionDamageDyingWeak_C
 // 0x0008 (0x0310 - 0x0308)
@@ -48,5 +49,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionDamageDyingWeak_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionDamageDyingWeak_C;
 
-SDK_NAMESPACE_END
+}
+

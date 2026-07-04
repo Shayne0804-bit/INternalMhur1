@@ -16,7 +16,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_Ch025V2U3_Param.BP_Ch025V2U3_Param_C
 // 0x0080 (0x00B0 - 0x0030)
@@ -47,5 +48,7 @@ public:
 		return GetDefaultObjImpl<UBP_Ch025V2U3_Param_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_Ch025V2U3_Param_C;
 
-SDK_NAMESPACE_END
+}
+

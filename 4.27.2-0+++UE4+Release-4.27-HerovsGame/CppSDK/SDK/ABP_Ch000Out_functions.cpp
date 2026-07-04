@@ -14,7 +14,8 @@
 #include "ABP_Ch000Out_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function ABP_Ch000Out.ABP_Ch000Out_C.ExecuteUbergraph_ABP_Ch000Out
 // (Final, UbergraphFunction)
@@ -132,5 +133,5 @@ void UABP_Ch000Out_C::ActionCustom(const struct FPoseLink& InPose, struct FPoseL
 		*ActionCustom_0 = std::move(Parms.ActionCustom_0);
 }
 
+}
 
-SDK_NAMESPACE_END

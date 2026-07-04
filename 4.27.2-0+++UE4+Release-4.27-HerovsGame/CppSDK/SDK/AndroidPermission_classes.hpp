@@ -14,7 +14,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class AndroidPermission.AndroidPermissionCallbackProxy
 // 0x0020 (0x0048 - 0x0028)
@@ -38,6 +39,7 @@ public:
 		return GetDefaultObjImpl<UAndroidPermissionCallbackProxy>();
 	}
 };
+DUMPER7_ASSERTS_UAndroidPermissionCallbackProxy;
 
 // Class AndroidPermission.AndroidPermissionFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -61,5 +63,7 @@ public:
 		return GetDefaultObjImpl<UAndroidPermissionFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UAndroidPermissionFunctionLibrary;
 
-SDK_NAMESPACE_END
+}
+

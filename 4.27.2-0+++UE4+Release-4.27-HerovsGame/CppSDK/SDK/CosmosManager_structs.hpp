@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum CosmosManager.ECosmosNgWordCheckErrorEntry
 // NumValues: 0x0006
@@ -242,6 +243,7 @@ public:
 	TMap<class FString, class FString>            UserData;                                          // 0x0020(0x0050)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 	TMap<class FString, class FString>            SdpData;                                           // 0x0070(0x0050)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMatchingSquadMember;
 
 // ScriptStruct CosmosManager.CosmosCustomMatchingSquadMember
 // 0x0010 (0x00D0 - 0x00C0)
@@ -250,6 +252,7 @@ struct FCosmosCustomMatchingSquadMember final : public FCosmosMatchingSquadMembe
 public:
 	class FString                                 CustomMatchName;                                   // 0x00C0(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomMatchingSquadMember;
 
 // ScriptStruct CosmosManager.CosmosCustomMatchingSquad
 // 0x0018 (0x0018 - 0x0000)
@@ -260,6 +263,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosCustomMatchingSquadMember> MemberList;                                      // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomMatchingSquad;
 
 // ScriptStruct CosmosManager.CosmosCustomMatchingInfo
 // 0x00C8 (0x00C8 - 0x0000)
@@ -280,6 +284,7 @@ public:
 	int32                                         BattleServerPort;                                  // 0x00C0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C4[0x4];                                       // 0x00C4(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosCustomMatchingInfo;
 
 // ScriptStruct CosmosManager.CosmosMatchingRegion
 // 0x0048 (0x0048 - 0x0000)
@@ -296,6 +301,7 @@ public:
 	float                                         Latency;                                           // 0x0040(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Score;                                             // 0x0044(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMatchingRegion;
 
 // ScriptStruct CosmosManager.ResponseMyRoomCharacterCustomizeData
 // 0x0028 (0x0028 - 0x0000)
@@ -310,6 +316,7 @@ public:
 	int32                                         _rotation;                                         // 0x0020(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         _viewTarget;                                       // 0x0024(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FResponseMyRoomCharacterCustomizeData;
 
 // ScriptStruct CosmosManager.ResponseMyRoomCustomizeData
 // 0x0068 (0x0068 - 0x0000)
@@ -324,6 +331,7 @@ public:
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TMap<int32, struct FResponseMyRoomCharacterCustomizeData> _character;                            // 0x0018(0x0050)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FResponseMyRoomCustomizeData;
 
 // ScriptStruct CosmosManager.CosmosMatchingSquadInfo
 // 0x00F0 (0x00F0 - 0x0000)
@@ -338,6 +346,7 @@ public:
 	TArray<struct FCosmosMatchingSquadMember>     MemberList;                                        // 0x0078(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	struct FResponseMyRoomCustomizeData           MyRoomInfo;                                        // 0x0088(0x0068)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosMatchingSquadInfo;
 
 // ScriptStruct CosmosManager.ResponseMyRoomPresetListData
 // 0x0070 (0x0070 - 0x0000)
@@ -348,6 +357,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FResponseMyRoomCustomizeData           _myRoom;                                           // 0x0008(0x0068)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FResponseMyRoomPresetListData;
 
 // ScriptStruct CosmosManager.ResponseGetMyRoomPresetListData
 // 0x0018 (0x0018 - 0x0000)
@@ -358,6 +368,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FResponseMyRoomPresetListData>  _presetList;                                       // 0x0008(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FResponseGetMyRoomPresetListData;
 
 // ScriptStruct CosmosManager.ResponseGetMyRoomCustomizeData
 // 0x0070 (0x0070 - 0x0000)
@@ -368,5 +379,7 @@ public:
 	int32                                         _likeCount;                                        // 0x0068(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         _remainLikeNum;                                    // 0x006C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FResponseGetMyRoomCustomizeData;
 
-SDK_NAMESPACE_END
+}
+

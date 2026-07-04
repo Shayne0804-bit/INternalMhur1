@@ -15,7 +15,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionGuard.BP_ActionGuard_C
 // 0x0008 (0x04F0 - 0x04E8)
@@ -44,5 +45,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionGuard_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionGuard_C;
 
-SDK_NAMESPACE_END
+}
+

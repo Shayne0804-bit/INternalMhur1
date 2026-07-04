@@ -15,7 +15,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionScoutEnemy.BP_ActionScoutEnemy_C
 // 0x0010 (0x0290 - 0x0280)
@@ -56,5 +57,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionScoutEnemy_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionScoutEnemy_C;
 
-SDK_NAMESPACE_END
+}
+

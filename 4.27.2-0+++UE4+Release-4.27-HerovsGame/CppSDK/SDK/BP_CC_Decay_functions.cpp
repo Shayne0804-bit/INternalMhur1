@@ -14,7 +14,8 @@
 #include "BP_CC_Decay_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Decay.BP_CC_Decay_C.ExecuteUbergraph_BP_CC_Decay
 // (Final, UbergraphFunction)
@@ -133,5 +134,5 @@ void UBP_CC_Decay_C::BP_OnUpdateIntervalValue(float value)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

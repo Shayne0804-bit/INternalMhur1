@@ -14,7 +14,8 @@
 #include "BP_ActionScoutEnemy_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionScoutEnemy.BP_ActionScoutEnemy_C.ExecuteUbergraph_BP_ActionScoutEnemy
 // (Final, UbergraphFunction)
@@ -263,5 +264,5 @@ bool UBP_ActionScoutEnemy_C::BP_IsEnableShiftAction(const class FName& nextActio
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

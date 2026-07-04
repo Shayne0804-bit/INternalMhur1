@@ -13,8 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function VoiceChatModule.VoiceChatObject.GetInstance
 // 0x0008 (0x0008 - 0x0000)
@@ -23,6 +23,7 @@ struct VoiceChatObject_GetInstance final
 public:
 	class UVoiceChatObject*                       ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_GetInstance;
 
 // Function VoiceChatModule.VoiceChatObject.AddCrossMutePlayer
 // 0x0010 (0x0010 - 0x0000)
@@ -31,6 +32,7 @@ struct VoiceChatObject_AddCrossMutePlayer final
 public:
 	class FString                                 platformPlayerId;                                  // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_AddCrossMutePlayer;
 
 // Function VoiceChatModule.VoiceChatObject.BlockPlayersStatus
 // 0x0010 (0x0010 - 0x0000)
@@ -39,6 +41,7 @@ struct VoiceChatObject_BlockPlayersStatus final
 public:
 	TArray<class FString>                         platformPlayerIds;                                 // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_BlockPlayersStatus;
 
 // Function VoiceChatModule.VoiceChatObject.BlockPlayerStatus
 // 0x0010 (0x0010 - 0x0000)
@@ -47,6 +50,7 @@ struct VoiceChatObject_BlockPlayerStatus final
 public:
 	class FString                                 platformPlayerId;                                  // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_BlockPlayerStatus;
 
 // Function VoiceChatModule.VoiceChatObject.Connect
 // 0x0018 (0x0018 - 0x0000)
@@ -57,6 +61,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_VoiceChatObject_Connect;
 
 // Function VoiceChatModule.VoiceChatObject.ConnectTextChannel
 // 0x0018 (0x0018 - 0x0000)
@@ -67,6 +72,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_VoiceChatObject_ConnectTextChannel;
 
 // Function VoiceChatModule.VoiceChatObject.GetActiveInputDevice
 // 0x0010 (0x0010 - 0x0000)
@@ -75,6 +81,7 @@ struct VoiceChatObject_GetActiveInputDevice final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_GetActiveInputDevice;
 
 // Function VoiceChatModule.VoiceChatObject.GetActiveOutputDevice
 // 0x0010 (0x0010 - 0x0000)
@@ -83,6 +90,7 @@ struct VoiceChatObject_GetActiveOutputDevice final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_GetActiveOutputDevice;
 
 // Function VoiceChatModule.VoiceChatObject.Initialize
 // 0x0001 (0x0001 - 0x0000)
@@ -91,6 +99,7 @@ struct VoiceChatObject_Initialize final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_Initialize;
 
 // Function VoiceChatModule.VoiceChatObject.IsInitialized
 // 0x0001 (0x0001 - 0x0000)
@@ -99,6 +108,7 @@ struct VoiceChatObject_IsInitialized final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_IsInitialized;
 
 // Function VoiceChatModule.VoiceChatObject.JoinChannel
 // 0x0010 (0x0010 - 0x0000)
@@ -107,6 +117,7 @@ struct VoiceChatObject_JoinChannel final
 public:
 	class FString                                 ChannelName;                                       // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_JoinChannel;
 
 // Function VoiceChatModule.VoiceChatObject.JoinTextChannel
 // 0x0010 (0x0010 - 0x0000)
@@ -115,6 +126,7 @@ struct VoiceChatObject_JoinTextChannel final
 public:
 	class FString                                 ChannelName;                                       // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_JoinTextChannel;
 
 // Function VoiceChatModule.VoiceChatObject.Set3DPosition
 // 0x0030 (0x0030 - 0x0000)
@@ -126,6 +138,7 @@ public:
 	struct FVector                                forwardDir;                                        // 0x0018(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                upDirection;                                       // 0x0024(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_Set3DPosition;
 
 // Function VoiceChatModule.VoiceChatObject.SetAudioInputMute
 // 0x0001 (0x0001 - 0x0000)
@@ -134,6 +147,7 @@ struct VoiceChatObject_SetAudioInputMute final
 public:
 	bool                                          bMuted;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_SetAudioInputMute;
 
 // Function VoiceChatModule.VoiceChatObject.SetAudioInputVolume
 // 0x0004 (0x0004 - 0x0000)
@@ -142,6 +156,7 @@ struct VoiceChatObject_SetAudioInputVolume final
 public:
 	float                                         Volume;                                            // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_SetAudioInputVolume;
 
 // Function VoiceChatModule.VoiceChatObject.SetAudioOutputMute
 // 0x0001 (0x0001 - 0x0000)
@@ -150,6 +165,7 @@ struct VoiceChatObject_SetAudioOutputMute final
 public:
 	bool                                          bMuted;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_SetAudioOutputMute;
 
 // Function VoiceChatModule.VoiceChatObject.SetAudioOutputVolume
 // 0x0004 (0x0004 - 0x0000)
@@ -158,6 +174,7 @@ struct VoiceChatObject_SetAudioOutputVolume final
 public:
 	float                                         Volume;                                            // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_SetAudioOutputVolume;
 
 // Function VoiceChatModule.VoiceChatObject.SetCrossMutePlayers
 // 0x0010 (0x0010 - 0x0000)
@@ -166,6 +183,7 @@ struct VoiceChatObject_SetCrossMutePlayers final
 public:
 	TArray<class FString>                         platformPlayerIds;                                 // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_SetCrossMutePlayers;
 
 // Function VoiceChatModule.VoiceChatObject.SetEnableSpeechToText
 // 0x0001 (0x0001 - 0x0000)
@@ -174,6 +192,7 @@ struct VoiceChatObject_SetEnableSpeechToText final
 public:
 	bool                                          bEnableSpeechToText;                               // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_SetEnableSpeechToText;
 
 // Function VoiceChatModule.VoiceChatObject.SetInputDevice
 // 0x0010 (0x0010 - 0x0000)
@@ -182,6 +201,7 @@ struct VoiceChatObject_SetInputDevice final
 public:
 	class FString                                 inputDeviceId;                                     // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_SetInputDevice;
 
 // Function VoiceChatModule.VoiceChatObject.SetOutputDevice
 // 0x0010 (0x0010 - 0x0000)
@@ -190,6 +210,7 @@ struct VoiceChatObject_SetOutputDevice final
 public:
 	class FString                                 outputDeviceId;                                    // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_SetOutputDevice;
 
 // Function VoiceChatModule.VoiceChatObject.SetPlayerMute
 // 0x0018 (0x0018 - 0x0000)
@@ -200,6 +221,7 @@ public:
 	bool                                          bMute;                                             // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_VoiceChatObject_SetPlayerMute;
 
 // Function VoiceChatModule.VoiceChatObject.SetPlayerVolume
 // 0x0018 (0x0018 - 0x0000)
@@ -210,6 +232,7 @@ public:
 	float                                         Volume;                                            // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_VoiceChatObject_SetPlayerVolume;
 
 // Function VoiceChatModule.VoiceChatObject.SetVoiceFont
 // 0x0010 (0x0010 - 0x0000)
@@ -218,6 +241,7 @@ struct VoiceChatObject_SetVoiceFont final
 public:
 	class FString                                 voiceFontName;                                     // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_SetVoiceFont;
 
 // Function VoiceChatModule.VoiceChatObject.UnblockPlayersStatus
 // 0x0010 (0x0010 - 0x0000)
@@ -226,6 +250,7 @@ struct VoiceChatObject_UnblockPlayersStatus final
 public:
 	TArray<class FString>                         platformPlayerIds;                                 // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_UnblockPlayersStatus;
 
 // Function VoiceChatModule.VoiceChatObject.UnblockPlayerStatus
 // 0x0010 (0x0010 - 0x0000)
@@ -234,6 +259,7 @@ struct VoiceChatObject_UnblockPlayerStatus final
 public:
 	class FString                                 platformPlayerId;                                  // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_UnblockPlayerStatus;
 
 // Function VoiceChatModule.VoiceChatObject.GetAudioInputVolume
 // 0x0004 (0x0004 - 0x0000)
@@ -242,6 +268,7 @@ struct VoiceChatObject_GetAudioInputVolume final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_GetAudioInputVolume;
 
 // Function VoiceChatModule.VoiceChatObject.GetAudioOutputVolume
 // 0x0004 (0x0004 - 0x0000)
@@ -250,6 +277,7 @@ struct VoiceChatObject_GetAudioOutputVolume final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_GetAudioOutputVolume;
 
 // Function VoiceChatModule.VoiceChatObject.GetCurrentChannelName
 // 0x0010 (0x0010 - 0x0000)
@@ -258,6 +286,7 @@ struct VoiceChatObject_GetCurrentChannelName final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_GetCurrentChannelName;
 
 // Function VoiceChatModule.VoiceChatObject.GetPlayersInChannel
 // 0x0010 (0x0010 - 0x0000)
@@ -266,6 +295,7 @@ struct VoiceChatObject_GetPlayersInChannel final
 public:
 	TArray<class FString>                         ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_GetPlayersInChannel;
 
 // Function VoiceChatModule.VoiceChatObject.GetPlayerVolume
 // 0x0018 (0x0018 - 0x0000)
@@ -276,6 +306,7 @@ public:
 	float                                         ReturnValue;                                       // 0x0010(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_VoiceChatObject_GetPlayerVolume;
 
 // Function VoiceChatModule.VoiceChatObject.GetVoiceFontNameList
 // 0x0010 (0x0010 - 0x0000)
@@ -284,6 +315,7 @@ struct VoiceChatObject_GetVoiceFontNameList final
 public:
 	TArray<class FString>                         ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_GetVoiceFontNameList;
 
 // Function VoiceChatModule.VoiceChatObject.IsAudioInputMuted
 // 0x0001 (0x0001 - 0x0000)
@@ -292,6 +324,7 @@ struct VoiceChatObject_IsAudioInputMuted final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_IsAudioInputMuted;
 
 // Function VoiceChatModule.VoiceChatObject.IsAudioOutputMuted
 // 0x0001 (0x0001 - 0x0000)
@@ -300,6 +333,7 @@ struct VoiceChatObject_IsAudioOutputMuted final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_IsAudioOutputMuted;
 
 // Function VoiceChatModule.VoiceChatObject.IsChannelConnected
 // 0x0001 (0x0001 - 0x0000)
@@ -308,6 +342,7 @@ struct VoiceChatObject_IsChannelConnected final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_IsChannelConnected;
 
 // Function VoiceChatModule.VoiceChatObject.IsCheckPlayer
 // 0x0018 (0x0018 - 0x0000)
@@ -318,6 +353,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_VoiceChatObject_IsCheckPlayer;
 
 // Function VoiceChatModule.VoiceChatObject.IsConnected
 // 0x0001 (0x0001 - 0x0000)
@@ -326,6 +362,7 @@ struct VoiceChatObject_IsConnected final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_IsConnected;
 
 // Function VoiceChatModule.VoiceChatObject.IsPlayerMuted
 // 0x0018 (0x0018 - 0x0000)
@@ -336,6 +373,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_VoiceChatObject_IsPlayerMuted;
 
 // Function VoiceChatModule.VoiceChatObject.SendTextSpeech
 // 0x0010 (0x0010 - 0x0000)
@@ -344,6 +382,7 @@ struct VoiceChatObject_SendTextSpeech final
 public:
 	class FString                                 message;                                           // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoiceChatObject_SendTextSpeech;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

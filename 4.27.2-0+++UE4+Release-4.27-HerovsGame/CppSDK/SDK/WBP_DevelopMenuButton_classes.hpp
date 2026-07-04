@@ -13,7 +13,8 @@
 #include "DevelopMenu_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_DevelopMenuButton.WBP_DevelopMenuButton_C
 // 0x0018 (0x02E0 - 0x02C8)
@@ -38,5 +39,7 @@ public:
 		return GetDefaultObjImpl<UWBP_DevelopMenuButton_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_DevelopMenuButton_C;
 
-SDK_NAMESPACE_END
+}
+

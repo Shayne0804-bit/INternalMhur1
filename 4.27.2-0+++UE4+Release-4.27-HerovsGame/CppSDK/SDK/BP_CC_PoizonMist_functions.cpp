@@ -14,7 +14,8 @@
 #include "BP_CC_PoizonMist_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_PoizonMist.BP_CC_PoizonMist_C.ExecuteUbergraph_BP_CC_PoizonMist
 // (Final, UbergraphFunction)
@@ -109,5 +110,5 @@ void UBP_CC_PoizonMist_C::GetDamageMultiplierInfo(float& damageValue, float* Poi
 		*PoisonMistDamageMultiplier = Parms.PoisonMistDamageMultiplier;
 }
 
+}
 
-SDK_NAMESPACE_END

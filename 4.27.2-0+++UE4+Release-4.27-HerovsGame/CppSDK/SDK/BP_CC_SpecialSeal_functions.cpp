@@ -14,7 +14,8 @@
 #include "BP_CC_SpecialSeal_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_SpecialSeal.BP_CC_SpecialSeal_C.ExecuteUbergraph_BP_CC_SpecialSeal
 // (Final, UbergraphFunction, HasDefaults)
@@ -147,5 +148,5 @@ void UBP_CC_SpecialSeal_C::BP_OnBeginCondition()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

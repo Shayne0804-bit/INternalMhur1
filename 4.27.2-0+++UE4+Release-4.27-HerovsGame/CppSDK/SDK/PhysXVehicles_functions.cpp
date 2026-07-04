@@ -14,7 +14,8 @@
 #include "PhysXVehicles_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function PhysXVehicles.WheeledVehicleMovementComponent.ServerUpdateState
 // (Net, NetReliable, Native, Event, Protected, NetServer, NetValidate)
@@ -781,5 +782,5 @@ bool UVehicleWheel::IsInAir() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

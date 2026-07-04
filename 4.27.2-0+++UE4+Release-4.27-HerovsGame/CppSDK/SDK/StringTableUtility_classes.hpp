@@ -13,7 +13,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class StringTableUtility.StringTableUtilitySettings
 // 0x0020 (0x0048 - 0x0028)
@@ -37,5 +38,7 @@ public:
 		return GetDefaultObjImpl<UStringTableUtilitySettings>();
 	}
 };
+DUMPER7_ASSERTS_UStringTableUtilitySettings;
 
-SDK_NAMESPACE_END
+}
+

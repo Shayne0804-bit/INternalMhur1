@@ -14,7 +14,8 @@
 #include "InGameModule_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function InGameModule.ProjectileGeneratorBattle.BP_CreateGenerator
 // (Native, Public, HasOutParams, HasDefaults, BlueprintCallable)
@@ -81658,5 +81659,5 @@ void UWarpCopyComponent::UpdateComponent()
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

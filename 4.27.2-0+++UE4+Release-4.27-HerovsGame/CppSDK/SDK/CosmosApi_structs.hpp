@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum CosmosApi.ECosmosProtocolResponseCode
 // NumValues: 0x001A
@@ -195,6 +196,7 @@ public:
 	class FString                                 UserName;                                          // 0x0020(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 CustomUserName;                                    // 0x0030(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomSquadMemberData;
 
 // ScriptStruct CosmosApi.SquadDissolvedEvent
 // 0x0020 (0x0020 - 0x0000)
@@ -204,6 +206,7 @@ public:
 	class FString                                 squadId;                                           // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<class FString>                         MemberList;                                        // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSquadDissolvedEvent;
 
 // ScriptStruct CosmosApi.NetSquadData
 // 0x0050 (0x0050 - 0x0000)
@@ -212,6 +215,7 @@ struct FNetSquadData final
 public:
 	TMap<class FString, class FString>            Data;                                              // 0x0000(0x0050)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNetSquadData;
 
 // ScriptStruct CosmosApi.SquadEvent
 // 0x0008 (0x0008 - 0x0000)
@@ -222,6 +226,7 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	ECosmosProtocolResponseCode                   Status;                                            // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSquadEvent;
 
 // ScriptStruct CosmosApi.SquadChatEvent
 // 0x0030 (0x0030 - 0x0000)
@@ -232,6 +237,7 @@ public:
 	class FString                                 UserId;                                            // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 message;                                           // 0x0020(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSquadChatEvent;
 
 // ScriptStruct CosmosApi.SquadAppealEvent
 // 0x0020 (0x0020 - 0x0000)
@@ -241,6 +247,7 @@ public:
 	class FString                                 UserId;                                            // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 message;                                           // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSquadAppealEvent;
 
 // ScriptStruct CosmosApi.SquadMemberLeftEvent
 // 0x0018 (0x0018 - 0x0000)
@@ -252,6 +259,7 @@ public:
 	ECosmosProtocolResponseCode                   Status;                                            // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 UserId;                                            // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSquadMemberLeftEvent;
 
 // ScriptStruct CosmosApi.CosmosCustomRoomSquadData
 // 0x0018 (0x0018 - 0x0000)
@@ -262,6 +270,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosCustomSquadMemberData>   CustomSquadMember;                                 // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomRoomSquadData;
 
 // ScriptStruct CosmosApi.CosmosJoinCustomRoomResponse
 // 0x0078 (0x0078 - 0x0000)
@@ -281,6 +290,7 @@ public:
 	int32                                         IsBattleReady;                                     // 0x0070(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_74[0x4];                                       // 0x0074(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosJoinCustomRoomResponse;
 
 // ScriptStruct CosmosApi.NetSquadUserData
 // 0x0060 (0x0060 - 0x0000)
@@ -290,6 +300,7 @@ public:
 	class FString                                 DisplayName;                                       // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TMap<class FString, class FString>            Data;                                              // 0x0010(0x0050)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNetSquadUserData;
 
 // ScriptStruct CosmosApi.NetSquadSdpData
 // 0x0050 (0x0050 - 0x0000)
@@ -298,6 +309,7 @@ struct FNetSquadSdpData final
 public:
 	TMap<class FString, class FString>            Data;                                              // 0x0000(0x0050)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNetSquadSdpData;
 
 // ScriptStruct CosmosApi.CreateSquadParam
 // 0x0108 (0x0108 - 0x0000)
@@ -310,6 +322,7 @@ public:
 	int32                                         RegionId;                                          // 0x0100(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_104[0x4];                                      // 0x0104(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCreateSquadParam;
 
 // ScriptStruct CosmosApi.CosmosUserNameDuplicatedNotify
 // 0x0070 (0x0070 - 0x0000)
@@ -327,6 +340,7 @@ public:
 	int32                                         IsBattleReady;                                     // 0x0068(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_6C[0x4];                                       // 0x006C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosUserNameDuplicatedNotify;
 
 // ScriptStruct CosmosApi.CosmosChangeCustomRoomSettingsNotify
 // 0x0070 (0x0070 - 0x0000)
@@ -344,6 +358,7 @@ public:
 	int32                                         IsBattleReady;                                     // 0x0068(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_6C[0x4];                                       // 0x006C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosChangeCustomRoomSettingsNotify;
 
 // ScriptStruct CosmosApi.NetSquadConfig
 // 0x0058 (0x0058 - 0x0000)
@@ -358,6 +373,7 @@ public:
 	class FString                                 ServerIp;                                          // 0x0038(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 serverPort;                                        // 0x0048(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNetSquadConfig;
 
 // ScriptStruct CosmosApi.CosmosGetCustomRoomDataResponse
 // 0x0078 (0x0078 - 0x0000)
@@ -377,6 +393,7 @@ public:
 	int32                                         IsBattleReady;                                     // 0x0070(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_74[0x4];                                       // 0x0074(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosGetCustomRoomDataResponse;
 
 // ScriptStruct CosmosApi.CosmosCustomRoomReadiedNotify
 // 0x0038 (0x0038 - 0x0000)
@@ -389,6 +406,7 @@ public:
 	TArray<struct FCosmosCustomRoomSquadData>     RoomSquadList;                                     // 0x0018(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FCosmosCustomSquadMemberData>   RoomObserverUserList;                              // 0x0028(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomRoomReadiedNotify;
 
 // ScriptStruct CosmosApi.CosmosCustomLobbyServerNotify
 // 0x0018 (0x0018 - 0x0000)
@@ -399,6 +417,7 @@ public:
 	int32                                         BattleServerPort;                                  // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCosmosCustomLobbyServerNotify;
 
 // ScriptStruct CosmosApi.CosmosReceiveCustomSquadChatNotify
 // 0x0020 (0x0020 - 0x0000)
@@ -408,6 +427,7 @@ public:
 	class FString                                 UserId;                                            // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 message;                                           // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosReceiveCustomSquadChatNotify;
 
 // ScriptStruct CosmosApi.CosmosCustomSquadAppealedNotify
 // 0x0020 (0x0020 - 0x0000)
@@ -417,6 +437,7 @@ public:
 	class FString                                 UserId;                                            // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 Appeal;                                            // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomSquadAppealedNotify;
 
 // ScriptStruct CosmosApi.CosmosChangeMyRoomDataNotify
 // 0x0020 (0x0020 - 0x0000)
@@ -426,6 +447,7 @@ public:
 	class FString                                 squadId;                                           // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 MyRoomData;                                        // 0x0010(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosChangeMyRoomDataNotify;
 
 // ScriptStruct CosmosApi.CosmosCustomSquadMember
 // 0x0010 (0x0010 - 0x0000)
@@ -434,6 +456,7 @@ struct FCosmosCustomSquadMember final
 public:
 	class FString                                 UserId;                                            // 0x0000(0x0010)(Edit, BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomSquadMember;
 
 // ScriptStruct CosmosApi.CosmosCustomRoomSquadList
 // 0x0018 (0x0018 - 0x0000)
@@ -444,6 +467,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FCosmosCustomSquadMember>       CustomSquadMember;                                 // 0x0008(0x0010)(Edit, BlueprintVisible, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCosmosCustomRoomSquadList;
 
 // ScriptStruct CosmosApi.NetSquadMemberData
 // 0x00C0 (0x00C0 - 0x0000)
@@ -454,5 +478,7 @@ public:
 	struct FNetSquadUserData                      UserData;                                          // 0x0010(0x0060)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 	struct FNetSquadSdpData                       SdpData;                                           // 0x0070(0x0050)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNetSquadMemberData;
 
-SDK_NAMESPACE_END
+}
+

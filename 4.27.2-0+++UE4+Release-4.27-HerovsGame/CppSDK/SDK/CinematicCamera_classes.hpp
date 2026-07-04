@@ -14,7 +14,8 @@
 #include "CinematicCamera_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class CinematicCamera.CameraRig_Crane
 // 0x0030 (0x0250 - 0x0220)
@@ -46,6 +47,7 @@ public:
 		return GetDefaultObjImpl<ACameraRig_Crane>();
 	}
 };
+DUMPER7_ASSERTS_ACameraRig_Crane;
 
 // Class CinematicCamera.CameraRig_Rail
 // 0x0020 (0x0240 - 0x0220)
@@ -76,6 +78,7 @@ public:
 		return GetDefaultObjImpl<ACameraRig_Rail>();
 	}
 };
+DUMPER7_ASSERTS_ACameraRig_Rail;
 
 // Class CinematicCamera.CineCameraActor
 // 0x0060 (0x0810 - 0x07B0)
@@ -102,6 +105,7 @@ public:
 		return GetDefaultObjImpl<ACineCameraActor>();
 	}
 };
+DUMPER7_ASSERTS_ACineCameraActor;
 
 // Class CinematicCamera.CineCameraComponent
 // 0x0100 (0x08D0 - 0x07D0)
@@ -153,5 +157,7 @@ public:
 		return GetDefaultObjImpl<UCineCameraComponent>();
 	}
 };
+DUMPER7_ASSERTS_UCineCameraComponent;
 
-SDK_NAMESPACE_END
+}
+

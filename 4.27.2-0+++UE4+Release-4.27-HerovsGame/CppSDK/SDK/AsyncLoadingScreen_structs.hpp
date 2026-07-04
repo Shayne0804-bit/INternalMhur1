@@ -16,7 +16,8 @@
 #include "MoviePlayer_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum AsyncLoadingScreen.ELoadingWidgetType
 // NumValues: 0x0003
@@ -66,6 +67,7 @@ public:
 	struct FSlateBrush                            LeftBorderBackground;                              // 0x0030(0x00D0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 	struct FSlateBrush                            RightBorderBackground;                             // 0x0100(0x00D0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDualSidebarLayoutSettings;
 
 // ScriptStruct AsyncLoadingScreen.WidgetAlignment
 // 0x0002 (0x0002 - 0x0000)
@@ -75,6 +77,7 @@ public:
 	EHorizontalAlignment                          HorizontalAlignment;                               // 0x0000(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	EVerticalAlignment                            VerticalAlignment;                                 // 0x0001(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FWidgetAlignment;
 
 // ScriptStruct AsyncLoadingScreen.SidebarLayoutSettings
 // 0x0100 (0x0100 - 0x0000)
@@ -95,6 +98,7 @@ public:
 	uint8                                         Pad_24[0xC];                                       // 0x0024(0x000C)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FSlateBrush                            BorderBackground;                                  // 0x0030(0x00D0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSidebarLayoutSettings;
 
 // ScriptStruct AsyncLoadingScreen.LetterboxLayoutSettings
 // 0x01D0 (0x01D0 - 0x0000)
@@ -113,6 +117,7 @@ public:
 	struct FSlateBrush                            TopBorderBackground;                               // 0x0030(0x00D0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 	struct FSlateBrush                            BottomBorderBackground;                            // 0x0100(0x00D0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLetterboxLayoutSettings;
 
 // ScriptStruct AsyncLoadingScreen.CenterLayoutSettings
 // 0x00F0 (0x00F0 - 0x0000)
@@ -127,6 +132,7 @@ public:
 	uint8                                         Pad_18[0x8];                                       // 0x0018(0x0008)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FSlateBrush                            BorderBackground;                                  // 0x0020(0x00D0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCenterLayoutSettings;
 
 // ScriptStruct AsyncLoadingScreen.ClassicLayoutSettings
 // 0x00F0 (0x00F0 - 0x0000)
@@ -144,6 +150,7 @@ public:
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FSlateBrush                            BorderBackground;                                  // 0x0020(0x00D0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FClassicLayoutSettings;
 
 // ScriptStruct AsyncLoadingScreen.TextAppearance
 // 0x00A0 (0x00A0 - 0x0000)
@@ -157,6 +164,7 @@ public:
 	ETextJustify                                  Justification;                                     // 0x0098(0x0001)(Edit, BlueprintVisible, ZeroConstructor, Config, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_99[0x7];                                       // 0x0099(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTextAppearance;
 
 // ScriptStruct AsyncLoadingScreen.LoadingCompleteTextSettings
 // 0x00D8 (0x00D8 - 0x0000)
@@ -173,6 +181,7 @@ public:
 	float                                         AnimationSpeed;                                    // 0x00D0(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D4[0x4];                                       // 0x00D4(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FLoadingCompleteTextSettings;
 
 // ScriptStruct AsyncLoadingScreen.BackgroundSettings
 // 0x0038 (0x0038 - 0x0000)
@@ -187,6 +196,7 @@ public:
 	bool                                          bSetDisplayBackgroundManually;                     // 0x0034(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_35[0x3];                                       // 0x0035(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBackgroundSettings;
 
 // ScriptStruct AsyncLoadingScreen.TipSettings
 // 0x00B8 (0x00B8 - 0x0000)
@@ -199,6 +209,7 @@ public:
 	bool                                          bSetDisplayTipTextManually;                        // 0x00B4(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_B5[0x3];                                       // 0x00B5(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTipSettings;
 
 // ScriptStruct AsyncLoadingScreen.ImageSequenceSettings
 // 0x0020 (0x0020 - 0x0000)
@@ -211,6 +222,7 @@ public:
 	bool                                          bPlayReverse;                                      // 0x001C(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FImageSequenceSettings;
 
 // ScriptStruct AsyncLoadingScreen.ThrobberSettings
 // 0x00E0 (0x00E0 - 0x0000)
@@ -224,6 +236,7 @@ public:
 	uint8                                         Pad_7[0x9];                                        // 0x0007(0x0009)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FSlateBrush                            Image;                                             // 0x0010(0x00D0)(Edit, BlueprintVisible, BlueprintReadOnly, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FThrobberSettings;
 
 // ScriptStruct AsyncLoadingScreen.CircularThrobberSettings
 // 0x00E0 (0x00E0 - 0x0000)
@@ -236,6 +249,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FSlateBrush                            Image;                                             // 0x0010(0x00D0)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCircularThrobberSettings;
 
 // ScriptStruct AsyncLoadingScreen.LoadingWidgetSettings
 // 0x02D0 (0x02D0 - 0x0000)
@@ -262,6 +276,7 @@ public:
 	float                                         space;                                             // 0x02C4(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_2C8[0x8];                                      // 0x02C8(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FLoadingWidgetSettings;
 
 // ScriptStruct AsyncLoadingScreen.ALoadingScreenSettings
 // 0x04D0 (0x04D0 - 0x0000)
@@ -289,5 +304,7 @@ public:
 	EAsyncLoadingScreenLayout                     Layout;                                            // 0x04C0(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_4C1[0xF];                                      // 0x04C1(0x000F)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FALoadingScreenSettings;
 
-SDK_NAMESPACE_END
+}
+

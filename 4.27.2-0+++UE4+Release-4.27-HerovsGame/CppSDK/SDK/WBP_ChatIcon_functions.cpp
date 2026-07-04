@@ -14,7 +14,8 @@
 #include "WBP_ChatIcon_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_ChatIcon.WBP_ChatIcon_C.ExecuteUbergraph_WBP_ChatIcon
 // (Final, UbergraphFunction)
@@ -97,5 +98,5 @@ void UWBP_ChatIcon_C::Construct()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -14,7 +14,8 @@
 #include "WBP_FocusAnimationListItem_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_FocusAnimationListItem.WBP_FocusAnimationListItem_C.ExecuteUbergraph_WBP_FocusAnimationListItem
 // (Final, UbergraphFunction)
@@ -71,5 +72,5 @@ void UWBP_FocusAnimationListItem_C::Construct()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

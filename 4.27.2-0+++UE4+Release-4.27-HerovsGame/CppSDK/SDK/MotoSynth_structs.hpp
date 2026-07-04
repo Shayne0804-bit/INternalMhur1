@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct MotoSynth.MotoSynthRuntimeSettings
 // 0x0068 (0x0068 - 0x0000)
@@ -47,6 +48,7 @@ public:
 	float                                         StereoWidenerFilterQ;                              // 0x0060(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_64[0x4];                                       // 0x0064(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMotoSynthRuntimeSettings;
 
 // ScriptStruct MotoSynth.GrainTableEntry
 // 0x0008 (0x0008 - 0x0000)
@@ -56,5 +58,7 @@ public:
 	int32                                         SampleIndex;                                       // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         RPM;                                               // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FGrainTableEntry;
 
-SDK_NAMESPACE_END
+}
+

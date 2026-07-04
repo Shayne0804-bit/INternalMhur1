@@ -15,7 +15,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_CC_Rule_Respawned.BP_CC_Rule_Respawned_C
 // 0x0028 (0x0178 - 0x0150)
@@ -45,5 +46,7 @@ public:
 		return GetDefaultObjImpl<UBP_CC_Rule_Respawned_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_CC_Rule_Respawned_C;
 
-SDK_NAMESPACE_END
+}
+

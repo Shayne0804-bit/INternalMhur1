@@ -16,7 +16,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MagicLeapARPin.MagicLeapARPinComponent
 // 0x01B0 (0x03B0 - 0x0200)
@@ -70,6 +71,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapARPinComponent>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapARPinComponent;
 
 // Class MagicLeapARPin.MagicLeapARPinFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -112,6 +114,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapARPinFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapARPinFunctionLibrary;
 
 // Class MagicLeapARPin.MagicLeapARPinInfoActorBase
 // 0x0018 (0x0238 - 0x0220)
@@ -139,6 +142,7 @@ public:
 		return GetDefaultObjImpl<AMagicLeapARPinInfoActorBase>();
 	}
 };
+DUMPER7_ASSERTS_AMagicLeapARPinInfoActorBase;
 
 // Class MagicLeapARPin.MagicLeapARPinRenderer
 // 0x0068 (0x0288 - 0x0220)
@@ -168,6 +172,7 @@ public:
 		return GetDefaultObjImpl<AMagicLeapARPinRenderer>();
 	}
 };
+DUMPER7_ASSERTS_AMagicLeapARPinRenderer;
 
 // Class MagicLeapARPin.MagicLeapARPinSettings
 // 0x0018 (0x0040 - 0x0028)
@@ -191,6 +196,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapARPinSettings>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapARPinSettings;
 
 // Class MagicLeapARPin.MagicLeapARPinSaveGame
 // 0x0088 (0x00B0 - 0x0028)
@@ -218,6 +224,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapARPinSaveGame>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapARPinSaveGame;
 
 // Class MagicLeapARPin.MagicLeapARPinContentBindings
 // 0x0050 (0x0078 - 0x0028)
@@ -240,5 +247,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapARPinContentBindings>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapARPinContentBindings;
 
-SDK_NAMESPACE_END
+}
+

@@ -15,7 +15,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class EngineSettings.ConsoleSettings
 // 0x0048 (0x0070 - 0x0028)
@@ -51,6 +52,7 @@ public:
 		return GetDefaultObjImpl<UConsoleSettings>();
 	}
 };
+DUMPER7_ASSERTS_UConsoleSettings;
 
 // Class EngineSettings.GameMapsSettings
 // 0x00C8 (0x00F0 - 0x0028)
@@ -94,6 +96,7 @@ public:
 		return GetDefaultObjImpl<UGameMapsSettings>();
 	}
 };
+DUMPER7_ASSERTS_UGameMapsSettings;
 
 // Class EngineSettings.GameNetworkManagerSettings
 // 0x0030 (0x0058 - 0x0028)
@@ -128,6 +131,7 @@ public:
 		return GetDefaultObjImpl<UGameNetworkManagerSettings>();
 	}
 };
+DUMPER7_ASSERTS_UGameNetworkManagerSettings;
 
 // Class EngineSettings.GameSessionSettings
 // 0x0010 (0x0038 - 0x0028)
@@ -153,6 +157,7 @@ public:
 		return GetDefaultObjImpl<UGameSessionSettings>();
 	}
 };
+DUMPER7_ASSERTS_UGameSessionSettings;
 
 // Class EngineSettings.GeneralEngineSettings
 // 0x0000 (0x0028 - 0x0028)
@@ -172,6 +177,7 @@ public:
 		return GetDefaultObjImpl<UGeneralEngineSettings>();
 	}
 };
+DUMPER7_ASSERTS_UGeneralEngineSettings;
 
 // Class EngineSettings.GeneralProjectSettings
 // 0x00E8 (0x0110 - 0x0028)
@@ -214,6 +220,7 @@ public:
 		return GetDefaultObjImpl<UGeneralProjectSettings>();
 	}
 };
+DUMPER7_ASSERTS_UGeneralProjectSettings;
 
 // Class EngineSettings.HudSettings
 // 0x0018 (0x0040 - 0x0028)
@@ -238,5 +245,7 @@ public:
 		return GetDefaultObjImpl<UHudSettings>();
 	}
 };
+DUMPER7_ASSERTS_UHudSettings;
 
-SDK_NAMESPACE_END
+}
+

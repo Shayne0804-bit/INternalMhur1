@@ -14,7 +14,8 @@
 #include "BP_ActionDashFall_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDashFall.BP_ActionDashFall_C.ExecuteUbergraph_BP_ActionDashFall
 // (Final, UbergraphFunction)
@@ -140,5 +141,5 @@ bool UBP_ActionDashFall_C::BP_IsEnableShiftAction(const class FName& nextAction)
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

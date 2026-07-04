@@ -14,7 +14,8 @@
 #include "BP_ActionDamageStoneBind_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageStoneBind.BP_ActionDamageStoneBind_C.ExecuteUbergraph_BP_ActionDamageStoneBind
 // (Final, UbergraphFunction, HasDefaults)
@@ -159,5 +160,5 @@ void UBP_ActionDamageStoneBind_C::SetCondition()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

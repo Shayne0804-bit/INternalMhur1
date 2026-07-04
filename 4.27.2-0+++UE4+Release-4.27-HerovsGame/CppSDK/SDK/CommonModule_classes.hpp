@@ -17,7 +17,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class CommonModule.CommonStatics
 // 0x0000 (0x0028 - 0x0028)
@@ -43,6 +44,7 @@ public:
 		return GetDefaultObjImpl<UCommonStatics>();
 	}
 };
+DUMPER7_ASSERTS_UCommonStatics;
 
 // Class CommonModule.DebugDataViewerSubsystem
 // 0x0008 (0x0038 - 0x0030)
@@ -69,6 +71,7 @@ public:
 		return GetDefaultObjImpl<UDebugDataViewerSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UDebugDataViewerSubsystem;
 
 // Class CommonModule.DevelopActor
 // 0x0020 (0x0240 - 0x0220)
@@ -101,6 +104,7 @@ public:
 		return GetDefaultObjImpl<ADevelopActor>();
 	}
 };
+DUMPER7_ASSERTS_ADevelopActor;
 
 // Class CommonModule.DevelopCharacterSelector
 // 0x0008 (0x0038 - 0x0030)
@@ -128,6 +132,7 @@ public:
 		return GetDefaultObjImpl<UDevelopCharacterSelector>();
 	}
 };
+DUMPER7_ASSERTS_UDevelopCharacterSelector;
 
 // Class CommonModule.GameModeCommon
 // 0x0000 (0x0308 - 0x0308)
@@ -147,6 +152,7 @@ public:
 		return GetDefaultObjImpl<AGameModeCommon>();
 	}
 };
+DUMPER7_ASSERTS_AGameModeCommon;
 
 // Class CommonModule.GameSessionCommon
 // 0x0000 (0x0238 - 0x0238)
@@ -166,6 +172,7 @@ public:
 		return GetDefaultObjImpl<AGameSessionCommon>();
 	}
 };
+DUMPER7_ASSERTS_AGameSessionCommon;
 
 // Class CommonModule.GameStateCommon
 // 0x0000 (0x0290 - 0x0290)
@@ -185,6 +192,7 @@ public:
 		return GetDefaultObjImpl<AGameStateCommon>();
 	}
 };
+DUMPER7_ASSERTS_AGameStateCommon;
 
 // Class CommonModule.ImGuiTest
 // 0x0000 (0x0220 - 0x0220)
@@ -204,6 +212,7 @@ public:
 		return GetDefaultObjImpl<AImGuiTest>();
 	}
 };
+DUMPER7_ASSERTS_AImGuiTest;
 
 // Class CommonModule.PlayerStateCommon
 // 0x0000 (0x0320 - 0x0320)
@@ -223,6 +232,7 @@ public:
 		return GetDefaultObjImpl<APlayerStateCommon>();
 	}
 };
+DUMPER7_ASSERTS_APlayerStateCommon;
 
 // Class CommonModule.RegionSubsystem
 // 0x0000 (0x0030 - 0x0030)
@@ -242,6 +252,7 @@ public:
 		return GetDefaultObjImpl<URegionSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_URegionSubsystem;
 
 // Class CommonModule.SceneManagerSubsystem
 // 0x0020 (0x0050 - 0x0030)
@@ -264,6 +275,7 @@ public:
 		return GetDefaultObjImpl<USceneManagerSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_USceneManagerSubsystem;
 
 // Class CommonModule.SequenceComponent
 // 0x0058 (0x0108 - 0x00B0)
@@ -286,6 +298,7 @@ public:
 		return GetDefaultObjImpl<USequenceComponent>();
 	}
 };
+DUMPER7_ASSERTS_USequenceComponent;
 
 // Class CommonModule.SequenceController
 // 0x0018 (0x0040 - 0x0028)
@@ -308,6 +321,7 @@ public:
 		return GetDefaultObjImpl<USequenceController>();
 	}
 };
+DUMPER7_ASSERTS_USequenceController;
 
 // Class CommonModule.SequenceInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -336,6 +350,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_ISequenceInterface;
 
 // Class CommonModule.UMGInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -364,5 +379,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IUMGInterface;
 
-SDK_NAMESPACE_END
+}
+

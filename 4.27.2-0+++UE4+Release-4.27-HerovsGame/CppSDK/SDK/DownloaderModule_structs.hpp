@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum DownloaderModule.EDownloaderMode
 // NumValues: 0x0002
@@ -21,4 +22,5 @@ enum class EDownloaderMode : uint8
 	EDownloaderMode_MAX                      = 1,
 };
 
-SDK_NAMESPACE_END
+}
+

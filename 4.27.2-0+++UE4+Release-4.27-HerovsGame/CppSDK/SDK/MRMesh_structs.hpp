@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum MRMesh.EMeshTrackerVertexColorMode
 // NumValues: 0x0004
@@ -30,5 +31,7 @@ struct FMRMeshConfiguration final
 public:
 	uint8                                         Pad_0[0x1];                                        // 0x0000(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMRMeshConfiguration;
 
-SDK_NAMESPACE_END
+}
+

@@ -15,7 +15,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class TimeManagement.FixedFrameRateCustomTimeStep
 // 0x0000 (0x0028 - 0x0028)
@@ -35,6 +36,7 @@ public:
 		return GetDefaultObjImpl<UFixedFrameRateCustomTimeStep>();
 	}
 };
+DUMPER7_ASSERTS_UFixedFrameRateCustomTimeStep;
 
 // Class TimeManagement.GenlockedCustomTimeStep
 // 0x0000 (0x0028 - 0x0028)
@@ -54,6 +56,7 @@ public:
 		return GetDefaultObjImpl<UGenlockedCustomTimeStep>();
 	}
 };
+DUMPER7_ASSERTS_UGenlockedCustomTimeStep;
 
 // Class TimeManagement.GenlockedFixedRateCustomTimeStep
 // 0x0020 (0x0048 - 0x0028)
@@ -77,6 +80,7 @@ public:
 		return GetDefaultObjImpl<UGenlockedFixedRateCustomTimeStep>();
 	}
 };
+DUMPER7_ASSERTS_UGenlockedFixedRateCustomTimeStep;
 
 // Class TimeManagement.TimeSynchronizationSource
 // 0x0008 (0x0030 - 0x0028)
@@ -101,6 +105,7 @@ public:
 		return GetDefaultObjImpl<UTimeSynchronizationSource>();
 	}
 };
+DUMPER7_ASSERTS_UTimeSynchronizationSource;
 
 // Class TimeManagement.GenlockedTimecodeProvider
 // 0x0028 (0x0058 - 0x0030)
@@ -124,6 +129,7 @@ public:
 		return GetDefaultObjImpl<UGenlockedTimecodeProvider>();
 	}
 };
+DUMPER7_ASSERTS_UGenlockedTimecodeProvider;
 
 // Class TimeManagement.TimeManagementBlueprintLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -162,5 +168,7 @@ public:
 		return GetDefaultObjImpl<UTimeManagementBlueprintLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UTimeManagementBlueprintLibrary;
 
-SDK_NAMESPACE_END
+}
+

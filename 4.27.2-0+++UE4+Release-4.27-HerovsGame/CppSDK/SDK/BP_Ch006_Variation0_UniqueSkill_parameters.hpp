@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_Ch006_Variation0_UniqueSkill.BP_Ch006_Variation0_UniqueSkill_C.ExecuteUbergraph_BP_Ch006_Variation0_UniqueSkill
 // 0x0018 (0x0018 - 0x0000)
@@ -24,6 +24,7 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue;   // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UMaterialControlComponent*              CallFunc_BP_GetMaterialControl_ReturnValue;        // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_Ch006_Variation0_UniqueSkill_C_ExecuteUbergraph_BP_Ch006_Variation0_UniqueSkill;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

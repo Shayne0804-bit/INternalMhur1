@@ -14,7 +14,8 @@
 #include "LiveLink_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function LiveLink.LiveLinkBlueprintLibrary.ChildCount
 // (Final, Native, Static, Private, HasOutParams, BlueprintCallable, BlueprintPure)
@@ -1581,5 +1582,5 @@ void ULiveLinkRemapAsset::RemapCurveElements(TMap<class FName, float>& CurveItem
 	CurveItems = std::move(Parms.CurveItems);
 }
 
+}
 
-SDK_NAMESPACE_END

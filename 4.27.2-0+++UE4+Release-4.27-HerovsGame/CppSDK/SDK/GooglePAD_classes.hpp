@@ -14,7 +14,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class GooglePAD.GooglePADFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -53,5 +54,7 @@ public:
 		return GetDefaultObjImpl<UGooglePADFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UGooglePADFunctionLibrary;
 
-SDK_NAMESPACE_END
+}
+

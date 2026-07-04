@@ -14,7 +14,8 @@
 #include "BP_ActionSuperJumpFall_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionSuperJumpFall.BP_ActionSuperJumpFall_C.ExecuteUbergraph_BP_ActionSuperJumpFall
 // (Final, UbergraphFunction)
@@ -140,5 +141,5 @@ bool UBP_ActionSuperJumpFall_C::BP_IsEnableShiftAction(const class FName& nextAc
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

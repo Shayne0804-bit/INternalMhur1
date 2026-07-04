@@ -15,8 +15,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function Paper2D.PaperGroupedSpriteComponent.AddInstance
 // 0x0050 (0x0050 - 0x0000)
@@ -30,6 +30,7 @@ public:
 	struct FLinearColor                           Color;                                             // 0x003C(0x0010)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x004C(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperGroupedSpriteComponent_AddInstance;
 
 // Function Paper2D.PaperGroupedSpriteComponent.RemoveInstance
 // 0x0008 (0x0008 - 0x0000)
@@ -40,6 +41,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PaperGroupedSpriteComponent_RemoveInstance;
 
 // Function Paper2D.PaperGroupedSpriteComponent.SortInstancesAlongAxis
 // 0x000C (0x000C - 0x0000)
@@ -48,6 +50,7 @@ struct PaperGroupedSpriteComponent_SortInstancesAlongAxis final
 public:
 	struct FVector                                WorldSpaceSortAxis;                                // 0x0000(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperGroupedSpriteComponent_SortInstancesAlongAxis;
 
 // Function Paper2D.PaperGroupedSpriteComponent.UpdateInstanceColor
 // 0x0018 (0x0018 - 0x0000)
@@ -60,6 +63,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0015(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_16[0x2];                                       // 0x0016(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PaperGroupedSpriteComponent_UpdateInstanceColor;
 
 // Function Paper2D.PaperGroupedSpriteComponent.UpdateInstanceTransform
 // 0x0050 (0x0050 - 0x0000)
@@ -75,6 +79,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0043(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_44[0xC];                                       // 0x0044(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PaperGroupedSpriteComponent_UpdateInstanceTransform;
 
 // Function Paper2D.PaperGroupedSpriteComponent.GetInstanceCount
 // 0x0004 (0x0004 - 0x0000)
@@ -83,6 +88,7 @@ struct PaperGroupedSpriteComponent_GetInstanceCount final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperGroupedSpriteComponent_GetInstanceCount;
 
 // Function Paper2D.PaperGroupedSpriteComponent.GetInstanceTransform
 // 0x0050 (0x0050 - 0x0000)
@@ -96,6 +102,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0041(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_42[0xE];                                       // 0x0042(0x000E)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PaperGroupedSpriteComponent_GetInstanceTransform;
 
 // Function Paper2D.PaperFlipbook.GetKeyFrameIndexAtTime
 // 0x000C (0x000C - 0x0000)
@@ -107,6 +114,7 @@ public:
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbook_GetKeyFrameIndexAtTime;
 
 // Function Paper2D.PaperFlipbook.GetNumFrames
 // 0x0004 (0x0004 - 0x0000)
@@ -115,6 +123,7 @@ struct PaperFlipbook_GetNumFrames final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbook_GetNumFrames;
 
 // Function Paper2D.PaperFlipbook.GetNumKeyFrames
 // 0x0004 (0x0004 - 0x0000)
@@ -123,6 +132,7 @@ struct PaperFlipbook_GetNumKeyFrames final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbook_GetNumKeyFrames;
 
 // Function Paper2D.PaperFlipbook.GetSpriteAtFrame
 // 0x0010 (0x0010 - 0x0000)
@@ -133,6 +143,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UPaperSprite*                           ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbook_GetSpriteAtFrame;
 
 // Function Paper2D.PaperFlipbook.GetSpriteAtTime
 // 0x0010 (0x0010 - 0x0000)
@@ -144,6 +155,7 @@ public:
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class UPaperSprite*                           ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbook_GetSpriteAtTime;
 
 // Function Paper2D.PaperFlipbook.GetTotalDuration
 // 0x0004 (0x0004 - 0x0000)
@@ -152,6 +164,7 @@ struct PaperFlipbook_GetTotalDuration final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbook_GetTotalDuration;
 
 // Function Paper2D.PaperFlipbook.IsValidKeyFrameIndex
 // 0x0008 (0x0008 - 0x0000)
@@ -162,6 +175,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PaperFlipbook_IsValidKeyFrameIndex;
 
 // Function Paper2D.PaperFlipbookComponent.GetFlipbook
 // 0x0008 (0x0008 - 0x0000)
@@ -170,6 +184,7 @@ struct PaperFlipbookComponent_GetFlipbook final
 public:
 	class UPaperFlipbook*                         ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_GetFlipbook;
 
 // Function Paper2D.PaperFlipbookComponent.OnRep_SourceFlipbook
 // 0x0008 (0x0008 - 0x0000)
@@ -178,6 +193,7 @@ struct PaperFlipbookComponent_OnRep_SourceFlipbook final
 public:
 	class UPaperFlipbook*                         OldFlipbook;                                       // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_OnRep_SourceFlipbook;
 
 // Function Paper2D.PaperFlipbookComponent.SetFlipbook
 // 0x0010 (0x0010 - 0x0000)
@@ -188,6 +204,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_SetFlipbook;
 
 // Function Paper2D.PaperFlipbookComponent.SetLooping
 // 0x0001 (0x0001 - 0x0000)
@@ -196,6 +213,7 @@ struct PaperFlipbookComponent_SetLooping final
 public:
 	bool                                          bNewLooping;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_SetLooping;
 
 // Function Paper2D.PaperFlipbookComponent.SetNewTime
 // 0x0004 (0x0004 - 0x0000)
@@ -204,6 +222,7 @@ struct PaperFlipbookComponent_SetNewTime final
 public:
 	float                                         NewTime;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_SetNewTime;
 
 // Function Paper2D.PaperFlipbookComponent.SetPlaybackPosition
 // 0x0008 (0x0008 - 0x0000)
@@ -214,6 +233,7 @@ public:
 	bool                                          bFireEvents;                                       // 0x0004(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_SetPlaybackPosition;
 
 // Function Paper2D.PaperFlipbookComponent.SetPlaybackPositionInFrames
 // 0x0008 (0x0008 - 0x0000)
@@ -224,6 +244,7 @@ public:
 	bool                                          bFireEvents;                                       // 0x0004(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_SetPlaybackPositionInFrames;
 
 // Function Paper2D.PaperFlipbookComponent.SetPlayRate
 // 0x0004 (0x0004 - 0x0000)
@@ -232,6 +253,7 @@ struct PaperFlipbookComponent_SetPlayRate final
 public:
 	float                                         NewRate;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_SetPlayRate;
 
 // Function Paper2D.PaperFlipbookComponent.SetSpriteColor
 // 0x0010 (0x0010 - 0x0000)
@@ -240,6 +262,7 @@ struct PaperFlipbookComponent_SetSpriteColor final
 public:
 	struct FLinearColor                           NewColor;                                          // 0x0000(0x0010)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_SetSpriteColor;
 
 // Function Paper2D.PaperFlipbookComponent.GetFlipbookFramerate
 // 0x0004 (0x0004 - 0x0000)
@@ -248,6 +271,7 @@ struct PaperFlipbookComponent_GetFlipbookFramerate final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_GetFlipbookFramerate;
 
 // Function Paper2D.PaperFlipbookComponent.GetFlipbookLength
 // 0x0004 (0x0004 - 0x0000)
@@ -256,6 +280,7 @@ struct PaperFlipbookComponent_GetFlipbookLength final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_GetFlipbookLength;
 
 // Function Paper2D.PaperFlipbookComponent.GetFlipbookLengthInFrames
 // 0x0004 (0x0004 - 0x0000)
@@ -264,6 +289,7 @@ struct PaperFlipbookComponent_GetFlipbookLengthInFrames final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_GetFlipbookLengthInFrames;
 
 // Function Paper2D.PaperFlipbookComponent.GetPlaybackPosition
 // 0x0004 (0x0004 - 0x0000)
@@ -272,6 +298,7 @@ struct PaperFlipbookComponent_GetPlaybackPosition final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_GetPlaybackPosition;
 
 // Function Paper2D.PaperFlipbookComponent.GetPlaybackPositionInFrames
 // 0x0004 (0x0004 - 0x0000)
@@ -280,6 +307,7 @@ struct PaperFlipbookComponent_GetPlaybackPositionInFrames final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_GetPlaybackPositionInFrames;
 
 // Function Paper2D.PaperFlipbookComponent.GetPlayRate
 // 0x0004 (0x0004 - 0x0000)
@@ -288,6 +316,7 @@ struct PaperFlipbookComponent_GetPlayRate final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_GetPlayRate;
 
 // Function Paper2D.PaperFlipbookComponent.GetSpriteColor
 // 0x0010 (0x0010 - 0x0000)
@@ -296,6 +325,7 @@ struct PaperFlipbookComponent_GetSpriteColor final
 public:
 	struct FLinearColor                           ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_GetSpriteColor;
 
 // Function Paper2D.PaperFlipbookComponent.IsLooping
 // 0x0001 (0x0001 - 0x0000)
@@ -304,6 +334,7 @@ struct PaperFlipbookComponent_IsLooping final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_IsLooping;
 
 // Function Paper2D.PaperFlipbookComponent.IsPlaying
 // 0x0001 (0x0001 - 0x0000)
@@ -312,6 +343,7 @@ struct PaperFlipbookComponent_IsPlaying final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_IsPlaying;
 
 // Function Paper2D.PaperFlipbookComponent.IsReversing
 // 0x0001 (0x0001 - 0x0000)
@@ -320,6 +352,7 @@ struct PaperFlipbookComponent_IsReversing final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperFlipbookComponent_IsReversing;
 
 // Function Paper2D.PaperSpriteBlueprintLibrary.MakeBrushFromSprite
 // 0x00E0 (0x00E0 - 0x0000)
@@ -331,6 +364,7 @@ public:
 	int32                                         Height;                                            // 0x000C(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FSlateBrush                            ReturnValue;                                       // 0x0010(0x00D0)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperSpriteBlueprintLibrary_MakeBrushFromSprite;
 
 // Function Paper2D.PaperSpriteComponent.GetSprite
 // 0x0008 (0x0008 - 0x0000)
@@ -339,6 +373,7 @@ struct PaperSpriteComponent_GetSprite final
 public:
 	class UPaperSprite*                           ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperSpriteComponent_GetSprite;
 
 // Function Paper2D.PaperSpriteComponent.SetSprite
 // 0x0010 (0x0010 - 0x0000)
@@ -349,6 +384,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PaperSpriteComponent_SetSprite;
 
 // Function Paper2D.PaperSpriteComponent.SetSpriteColor
 // 0x0010 (0x0010 - 0x0000)
@@ -357,6 +393,7 @@ struct PaperSpriteComponent_SetSpriteColor final
 public:
 	struct FLinearColor                           NewColor;                                          // 0x0000(0x0010)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperSpriteComponent_SetSpriteColor;
 
 // Function Paper2D.PaperTerrainComponent.SetTerrainColor
 // 0x0010 (0x0010 - 0x0000)
@@ -365,6 +402,7 @@ struct PaperTerrainComponent_SetTerrainColor final
 public:
 	struct FLinearColor                           NewColor;                                          // 0x0000(0x0010)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperTerrainComponent_SetTerrainColor;
 
 // Function Paper2D.PaperTileMapComponent.AddNewLayer
 // 0x0008 (0x0008 - 0x0000)
@@ -373,6 +411,7 @@ struct PaperTileMapComponent_AddNewLayer final
 public:
 	class UPaperTileLayer*                        ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperTileMapComponent_AddNewLayer;
 
 // Function Paper2D.PaperTileMapComponent.CreateNewTileMap
 // 0x0018 (0x0018 - 0x0000)
@@ -387,6 +426,7 @@ public:
 	bool                                          bCreateLayer;                                      // 0x0014(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PaperTileMapComponent_CreateNewTileMap;
 
 // Function Paper2D.PaperTileMapComponent.GetMapSize
 // 0x000C (0x000C - 0x0000)
@@ -397,6 +437,7 @@ public:
 	int32                                         MapHeight_0;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         NumLayers;                                         // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperTileMapComponent_GetMapSize;
 
 // Function Paper2D.PaperTileMapComponent.ResizeMap
 // 0x0008 (0x0008 - 0x0000)
@@ -406,6 +447,7 @@ public:
 	int32                                         NewWidthInTiles;                                   // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         NewHeightInTiles;                                  // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperTileMapComponent_ResizeMap;
 
 // Function Paper2D.PaperTileMapComponent.SetDefaultCollisionThickness
 // 0x0008 (0x0008 - 0x0000)
@@ -416,6 +458,7 @@ public:
 	bool                                          bRebuildCollision;                                 // 0x0004(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PaperTileMapComponent_SetDefaultCollisionThickness;
 
 // Function Paper2D.PaperTileMapComponent.SetLayerCollision
 // 0x0018 (0x0018 - 0x0000)
@@ -433,6 +476,7 @@ public:
 	bool                                          bRebuildCollision;                                 // 0x0014(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PaperTileMapComponent_SetLayerCollision;
 
 // Function Paper2D.PaperTileMapComponent.SetLayerColor
 // 0x0014 (0x0014 - 0x0000)
@@ -442,6 +486,7 @@ public:
 	struct FLinearColor                           NewColor;                                          // 0x0000(0x0010)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         Layer;                                             // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperTileMapComponent_SetLayerColor;
 
 // Function Paper2D.PaperTileMapComponent.SetTile
 // 0x0020 (0x0020 - 0x0000)
@@ -454,6 +499,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FPaperTileInfo                         NewValue;                                          // 0x0010(0x0010)(Parm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperTileMapComponent_SetTile;
 
 // Function Paper2D.PaperTileMapComponent.SetTileMap
 // 0x0010 (0x0010 - 0x0000)
@@ -464,6 +510,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PaperTileMapComponent_SetTileMap;
 
 // Function Paper2D.PaperTileMapComponent.SetTileMapColor
 // 0x0010 (0x0010 - 0x0000)
@@ -472,6 +519,7 @@ struct PaperTileMapComponent_SetTileMapColor final
 public:
 	struct FLinearColor                           NewColor;                                          // 0x0000(0x0010)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperTileMapComponent_SetTileMapColor;
 
 // Function Paper2D.PaperTileMapComponent.GetLayerColor
 // 0x0014 (0x0014 - 0x0000)
@@ -481,6 +529,7 @@ public:
 	int32                                         Layer;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FLinearColor                           ReturnValue;                                       // 0x0004(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperTileMapComponent_GetLayerColor;
 
 // Function Paper2D.PaperTileMapComponent.GetTile
 // 0x0020 (0x0020 - 0x0000)
@@ -493,6 +542,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FPaperTileInfo                         ReturnValue;                                       // 0x0010(0x0010)(Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperTileMapComponent_GetTile;
 
 // Function Paper2D.PaperTileMapComponent.GetTileCenterPosition
 // 0x001C (0x001C - 0x0000)
@@ -506,6 +556,7 @@ public:
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FVector                                ReturnValue;                                       // 0x0010(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperTileMapComponent_GetTileCenterPosition;
 
 // Function Paper2D.PaperTileMapComponent.GetTileCornerPosition
 // 0x001C (0x001C - 0x0000)
@@ -519,6 +570,7 @@ public:
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FVector                                ReturnValue;                                       // 0x0010(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperTileMapComponent_GetTileCornerPosition;
 
 // Function Paper2D.PaperTileMapComponent.GetTileMapColor
 // 0x0010 (0x0010 - 0x0000)
@@ -527,6 +579,7 @@ struct PaperTileMapComponent_GetTileMapColor final
 public:
 	struct FLinearColor                           ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperTileMapComponent_GetTileMapColor;
 
 // Function Paper2D.PaperTileMapComponent.GetTilePolygon
 // 0x0020 (0x0020 - 0x0000)
@@ -540,6 +593,7 @@ public:
 	bool                                          bWorldSpace;                                       // 0x001C(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PaperTileMapComponent_GetTilePolygon;
 
 // Function Paper2D.PaperTileMapComponent.OwnsTileMap
 // 0x0001 (0x0001 - 0x0000)
@@ -548,6 +602,7 @@ struct PaperTileMapComponent_OwnsTileMap final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PaperTileMapComponent_OwnsTileMap;
 
 // Function Paper2D.TileMapBlueprintLibrary.BreakTile
 // 0x0028 (0x0028 - 0x0000)
@@ -563,6 +618,7 @@ public:
 	bool                                          bFlipD;                                            // 0x0022(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_23[0x5];                                       // 0x0023(0x0005)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_TileMapBlueprintLibrary_BreakTile;
 
 // Function Paper2D.TileMapBlueprintLibrary.GetTileTransform
 // 0x0040 (0x0040 - 0x0000)
@@ -572,6 +628,7 @@ public:
 	struct FPaperTileInfo                         Tile;                                              // 0x0000(0x0010)(Parm, NoDestructor, NativeAccessSpecifierPublic)
 	struct FTransform                             ReturnValue;                                       // 0x0010(0x0030)(Parm, OutParm, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_TileMapBlueprintLibrary_GetTileTransform;
 
 // Function Paper2D.TileMapBlueprintLibrary.GetTileUserData
 // 0x0018 (0x0018 - 0x0000)
@@ -581,6 +638,7 @@ public:
 	struct FPaperTileInfo                         Tile;                                              // 0x0000(0x0010)(Parm, NoDestructor, NativeAccessSpecifierPublic)
 	class FName                                   ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_TileMapBlueprintLibrary_GetTileUserData;
 
 // Function Paper2D.TileMapBlueprintLibrary.MakeTile
 // 0x0028 (0x0028 - 0x0000)
@@ -596,6 +654,7 @@ public:
 	uint8                                         Pad_13[0x5];                                       // 0x0013(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FPaperTileInfo                         ReturnValue;                                       // 0x0018(0x0010)(Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_TileMapBlueprintLibrary_MakeTile;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

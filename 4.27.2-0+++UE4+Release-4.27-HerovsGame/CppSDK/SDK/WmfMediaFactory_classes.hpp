@@ -13,7 +13,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class WmfMediaFactory.WmfMediaSettings
 // 0x0008 (0x0030 - 0x0028)
@@ -40,5 +41,7 @@ public:
 		return GetDefaultObjImpl<UWmfMediaSettings>();
 	}
 };
+DUMPER7_ASSERTS_UWmfMediaSettings;
 
-SDK_NAMESPACE_END
+}
+

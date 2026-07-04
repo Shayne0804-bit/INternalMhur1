@@ -13,7 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum EyeTracker.EEyeTrackerStatus
 // NumValues: 0x0004
@@ -37,6 +38,7 @@ public:
 	struct FVector                                FixationPoint;                                     // 0x0030(0x000C)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ConfidenceValue;                                   // 0x003C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FEyeTrackerStereoGazeData;
 
 // ScriptStruct EyeTracker.EyeTrackerGazeData
 // 0x0034 (0x0034 - 0x0000)
@@ -53,5 +55,7 @@ public:
 	float                                         LeftPupilDiameter;                                 // 0x002C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         RightPupilDiameter;                                // 0x0030(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FEyeTrackerGazeData;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "BP_CC_Burn_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Burn.BP_CC_Burn_C.ExecuteUbergraph_BP_CC_Burn
 // (Final, UbergraphFunction)
@@ -140,5 +141,5 @@ bool UBP_CC_Burn_C::BP_IsEnableChangeCondition(int32 Level, float span, float va
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

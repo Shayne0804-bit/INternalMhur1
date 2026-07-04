@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct CriWareAdxLipSync.CriLipsMorphTargetBlendAmountAsJapanese
 // 0x0014 (0x0014 - 0x0000)
@@ -24,6 +25,7 @@ public:
 	float                                         E;                                                 // 0x000C(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         O;                                                 // 0x0010(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCriLipsMorphTargetBlendAmountAsJapanese;
 
 // ScriptStruct CriWareAdxLipSync.CriLipsMouthInfo
 // 0x0010 (0x0010 - 0x0000)
@@ -38,5 +40,7 @@ public:
 	bool                                          IsTonguePositionReleased;                          // 0x000E(0x0001)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_F[0x1];                                        // 0x000F(0x0001)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCriLipsMouthInfo;
 
-SDK_NAMESPACE_END
+}
+

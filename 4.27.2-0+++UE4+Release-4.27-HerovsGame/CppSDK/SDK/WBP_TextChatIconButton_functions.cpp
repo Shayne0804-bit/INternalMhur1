@@ -14,7 +14,8 @@
 #include "WBP_TextChatIconButton_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_TextChatIconButton.WBP_TextChatIconButton_C.SetEnabled
 // (Public, BlueprintCallable, BlueprintEvent)
@@ -35,5 +36,5 @@ void UWBP_TextChatIconButton_C::SetEnabled(bool Enabled)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

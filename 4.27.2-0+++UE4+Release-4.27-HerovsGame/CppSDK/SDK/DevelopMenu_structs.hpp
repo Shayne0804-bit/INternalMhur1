@@ -13,7 +13,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum DevelopMenu.EDevelopMenuHierarchy
 // NumValues: 0x0005
@@ -121,6 +122,7 @@ public:
 	class FText                                   TextValue;                                         // 0x0008(0x0018)(NativeAccessSpecifierPublic)
 	uint8                                         Pad_20[0x10];                                      // 0x0020(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FDevelopMenuItemData;
 
 // ScriptStruct DevelopMenu.DevelopMenuItem
 // 0x0018 (0x0018 - 0x0000)
@@ -131,6 +133,7 @@ public:
 	float                                         value;                                             // 0x0010(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FDevelopMenuItem;
 
 // ScriptStruct DevelopMenu.DevelopMenuItemListData
 // 0x0028 (0x0028 - 0x0000)
@@ -139,6 +142,7 @@ struct alignas(0x08) FDevelopMenuItemListData final
 public:
 	uint8                                         Pad_0[0x28];                                       // 0x0000(0x0028)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FDevelopMenuItemListData;
 
 // ScriptStruct DevelopMenu.DevelopMenuDataTableRow
 // 0x0060 (0x0068 - 0x0008)
@@ -161,6 +165,7 @@ public:
 	float                                         _minValue;                                         // 0x0060(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         _defaultValue;                                     // 0x0064(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FDevelopMenuDataTableRow;
 
 // ScriptStruct DevelopMenu.DevelopMenuWorkData
 // 0x00C0 (0x00C0 - 0x0000)
@@ -169,5 +174,7 @@ struct alignas(0x08) FDevelopMenuWorkData final
 public:
 	uint8                                         Pad_0[0xC0];                                       // 0x0000(0x00C0)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FDevelopMenuWorkData;
 
-SDK_NAMESPACE_END
+}
+

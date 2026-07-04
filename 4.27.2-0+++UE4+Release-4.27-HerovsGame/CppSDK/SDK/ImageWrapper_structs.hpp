@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum ImageWrapper.EBitmapCSType
 // NumValues: 0x0006
@@ -37,4 +38,5 @@ enum class EBitmapHeaderVersion : uint8
 	BHV_MAX                                  = 5,
 };
 
-SDK_NAMESPACE_END
+}
+

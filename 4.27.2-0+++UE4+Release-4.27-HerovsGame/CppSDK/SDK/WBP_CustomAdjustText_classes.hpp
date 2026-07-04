@@ -13,7 +13,8 @@
 #include "GameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_CustomAdjustText.WBP_CustomAdjustText_C
 // 0x0000 (0x0640 - 0x0640)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UWBP_CustomAdjustText_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_CustomAdjustText_C;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "BP_ActionParkourFall_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionParkourFall.BP_ActionParkourFall_C.ExecuteUbergraph_BP_ActionParkourFall
 // (Final, UbergraphFunction)
@@ -140,5 +141,5 @@ bool UBP_ActionParkourFall_C::BP_IsEnableShiftAction(const class FName& nextActi
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

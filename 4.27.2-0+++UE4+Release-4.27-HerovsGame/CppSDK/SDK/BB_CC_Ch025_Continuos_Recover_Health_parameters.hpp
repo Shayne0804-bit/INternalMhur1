@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BB_CC_Ch025_Continuos_Recover_Health.BB_CC_Ch025_Continuos_Recover_Health_C.ExecuteUbergraph_BB_CC_Ch025_Continuos_Recover_Health
 // 0x0048 (0x0048 - 0x0000)
@@ -36,6 +36,7 @@ public:
 	bool                                          CallFunc_BP_IsValidCondition_ReturnValue;          // 0x0040(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_IsValid_ReturnValue_2;                    // 0x0041(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BB_CC_Ch025_Continuos_Recover_Health_C_ExecuteUbergraph_BB_CC_Ch025_Continuos_Recover_Health;
 
 // Function BB_CC_Ch025_Continuos_Recover_Health.BB_CC_Ch025_Continuos_Recover_Health_C.BP_OnUpdateIntervalValue
 // 0x0004 (0x0004 - 0x0000)
@@ -44,6 +45,7 @@ struct BB_CC_Ch025_Continuos_Recover_Health_C_BP_OnUpdateIntervalValue final
 public:
 	float                                         value;                                             // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BB_CC_Ch025_Continuos_Recover_Health_C_BP_OnUpdateIntervalValue;
 
 // Function BB_CC_Ch025_Continuos_Recover_Health.BB_CC_Ch025_Continuos_Recover_Health_C.GetInstigatedPlayer
 // 0x0008 (0x0008 - 0x0000)
@@ -52,6 +54,7 @@ struct BB_CC_Ch025_Continuos_Recover_Health_C_GetInstigatedPlayer final
 public:
 	class APlayerStateBattle*                     ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BB_CC_Ch025_Continuos_Recover_Health_C_GetInstigatedPlayer;
 
 // Function BB_CC_Ch025_Continuos_Recover_Health.BB_CC_Ch025_Continuos_Recover_Health_C.CheckRecover
 // 0x0028 (0x0028 - 0x0000)
@@ -67,6 +70,7 @@ public:
 	float                                         CallFunc_BP_GetMainHealthRate_ReturnValue;         // 0x001C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_Less_FloatFloat_ReturnValue;              // 0x0020(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BB_CC_Ch025_Continuos_Recover_Health_C_CheckRecover;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

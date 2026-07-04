@@ -17,7 +17,8 @@
 #include "MovieSceneTracks_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class GameplayCameras.TestCameraShake
 // 0x0000 (0x00B0 - 0x00B0)
@@ -37,6 +38,7 @@ public:
 		return GetDefaultObjImpl<UTestCameraShake>();
 	}
 };
+DUMPER7_ASSERTS_UTestCameraShake;
 
 // Class GameplayCameras.MovieSceneMatineeCameraShakeEvaluator
 // 0x0000 (0x0028 - 0x0028)
@@ -56,6 +58,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneMatineeCameraShakeEvaluator>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneMatineeCameraShakeEvaluator;
 
 // Class GameplayCameras.SimpleCameraShakePattern
 // 0x0010 (0x0038 - 0x0028)
@@ -81,6 +84,7 @@ public:
 		return GetDefaultObjImpl<USimpleCameraShakePattern>();
 	}
 };
+DUMPER7_ASSERTS_USimpleCameraShakePattern;
 
 // Class GameplayCameras.ConstantCameraShakePattern
 // 0x0018 (0x0050 - 0x0038)
@@ -104,6 +108,7 @@ public:
 		return GetDefaultObjImpl<UConstantCameraShakePattern>();
 	}
 };
+DUMPER7_ASSERTS_UConstantCameraShakePattern;
 
 // Class GameplayCameras.CompositeCameraShakePattern
 // 0x0020 (0x0048 - 0x0028)
@@ -127,6 +132,7 @@ public:
 		return GetDefaultObjImpl<UCompositeCameraShakePattern>();
 	}
 };
+DUMPER7_ASSERTS_UCompositeCameraShakePattern;
 
 // Class GameplayCameras.DefaultCameraShakeBase
 // 0x0000 (0x00B0 - 0x00B0)
@@ -146,6 +152,7 @@ public:
 		return GetDefaultObjImpl<UDefaultCameraShakeBase>();
 	}
 };
+DUMPER7_ASSERTS_UDefaultCameraShakeBase;
 
 // Class GameplayCameras.MatineeCameraShake
 // 0x0100 (0x01B0 - 0x00B0)
@@ -198,6 +205,7 @@ public:
 		return GetDefaultObjImpl<UMatineeCameraShake>();
 	}
 };
+DUMPER7_ASSERTS_UMatineeCameraShake;
 
 // Class GameplayCameras.MatineeCameraShakePattern
 // 0x0000 (0x0028 - 0x0028)
@@ -217,6 +225,7 @@ public:
 		return GetDefaultObjImpl<UMatineeCameraShakePattern>();
 	}
 };
+DUMPER7_ASSERTS_UMatineeCameraShakePattern;
 
 // Class GameplayCameras.MatineeCameraShakeFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -239,6 +248,7 @@ public:
 		return GetDefaultObjImpl<UMatineeCameraShakeFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UMatineeCameraShakeFunctionLibrary;
 
 // Class GameplayCameras.PerlinNoiseCameraShakePattern
 // 0x0080 (0x00B8 - 0x0038)
@@ -272,6 +282,7 @@ public:
 		return GetDefaultObjImpl<UPerlinNoiseCameraShakePattern>();
 	}
 };
+DUMPER7_ASSERTS_UPerlinNoiseCameraShakePattern;
 
 // Class GameplayCameras.WaveOscillatorCameraShakePattern
 // 0x00A0 (0x00D8 - 0x0038)
@@ -305,5 +316,7 @@ public:
 		return GetDefaultObjImpl<UWaveOscillatorCameraShakePattern>();
 	}
 };
+DUMPER7_ASSERTS_UWaveOscillatorCameraShakePattern;
 
-SDK_NAMESPACE_END
+}
+

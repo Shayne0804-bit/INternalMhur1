@@ -16,7 +16,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionDamagePulledUp.BP_ActionDamagePulledUp_C
 // 0x0008 (0x0320 - 0x0318)
@@ -47,5 +48,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionDamagePulledUp_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionDamagePulledUp_C;
 
-SDK_NAMESPACE_END
+}
+

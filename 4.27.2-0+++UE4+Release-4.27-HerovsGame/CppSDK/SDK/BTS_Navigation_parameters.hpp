@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BTS_Navigation.BTS_Navigation_C.ExecuteUbergraph_BTS_Navigation
 // 0x0038 (0x0038 - 0x0000)
@@ -30,6 +30,7 @@ public:
 	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x0030(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_BP_PossibleNavigation_ReturnValue;        // 0x0031(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BTS_Navigation_C_ExecuteUbergraph_BTS_Navigation;
 
 // Function BTS_Navigation.BTS_Navigation_C.ReceiveTickAI
 // 0x0018 (0x0018 - 0x0000)
@@ -40,6 +41,7 @@ public:
 	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         DeltaSeconds;                                      // 0x0010(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BTS_Navigation_C_ReceiveTickAI;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

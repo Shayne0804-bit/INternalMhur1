@@ -13,7 +13,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum LuminRuntimeSettings.ELuminPrivilege
 // NumValues: 0x002C
@@ -110,6 +111,7 @@ public:
 	struct FDirectoryPath                         IconModelPath;                                     // 0x0010(0x0010)(Edit, Config, GlobalConfig, NativeAccessSpecifierPublic)
 	struct FDirectoryPath                         IconPortalPath;                                    // 0x0020(0x0010)(Edit, Config, GlobalConfig, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLocalizedIconInfo;
 
 // ScriptStruct LuminRuntimeSettings.LocalizedIconInfos
 // 0x0010 (0x0010 - 0x0000)
@@ -118,6 +120,7 @@ struct FLocalizedIconInfos final
 public:
 	TArray<struct FLocalizedIconInfo>             IconData;                                          // 0x0000(0x0010)(Edit, ZeroConstructor, Config, GlobalConfig, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLocalizedIconInfos;
 
 // ScriptStruct LuminRuntimeSettings.LocalizedAppName
 // 0x0020 (0x0020 - 0x0000)
@@ -127,6 +130,7 @@ public:
 	class FString                                 LanguageCode;                                      // 0x0000(0x0010)(Edit, ZeroConstructor, Config, GlobalConfig, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 AppName;                                           // 0x0010(0x0010)(Edit, ZeroConstructor, Config, GlobalConfig, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLocalizedAppName;
 
 // ScriptStruct LuminRuntimeSettings.LuminComponentSubElement
 // 0x0018 (0x0018 - 0x0000)
@@ -137,6 +141,7 @@ public:
 	uint8                                         Pad_1[0x7];                                        // 0x0001(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 value;                                             // 0x0008(0x0010)(Edit, ZeroConstructor, Config, GlobalConfig, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLuminComponentSubElement;
 
 // ScriptStruct LuminRuntimeSettings.LuminComponentElement
 // 0x0048 (0x0048 - 0x0000)
@@ -150,5 +155,7 @@ public:
 	uint8                                         Pad_31[0x7];                                       // 0x0031(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FLuminComponentSubElement>      ExtraComponentSubElements;                         // 0x0038(0x0010)(Edit, ZeroConstructor, Config, GlobalConfig, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FLuminComponentElement;
 
-SDK_NAMESPACE_END
+}
+

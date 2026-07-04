@@ -14,7 +14,8 @@
 #include "BTD_CaptureCheck_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BTD_CaptureCheck.BTD_CaptureCheck_C.PerformConditionCheckAI
 // (Event, Protected, HasOutParams, BlueprintCallable, BlueprintEvent)
@@ -40,5 +41,5 @@ bool UBTD_CaptureCheck_C::PerformConditionCheckAI(class AAIController* OwnerCont
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

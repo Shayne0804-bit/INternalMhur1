@@ -14,7 +14,8 @@
 #include "UObjectPlugin_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class UObjectPlugin.MyPluginObject
 // 0x0010 (0x0038 - 0x0028)
@@ -37,5 +38,7 @@ public:
 		return GetDefaultObjImpl<UMyPluginObject>();
 	}
 };
+DUMPER7_ASSERTS_UMyPluginObject;
 
-SDK_NAMESPACE_END
+}
+

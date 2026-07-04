@@ -13,8 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamageKnockDown.BP_ActionDamageKnockDown_C.ExecuteUbergraph_BP_ActionDamageKnockDown
 // 0x0070 (0x0070 - 0x0000)
@@ -39,6 +39,7 @@ public:
 	class APlayerStateBattle*                     CallFunc_BP_GetPlayerStateBattle_ReturnValue_3;    // 0x0060(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_BP_IsDead_ReturnValue_1;                  // 0x0068(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionDamageKnockDown_C_ExecuteUbergraph_BP_ActionDamageKnockDown;
 
 // Function BP_ActionDamageKnockDown.BP_ActionDamageKnockDown_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -47,6 +48,7 @@ struct BP_ActionDamageKnockDown_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageKnockDown_C_BP_OnBeginAction;
 
 // Function BP_ActionDamageKnockDown.BP_ActionDamageKnockDown_C.UpdateOnce
 // 0x0020 (0x0020 - 0x0000)
@@ -57,6 +59,7 @@ public:
 	struct FVector                                CallFunc_BP_GetMoveDirection_ReturnValue;          // 0x0008(0x000C)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_BP_GetDamageDirection_ReturnValue;        // 0x0014(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageKnockDown_C_UpdateOnce;
 
 // Function BP_ActionDamageKnockDown.BP_ActionDamageKnockDown_C.SetDamageAnimation
 // 0x0018 (0x0018 - 0x0000)
@@ -67,6 +70,7 @@ public:
 	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue;              // 0x0008(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_BP_IsOnGround_ReturnValue;                // 0x0010(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionDamageKnockDown_C_SetDamageAnimation;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

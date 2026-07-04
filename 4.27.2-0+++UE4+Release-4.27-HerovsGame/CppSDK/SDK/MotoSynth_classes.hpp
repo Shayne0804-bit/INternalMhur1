@@ -16,7 +16,8 @@
 #include "AudioMixer_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MotoSynth.MotoSynthPreset
 // 0x0068 (0x0090 - 0x0028)
@@ -39,6 +40,7 @@ public:
 		return GetDefaultObjImpl<UMotoSynthPreset>();
 	}
 };
+DUMPER7_ASSERTS_UMotoSynthPreset;
 
 // Class MotoSynth.MotoSynthSource
 // 0x00D0 (0x00F8 - 0x0028)
@@ -70,6 +72,7 @@ public:
 		return GetDefaultObjImpl<UMotoSynthSource>();
 	}
 };
+DUMPER7_ASSERTS_UMotoSynthSource;
 
 // Class MotoSynth.SynthComponentMoto
 // 0x00C0 (0x0780 - 0x06C0)
@@ -101,5 +104,7 @@ public:
 		return GetDefaultObjImpl<USynthComponentMoto>();
 	}
 };
+DUMPER7_ASSERTS_USynthComponentMoto;
 
-SDK_NAMESPACE_END
+}
+

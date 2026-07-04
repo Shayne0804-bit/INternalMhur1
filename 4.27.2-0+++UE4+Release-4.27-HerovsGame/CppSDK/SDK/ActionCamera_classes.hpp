@@ -16,7 +16,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class ActionCamera.ActionCameraActor
 // 0x00C0 (0x02E0 - 0x0220)
@@ -46,6 +47,7 @@ public:
 	}
 };
 #pragma pack(pop)
+DUMPER7_ASSERTS_AActionCameraActor;
 
 // Class ActionCamera.ActionCameraSubsystem
 // 0x0058 (0x0088 - 0x0030)
@@ -77,6 +79,7 @@ public:
 		return GetDefaultObjImpl<UActionCameraSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UActionCameraSubsystem;
 
 // Class ActionCamera.ActionCameraTimeActor
 // 0x0000 (0x02E0 - 0x02E0)
@@ -99,6 +102,7 @@ public:
 		return GetDefaultObjImpl<AActionCameraTimeActor>();
 	}
 };
+DUMPER7_ASSERTS_AActionCameraTimeActor;
 
 // Class ActionCamera.ANS_ActionCameraBegin
 // 0x05E0 (0x0610 - 0x0030)
@@ -145,6 +149,7 @@ public:
 		return GetDefaultObjImpl<UANS_ActionCameraBegin>();
 	}
 };
+DUMPER7_ASSERTS_UANS_ActionCameraBegin;
 
 // Class ActionCamera.ActionCameraTimeRow
 // 0x0010 (0x0620 - 0x0610)
@@ -168,6 +173,7 @@ public:
 		return GetDefaultObjImpl<UActionCameraTimeRow>();
 	}
 };
+DUMPER7_ASSERTS_UActionCameraTimeRow;
 
 // Class ActionCamera.ActionCameraTimeTable
 // 0x0050 (0x0080 - 0x0030)
@@ -190,6 +196,7 @@ public:
 		return GetDefaultObjImpl<UActionCameraTimeTable>();
 	}
 };
+DUMPER7_ASSERTS_UActionCameraTimeTable;
 
 // Class ActionCamera.AN_ActionCameraEnd
 // 0x0000 (0x0038 - 0x0038)
@@ -209,6 +216,7 @@ public:
 		return GetDefaultObjImpl<UAN_ActionCameraEnd>();
 	}
 };
+DUMPER7_ASSERTS_UAN_ActionCameraEnd;
 
 // Class ActionCamera.ANS_ActionCameraContinue
 // 0x0000 (0x0030 - 0x0030)
@@ -228,5 +236,7 @@ public:
 		return GetDefaultObjImpl<UANS_ActionCameraContinue>();
 	}
 };
+DUMPER7_ASSERTS_UANS_ActionCameraContinue;
 
-SDK_NAMESPACE_END
+}
+

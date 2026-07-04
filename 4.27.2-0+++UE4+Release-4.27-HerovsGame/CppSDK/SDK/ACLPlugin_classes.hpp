@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class ACLPlugin.ACLStatsDumpCommandlet
 // 0x0000 (0x0080 - 0x0080)
@@ -33,6 +34,7 @@ public:
 		return GetDefaultObjImpl<UACLStatsDumpCommandlet>();
 	}
 };
+DUMPER7_ASSERTS_UACLStatsDumpCommandlet;
 
 // Class ACLPlugin.AnimBoneCompressionCodec_ACLBase
 // 0x0000 (0x0038 - 0x0038)
@@ -52,6 +54,7 @@ public:
 		return GetDefaultObjImpl<UAnimBoneCompressionCodec_ACLBase>();
 	}
 };
+DUMPER7_ASSERTS_UAnimBoneCompressionCodec_ACLBase;
 
 // Class ACLPlugin.AnimBoneCompressionCodec_ACL
 // 0x0008 (0x0040 - 0x0038)
@@ -74,6 +77,7 @@ public:
 		return GetDefaultObjImpl<UAnimBoneCompressionCodec_ACL>();
 	}
 };
+DUMPER7_ASSERTS_UAnimBoneCompressionCodec_ACL;
 
 // Class ACLPlugin.AnimBoneCompressionCodec_ACLCustom
 // 0x0000 (0x0038 - 0x0038)
@@ -93,6 +97,7 @@ public:
 		return GetDefaultObjImpl<UAnimBoneCompressionCodec_ACLCustom>();
 	}
 };
+DUMPER7_ASSERTS_UAnimBoneCompressionCodec_ACLCustom;
 
 // Class ACLPlugin.AnimBoneCompressionCodec_ACLSafe
 // 0x0000 (0x0038 - 0x0038)
@@ -112,6 +117,7 @@ public:
 		return GetDefaultObjImpl<UAnimBoneCompressionCodec_ACLSafe>();
 	}
 };
+DUMPER7_ASSERTS_UAnimBoneCompressionCodec_ACLSafe;
 
 // Class ACLPlugin.AnimCurveCompressionCodec_ACL
 // 0x0000 (0x0028 - 0x0028)
@@ -131,5 +137,7 @@ public:
 		return GetDefaultObjImpl<UAnimCurveCompressionCodec_ACL>();
 	}
 };
+DUMPER7_ASSERTS_UAnimCurveCompressionCodec_ACL;
 
-SDK_NAMESPACE_END
+}
+

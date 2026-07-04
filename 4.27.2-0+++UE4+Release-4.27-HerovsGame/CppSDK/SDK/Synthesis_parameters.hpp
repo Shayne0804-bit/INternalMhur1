@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function Synthesis.SourceEffectEnvelopeFollowerPreset.RegisterEnvelopeFollowerListener
 // 0x0008 (0x0008 - 0x0000)
@@ -24,6 +24,7 @@ struct SourceEffectEnvelopeFollowerPreset_RegisterEnvelopeFollowerListener final
 public:
 	class UEnvelopeFollowerListener*              EnvelopeFollowerListener;                          // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectEnvelopeFollowerPreset_RegisterEnvelopeFollowerListener;
 
 // Function Synthesis.SourceEffectEnvelopeFollowerPreset.SetSettings
 // 0x000C (0x000C - 0x0000)
@@ -32,6 +33,7 @@ struct SourceEffectEnvelopeFollowerPreset_SetSettings final
 public:
 	struct FSourceEffectEnvelopeFollowerSettings  InSettings;                                        // 0x0000(0x000C)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectEnvelopeFollowerPreset_SetSettings;
 
 // Function Synthesis.SourceEffectEnvelopeFollowerPreset.UnregisterEnvelopeFollowerListener
 // 0x0008 (0x0008 - 0x0000)
@@ -40,6 +42,7 @@ struct SourceEffectEnvelopeFollowerPreset_UnregisterEnvelopeFollowerListener fin
 public:
 	class UEnvelopeFollowerListener*              EnvelopeFollowerListener;                          // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectEnvelopeFollowerPreset_UnregisterEnvelopeFollowerListener;
 
 // Function Synthesis.ModularSynthLibrary.AddModularSynthPresetToBankAsset
 // 0x00F8 (0x00F8 - 0x0000)
@@ -50,6 +53,7 @@ public:
 	struct FModularSynthPreset                    preset;                                            // 0x0008(0x00E0)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	class FString                                 PresetName;                                        // 0x00E8(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthLibrary_AddModularSynthPresetToBankAsset;
 
 // Function Synthesis.ModularSynthComponent.CreatePatch
 // 0x0020 (0x0020 - 0x0000)
@@ -63,6 +67,7 @@ public:
 	uint8                                         Pad_19[0x3];                                       // 0x0019(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FPatchId                               ReturnValue;                                       // 0x001C(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_CreatePatch;
 
 // Function Synthesis.ModularSynthComponent.NoteOff
 // 0x0008 (0x0008 - 0x0000)
@@ -74,6 +79,7 @@ public:
 	bool                                          bKillAllNotes;                                     // 0x0005(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_6[0x2];                                        // 0x0006(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ModularSynthComponent_NoteOff;
 
 // Function Synthesis.ModularSynthComponent.NoteOn
 // 0x000C (0x000C - 0x0000)
@@ -84,6 +90,7 @@ public:
 	int32                                         Velocity;                                          // 0x0004(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Duration;                                          // 0x0008(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_NoteOn;
 
 // Function Synthesis.ModularSynthComponent.SetAttackTime
 // 0x0004 (0x0004 - 0x0000)
@@ -92,6 +99,7 @@ struct ModularSynthComponent_SetAttackTime final
 public:
 	float                                         AttackTimeMsec;                                    // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetAttackTime;
 
 // Function Synthesis.ModularSynthComponent.SetChorusDepth
 // 0x0004 (0x0004 - 0x0000)
@@ -100,6 +108,7 @@ struct ModularSynthComponent_SetChorusDepth final
 public:
 	float                                         Depth;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetChorusDepth;
 
 // Function Synthesis.ModularSynthComponent.SetChorusEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -108,6 +117,7 @@ struct ModularSynthComponent_SetChorusEnabled final
 public:
 	bool                                          EnableChorus;                                      // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetChorusEnabled;
 
 // Function Synthesis.ModularSynthComponent.SetChorusFeedback
 // 0x0004 (0x0004 - 0x0000)
@@ -116,6 +126,7 @@ struct ModularSynthComponent_SetChorusFeedback final
 public:
 	float                                         Feedback;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetChorusFeedback;
 
 // Function Synthesis.ModularSynthComponent.SetChorusFrequency
 // 0x0004 (0x0004 - 0x0000)
@@ -124,6 +135,7 @@ struct ModularSynthComponent_SetChorusFrequency final
 public:
 	float                                         Frequency;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetChorusFrequency;
 
 // Function Synthesis.ModularSynthComponent.SetDecayTime
 // 0x0004 (0x0004 - 0x0000)
@@ -132,6 +144,7 @@ struct ModularSynthComponent_SetDecayTime final
 public:
 	float                                         DecayTimeMsec;                                     // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetDecayTime;
 
 // Function Synthesis.ModularSynthComponent.SetEnableLegato
 // 0x0001 (0x0001 - 0x0000)
@@ -140,6 +153,7 @@ struct ModularSynthComponent_SetEnableLegato final
 public:
 	bool                                          LegatoEnabled;                                     // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetEnableLegato;
 
 // Function Synthesis.ModularSynthComponent.SetEnablePatch
 // 0x0008 (0x0008 - 0x0000)
@@ -151,6 +165,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0005(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_6[0x2];                                        // 0x0006(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetEnablePatch;
 
 // Function Synthesis.ModularSynthComponent.SetEnablePolyphony
 // 0x0001 (0x0001 - 0x0000)
@@ -159,6 +174,7 @@ struct ModularSynthComponent_SetEnablePolyphony final
 public:
 	bool                                          bEnablePolyphony;                                  // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetEnablePolyphony;
 
 // Function Synthesis.ModularSynthComponent.SetEnableRetrigger
 // 0x0001 (0x0001 - 0x0000)
@@ -167,6 +183,7 @@ struct ModularSynthComponent_SetEnableRetrigger final
 public:
 	bool                                          RetriggerEnabled;                                  // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetEnableRetrigger;
 
 // Function Synthesis.ModularSynthComponent.SetEnableUnison
 // 0x0001 (0x0001 - 0x0000)
@@ -175,6 +192,7 @@ struct ModularSynthComponent_SetEnableUnison final
 public:
 	bool                                          EnableUnison;                                      // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetEnableUnison;
 
 // Function Synthesis.ModularSynthComponent.SetFilterAlgorithm
 // 0x0001 (0x0001 - 0x0000)
@@ -183,6 +201,7 @@ struct ModularSynthComponent_SetFilterAlgorithm final
 public:
 	ESynthFilterAlgorithm                         FilterAlgorithm;                                   // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetFilterAlgorithm;
 
 // Function Synthesis.ModularSynthComponent.SetFilterFrequency
 // 0x0004 (0x0004 - 0x0000)
@@ -191,6 +210,7 @@ struct ModularSynthComponent_SetFilterFrequency final
 public:
 	float                                         FilterFrequencyHz;                                 // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetFilterFrequency;
 
 // Function Synthesis.ModularSynthComponent.SetFilterFrequencyMod
 // 0x0004 (0x0004 - 0x0000)
@@ -199,6 +219,7 @@ struct ModularSynthComponent_SetFilterFrequencyMod final
 public:
 	float                                         FilterFrequencyHz;                                 // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetFilterFrequencyMod;
 
 // Function Synthesis.ModularSynthComponent.SetFilterQ
 // 0x0004 (0x0004 - 0x0000)
@@ -207,6 +228,7 @@ struct ModularSynthComponent_SetFilterQ final
 public:
 	float                                         FilterQ;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetFilterQ;
 
 // Function Synthesis.ModularSynthComponent.SetFilterQMod
 // 0x0004 (0x0004 - 0x0000)
@@ -215,6 +237,7 @@ struct ModularSynthComponent_SetFilterQMod final
 public:
 	float                                         FilterQ;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetFilterQMod;
 
 // Function Synthesis.ModularSynthComponent.SetFilterType
 // 0x0001 (0x0001 - 0x0000)
@@ -223,6 +246,7 @@ struct ModularSynthComponent_SetFilterType final
 public:
 	ESynthFilterType                              FilterType;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetFilterType;
 
 // Function Synthesis.ModularSynthComponent.SetGainDb
 // 0x0004 (0x0004 - 0x0000)
@@ -231,6 +255,7 @@ struct ModularSynthComponent_SetGainDb final
 public:
 	float                                         GainDb;                                            // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetGainDb;
 
 // Function Synthesis.ModularSynthComponent.SetLFOFrequency
 // 0x0008 (0x0008 - 0x0000)
@@ -240,6 +265,7 @@ public:
 	int32                                         LFOIndex;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         FrequencyHz;                                       // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetLFOFrequency;
 
 // Function Synthesis.ModularSynthComponent.SetLFOFrequencyMod
 // 0x0008 (0x0008 - 0x0000)
@@ -249,6 +275,7 @@ public:
 	int32                                         LFOIndex;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         FrequencyModHz;                                    // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetLFOFrequencyMod;
 
 // Function Synthesis.ModularSynthComponent.SetLFOGain
 // 0x0008 (0x0008 - 0x0000)
@@ -258,6 +285,7 @@ public:
 	int32                                         LFOIndex;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Gain;                                              // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetLFOGain;
 
 // Function Synthesis.ModularSynthComponent.SetLFOGainMod
 // 0x0008 (0x0008 - 0x0000)
@@ -267,6 +295,7 @@ public:
 	int32                                         LFOIndex;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         GainMod;                                           // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetLFOGainMod;
 
 // Function Synthesis.ModularSynthComponent.SetLFOMode
 // 0x0008 (0x0008 - 0x0000)
@@ -277,6 +306,7 @@ public:
 	ESynthLFOMode                                 LFOMode;                                           // 0x0004(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetLFOMode;
 
 // Function Synthesis.ModularSynthComponent.SetLFOPatch
 // 0x0008 (0x0008 - 0x0000)
@@ -287,6 +317,7 @@ public:
 	ESynthLFOPatchType                            LFOPatchType;                                      // 0x0004(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetLFOPatch;
 
 // Function Synthesis.ModularSynthComponent.SetLFOType
 // 0x0008 (0x0008 - 0x0000)
@@ -297,6 +328,7 @@ public:
 	ESynthLFOType                                 LFOType;                                           // 0x0004(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetLFOType;
 
 // Function Synthesis.ModularSynthComponent.SetModEnvAttackTime
 // 0x0004 (0x0004 - 0x0000)
@@ -305,6 +337,7 @@ struct ModularSynthComponent_SetModEnvAttackTime final
 public:
 	float                                         AttackTimeMsec;                                    // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetModEnvAttackTime;
 
 // Function Synthesis.ModularSynthComponent.SetModEnvBiasInvert
 // 0x0001 (0x0001 - 0x0000)
@@ -313,6 +346,7 @@ struct ModularSynthComponent_SetModEnvBiasInvert final
 public:
 	bool                                          bInvert;                                           // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetModEnvBiasInvert;
 
 // Function Synthesis.ModularSynthComponent.SetModEnvBiasPatch
 // 0x0001 (0x0001 - 0x0000)
@@ -321,6 +355,7 @@ struct ModularSynthComponent_SetModEnvBiasPatch final
 public:
 	ESynthModEnvBiasPatch                         InPatchType;                                       // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetModEnvBiasPatch;
 
 // Function Synthesis.ModularSynthComponent.SetModEnvDecayTime
 // 0x0004 (0x0004 - 0x0000)
@@ -329,6 +364,7 @@ struct ModularSynthComponent_SetModEnvDecayTime final
 public:
 	float                                         DecayTimeMsec;                                     // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetModEnvDecayTime;
 
 // Function Synthesis.ModularSynthComponent.SetModEnvDepth
 // 0x0004 (0x0004 - 0x0000)
@@ -337,6 +373,7 @@ struct ModularSynthComponent_SetModEnvDepth final
 public:
 	float                                         Depth;                                             // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetModEnvDepth;
 
 // Function Synthesis.ModularSynthComponent.SetModEnvInvert
 // 0x0001 (0x0001 - 0x0000)
@@ -345,6 +382,7 @@ struct ModularSynthComponent_SetModEnvInvert final
 public:
 	bool                                          bInvert;                                           // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetModEnvInvert;
 
 // Function Synthesis.ModularSynthComponent.SetModEnvPatch
 // 0x0001 (0x0001 - 0x0000)
@@ -353,6 +391,7 @@ struct ModularSynthComponent_SetModEnvPatch final
 public:
 	ESynthModEnvPatch                             InPatchType;                                       // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetModEnvPatch;
 
 // Function Synthesis.ModularSynthComponent.SetModEnvReleaseTime
 // 0x0004 (0x0004 - 0x0000)
@@ -361,6 +400,7 @@ struct ModularSynthComponent_SetModEnvReleaseTime final
 public:
 	float                                         Release;                                           // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetModEnvReleaseTime;
 
 // Function Synthesis.ModularSynthComponent.SetModEnvSustainGain
 // 0x0004 (0x0004 - 0x0000)
@@ -369,6 +409,7 @@ struct ModularSynthComponent_SetModEnvSustainGain final
 public:
 	float                                         SustainGain;                                       // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetModEnvSustainGain;
 
 // Function Synthesis.ModularSynthComponent.SetOscCents
 // 0x0008 (0x0008 - 0x0000)
@@ -378,6 +419,7 @@ public:
 	int32                                         OscIndex;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Cents;                                             // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetOscCents;
 
 // Function Synthesis.ModularSynthComponent.SetOscFrequencyMod
 // 0x0008 (0x0008 - 0x0000)
@@ -387,6 +429,7 @@ public:
 	int32                                         OscIndex;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         OscFreqMod;                                        // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetOscFrequencyMod;
 
 // Function Synthesis.ModularSynthComponent.SetOscGain
 // 0x0008 (0x0008 - 0x0000)
@@ -396,6 +439,7 @@ public:
 	int32                                         OscIndex;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         OscGain;                                           // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetOscGain;
 
 // Function Synthesis.ModularSynthComponent.SetOscGainMod
 // 0x0008 (0x0008 - 0x0000)
@@ -405,6 +449,7 @@ public:
 	int32                                         OscIndex;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         OscGainMod;                                        // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetOscGainMod;
 
 // Function Synthesis.ModularSynthComponent.SetOscOctave
 // 0x0008 (0x0008 - 0x0000)
@@ -414,6 +459,7 @@ public:
 	int32                                         OscIndex;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Octave;                                            // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetOscOctave;
 
 // Function Synthesis.ModularSynthComponent.SetOscPulsewidth
 // 0x0008 (0x0008 - 0x0000)
@@ -423,6 +469,7 @@ public:
 	int32                                         OscIndex;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Pulsewidth;                                        // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetOscPulsewidth;
 
 // Function Synthesis.ModularSynthComponent.SetOscSemitones
 // 0x0008 (0x0008 - 0x0000)
@@ -432,6 +479,7 @@ public:
 	int32                                         OscIndex;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Semitones;                                         // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetOscSemitones;
 
 // Function Synthesis.ModularSynthComponent.SetOscSync
 // 0x0001 (0x0001 - 0x0000)
@@ -440,6 +488,7 @@ struct ModularSynthComponent_SetOscSync final
 public:
 	bool                                          bIsSynced;                                         // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetOscSync;
 
 // Function Synthesis.ModularSynthComponent.SetOscType
 // 0x0008 (0x0008 - 0x0000)
@@ -450,6 +499,7 @@ public:
 	ESynth1OscType                                OscType;                                           // 0x0004(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetOscType;
 
 // Function Synthesis.ModularSynthComponent.SetPan
 // 0x0004 (0x0004 - 0x0000)
@@ -458,6 +508,7 @@ struct ModularSynthComponent_SetPan final
 public:
 	float                                         Pan;                                               // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetPan;
 
 // Function Synthesis.ModularSynthComponent.SetPitchBend
 // 0x0004 (0x0004 - 0x0000)
@@ -466,6 +517,7 @@ struct ModularSynthComponent_SetPitchBend final
 public:
 	float                                         PitchBend;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetPitchBend;
 
 // Function Synthesis.ModularSynthComponent.SetPortamento
 // 0x0004 (0x0004 - 0x0000)
@@ -474,6 +526,7 @@ struct ModularSynthComponent_SetPortamento final
 public:
 	float                                         Portamento;                                        // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetPortamento;
 
 // Function Synthesis.ModularSynthComponent.SetReleaseTime
 // 0x0004 (0x0004 - 0x0000)
@@ -482,6 +535,7 @@ struct ModularSynthComponent_SetReleaseTime final
 public:
 	float                                         ReleaseTimeMsec;                                   // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetReleaseTime;
 
 // Function Synthesis.ModularSynthComponent.SetSpread
 // 0x0004 (0x0004 - 0x0000)
@@ -490,6 +544,7 @@ struct ModularSynthComponent_SetSpread final
 public:
 	float                                         Spread;                                            // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetSpread;
 
 // Function Synthesis.ModularSynthComponent.SetStereoDelayFeedback
 // 0x0004 (0x0004 - 0x0000)
@@ -498,6 +553,7 @@ struct ModularSynthComponent_SetStereoDelayFeedback final
 public:
 	float                                         DelayFeedback;                                     // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetStereoDelayFeedback;
 
 // Function Synthesis.ModularSynthComponent.SetStereoDelayIsEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -506,6 +562,7 @@ struct ModularSynthComponent_SetStereoDelayIsEnabled final
 public:
 	bool                                          StereoDelayEnabled;                                // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetStereoDelayIsEnabled;
 
 // Function Synthesis.ModularSynthComponent.SetStereoDelayMode
 // 0x0001 (0x0001 - 0x0000)
@@ -514,6 +571,7 @@ struct ModularSynthComponent_SetStereoDelayMode final
 public:
 	ESynthStereoDelayMode                         StereoDelayMode;                                   // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetStereoDelayMode;
 
 // Function Synthesis.ModularSynthComponent.SetStereoDelayRatio
 // 0x0004 (0x0004 - 0x0000)
@@ -522,6 +580,7 @@ struct ModularSynthComponent_SetStereoDelayRatio final
 public:
 	float                                         DelayRatio;                                        // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetStereoDelayRatio;
 
 // Function Synthesis.ModularSynthComponent.SetStereoDelayTime
 // 0x0004 (0x0004 - 0x0000)
@@ -530,6 +589,7 @@ struct ModularSynthComponent_SetStereoDelayTime final
 public:
 	float                                         DelayTimeMsec;                                     // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetStereoDelayTime;
 
 // Function Synthesis.ModularSynthComponent.SetStereoDelayWetlevel
 // 0x0004 (0x0004 - 0x0000)
@@ -538,6 +598,7 @@ struct ModularSynthComponent_SetStereoDelayWetlevel final
 public:
 	float                                         DelayWetlevel;                                     // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetStereoDelayWetlevel;
 
 // Function Synthesis.ModularSynthComponent.SetSustainGain
 // 0x0004 (0x0004 - 0x0000)
@@ -546,6 +607,7 @@ struct ModularSynthComponent_SetSustainGain final
 public:
 	float                                         SustainGain;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetSustainGain;
 
 // Function Synthesis.ModularSynthComponent.SetSynthPreset
 // 0x00E0 (0x00E0 - 0x0000)
@@ -554,6 +616,7 @@ struct ModularSynthComponent_SetSynthPreset final
 public:
 	struct FModularSynthPreset                    SynthPreset;                                       // 0x0000(0x00E0)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ModularSynthComponent_SetSynthPreset;
 
 // Function Synthesis.SourceEffectBitCrusherPreset.SetBitModulator
 // 0x0008 (0x0008 - 0x0000)
@@ -562,6 +625,7 @@ struct SourceEffectBitCrusherPreset_SetBitModulator final
 public:
 	const class USoundModulatorBase*              Modulator;                                         // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectBitCrusherPreset_SetBitModulator;
 
 // Function Synthesis.SourceEffectBitCrusherPreset.SetBits
 // 0x0004 (0x0004 - 0x0000)
@@ -570,6 +634,7 @@ struct SourceEffectBitCrusherPreset_SetBits final
 public:
 	float                                         Bits;                                              // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectBitCrusherPreset_SetBits;
 
 // Function Synthesis.SourceEffectBitCrusherPreset.SetModulationSettings
 // 0x0030 (0x0030 - 0x0000)
@@ -578,6 +643,7 @@ struct SourceEffectBitCrusherPreset_SetModulationSettings final
 public:
 	struct FSourceEffectBitCrusherSettings        ModulationSettings;                                // 0x0000(0x0030)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectBitCrusherPreset_SetModulationSettings;
 
 // Function Synthesis.SourceEffectBitCrusherPreset.SetSampleRate
 // 0x0004 (0x0004 - 0x0000)
@@ -586,6 +652,7 @@ struct SourceEffectBitCrusherPreset_SetSampleRate final
 public:
 	float                                         SampleRate;                                        // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectBitCrusherPreset_SetSampleRate;
 
 // Function Synthesis.SourceEffectBitCrusherPreset.SetSampleRateModulator
 // 0x0008 (0x0008 - 0x0000)
@@ -594,6 +661,7 @@ struct SourceEffectBitCrusherPreset_SetSampleRateModulator final
 public:
 	const class USoundModulatorBase*              Modulator;                                         // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectBitCrusherPreset_SetSampleRateModulator;
 
 // Function Synthesis.SourceEffectBitCrusherPreset.SetSettings
 // 0x0008 (0x0008 - 0x0000)
@@ -602,6 +670,7 @@ struct SourceEffectBitCrusherPreset_SetSettings final
 public:
 	struct FSourceEffectBitCrusherBaseSettings    Settings_0;                                        // 0x0000(0x0008)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectBitCrusherPreset_SetSettings;
 
 // Function Synthesis.SourceEffectChorusPreset.SetDepth
 // 0x0004 (0x0004 - 0x0000)
@@ -610,6 +679,7 @@ struct SourceEffectChorusPreset_SetDepth final
 public:
 	float                                         Depth;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectChorusPreset_SetDepth;
 
 // Function Synthesis.SourceEffectChorusPreset.SetDepthModulator
 // 0x0008 (0x0008 - 0x0000)
@@ -618,6 +688,7 @@ struct SourceEffectChorusPreset_SetDepthModulator final
 public:
 	const class USoundModulatorBase*              Modulator;                                         // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectChorusPreset_SetDepthModulator;
 
 // Function Synthesis.SourceEffectChorusPreset.SetDry
 // 0x0004 (0x0004 - 0x0000)
@@ -626,6 +697,7 @@ struct SourceEffectChorusPreset_SetDry final
 public:
 	float                                         DryAmount;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectChorusPreset_SetDry;
 
 // Function Synthesis.SourceEffectChorusPreset.SetDryModulator
 // 0x0008 (0x0008 - 0x0000)
@@ -634,6 +706,7 @@ struct SourceEffectChorusPreset_SetDryModulator final
 public:
 	const class USoundModulatorBase*              Modulator;                                         // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectChorusPreset_SetDryModulator;
 
 // Function Synthesis.SourceEffectChorusPreset.SetFeedback
 // 0x0004 (0x0004 - 0x0000)
@@ -642,6 +715,7 @@ struct SourceEffectChorusPreset_SetFeedback final
 public:
 	float                                         Feedback;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectChorusPreset_SetFeedback;
 
 // Function Synthesis.SourceEffectChorusPreset.SetFeedbackModulator
 // 0x0008 (0x0008 - 0x0000)
@@ -650,6 +724,7 @@ struct SourceEffectChorusPreset_SetFeedbackModulator final
 public:
 	const class USoundModulatorBase*              Modulator;                                         // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectChorusPreset_SetFeedbackModulator;
 
 // Function Synthesis.SourceEffectChorusPreset.SetFrequency
 // 0x0004 (0x0004 - 0x0000)
@@ -658,6 +733,7 @@ struct SourceEffectChorusPreset_SetFrequency final
 public:
 	float                                         Frequency;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectChorusPreset_SetFrequency;
 
 // Function Synthesis.SourceEffectChorusPreset.SetFrequencyModulator
 // 0x0008 (0x0008 - 0x0000)
@@ -666,6 +742,7 @@ struct SourceEffectChorusPreset_SetFrequencyModulator final
 public:
 	const class USoundModulatorBase*              Modulator;                                         // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectChorusPreset_SetFrequencyModulator;
 
 // Function Synthesis.SourceEffectChorusPreset.SetModulationSettings
 // 0x0078 (0x0078 - 0x0000)
@@ -674,6 +751,7 @@ struct SourceEffectChorusPreset_SetModulationSettings final
 public:
 	struct FSourceEffectChorusSettings            ModulationSettings;                                // 0x0000(0x0078)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectChorusPreset_SetModulationSettings;
 
 // Function Synthesis.SourceEffectChorusPreset.SetSettings
 // 0x0018 (0x0018 - 0x0000)
@@ -682,6 +760,7 @@ struct SourceEffectChorusPreset_SetSettings final
 public:
 	struct FSourceEffectChorusBaseSettings        Settings_0;                                        // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectChorusPreset_SetSettings;
 
 // Function Synthesis.SourceEffectChorusPreset.SetSpread
 // 0x0004 (0x0004 - 0x0000)
@@ -690,6 +769,7 @@ struct SourceEffectChorusPreset_SetSpread final
 public:
 	float                                         Spread;                                            // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectChorusPreset_SetSpread;
 
 // Function Synthesis.SourceEffectChorusPreset.SetSpreadModulator
 // 0x0008 (0x0008 - 0x0000)
@@ -698,6 +778,7 @@ struct SourceEffectChorusPreset_SetSpreadModulator final
 public:
 	const class USoundModulatorBase*              Modulator;                                         // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectChorusPreset_SetSpreadModulator;
 
 // Function Synthesis.SourceEffectChorusPreset.SetWet
 // 0x0004 (0x0004 - 0x0000)
@@ -706,6 +787,7 @@ struct SourceEffectChorusPreset_SetWet final
 public:
 	float                                         WetAmount;                                         // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectChorusPreset_SetWet;
 
 // Function Synthesis.SourceEffectChorusPreset.SetWetModulator
 // 0x0008 (0x0008 - 0x0000)
@@ -714,6 +796,7 @@ struct SourceEffectChorusPreset_SetWetModulator final
 public:
 	const class USoundModulatorBase*              Modulator;                                         // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectChorusPreset_SetWetModulator;
 
 // Function Synthesis.SourceEffectDynamicsProcessorPreset.SetSettings
 // 0x0028 (0x0028 - 0x0000)
@@ -722,6 +805,7 @@ struct SourceEffectDynamicsProcessorPreset_SetSettings final
 public:
 	struct FSourceEffectDynamicsProcessorSettings InSettings;                                        // 0x0000(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectDynamicsProcessorPreset_SetSettings;
 
 // Function Synthesis.SourceEffectEQPreset.SetSettings
 // 0x0010 (0x0010 - 0x0000)
@@ -730,6 +814,7 @@ struct SourceEffectEQPreset_SetSettings final
 public:
 	struct FSourceEffectEQSettings                InSettings;                                        // 0x0000(0x0010)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectEQPreset_SetSettings;
 
 // Function Synthesis.SourceEffectFilterPreset.SetSettings
 // 0x0020 (0x0020 - 0x0000)
@@ -738,6 +823,7 @@ struct SourceEffectFilterPreset_SetSettings final
 public:
 	struct FSourceEffectFilterSettings            InSettings;                                        // 0x0000(0x0020)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectFilterPreset_SetSettings;
 
 // Function Synthesis.SourceEffectFoldbackDistortionPreset.SetSettings
 // 0x000C (0x000C - 0x0000)
@@ -746,6 +832,7 @@ struct SourceEffectFoldbackDistortionPreset_SetSettings final
 public:
 	struct FSourceEffectFoldbackDistortionSettings InSettings;                                       // 0x0000(0x000C)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectFoldbackDistortionPreset_SetSettings;
 
 // Function Synthesis.SourceEffectMidSideSpreaderPreset.SetSettings
 // 0x0008 (0x0008 - 0x0000)
@@ -754,6 +841,7 @@ struct SourceEffectMidSideSpreaderPreset_SetSettings final
 public:
 	struct FSourceEffectMidSideSpreaderSettings   InSettings;                                        // 0x0000(0x0008)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectMidSideSpreaderPreset_SetSettings;
 
 // Function Synthesis.SourceEffectPannerPreset.SetSettings
 // 0x0008 (0x0008 - 0x0000)
@@ -762,6 +850,7 @@ struct SourceEffectPannerPreset_SetSettings final
 public:
 	struct FSourceEffectPannerSettings            InSettings;                                        // 0x0000(0x0008)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectPannerPreset_SetSettings;
 
 // Function Synthesis.SourceEffectPhaserPreset.SetSettings
 // 0x0010 (0x0010 - 0x0000)
@@ -770,6 +859,7 @@ struct SourceEffectPhaserPreset_SetSettings final
 public:
 	struct FSourceEffectPhaserSettings            InSettings;                                        // 0x0000(0x0010)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectPhaserPreset_SetSettings;
 
 // Function Synthesis.SourceEffectRingModulationPreset.SetSettings
 // 0x0020 (0x0020 - 0x0000)
@@ -778,6 +868,7 @@ struct SourceEffectRingModulationPreset_SetSettings final
 public:
 	struct FSourceEffectRingModulationSettings    InSettings;                                        // 0x0000(0x0020)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectRingModulationPreset_SetSettings;
 
 // Function Synthesis.SourceEffectSimpleDelayPreset.SetSettings
 // 0x0018 (0x0018 - 0x0000)
@@ -786,6 +877,7 @@ struct SourceEffectSimpleDelayPreset_SetSettings final
 public:
 	struct FSourceEffectSimpleDelaySettings       InSettings;                                        // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectSimpleDelayPreset_SetSettings;
 
 // Function Synthesis.SourceEffectStereoDelayPreset.SetSettings
 // 0x0024 (0x0024 - 0x0000)
@@ -794,6 +886,7 @@ struct SourceEffectStereoDelayPreset_SetSettings final
 public:
 	struct FSourceEffectStereoDelaySettings       InSettings;                                        // 0x0000(0x0024)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectStereoDelayPreset_SetSettings;
 
 // Function Synthesis.SourceEffectWaveShaperPreset.SetSettings
 // 0x0008 (0x0008 - 0x0000)
@@ -802,6 +895,7 @@ struct SourceEffectWaveShaperPreset_SetSettings final
 public:
 	struct FSourceEffectWaveShaperSettings        InSettings;                                        // 0x0000(0x0008)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SourceEffectWaveShaperPreset_SetSettings;
 
 // Function Synthesis.SubmixEffectConvolutionReverbPreset.SetImpulseResponse
 // 0x0008 (0x0008 - 0x0000)
@@ -810,6 +904,7 @@ struct SubmixEffectConvolutionReverbPreset_SetImpulseResponse final
 public:
 	class UAudioImpulseResponse*                  InImpulseResponse;                                 // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectConvolutionReverbPreset_SetImpulseResponse;
 
 // Function Synthesis.SubmixEffectConvolutionReverbPreset.SetSettings
 // 0x0028 (0x0028 - 0x0000)
@@ -818,6 +913,7 @@ struct SubmixEffectConvolutionReverbPreset_SetSettings final
 public:
 	struct FSubmixEffectConvolutionReverbSettings InSettings;                                        // 0x0000(0x0028)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectConvolutionReverbPreset_SetSettings;
 
 // Function Synthesis.SubmixEffectDelayPreset.GetMaxDelayInMilliseconds
 // 0x0004 (0x0004 - 0x0000)
@@ -826,6 +922,7 @@ struct SubmixEffectDelayPreset_GetMaxDelayInMilliseconds final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectDelayPreset_GetMaxDelayInMilliseconds;
 
 // Function Synthesis.SubmixEffectDelayPreset.SetDelay
 // 0x0004 (0x0004 - 0x0000)
@@ -834,6 +931,7 @@ struct SubmixEffectDelayPreset_SetDelay final
 public:
 	float                                         Length;                                            // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectDelayPreset_SetDelay;
 
 // Function Synthesis.SubmixEffectDelayPreset.SetInterpolationTime
 // 0x0004 (0x0004 - 0x0000)
@@ -842,6 +940,7 @@ struct SubmixEffectDelayPreset_SetInterpolationTime final
 public:
 	float                                         Time;                                              // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectDelayPreset_SetInterpolationTime;
 
 // Function Synthesis.SubmixEffectDelayPreset.SetSettings
 // 0x000C (0x000C - 0x0000)
@@ -850,6 +949,7 @@ struct SubmixEffectDelayPreset_SetSettings final
 public:
 	struct FSubmixEffectDelaySettings             InSettings;                                        // 0x0000(0x000C)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectDelayPreset_SetSettings;
 
 // Function Synthesis.SubmixEffectFilterPreset.SetFilterAlgorithm
 // 0x0001 (0x0001 - 0x0000)
@@ -858,6 +958,7 @@ struct SubmixEffectFilterPreset_SetFilterAlgorithm final
 public:
 	ESubmixFilterAlgorithm                        InAlgorithm;                                       // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectFilterPreset_SetFilterAlgorithm;
 
 // Function Synthesis.SubmixEffectFilterPreset.SetFilterCutoffFrequency
 // 0x0004 (0x0004 - 0x0000)
@@ -866,6 +967,7 @@ struct SubmixEffectFilterPreset_SetFilterCutoffFrequency final
 public:
 	float                                         InFrequency;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectFilterPreset_SetFilterCutoffFrequency;
 
 // Function Synthesis.SubmixEffectFilterPreset.SetFilterCutoffFrequencyMod
 // 0x0004 (0x0004 - 0x0000)
@@ -874,6 +976,7 @@ struct SubmixEffectFilterPreset_SetFilterCutoffFrequencyMod final
 public:
 	float                                         InFrequency;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectFilterPreset_SetFilterCutoffFrequencyMod;
 
 // Function Synthesis.SubmixEffectFilterPreset.SetFilterQ
 // 0x0004 (0x0004 - 0x0000)
@@ -882,6 +985,7 @@ struct SubmixEffectFilterPreset_SetFilterQ final
 public:
 	float                                         InQ;                                               // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectFilterPreset_SetFilterQ;
 
 // Function Synthesis.SubmixEffectFilterPreset.SetFilterQMod
 // 0x0004 (0x0004 - 0x0000)
@@ -890,6 +994,7 @@ struct SubmixEffectFilterPreset_SetFilterQMod final
 public:
 	float                                         InQ;                                               // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectFilterPreset_SetFilterQMod;
 
 // Function Synthesis.SubmixEffectFilterPreset.SetFilterType
 // 0x0001 (0x0001 - 0x0000)
@@ -898,6 +1003,7 @@ struct SubmixEffectFilterPreset_SetFilterType final
 public:
 	ESubmixFilterType                             InType;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectFilterPreset_SetFilterType;
 
 // Function Synthesis.SubmixEffectFilterPreset.SetSettings
 // 0x000C (0x000C - 0x0000)
@@ -906,6 +1012,7 @@ struct SubmixEffectFilterPreset_SetSettings final
 public:
 	struct FSubmixEffectFilterSettings            InSettings;                                        // 0x0000(0x000C)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectFilterPreset_SetSettings;
 
 // Function Synthesis.SubmixEffectFlexiverbPreset.SetSettings
 // 0x0010 (0x0010 - 0x0000)
@@ -914,6 +1021,7 @@ struct SubmixEffectFlexiverbPreset_SetSettings final
 public:
 	struct FSubmixEffectFlexiverbSettings         InSettings;                                        // 0x0000(0x0010)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectFlexiverbPreset_SetSettings;
 
 // Function Synthesis.SubmixEffectMultibandCompressorPreset.SetSettings
 // 0x0020 (0x0020 - 0x0000)
@@ -922,6 +1030,7 @@ struct SubmixEffectMultibandCompressorPreset_SetSettings final
 public:
 	struct FSubmixEffectMultibandCompressorSettings InSettings;                                      // 0x0000(0x0020)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectMultibandCompressorPreset_SetSettings;
 
 // Function Synthesis.SubmixEffectStereoDelayPreset.SetSettings
 // 0x0024 (0x0024 - 0x0000)
@@ -930,6 +1039,7 @@ struct SubmixEffectStereoDelayPreset_SetSettings final
 public:
 	struct FSubmixEffectStereoDelaySettings       InSettings;                                        // 0x0000(0x0024)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectStereoDelayPreset_SetSettings;
 
 // Function Synthesis.SubmixEffectTapDelayPreset.AddTap
 // 0x0004 (0x0004 - 0x0000)
@@ -938,6 +1048,7 @@ struct SubmixEffectTapDelayPreset_AddTap final
 public:
 	int32                                         TapId;                                             // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectTapDelayPreset_AddTap;
 
 // Function Synthesis.SubmixEffectTapDelayPreset.GetMaxDelayInMilliseconds
 // 0x0004 (0x0004 - 0x0000)
@@ -946,6 +1057,7 @@ struct SubmixEffectTapDelayPreset_GetMaxDelayInMilliseconds final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectTapDelayPreset_GetMaxDelayInMilliseconds;
 
 // Function Synthesis.SubmixEffectTapDelayPreset.GetTap
 // 0x001C (0x001C - 0x0000)
@@ -955,6 +1067,7 @@ public:
 	int32                                         TapId;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FTapDelayInfo                          TapInfo;                                           // 0x0004(0x0018)(Parm, OutParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectTapDelayPreset_GetTap;
 
 // Function Synthesis.SubmixEffectTapDelayPreset.GetTapIds
 // 0x0010 (0x0010 - 0x0000)
@@ -963,6 +1076,7 @@ struct SubmixEffectTapDelayPreset_GetTapIds final
 public:
 	TArray<int32>                                 TapIds;                                            // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectTapDelayPreset_GetTapIds;
 
 // Function Synthesis.SubmixEffectTapDelayPreset.RemoveTap
 // 0x0004 (0x0004 - 0x0000)
@@ -971,6 +1085,7 @@ struct SubmixEffectTapDelayPreset_RemoveTap final
 public:
 	int32                                         TapId;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectTapDelayPreset_RemoveTap;
 
 // Function Synthesis.SubmixEffectTapDelayPreset.SetInterpolationTime
 // 0x0004 (0x0004 - 0x0000)
@@ -979,6 +1094,7 @@ struct SubmixEffectTapDelayPreset_SetInterpolationTime final
 public:
 	float                                         Time;                                              // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectTapDelayPreset_SetInterpolationTime;
 
 // Function Synthesis.SubmixEffectTapDelayPreset.SetSettings
 // 0x0018 (0x0018 - 0x0000)
@@ -987,6 +1103,7 @@ struct SubmixEffectTapDelayPreset_SetSettings final
 public:
 	struct FSubmixEffectTapDelaySettings          InSettings;                                        // 0x0000(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectTapDelayPreset_SetSettings;
 
 // Function Synthesis.SubmixEffectTapDelayPreset.SetTap
 // 0x001C (0x001C - 0x0000)
@@ -996,6 +1113,7 @@ public:
 	int32                                         TapId;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FTapDelayInfo                          TapInfo;                                           // 0x0004(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SubmixEffectTapDelayPreset_SetTap;
 
 // Function Synthesis.Synth2DSlider.SetIndentHandle
 // 0x0001 (0x0001 - 0x0000)
@@ -1004,6 +1122,7 @@ struct Synth2DSlider_SetIndentHandle final
 public:
 	bool                                          InValue;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_Synth2DSlider_SetIndentHandle;
 
 // Function Synthesis.Synth2DSlider.SetLocked
 // 0x0001 (0x0001 - 0x0000)
@@ -1012,6 +1131,7 @@ struct Synth2DSlider_SetLocked final
 public:
 	bool                                          InValue;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_Synth2DSlider_SetLocked;
 
 // Function Synthesis.Synth2DSlider.SetSliderHandleColor
 // 0x0010 (0x0010 - 0x0000)
@@ -1020,6 +1140,7 @@ struct Synth2DSlider_SetSliderHandleColor final
 public:
 	struct FLinearColor                           InValue;                                           // 0x0000(0x0010)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_Synth2DSlider_SetSliderHandleColor;
 
 // Function Synthesis.Synth2DSlider.SetStepSize
 // 0x0004 (0x0004 - 0x0000)
@@ -1028,6 +1149,7 @@ struct Synth2DSlider_SetStepSize final
 public:
 	float                                         InValue;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_Synth2DSlider_SetStepSize;
 
 // Function Synthesis.Synth2DSlider.SetValue
 // 0x0008 (0x0008 - 0x0000)
@@ -1036,6 +1158,7 @@ struct Synth2DSlider_SetValue final
 public:
 	struct FVector2D                              InValue;                                           // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_Synth2DSlider_SetValue;
 
 // Function Synthesis.Synth2DSlider.GetValue
 // 0x0008 (0x0008 - 0x0000)
@@ -1044,6 +1167,7 @@ struct Synth2DSlider_GetValue final
 public:
 	struct FVector2D                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_Synth2DSlider_GetValue;
 
 // Function Synthesis.GranularSynth.NoteOff
 // 0x0008 (0x0008 - 0x0000)
@@ -1054,6 +1178,7 @@ public:
 	bool                                          bKill;                                             // 0x0004(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_GranularSynth_NoteOff;
 
 // Function Synthesis.GranularSynth.NoteOn
 // 0x000C (0x000C - 0x0000)
@@ -1064,6 +1189,7 @@ public:
 	int32                                         Velocity;                                          // 0x0004(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         Duration;                                          // 0x0008(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_NoteOn;
 
 // Function Synthesis.GranularSynth.SetAttackTime
 // 0x0004 (0x0004 - 0x0000)
@@ -1072,6 +1198,7 @@ struct GranularSynth_SetAttackTime final
 public:
 	float                                         AttackTimeMsec;                                    // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_SetAttackTime;
 
 // Function Synthesis.GranularSynth.SetDecayTime
 // 0x0004 (0x0004 - 0x0000)
@@ -1080,6 +1207,7 @@ struct GranularSynth_SetDecayTime final
 public:
 	float                                         DecayTimeMsec;                                     // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_SetDecayTime;
 
 // Function Synthesis.GranularSynth.SetGrainDuration
 // 0x000C (0x000C - 0x0000)
@@ -1089,6 +1217,7 @@ public:
 	float                                         BaseDurationMsec;                                  // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector2D                              DurationRange;                                     // 0x0004(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_SetGrainDuration;
 
 // Function Synthesis.GranularSynth.SetGrainEnvelopeType
 // 0x0001 (0x0001 - 0x0000)
@@ -1097,6 +1226,7 @@ struct GranularSynth_SetGrainEnvelopeType final
 public:
 	EGranularSynthEnvelopeType                    EnvelopeType;                                      // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_SetGrainEnvelopeType;
 
 // Function Synthesis.GranularSynth.SetGrainPan
 // 0x000C (0x000C - 0x0000)
@@ -1106,6 +1236,7 @@ public:
 	float                                         BasePan;                                           // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector2D                              PanRange;                                          // 0x0004(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_SetGrainPan;
 
 // Function Synthesis.GranularSynth.SetGrainPitch
 // 0x000C (0x000C - 0x0000)
@@ -1115,6 +1246,7 @@ public:
 	float                                         BasePitch;                                         // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector2D                              PitchRange;                                        // 0x0004(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_SetGrainPitch;
 
 // Function Synthesis.GranularSynth.SetGrainProbability
 // 0x0004 (0x0004 - 0x0000)
@@ -1123,6 +1255,7 @@ struct GranularSynth_SetGrainProbability final
 public:
 	float                                         InGrainProbability;                                // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_SetGrainProbability;
 
 // Function Synthesis.GranularSynth.SetGrainsPerSecond
 // 0x0004 (0x0004 - 0x0000)
@@ -1131,6 +1264,7 @@ struct GranularSynth_SetGrainsPerSecond final
 public:
 	float                                         InGrainsPerSecond;                                 // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_SetGrainsPerSecond;
 
 // Function Synthesis.GranularSynth.SetGrainVolume
 // 0x000C (0x000C - 0x0000)
@@ -1140,6 +1274,7 @@ public:
 	float                                         BaseVolume;                                        // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector2D                              VolumeRange;                                       // 0x0004(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_SetGrainVolume;
 
 // Function Synthesis.GranularSynth.SetPlaybackSpeed
 // 0x0004 (0x0004 - 0x0000)
@@ -1148,6 +1283,7 @@ struct GranularSynth_SetPlaybackSpeed final
 public:
 	float                                         InPlayheadRate;                                    // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_SetPlaybackSpeed;
 
 // Function Synthesis.GranularSynth.SetPlayheadTime
 // 0x000C (0x000C - 0x0000)
@@ -1159,6 +1295,7 @@ public:
 	EGranularSynthSeekType                        SeekType;                                          // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_GranularSynth_SetPlayheadTime;
 
 // Function Synthesis.GranularSynth.SetReleaseTimeMsec
 // 0x0004 (0x0004 - 0x0000)
@@ -1167,6 +1304,7 @@ struct GranularSynth_SetReleaseTimeMsec final
 public:
 	float                                         ReleaseTimeMsec;                                   // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_SetReleaseTimeMsec;
 
 // Function Synthesis.GranularSynth.SetScrubMode
 // 0x0001 (0x0001 - 0x0000)
@@ -1175,6 +1313,7 @@ struct GranularSynth_SetScrubMode final
 public:
 	bool                                          bScrubMode;                                        // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_SetScrubMode;
 
 // Function Synthesis.GranularSynth.SetSoundWave
 // 0x0008 (0x0008 - 0x0000)
@@ -1183,6 +1322,7 @@ struct GranularSynth_SetSoundWave final
 public:
 	class USoundWave*                             InSoundWave;                                       // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_SetSoundWave;
 
 // Function Synthesis.GranularSynth.SetSustainGain
 // 0x0004 (0x0004 - 0x0000)
@@ -1191,6 +1331,7 @@ struct GranularSynth_SetSustainGain final
 public:
 	float                                         SustainGain;                                       // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_SetSustainGain;
 
 // Function Synthesis.GranularSynth.GetCurrentPlayheadTime
 // 0x0004 (0x0004 - 0x0000)
@@ -1199,6 +1340,7 @@ struct GranularSynth_GetCurrentPlayheadTime final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_GetCurrentPlayheadTime;
 
 // Function Synthesis.GranularSynth.GetSampleDuration
 // 0x0004 (0x0004 - 0x0000)
@@ -1207,6 +1349,7 @@ struct GranularSynth_GetSampleDuration final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_GetSampleDuration;
 
 // Function Synthesis.GranularSynth.IsLoaded
 // 0x0001 (0x0001 - 0x0000)
@@ -1215,6 +1358,7 @@ struct GranularSynth_IsLoaded final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GranularSynth_IsLoaded;
 
 // Function Synthesis.SynthComponentMonoWaveTable.GetCurveTangent
 // 0x0008 (0x0008 - 0x0000)
@@ -1224,6 +1368,7 @@ public:
 	int32                                         TableIndex;                                        // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_GetCurveTangent;
 
 // Function Synthesis.SynthComponentMonoWaveTable.GetNumTableEntries
 // 0x0004 (0x0004 - 0x0000)
@@ -1232,6 +1377,7 @@ struct SynthComponentMonoWaveTable_GetNumTableEntries final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_GetNumTableEntries;
 
 // Function Synthesis.SynthComponentMonoWaveTable.NoteOff
 // 0x0004 (0x0004 - 0x0000)
@@ -1240,6 +1386,7 @@ struct SynthComponentMonoWaveTable_NoteOff final
 public:
 	float                                         InMidiNote;                                        // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_NoteOff;
 
 // Function Synthesis.SynthComponentMonoWaveTable.NoteOn
 // 0x0008 (0x0008 - 0x0000)
@@ -1249,6 +1396,7 @@ public:
 	float                                         InMidiNote;                                        // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         InVelocity;                                        // 0x0004(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_NoteOn;
 
 // Function Synthesis.SynthComponentMonoWaveTable.RefreshWaveTable
 // 0x0004 (0x0004 - 0x0000)
@@ -1257,6 +1405,7 @@ struct SynthComponentMonoWaveTable_RefreshWaveTable final
 public:
 	int32                                         Index_0;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_RefreshWaveTable;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetAmpEnvelopeAttackTime
 // 0x0004 (0x0004 - 0x0000)
@@ -1265,6 +1414,7 @@ struct SynthComponentMonoWaveTable_SetAmpEnvelopeAttackTime final
 public:
 	float                                         InAttackTimeMsec;                                  // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetAmpEnvelopeAttackTime;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetAmpEnvelopeBiasDepth
 // 0x0004 (0x0004 - 0x0000)
@@ -1273,6 +1423,7 @@ struct SynthComponentMonoWaveTable_SetAmpEnvelopeBiasDepth final
 public:
 	float                                         InDepth;                                           // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetAmpEnvelopeBiasDepth;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetAmpEnvelopeBiasInvert
 // 0x0001 (0x0001 - 0x0000)
@@ -1281,6 +1432,7 @@ struct SynthComponentMonoWaveTable_SetAmpEnvelopeBiasInvert final
 public:
 	bool                                          bInBiasInvert;                                     // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetAmpEnvelopeBiasInvert;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetAmpEnvelopeDecayTime
 // 0x0004 (0x0004 - 0x0000)
@@ -1289,6 +1441,7 @@ struct SynthComponentMonoWaveTable_SetAmpEnvelopeDecayTime final
 public:
 	float                                         InDecayTimeMsec;                                   // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetAmpEnvelopeDecayTime;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetAmpEnvelopeDepth
 // 0x0004 (0x0004 - 0x0000)
@@ -1297,6 +1450,7 @@ struct SynthComponentMonoWaveTable_SetAmpEnvelopeDepth final
 public:
 	float                                         InDepth;                                           // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetAmpEnvelopeDepth;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetAmpEnvelopeInvert
 // 0x0001 (0x0001 - 0x0000)
@@ -1305,6 +1459,7 @@ struct SynthComponentMonoWaveTable_SetAmpEnvelopeInvert final
 public:
 	bool                                          bInInvert;                                         // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetAmpEnvelopeInvert;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetAmpEnvelopeReleaseTime
 // 0x0004 (0x0004 - 0x0000)
@@ -1313,6 +1468,7 @@ struct SynthComponentMonoWaveTable_SetAmpEnvelopeReleaseTime final
 public:
 	float                                         InReleaseTimeMsec;                                 // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetAmpEnvelopeReleaseTime;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetAmpEnvelopeSustainGain
 // 0x0004 (0x0004 - 0x0000)
@@ -1321,6 +1477,7 @@ struct SynthComponentMonoWaveTable_SetAmpEnvelopeSustainGain final
 public:
 	float                                         InSustainGain;                                     // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetAmpEnvelopeSustainGain;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetCurveInterpolationType
 // 0x000C (0x000C - 0x0000)
@@ -1333,6 +1490,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetCurveInterpolationType;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetCurveTangent
 // 0x000C (0x000C - 0x0000)
@@ -1344,6 +1502,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetCurveTangent;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetCurveValue
 // 0x0010 (0x0010 - 0x0000)
@@ -1356,6 +1515,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetCurveValue;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetFilterEnvelopeAttackTime
 // 0x0004 (0x0004 - 0x0000)
@@ -1364,6 +1524,7 @@ struct SynthComponentMonoWaveTable_SetFilterEnvelopeAttackTime final
 public:
 	float                                         InAttackTimeMsec;                                  // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetFilterEnvelopeAttackTime;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetFilterEnvelopeBiasDepth
 // 0x0004 (0x0004 - 0x0000)
@@ -1372,6 +1533,7 @@ struct SynthComponentMonoWaveTable_SetFilterEnvelopeBiasDepth final
 public:
 	float                                         InDepth;                                           // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetFilterEnvelopeBiasDepth;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetFilterEnvelopeBiasInvert
 // 0x0001 (0x0001 - 0x0000)
@@ -1380,6 +1542,7 @@ struct SynthComponentMonoWaveTable_SetFilterEnvelopeBiasInvert final
 public:
 	bool                                          bInBiasInvert;                                     // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetFilterEnvelopeBiasInvert;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetFilterEnvelopeDepth
 // 0x0004 (0x0004 - 0x0000)
@@ -1388,6 +1551,7 @@ struct SynthComponentMonoWaveTable_SetFilterEnvelopeDepth final
 public:
 	float                                         InDepth;                                           // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetFilterEnvelopeDepth;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetFilterEnvelopeInvert
 // 0x0001 (0x0001 - 0x0000)
@@ -1396,6 +1560,7 @@ struct SynthComponentMonoWaveTable_SetFilterEnvelopeInvert final
 public:
 	bool                                          bInInvert;                                         // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetFilterEnvelopeInvert;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetFilterEnvelopenDecayTime
 // 0x0004 (0x0004 - 0x0000)
@@ -1404,6 +1569,7 @@ struct SynthComponentMonoWaveTable_SetFilterEnvelopenDecayTime final
 public:
 	float                                         InDecayTimeMsec;                                   // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetFilterEnvelopenDecayTime;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetFilterEnvelopeReleaseTime
 // 0x0004 (0x0004 - 0x0000)
@@ -1412,6 +1578,7 @@ struct SynthComponentMonoWaveTable_SetFilterEnvelopeReleaseTime final
 public:
 	float                                         InReleaseTimeMsec;                                 // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetFilterEnvelopeReleaseTime;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetFilterEnvelopeSustainGain
 // 0x0004 (0x0004 - 0x0000)
@@ -1420,6 +1587,7 @@ struct SynthComponentMonoWaveTable_SetFilterEnvelopeSustainGain final
 public:
 	float                                         InSustainGain;                                     // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetFilterEnvelopeSustainGain;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetFrequency
 // 0x0004 (0x0004 - 0x0000)
@@ -1428,6 +1596,7 @@ struct SynthComponentMonoWaveTable_SetFrequency final
 public:
 	float                                         FrequencyHz;                                       // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetFrequency;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetFrequencyPitchBend
 // 0x0004 (0x0004 - 0x0000)
@@ -1436,6 +1605,7 @@ struct SynthComponentMonoWaveTable_SetFrequencyPitchBend final
 public:
 	float                                         FrequencyOffsetCents;                              // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetFrequencyPitchBend;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetFrequencyWithMidiNote
 // 0x0004 (0x0004 - 0x0000)
@@ -1444,6 +1614,7 @@ struct SynthComponentMonoWaveTable_SetFrequencyWithMidiNote final
 public:
 	float                                         InMidiNote;                                        // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetFrequencyWithMidiNote;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetLowPassFilterResonance
 // 0x0004 (0x0004 - 0x0000)
@@ -1452,6 +1623,7 @@ struct SynthComponentMonoWaveTable_SetLowPassFilterResonance final
 public:
 	float                                         InNewQ;                                            // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetLowPassFilterResonance;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetPositionEnvelopeAttackTime
 // 0x0004 (0x0004 - 0x0000)
@@ -1460,6 +1632,7 @@ struct SynthComponentMonoWaveTable_SetPositionEnvelopeAttackTime final
 public:
 	float                                         InAttackTimeMsec;                                  // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetPositionEnvelopeAttackTime;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetPositionEnvelopeBiasDepth
 // 0x0004 (0x0004 - 0x0000)
@@ -1468,6 +1641,7 @@ struct SynthComponentMonoWaveTable_SetPositionEnvelopeBiasDepth final
 public:
 	float                                         InDepth;                                           // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetPositionEnvelopeBiasDepth;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetPositionEnvelopeBiasInvert
 // 0x0001 (0x0001 - 0x0000)
@@ -1476,6 +1650,7 @@ struct SynthComponentMonoWaveTable_SetPositionEnvelopeBiasInvert final
 public:
 	bool                                          bInBiasInvert;                                     // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetPositionEnvelopeBiasInvert;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetPositionEnvelopeDecayTime
 // 0x0004 (0x0004 - 0x0000)
@@ -1484,6 +1659,7 @@ struct SynthComponentMonoWaveTable_SetPositionEnvelopeDecayTime final
 public:
 	float                                         InDecayTimeMsec;                                   // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetPositionEnvelopeDecayTime;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetPositionEnvelopeDepth
 // 0x0004 (0x0004 - 0x0000)
@@ -1492,6 +1668,7 @@ struct SynthComponentMonoWaveTable_SetPositionEnvelopeDepth final
 public:
 	float                                         InDepth;                                           // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetPositionEnvelopeDepth;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetPositionEnvelopeInvert
 // 0x0001 (0x0001 - 0x0000)
@@ -1500,6 +1677,7 @@ struct SynthComponentMonoWaveTable_SetPositionEnvelopeInvert final
 public:
 	bool                                          bInInvert;                                         // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetPositionEnvelopeInvert;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetPositionEnvelopeReleaseTime
 // 0x0004 (0x0004 - 0x0000)
@@ -1508,6 +1686,7 @@ struct SynthComponentMonoWaveTable_SetPositionEnvelopeReleaseTime final
 public:
 	float                                         InReleaseTimeMsec;                                 // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetPositionEnvelopeReleaseTime;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetPositionEnvelopeSustainGain
 // 0x0004 (0x0004 - 0x0000)
@@ -1516,6 +1695,7 @@ struct SynthComponentMonoWaveTable_SetPositionEnvelopeSustainGain final
 public:
 	float                                         InSustainGain;                                     // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetPositionEnvelopeSustainGain;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetPosLfoDepth
 // 0x0004 (0x0004 - 0x0000)
@@ -1524,6 +1704,7 @@ struct SynthComponentMonoWaveTable_SetPosLfoDepth final
 public:
 	float                                         InLfoDepth;                                        // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetPosLfoDepth;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetPosLfoFrequency
 // 0x0004 (0x0004 - 0x0000)
@@ -1532,6 +1713,7 @@ struct SynthComponentMonoWaveTable_SetPosLfoFrequency final
 public:
 	float                                         InLfoFrequency;                                    // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetPosLfoFrequency;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetPosLfoType
 // 0x0001 (0x0001 - 0x0000)
@@ -1540,6 +1722,7 @@ struct SynthComponentMonoWaveTable_SetPosLfoType final
 public:
 	ESynthLFOType                                 InLfoType;                                         // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetPosLfoType;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetSustainPedalState
 // 0x0001 (0x0001 - 0x0000)
@@ -1548,6 +1731,7 @@ struct SynthComponentMonoWaveTable_SetSustainPedalState final
 public:
 	bool                                          InSustainPedalState;                               // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetSustainPedalState;
 
 // Function Synthesis.SynthComponentMonoWaveTable.SetWaveTablePosition
 // 0x0004 (0x0004 - 0x0000)
@@ -1556,6 +1740,7 @@ struct SynthComponentMonoWaveTable_SetWaveTablePosition final
 public:
 	float                                         InPosition;                                        // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_SetWaveTablePosition;
 
 // Function Synthesis.SynthComponentMonoWaveTable.GetKeyFrameValuesForTable
 // 0x0018 (0x0018 - 0x0000)
@@ -1566,6 +1751,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<float>                                 ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_GetKeyFrameValuesForTable;
 
 // Function Synthesis.SynthComponentMonoWaveTable.GetMaxTableIndex
 // 0x0004 (0x0004 - 0x0000)
@@ -1574,6 +1760,7 @@ struct SynthComponentMonoWaveTable_GetMaxTableIndex final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMonoWaveTable_GetMaxTableIndex;
 
 // Function Synthesis.SynthComponentToneGenerator.SetFrequency
 // 0x0004 (0x0004 - 0x0000)
@@ -1582,6 +1769,7 @@ struct SynthComponentToneGenerator_SetFrequency final
 public:
 	float                                         InFrequency;                                       // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentToneGenerator_SetFrequency;
 
 // Function Synthesis.SynthComponentToneGenerator.SetVolume
 // 0x0004 (0x0004 - 0x0000)
@@ -1590,6 +1778,7 @@ struct SynthComponentToneGenerator_SetVolume final
 public:
 	float                                         InVolume;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentToneGenerator_SetVolume;
 
 // Function Synthesis.SynthSamplePlayer.SeekToTime
 // 0x0008 (0x0008 - 0x0000)
@@ -1601,6 +1790,7 @@ public:
 	bool                                          bWrap;                                             // 0x0005(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_6[0x2];                                        // 0x0006(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_SynthSamplePlayer_SeekToTime;
 
 // Function Synthesis.SynthSamplePlayer.SetPitch
 // 0x0008 (0x0008 - 0x0000)
@@ -1610,6 +1800,7 @@ public:
 	float                                         InPitch;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         TimeSec;                                           // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthSamplePlayer_SetPitch;
 
 // Function Synthesis.SynthSamplePlayer.SetScrubMode
 // 0x0001 (0x0001 - 0x0000)
@@ -1618,6 +1809,7 @@ struct SynthSamplePlayer_SetScrubMode final
 public:
 	bool                                          bScrubMode;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthSamplePlayer_SetScrubMode;
 
 // Function Synthesis.SynthSamplePlayer.SetScrubTimeWidth
 // 0x0004 (0x0004 - 0x0000)
@@ -1626,6 +1818,7 @@ struct SynthSamplePlayer_SetScrubTimeWidth final
 public:
 	float                                         InScrubTimeWidthSec;                               // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthSamplePlayer_SetScrubTimeWidth;
 
 // Function Synthesis.SynthSamplePlayer.SetSoundWave
 // 0x0008 (0x0008 - 0x0000)
@@ -1634,6 +1827,7 @@ struct SynthSamplePlayer_SetSoundWave final
 public:
 	class USoundWave*                             InSoundWave;                                       // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthSamplePlayer_SetSoundWave;
 
 // Function Synthesis.SynthSamplePlayer.GetCurrentPlaybackProgressPercent
 // 0x0004 (0x0004 - 0x0000)
@@ -1642,6 +1836,7 @@ struct SynthSamplePlayer_GetCurrentPlaybackProgressPercent final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthSamplePlayer_GetCurrentPlaybackProgressPercent;
 
 // Function Synthesis.SynthSamplePlayer.GetCurrentPlaybackProgressTime
 // 0x0004 (0x0004 - 0x0000)
@@ -1650,6 +1845,7 @@ struct SynthSamplePlayer_GetCurrentPlaybackProgressTime final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthSamplePlayer_GetCurrentPlaybackProgressTime;
 
 // Function Synthesis.SynthSamplePlayer.GetSampleDuration
 // 0x0004 (0x0004 - 0x0000)
@@ -1658,6 +1854,7 @@ struct SynthSamplePlayer_GetSampleDuration final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthSamplePlayer_GetSampleDuration;
 
 // Function Synthesis.SynthSamplePlayer.IsLoaded
 // 0x0001 (0x0001 - 0x0000)
@@ -1666,6 +1863,7 @@ struct SynthSamplePlayer_IsLoaded final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthSamplePlayer_IsLoaded;
 
 // Function Synthesis.SynthesisUtilitiesBlueprintFunctionLibrary.GetLinearFrequency
 // 0x0018 (0x0018 - 0x0000)
@@ -1679,6 +1877,7 @@ public:
 	float                                         InRangeMax;                                        // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x0014(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthesisUtilitiesBlueprintFunctionLibrary_GetLinearFrequency;
 
 // Function Synthesis.SynthesisUtilitiesBlueprintFunctionLibrary.GetLogFrequency
 // 0x0018 (0x0018 - 0x0000)
@@ -1692,6 +1891,7 @@ public:
 	float                                         InRangeMax;                                        // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x0014(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthesisUtilitiesBlueprintFunctionLibrary_GetLogFrequency;
 
 // Function Synthesis.SynthKnob.SetLocked
 // 0x0001 (0x0001 - 0x0000)
@@ -1700,6 +1900,7 @@ struct SynthKnob_SetLocked final
 public:
 	bool                                          InValue;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthKnob_SetLocked;
 
 // Function Synthesis.SynthKnob.SetStepSize
 // 0x0004 (0x0004 - 0x0000)
@@ -1708,6 +1909,7 @@ struct SynthKnob_SetStepSize final
 public:
 	float                                         InValue;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthKnob_SetStepSize;
 
 // Function Synthesis.SynthKnob.SetValue
 // 0x0004 (0x0004 - 0x0000)
@@ -1716,6 +1918,7 @@ struct SynthKnob_SetValue final
 public:
 	float                                         InValue;                                           // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthKnob_SetValue;
 
 // Function Synthesis.SynthKnob.GetValue
 // 0x0004 (0x0004 - 0x0000)
@@ -1724,6 +1927,7 @@ struct SynthKnob_GetValue final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthKnob_GetValue;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

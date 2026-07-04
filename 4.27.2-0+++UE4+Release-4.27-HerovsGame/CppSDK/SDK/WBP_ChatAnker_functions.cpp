@@ -14,7 +14,8 @@
 #include "WBP_ChatAnker_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_ChatAnker.WBP_ChatAnker_C.ExecuteUbergraph_WBP_ChatAnker
 // (Final, UbergraphFunction)
@@ -49,5 +50,5 @@ void UWBP_ChatAnker_C::SetIconPosition()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

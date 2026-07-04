@@ -17,8 +17,8 @@
 #include "BackendSubsystem_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BykingUnrealModule.ActionBase.BP_ActionDelay
 // 0x0020 (0x0020 - 0x0000)
@@ -29,6 +29,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FLatentActionInfo                      LatentInfo;                                        // 0x0008(0x0018)(Parm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ActionBase_BP_ActionDelay;
 
 // Function BykingUnrealModule.ActionBase.BP_OnAnimNotify
 // 0x0010 (0x0010 - 0x0000)
@@ -38,6 +39,7 @@ public:
 	class FName                                   Type;                                              // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FName                                   Event;                                             // 0x0008(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ActionBase_BP_OnAnimNotify;
 
 // Function BykingUnrealModule.ActionBase.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -46,6 +48,7 @@ struct ActionBase_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ActionBase_BP_OnBeginAction;
 
 // Function BykingUnrealModule.ActionBase.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -54,6 +57,7 @@ struct ActionBase_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ActionBase_BP_OnEndAction;
 
 // Function BykingUnrealModule.ActionBase.BP_OnOverwrittenAction
 // 0x0008 (0x0008 - 0x0000)
@@ -62,6 +66,7 @@ struct ActionBase_BP_OnOverwrittenAction final
 public:
 	const class UActionBase*                      nextAction;                                        // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ActionBase_BP_OnOverwrittenAction;
 
 // Function BykingUnrealModule.ActionBase.BP_GetActionName
 // 0x0008 (0x0008 - 0x0000)
@@ -70,6 +75,7 @@ struct ActionBase_BP_GetActionName final
 public:
 	class FName                                   ReturnValue;                                       // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReturnParm, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ActionBase_BP_GetActionName;
 
 // Function BykingUnrealModule.ActionBase.BP_GetDeltaSeconds
 // 0x0004 (0x0004 - 0x0000)
@@ -78,6 +84,7 @@ struct ActionBase_BP_GetDeltaSeconds final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ActionBase_BP_GetDeltaSeconds;
 
 // Function BykingUnrealModule.ActionBase.BP_GetOwnerCharacter
 // 0x0008 (0x0008 - 0x0000)
@@ -86,6 +93,7 @@ struct ActionBase_BP_GetOwnerCharacter final
 public:
 	class ACharacterBase*                         ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ActionBase_BP_GetOwnerCharacter;
 
 // Function BykingUnrealModule.ActionBase.BP_GetSerialNo
 // 0x0004 (0x0004 - 0x0000)
@@ -94,6 +102,7 @@ struct ActionBase_BP_GetSerialNo final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ActionBase_BP_GetSerialNo;
 
 // Function BykingUnrealModule.ActionBase.BP_IsActive
 // 0x0001 (0x0001 - 0x0000)
@@ -102,6 +111,7 @@ struct ActionBase_BP_IsActive final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ActionBase_BP_IsActive;
 
 // Function BykingUnrealModule.ActionBase.BP_IsBootLayer
 // 0x0001 (0x0001 - 0x0000)
@@ -110,6 +120,7 @@ struct ActionBase_BP_IsBootLayer final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ActionBase_BP_IsBootLayer;
 
 // Function BykingUnrealModule.ActionDriveComponent.BP_FindActionFromName
 // 0x0018 (0x0018 - 0x0000)
@@ -121,6 +132,7 @@ public:
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UActionBase*                            ReturnValue;                                       // 0x0010(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ActionDriveComponent_BP_FindActionFromName;
 
 // Function BykingUnrealModule.ActionDriveComponent.BP_GetActionFromLayer
 // 0x0010 (0x0010 - 0x0000)
@@ -132,6 +144,7 @@ public:
 	uint8                                         Pad_2[0x6];                                        // 0x0002(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	class UActionBase*                            ReturnValue;                                       // 0x0008(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ActionDriveComponent_BP_GetActionFromLayer;
 
 // Function BykingUnrealModule.ActionDriveComponent.BP_GetPrevActionNameFromLayer
 // 0x000C (0x000C - 0x0000)
@@ -143,6 +156,7 @@ public:
 	uint8                                         Pad_2[0x2];                                        // 0x0002(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
 	class FName                                   ReturnValue;                                       // 0x0004(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ActionDriveComponent_BP_GetPrevActionNameFromLayer;
 
 // Function BykingUnrealModule.CharacterBase.BP_GetActionDrive
 // 0x0008 (0x0008 - 0x0000)
@@ -151,6 +165,7 @@ struct CharacterBase_BP_GetActionDrive final
 public:
 	const class UActionDriveComponent*            ReturnValue;                                       // 0x0000(0x0008)(ConstParm, ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CharacterBase_BP_GetActionDrive;
 
 // Function BykingUnrealModule.CharacterBase.BP_GetRootLocaction
 // 0x000C (0x000C - 0x0000)
@@ -159,6 +174,7 @@ struct CharacterBase_BP_GetRootLocaction final
 public:
 	struct FVector                                ReturnValue;                                       // 0x0000(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CharacterBase_BP_GetRootLocaction;
 
 // Function BykingUnrealModule.CharacterBase.HasCharacterStarted
 // 0x0001 (0x0001 - 0x0000)
@@ -167,6 +183,7 @@ struct CharacterBase_HasCharacterStarted final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CharacterBase_HasCharacterStarted;
 
 // Function BykingUnrealModule.OutlineSkeletalMeshComponent.SetBpOutlineType
 // 0x0002 (0x0002 - 0x0000)
@@ -176,6 +193,7 @@ public:
 	EMeshOutlineType                              Type;                                              // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          isForce;                                           // 0x0001(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_OutlineSkeletalMeshComponent_SetBpOutlineType;
 
 // Function BykingUnrealModule.OutlineSkeletalMeshComponent.SetIsEnableOutline
 // 0x0001 (0x0001 - 0x0000)
@@ -184,6 +202,7 @@ struct OutlineSkeletalMeshComponent_SetIsEnableOutline final
 public:
 	bool                                          bEnable;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_OutlineSkeletalMeshComponent_SetIsEnableOutline;
 
 // Function BykingUnrealModule.OutlineSkeletalMeshComponent.SetOutlineType
 // 0x0001 (0x0001 - 0x0000)
@@ -192,6 +211,7 @@ struct OutlineSkeletalMeshComponent_SetOutlineType final
 public:
 	EMeshOutlineType                              Type;                                              // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_OutlineSkeletalMeshComponent_SetOutlineType;
 
 // Function BykingUnrealModule.OutlineSkeletalMeshComponent.GetBpOutlineType
 // 0x0001 (0x0001 - 0x0000)
@@ -200,6 +220,7 @@ struct OutlineSkeletalMeshComponent_GetBpOutlineType final
 public:
 	EMeshOutlineType                              ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_OutlineSkeletalMeshComponent_GetBpOutlineType;
 
 // Function BykingUnrealModule.OutlineSkeletalMeshComponent.GetOutlineType
 // 0x0001 (0x0001 - 0x0000)
@@ -208,6 +229,7 @@ struct OutlineSkeletalMeshComponent_GetOutlineType final
 public:
 	EMeshOutlineType                              ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_OutlineSkeletalMeshComponent_GetOutlineType;
 
 // Function BykingUnrealModule.OutlineSkeletalMeshComponent.IsEnableOutline
 // 0x0001 (0x0001 - 0x0000)
@@ -216,6 +238,7 @@ struct OutlineSkeletalMeshComponent_IsEnableOutline final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_OutlineSkeletalMeshComponent_IsEnableOutline;
 
 // Function BykingUnrealModule.EnhancedSkeletalMeshComponent.FreezeBone
 // 0x000C (0x000C - 0x0000)
@@ -226,6 +249,7 @@ public:
 	bool                                          bFreeze;                                           // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_EnhancedSkeletalMeshComponent_FreezeBone;
 
 // Function BykingUnrealModule.HttpChunkBPFunctionLibrary.GetBundleAssets
 // 0x0028 (0x0028 - 0x0000)
@@ -236,6 +260,7 @@ public:
 	class FName                                   BundleName;                                        // 0x0010(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FSoftObjectPath>                ReturnValue;                                       // 0x0018(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HttpChunkBPFunctionLibrary_GetBundleAssets;
 
 // Function BykingUnrealModule.HttpChunkBPFunctionLibrary.GetChunkLocation
 // 0x0018 (0x0018 - 0x0000)
@@ -246,6 +271,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HttpChunkBPFunctionLibrary_GetChunkLocation;
 
 // Function BykingUnrealModule.HttpChunkBPFunctionLibrary.GetChunkProgress
 // 0x000C (0x000C - 0x0000)
@@ -257,6 +283,7 @@ public:
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HttpChunkBPFunctionLibrary_GetChunkProgress;
 
 // Function BykingUnrealModule.HttpChunkBPFunctionLibrary.GetInstallSpeed
 // 0x0010 (0x0010 - 0x0000)
@@ -265,6 +292,7 @@ struct HttpChunkBPFunctionLibrary_GetInstallSpeed final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_HttpChunkBPFunctionLibrary_GetInstallSpeed;
 
 // Function BykingUnrealModule.HttpChunkBPFunctionLibrary.PrioritizeChunk
 // 0x0008 (0x0008 - 0x0000)
@@ -275,6 +303,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_HttpChunkBPFunctionLibrary_PrioritizeChunk;
 
 // Function BykingUnrealModule.HttpChunkBPFunctionLibrary.SetInstallSpeed
 // 0x0008 (0x0008 - 0x0000)
@@ -285,6 +314,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_HttpChunkBPFunctionLibrary_SetInstallSpeed;
 
 // Function BykingUnrealModule.MathStatics.BP_AddRotatorFromAxisAndAngle
 // 0x0028 (0x0028 - 0x0000)
@@ -296,6 +326,7 @@ public:
 	float                                         Angle;                                             // 0x0018(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FRotator                               ReturnValue;                                       // 0x001C(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MathStatics_BP_AddRotatorFromAxisAndAngle;
 
 // Function BykingUnrealModule.MathStatics.BP_CalcBezierInterpolateLocation
 // 0x0034 (0x0034 - 0x0000)
@@ -308,6 +339,7 @@ public:
 	float                                         Rate;                                              // 0x0024(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                ReturnValue;                                       // 0x0028(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MathStatics_BP_CalcBezierInterpolateLocation;
 
 // Function BykingUnrealModule.MathStatics.BP_CalcBezierInterpolateTangent
 // 0x0034 (0x0034 - 0x0000)
@@ -320,6 +352,7 @@ public:
 	float                                         Rate;                                              // 0x0024(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                ReturnValue;                                       // 0x0028(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MathStatics_BP_CalcBezierInterpolateTangent;
 
 // Function BykingUnrealModule.MathStatics.BP_CalcClampedDirection
 // 0x0034 (0x0034 - 0x0000)
@@ -332,6 +365,7 @@ public:
 	struct FVector                                defaultAxis;                                       // 0x001C(0x000C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, AdvancedDisplay, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                ReturnValue;                                       // 0x0028(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MathStatics_BP_CalcClampedDirection;
 
 // Function BykingUnrealModule.MathStatics.BP_CalcPitchRollDegreesOfPlane
 // 0x0014 (0x0014 - 0x0000)
@@ -342,6 +376,7 @@ public:
 	float                                         outPitchDegrees;                                   // 0x000C(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         outRollDegrees;                                    // 0x0010(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MathStatics_BP_CalcPitchRollDegreesOfPlane;
 
 // Function BykingUnrealModule.MathStatics.BP_CalcVectorDegreeWithPlaneXY
 // 0x0010 (0x0010 - 0x0000)
@@ -351,6 +386,7 @@ public:
 	struct FVector                                sourceVector;                                      // 0x0000(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x000C(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MathStatics_BP_CalcVectorDegreeWithPlaneXY;
 
 // Function BykingUnrealModule.MathStatics.BP_CalcVectorRadianWithPlaneXY
 // 0x0010 (0x0010 - 0x0000)
@@ -360,6 +396,7 @@ public:
 	struct FVector                                sourceVector;                                      // 0x0000(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x000C(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MathStatics_BP_CalcVectorRadianWithPlaneXY;
 
 // Function BykingUnrealModule.MathStatics.BP_CalcVectorsDegree
 // 0x001C (0x001C - 0x0000)
@@ -370,6 +407,7 @@ public:
 	struct FVector                                vector2;                                           // 0x000C(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x0018(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MathStatics_BP_CalcVectorsDegree;
 
 // Function BykingUnrealModule.MathStatics.BP_CalcVectorsDegreeOnPlaneXY
 // 0x001C (0x001C - 0x0000)
@@ -380,6 +418,7 @@ public:
 	struct FVector                                vector2;                                           // 0x000C(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x0018(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MathStatics_BP_CalcVectorsDegreeOnPlaneXY;
 
 // Function BykingUnrealModule.MathStatics.BP_CalcVectorsSignedDegree
 // 0x0028 (0x0028 - 0x0000)
@@ -391,6 +430,7 @@ public:
 	struct FVector                                vector2;                                           // 0x0018(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x0024(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MathStatics_BP_CalcVectorsSignedDegree;
 
 // Function BykingUnrealModule.MathStatics.BP_CalcVectorsSignedRadian
 // 0x0028 (0x0028 - 0x0000)
@@ -402,6 +442,7 @@ public:
 	struct FVector                                vector2;                                           // 0x0018(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x0024(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MathStatics_BP_CalcVectorsSignedRadian;
 
 // Function BykingUnrealModule.MathStatics.BP_CheckNearlyZeroVector
 // 0x0010 (0x0010 - 0x0000)
@@ -412,6 +453,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MathStatics_BP_CheckNearlyZeroVector;
 
 // Function BykingUnrealModule.MathStatics.BP_CheckZeroVector
 // 0x0010 (0x0010 - 0x0000)
@@ -422,6 +464,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MathStatics_BP_CheckZeroVector;
 
 // Function BykingUnrealModule.MathStatics.BP_FindClosestPointsOnLines
 // 0x0048 (0x0048 - 0x0000)
@@ -435,6 +478,7 @@ public:
 	struct FVector                                OutPoint1;                                         // 0x0030(0x000C)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                OutPoint2;                                         // 0x003C(0x000C)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MathStatics_BP_FindClosestPointsOnLines;
 
 // Function BykingUnrealModule.MathStatics.BP_GetAdditionDeltaRate
 // 0x000C (0x000C - 0x0000)
@@ -445,6 +489,7 @@ public:
 	float                                         DeltaSeconds;                                      // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MathStatics_BP_GetAdditionDeltaRate;
 
 // Function BykingUnrealModule.MathStatics.BP_IntArrayToVector
 // 0x0020 (0x0020 - 0x0000)
@@ -455,6 +500,7 @@ public:
 	struct FVector                                ReturnValue;                                       // 0x0010(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MathStatics_BP_IntArrayToVector;
 
 // Function BykingUnrealModule.MathStatics.BP_LerpDirection
 // 0x0028 (0x0028 - 0x0000)
@@ -466,6 +512,7 @@ public:
 	float                                         Alpha;                                             // 0x0018(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                ReturnValue;                                       // 0x001C(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MathStatics_BP_LerpDirection;
 
 // Function BykingUnrealModule.MathStatics.BP_ToOnPlaneXYDirection
 // 0x0018 (0x0018 - 0x0000)
@@ -475,6 +522,7 @@ public:
 	struct FVector                                Origin;                                            // 0x0000(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                ReturnValue;                                       // 0x000C(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MathStatics_BP_ToOnPlaneXYDirection;
 
 // Function BykingUnrealModule.MathStatics.BP_ToOnPlaneXYVector
 // 0x0018 (0x0018 - 0x0000)
@@ -484,6 +532,7 @@ public:
 	struct FVector                                Origin;                                            // 0x0000(0x000C)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                ReturnValue;                                       // 0x000C(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MathStatics_BP_ToOnPlaneXYVector;
 
 // Function BykingUnrealModule.MathStatics.BP_VectorToIntArray
 // 0x0020 (0x0020 - 0x0000)
@@ -494,6 +543,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<int32>                                 ReturnValue;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MathStatics_BP_VectorToIntArray;
 
 // Function BykingUnrealModule.MyBlueprintFunctionLibrary.GetLocalizationPreviewLanguage
 // 0x0010 (0x0010 - 0x0000)
@@ -502,6 +552,7 @@ struct MyBlueprintFunctionLibrary_GetLocalizationPreviewLanguage final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MyBlueprintFunctionLibrary_GetLocalizationPreviewLanguage;
 
 // Function BykingUnrealModule.MyBlueprintFunctionLibrary.IsEditor
 // 0x0001 (0x0001 - 0x0000)
@@ -510,6 +561,7 @@ struct MyBlueprintFunctionLibrary_IsEditor final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MyBlueprintFunctionLibrary_IsEditor;
 
 // Function BykingUnrealModule.MyBlueprintFunctionLibrary.IsGameLocalizationPreviewEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -518,6 +570,7 @@ struct MyBlueprintFunctionLibrary_IsGameLocalizationPreviewEnabled final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MyBlueprintFunctionLibrary_IsGameLocalizationPreviewEnabled;
 
 // Function BykingUnrealModule.MyBlueprintFunctionLibrary.SetLocalizationPreviewLanguage
 // 0x0010 (0x0010 - 0x0000)
@@ -526,6 +579,7 @@ struct MyBlueprintFunctionLibrary_SetLocalizationPreviewLanguage final
 public:
 	class FString                                 InCulture;                                         // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MyBlueprintFunctionLibrary_SetLocalizationPreviewLanguage;
 
 // Function BykingUnrealModule.MyBlueprintFunctionLibrary.StringArraySort
 // 0x0018 (0x0018 - 0x0000)
@@ -536,6 +590,7 @@ public:
 	bool                                          bReverse;                                          // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MyBlueprintFunctionLibrary_StringArraySort;
 
 // Function BykingUnrealModule.PlatformSubsystem.GetPlatform
 // 0x0001 (0x0001 - 0x0000)
@@ -544,6 +599,7 @@ struct PlatformSubsystem_GetPlatform final
 public:
 	EPlatform                                     ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PlatformSubsystem_GetPlatform;
 
 // Function BykingUnrealModule.PlatformSubsystem.GetCosmosPlatformCode
 // 0x0004 (0x0004 - 0x0000)
@@ -552,6 +608,7 @@ struct PlatformSubsystem_GetCosmosPlatformCode final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PlatformSubsystem_GetCosmosPlatformCode;
 
 // Function BykingUnrealModule.PlatformSubsystem.GetPlatformInputController
 // 0x0002 (0x0002 - 0x0000)
@@ -561,6 +618,7 @@ public:
 	bool                                          outLog;                                            // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	EPlatform                                     ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PlatformSubsystem_GetPlatformInputController;
 
 // Function BykingUnrealModule.PlatformSubsystem.SetFlagFloatingGamePadTextInputCmd
 // 0x0010 (0x0010 - 0x0000)
@@ -569,6 +627,7 @@ struct PlatformSubsystem_SetFlagFloatingGamePadTextInputCmd final
 public:
 	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PlatformSubsystem_SetFlagFloatingGamePadTextInputCmd;
 
 // Function BykingUnrealModule.PlatformSubsystem.SetFlagOverrideTextInputCmd
 // 0x0010 (0x0010 - 0x0000)
@@ -577,6 +636,7 @@ struct PlatformSubsystem_SetFlagOverrideTextInputCmd final
 public:
 	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PlatformSubsystem_SetFlagOverrideTextInputCmd;
 
 // Function BykingUnrealModule.PlatformSubsystem.SetTextFieldHeightCmd
 // 0x0010 (0x0010 - 0x0000)
@@ -585,6 +645,7 @@ struct PlatformSubsystem_SetTextFieldHeightCmd final
 public:
 	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PlatformSubsystem_SetTextFieldHeightCmd;
 
 // Function BykingUnrealModule.PlatformSubsystem.SetTextFieldWidthCmd
 // 0x0010 (0x0010 - 0x0000)
@@ -593,6 +654,7 @@ struct PlatformSubsystem_SetTextFieldWidthCmd final
 public:
 	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PlatformSubsystem_SetTextFieldWidthCmd;
 
 // Function BykingUnrealModule.PlatformSubsystem.SetTextFieldXPositionCmd
 // 0x0010 (0x0010 - 0x0000)
@@ -601,6 +663,7 @@ struct PlatformSubsystem_SetTextFieldXPositionCmd final
 public:
 	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PlatformSubsystem_SetTextFieldXPositionCmd;
 
 // Function BykingUnrealModule.PlatformSubsystem.SetTextFieldYPositionCmd
 // 0x0010 (0x0010 - 0x0000)
@@ -609,6 +672,7 @@ struct PlatformSubsystem_SetTextFieldYPositionCmd final
 public:
 	TArray<class FString>                         args;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PlatformSubsystem_SetTextFieldYPositionCmd;
 
 // Function BykingUnrealModule.PlatformSubsystem.ShowSteamGamePadTextInput
 // 0x0048 (0x0048 - 0x0000)
@@ -622,6 +686,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0044(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_45[0x3];                                       // 0x0045(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PlatformSubsystem_ShowSteamGamePadTextInput;
 
 // Function BykingUnrealModule.PlatformSubsystem.GetSteamGamePadInputText
 // 0x0018 (0x0018 - 0x0000)
@@ -630,6 +695,7 @@ struct PlatformSubsystem_GetSteamGamePadInputText final
 public:
 	class FText                                   ReturnValue;                                       // 0x0000(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PlatformSubsystem_GetSteamGamePadInputText;
 
 // Function BykingUnrealModule.SystemUtility.BytesArrayToString
 // 0x0020 (0x0020 - 0x0000)
@@ -639,6 +705,7 @@ public:
 	TArray<uint8>                                 Data;                                              // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SystemUtility_BytesArrayToString;
 
 // Function BykingUnrealModule.SystemUtility.GetMdLocale
 // 0x0001 (0x0001 - 0x0000)
@@ -647,6 +714,7 @@ struct SystemUtility_GetMdLocale final
 public:
 	EMdLocalization                               ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SystemUtility_GetMdLocale;
 
 // Function BykingUnrealModule.SystemUtility.AnsiToUTF8
 // 0x0020 (0x0020 - 0x0000)
@@ -656,6 +724,7 @@ public:
 	TArray<uint8>                                 ansichar;                                          // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SystemUtility_AnsiToUTF8;
 
 // Function BykingUnrealModule.SystemUtility.FindActorWorld
 // 0x0020 (0x0020 - 0x0000)
@@ -666,6 +735,7 @@ public:
 	class FString                                 ActorName;                                         // 0x0008(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class AActor*                                 ReturnValue;                                       // 0x0018(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SystemUtility_FindActorWorld;
 
 // Function BykingUnrealModule.SystemUtility.IsDigitFString
 // 0x0018 (0x0018 - 0x0000)
@@ -676,6 +746,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_SystemUtility_IsDigitFString;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -13,7 +13,8 @@
 #include "GameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_TextChatIconButton.WBP_TextChatIconButton_C
 // 0x0050 (0x07B0 - 0x0760)
@@ -48,5 +49,7 @@ public:
 		return GetDefaultObjImpl<UWBP_TextChatIconButton_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_TextChatIconButton_C;
 
-SDK_NAMESPACE_END
+}
+

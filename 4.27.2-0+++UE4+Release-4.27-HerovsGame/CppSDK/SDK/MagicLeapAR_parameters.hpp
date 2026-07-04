@@ -17,8 +17,8 @@
 #include "AugmentedReality_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function MagicLeapAR.LuminARSessionFunctionLibrary.StartLuminARSession
 // 0x0028 (0x0028 - 0x0000)
@@ -29,6 +29,7 @@ public:
 	struct FLatentActionInfo                      LatentInfo;                                        // 0x0008(0x0018)(Parm, NoDestructor, NativeAccessSpecifierPublic)
 	class ULuminARSessionConfig*                  Configuration;                                     // 0x0020(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LuminARSessionFunctionLibrary_StartLuminARSession;
 
 // Function MagicLeapAR.LuminARFrameFunctionLibrary.GetTrackingState
 // 0x0001 (0x0001 - 0x0000)
@@ -37,6 +38,7 @@ struct LuminARFrameFunctionLibrary_GetTrackingState final
 public:
 	ELuminARTrackingState                         ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LuminARFrameFunctionLibrary_GetTrackingState;
 
 // Function MagicLeapAR.LuminARFrameFunctionLibrary.LuminARLineTrace
 // 0x0078 (0x0078 - 0x0000)
@@ -50,6 +52,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0070(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_71[0x7];                                       // 0x0071(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_LuminARFrameFunctionLibrary_LuminARLineTrace;
 
 // Function MagicLeapAR.LuminARLightEstimate.GetAmbientIntensityNits
 // 0x0010 (0x0010 - 0x0000)
@@ -58,6 +61,7 @@ struct LuminARLightEstimate_GetAmbientIntensityNits final
 public:
 	TArray<float>                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LuminARLightEstimate_GetAmbientIntensityNits;
 
 // Function MagicLeapAR.LuminARImageTrackingFunctionLibrary.AddLuminRuntimeCandidateImage
 // 0x0030 (0x0030 - 0x0000)
@@ -73,6 +77,7 @@ public:
 	uint8                                         Pad_26[0x2];                                       // 0x0026(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
 	class ULuminARCandidateImage*                 ReturnValue;                                       // 0x0028(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LuminARImageTrackingFunctionLibrary_AddLuminRuntimeCandidateImage;
 
 // Function MagicLeapAR.LuminARImageTrackingFunctionLibrary.AddLuminRuntimeCandidateImageEx
 // 0x0030 (0x0030 - 0x0000)
@@ -89,6 +94,7 @@ public:
 	uint8                                         Pad_27[0x1];                                       // 0x0027(0x0001)(Fixing Size After Last Property [ Dumper-7 ])
 	class ULuminARCandidateImage*                 ReturnValue;                                       // 0x0028(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LuminARImageTrackingFunctionLibrary_AddLuminRuntimeCandidateImageEx;
 
 // Function MagicLeapAR.LuminARCandidateImage.GetAxisOrientation
 // 0x0001 (0x0001 - 0x0000)
@@ -97,6 +103,7 @@ struct LuminARCandidateImage_GetAxisOrientation final
 public:
 	EMagicLeapImageTargetOrientation              ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LuminARCandidateImage_GetAxisOrientation;
 
 // Function MagicLeapAR.LuminARCandidateImage.GetImageIsStationary
 // 0x0001 (0x0001 - 0x0000)
@@ -105,6 +112,7 @@ struct LuminARCandidateImage_GetImageIsStationary final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LuminARCandidateImage_GetImageIsStationary;
 
 // Function MagicLeapAR.LuminARCandidateImage.GetUseUnreliablePose
 // 0x0001 (0x0001 - 0x0000)
@@ -113,6 +121,7 @@ struct LuminARCandidateImage_GetUseUnreliablePose final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LuminARCandidateImage_GetUseUnreliablePose;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionDash.BP_ActionDash_C
 // 0x0008 (0x0280 - 0x0278)
@@ -53,5 +54,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionDash_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionDash_C;
 
-SDK_NAMESPACE_END
+}
+

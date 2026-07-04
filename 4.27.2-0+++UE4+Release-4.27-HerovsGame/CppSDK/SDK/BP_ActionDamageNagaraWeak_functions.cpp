@@ -14,7 +14,8 @@
 #include "BP_ActionDamageNagaraWeak_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageNagaraWeak.BP_ActionDamageNagaraWeak_C.ExecuteUbergraph_BP_ActionDamageNagaraWeak
 // (Final, UbergraphFunction)
@@ -147,5 +148,5 @@ bool UBP_ActionDamageNagaraWeak_C::BP_IsEnableShiftAction(const class FName& nex
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

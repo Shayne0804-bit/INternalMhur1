@@ -16,8 +16,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionAttack_Finisher.BP_ActionAttack_Finisher_C.ExecuteUbergraph_BP_ActionAttack_Finisher
 // 0x0498 (0x0498 - 0x0000)
@@ -158,6 +158,7 @@ public:
 	bool                                          CallFunc_BP_IsOnGround_ReturnValue;                // 0x0491(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_Not_PreBool_ReturnValue_3;                // 0x0492(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionAttack_Finisher_C_ExecuteUbergraph_BP_ActionAttack_Finisher;
 
 // Function BP_ActionAttack_Finisher.BP_ActionAttack_Finisher_C.BP_OnBootDamage
 // 0x0168 (0x0168 - 0x0000)
@@ -170,6 +171,7 @@ public:
 	struct FDamageInfo                            DamageInfo;                                        // 0x0008(0x0090)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ReferenceParm, NoDestructor)
 	struct FDamageParam                           DamageParam;                                       // 0x0098(0x00D0)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ReferenceParm)
 };
+DUMPER7_ASSERTS_BP_ActionAttack_Finisher_C_BP_OnBootDamage;
 
 // Function BP_ActionAttack_Finisher.BP_ActionAttack_Finisher_C.BP_OnHitAttackEvent
 // 0x0030 (0x0030 - 0x0000)
@@ -183,6 +185,7 @@ public:
 	class ACharacterBattle*                       hitCharacter;                                      // 0x0020(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         damageValue;                                       // 0x0028(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionAttack_Finisher_C_BP_OnHitAttackEvent;
 
 // Function BP_ActionAttack_Finisher.BP_ActionAttack_Finisher_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -191,6 +194,7 @@ struct BP_ActionAttack_Finisher_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionAttack_Finisher_C_BP_OnEndAction;
 
 // Function BP_ActionAttack_Finisher.BP_ActionAttack_Finisher_C.BP_OnNotificationAttackDedicatedEvent
 // 0x0001 (0x0001 - 0x0000)
@@ -199,6 +203,7 @@ struct BP_ActionAttack_Finisher_C_BP_OnNotificationAttackDedicatedEvent final
 public:
 	EAttackDedicatedEventId                       ID;                                                // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionAttack_Finisher_C_BP_OnNotificationAttackDedicatedEvent;
 
 // Function BP_ActionAttack_Finisher.BP_ActionAttack_Finisher_C.BP_OnChangeAttackPhase
 // 0x0004 (0x0004 - 0x0000)
@@ -207,6 +212,7 @@ struct BP_ActionAttack_Finisher_C_BP_OnChangeAttackPhase final
 public:
 	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionAttack_Finisher_C_BP_OnChangeAttackPhase;
 
 // Function BP_ActionAttack_Finisher.BP_ActionAttack_Finisher_C.BP_OnChangeAttackPhaseForRemote
 // 0x0004 (0x0004 - 0x0000)
@@ -215,6 +221,7 @@ struct BP_ActionAttack_Finisher_C_BP_OnChangeAttackPhaseForRemote final
 public:
 	int32                                         nextPhase;                                         // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionAttack_Finisher_C_BP_OnChangeAttackPhaseForRemote;
 
 // Function BP_ActionAttack_Finisher.BP_ActionAttack_Finisher_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -223,6 +230,7 @@ struct BP_ActionAttack_Finisher_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionAttack_Finisher_C_BP_OnBeginAction;
 
 // Function BP_ActionAttack_Finisher.BP_ActionAttack_Finisher_C.SetInteractedTarget
 // 0x0058 (0x0058 - 0x0000)
@@ -246,6 +254,7 @@ public:
 	struct FReferenceToken                        CallFunc_BP_BeginServerMoveModeForServer_ReturnValue; // 0x0044(0x000C)(NoDestructor)
 	bool                                          CallFunc_IsValid_ReturnValue_1;                    // 0x0050(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionAttack_Finisher_C_SetInteractedTarget;
 
 // Function BP_ActionAttack_Finisher.BP_ActionAttack_Finisher_C.CheckAttackTargetObstacle
 // 0x0178 (0x0178 - 0x0000)
@@ -266,6 +275,7 @@ public:
 	struct FHitResult                             CallFunc_LineTraceSingleForObjects_OutHit;         // 0x00E8(0x0088)(IsPlainOldData, NoDestructor, ContainsInstancedReference)
 	bool                                          CallFunc_LineTraceSingleForObjects_ReturnValue;    // 0x0170(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionAttack_Finisher_C_CheckAttackTargetObstacle;
 
 // Function BP_ActionAttack_Finisher.BP_ActionAttack_Finisher_C.RequestEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -274,6 +284,7 @@ struct BP_ActionAttack_Finisher_C_RequestEndAction final
 public:
 	class UActionCameraSubsystem*                 CallFunc_GetLocalPlayerSubsystem_ReturnValue;      // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionAttack_Finisher_C_RequestEndAction;
 
 // Function BP_ActionAttack_Finisher.BP_ActionAttack_Finisher_C.GetSafetyGroundLocation
 // 0x0168 (0x0168 - 0x0000)
@@ -312,6 +323,7 @@ public:
 	struct FVector                                CallFunc_BreakHitResult_TraceStart;                // 0x014C(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_BreakHitResult_TraceEnd;                  // 0x0158(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionAttack_Finisher_C_GetSafetyGroundLocation;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

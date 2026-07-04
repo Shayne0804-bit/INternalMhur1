@@ -14,7 +14,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_LoadTransition.WBP_LoadTransition_C
 // 0x0060 (0x0560 - 0x0500)
@@ -54,5 +55,7 @@ public:
 		return GetDefaultObjImpl<UWBP_LoadTransition_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_LoadTransition_C;
 
-SDK_NAMESPACE_END
+}
+

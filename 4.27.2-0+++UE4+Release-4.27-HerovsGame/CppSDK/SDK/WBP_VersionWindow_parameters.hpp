@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_VersionWindow.WBP_VersionWindow_C.ExecuteUbergraph_WBP_VersionWindow
 // 0x0004 (0x0004 - 0x0000)
@@ -21,6 +21,7 @@ struct WBP_VersionWindow_C_ExecuteUbergraph_WBP_VersionWindow final
 public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_VersionWindow_C_ExecuteUbergraph_WBP_VersionWindow;
 
 // Function WBP_VersionWindow.WBP_VersionWindow_C.SetText
 // 0x0028 (0x0028 - 0x0000)
@@ -31,6 +32,7 @@ public:
 	class FText                                   message;                                           // 0x0008(0x0018)(BlueprintVisible, BlueprintReadOnly, Parm)
 	bool                                          CallFunc_TextIsEmpty_ReturnValue;                  // 0x0020(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_VersionWindow_C_SetText;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

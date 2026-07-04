@@ -14,7 +14,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_ChatIcon.WBP_ChatIcon_C
 // 0x0008 (0x0578 - 0x0570)
@@ -44,5 +45,7 @@ public:
 		return GetDefaultObjImpl<UWBP_ChatIcon_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_ChatIcon_C;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "OnlineSubsystemUtils_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class OnlineSubsystemSteam.SteamAuthComponentModuleInterface
 // 0x0000 (0x0028 - 0x0028)
@@ -34,6 +35,7 @@ public:
 		return GetDefaultObjImpl<USteamAuthComponentModuleInterface>();
 	}
 };
+DUMPER7_ASSERTS_USteamAuthComponentModuleInterface;
 
 // Class OnlineSubsystemSteam.SteamNetConnection
 // 0x0008 (0x1C50 - 0x1C48)
@@ -57,6 +59,7 @@ public:
 		return GetDefaultObjImpl<USteamNetConnection>();
 	}
 };
+DUMPER7_ASSERTS_USteamNetConnection;
 
 // Class OnlineSubsystemSteam.SteamNetDriver
 // 0x0008 (0x07D8 - 0x07D0)
@@ -79,5 +82,7 @@ public:
 		return GetDefaultObjImpl<USteamNetDriver>();
 	}
 };
+DUMPER7_ASSERTS_USteamNetDriver;
 
-SDK_NAMESPACE_END
+}
+

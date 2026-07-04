@@ -14,7 +14,8 @@
 #include "WBP_WindowFrame_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_WindowFrame.WBP_WindowFrame_C.ExecuteUbergraph_WBP_WindowFrame
 // (Final, UbergraphFunction)
@@ -123,5 +124,5 @@ void UWBP_WindowFrame_C::SetButtonSpaceSize(float Size)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionJumpRise.BP_ActionJumpRise_C.ExecuteUbergraph_BP_ActionJumpRise
 // 0x0258 (0x0258 - 0x0000)
@@ -147,6 +147,7 @@ public:
 	float                                         CallFunc_Multiply_FloatFloat_ReturnValue_8;        // 0x024C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         K2Node_Select_Default_12;                          // 0x0250(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionJumpRise_C_ExecuteUbergraph_BP_ActionJumpRise;
 
 // Function BP_ActionJumpRise.BP_ActionJumpRise_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -155,6 +156,7 @@ struct BP_ActionJumpRise_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionJumpRise_C_BP_OnEndAction;
 
 // Function BP_ActionJumpRise.BP_ActionJumpRise_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -163,6 +165,7 @@ struct BP_ActionJumpRise_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionJumpRise_C_BP_OnBeginAction;
 
 // Function BP_ActionJumpRise.BP_ActionJumpRise_C.GetSpeedH
 // 0x0120 (0x0120 - 0x0000)
@@ -243,6 +246,7 @@ public:
 	class UCharacterState*                        CallFunc_BP_GetOwnerState_ReturnValue_5;           // 0x0110(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_BP_IsGiant_ReturnValue;                   // 0x0118(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionJumpRise_C_GetSpeedH;
 
 // Function BP_ActionJumpRise.BP_ActionJumpRise_C.BP_IsEnableShiftAction
 // 0x0030 (0x0030 - 0x0000)
@@ -259,6 +263,7 @@ public:
 	bool                                          CallFunc_BP_IsEmpty_ReturnValue;                   // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_Not_PreBool_ReturnValue;                  // 0x0029(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionJumpRise_C_BP_IsEnableShiftAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

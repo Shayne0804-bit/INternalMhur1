@@ -14,7 +14,8 @@
 #include "Agones_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class Agones.AgonesSubsystem
 // 0x0080 (0x00B0 - 0x0030)
@@ -75,5 +76,7 @@ public:
 		return GetDefaultObjImpl<UAgonesSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UAgonesSubsystem;
 
-SDK_NAMESPACE_END
+}
+

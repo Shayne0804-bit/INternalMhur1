@@ -14,7 +14,8 @@
 #include "DebugMenuMasterDataModule_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function DebugMenuMasterDataModule.DebugMenuMasterData.Close
 // (Final, Native, Public, BlueprintCallable)
@@ -376,5 +377,5 @@ void UDebugMenuMasterData::Open()
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

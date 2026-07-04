@@ -14,7 +14,8 @@
 #include "BP_ActionDamageTeleportWeak_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageTeleportWeak.BP_ActionDamageTeleportWeak_C.ExecuteUbergraph_BP_ActionDamageTeleportWeak
 // (Final, UbergraphFunction, HasDefaults)
@@ -146,5 +147,5 @@ void UBP_ActionDamageTeleportWeak_C::SetTeleportLocation()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -14,7 +14,8 @@
 #include "UMG_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_EntryItemMemberName.WBP_EntryItemMemberName_C
 // 0x0028 (0x02A0 - 0x0278)
@@ -46,5 +47,7 @@ public:
 		return GetDefaultObjImpl<UWBP_EntryItemMemberName_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_EntryItemMemberName_C;
 
-SDK_NAMESPACE_END
+}
+

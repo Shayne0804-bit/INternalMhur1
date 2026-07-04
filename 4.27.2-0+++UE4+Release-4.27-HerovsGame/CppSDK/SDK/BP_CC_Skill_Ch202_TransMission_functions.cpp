@@ -14,7 +14,8 @@
 #include "BP_CC_Skill_Ch202_TransMission_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Skill_Ch202_TransMission.BP_CC_Skill_Ch202_TransMission_C.ExecuteUbergraph_BP_CC_Skill_Ch202_TransMission
 // (Final, UbergraphFunction)
@@ -189,5 +190,5 @@ void UBP_CC_Skill_Ch202_TransMission_C::HideEffect()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

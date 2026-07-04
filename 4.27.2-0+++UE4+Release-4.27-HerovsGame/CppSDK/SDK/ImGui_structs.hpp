@@ -15,7 +15,8 @@
 #include "SlateCore_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum ImGui.EImGuiDPIScaleMethod
 // NumValues: 0x0003
@@ -48,6 +49,7 @@ public:
 	bool                                          bScaleWithCurve;                                   // 0x0090(0x0001)(Edit, ZeroConstructor, Config, IsPlainOldData, NoDestructor, Protected, HasGetValueTypeHash, NativeAccessSpecifierProtected)
 	uint8                                         Pad_91[0x7];                                       // 0x0091(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FImGuiDPIScaleInfo;
 
 // ScriptStruct ImGui.ImGuiCanvasSizeInfo
 // 0x0010 (0x0010 - 0x0000)
@@ -61,6 +63,7 @@ public:
 	bool                                          bExtendToViewport;                                 // 0x000C(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FImGuiCanvasSizeInfo;
 
 // ScriptStruct ImGui.ImGuiKeyInfo
 // 0x0020 (0x0020 - 0x0000)
@@ -74,5 +77,7 @@ public:
 	ECheckBoxState                                Cmd;                                               // 0x001B(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FImGuiKeyInfo;
 
-SDK_NAMESPACE_END
+}
+

@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BTT_CombatStart.BTT_CombatStart_C.ExecuteUbergraph_BTT_CombatStart
 // 0x0038 (0x0038 - 0x0000)
@@ -29,6 +29,7 @@ public:
 	class AActor*                                 CallFunc_BP_GetTargetPoint_ReturnValue;            // 0x0028(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_BP_CombatStart_ReturnValue;               // 0x0030(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BTT_CombatStart_C_ExecuteUbergraph_BTT_CombatStart;
 
 // Function BTT_CombatStart.BTT_CombatStart_C.ReceiveExecuteAI
 // 0x0010 (0x0010 - 0x0000)
@@ -38,6 +39,7 @@ public:
 	class AAIController*                          OwnerController;                                   // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class APawn*                                  ControlledPawn;                                    // 0x0008(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BTT_CombatStart_C_ReceiveExecuteAI;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

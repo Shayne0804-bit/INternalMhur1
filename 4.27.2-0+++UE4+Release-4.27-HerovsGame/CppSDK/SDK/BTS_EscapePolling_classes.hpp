@@ -14,7 +14,8 @@
 #include "AIModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BTS_EscapePolling.BTS_EscapePolling_C
 // 0x0008 (0x00A0 - 0x0098)
@@ -41,5 +42,7 @@ public:
 		return GetDefaultObjImpl<UBTS_EscapePolling_C>();
 	}
 };
+DUMPER7_ASSERTS_UBTS_EscapePolling_C;
 
-SDK_NAMESPACE_END
+}
+

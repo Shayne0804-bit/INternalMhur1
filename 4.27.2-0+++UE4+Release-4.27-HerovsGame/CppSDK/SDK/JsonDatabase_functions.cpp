@@ -14,7 +14,8 @@
 #include "JsonDatabase_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function JsonDatabase.JsonFunctionLibrary.BP_GetJsonParamAsArrayNum
 // (Final, Native, Static, Public, BlueprintCallable)
@@ -107,5 +108,5 @@ class FString UJsonFunctionLibrary::BP_GetJsonParamAsStringFromArray(const class
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

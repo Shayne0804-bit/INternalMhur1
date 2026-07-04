@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_EntryItemTableName.WBP_EntryItemTableName_C.ExecuteUbergraph_WBP_EntryItemTableName
 // 0x0020 (0x0020 - 0x0000)
@@ -27,6 +27,7 @@ public:
 	class UWBP_EntryItemTableName_C*              K2Node_DynamicCast_AsWBP_Entry_Item_Table_Name;    // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_EntryItemTableName_C_ExecuteUbergraph_WBP_EntryItemTableName;
 
 // Function WBP_EntryItemTableName.WBP_EntryItemTableName_C.OnListItemObjectSet
 // 0x0008 (0x0008 - 0x0000)
@@ -35,6 +36,7 @@ struct WBP_EntryItemTableName_C_OnListItemObjectSet final
 public:
 	class UObject*                                ListItemObject;                                    // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_EntryItemTableName_C_OnListItemObjectSet;
 
 // Function WBP_EntryItemTableName.WBP_EntryItemTableName_C.BP_OnItemSelectionChanged
 // 0x0001 (0x0001 - 0x0000)
@@ -43,6 +45,7 @@ struct WBP_EntryItemTableName_C_BP_OnItemSelectionChanged final
 public:
 	bool                                          bIsSelected;                                       // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_EntryItemTableName_C_BP_OnItemSelectionChanged;
 
 // Function WBP_EntryItemTableName.WBP_EntryItemTableName_C.BP_OnItemExpansionChanged
 // 0x0001 (0x0001 - 0x0000)
@@ -51,6 +54,7 @@ struct WBP_EntryItemTableName_C_BP_OnItemExpansionChanged final
 public:
 	bool                                          bIsExpanded;                                       // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_EntryItemTableName_C_BP_OnItemExpansionChanged;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

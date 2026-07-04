@@ -15,8 +15,8 @@
 #include "AnimGraphRuntime_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function AnimGraphRuntime.KismetAnimationLibrary.K2_CalculateVelocityFromPositionHistory
 // 0x0050 (0x0050 - 0x0000)
@@ -31,6 +31,7 @@ public:
 	float                                         VelocityMax;                                       // 0x0048(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x004C(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_KismetAnimationLibrary_K2_CalculateVelocityFromPositionHistory;
 
 // Function AnimGraphRuntime.KismetAnimationLibrary.K2_CalculateVelocityFromSockets
 // 0x0100 (0x0100 - 0x0000)
@@ -55,6 +56,7 @@ public:
 	float                                         ReturnValue;                                       // 0x00F8(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_FC[0x4];                                       // 0x00FC(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_KismetAnimationLibrary_K2_CalculateVelocityFromSockets;
 
 // Function AnimGraphRuntime.KismetAnimationLibrary.K2_DirectionBetweenSockets
 // 0x0028 (0x0028 - 0x0000)
@@ -67,6 +69,7 @@ public:
 	struct FVector                                ReturnValue;                                       // 0x0018(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_KismetAnimationLibrary_K2_DirectionBetweenSockets;
 
 // Function AnimGraphRuntime.KismetAnimationLibrary.K2_DistanceBetweenTwoSocketsAndMapRange
 // 0x0038 (0x0038 - 0x0000)
@@ -88,6 +91,7 @@ public:
 	float                                         ReturnValue;                                       // 0x0030(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_KismetAnimationLibrary_K2_DistanceBetweenTwoSocketsAndMapRange;
 
 // Function AnimGraphRuntime.KismetAnimationLibrary.K2_EndProfilingTimer
 // 0x0020 (0x0020 - 0x0000)
@@ -100,6 +104,7 @@ public:
 	float                                         ReturnValue;                                       // 0x0018(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_KismetAnimationLibrary_K2_EndProfilingTimer;
 
 // Function AnimGraphRuntime.KismetAnimationLibrary.K2_LookAt
 // 0x0090 (0x0090 - 0x0000)
@@ -116,6 +121,7 @@ public:
 	uint8                                         Pad_5C[0x4];                                       // 0x005C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FTransform                             ReturnValue;                                       // 0x0060(0x0030)(Parm, OutParm, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_KismetAnimationLibrary_K2_LookAt;
 
 // Function AnimGraphRuntime.KismetAnimationLibrary.K2_MakePerlinNoiseAndRemap
 // 0x0010 (0x0010 - 0x0000)
@@ -127,6 +133,7 @@ public:
 	float                                         RangeOutMax;                                       // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x000C(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_KismetAnimationLibrary_K2_MakePerlinNoiseAndRemap;
 
 // Function AnimGraphRuntime.KismetAnimationLibrary.K2_MakePerlinNoiseVectorAndRemap
 // 0x0030 (0x0030 - 0x0000)
@@ -144,6 +151,7 @@ public:
 	float                                         RangeOutMaxZ;                                      // 0x0020(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                ReturnValue;                                       // 0x0024(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_KismetAnimationLibrary_K2_MakePerlinNoiseVectorAndRemap;
 
 // Function AnimGraphRuntime.KismetAnimationLibrary.K2_TwoBoneIK
 // 0x0060 (0x0060 - 0x0000)
@@ -162,6 +170,7 @@ public:
 	float                                         StartStretchRatio;                                 // 0x0058(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         MaxStretchScale;                                   // 0x005C(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_KismetAnimationLibrary_K2_TwoBoneIK;
 
 // Function AnimGraphRuntime.PlayMontageCallbackProxy.CreateProxyObjectForPlayMontage
 // 0x0028 (0x0028 - 0x0000)
@@ -175,6 +184,7 @@ public:
 	class FName                                   StartingSection;                                   // 0x0018(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UPlayMontageCallbackProxy*              ReturnValue;                                       // 0x0020(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PlayMontageCallbackProxy_CreateProxyObjectForPlayMontage;
 
 // Function AnimGraphRuntime.PlayMontageCallbackProxy.OnMontageBlendingOut
 // 0x0010 (0x0010 - 0x0000)
@@ -185,6 +195,7 @@ public:
 	bool                                          bInterrupted;                                      // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PlayMontageCallbackProxy_OnMontageBlendingOut;
 
 // Function AnimGraphRuntime.PlayMontageCallbackProxy.OnMontageEnded
 // 0x0010 (0x0010 - 0x0000)
@@ -195,6 +206,7 @@ public:
 	bool                                          bInterrupted;                                      // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_PlayMontageCallbackProxy_OnMontageEnded;
 
 // Function AnimGraphRuntime.PlayMontageCallbackProxy.OnNotifyBeginReceived
 // 0x0028 (0x0028 - 0x0000)
@@ -204,6 +216,7 @@ public:
 	class FName                                   NotifyName;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FBranchingPointNotifyPayload           BranchingPointNotifyPayload;                       // 0x0008(0x0020)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PlayMontageCallbackProxy_OnNotifyBeginReceived;
 
 // Function AnimGraphRuntime.PlayMontageCallbackProxy.OnNotifyEndReceived
 // 0x0028 (0x0028 - 0x0000)
@@ -213,6 +226,7 @@ public:
 	class FName                                   NotifyName;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FBranchingPointNotifyPayload           BranchingPointNotifyPayload;                       // 0x0008(0x0020)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PlayMontageCallbackProxy_OnNotifyEndReceived;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

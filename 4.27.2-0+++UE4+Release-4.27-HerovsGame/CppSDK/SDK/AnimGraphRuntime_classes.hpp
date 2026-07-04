@@ -16,7 +16,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class AnimGraphRuntime.AnimNotify_PlayMontageNotify
 // 0x0008 (0x0040 - 0x0038)
@@ -39,6 +40,7 @@ public:
 		return GetDefaultObjImpl<UAnimNotify_PlayMontageNotify>();
 	}
 };
+DUMPER7_ASSERTS_UAnimNotify_PlayMontageNotify;
 
 // Class AnimGraphRuntime.AnimNotify_PlayMontageNotifyWindow
 // 0x0008 (0x0038 - 0x0030)
@@ -61,6 +63,7 @@ public:
 		return GetDefaultObjImpl<UAnimNotify_PlayMontageNotifyWindow>();
 	}
 };
+DUMPER7_ASSERTS_UAnimNotify_PlayMontageNotifyWindow;
 
 // Class AnimGraphRuntime.AnimSequencerInstance
 // 0x0000 (0x02C0 - 0x02C0)
@@ -80,6 +83,7 @@ public:
 		return GetDefaultObjImpl<UAnimSequencerInstance>();
 	}
 };
+DUMPER7_ASSERTS_UAnimSequencerInstance;
 
 // Class AnimGraphRuntime.KismetAnimationLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -111,6 +115,7 @@ public:
 		return GetDefaultObjImpl<UKismetAnimationLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UKismetAnimationLibrary;
 
 // Class AnimGraphRuntime.PlayMontageCallbackProxy
 // 0x0080 (0x00A8 - 0x0028)
@@ -146,6 +151,7 @@ public:
 		return GetDefaultObjImpl<UPlayMontageCallbackProxy>();
 	}
 };
+DUMPER7_ASSERTS_UPlayMontageCallbackProxy;
 
 // Class AnimGraphRuntime.SequencerAnimationSupport
 // 0x0000 (0x0000 - 0x0000)
@@ -174,5 +180,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_ISequencerAnimationSupport;
 
-SDK_NAMESPACE_END
+}
+

@@ -15,7 +15,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BTT_CaptureStart.BTT_CaptureStart_C
 // 0x0030 (0x00D8 - 0x00A8)
@@ -43,5 +44,7 @@ public:
 		return GetDefaultObjImpl<UBTT_CaptureStart_C>();
 	}
 };
+DUMPER7_ASSERTS_UBTT_CaptureStart_C;
 
-SDK_NAMESPACE_END
+}
+

@@ -15,7 +15,8 @@
 #include "MagicLeapController_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MagicLeapController.MagicLeapControllerFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -54,6 +55,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapControllerFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapControllerFunctionLibrary;
 
 // Class MagicLeapController.MagicLeapTouchpadGesturesComponent
 // 0x0090 (0x0140 - 0x00B0)
@@ -80,5 +82,7 @@ public:
 		return GetDefaultObjImpl<UMagicLeapTouchpadGesturesComponent>();
 	}
 };
+DUMPER7_ASSERTS_UMagicLeapTouchpadGesturesComponent;
 
-SDK_NAMESPACE_END
+}
+

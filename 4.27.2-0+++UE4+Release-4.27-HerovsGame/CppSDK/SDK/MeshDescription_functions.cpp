@@ -14,7 +14,8 @@
 #include "MeshDescription_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function MeshDescription.MeshDescriptionBase.ComputePolygonTriangulation
 // (Final, Native, Public, BlueprintCallable)
@@ -2423,5 +2424,5 @@ bool UMeshDescriptionBase::IsVertexValid(const struct FVertexID& VertexID) const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

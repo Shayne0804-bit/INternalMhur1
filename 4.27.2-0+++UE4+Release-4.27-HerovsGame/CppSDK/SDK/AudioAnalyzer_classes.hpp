@@ -13,7 +13,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class AudioAnalyzer.AudioAnalyzerAsset
 // 0x0000 (0x0028 - 0x0028)
@@ -33,6 +34,7 @@ public:
 		return GetDefaultObjImpl<UAudioAnalyzerAsset>();
 	}
 };
+DUMPER7_ASSERTS_UAudioAnalyzerAsset;
 
 // Class AudioAnalyzer.AudioAnalyzerNRTSettings
 // 0x0000 (0x0028 - 0x0028)
@@ -52,6 +54,7 @@ public:
 		return GetDefaultObjImpl<UAudioAnalyzerNRTSettings>();
 	}
 };
+DUMPER7_ASSERTS_UAudioAnalyzerNRTSettings;
 
 // Class AudioAnalyzer.AudioAnalyzerNRT
 // 0x0050 (0x0078 - 0x0028)
@@ -76,5 +79,7 @@ public:
 		return GetDefaultObjImpl<UAudioAnalyzerNRT>();
 	}
 };
+DUMPER7_ASSERTS_UAudioAnalyzerNRT;
 
-SDK_NAMESPACE_END
+}
+

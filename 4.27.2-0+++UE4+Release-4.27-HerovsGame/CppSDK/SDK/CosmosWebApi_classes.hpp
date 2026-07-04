@@ -14,7 +14,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class CosmosWebApi.CosmosBlueprintLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -42,6 +43,7 @@ public:
 		return GetDefaultObjImpl<UCosmosBlueprintLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosBlueprintLibrary;
 
 // Class CosmosWebApi.WebApiConnect
 // 0x0088 (0x00B0 - 0x0028)
@@ -101,6 +103,7 @@ public:
 		return GetDefaultObjImpl<UWebApiConnect>();
 	}
 };
+DUMPER7_ASSERTS_UWebApiConnect;
 
 // Class CosmosWebApi.CosmosCommonMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -123,6 +126,7 @@ public:
 		return GetDefaultObjImpl<UCosmosCommonMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosCommonMessage;
 
 // Class CosmosWebApi.CosmosUserLoginV2Message
 // 0x0010 (0x00C0 - 0x00B0)
@@ -145,6 +149,7 @@ public:
 		return GetDefaultObjImpl<UCosmosUserLoginV2Message>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosUserLoginV2Message;
 
 // Class CosmosWebApi.CosmosUserAuthMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -167,6 +172,7 @@ public:
 		return GetDefaultObjImpl<UCosmosUserAuthMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosUserAuthMessage;
 
 // Class CosmosWebApi.CosmosUserConvertUserIdMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -189,6 +195,7 @@ public:
 		return GetDefaultObjImpl<UCosmosUserConvertUserIdMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosUserConvertUserIdMessage;
 
 // Class CosmosWebApi.CosmosUserLinkBnidMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -211,6 +218,7 @@ public:
 		return GetDefaultObjImpl<UCosmosUserLinkBnidMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosUserLinkBnidMessage;
 
 // Class CosmosWebApi.CosmosUserGetTrackingNumMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -233,6 +241,7 @@ public:
 		return GetDefaultObjImpl<UCosmosUserGetTrackingNumMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosUserGetTrackingNumMessage;
 
 // Class CosmosWebApi.CosmosUserGetCountryMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -255,6 +264,7 @@ public:
 		return GetDefaultObjImpl<UCosmosUserGetCountryMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosUserGetCountryMessage;
 
 // Class CosmosWebApi.CosmosSysGetEnvV2Message
 // 0x0010 (0x00C0 - 0x00B0)
@@ -277,6 +287,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSysGetEnvV2Message>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSysGetEnvV2Message;
 
 // Class CosmosWebApi.CosmosSysGetEnvV2SeparateProjectMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -299,6 +310,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSysGetEnvV2SeparateProjectMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSysGetEnvV2SeparateProjectMessage;
 
 // Class CosmosWebApi.CosmosSysGetEnvV3Message
 // 0x0010 (0x00C0 - 0x00B0)
@@ -321,6 +333,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSysGetEnvV3Message>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSysGetEnvV3Message;
 
 // Class CosmosWebApi.CosmosTssReadMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -343,6 +356,7 @@ public:
 		return GetDefaultObjImpl<UCosmosTssReadMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosTssReadMessage;
 
 // Class CosmosWebApi.CosmosTssReadListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -365,6 +379,7 @@ public:
 		return GetDefaultObjImpl<UCosmosTssReadListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosTssReadListMessage;
 
 // Class CosmosWebApi.CosmosMainStartupMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -387,6 +402,7 @@ public:
 		return GetDefaultObjImpl<UCosmosMainStartupMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosMainStartupMessage;
 
 // Class CosmosWebApi.CosmosMainGetMenuMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -409,6 +425,7 @@ public:
 		return GetDefaultObjImpl<UCosmosMainGetMenuMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosMainGetMenuMessage;
 
 // Class CosmosWebApi.CosmosMainGetVersionMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -431,6 +448,7 @@ public:
 		return GetDefaultObjImpl<UCosmosMainGetVersionMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosMainGetVersionMessage;
 
 // Class CosmosWebApi.CosmosProfileGetProfileMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -453,6 +471,7 @@ public:
 		return GetDefaultObjImpl<UCosmosProfileGetProfileMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosProfileGetProfileMessage;
 
 // Class CosmosWebApi.CosmosProfileGetDedprofileMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -475,6 +494,7 @@ public:
 		return GetDefaultObjImpl<UCosmosProfileGetDedprofileMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosProfileGetDedprofileMessage;
 
 // Class CosmosWebApi.CosmosProfileGetPlayerNameChangeLimitTimeMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -497,6 +517,7 @@ public:
 		return GetDefaultObjImpl<UCosmosProfileGetPlayerNameChangeLimitTimeMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosProfileGetPlayerNameChangeLimitTimeMessage;
 
 // Class CosmosWebApi.CosmosProfileReducePlayerNameChangeLimitTimeMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -519,6 +540,7 @@ public:
 		return GetDefaultObjImpl<UCosmosProfileReducePlayerNameChangeLimitTimeMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosProfileReducePlayerNameChangeLimitTimeMessage;
 
 // Class CosmosWebApi.CosmosPresetGetPresetListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -541,6 +563,7 @@ public:
 		return GetDefaultObjImpl<UCosmosPresetGetPresetListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosPresetGetPresetListMessage;
 
 // Class CosmosWebApi.CosmosFriendGetFriendshipListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -563,6 +586,7 @@ public:
 		return GetDefaultObjImpl<UCosmosFriendGetFriendshipListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosFriendGetFriendshipListMessage;
 
 // Class CosmosWebApi.CosmosBattleGetBattleRecordListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -585,6 +609,7 @@ public:
 		return GetDefaultObjImpl<UCosmosBattleGetBattleRecordListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosBattleGetBattleRecordListMessage;
 
 // Class CosmosWebApi.CosmosBattleUserResultMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -607,6 +632,7 @@ public:
 		return GetDefaultObjImpl<UCosmosBattleUserResultMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosBattleUserResultMessage;
 
 // Class CosmosWebApi.CosmosBattleCalcSkillBaseMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -629,6 +655,7 @@ public:
 		return GetDefaultObjImpl<UCosmosBattleCalcSkillBaseMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosBattleCalcSkillBaseMessage;
 
 // Class CosmosWebApi.CosmosBattleGameStartMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -651,6 +678,7 @@ public:
 		return GetDefaultObjImpl<UCosmosBattleGameStartMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosBattleGameStartMessage;
 
 // Class CosmosWebApi.CosmosGuildGetGuildListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -673,6 +701,7 @@ public:
 		return GetDefaultObjImpl<UCosmosGuildGetGuildListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosGuildGetGuildListMessage;
 
 // Class CosmosWebApi.CosmosGuildGetGuildInfoMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -695,6 +724,7 @@ public:
 		return GetDefaultObjImpl<UCosmosGuildGetGuildInfoMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosGuildGetGuildInfoMessage;
 
 // Class CosmosWebApi.CosmosGuildGuildCreateMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -717,6 +747,7 @@ public:
 		return GetDefaultObjImpl<UCosmosGuildGuildCreateMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosGuildGuildCreateMessage;
 
 // Class CosmosWebApi.CosmosGuildSetJoinMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -739,6 +770,7 @@ public:
 		return GetDefaultObjImpl<UCosmosGuildSetJoinMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosGuildSetJoinMessage;
 
 // Class CosmosWebApi.CosmosGuildGetMemberListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -761,6 +793,7 @@ public:
 		return GetDefaultObjImpl<UCosmosGuildGetMemberListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosGuildGetMemberListMessage;
 
 // Class CosmosWebApi.CosmosGuildGetRecordsMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -783,6 +816,7 @@ public:
 		return GetDefaultObjImpl<UCosmosGuildGetRecordsMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosGuildGetRecordsMessage;
 
 // Class CosmosWebApi.CosmosGuildSetFundsMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -805,6 +839,7 @@ public:
 		return GetDefaultObjImpl<UCosmosGuildSetFundsMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosGuildSetFundsMessage;
 
 // Class CosmosWebApi.CosmosGuildUseBoostMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -827,6 +862,7 @@ public:
 		return GetDefaultObjImpl<UCosmosGuildUseBoostMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosGuildUseBoostMessage;
 
 // Class CosmosWebApi.CosmosShopGetShopMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -849,6 +885,7 @@ public:
 		return GetDefaultObjImpl<UCosmosShopGetShopMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosShopGetShopMessage;
 
 // Class CosmosWebApi.CosmosShopPurchaseItemMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -871,6 +908,7 @@ public:
 		return GetDefaultObjImpl<UCosmosShopPurchaseItemMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosShopPurchaseItemMessage;
 
 // Class CosmosWebApi.CosmosLoginbonusGetListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -893,6 +931,7 @@ public:
 		return GetDefaultObjImpl<UCosmosLoginbonusGetListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosLoginbonusGetListMessage;
 
 // Class CosmosWebApi.CosmosLoginbonusGetBonusMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -915,6 +954,7 @@ public:
 		return GetDefaultObjImpl<UCosmosLoginbonusGetBonusMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosLoginbonusGetBonusMessage;
 
 // Class CosmosWebApi.CosmosBillboardGetChartListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -937,6 +977,7 @@ public:
 		return GetDefaultObjImpl<UCosmosBillboardGetChartListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosBillboardGetChartListMessage;
 
 // Class CosmosWebApi.CosmosNoticeGetNoticeListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -959,6 +1000,7 @@ public:
 		return GetDefaultObjImpl<UCosmosNoticeGetNoticeListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosNoticeGetNoticeListMessage;
 
 // Class CosmosWebApi.CosmosNoticeGetNoticeReceiveMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -981,6 +1023,7 @@ public:
 		return GetDefaultObjImpl<UCosmosNoticeGetNoticeReceiveMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosNoticeGetNoticeReceiveMessage;
 
 // Class CosmosWebApi.CosmosSeasonpassGetMasterListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1003,6 +1046,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSeasonpassGetMasterListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSeasonpassGetMasterListMessage;
 
 // Class CosmosWebApi.CosmosSeasonpassReceiveMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1025,6 +1069,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSeasonpassReceiveMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSeasonpassReceiveMessage;
 
 // Class CosmosWebApi.CosmosSquadInvitedListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1047,6 +1092,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSquadInvitedListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSquadInvitedListMessage;
 
 // Class CosmosWebApi.CosmosSquadInvitingListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1069,6 +1115,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSquadInvitingListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSquadInvitingListMessage;
 
 // Class CosmosWebApi.CosmosCustomizeGetCustomizeListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1091,6 +1138,7 @@ public:
 		return GetDefaultObjImpl<UCosmosCustomizeGetCustomizeListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosCustomizeGetCustomizeListMessage;
 
 // Class CosmosWebApi.CosmosCustomizeGetCustomizeMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1113,6 +1161,7 @@ public:
 		return GetDefaultObjImpl<UCosmosCustomizeGetCustomizeMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosCustomizeGetCustomizeMessage;
 
 // Class CosmosWebApi.CosmosCustomizeGetTuningCostumeRankingMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1135,6 +1184,7 @@ public:
 		return GetDefaultObjImpl<UCosmosCustomizeGetTuningCostumeRankingMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosCustomizeGetTuningCostumeRankingMessage;
 
 // Class CosmosWebApi.CosmosCustomizeGetNormalCharacterMedalRankingMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1157,6 +1207,7 @@ public:
 		return GetDefaultObjImpl<UCosmosCustomizeGetNormalCharacterMedalRankingMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosCustomizeGetNormalCharacterMedalRankingMessage;
 
 // Class CosmosWebApi.CosmosCustomizeGetSpecialCharacterMedalRankingMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1179,6 +1230,7 @@ public:
 		return GetDefaultObjImpl<UCosmosCustomizeGetSpecialCharacterMedalRankingMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosCustomizeGetSpecialCharacterMedalRankingMessage;
 
 // Class CosmosWebApi.CosmosMyadGetListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1201,6 +1253,7 @@ public:
 		return GetDefaultObjImpl<UCosmosMyadGetListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosMyadGetListMessage;
 
 // Class CosmosWebApi.CosmosMyadAdCreateMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1223,6 +1276,7 @@ public:
 		return GetDefaultObjImpl<UCosmosMyadAdCreateMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosMyadAdCreateMessage;
 
 // Class CosmosWebApi.CosmosMyadGetMyadMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1245,6 +1299,7 @@ public:
 		return GetDefaultObjImpl<UCosmosMyadGetMyadMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosMyadGetMyadMessage;
 
 // Class CosmosWebApi.CosmosItemGetOwnedMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1267,6 +1322,7 @@ public:
 		return GetDefaultObjImpl<UCosmosItemGetOwnedMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosItemGetOwnedMessage;
 
 // Class CosmosWebApi.CosmosItemItemPossessionMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1289,6 +1345,7 @@ public:
 		return GetDefaultObjImpl<UCosmosItemItemPossessionMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosItemItemPossessionMessage;
 
 // Class CosmosWebApi.CosmosItemRankSpecialEffectOwnedMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1311,6 +1368,7 @@ public:
 		return GetDefaultObjImpl<UCosmosItemRankSpecialEffectOwnedMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosItemRankSpecialEffectOwnedMessage;
 
 // Class CosmosWebApi.CosmosItemCheckUserItemMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1333,6 +1391,7 @@ public:
 		return GetDefaultObjImpl<UCosmosItemCheckUserItemMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosItemCheckUserItemMessage;
 
 // Class CosmosWebApi.CosmosGamecurrencyGetOwnedMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1355,6 +1414,7 @@ public:
 		return GetDefaultObjImpl<UCosmosGamecurrencyGetOwnedMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosGamecurrencyGetOwnedMessage;
 
 // Class CosmosWebApi.CosmosGamecurrencyGetLimitedOwnedMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1377,6 +1437,7 @@ public:
 		return GetDefaultObjImpl<UCosmosGamecurrencyGetLimitedOwnedMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosGamecurrencyGetLimitedOwnedMessage;
 
 // Class CosmosWebApi.CosmosCommonpurchaseGetCatalogMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1399,6 +1460,7 @@ public:
 		return GetDefaultObjImpl<UCosmosCommonpurchaseGetCatalogMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosCommonpurchaseGetCatalogMessage;
 
 // Class CosmosWebApi.CosmosCommonpurchaseStartPurchaseMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1421,6 +1483,7 @@ public:
 		return GetDefaultObjImpl<UCosmosCommonpurchaseStartPurchaseMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosCommonpurchaseStartPurchaseMessage;
 
 // Class CosmosWebApi.CosmosCommonpurchaseGetPurchaseStatusMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1443,6 +1506,7 @@ public:
 		return GetDefaultObjImpl<UCosmosCommonpurchaseGetPurchaseStatusMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosCommonpurchaseGetPurchaseStatusMessage;
 
 // Class CosmosWebApi.CosmosCommonpurchaseTokushoMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1465,6 +1529,7 @@ public:
 		return GetDefaultObjImpl<UCosmosCommonpurchaseTokushoMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosCommonpurchaseTokushoMessage;
 
 // Class CosmosWebApi.CosmosCommonpurchaseGetFundSettlementTextMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1487,6 +1552,7 @@ public:
 		return GetDefaultObjImpl<UCosmosCommonpurchaseGetFundSettlementTextMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosCommonpurchaseGetFundSettlementTextMessage;
 
 // Class CosmosWebApi.CosmosMissionGetListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1509,6 +1575,7 @@ public:
 		return GetDefaultObjImpl<UCosmosMissionGetListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosMissionGetListMessage;
 
 // Class CosmosWebApi.CosmosMissionGetAchievementMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1531,6 +1598,7 @@ public:
 		return GetDefaultObjImpl<UCosmosMissionGetAchievementMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosMissionGetAchievementMessage;
 
 // Class CosmosWebApi.CosmosRankingGetRankingMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1553,6 +1621,7 @@ public:
 		return GetDefaultObjImpl<UCosmosRankingGetRankingMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosRankingGetRankingMessage;
 
 // Class CosmosWebApi.CosmosLootboxGetListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1575,6 +1644,7 @@ public:
 		return GetDefaultObjImpl<UCosmosLootboxGetListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosLootboxGetListMessage;
 
 // Class CosmosWebApi.CosmosLootboxRunMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1597,6 +1667,7 @@ public:
 		return GetDefaultObjImpl<UCosmosLootboxRunMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosLootboxRunMessage;
 
 // Class CosmosWebApi.CosmosLootboxGetMileageItemListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1619,6 +1690,7 @@ public:
 		return GetDefaultObjImpl<UCosmosLootboxGetMileageItemListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosLootboxGetMileageItemListMessage;
 
 // Class CosmosWebApi.CosmosLootboxMileageExchangeMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1641,6 +1713,7 @@ public:
 		return GetDefaultObjImpl<UCosmosLootboxMileageExchangeMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosLootboxMileageExchangeMessage;
 
 // Class CosmosWebApi.CosmosLootboxGetProbabilityMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1663,6 +1736,7 @@ public:
 		return GetDefaultObjImpl<UCosmosLootboxGetProbabilityMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosLootboxGetProbabilityMessage;
 
 // Class CosmosWebApi.CosmosLootboxGetHistoriesMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1685,6 +1759,7 @@ public:
 		return GetDefaultObjImpl<UCosmosLootboxGetHistoriesMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosLootboxGetHistoriesMessage;
 
 // Class CosmosWebApi.CosmosLootboxGetSelectPickupItemMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1707,6 +1782,7 @@ public:
 		return GetDefaultObjImpl<UCosmosLootboxGetSelectPickupItemMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosLootboxGetSelectPickupItemMessage;
 
 // Class CosmosWebApi.CosmosSettingGetSettingInfoMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1729,6 +1805,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSettingGetSettingInfoMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSettingGetSettingInfoMessage;
 
 // Class CosmosWebApi.CosmosSysF2pGetServerTimeMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1751,6 +1828,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSysF2pGetServerTimeMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSysF2pGetServerTimeMessage;
 
 // Class CosmosWebApi.CosmosSysF2pGetServerListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1773,6 +1851,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSysF2pGetServerListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSysF2pGetServerListMessage;
 
 // Class CosmosWebApi.CosmosSysF2pGetVersionMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1795,6 +1874,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSysF2pGetVersionMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSysF2pGetVersionMessage;
 
 // Class CosmosWebApi.CosmosSysF2pGetMasterUrlMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1817,6 +1897,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSysF2pGetMasterUrlMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSysF2pGetMasterUrlMessage;
 
 // Class CosmosWebApi.CosmosSysF2pGetServerInfoMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1839,6 +1920,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSysF2pGetServerInfoMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSysF2pGetServerInfoMessage;
 
 // Class CosmosWebApi.CosmosSysF2pGetJoinServerMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1861,6 +1943,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSysF2pGetJoinServerMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSysF2pGetJoinServerMessage;
 
 // Class CosmosWebApi.CosmosSysF2pGetPasswordMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1883,6 +1966,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSysF2pGetPasswordMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSysF2pGetPasswordMessage;
 
 // Class CosmosWebApi.CosmosGalleryGetGalleryListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1905,6 +1989,7 @@ public:
 		return GetDefaultObjImpl<UCosmosGalleryGetGalleryListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosGalleryGetGalleryListMessage;
 
 // Class CosmosWebApi.CosmosRecommendNoticeGetRecommendNoticeMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1927,6 +2012,7 @@ public:
 		return GetDefaultObjImpl<UCosmosRecommendNoticeGetRecommendNoticeMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosRecommendNoticeGetRecommendNoticeMessage;
 
 // Class CosmosWebApi.CosmosChatReceiveMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1949,6 +2035,7 @@ public:
 		return GetDefaultObjImpl<UCosmosChatReceiveMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosChatReceiveMessage;
 
 // Class CosmosWebApi.CosmosChatLogMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1971,6 +2058,7 @@ public:
 		return GetDefaultObjImpl<UCosmosChatLogMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosChatLogMessage;
 
 // Class CosmosWebApi.CosmosEventGetEventInfoMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -1993,6 +2081,7 @@ public:
 		return GetDefaultObjImpl<UCosmosEventGetEventInfoMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosEventGetEventInfoMessage;
 
 // Class CosmosWebApi.CosmosBnidClientCheckStatusMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2015,6 +2104,7 @@ public:
 		return GetDefaultObjImpl<UCosmosBnidClientCheckStatusMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosBnidClientCheckStatusMessage;
 
 // Class CosmosWebApi.CosmosBnidClientEntryMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2037,6 +2127,7 @@ public:
 		return GetDefaultObjImpl<UCosmosBnidClientEntryMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosBnidClientEntryMessage;
 
 // Class CosmosWebApi.CosmosSpecialpassGetMasterListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2059,6 +2150,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSpecialpassGetMasterListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSpecialpassGetMasterListMessage;
 
 // Class CosmosWebApi.CosmosSpecialpassReceiveMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2081,6 +2173,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSpecialpassReceiveMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSpecialpassReceiveMessage;
 
 // Class CosmosWebApi.CosmosCustomMatchCreateRoomIdMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2103,6 +2196,7 @@ public:
 		return GetDefaultObjImpl<UCosmosCustomMatchCreateRoomIdMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosCustomMatchCreateRoomIdMessage;
 
 // Class CosmosWebApi.CosmosCustomMatchGetRoomInfoMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2125,6 +2219,7 @@ public:
 		return GetDefaultObjImpl<UCosmosCustomMatchGetRoomInfoMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosCustomMatchGetRoomInfoMessage;
 
 // Class CosmosWebApi.CosmosCustomMatchGetResultMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2147,6 +2242,7 @@ public:
 		return GetDefaultObjImpl<UCosmosCustomMatchGetResultMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosCustomMatchGetResultMessage;
 
 // Class CosmosWebApi.CosmosInformationGetInformationListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2169,6 +2265,7 @@ public:
 		return GetDefaultObjImpl<UCosmosInformationGetInformationListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosInformationGetInformationListMessage;
 
 // Class CosmosWebApi.CosmosPopupGetUserPopupListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2191,6 +2288,7 @@ public:
 		return GetDefaultObjImpl<UCosmosPopupGetUserPopupListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosPopupGetUserPopupListMessage;
 
 // Class CosmosWebApi.CosmosResearchNoteListRewardsMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2213,6 +2311,7 @@ public:
 		return GetDefaultObjImpl<UCosmosResearchNoteListRewardsMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosResearchNoteListRewardsMessage;
 
 // Class CosmosWebApi.CosmosResearchNoteReceiveMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2235,6 +2334,7 @@ public:
 		return GetDefaultObjImpl<UCosmosResearchNoteReceiveMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosResearchNoteReceiveMessage;
 
 // Class CosmosWebApi.CosmosRoleslotGetListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2257,6 +2357,7 @@ public:
 		return GetDefaultObjImpl<UCosmosRoleslotGetListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosRoleslotGetListMessage;
 
 // Class CosmosWebApi.CosmosRoleslotSetSlotMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2279,6 +2380,7 @@ public:
 		return GetDefaultObjImpl<UCosmosRoleslotSetSlotMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosRoleslotSetSlotMessage;
 
 // Class CosmosWebApi.CosmosRoleslotSetSkillMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2301,6 +2403,7 @@ public:
 		return GetDefaultObjImpl<UCosmosRoleslotSetSkillMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosRoleslotSetSkillMessage;
 
 // Class CosmosWebApi.CosmosRoleslotSetAllSlotSkillMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2323,6 +2426,7 @@ public:
 		return GetDefaultObjImpl<UCosmosRoleslotSetAllSlotSkillMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosRoleslotSetAllSlotSkillMessage;
 
 // Class CosmosWebApi.CosmosRoleslotUnlockSlotMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2345,6 +2449,7 @@ public:
 		return GetDefaultObjImpl<UCosmosRoleslotUnlockSlotMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosRoleslotUnlockSlotMessage;
 
 // Class CosmosWebApi.CosmosRoleslotUnlockSlotPurMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2367,6 +2472,7 @@ public:
 		return GetDefaultObjImpl<UCosmosRoleslotUnlockSlotPurMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosRoleslotUnlockSlotPurMessage;
 
 // Class CosmosWebApi.CosmosRoleslotSlotLevelUpMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2389,6 +2495,7 @@ public:
 		return GetDefaultObjImpl<UCosmosRoleslotSlotLevelUpMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosRoleslotSlotLevelUpMessage;
 
 // Class CosmosWebApi.CosmosRoleslotSkillLevelUpMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2411,6 +2518,7 @@ public:
 		return GetDefaultObjImpl<UCosmosRoleslotSkillLevelUpMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosRoleslotSkillLevelUpMessage;
 
 // Class CosmosWebApi.CosmosRoleslotAllSlotSkillLevelUpMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2433,6 +2541,7 @@ public:
 		return GetDefaultObjImpl<UCosmosRoleslotAllSlotSkillLevelUpMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosRoleslotAllSlotSkillLevelUpMessage;
 
 // Class CosmosWebApi.CosmosBlockGetBlockUserListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2455,6 +2564,7 @@ public:
 		return GetDefaultObjImpl<UCosmosBlockGetBlockUserListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosBlockGetBlockUserListMessage;
 
 // Class CosmosWebApi.CosmosBlockSetBlockUserMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2477,6 +2587,7 @@ public:
 		return GetDefaultObjImpl<UCosmosBlockSetBlockUserMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosBlockSetBlockUserMessage;
 
 // Class CosmosWebApi.CosmosBlockSetPlatformBlockUserListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2499,6 +2610,7 @@ public:
 		return GetDefaultObjImpl<UCosmosBlockSetPlatformBlockUserListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosBlockSetPlatformBlockUserListMessage;
 
 // Class CosmosWebApi.CosmosNameplateGetListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2521,6 +2633,7 @@ public:
 		return GetDefaultObjImpl<UCosmosNameplateGetListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosNameplateGetListMessage;
 
 // Class CosmosWebApi.CosmosMyRoomGetInfoMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2543,6 +2656,7 @@ public:
 		return GetDefaultObjImpl<UCosmosMyRoomGetInfoMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosMyRoomGetInfoMessage;
 
 // Class CosmosWebApi.CosmosMyRoomGetPresetListMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2565,6 +2679,7 @@ public:
 		return GetDefaultObjImpl<UCosmosMyRoomGetPresetListMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosMyRoomGetPresetListMessage;
 
 // Class CosmosWebApi.CosmosRandompackGetProbabilityMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2587,6 +2702,7 @@ public:
 		return GetDefaultObjImpl<UCosmosRandompackGetProbabilityMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosRandompackGetProbabilityMessage;
 
 // Class CosmosWebApi.CosmosRandompackLotteryRandomPackMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2609,6 +2725,7 @@ public:
 		return GetDefaultObjImpl<UCosmosRandompackLotteryRandomPackMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosRandompackLotteryRandomPackMessage;
 
 // Class CosmosWebApi.CosmosSerialGetSerialCodeIsCheckableMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2631,6 +2748,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSerialGetSerialCodeIsCheckableMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSerialGetSerialCodeIsCheckableMessage;
 
 // Class CosmosWebApi.CosmosSerialCheckSerialCodeMessage
 // 0x0010 (0x00C0 - 0x00B0)
@@ -2653,6 +2771,7 @@ public:
 		return GetDefaultObjImpl<UCosmosSerialCheckSerialCodeMessage>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosSerialCheckSerialCodeMessage;
 
 // Class CosmosWebApi.CosmosWebApiManager
 // 0x0168 (0x0190 - 0x0028)
@@ -2679,6 +2798,7 @@ public:
 		return GetDefaultObjImpl<UCosmosWebApiManager>();
 	}
 };
+DUMPER7_ASSERTS_UCosmosWebApiManager;
 
 // Class CosmosWebApi.WebApiData
 // 0x0048 (0x0070 - 0x0028)
@@ -2701,5 +2821,7 @@ public:
 		return GetDefaultObjImpl<UWebApiData>();
 	}
 };
+DUMPER7_ASSERTS_UWebApiData;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "BP_ActionDamageFreeze_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageFreeze.BP_ActionDamageFreeze_C.ExecuteUbergraph_BP_ActionDamageFreeze
 // (Final, UbergraphFunction, HasDefaults)
@@ -145,5 +146,5 @@ void UBP_ActionDamageFreeze_C::UpdateOnce()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

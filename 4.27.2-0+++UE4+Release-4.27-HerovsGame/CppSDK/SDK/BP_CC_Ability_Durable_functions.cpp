@@ -14,7 +14,8 @@
 #include "BP_CC_Ability_Durable_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Ability_Durable.BP_CC_Ability_Durable_C.ExecuteUbergraph_BP_CC_Ability_Durable
 // (Final, UbergraphFunction)
@@ -99,5 +100,5 @@ void UBP_CC_Ability_Durable_C::BP_OnChangeConditionLevel(int32 oldLevel, int32 n
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

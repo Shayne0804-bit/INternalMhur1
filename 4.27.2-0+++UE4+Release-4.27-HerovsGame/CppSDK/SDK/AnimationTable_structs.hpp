@@ -13,7 +13,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct AnimationTable.AnimAdditionalTableRow
 // 0x0058 (0x0060 - 0x0008)
@@ -26,6 +27,7 @@ public:
 	float                                         BlendOutTime;                                      // 0x0034(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TSoftObjectPtr<class UAnimationAsset>         Asset;                                             // 0x0038(0x0028)(Edit, BlueprintVisible, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimAdditionalTableRow;
 
 // ScriptStruct AnimationTable.AnimOverrideTableRow
 // 0x0050 (0x0058 - 0x0008)
@@ -36,6 +38,7 @@ public:
 	class FText                                   Description;                                       // 0x0018(0x0018)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 	TSoftObjectPtr<class UAnimationAsset>         Asset;                                             // 0x0030(0x0028)(Edit, BlueprintVisible, UObjectWrapper, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FAnimOverrideTableRow;
 
 // ScriptStruct AnimationTable.AnimTableRow
 // 0x00B8 (0x00C0 - 0x0008)
@@ -53,5 +56,7 @@ public:
 	TMap<class FString, TSoftObjectPtr<class UAnimationAsset>> OverrideAssetList;                    // 0x0068(0x0050)(Edit, BlueprintVisible, UObjectWrapper, NativeAccessSpecifierPublic)
 	uint8                                         Pad_B8[0x8];                                       // 0x00B8(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAnimTableRow;
 
-SDK_NAMESPACE_END
+}
+

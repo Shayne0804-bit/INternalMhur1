@@ -14,7 +14,8 @@
 #include "CosmosManager_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function CosmosManager.CosmosManager.OnChangeMyRoomDataEvent
 // (Final, Native, Public, HasOutParams)
@@ -417,5 +418,5 @@ void UCosmosManager::OnReceiveCustomSquadChatEvent(const struct FCosmosReceiveCu
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -13,7 +13,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class CriWareAdxLipSync.LipsAnalyzerBase
 // 0x0000 (0x0028 - 0x0028)
@@ -45,6 +46,7 @@ public:
 		return GetDefaultObjImpl<ULipsAnalyzerBase>();
 	}
 };
+DUMPER7_ASSERTS_ULipsAnalyzerBase;
 
 // Class CriWareAdxLipSync.LipsAtomAnalyzer
 // 0x0010 (0x0038 - 0x0028)
@@ -72,5 +74,7 @@ public:
 		return GetDefaultObjImpl<ULipsAtomAnalyzer>();
 	}
 };
+DUMPER7_ASSERTS_ULipsAtomAnalyzer;
 
-SDK_NAMESPACE_END
+}
+

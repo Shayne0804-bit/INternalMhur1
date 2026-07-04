@@ -14,7 +14,8 @@
 #include "BP_CC_Ability_MoveSpeed_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Ability_MoveSpeed.BP_CC_Ability_MoveSpeed_C.ExecuteUbergraph_BP_CC_Ability_MoveSpeed
 // (Final, UbergraphFunction)
@@ -113,5 +114,5 @@ void UBP_CC_Ability_MoveSpeed_C::BP_OnBeginCondition()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

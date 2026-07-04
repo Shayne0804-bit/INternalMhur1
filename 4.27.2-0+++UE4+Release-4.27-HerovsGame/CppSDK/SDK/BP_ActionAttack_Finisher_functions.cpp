@@ -14,7 +14,8 @@
 #include "BP_ActionAttack_Finisher_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionAttack_Finisher.BP_ActionAttack_Finisher_C.ExecuteUbergraph_BP_ActionAttack_Finisher
 // (Final, UbergraphFunction, HasDefaults)
@@ -313,5 +314,5 @@ void UBP_ActionAttack_Finisher_C::GetSafetyGroundLocation(struct FVector* Locati
 		*Location = std::move(Parms.Location);
 }
 
+}
 
-SDK_NAMESPACE_END

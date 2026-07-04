@@ -13,7 +13,8 @@
 #include "GameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_OptionDefault.BP_OptionDefault_C
 // 0x0000 (0x08B0 - 0x08B0)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UBP_OptionDefault_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_OptionDefault_C;
 
-SDK_NAMESPACE_END
+}
+

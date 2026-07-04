@@ -14,7 +14,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_TextChatList.WBP_TextChatList_C
 // 0x0010 (0x03B0 - 0x03A0)
@@ -49,5 +50,7 @@ public:
 		return GetDefaultObjImpl<UWBP_TextChatList_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_TextChatList_C;
 
-SDK_NAMESPACE_END
+}
+

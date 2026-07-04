@@ -18,7 +18,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // AnimBlueprintGeneratedClass ABP_Ch000_Extra_00.ABP_Ch000_Extra_00_C
 // 0x1440 (0x1700 - 0x02C0)
@@ -74,5 +75,7 @@ public:
 		return GetDefaultObjImpl<UABP_Ch000_Extra_00_C>();
 	}
 };
+DUMPER7_ASSERTS_UABP_Ch000_Extra_00_C;
 
-SDK_NAMESPACE_END
+}
+

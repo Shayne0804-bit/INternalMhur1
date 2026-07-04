@@ -14,7 +14,8 @@
 #include "BP_ActionPickUpItem_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionPickUpItem.BP_ActionPickUpItem_C.ExecuteUbergraph_BP_ActionPickUpItem
 // (Final, UbergraphFunction)
@@ -112,5 +113,5 @@ bool UBP_ActionPickUpItem_C::BP_IsEnableShiftAction(const class FName& nextActio
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

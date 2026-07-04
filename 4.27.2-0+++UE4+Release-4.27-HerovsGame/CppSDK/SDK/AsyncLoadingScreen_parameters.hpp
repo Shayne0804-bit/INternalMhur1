@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function AsyncLoadingScreen.AsyncLoadingScreenLibrary.SetDisplayBackgroundIndex
 // 0x0004 (0x0004 - 0x0000)
@@ -21,6 +21,7 @@ struct AsyncLoadingScreenLibrary_SetDisplayBackgroundIndex final
 public:
 	int32                                         BackgroundIndex;                                   // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AsyncLoadingScreenLibrary_SetDisplayBackgroundIndex;
 
 // Function AsyncLoadingScreen.AsyncLoadingScreenLibrary.SetDisplayMovieIndex
 // 0x0004 (0x0004 - 0x0000)
@@ -29,6 +30,7 @@ struct AsyncLoadingScreenLibrary_SetDisplayMovieIndex final
 public:
 	int32                                         MovieIndex;                                        // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AsyncLoadingScreenLibrary_SetDisplayMovieIndex;
 
 // Function AsyncLoadingScreen.AsyncLoadingScreenLibrary.SetDisplayTipTextIndex
 // 0x0004 (0x0004 - 0x0000)
@@ -37,6 +39,7 @@ struct AsyncLoadingScreenLibrary_SetDisplayTipTextIndex final
 public:
 	int32                                         TipTextIndex;                                      // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AsyncLoadingScreenLibrary_SetDisplayTipTextIndex;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

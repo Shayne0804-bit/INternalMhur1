@@ -13,8 +13,8 @@
 #include "MagicLeapLightEstimation_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function MagicLeapLightEstimation.MagicLeapLightEstimationFunctionLibrary.CreateTracker
 // 0x0001 (0x0001 - 0x0000)
@@ -23,6 +23,7 @@ struct MagicLeapLightEstimationFunctionLibrary_CreateTracker final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapLightEstimationFunctionLibrary_CreateTracker;
 
 // Function MagicLeapLightEstimation.MagicLeapLightEstimationFunctionLibrary.GetAmbientGlobalState
 // 0x0020 (0x0020 - 0x0000)
@@ -33,6 +34,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0018(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapLightEstimationFunctionLibrary_GetAmbientGlobalState;
 
 // Function MagicLeapLightEstimation.MagicLeapLightEstimationFunctionLibrary.GetColorTemperatureState
 // 0x0028 (0x0028 - 0x0000)
@@ -43,6 +45,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0020(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MagicLeapLightEstimationFunctionLibrary_GetColorTemperatureState;
 
 // Function MagicLeapLightEstimation.MagicLeapLightEstimationFunctionLibrary.IsTrackerValid
 // 0x0001 (0x0001 - 0x0000)
@@ -51,6 +54,7 @@ struct MagicLeapLightEstimationFunctionLibrary_IsTrackerValid final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapLightEstimationFunctionLibrary_IsTrackerValid;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

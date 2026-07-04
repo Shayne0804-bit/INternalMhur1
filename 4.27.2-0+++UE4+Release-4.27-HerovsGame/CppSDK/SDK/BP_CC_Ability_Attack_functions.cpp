@@ -14,7 +14,8 @@
 #include "BP_CC_Ability_Attack_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Ability_Attack.BP_CC_Ability_Attack_C.ExecuteUbergraph_BP_CC_Ability_Attack
 // (Final, UbergraphFunction)
@@ -99,5 +100,5 @@ void UBP_CC_Ability_Attack_C::BP_OnChangeConditionLevel(int32 oldLevel, int32 ne
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

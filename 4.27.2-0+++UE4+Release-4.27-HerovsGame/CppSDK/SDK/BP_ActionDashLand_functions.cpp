@@ -14,7 +14,8 @@
 #include "BP_ActionDashLand_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDashLand.BP_ActionDashLand_C.ExecuteUbergraph_BP_ActionDashLand
 // (Final, UbergraphFunction)
@@ -83,5 +84,5 @@ void UBP_ActionDashLand_C::BP_ActionMain()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

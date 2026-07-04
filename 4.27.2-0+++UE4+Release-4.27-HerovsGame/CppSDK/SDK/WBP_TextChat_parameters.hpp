@@ -17,8 +17,8 @@
 #include "BackendSubsystem_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_TextChat.WBP_TextChat_C.ExecuteUbergraph_WBP_TextChat
 // 0x0118 (0x0118 - 0x0000)
@@ -68,6 +68,7 @@ public:
 	uint8                                         Pad_10E[0x2];                                      // 0x010E(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FVector2D                              K2Node_Event_pivot;                                // 0x0110(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_TextChat_C_ExecuteUbergraph_WBP_TextChat;
 
 // Function WBP_TextChat.WBP_TextChat_C.OnVisibilityChangedEvent
 // 0x0001 (0x0001 - 0x0000)
@@ -76,6 +77,7 @@ struct WBP_TextChat_C_OnVisibilityChangedEvent final
 public:
 	ESlateVisibility                              InVisibility;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_TextChat_C_OnVisibilityChangedEvent;
 
 // Function WBP_TextChat.WBP_TextChat_C.UpdatePopUpPivot
 // 0x0008 (0x0008 - 0x0000)
@@ -84,6 +86,7 @@ struct WBP_TextChat_C_UpdatePopUpPivot final
 public:
 	struct FVector2D                              Pivot;                                             // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_TextChat_C_UpdatePopUpPivot;
 
 // Function WBP_TextChat.WBP_TextChat_C.WindowOpen
 // 0x0001 (0x0001 - 0x0000)
@@ -92,6 +95,7 @@ struct WBP_TextChat_C_WindowOpen final
 public:
 	bool                                          bPlaySound;                                        // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChat_C_WindowOpen;
 
 // Function WBP_TextChat.WBP_TextChat_C.WindowClose
 // 0x0001 (0x0001 - 0x0000)
@@ -100,6 +104,7 @@ struct WBP_TextChat_C_WindowClose final
 public:
 	bool                                          bPlaySound;                                        // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChat_C_WindowClose;
 
 // Function WBP_TextChat.WBP_TextChat_C.PreConstruct
 // 0x0001 (0x0001 - 0x0000)
@@ -108,6 +113,7 @@ struct WBP_TextChat_C_PreConstruct final
 public:
 	bool                                          IsDesignTime;                                      // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChat_C_PreConstruct;
 
 // Function WBP_TextChat.WBP_TextChat_C._textChatRecieveEvent_イベント_0
 // 0x0008 (0x0008 - 0x0000)
@@ -116,6 +122,7 @@ struct WBP_TextChat_C__textChatRecieveEvent_イベント_0 final
 public:
 	const class UTextChatListObject*              chatObject;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_TextChat_C__textChatRecieveEvent_イベント_0;
 
 // Function WBP_TextChat.WBP_TextChat_C.SetVisiblityNewMessage
 // 0x0001 (0x0001 - 0x0000)
@@ -124,6 +131,7 @@ struct WBP_TextChat_C_SetVisiblityNewMessage final
 public:
 	ESlateVisibility                              visivle;                                           // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_TextChat_C_SetVisiblityNewMessage;
 
 // Function WBP_TextChat.WBP_TextChat_C.BndEvt__WBP_TextChat__consent_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature
 // 0x0001 (0x0001 - 0x0000)
@@ -132,6 +140,7 @@ struct WBP_TextChat_C_BndEvt__WBP_TextChat__consent_K2Node_ComponentBoundEvent_0
 public:
 	bool                                          bAgree;                                            // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChat_C_BndEvt__WBP_TextChat__consent_K2Node_ComponentBoundEvent_0_OnInputEventDelegate__DelegateSignature;
 
 // Function WBP_TextChat.WBP_TextChat_C.ChangeBGVisibility
 // 0x0020 (0x0020 - 0x0000)
@@ -147,6 +156,7 @@ public:
 	EGameModeType                                 CallFunc_GetGameModeType_ReturnValue;              // 0x0019(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_NotEqual_ByteByte_ReturnValue;            // 0x001A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChat_C_ChangeBGVisibility;
 
 // Function WBP_TextChat.WBP_TextChat_C.TextChatRecieveEvent
 // 0x0018 (0x0018 - 0x0000)
@@ -158,6 +168,7 @@ public:
 	bool                                          CallFunc_BP_GetVisibleNewMessage_ReturnValue;      // 0x0010(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_GetIngameWindowOpenFlag_ReturnValue;      // 0x0011(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChat_C_TextChatRecieveEvent;
 
 // Function WBP_TextChat.WBP_TextChat_C.OnOpenConsentEvent
 // 0x0010 (0x0010 - 0x0000)
@@ -167,6 +178,7 @@ public:
 	class UTextChatSubsystem*                     CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_BP_IsAgreeFreeTextInput_ReturnValue;      // 0x0008(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChat_C_OnOpenConsentEvent;
 
 // Function WBP_TextChat.WBP_TextChat_C.On_BGImage_MouseButtonDown_0
 // 0x0228 (0x0228 - 0x0000)
@@ -181,6 +193,7 @@ public:
 	uint8                                         Pad_219[0x7];                                      // 0x0219(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UTextChatSubsystem*                     CallFunc_GetGameInstanceSubsystem_ReturnValue;     // 0x0220(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_TextChat_C_On_BGImage_MouseButtonDown_0;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

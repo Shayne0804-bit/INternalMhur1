@@ -14,7 +14,8 @@
 #include "OnlineSubsystem_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function OnlineSubsystem.TurnBasedMatchInterface.OnMatchEnded
 // (Event, Public, BlueprintEvent)
@@ -57,5 +58,5 @@ void ITurnBasedMatchInterface::OnMatchReceivedTurn(const class FString& Match, b
 	AsUObject()->ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

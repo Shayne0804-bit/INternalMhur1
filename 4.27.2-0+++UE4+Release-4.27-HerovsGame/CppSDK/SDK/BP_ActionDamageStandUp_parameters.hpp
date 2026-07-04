@@ -15,8 +15,8 @@
 #include "InGameModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamageStandUp.BP_ActionDamageStandUp_C.ExecuteUbergraph_BP_ActionDamageStandUp
 // 0x0140 (0x0140 - 0x0000)
@@ -59,6 +59,7 @@ public:
 	bool                                          CallFunc_BooleanOR_ReturnValue_1;                  // 0x013A(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_BooleanOR_ReturnValue_2;                  // 0x013B(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStandUp_C_ExecuteUbergraph_BP_ActionDamageStandUp;
 
 // Function BP_ActionDamageStandUp.BP_ActionDamageStandUp_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -67,6 +68,7 @@ struct BP_ActionDamageStandUp_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStandUp_C_BP_OnEndAction;
 
 // Function BP_ActionDamageStandUp.BP_ActionDamageStandUp_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -75,6 +77,7 @@ struct BP_ActionDamageStandUp_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStandUp_C_BP_OnBeginAction;
 
 // Function BP_ActionDamageStandUp.BP_ActionDamageStandUp_C.DecideAnimationId
 // 0x00A0 (0x00A0 - 0x0000)
@@ -90,6 +93,7 @@ public:
 	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x0098(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	EAnimationId                                  K2Node_Select_Default;                             // 0x0099(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStandUp_C_DecideAnimationId;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

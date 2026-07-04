@@ -13,7 +13,8 @@
 #include "AIModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BTD_RootCheck.BTD_RootCheck_C
 // 0x0000 (0x00A0 - 0x00A0)
@@ -36,5 +37,7 @@ public:
 		return GetDefaultObjImpl<UBTD_RootCheck_C>();
 	}
 };
+DUMPER7_ASSERTS_UBTD_RootCheck_C;
 
-SDK_NAMESPACE_END
+}
+

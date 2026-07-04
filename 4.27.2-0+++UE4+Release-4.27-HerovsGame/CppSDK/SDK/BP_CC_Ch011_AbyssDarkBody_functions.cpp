@@ -14,7 +14,8 @@
 #include "BP_CC_Ch011_AbyssDarkBody_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Ch011_AbyssDarkBody.BP_CC_Ch011_AbyssDarkBody_C.ExecuteUbergraph_BP_CC_Ch011_AbyssDarkBody
 // (Final, UbergraphFunction)
@@ -140,5 +141,5 @@ void UBP_CC_Ch011_AbyssDarkBody_C::CharacterMeshName(class FName* Result)
 		*Result = Parms.Result;
 }
 
+}
 
-SDK_NAMESPACE_END

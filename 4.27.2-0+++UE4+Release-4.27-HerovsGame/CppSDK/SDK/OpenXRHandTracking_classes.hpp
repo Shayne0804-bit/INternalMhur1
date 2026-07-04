@@ -15,7 +15,8 @@
 #include "LiveLink_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class OpenXRHandTracking.LiveLinkOpenXRHandTrackingSourceFactory
 // 0x0010 (0x0038 - 0x0028)
@@ -38,6 +39,7 @@ public:
 		return GetDefaultObjImpl<ULiveLinkOpenXRHandTrackingSourceFactory>();
 	}
 };
+DUMPER7_ASSERTS_ULiveLinkOpenXRHandTrackingSourceFactory;
 
 // Class OpenXRHandTracking.OpenXRHandTrackingLiveLinkRemapAsset
 // 0x0058 (0x0080 - 0x0028)
@@ -67,5 +69,7 @@ public:
 		return GetDefaultObjImpl<UOpenXRHandTrackingLiveLinkRemapAsset>();
 	}
 };
+DUMPER7_ASSERTS_UOpenXRHandTrackingLiveLinkRemapAsset;
 
-SDK_NAMESPACE_END
+}
+

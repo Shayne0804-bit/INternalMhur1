@@ -14,7 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum BykingUnrealModule.EActionKind
 // NumValues: 0x0009
@@ -78,6 +79,7 @@ struct FHashID final
 public:
 	uint32                                        _value;                                            // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 };
+DUMPER7_ASSERTS_FHashID;
 
 // ScriptStruct BykingUnrealModule.OnGamePadTextInputDismissed
 // 0x0010 (0x0010 - 0x0000)
@@ -86,6 +88,7 @@ struct FOnGamePadTextInputDismissed final
 public:
 	TDelegate<void(bool bFlag)>                   _delegate;                                         // 0x0000(0x0010)(BlueprintVisible, ZeroConstructor, InstancedReference, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FOnGamePadTextInputDismissed;
 
 // ScriptStruct BykingUnrealModule.CharacterTickIgnorePause
 // 0x0008 (0x0030 - 0x0028)
@@ -94,6 +97,7 @@ struct FCharacterTickIgnorePause final : public FTickFunction
 public:
 	uint8                                         Pad_28[0x8];                                       // 0x0028(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCharacterTickIgnorePause;
 
 // ScriptStruct BykingUnrealModule.ActionLayerData
 // 0x0030 (0x0030 - 0x0000)
@@ -102,6 +106,7 @@ struct alignas(0x08) FActionLayerData final
 public:
 	uint8                                         Pad_0[0x30];                                       // 0x0000(0x0030)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FActionLayerData;
 
 // ScriptStruct BykingUnrealModule.TransitionAtoB
 // 0x00C0 (0x00C0 - 0x0000)
@@ -110,6 +115,7 @@ struct alignas(0x10) FTransitionAtoB final
 public:
 	uint8                                         Pad_0[0xC0];                                       // 0x0000(0x00C0)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FTransitionAtoB;
 
 // ScriptStruct BykingUnrealModule.ActionReserveData
 // 0x000C (0x000C - 0x0000)
@@ -118,6 +124,7 @@ struct alignas(0x04) FActionReserveData final
 public:
 	uint8                                         Pad_0[0xC];                                        // 0x0000(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FActionReserveData;
 
 // ScriptStruct BykingUnrealModule.ActionReservePackData
 // 0x0010 (0x0010 - 0x0000)
@@ -126,6 +133,7 @@ struct FActionReservePackData final
 public:
 	TArray<struct FActionReserveData>             _actionReserveList;                                // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FActionReservePackData;
 
 // ScriptStruct BykingUnrealModule.ActionClassData
 // 0x0018 (0x0018 - 0x0000)
@@ -135,6 +143,7 @@ public:
 	uint8                                         Pad_0[0x10];                                       // 0x0000(0x0010)(Fixing Size After Last Property [ Dumper-7 ])
 	class UActionBase*                            _actionBasePtr;                                    // 0x0010(0x0008)(ExportObject, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FActionClassData;
 
 // ScriptStruct BykingUnrealModule.Circle2D
 // 0x000C (0x000C - 0x0000)
@@ -143,6 +152,7 @@ struct alignas(0x04) FCircle2D final
 public:
 	uint8                                         Pad_0[0xC];                                        // 0x0000(0x000C)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCircle2D;
 
 // ScriptStruct BykingUnrealModule.BaseTraceParam
 // 0x00A8 (0x00A8 - 0x0000)
@@ -151,6 +161,7 @@ struct alignas(0x08) FBaseTraceParam
 public:
 	uint8                                         Pad_0[0xA8];                                       // 0x0000(0x00A8)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBaseTraceParam;
 
 // ScriptStruct BykingUnrealModule.LineTraceParam
 // 0x0098 (0x0140 - 0x00A8)
@@ -159,6 +170,7 @@ struct FLineTraceParam : public FBaseTraceParam
 public:
 	uint8                                         Pad_A8[0x98];                                      // 0x00A8(0x0098)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FLineTraceParam;
 
 // ScriptStruct BykingUnrealModule.SphereTraceParam
 // 0x0008 (0x0148 - 0x0140)
@@ -167,6 +179,7 @@ struct FSphereTraceParam : public FLineTraceParam
 public:
 	uint8                                         Pad_140[0x8];                                      // 0x0140(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FSphereTraceParam;
 
 // ScriptStruct BykingUnrealModule.CustomSphereTraceParam
 // 0x0010 (0x0158 - 0x0148)
@@ -175,6 +188,7 @@ struct FCustomSphereTraceParam final : public FSphereTraceParam
 public:
 	uint8                                         Pad_148[0x10];                                     // 0x0148(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCustomSphereTraceParam;
 
 // ScriptStruct BykingUnrealModule.CapsureTraceParam
 // 0x0020 (0x0160 - 0x0140)
@@ -183,6 +197,7 @@ struct alignas(0x10) FCapsureTraceParam final : public FLineTraceParam
 public:
 	uint8                                         Pad_140[0x20];                                     // 0x0140(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCapsureTraceParam;
 
 // ScriptStruct BykingUnrealModule.BoxTraceParam
 // 0x0018 (0x0158 - 0x0140)
@@ -191,6 +206,7 @@ struct FBoxTraceParam final : public FLineTraceParam
 public:
 	uint8                                         Pad_140[0x18];                                     // 0x0140(0x0018)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FBoxTraceParam;
 
 // ScriptStruct BykingUnrealModule.CustomLineTraceParam
 // 0x0010 (0x0150 - 0x0140)
@@ -199,6 +215,7 @@ struct FCustomLineTraceParam final : public FLineTraceParam
 public:
 	uint8                                         Pad_140[0x10];                                     // 0x0140(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCustomLineTraceParam;
 
 // ScriptStruct BykingUnrealModule.SimpleKeyVectorData
 // 0x0018 (0x0018 - 0x0000)
@@ -211,6 +228,7 @@ public:
 	float                                         _span;                                             // 0x0008(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                _value;                                            // 0x000C(0x000C)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSimpleKeyVectorData;
 
 // ScriptStruct BykingUnrealModule.SimpleKeyScalarData
 // 0x0010 (0x0010 - 0x0000)
@@ -223,5 +241,7 @@ public:
 	float                                         _span;                                             // 0x0008(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         _value;                                            // 0x000C(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSimpleKeyScalarData;
 
-SDK_NAMESPACE_END
+}
+

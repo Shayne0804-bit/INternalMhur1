@@ -14,7 +14,8 @@
 #include "BP_PlusUltraBuffParams_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_PlusUltraBuffParams.BP_PlusUltraBuffParams_C.GetPlusUltraBuffParam
 // (Public, HasOutParams, BlueprintCallable, BlueprintEvent, BlueprintPure, Const)
@@ -38,5 +39,5 @@ struct FFPlusUltraBuffParam UBP_PlusUltraBuffParams_C::GetPlusUltraBuffParam(boo
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

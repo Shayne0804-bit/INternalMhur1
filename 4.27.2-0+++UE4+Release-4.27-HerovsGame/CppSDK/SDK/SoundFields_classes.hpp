@@ -13,7 +13,8 @@
 #include "AudioExtensions_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class SoundFields.AmbisonicsEncodingSettings
 // 0x0008 (0x0030 - 0x0028)
@@ -37,5 +38,7 @@ public:
 		return GetDefaultObjImpl<UAmbisonicsEncodingSettings>();
 	}
 };
+DUMPER7_ASSERTS_UAmbisonicsEncodingSettings;
 
-SDK_NAMESPACE_END
+}
+

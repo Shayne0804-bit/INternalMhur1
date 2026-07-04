@@ -14,7 +14,8 @@
 #include "WBP_EmptyWindow_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_EmptyWindow.WBP_EmptyWindow_C.ExecuteUbergraph_WBP_EmptyWindow
 // (Final, UbergraphFunction)
@@ -77,5 +78,5 @@ void UWBP_EmptyWindow_C::OnPlayCancelSound()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

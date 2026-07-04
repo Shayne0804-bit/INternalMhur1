@@ -17,7 +17,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionDamageFall.BP_ActionDamageFall_C
 // 0x0028 (0x0330 - 0x0308)
@@ -57,5 +58,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionDamageFall_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionDamageFall_C;
 
-SDK_NAMESPACE_END
+}
+

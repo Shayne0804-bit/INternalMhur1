@@ -14,7 +14,8 @@
 #include "BP_ActionDamageNoise_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageNoise.BP_ActionDamageNoise_C.ExecuteUbergraph_BP_ActionDamageNoise
 // (Final, UbergraphFunction, HasDefaults)
@@ -145,5 +146,5 @@ void UBP_ActionDamageNoise_C::UpdateOnce()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

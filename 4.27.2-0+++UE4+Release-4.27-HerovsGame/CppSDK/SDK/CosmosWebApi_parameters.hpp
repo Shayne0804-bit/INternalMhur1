@@ -14,8 +14,8 @@
 #include "CosmosWebApi_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function CosmosWebApi.CosmosBlueprintLibrary.AppendLastSlash
 // 0x0010 (0x0010 - 0x0000)
@@ -24,6 +24,7 @@ struct CosmosBlueprintLibrary_AppendLastSlash final
 public:
 	class FString                                 URL;                                               // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosBlueprintLibrary_AppendLastSlash;
 
 // Function CosmosWebApi.CosmosBlueprintLibrary.DecodeBase64Url
 // 0x0028 (0x0028 - 0x0000)
@@ -35,6 +36,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0020(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_CosmosBlueprintLibrary_DecodeBase64Url;
 
 // Function CosmosWebApi.CosmosBlueprintLibrary.EncodeBase64Url
 // 0x0028 (0x0028 - 0x0000)
@@ -46,6 +48,7 @@ public:
 	int32                                         ReturnValue;                                       // 0x0020(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_CosmosBlueprintLibrary_EncodeBase64Url;
 
 // Function CosmosWebApi.CosmosBlueprintLibrary.GetFormattedCurrentDateString
 // 0x0010 (0x0010 - 0x0000)
@@ -54,6 +57,7 @@ struct CosmosBlueprintLibrary_GetFormattedCurrentDateString final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosBlueprintLibrary_GetFormattedCurrentDateString;
 
 // Function CosmosWebApi.CosmosBlueprintLibrary.GetFormattedDateString
 // 0x0018 (0x0018 - 0x0000)
@@ -63,6 +67,7 @@ public:
 	struct FDateTime                              DateTime;                                          // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CosmosBlueprintLibrary_GetFormattedDateString;
 
 // Function CosmosWebApi.CosmosBlueprintLibrary.ParseFormattedDate
 // 0x0020 (0x0020 - 0x0000)
@@ -74,6 +79,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0018(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_CosmosBlueprintLibrary_ParseFormattedDate;
 
 // Function CosmosWebApi.WebApiConnect.GetSysAgreeKpiResponse
 // 0x0038 (0x0038 - 0x0000)
@@ -85,6 +91,7 @@ public:
 	struct FCosmosCommonResponseParam             RespParam;                                         // 0x0030(0x0004)(Parm, OutParm, NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_WebApiConnect_GetSysAgreeKpiResponse;
 
 // Function CosmosWebApi.WebApiConnect.GetSysCheckNgwordResponse
 // 0x0038 (0x0038 - 0x0000)
@@ -96,6 +103,7 @@ public:
 	struct FCosmosCommonResponseParam             RespParam;                                         // 0x0030(0x0004)(Parm, OutParm, NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_WebApiConnect_GetSysCheckNgwordResponse;
 
 // Function CosmosWebApi.WebApiConnect.GetSysCheckNgwordV2Response
 // 0x0038 (0x0038 - 0x0000)
@@ -107,6 +115,7 @@ public:
 	struct FCosmosCommonResponseParam             RespParam;                                         // 0x0030(0x0004)(Parm, OutParm, NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_WebApiConnect_GetSysCheckNgwordV2Response;
 
 // Function CosmosWebApi.WebApiConnect.GetSysGetEnvV2Response
 // 0x0048 (0x0048 - 0x0000)
@@ -117,6 +126,7 @@ public:
 	struct FCosmosResponseHeader                  RespHeader;                                        // 0x0008(0x0028)(Parm, OutParm, NativeAccessSpecifierPublic)
 	struct FCosmosSysGetEnvV2ResponseParam        RespParam;                                         // 0x0030(0x0018)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_GetSysGetEnvV2Response;
 
 // Function CosmosWebApi.WebApiConnect.GetSysGetEnvV2SeparateProjectResponse
 // 0x0058 (0x0058 - 0x0000)
@@ -127,6 +137,7 @@ public:
 	struct FCosmosResponseHeader                  RespHeader;                                        // 0x0008(0x0028)(Parm, OutParm, NativeAccessSpecifierPublic)
 	struct FCosmosSysGetEnvV2SeparateProjectResponseParam RespParam;                                 // 0x0030(0x0028)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_GetSysGetEnvV2SeparateProjectResponse;
 
 // Function CosmosWebApi.WebApiConnect.GetSysGetEnvV3Response
 // 0x0058 (0x0058 - 0x0000)
@@ -137,6 +148,7 @@ public:
 	struct FCosmosResponseHeader                  RespHeader;                                        // 0x0008(0x0028)(Parm, OutParm, NativeAccessSpecifierPublic)
 	struct FCosmosSysGetEnvV3ResponseParam        RespParam;                                         // 0x0030(0x0028)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_GetSysGetEnvV3Response;
 
 // Function CosmosWebApi.WebApiConnect.GetSysKpiResponse
 // 0x0038 (0x0038 - 0x0000)
@@ -148,6 +160,7 @@ public:
 	struct FCosmosCommonResponseParam             RespParam;                                         // 0x0030(0x0004)(Parm, OutParm, NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_WebApiConnect_GetSysKpiResponse;
 
 // Function CosmosWebApi.WebApiConnect.GetSysOfflineKpiResponse
 // 0x0038 (0x0038 - 0x0000)
@@ -159,6 +172,7 @@ public:
 	struct FCosmosCommonResponseParam             RespParam;                                         // 0x0030(0x0004)(Parm, OutParm, NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_34[0x4];                                       // 0x0034(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_WebApiConnect_GetSysOfflineKpiResponse;
 
 // Function CosmosWebApi.WebApiConnect.GetTssReadListResponse
 // 0x0048 (0x0048 - 0x0000)
@@ -169,6 +183,7 @@ public:
 	struct FCosmosResponseHeader                  RespHeader;                                        // 0x0008(0x0028)(Parm, OutParm, NativeAccessSpecifierPublic)
 	struct FCosmosTssReadListResponseParam        RespParam;                                         // 0x0030(0x0018)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_GetTssReadListResponse;
 
 // Function CosmosWebApi.WebApiConnect.GetTssReadResponse
 // 0x0048 (0x0048 - 0x0000)
@@ -179,6 +194,7 @@ public:
 	struct FCosmosResponseHeader                  RespHeader;                                        // 0x0008(0x0028)(Parm, OutParm, NativeAccessSpecifierPublic)
 	struct FCosmosTssReadResponseParam            RespParam;                                         // 0x0030(0x0018)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_GetTssReadResponse;
 
 // Function CosmosWebApi.WebApiConnect.GetUserAuthResponse
 // 0x0050 (0x0050 - 0x0000)
@@ -189,6 +205,7 @@ public:
 	struct FCosmosResponseHeader                  RespHeader;                                        // 0x0008(0x0028)(Parm, OutParm, NativeAccessSpecifierPublic)
 	struct FCosmosUserAuthResponseParam           RespParam;                                         // 0x0030(0x0020)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_GetUserAuthResponse;
 
 // Function CosmosWebApi.WebApiConnect.GetUserConvertUserIdResponse
 // 0x0048 (0x0048 - 0x0000)
@@ -199,6 +216,7 @@ public:
 	struct FCosmosResponseHeader                  RespHeader;                                        // 0x0008(0x0028)(Parm, OutParm, NativeAccessSpecifierPublic)
 	struct FCosmosUserConvertUserIdResponseParam  RespParam;                                         // 0x0030(0x0018)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_GetUserConvertUserIdResponse;
 
 // Function CosmosWebApi.WebApiConnect.GetUserGetCountryResponse
 // 0x0048 (0x0048 - 0x0000)
@@ -209,6 +227,7 @@ public:
 	struct FCosmosResponseHeader                  RespHeader;                                        // 0x0008(0x0028)(Parm, OutParm, NativeAccessSpecifierPublic)
 	struct FCosmosUserGetCountryResponseParam     RespParam;                                         // 0x0030(0x0018)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_GetUserGetCountryResponse;
 
 // Function CosmosWebApi.WebApiConnect.GetUserGetTrackingNumResponse
 // 0x0048 (0x0048 - 0x0000)
@@ -219,6 +238,7 @@ public:
 	struct FCosmosResponseHeader                  RespHeader;                                        // 0x0008(0x0028)(Parm, OutParm, NativeAccessSpecifierPublic)
 	struct FCosmosUserGetTrackingNumResponseParam RespParam;                                         // 0x0030(0x0018)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_GetUserGetTrackingNumResponse;
 
 // Function CosmosWebApi.WebApiConnect.GetUserLinkBnidResponse
 // 0x0048 (0x0048 - 0x0000)
@@ -229,6 +249,7 @@ public:
 	struct FCosmosResponseHeader                  RespHeader;                                        // 0x0008(0x0028)(Parm, OutParm, NativeAccessSpecifierPublic)
 	struct FCosmosUserLinkBnidResponseParam       RespParam;                                         // 0x0030(0x0018)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_GetUserLinkBnidResponse;
 
 // Function CosmosWebApi.WebApiConnect.GetUserLoginV2Response
 // 0x0050 (0x0050 - 0x0000)
@@ -239,6 +260,7 @@ public:
 	struct FCosmosResponseHeader                  RespHeader;                                        // 0x0008(0x0028)(Parm, OutParm, NativeAccessSpecifierPublic)
 	struct FCosmosUserLoginV2ResponseParam        RespParam;                                         // 0x0030(0x0020)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_GetUserLoginV2Response;
 
 // Function CosmosWebApi.WebApiConnect.SysAgreeKpi
 // 0x0018 (0x0018 - 0x0000)
@@ -250,6 +272,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWebApiConnect*                         ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_SysAgreeKpi;
 
 // Function CosmosWebApi.WebApiConnect.SysCheckNgword
 // 0x0038 (0x0038 - 0x0000)
@@ -263,6 +286,7 @@ public:
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWebApiConnect*                         ReturnValue;                                       // 0x0030(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_SysCheckNgword;
 
 // Function CosmosWebApi.WebApiConnect.SysCheckNgwordV2
 // 0x0038 (0x0038 - 0x0000)
@@ -276,6 +300,7 @@ public:
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWebApiConnect*                         ReturnValue;                                       // 0x0030(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_SysCheckNgwordV2;
 
 // Function CosmosWebApi.WebApiConnect.SysGetEnvV2
 // 0x0030 (0x0030 - 0x0000)
@@ -290,6 +315,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWebApiConnect*                         ReturnValue;                                       // 0x0028(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_SysGetEnvV2;
 
 // Function CosmosWebApi.WebApiConnect.SysGetEnvV2SeparateProject
 // 0x0030 (0x0030 - 0x0000)
@@ -304,6 +330,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWebApiConnect*                         ReturnValue;                                       // 0x0028(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_SysGetEnvV2SeparateProject;
 
 // Function CosmosWebApi.WebApiConnect.SysGetEnvV3
 // 0x0040 (0x0040 - 0x0000)
@@ -319,6 +346,7 @@ public:
 	class FString                                 Version;                                           // 0x0028(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UWebApiConnect*                         ReturnValue;                                       // 0x0038(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_SysGetEnvV3;
 
 // Function CosmosWebApi.WebApiConnect.SysKpi
 // 0x0020 (0x0020 - 0x0000)
@@ -329,6 +357,7 @@ public:
 	TArray<struct FCosmosKpiNoColumnData>         kpiNoColumnData;                                   // 0x0008(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	class UWebApiConnect*                         ReturnValue;                                       // 0x0018(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_SysKpi;
 
 // Function CosmosWebApi.WebApiConnect.SysOfflineKpi
 // 0x0020 (0x0020 - 0x0000)
@@ -339,6 +368,7 @@ public:
 	TArray<struct FCosmosKpiNoColumnData>         kpiNoColumnData;                                   // 0x0008(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	class UWebApiConnect*                         ReturnValue;                                       // 0x0018(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_SysOfflineKpi;
 
 // Function CosmosWebApi.WebApiConnect.TssRead
 // 0x0010 (0x0010 - 0x0000)
@@ -348,6 +378,7 @@ public:
 	class UObject*                                WorldContextObject;                                // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UWebApiConnect*                         ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_TssRead;
 
 // Function CosmosWebApi.WebApiConnect.TssReadList
 // 0x0010 (0x0010 - 0x0000)
@@ -357,6 +388,7 @@ public:
 	class UObject*                                WorldContextObject;                                // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UWebApiConnect*                         ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_TssReadList;
 
 // Function CosmosWebApi.WebApiConnect.UserAuth
 // 0x0038 (0x0038 - 0x0000)
@@ -370,6 +402,7 @@ public:
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWebApiConnect*                         ReturnValue;                                       // 0x0030(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_UserAuth;
 
 // Function CosmosWebApi.WebApiConnect.UserConvertUserId
 // 0x0020 (0x0020 - 0x0000)
@@ -380,6 +413,7 @@ public:
 	TArray<class FString>                         pUserId;                                           // 0x0008(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	class UWebApiConnect*                         ReturnValue;                                       // 0x0018(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_UserConvertUserId;
 
 // Function CosmosWebApi.WebApiConnect.UserGetCountry
 // 0x0010 (0x0010 - 0x0000)
@@ -389,6 +423,7 @@ public:
 	class UObject*                                WorldContextObject;                                // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UWebApiConnect*                         ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_UserGetCountry;
 
 // Function CosmosWebApi.WebApiConnect.UserGetTrackingNum
 // 0x0010 (0x0010 - 0x0000)
@@ -398,6 +433,7 @@ public:
 	class UObject*                                WorldContextObject;                                // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UWebApiConnect*                         ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_UserGetTrackingNum;
 
 // Function CosmosWebApi.WebApiConnect.UserLinkBnid
 // 0x0010 (0x0010 - 0x0000)
@@ -407,6 +443,7 @@ public:
 	class UObject*                                WorldContextObject;                                // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UWebApiConnect*                         ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_UserLinkBnid;
 
 // Function CosmosWebApi.WebApiConnect.UserLoginV2
 // 0x0038 (0x0038 - 0x0000)
@@ -420,6 +457,7 @@ public:
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UWebApiConnect*                         ReturnValue;                                       // 0x0030(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_WebApiConnect_UserLoginV2;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

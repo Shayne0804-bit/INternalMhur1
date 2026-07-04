@@ -27,6 +27,132 @@ struct SeasonRankRewardItemOption
     std::string label;
 };
 
+struct Ch202Unique3ParamsConfig
+{
+    float meleeAChaseHeightOffset = 0.0f;
+    float meleeAChaseStartSpeedMax = 1.0f;
+    float meleeAChaseStartSpeedMin = 1.0f;
+    float meleeAChaseLastSpeed = 1.0f;
+    float meleeAChaseSpeedSpan = 1.0f;
+    float meleeAChaseSpan = 1.0f;
+    float meleeADistance = 1.0f;
+    float meleeABreakTargetSpeed = 1.0f;
+    float meleeABreakTargetSpan = 1.0f;
+    float unique1HoldTime = 1.0f;
+    float unique2NeedFieldTime = 1.0f;
+    float unique2HoldTime = 1.0f;
+    float unique2MoveTime = 1.0f;
+    float unique2MoveSpeedMin = 1.0f;
+    float unique2MoveSpeedMax = 1.0f;
+    float unique2QuintupleRiseSlideSpeed = 1.0f;
+    float unique2QuintupleRiseSlideSpan = 1.0f;
+    float unique2QuintupleFallSlideSpeed = 1.0f;
+    float unique2QuintupleFallSlideSpan = 1.0f;
+    int32_t unique2AfterLevel = 1;
+    bool unique2QuintupleAllAmmoConsumed = false;
+    int32_t initTransMissionLevel = 1;
+    float endDistanceOfFollowing = 1.0f;
+    float moveSpeedStart = 1.0f;
+    float moveSpeedEnd = 1.0f;
+    float speedChangeTime = 1.0f;
+    float exitSpeedStart = 1.0f;
+    float exitSpeedEnd = 1.0f;
+    float exitChangeTime = 1.0f;
+    int32_t limitCount = 1;
+    float moveMagazinePercentMin = 1.0f;
+    float moveMagazinePercentMax = 1.0f;
+    float punchMagazinePercentMin = 1.0f;
+    float punchMagazinePercentMax = 1.0f;
+    int32_t recoverMagazineBase = 1;
+    int32_t recoverMagazineAdd = 1;
+    float delayCancelTimer = 1.0f;
+    float lockOnSec = 1.0f;
+    float lockOnMinSec = 0.1f;
+    float lockOnRange = 1000.0f;
+    int32_t lockOnAttackTargetCheckType = 0;
+    float curveHorizontalDistanceMin = 1.0f;
+    float curveHorizontalDistanceMax = 1.0f;
+    float middleUpOffset = 1.0f;
+    float targetOffset = 1.0f;
+    float splitDistance = 1.0f;
+    float splitLerpRate = 1.0f;
+    float controlPointsRate = 1.0f;
+    float minDetroitRange = 1.0f;
+    float minDetroitSpeed = 1.0f;
+    float maxDetroitRange = 1.0f;
+    float maxDetroitSpeed = 1.0f;
+    float middleOffsetX = 0.0f;
+    float middleOffsetY = 0.0f;
+    float middleOffsetZ = 0.0f;
+    float middleOffsetAerialX = 0.0f;
+    float middleOffsetAerialY = 0.0f;
+    float middleOffsetAerialZ = 0.0f;
+    float specialHoldTime = 1.0f;
+    float specialActivationTime = 1.0f;
+    int32_t specialSmokeMagazineCost = 1;
+    int32_t specialLegCount = 1;
+    float specialJumpVerticalSpan = 1.0f;
+    float specialJumpVerticalHeight = 1.0f;
+    float specialJumpForwardSpan = 1.0f;
+    float specialJumpForwardHeight = 1.0f;
+    float specialJumpForwardInitialSpeedH = 1.0f;
+    float specialJumpForwardLastSpeedH = 1.0f;
+    float specialJumpForwardAccelSpanH = 1.0f;
+    float specialWallJumpSpan = 1.0f;
+    float specialWallJumpHeight = 1.0f;
+    float specialWallJumpInitialSpeed = 1.0f;
+    float specialWallJumpLastSpeed = 1.0f;
+    float conditionAnimationMultiplyRate = 1.0f;
+    float conditionMoveMultiplyRate = 1.0f;
+    float conditionJumpAdjustMultiplyRate = 1.0f;
+};
+
+struct AttackChainConfig
+{
+    bool useChainComboFlag = true;
+    float chainComboTime = 0.25f;
+    bool enableShiftAttackActions = true;
+    bool clearShiftActionAttackFlags = true;
+    bool useAnimationRate = true;
+    float animationRate = 2.0f;
+    bool animationRateNagara = true;
+    bool usePhaseEndCondition = false;
+    bool comboCommand = true;
+    bool grabbed = false;
+    float endTimer = 0.0f;
+    bool landing = false;
+    bool endAnim = true;
+    int32_t endAnimSlot = 0;
+    bool finishCurrentPhase = false;
+    bool terminateAttackLayer = false;
+    bool enableAimingActionCancel = true;
+    int32_t actionCancelFlag = 255;
+    bool ownerActionOnly = false;
+    bool validateNextReservedAction = true;
+};
+
+struct DownPowerConfig
+{
+    bool patchDamageParams = true;
+    int32_t damageType = 16;
+    bool includeNoActionDamage = true;
+    bool overrideRecoverSpan = false;
+    float recoverSpan = 0.0f;
+    bool applyDurableRates = true;
+    float durableRate = 1.0f;
+    float durableAttackActionRate = 1.0f;
+    float durableTakeDamageRate = 1.0f;
+    float durableSpecialActionRate = 1.0f;
+    float durableRollSlotRate = 1.0f;
+    float durableTakeDamageRollSlotRate = 1.0f;
+    bool applyBreakDownSuperArmorRate = true;
+    float breakDownSuperArmorRate = 1.0f;
+    bool disableTargetSuperArmor = true;
+    int32_t targetMode = 1; // 0=Forward ESP, 1=All enemies, 2=All non-local, 3=Selected
+    int32_t selectedCharacterIndex = -1;
+    float breakDownGaugeRate = 0.0f;
+};
+
 // ============================================================================
 // CHARACTER VARIATION FUNCTIONS
 // ============================================================================
@@ -170,6 +296,53 @@ bool InGameHack_SetReloadAdjustRate_RollSlot(float rate);
  * @param rate - Reload rate multiplier while wearing blue flame
  */
 bool InGameHack_SetReloadAdjustRate_WearBlueFlame(float rate);
+
+/**
+ * Give/activate Plus Ultra on the local battle character.
+ */
+bool InGameHack_GivePlusUltra();
+
+/**
+ * Fill Plus Ultra gauge on the local battle character without changing active duration.
+ */
+bool InGameHack_KeepPlusUltraReady();
+
+/**
+ * Toggle faster Plus Ultra charge/reload on the local player state.
+ */
+bool InGameHack_SetPlusUltraFastCharge(bool enable);
+
+/**
+ * Toggle wall/player through on the local battle character.
+ */
+bool InGameHack_SetNoCollision(bool enable);
+
+/**
+ * Run camera-driven no collision movement while the hold input is active.
+ */
+bool InGameHack_UpdateNoCollisionMovement(bool holdActive, float forwardAxis, float rightAxis, float speed);
+
+/**
+ * Apply camera FOV through SDK camera/player-controller members.
+ */
+bool InGameHack_SetCameraFOV(float fov);
+
+/**
+ * Apply SDK attack-chain helpers on the local player's current attack.
+ */
+bool InGameHack_ApplyAttackChainControl(const AttackChainConfig& config);
+
+/**
+ * Apply SDK durable/breakdown controls and optionally clear super armor on targets.
+ */
+bool InGameHack_ApplyDownPowerConfig(const DownPowerConfig& config);
+bool InGameHack_TryReadDownPowerConfig(DownPowerConfig& outConfig);
+
+/**
+ * Set CV_None CurveFloat key values used by damage attenuation.
+ * value <= 1.0 restores the original key values captured before patching.
+ */
+bool InGameHack_SetCvNoneCurveValue(float value);
 
 // ============================================
 // TRAINING MODE EXECUTION
@@ -375,6 +548,88 @@ bool InGameHack_SetInfiniteObjectsPatch(bool enabled);
 void InGameHack_RestoreInfiniteObjectsPatch();
 
 /**
+ * Infinite objects, pure-SDK version (no byte patch / no hardcoded offset).
+ * Call TickInfiniteObjectsSDK every frame while enabled; it re-inflates the
+ * local player's inventory holder counts (UC::TArray::NumElements) so items
+ * are never consumed. Call Reset on disable or match exit to clear tracking.
+ */
+void InGameHack_TickInfiniteObjectsSDK();
+void InGameHack_ResetInfiniteObjectsSDK();
+
+/**
+ * Read-only snapshot of one inventory holder (USupplyHolder).
+ */
+struct InGameInventoryHolder
+{
+    int32_t inventoryIndex = -1;                     // index in USupplyHolderComponent::_inventory
+    int32_t holderIndex = -1;                        // USupplyHolder::_index
+    const char* typeName = "?";                      // ESupplyHolderType (INVENTORY/ABILITYSLOT/...)
+    bool enabled = false;                            // USupplyHolder::_bEnable
+    int32_t supplyCount = 0;                         // USupplyHolder::_supplies.Num()
+    int32_t serialCount = 0;                         // USupplyHolder::_serverSerialList.Num()
+    std::vector<std::string> supplyClassNames;       // class name of each USupply* slot
+};
+
+/**
+ * Read-only snapshot of the local player's whole inventory.
+ */
+struct InGameInventorySnapshot
+{
+    bool valid = false;
+    int32_t totalSupplies = 0;
+    std::vector<InGameInventoryHolder> holders;
+};
+
+/**
+ * Read the local player's inventory (USupplyHolderComponent) into `out`.
+ * Pure SDK reads, no writes. Returns false if not in battle or no component.
+ */
+bool InGameHack_ReadInventory(InGameInventorySnapshot& out);
+
+/**
+ * Convenience: read the inventory and dump it to the log (one line per holder).
+ */
+void InGameHack_LogInventory();
+
+/**
+ * Drop every supply in the local player's inventory via OnDrop_ToServer (by
+ * server serial). With Infinite Objects active the inventory count does not
+ * decrement, so dropped supplies are duplicated on the ground.
+ * Returns the number of serials sent to the server.
+ */
+int32_t InGameHack_DropInventorySupplies(bool longDropDistance);
+
+/**
+ * Convenience: drop all inventory supplies and append the result to the log.
+ */
+void InGameHack_LogDropInventorySupplies();
+
+/**
+ * Scan the world for droppable item actors (AItemBase) and rebuild the internal
+ * catalog used by the custom drop menu. Returns the number of distinct items.
+ */
+int InGameHack_ScanWorldItemCatalog();
+
+/**
+ * Copy the current world item catalog display names (for the UI combo).
+ */
+void InGameHack_GetWorldItemCatalogNames(std::vector<std::string>& out);
+
+/**
+ * Drop `serialId` unique request serials per quantity pass. The replicated
+ * ASupplyActorBase actors are identified afterward by _netSupplyId/_supplyId.
+ * Logs to C:\temp\rugir_inventory.log. Returns the number of serials sent.
+ */
+int InGameHack_DropCatalogItem(int catalogIndex, int quantity, int serialId, bool longDrop);
+
+/**
+ * Custom drop placement updater. Tracks custom-drop serials and moves the
+ * replicated ASupplyActorBase instances into FName groups around the player.
+ */
+bool InGameHack_HasPendingCustomDropPlacement();
+bool InGameHack_UpdateCustomDropPlacement();
+
+/**
  * Apply CH202_TRANS_MISSION condition to player character
  * Enables Ch202 transformation/mission state (ECharacterConditionId = 85)
  */
@@ -493,6 +748,22 @@ std::vector<class SDK::ACharacterBattle*> InGameHack_GetAllCharacterBattles();
  * Returns vector of character names (from PlayerState)
  */
 std::vector<std::string> InGameHack_GetCharacterNames();
+std::vector<std::string> InGameHack_GetClearInvincibleTargetNames();
+
+/**
+ * Clear invincibility on selected battle targets through APlayerStateBattle SDK server RPCs.
+ * targetMode: 0=Forward ESP, 1=All enemies, 2=All non-local characters, 3=Selected character index
+ * method: 0=ClearInvincible_Server, 1=ClearInvincibleFromAttack_Server, 2=ClearInvincibleWithTag_Server
+ * Returns number of successful RPC sends.
+ */
+int InGameHack_ClearInvincibleTargets(
+    int targetMode,
+    int method,
+    bool ignoreFixed,
+    int attackId,
+    const char* tag,
+    int selectedCharacterIndex);
+
 std::vector<SDK::ACharacterBattle*> InGameHack_GetTeamCharacterBattles();
 std::vector<std::string> InGameHack_GetTeamCharacterNames();
 bool InGameHack_RecoverDyingTeamMember(SDK::ACharacterBattle* target);
@@ -502,6 +773,11 @@ bool InGameHack_RecoverDyingTeamMember(SDK::ACharacterBattle* target);
  * Scans all UANS_Attack objects and logs their _damageAttenuation curves with their properties
  */
 void InGameHack_LogAllDamageAttenuationCurves();
+
+/**
+ * Scan loaded CurveFloat objects for CV_none and dump curve keys to C:/Temp/cv_none_curve_scan.log.
+ */
+bool InGameHack_DumpCvNoneCurveScan();
 
 /**
  * Set a character to dying state
@@ -529,6 +805,9 @@ bool InGameHack_ValidateTransMissionLevel(int level);
  */
 bool InGameHack_SetInitTransMissionLevel(int levelIndex, int32_t newValue);
 
+bool InGameHack_ApplyCh202Unique3Params(const Ch202Unique3ParamsConfig& config);
+bool InGameHack_TryReadCh202Unique3Params(Ch202Unique3ParamsConfig& outConfig);
+
 /**
  * Set skill level for a character
  * @param skillIndex - The skill index (0-8 for levels 1-9)
@@ -541,6 +820,19 @@ bool InGameHack_SetSkillLevel(int skillIndex, int level);
  * Calls CharacterActionControlComponent::SetAttackAction_ToServer(USEITEM).
  */
 bool InGameHack_TestUseItemAction(int uniqueLevel = 1);
+
+/**
+ * Test the server-side ally respawn action path.
+ * Calls CharacterActionControlComponent::SetAttackAction_ToServer(USERESPAWN).
+ */
+bool InGameHack_TestUserRespawnAction();
+bool InGameHack_TestUserRespawnSelectedTeamMember(int teamMemberIndex);
+
+/**
+ * Test the real respawn-card supply path.
+ * Finds a respawn supply in inventory and calls SupplyHolderComponent::OnUseSupply_ToServer.
+ */
+bool InGameHack_TestUseRespawnCardSupply();
 
 /**
  * Get current skill level for a character
@@ -611,11 +903,36 @@ void InGameHack_ProcessCharacterConditionAutoExecution(
 bool InGameHack_ChangePlayerName(const char* newName);
 
 /**
+ * Set backend player platform enum.
+ * EPlatform: 0=Invalid, 1=PlayStation, 2=Xbox, 3=Windows, 4=Switch, 5=None.
+ */
+bool InGameHack_SetBackendPlayerPlatform(int platform);
+
+/**
+ * Force the backend fake platform string.
+ */
+bool InGameHack_ForceFakePlatform(const char* platformName);
+
+/**
  * Generate projectile in front of player (hardcoded: Ch010 PUSH_SPECIAL)
  * Creates projectile at player location facing forward
  * @return true if successful, false otherwise
  */
 bool InGameHack_GenerateProjectileInFront();
+
+/**
+ * Dump the replicated projectile generation slots from the local player.
+ * Use after firing a normal projectile in-game to capture runtime generator IDs.
+ * @return true if dump was written, false otherwise
+ */
+bool InGameHack_DumpLastProjectileGenerateRep();
+
+/**
+ * Dump active projectile generators, bullets, projectile notifies and data assets.
+ * Use after firing a normal projectile in-game when _createGenerateRep stays empty.
+ * @return true if dump was written, false otherwise.
+ */
+bool InGameHack_DumpProjectileRuntimeDebug();
 
 /**
  * Buy License Exp from backend subsystem
@@ -672,3 +989,15 @@ int InGameHack_ReplaceSeasonRankRewardsFromExistingReward(
     int quantity,
     int targetSlotMask,
     bool applyAllRanks);
+
+// ============================================================================
+// RENTAL TICKET BYPASS
+// ============================================================================
+
+/**
+ * Bypass rental ticket amount check by writing max ticket value (3)
+ * Navigates UWorld->OwningGameInstance->+0xF0->+0x8->+0x6B0 and writes byte at +0x1038
+ * Must be called every frame while enabled (one-frame write, no persistence)
+ * @return true if write succeeded, false otherwise
+ */
+bool InGameHack_BypassRentalTickets();

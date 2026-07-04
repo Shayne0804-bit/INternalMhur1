@@ -14,7 +14,8 @@
 #include "SoundManager_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function SoundManager.SoundManager.OnEndPlayAtomRootActor
 // (Final, Native, Public)
@@ -42,5 +43,5 @@ void USoundManager::OnEndPlayAtomRootActor(class AActor* Actor, EEndPlayReason E
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class Preloader.PreloaderWork
 // 0x0000 (0x0030 - 0x0030)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UPreloaderWork>();
 	}
 };
+DUMPER7_ASSERTS_UPreloaderWork;
 
-SDK_NAMESPACE_END
+}
+

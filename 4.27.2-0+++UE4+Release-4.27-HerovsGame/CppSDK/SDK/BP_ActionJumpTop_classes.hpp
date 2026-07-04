@@ -15,7 +15,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionJumpTop.BP_ActionJumpTop_C
 // 0x0008 (0x0280 - 0x0278)
@@ -48,5 +49,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionJumpTop_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionJumpTop_C;
 
-SDK_NAMESPACE_END
+}
+

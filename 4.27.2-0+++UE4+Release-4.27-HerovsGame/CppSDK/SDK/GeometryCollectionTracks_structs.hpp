@@ -14,7 +14,8 @@
 #include "MovieScene_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct GeometryCollectionTracks.MovieSceneGeometryCollectionParams
 // 0x0030 (0x0030 - 0x0000)
@@ -28,6 +29,7 @@ public:
 	float                                         PlayRate;                                          // 0x0028(0x0004)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_2C[0x4];                                       // 0x002C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FMovieSceneGeometryCollectionParams;
 
 // ScriptStruct GeometryCollectionTracks.MovieSceneGeometryCollectionSectionTemplateParameters
 // 0x0008 (0x0038 - 0x0030)
@@ -37,6 +39,7 @@ public:
 	struct FFrameNumber                           SectionStartTime;                                  // 0x0030(0x0004)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FFrameNumber                           SectionEndTime;                                    // 0x0034(0x0004)(NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMovieSceneGeometryCollectionSectionTemplateParameters;
 
 // ScriptStruct GeometryCollectionTracks.MovieSceneGeometryCollectionSectionTemplate
 // 0x0038 (0x0058 - 0x0020)
@@ -45,5 +48,7 @@ struct FMovieSceneGeometryCollectionSectionTemplate final : public FMovieSceneEv
 public:
 	struct FMovieSceneGeometryCollectionSectionTemplateParameters params;                            // 0x0020(0x0038)(NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMovieSceneGeometryCollectionSectionTemplate;
 
-SDK_NAMESPACE_END
+}
+

@@ -15,7 +15,8 @@
 #include "AudioSynesthesia_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class AudioSynesthesia.AudioSynesthesiaNRT
 // 0x0000 (0x0078 - 0x0078)
@@ -35,6 +36,7 @@ public:
 		return GetDefaultObjImpl<UAudioSynesthesiaNRT>();
 	}
 };
+DUMPER7_ASSERTS_UAudioSynesthesiaNRT;
 
 // Class AudioSynesthesia.OnsetNRT
 // 0x0008 (0x0080 - 0x0078)
@@ -61,6 +63,7 @@ public:
 		return GetDefaultObjImpl<UOnsetNRT>();
 	}
 };
+DUMPER7_ASSERTS_UOnsetNRT;
 
 // Class AudioSynesthesia.AudioSynesthesiaNRTSettings
 // 0x0000 (0x0028 - 0x0028)
@@ -80,6 +83,7 @@ public:
 		return GetDefaultObjImpl<UAudioSynesthesiaNRTSettings>();
 	}
 };
+DUMPER7_ASSERTS_UAudioSynesthesiaNRTSettings;
 
 // Class AudioSynesthesia.ConstantQNRTSettings
 // 0x0020 (0x0048 - 0x0028)
@@ -113,6 +117,7 @@ public:
 		return GetDefaultObjImpl<UConstantQNRTSettings>();
 	}
 };
+DUMPER7_ASSERTS_UConstantQNRTSettings;
 
 // Class AudioSynesthesia.ConstantQNRT
 // 0x0008 (0x0080 - 0x0078)
@@ -139,6 +144,7 @@ public:
 		return GetDefaultObjImpl<UConstantQNRT>();
 	}
 };
+DUMPER7_ASSERTS_UConstantQNRT;
 
 // Class AudioSynesthesia.LoudnessNRTSettings
 // 0x0018 (0x0040 - 0x0028)
@@ -167,6 +173,7 @@ public:
 		return GetDefaultObjImpl<ULoudnessNRTSettings>();
 	}
 };
+DUMPER7_ASSERTS_ULoudnessNRTSettings;
 
 // Class AudioSynesthesia.LoudnessNRT
 // 0x0008 (0x0080 - 0x0078)
@@ -195,6 +202,7 @@ public:
 		return GetDefaultObjImpl<ULoudnessNRT>();
 	}
 };
+DUMPER7_ASSERTS_ULoudnessNRT;
 
 // Class AudioSynesthesia.OnsetNRTSettings
 // 0x0018 (0x0040 - 0x0028)
@@ -223,5 +231,7 @@ public:
 		return GetDefaultObjImpl<UOnsetNRTSettings>();
 	}
 };
+DUMPER7_ASSERTS_UOnsetNRTSettings;
 
-SDK_NAMESPACE_END
+}
+

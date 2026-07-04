@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum AudioSynesthesia.EConstantQFFTSizeEnum
 // NumValues: 0x0009
@@ -50,4 +51,5 @@ enum class ELoudnessNRTCurveTypeEnum : uint8
 	ELoudnessNRTCurveTypeEnum_MAX            = 5,
 };
 
-SDK_NAMESPACE_END
+}
+

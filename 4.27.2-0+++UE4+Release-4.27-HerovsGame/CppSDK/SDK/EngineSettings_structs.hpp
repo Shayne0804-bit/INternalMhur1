@@ -13,7 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum EngineSettings.ESubLevelStripMode
 // NumValues: 0x0003
@@ -63,6 +64,7 @@ public:
 	class FString                                 Desc;                                              // 0x0010(0x0010)(Edit, ZeroConstructor, Config, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_20[0x8];                                       // 0x0020(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FAutoCompleteCommand;
 
 // ScriptStruct EngineSettings.GameModeName
 // 0x0028 (0x0028 - 0x0000)
@@ -72,5 +74,7 @@ public:
 	class FString                                 Name;                                              // 0x0000(0x0010)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FSoftClassPath                         GameMode;                                          // 0x0010(0x0018)(Edit, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FGameModeName;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "BP_ActionFailedWallThrough_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionFailedWallThrough.BP_ActionFailedWallThrough_C.ExecuteUbergraph_BP_ActionFailedWallThrough
 // (Final, UbergraphFunction, HasDefaults)
@@ -132,5 +133,5 @@ bool UBP_ActionFailedWallThrough_C::BP_IsEnableShiftAction(const class FName& ne
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -15,8 +15,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function EditableMesh.EditableMesh.InvalidEdgeID
 // 0x0004 (0x0004 - 0x0000)
@@ -25,6 +25,7 @@ struct EditableMesh_InvalidEdgeID final
 public:
 	struct FEdgeID                                ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_InvalidEdgeID;
 
 // Function EditableMesh.EditableMesh.InvalidPolygonGroupID
 // 0x0004 (0x0004 - 0x0000)
@@ -33,6 +34,7 @@ struct EditableMesh_InvalidPolygonGroupID final
 public:
 	struct FPolygonGroupID                        ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_InvalidPolygonGroupID;
 
 // Function EditableMesh.EditableMesh.InvalidPolygonID
 // 0x0004 (0x0004 - 0x0000)
@@ -41,6 +43,7 @@ struct EditableMesh_InvalidPolygonID final
 public:
 	struct FPolygonID                             ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_InvalidPolygonID;
 
 // Function EditableMesh.EditableMesh.InvalidVertexID
 // 0x0004 (0x0004 - 0x0000)
@@ -49,6 +52,7 @@ struct EditableMesh_InvalidVertexID final
 public:
 	struct FVertexID                              ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_InvalidVertexID;
 
 // Function EditableMesh.EditableMesh.MakeEdgeID
 // 0x0008 (0x0008 - 0x0000)
@@ -58,6 +62,7 @@ public:
 	int32                                         EdgeIndex;                                         // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FEdgeID                                ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_MakeEdgeID;
 
 // Function EditableMesh.EditableMesh.MakePolygonGroupID
 // 0x0008 (0x0008 - 0x0000)
@@ -67,6 +72,7 @@ public:
 	int32                                         PolygonGroupIndex;                                 // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FPolygonGroupID                        ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_MakePolygonGroupID;
 
 // Function EditableMesh.EditableMesh.MakePolygonID
 // 0x0008 (0x0008 - 0x0000)
@@ -76,6 +82,7 @@ public:
 	int32                                         PolygonIndex;                                      // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FPolygonID                             ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_MakePolygonID;
 
 // Function EditableMesh.EditableMesh.MakeVertexID
 // 0x0008 (0x0008 - 0x0000)
@@ -85,6 +92,7 @@ public:
 	int32                                         VertexIndex;                                       // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVertexID                              ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_MakeVertexID;
 
 // Function EditableMesh.EditableMesh.AssignPolygonsToPolygonGroups
 // 0x0018 (0x0018 - 0x0000)
@@ -95,6 +103,7 @@ public:
 	bool                                          bDeleteOrphanedPolygonGroups;                      // 0x0010(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_EditableMesh_AssignPolygonsToPolygonGroups;
 
 // Function EditableMesh.EditableMesh.BevelPolygons
 // 0x0038 (0x0038 - 0x0000)
@@ -107,6 +116,7 @@ public:
 	TArray<struct FPolygonID>                     OutNewCenterPolygonIDs;                            // 0x0018(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FPolygonID>                     OutNewSidePolygonIDs;                              // 0x0028(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_BevelPolygons;
 
 // Function EditableMesh.EditableMesh.ChangePolygonsVertexInstances
 // 0x0010 (0x0010 - 0x0000)
@@ -115,6 +125,7 @@ struct EditableMesh_ChangePolygonsVertexInstances final
 public:
 	TArray<struct FChangeVertexInstancesForPolygon> VertexInstancesForPolygons;                      // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_ChangePolygonsVertexInstances;
 
 // Function EditableMesh.EditableMesh.CommitInstance
 // 0x0010 (0x0010 - 0x0000)
@@ -124,6 +135,7 @@ public:
 	class UPrimitiveComponent*                    ComponentToInstanceTo;                             // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UEditableMesh*                          ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_CommitInstance;
 
 // Function EditableMesh.EditableMesh.CreateEdges
 // 0x0020 (0x0020 - 0x0000)
@@ -133,6 +145,7 @@ public:
 	TArray<struct FEdgeToCreate>                  EdgesToCreate;                                     // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<struct FEdgeID>                        OutNewEdgeIDs;                                     // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_CreateEdges;
 
 // Function EditableMesh.EditableMesh.CreateEmptyVertexRange
 // 0x0018 (0x0018 - 0x0000)
@@ -143,6 +156,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FVertexID>                      OutNewVertexIDs;                                   // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_CreateEmptyVertexRange;
 
 // Function EditableMesh.EditableMesh.CreateMissingPolygonPerimeterEdges
 // 0x0018 (0x0018 - 0x0000)
@@ -153,6 +167,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FEdgeID>                        OutNewEdgeIDs;                                     // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_CreateMissingPolygonPerimeterEdges;
 
 // Function EditableMesh.EditableMesh.CreatePolygonGroups
 // 0x0020 (0x0020 - 0x0000)
@@ -162,6 +177,7 @@ public:
 	TArray<struct FPolygonGroupToCreate>          PolygonGroupsToCreate;                             // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<struct FPolygonGroupID>                OutNewPolygonGroupIDs;                             // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_CreatePolygonGroups;
 
 // Function EditableMesh.EditableMesh.CreatePolygons
 // 0x0030 (0x0030 - 0x0000)
@@ -172,6 +188,7 @@ public:
 	TArray<struct FPolygonID>                     OutNewPolygonIDs;                                  // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FEdgeID>                        OutNewEdgeIDs;                                     // 0x0020(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_CreatePolygons;
 
 // Function EditableMesh.EditableMesh.CreateVertexInstances
 // 0x0020 (0x0020 - 0x0000)
@@ -181,6 +198,7 @@ public:
 	TArray<struct FVertexInstanceToCreate>        VertexInstancesToCreate;                           // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<struct FVertexInstanceID>              OutNewVertexInstanceIDs;                           // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_CreateVertexInstances;
 
 // Function EditableMesh.EditableMesh.CreateVertices
 // 0x0020 (0x0020 - 0x0000)
@@ -190,6 +208,7 @@ public:
 	TArray<struct FVertexToCreate>                VerticesToCreate;                                  // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<struct FVertexID>                      OutNewVertexIDs;                                   // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_CreateVertices;
 
 // Function EditableMesh.EditableMesh.DeleteEdgeAndConnectedPolygons
 // 0x0008 (0x0008 - 0x0000)
@@ -202,6 +221,7 @@ public:
 	bool                                          bDeleteOrphanedVertexInstances;                    // 0x0006(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          bDeleteEmptyPolygonGroups;                         // 0x0007(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_DeleteEdgeAndConnectedPolygons;
 
 // Function EditableMesh.EditableMesh.DeleteEdges
 // 0x0018 (0x0018 - 0x0000)
@@ -212,6 +232,7 @@ public:
 	bool                                          bDeleteOrphanedVertices;                           // 0x0010(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_EditableMesh_DeleteEdges;
 
 // Function EditableMesh.EditableMesh.DeleteOrphanVertices
 // 0x0010 (0x0010 - 0x0000)
@@ -220,6 +241,7 @@ struct EditableMesh_DeleteOrphanVertices final
 public:
 	TArray<struct FVertexID>                      VertexIDsToDelete;                                 // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_DeleteOrphanVertices;
 
 // Function EditableMesh.EditableMesh.DeletePolygonGroups
 // 0x0010 (0x0010 - 0x0000)
@@ -228,6 +250,7 @@ struct EditableMesh_DeletePolygonGroups final
 public:
 	TArray<struct FPolygonGroupID>                PolygonGroupIDs;                                   // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_DeletePolygonGroups;
 
 // Function EditableMesh.EditableMesh.DeletePolygons
 // 0x0018 (0x0018 - 0x0000)
@@ -241,6 +264,7 @@ public:
 	bool                                          bDeleteEmptyPolygonGroups;                         // 0x0013(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_EditableMesh_DeletePolygons;
 
 // Function EditableMesh.EditableMesh.DeleteVertexAndConnectedEdgesAndPolygons
 // 0x0008 (0x0008 - 0x0000)
@@ -253,6 +277,7 @@ public:
 	bool                                          bDeleteOrphanedVertexInstances;                    // 0x0006(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          bDeleteEmptyPolygonGroups;                         // 0x0007(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_DeleteVertexAndConnectedEdgesAndPolygons;
 
 // Function EditableMesh.EditableMesh.DeleteVertexInstances
 // 0x0018 (0x0018 - 0x0000)
@@ -263,6 +288,7 @@ public:
 	bool                                          bDeleteOrphanedVertices;                           // 0x0010(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_EditableMesh_DeleteVertexInstances;
 
 // Function EditableMesh.EditableMesh.EndModification
 // 0x0001 (0x0001 - 0x0000)
@@ -271,6 +297,7 @@ struct EditableMesh_EndModification final
 public:
 	bool                                          bFromUndo;                                         // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_EndModification;
 
 // Function EditableMesh.EditableMesh.ExtendEdges
 // 0x0028 (0x0028 - 0x0000)
@@ -282,6 +309,7 @@ public:
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FEdgeID>                        OutNewExtendedEdgeIDs;                             // 0x0018(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_ExtendEdges;
 
 // Function EditableMesh.EditableMesh.ExtendVertices
 // 0x0030 (0x0030 - 0x0000)
@@ -294,6 +322,7 @@ public:
 	struct FVector                                ReferencePosition;                                 // 0x0014(0x000C)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FVertexID>                      OutNewExtendedVertexIDs;                           // 0x0020(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_ExtendVertices;
 
 // Function EditableMesh.EditableMesh.ExtrudePolygons
 // 0x0028 (0x0028 - 0x0000)
@@ -306,6 +335,7 @@ public:
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FPolygonID>                     OutNewExtrudedFrontPolygons;                       // 0x0018(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_ExtrudePolygons;
 
 // Function EditableMesh.EditableMesh.FlipPolygons
 // 0x0010 (0x0010 - 0x0000)
@@ -314,6 +344,7 @@ struct EditableMesh_FlipPolygons final
 public:
 	TArray<struct FPolygonID>                     PolygonIDs;                                        // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_FlipPolygons;
 
 // Function EditableMesh.EditableMesh.GeneratePolygonTangentsAndNormals
 // 0x0010 (0x0010 - 0x0000)
@@ -322,6 +353,7 @@ struct EditableMesh_GeneratePolygonTangentsAndNormals final
 public:
 	TArray<struct FPolygonID>                     PolygonIDs;                                        // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GeneratePolygonTangentsAndNormals;
 
 // Function EditableMesh.EditableMesh.InsertEdgeLoop
 // 0x0028 (0x0028 - 0x0000)
@@ -333,6 +365,7 @@ public:
 	TArray<float>                                 Splits;                                            // 0x0008(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<struct FEdgeID>                        OutNewEdgeIDs;                                     // 0x0018(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_InsertEdgeLoop;
 
 // Function EditableMesh.EditableMesh.InsetPolygons
 // 0x0040 (0x0040 - 0x0000)
@@ -347,6 +380,7 @@ public:
 	TArray<struct FPolygonID>                     OutNewCenterPolygonIDs;                            // 0x0020(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FPolygonID>                     OutNewSidePolygonIDs;                              // 0x0030(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_InsetPolygons;
 
 // Function EditableMesh.EditableMesh.MoveVertices
 // 0x0010 (0x0010 - 0x0000)
@@ -355,6 +389,7 @@ struct EditableMesh_MoveVertices final
 public:
 	TArray<struct FVertexToMove>                  VerticesToMove;                                    // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_MoveVertices;
 
 // Function EditableMesh.EditableMesh.QuadrangulateMesh
 // 0x0010 (0x0010 - 0x0000)
@@ -363,6 +398,7 @@ struct EditableMesh_QuadrangulateMesh final
 public:
 	TArray<struct FPolygonID>                     OutNewPolygonIDs;                                  // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_QuadrangulateMesh;
 
 // Function EditableMesh.EditableMesh.RevertInstance
 // 0x0008 (0x0008 - 0x0000)
@@ -371,6 +407,7 @@ struct EditableMesh_RevertInstance final
 public:
 	class UEditableMesh*                          ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_RevertInstance;
 
 // Function EditableMesh.EditableMesh.SetAllowCompact
 // 0x0001 (0x0001 - 0x0000)
@@ -379,6 +416,7 @@ struct EditableMesh_SetAllowCompact final
 public:
 	bool                                          bInAllowCompact;                                   // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SetAllowCompact;
 
 // Function EditableMesh.EditableMesh.SetAllowSpatialDatabase
 // 0x0001 (0x0001 - 0x0000)
@@ -387,6 +425,7 @@ struct EditableMesh_SetAllowSpatialDatabase final
 public:
 	bool                                          bInAllowSpatialDatabase;                           // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SetAllowSpatialDatabase;
 
 // Function EditableMesh.EditableMesh.SetAllowUndo
 // 0x0001 (0x0001 - 0x0000)
@@ -395,6 +434,7 @@ struct EditableMesh_SetAllowUndo final
 public:
 	bool                                          bInAllowUndo;                                      // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SetAllowUndo;
 
 // Function EditableMesh.EditableMesh.SetEdgesAttributes
 // 0x0010 (0x0010 - 0x0000)
@@ -403,6 +443,7 @@ struct EditableMesh_SetEdgesAttributes final
 public:
 	TArray<struct FAttributesForEdge>             AttributesForEdges;                                // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SetEdgesAttributes;
 
 // Function EditableMesh.EditableMesh.SetEdgesCreaseSharpness
 // 0x0020 (0x0020 - 0x0000)
@@ -412,6 +453,7 @@ public:
 	TArray<struct FEdgeID>                        EdgeIDs;                                           // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<float>                                 EdgesNewCreaseSharpness;                           // 0x0010(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SetEdgesCreaseSharpness;
 
 // Function EditableMesh.EditableMesh.SetEdgesHardness
 // 0x0020 (0x0020 - 0x0000)
@@ -421,6 +463,7 @@ public:
 	TArray<struct FEdgeID>                        EdgeIDs;                                           // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<bool>                                  EdgesNewIsHard;                                    // 0x0010(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SetEdgesHardness;
 
 // Function EditableMesh.EditableMesh.SetEdgesHardnessAutomatically
 // 0x0018 (0x0018 - 0x0000)
@@ -431,6 +474,7 @@ public:
 	float                                         MaxDotProductForSoftEdge;                          // 0x0010(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_EditableMesh_SetEdgesHardnessAutomatically;
 
 // Function EditableMesh.EditableMesh.SetPolygonsVertexAttributes
 // 0x0010 (0x0010 - 0x0000)
@@ -439,6 +483,7 @@ struct EditableMesh_SetPolygonsVertexAttributes final
 public:
 	TArray<struct FVertexAttributesForPolygon>    VertexAttributesForPolygons;                       // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SetPolygonsVertexAttributes;
 
 // Function EditableMesh.EditableMesh.SetSubdivisionCount
 // 0x0004 (0x0004 - 0x0000)
@@ -447,6 +492,7 @@ struct EditableMesh_SetSubdivisionCount final
 public:
 	int32                                         NewSubdivisionCount;                               // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SetSubdivisionCount;
 
 // Function EditableMesh.EditableMesh.SetTextureCoordinateCount
 // 0x0004 (0x0004 - 0x0000)
@@ -455,6 +501,7 @@ struct EditableMesh_SetTextureCoordinateCount final
 public:
 	int32                                         NumTexCoords;                                      // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SetTextureCoordinateCount;
 
 // Function EditableMesh.EditableMesh.SetVertexInstancesAttributes
 // 0x0010 (0x0010 - 0x0000)
@@ -463,6 +510,7 @@ struct EditableMesh_SetVertexInstancesAttributes final
 public:
 	TArray<struct FAttributesForVertexInstance>   AttributesForVertexInstances;                      // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SetVertexInstancesAttributes;
 
 // Function EditableMesh.EditableMesh.SetVerticesAttributes
 // 0x0010 (0x0010 - 0x0000)
@@ -471,6 +519,7 @@ struct EditableMesh_SetVerticesAttributes final
 public:
 	TArray<struct FAttributesForVertex>           AttributesForVertices;                             // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SetVerticesAttributes;
 
 // Function EditableMesh.EditableMesh.SetVerticesCornerSharpness
 // 0x0020 (0x0020 - 0x0000)
@@ -480,6 +529,7 @@ public:
 	TArray<struct FVertexID>                      VertexIDs;                                         // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<float>                                 VerticesNewCornerSharpness;                        // 0x0010(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SetVerticesCornerSharpness;
 
 // Function EditableMesh.EditableMesh.SplitEdge
 // 0x0028 (0x0028 - 0x0000)
@@ -491,6 +541,7 @@ public:
 	TArray<float>                                 Splits;                                            // 0x0008(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<struct FVertexID>                      OutNewVertexIDs;                                   // 0x0018(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SplitEdge;
 
 // Function EditableMesh.EditableMesh.SplitPolygonalMesh
 // 0x0040 (0x0040 - 0x0000)
@@ -502,6 +553,7 @@ public:
 	TArray<struct FPolygonID>                     PolygonIDs2;                                       // 0x0020(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FEdgeID>                        BoundaryIDs;                                       // 0x0030(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SplitPolygonalMesh;
 
 // Function EditableMesh.EditableMesh.SplitPolygons
 // 0x0020 (0x0020 - 0x0000)
@@ -511,6 +563,7 @@ public:
 	TArray<struct FPolygonToSplit>                PolygonsToSplit;                                   // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<struct FEdgeID>                        OutNewEdgeIDs;                                     // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SplitPolygons;
 
 // Function EditableMesh.EditableMesh.StartModification
 // 0x0002 (0x0002 - 0x0000)
@@ -520,6 +573,7 @@ public:
 	EMeshModificationType                         MeshModificationType;                              // 0x0000(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	EMeshTopologyChange                           MeshTopologyChange;                                // 0x0001(0x0001)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_StartModification;
 
 // Function EditableMesh.EditableMesh.TessellatePolygons
 // 0x0028 (0x0028 - 0x0000)
@@ -531,6 +585,7 @@ public:
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FPolygonID>                     OutNewPolygonIDs;                                  // 0x0018(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_TessellatePolygons;
 
 // Function EditableMesh.EditableMesh.TriangulatePolygons
 // 0x0020 (0x0020 - 0x0000)
@@ -540,6 +595,7 @@ public:
 	TArray<struct FPolygonID>                     PolygonIDs;                                        // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<struct FPolygonID>                     OutNewTrianglePolygons;                            // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_TriangulatePolygons;
 
 // Function EditableMesh.EditableMesh.TryToRemovePolygonEdge
 // 0x000C (0x000C - 0x0000)
@@ -551,6 +607,7 @@ public:
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FPolygonID                             OutNewPolygonID;                                   // 0x0008(0x0004)(Parm, OutParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_TryToRemovePolygonEdge;
 
 // Function EditableMesh.EditableMesh.TryToRemoveVertex
 // 0x000C (0x000C - 0x0000)
@@ -562,6 +619,7 @@ public:
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FEdgeID                                OutNewEdgeID;                                      // 0x0008(0x0004)(Parm, OutParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_TryToRemoveVertex;
 
 // Function EditableMesh.EditableMesh.WeldVertices
 // 0x0018 (0x0018 - 0x0000)
@@ -572,6 +630,7 @@ public:
 	struct FVertexID                              OutNewVertexID;                                    // 0x0010(0x0004)(Parm, OutParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_EditableMesh_WeldVertices;
 
 // Function EditableMesh.EditableMesh.AnyChangesToUndo
 // 0x0001 (0x0001 - 0x0000)
@@ -580,6 +639,7 @@ struct EditableMesh_AnyChangesToUndo final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_AnyChangesToUndo;
 
 // Function EditableMesh.EditableMesh.ComputeBoundingBox
 // 0x001C (0x001C - 0x0000)
@@ -588,6 +648,7 @@ struct EditableMesh_ComputeBoundingBox final
 public:
 	struct FBox                                   ReturnValue;                                       // 0x0000(0x001C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_ComputeBoundingBox;
 
 // Function EditableMesh.EditableMesh.ComputeBoundingBoxAndSphere
 // 0x001C (0x001C - 0x0000)
@@ -596,6 +657,7 @@ struct EditableMesh_ComputeBoundingBoxAndSphere final
 public:
 	struct FBoxSphereBounds                       ReturnValue;                                       // 0x0000(0x001C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_ComputeBoundingBoxAndSphere;
 
 // Function EditableMesh.EditableMesh.ComputePolygonCenter
 // 0x0010 (0x0010 - 0x0000)
@@ -605,6 +667,7 @@ public:
 	struct FPolygonID                             PolygonID;                                         // 0x0000(0x0004)(ConstParm, Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                ReturnValue;                                       // 0x0004(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_ComputePolygonCenter;
 
 // Function EditableMesh.EditableMesh.ComputePolygonNormal
 // 0x0010 (0x0010 - 0x0000)
@@ -614,6 +677,7 @@ public:
 	struct FPolygonID                             PolygonID;                                         // 0x0000(0x0004)(ConstParm, Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector                                ReturnValue;                                       // 0x0004(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_ComputePolygonNormal;
 
 // Function EditableMesh.EditableMesh.ComputePolygonPlane
 // 0x0020 (0x0020 - 0x0000)
@@ -624,6 +688,7 @@ public:
 	uint8                                         Pad_4[0xC];                                        // 0x0004(0x000C)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FPlane                                 ReturnValue;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_ComputePolygonPlane;
 
 // Function EditableMesh.EditableMesh.ComputePolygonsSharedEdges
 // 0x0020 (0x0020 - 0x0000)
@@ -633,6 +698,7 @@ public:
 	TArray<struct FPolygonID>                     PolygonIDs;                                        // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<struct FEdgeID>                        OutSharedEdgeIDs;                                  // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_ComputePolygonsSharedEdges;
 
 // Function EditableMesh.EditableMesh.FindPolygonLoop
 // 0x0048 (0x0048 - 0x0000)
@@ -646,6 +712,7 @@ public:
 	TArray<struct FEdgeID>                        OutReversedEdgeIDPathToTake;                       // 0x0028(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<struct FPolygonID>                     OutPolygonIDsToSplit;                              // 0x0038(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_FindPolygonLoop;
 
 // Function EditableMesh.EditableMesh.FindPolygonPerimeterEdgeNumberForVertices
 // 0x0010 (0x0010 - 0x0000)
@@ -657,6 +724,7 @@ public:
 	struct FVertexID                              EdgeVertexID1;                                     // 0x0008(0x0004)(ConstParm, Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x000C(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_FindPolygonPerimeterEdgeNumberForVertices;
 
 // Function EditableMesh.EditableMesh.FindPolygonPerimeterVertexNumberForVertex
 // 0x000C (0x000C - 0x0000)
@@ -667,6 +735,7 @@ public:
 	struct FVertexID                              VertexID;                                          // 0x0004(0x0004)(ConstParm, Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_FindPolygonPerimeterVertexNumberForVertex;
 
 // Function EditableMesh.EditableMesh.GetEdgeConnectedPolygon
 // 0x000C (0x000C - 0x0000)
@@ -677,6 +746,7 @@ public:
 	int32                                         ConnectedPolygonNumber;                            // 0x0004(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FPolygonID                             ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetEdgeConnectedPolygon;
 
 // Function EditableMesh.EditableMesh.GetEdgeConnectedPolygonCount
 // 0x0008 (0x0008 - 0x0000)
@@ -686,6 +756,7 @@ public:
 	struct FEdgeID                                EdgeID;                                            // 0x0000(0x0004)(ConstParm, Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetEdgeConnectedPolygonCount;
 
 // Function EditableMesh.EditableMesh.GetEdgeConnectedPolygons
 // 0x0018 (0x0018 - 0x0000)
@@ -696,6 +767,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FPolygonID>                     OutConnectedPolygonIDs;                            // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetEdgeConnectedPolygons;
 
 // Function EditableMesh.EditableMesh.GetEdgeCount
 // 0x0004 (0x0004 - 0x0000)
@@ -704,6 +776,7 @@ struct EditableMesh_GetEdgeCount final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetEdgeCount;
 
 // Function EditableMesh.EditableMesh.GetEdgeLoopElements
 // 0x0018 (0x0018 - 0x0000)
@@ -714,6 +787,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FEdgeID>                        EdgeLoopIDs;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetEdgeLoopElements;
 
 // Function EditableMesh.EditableMesh.GetEdgeThatConnectsVertices
 // 0x000C (0x000C - 0x0000)
@@ -724,6 +798,7 @@ public:
 	struct FVertexID                              VertexID1;                                         // 0x0004(0x0004)(ConstParm, Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FEdgeID                                ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetEdgeThatConnectsVertices;
 
 // Function EditableMesh.EditableMesh.GetEdgeVertex
 // 0x000C (0x000C - 0x0000)
@@ -734,6 +809,7 @@ public:
 	int32                                         EdgeVertexNumber;                                  // 0x0004(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVertexID                              ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetEdgeVertex;
 
 // Function EditableMesh.EditableMesh.GetEdgeVertices
 // 0x000C (0x000C - 0x0000)
@@ -744,6 +820,7 @@ public:
 	struct FVertexID                              OutEdgeVertexID0;                                  // 0x0004(0x0004)(Parm, OutParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVertexID                              OutEdgeVertexID1;                                  // 0x0008(0x0004)(Parm, OutParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetEdgeVertices;
 
 // Function EditableMesh.EditableMesh.GetFirstValidPolygonGroup
 // 0x0004 (0x0004 - 0x0000)
@@ -752,6 +829,7 @@ struct EditableMesh_GetFirstValidPolygonGroup final
 public:
 	struct FPolygonGroupID                        ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetFirstValidPolygonGroup;
 
 // Function EditableMesh.EditableMesh.GetGroupForPolygon
 // 0x0008 (0x0008 - 0x0000)
@@ -761,6 +839,7 @@ public:
 	struct FPolygonID                             PolygonID;                                         // 0x0000(0x0004)(ConstParm, Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FPolygonGroupID                        ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetGroupForPolygon;
 
 // Function EditableMesh.EditableMesh.GetPolygonAdjacentPolygons
 // 0x0018 (0x0018 - 0x0000)
@@ -771,6 +850,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FPolygonID>                     OutAdjacentPolygons;                               // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetPolygonAdjacentPolygons;
 
 // Function EditableMesh.EditableMesh.GetPolygonCount
 // 0x0004 (0x0004 - 0x0000)
@@ -779,6 +859,7 @@ struct EditableMesh_GetPolygonCount final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetPolygonCount;
 
 // Function EditableMesh.EditableMesh.GetPolygonCountInGroup
 // 0x0008 (0x0008 - 0x0000)
@@ -788,6 +869,7 @@ public:
 	struct FPolygonGroupID                        PolygonGroupID;                                    // 0x0000(0x0004)(ConstParm, Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetPolygonCountInGroup;
 
 // Function EditableMesh.EditableMesh.GetPolygonGroupCount
 // 0x0004 (0x0004 - 0x0000)
@@ -796,6 +878,7 @@ struct EditableMesh_GetPolygonGroupCount final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetPolygonGroupCount;
 
 // Function EditableMesh.EditableMesh.GetPolygonInGroup
 // 0x000C (0x000C - 0x0000)
@@ -806,6 +889,7 @@ public:
 	int32                                         PolygonNumber;                                     // 0x0004(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FPolygonID                             ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetPolygonInGroup;
 
 // Function EditableMesh.EditableMesh.GetPolygonPerimeterEdge
 // 0x0010 (0x0010 - 0x0000)
@@ -818,6 +902,7 @@ public:
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FEdgeID                                ReturnValue;                                       // 0x000C(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetPolygonPerimeterEdge;
 
 // Function EditableMesh.EditableMesh.GetPolygonPerimeterEdgeCount
 // 0x0008 (0x0008 - 0x0000)
@@ -827,6 +912,7 @@ public:
 	struct FPolygonID                             PolygonID;                                         // 0x0000(0x0004)(ConstParm, Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetPolygonPerimeterEdgeCount;
 
 // Function EditableMesh.EditableMesh.GetPolygonPerimeterEdges
 // 0x0018 (0x0018 - 0x0000)
@@ -837,6 +923,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FEdgeID>                        OutPolygonPerimeterEdgeIDs;                        // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetPolygonPerimeterEdges;
 
 // Function EditableMesh.EditableMesh.GetPolygonPerimeterVertex
 // 0x000C (0x000C - 0x0000)
@@ -847,6 +934,7 @@ public:
 	int32                                         PolygonVertexNumber;                               // 0x0004(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVertexID                              ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetPolygonPerimeterVertex;
 
 // Function EditableMesh.EditableMesh.GetPolygonPerimeterVertexCount
 // 0x0008 (0x0008 - 0x0000)
@@ -856,6 +944,7 @@ public:
 	struct FPolygonID                             PolygonID;                                         // 0x0000(0x0004)(ConstParm, Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetPolygonPerimeterVertexCount;
 
 // Function EditableMesh.EditableMesh.GetPolygonPerimeterVertexInstance
 // 0x000C (0x000C - 0x0000)
@@ -866,6 +955,7 @@ public:
 	int32                                         PolygonVertexNumber;                               // 0x0004(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVertexInstanceID                      ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetPolygonPerimeterVertexInstance;
 
 // Function EditableMesh.EditableMesh.GetPolygonPerimeterVertexInstances
 // 0x0018 (0x0018 - 0x0000)
@@ -876,6 +966,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FVertexInstanceID>              OutPolygonPerimeterVertexInstanceIDs;              // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetPolygonPerimeterVertexInstances;
 
 // Function EditableMesh.EditableMesh.GetPolygonPerimeterVertices
 // 0x0018 (0x0018 - 0x0000)
@@ -886,6 +977,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FVertexID>                      OutPolygonPerimeterVertexIDs;                      // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetPolygonPerimeterVertices;
 
 // Function EditableMesh.EditableMesh.GetPolygonTriangulatedTriangle
 // 0x000C (0x000C - 0x0000)
@@ -896,6 +988,7 @@ public:
 	int32                                         PolygonTriangleNumber;                             // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FTriangleID                            ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetPolygonTriangulatedTriangle;
 
 // Function EditableMesh.EditableMesh.GetPolygonTriangulatedTriangleCount
 // 0x0008 (0x0008 - 0x0000)
@@ -905,6 +998,7 @@ public:
 	struct FPolygonID                             PolygonID;                                         // 0x0000(0x0004)(ConstParm, Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetPolygonTriangulatedTriangleCount;
 
 // Function EditableMesh.EditableMesh.GetSubdivisionCount
 // 0x0004 (0x0004 - 0x0000)
@@ -913,6 +1007,7 @@ struct EditableMesh_GetSubdivisionCount final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetSubdivisionCount;
 
 // Function EditableMesh.EditableMesh.GetSubdivisionLimitData
 // 0x0030 (0x0030 - 0x0000)
@@ -921,6 +1016,7 @@ struct EditableMesh_GetSubdivisionLimitData final
 public:
 	struct FSubdivisionLimitData                  ReturnValue;                                       // 0x0000(0x0030)(ConstParm, Parm, OutParm, ReturnParm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetSubdivisionLimitData;
 
 // Function EditableMesh.EditableMesh.GetTextureCoordinateCount
 // 0x0004 (0x0004 - 0x0000)
@@ -929,6 +1025,7 @@ struct EditableMesh_GetTextureCoordinateCount final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetTextureCoordinateCount;
 
 // Function EditableMesh.EditableMesh.GetVertexAdjacentVertices
 // 0x0018 (0x0018 - 0x0000)
@@ -939,6 +1036,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FVertexID>                      OutAdjacentVertexIDs;                              // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetVertexAdjacentVertices;
 
 // Function EditableMesh.EditableMesh.GetVertexConnectedEdge
 // 0x000C (0x000C - 0x0000)
@@ -949,6 +1047,7 @@ public:
 	int32                                         ConnectedEdgeNumber;                               // 0x0004(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FEdgeID                                ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetVertexConnectedEdge;
 
 // Function EditableMesh.EditableMesh.GetVertexConnectedEdgeCount
 // 0x0008 (0x0008 - 0x0000)
@@ -958,6 +1057,7 @@ public:
 	struct FVertexID                              VertexID;                                          // 0x0000(0x0004)(ConstParm, Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetVertexConnectedEdgeCount;
 
 // Function EditableMesh.EditableMesh.GetVertexConnectedEdges
 // 0x0018 (0x0018 - 0x0000)
@@ -968,6 +1068,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FEdgeID>                        OutConnectedEdgeIDs;                               // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetVertexConnectedEdges;
 
 // Function EditableMesh.EditableMesh.GetVertexConnectedPolygons
 // 0x0018 (0x0018 - 0x0000)
@@ -978,6 +1079,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FPolygonID>                     OutConnectedPolygonIDs;                            // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetVertexConnectedPolygons;
 
 // Function EditableMesh.EditableMesh.GetVertexCount
 // 0x0004 (0x0004 - 0x0000)
@@ -986,6 +1088,7 @@ struct EditableMesh_GetVertexCount final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetVertexCount;
 
 // Function EditableMesh.EditableMesh.GetVertexInstanceConnectedPolygon
 // 0x000C (0x000C - 0x0000)
@@ -996,6 +1099,7 @@ public:
 	int32                                         ConnectedPolygonNumber;                            // 0x0004(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FPolygonID                             ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetVertexInstanceConnectedPolygon;
 
 // Function EditableMesh.EditableMesh.GetVertexInstanceConnectedPolygonCount
 // 0x0008 (0x0008 - 0x0000)
@@ -1005,6 +1109,7 @@ public:
 	struct FVertexInstanceID                      VertexInstanceID;                                  // 0x0000(0x0004)(ConstParm, Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetVertexInstanceConnectedPolygonCount;
 
 // Function EditableMesh.EditableMesh.GetVertexInstanceConnectedPolygons
 // 0x0018 (0x0018 - 0x0000)
@@ -1015,6 +1120,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	TArray<struct FPolygonID>                     OutConnectedPolygonIDs;                            // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetVertexInstanceConnectedPolygons;
 
 // Function EditableMesh.EditableMesh.GetVertexInstanceCount
 // 0x0004 (0x0004 - 0x0000)
@@ -1023,6 +1129,7 @@ struct EditableMesh_GetVertexInstanceCount final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetVertexInstanceCount;
 
 // Function EditableMesh.EditableMesh.GetVertexInstanceVertex
 // 0x0008 (0x0008 - 0x0000)
@@ -1032,6 +1139,7 @@ public:
 	struct FVertexInstanceID                      VertexInstanceID;                                  // 0x0000(0x0004)(ConstParm, Parm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVertexID                              ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetVertexInstanceVertex;
 
 // Function EditableMesh.EditableMesh.GetVertexPairEdge
 // 0x0010 (0x0010 - 0x0000)
@@ -1044,6 +1152,7 @@ public:
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FEdgeID                                ReturnValue;                                       // 0x000C(0x0004)(Parm, OutParm, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_GetVertexPairEdge;
 
 // Function EditableMesh.EditableMesh.IsBeingModified
 // 0x0001 (0x0001 - 0x0000)
@@ -1052,6 +1161,7 @@ struct EditableMesh_IsBeingModified final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_IsBeingModified;
 
 // Function EditableMesh.EditableMesh.IsCommitted
 // 0x0001 (0x0001 - 0x0000)
@@ -1060,6 +1170,7 @@ struct EditableMesh_IsCommitted final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_IsCommitted;
 
 // Function EditableMesh.EditableMesh.IsCommittedAsInstance
 // 0x0001 (0x0001 - 0x0000)
@@ -1068,6 +1179,7 @@ struct EditableMesh_IsCommittedAsInstance final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_IsCommittedAsInstance;
 
 // Function EditableMesh.EditableMesh.IsCompactAllowed
 // 0x0001 (0x0001 - 0x0000)
@@ -1076,6 +1188,7 @@ struct EditableMesh_IsCompactAllowed final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_IsCompactAllowed;
 
 // Function EditableMesh.EditableMesh.IsOrphanedVertex
 // 0x0008 (0x0008 - 0x0000)
@@ -1086,6 +1199,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_EditableMesh_IsOrphanedVertex;
 
 // Function EditableMesh.EditableMesh.IsPreviewingSubdivisions
 // 0x0001 (0x0001 - 0x0000)
@@ -1094,6 +1208,7 @@ struct EditableMesh_IsPreviewingSubdivisions final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_IsPreviewingSubdivisions;
 
 // Function EditableMesh.EditableMesh.IsSpatialDatabaseAllowed
 // 0x0001 (0x0001 - 0x0000)
@@ -1102,6 +1217,7 @@ struct EditableMesh_IsSpatialDatabaseAllowed final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_IsSpatialDatabaseAllowed;
 
 // Function EditableMesh.EditableMesh.IsUndoAllowed
 // 0x0001 (0x0001 - 0x0000)
@@ -1110,6 +1226,7 @@ struct EditableMesh_IsUndoAllowed final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_IsUndoAllowed;
 
 // Function EditableMesh.EditableMesh.IsValidEdge
 // 0x0008 (0x0008 - 0x0000)
@@ -1120,6 +1237,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_EditableMesh_IsValidEdge;
 
 // Function EditableMesh.EditableMesh.IsValidPolygon
 // 0x0008 (0x0008 - 0x0000)
@@ -1130,6 +1248,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_EditableMesh_IsValidPolygon;
 
 // Function EditableMesh.EditableMesh.IsValidPolygonGroup
 // 0x0008 (0x0008 - 0x0000)
@@ -1140,6 +1259,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_EditableMesh_IsValidPolygonGroup;
 
 // Function EditableMesh.EditableMesh.IsValidVertex
 // 0x0008 (0x0008 - 0x0000)
@@ -1150,6 +1270,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_EditableMesh_IsValidVertex;
 
 // Function EditableMesh.EditableMesh.SearchSpatialDatabaseForPolygonsInVolume
 // 0x0020 (0x0020 - 0x0000)
@@ -1159,6 +1280,7 @@ public:
 	TArray<struct FPlane>                         Planes;                                            // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	TArray<struct FPolygonID>                     OutPolygons;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SearchSpatialDatabaseForPolygonsInVolume;
 
 // Function EditableMesh.EditableMesh.SearchSpatialDatabaseForPolygonsPotentiallyIntersectingLineSegment
 // 0x0028 (0x0028 - 0x0000)
@@ -1169,6 +1291,7 @@ public:
 	struct FVector                                LineSegmentEnd;                                    // 0x000C(0x000C)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FPolygonID>                     OutPolygons;                                       // 0x0018(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SearchSpatialDatabaseForPolygonsPotentiallyIntersectingLineSegment;
 
 // Function EditableMesh.EditableMesh.SearchSpatialDatabaseForPolygonsPotentiallyIntersectingPlane
 // 0x0020 (0x0020 - 0x0000)
@@ -1178,6 +1301,7 @@ public:
 	struct FPlane                                 InPlane;                                           // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<struct FPolygonID>                     OutPolygons;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMesh_SearchSpatialDatabaseForPolygonsPotentiallyIntersectingPlane;
 
 // Function EditableMesh.EditableMeshFactory.MakeEditableMesh
 // 0x0018 (0x0018 - 0x0000)
@@ -1189,6 +1313,7 @@ public:
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UEditableMesh*                          ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EditableMeshFactory_MakeEditableMesh;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

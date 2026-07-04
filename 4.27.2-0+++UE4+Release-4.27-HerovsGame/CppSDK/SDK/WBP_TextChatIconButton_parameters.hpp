@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_TextChatIconButton.WBP_TextChatIconButton_C.SetEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -21,6 +21,7 @@ struct WBP_TextChatIconButton_C_SetEnabled final
 public:
 	bool                                          Enabled;                                           // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChatIconButton_C_SetEnabled;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

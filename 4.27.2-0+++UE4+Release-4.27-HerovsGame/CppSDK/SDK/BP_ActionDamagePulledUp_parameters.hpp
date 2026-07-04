@@ -15,8 +15,8 @@
 #include "InGameModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamagePulledUp.BP_ActionDamagePulledUp_C.ExecuteUbergraph_BP_ActionDamagePulledUp
 // 0x0038 (0x0038 - 0x0000)
@@ -36,6 +36,7 @@ public:
 	bool                                          CallFunc_BP_IsDead_ReturnValue;                    // 0x0031(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_BooleanOR_ReturnValue;                    // 0x0032(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionDamagePulledUp_C_ExecuteUbergraph_BP_ActionDamagePulledUp;
 
 // Function BP_ActionDamagePulledUp.BP_ActionDamagePulledUp_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -44,6 +45,7 @@ struct BP_ActionDamagePulledUp_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamagePulledUp_C_BP_OnBeginAction;
 
 // Function BP_ActionDamagePulledUp.BP_ActionDamagePulledUp_C.UpdateOnce
 // 0x0020 (0x0020 - 0x0000)
@@ -54,6 +56,7 @@ public:
 	struct FVector                                CallFunc_BP_GetDamageDirection_ReturnValue;        // 0x0008(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	struct FVector                                CallFunc_Multiply_VectorFloat_ReturnValue;         // 0x0014(0x000C)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamagePulledUp_C_UpdateOnce;
 
 // Function BP_ActionDamagePulledUp.BP_ActionDamagePulledUp_C.DecideAnimationId
 // 0x00A0 (0x00A0 - 0x0000)
@@ -71,6 +74,7 @@ public:
 	struct FDamageInfo                            CallFunc_BP_GetDamageInfo_ReturnValue;             // 0x0008(0x0090)(ConstParm, NoDestructor)
 	EAnimationId                                  K2Node_Select_Default;                             // 0x0098(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamagePulledUp_C_DecideAnimationId;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

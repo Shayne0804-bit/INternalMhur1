@@ -14,8 +14,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function Foliage.FoliageStatistics.FoliageOverlappingBoxCount
 // 0x0030 (0x0030 - 0x0000)
@@ -27,6 +27,7 @@ public:
 	struct FBox                                   Box;                                               // 0x0010(0x001C)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x002C(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FoliageStatistics_FoliageOverlappingBoxCount;
 
 // Function Foliage.FoliageStatistics.FoliageOverlappingSphereCount
 // 0x0028 (0x0028 - 0x0000)
@@ -40,6 +41,7 @@ public:
 	int32                                         ReturnValue;                                       // 0x0020(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FoliageStatistics_FoliageOverlappingSphereCount;
 
 // Function Foliage.InteractiveFoliageActor.CapsuleTouched
 // 0x00A8 (0x00A8 - 0x0000)
@@ -54,6 +56,7 @@ public:
 	uint8                                         Pad_1D[0x3];                                       // 0x001D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FHitResult                             OverlapInfo;                                       // 0x0020(0x0088)(ConstParm, Parm, OutParm, ReferenceParm, IsPlainOldData, NoDestructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_InteractiveFoliageActor_CapsuleTouched;
 
 // Function Foliage.ProceduralFoliageSpawner.Simulate
 // 0x0004 (0x0004 - 0x0000)
@@ -62,6 +65,7 @@ struct ProceduralFoliageSpawner_Simulate final
 public:
 	int32                                         NumSteps;                                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ProceduralFoliageSpawner_Simulate;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

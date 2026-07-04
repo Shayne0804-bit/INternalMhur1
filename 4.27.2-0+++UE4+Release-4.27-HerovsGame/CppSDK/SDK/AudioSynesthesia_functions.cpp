@@ -14,7 +14,8 @@
 #include "AudioSynesthesia_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function AudioSynesthesia.OnsetNRT.GetChannelOnsetsBetweenTimes
 // (Final, Native, Public, HasOutParams, BlueprintCallable, BlueprintPure, Const)
@@ -271,5 +272,5 @@ void ULoudnessNRT::GetNormalizedLoudnessAtTime(const float InSeconds, float* Out
 		*OutLoudness = Parms.OutLoudness;
 }
 
+}
 
-SDK_NAMESPACE_END

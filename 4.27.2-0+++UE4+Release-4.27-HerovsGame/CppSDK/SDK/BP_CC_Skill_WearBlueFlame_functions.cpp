@@ -14,7 +14,8 @@
 #include "BP_CC_Skill_WearBlueFlame_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Skill_WearBlueFlame.BP_CC_Skill_WearBlueFlame_C.ExecuteUbergraph_BP_CC_Skill_WearBlueFlame
 // (Final, UbergraphFunction)
@@ -169,5 +170,5 @@ void UBP_CC_Skill_WearBlueFlame_C::RevertParam()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

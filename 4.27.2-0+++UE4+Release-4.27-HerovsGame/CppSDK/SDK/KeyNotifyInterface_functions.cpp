@@ -13,7 +13,8 @@
 #include "KeyNotifyInterface_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function KeyNotifyInterface.KeyNotifyInterface_C.PadInitialize
 // (Public, BlueprintCallable, BlueprintEvent)
@@ -126,5 +127,5 @@ void IKeyNotifyInterface_C::PadTableSelect()
 	AsUObject()->ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -13,7 +13,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class AnimationCore.AnimationDataSourceRegistry
 // 0x0050 (0x0078 - 0x0028)
@@ -36,5 +37,7 @@ public:
 		return GetDefaultObjImpl<UAnimationDataSourceRegistry>();
 	}
 };
+DUMPER7_ASSERTS_UAnimationDataSourceRegistry;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,8 +14,8 @@
 #include "InGameModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamageStrongAddHit.BP_ActionDamageStrongAddHit_C.ExecuteUbergraph_BP_ActionDamageStrongAddHit
 // 0x0120 (0x0120 - 0x0000)
@@ -40,6 +40,7 @@ public:
 	bool                                          CallFunc_HasAuthority_ReturnValue;                 // 0x011C(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          K2Node_SwitchInteger_CmpSuccess;                   // 0x011D(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStrongAddHit_C_ExecuteUbergraph_BP_ActionDamageStrongAddHit;
 
 // Function BP_ActionDamageStrongAddHit.BP_ActionDamageStrongAddHit_C.BP_OnRecieveActionPing
 // 0x0004 (0x0004 - 0x0000)
@@ -48,6 +49,7 @@ struct BP_ActionDamageStrongAddHit_C_BP_OnRecieveActionPing final
 public:
 	int32                                         ping;                                              // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStrongAddHit_C_BP_OnRecieveActionPing;
 
 // Function BP_ActionDamageStrongAddHit.BP_ActionDamageStrongAddHit_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -56,6 +58,7 @@ struct BP_ActionDamageStrongAddHit_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStrongAddHit_C_BP_OnEndAction;
 
 // Function BP_ActionDamageStrongAddHit.BP_ActionDamageStrongAddHit_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -64,6 +67,7 @@ struct BP_ActionDamageStrongAddHit_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStrongAddHit_C_BP_OnBeginAction;
 
 // Function BP_ActionDamageStrongAddHit.BP_ActionDamageStrongAddHit_C.DecideAnimationId
 // 0x00A0 (0x00A0 - 0x0000)
@@ -79,6 +83,7 @@ public:
 	bool                                          CallFunc_EqualEqual_ByteByte_ReturnValue;          // 0x0098(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	EAnimationId                                  K2Node_Select_Default;                             // 0x0099(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageStrongAddHit_C_DecideAnimationId;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

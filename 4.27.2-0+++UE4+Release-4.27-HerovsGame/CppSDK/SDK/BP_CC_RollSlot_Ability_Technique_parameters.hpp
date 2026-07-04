@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_RollSlot_Ability_Technique.BP_CC_RollSlot_Ability_Technique_C.ExecuteUbergraph_BP_CC_RollSlot_Ability_Technique
 // 0x0060 (0x0060 - 0x0000)
@@ -35,6 +35,7 @@ public:
 	class UCharacterRollSlotUniqueSkillControlComponent* CallFunc_BP_GetCharacterRollSlotUniqueSkillControlComponent_ReturnValue; // 0x0050(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_LessEqual_FloatFloat_ReturnValue;         // 0x0058(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_RollSlot_Ability_Technique_C_ExecuteUbergraph_BP_CC_RollSlot_Ability_Technique;
 
 // Function BP_CC_RollSlot_Ability_Technique.BP_CC_RollSlot_Ability_Technique_C.BP_OnChangeConditionLevel
 // 0x0008 (0x0008 - 0x0000)
@@ -44,6 +45,7 @@ public:
 	int32                                         oldLevel;                                          // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         newLevel;                                          // 0x0004(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_RollSlot_Ability_Technique_C_BP_OnChangeConditionLevel;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

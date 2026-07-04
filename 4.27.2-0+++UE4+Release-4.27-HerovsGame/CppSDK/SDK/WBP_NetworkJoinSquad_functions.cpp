@@ -14,7 +14,8 @@
 #include "WBP_NetworkJoinSquad_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_NetworkJoinSquad.WBP_NetworkJoinSquad_C.ExecuteUbergraph_WBP_NetworkJoinSquad
 // (Final, UbergraphFunction)
@@ -49,5 +50,5 @@ void UWBP_NetworkJoinSquad_C::OnCloseLevel()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

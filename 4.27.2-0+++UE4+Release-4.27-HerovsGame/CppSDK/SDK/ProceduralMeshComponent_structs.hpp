@@ -13,7 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum ProceduralMeshComponent.EProcMeshSliceCapOption
 // NumValues: 0x0004
@@ -34,6 +35,7 @@ public:
 	bool                                          bFlipTangentY;                                     // 0x000C(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FProcMeshTangent;
 
 // ScriptStruct ProceduralMeshComponent.ProcMeshVertex
 // 0x004C (0x004C - 0x0000)
@@ -49,6 +51,7 @@ public:
 	struct FVector2D                              UV2;                                               // 0x003C(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FVector2D                              UV3;                                               // 0x0044(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FProcMeshVertex;
 
 // ScriptStruct ProceduralMeshComponent.ProcMeshSection
 // 0x0040 (0x0040 - 0x0000)
@@ -62,5 +65,7 @@ public:
 	bool                                          bSectionVisible;                                   // 0x003D(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_3E[0x2];                                       // 0x003E(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FProcMeshSection;
 
-SDK_NAMESPACE_END
+}
+

@@ -13,8 +13,8 @@
 #include "CommonModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_UniqueSeal.BP_CC_UniqueSeal_C.ExecuteUbergraph_BP_CC_UniqueSeal
 // 0x0108 (0x0108 - 0x0000)
@@ -55,6 +55,7 @@ public:
 	uint8                                         Pad_F1[0x7];                                       // 0x00F1(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 CallFunc_Concat_StrStr_ReturnValue_1;              // 0x00F8(0x0010)(ZeroConstructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_UniqueSeal_C_ExecuteUbergraph_BP_CC_UniqueSeal;
 
 // Function BP_CC_UniqueSeal.BP_CC_UniqueSeal_C.BP_OnUpdateIntervalValue
 // 0x0004 (0x0004 - 0x0000)
@@ -63,6 +64,7 @@ struct BP_CC_UniqueSeal_C_BP_OnUpdateIntervalValue final
 public:
 	float                                         value;                                             // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_UniqueSeal_C_BP_OnUpdateIntervalValue;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

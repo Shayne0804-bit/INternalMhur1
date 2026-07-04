@@ -13,8 +13,8 @@
 #include "GooglePAD_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function GooglePAD.GooglePADFunctionLibrary.CancelDownload
 // 0x0018 (0x0018 - 0x0000)
@@ -25,6 +25,7 @@ public:
 	EGooglePADErrorCode                           ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_GooglePADFunctionLibrary_CancelDownload;
 
 // Function GooglePAD.GooglePADFunctionLibrary.GetAssetPackLocation
 // 0x0018 (0x0018 - 0x0000)
@@ -36,6 +37,7 @@ public:
 	EGooglePADErrorCode                           ReturnValue;                                       // 0x0014(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_GooglePADFunctionLibrary_GetAssetPackLocation;
 
 // Function GooglePAD.GooglePADFunctionLibrary.GetAssetsPath
 // 0x0018 (0x0018 - 0x0000)
@@ -46,6 +48,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GooglePADFunctionLibrary_GetAssetsPath;
 
 // Function GooglePAD.GooglePADFunctionLibrary.GetBytesDownloaded
 // 0x0008 (0x0008 - 0x0000)
@@ -55,6 +58,7 @@ public:
 	int32                                         State;                                             // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GooglePADFunctionLibrary_GetBytesDownloaded;
 
 // Function GooglePAD.GooglePADFunctionLibrary.GetDownloadState
 // 0x0018 (0x0018 - 0x0000)
@@ -66,6 +70,7 @@ public:
 	EGooglePADErrorCode                           ReturnValue;                                       // 0x0014(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_GooglePADFunctionLibrary_GetDownloadState;
 
 // Function GooglePAD.GooglePADFunctionLibrary.GetDownloadStatus
 // 0x0008 (0x0008 - 0x0000)
@@ -76,6 +81,7 @@ public:
 	EGooglePADDownloadStatus                      ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_GooglePADFunctionLibrary_GetDownloadStatus;
 
 // Function GooglePAD.GooglePADFunctionLibrary.GetShowCellularDataConfirmationStatus
 // 0x0002 (0x0002 - 0x0000)
@@ -85,6 +91,7 @@ public:
 	EGooglePADCellularDataConfirmStatus           Status;                                            // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	EGooglePADErrorCode                           ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GooglePADFunctionLibrary_GetShowCellularDataConfirmationStatus;
 
 // Function GooglePAD.GooglePADFunctionLibrary.GetShowConfirmationDialogStatus
 // 0x0002 (0x0002 - 0x0000)
@@ -94,6 +101,7 @@ public:
 	EGooglePADConfirmationDialogStatus            Status;                                            // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	EGooglePADErrorCode                           ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GooglePADFunctionLibrary_GetShowConfirmationDialogStatus;
 
 // Function GooglePAD.GooglePADFunctionLibrary.GetStorageMethod
 // 0x0008 (0x0008 - 0x0000)
@@ -104,6 +112,7 @@ public:
 	EGooglePADStorageMethod                       ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_GooglePADFunctionLibrary_GetStorageMethod;
 
 // Function GooglePAD.GooglePADFunctionLibrary.GetTotalBytesToDownload
 // 0x0008 (0x0008 - 0x0000)
@@ -113,6 +122,7 @@ public:
 	int32                                         State;                                             // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GooglePADFunctionLibrary_GetTotalBytesToDownload;
 
 // Function GooglePAD.GooglePADFunctionLibrary.ReleaseAssetPackLocation
 // 0x0004 (0x0004 - 0x0000)
@@ -121,6 +131,7 @@ struct GooglePADFunctionLibrary_ReleaseAssetPackLocation final
 public:
 	int32                                         Location;                                          // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GooglePADFunctionLibrary_ReleaseAssetPackLocation;
 
 // Function GooglePAD.GooglePADFunctionLibrary.ReleaseDownloadState
 // 0x0004 (0x0004 - 0x0000)
@@ -129,6 +140,7 @@ struct GooglePADFunctionLibrary_ReleaseDownloadState final
 public:
 	int32                                         State;                                             // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GooglePADFunctionLibrary_ReleaseDownloadState;
 
 // Function GooglePAD.GooglePADFunctionLibrary.RequestDownload
 // 0x0018 (0x0018 - 0x0000)
@@ -139,6 +151,7 @@ public:
 	EGooglePADErrorCode                           ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_GooglePADFunctionLibrary_RequestDownload;
 
 // Function GooglePAD.GooglePADFunctionLibrary.RequestInfo
 // 0x0018 (0x0018 - 0x0000)
@@ -149,6 +162,7 @@ public:
 	EGooglePADErrorCode                           ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_GooglePADFunctionLibrary_RequestInfo;
 
 // Function GooglePAD.GooglePADFunctionLibrary.RequestRemoval
 // 0x0018 (0x0018 - 0x0000)
@@ -159,6 +173,7 @@ public:
 	EGooglePADErrorCode                           ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_GooglePADFunctionLibrary_RequestRemoval;
 
 // Function GooglePAD.GooglePADFunctionLibrary.ShowCellularDataConfirmation
 // 0x0001 (0x0001 - 0x0000)
@@ -167,6 +182,7 @@ struct GooglePADFunctionLibrary_ShowCellularDataConfirmation final
 public:
 	EGooglePADErrorCode                           ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GooglePADFunctionLibrary_ShowCellularDataConfirmation;
 
 // Function GooglePAD.GooglePADFunctionLibrary.ShowConfirmationDialog
 // 0x0001 (0x0001 - 0x0000)
@@ -175,6 +191,7 @@ struct GooglePADFunctionLibrary_ShowConfirmationDialog final
 public:
 	EGooglePADErrorCode                           ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_GooglePADFunctionLibrary_ShowConfirmationDialog;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

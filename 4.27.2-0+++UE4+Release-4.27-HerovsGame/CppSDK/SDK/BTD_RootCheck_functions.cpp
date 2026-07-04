@@ -14,7 +14,8 @@
 #include "BTD_RootCheck_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BTD_RootCheck.BTD_RootCheck_C.PerformConditionCheckAI
 // (Event, Protected, HasOutParams, BlueprintCallable, BlueprintEvent)
@@ -40,5 +41,5 @@ bool UBTD_RootCheck_C::PerformConditionCheckAI(class AAIController* OwnerControl
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

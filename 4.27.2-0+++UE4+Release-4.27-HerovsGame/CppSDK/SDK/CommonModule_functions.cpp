@@ -14,7 +14,8 @@
 #include "CommonModule_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function CommonModule.CommonStatics.DrawDebugStringWithShadow
 // (Final, Native, Static, Public, HasDefaults, BlueprintCallable)
@@ -348,5 +349,5 @@ ECharacterId UDevelopCharacterSelector::ConvertStringToEnum(const class FString&
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

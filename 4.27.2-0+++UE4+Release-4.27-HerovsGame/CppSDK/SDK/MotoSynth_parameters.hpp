@@ -13,8 +13,8 @@
 #include "MotoSynth_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function MotoSynth.SynthComponentMoto.GetRPMRange
 // 0x0008 (0x0008 - 0x0000)
@@ -24,6 +24,7 @@ public:
 	float                                         OutMinRPM;                                         // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         OutMaxRPM;                                         // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMoto_GetRPMRange;
 
 // Function MotoSynth.SynthComponentMoto.SetRPM
 // 0x0008 (0x0008 - 0x0000)
@@ -33,6 +34,7 @@ public:
 	float                                         InRPM;                                             // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         InTimeSec;                                         // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMoto_SetRPM;
 
 // Function MotoSynth.SynthComponentMoto.SetSettings
 // 0x0068 (0x0068 - 0x0000)
@@ -41,6 +43,7 @@ struct SynthComponentMoto_SetSettings final
 public:
 	struct FMotoSynthRuntimeSettings              InSettings;                                        // 0x0000(0x0068)(ConstParm, Parm, OutParm, ReferenceParm, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMoto_SetSettings;
 
 // Function MotoSynth.SynthComponentMoto.IsEnabled
 // 0x0001 (0x0001 - 0x0000)
@@ -49,6 +52,7 @@ struct SynthComponentMoto_IsEnabled final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SynthComponentMoto_IsEnabled;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

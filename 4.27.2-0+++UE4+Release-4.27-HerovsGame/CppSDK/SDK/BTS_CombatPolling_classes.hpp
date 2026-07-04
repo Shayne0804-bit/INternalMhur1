@@ -15,7 +15,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BTS_CombatPolling.BTS_CombatPolling_C
 // 0x0030 (0x00C8 - 0x0098)
@@ -43,5 +44,7 @@ public:
 		return GetDefaultObjImpl<UBTS_CombatPolling_C>();
 	}
 };
+DUMPER7_ASSERTS_UBTS_CombatPolling_C;
 
-SDK_NAMESPACE_END
+}
+

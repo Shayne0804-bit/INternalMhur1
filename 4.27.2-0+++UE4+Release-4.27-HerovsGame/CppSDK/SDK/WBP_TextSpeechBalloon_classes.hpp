@@ -13,7 +13,8 @@
 #include "GameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_TextSpeechBalloon.WBP_TextSpeechBalloon_C
 // 0x0000 (0x0398 - 0x0398)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UWBP_TextSpeechBalloon_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_TextSpeechBalloon_C;
 
-SDK_NAMESPACE_END
+}
+

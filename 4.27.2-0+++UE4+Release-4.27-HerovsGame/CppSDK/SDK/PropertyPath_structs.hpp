@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct PropertyPath.PropertyPathSegment
 // 0x0028 (0x0028 - 0x0000)
@@ -24,6 +25,7 @@ public:
 	class UStruct*                                Struct;                                            // 0x0010(0x0008)(ZeroConstructor, Transient, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_18[0x10];                                      // 0x0018(0x0010)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FPropertyPathSegment;
 
 // ScriptStruct PropertyPath.CachedPropertyPath
 // 0x0028 (0x0028 - 0x0000)
@@ -35,5 +37,7 @@ public:
 	class UFunction*                              CachedFunction;                                    // 0x0018(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPrivate)
 	uint8                                         Pad_20[0x8];                                       // 0x0020(0x0008)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCachedPropertyPath;
 
-SDK_NAMESPACE_END
+}
+

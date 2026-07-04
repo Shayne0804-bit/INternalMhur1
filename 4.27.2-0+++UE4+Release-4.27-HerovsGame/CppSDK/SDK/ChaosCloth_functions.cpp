@@ -14,7 +14,8 @@
 #include "ChaosCloth_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function ChaosCloth.ChaosClothingInteractor.ResetAndTeleport
 // (Final, Native, Public, BlueprintCallable)
@@ -316,5 +317,5 @@ void UChaosClothingInteractor::SetVelocityScale(const struct FVector& LinearVelo
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

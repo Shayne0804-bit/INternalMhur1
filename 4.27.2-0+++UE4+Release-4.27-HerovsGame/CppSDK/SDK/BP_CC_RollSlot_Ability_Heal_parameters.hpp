@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_RollSlot_Ability_Heal.BP_CC_RollSlot_Ability_Heal_C.ExecuteUbergraph_BP_CC_RollSlot_Ability_Heal
 // 0x0020 (0x0020 - 0x0000)
@@ -25,6 +25,7 @@ public:
 	class UCharacterConditionControlComponent*    CallFunc_BP_GetConditionControlComponent_ReturnValue; // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_BP_IsValidCondition_ReturnValue;          // 0x0018(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_RollSlot_Ability_Heal_C_ExecuteUbergraph_BP_CC_RollSlot_Ability_Heal;
 
 // Function BP_CC_RollSlot_Ability_Heal.BP_CC_RollSlot_Ability_Heal_C.BP_OnUpdateIntervalValue
 // 0x0004 (0x0004 - 0x0000)
@@ -33,6 +34,7 @@ struct BP_CC_RollSlot_Ability_Heal_C_BP_OnUpdateIntervalValue final
 public:
 	float                                         value;                                             // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_RollSlot_Ability_Heal_C_BP_OnUpdateIntervalValue;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function MagicLeapSharedWorld.MagicLeapSharedWorldGameMode.DetermineSharedWorldData
 // 0x0010 (0x0010 - 0x0000)
@@ -24,6 +24,7 @@ struct MagicLeapSharedWorldGameMode_DetermineSharedWorldData final
 public:
 	struct FMagicLeapSharedWorldSharedData        NewSharedWorldData;                                // 0x0000(0x0010)(Parm, OutParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapSharedWorldGameMode_DetermineSharedWorldData;
 
 // Function MagicLeapSharedWorld.MagicLeapSharedWorldGameMode.SendSharedWorldDataToClients
 // 0x0001 (0x0001 - 0x0000)
@@ -32,6 +33,7 @@ struct MagicLeapSharedWorldGameMode_SendSharedWorldDataToClients final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapSharedWorldGameMode_SendSharedWorldDataToClients;
 
 // Function MagicLeapSharedWorld.MagicLeapSharedWorldGameState.CalculateXRCameraRootTransform
 // 0x0030 (0x0030 - 0x0000)
@@ -40,6 +42,7 @@ struct MagicLeapSharedWorldGameState_CalculateXRCameraRootTransform final
 public:
 	struct FTransform                             ReturnValue;                                       // 0x0000(0x0030)(Parm, OutParm, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapSharedWorldGameState_CalculateXRCameraRootTransform;
 
 // Function MagicLeapSharedWorld.MagicLeapSharedWorldPlayerController.ClientSetChosenOne
 // 0x0001 (0x0001 - 0x0000)
@@ -48,6 +51,7 @@ struct MagicLeapSharedWorldPlayerController_ClientSetChosenOne final
 public:
 	bool                                          bChosenOne;                                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapSharedWorldPlayerController_ClientSetChosenOne;
 
 // Function MagicLeapSharedWorld.MagicLeapSharedWorldPlayerController.ServerSetAlignmentTransforms
 // 0x0010 (0x0010 - 0x0000)
@@ -56,6 +60,7 @@ struct MagicLeapSharedWorldPlayerController_ServerSetAlignmentTransforms final
 public:
 	struct FMagicLeapSharedWorldAlignmentTransforms InAlignmentTransforms;                           // 0x0000(0x0010)(ConstParm, Parm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapSharedWorldPlayerController_ServerSetAlignmentTransforms;
 
 // Function MagicLeapSharedWorld.MagicLeapSharedWorldPlayerController.ServerSetLocalWorldData
 // 0x0010 (0x0010 - 0x0000)
@@ -64,6 +69,7 @@ struct MagicLeapSharedWorldPlayerController_ServerSetLocalWorldData final
 public:
 	struct FMagicLeapSharedWorldLocalData         LocalWorldReplicationData;                         // 0x0000(0x0010)(ConstParm, Parm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapSharedWorldPlayerController_ServerSetLocalWorldData;
 
 // Function MagicLeapSharedWorld.MagicLeapSharedWorldPlayerController.CanSendLocalDataToServer
 // 0x0001 (0x0001 - 0x0000)
@@ -72,6 +78,7 @@ struct MagicLeapSharedWorldPlayerController_CanSendLocalDataToServer final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapSharedWorldPlayerController_CanSendLocalDataToServer;
 
 // Function MagicLeapSharedWorld.MagicLeapSharedWorldPlayerController.IsChosenOne
 // 0x0001 (0x0001 - 0x0000)
@@ -80,6 +87,7 @@ struct MagicLeapSharedWorldPlayerController_IsChosenOne final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MagicLeapSharedWorldPlayerController_IsChosenOne;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

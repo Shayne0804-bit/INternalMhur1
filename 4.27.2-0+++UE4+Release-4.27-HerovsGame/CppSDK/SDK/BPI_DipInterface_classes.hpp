@@ -13,7 +13,8 @@
 #include "CoreUObject_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BPI_DipInterface.BPI_DipInterface_C
 // 0x0000 (0x0000 - 0x0000)
@@ -45,5 +46,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IBPI_DipInterface_C;
 
-SDK_NAMESPACE_END
+}
+

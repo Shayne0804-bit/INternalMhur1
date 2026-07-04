@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // UserDefinedStruct FCh025V2_U3_Param.FCh025V2_U3_Param
 // 0x0040 (0x0040 - 0x0000)
@@ -35,5 +36,7 @@ public:
 	float                                         BarrierValueL2_Ally_50_2BF55BF8429FED932A81F18EB34D5628; // 0x0038(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         BarrierValueL3_Ally_51_AFEB391A425A8EB5E3CF0192328B3D84; // 0x003C(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_FFCh025V2_U3_Param;
 
-SDK_NAMESPACE_END
+}
+

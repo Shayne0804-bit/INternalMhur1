@@ -14,8 +14,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamageRecover.BP_ActionDamageRecover_C.ExecuteUbergraph_BP_ActionDamageRecover
 // 0x0130 (0x0130 - 0x0000)
@@ -49,6 +49,7 @@ public:
 	float                                         CallFunc_Multiply_FloatFloat_ReturnValue_1;        // 0x0124(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_Multiply_FloatFloat_ReturnValue_2;        // 0x0128(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageRecover_C_ExecuteUbergraph_BP_ActionDamageRecover;
 
 // Function BP_ActionDamageRecover.BP_ActionDamageRecover_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -57,6 +58,7 @@ struct BP_ActionDamageRecover_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageRecover_C_BP_OnEndAction;
 
 // Function BP_ActionDamageRecover.BP_ActionDamageRecover_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -65,6 +67,7 @@ struct BP_ActionDamageRecover_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageRecover_C_BP_OnBeginAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

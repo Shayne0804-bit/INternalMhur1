@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class EyeTracker.EyeTrackerFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -40,5 +41,7 @@ public:
 		return GetDefaultObjImpl<UEyeTrackerFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UEyeTrackerFunctionLibrary;
 
-SDK_NAMESPACE_END
+}
+

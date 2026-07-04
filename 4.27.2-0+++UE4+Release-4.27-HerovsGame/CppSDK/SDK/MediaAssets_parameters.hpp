@@ -16,8 +16,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function MediaAssets.MediaSource.SetMediaOptionBool
 // 0x000C (0x000C - 0x0000)
@@ -28,6 +28,7 @@ public:
 	bool                                          value;                                             // 0x0008(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaSource_SetMediaOptionBool;
 
 // Function MediaAssets.MediaSource.SetMediaOptionFloat
 // 0x000C (0x000C - 0x0000)
@@ -37,6 +38,7 @@ public:
 	class FName                                   Key;                                               // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         value;                                             // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaSource_SetMediaOptionFloat;
 
 // Function MediaAssets.MediaSource.SetMediaOptionInt64
 // 0x0010 (0x0010 - 0x0000)
@@ -46,6 +48,7 @@ public:
 	class FName                                   Key;                                               // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int64                                         value;                                             // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaSource_SetMediaOptionInt64;
 
 // Function MediaAssets.MediaSource.SetMediaOptionString
 // 0x0018 (0x0018 - 0x0000)
@@ -55,6 +58,7 @@ public:
 	class FName                                   Key;                                               // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 value;                                             // 0x0008(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaSource_SetMediaOptionString;
 
 // Function MediaAssets.MediaSource.GetUrl
 // 0x0010 (0x0010 - 0x0000)
@@ -63,6 +67,7 @@ struct MediaSource_GetUrl final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaSource_GetUrl;
 
 // Function MediaAssets.MediaSource.Validate
 // 0x0001 (0x0001 - 0x0000)
@@ -71,6 +76,7 @@ struct MediaSource_Validate final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaSource_Validate;
 
 // Function MediaAssets.FileMediaSource.SetFilePath
 // 0x0010 (0x0010 - 0x0000)
@@ -79,6 +85,7 @@ struct FileMediaSource_SetFilePath final
 public:
 	class FString                                 Path;                                              // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FileMediaSource_SetFilePath;
 
 // Function MediaAssets.MediaBlueprintFunctionLibrary.EnumerateAudioCaptureDevices
 // 0x0018 (0x0018 - 0x0000)
@@ -89,6 +96,7 @@ public:
 	int32                                         Filter;                                            // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaBlueprintFunctionLibrary_EnumerateAudioCaptureDevices;
 
 // Function MediaAssets.MediaBlueprintFunctionLibrary.EnumerateVideoCaptureDevices
 // 0x0018 (0x0018 - 0x0000)
@@ -99,6 +107,7 @@ public:
 	int32                                         Filter;                                            // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaBlueprintFunctionLibrary_EnumerateVideoCaptureDevices;
 
 // Function MediaAssets.MediaBlueprintFunctionLibrary.EnumerateWebcamCaptureDevices
 // 0x0018 (0x0018 - 0x0000)
@@ -109,6 +118,7 @@ public:
 	int32                                         Filter;                                            // 0x0010(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_14[0x4];                                       // 0x0014(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaBlueprintFunctionLibrary_EnumerateWebcamCaptureDevices;
 
 // Function MediaAssets.MediaComponent.GetMediaPlayer
 // 0x0008 (0x0008 - 0x0000)
@@ -117,6 +127,7 @@ struct MediaComponent_GetMediaPlayer final
 public:
 	class UMediaPlayer*                           ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaComponent_GetMediaPlayer;
 
 // Function MediaAssets.MediaComponent.GetMediaTexture
 // 0x0008 (0x0008 - 0x0000)
@@ -125,6 +136,7 @@ struct MediaComponent_GetMediaTexture final
 public:
 	class UMediaTexture*                          ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaComponent_GetMediaTexture;
 
 // Function MediaAssets.MediaPlayer.CanPlaySource
 // 0x0010 (0x0010 - 0x0000)
@@ -135,6 +147,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_CanPlaySource;
 
 // Function MediaAssets.MediaPlayer.CanPlayUrl
 // 0x0018 (0x0018 - 0x0000)
@@ -145,6 +158,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_CanPlayUrl;
 
 // Function MediaAssets.MediaPlayer.Next
 // 0x0001 (0x0001 - 0x0000)
@@ -153,6 +167,7 @@ struct MediaPlayer_Next final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_Next;
 
 // Function MediaAssets.MediaPlayer.OpenFile
 // 0x0018 (0x0018 - 0x0000)
@@ -163,6 +178,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_OpenFile;
 
 // Function MediaAssets.MediaPlayer.OpenPlaylist
 // 0x0010 (0x0010 - 0x0000)
@@ -173,6 +189,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_OpenPlaylist;
 
 // Function MediaAssets.MediaPlayer.OpenPlaylistIndex
 // 0x0010 (0x0010 - 0x0000)
@@ -184,6 +201,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_OpenPlaylistIndex;
 
 // Function MediaAssets.MediaPlayer.OpenSource
 // 0x0010 (0x0010 - 0x0000)
@@ -194,6 +212,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_OpenSource;
 
 // Function MediaAssets.MediaPlayer.OpenSourceLatent
 // 0x0060 (0x0060 - 0x0000)
@@ -207,6 +226,7 @@ public:
 	bool                                          bSuccess;                                          // 0x0058(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_59[0x7];                                       // 0x0059(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_OpenSourceLatent;
 
 // Function MediaAssets.MediaPlayer.OpenSourceWithOptions
 // 0x0040 (0x0040 - 0x0000)
@@ -218,6 +238,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0038(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_39[0x7];                                       // 0x0039(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_OpenSourceWithOptions;
 
 // Function MediaAssets.MediaPlayer.OpenUrl
 // 0x0018 (0x0018 - 0x0000)
@@ -228,6 +249,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_OpenUrl;
 
 // Function MediaAssets.MediaPlayer.Pause
 // 0x0001 (0x0001 - 0x0000)
@@ -236,6 +258,7 @@ struct MediaPlayer_Pause final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_Pause;
 
 // Function MediaAssets.MediaPlayer.Play
 // 0x0001 (0x0001 - 0x0000)
@@ -244,6 +267,7 @@ struct MediaPlayer_Play final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_Play;
 
 // Function MediaAssets.MediaPlayer.Previous
 // 0x0001 (0x0001 - 0x0000)
@@ -252,6 +276,7 @@ struct MediaPlayer_Previous final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_Previous;
 
 // Function MediaAssets.MediaPlayer.Reopen
 // 0x0001 (0x0001 - 0x0000)
@@ -260,6 +285,7 @@ struct MediaPlayer_Reopen final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_Reopen;
 
 // Function MediaAssets.MediaPlayer.Rewind
 // 0x0001 (0x0001 - 0x0000)
@@ -268,6 +294,7 @@ struct MediaPlayer_Rewind final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_Rewind;
 
 // Function MediaAssets.MediaPlayer.Seek
 // 0x0010 (0x0010 - 0x0000)
@@ -278,6 +305,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_Seek;
 
 // Function MediaAssets.MediaPlayer.SelectTrack
 // 0x000C (0x000C - 0x0000)
@@ -290,6 +318,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x3];                                        // 0x0009(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_SelectTrack;
 
 // Function MediaAssets.MediaPlayer.SetBlockOnTime
 // 0x0008 (0x0008 - 0x0000)
@@ -298,6 +327,7 @@ struct MediaPlayer_SetBlockOnTime final
 public:
 	struct FTimespan                              Time;                                              // 0x0000(0x0008)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_SetBlockOnTime;
 
 // Function MediaAssets.MediaPlayer.SetDesiredPlayerName
 // 0x0008 (0x0008 - 0x0000)
@@ -306,6 +336,7 @@ struct MediaPlayer_SetDesiredPlayerName final
 public:
 	class FName                                   PlayerName;                                        // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_SetDesiredPlayerName;
 
 // Function MediaAssets.MediaPlayer.SetLooping
 // 0x0002 (0x0002 - 0x0000)
@@ -315,6 +346,7 @@ public:
 	bool                                          Looping;                                           // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	bool                                          ReturnValue;                                       // 0x0001(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_SetLooping;
 
 // Function MediaAssets.MediaPlayer.SetMediaOptions
 // 0x0008 (0x0008 - 0x0000)
@@ -323,6 +355,7 @@ struct MediaPlayer_SetMediaOptions final
 public:
 	const class UMediaSource*                     Options;                                           // 0x0000(0x0008)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_SetMediaOptions;
 
 // Function MediaAssets.MediaPlayer.SetNativeVolume
 // 0x0008 (0x0008 - 0x0000)
@@ -333,6 +366,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_SetNativeVolume;
 
 // Function MediaAssets.MediaPlayer.SetRate
 // 0x0008 (0x0008 - 0x0000)
@@ -343,6 +377,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_SetRate;
 
 // Function MediaAssets.MediaPlayer.SetTimeDelay
 // 0x0008 (0x0008 - 0x0000)
@@ -351,6 +386,7 @@ struct MediaPlayer_SetTimeDelay final
 public:
 	struct FTimespan                              TimeDelay_0;                                       // 0x0000(0x0008)(Parm, ZeroConstructor, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_SetTimeDelay;
 
 // Function MediaAssets.MediaPlayer.SetTrackFormat
 // 0x0010 (0x0010 - 0x0000)
@@ -364,6 +400,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_SetTrackFormat;
 
 // Function MediaAssets.MediaPlayer.SetVideoTrackFrameRate
 // 0x0010 (0x0010 - 0x0000)
@@ -376,6 +413,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000C(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_D[0x3];                                        // 0x000D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_SetVideoTrackFrameRate;
 
 // Function MediaAssets.MediaPlayer.SetViewField
 // 0x000C (0x000C - 0x0000)
@@ -388,6 +426,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0009(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_A[0x2];                                        // 0x000A(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_SetViewField;
 
 // Function MediaAssets.MediaPlayer.SetViewRotation
 // 0x0010 (0x0010 - 0x0000)
@@ -399,6 +438,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x000D(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_E[0x2];                                        // 0x000E(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_SetViewRotation;
 
 // Function MediaAssets.MediaPlayer.CanPause
 // 0x0001 (0x0001 - 0x0000)
@@ -407,6 +447,7 @@ struct MediaPlayer_CanPause final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_CanPause;
 
 // Function MediaAssets.MediaPlayer.GetAudioTrackChannels
 // 0x000C (0x000C - 0x0000)
@@ -417,6 +458,7 @@ public:
 	int32                                         FormatIndex;                                       // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetAudioTrackChannels;
 
 // Function MediaAssets.MediaPlayer.GetAudioTrackSampleRate
 // 0x000C (0x000C - 0x0000)
@@ -427,6 +469,7 @@ public:
 	int32                                         FormatIndex;                                       // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetAudioTrackSampleRate;
 
 // Function MediaAssets.MediaPlayer.GetAudioTrackType
 // 0x0018 (0x0018 - 0x0000)
@@ -437,6 +480,7 @@ public:
 	int32                                         FormatIndex;                                       // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetAudioTrackType;
 
 // Function MediaAssets.MediaPlayer.GetDesiredPlayerName
 // 0x0008 (0x0008 - 0x0000)
@@ -445,6 +489,7 @@ struct MediaPlayer_GetDesiredPlayerName final
 public:
 	class FName                                   ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetDesiredPlayerName;
 
 // Function MediaAssets.MediaPlayer.GetDuration
 // 0x0008 (0x0008 - 0x0000)
@@ -453,6 +498,7 @@ struct MediaPlayer_GetDuration final
 public:
 	struct FTimespan                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetDuration;
 
 // Function MediaAssets.MediaPlayer.GetHorizontalFieldOfView
 // 0x0004 (0x0004 - 0x0000)
@@ -461,6 +507,7 @@ struct MediaPlayer_GetHorizontalFieldOfView final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetHorizontalFieldOfView;
 
 // Function MediaAssets.MediaPlayer.GetMediaName
 // 0x0018 (0x0018 - 0x0000)
@@ -469,6 +516,7 @@ struct MediaPlayer_GetMediaName final
 public:
 	class FText                                   ReturnValue;                                       // 0x0000(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetMediaName;
 
 // Function MediaAssets.MediaPlayer.GetNumTrackFormats
 // 0x000C (0x000C - 0x0000)
@@ -480,6 +528,7 @@ public:
 	int32                                         TrackIndex;                                        // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetNumTrackFormats;
 
 // Function MediaAssets.MediaPlayer.GetNumTracks
 // 0x0008 (0x0008 - 0x0000)
@@ -490,6 +539,7 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetNumTracks;
 
 // Function MediaAssets.MediaPlayer.GetPlayerName
 // 0x0008 (0x0008 - 0x0000)
@@ -498,6 +548,7 @@ struct MediaPlayer_GetPlayerName final
 public:
 	class FName                                   ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetPlayerName;
 
 // Function MediaAssets.MediaPlayer.GetPlaylist
 // 0x0008 (0x0008 - 0x0000)
@@ -506,6 +557,7 @@ struct MediaPlayer_GetPlaylist final
 public:
 	class UMediaPlaylist*                         ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetPlaylist;
 
 // Function MediaAssets.MediaPlayer.GetPlaylistIndex
 // 0x0004 (0x0004 - 0x0000)
@@ -514,6 +566,7 @@ struct MediaPlayer_GetPlaylistIndex final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetPlaylistIndex;
 
 // Function MediaAssets.MediaPlayer.GetRate
 // 0x0004 (0x0004 - 0x0000)
@@ -522,6 +575,7 @@ struct MediaPlayer_GetRate final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetRate;
 
 // Function MediaAssets.MediaPlayer.GetSelectedTrack
 // 0x0008 (0x0008 - 0x0000)
@@ -532,6 +586,7 @@ public:
 	uint8                                         Pad_1[0x3];                                        // 0x0001(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         ReturnValue;                                       // 0x0004(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetSelectedTrack;
 
 // Function MediaAssets.MediaPlayer.GetSupportedRates
 // 0x0018 (0x0018 - 0x0000)
@@ -542,6 +597,7 @@ public:
 	bool                                          Unthinned;                                         // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_GetSupportedRates;
 
 // Function MediaAssets.MediaPlayer.GetTime
 // 0x0008 (0x0008 - 0x0000)
@@ -550,6 +606,7 @@ struct MediaPlayer_GetTime final
 public:
 	struct FTimespan                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetTime;
 
 // Function MediaAssets.MediaPlayer.GetTimeDelay
 // 0x0008 (0x0008 - 0x0000)
@@ -558,6 +615,7 @@ struct MediaPlayer_GetTimeDelay final
 public:
 	struct FTimespan                              ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetTimeDelay;
 
 // Function MediaAssets.MediaPlayer.GetTimeStamp
 // 0x0008 (0x0008 - 0x0000)
@@ -566,6 +624,7 @@ struct MediaPlayer_GetTimeStamp final
 public:
 	class UMediaTimeStampInfo*                    ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetTimeStamp;
 
 // Function MediaAssets.MediaPlayer.GetTrackDisplayName
 // 0x0020 (0x0020 - 0x0000)
@@ -577,6 +636,7 @@ public:
 	int32                                         TrackIndex;                                        // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FText                                   ReturnValue;                                       // 0x0008(0x0018)(Parm, OutParm, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetTrackDisplayName;
 
 // Function MediaAssets.MediaPlayer.GetTrackFormat
 // 0x000C (0x000C - 0x0000)
@@ -588,6 +648,7 @@ public:
 	int32                                         TrackIndex;                                        // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetTrackFormat;
 
 // Function MediaAssets.MediaPlayer.GetTrackLanguage
 // 0x0018 (0x0018 - 0x0000)
@@ -599,6 +660,7 @@ public:
 	int32                                         TrackIndex;                                        // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetTrackLanguage;
 
 // Function MediaAssets.MediaPlayer.GetUrl
 // 0x0010 (0x0010 - 0x0000)
@@ -607,6 +669,7 @@ struct MediaPlayer_GetUrl final
 public:
 	class FString                                 ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetUrl;
 
 // Function MediaAssets.MediaPlayer.GetVerticalFieldOfView
 // 0x0004 (0x0004 - 0x0000)
@@ -615,6 +678,7 @@ struct MediaPlayer_GetVerticalFieldOfView final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetVerticalFieldOfView;
 
 // Function MediaAssets.MediaPlayer.GetVideoTrackAspectRatio
 // 0x000C (0x000C - 0x0000)
@@ -625,6 +689,7 @@ public:
 	int32                                         FormatIndex;                                       // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetVideoTrackAspectRatio;
 
 // Function MediaAssets.MediaPlayer.GetVideoTrackDimensions
 // 0x0010 (0x0010 - 0x0000)
@@ -635,6 +700,7 @@ public:
 	int32                                         FormatIndex;                                       // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FIntPoint                              ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetVideoTrackDimensions;
 
 // Function MediaAssets.MediaPlayer.GetVideoTrackFrameRate
 // 0x000C (0x000C - 0x0000)
@@ -645,6 +711,7 @@ public:
 	int32                                         FormatIndex;                                       // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         ReturnValue;                                       // 0x0008(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetVideoTrackFrameRate;
 
 // Function MediaAssets.MediaPlayer.GetVideoTrackFrameRates
 // 0x0018 (0x0018 - 0x0000)
@@ -655,6 +722,7 @@ public:
 	int32                                         FormatIndex;                                       // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FFloatRange                            ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetVideoTrackFrameRates;
 
 // Function MediaAssets.MediaPlayer.GetVideoTrackType
 // 0x0018 (0x0018 - 0x0000)
@@ -665,6 +733,7 @@ public:
 	int32                                         FormatIndex;                                       // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0008(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetVideoTrackType;
 
 // Function MediaAssets.MediaPlayer.GetViewRotation
 // 0x000C (0x000C - 0x0000)
@@ -673,6 +742,7 @@ struct MediaPlayer_GetViewRotation final
 public:
 	struct FRotator                               ReturnValue;                                       // 0x0000(0x000C)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_GetViewRotation;
 
 // Function MediaAssets.MediaPlayer.HasError
 // 0x0001 (0x0001 - 0x0000)
@@ -681,6 +751,7 @@ struct MediaPlayer_HasError final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_HasError;
 
 // Function MediaAssets.MediaPlayer.IsBuffering
 // 0x0001 (0x0001 - 0x0000)
@@ -689,6 +760,7 @@ struct MediaPlayer_IsBuffering final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_IsBuffering;
 
 // Function MediaAssets.MediaPlayer.IsClosed
 // 0x0001 (0x0001 - 0x0000)
@@ -697,6 +769,7 @@ struct MediaPlayer_IsClosed final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_IsClosed;
 
 // Function MediaAssets.MediaPlayer.IsConnecting
 // 0x0001 (0x0001 - 0x0000)
@@ -705,6 +778,7 @@ struct MediaPlayer_IsConnecting final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_IsConnecting;
 
 // Function MediaAssets.MediaPlayer.IsLooping
 // 0x0001 (0x0001 - 0x0000)
@@ -713,6 +787,7 @@ struct MediaPlayer_IsLooping final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_IsLooping;
 
 // Function MediaAssets.MediaPlayer.IsPaused
 // 0x0001 (0x0001 - 0x0000)
@@ -721,6 +796,7 @@ struct MediaPlayer_IsPaused final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_IsPaused;
 
 // Function MediaAssets.MediaPlayer.IsPlaying
 // 0x0001 (0x0001 - 0x0000)
@@ -729,6 +805,7 @@ struct MediaPlayer_IsPlaying final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_IsPlaying;
 
 // Function MediaAssets.MediaPlayer.IsPreparing
 // 0x0001 (0x0001 - 0x0000)
@@ -737,6 +814,7 @@ struct MediaPlayer_IsPreparing final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_IsPreparing;
 
 // Function MediaAssets.MediaPlayer.IsReady
 // 0x0001 (0x0001 - 0x0000)
@@ -745,6 +823,7 @@ struct MediaPlayer_IsReady final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_IsReady;
 
 // Function MediaAssets.MediaPlayer.SupportsRate
 // 0x0008 (0x0008 - 0x0000)
@@ -756,6 +835,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0005(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_6[0x2];                                        // 0x0006(0x0002)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlayer_SupportsRate;
 
 // Function MediaAssets.MediaPlayer.SupportsScrubbing
 // 0x0001 (0x0001 - 0x0000)
@@ -764,6 +844,7 @@ struct MediaPlayer_SupportsScrubbing final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_SupportsScrubbing;
 
 // Function MediaAssets.MediaPlayer.SupportsSeeking
 // 0x0001 (0x0001 - 0x0000)
@@ -772,6 +853,7 @@ struct MediaPlayer_SupportsSeeking final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlayer_SupportsSeeking;
 
 // Function MediaAssets.MediaPlaylist.Add
 // 0x0010 (0x0010 - 0x0000)
@@ -782,6 +864,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlaylist_Add;
 
 // Function MediaAssets.MediaPlaylist.AddFile
 // 0x0018 (0x0018 - 0x0000)
@@ -792,6 +875,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlaylist_AddFile;
 
 // Function MediaAssets.MediaPlaylist.AddUrl
 // 0x0018 (0x0018 - 0x0000)
@@ -802,6 +886,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlaylist_AddUrl;
 
 // Function MediaAssets.MediaPlaylist.Get
 // 0x0010 (0x0010 - 0x0000)
@@ -812,6 +897,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UMediaSource*                           ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlaylist_Get;
 
 // Function MediaAssets.MediaPlaylist.GetNext
 // 0x0010 (0x0010 - 0x0000)
@@ -822,6 +908,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UMediaSource*                           ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlaylist_GetNext;
 
 // Function MediaAssets.MediaPlaylist.GetPrevious
 // 0x0010 (0x0010 - 0x0000)
@@ -832,6 +919,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UMediaSource*                           ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlaylist_GetPrevious;
 
 // Function MediaAssets.MediaPlaylist.GetRandom
 // 0x0010 (0x0010 - 0x0000)
@@ -842,6 +930,7 @@ public:
 	uint8                                         Pad_4[0x4];                                        // 0x0004(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UMediaSource*                           ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlaylist_GetRandom;
 
 // Function MediaAssets.MediaPlaylist.Insert
 // 0x0010 (0x0010 - 0x0000)
@@ -852,6 +941,7 @@ public:
 	int32                                         Index_0;                                           // 0x0008(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_C[0x4];                                        // 0x000C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlaylist_Insert;
 
 // Function MediaAssets.MediaPlaylist.Num
 // 0x0004 (0x0004 - 0x0000)
@@ -860,6 +950,7 @@ struct MediaPlaylist_Num final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaPlaylist_Num;
 
 // Function MediaAssets.MediaPlaylist.Remove
 // 0x0010 (0x0010 - 0x0000)
@@ -870,6 +961,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_9[0x7];                                        // 0x0009(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlaylist_Remove;
 
 // Function MediaAssets.MediaPlaylist.RemoveAt
 // 0x0008 (0x0008 - 0x0000)
@@ -880,6 +972,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0004(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_5[0x3];                                        // 0x0005(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlaylist_RemoveAt;
 
 // Function MediaAssets.MediaPlaylist.Replace
 // 0x0018 (0x0018 - 0x0000)
@@ -892,6 +985,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaPlaylist_Replace;
 
 // Function MediaAssets.MediaSoundComponent.BP_GetAttenuationSettingsToApply
 // 0x03A8 (0x03A8 - 0x0000)
@@ -902,6 +996,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x03A0(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_3A1[0x7];                                      // 0x03A1(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaSoundComponent_BP_GetAttenuationSettingsToApply;
 
 // Function MediaAssets.MediaSoundComponent.GetNormalizedSpectralData
 // 0x0010 (0x0010 - 0x0000)
@@ -910,6 +1005,7 @@ struct MediaSoundComponent_GetNormalizedSpectralData final
 public:
 	TArray<struct FMediaSoundComponentSpectralData> ReturnValue;                                     // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaSoundComponent_GetNormalizedSpectralData;
 
 // Function MediaAssets.MediaSoundComponent.GetSpectralData
 // 0x0010 (0x0010 - 0x0000)
@@ -918,6 +1014,7 @@ struct MediaSoundComponent_GetSpectralData final
 public:
 	TArray<struct FMediaSoundComponentSpectralData> ReturnValue;                                     // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaSoundComponent_GetSpectralData;
 
 // Function MediaAssets.MediaSoundComponent.SetEnableEnvelopeFollowing
 // 0x0001 (0x0001 - 0x0000)
@@ -926,6 +1023,7 @@ struct MediaSoundComponent_SetEnableEnvelopeFollowing final
 public:
 	bool                                          bInEnvelopeFollowing;                              // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaSoundComponent_SetEnableEnvelopeFollowing;
 
 // Function MediaAssets.MediaSoundComponent.SetEnableSpectralAnalysis
 // 0x0001 (0x0001 - 0x0000)
@@ -934,6 +1032,7 @@ struct MediaSoundComponent_SetEnableSpectralAnalysis final
 public:
 	bool                                          bInSpectralAnalysisEnabled;                        // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaSoundComponent_SetEnableSpectralAnalysis;
 
 // Function MediaAssets.MediaSoundComponent.SetEnvelopeFollowingsettings
 // 0x0008 (0x0008 - 0x0000)
@@ -943,6 +1042,7 @@ public:
 	int32                                         AttackTimeMsec;                                    // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         ReleaseTimeMsec;                                   // 0x0004(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaSoundComponent_SetEnvelopeFollowingsettings;
 
 // Function MediaAssets.MediaSoundComponent.SetMediaPlayer
 // 0x0008 (0x0008 - 0x0000)
@@ -951,6 +1051,7 @@ struct MediaSoundComponent_SetMediaPlayer final
 public:
 	class UMediaPlayer*                           NewMediaPlayer;                                    // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaSoundComponent_SetMediaPlayer;
 
 // Function MediaAssets.MediaSoundComponent.SetSpectralAnalysisSettings
 // 0x0018 (0x0018 - 0x0000)
@@ -961,6 +1062,7 @@ public:
 	EMediaSoundComponentFFTSize                   InFFTSize;                                         // 0x0010(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_MediaSoundComponent_SetSpectralAnalysisSettings;
 
 // Function MediaAssets.MediaSoundComponent.GetEnvelopeValue
 // 0x0004 (0x0004 - 0x0000)
@@ -969,6 +1071,7 @@ struct MediaSoundComponent_GetEnvelopeValue final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaSoundComponent_GetEnvelopeValue;
 
 // Function MediaAssets.MediaSoundComponent.GetMediaPlayer
 // 0x0008 (0x0008 - 0x0000)
@@ -977,6 +1080,7 @@ struct MediaSoundComponent_GetMediaPlayer final
 public:
 	class UMediaPlayer*                           ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaSoundComponent_GetMediaPlayer;
 
 // Function MediaAssets.MediaTexture.SetMediaPlayer
 // 0x0008 (0x0008 - 0x0000)
@@ -985,6 +1089,7 @@ struct MediaTexture_SetMediaPlayer final
 public:
 	class UMediaPlayer*                           NewMediaPlayer;                                    // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaTexture_SetMediaPlayer;
 
 // Function MediaAssets.MediaTexture.GetAspectRatio
 // 0x0004 (0x0004 - 0x0000)
@@ -993,6 +1098,7 @@ struct MediaTexture_GetAspectRatio final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaTexture_GetAspectRatio;
 
 // Function MediaAssets.MediaTexture.GetHeight
 // 0x0004 (0x0004 - 0x0000)
@@ -1001,6 +1107,7 @@ struct MediaTexture_GetHeight final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaTexture_GetHeight;
 
 // Function MediaAssets.MediaTexture.GetMediaPlayer
 // 0x0008 (0x0008 - 0x0000)
@@ -1009,6 +1116,7 @@ struct MediaTexture_GetMediaPlayer final
 public:
 	class UMediaPlayer*                           ReturnValue;                                       // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaTexture_GetMediaPlayer;
 
 // Function MediaAssets.MediaTexture.GetTextureNumMips
 // 0x0004 (0x0004 - 0x0000)
@@ -1017,6 +1125,7 @@ struct MediaTexture_GetTextureNumMips final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaTexture_GetTextureNumMips;
 
 // Function MediaAssets.MediaTexture.GetWidth
 // 0x0004 (0x0004 - 0x0000)
@@ -1025,6 +1134,7 @@ struct MediaTexture_GetWidth final
 public:
 	int32                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_MediaTexture_GetWidth;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "BB_CC_Ch025_Continuos_Recover_Health_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BB_CC_Ch025_Continuos_Recover_Health.BB_CC_Ch025_Continuos_Recover_Health_C.ExecuteUbergraph_BB_CC_Ch025_Continuos_Recover_Health
 // (Final, UbergraphFunction)
@@ -124,5 +125,5 @@ void UBB_CC_Ch025_Continuos_Recover_Health_C::CheckRecover(bool* Result) const
 		*Result = Parms.Result;
 }
 
+}
 
-SDK_NAMESPACE_END

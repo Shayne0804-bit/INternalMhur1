@@ -14,7 +14,8 @@
 #include "AIModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BTD_PatrolCheck.BTD_PatrolCheck_C
 // 0x0028 (0x00C8 - 0x00A0)
@@ -40,5 +41,7 @@ public:
 		return GetDefaultObjImpl<UBTD_PatrolCheck_C>();
 	}
 };
+DUMPER7_ASSERTS_UBTD_PatrolCheck_C;
 
-SDK_NAMESPACE_END
+}
+

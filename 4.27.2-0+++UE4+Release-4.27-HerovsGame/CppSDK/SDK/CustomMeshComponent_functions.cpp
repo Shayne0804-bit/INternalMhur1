@@ -14,7 +14,8 @@
 #include "CustomMeshComponent_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function CustomMeshComponent.CustomMeshComponent.AddCustomMeshTriangles
 // (Final, Native, Public, HasOutParams, BlueprintCallable)
@@ -87,5 +88,5 @@ bool UCustomMeshComponent::SetCustomMeshTriangles(const TArray<struct FCustomMes
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

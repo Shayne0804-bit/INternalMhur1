@@ -14,7 +14,8 @@
 #include "MagicLeapAR_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function MagicLeapAR.LuminARSessionFunctionLibrary.StartLuminARSession
 // (Final, Native, Static, Public, BlueprintCallable)
@@ -283,5 +284,5 @@ bool ULuminARCandidateImage::GetUseUnreliablePose() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

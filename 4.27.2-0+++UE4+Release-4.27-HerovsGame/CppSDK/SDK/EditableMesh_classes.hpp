@@ -14,7 +14,8 @@
 #include "EditableMesh_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class EditableMesh.EditableMeshAdapter
 // 0x0000 (0x0028 - 0x0028)
@@ -34,6 +35,7 @@ public:
 		return GetDefaultObjImpl<UEditableMeshAdapter>();
 	}
 };
+DUMPER7_ASSERTS_UEditableMeshAdapter;
 
 // Class EditableMesh.EditableGeometryCollectionAdapter
 // 0x00B0 (0x00D8 - 0x0028)
@@ -59,6 +61,7 @@ public:
 		return GetDefaultObjImpl<UEditableGeometryCollectionAdapter>();
 	}
 };
+DUMPER7_ASSERTS_UEditableGeometryCollectionAdapter;
 
 // Class EditableMesh.EditableMesh
 // 0x06E0 (0x0708 - 0x0028)
@@ -221,6 +224,7 @@ public:
 		return GetDefaultObjImpl<UEditableMesh>();
 	}
 };
+DUMPER7_ASSERTS_UEditableMesh;
 
 // Class EditableMesh.EditableMeshFactory
 // 0x0000 (0x0028 - 0x0028)
@@ -243,6 +247,7 @@ public:
 		return GetDefaultObjImpl<UEditableMeshFactory>();
 	}
 };
+DUMPER7_ASSERTS_UEditableMeshFactory;
 
 // Class EditableMesh.EditableStaticMeshAdapter
 // 0x00B8 (0x00E0 - 0x0028)
@@ -268,5 +273,7 @@ public:
 		return GetDefaultObjImpl<UEditableStaticMeshAdapter>();
 	}
 };
+DUMPER7_ASSERTS_UEditableStaticMeshAdapter;
 
-SDK_NAMESPACE_END
+}
+

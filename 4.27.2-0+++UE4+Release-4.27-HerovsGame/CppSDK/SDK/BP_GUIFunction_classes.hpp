@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_GUIFunction.BP_GUIFunction_C
 // 0x0000 (0x0028 - 0x0028)
@@ -43,5 +44,7 @@ public:
 		return GetDefaultObjImpl<UBP_GUIFunction_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_GUIFunction_C;
 
-SDK_NAMESPACE_END
+}
+

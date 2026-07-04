@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class AnimationBudgetAllocator.AnimationBudgetBlueprintLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -37,6 +38,7 @@ public:
 		return GetDefaultObjImpl<UAnimationBudgetBlueprintLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UAnimationBudgetBlueprintLibrary;
 
 // Class AnimationBudgetAllocator.SkeletalMeshComponentBudgeted
 // 0x0020 (0x0EF0 - 0x0ED0)
@@ -66,5 +68,7 @@ public:
 		return GetDefaultObjImpl<USkeletalMeshComponentBudgeted>();
 	}
 };
+DUMPER7_ASSERTS_USkeletalMeshComponentBudgeted;
 
-SDK_NAMESPACE_END
+}
+

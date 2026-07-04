@@ -14,7 +14,8 @@
 #include "CosmosApi_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class CosmosApi.NetHttp
 // 0x00A0 (0x00C8 - 0x0028)
@@ -45,6 +46,7 @@ public:
 		return GetDefaultObjImpl<UNetHttp>();
 	}
 };
+DUMPER7_ASSERTS_UNetHttp;
 
 // Class CosmosApi.NetMessage
 // 0x0010 (0x0038 - 0x0028)
@@ -76,6 +78,7 @@ public:
 		return GetDefaultObjImpl<UNetMessage>();
 	}
 };
+DUMPER7_ASSERTS_UNetMessage;
 
 // Class CosmosApi.NetSocketFacadeInterface
 // 0x0000 (0x0000 - 0x0000)
@@ -108,6 +111,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_INetSocketFacadeInterface;
 
 // Class CosmosApi.NetSquad
 // 0x0330 (0x0358 - 0x0028)
@@ -192,5 +196,7 @@ public:
 		return GetDefaultObjImpl<UNetSquad>();
 	}
 };
+DUMPER7_ASSERTS_UNetSquad;
 
-SDK_NAMESPACE_END
+}
+

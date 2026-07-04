@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function DevelopCamera.DevelopCameraActor.IsPlayInEditor
 // 0x0001 (0x0001 - 0x0000)
@@ -21,6 +21,7 @@ struct DevelopCameraActor_IsPlayInEditor final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DevelopCameraActor_IsPlayInEditor;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

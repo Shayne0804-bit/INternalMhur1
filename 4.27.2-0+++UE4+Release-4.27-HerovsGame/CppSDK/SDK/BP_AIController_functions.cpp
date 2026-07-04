@@ -14,7 +14,8 @@
 #include "BP_AIController_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_AIController.BP_AIController_C.ExecuteUbergraph_BP_AIController
 // (Final, UbergraphFunction, HasDefaults)
@@ -121,5 +122,5 @@ void ABP_AIController_C::BP_StartAI()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

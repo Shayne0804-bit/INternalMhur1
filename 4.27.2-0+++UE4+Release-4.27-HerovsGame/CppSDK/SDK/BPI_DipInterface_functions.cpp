@@ -13,7 +13,8 @@
 #include "BPI_DipInterface_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BPI_DipInterface.BPI_DipInterface_C.OnCloseDip
 // (Public, BlueprintCallable, BlueprintEvent)
@@ -28,5 +29,5 @@ void IBPI_DipInterface_C::OnCloseDip()
 	AsUObject()->ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

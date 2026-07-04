@@ -14,7 +14,8 @@
 #include "BP_CC_Recover_Health_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Recover_Health.BP_CC_Recover_Health_C.ExecuteUbergraph_BP_CC_Recover_Health
 // (Final, UbergraphFunction)
@@ -91,5 +92,5 @@ void UBP_CC_Recover_Health_C::BP_OnBeginCondition()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

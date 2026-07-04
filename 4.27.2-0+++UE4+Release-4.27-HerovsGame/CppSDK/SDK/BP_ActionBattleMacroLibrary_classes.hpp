@@ -13,7 +13,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionBattleMacroLibrary.BP_ActionBattleMacroLibrary_C
 // 0x0000 (0x0270 - 0x0270)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionBattleMacroLibrary_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionBattleMacroLibrary_C;
 
-SDK_NAMESPACE_END
+}
+

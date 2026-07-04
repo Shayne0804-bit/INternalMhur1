@@ -15,8 +15,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function OnlineSubsystemUtils.AchievementBlueprintLibrary.GetCachedAchievementDescription
 // 0x0070 (0x0070 - 0x0000)
@@ -34,6 +34,7 @@ public:
 	bool                                          bHidden;                                           // 0x0068(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_69[0x7];                                       // 0x0069(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AchievementBlueprintLibrary_GetCachedAchievementDescription;
 
 // Function OnlineSubsystemUtils.AchievementBlueprintLibrary.GetCachedAchievementProgress
 // 0x0020 (0x0020 - 0x0000)
@@ -47,6 +48,7 @@ public:
 	uint8                                         Pad_19[0x3];                                       // 0x0019(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	float                                         Progress;                                          // 0x001C(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AchievementBlueprintLibrary_GetCachedAchievementProgress;
 
 // Function OnlineSubsystemUtils.AchievementQueryCallbackProxy.CacheAchievementDescriptions
 // 0x0018 (0x0018 - 0x0000)
@@ -57,6 +59,7 @@ public:
 	class APlayerController*                      PlayerController;                                  // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UAchievementQueryCallbackProxy*         ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AchievementQueryCallbackProxy_CacheAchievementDescriptions;
 
 // Function OnlineSubsystemUtils.AchievementQueryCallbackProxy.CacheAchievements
 // 0x0018 (0x0018 - 0x0000)
@@ -67,6 +70,7 @@ public:
 	class APlayerController*                      PlayerController;                                  // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UAchievementQueryCallbackProxy*         ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AchievementQueryCallbackProxy_CacheAchievements;
 
 // Function OnlineSubsystemUtils.AchievementWriteCallbackProxy.WriteAchievementProgress
 // 0x0028 (0x0028 - 0x0000)
@@ -80,6 +84,7 @@ public:
 	int32                                         UserTag;                                           // 0x001C(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UAchievementWriteCallbackProxy*         ReturnValue;                                       // 0x0020(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AchievementWriteCallbackProxy_WriteAchievementProgress;
 
 // Function OnlineSubsystemUtils.ConnectionCallbackProxy.ConnectToService
 // 0x0018 (0x0018 - 0x0000)
@@ -90,6 +95,7 @@ public:
 	class APlayerController*                      PlayerController;                                  // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UConnectionCallbackProxy*               ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ConnectionCallbackProxy_ConnectToService;
 
 // Function OnlineSubsystemUtils.CreateSessionCallbackProxy.CreateSession
 // 0x0020 (0x0020 - 0x0000)
@@ -103,6 +109,7 @@ public:
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class UCreateSessionCallbackProxy*            ReturnValue;                                       // 0x0018(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_CreateSessionCallbackProxy_CreateSession;
 
 // Function OnlineSubsystemUtils.DestroySessionCallbackProxy.DestroySession
 // 0x0018 (0x0018 - 0x0000)
@@ -113,6 +120,7 @@ public:
 	class APlayerController*                      PlayerController;                                  // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UDestroySessionCallbackProxy*           ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DestroySessionCallbackProxy_DestroySession;
 
 // Function OnlineSubsystemUtils.EndMatchCallbackProxy.EndMatch
 // 0x0040 (0x0040 - 0x0000)
@@ -128,6 +136,7 @@ public:
 	uint8                                         Pad_32[0x6];                                       // 0x0032(0x0006)(Fixing Size After Last Property [ Dumper-7 ])
 	class UEndMatchCallbackProxy*                 ReturnValue;                                       // 0x0038(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EndMatchCallbackProxy_EndMatch;
 
 // Function OnlineSubsystemUtils.EndTurnCallbackProxy.EndTurn
 // 0x0038 (0x0038 - 0x0000)
@@ -140,6 +149,7 @@ public:
 	TScriptInterface<class ITurnBasedMatchInterface> TurnBasedMatchInterface;                        // 0x0020(0x0010)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, UObjectWrapper, NativeAccessSpecifierPublic)
 	class UEndTurnCallbackProxy*                  ReturnValue;                                       // 0x0030(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_EndTurnCallbackProxy_EndTurn;
 
 // Function OnlineSubsystemUtils.FindSessionsCallbackProxy.FindSessions
 // 0x0020 (0x0020 - 0x0000)
@@ -153,6 +163,7 @@ public:
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class UFindSessionsCallbackProxy*             ReturnValue;                                       // 0x0018(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FindSessionsCallbackProxy_FindSessions;
 
 // Function OnlineSubsystemUtils.FindSessionsCallbackProxy.GetCurrentPlayers
 // 0x0110 (0x0110 - 0x0000)
@@ -163,6 +174,7 @@ public:
 	int32                                         ReturnValue;                                       // 0x0108(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_10C[0x4];                                      // 0x010C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FindSessionsCallbackProxy_GetCurrentPlayers;
 
 // Function OnlineSubsystemUtils.FindSessionsCallbackProxy.GetMaxPlayers
 // 0x0110 (0x0110 - 0x0000)
@@ -173,6 +185,7 @@ public:
 	int32                                         ReturnValue;                                       // 0x0108(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_10C[0x4];                                      // 0x010C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FindSessionsCallbackProxy_GetMaxPlayers;
 
 // Function OnlineSubsystemUtils.FindSessionsCallbackProxy.GetPingInMs
 // 0x0110 (0x0110 - 0x0000)
@@ -183,6 +196,7 @@ public:
 	int32                                         ReturnValue;                                       // 0x0108(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_10C[0x4];                                      // 0x010C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FindSessionsCallbackProxy_GetPingInMs;
 
 // Function OnlineSubsystemUtils.FindSessionsCallbackProxy.GetServerName
 // 0x0118 (0x0118 - 0x0000)
@@ -192,6 +206,7 @@ public:
 	struct FBlueprintSessionResult                Result;                                            // 0x0000(0x0108)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0108(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FindSessionsCallbackProxy_GetServerName;
 
 // Function OnlineSubsystemUtils.FindTurnBasedMatchCallbackProxy.FindTurnBasedMatch
 // 0x0038 (0x0038 - 0x0000)
@@ -208,6 +223,7 @@ public:
 	uint8                                         Pad_2D[0x3];                                       // 0x002D(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	class UFindTurnBasedMatchCallbackProxy*       ReturnValue;                                       // 0x0030(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FindTurnBasedMatchCallbackProxy_FindTurnBasedMatch;
 
 // Function OnlineSubsystemUtils.InAppPurchaseCallbackProxy.CreateProxyObjectForInAppPurchase
 // 0x0028 (0x0028 - 0x0000)
@@ -218,6 +234,7 @@ public:
 	struct FInAppPurchaseProductRequest           ProductRequest;                                    // 0x0008(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	class UInAppPurchaseCallbackProxy*            ReturnValue;                                       // 0x0020(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_InAppPurchaseCallbackProxy_CreateProxyObjectForInAppPurchase;
 
 // Function OnlineSubsystemUtils.InAppPurchaseCallbackProxy2.CreateProxyObjectForInAppPurchase
 // 0x0028 (0x0028 - 0x0000)
@@ -228,6 +245,7 @@ public:
 	struct FInAppPurchaseProductRequest2          ProductRequest;                                    // 0x0008(0x0018)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	class UInAppPurchaseCallbackProxy2*           ReturnValue;                                       // 0x0020(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_InAppPurchaseCallbackProxy2_CreateProxyObjectForInAppPurchase;
 
 // Function OnlineSubsystemUtils.InAppPurchaseCallbackProxy2.CreateProxyObjectForInAppPurchaseQueryOwned
 // 0x0010 (0x0010 - 0x0000)
@@ -237,6 +255,7 @@ public:
 	class APlayerController*                      PlayerController;                                  // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UInAppPurchaseCallbackProxy2*           ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_InAppPurchaseCallbackProxy2_CreateProxyObjectForInAppPurchaseQueryOwned;
 
 // Function OnlineSubsystemUtils.InAppPurchaseCallbackProxy2.CreateProxyObjectForInAppPurchaseUnprocessedPurchases
 // 0x0010 (0x0010 - 0x0000)
@@ -246,6 +265,7 @@ public:
 	class APlayerController*                      PlayerController;                                  // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UInAppPurchaseCallbackProxy2*           ReturnValue;                                       // 0x0008(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_InAppPurchaseCallbackProxy2_CreateProxyObjectForInAppPurchaseUnprocessedPurchases;
 
 // Function OnlineSubsystemUtils.InAppPurchaseQueryCallbackProxy.CreateProxyObjectForInAppPurchaseQuery
 // 0x0020 (0x0020 - 0x0000)
@@ -256,6 +276,7 @@ public:
 	TArray<class FString>                         ProductIdentifiers;                                // 0x0008(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	class UInAppPurchaseQueryCallbackProxy*       ReturnValue;                                       // 0x0018(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_InAppPurchaseQueryCallbackProxy_CreateProxyObjectForInAppPurchaseQuery;
 
 // Function OnlineSubsystemUtils.InAppPurchaseQueryCallbackProxy2.CreateProxyObjectForInAppPurchaseQuery
 // 0x0020 (0x0020 - 0x0000)
@@ -266,6 +287,7 @@ public:
 	TArray<class FString>                         ProductIdentifiers;                                // 0x0008(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	class UInAppPurchaseQueryCallbackProxy2*      ReturnValue;                                       // 0x0018(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_InAppPurchaseQueryCallbackProxy2_CreateProxyObjectForInAppPurchaseQuery;
 
 // Function OnlineSubsystemUtils.InAppPurchaseRestoreCallbackProxy.CreateProxyObjectForInAppPurchaseRestore
 // 0x0020 (0x0020 - 0x0000)
@@ -276,6 +298,7 @@ public:
 	class APlayerController*                      PlayerController;                                  // 0x0010(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UInAppPurchaseRestoreCallbackProxy*     ReturnValue;                                       // 0x0018(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_InAppPurchaseRestoreCallbackProxy_CreateProxyObjectForInAppPurchaseRestore;
 
 // Function OnlineSubsystemUtils.InAppPurchaseRestoreCallbackProxy2.CreateProxyObjectForInAppPurchaseRestore
 // 0x0020 (0x0020 - 0x0000)
@@ -286,6 +309,7 @@ public:
 	class APlayerController*                      PlayerController;                                  // 0x0010(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UInAppPurchaseRestoreCallbackProxy2*    ReturnValue;                                       // 0x0018(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_InAppPurchaseRestoreCallbackProxy2_CreateProxyObjectForInAppPurchaseRestore;
 
 // Function OnlineSubsystemUtils.JoinSessionCallbackProxy.JoinSession
 // 0x0120 (0x0120 - 0x0000)
@@ -297,6 +321,7 @@ public:
 	struct FBlueprintSessionResult                SearchResult;                                      // 0x0010(0x0108)(ConstParm, Parm, OutParm, ReferenceParm, NativeAccessSpecifierPublic)
 	class UJoinSessionCallbackProxy*              ReturnValue;                                       // 0x0118(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_JoinSessionCallbackProxy_JoinSession;
 
 // Function OnlineSubsystemUtils.LeaderboardBlueprintLibrary.WriteLeaderboardInteger
 // 0x0018 (0x0018 - 0x0000)
@@ -309,6 +334,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0014(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_15[0x3];                                       // 0x0015(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_LeaderboardBlueprintLibrary_WriteLeaderboardInteger;
 
 // Function OnlineSubsystemUtils.LeaderboardFlushCallbackProxy.CreateProxyObjectForFlush
 // 0x0018 (0x0018 - 0x0000)
@@ -319,6 +345,7 @@ public:
 	class FName                                   SessionName;                                       // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class ULeaderboardFlushCallbackProxy*         ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LeaderboardFlushCallbackProxy_CreateProxyObjectForFlush;
 
 // Function OnlineSubsystemUtils.LeaderboardQueryCallbackProxy.CreateProxyObjectForIntQuery
 // 0x0018 (0x0018 - 0x0000)
@@ -329,6 +356,7 @@ public:
 	class FName                                   StatName;                                          // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class ULeaderboardQueryCallbackProxy*         ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LeaderboardQueryCallbackProxy_CreateProxyObjectForIntQuery;
 
 // Function OnlineSubsystemUtils.LogoutCallbackProxy.Logout
 // 0x0018 (0x0018 - 0x0000)
@@ -339,6 +367,7 @@ public:
 	class APlayerController*                      PlayerController;                                  // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class ULogoutCallbackProxy*                   ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LogoutCallbackProxy_Logout;
 
 // Function OnlineSubsystemUtils.PartyBeaconClient.ClientCancelReservationResponse
 // 0x0001 (0x0001 - 0x0000)
@@ -347,6 +376,7 @@ struct PartyBeaconClient_ClientCancelReservationResponse final
 public:
 	EPartyReservationResult                       ReservationResponse;                               // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PartyBeaconClient_ClientCancelReservationResponse;
 
 // Function OnlineSubsystemUtils.PartyBeaconClient.ClientReservationResponse
 // 0x0001 (0x0001 - 0x0000)
@@ -355,6 +385,7 @@ struct PartyBeaconClient_ClientReservationResponse final
 public:
 	EPartyReservationResult                       ReservationResponse;                               // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PartyBeaconClient_ClientReservationResponse;
 
 // Function OnlineSubsystemUtils.PartyBeaconClient.ClientSendReservationUpdates
 // 0x0004 (0x0004 - 0x0000)
@@ -363,6 +394,7 @@ struct PartyBeaconClient_ClientSendReservationUpdates final
 public:
 	int32                                         NumRemainingReservations;                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PartyBeaconClient_ClientSendReservationUpdates;
 
 // Function OnlineSubsystemUtils.PartyBeaconClient.ServerAddOrUpdateReservationRequest
 // 0x0060 (0x0060 - 0x0000)
@@ -372,6 +404,7 @@ public:
 	class FString                                 SessionId;                                         // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FPartyReservation                      Reservation;                                       // 0x0010(0x0050)(ConstParm, Parm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PartyBeaconClient_ServerAddOrUpdateReservationRequest;
 
 // Function OnlineSubsystemUtils.PartyBeaconClient.ServerCancelReservationRequest
 // 0x0028 (0x0028 - 0x0000)
@@ -380,6 +413,7 @@ struct PartyBeaconClient_ServerCancelReservationRequest final
 public:
 	struct FUniqueNetIdRepl                       PartyLeader;                                       // 0x0000(0x0028)(ConstParm, Parm, ReferenceParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PartyBeaconClient_ServerCancelReservationRequest;
 
 // Function OnlineSubsystemUtils.PartyBeaconClient.ServerRemoveMemberFromReservationRequest
 // 0x0060 (0x0060 - 0x0000)
@@ -389,6 +423,7 @@ public:
 	class FString                                 SessionId;                                         // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FPartyReservation                      ReservationUpdate;                                 // 0x0010(0x0050)(ConstParm, Parm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PartyBeaconClient_ServerRemoveMemberFromReservationRequest;
 
 // Function OnlineSubsystemUtils.PartyBeaconClient.ServerReservationRequest
 // 0x0060 (0x0060 - 0x0000)
@@ -398,6 +433,7 @@ public:
 	class FString                                 SessionId;                                         // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FPartyReservation                      Reservation;                                       // 0x0010(0x0050)(ConstParm, Parm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PartyBeaconClient_ServerReservationRequest;
 
 // Function OnlineSubsystemUtils.PartyBeaconClient.ServerUpdateReservationRequest
 // 0x0060 (0x0060 - 0x0000)
@@ -407,6 +443,7 @@ public:
 	class FString                                 SessionId;                                         // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FPartyReservation                      ReservationUpdate;                                 // 0x0010(0x0050)(ConstParm, Parm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_PartyBeaconClient_ServerUpdateReservationRequest;
 
 // Function OnlineSubsystemUtils.QuitMatchCallbackProxy.QuitMatch
 // 0x0030 (0x0030 - 0x0000)
@@ -421,6 +458,7 @@ public:
 	int32                                         TurnTimeoutInSeconds;                              // 0x0024(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UQuitMatchCallbackProxy*                ReturnValue;                                       // 0x0028(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_QuitMatchCallbackProxy_QuitMatch;
 
 // Function OnlineSubsystemUtils.ShowLoginUICallbackProxy.ShowExternalLoginUI
 // 0x0018 (0x0018 - 0x0000)
@@ -431,6 +469,7 @@ public:
 	class APlayerController*                      InPlayerController;                                // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UShowLoginUICallbackProxy*              ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_ShowLoginUICallbackProxy_ShowExternalLoginUI;
 
 // Function OnlineSubsystemUtils.SpectatorBeaconClient.ClientCancelReservationResponse
 // 0x0001 (0x0001 - 0x0000)
@@ -439,6 +478,7 @@ struct SpectatorBeaconClient_ClientCancelReservationResponse final
 public:
 	ESpectatorReservationResult                   ReservationResponse;                               // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SpectatorBeaconClient_ClientCancelReservationResponse;
 
 // Function OnlineSubsystemUtils.SpectatorBeaconClient.ClientReservationResponse
 // 0x0001 (0x0001 - 0x0000)
@@ -447,6 +487,7 @@ struct SpectatorBeaconClient_ClientReservationResponse final
 public:
 	ESpectatorReservationResult                   ReservationResponse;                               // 0x0000(0x0001)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SpectatorBeaconClient_ClientReservationResponse;
 
 // Function OnlineSubsystemUtils.SpectatorBeaconClient.ClientSendReservationUpdates
 // 0x0004 (0x0004 - 0x0000)
@@ -455,6 +496,7 @@ struct SpectatorBeaconClient_ClientSendReservationUpdates final
 public:
 	int32                                         NumRemainingReservations;                          // 0x0000(0x0004)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SpectatorBeaconClient_ClientSendReservationUpdates;
 
 // Function OnlineSubsystemUtils.SpectatorBeaconClient.ServerCancelReservationRequest
 // 0x0028 (0x0028 - 0x0000)
@@ -463,6 +505,7 @@ struct SpectatorBeaconClient_ServerCancelReservationRequest final
 public:
 	struct FUniqueNetIdRepl                       Spectator;                                         // 0x0000(0x0028)(ConstParm, Parm, ReferenceParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SpectatorBeaconClient_ServerCancelReservationRequest;
 
 // Function OnlineSubsystemUtils.SpectatorBeaconClient.ServerReservationRequest
 // 0x0088 (0x0088 - 0x0000)
@@ -472,6 +515,7 @@ public:
 	class FString                                 SessionId;                                         // 0x0000(0x0010)(Parm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FSpectatorReservation                  Reservation;                                       // 0x0010(0x0078)(ConstParm, Parm, ReferenceParm, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_SpectatorBeaconClient_ServerReservationRequest;
 
 // Function OnlineSubsystemUtils.TurnBasedBlueprintLibrary.GetIsMyTurn
 // 0x0028 (0x0028 - 0x0000)
@@ -484,6 +528,7 @@ public:
 	bool                                          bIsMyTurn;                                         // 0x0020(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_TurnBasedBlueprintLibrary_GetIsMyTurn;
 
 // Function OnlineSubsystemUtils.TurnBasedBlueprintLibrary.GetMyPlayerIndex
 // 0x0028 (0x0028 - 0x0000)
@@ -496,6 +541,7 @@ public:
 	int32                                         PlayerIndex;                                       // 0x0020(0x0004)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_TurnBasedBlueprintLibrary_GetMyPlayerIndex;
 
 // Function OnlineSubsystemUtils.TurnBasedBlueprintLibrary.GetPlayerDisplayName
 // 0x0038 (0x0038 - 0x0000)
@@ -509,6 +555,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class FString                                 PlayerDisplayName;                                 // 0x0028(0x0010)(Parm, OutParm, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_TurnBasedBlueprintLibrary_GetPlayerDisplayName;
 
 // Function OnlineSubsystemUtils.TurnBasedBlueprintLibrary.RegisterTurnBasedMatchInterfaceObject
 // 0x0018 (0x0018 - 0x0000)
@@ -519,6 +566,7 @@ public:
 	class APlayerController*                      PlayerController;                                  // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UObject*                                Object;                                            // 0x0010(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_TurnBasedBlueprintLibrary_RegisterTurnBasedMatchInterfaceObject;
 
 // Function OnlineSubsystemUtils.VoipListenerSynthComponent.IsIdling
 // 0x0001 (0x0001 - 0x0000)
@@ -527,6 +575,7 @@ struct VoipListenerSynthComponent_IsIdling final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_VoipListenerSynthComponent_IsIdling;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

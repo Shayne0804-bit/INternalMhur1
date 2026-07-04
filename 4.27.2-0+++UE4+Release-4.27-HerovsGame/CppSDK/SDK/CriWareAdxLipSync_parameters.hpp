@@ -13,8 +13,8 @@
 #include "CriWareAdxLipSync_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function CriWareAdxLipSync.LipsAnalyzerBase.Init
 // 0x0004 (0x0004 - 0x0000)
@@ -23,6 +23,7 @@ struct LipsAnalyzerBase_Init final
 public:
 	int32                                         MaxInputSamplingRate;                              // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LipsAnalyzerBase_Init;
 
 // Function CriWareAdxLipSync.LipsAnalyzerBase.SetSamplingRate
 // 0x0004 (0x0004 - 0x0000)
@@ -31,6 +32,7 @@ struct LipsAnalyzerBase_SetSamplingRate final
 public:
 	int32                                         SamplingRateHz;                                    // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LipsAnalyzerBase_SetSamplingRate;
 
 // Function CriWareAdxLipSync.LipsAnalyzerBase.SetSilenceThreshold
 // 0x0004 (0x0004 - 0x0000)
@@ -39,6 +41,7 @@ struct LipsAnalyzerBase_SetSilenceThreshold final
 public:
 	float                                         VolumeDb;                                          // 0x0000(0x0004)(ConstParm, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LipsAnalyzerBase_SetSilenceThreshold;
 
 // Function CriWareAdxLipSync.LipsAnalyzerBase.GetInfo
 // 0x0010 (0x0010 - 0x0000)
@@ -47,6 +50,7 @@ struct LipsAnalyzerBase_GetInfo final
 public:
 	struct FCriLipsMouthInfo                      ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LipsAnalyzerBase_GetInfo;
 
 // Function CriWareAdxLipSync.LipsAnalyzerBase.GetInfoAtSilence
 // 0x0010 (0x0010 - 0x0000)
@@ -55,6 +59,7 @@ struct LipsAnalyzerBase_GetInfoAtSilence final
 public:
 	struct FCriLipsMouthInfo                      ReturnValue;                                       // 0x0000(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LipsAnalyzerBase_GetInfoAtSilence;
 
 // Function CriWareAdxLipSync.LipsAnalyzerBase.GetMorphTargetBlendAmountAsJapanese
 // 0x0014 (0x0014 - 0x0000)
@@ -63,6 +68,7 @@ struct LipsAnalyzerBase_GetMorphTargetBlendAmountAsJapanese final
 public:
 	struct FCriLipsMorphTargetBlendAmountAsJapanese ReturnValue;                                     // 0x0000(0x0014)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LipsAnalyzerBase_GetMorphTargetBlendAmountAsJapanese;
 
 // Function CriWareAdxLipSync.LipsAnalyzerBase.GetSilenceThreshold
 // 0x0004 (0x0004 - 0x0000)
@@ -71,6 +77,7 @@ struct LipsAnalyzerBase_GetSilenceThreshold final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LipsAnalyzerBase_GetSilenceThreshold;
 
 // Function CriWareAdxLipSync.LipsAnalyzerBase.GetVolume
 // 0x0004 (0x0004 - 0x0000)
@@ -79,6 +86,7 @@ struct LipsAnalyzerBase_GetVolume final
 public:
 	float                                         ReturnValue;                                       // 0x0000(0x0004)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LipsAnalyzerBase_GetVolume;
 
 // Function CriWareAdxLipSync.LipsAnalyzerBase.IsAtSilence
 // 0x0001 (0x0001 - 0x0000)
@@ -87,6 +95,7 @@ struct LipsAnalyzerBase_IsAtSilence final
 public:
 	bool                                          ReturnValue;                                       // 0x0000(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LipsAnalyzerBase_IsAtSilence;
 
 // Function CriWareAdxLipSync.LipsAtomAnalyzer.Attach
 // 0x0008 (0x0008 - 0x0000)
@@ -95,6 +104,7 @@ struct LipsAtomAnalyzer_Attach final
 public:
 	class UAtomComponent*                         InAtomComponent;                                   // 0x0000(0x0008)(Parm, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_LipsAtomAnalyzer_Attach;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

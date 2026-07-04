@@ -16,7 +16,8 @@
 #include "AudioMixer_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class AudioMixer.SynthSound
 // 0x0020 (0x03E0 - 0x03C0)
@@ -40,6 +41,7 @@ public:
 		return GetDefaultObjImpl<USynthSound>();
 	}
 };
+DUMPER7_ASSERTS_USynthSound;
 
 // Class AudioMixer.SynthComponent
 // 0x04C0 (0x06C0 - 0x0200)
@@ -103,6 +105,7 @@ public:
 		return GetDefaultObjImpl<USynthComponent>();
 	}
 };
+DUMPER7_ASSERTS_USynthComponent;
 
 // Class AudioMixer.SubmixEffectSubmixEQPreset
 // 0x0048 (0x00B0 - 0x0068)
@@ -129,6 +132,7 @@ public:
 		return GetDefaultObjImpl<USubmixEffectSubmixEQPreset>();
 	}
 };
+DUMPER7_ASSERTS_USubmixEffectSubmixEQPreset;
 
 // Class AudioMixer.AudioGenerator
 // 0x0080 (0x00A8 - 0x0028)
@@ -151,6 +155,7 @@ public:
 		return GetDefaultObjImpl<UAudioGenerator>();
 	}
 };
+DUMPER7_ASSERTS_UAudioGenerator;
 
 // Class AudioMixer.AudioMixerBlueprintLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -206,6 +211,7 @@ public:
 		return GetDefaultObjImpl<UAudioMixerBlueprintLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UAudioMixerBlueprintLibrary;
 
 // Class AudioMixer.QuartzClockHandle
 // 0x0168 (0x0190 - 0x0028)
@@ -259,6 +265,7 @@ public:
 		return GetDefaultObjImpl<UQuartzClockHandle>();
 	}
 };
+DUMPER7_ASSERTS_UQuartzClockHandle;
 
 // Class AudioMixer.SubmixEffectDynamicsProcessorPreset
 // 0x00E8 (0x0150 - 0x0068)
@@ -288,6 +295,7 @@ public:
 		return GetDefaultObjImpl<USubmixEffectDynamicsProcessorPreset>();
 	}
 };
+DUMPER7_ASSERTS_USubmixEffectDynamicsProcessorPreset;
 
 // Class AudioMixer.SubmixEffectReverbPreset
 // 0x00A8 (0x0110 - 0x0068)
@@ -315,6 +323,7 @@ public:
 		return GetDefaultObjImpl<USubmixEffectReverbPreset>();
 	}
 };
+DUMPER7_ASSERTS_USubmixEffectReverbPreset;
 
 // Class AudioMixer.QuartzSubsystem
 // 0x0110 (0x0150 - 0x0040)
@@ -358,5 +367,7 @@ public:
 		return GetDefaultObjImpl<UQuartzSubsystem>();
 	}
 };
+DUMPER7_ASSERTS_UQuartzSubsystem;
 
-SDK_NAMESPACE_END
+}
+

@@ -13,8 +13,8 @@
 #include "CommonModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_RollSlot_Decay.BP_CC_RollSlot_Decay_C.ExecuteUbergraph_BP_CC_RollSlot_Decay
 // 0x0058 (0x0058 - 0x0000)
@@ -36,6 +36,7 @@ public:
 	class APlayerStateBattle*                     CallFunc_BP_GetOwnerPlayerState_ReturnValue_1;     // 0x0048(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UBuffParam*                             CallFunc_BP_GetBuffParam_ReturnValue_1;            // 0x0050(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_RollSlot_Decay_C_ExecuteUbergraph_BP_CC_RollSlot_Decay;
 
 // Function BP_CC_RollSlot_Decay.BP_CC_RollSlot_Decay_C.BP_OnChangeConditionLevel
 // 0x0008 (0x0008 - 0x0000)
@@ -45,6 +46,7 @@ public:
 	int32                                         oldLevel;                                          // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         newLevel;                                          // 0x0004(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_RollSlot_Decay_C_BP_OnChangeConditionLevel;
 
 // Function BP_CC_RollSlot_Decay.BP_CC_RollSlot_Decay_C.IsRollSlotFunction
 // 0x0020 (0x0020 - 0x0000)
@@ -60,6 +62,7 @@ public:
 	class APlayerStateBattle*                     CallFunc_BP_GetOwnerPlayerState_ReturnValue;       // 0x0010(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterRollSlotUniqueSkillControlComponent* CallFunc_BP_GetCharacterRollSlotUniqueSkillControlComponent_ReturnValue; // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_RollSlot_Decay_C_IsRollSlotFunction;
 
 // Function BP_CC_RollSlot_Decay.BP_CC_RollSlot_Decay_C.IsAllRollSlotNoneFunction
 // 0x0006 (0x0006 - 0x0000)
@@ -73,6 +76,7 @@ public:
 	bool                                          CallFunc_Not_PreBool_ReturnValue_1;                // 0x0004(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_BooleanAND_ReturnValue;                   // 0x0005(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_RollSlot_Decay_C_IsAllRollSlotNoneFunction;
 
 // Function BP_CC_RollSlot_Decay.BP_CC_RollSlot_Decay_C.IsCondision
 // 0x000C (0x000C - 0x0000)
@@ -84,6 +88,7 @@ public:
 	bool                                          bFunction;                                         // 0x0008(0x0001)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_EqualEqual_IntInt_ReturnValue;            // 0x0009(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_CC_RollSlot_Decay_C_IsCondision;
 
 // Function BP_CC_RollSlot_Decay.BP_CC_RollSlot_Decay_C.DefultRate
 // 0x0010 (0x0010 - 0x0000)
@@ -93,6 +98,7 @@ public:
 	class APlayerStateBattle*                     CallFunc_BP_GetOwnerPlayerState_ReturnValue;       // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UBuffParam*                             CallFunc_BP_GetBuffParam_ReturnValue;              // 0x0008(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_RollSlot_Decay_C_DefultRate;
 
 // Function BP_CC_RollSlot_Decay.BP_CC_RollSlot_Decay_C.AllRollSlotGetRate
 // 0x0010 (0x0010 - 0x0000)
@@ -102,6 +108,7 @@ public:
 	class APlayerStateBattle*                     CallFunc_BP_GetOwnerPlayerState_ReturnValue;       // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterRollSlotUniqueSkillControlComponent* CallFunc_BP_GetCharacterRollSlotUniqueSkillControlComponent_ReturnValue; // 0x0008(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_RollSlot_Decay_C_AllRollSlotGetRate;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

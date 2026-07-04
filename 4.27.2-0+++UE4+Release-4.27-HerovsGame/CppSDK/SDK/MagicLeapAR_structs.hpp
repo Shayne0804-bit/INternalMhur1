@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum MagicLeapAR.ELuminARLineTraceChannel
 // NumValues: 0x0007
@@ -36,4 +37,5 @@ enum class ELuminARTrackingState : uint8
 	ELuminARTrackingState_MAX                = 3,
 };
 
-SDK_NAMESPACE_END
+}
+

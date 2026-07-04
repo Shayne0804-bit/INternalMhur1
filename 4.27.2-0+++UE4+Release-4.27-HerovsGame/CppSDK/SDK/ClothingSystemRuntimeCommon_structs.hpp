@@ -14,7 +14,8 @@
 #include "ClothingSystemRuntimeInterface_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum ClothingSystemRuntimeCommon.EClothMassMode
 // NumValues: 0x0005
@@ -59,6 +60,7 @@ public:
 	float                                         StretchLimit;                                      // 0x0008(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         CompressionLimit;                                  // 0x000C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FClothConstraintSetup_Legacy;
 
 // ScriptStruct ClothingSystemRuntimeCommon.ClothConfig_Legacy
 // 0x00D4 (0x00D4 - 0x0000)
@@ -95,6 +97,7 @@ public:
 	float                                         AnimDriveSpringStiffness;                          // 0x00CC(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         AnimDriveDamperStiffness;                          // 0x00D0(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FClothConfig_Legacy;
 
 // ScriptStruct ClothingSystemRuntimeCommon.PointWeightMap
 // 0x0010 (0x0010 - 0x0000)
@@ -103,6 +106,7 @@ struct FPointWeightMap final
 public:
 	TArray<float>                                 Values;                                            // 0x0000(0x0010)(ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FPointWeightMap;
 
 // ScriptStruct ClothingSystemRuntimeCommon.ClothPhysicalMeshData
 // 0x00F8 (0x00F8 - 0x0000)
@@ -123,6 +127,7 @@ public:
 	TArray<float>                                 BackstopRadiuses;                                  // 0x00D8(0x0010)(ZeroConstructor, Deprecated, NativeAccessSpecifierPublic)
 	TArray<float>                                 AnimDriveMultipliers;                              // 0x00E8(0x0010)(ZeroConstructor, Deprecated, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FClothPhysicalMeshData;
 
 // ScriptStruct ClothingSystemRuntimeCommon.ClothLODDataCommon
 // 0x0160 (0x0160 - 0x0000)
@@ -136,6 +141,7 @@ public:
 	float                                         SkinningKernelRadius;                              // 0x013C(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_140[0x20];                                     // 0x0140(0x0020)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FClothLODDataCommon;
 
 // ScriptStruct ClothingSystemRuntimeCommon.ClothParameterMask_Legacy
 // 0x0030 (0x0030 - 0x0000)
@@ -152,5 +158,7 @@ public:
 	bool                                          bEnabled;                                          // 0x0028(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_29[0x7];                                       // 0x0029(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FClothParameterMask_Legacy;
 
-SDK_NAMESPACE_END
+}
+

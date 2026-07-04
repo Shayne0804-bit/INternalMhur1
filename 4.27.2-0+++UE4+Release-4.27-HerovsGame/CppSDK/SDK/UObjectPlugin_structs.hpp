@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // ScriptStruct UObjectPlugin.MyPluginStruct
 // 0x0010 (0x0010 - 0x0000)
@@ -20,5 +21,7 @@ struct FMyPluginStruct final
 public:
 	class FString                                 TestString;                                        // 0x0000(0x0010)(ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FMyPluginStruct;
 
-SDK_NAMESPACE_END
+}
+

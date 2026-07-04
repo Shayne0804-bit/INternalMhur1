@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_NetworkJoinSquad.WBP_NetworkJoinSquad_C.ExecuteUbergraph_WBP_NetworkJoinSquad
 // 0x0004 (0x0004 - 0x0000)
@@ -21,6 +21,7 @@ struct WBP_NetworkJoinSquad_C_ExecuteUbergraph_WBP_NetworkJoinSquad final
 public:
 	int32                                         EntryPoint;                                        // 0x0000(0x0004)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_NetworkJoinSquad_C_ExecuteUbergraph_WBP_NetworkJoinSquad;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

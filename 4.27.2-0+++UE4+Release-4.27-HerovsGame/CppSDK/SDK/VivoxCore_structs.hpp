@@ -11,7 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum VivoxCore.DeviceType
 // NumValues: 0x0005
@@ -144,4 +145,5 @@ enum class EPresenceStatus : uint8
 	PresenceStatus_MAX                       = 6,
 };
 
-SDK_NAMESPACE_END
+}
+

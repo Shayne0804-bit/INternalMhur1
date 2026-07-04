@@ -14,7 +14,8 @@
 #include "GameModule_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function GameModule.AchievementWork.OnAddItem
 // (Final, Native, Protected, HasOutParams)
@@ -32328,5 +32329,5 @@ void UWidgetSafeGeneralWindow::OnFocus(class UAppWidget* Widget, EWidgetInputTyp
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -14,7 +14,8 @@
 #include "AntiCheatModule_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function AntiCheatModule.AntiCheatPlayerController.SendAntiCheatMessageClientInternal
 // (Final, Net, NetReliable, Native, Event, Private, NetServer)
@@ -65,5 +66,5 @@ void AAntiCheatPlayerController::SendAntiCheatMessageServerInternal(const TArray
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

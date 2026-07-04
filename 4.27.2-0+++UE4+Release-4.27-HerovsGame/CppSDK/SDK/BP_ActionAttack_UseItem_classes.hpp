@@ -15,7 +15,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionAttack_UseItem.BP_ActionAttack_UseItem_C
 // 0x0018 (0x0510 - 0x04F8)
@@ -55,5 +56,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionAttack_UseItem_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionAttack_UseItem_C;
 
-SDK_NAMESPACE_END
+}
+

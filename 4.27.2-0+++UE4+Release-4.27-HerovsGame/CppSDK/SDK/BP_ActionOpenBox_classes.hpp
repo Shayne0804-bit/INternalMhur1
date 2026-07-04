@@ -15,7 +15,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionOpenBox.BP_ActionOpenBox_C
 // 0x0018 (0x0298 - 0x0280)
@@ -59,5 +60,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionOpenBox_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionOpenBox_C;
 
-SDK_NAMESPACE_END
+}
+

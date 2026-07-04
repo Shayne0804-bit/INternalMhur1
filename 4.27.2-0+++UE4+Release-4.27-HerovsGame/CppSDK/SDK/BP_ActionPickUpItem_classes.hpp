@@ -14,7 +14,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionPickUpItem.BP_ActionPickUpItem_C
 // 0x0008 (0x0280 - 0x0278)
@@ -45,5 +46,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionPickUpItem_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionPickUpItem_C;
 
-SDK_NAMESPACE_END
+}
+

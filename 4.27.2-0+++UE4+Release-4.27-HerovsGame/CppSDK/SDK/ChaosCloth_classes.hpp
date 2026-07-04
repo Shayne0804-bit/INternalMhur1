@@ -17,7 +17,8 @@
 #include "ClothingSystemRuntimeInterface_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class ChaosCloth.ChaosClothingSimulationInteractor
 // 0x0010 (0x00A0 - 0x0090)
@@ -40,6 +41,7 @@ public:
 		return GetDefaultObjImpl<UChaosClothingSimulationInteractor>();
 	}
 };
+DUMPER7_ASSERTS_UChaosClothingSimulationInteractor;
 
 // Class ChaosCloth.ChaosClothConfig
 // 0x00A0 (0x00C8 - 0x0028)
@@ -104,6 +106,7 @@ public:
 		return GetDefaultObjImpl<UChaosClothConfig>();
 	}
 };
+DUMPER7_ASSERTS_UChaosClothConfig;
 
 // Class ChaosCloth.ChaosClothSharedSimConfig
 // 0x0010 (0x0038 - 0x0028)
@@ -130,6 +133,7 @@ public:
 		return GetDefaultObjImpl<UChaosClothSharedSimConfig>();
 	}
 };
+DUMPER7_ASSERTS_UChaosClothSharedSimConfig;
 
 // Class ChaosCloth.ChaosClothingSimulationFactory
 // 0x0000 (0x0028 - 0x0028)
@@ -149,6 +153,7 @@ public:
 		return GetDefaultObjImpl<UChaosClothingSimulationFactory>();
 	}
 };
+DUMPER7_ASSERTS_UChaosClothingSimulationFactory;
 
 // Class ChaosCloth.ChaosClothingInteractor
 // 0x0010 (0x0040 - 0x0030)
@@ -184,5 +189,7 @@ public:
 		return GetDefaultObjImpl<UChaosClothingInteractor>();
 	}
 };
+DUMPER7_ASSERTS_UChaosClothingInteractor;
 
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "BP_CC_Skill_Ch104_Steel_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Skill_Ch104_Steel.BP_CC_Skill_Ch104_Steel_C.ExecuteUbergraph_BP_CC_Skill_Ch104_Steel
 // (Final, UbergraphFunction, HasDefaults)
@@ -133,5 +134,5 @@ void UBP_CC_Skill_Ch104_Steel_C::BP_OnHiddenCondition()
 	UObject::ProcessEvent(Func, nullptr);
 }
 
+}
 
-SDK_NAMESPACE_END

@@ -16,7 +16,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionDie.BP_ActionDie_C
 // 0x0060 (0x02D0 - 0x0270)
@@ -63,5 +64,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionDie_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionDie_C;
 
-SDK_NAMESPACE_END
+}
+

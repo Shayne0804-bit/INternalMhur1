@@ -14,7 +14,8 @@
 #include "WBP_DevelopMenu_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_DevelopMenu.WBP_DevelopMenu_C.ExecuteUbergraph_WBP_DevelopMenu
 // (Final, UbergraphFunction, HasDefaults)
@@ -247,5 +248,5 @@ void UWBP_DevelopMenu_C::SetupButton(class UButton* TargetButton, class UMateria
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

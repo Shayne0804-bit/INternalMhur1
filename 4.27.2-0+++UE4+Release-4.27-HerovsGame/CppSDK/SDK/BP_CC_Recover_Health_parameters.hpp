@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_CC_Recover_Health.BP_CC_Recover_Health_C.ExecuteUbergraph_BP_CC_Recover_Health
 // 0x0018 (0x0018 - 0x0000)
@@ -24,6 +24,7 @@ public:
 	class ACharacterBattle*                       CallFunc_BP_GetOwnerCharacterBattle_ReturnValue;   // 0x0008(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterMaterialControlComponent*     CallFunc_BP_GetCharacterMaterialControl_ReturnValue; // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_CC_Recover_Health_C_ExecuteUbergraph_BP_CC_Recover_Health;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

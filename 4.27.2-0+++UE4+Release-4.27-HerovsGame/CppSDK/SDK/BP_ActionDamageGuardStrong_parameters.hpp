@@ -14,8 +14,8 @@
 #include "InGameModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamageGuardStrong.BP_ActionDamageGuardStrong_C.ExecuteUbergraph_BP_ActionDamageGuardStrong
 // 0x0120 (0x0120 - 0x0000)
@@ -35,6 +35,7 @@ public:
 	uint8                                         Pad_114[0x4];                                      // 0x0114(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAnimation*                             CallFunc_BP_GetAnimation_ReturnValue_2;            // 0x0118(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageGuardStrong_C_ExecuteUbergraph_BP_ActionDamageGuardStrong;
 
 // Function BP_ActionDamageGuardStrong.BP_ActionDamageGuardStrong_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -43,6 +44,7 @@ struct BP_ActionDamageGuardStrong_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageGuardStrong_C_BP_OnBeginAction;
 
 // Function BP_ActionDamageGuardStrong.BP_ActionDamageGuardStrong_C.BP_OnEndAction
 // 0x0008 (0x0008 - 0x0000)
@@ -51,6 +53,7 @@ struct BP_ActionDamageGuardStrong_C_BP_OnEndAction final
 public:
 	class FName                                   nextAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageGuardStrong_C_BP_OnEndAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

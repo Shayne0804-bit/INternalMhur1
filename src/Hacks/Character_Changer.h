@@ -18,6 +18,7 @@ namespace Cheats
         int currentCharacterId;
         int characterIndex;
         int teamId;
+        int gamePlayerId;
         int platform;
         int pingMs;
         char platformName[32];
@@ -33,6 +34,7 @@ namespace Cheats
         char platformName[32];
         int pingMs;
         int teamId;
+        int gamePlayerId;
         void* playerState;
         void* actor;
         bool hasActor;

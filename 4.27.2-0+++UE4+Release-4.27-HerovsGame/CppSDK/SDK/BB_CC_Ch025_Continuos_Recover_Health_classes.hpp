@@ -14,7 +14,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BB_CC_Ch025_Continuos_Recover_Health.BB_CC_Ch025_Continuos_Recover_Health_C
 // 0x0010 (0x0168 - 0x0158)
@@ -47,5 +48,7 @@ public:
 		return GetDefaultObjImpl<UBB_CC_Ch025_Continuos_Recover_Health_C>();
 	}
 };
+DUMPER7_ASSERTS_UBB_CC_Ch025_Continuos_Recover_Health_C;
 
-SDK_NAMESPACE_END
+}
+

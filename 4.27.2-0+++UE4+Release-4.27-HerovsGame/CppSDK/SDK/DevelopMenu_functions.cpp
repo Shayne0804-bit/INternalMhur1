@@ -14,7 +14,8 @@
 #include "DevelopMenu_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function DevelopMenu.DevelopMenuButtonWidget.ButtonClickedEvent
 // (Final, Native, Public)
@@ -976,5 +977,5 @@ class FString UDevelopMenuWork::BP_GetDipAsString(class FName idName) const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

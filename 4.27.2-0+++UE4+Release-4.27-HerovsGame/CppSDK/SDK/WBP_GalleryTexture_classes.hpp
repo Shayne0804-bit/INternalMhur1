@@ -13,7 +13,8 @@
 #include "OutGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_GalleryTexture.WBP_GalleryTexture_C
 // 0x0000 (0x0390 - 0x0390)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UWBP_GalleryTexture_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_GalleryTexture_C;
 
-SDK_NAMESPACE_END
+}
+

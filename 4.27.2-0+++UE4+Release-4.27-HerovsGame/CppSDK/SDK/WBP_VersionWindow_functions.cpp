@@ -14,7 +14,8 @@
 #include "WBP_VersionWindow_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_VersionWindow.WBP_VersionWindow_C.ExecuteUbergraph_WBP_VersionWindow
 // (Final, UbergraphFunction)
@@ -71,5 +72,5 @@ void UWBP_VersionWindow_C::SetText(class UTextBlock* TextObject, const class FTe
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

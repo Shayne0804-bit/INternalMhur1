@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function DatasmithContent.DatasmithContentBlueprintLibrary.GetDatasmithUserData
 // 0x0010 (0x0010 - 0x0000)
@@ -22,6 +22,7 @@ public:
 	class UObject*                                Object;                                            // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class UDatasmithAssetUserData*                ReturnValue;                                       // 0x0008(0x0008)(ExportObject, Parm, OutParm, ZeroConstructor, ReturnParm, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DatasmithContentBlueprintLibrary_GetDatasmithUserData;
 
 // Function DatasmithContent.DatasmithContentBlueprintLibrary.GetDatasmithUserDataKeysAndValuesForValue
 // 0x0038 (0x0038 - 0x0000)
@@ -33,6 +34,7 @@ public:
 	TArray<class FName>                           OutKeys;                                           // 0x0018(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 	TArray<class FString>                         OutValues;                                         // 0x0028(0x0010)(Parm, OutParm, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DatasmithContentBlueprintLibrary_GetDatasmithUserDataKeysAndValuesForValue;
 
 // Function DatasmithContent.DatasmithContentBlueprintLibrary.GetDatasmithUserDataValueForKey
 // 0x0020 (0x0020 - 0x0000)
@@ -43,6 +45,7 @@ public:
 	class FName                                   Key;                                               // 0x0008(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 ReturnValue;                                       // 0x0010(0x0010)(Parm, OutParm, ZeroConstructor, ReturnParm, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DatasmithContentBlueprintLibrary_GetDatasmithUserDataValueForKey;
 
 // Function DatasmithContent.DatasmithImportedSequencesActor.PlayLevelSequence
 // 0x0008 (0x0008 - 0x0000)
@@ -51,6 +54,7 @@ struct DatasmithImportedSequencesActor_PlayLevelSequence final
 public:
 	class ULevelSequence*                         SequenceToPlay;                                    // 0x0000(0x0008)(Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_DatasmithImportedSequencesActor_PlayLevelSequence;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

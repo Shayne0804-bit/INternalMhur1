@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class JsonDatabase.JsonFunctionLibrary
 // 0x0000 (0x0028 - 0x0028)
@@ -38,5 +39,7 @@ public:
 		return GetDefaultObjImpl<UJsonFunctionLibrary>();
 	}
 };
+DUMPER7_ASSERTS_UJsonFunctionLibrary;
 
-SDK_NAMESPACE_END
+}
+

@@ -17,7 +17,8 @@
 #include "MovieSceneTracks_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class CriWareMovieScenes.MovieSceneAtomSection
 // 0x0258 (0x0340 - 0x00E8)
@@ -62,6 +63,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneAtomSection>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneAtomSection;
 
 // Class CriWareMovieScenes.MovieSceneAtomTrack
 // 0x0018 (0x00A8 - 0x0090)
@@ -85,6 +87,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneAtomTrack>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneAtomTrack;
 
 // Class CriWareMovieScenes.MovieSceneManaSection
 // 0x0030 (0x0118 - 0x00E8)
@@ -115,6 +118,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneManaSection>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneManaSection;
 
 // Class CriWareMovieScenes.MovieSceneManaTrack
 // 0x0040 (0x00D0 - 0x0090)
@@ -139,5 +143,7 @@ public:
 		return GetDefaultObjImpl<UMovieSceneManaTrack>();
 	}
 };
+DUMPER7_ASSERTS_UMovieSceneManaTrack;
 
-SDK_NAMESPACE_END
+}
+

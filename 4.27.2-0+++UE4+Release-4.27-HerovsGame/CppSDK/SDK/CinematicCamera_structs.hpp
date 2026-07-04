@@ -13,7 +13,8 @@
 #include "CoreUObject_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum CinematicCamera.ECameraFocusMethod
 // NumValues: 0x0005
@@ -41,6 +42,7 @@ public:
 	uint8                                         bAllowRoll : 1;                                    // 0x004C(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Edit, BlueprintVisible, Interp, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_4D[0x3];                                       // 0x004D(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCameraLookatTrackingSettings;
 
 // ScriptStruct CinematicCamera.CameraTrackingFocusSettings
 // 0x0038 (0x0038 - 0x0000)
@@ -52,6 +54,7 @@ public:
 	uint8                                         bDrawDebugTrackingFocusPoint : 1;                  // 0x0034(0x0001)(BitIndex: 0x00, PropSize: 0x0001 (Edit, BlueprintVisible, Transient, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic))
 	uint8                                         Pad_35[0x3];                                       // 0x0035(0x0003)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCameraTrackingFocusSettings;
 
 // ScriptStruct CinematicCamera.CameraFocusSettings
 // 0x0058 (0x0058 - 0x0000)
@@ -71,6 +74,7 @@ public:
 	float                                         FocusOffset;                                       // 0x0050(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_54[0x4];                                       // 0x0054(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FCameraFocusSettings;
 
 // ScriptStruct CinematicCamera.CameraLensSettings
 // 0x0018 (0x0018 - 0x0000)
@@ -84,6 +88,7 @@ public:
 	float                                         MinimumFocusDistance;                              // 0x0010(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	int32                                         DiaphragmBladeCount;                               // 0x0014(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCameraLensSettings;
 
 // ScriptStruct CinematicCamera.NamedLensPreset
 // 0x0028 (0x0028 - 0x0000)
@@ -93,6 +98,7 @@ public:
 	class FString                                 Name;                                              // 0x0000(0x0010)(BlueprintVisible, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	struct FCameraLensSettings                    LensSettings;                                      // 0x0010(0x0018)(BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FNamedLensPreset;
 
 // ScriptStruct CinematicCamera.CameraFilmbackSettings
 // 0x000C (0x000C - 0x0000)
@@ -103,6 +109,7 @@ public:
 	float                                         SensorHeight;                                      // 0x0004(0x0004)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, Interp, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	float                                         SensorAspectRatio;                                 // 0x0008(0x0004)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, EditConst, IsPlainOldData, Interp, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FCameraFilmbackSettings;
 
 // ScriptStruct CinematicCamera.NamedFilmbackPreset
 // 0x0020 (0x0020 - 0x0000)
@@ -113,5 +120,7 @@ public:
 	struct FCameraFilmbackSettings                FilmbackSettings;                                  // 0x0010(0x000C)(BlueprintVisible, NoDestructor, NativeAccessSpecifierPublic)
 	uint8                                         Pad_1C[0x4];                                       // 0x001C(0x0004)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FNamedFilmbackPreset;
 
-SDK_NAMESPACE_END
+}
+

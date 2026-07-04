@@ -13,7 +13,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_Ch013_Variation1_UniqueSkill.BP_Ch013_Variation1_UniqueSkill_C
 // 0x0000 (0x0488 - 0x0488)
@@ -33,5 +34,7 @@ public:
 		return GetDefaultObjImpl<UBP_Ch013_Variation1_UniqueSkill_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_Ch013_Variation1_UniqueSkill_C;
 
-SDK_NAMESPACE_END
+}
+

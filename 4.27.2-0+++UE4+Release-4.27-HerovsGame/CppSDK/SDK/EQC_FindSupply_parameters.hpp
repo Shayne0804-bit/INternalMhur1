@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function EQC_FindSupply.EQC_FindSupply_C.ProvideSingleActor
 // 0x0028 (0x0028 - 0x0000)
@@ -25,6 +25,7 @@ public:
 	class ASupplyActorBase*                       K2Node_DynamicCast_AsSupply_Actor_Base;            // 0x0018(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          K2Node_DynamicCast_bSuccess;                       // 0x0020(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_EQC_FindSupply_C_ProvideSingleActor;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -14,7 +14,8 @@
 #include "WBP_TeamCommentaryMessages_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_TeamCommentaryMessages.WBP_TeamCommentaryMessages_C.ExecuteUbergraph_WBP_TeamCommentaryMessages
 // (Final, UbergraphFunction, HasDefaults)
@@ -55,5 +56,5 @@ void UWBP_TeamCommentaryMessages_C::OnRequestMessage(ETeamCommentaryMessage Mess
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

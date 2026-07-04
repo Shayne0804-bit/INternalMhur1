@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function AndroidPermission.AndroidPermissionFunctionLibrary.AcquirePermissions
 // 0x0018 (0x0018 - 0x0000)
@@ -22,6 +22,7 @@ public:
 	TArray<class FString>                         Permissions;                                       // 0x0000(0x0010)(ConstParm, Parm, OutParm, ZeroConstructor, ReferenceParm, NativeAccessSpecifierPublic)
 	class UAndroidPermissionCallbackProxy*        ReturnValue;                                       // 0x0010(0x0008)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_AndroidPermissionFunctionLibrary_AcquirePermissions;
 
 // Function AndroidPermission.AndroidPermissionFunctionLibrary.CheckPermission
 // 0x0018 (0x0018 - 0x0000)
@@ -32,6 +33,7 @@ public:
 	bool                                          ReturnValue;                                       // 0x0010(0x0001)(Parm, OutParm, ZeroConstructor, ReturnParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_11[0x7];                                       // 0x0011(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_AndroidPermissionFunctionLibrary_CheckPermission;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

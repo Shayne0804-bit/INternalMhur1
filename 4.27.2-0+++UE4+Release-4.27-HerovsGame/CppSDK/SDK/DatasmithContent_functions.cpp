@@ -14,7 +14,8 @@
 #include "DatasmithContent_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function DatasmithContent.DatasmithContentBlueprintLibrary.GetDatasmithUserData
 // (Final, Native, Static, Public, BlueprintCallable)
@@ -133,5 +134,5 @@ void ADatasmithImportedSequencesActor::PlayLevelSequence(class ULevelSequence* S
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

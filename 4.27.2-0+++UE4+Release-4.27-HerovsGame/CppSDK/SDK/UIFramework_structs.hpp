@@ -14,7 +14,8 @@
 #include "InputCore_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Enum UIFramework.EWidgetBaseEventChannel
 // NumValues: 0x0009
@@ -190,6 +191,7 @@ struct FOnFadeFinished final
 public:
 	TDelegate<void()>                             _delegate;                                         // 0x0000(0x0010)(BlueprintVisible, ZeroConstructor, InstancedReference, NoDestructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FOnFadeFinished;
 
 // ScriptStruct UIFramework.GeneralButtonText
 // 0x0058 (0x0058 - 0x0000)
@@ -201,6 +203,7 @@ public:
 	class FText                                   _style;                                            // 0x0030(0x0018)(Edit, BlueprintVisible, NativeAccessSpecifierPublic)
 	struct FLinearColor                           _textColor;                                        // 0x0048(0x0010)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FGeneralButtonText;
 
 // ScriptStruct UIFramework.WidgetCreationData
 // 0x0018 (0x0018 - 0x0000)
@@ -216,6 +219,7 @@ public:
 	uint8                                         Pad_12[0x2];                                       // 0x0012(0x0002)(Fixing Size After Last Property [ Dumper-7 ])
 	int32                                         _totalPriority;                                    // 0x0014(0x0004)(Edit, ZeroConstructor, EditConst, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FWidgetCreationData;
 
 // ScriptStruct UIFramework.GeneralWindowText
 // 0x0028 (0x0028 - 0x0000)
@@ -225,6 +229,7 @@ public:
 	class FText                                   _text;                                             // 0x0000(0x0018)(Edit, NativeAccessSpecifierPublic)
 	struct FLinearColor                           _color;                                            // 0x0018(0x0010)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FGeneralWindowText;
 
 // ScriptStruct UIFramework.WidgetPair
 // 0x0018 (0x0018 - 0x0000)
@@ -234,6 +239,7 @@ public:
 	class UWidget*                                _widget;                                           // 0x0000(0x0008)(Edit, BlueprintVisible, ExportObject, BlueprintReadOnly, ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	class FString                                 _name;                                             // 0x0008(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FWidgetPair;
 
 // ScriptStruct UIFramework.WidgetList
 // 0x0010 (0x0010 - 0x0000)
@@ -242,6 +248,7 @@ struct FWidgetList final
 public:
 	TArray<struct FWidgetPair>                    _widgetList;                                       // 0x0000(0x0010)(Edit, BlueprintVisible, BlueprintReadOnly, ZeroConstructor, ContainsInstancedReference, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FWidgetList;
 
 // ScriptStruct UIFramework.GeneralWindowBaseText
 // 0x0078 (0x0078 - 0x0000)
@@ -252,6 +259,7 @@ public:
 	struct FLinearColor                           _color;                                            // 0x0058(0x0010)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	TArray<EInputKey>                             _shortcutKeys;                                     // 0x0068(0x0010)(Edit, ZeroConstructor, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FGeneralWindowBaseText;
 
 // ScriptStruct UIFramework.OutInputShortcutInfo
 // 0x0020 (0x0020 - 0x0000)
@@ -262,6 +270,7 @@ public:
 	EInputKey                                     _inputShortcutEnum;                                // 0x0018(0x0001)(Edit, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 	uint8                                         Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
+DUMPER7_ASSERTS_FOutInputShortcutInfo;
 
 // ScriptStruct UIFramework.SubMenuInfo
 // 0x0040 (0x0040 - 0x0000)
@@ -276,5 +285,7 @@ public:
 	uint8                                         Pad_33[0x5];                                       // 0x0033(0x0005)(Fixing Size After Last Property [ Dumper-7 ])
 	class UTexture2D*                             _headerTexture;                                    // 0x0038(0x0008)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
 };
+DUMPER7_ASSERTS_FSubMenuInfo;
 
-SDK_NAMESPACE_END
+}
+

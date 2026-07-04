@@ -14,7 +14,8 @@
 #include "BTS_CombatPolling_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BTS_CombatPolling.BTS_CombatPolling_C.ExecuteUbergraph_BTS_CombatPolling
 // (Final, UbergraphFunction)
@@ -59,5 +60,5 @@ void UBTS_CombatPolling_C::ReceiveTickAI(class AAIController* OwnerController, c
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

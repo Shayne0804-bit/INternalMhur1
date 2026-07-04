@@ -14,7 +14,8 @@
 #include "BP_ActionRideOverWall_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionRideOverWall.BP_ActionRideOverWall_C.ExecuteUbergraph_BP_ActionRideOverWall
 // (Final, UbergraphFunction)
@@ -162,5 +163,5 @@ bool UBP_ActionRideOverWall_C::BP_IsEnableShiftAction(const class FName& nextAct
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

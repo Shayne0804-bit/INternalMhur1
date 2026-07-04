@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class DevelopCamera.DevelopCameraActor
 // 0x0010 (0x0230 - 0x0220)
@@ -40,5 +41,7 @@ public:
 		return GetDefaultObjImpl<ADevelopCameraActor>();
 	}
 };
+DUMPER7_ASSERTS_ADevelopCameraActor;
 
-SDK_NAMESPACE_END
+}
+

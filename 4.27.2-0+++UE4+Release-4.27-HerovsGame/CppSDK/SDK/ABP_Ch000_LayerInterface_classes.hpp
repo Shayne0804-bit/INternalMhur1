@@ -13,7 +13,8 @@
 #include "Engine_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // AnimBlueprintGeneratedClass ABP_Ch000_LayerInterface.ABP_Ch000_LayerInterface_C
 // 0x0000 (0x0000 - 0x0000)
@@ -48,5 +49,7 @@ public:
 		return reinterpret_cast<const UObject*>(this);
 	}
 };
+DUMPER7_ASSERTS_IABP_Ch000_LayerInterface_C;
 
-SDK_NAMESPACE_END
+}
+

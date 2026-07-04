@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_EmptyWindow.WBP_EmptyWindow_C.ExecuteUbergraph_WBP_EmptyWindow
 // 0x0030 (0x0030 - 0x0000)
@@ -30,6 +30,7 @@ public:
 	uint8                                         Pad_21[0x7];                                       // 0x0021(0x0007)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         CallFunc_PlaySound2D_ReturnValue_2;                // 0x0028(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_EmptyWindow_C_ExecuteUbergraph_WBP_EmptyWindow;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

@@ -14,8 +14,8 @@
 #include "Engine_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function WBP_TextChatNewMessage.WBP_TextChatNewMessage_C.ExecuteUbergraph_WBP_TextChatNewMessage
 // 0x0050 (0x0050 - 0x0000)
@@ -35,6 +35,7 @@ public:
 	const class UWidgetAnimation*                 K2Node_Event_Animation;                            // 0x0040(0x0008)(ConstParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_EqualEqual_ObjectObject_ReturnValue_1;    // 0x0048(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChatNewMessage_C_ExecuteUbergraph_WBP_TextChatNewMessage;
 
 // Function WBP_TextChatNewMessage.WBP_TextChatNewMessage_C.OnAnimationStarted
 // 0x0008 (0x0008 - 0x0000)
@@ -43,6 +44,7 @@ struct WBP_TextChatNewMessage_C_OnAnimationStarted final
 public:
 	const class UWidgetAnimation*                 Animation;                                         // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_TextChatNewMessage_C_OnAnimationStarted;
 
 // Function WBP_TextChatNewMessage.WBP_TextChatNewMessage_C.BP_OnItemSelectionChanged_1
 // 0x0001 (0x0001 - 0x0000)
@@ -51,6 +53,7 @@ struct WBP_TextChatNewMessage_C_BP_OnItemSelectionChanged_1 final
 public:
 	bool                                          bIsSelected;                                       // 0x0000(0x0001)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_WBP_TextChatNewMessage_C_BP_OnItemSelectionChanged_1;
 
 // Function WBP_TextChatNewMessage.WBP_TextChatNewMessage_C.OnAnimationFinished
 // 0x0008 (0x0008 - 0x0000)
@@ -59,14 +62,16 @@ struct WBP_TextChatNewMessage_C_OnAnimationFinished final
 public:
 	const class UWidgetAnimation*                 Animation;                                         // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_TextChatNewMessage_C_OnAnimationFinished;
 
-// Function WBP_TextChatNewMessage.WBP_TextChatNewMessage_C.setUpColor
+// Function WBP_TextChatNewMessage.WBP_TextChatNewMessage_C.SetUpColor
 // 0x0010 (0x0010 - 0x0000)
-struct WBP_TextChatNewMessage_C_setUpColor final
+struct WBP_TextChatNewMessage_C_SetUpColor final
 {
 public:
 	TArray<class UWBP_TextChatWindow_C*>          CallFunc_GetAllWidgetsOfClass_FoundWidgets;        // 0x0000(0x0010)(ReferenceParm, ContainsInstancedReference)
 };
+DUMPER7_ASSERTS_WBP_TextChatNewMessage_C_SetUpColor;
 
 // Function WBP_TextChatNewMessage.WBP_TextChatNewMessage_C.PlayEntryAnimation
 // 0x0048 (0x0048 - 0x0000)
@@ -83,6 +88,7 @@ public:
 	class UUMGSequencePlayer*                     CallFunc_PlayAnimation_ReturnValue;                // 0x0038(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UUMGSequencePlayer*                     CallFunc_PlayAnimation_ReturnValue_1;              // 0x0040(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_TextChatNewMessage_C_PlayEntryAnimation;
 
 // Function WBP_TextChatNewMessage.WBP_TextChatNewMessage_C.Set Message
 // 0x0058 (0x0058 - 0x0000)
@@ -95,6 +101,7 @@ public:
 	class FText                                   CallFunc_Conv_StringToText_ReturnValue;            // 0x0028(0x0018)()
 	class FText                                   CallFunc_Conv_StringToText_ReturnValue_1;          // 0x0040(0x0018)()
 };
+DUMPER7_ASSERTS_WBP_TextChatNewMessage_C_Set_Message;
 
 // Function WBP_TextChatNewMessage.WBP_TextChatNewMessage_C.PlayNewMessageAnimation
 // 0x0008 (0x0008 - 0x0000)
@@ -103,6 +110,7 @@ struct WBP_TextChatNewMessage_C_PlayNewMessageAnimation final
 public:
 	class UUMGSequencePlayer*                     CallFunc_PlayAnimation_ReturnValue;                // 0x0000(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_TextChatNewMessage_C_PlayNewMessageAnimation;
 
 // Function WBP_TextChatNewMessage.WBP_TextChatNewMessage_C.UpdatePivot
 // 0x0008 (0x0008 - 0x0000)
@@ -111,6 +119,7 @@ struct WBP_TextChatNewMessage_C_UpdatePivot final
 public:
 	struct FVector2D                              Pivot;                                             // 0x0000(0x0008)(BlueprintVisible, BlueprintReadOnly, Parm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_WBP_TextChatNewMessage_C_UpdatePivot;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

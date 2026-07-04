@@ -16,7 +16,8 @@
 #include "InGameModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // BlueprintGeneratedClass BP_ActionHover.BP_ActionHover_C
 // 0x0018 (0x0290 - 0x0278)
@@ -59,5 +60,7 @@ public:
 		return GetDefaultObjImpl<UBP_ActionHover_C>();
 	}
 };
+DUMPER7_ASSERTS_UBP_ActionHover_C;
 
-SDK_NAMESPACE_END
+}
+

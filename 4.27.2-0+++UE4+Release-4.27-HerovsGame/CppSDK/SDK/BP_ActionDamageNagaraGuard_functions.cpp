@@ -14,7 +14,8 @@
 #include "BP_ActionDamageNagaraGuard_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageNagaraGuard.BP_ActionDamageNagaraGuard_C.ExecuteUbergraph_BP_ActionDamageNagaraGuard
 // (Final, UbergraphFunction, HasDefaults)
@@ -126,5 +127,5 @@ bool UBP_ActionDamageNagaraGuard_C::BP_IsEnableShiftAction(const class FName& ne
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

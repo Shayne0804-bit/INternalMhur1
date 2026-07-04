@@ -14,7 +14,8 @@
 #include "BP_ActionCarried_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionCarried.BP_ActionCarried_C.ExecuteUbergraph_BP_ActionCarried
 // (Final, UbergraphFunction, HasDefaults)
@@ -112,5 +113,5 @@ bool UBP_ActionCarried_C::BP_IsEnableShiftAction(const class FName& nextAction) 
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

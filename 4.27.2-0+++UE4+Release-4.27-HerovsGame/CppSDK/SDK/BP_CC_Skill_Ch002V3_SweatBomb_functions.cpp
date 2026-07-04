@@ -14,7 +14,8 @@
 #include "BP_CC_Skill_Ch002V3_SweatBomb_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_CC_Skill_Ch002V3_SweatBomb.BP_CC_Skill_Ch002V3_SweatBomb_C.ExecuteUbergraph_BP_CC_Skill_Ch002V3_SweatBomb
 // (Final, UbergraphFunction, HasDefaults)
@@ -176,5 +177,5 @@ bool UBP_CC_Skill_Ch002V3_SweatBomb_C::IsConditioning() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

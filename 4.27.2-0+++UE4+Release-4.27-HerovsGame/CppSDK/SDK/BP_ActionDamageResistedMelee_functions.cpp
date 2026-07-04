@@ -14,7 +14,8 @@
 #include "BP_ActionDamageResistedMelee_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function BP_ActionDamageResistedMelee.BP_ActionDamageResistedMelee_C.ExecuteUbergraph_BP_ActionDamageResistedMelee
 // (Final, UbergraphFunction)
@@ -118,5 +119,5 @@ void UBP_ActionDamageResistedMelee_C::DecideAnimationId(EAnimationId* Animation_
 		*Animation_Id = Parms.Animation_Id;
 }
 
+}
 
-SDK_NAMESPACE_END

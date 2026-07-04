@@ -13,7 +13,8 @@
 #include "BykingUnrealModule_classes.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // WidgetBlueprintGeneratedClass WBP_BykingVersionNotation.WBP_BykingVersionNotation_C
 // 0x0008 (0x03A8 - 0x03A0)
@@ -36,5 +37,7 @@ public:
 		return GetDefaultObjImpl<UWBP_BykingVersionNotation_C>();
 	}
 };
+DUMPER7_ASSERTS_UWBP_BykingVersionNotation_C;
 
-SDK_NAMESPACE_END
+}
+

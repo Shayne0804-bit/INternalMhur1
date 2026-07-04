@@ -14,7 +14,8 @@
 #include "WBP_NetworkError_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_NetworkError.WBP_NetworkError_C.ExecuteUbergraph_WBP_NetworkError
 // (Final, UbergraphFunction)
@@ -59,5 +60,5 @@ void UWBP_NetworkError_C::BndEvt__WBP_NetworkError__errorWindow_K2Node_Component
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

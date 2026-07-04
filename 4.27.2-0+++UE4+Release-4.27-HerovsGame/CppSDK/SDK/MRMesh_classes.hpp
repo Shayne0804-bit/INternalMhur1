@@ -16,7 +16,8 @@
 #include "MRMesh_structs.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Class MRMesh.MeshReconstructorBase
 // 0x0000 (0x0028 - 0x0028)
@@ -46,6 +47,7 @@ public:
 		return GetDefaultObjImpl<UMeshReconstructorBase>();
 	}
 };
+DUMPER7_ASSERTS_UMeshReconstructorBase;
 
 // Class MRMesh.MockDataMeshTrackerComponent
 // 0x0070 (0x0270 - 0x0200)
@@ -84,6 +86,7 @@ public:
 		return GetDefaultObjImpl<UMockDataMeshTrackerComponent>();
 	}
 };
+DUMPER7_ASSERTS_UMockDataMeshTrackerComponent;
 
 // Class MRMesh.MRMeshComponent
 // 0x00C0 (0x0510 - 0x0450)
@@ -128,5 +131,7 @@ public:
 		return GetDefaultObjImpl<UMRMeshComponent>();
 	}
 };
+DUMPER7_ASSERTS_UMRMeshComponent;
 
-SDK_NAMESPACE_END
+}
+

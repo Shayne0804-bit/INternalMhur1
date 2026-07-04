@@ -14,8 +14,8 @@
 #include "GameModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDamageToDying.BP_ActionDamageToDying_C.ExecuteUbergraph_BP_ActionDamageToDying
 // 0x00C0 (0x00C0 - 0x0000)
@@ -35,6 +35,7 @@ public:
 	class UCharacterState*                        CallFunc_BP_GetOwnerState_ReturnValue;             // 0x00B0(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCharacterDamageComponent*              CallFunc_BP_GetOwnerDamage_ReturnValue;            // 0x00B8(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageToDying_C_ExecuteUbergraph_BP_ActionDamageToDying;
 
 // Function BP_ActionDamageToDying.BP_ActionDamageToDying_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -43,6 +44,7 @@ struct BP_ActionDamageToDying_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDamageToDying_C_BP_OnBeginAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

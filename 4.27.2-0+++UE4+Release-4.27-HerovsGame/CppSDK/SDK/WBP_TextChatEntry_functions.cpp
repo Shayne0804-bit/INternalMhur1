@@ -14,7 +14,8 @@
 #include "WBP_TextChatEntry_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_TextChatEntry.WBP_TextChatEntry_C.ExecuteUbergraph_WBP_TextChatEntry
 // (Final, UbergraphFunction)
@@ -213,5 +214,5 @@ void UWBP_TextChatEntry_C::SetUpAlreadyRead(class UTextChatListObject* obj)
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

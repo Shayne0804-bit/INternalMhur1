@@ -14,7 +14,8 @@
 #include "ABP_Extra_LayerInterface_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function ABP_Extra_LayerInterface.ABP_Extra_LayerInterface_C.OuterMeshExtensions
 // (HasOutParams, BlueprintCallable, BlueprintEvent)
@@ -39,5 +40,5 @@ void IABP_Extra_LayerInterface_C::OuterMeshExtensions(const struct FPoseLink& In
 		*OuterMeshExtensions_0 = std::move(Parms.OuterMeshExtensions_0);
 }
 
+}
 
-SDK_NAMESPACE_END

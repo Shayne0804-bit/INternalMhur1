@@ -14,7 +14,8 @@
 #include "EngineSettings_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function EngineSettings.GameMapsSettings.GetGameMapsSettings
 // (Final, Native, Static, Public, BlueprintCallable, BlueprintPure)
@@ -90,5 +91,5 @@ bool UGameMapsSettings::GetSkipAssigningGamepadToPlayer1() const
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

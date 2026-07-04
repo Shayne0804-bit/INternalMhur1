@@ -11,8 +11,8 @@
 #include "Basic.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BP_ActionDashLand.BP_ActionDashLand_C.ExecuteUbergraph_BP_ActionDashLand
 // 0x0070 (0x0070 - 0x0000)
@@ -42,6 +42,7 @@ public:
 	bool                                          CallFunc_BooleanAND_ReturnValue;                   // 0x0067(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_BooleanAND_ReturnValue_1;                 // 0x0068(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BP_ActionDashLand_C_ExecuteUbergraph_BP_ActionDashLand;
 
 // Function BP_ActionDashLand.BP_ActionDashLand_C.BP_OnBeginAction
 // 0x0008 (0x0008 - 0x0000)
@@ -50,6 +51,7 @@ struct BP_ActionDashLand_C_BP_OnBeginAction final
 public:
 	class FName                                   prevAction;                                        // 0x0000(0x0008)(ConstParm, BlueprintVisible, BlueprintReadOnly, Parm, OutParm, ZeroConstructor, ReferenceParm, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BP_ActionDashLand_C_BP_OnBeginAction;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+

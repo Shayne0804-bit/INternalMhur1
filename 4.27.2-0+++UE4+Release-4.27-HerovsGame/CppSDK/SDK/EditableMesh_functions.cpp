@@ -14,7 +14,8 @@
 #include "EditableMesh_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function EditableMesh.EditableMesh.InvalidEdgeID
 // (Final, Native, Static, Public, BlueprintCallable, BlueprintPure)
@@ -3642,5 +3643,5 @@ class UEditableMesh* UEditableMeshFactory::MakeEditableMesh(class UPrimitiveComp
 	return Parms.ReturnValue;
 }
 
+}
 
-SDK_NAMESPACE_END

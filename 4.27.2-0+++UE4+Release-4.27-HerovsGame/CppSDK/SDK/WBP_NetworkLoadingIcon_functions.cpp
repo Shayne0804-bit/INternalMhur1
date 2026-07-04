@@ -14,7 +14,8 @@
 #include "WBP_NetworkLoadingIcon_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function WBP_NetworkLoadingIcon.WBP_NetworkLoadingIcon_C.SequenceEvent_0
 // (BlueprintCallable, BlueprintEvent)
@@ -49,5 +50,5 @@ void UWBP_NetworkLoadingIcon_C::ExecuteUbergraph_WBP_NetworkLoadingIcon(int32 En
 	UObject::ProcessEvent(Func, &Parms);
 }
 
+}
 
-SDK_NAMESPACE_END

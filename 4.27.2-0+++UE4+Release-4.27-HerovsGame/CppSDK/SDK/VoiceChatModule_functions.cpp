@@ -14,7 +14,8 @@
 #include "VoiceChatModule_parameters.hpp"
 
 
-SDK_NAMESPACE_START
+namespace SDK
+{
 
 // Function VoiceChatModule.VoiceChatObject.GetInstance
 // (Final, Native, Static, Public, BlueprintCallable)
@@ -1129,5 +1130,5 @@ void UVoiceChatObject::StartTranscription() const
 	Func->FunctionFlags = Flgs;
 }
 
+}
 
-SDK_NAMESPACE_END

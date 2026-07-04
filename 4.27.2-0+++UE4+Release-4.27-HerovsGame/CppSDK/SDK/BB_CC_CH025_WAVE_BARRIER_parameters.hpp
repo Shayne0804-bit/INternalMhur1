@@ -10,15 +10,15 @@
 
 #include "Basic.hpp"
 
-#include "FCh025V2_U3_BarrierParam_structs.hpp"
 #include "InGameModule_structs.hpp"
 #include "CoreUObject_structs.hpp"
+#include "FCh025V2_U3_BarrierParam_structs.hpp"
 #include "GameModule_structs.hpp"
 #include "CommonModule_structs.hpp"
 
 
-SDK_NAMESPACE_START
-SDK_PARAM_NAMESPACE_START
+namespace SDK::Params
+{
 
 // Function BB_CC_CH025_WAVE_BARRIER.BB_CC_CH025_WAVE_BARRIER_C.ExecuteUbergraph_BB_CC_CH025_WAVE_BARRIER
 // 0x0050 (0x0050 - 0x0000)
@@ -41,6 +41,7 @@ public:
 	class UParticleSystem*                        CallFunc_GetEndSignEffect_Emitter_Template;        // 0x0040(0x0008)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	bool                                          CallFunc_Not_PreBool_ReturnValue_1;                // 0x0048(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BB_CC_CH025_WAVE_BARRIER_C_ExecuteUbergraph_BB_CC_CH025_WAVE_BARRIER;
 
 // Function BB_CC_CH025_WAVE_BARRIER.BB_CC_CH025_WAVE_BARRIER_C.DestroyEfffect
 // 0x0048 (0x0048 - 0x0000)
@@ -59,6 +60,7 @@ public:
 	class UBPInGameActorUtilityComponent*         CallFunc_BP_GetUBPInGameActorUtilityComponent_ReturnValue_1; // 0x0038(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCustomParticleSystemComponent*         CallFunc_BP_SpawnEmitterAttached_ReturnValue_1;    // 0x0040(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BB_CC_CH025_WAVE_BARRIER_C_DestroyEfffect;
 
 // Function BB_CC_CH025_WAVE_BARRIER.BB_CC_CH025_WAVE_BARRIER_C.SettingLevel
 // 0x0008 (0x0008 - 0x0000)
@@ -68,6 +70,7 @@ public:
 	float                                         CallFunc_BP_GetValue_ReturnValue;                  // 0x0000(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	int32                                         CallFunc_FTrunc_ReturnValue;                       // 0x0004(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BB_CC_CH025_WAVE_BARRIER_C_SettingLevel;
 
 // Function BB_CC_CH025_WAVE_BARRIER.BB_CC_CH025_WAVE_BARRIER_C.SettingBarrierValue
 // 0x00C0 (0x00C0 - 0x0000)
@@ -97,6 +100,7 @@ public:
 	float                                         CallFunc_Multiply_FloatFloat_ReturnValue_5;        // 0x00B8(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	float                                         CallFunc_Multiply_FloatFloat_ReturnValue_6;        // 0x00BC(0x0004)(ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BB_CC_CH025_WAVE_BARRIER_C_SettingBarrierValue;
 
 // Function BB_CC_CH025_WAVE_BARRIER.BB_CC_CH025_WAVE_BARRIER_C.CheckMagazineSkill
 // 0x0068 (0x0068 - 0x0000)
@@ -121,6 +125,7 @@ public:
 	bool                                          CallFunc_BooleanAND_ReturnValue_1;                 // 0x0065(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_BooleanOR_ReturnValue;                    // 0x0066(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BB_CC_CH025_WAVE_BARRIER_C_CheckMagazineSkill;
 
 // Function BB_CC_CH025_WAVE_BARRIER.BB_CC_CH025_WAVE_BARRIER_C.PlayCallSignEffect
 // 0x0020 (0x0020 - 0x0000)
@@ -132,6 +137,7 @@ public:
 	class UBPInGameActorUtilityComponent*         CallFunc_BP_GetUBPInGameActorUtilityComponent_ReturnValue; // 0x0010(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 	class UCustomParticleSystemComponent*         CallFunc_BP_SpawnEmitterAttached_ReturnValue;      // 0x0018(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BB_CC_CH025_WAVE_BARRIER_C_PlayCallSignEffect;
 
 // Function BB_CC_CH025_WAVE_BARRIER.BB_CC_CH025_WAVE_BARRIER_C.GetCallSightEffect
 // 0x0008 (0x0008 - 0x0000)
@@ -140,6 +146,7 @@ struct BB_CC_CH025_WAVE_BARRIER_C_GetCallSightEffect final
 public:
 	class UParticleSystem*                        callSign;                                          // 0x0000(0x0008)(Parm, OutParm, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BB_CC_CH025_WAVE_BARRIER_C_GetCallSightEffect;
 
 // Function BB_CC_CH025_WAVE_BARRIER.BB_CC_CH025_WAVE_BARRIER_C.PlaySoundSe
 // 0x0030 (0x0030 - 0x0000)
@@ -152,6 +159,7 @@ public:
 	uint8                                         Pad_24[0x4];                                       // 0x0024(0x0004)(Fixing Size After Last Property [ Dumper-7 ])
 	class UAtomComponent*                         CallFunc_PlaySoundAtLocation_ReturnValue;          // 0x0028(0x0008)(ZeroConstructor, InstancedReference, IsPlainOldData, NoDestructor, HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BB_CC_CH025_WAVE_BARRIER_C_PlaySoundSe;
 
 // Function BB_CC_CH025_WAVE_BARRIER.BB_CC_CH025_WAVE_BARRIER_C.GetBarrierValue
 // 0x0080 (0x0080 - 0x0000)
@@ -172,6 +180,7 @@ public:
 	uint8                                         Pad_55[0x3];                                       // 0x0055(0x0003)(Fixing Size After Last Property [ Dumper-7 ])
 	struct FFCh025V2_U3_BarrierParam              CallFunc_GetBarrierParam_BarrierParam_1;           // 0x0058(0x0028)(HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BB_CC_CH025_WAVE_BARRIER_C_GetBarrierValue;
 
 // Function BB_CC_CH025_WAVE_BARRIER.BB_CC_CH025_WAVE_BARRIER_C.SettingBarirerValueInfo
 // 0x0028 (0x0028 - 0x0000)
@@ -180,6 +189,7 @@ struct BB_CC_CH025_WAVE_BARRIER_C_SettingBarirerValueInfo final
 public:
 	struct FFCh025V2_U3_BarrierParam              CallFunc_GetBarrierParam_BarrierParam;             // 0x0000(0x0028)(HasGetValueTypeHash)
 };
+DUMPER7_ASSERTS_BB_CC_CH025_WAVE_BARRIER_C_SettingBarirerValueInfo;
 
 // Function BB_CC_CH025_WAVE_BARRIER.BB_CC_CH025_WAVE_BARRIER_C.GetStartEffect
 // 0x0010 (0x0010 - 0x0000)
@@ -190,6 +200,7 @@ public:
 	bool                                          CallFunc_Less_IntInt_ReturnValue;                  // 0x0008(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_Less_IntInt_ReturnValue_1;                // 0x0009(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BB_CC_CH025_WAVE_BARRIER_C_GetStartEffect;
 
 // Function BB_CC_CH025_WAVE_BARRIER.BB_CC_CH025_WAVE_BARRIER_C.GetEndSignEffect
 // 0x0010 (0x0010 - 0x0000)
@@ -200,6 +211,7 @@ public:
 	bool                                          CallFunc_Less_IntInt_ReturnValue;                  // 0x0008(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_Less_IntInt_ReturnValue_1;                // 0x0009(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BB_CC_CH025_WAVE_BARRIER_C_GetEndSignEffect;
 
 // Function BB_CC_CH025_WAVE_BARRIER.BB_CC_CH025_WAVE_BARRIER_C.GetEndEffect
 // 0x0010 (0x0010 - 0x0000)
@@ -210,6 +222,7 @@ public:
 	bool                                          CallFunc_Less_IntInt_ReturnValue;                  // 0x0008(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_Less_IntInt_ReturnValue_1;                // 0x0009(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BB_CC_CH025_WAVE_BARRIER_C_GetEndEffect;
 
 // Function BB_CC_CH025_WAVE_BARRIER.BB_CC_CH025_WAVE_BARRIER_C.GetEndBreakEffect
 // 0x0010 (0x0010 - 0x0000)
@@ -220,6 +233,7 @@ public:
 	bool                                          CallFunc_Less_IntInt_ReturnValue;                  // 0x0008(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 	bool                                          CallFunc_Less_IntInt_ReturnValue_1;                // 0x0009(0x0001)(ZeroConstructor, IsPlainOldData, NoDestructor)
 };
+DUMPER7_ASSERTS_BB_CC_CH025_WAVE_BARRIER_C_GetEndBreakEffect;
 
-SDK_PARAM_NAMESPACE_END
-SDK_NAMESPACE_END
+}
+
