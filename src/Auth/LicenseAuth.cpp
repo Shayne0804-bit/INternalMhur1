@@ -25,8 +25,7 @@ namespace Auth
     // ------------------------------------------------------------------
 
     // Auth server host, no scheme, no trailing slash. TLS is forced.
-    // TODO: replace with the real Railway host (e.g. "rugir-auth.up.railway.app").
-    static const wchar_t* kAuthHost = L"TON-APP.up.railway.app";
+    static const wchar_t* kAuthHost = L"internalmhur1.up.railway.app";
     static const wchar_t* kVerifyPath = L"/api/auth/verify";
 
     static const char* kClientVersion = "1.0.0";
