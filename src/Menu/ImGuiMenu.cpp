@@ -6322,7 +6322,7 @@ return true;
         // ========================================================================
         // STEP 3B: SDK RENDERING (on RenderThread with ImGui context)
         // ========================================================================
-        if (g_Settings.EnableGlobal)
+        if (Auth::IsAuthorized() && g_Settings.EnableGlobal)
         {
             if (g_Settings.EnablePlayerESP)
             {
