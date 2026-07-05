@@ -91,3 +91,9 @@ Thumbs.db
 
 # Required static library exception after the global *.lib ignore.
 !cheat factory/vendors/FreeType/lib/x64/freetype.lib
+
+# Auth server + Discord bot (Node, deployed together on Railway) - never secrets.
+!server/
+!server/**
+server/node_modules/
+server/.env
