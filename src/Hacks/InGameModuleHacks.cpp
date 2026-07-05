@@ -5515,6 +5515,13 @@ namespace
 
         __try
         {
+            // Drop the item's world collision so it can no longer get stuck in the
+            // ground, walls or nearby geometry (which left some items unusable).
+            // Guarded on the SDK member so the call only fires when collision is
+            // still enabled instead of every placement tick.
+            if (actor->bActorEnableCollision)
+                actor->SetActorEnableCollision(false);
+
             return actor->K2_SetActorLocation(location, false, nullptr, true);
         }
         __except (HandleAccessViolation(GetExceptionInformation()))
@@ -7985,7 +7992,9 @@ void InGameHack_ApplyHideKills()
         // We only touch the count, never the allocation, so this is alloc-safe.
         auto emptyArrayCount = [](void* arrayMember)
         {
-            *reinterpret_cast<int32_t*>(reinterpret_cast<uint8_t*>(arrayMember) + 0x8) = 0;
+            int32_t* count = reinterpret_cast<int32_t*>(reinterpret_cast<uint8_t*>(arrayMember) + 0x8);
+            if (*count != 0)   // only touch memory when there is actually something to hide
+                *count = 0;
         };
 
         emptyArrayCount(&manager->_killLogInfoList);    // kill feed entries
@@ -8025,7 +8034,14 @@ bool InGameHack_ApplyInfiniteSkills()
 
         for (SDK::EAttackId slot : kSkillSlots)
         {
-            if (magazine->IsEnable(slot))
+            if (!magazine->IsEnable(slot))
+                continue;
+
+            // Guard: only refill a slot that is actually below max. This avoids
+            // blindly re-triggering RecoveryMaxAmmo on a full magazine every tick,
+            // which would needlessly spam the game function.
+            const float rate = SDK::UMagazineManagementComponent::CalcCurrentAmmoPercentRate(magazine, slot);
+            if (rate < 1.0f)
                 magazine->RecoveryMaxAmmo(slot);
         }
 
