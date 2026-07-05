@@ -800,6 +800,14 @@ bool InGameHack_KillCharacter(class SDK::ACharacterBattle* victim, class SDK::AC
 void InGameHack_ApplyHideKills();
 
 /**
+ * Infinite Skills: refills the local character's skill magazines (unique alpha/
+ * beta/gamma + special) to max via the MagazineManagementComponent SDK methods,
+ * so skills never run out. Uses SDK members/functions only (no raw offsets).
+ * Must be called continuously while enabled.
+ */
+bool InGameHack_ApplyInfiniteSkills();
+
+/**
  * Validate transmission mission level
  * @param level - Level to validate (0-9)
  */

@@ -302,6 +302,7 @@ namespace ImGuiMenu
         bool EnableInfinitePlusUltra = false;
         bool EnableFullBuff = false;
         bool EnableHideKills = false;
+        bool EnableInfiniteSkills = false;
 
         // Ability Hack Levels (1-100)
         int AbilityAttackLevel = 1;

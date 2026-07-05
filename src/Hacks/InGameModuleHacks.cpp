@@ -7997,6 +7997,46 @@ void InGameHack_ApplyHideKills()
     }
 }
 
+bool InGameHack_ApplyInfiniteSkills()
+{
+    try
+    {
+        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!IsValidPointer(playerController))
+            return false;
+
+        SDK::ACharacterBattle* character = GetPlayerCharacterBattle(playerController);
+        if (!character)
+            return false;
+
+        SDK::UMagazineManagementComponent* magazine = nullptr;
+        if (!SafeReadMember(&character->_magazineManagementComponent, magazine) || !IsValidPointer(magazine))
+            return false;
+
+        // Skill slots backed by an ammo magazine: unique alpha/beta/gamma + special.
+        // Refilling each to max keeps the skills permanently available. IsEnable()
+        // skips slots the current character does not own.
+        static const SDK::EAttackId kSkillSlots[] = {
+            SDK::EAttackId::UNIQUE1,
+            SDK::EAttackId::UNIQUE2,
+            SDK::EAttackId::UNIQUE3,
+            SDK::EAttackId::SPECIAL,
+        };
+
+        for (SDK::EAttackId slot : kSkillSlots)
+        {
+            if (magazine->IsEnable(slot))
+                magazine->RecoveryMaxAmmo(slot);
+        }
+
+        return true;
+    }
+    catch (...)
+    {
+        return false;
+    }
+}
+
 bool InGameHack_ValidateTransMissionLevel(int level)
 {
     try

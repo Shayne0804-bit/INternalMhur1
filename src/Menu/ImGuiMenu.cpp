@@ -4724,6 +4724,7 @@ namespace ImGuiMenu
             ImGui::NextColumn();
 
             SeparatorLabel("Unique Skill");
+            ImAdd::CheckBox("Infinite Skills", &g_HackSettings.EnableInfiniteSkills);
             static float lastRefreshTime = 0.0f;
             if (ImGui::GetTime() - lastRefreshTime > 0.5f)
             {

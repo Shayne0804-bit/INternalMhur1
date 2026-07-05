@@ -804,6 +804,20 @@ void HackThreadManager::FrameUpdateHacksImpl()
         }
     }
 
+    // ===== INFINITE SKILLS (CONTINUOUS) =====
+    if (ImGuiMenu::g_HackSettings.EnableInfiniteSkills)
+    {
+        static auto lastInfiniteSkillsTime = std::chrono::steady_clock::time_point{};
+        try
+        {
+            if (IsIntervalDue(lastInfiniteSkillsTime, 100))
+                InGameHack_ApplyInfiniteSkills();
+        }
+        catch (...)
+        {
+        }
+    }
+
     // ===== CLEAR INVINCIBLE (AUTO) =====
     if (ImGuiMenu::g_Settings.EnableClearInvincibleAuto)
     {
