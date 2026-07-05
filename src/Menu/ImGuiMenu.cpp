@@ -36,6 +36,10 @@
 #define RUGIR_MENU_CHEAT_FACTORY 0
 #endif
 
+#ifndef RUGIR_MENU_AGENCY
+#define RUGIR_MENU_AGENCY 0
+#endif
+
 // ============================================================================
 // CHARACTER CHANGER GLOBAL STATE (Used by Character_Changer.cpp)
 // ============================================================================
@@ -4639,6 +4643,11 @@ namespace ImGuiMenu
 
             DrawPlayerNameInlineControls();
 
+#if RUGIR_MENU_AGENCY
+            SeparatorLabel("Rental");
+            ImGuiHelper::ToggleSwitch("Bypass Rental Ticket Amount", &g_HackSettings.Hack_BypassRentalTickets);
+#endif
+
             SeparatorLabel("Revive");
             ImAdd::CheckBox("Recover Me (Self)", &g_Settings.EnableRecoveryMe);
             ImAdd::CheckBox("Recover Team", &g_Settings.EnableRecoveryTeam);
@@ -5389,15 +5398,290 @@ namespace ImGuiMenu
 
     static void RenderPreviewSettingsPage(float groupWidth)
     {
+        // Left card: general settings. Right card: profile management (fills the
+        // space that used to be left empty). Shared by every menu/config.
+        ImGui::BeginGroup();
         if (BeginRugirCard("settings-page", "SETTINGS", ImVec2(groupWidth, 0.0f)))
         {
             DrawMenuVisualsSettingsSection();
             DrawInventoryDebugSettingsSection();
             DrawDllControlSettingsSection();
+        }
+        EndRugirCard();
+        ImGui::EndGroup();
+
+        ImGui::SameLine();
+
+        ImGui::BeginGroup();
+        if (BeginRugirCard("profiles-page", "PROFILES", ImVec2(groupWidth, 0.0f)))
+        {
             DrawProfileManagementSettingsSection();
         }
         EndRugirCard();
+        ImGui::EndGroup();
     }
+
+#if RUGIR_MENU_AGENCY
+    // ============================================================================
+    //  AGENCY MENU  (config-specific — top-nav horizontal layout, own theme)
+    //  Compiled only for the Agency build configuration. Reuses every content
+    //  renderer (RenderPreview*Page) so all hack calls stay identical; only the
+    //  shell, theme and tab set differ from DrawFreeImGuiStyleMenu.
+    // ============================================================================
+    static void DrawAgencyStyleMenu()
+    {
+        struct Subtab { const char* label; };
+        struct Page { const char* label; const Subtab* subtabs; int subtabCount; const int* subtabMap; };
+
+        // Signature Agency accent (amber) — override shared palette so cards/widgets
+        // rendered by the reused content functions adopt the Agency look too.
+        const ImVec4 agencyAccent(0.98f, 0.58f, 0.12f, 1.0f);
+        g_Colors.accentColor       = agencyAccent;
+        g_Colors.accentColorHover  = ImVec4(1.0f, 0.66f, 0.22f, 1.0f);
+        g_Colors.accentColorActive = ImVec4(0.86f, 0.48f, 0.06f, 1.0f);
+        g_Colors.accentPurple      = agencyAccent;
+        g_Colors.accentCyan        = ImVec4(1.0f, 0.66f, 0.22f, 1.0f);
+
+        const Subtab espSubtabs[]      = { { "ESP" } };
+        const Subtab aimbotSubtabs[]   = { { "Aimbot" } };
+        const Subtab combatSubtabs[]   = { { "Combat" }, { "Conditions" } };
+        const Subtab hacksSubtabs[]    = { { "Imitation/Copy" }, { "Kota/Items" } };
+        const Subtab settingsSubtabs[] = { { "Profiles" } };
+
+        // Character: no "Invincible" subtab. Map Agency index -> original index
+        // consumed by RenderPreviewCharacterPage (skips original 4 = Invincible).
+        const Subtab characterSubtabs[] = {
+            { "Swap" }, { "Tools" }, { "DEKU OFA OPTI" }, { "Action Cancel" }, { "DownPower" }
+        };
+        const int characterMap[] = { 0, 1, 2, 3, 5 };
+
+        // Lobby: no "License EXP" subtab (indices 0..3 map 1:1 to the original).
+        const Subtab lobbySubtabs[] = {
+            { "Apply Team" }, { "Apply All" }, { "Specific" }, { "Change Team" }
+        };
+
+        const Page pages[] = {
+            { "ESP",       espSubtabs,       IM_ARRAYSIZE(espSubtabs),       nullptr },
+            { "CHARACTER", characterSubtabs, IM_ARRAYSIZE(characterSubtabs), characterMap },
+            { "AIMBOT",    aimbotSubtabs,    IM_ARRAYSIZE(aimbotSubtabs),    nullptr },
+            { "COMBAT",    combatSubtabs,    IM_ARRAYSIZE(combatSubtabs),    nullptr },
+            { "HACKS",     hacksSubtabs,     IM_ARRAYSIZE(hacksSubtabs),     nullptr },
+            { "LOBBY",     lobbySubtabs,     IM_ARRAYSIZE(lobbySubtabs),     nullptr },
+            { "SETTINGS",  settingsSubtabs,  IM_ARRAYSIZE(settingsSubtabs),  nullptr },
+        };
+        const int pageCount = IM_ARRAYSIZE(pages);
+        static int selectedSubtabs[7] = {};
+
+        if (g_SelectedTab < 0 || g_SelectedTab >= pageCount)
+            g_SelectedTab = 0;
+
+        ImGuiStyle& style = ImGui::GetStyle();
+        ImGuiIO& io = ImGui::GetIO();
+
+        const ImVec2 defaultSize(940.0f, 600.0f);
+        ImGui::SetNextWindowSize(defaultSize, ImGuiCond_Once);
+        ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Once, ImVec2(0.5f, 0.5f));
+        ImGui::SetNextWindowBgAlpha(0.0f);
+
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+        ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+        bool open = ImGui::Begin("RUGIR INTERNAL##agency", &g_Visible,
+            ImGuiWindowFlags_NoTitleBar |
+            ImGuiWindowFlags_NoCollapse |
+            ImGuiWindowFlags_NoScrollbar |
+            ImGuiWindowFlags_NoScrollWithMouse |
+            ImGuiWindowFlags_NoBackground);
+        ImGui::PopStyleColor();
+        ImGui::PopStyleVar(2);
+
+        if (!open)
+        {
+            ImGui::End();
+            return;
+        }
+
+        ImDrawList* drawList = ImGui::GetWindowDrawList();
+        ImVec2 p = ImGui::GetWindowPos();
+        ImVec2 size = ImGui::GetWindowSize();
+        ImVec2 windowMax(p.x + size.x, p.y + size.y);
+
+        // ---- Backdrop -------------------------------------------------------
+        const float headerH = 62.0f;   // top brand band
+        const float navH    = 44.0f;   // horizontal page nav
+        const ImVec2 headerMax(windowMax.x, p.y + headerH);
+        const ImVec2 navMax(windowMax.x, p.y + headerH + navH);
+
+        // No background video for the VALARIA menu (unlike the other configs) —
+        // solid dark panel instead.
+        drawList->AddRectFilled(p, windowMax, ImGui::GetColorU32(ImVec4(9.0f / 255.0f, 8.0f / 255.0f, 6.0f / 255.0f, 0.94f)), 14.0f);
+        drawList->AddRectFilled(p, windowMax, ImGui::GetColorU32(ImVec4(0.0f, 0.0f, 0.0f, 0.12f)), 14.0f);
+        // Top header + nav strip get their own darker band.
+        drawList->AddRectFilled(p, headerMax, ImGui::GetColorU32(ImVec4(0.0f, 0.0f, 0.0f, 0.42f)), 14.0f, ImDrawFlags_RoundCornersTop);
+        drawList->AddRectFilled(ImVec2(p.x, p.y + headerH), navMax, ImGui::GetColorU32(ImVec4(0.0f, 0.0f, 0.0f, 0.24f)));
+        // Accent underline under the whole top bar + outer frame.
+        drawList->AddRectFilled(ImVec2(p.x, navMax.y - 1.0f), ImVec2(windowMax.x, navMax.y + 1.0f), ImGui::GetColorU32(ImVec4(agencyAccent.x, agencyAccent.y, agencyAccent.z, 0.55f)));
+        drawList->AddRect(p, windowMax, ImGui::GetColorU32(ImVec4(agencyAccent.x, agencyAccent.y, agencyAccent.z, 0.22f)), 14.0f, 0, 1.0f);
+
+        auto addText = [&](ImFont* font, float fontSize, const ImVec2& pos, ImU32 color, const char* text)
+        {
+            drawList->AddText(font ? font : ImGui::GetFont(), fontSize, pos, color, text);
+        };
+        auto calcTextSize = [](ImFont* font, float fontSize, const char* text) -> ImVec2
+        {
+            ImFont* resolvedFont = font ? font : ImGui::GetFont();
+            return resolvedFont->CalcTextSizeA(fontSize, FLT_MAX, 0.0f, text ? text : "");
+        };
+
+        // ---- Brand ----------------------------------------------------------
+        addText(g_FreeFontBrand, 30.0f, ImVec2(p.x + 24.0f, p.y + 16.0f), ImGui::GetColorU32(agencyAccent), "VALARIA");
+        const ImVec2 brandSize = calcTextSize(g_FreeFontBrand, 30.0f, "VALARIA");
+        addText(g_FreeFontSmall, 13.0f, ImVec2(p.x + 26.0f + brandSize.x + 10.0f, p.y + 30.0f), ImGui::GetColorU32(g_Colors.textDisabled), "INTERNAL");
+
+        // FPS pill (right side of header).
+        char fpsText[32] = {};
+        snprintf(fpsText, sizeof(fpsText), "FPS %.0f", io.Framerate);
+        const ImVec2 fpsSize = calcTextSize(g_FreeFontSmall, 14.0f, fpsText);
+        const ImVec2 fpsMin(windowMax.x - fpsSize.x - 78.0f, p.y + 18.0f);
+        const ImVec2 fpsMax(fpsMin.x + fpsSize.x + 18.0f, fpsMin.y + 24.0f);
+        drawList->AddRectFilled(fpsMin, fpsMax, ImGui::GetColorU32(ImVec4(15.0f / 255.0f, 13.0f / 255.0f, 10.0f / 255.0f, 0.60f)), 4.0f);
+        drawList->AddRect(fpsMin, fpsMax, ImGui::GetColorU32(ImVec4(agencyAccent.x, agencyAccent.y, agencyAccent.z, 0.34f)), 4.0f);
+        addText(g_FreeFontSmall, 14.0f, ImVec2(fpsMin.x + 9.0f, fpsMin.y + 4.0f), ImGui::GetColorU32(g_Colors.textSecondary), fpsText);
+
+        // Close button.
+        ImGui::SetCursorScreenPos(ImVec2(windowMax.x - 34.0f, p.y + 16.0f));
+        if (ImAdd::ButtonXMark("agency-close-button", ImVec2(18.0f, 18.0f)))
+            g_Visible = false;
+
+        // ---- Auth gate ------------------------------------------------------
+        if (!Auth::IsAuthorized())
+            g_MenuEntered = false;
+
+        if (!Auth::IsAuthorized() || !g_MenuEntered)
+        {
+            const float cardWidth = size.x - 48.0f;
+            ImGui::SetCursorScreenPos(ImVec2(p.x + 24.0f, p.y + headerH + 40.0f));
+            ImGui::BeginGroup();
+            ImGui::PushItemWidth(cardWidth > 200.0f ? cardWidth : 200.0f);
+            RenderProtectedAccessCard(cardWidth > 200.0f ? cardWidth : 200.0f);
+            ImGui::PopItemWidth();
+            ImGui::EndGroup();
+            ImGui::End();
+            return;
+        }
+
+        g_LicenseSectionUnlocked = true;
+
+        // ---- Horizontal page nav -------------------------------------------
+        auto navButton = [&](const char* label, bool selected, const ImVec2& btnSize) -> bool
+        {
+            ImGui::PushID(label);
+            ImGui::InvisibleButton("##agency-nav", btnSize);
+            bool clicked = ImGui::IsItemClicked();
+            bool hovered = ImGui::IsItemHovered();
+            ImVec2 mn = ImGui::GetItemRectMin();
+            ImVec2 mx = ImGui::GetItemRectMax();
+            ImGui::PopID();
+
+            if (selected)
+                drawList->AddRectFilled(mn, mx, ImGui::GetColorU32(ImVec4(agencyAccent.x, agencyAccent.y, agencyAccent.z, 0.14f)), 5.0f);
+            else if (hovered)
+                drawList->AddRectFilled(mn, mx, ImGui::GetColorU32(ImVec4(1.0f, 1.0f, 1.0f, 0.05f)), 5.0f);
+            if (selected)
+                drawList->AddRectFilled(ImVec2(mn.x + 8.0f, mx.y - 3.0f), ImVec2(mx.x - 8.0f, mx.y - 1.0f), ImGui::GetColorU32(agencyAccent));
+
+            ImVec2 ts = calcTextSize(g_FreeFontLarge, 16.0f, label);
+            ImU32 col = ImGui::GetColorU32(selected ? g_Colors.textPrimary : g_Colors.textSecondary);
+            addText(g_FreeFontLarge, 16.0f, ImVec2(mn.x + (btnSize.x - ts.x) * 0.5f, mn.y + (btnSize.y - ts.y) * 0.5f), col, label);
+            return clicked;
+        };
+
+        ImGui::SetCursorScreenPos(ImVec2(p.x + 16.0f, p.y + headerH + 4.0f));
+        ImGui::BeginGroup();
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4.0f, 0.0f));
+        for (int i = 0; i < pageCount; i++)
+        {
+            if (i > 0)
+                ImGui::SameLine();
+            float w = calcTextSize(g_FreeFontLarge, 16.0f, pages[i].label).x + 34.0f;
+            if (navButton(pages[i].label, g_SelectedTab == i, ImVec2(w, navH - 6.0f)))
+                g_SelectedTab = i;
+        }
+        ImGui::PopStyleVar();
+        ImGui::EndGroup();
+
+        const Page& page = pages[g_SelectedTab];
+        if (selectedSubtabs[g_SelectedTab] < 0 || selectedSubtabs[g_SelectedTab] >= page.subtabCount)
+            selectedSubtabs[g_SelectedTab] = 0;
+
+        // ---- Horizontal subtab pills ---------------------------------------
+        auto pillButton = [&](const char* label, bool selected, const ImVec2& btnSize) -> bool
+        {
+            ImGui::PushID(label);
+            ImGui::InvisibleButton("##agency-pill", btnSize);
+            bool clicked = ImGui::IsItemClicked();
+            bool hovered = ImGui::IsItemHovered();
+            ImVec2 mn = ImGui::GetItemRectMin();
+            ImVec2 mx = ImGui::GetItemRectMax();
+            ImGui::PopID();
+
+            ImVec4 bg = selected ? ImVec4(agencyAccent.x, agencyAccent.y, agencyAccent.z, 0.82f)
+                                 : ImVec4(26.0f / 255.0f, 23.0f / 255.0f, 19.0f / 255.0f, 0.55f);
+            if (hovered && !selected)
+                bg = ImVec4(46.0f / 255.0f, 40.0f / 255.0f, 30.0f / 255.0f, 0.70f);
+            drawList->AddRectFilled(mn, mx, ImGui::GetColorU32(bg), 12.0f);
+            drawList->AddRect(mn, mx, ImGui::GetColorU32(ImVec4(agencyAccent.x, agencyAccent.y, agencyAccent.z, selected ? 0.40f : 0.16f)), 12.0f);
+
+            ImVec2 ts = calcTextSize(g_FreeFontSmall, 14.0f, label);
+            addText(g_FreeFontSmall, 14.0f, ImVec2(mn.x + (btnSize.x - ts.x) * 0.5f, mn.y + (btnSize.y - ts.y) * 0.5f),
+                    ImGui::GetColorU32(selected ? ImVec4(0.08f, 0.06f, 0.03f, 1.0f) : g_Colors.textSecondary), label);
+            return clicked;
+        };
+
+        const float subtabY = p.y + headerH + navH + 10.0f;
+        ImGui::SetCursorScreenPos(ImVec2(p.x + 18.0f, subtabY));
+        ImGui::BeginGroup();
+        for (int i = 0; i < page.subtabCount; i++)
+        {
+            if (i > 0)
+                ImGui::SameLine();
+            float w = (std::max)(88.0f, calcTextSize(g_FreeFontSmall, 14.0f, page.subtabs[i].label).x + 26.0f);
+            if (pillButton(page.subtabs[i].label, selectedSubtabs[g_SelectedTab] == i, ImVec2(w, 26.0f)))
+                selectedSubtabs[g_SelectedTab] = i;
+        }
+        ImGui::EndGroup();
+
+        // ---- Content (full width) ------------------------------------------
+        const float contentTop = subtabY + 38.0f;
+        const ImVec2 contentSize(size.x - 32.0f, (std::max)(160.0f, p.y + size.y - contentTop - 16.0f));
+        char pageId[40] = {};
+        snprintf(pageId, sizeof(pageId), "agency-page:%d:%d", g_SelectedTab, selectedSubtabs[g_SelectedTab]);
+
+        ImGui::SetCursorScreenPos(ImVec2(p.x + 16.0f, contentTop));
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(12.0f, 12.0f));
+        ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(12.0f, 10.0f));
+        if (ImGui::BeginChild(pageId, contentSize, false, ImGuiWindowFlags_AlwaysVerticalScrollbar))
+        {
+            float groupWidth = std::floor((ImGui::GetContentRegionAvail().x - style.ItemSpacing.x) / 2.0f);
+            int subtab = selectedSubtabs[g_SelectedTab];
+            switch (g_SelectedTab)
+            {
+            case 0: RenderPreviewEspPage(subtab, groupWidth); break;
+            case 1: RenderPreviewCharacterPage(page.subtabMap ? page.subtabMap[subtab] : subtab, groupWidth); break;
+            case 2: RenderPreviewAimbotPage(subtab, groupWidth); break;
+            case 3: RenderPreviewCombatPage(subtab, groupWidth); break;
+            case 4: RenderPreviewHacksPage(subtab, groupWidth); break;
+            case 5: RenderPreviewLobbyPage(subtab, groupWidth); break;
+            case 6: RenderPreviewSettingsPage(groupWidth); break;
+            default: break;
+            }
+        }
+        ImGui::EndChild();
+        ImGui::PopStyleVar(2);
+
+        ImGui::End();
+    }
+#endif  // RUGIR_MENU_AGENCY
 
     // ============================================================================
     //  PREVIEW MENU
@@ -5429,7 +5713,7 @@ namespace ImGuiMenu
         {
             { "Swap", "S" },
             { "Tools", "T" },
-            { "CH202 U3", "U" },
+            { "DEKU OFA OPTI", "U" },
             { "Action Cancel", "A" },
             { "Invincible", "I" },
             { "DownPower", "D" },
@@ -6388,7 +6672,11 @@ return true;
         // ========================================================================
         if (g_Visible)
         {
+#if RUGIR_MENU_AGENCY
+            DrawAgencyStyleMenu();
+#else
             DrawFreeImGuiStyleMenu();
+#endif
         }
         DrawPlayerNetworkTableWindow();
 

@@ -113,12 +113,35 @@ async function handleLicenceCheck(interaction) {
   await interaction.editReply(buildMemberLicenseView(license));
 }
 
-function resolveRequestChannel(interaction) {
-  const id = process.env.RESET_CHANNEL_ID;
-  if (id) {
-    return interaction.client.channels.fetch(id).catch(() => interaction.channel);
+async function resolveRequestChannel(interaction) {
+  const raw = (process.env.RESET_CHANNEL_ID || '').trim();
+  if (raw) {
+    try {
+      const channel = await interaction.client.channels.fetch(raw);
+      if (channel && channel.isTextBased()) {
+        return channel;
+      }
+      console.error(`[bot] RESET_CHANNEL_ID=${raw}: pas un salon textuel (type=${channel ? channel.type : 'null'}).`);
+    } catch (err) {
+      console.error(`[bot] RESET_CHANNEL_ID=${raw} inaccessible: ${err.message}`);
+    }
   }
-  return Promise.resolve(interaction.channel);
+
+  // Fallback: the channel where the member clicked the button.
+  if (interaction.channel && interaction.channel.isTextBased()) {
+    return interaction.channel;
+  }
+  if (interaction.channelId) {
+    try {
+      const channel = await interaction.client.channels.fetch(interaction.channelId);
+      if (channel && channel.isTextBased()) {
+        return channel;
+      }
+    } catch (err) {
+      console.error(`[bot] salon courant inaccessible: ${err.message}`);
+    }
+  }
+  return null;
 }
 
 async function handleResetRequest(interaction, licenseId) {
@@ -129,18 +152,37 @@ async function handleResetRequest(interaction, licenseId) {
     return;
   }
 
+  const request = buildResetRequest(license, interaction.user, primaryOwnerId);
   const channel = await resolveRequestChannel(interaction);
-  if (!channel || typeof channel.send !== 'function') {
-    await interaction.editReply({ content: '❌ Salon de demande indisponible, contacte un proprietaire.' });
-    return;
+
+  if (channel) {
+    try {
+      await channel.send({
+        ...request,
+        allowedMentions: { users: primaryOwnerId ? [primaryOwnerId] : [] }
+      });
+      await interaction.editReply({ content: '✅ Demande de reset envoyee au proprietaire. Tu seras notifie.' });
+      return;
+    } catch (err) {
+      console.error(`[bot] envoi demande reset echoue: ${err.message}`);
+    }
   }
 
-  const request = buildResetRequest(license, interaction.user, primaryOwnerId);
-  await channel.send({
-    ...request,
-    allowedMentions: { users: primaryOwnerId ? [primaryOwnerId] : [] }
+  // Last resort: DM the owner directly.
+  if (primaryOwnerId) {
+    try {
+      const owner = await interaction.client.users.fetch(primaryOwnerId);
+      await owner.send(request);
+      await interaction.editReply({ content: '✅ Demande envoyee au proprietaire en message prive.' });
+      return;
+    } catch (err) {
+      console.error(`[bot] DM owner echoue: ${err.message}`);
+    }
+  }
+
+  await interaction.editReply({
+    content: "❌ Impossible d'envoyer la demande. Verifie que RESET_CHANNEL_ID est bien un **salon textuel** et que le bot y a les permissions **Voir le salon** + **Envoyer des messages**."
   });
-  await interaction.editReply({ content: '✅ Demande de reset envoyee au proprietaire. Tu seras notifie ici.' });
 }
 
 async function handleResetDecision(interaction, approve, licenseId, memberId) {
