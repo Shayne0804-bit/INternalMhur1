@@ -1,5 +1,5 @@
 const License = require('../models/License');
-const { generateLicenseKey, hashLicenseKey } = require('../utils/licenseKeys');
+const { generateLicenseKey, hashLicenseKey, normalizeLicenseKey } = require('../utils/licenseKeys');
 
 function badRequest(message) {
   const err = new Error(message);
@@ -62,4 +62,36 @@ async function createLicense({
   return { key: plainKey, license };
 }
 
-module.exports = { createLicense };
+// Look up a license from a plain key (as typed by a member).
+async function findLicenseByKey(key) {
+  const normalized = normalizeLicenseKey(key);
+  if (!normalized) {
+    return null;
+  }
+  return License.findOne({ keyHash: hashLicenseKey(normalized) });
+}
+
+// Bind (or re-bind) the Discord identity that verified this key.
+async function bindDiscordUser(license, userId, username) {
+  license.discordUserId = userId;
+  license.discordUsername = username;
+  await license.save();
+  return license;
+}
+
+async function getLicenseById(licenseId) {
+  return License.findById(licenseId);
+}
+
+// Clear the bound HWIDs so the key can be activated on a new machine.
+async function resetLicenseHwid(licenseId) {
+  return License.findByIdAndUpdate(licenseId, { hwidHashes: [] }, { new: true });
+}
+
+module.exports = {
+  createLicense,
+  findLicenseByKey,
+  getLicenseById,
+  bindDiscordUser,
+  resetLicenseHwid
+};

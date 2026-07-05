@@ -50,6 +50,15 @@ const licenseSchema = new mongoose.Schema(
     lastIp: {
       type: String,
       default: null
+    },
+    discordUserId: {
+      type: String,
+      default: null,
+      index: true
+    },
+    discordUsername: {
+      type: String,
+      default: null
     }
   },
   {
