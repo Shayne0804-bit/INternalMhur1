@@ -131,6 +131,7 @@ namespace ImGuiMenu
     static bool g_LicenseUnlockFailed = false;
     static char g_LicenseUnlockBuffer[64] = {};
     static char g_LicenseKeyBuffer[64] = {};
+    static bool g_MenuEntered = false;   // set once the user acknowledges the license info
     static bool g_MenuHotkeyDown = false;
     static bool g_PlayerNetworkTableVisible = false;
     static bool g_PlayerNetworkTableHotkeyDown = false;
@@ -3328,9 +3329,15 @@ namespace ImGuiMenu
                 else
                     ImGui::TextColored(g_Colors.textSecondary, "Expiration : illimitee");
                 ImGui::Spacing();
-                if (FullWidthButton("DECONNEXION"))
+
+                const float halfW = std::floor((ImGui::GetContentRegionAvail().x - ImGui::GetStyle().ItemSpacing.x) * 0.5f);
+                if (ImAdd::Button("CONTINUER", ImVec2(halfW, 0.0f)))
+                    g_MenuEntered = true;
+                ImGui::SameLine();
+                if (ImAdd::Button("DECONNEXION", ImVec2(ImGui::GetContentRegionAvail().x, 0.0f)))
                 {
                     Auth::Clear();
+                    g_MenuEntered = false;
                     std::memset(g_LicenseKeyBuffer, 0, sizeof(g_LicenseKeyBuffer));
                 }
             }
@@ -4611,9 +4618,13 @@ namespace ImGuiMenu
         if (ImAdd::ButtonXMark("free-close-button", ImVec2(18.0f, 18.0f)))
             g_Visible = false;
 
-        // License gate: until the server authorizes this machine, the whole
-        // menu is replaced by the activation card. No tabs, no features.
+        // License gate: the menu is replaced by the activation card until the
+        // machine is authorized AND the user acknowledged the license info
+        // (expiration date) via CONTINUER. If the session drops, gate closes again.
         if (!Auth::IsAuthorized())
+            g_MenuEntered = false;
+
+        if (!Auth::IsAuthorized() || !g_MenuEntered)
         {
             const float cardWidth = size.x - sidebarWidth - 48.0f;
             ImGui::SetCursorScreenPos(ImVec2(p.x + sidebarWidth + 24.0f, p.y + 150.0f));
