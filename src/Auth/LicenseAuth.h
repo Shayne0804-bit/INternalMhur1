@@ -38,8 +38,11 @@ namespace Auth
     // Detected license tier once authorized ("premium", ...), empty otherwise.
     std::string GetTier();
 
-    // Load a previously saved key (DPAPI) and auto-activate. Call once at startup.
-    void LoadSavedKeyAndActivate();
+    // Human-readable expiration ("2026-08-03 23:07 UTC"), empty if none/lifetime.
+    std::string GetExpiresAt();
+
+    // Previously saved key (DPAPI), for pre-filling the input. Does NOT connect.
+    std::string GetSavedKey();
 
     // Periodic re-validation. Safe to call every frame/tick; it self-throttles.
     void HeartbeatTick();

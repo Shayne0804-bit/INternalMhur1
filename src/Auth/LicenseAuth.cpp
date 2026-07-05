@@ -25,8 +25,7 @@ namespace Auth
     // ------------------------------------------------------------------
 
     // Auth server host, no scheme, no trailing slash. TLS is forced.
-    // TODO: replace with the real Railway host (e.g. "rugir-auth.up.railway.app").
-    static const wchar_t* kAuthHost = L"TON-APP.up.railway.app";
+    static const wchar_t* kAuthHost = L"internalmhur1.up.railway.app";
     static const wchar_t* kVerifyPath = L"/api/auth/verify";
 
     static const char* kClientVersion = "1.0.0";
@@ -47,12 +46,14 @@ namespace Auth
         std::string error;   // server error code, or "network"
         std::string token;
         std::string tier;
+        std::string expiresAt;   // ISO8601 from server, empty if none
     };
 
     static std::mutex g_mutex;
     static State g_state = State::Idle;
     static std::string g_key;            // current license key (guarded)
     static std::string g_tier;           // guarded
+    static std::string g_expiresAt;      // formatted expiration (guarded)
     static std::string g_statusText = "Aucune cle.";
     static unsigned long long g_sessionExpiryMs = 0;   // GetTickCount64 deadline
     static unsigned long long g_lastHeartbeatMs = 0;
@@ -301,6 +302,7 @@ namespace Auth
                 vr.error.clear();
                 vr.token = JsonString(response, "token");
                 vr.tier = JsonString(response, "tier");
+                vr.expiresAt = JsonString(response, "expiresAt");
             }
             else
             {
@@ -395,6 +397,14 @@ namespace Auth
     // State transitions
     // ------------------------------------------------------------------
 
+    // "2026-08-03T23:07:46.903Z" -> "2026-08-03 23:07 UTC". Empty stays empty.
+    static std::string FormatExpiry(const std::string& iso)
+    {
+        if (iso.size() < 16)
+            return std::string();
+        return iso.substr(0, 10) + " " + iso.substr(11, 5) + " UTC";
+    }
+
     static std::string ErrorToFrench(const std::string& code)
     {
         if (code == "invalid_key")          return "Cle invalide.";
@@ -422,6 +432,7 @@ namespace Auth
         {
             g_key = key;
             g_tier = vr.tier;
+            g_expiresAt = FormatExpiry(vr.expiresAt);
             g_state = State::Authorized;
             g_sessionExpiryMs = GetTickCount64() + kSessionValidMs;
             g_lastHeartbeatMs = GetTickCount64();
@@ -465,15 +476,10 @@ namespace Auth
         std::thread(DoVerify, trimmed, true).detach();
     }
 
-    void LoadSavedKeyAndActivate()
+    std::string GetSavedKey()
     {
-        std::string key = LoadKeyDecrypted();
-        if (key.empty())
-            return;
-        bool expected = false;
-        if (!g_requestInFlight.compare_exchange_strong(expected, true))
-            return;
-        std::thread(DoVerify, key, false).detach();
+        // Only pre-fills the input field. Never connects on its own.
+        return LoadKeyDecrypted();
     }
 
     void HeartbeatTick()
@@ -518,12 +524,19 @@ namespace Auth
         return g_tier;
     }
 
+    std::string GetExpiresAt()
+    {
+        std::lock_guard<std::mutex> lock(g_mutex);
+        return g_expiresAt;
+    }
+
     void Clear()
     {
         std::lock_guard<std::mutex> lock(g_mutex);
         g_state = State::Idle;
         g_key.clear();
         g_tier.clear();
+        g_expiresAt.clear();
         g_sessionExpiryMs = 0;
         g_statusText = "Aucune cle.";
         DeleteSavedKey();
