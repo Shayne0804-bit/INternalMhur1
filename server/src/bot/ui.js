@@ -130,7 +130,12 @@ function buildMemberLicenseView(license) {
       .setCustomId(`chk:reset:${license._id}`)
       .setLabel('Reinitialiser HWID')
       .setEmoji('🔄')
-      .setStyle(ButtonStyle.Danger)
+      .setStyle(ButtonStyle.Danger),
+    new ButtonBuilder()
+      .setCustomId('chk:new')
+      .setLabel('Nouvelle licence')
+      .setEmoji('➕')
+      .setStyle(ButtonStyle.Secondary)
   );
 
   return { embeds: [embed], components: [row] };

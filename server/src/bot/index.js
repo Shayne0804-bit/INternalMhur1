@@ -11,6 +11,7 @@ const {
 const {
   createLicense,
   findLicenseByKey,
+  findLicenseByDiscordUser,
   getLicenseById,
   bindDiscordUser,
   resetLicenseHwid
@@ -215,7 +216,13 @@ function attachHandlers(client) {
           if (await denyIfNotOwner(interaction)) return;
           await interaction.reply({ ...buildPanel(), flags: MessageFlags.Ephemeral });
         } else if (interaction.commandName === 'macle') {
-          await interaction.showModal(buildKeyCheckModal());
+          // If the member already verified a license, show it directly.
+          const existing = await findLicenseByDiscordUser(interaction.user.id);
+          if (existing) {
+            await interaction.reply({ ...buildMemberLicenseView(existing), flags: MessageFlags.Ephemeral });
+          } else {
+            await interaction.showModal(buildKeyCheckModal());
+          }
         }
         return;
       }
@@ -234,6 +241,8 @@ function attachHandlers(client) {
               : { tier: 'premium', daysValid: Number(parts[2]) };
             await createAndReply(interaction, options);
           }
+        } else if (ns === 'chk' && parts[1] === 'new') {
+          await interaction.showModal(buildKeyCheckModal());
         } else if (ns === 'chk' && parts[1] === 'reset') {
           await handleResetRequest(interaction, parts[2]);
         } else if (ns === 'reset') {

@@ -71,8 +71,21 @@ async function findLicenseByKey(key) {
   return License.findOne({ keyHash: hashLicenseKey(normalized) });
 }
 
-// Bind (or re-bind) the Discord identity that verified this key.
+// Find the license currently bound to a Discord user (1 user -> 1 license).
+async function findLicenseByDiscordUser(userId) {
+  if (!userId) {
+    return null;
+  }
+  return License.findOne({ discordUserId: userId });
+}
+
+// Bind (or re-bind) the Discord identity that verified this key. Exclusive:
+// detaches the user from any other license they were previously bound to.
 async function bindDiscordUser(license, userId, username) {
+  await License.updateMany(
+    { discordUserId: userId, _id: { $ne: license._id } },
+    { $set: { discordUserId: null, discordUsername: null } }
+  );
   license.discordUserId = userId;
   license.discordUsername = username;
   await license.save();
@@ -91,6 +104,7 @@ async function resetLicenseHwid(licenseId) {
 module.exports = {
   createLicense,
   findLicenseByKey,
+  findLicenseByDiscordUser,
   getLicenseById,
   bindDiscordUser,
   resetLicenseHwid
