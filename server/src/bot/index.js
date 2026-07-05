@@ -5,7 +5,8 @@ const {
   REST,
   Routes,
   SlashCommandBuilder,
-  MessageFlags
+  MessageFlags,
+  ActivityType
 } = require('discord.js');
 
 const {
@@ -31,7 +32,7 @@ const commands = [
     .setDescription('Panneau de creation de licences (proprietaire)')
     .toJSON(),
   new SlashCommandBuilder()
-    .setName('macle')
+    .setName('check')
     .setDescription("Verifie ta licence et sa date d'expiration")
     .toJSON()
 ];
@@ -215,7 +216,7 @@ function attachHandlers(client) {
         if (interaction.commandName === 'licences') {
           if (await denyIfNotOwner(interaction)) return;
           await interaction.reply({ ...buildPanel(), flags: MessageFlags.Ephemeral });
-        } else if (interaction.commandName === 'macle') {
+        } else if (interaction.commandName === 'check') {
           // If the member already verified a license, show it directly.
           const existing = await findLicenseByDiscordUser(interaction.user.id);
           if (existing) {
@@ -288,13 +289,28 @@ async function startBot() {
 
   const client = new Client({ intents: [GatewayIntentBits.Guilds] });
   attachHandlers(client);
+
   client.once(Events.ClientReady, async (c) => {
-    console.log(`[bot] connecte: ${c.user.tag}`);
+    // Force an explicit online presence so the bot never shows as offline/invisible.
+    c.user.setPresence({
+      status: 'online',
+      activities: [{ name: '/check', type: ActivityType.Listening }]
+    });
+    console.log(`[bot] connecte et en ligne: ${c.user.tag}`);
     await loadOwners(c);
   });
 
+  client.on(Events.Error, (err) => console.error('[bot] gateway error:', err.message));
+  client.on(Events.Warn, (msg) => console.warn('[bot] warn:', msg));
+  client.on(Events.ShardDisconnect, (event) => console.error(`[bot] shard deconnecte (code ${event.code}) - token/intents ?`));
+
   await registerCommands(token, clientId, guildId);
-  await client.login(token);
+  try {
+    await client.login(token);
+  } catch (err) {
+    console.error('[bot] login echoue (token invalide ?):', err.message);
+    throw err;
+  }
   return client;
 }
 

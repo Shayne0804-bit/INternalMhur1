@@ -4686,6 +4686,9 @@ namespace ImGuiMenu
             ImAdd::CheckBox("Camera FOV", &g_Settings.EnableCameraFOV);
             ImAdd::SliderFloat("Camera FOV Value##CameraFOV", &g_Settings.CameraFOV, 30.0f, 170.0f, "%.0f");
 
+            SeparatorLabel("Stealth");
+            ImAdd::CheckBox("Hide Kills", &g_HackSettings.EnableHideKills);
+
             RefreshRecoveryTeamCache();
 
             const float rosterButtonWidth = std::floor((ImGui::GetContentRegionAvail().x - style.ItemSpacing.x) * 0.5f);

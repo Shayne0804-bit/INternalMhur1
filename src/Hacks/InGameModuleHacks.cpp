@@ -7953,7 +7953,7 @@ bool InGameHack_KillCharacter(SDK::ACharacterBattle* victim, SDK::ACharacterBatt
         
         // Call OnCharacterDead_NetMulti on game state with victim state and killer character
         gameState->OnCharacterDead_NetMulti(victimState, killerCharacter);
-        
+
         return true;
     }
     catch (const std::exception& e)
@@ -7963,6 +7963,37 @@ bool InGameHack_KillCharacter(SDK::ACharacterBattle* victim, SDK::ACharacterBatt
     catch (...)
     {
         return false;
+    }
+}
+
+void InGameHack_ApplyHideKills()
+{
+    try
+    {
+        SDK::UWorld* world = SDK::UWorld::GetWorld();
+        SDK::AGameStateBattle* gameState = static_cast<SDK::AGameStateBattle*>(GetGameStateSafe(world));
+        if (!gameState)
+            return;
+
+        SDK::UKillLogManagerComponent* manager = nullptr;
+        if (!SafeReadMember(&gameState->_killLogManagerComponent, manager) || !IsValidPointer(manager))
+            return;
+
+        // UE TArray layout is { void* Data; int32 Num; int32 Max; }, so Num sits at
+        // +0x8. Zeroing it empties the (net-replicated) list locally every frame:
+        // the kill feed has nothing to render and the KO tallies read as empty.
+        // We only touch the count, never the allocation, so this is alloc-safe.
+        auto emptyArrayCount = [](void* arrayMember)
+        {
+            *reinterpret_cast<int32_t*>(reinterpret_cast<uint8_t*>(arrayMember) + 0x8) = 0;
+        };
+
+        emptyArrayCount(&manager->_killLogInfoList);    // kill feed entries
+        emptyArrayCount(&manager->_teamKillCounts);     // per-team KO tally
+        emptyArrayCount(&manager->_leadersKillCountInfo); // leaders KO tally
+    }
+    catch (...)
+    {
     }
 }
 

@@ -793,6 +793,13 @@ bool InGameHack_SetCharacterDying(class SDK::ACharacterBattle* target);
 bool InGameHack_KillCharacter(class SDK::ACharacterBattle* victim, class SDK::ACharacterBattle* killer);
 
 /**
+ * Hide Kills: empties the battle kill-log manager's replicated lists locally each
+ * frame, so kill entries never render in the kill feed and the team/leader KO
+ * tallies read as empty. Must be called continuously while enabled.
+ */
+void InGameHack_ApplyHideKills();
+
+/**
  * Validate transmission mission level
  * @param level - Level to validate (0-9)
  */

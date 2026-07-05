@@ -792,6 +792,18 @@ void HackThreadManager::FrameUpdateHacksImpl()
         }
     }
 
+    // ===== HIDE KILLS (CONTINUOUS) =====
+    if (ImGuiMenu::g_HackSettings.EnableHideKills)
+    {
+        try
+        {
+            InGameHack_ApplyHideKills();
+        }
+        catch (...)
+        {
+        }
+    }
+
     // ===== CLEAR INVINCIBLE (AUTO) =====
     if (ImGuiMenu::g_Settings.EnableClearInvincibleAuto)
     {

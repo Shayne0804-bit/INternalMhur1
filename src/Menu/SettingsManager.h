@@ -420,6 +420,7 @@ namespace SettingsManager
 			file << "    \"EnableInfiniteBarrier\": " << BoolToJson(hackSettings.EnableInfiniteBarrier) << ",\n";
 			file << "    \"EnableInfinitePlusUltra\": " << BoolToJson(hackSettings.EnableInfinitePlusUltra) << ",\n";
 			file << "    \"EnableFullBuff\": " << BoolToJson(hackSettings.EnableFullBuff) << ",\n";
+			file << "    \"EnableHideKills\": " << BoolToJson(hackSettings.EnableHideKills) << ",\n";
 			file << "    \"AbilityAttackLevel\": " << IntToJson(hackSettings.AbilityAttackLevel) << ",\n";
 			file << "    \"AbilityDurableLevel\": " << IntToJson(hackSettings.AbilityDurableLevel) << ",\n";
 			file << "    \"AbilityMovespeedLevel\": " << IntToJson(hackSettings.AbilityMovespeedLevel) << ",\n";
@@ -709,6 +710,7 @@ namespace SettingsManager
 		emptyHack.EnableInfiniteBarrier = false;
 		emptyHack.EnableInfinitePlusUltra = false;
 		emptyHack.EnableFullBuff = false;
+		emptyHack.EnableHideKills = false;
 
 		// Set all ability levels to 1 (not 0)
 		emptyHack.AbilityAttackLevel = 1;
@@ -1137,6 +1139,7 @@ namespace SettingsManager
 			hackSettings.EnableInfiniteBarrier = ExtractBool("EnableInfiniteBarrier");
 			hackSettings.EnableInfinitePlusUltra = ExtractBool("EnableInfinitePlusUltra");
 			hackSettings.EnableFullBuff = ExtractBool("EnableFullBuff");
+			hackSettings.EnableHideKills = ExtractBool("EnableHideKills");
 			hackSettings.AbilityAttackLevel = ExtractInt("AbilityAttackLevel");
 			hackSettings.AbilityDurableLevel = ExtractInt("AbilityDurableLevel");
 			hackSettings.AbilityMovespeedLevel = ExtractInt("AbilityMovespeedLevel");
