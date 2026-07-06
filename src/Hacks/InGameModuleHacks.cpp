@@ -7739,6 +7739,45 @@ bool InGameHack_SetCvNoneCurveValue(float value)
     return writtenCount == keyCount;
 }
 
+bool InGameHack_SetAttackDamageMultiplier(float multiplier)
+{
+    try
+    {
+        if (!std::isfinite(multiplier))
+            multiplier = 1.0f;
+        if (multiplier < 1.0f)
+            multiplier = 1.0f;
+        if (multiplier > 300.0f)
+            multiplier = 300.0f;
+
+        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+        if (!IsValidPointer(playerController))
+            return false;
+
+        SDK::APlayerStateBattle* playerState = GetPlayerStateBattle(playerController);
+        if (!playerState)
+            return false;
+
+        SDK::UBuffParam* buffParam = GetBuffParamSafe(playerState);
+        if (!buffParam)
+            return false;
+
+        // Legit path: drive the game's own global attack-adjust rate on our buff
+        // param (the same field the game scales for its damage buffs) via the SDK
+        // member, instead of rewriting the shared CV_None curve asset. Guarded so
+        // we only write when the value drifted - the buff system can reset it, so
+        // this is re-applied periodically from the game-thread sync.
+        if (buffParam->_allAttackAdjustRate != multiplier)
+            buffParam->_allAttackAdjustRate = multiplier;
+
+        return true;
+    }
+    catch (...)
+    {
+        return false;
+    }
+}
+
 bool InGameHack_DumpCvNoneCurveScan()
 {
     try

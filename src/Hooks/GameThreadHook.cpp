@@ -162,7 +162,7 @@ namespace GameThreadHook
     {
         __try
         {
-            InGameHack_SetCvNoneCurveValue(value);
+            InGameHack_SetAttackDamageMultiplier(value);
         }
         __except (HandleAccessViolation(GetExceptionInformation()))
         {

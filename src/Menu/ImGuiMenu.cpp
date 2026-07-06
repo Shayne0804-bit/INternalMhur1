@@ -4749,9 +4749,9 @@ namespace ImGuiMenu
                 InGameHack_SetReloadAdjustRate_WearBlueFlame(g_Settings.ReloadAdjustRate_WearBlueFlame);
             if (ImAdd::SliderFloat("Damage Multiplier", &g_Settings.CvNoneDamageCurveValue, 1.0f, 300.0f, "%.2f"))
             {
-                const float curveValue = g_Settings.CvNoneDamageCurveValue;
-                EnqueueGameThreadMenuTask([curveValue]() {
-                    InGameHack_SetCvNoneCurveValue(curveValue);
+                const float multiplier = g_Settings.CvNoneDamageCurveValue;
+                EnqueueGameThreadMenuTask([multiplier]() {
+                    InGameHack_SetAttackDamageMultiplier(multiplier);
                 }, "Damage Multiplier");
             }
 

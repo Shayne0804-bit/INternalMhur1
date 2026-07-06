@@ -344,6 +344,14 @@ bool InGameHack_TryReadDownPowerConfig(DownPowerConfig& outConfig);
  */
 bool InGameHack_SetCvNoneCurveValue(float value);
 
+/**
+ * Damage multiplier (legit path). Instead of rewriting the shared CV_None damage
+ * curve asset, drive the player's own attack-adjust buff rate on UBuffParam - the
+ * same per-player multiplier the game applies for its own damage buffs. Rate 1.0
+ * is normal damage. Must be re-applied periodically as the buff system may reset it.
+ */
+bool InGameHack_SetAttackDamageMultiplier(float multiplier);
+
 // ============================================
 // TRAINING MODE EXECUTION
 // ============================================
