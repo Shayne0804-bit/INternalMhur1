@@ -8059,8 +8059,7 @@ bool InGameHack_ApplyInfiniteSkills()
             return false;
 
         // Skill slots backed by an ammo magazine: unique alpha/beta/gamma + special.
-        // Refilling each to max keeps the skills permanently available. IsEnable()
-        // skips slots the current character does not own.
+        // Refilling each to max keeps the skills permanently available.
         static const SDK::EAttackId kSkillSlots[] = {
             SDK::EAttackId::UNIQUE1,
             SDK::EAttackId::UNIQUE2,
@@ -8070,14 +8069,15 @@ bool InGameHack_ApplyInfiniteSkills()
 
         for (SDK::EAttackId slot : kSkillSlots)
         {
-            if (!magazine->IsEnable(slot))
-                continue;
-
-            // Guard: only refill a slot that is actually below max. This avoids
-            // blindly re-triggering RecoveryMaxAmmo on a full magazine every tick,
-            // which would needlessly spam the game function.
-            const float rate = SDK::UMagazineManagementComponent::CalcCurrentAmmoPercentRate(magazine, slot);
-            if (rate < 1.0f)
+            // Gate on fill percent only. We must NOT gate on IsEnable(): a magazine
+            // that just emptied (a 1-charge skill dropping to 0) reports disabled,
+            // which previously skipped the refill so single-charge skills never came
+            // back. A 2-charge skill only fell to 1 (still enabled) so it did refill,
+            // hence the asymmetry. Percent is 0 when empty and 100 when full, so this
+            // refills any slot below max, including a fully-drained one, and leaves a
+            // full magazine untouched (no per-tick spam of the game function).
+            const int32_t percent = SDK::UMagazineManagementComponent::CalcCurrentAmmoPercent(magazine, slot);
+            if (percent >= 0 && percent < 100)
                 magazine->RecoveryMaxAmmo(slot);
         }
 
