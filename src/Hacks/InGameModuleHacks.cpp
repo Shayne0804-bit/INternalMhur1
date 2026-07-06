@@ -7762,13 +7762,19 @@ bool InGameHack_SetAttackDamageMultiplier(float multiplier)
         if (!buffParam)
             return false;
 
-        // Legit path: drive the game's own global attack-adjust rate on our buff
-        // param (the same field the game scales for its damage buffs) via the SDK
-        // member, instead of rewriting the shared CV_None curve asset. Guarded so
-        // we only write when the value drifted - the buff system can reset it, so
-        // this is re-applied periodically from the game-thread sync.
-        if (buffParam->_allAttackAdjustRate != multiplier)
-            buffParam->_allAttackAdjustRate = multiplier;
+        // Legit path: call the game's own native buff setters, the same functions
+        // it uses to scale damage for its buffs. _allAttackAdjustRate has no setter
+        // (it is an aggregate the buff system recomputes), which is why writing it
+        // raw did nothing. BP_SetAttackAdjustRate drives _attackAdjustRate, the
+        // field the setter is built around; we also scale the per-category rates so
+        // every attack type (uniques, melee, plus ultra) is boosted, not just the
+        // base. Idempotent enough to re-run from the periodic game-thread sync.
+        buffParam->BP_SetAttackAdjustRate(multiplier);
+        buffParam->BP_SetAttackAdjustRate_Unique1(multiplier);
+        buffParam->BP_SetAttackAdjustRate_Unique2(multiplier);
+        buffParam->BP_SetAttackAdjustRate_Unique3(multiplier);
+        buffParam->BP_SetAttackAdjustRate_Melee(multiplier);
+        buffParam->BP_SetAttackAdjustRate_PlusUltra(multiplier);
 
         return true;
     }
