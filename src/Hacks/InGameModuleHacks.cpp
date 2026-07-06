@@ -7973,33 +7973,69 @@ bool InGameHack_KillCharacter(SDK::ACharacterBattle* victim, SDK::ACharacterBatt
     }
 }
 
+// Cached kill-feed widget so we don't rescan the whole object array every call.
+static SDK::UKillLogWidget* g_CachedKillLogWidget = nullptr;
+static ULONGLONG g_LastKillLogWidgetScanTick = 0;
+
+static SDK::UKillLogWidget* FindKillLogWidgetSafe()
+{
+    if (IsLiveUObjectPointer(g_CachedKillLogWidget))
+        return g_CachedKillLogWidget;
+
+    g_CachedKillLogWidget = nullptr;
+
+    // Full GObjects scans are expensive; only retry every 500 ms while unresolved.
+    const ULONGLONG now = GetTickCount64();
+    if (now - g_LastKillLogWidgetScanTick < 500)
+        return nullptr;
+    g_LastKillLogWidgetScanTick = now;
+
+    SDK::TUObjectArray* gObjects = SDK::UObject::GObjects.GetTypedPtr();
+    int32_t objectCount = 0;
+    if (!IsValidPointer(gObjects) || !TryGetObjectArrayCountSafe(gObjects, objectCount) ||
+        objectCount <= 0 || objectCount > 2000000)
+        return nullptr;
+
+    SDK::UClass* killLogClass = SDK::UKillLogWidget::StaticClass();
+    if (!IsValidPointer(killLogClass))
+        return nullptr;
+
+    for (int32_t i = 0; i < objectCount; ++i)
+    {
+        SDK::UObject* obj = GetObjectByIndexSafe(gObjects, i);
+        if (!IsLiveUObjectPointer(obj) || IsObjectDefaultSafe(obj))
+            continue;
+
+        // IsA matches the live Blueprint subclass (WBP_...) as well as the C++ base.
+        bool isKillLog = false;
+        __try { isKillLog = obj->IsA(killLogClass); }
+        __except (HandleAccessViolation(GetExceptionInformation())) { isKillLog = false; }
+
+        if (isKillLog)
+        {
+            g_CachedKillLogWidget = static_cast<SDK::UKillLogWidget*>(obj);
+            break;
+        }
+    }
+
+    return g_CachedKillLogWidget;
+}
+
 void InGameHack_ApplyHideKills()
 {
     try
     {
-        SDK::UWorld* world = SDK::UWorld::GetWorld();
-        SDK::AGameStateBattle* gameState = static_cast<SDK::AGameStateBattle*>(GetGameStateSafe(world));
-        if (!gameState)
+        // Reliable approach: collapse the kill-feed widget itself. Clearing the
+        // replicated list doesn't work because the child entries are already
+        // built when the RepNotify fires; hiding the widget removes them on our
+        // screen regardless. Guard on the Visibility member so SetVisibility is
+        // only issued when the feed isn't already collapsed.
+        SDK::UKillLogWidget* widget = FindKillLogWidgetSafe();
+        if (!IsLiveUObjectPointer(widget))
             return;
 
-        SDK::UKillLogManagerComponent* manager = nullptr;
-        if (!SafeReadMember(&gameState->_killLogManagerComponent, manager) || !IsValidPointer(manager))
-            return;
-
-        // UE TArray layout is { void* Data; int32 Num; int32 Max; }, so Num sits at
-        // +0x8. Zeroing it empties the (net-replicated) list locally every frame:
-        // the kill feed has nothing to render and the KO tallies read as empty.
-        // We only touch the count, never the allocation, so this is alloc-safe.
-        auto emptyArrayCount = [](void* arrayMember)
-        {
-            int32_t* count = reinterpret_cast<int32_t*>(reinterpret_cast<uint8_t*>(arrayMember) + 0x8);
-            if (*count != 0)   // only touch memory when there is actually something to hide
-                *count = 0;
-        };
-
-        emptyArrayCount(&manager->_killLogInfoList);    // kill feed entries
-        emptyArrayCount(&manager->_teamKillCounts);     // per-team KO tally
-        emptyArrayCount(&manager->_leadersKillCountInfo); // leaders KO tally
+        if (widget->Visibility != SDK::ESlateVisibility::Collapsed)
+            widget->SetVisibility(SDK::ESlateVisibility::Collapsed);
     }
     catch (...)
     {

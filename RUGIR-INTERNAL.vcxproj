@@ -220,6 +220,7 @@
     <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\InGameModule_functions.cpp" />
     <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\OutGameModule_functions.cpp" />
     <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\BackendSubsystem_functions.cpp" />
+    <ClCompile Include="4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK\SDK\UMG_functions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Auth\LicenseAuth.h" />
