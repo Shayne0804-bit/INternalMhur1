@@ -793,7 +793,7 @@ void HackThreadManager::FrameUpdateHacksImpl()
     }
 
     // ===== HIDE KILLS (CONTINUOUS) =====
-    if (ImGuiMenu::g_HackSettings.EnableHideKills)
+    if (ImGuiMenu::g_HackSettings.EnableHideKills && isBattleMode)
     {
         try
         {

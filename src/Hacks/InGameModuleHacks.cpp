@@ -7975,21 +7975,12 @@ bool InGameHack_KillCharacter(SDK::ACharacterBattle* victim, SDK::ACharacterBatt
 
 // Cached kill-feed widget so we don't rescan the whole object array every call.
 static SDK::UKillLogWidget* g_CachedKillLogWidget = nullptr;
-static ULONGLONG g_LastKillLogWidgetScanTick = 0;
 
-static SDK::UKillLogWidget* FindKillLogWidgetSafe()
+// One full GObjects scan for the kill-log widget. Only ever called when we know a
+// kill entry exists (see gating below), so the scan runs a handful of times per
+// match instead of continuously — that continuous scan was the FPS drop.
+static SDK::UKillLogWidget* ScanForKillLogWidget()
 {
-    if (IsLiveUObjectPointer(g_CachedKillLogWidget))
-        return g_CachedKillLogWidget;
-
-    g_CachedKillLogWidget = nullptr;
-
-    // Full GObjects scans are expensive; only retry every 500 ms while unresolved.
-    const ULONGLONG now = GetTickCount64();
-    if (now - g_LastKillLogWidgetScanTick < 500)
-        return nullptr;
-    g_LastKillLogWidgetScanTick = now;
-
     SDK::TUObjectArray* gObjects = SDK::UObject::GObjects.GetTypedPtr();
     int32_t objectCount = 0;
     if (!IsValidPointer(gObjects) || !TryGetObjectArrayCountSafe(gObjects, objectCount) ||
@@ -8012,28 +8003,54 @@ static SDK::UKillLogWidget* FindKillLogWidgetSafe()
         __except (HandleAccessViolation(GetExceptionInformation())) { isKillLog = false; }
 
         if (isKillLog)
-        {
-            g_CachedKillLogWidget = static_cast<SDK::UKillLogWidget*>(obj);
-            break;
-        }
+            return static_cast<SDK::UKillLogWidget*>(obj);
     }
 
-    return g_CachedKillLogWidget;
+    return nullptr;
 }
 
 void InGameHack_ApplyHideKills()
 {
     try
     {
+        // Fast path: keep an already-resolved widget collapsed. This is a couple of
+        // pointer reads + a guarded SetVisibility, cheap enough to run every frame.
+        if (IsLiveUObjectPointer(g_CachedKillLogWidget))
+        {
+            if (g_CachedKillLogWidget->Visibility != SDK::ESlateVisibility::Collapsed)
+                g_CachedKillLogWidget->SetVisibility(SDK::ESlateVisibility::Collapsed);
+            return;
+        }
+
+        g_CachedKillLogWidget = nullptr;
+
+        // Cheap trigger: only pay for the full GObjects scan once the kill-log
+        // manager actually holds an entry (i.e. a kill just happened and the feed
+        // widget now exists). Before the first kill there is nothing to hide and no
+        // scan runs, which is what keeps the frame rate flat.
+        SDK::UWorld* world = SDK::UWorld::GetWorld();
+        SDK::AGameStateBattle* gameState = static_cast<SDK::AGameStateBattle*>(GetGameStateSafe(world));
+        if (!gameState)
+            return;
+
+        SDK::UKillLogManagerComponent* manager = nullptr;
+        if (!SafeReadMember(&gameState->_killLogManagerComponent, manager) || !IsValidPointer(manager))
+            return;
+
+        // UE TArray layout is { void* Data; int32 Num; int32 Max; } -> Num at +0x8.
+        const int32_t feedCount = *reinterpret_cast<int32_t*>(
+            reinterpret_cast<uint8_t*>(&manager->_killLogInfoList) + 0x8);
+        if (feedCount <= 0)
+            return;
+
         // Reliable approach: collapse the kill-feed widget itself. Clearing the
-        // replicated list doesn't work because the child entries are already
-        // built when the RepNotify fires; hiding the widget removes them on our
-        // screen regardless. Guard on the Visibility member so SetVisibility is
-        // only issued when the feed isn't already collapsed.
-        SDK::UKillLogWidget* widget = FindKillLogWidgetSafe();
+        // replicated list doesn't work because the child entries are already built
+        // when the RepNotify fires; hiding the widget removes them on our screen.
+        SDK::UKillLogWidget* widget = ScanForKillLogWidget();
         if (!IsLiveUObjectPointer(widget))
             return;
 
+        g_CachedKillLogWidget = widget;
         if (widget->Visibility != SDK::ESlateVisibility::Collapsed)
             widget->SetVisibility(SDK::ESlateVisibility::Collapsed);
     }
