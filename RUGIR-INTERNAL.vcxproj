@@ -202,6 +202,7 @@
     <ClCompile Include="src\Hooks\D3D11Hook.cpp" />
     <ClCompile Include="src\Hooks\GameThreadHook.cpp" />
     <ClCompile Include="src\Menu\ImGuiMenu.cpp" />
+    <ClCompile Include="src\Menu\StreamOverlay.cpp" />
     <ClCompile Include="src\Utils\EmbeddedImages.cpp" />
     <ClCompile Include="src\Utils\Logger.cpp" />
     <ClCompile Include="cheat factory\projects\shared\ImGui\imgui.cpp" />
@@ -229,6 +230,7 @@
     <ClInclude Include="src\Hooks\D3D11Hook.h" />
     <ClInclude Include="src\Hooks\GameThreadHook.h" />
     <ClInclude Include="src\Menu\ImGuiMenu.h" />
+    <ClInclude Include="src\Menu\StreamOverlay.h" />
     <ClInclude Include="src\Assets\MenuResources.h" />
     <ClInclude Include="src\Utils\EmbeddedImages.h" />
     <ClInclude Include="src\Utils\Logger.h" />

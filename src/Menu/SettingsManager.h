@@ -153,6 +153,7 @@ namespace SettingsManager
 			file << "    \"EnableGlobal\": " << BoolToJson(menuSettings.EnableGlobal) << ",\n";
 			file << "    \"EnableESP\": " << BoolToJson(menuSettings.EnableESP) << ",\n";
 			file << "    \"EnableMenuBackgroundVideo\": " << BoolToJson(menuSettings.EnableMenuBackgroundVideo) << ",\n";
+			file << "    \"EnableStreamProofMenu\": " << BoolToJson(menuSettings.EnableStreamProofMenu) << ",\n";
 
 			// ESP - Display
 			file << "    \"EnablePlayerESP\": " << BoolToJson(menuSettings.EnablePlayerESP) << ",\n";
@@ -489,6 +490,7 @@ namespace SettingsManager
 		emptyMenu.EnableGlobal = false;
 		emptyMenu.EnableESP = false;
 		emptyMenu.EnableMenuBackgroundVideo = true;
+		emptyMenu.EnableStreamProofMenu = false;
 		emptyMenu.EnablePlayerESP = false;
 		emptyMenu.Player_Box = false;
 		emptyMenu.Player_Health = false;
@@ -883,6 +885,7 @@ namespace SettingsManager
 			menuSettings.EnableGlobal = ExtractBool("EnableGlobal");
 			menuSettings.EnableESP = ExtractBool("EnableESP");
 			menuSettings.EnableMenuBackgroundVideo = ExtractBoolDefault("EnableMenuBackgroundVideo", true);
+			menuSettings.EnableStreamProofMenu = ExtractBoolDefault("EnableStreamProofMenu", false);
 			menuSettings.EnablePlayerESP = ExtractBool("EnablePlayerESP");
 			menuSettings.Player_Box = ExtractBool("Player_Box");
 			menuSettings.Player_Health = ExtractBool("Player_Health");

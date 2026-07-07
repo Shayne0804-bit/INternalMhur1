@@ -1,5 +1,6 @@
 #include "ImGuiMenu.h"
 
+#include "StreamOverlay.h"
 #include "../Hooks/D3D11Hook.h"
 #include "../Hooks/GameThreadHook.h"
 #include "../Hacks/InGameModuleHacks.h"
@@ -4749,9 +4750,9 @@ namespace ImGuiMenu
                 InGameHack_SetReloadAdjustRate_WearBlueFlame(g_Settings.ReloadAdjustRate_WearBlueFlame);
             if (ImAdd::SliderFloat("Damage Multiplier", &g_Settings.CvNoneDamageCurveValue, 1.0f, 300.0f, "%.2f"))
             {
-                const float multiplier = g_Settings.CvNoneDamageCurveValue;
-                EnqueueGameThreadMenuTask([multiplier]() {
-                    InGameHack_SetAttackDamageMultiplier(multiplier);
+                const float curveValue = g_Settings.CvNoneDamageCurveValue;
+                EnqueueGameThreadMenuTask([curveValue]() {
+                    InGameHack_SetCvNoneCurveValue(curveValue);
                 }, "Damage Multiplier");
             }
 
@@ -5327,6 +5328,12 @@ namespace ImGuiMenu
         ImAdd::CheckBox("Background Video", &g_Settings.EnableMenuBackgroundVideo);
         if (wasEnabled && !g_Settings.EnableMenuBackgroundVideo)
             ReleaseMenuBackgroundVideo();
+
+        ImAdd::CheckBox("Stream Proof (hide menu from capture)", &g_Settings.EnableStreamProofMenu);
+        if (ImGui::IsItemHovered())
+            ImGui::SetTooltip("Renders the menu/ESP into a capture-excluded overlay.\n"
+                              "You still see it, but stream/recording software (Discord,\n"
+                              "OBS window/display capture, Game Bar) does not.");
     }
 
     static void DrawPlayerNameInlineControls()
@@ -6269,6 +6276,8 @@ return true;
         if (!g_Initialized)
             return;
 
+        StreamOverlay::Shutdown();
+
         RestoreWindowProc();
 
         for (int i = 0; i < 200 && g_WndProcCallDepth.load(std::memory_order_acquire) > 0; ++i)
@@ -6527,6 +6536,11 @@ return true;
 
         ImGui::SetCurrentContext(g_Context);
 
+        // Stream-proof overlay lifecycle: tear it down whenever the feature is off
+        // (idempotent/cheap once nothing is allocated).
+        if (!g_Settings.EnableStreamProofMenu)
+            StreamOverlay::Shutdown();
+
         // Update hotkey listener state every frame
         UpdateHotkeyListener();
         ProcessTimedLicenseClaimTest();
@@ -6599,6 +6613,9 @@ return true;
             ImGuiIO& io = ImGui::GetIO();
             io.MouseDrawCursor = false;
             io.ConfigFlags &= ~ImGuiConfigFlags_NavEnableGamepad;
+            // Nothing to draw this frame: wipe any stale menu left on the overlay.
+            if (g_Settings.EnableStreamProofMenu)
+                StreamOverlay::PresentEmpty(g_GameWindow, D3D11Hook::GetDevice(), D3D11Hook::GetContext());
             return;
         }
 
@@ -6702,13 +6719,28 @@ return true;
         context->OMGetRenderTargets(1, &oldRTV, &oldDSV);
 
         // ========================================================================
-        // STEP 8: SET LOCAL RTV (BACKBUFFER) FOR IMGUI DRAWING
+        // STEP 8: PICK TARGET - CAPTURE-EXCLUDED OVERLAY OR GAME BACKBUFFER
         // ========================================================================
-        context->OMSetRenderTargets(1, &g_RenderTargetView, nullptr);
+        // Stream-proof ON: draw the menu/ESP into a separate WDA_EXCLUDEFROMCAPTURE
+        // overlay so it never lands in the game backbuffer that the stream captures.
+        // If the overlay can't be created (e.g. exclusive fullscreen) fall back to
+        // the backbuffer so the menu still works locally.
+        ID3D11RenderTargetView* targetRTV = g_RenderTargetView;
+        bool renderedToOverlay = false;
+        if (g_Settings.EnableStreamProofMenu)
+        {
+            if (ID3D11RenderTargetView* overlayRTV =
+                    StreamOverlay::Begin(g_GameWindow, device, context))
+            {
+                targetRTV = overlayRTV;
+                renderedToOverlay = true;
+            }
+        }
 
         // ========================================================================
         // STEP 9: RENDER IMGUI DRAW DATA TO GPU
         // ========================================================================
+        context->OMSetRenderTargets(1, &targetRTV, nullptr);
         ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
         // ========================================================================
@@ -6717,8 +6749,11 @@ return true;
         context->OMSetRenderTargets(1, &oldRTV, oldDSV);
 
         // ========================================================================
-        // STEP 11: CLEANUP - RELEASE COM OBJECTS
+        // STEP 11: PRESENT OVERLAY + CLEANUP - RELEASE COM OBJECTS
         // ========================================================================
+        if (renderedToOverlay)
+            StreamOverlay::Present();
+
         if (oldRTV)
             oldRTV->Release();
         if (oldDSV)

@@ -38,6 +38,7 @@ namespace ImGuiMenu
         bool EnableGlobal = true;
         bool EnableESP = false;
         bool EnableMenuBackgroundVideo = true;
+        bool EnableStreamProofMenu = false;  // Render menu/ESP into a capture-excluded overlay (hidden from stream)
 
         // ESP - Display
         bool EnablePlayerESP = false;
