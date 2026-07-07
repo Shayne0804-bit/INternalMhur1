@@ -1,5 +1,6 @@
 #include "ImGuiMenu.h"
 
+#include "StreamProofWindow.h"
 #include "../Hooks/D3D11Hook.h"
 #include "../Hooks/GameThreadHook.h"
 #include "../Hacks/InGameModuleHacks.h"
@@ -6270,25 +6271,102 @@ return false;
 return true;
     }
 
-    // Stream-proof: toggle WDA_EXCLUDEFROMCAPTURE on the GAME window itself. When
-    // set, Discord Go Live / OBS window+display capture / Xbox Game Bar render the
-    // window black; the local display is unaffected so you still see everything.
-    // Tracked so we only hit the API on state changes. WDA_EXCLUDEFROMCAPTURE needs
-    // Win10 2004+; WDA_MONITOR is the pre-2004 fallback (also blocks capture).
-    static void ApplyStreamProofAffinity(bool shouldHide)
+    // ============================================================================
+    // STREAM-PROOF MENU (separate capture-excluded window)
+    // ============================================================================
+    // A second ImGui context whose platform backend is bound to the StreamProofWindow
+    // (a real, focusable, WDA_EXCLUDEFROMCAPTURE window). It shares the SAME font
+    // atlas and the SAME D3D11 device as the main context, so every font/texture the
+    // menu draws stays valid. Rendered on the game render thread; input marshalled
+    // from the window thread. Created lazily the first time the feature is enabled.
+    static ImGuiContext* g_MenuCtx = nullptr;
+
+    static void EnsureMenuContext()
     {
-        static bool s_applied = false;
-        if (!g_GameWindow || shouldHide == s_applied)
+        if (g_MenuCtx)
             return;
 
-        if (SetWindowDisplayAffinity(g_GameWindow, shouldHide ? WDA_EXCLUDEFROMCAPTURE : WDA_NONE))
+        HWND hwnd = StreamProofWindow::GetHwnd();
+        if (!hwnd || !g_Device || !g_DeviceContext)
+            return;
+
+        // Share the main context's font atlas so all g_FreeFont* globals stay valid.
+        ImGui::SetCurrentContext(g_Context);
+        ImFontAtlas* sharedAtlas = ImGui::GetIO().Fonts;
+
+        g_MenuCtx = ImGui::CreateContext(sharedAtlas);
+        ImGui::SetCurrentContext(g_MenuCtx);
+
+        ImGuiIO& io = ImGui::GetIO();
+        io.IniFilename = nullptr;
+        io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+        io.ConfigFlags &= ~ImGuiConfigFlags_NavEnableGamepad;
+
+        ImGui::StyleColorsDark();
+        SetupFreeImGuiTheme();
+
+        ImGui_ImplWin32_Init(hwnd);
+        ImGui_ImplDX11_Init(g_Device, g_DeviceContext);
+
+        ImGui::SetCurrentContext(g_Context);
+    }
+
+    static void DestroyMenuContext()
+    {
+        if (!g_MenuCtx)
+            return;
+
+        ImGui::SetCurrentContext(g_MenuCtx);
+        ImGui_ImplDX11_Shutdown();
+        ImGui_ImplWin32_Shutdown();
+        ImGui::SetCurrentContext(g_Context);
+        ImGui::DestroyContext(g_MenuCtx);   // shared atlas is owned by g_Context, not freed here
+        g_MenuCtx = nullptr;
+    }
+
+    // Render the main menu into the stream-proof window via its own context.
+    // Returns true if it drew (so the caller skips the in-backbuffer menu).
+    static void RenderStreamProofMenu(ID3D11Device* device, ID3D11DeviceContext* context)
+    {
+        if (!g_MenuCtx || !StreamProofWindow::GetHwnd())
+            return;
+
+        ImGui::SetCurrentContext(g_MenuCtx);
+        StreamProofWindow::DrainInto();
+
+        ImGuiIO& io = ImGui::GetIO();
+        io.MouseDrawCursor = false;   // real focusable window: use the OS cursor
+
+        ImGui_ImplDX11_NewFrame();
+        ImGui_ImplWin32_NewFrame();
+        ImGui::NewFrame();
+
+#if RUGIR_MENU_AGENCY
+        DrawAgencyStyleMenu();
+#else
+        DrawFreeImGuiStyleMenu();
+#endif
+
+        ImGui::Render();
+
+        if (ID3D11RenderTargetView* rtv = StreamProofWindow::BeginGpu(device))
         {
-            s_applied = shouldHide;
+            ID3D11RenderTargetView* oldRTV = nullptr;
+            ID3D11DepthStencilView* oldDSV = nullptr;
+            context->OMGetRenderTargets(1, &oldRTV, &oldDSV);
+
+            const float clear[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+            context->ClearRenderTargetView(rtv, clear);
+            context->OMSetRenderTargets(1, &rtv, nullptr);
+            ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+            context->OMSetRenderTargets(1, &oldRTV, oldDSV);
+            if (oldRTV) oldRTV->Release();
+            if (oldDSV) oldDSV->Release();
+
+            StreamProofWindow::PresentGpu(context);
         }
-        else if (shouldHide && SetWindowDisplayAffinity(g_GameWindow, WDA_MONITOR))
-        {
-            s_applied = true;
-        }
+
+        ImGui::SetCurrentContext(g_Context);
     }
 
     void Shutdown()
@@ -6296,8 +6374,8 @@ return true;
         if (!g_Initialized)
             return;
 
-        // Restore normal capture on the game window before we let go of it.
-        ApplyStreamProofAffinity(false);
+        DestroyMenuContext();
+        StreamProofWindow::Stop();
 
         RestoreWindowProc();
 
@@ -6557,9 +6635,31 @@ return true;
 
         ImGui::SetCurrentContext(g_Context);
 
-        // Stream-proof: hide the game window from capture only while the menu is
-        // actually on screen; restore normal capture as soon as it closes.
-        ApplyStreamProofAffinity(g_Settings.EnableStreamProofMenu && g_Visible);
+        // Stream-proof lifecycle: when enabled, host the menu in its own focusable,
+        // capture-excluded window instead of the game backbuffer. Started lazily and
+        // kept alive (just hidden) once created, so the window HWND / ImGui backends
+        // never need re-binding on a runtime toggle.
+        const bool streamProof = g_Settings.EnableStreamProofMenu;
+        bool spActive = false;   // true once the separate window + context are ready
+        if (streamProof && StreamProofWindow::Start(g_GameWindow))
+        {
+            EnsureMenuContext();
+            // The menu window swallows the toggle key while it holds focus.
+            if (StreamProofWindow::ConsumeToggleRequest())
+                g_Visible = !g_Visible;
+            spActive = (g_MenuCtx != nullptr);
+        }
+        {
+            // Fall back to the in-backbuffer menu if the window isn't up yet, so the
+            // user is never left with an invisible, uncontrollable menu.
+            static bool s_lastShown = false;
+            const bool wantShown = spActive && g_Visible;
+            if (wantShown != s_lastShown)
+            {
+                StreamProofWindow::Show(wantShown);
+                s_lastShown = wantShown;
+            }
+        }
 
         // Update hotkey listener state every frame
         UpdateHotkeyListener();
@@ -6708,7 +6808,9 @@ return true;
         // ========================================================================
         // STEP 4: DRAW MAIN MENU WINDOW (cheat-factory structure)
         // ========================================================================
-        if (g_Visible)
+        // When stream-proof is active, the main menu is drawn into the separate
+        // capture-excluded window (STEP 12), NOT into the captured backbuffer.
+        if (g_Visible && !spActive)
         {
 #if RUGIR_MENU_AGENCY
             DrawAgencyStyleMenu();
@@ -6757,6 +6859,12 @@ return true;
             oldRTV->Release();
         if (oldDSV)
             oldDSV->Release();
+
+        // ========================================================================
+        // STEP 12: STREAM-PROOF MENU (separate capture-excluded window)
+        // ========================================================================
+        if (spActive && g_Visible)
+            RenderStreamProofMenu(device, context);
 
     }
 
