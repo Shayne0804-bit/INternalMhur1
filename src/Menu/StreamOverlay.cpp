@@ -1,11 +1,25 @@
 #include "StreamOverlay.h"
 
-#include <dxgi1_2.h>
+#include <dxgi.h>
 #include <dcomp.h>
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "dcomp.lib")
+
+// ============================================================================
+// IMPORTANT - why IDCompositionSurface and NOT a composition swapchain:
+//
+// The whole overlay renders from INSIDE the game's hooked Present(). Any DXGI
+// swapchain we create shares the same (hooked) IDXGISwapChain vtable, so calling
+// Present() on it re-enters our Present hook AND Steam's gameoverlayrenderer64
+// Present hook -> infinite recursion -> EXCEPTION_STACK_OVERFLOW.
+//
+// DirectComposition surfaces are composed directly by the DWM. There is NO
+// swapchain and NO Present call, so no hook is ever re-entered. We draw the menu
+// into our own offscreen RTV (origin 0,0 - clean for the ImGui DX11 backend),
+// then blit it into the surface via BeginDraw/EndDraw and Commit().
+// ============================================================================
 
 namespace StreamOverlay
 {
@@ -16,11 +30,15 @@ namespace StreamOverlay
     static DWORD                   g_CreatorThreadId = 0;
 
     static ID3D11Device*           g_Device = nullptr;   // borrowed, not ref-counted
-    static IDXGISwapChain1*        g_SwapChain = nullptr;
-    static ID3D11RenderTargetView* g_RTV = nullptr;
+    static ID3D11DeviceContext*    g_ContextBorrowed = nullptr;   // borrowed
+
     static IDCompositionDevice*    g_DComp = nullptr;
     static IDCompositionTarget*    g_DCompTarget = nullptr;
     static IDCompositionVisual*    g_DCompVisual = nullptr;
+    static IDCompositionSurface*   g_Surface = nullptr;
+
+    static ID3D11Texture2D*        g_MenuTex = nullptr;   // offscreen menu render target
+    static ID3D11RenderTargetView* g_MenuRTV = nullptr;
 
     static UINT g_Width = 0;
     static UINT g_Height = 0;
@@ -35,19 +53,21 @@ namespace StreamOverlay
         }
     }
 
-    static void ReleaseRTV()
+    static void ReleaseSizedResources()
     {
-        SafeRelease(g_RTV);
+        SafeRelease(g_MenuRTV);
+        SafeRelease(g_MenuTex);
+        SafeRelease(g_Surface);   // visual content is recreated on next EnsureSurface
     }
 
     static void ReleaseGpu()
     {
-        ReleaseRTV();
+        ReleaseSizedResources();
         SafeRelease(g_DCompVisual);
         SafeRelease(g_DCompTarget);
         SafeRelease(g_DComp);
-        SafeRelease(g_SwapChain);
         g_Device = nullptr;
+        g_ContextBorrowed = nullptr;
         g_Width = 0;
         g_Height = 0;
     }
@@ -73,9 +93,9 @@ namespace StreamOverlay
             g_ClassRegistered = true;
         }
 
-        // WS_EX_NOREDIRECTIONBITMAP: no GDI redirection surface, content is supplied
-        //   entirely by the DirectComposition visual (true per-pixel alpha).
-        // WS_EX_TRANSPARENT + WS_EX_NOACTIVATE: click-through, never steals focus/input.
+        // WS_EX_NOREDIRECTIONBITMAP: no GDI redirection surface; content comes
+        //   entirely from the DirectComposition visual (true per-pixel alpha).
+        // WS_EX_TRANSPARENT + WS_EX_NOACTIVATE: click-through, never steals input.
         // WS_EX_TOPMOST: stays above the (borderless) game window.
         const DWORD exStyle = WS_EX_NOREDIRECTIONBITMAP | WS_EX_TRANSPARENT |
                               WS_EX_TOPMOST | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE;
@@ -107,8 +127,8 @@ namespace StreamOverlay
 
         g_CreatorThreadId = GetCurrentThreadId();
 
-        // Hide from all capture. WDA_EXCLUDEFROMCAPTURE needs Win10 2004+; fall back
-        // to WDA_MONITOR on older builds (also blocks most capture paths).
+        // Hide from all capture. WDA_EXCLUDEFROMCAPTURE needs Win10 2004+; fall
+        // back to WDA_MONITOR on older builds (also blocks most capture paths).
         if (!SetWindowDisplayAffinity(g_Overlay, WDA_EXCLUDEFROMCAPTURE))
             SetWindowDisplayAffinity(g_Overlay, WDA_MONITOR);
 
@@ -139,102 +159,88 @@ namespace StreamOverlay
         return true;
     }
 
-    static bool CreatePipeline(ID3D11Device* device, UINT w, UINT h)
+    static bool EnsureDComp(ID3D11Device* device)
     {
-        IDXGIDevice*  dxgiDevice = nullptr;
-        IDXGIAdapter* adapter    = nullptr;
-        IDXGIFactory2* factory   = nullptr;
+        if (g_DComp && g_DCompTarget && g_DCompVisual && g_Device == device)
+            return true;
+
+        // Device changed (or first use): rebuild the DComp pipeline.
+        ReleaseGpu();
+
+        IDXGIDevice* dxgiDevice = nullptr;
+        if (FAILED(device->QueryInterface(IID_PPV_ARGS(&dxgiDevice))))
+            return false;
 
         bool ok = false;
         do
         {
-            if (FAILED(device->QueryInterface(IID_PPV_ARGS(&dxgiDevice))))
-                break;
-            if (FAILED(dxgiDevice->GetAdapter(&adapter)))
-                break;
-            if (FAILED(adapter->GetParent(IID_PPV_ARGS(&factory))))
-                break;
-
-            DXGI_SWAP_CHAIN_DESC1 desc{};
-            desc.Width = w;
-            desc.Height = h;
-            desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
-            desc.SampleDesc.Count = 1;
-            desc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-            desc.BufferCount = 2;
-            desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL;
-            desc.AlphaMode = DXGI_ALPHA_MODE_PREMULTIPLIED;
-            desc.Scaling = DXGI_SCALING_STRETCH;
-
-            if (FAILED(factory->CreateSwapChainForComposition(device, &desc, nullptr, &g_SwapChain)))
-                break;
-
             if (FAILED(DCompositionCreateDevice(dxgiDevice, IID_PPV_ARGS(&g_DComp))))
                 break;
             if (FAILED(g_DComp->CreateTargetForHwnd(g_Overlay, TRUE, &g_DCompTarget)))
                 break;
             if (FAILED(g_DComp->CreateVisual(&g_DCompVisual)))
                 break;
-            if (FAILED(g_DCompVisual->SetContent(g_SwapChain)))
-                break;
             if (FAILED(g_DCompTarget->SetRoot(g_DCompVisual)))
                 break;
-            if (FAILED(g_DComp->Commit()))
-                break;
-
             ok = true;
         } while (false);
 
-        SafeRelease(factory);
-        SafeRelease(adapter);
         SafeRelease(dxgiDevice);
 
         if (!ok)
-            ReleaseGpu();
-
-        return ok;
-    }
-
-    static bool EnsureSwapChain(ID3D11Device* device, UINT w, UINT h)
-    {
-        if (g_SwapChain && g_Device == device)
         {
-            if (w != g_Width || h != g_Height)
-            {
-                ReleaseRTV();
-                if (FAILED(g_SwapChain->ResizeBuffers(0, w, h, DXGI_FORMAT_UNKNOWN, 0)))
-                    return false;
-                g_Width = w;
-                g_Height = h;
-            }
-            return true;
+            ReleaseGpu();
+            return false;
         }
 
-        // Device changed or first use: rebuild the whole pipeline.
-        ReleaseGpu();
-        if (!CreatePipeline(device, w, h))
-            return false;
-
         g_Device = device;
-        g_Width = w;
-        g_Height = h;
         return true;
     }
 
-    static bool EnsureRTV()
+    static bool EnsureSizedResources(ID3D11Device* device, UINT w, UINT h)
     {
-        if (g_RTV)
+        if (g_Surface && g_MenuRTV && w == g_Width && h == g_Height)
             return true;
-        if (!g_SwapChain || !g_Device)
-            return false;
 
-        ID3D11Texture2D* backBuffer = nullptr;
-        if (FAILED(g_SwapChain->GetBuffer(0, IID_PPV_ARGS(&backBuffer))))
-            return false;
+        ReleaseSizedResources();
 
-        HRESULT hr = g_Device->CreateRenderTargetView(backBuffer, nullptr, &g_RTV);
-        backBuffer->Release();
-        return SUCCEEDED(hr);
+        // Offscreen menu render target: ImGui draws here at origin (0,0), which the
+        // ImGui DX11 backend requires (it forces a 0,0 viewport).
+        D3D11_TEXTURE2D_DESC td{};
+        td.Width = w;
+        td.Height = h;
+        td.MipLevels = 1;
+        td.ArraySize = 1;
+        td.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+        td.SampleDesc.Count = 1;
+        td.Usage = D3D11_USAGE_DEFAULT;
+        td.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+
+        if (FAILED(device->CreateTexture2D(&td, nullptr, &g_MenuTex)))
+            return false;
+        if (FAILED(device->CreateRenderTargetView(g_MenuTex, nullptr, &g_MenuRTV)))
+        {
+            ReleaseSizedResources();
+            return false;
+        }
+
+        // DComp surface (composed by the DWM, no swapchain / no Present).
+        if (FAILED(g_DComp->CreateSurface(w, h, DXGI_FORMAT_B8G8R8A8_UNORM,
+                                          DXGI_ALPHA_MODE_PREMULTIPLIED, &g_Surface)))
+        {
+            ReleaseSizedResources();
+            return false;
+        }
+
+        if (FAILED(g_DCompVisual->SetContent(g_Surface)) || FAILED(g_DComp->Commit()))
+        {
+            ReleaseSizedResources();
+            return false;
+        }
+
+        g_Width = w;
+        g_Height = h;
+        return true;
     }
 
     ID3D11RenderTargetView* Begin(HWND gameWindow, ID3D11Device* device, ID3D11DeviceContext* context)
@@ -249,32 +255,63 @@ namespace StreamOverlay
         if (!SyncToClient(gameWindow, w, h))
             return nullptr;
 
-        if (!EnsureSwapChain(device, w, h))
+        if (!EnsureDComp(device))
             return nullptr;
 
-        if (!EnsureRTV())
+        if (!EnsureSizedResources(device, w, h))
             return nullptr;
+
+        g_ContextBorrowed = context;
 
         const float clear[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-        context->ClearRenderTargetView(g_RTV, clear);
-        return g_RTV;
+        context->ClearRenderTargetView(g_MenuRTV, clear);
+        return g_MenuRTV;
     }
 
     void Present()
     {
-        if (g_SwapChain)
-            g_SwapChain->Present(0, 0);
+        if (!g_Surface || !g_MenuTex || !g_DComp || !g_ContextBorrowed)
+            return;
+
+        RECT updateRect{ 0, 0, static_cast<LONG>(g_Width), static_cast<LONG>(g_Height) };
+        ID3D11Texture2D* surfaceTex = nullptr;
+        POINT offset{ 0, 0 };
+
+        if (FAILED(g_Surface->BeginDraw(&updateRect, IID_PPV_ARGS(&surfaceTex), &offset)))
+            return;
+
+        // The surface texture may be an atlas: copy our menu into it at the
+        // offset the surface handed back.
+        D3D11_BOX box{};
+        box.left = 0;
+        box.top = 0;
+        box.front = 0;
+        box.right = g_Width;
+        box.bottom = g_Height;
+        box.back = 1;
+
+        g_ContextBorrowed->CopySubresourceRegion(
+            surfaceTex, 0,
+            static_cast<UINT>(offset.x), static_cast<UINT>(offset.y), 0,
+            g_MenuTex, 0, &box);
+
+        SafeRelease(surfaceTex);
+
+        g_Surface->EndDraw();
+        g_DComp->Commit();
     }
 
     void PresentEmpty(HWND gameWindow, ID3D11Device* device, ID3D11DeviceContext* context)
     {
+        // Begin() already cleared the menu RTV to fully transparent; blitting it
+        // wipes any stale menu still shown on the surface.
         if (Begin(gameWindow, device, context))
             Present();
     }
 
     void Shutdown()
     {
-        if (!g_Overlay && !g_SwapChain && !g_DComp)
+        if (!g_Overlay && !g_DComp && !g_Surface)
             return;
 
         ReleaseGpu();
@@ -282,8 +319,8 @@ namespace StreamOverlay
         if (g_Overlay)
         {
             // ShowWindow is safe cross-thread; DestroyWindow only succeeds on the
-            // creating thread. On cross-thread teardown (DLL unload) we at least
-            // hide it and drop the handle rather than crash.
+            // creating thread. On cross-thread teardown (DLL unload) at least hide
+            // it and drop the handle rather than risk a bad-thread destroy.
             ShowWindow(g_Overlay, SW_HIDE);
             if (GetCurrentThreadId() == g_CreatorThreadId)
                 DestroyWindow(g_Overlay);
