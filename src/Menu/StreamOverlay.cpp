@@ -43,6 +43,26 @@ namespace StreamOverlay
     static UINT g_Width = 0;
     static UINT g_Height = 0;
 
+    // Overlay window proc. WS_EX_NOREDIRECTIONBITMAP (needed for DComp per-pixel
+    // alpha) makes WS_EX_TRANSPARENT insufficient on its own: the OS hit-tests the
+    // composed window as opaque and SWALLOWS the click, so neither the overlay nor
+    // the game beneath it ever sees the mouse. Returning HTTRANSPARENT on
+    // WM_NCHITTEST forces every click to fall THROUGH to the game window, where the
+    // existing HookedWndProc already feeds ImGui. MA_NOACTIVATE keeps focus on the
+    // game so nothing is stolen.
+    static LRESULT CALLBACK OverlayWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+    {
+        switch (msg)
+        {
+        case WM_NCHITTEST:
+            return HTTRANSPARENT;
+        case WM_MOUSEACTIVATE:
+            return MA_NOACTIVATE;
+        default:
+            return DefWindowProcW(hWnd, msg, wParam, lParam);
+        }
+    }
+
     template <typename T>
     static void SafeRelease(T*& p)
     {
@@ -84,7 +104,7 @@ namespace StreamOverlay
             WNDCLASSEXW wc{};
             wc.cbSize = sizeof(wc);
             wc.style = CS_HREDRAW | CS_VREDRAW;
-            wc.lpfnWndProc = DefWindowProcW;
+            wc.lpfnWndProc = OverlayWndProc;
             wc.hInstance = hInst;
             wc.hCursor = LoadCursorW(nullptr, IDC_ARROW);
             wc.lpszClassName = kClassName;
