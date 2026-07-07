@@ -6332,7 +6332,6 @@ return true;
             return;
 
         ImGui::SetCurrentContext(g_MenuCtx);
-        StreamProofWindow::DrainInto();
 
         ImGuiIO& io = ImGui::GetIO();
         io.MouseDrawCursor = false;   // real focusable window: use the OS cursor
@@ -6641,13 +6640,20 @@ return true;
         // never need re-binding on a runtime toggle.
         const bool streamProof = g_Settings.EnableStreamProofMenu;
         bool spActive = false;   // true once the separate window + context are ready
-        if (streamProof && StreamProofWindow::Start(g_GameWindow))
+        if (streamProof && StreamProofWindow::EnsureCreated(g_GameWindow, g_Device))
         {
             EnsureMenuContext();
-            // The menu window swallows the toggle key while it holds focus.
-            if (StreamProofWindow::ConsumeToggleRequest())
-                g_Visible = !g_Visible;
-            spActive = (g_MenuCtx != nullptr);
+            if (g_MenuCtx)
+            {
+                // Pump the menu window's messages into the menu ImGui context.
+                ImGui::SetCurrentContext(g_MenuCtx);
+                StreamProofWindow::Pump();
+                ImGui::SetCurrentContext(g_Context);
+                // The menu window swallows the toggle key while it holds focus.
+                if (StreamProofWindow::ConsumeToggleRequest())
+                    g_Visible = !g_Visible;
+                spActive = true;
+            }
         }
         {
             // Fall back to the in-backbuffer menu if the window isn't up yet, so the
