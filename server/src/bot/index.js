@@ -111,7 +111,12 @@ async function handleLicenceCheck(interaction) {
     return;
   }
   // Register the member under their Discord identity on the license.
-  await bindDiscordUser(license, interaction.user.id, interaction.user.tag || interaction.user.username);
+  await bindDiscordUser(
+    license,
+    interaction.user.id,
+    interaction.user.tag || interaction.user.username,
+    key.trim()
+  );
   await interaction.editReply(buildMemberLicenseView(license));
 }
 

@@ -59,6 +59,10 @@ const licenseSchema = new mongoose.Schema(
     discordUsername: {
       type: String,
       default: null
+    },
+    keyPlain: {
+      type: String,
+      default: null
     }
   },
   {

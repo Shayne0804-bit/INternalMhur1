@@ -53,6 +53,7 @@ async function createLicense({
   const plainKey = generateLicenseKey(prefix);
   const license = await License.create({
     keyHash: hashLicenseKey(plainKey),
+    keyPlain: plainKey,
     tier,
     maxActivations: activations,
     expiresAt: resolveExpiry({ tier, expiresAt, daysValid }),
@@ -81,13 +82,17 @@ async function findLicenseByDiscordUser(userId) {
 
 // Bind (or re-bind) the Discord identity that verified this key. Exclusive:
 // detaches the user from any other license they were previously bound to.
-async function bindDiscordUser(license, userId, username) {
+async function bindDiscordUser(license, userId, username, keyPlain) {
   await License.updateMany(
     { discordUserId: userId, _id: { $ne: license._id } },
     { $set: { discordUserId: null, discordUsername: null } }
   );
   license.discordUserId = userId;
   license.discordUsername = username;
+  // Backfill the plain key for licenses created before this field existed.
+  if (!license.keyPlain && keyPlain) {
+    license.keyPlain = keyPlain;
+  }
   await license.save();
   return license;
 }

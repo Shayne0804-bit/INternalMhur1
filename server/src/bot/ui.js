@@ -118,6 +118,7 @@ function buildMemberLicenseView(license) {
     .setColor(ACCENT)
     .setTitle('📄 Ta licence')
     .addFields(
+      { name: 'Cle', value: '```' + (license.keyPlain || 'indisponible') + '```' },
       { name: 'Statut', value: licenseStatusLabel(license), inline: true },
       { name: 'Tier', value: String(license.tier), inline: true },
       { name: 'Activations', value: `${license.hwidHashes.length}/${license.maxActivations}`, inline: true },
