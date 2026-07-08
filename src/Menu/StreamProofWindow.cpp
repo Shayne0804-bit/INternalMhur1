@@ -35,6 +35,11 @@ namespace StreamProofWindow
 
     static LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
+        // A click must never activate this window, or the game loses focus and
+        // goes black. Keep it non-activating at the message level too.
+        if (msg == WM_MOUSEACTIVATE)
+            return MA_NOACTIVATE;
+
         // Runs on the render thread during Pump(), with the menu ImGui context
         // current, so we can feed the backend directly.
         if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
@@ -122,9 +127,13 @@ namespace StreamProofWindow
             }
 
             // WS_EX_NOREDIRECTIONBITMAP: content comes from the DComp visual with
-            // true per-pixel alpha. Focusable (no NOACTIVATE) so it takes input.
+            // true per-pixel alpha.
+            // WS_EX_NOACTIVATE: CRITICAL - never steal focus from the game. UE4 goes
+            // black when it loses foreground, so the menu must stay non-activating.
+            // The mouse still reaches this window (top-most, under the cursor); the
+            // toggle key is handled by the still-focused game window.
             g_Hwnd = CreateWindowExW(
-                WS_EX_NOREDIRECTIONBITMAP | WS_EX_TOPMOST | WS_EX_TOOLWINDOW,
+                WS_EX_NOREDIRECTIONBITMAP | WS_EX_TOPMOST | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE,
                 kClass, L"", WS_POPUP,
                 0, 0, 800, 600,
                 nullptr, nullptr, hInst, nullptr);
@@ -174,16 +183,13 @@ namespace StreamProofWindow
         if (show)
         {
             PlaceOverGame();
-            ShowWindow(g_Hwnd, SW_SHOW);
-            SetForegroundWindow(g_Hwnd);
-            SetActiveWindow(g_Hwnd);
-            SetFocus(g_Hwnd);
+            // SW_SHOWNOACTIVATE: show on top WITHOUT taking focus, so the game keeps
+            // rendering. Mouse still lands here because we're the top-most window.
+            ShowWindow(g_Hwnd, SW_SHOWNOACTIVATE);
         }
         else
         {
             ShowWindow(g_Hwnd, SW_HIDE);
-            if (g_GameWindow)
-                SetForegroundWindow(g_GameWindow);
         }
     }
 
