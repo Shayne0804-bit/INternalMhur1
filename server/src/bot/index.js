@@ -25,6 +25,11 @@ const {
   buildMemberLicenseView,
   buildResetRequest
 } = require('./ui');
+const {
+  moderationCommands,
+  moderationCommandNames,
+  handleModerationCommand
+} = require('./moderation');
 
 const commands = [
   new SlashCommandBuilder()
@@ -34,7 +39,8 @@ const commands = [
   new SlashCommandBuilder()
     .setName('check')
     .setDescription("Verifie ta licence et sa date d'expiration")
-    .toJSON()
+    .toJSON(),
+  ...moderationCommands
 ];
 
 const ownerIds = new Set();
@@ -229,6 +235,8 @@ function attachHandlers(client) {
           } else {
             await interaction.showModal(buildKeyCheckModal());
           }
+        } else if (moderationCommandNames.has(interaction.commandName)) {
+          await handleModerationCommand(interaction);
         }
         return;
       }
