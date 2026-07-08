@@ -5329,11 +5329,13 @@ namespace ImGuiMenu
         if (wasEnabled && !g_Settings.EnableMenuBackgroundVideo)
             ReleaseMenuBackgroundVideo();
 
-        ImAdd::CheckBox("Stream Proof (hide menu from capture)", &g_Settings.EnableStreamProofMenu);
+        // Stream Proof is temporarily disabled/isolated (WIP - being reworked).
+        // Keep the control visible but inert so the layout/setting are preserved.
+        ImGui::BeginDisabled(true);
+        ImAdd::CheckBox("Stream Proof (WIP - disabled)", &g_Settings.EnableStreamProofMenu);
+        ImGui::EndDisabled();
         if (ImGui::IsItemHovered())
-            ImGui::SetTooltip("Renders the menu/ESP into a capture-excluded overlay.\n"
-                              "You still see it, but stream/recording software (Discord,\n"
-                              "OBS window/display capture, Game Bar) does not.");
+            ImGui::SetTooltip("Temporarily disabled while it's being reworked.");
     }
 
     static void DrawPlayerNameInlineControls()
@@ -6638,7 +6640,10 @@ return true;
         // capture-excluded window instead of the game backbuffer. Started lazily and
         // kept alive (just hidden) once created, so the window HWND / ImGui backends
         // never need re-binding on a runtime toggle.
-        const bool streamProof = g_Settings.EnableStreamProofMenu;
+        // Stream-proof is fully disabled/isolated for now (WIP - to be reworked).
+        // Forcing this false short-circuits the separate-window path so the menu
+        // renders normally into the game backbuffer with normal mouse input.
+        const bool streamProof = false;
         bool spActive = false;   // true once the separate window + context are ready
         if (streamProof && StreamProofWindow::EnsureCreated(g_GameWindow, g_Device))
         {
