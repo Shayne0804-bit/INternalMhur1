@@ -5349,7 +5349,11 @@ namespace
     constexpr float CUSTOM_DROP_GROUP_RING_RADIUS = 950.0f;
     constexpr float CUSTOM_DROP_GROUP_RING_STEP = 1100.0f;
     constexpr float CUSTOM_DROP_GROUP_ITEM_SPACING = 85.0f;
-    constexpr float CUSTOM_DROP_Z_OFFSET = 25.0f;
+    // Raised so items drop from just above the player's feet and settle on top of
+    // the ground with their collision intact, instead of spawning embedded in the
+    // floor/geometry (which used to leave them stuck or, with collision off, sink
+    // through the world).
+    constexpr float CUSTOM_DROP_Z_OFFSET = 120.0f;
     constexpr float CUSTOM_DROP_MAX_MATCH_DISTANCE = 12000.0f;
 
     static const FixedDropItemSpec kFixedDropItemSpecs[] =
@@ -5515,13 +5519,11 @@ namespace
 
         __try
         {
-            // Drop the item's world collision so it can no longer get stuck in the
-            // ground, walls or nearby geometry (which left some items unusable).
-            // Guarded on the SDK member so the call only fires when collision is
-            // still enabled instead of every placement tick.
-            if (actor->bActorEnableCollision)
-                actor->SetActorEnableCollision(false);
-
+            // Keep the item's collision ON: without it the supply had nothing to
+            // rest on and fell straight through the floor. Instead it is placed a
+            // bit above ground (see CUSTOM_DROP_Z_OFFSET) so it settles on the
+            // surface rather than spawning embedded in it. bSweep stays false so
+            // the teleport itself doesn't get blocked by geometry on the way.
             return actor->K2_SetActorLocation(location, false, nullptr, true);
         }
         __except (HandleAccessViolation(GetExceptionInformation()))
