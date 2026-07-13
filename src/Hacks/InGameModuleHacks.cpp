@@ -10631,6 +10631,97 @@ static bool SendRespawnDogTagConsumeSafe(SDK::APlayerStateBattle* targetPlayerSt
     return true;
 }
 
+// ---------------------------------------------------------------------------
+// Full dog-tag respawn sequence for a spectator ally (no CharacterBattle left).
+// The old path called ConsumeDogTag_ToServer directly, which the server rejects
+// because the tag was never picked up/locked. The real flow the game uses is:
+//   1. ForcePickUpTagRequest_ToServer() on our own PlayerState (server RPC we own)
+//   2. DogTagManager OnPickupDogTag_ToServer(teamId, playerId)
+//   3. DogTagManager LockDogTag_ToServer(teamId, playerId)
+//   4. DogTagManager ConsumeDogTag_ToServer(targetPlayerState)
+// Each step is SEH-guarded; we log the tag state so the sequence can be tuned
+// in-game (a step may be unnecessary, or a respawn beacon proximity required).
+// ---------------------------------------------------------------------------
+static bool ForcePickUpTagRequestSafe(SDK::APlayerStateBattle* requesterPlayerState)
+{
+    if (!IsValidPointer(requesterPlayerState))
+        return false;
+
+    __try
+    {
+        requesterPlayerState->ForcePickUpTagRequest_ToServer();
+        return true;
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        return false;
+    }
+}
+
+static bool DogTagPickupLockSafe(
+    SDK::UDogTagManagerComponent* dogTagManager,
+    unsigned char teamId,
+    short playerId,
+    bool lockTag)
+{
+    if (!IsValidPointer(dogTagManager))
+        return false;
+
+    __try
+    {
+        dogTagManager->OnPickupDogTag_ToServer(teamId, playerId);
+        if (lockTag)
+            dogTagManager->LockDogTag_ToServer(teamId, playerId);
+        return true;
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        return false;
+    }
+}
+
+static bool SendRespawnDogTagFullSequenceSafe(const RespawnRosterCandidate& candidate)
+{
+    if (!IsValidPointer(candidate.playerState))
+    {
+        LogRespawnDebugFile("[RespawnDogTagSeq] No target PlayerStateBattle");
+        return false;
+    }
+
+    SDK::UDogTagManagerComponent* dogTagManager = GetDogTagManagerSafe();
+    if (!IsValidPointer(dogTagManager))
+    {
+        LogRespawnDebugFile("[RespawnDogTagSeq] Could not get DogTagManagerComponent");
+        return false;
+    }
+
+    SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
+    SDK::APlayerStateBattle* myPlayerState = GetPlayerStateBattle(playerController);
+
+    const unsigned char teamId = static_cast<unsigned char>(candidate.teamId);
+    const short playerId = static_cast<short>(candidate.playerId);
+
+    LogRespawnDebugFile(
+        "[RespawnDogTagSeq] begin target=" + candidate.playerName +
+        " playerId=" + std::to_string(candidate.playerId) +
+        " team=" + std::to_string(candidate.teamId) +
+        " tagState=" + RespawnTagStateName(candidate.respawnTagState));
+
+    // 1. Ask the server to force-pick the tag (owned Server RPC on our PlayerState).
+    const bool forced = ForcePickUpTagRequestSafe(myPlayerState);
+    // 2/3. Pick up + lock the specific ally's tag on the shared manager.
+    const bool pickedLocked = DogTagPickupLockSafe(dogTagManager, teamId, playerId, true);
+    // 4. Consume the tag -> triggers the respawn.
+    const bool consumed = ConsumeDogTagToServerRawSafe(dogTagManager, candidate.playerState);
+
+    LogRespawnDebugFile(
+        std::string("[RespawnDogTagSeq] sent forcePickup=") + (forced ? "true" : "false") +
+        " pickupLock=" + (pickedLocked ? "true" : "false") +
+        " consume=" + (consumed ? "true" : "false"));
+
+    return consumed;
+}
+
 static bool InGameHack_SendUserRespawnAction(SDK::ACharacterBattle* targetCharacter)
 {
     try
@@ -10749,13 +10840,15 @@ bool InGameHack_TestUserRespawnAction()
 
     if (!IsValidPointer(candidate.character))
     {
+        // Spectator ally: no CharacterBattle to target the USERESPAWN action at.
+        // Drive the full dog-tag respawn sequence on their PlayerState instead.
         LogRespawnDebugFile(
-            "[UserRespawnAction] Auto target has no CharacterBattle; use respawn card path for PlayerState target=" +
+            "[UserRespawnAction] Auto target has no CharacterBattle; using dog-tag sequence for PlayerState target=" +
             candidate.playerName +
             " playerId=" +
             std::to_string(candidate.playerId));
-        Logger::LogWarning("[UserRespawnAction] Auto target has no CharacterBattle");
-        return false;
+        Logger::LogInfo("[UserRespawnAction] Spectator target; using dog-tag respawn sequence");
+        return SendRespawnDogTagFullSequenceSafe(candidate);
     }
 
     return InGameHack_SendUserRespawnAction(candidate.character);
