@@ -785,6 +785,36 @@ static inline void DrawScreenRectangle(ImDrawList* drawlist, const Rect2D& rect)
 	{
 		DrawLeftBar(barX, plusUltra / maxPlusUltra, ImGui::GetColorU32(ImVec4(0.8f, 0.0f, 1.0f, 1.0f)));
 	}
+
+	// ===== NUMERIC VALUES: HP/GP as text on the RIGHT side of the box =====
+	if ((ImGuiMenu::g_Settings.ShowHPText && health > 0.0f) ||
+		(ImGuiMenu::g_Settings.ShowGPText && guardPoint > 0.0f))
+	{
+		ImFont* font = ImGui::GetFont();
+		if (font)
+		{
+			const float fontSize = SDK_ClampFloat(boxHeight * 0.16f, 12.0f, 16.0f);
+			float textY = minY;
+			const float textX = maxX + 5.0f;
+
+			char buf[32];
+			if (ImGuiMenu::g_Settings.ShowHPText && health > 0.0f)
+			{
+				snprintf(buf, sizeof(buf), "%d HP", (int)(health + 0.5f));
+				// Outline for readability, then colored value.
+				drawlist->AddText(font, fontSize, ImVec2(textX + 1.0f, textY + 1.0f), IM_COL32(0, 0, 0, 220), buf);
+				drawlist->AddText(font, fontSize, ImVec2(textX, textY), IM_COL32(45, 255, 0, 255), buf);
+				textY += fontSize + 1.0f;
+			}
+
+			if (ImGuiMenu::g_Settings.ShowGPText && guardPoint > 0.0f)
+			{
+				snprintf(buf, sizeof(buf), "%d GP", (int)(guardPoint + 0.5f));
+				drawlist->AddText(font, fontSize, ImVec2(textX + 1.0f, textY + 1.0f), IM_COL32(0, 0, 0, 220), buf);
+				drawlist->AddText(font, fontSize, ImVec2(textX, textY), IM_COL32(0, 165, 255, 255), buf);
+			}
+		}
+	}
 }
 
 // Draw all queued rectangles (call from ImGui menu context after NewFrame)

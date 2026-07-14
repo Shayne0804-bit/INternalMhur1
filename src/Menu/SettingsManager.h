@@ -174,6 +174,8 @@ namespace SettingsManager
 			file << "    \"ShowHP\": " << BoolToJson(menuSettings.ShowHP) << ",\n";
 			file << "    \"ShowGP\": " << BoolToJson(menuSettings.ShowGP) << ",\n";
 			file << "    \"ShowPU\": " << BoolToJson(menuSettings.ShowPU) << ",\n";
+			file << "    \"ShowHPText\": " << BoolToJson(menuSettings.ShowHPText) << ",\n";
+			file << "    \"ShowGPText\": " << BoolToJson(menuSettings.ShowGPText) << ",\n";
 			file << "    \"ShowPlatform\": " << BoolToJson(menuSettings.ShowPlatform) << ",\n";
 			file << "    \"ShowTeamId\": " << BoolToJson(menuSettings.ShowTeamId) << ",\n";
 			file << "    \"ShowPlayerSkeleton\": " << BoolToJson(menuSettings.ShowPlayerSkeleton) << ",\n";
@@ -509,6 +511,8 @@ namespace SettingsManager
 		emptyMenu.ShowHP = false;
 		emptyMenu.ShowGP = false;
 		emptyMenu.ShowPU = false;
+		emptyMenu.ShowHPText = false;
+		emptyMenu.ShowGPText = false;
 		emptyMenu.ShowPlatform = false;
 		emptyMenu.ShowTeamId = false;
 		emptyMenu.ShowPlayerSkeleton = false;
@@ -914,6 +918,8 @@ namespace SettingsManager
 			menuSettings.ShowHP = ExtractBool("ShowHP");
 			menuSettings.ShowGP = ExtractBool("ShowGP");
 			menuSettings.ShowPU = ExtractBool("ShowPU");
+			menuSettings.ShowHPText = ExtractBoolDefault("ShowHPText", false);
+			menuSettings.ShowGPText = ExtractBoolDefault("ShowGPText", false);
 			menuSettings.ShowPlatform = ExtractBool("ShowPlatform");
 			menuSettings.ShowTeamId = ExtractBool("ShowTeamId");
 			menuSettings.ShowPlayerSkeleton = ExtractBool("ShowPlayerSkeleton");

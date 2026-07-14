@@ -51,9 +51,11 @@ namespace ImGuiMenu
         bool Player_Name = false;
         float PlayerColor[4] = { 1.0f, 0.0f, 0.0f, 1.0f };   // enemy box/label color
         float TeamColor[4] = { 0.0f, 0.588f, 1.0f, 1.0f };   // team box/label color
-        bool ShowHP = false;         // Display health points
-        bool ShowGP = false;         // Display guard points
-        bool ShowPU = false;        // Display Plus Ultra (when available)
+        bool ShowHP = false;         // HP bar (left side of the box)
+        bool ShowGP = false;         // GP bar (left side of the box)
+        bool ShowPU = false;        // PU bar (left side, when available)
+        bool ShowHPText = false;     // HP value as number (right side of the box)
+        bool ShowGPText = false;     // GP value as number (right side of the box)
         bool ShowPlatform = false;   // Display player platform (PS/Xbox/PC)
         bool ShowTeamId = false;     // Display team ID in ESP text
         bool ShowPlayerSkeleton = false;  // Display skeleton bones

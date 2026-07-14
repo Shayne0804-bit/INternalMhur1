@@ -3625,45 +3625,59 @@ namespace ImGuiMenu
             ImGui::Columns(2, "esp-columns", false);
             ImGui::SetColumnWidth(0, columnWidth);
 
+            // ---- Column 1: master switch, filters, box, render (zero1 layout) ----
             RugirHeaderToggle("ESP CONTROL", &g_Settings.EnablePlayerESP);
             if (g_Settings.EnablePlayerESP)
             {
-                ImAdd::CheckBox("Show Enemy", &g_Settings.ShowEnemies);
+                SeparatorLabel("Filters");
+                ImAdd::CheckBox("Show Enemies", &g_Settings.ShowEnemies);
                 ImGui::SameLine();
-                ImGui::ColorEdit4("##enemy-color", g_Settings.PlayerColor,
+                ImGui::ColorEdit4("##EnemyColor", g_Settings.PlayerColor,
                     ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
                 ImAdd::CheckBox("Show Team", &g_Settings.ShowTeam);
                 ImGui::SameLine();
-                ImGui::ColorEdit4("##team-color", g_Settings.TeamColor,
+                ImGui::ColorEdit4("##TeamColor", g_Settings.TeamColor,
                     ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
-                ImAdd::CheckBox("LobbyCharacter", &g_Settings.ShowLobbyCharacters);
+                ImAdd::CheckBox("Lobby Characters", &g_Settings.ShowLobbyCharacters);
                 ImAdd::CheckBox("KOTA", &g_Settings.ShowKota);
-            }
 
-            SeparatorLabel("Box");
-            ImAdd::CheckBox("Box", &g_Settings.Player_Box);
-            if (g_Settings.Player_Box)
-            {
-                ImAdd::CheckBox("Filled", &g_Settings.Player_Box_Filled);
-                if (g_Settings.Player_Box_Filled)
-                    ImAdd::SliderFloat("Fill Opacity", &g_Settings.Player_Box_Filled_Alpha, 1.0f, 100.0f, "%.0f%%");
-            }
+                SeparatorLabel("Box");
+                ImAdd::CheckBox("Box ESP", &g_Settings.Player_Box);
+                if (g_Settings.Player_Box)
+                {
+                    ImAdd::CheckBox("Filled", &g_Settings.Player_Box_Filled);
+                    if (g_Settings.Player_Box_Filled)
+                        ImAdd::SliderFloat("Fill Opacity", &g_Settings.Player_Box_Filled_Alpha, 1.0f, 100.0f, "%.0f%%");
+                }
 
-            SeparatorLabel("Render");
-            ImAdd::CheckBox("Show Skeleton", &g_Settings.ShowPlayerSkeleton);
-            ImAdd::SliderFloat("Max Draw Distance", &g_Settings.Player_DrawDistance, 100.0f, 5000.0f, "%.0f");
+                SeparatorLabel("Render");
+                ImAdd::CheckBox("Skeleton", &g_Settings.ShowPlayerSkeleton);
+                ImAdd::SliderFloat("Max Draw Distance", &g_Settings.Player_DrawDistance, 100.0f, 5000.0f, "%.0f");
+            }
 
             ImGui::NextColumn();
 
-            SeparatorLabel("Display Info");
-            ImAdd::CheckBox("Name", &g_Settings.Player_Name);
-            ImAdd::CheckBox("Distance (m)", &g_Settings.Player_Distance);
-            ImAdd::CheckBox("HP", &g_Settings.ShowHP);
-            ImAdd::CheckBox("GP", &g_Settings.ShowGP);
-            ImAdd::CheckBox("PU", &g_Settings.ShowPU);
-            ImAdd::CheckBox("Platform", &g_Settings.ShowPlatform);
-            ImAdd::CheckBox("Team ID", &g_Settings.ShowTeamId);
-            ImAdd::CheckBox("Server / Ping", &g_Settings.ShowServerStatusOverlay);
+            // ---- Column 2: bars, values, label info (zero1 "Player Informations") ----
+            if (g_Settings.EnablePlayerESP)
+            {
+                SeparatorLabel("Bars (left)");
+                ImAdd::CheckBox("HP Bar", &g_Settings.ShowHP);
+                ImAdd::CheckBox("GP Bar", &g_Settings.ShowGP);
+                ImAdd::CheckBox("PU Bar", &g_Settings.ShowPU);
+
+                SeparatorLabel("Values (right)");
+                ImAdd::CheckBox("HP Number", &g_Settings.ShowHPText);
+                ImAdd::CheckBox("GP Number", &g_Settings.ShowGPText);
+
+                SeparatorLabel("Label");
+                ImAdd::CheckBox("Name", &g_Settings.Player_Name);
+                ImAdd::CheckBox("Distance (m)", &g_Settings.Player_Distance);
+                ImAdd::CheckBox("Platform", &g_Settings.ShowPlatform);
+                ImAdd::CheckBox("Team ID", &g_Settings.ShowTeamId);
+
+                SeparatorLabel("Overlay");
+                ImAdd::CheckBox("Server / Ping", &g_Settings.ShowServerStatusOverlay);
+            }
 
             ImGui::Columns(1);
             ImGui::PopStyleVar();
