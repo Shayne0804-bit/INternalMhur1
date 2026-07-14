@@ -684,79 +684,67 @@ static inline void DrawScreenRectangle(ImDrawList* drawlist, const Rect2D& rect)
 	const float maxCornerSize = shortestSide * 0.45f;
 	if (cornerSize > maxCornerSize)
 		cornerSize = maxCornerSize;
-	const float thickness = SDK_ClampFloat(shortestSide * 0.035f, 1.35f, ESP_BOX_THICKNESS);
-	const ImU32 softColor = SDK_ColorWithAlpha(color, 45);
-	const ImU32 guideColor = SDK_ColorWithAlpha(color, 28);
+	const float thickness = SDK_ClampFloat(shortestSide * 0.035f, 1.6f, 2.4f);
 
-	drawlist->AddRectFilled(ImVec2(minX, minY), ImVec2(maxX, maxY), SDK_ColorWithAlpha(color, 10));
-	drawlist->AddRect(ImVec2(minX + 1.0f, minY + 1.0f), ImVec2(maxX - 1.0f, maxY - 1.0f), guideColor, 0.0f, 0, 1.0f);
-
-	// Clean colored corner box, sized from the projected box on screen.
-	// Top-left corner
-	drawlist->AddLine(ImVec2(minX, minY), ImVec2(minX + cornerSize, minY), color, thickness);
-	drawlist->AddLine(ImVec2(minX, minY), ImVec2(minX, minY + cornerSize), color, thickness);
-	// Top-right corner
-	drawlist->AddLine(ImVec2(maxX, minY), ImVec2(maxX - cornerSize, minY), color, thickness);
-	drawlist->AddLine(ImVec2(maxX, minY), ImVec2(maxX, minY + cornerSize), color, thickness);
-	// Bottom-left corner
-	drawlist->AddLine(ImVec2(minX, maxY), ImVec2(minX + cornerSize, maxY), color, thickness);
-	drawlist->AddLine(ImVec2(minX, maxY), ImVec2(minX, maxY - cornerSize), color, thickness);
-	// Bottom-right corner
-	drawlist->AddLine(ImVec2(maxX, maxY), ImVec2(maxX - cornerSize, maxY), color, thickness);
-	drawlist->AddLine(ImVec2(maxX, maxY), ImVec2(maxX, maxY - cornerSize), color, thickness);
-
-	if (boxHeight > 22.0f)
+	if (ImGuiMenu::g_Settings.Player_Box)
 	{
-		const float accentWidth = SDK_ClampFloat(boxWidth * 0.18f, 5.0f, 14.0f);
-		drawlist->AddLine(ImVec2(minX + boxWidth * 0.5f - accentWidth, minY), ImVec2(minX + boxWidth * 0.5f + accentWidth, minY), softColor, 1.0f);
-		drawlist->AddLine(ImVec2(minX + boxWidth * 0.5f - accentWidth, maxY), ImVec2(minX + boxWidth * 0.5f + accentWidth, maxY), softColor, 1.0f);
+		// Optional transparent fill (opacity driven from the menu).
+		if (ImGuiMenu::g_Settings.Player_Box_Filled)
+		{
+			const float alphaPercent = SDK_ClampFloat(ImGuiMenu::g_Settings.Player_Box_Filled_Alpha, 0.0f, 100.0f);
+			drawlist->AddRectFilled(ImVec2(minX, minY), ImVec2(maxX, maxY),
+				SDK_ColorWithAlpha(color, (int)(alphaPercent * 2.55f)));
+		}
+
+		// RUGIR corner-glow box: dark contrast base, 3 widening glow passes with
+		// decaying alpha, then a crisp colored core on top.
+		struct Seg { ImVec2 a, b; };
+		const Seg segs[8] = {
+			{ ImVec2(minX, minY), ImVec2(minX + cornerSize, minY) },
+			{ ImVec2(minX, minY), ImVec2(minX, minY + cornerSize) },
+			{ ImVec2(maxX, minY), ImVec2(maxX - cornerSize, minY) },
+			{ ImVec2(maxX, minY), ImVec2(maxX, minY + cornerSize) },
+			{ ImVec2(minX, maxY), ImVec2(minX + cornerSize, maxY) },
+			{ ImVec2(minX, maxY), ImVec2(minX, maxY - cornerSize) },
+			{ ImVec2(maxX, maxY), ImVec2(maxX - cornerSize, maxY) },
+			{ ImVec2(maxX, maxY), ImVec2(maxX, maxY - cornerSize) },
+		};
+
+		for (int i = 0; i < 8; i++)
+			drawlist->AddLine(segs[i].a, segs[i].b, IM_COL32(0, 0, 0, 200), thickness + 2.0f);
+
+		static const int glowAlphas[3] = { 70, 40, 18 };
+		for (int pass = 0; pass < 3; pass++)
+		{
+			const float glowWidth = thickness + 2.0f + (float)pass * 2.0f;
+			const ImU32 glowColor = SDK_ColorWithAlpha(color, glowAlphas[pass]);
+			for (int i = 0; i < 8; i++)
+				drawlist->AddLine(segs[i].a, segs[i].b, glowColor, glowWidth);
+		}
+
+		for (int i = 0; i < 8; i++)
+			drawlist->AddLine(segs[i].a, segs[i].b, color, thickness);
 	}
 	
-	// ===== DRAW HEALTH AND GUARD POINT BARS =====
-	
-	// PU bar (LEFT side - INSIDE, before GP)
-	if (ImGuiMenu::g_Settings.ShowPU && plusUltra > 0.0f && maxPlusUltra > 0.0f)
+	// ===== STATUS BARS: vertical, stacked on the LEFT of the box (HP, GP, PU) =====
+	auto DrawLeftBar = [&](float x, float percent, ImU32 barColor)
 	{
-		float puPercent = plusUltra / maxPlusUltra;
-		if (puPercent > 1.0f) puPercent = 1.0f;
-		float puBarHeight = boxHeight * puPercent;
-		
-		// PU color: Violet/Magenta
-		ImU32 puColor = ImGui::GetColorU32(ImVec4(0.8f, 0.0f, 1.0f, 1.0f));
-		
-		// Draw PU bar from bottom up (INSIDE left edge, 3px wide)
-		drawlist->AddRectFilled(
-			ImVec2(minX, maxY - puBarHeight),
-			ImVec2(minX + 3.0f, maxY),
-			puColor
-		);
-	}
-	
-	// GP bar (LEFT side - INSIDE, after PU)
-	if (ImGuiMenu::g_Settings.ShowGP && guardPoint > 0.0f && maxGuardPoint > 0.0f)
-	{
-		float gpPercent = guardPoint / maxGuardPoint;
-		if (gpPercent > 1.0f) gpPercent = 1.0f;
-		float gpBarHeight = boxHeight * gpPercent;
-		
-		// GP color: Cyan
-		ImU32 gpColor = ImGui::GetColorU32(ImVec4(0.0f, 0.5f, 1.0f, 1.0f));
-		
-		// Draw GP bar from bottom up (INSIDE left edge, after PU, 3px wide)
-		drawlist->AddRectFilled(
-			ImVec2(minX + 3.0f, maxY - gpBarHeight),
-			ImVec2(minX + 6.0f, maxY),
-			gpColor
-		);
-	}
-	
-	// HP bar (RIGHT side - INSIDE)
+		const float barW = 4.0f;
+		if (percent > 1.0f) percent = 1.0f;
+		if (percent < 0.0f) percent = 0.0f;
+		// Dark backdrop + subtle border, then the fill from the bottom up.
+		drawlist->AddRectFilled(ImVec2(x - 1.0f, minY - 1.0f), ImVec2(x + barW + 1.0f, maxY + 1.0f), IM_COL32(0, 0, 0, 160));
+		drawlist->AddRect(ImVec2(x - 1.0f, minY - 1.0f), ImVec2(x + barW + 1.0f, maxY + 1.0f), SDK_ColorWithAlpha(barColor, 140), 0.0f, 0, 1.0f);
+		drawlist->AddRectFilled(ImVec2(x, maxY - (boxHeight * percent)), ImVec2(x + barW, maxY), barColor);
+	};
+
+	float barX = minX - 8.0f;
+
+	// HP bar (first, closest to the box)
 	if (ImGuiMenu::g_Settings.ShowHP && health > 0.0f && maxHealth > 0.0f)
 	{
 		float hpPercent = health / maxHealth;
-		if (hpPercent > 1.0f) hpPercent = 1.0f;
-		float hpBarHeight = boxHeight * hpPercent;
-		
+
 		// HP color - check if dying for blinking effect
 		ImU32 hpColor;
 		if (isDying)
@@ -780,13 +768,22 @@ static inline void DrawScreenRectangle(ImDrawList* drawlist, const Rect2D& rect)
 			else
 				hpColor = ImGui::GetColorU32(ImVec4(1.0f, 0.0f, 0.0f, 1.0f));       // RED (0-25%)
 		}
-		
-		// Draw HP bar from bottom up (INSIDE right edge)
-		drawlist->AddRectFilled(
-			ImVec2(maxX - 4.0f, maxY - hpBarHeight),
-			ImVec2(maxX, maxY),
-			hpColor
-		);
+
+		DrawLeftBar(barX, hpPercent, hpColor);
+		barX -= 7.0f;
+	}
+
+	// GP bar (second)
+	if (ImGuiMenu::g_Settings.ShowGP && guardPoint > 0.0f && maxGuardPoint > 0.0f)
+	{
+		DrawLeftBar(barX, guardPoint / maxGuardPoint, ImGui::GetColorU32(ImVec4(0.0f, 0.5f, 1.0f, 1.0f)));
+		barX -= 7.0f;
+	}
+
+	// PU bar (third, furthest left)
+	if (ImGuiMenu::g_Settings.ShowPU && plusUltra > 0.0f && maxPlusUltra > 0.0f)
+	{
+		DrawLeftBar(barX, plusUltra / maxPlusUltra, ImGui::GetColorU32(ImVec4(0.8f, 0.0f, 1.0f, 1.0f)));
 	}
 }
 
@@ -3385,22 +3382,25 @@ static void SDK_DrawCachedActors()
 			if (projectedHeight < 30.0f) projectedHeight = 30.0f;
 			if (boxWidth < 20.0f) boxWidth = 20.0f;
 			
-			// Determine box color based on team and status
-			ImU32 drawColor = ImGui::GetColorU32(ImVec4(1.0f, 0.0f, 0.0f, 1.0f));  // Red default (enemies)
-			
+			// Determine box color based on team and status.
+			// Enemy/team colors come from the menu (Settings > ESP).
+			const float* enemyC = ImGuiMenu::g_Settings.PlayerColor;
+			const float* teamC = ImGuiMenu::g_Settings.TeamColor;
+			ImU32 drawColor = ImGui::GetColorU32(ImVec4(enemyC[0], enemyC[1], enemyC[2], enemyC[3]));
+
 			if (cachedActor.IsMySelf)
 			{
 				drawColor = ImGui::GetColorU32(ImVec4(0.0f, 1.0f, 0.0f, 1.0f));  // Green for self
 			}
 			else if (cachedActor.IsAlly)
 			{
-				drawColor = ImGui::GetColorU32(ImVec4(0.0f, 0.5f, 1.0f, 1.0f));  // Cyan for allies
+				drawColor = ImGui::GetColorU32(ImVec4(teamC[0], teamC[1], teamC[2], teamC[3]));
 			}
 			else if (cachedActor.IsBot)
 			{
 				drawColor = ImGui::GetColorU32(ImVec4(1.0f, 1.0f, 0.0f, 1.0f));  // Yellow for enemy bots
 			}
-			// else: Red for enemy players (default)
+			// else: menu enemy color (default)
 			
 			// Create rectangle adapted to skeleton (use all 22 bones for accurate bounding box)
 			float minX = FLT_MAX;
@@ -3507,11 +3507,17 @@ static void SDK_DrawCachedActors()
 			// Queue actor name text with team ID and health info
 			try
 			{
-				const char* playerName = SDK_GetActorDisplayName(Actor, cachedActor.IsMySelf, false);
-				std::string displayText = playerName ? playerName : "Unknown";
-				
+				std::string displayText;
+
+				// Name is now its own toggle (zero1-style label composition).
+				if (ImGuiMenu::g_Settings.Player_Name)
+				{
+					const char* playerName = SDK_GetActorDisplayName(Actor, cachedActor.IsMySelf, false);
+					displayText = playerName ? playerName : "Unknown";
+				}
+
 				// Add platform if enabled (only for battle characters with valid PlayerState)
-				if (ImGuiMenu::g_Settings.ShowPlatform && 
+				if (ImGuiMenu::g_Settings.ShowPlatform &&
 					isBattleCharacter)
 				{
 					uint8 platform = GetCharacterPlatform(Actor);
@@ -3525,13 +3531,13 @@ static void SDK_DrawCachedActors()
 					}
 					displayText += platformStr;
 				}
-				
+
 // Add team ID if valid and enabled
 			if (ImGuiMenu::g_Settings.ShowTeamId && cachedActor.TeamId < 255)
 				{
 					displayText += " Team" + std::to_string(cachedActor.TeamId) + "";
 				}
-				
+
 				// Add ally/bot indicator
 				if (cachedActor.IsAlly && !cachedActor.IsMySelf)
 				{
@@ -3541,7 +3547,14 @@ static void SDK_DrawCachedActors()
 				{
 					displayText += " [BOT]";
 				}
-				
+
+				// Distance in meters, zero1-style "[NN m]" suffix.
+				if (ImGuiMenu::g_Settings.Player_Distance)
+				{
+					displayText += (displayText.empty() ? "[" : " [") +
+						std::to_string((int)(distanceCm * 0.01f + 0.5f)) + " m]";
+				}
+
 				if (!displayText.empty())
 				{
 					TextLabel label;

@@ -158,6 +158,16 @@ namespace SettingsManager
 			// ESP - Display
 			file << "    \"EnablePlayerESP\": " << BoolToJson(menuSettings.EnablePlayerESP) << ",\n";
 			file << "    \"Player_Box\": " << BoolToJson(menuSettings.Player_Box) << ",\n";
+			file << "    \"Player_Box_Filled\": " << BoolToJson(menuSettings.Player_Box_Filled) << ",\n";
+			file << "    \"Player_Box_Filled_Alpha\": " << FloatToJson(menuSettings.Player_Box_Filled_Alpha) << ",\n";
+			file << "    \"PlayerColor_R\": " << FloatToJson(menuSettings.PlayerColor[0]) << ",\n";
+			file << "    \"PlayerColor_G\": " << FloatToJson(menuSettings.PlayerColor[1]) << ",\n";
+			file << "    \"PlayerColor_B\": " << FloatToJson(menuSettings.PlayerColor[2]) << ",\n";
+			file << "    \"PlayerColor_A\": " << FloatToJson(menuSettings.PlayerColor[3]) << ",\n";
+			file << "    \"TeamColor_R\": " << FloatToJson(menuSettings.TeamColor[0]) << ",\n";
+			file << "    \"TeamColor_G\": " << FloatToJson(menuSettings.TeamColor[1]) << ",\n";
+			file << "    \"TeamColor_B\": " << FloatToJson(menuSettings.TeamColor[2]) << ",\n";
+			file << "    \"TeamColor_A\": " << FloatToJson(menuSettings.TeamColor[3]) << ",\n";
 			file << "    \"Player_Health\": " << BoolToJson(menuSettings.Player_Health) << ",\n";
 			file << "    \"Player_Distance\": " << BoolToJson(menuSettings.Player_Distance) << ",\n";
 			file << "    \"Player_Name\": " << BoolToJson(menuSettings.Player_Name) << ",\n";
@@ -888,6 +898,16 @@ namespace SettingsManager
 			menuSettings.EnableStreamProofMenu = ExtractBoolDefault("EnableStreamProofMenu", false);
 			menuSettings.EnablePlayerESP = ExtractBool("EnablePlayerESP");
 			menuSettings.Player_Box = ExtractBool("Player_Box");
+			menuSettings.Player_Box_Filled = ExtractBoolDefault("Player_Box_Filled", false);
+			menuSettings.Player_Box_Filled_Alpha = ExtractFloatDefault("Player_Box_Filled_Alpha", 10.0f);
+			menuSettings.PlayerColor[0] = ExtractFloatDefault("PlayerColor_R", 1.0f);
+			menuSettings.PlayerColor[1] = ExtractFloatDefault("PlayerColor_G", 0.0f);
+			menuSettings.PlayerColor[2] = ExtractFloatDefault("PlayerColor_B", 0.0f);
+			menuSettings.PlayerColor[3] = ExtractFloatDefault("PlayerColor_A", 1.0f);
+			menuSettings.TeamColor[0] = ExtractFloatDefault("TeamColor_R", 0.0f);
+			menuSettings.TeamColor[1] = ExtractFloatDefault("TeamColor_G", 0.588f);
+			menuSettings.TeamColor[2] = ExtractFloatDefault("TeamColor_B", 1.0f);
+			menuSettings.TeamColor[3] = ExtractFloatDefault("TeamColor_A", 1.0f);
 			menuSettings.Player_Health = ExtractBool("Player_Health");
 			menuSettings.Player_Distance = ExtractBool("Player_Distance");
 			menuSettings.Player_Name = ExtractBool("Player_Name");

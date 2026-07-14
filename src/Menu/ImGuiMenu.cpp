@@ -3629,9 +3629,24 @@ namespace ImGuiMenu
             if (g_Settings.EnablePlayerESP)
             {
                 ImAdd::CheckBox("Show Enemy", &g_Settings.ShowEnemies);
+                ImGui::SameLine();
+                ImGui::ColorEdit4("##enemy-color", g_Settings.PlayerColor,
+                    ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
                 ImAdd::CheckBox("Show Team", &g_Settings.ShowTeam);
+                ImGui::SameLine();
+                ImGui::ColorEdit4("##team-color", g_Settings.TeamColor,
+                    ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoLabel);
                 ImAdd::CheckBox("LobbyCharacter", &g_Settings.ShowLobbyCharacters);
                 ImAdd::CheckBox("KOTA", &g_Settings.ShowKota);
+            }
+
+            SeparatorLabel("Box");
+            ImAdd::CheckBox("Box", &g_Settings.Player_Box);
+            if (g_Settings.Player_Box)
+            {
+                ImAdd::CheckBox("Filled", &g_Settings.Player_Box_Filled);
+                if (g_Settings.Player_Box_Filled)
+                    ImAdd::SliderFloat("Fill Opacity", &g_Settings.Player_Box_Filled_Alpha, 1.0f, 100.0f, "%.0f%%");
             }
 
             SeparatorLabel("Render");
@@ -3641,6 +3656,8 @@ namespace ImGuiMenu
             ImGui::NextColumn();
 
             SeparatorLabel("Display Info");
+            ImAdd::CheckBox("Name", &g_Settings.Player_Name);
+            ImAdd::CheckBox("Distance (m)", &g_Settings.Player_Distance);
             ImAdd::CheckBox("HP", &g_Settings.ShowHP);
             ImAdd::CheckBox("GP", &g_Settings.ShowGP);
             ImAdd::CheckBox("PU", &g_Settings.ShowPU);

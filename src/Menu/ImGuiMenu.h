@@ -42,10 +42,15 @@ namespace ImGuiMenu
 
         // ESP - Display
         bool EnablePlayerESP = false;
-        bool Player_Box = false;
+        bool Player_Box = true;             // Draw the ESP box
+        int  Player_Box_Type = 0;           // 0=Box, 1=Corners (zero1 style)
+        bool Player_Box_Filled = false;     // transparent fill inside the box
+        float Player_Box_Filled_Alpha = 10.0f;  // fill opacity (0-100)
         bool Player_Health = false;
         bool Player_Distance = false;
         bool Player_Name = false;
+        float PlayerColor[4] = { 1.0f, 0.0f, 0.0f, 1.0f };   // enemy box/label color
+        float TeamColor[4] = { 0.0f, 0.588f, 1.0f, 1.0f };   // team box/label color
         bool ShowHP = false;         // Display health points
         bool ShowGP = false;         // Display guard points
         bool ShowPU = false;        // Display Plus Ultra (when available)
