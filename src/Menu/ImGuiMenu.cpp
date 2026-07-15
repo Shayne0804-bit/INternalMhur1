@@ -558,7 +558,7 @@ namespace ImGuiMenu
      */
     static bool IsKnownHotkeyId(int hotkeyId)
     {
-        return hotkeyId >= 100 && hotkeyId <= 109;
+        return hotkeyId >= 100 && hotkeyId <= 110;
     }
 
     static std::string GetWindowsKeyName(int keyCode)
