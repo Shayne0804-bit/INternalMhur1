@@ -78,9 +78,6 @@ namespace ImGuiMenu
 
         // Aim Search (pilote le multi-lock-on natif du jeu)
         bool  EnableAimSearch = false;
-        float AimSearchDistance = 20000.0f;  // portee de recherche en cm (200m)
-        int   AimSearchMaxCount = 8;         // nb max de cibles verrouillees
-        float AimSearchReticle = 4000.0f;    // taille du reticule d'acquisition (px)
         bool  AimSearchRequireHold = false;  // exiger le maintien d'une touche
         HotkeySet AimSearchKey = HotkeySet(0x06, 0x0100);  // KB: XButton2, Gamepad: LB
         

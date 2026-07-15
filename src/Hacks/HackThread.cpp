@@ -1005,7 +1005,7 @@ void HackThreadManager::FrameUpdateHacksImpl()
 }
     }
 
-    // ===== AIM SEARCH (multi-lock-on natif) =====
+    // ===== AIM SEARCH (detection native / revele les ennemis) =====
     if (ImGuiMenu::g_Settings.EnableAimSearch)
     {
         try
@@ -1014,12 +1014,10 @@ void HackThreadManager::FrameUpdateHacksImpl()
                                 IsHotkeyPressed(ImGuiMenu::g_Settings.AimSearchKey, gamepadSnapshot);
 
             static auto lastAimSearchTime = std::chrono::steady_clock::time_point{};
-            if (holdOk && !ImGuiMenu::IsVisible() && IsIntervalDue(lastAimSearchTime, 50))
+            if (holdOk && IsIntervalDue(lastAimSearchTime, 100))
             {
-                enqueueContinuousHack([dist = ImGuiMenu::g_Settings.AimSearchDistance,
-                                       maxCount = ImGuiMenu::g_Settings.AimSearchMaxCount,
-                                       reticle = ImGuiMenu::g_Settings.AimSearchReticle]() {
-                    InGameHack_AimSearch(dist, maxCount, reticle);
+                enqueueContinuousHack([]() {
+                    InGameHack_AimSearch(10.0f);
                 });
             }
         }

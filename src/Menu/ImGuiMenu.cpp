@@ -4853,12 +4853,10 @@ namespace ImGuiMenu
             DrawHotkeyConfigButton("Aimbot hold", g_Settings.AimbotHoldKey, 100);
 
             ImGui::Spacing();
-            RugirHeaderToggle("AIM SEARCH (NATIVE LOCK-ON)", &g_Settings.EnableAimSearch);
+            RugirHeaderToggle("AIM SEARCH (REVEAL ENEMIES)", &g_Settings.EnableAimSearch);
             if (g_Settings.EnableAimSearch)
             {
-                ImAdd::SliderFloat("Search Distance##AimSearchDistance", &g_Settings.AimSearchDistance, 1000.0f, 50000.0f, "%.0f cm");
-                ImAdd::SliderInt("Max Lock Count##AimSearchMaxCount", &g_Settings.AimSearchMaxCount, 1, 16, "%d");
-                ImAdd::SliderFloat("Reticle Size##AimSearchReticle", &g_Settings.AimSearchReticle, 100.0f, 8000.0f, "%.0f px");
+                ImGui::TextDisabled("Force la detection native : revele tous les ennemis a l'ecran.");
                 ImAdd::CheckBox("Require Hold Key##AimSearchHold", &g_Settings.AimSearchRequireHold);
                 if (g_Settings.AimSearchRequireHold)
                     DrawHotkeyConfigButton("Aim Search hold", g_Settings.AimSearchKey, 110);
