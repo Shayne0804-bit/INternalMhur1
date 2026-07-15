@@ -4852,6 +4852,18 @@ namespace ImGuiMenu
 
             DrawHotkeyConfigButton("Aimbot hold", g_Settings.AimbotHoldKey, 100);
 
+            ImGui::Spacing();
+            RugirHeaderToggle("AIM SEARCH (NATIVE LOCK-ON)", &g_Settings.EnableAimSearch);
+            if (g_Settings.EnableAimSearch)
+            {
+                ImAdd::SliderFloat("Search Distance##AimSearchDistance", &g_Settings.AimSearchDistance, 1000.0f, 50000.0f, "%.0f cm");
+                ImAdd::SliderInt("Max Lock Count##AimSearchMaxCount", &g_Settings.AimSearchMaxCount, 1, 16, "%d");
+                ImAdd::SliderFloat("Reticle Size##AimSearchReticle", &g_Settings.AimSearchReticle, 100.0f, 8000.0f, "%.0f px");
+                ImAdd::CheckBox("Require Hold Key##AimSearchHold", &g_Settings.AimSearchRequireHold);
+                if (g_Settings.AimSearchRequireHold)
+                    DrawHotkeyConfigButton("Aim Search hold", g_Settings.AimSearchKey, 110);
+            }
+
             ImGui::NextColumn();
 
             RugirHeaderToggle("BULLET TP", &g_Settings.EnableBulletTP);
@@ -6620,6 +6632,16 @@ return true;
             {
                 g_Settings.CustomDropKey.Xbox = pressedKey;
                 g_Settings.CustomDropKey.PS4 = pressedKey;
+            }
+        }
+        else if (hotkeyType == 110)  // Aim Search hotkey (unified)
+        {
+            if (inputType == 0)  // Keyboard
+                g_Settings.AimSearchKey.Keyboard = pressedKey;
+            else  // Gamepad
+            {
+                g_Settings.AimSearchKey.Xbox = pressedKey;
+                g_Settings.AimSearchKey.PS4 = pressedKey;
             }
         }
 

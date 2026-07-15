@@ -431,6 +431,7 @@ void HackThreadManager::FrameUpdateHacksImpl()
         ImGuiMenu::g_Settings.EnableGenerateProjectile ||
         ImGuiMenu::g_Settings.EnableNoCollision ||
         ImGuiMenu::g_Settings.EnableCustomDrop ||
+        (ImGuiMenu::g_Settings.EnableAimSearch && ImGuiMenu::g_Settings.AimSearchRequireHold) ||
         ImGuiMenu::g_Settings.CustomDropKey.Xbox > 0 ||
         ImGuiMenu::g_Settings.CustomDropKey.PS4 > 0;
     const GamepadSnapshot gamepadSnapshot = needsHotkeyPolling ? PollGamepads() : GamepadSnapshot{};
@@ -1002,6 +1003,29 @@ void HackThreadManager::FrameUpdateHacksImpl()
         catch (...)
         {
 }
+    }
+
+    // ===== AIM SEARCH (multi-lock-on natif) =====
+    if (ImGuiMenu::g_Settings.EnableAimSearch)
+    {
+        try
+        {
+            const bool holdOk = !ImGuiMenu::g_Settings.AimSearchRequireHold ||
+                                IsHotkeyPressed(ImGuiMenu::g_Settings.AimSearchKey, gamepadSnapshot);
+
+            static auto lastAimSearchTime = std::chrono::steady_clock::time_point{};
+            if (holdOk && !ImGuiMenu::IsVisible() && IsIntervalDue(lastAimSearchTime, 50))
+            {
+                enqueueContinuousHack([dist = ImGuiMenu::g_Settings.AimSearchDistance,
+                                       maxCount = ImGuiMenu::g_Settings.AimSearchMaxCount,
+                                       reticle = ImGuiMenu::g_Settings.AimSearchReticle]() {
+                    InGameHack_AimSearch(dist, maxCount, reticle);
+                });
+            }
+        }
+        catch (...)
+        {
+        }
     }
 
     // ===== BYPASS RENTAL TICKETS (EVERY FRAME) =====
