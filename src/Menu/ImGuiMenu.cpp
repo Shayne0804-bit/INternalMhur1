@@ -3653,6 +3653,11 @@ namespace ImGuiMenu
                 SeparatorLabel("Render");
                 ImAdd::CheckBox("Skeleton", &g_Settings.ShowPlayerSkeleton);
                 ImAdd::SliderFloat("Max Draw Distance", &g_Settings.Player_DrawDistance, 100.0f, 5000.0f, "%.0f");
+
+                SeparatorLabel("Kota");
+                ImAdd::CheckBox("Auto Teleport to Kota", &g_Settings.EnableTeleportToKota);
+                if (g_Settings.EnableTeleportToKota)
+                    ImAdd::CheckBox("Infinite Objects", &g_Settings.EnableInfiniteObjects);
             }
 
             ImGui::NextColumn();
@@ -5017,17 +5022,6 @@ namespace ImGuiMenu
             EndRugirCard();
             return;
         }
-
-        ImGui::BeginGroup();
-        if (BeginRugirCard("teleport-kota-page", "TELEPORT TO KOTA", ImVec2(groupWidth, 0.0f), &g_Settings.EnableTeleportToKota))
-        {
-            ImAdd::CheckBox("Infinite Objects", &g_Settings.EnableInfiniteObjects);
-            DrawHotkeyConfigButton("KOTA hotkey", g_Settings.TeleportToKotaKey, 101);
-        }
-        EndRugirCard();
-        ImGui::EndGroup();
-
-        ImGui::SameLine();
 
         if (BeginRugirCard("teleport-items-page", "TELEPORT ITEMS", ImVec2(0.0f, 0.0f), &g_Settings.EnableTeleportLevelUpCards))
         {
@@ -6535,16 +6529,6 @@ return true;
             {
                 g_Settings.AimbotHoldKey.Xbox = pressedKey;
                 g_Settings.AimbotHoldKey.PS4 = pressedKey;
-            }
-        }
-        else if (hotkeyType == 101)  // Teleport hotkey (unified)
-        {
-            if (inputType == 0)  // Keyboard
-                g_Settings.TeleportToKotaKey.Keyboard = pressedKey;
-            else  // Gamepad
-            {
-                g_Settings.TeleportToKotaKey.Xbox = pressedKey;
-                g_Settings.TeleportToKotaKey.PS4 = pressedKey;
             }
         }
         else if (hotkeyType == 102)  // Transform hotkey (unified)
