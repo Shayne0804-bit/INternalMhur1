@@ -9190,6 +9190,166 @@ static SDK::UCharacterAttackComponent* GetCharacterAttackComponentSafe(SDK::ACha
     return IsLiveUObjectPointer(attackComponent) ? attackComponent : nullptr;
 }
 
+// ============================================================================
+//  AIM SEARCH — pilote le multi-lock-on natif du jeu (UCharacterAttackComponent)
+//  Le moteur fait la recherche de cible lui-meme : on force la fenetre de
+//  recherche au maximum (tous les checks a true / desactives) puis on lit la
+//  cible que le jeu a acquise. Approche "A" : natif pilote, cibles visibles.
+// ============================================================================
+
+// (struct AimSearchTarget declaree dans InGameModuleHacks.h)
+
+// Configure le lock-on avec les parametres les plus permissifs possibles :
+// on veut voir/verrouiller TOUS les ennemis (downed, shieldes, camo, invincibles,
+// derriere le joueur, hors ecran). span=0 => acquisition immediate.
+static bool TryPrimeNativeAimSearchSafe(SDK::UCharacterAttackComponent* attackComponent,
+                                        float distanceCm, int32_t maxCount, float reticlePx)
+{
+    if (!IsLiveUObjectPointer(attackComponent))
+        return false;
+
+    if (!std::isfinite(distanceCm) || distanceCm <= 0.0f)
+        distanceCm = 20000.0f;               // 200m par defaut : ratisse toute la map
+    if (maxCount <= 0)
+        maxCount = 8;
+    if (!std::isfinite(reticlePx) || reticlePx <= 0.0f)
+        reticlePx = 4000.0f;                 // reticule enorme = acquisition permissive
+
+    __try
+    {
+        // Tous les filtres a "on cible tout le monde".
+        SDK::FLockOnSetting setting{};
+        setting._bDyingEnemyLockOn            = true;                             // inclut les ennemis a terre
+        setting._shieldingEnemyCheck          = SDK::EShieldingCheck::NONE;       // n'exclut pas les shieldes
+        setting._bOpticalDazzlePaintCheck     = true;                            // ignore le camo optique (cible quand meme)
+        setting._bDisplayEnemyCheck           = true;                            // pas besoin d'etre "affiche" a l'ecran
+        setting._bBehindOwnerCheck            = true;                            // autorise les cibles derriere le joueur
+        setting._invincibleEnemyCheck         = SDK::EInvincibleCheck::NONE;      // n'exclut pas les invincibles
+        setting._invincibleEnemyCheckMagnitude = 0.0f;
+        attackComponent->BP_SettingMultiLockOn(setting);
+
+        // span, distance, maxCount, taille reticule
+        attackComponent->BP_SetLockOnData(0.0f, distanceCm, maxCount,
+                                          SDK::FVector2D{ reticlePx, reticlePx });
+
+        // Active l'aim assist + demarre le scan multi-lock.
+        attackComponent->BP_SetEnableAimAssist(true);
+        attackComponent->BP_BeginMultiLockOn();
+        attackComponent->BP_StartMultiLockOn();
+        attackComponent->BP_ForceUpdateTargetInfo();
+        return true;
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        return false;
+    }
+}
+
+// Lit la cible que le natif a acquise. Priorite : cible d'attaque resolue,
+// sinon la plus proche de la liste multi-lock.
+static bool TryReadNativeAimTargetSafe(SDK::UCharacterAttackComponent* attackComponent,
+                                       const SDK::FVector& fromPos,
+                                       AimSearchTarget& out)
+{
+    if (!IsLiveUObjectPointer(attackComponent))
+        return false;
+
+    __try
+    {
+        out.lockCount = attackComponent->BP_GetCurrentLockOnCount();
+
+        // 1) Cible d'attaque deja resolue par le jeu (la plus fiable).
+        SDK::AActor* attackTarget = attackComponent->BP_GetAttackTargetActor();
+        if (SDK::ACharacterBattle* cb = ActorToCharacterBattleSafe(attackTarget))
+        {
+            const SDK::FVector p = attackComponent->BP_GetAttackTargetLocation();
+            const SDK::FVector dir = attackComponent->BP_GetRealtimeTargetDirection();
+            out.character  = cb;
+            out.actor      = attackTarget;
+            out.worldX     = p.X;   out.worldY = p.Y;   out.worldZ = p.Z;
+            out.dirX       = dir.X; out.dirY   = dir.Y; out.dirZ   = dir.Z;
+            out.valid      = true;
+            return true;
+        }
+
+        // 2) Sinon on prend la plus proche de la liste de lock-on.
+        SDK::TArray<SDK::ACharacterBattle*> list = attackComponent->BP_GetLockOnTargetCharacterBattle();
+        float best = FLT_MAX;
+        SDK::ACharacterBattle* bestChar = nullptr;
+        SDK::FVector bestPos{};
+
+        const int32_t count = list.Num();
+        for (int32_t i = 0; i < count && i < 64; ++i)
+        {
+            SDK::ACharacterBattle* cb = list[i];
+            if (!IsLiveUObjectPointer(cb))
+                continue;
+
+            const SDK::FVector p = cb->K2_GetActorLocation();
+            const SDK::FVector d{ p.X - fromPos.X, p.Y - fromPos.Y, p.Z - fromPos.Z };
+            const float dist = std::sqrt(d.X * d.X + d.Y * d.Y + d.Z * d.Z);
+            if (dist < best)
+            {
+                best     = dist;
+                bestChar = cb;
+                bestPos  = p;
+            }
+        }
+
+        if (bestChar)
+        {
+            const SDK::FVector dir = attackComponent->BP_GetRealtimeTargetDirection();
+            out.character = bestChar;
+            out.actor     = static_cast<SDK::AActor*>(bestChar);
+            out.worldX    = bestPos.X; out.worldY = bestPos.Y; out.worldZ = bestPos.Z;
+            out.dirX      = dir.X;     out.dirY   = dir.Y;     out.dirZ   = dir.Z;
+            out.valid     = true;
+            return true;
+        }
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        return false;
+    }
+
+    return false;
+}
+
+// Point d'entree public : lance la recherche de cible native et renvoie
+// la cible acquise. distanceCm / maxCount / reticlePx = 0 => valeurs par defaut.
+AimSearchTarget InGameHack_AimSearch(float distanceCm, int32_t maxCount, float reticlePx)
+{
+    AimSearchTarget result{};
+
+    SDK::APlayerController* playerController = SDK_GetPlayerController();
+    if (!IsValidPointer(playerController))
+        return result;
+
+    SDK::ACharacterBattle* localCharacter = GetPlayerCharacterBattle(playerController);
+    if (!IsLiveUObjectPointer(localCharacter))
+        return result;
+
+    SDK::UCharacterAttackComponent* attackComponent = GetCharacterAttackComponentSafe(localCharacter);
+    if (!attackComponent)
+        return result;
+
+    SDK::FVector myPos{};
+    __try
+    {
+        myPos = localCharacter->K2_GetActorLocation();
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        return result;
+    }
+
+    if (!TryPrimeNativeAimSearchSafe(attackComponent, distanceCm, maxCount, reticlePx))
+        return result;
+
+    TryReadNativeAimTargetSafe(attackComponent, myPos, result);
+    return result;
+}
+
 static bool TryGetCurrentAttackIdSafe(SDK::UCharacterAttackComponent* attackComponent, SDK::EAttackId& outAttackId)
 {
     outAttackId = SDK::EAttackId::NONE;

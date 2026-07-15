@@ -16,6 +16,36 @@ namespace SDK
     enum class ESeasonType : uint8_t;
 }
 
+// Resultat d'une recherche de cible via le lock-on natif du jeu.
+// worldPos et direction sont stockes en floats bruts pour ne pas dependre
+// de la definition complete de SDK::FVector dans ce header.
+struct AimSearchTarget
+{
+    SDK::ACharacterBattle* character = nullptr;   // cible acquise par le jeu
+    SDK::AActor*           actor     = nullptr;   // meme pointeur (AActor*)
+    float                  worldX    = 0.0f;      // position monde de la cible
+    float                  worldY    = 0.0f;
+    float                  worldZ    = 0.0f;
+    float                  dirX      = 0.0f;      // direction realtime vers la cible
+    float                  dirY      = 0.0f;
+    float                  dirZ      = 0.0f;
+    int32_t                lockCount = 0;         // nb de cibles verrouillees
+    bool                   valid     = false;
+};
+
+/**
+ * Aim Search : pilote le multi-lock-on natif du jeu pour acquerir une cible.
+ * Le moteur fait la recherche lui-meme ; on force la fenetre au maximum
+ * (tous les filtres desactives : downed / shielded / camo / invincible /
+ * derriere le joueur / hors ecran) puis on lit la cible acquise.
+ * @param distanceCm  portee de recherche en cm (<=0 => 20000 = 200m)
+ * @param maxCount    nb max de cibles simultanees (<=0 => 8)
+ * @param reticlePx   taille du reticule d'acquisition en px (<=0 => 4000)
+ * @return la cible acquise ; .valid == false si rien trouve.
+ */
+AimSearchTarget InGameHack_AimSearch(float distanceCm = 0.0f, int32_t maxCount = 0, float reticlePx = 0.0f);
+
+
 struct SeasonRankRewardItemOption
 {
     int arrayIndex = -1;
