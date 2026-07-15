@@ -76,10 +76,9 @@ namespace ImGuiMenu
         // Aimbot Hotkey (Keyboard/Xbox/PS4 grouped)
         HotkeySet AimbotHoldKey = HotkeySet(0x02, 0x0100);  // KB: RButton, Gamepad: LB
 
-        // Aim Search (pilote le multi-lock-on natif du jeu)
+        // Radar Pulse (systeme natif AimingSearch : revele les ennemis)
         bool  EnableAimSearch = false;
-        bool  AimSearchRequireHold = false;  // exiger le maintien d'une touche
-        HotkeySet AimSearchKey = HotkeySet(0x06, 0x0100);  // KB: XButton2, Gamepad: LB
+        float AimSearchDuration = 10.0f;   // duree de reveal en secondes (custom)
         
         // Teleport to Kota Hotkey
         bool EnableTeleportToKota = false;

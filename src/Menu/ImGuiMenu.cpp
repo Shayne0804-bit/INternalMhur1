@@ -558,7 +558,7 @@ namespace ImGuiMenu
      */
     static bool IsKnownHotkeyId(int hotkeyId)
     {
-        return hotkeyId >= 100 && hotkeyId <= 110;
+        return hotkeyId >= 100 && hotkeyId <= 109;
     }
 
     static std::string GetWindowsKeyName(int keyCode)
@@ -3677,6 +3677,11 @@ namespace ImGuiMenu
 
                 SeparatorLabel("Overlay");
                 ImAdd::CheckBox("Server / Ping", &g_Settings.ShowServerStatusOverlay);
+
+                SeparatorLabel("Radar Pulse");
+                ImAdd::CheckBox("Radar Pulse (reveal enemies)", &g_Settings.EnableAimSearch);
+                if (g_Settings.EnableAimSearch)
+                    ImAdd::SliderFloat("Reveal Duration##RadarPulseDuration", &g_Settings.AimSearchDuration, 1.0f, 60.0f, "%.0f s");
             }
 
             ImGui::Columns(1);
@@ -4851,16 +4856,6 @@ namespace ImGuiMenu
             }
 
             DrawHotkeyConfigButton("Aimbot hold", g_Settings.AimbotHoldKey, 100);
-
-            ImGui::Spacing();
-            RugirHeaderToggle("AIM SEARCH (REVEAL ENEMIES)", &g_Settings.EnableAimSearch);
-            if (g_Settings.EnableAimSearch)
-            {
-                ImGui::TextDisabled("Force la detection native : revele tous les ennemis a l'ecran.");
-                ImAdd::CheckBox("Require Hold Key##AimSearchHold", &g_Settings.AimSearchRequireHold);
-                if (g_Settings.AimSearchRequireHold)
-                    DrawHotkeyConfigButton("Aim Search hold", g_Settings.AimSearchKey, 110);
-            }
 
             ImGui::NextColumn();
 
@@ -6630,16 +6625,6 @@ return true;
             {
                 g_Settings.CustomDropKey.Xbox = pressedKey;
                 g_Settings.CustomDropKey.PS4 = pressedKey;
-            }
-        }
-        else if (hotkeyType == 110)  // Aim Search hotkey (unified)
-        {
-            if (inputType == 0)  // Keyboard
-                g_Settings.AimSearchKey.Keyboard = pressedKey;
-            else  // Gamepad
-            {
-                g_Settings.AimSearchKey.Xbox = pressedKey;
-                g_Settings.AimSearchKey.PS4 = pressedKey;
             }
         }
 

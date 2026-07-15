@@ -431,7 +431,6 @@ void HackThreadManager::FrameUpdateHacksImpl()
         ImGuiMenu::g_Settings.EnableGenerateProjectile ||
         ImGuiMenu::g_Settings.EnableNoCollision ||
         ImGuiMenu::g_Settings.EnableCustomDrop ||
-        (ImGuiMenu::g_Settings.EnableAimSearch && ImGuiMenu::g_Settings.AimSearchRequireHold) ||
         ImGuiMenu::g_Settings.CustomDropKey.Xbox > 0 ||
         ImGuiMenu::g_Settings.CustomDropKey.PS4 > 0;
     const GamepadSnapshot gamepadSnapshot = needsHotkeyPolling ? PollGamepads() : GamepadSnapshot{};
@@ -1005,19 +1004,17 @@ void HackThreadManager::FrameUpdateHacksImpl()
 }
     }
 
-    // ===== AIM SEARCH (detection native / revele les ennemis) =====
+    // ===== RADAR PULSE (systeme natif AimingSearch : revele les ennemis) =====
     if (ImGuiMenu::g_Settings.EnableAimSearch)
     {
         try
         {
-            const bool holdOk = !ImGuiMenu::g_Settings.AimSearchRequireHold ||
-                                IsHotkeyPressed(ImGuiMenu::g_Settings.AimSearchKey, gamepadSnapshot);
-
             static auto lastAimSearchTime = std::chrono::steady_clock::time_point{};
-            if (holdOk && IsIntervalDue(lastAimSearchTime, 100))
+            if (IsIntervalDue(lastAimSearchTime, 100))
             {
-                enqueueContinuousHack([]() {
-                    InGameHack_AimSearch(10.0f);
+                const float duration = ImGuiMenu::g_Settings.AimSearchDuration;
+                enqueueContinuousHack([duration]() {
+                    InGameHack_AimSearch(duration);
                 });
             }
         }
