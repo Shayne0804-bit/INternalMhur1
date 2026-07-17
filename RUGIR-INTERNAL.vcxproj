@@ -199,6 +199,7 @@
     <ClCompile Include="src\Auth\LicenseAuth.cpp" />
     <ClCompile Include="src\Core\Main.cpp" />
     <ClCompile Include="src\Core\UnloadManager.cpp" />
+    <ClCompile Include="src\Core\SelfUpdate.cpp" />
     <ClCompile Include="src\Hooks\D3D11Hook.cpp" />
     <ClCompile Include="src\Hooks\GameThreadHook.cpp" />
     <ClCompile Include="src\Menu\ImGuiMenu.cpp" />
@@ -227,6 +228,7 @@
     <ClInclude Include="src\Auth\LicenseAuth.h" />
     <ClInclude Include="src\Core\Main.h" />
     <ClInclude Include="src\Core\UnloadManager.h" />
+    <ClInclude Include="src\Core\SelfUpdate.h" />
     <ClInclude Include="src\Hooks\D3D11Hook.h" />
     <ClInclude Include="src\Hooks\GameThreadHook.h" />
     <ClInclude Include="src\Menu\ImGuiMenu.h" />

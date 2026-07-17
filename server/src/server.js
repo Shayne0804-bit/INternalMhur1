@@ -6,6 +6,7 @@ const config = require('./config/env');
 const { connectDatabase } = require('./config/database');
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
+const updateRoutes = require('./routes/update');
 const { errorHandler, notFoundHandler } = require('./middleware/errorHandler');
 
 const app = express();
@@ -48,6 +49,7 @@ app.get('/health', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/update', updateRoutes);
 app.use(notFoundHandler);
 app.use(errorHandler);
 

@@ -1,6 +1,7 @@
 #include "ImGuiMenu.h"
 
 #include "StreamProofWindow.h"
+#include "../Core/SelfUpdate.h"
 #include "../Hooks/D3D11Hook.h"
 #include "../Hooks/GameThreadHook.h"
 #include "../Hacks/InGameModuleHacks.h"
@@ -5464,6 +5465,231 @@ namespace ImGuiMenu
         ImGui::EndGroup();
     }
 
+    // ============================================================================
+    //  SELF-UPDATE OVERLAY  (variant-agnostic — matches the active menu theme)
+    //  Custom-drawn card using the same drawList styling as the menu shells, so
+    //  it looks native under Agency (amber accent) and Free/Cheat Factory (purple
+    //  accent). Reads g_Colors.accentColor, which each shell sets per frame.
+    //  Drawn every frame after the menus and before ImGui::Render().
+    // ============================================================================
+    static std::string SelfUpdate_HumanBytes(double b)
+    {
+        const char* u[] = { "B", "KB", "MB", "GB" };
+        int i = 0;
+        while (b >= 1024.0 && i < 3) { b /= 1024.0; ++i; }
+        char buf[64];
+        snprintf(buf, sizeof(buf), "%.1f %s", b, u[i]);
+        return buf;
+    }
+
+    static void DrawSelfUpdateOverlay()
+    {
+        if (!SelfUpdate::HasPendingUI())
+            return;
+
+        SelfUpdate::Progress prog = SelfUpdate::GetProgress();
+
+        ImGuiIO& io = ImGui::GetIO();
+
+        // Theme pulled live from the active shell (amber under Agency, purple else).
+        const ImVec4 accent = g_Colors.accentColor;
+        const ImU32  cAccent   = ImGui::GetColorU32(accent);
+        const ImU32  cText     = ImGui::GetColorU32(g_Colors.textPrimary);
+        const ImU32  cTextSec  = ImGui::GetColorU32(g_Colors.textSecondary);
+        const ImU32  cTextDim  = ImGui::GetColorU32(g_Colors.textDisabled);
+
+        auto brandFont  = g_FreeFontBrand ? g_FreeFontBrand : ImGui::GetFont();
+        auto largeFont  = g_FreeFontLarge ? g_FreeFontLarge : ImGui::GetFont();
+        auto smallFont  = g_FreeFontSmall ? g_FreeFontSmall : ImGui::GetFont();
+
+        // ---- Card geometry (centered) ---------------------------------------
+        const float cardW = 460.0f;
+        const float cardH = 232.0f;
+        const ImVec2 c(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f);
+        const ImVec2 cardMin(c.x - cardW * 0.5f, c.y - cardH * 0.5f);
+        const ImVec2 cardMax(cardMin.x + cardW, cardMin.y + cardH);
+        const float headerH = 52.0f;
+        const ImVec2 headerMax(cardMax.x, cardMin.y + headerH);
+
+        // Full-screen dim so the card reads as a modal.
+        ImDrawList* fg = ImGui::GetForegroundDrawList();
+        fg->AddRectFilled(ImVec2(0, 0), io.DisplaySize, ImGui::GetColorU32(ImVec4(0, 0, 0, 0.55f)));
+
+        // ---- Panel backdrop (mirrors the Agency shell) ----------------------
+        fg->AddRectFilled(cardMin, cardMax, ImGui::GetColorU32(ImVec4(9.0f / 255.0f, 8.0f / 255.0f, 6.0f / 255.0f, 0.97f)), 14.0f);
+        fg->AddRectFilled(cardMin, headerMax, ImGui::GetColorU32(ImVec4(0.0f, 0.0f, 0.0f, 0.42f)), 14.0f, ImDrawFlags_RoundCornersTop);
+        fg->AddRectFilled(ImVec2(cardMin.x, headerMax.y - 1.0f), ImVec2(cardMax.x, headerMax.y + 1.0f), ImGui::GetColorU32(ImVec4(accent.x, accent.y, accent.z, 0.55f)));
+        fg->AddRect(cardMin, cardMax, ImGui::GetColorU32(ImVec4(accent.x, accent.y, accent.z, 0.30f)), 14.0f, 0, 1.5f);
+
+        // ---- Header brand ---------------------------------------------------
+        fg->AddText(brandFont, 24.0f, ImVec2(cardMin.x + 20.0f, cardMin.y + 12.0f), cAccent, "VALARIA");
+        ImVec2 brandSz = brandFont->CalcTextSizeA(24.0f, FLT_MAX, 0.0f, "VALARIA");
+        fg->AddText(smallFont, 12.0f, ImVec2(cardMin.x + 22.0f + brandSz.x + 8.0f, cardMin.y + 21.0f), cTextDim, "UPDATE");
+
+        // Content origin (below header).
+        const float padX = 22.0f;
+        const float contentX = cardMin.x + padX;
+        const float contentW = cardW - padX * 2.0f;
+        float y = headerMax.y + 20.0f;
+
+        auto centeredText = [&](ImFont* f, float sz, float yy, ImU32 col, const char* txt)
+        {
+            ImVec2 ts = f->CalcTextSizeA(sz, FLT_MAX, 0.0f, txt);
+            fg->AddText(f, sz, ImVec2(c.x - ts.x * 0.5f, yy), col, txt);
+            return ts;
+        };
+
+        // Custom themed button drawn on the foreground list, hit-tested manually.
+        auto themedButton = [&](const char* id, const ImVec2& mn, const ImVec2& mx,
+                                const char* label, bool filled) -> bool
+        {
+            ImVec2 mouse = io.MousePos;
+            bool hovered = mouse.x >= mn.x && mouse.x <= mx.x && mouse.y >= mn.y && mouse.y <= mx.y;
+            bool clicked = hovered && ImGui::IsMouseClicked(ImGuiMouseButton_Left);
+
+            ImVec4 bg;
+            if (filled)
+                bg = hovered ? ImVec4(accent.x, accent.y, accent.z, 1.0f)
+                             : ImVec4(accent.x, accent.y, accent.z, 0.85f);
+            else
+                bg = hovered ? ImVec4(1.0f, 1.0f, 1.0f, 0.10f)
+                             : ImVec4(1.0f, 1.0f, 1.0f, 0.04f);
+            fg->AddRectFilled(mn, mx, ImGui::GetColorU32(bg), 8.0f);
+            fg->AddRect(mn, mx, ImGui::GetColorU32(ImVec4(accent.x, accent.y, accent.z, filled ? 0.0f : 0.35f)), 8.0f);
+
+            ImU32 lc = filled ? ImGui::GetColorU32(ImVec4(0.06f, 0.05f, 0.03f, 1.0f)) : cText;
+            ImVec2 ts = smallFont->CalcTextSizeA(15.0f, FLT_MAX, 0.0f, label);
+            fg->AddText(smallFont, 15.0f, ImVec2((mn.x + mx.x - ts.x) * 0.5f, (mn.y + mx.y - ts.y) * 0.5f), lc, label);
+            (void)id;
+            return clicked;
+        };
+
+        const float btnH = 38.0f;
+        const float btnY = cardMax.y - btnH - 20.0f;
+
+        switch (prog.state)
+        {
+        // ------------------------------------------------------------------
+        case SelfUpdate::State::Available:
+        {
+            centeredText(largeFont, 18.0f, y, cText, "Nouvelle mise a jour disponible");
+            y += 30.0f;
+            std::string sub = "Version " + prog.latestVersion + " est en ligne. La telecharger ?";
+            centeredText(smallFont, 14.0f, y, cTextSec, sub.c_str());
+
+            float gap = 12.0f;
+            float bw = (contentW - gap) * 0.5f;
+            ImVec2 y1(contentX, btnY), y2(contentX + bw, btnY + btnH);
+            ImVec2 n1(contentX + bw + gap, btnY), n2(cardMax.x - padX, btnY + btnH);
+            if (themedButton("su_yes", y1, y2, "Telecharger", true))
+                SelfUpdate::AcceptDownload();
+            if (themedButton("su_no", n1, n2, "Plus tard", false))
+                SelfUpdate::DeclineDownload();
+            break;
+        }
+        // ------------------------------------------------------------------
+        case SelfUpdate::State::Downloading:
+        {
+            centeredText(largeFont, 18.0f, y, cText, "Telechargement en cours");
+            y += 40.0f;
+
+            // Progress bar (custom draw so it matches the accent).
+            const float barH = 20.0f;
+            ImVec2 barMin(contentX, y);
+            ImVec2 barMax(contentX + contentW, y + barH);
+            fg->AddRectFilled(barMin, barMax, ImGui::GetColorU32(ImVec4(1.0f, 1.0f, 1.0f, 0.06f)), 6.0f);
+            float frac = (float)prog.fraction;
+            if (frac < 0.0f) frac = 0.0f; if (frac > 1.0f) frac = 1.0f;
+            if (prog.bytesTotal)
+            {
+                ImVec2 fillMax(barMin.x + contentW * frac, barMax.y);
+                fg->AddRectFilled(barMin, fillMax, cAccent, 6.0f);
+            }
+            else
+            {
+                // Indeterminate sweep.
+                float t = (float)ImGui::GetTime();
+                float w = contentW * 0.28f;
+                float x0 = barMin.x + (contentW + w) * (0.5f + 0.5f * sinf(t * 2.0f)) - w;
+                if (x0 < barMin.x) x0 = barMin.x;
+                float x1 = x0 + w; if (x1 > barMax.x) x1 = barMax.x;
+                fg->AddRectFilled(ImVec2(x0, barMin.y), ImVec2(x1, barMax.y), cAccent, 6.0f);
+            }
+            fg->AddRect(barMin, barMax, ImGui::GetColorU32(ImVec4(accent.x, accent.y, accent.z, 0.35f)), 6.0f);
+
+            // Percentage centered in the bar.
+            if (prog.bytesTotal)
+            {
+                char pct[16];
+                snprintf(pct, sizeof(pct), "%.0f%%", frac * 100.0f);
+                ImVec2 ts = smallFont->CalcTextSizeA(13.0f, FLT_MAX, 0.0f, pct);
+                fg->AddText(smallFont, 13.0f, ImVec2(c.x - ts.x * 0.5f, barMin.y + (barH - ts.y) * 0.5f), cText, pct);
+            }
+            y += barH + 14.0f;
+
+            // Bytes (left) + speed (right).
+            std::string bytes = prog.bytesTotal
+                ? SelfUpdate_HumanBytes((double)prog.bytesReceived) + " / " + SelfUpdate_HumanBytes((double)prog.bytesTotal)
+                : SelfUpdate_HumanBytes((double)prog.bytesReceived) + " recus";
+            fg->AddText(smallFont, 14.0f, ImVec2(contentX, y), cTextSec, bytes.c_str());
+
+            std::string spd = SelfUpdate_HumanBytes(prog.speedBytesPerSec) + "/s";
+            ImVec2 sp = smallFont->CalcTextSizeA(14.0f, FLT_MAX, 0.0f, spd.c_str());
+            fg->AddText(smallFont, 14.0f, ImVec2(contentX + contentW - sp.x, y), ImGui::GetColorU32(g_Colors.success), spd.c_str());
+            break;
+        }
+        // ------------------------------------------------------------------
+        case SelfUpdate::State::Ready:
+        {
+            centeredText(largeFont, 18.0f, y, cText, "Telechargement termine");
+            y += 30.0f;
+            centeredText(smallFont, 14.0f, y, cTextSec, "Cliquez sur OK pour appliquer la mise a jour.");
+            y += 22.0f;
+            centeredText(smallFont, 13.0f, y, cTextDim, "Le cheat se rechargera automatiquement.");
+
+            ImVec2 b1(contentX + contentW * 0.25f, btnY);
+            ImVec2 b2(contentX + contentW * 0.75f, btnY + btnH);
+            if (themedButton("su_ok", b1, b2, "OK, appliquer", true))
+                SelfUpdate::ApplyUpdate();
+            break;
+        }
+        // ------------------------------------------------------------------
+        case SelfUpdate::State::Applying:
+        {
+            centeredText(largeFont, 18.0f, y, cText, "Application de la mise a jour");
+            y += 34.0f;
+            int dots = (int)(ImGui::GetTime() * 2.0f) % 4;
+            std::string s = "Rechargement du module";
+            for (int i = 0; i < dots; ++i) s += ".";
+            centeredText(smallFont, 14.0f, y, cTextSec, s.c_str());
+            y += 24.0f;
+            centeredText(smallFont, 13.0f, y, cTextDim, "Ne fermez pas le jeu.");
+            break;
+        }
+        // ------------------------------------------------------------------
+        case SelfUpdate::State::Error:
+        {
+            centeredText(largeFont, 18.0f, y, ImGui::GetColorU32(g_Colors.danger), "Erreur de mise a jour");
+            y += 32.0f;
+            std::string msg = prog.errorText.empty() ? "Erreur inconnue." : prog.errorText;
+            // Wrap crudely to card width.
+            centeredText(smallFont, 13.0f, y, cTextSec, msg.c_str());
+
+            ImVec2 b1(contentX + contentW * 0.30f, btnY);
+            ImVec2 b2(contentX + contentW * 0.70f, btnY + btnH);
+            if (themedButton("su_close", b1, b2, "Fermer", false))
+                SelfUpdate::DismissError();
+            break;
+        }
+        default:
+            break;
+        }
+
+        // Swallow clicks landing on the dim backdrop so they don't reach the game.
+        if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+            io.MouseClicked[ImGuiMouseButton_Left] = false;
+    }
+
 #if RUGIR_MENU_AGENCY
     // ============================================================================
     //  AGENCY MENU  (config-specific — top-nav horizontal layout, own theme)
@@ -6855,6 +7081,11 @@ return true;
         // STEP 5: DRAW ESP BOXES (always drawn, menu or not)
         // ========================================================================
         // Rectangles are drawn via SDK_DrawAllRectangles() called after ImGui::NewFrame()
+
+        // Self-update overlay: variant-agnostic, drawn on top of any menu. Only
+        // renders when the update state machine has something to show. Reads the
+        // live g_Colors accent so it matches Agency (amber) or Free (purple).
+        DrawSelfUpdateOverlay();
 
         // ========================================================================
         // STEP 6: BUILD IMGUI DRAW DATA

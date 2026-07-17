@@ -2,12 +2,14 @@
 #include <fstream>
 #include "src/Core/Main.h"
 #include "src/Core/UnloadManager.h"
+#include "src/Core/SelfUpdate.h"
 #include "src/Hooks/D3D11Hook.h"
 #include "src/Hooks/GameThreadHook.h"
 #include "src/Hacks/HackThread.h"
 #include "src/Menu/ImGuiMenu.h"
 #include "src/Utils/Logger.h"
 #include <atomic>
+#include <string>
 #include <cstdint>
 #include <exception>
 
@@ -177,11 +179,44 @@ DWORD WINAPI UnloadThread(LPVOID lpParam)
 }
 #endif
 
+// Teardown used by the self-update path: same hook/thread shutdown sequence as
+// UnloadThread, but WITHOUT freeing the module — SelfUpdate calls
+// FreeLibraryAndExitThread itself right after this returns, and the reload
+// trampoline is already armed waiting on that thread.
+static void SelfUpdateCleanup()
+{
+    // Mark unload so DLL_PROCESS_DETACH does NOT call ShutdownMainNoThrow again:
+    // we tear everything down right here, and a second shutdown during the unmap
+    // is a double-free of the D3D hooks -> crash. This is exactly what the manual
+    // DLL_Unload path does before its teardown.
+    UnloadManager::RequestUnload();
+
+    ShutdownHackThreadNoThrow();
+    ShutdownGameThreadHookNoThrow();
+    RestoreD3D11HookNoThrow();
+
+    for (int i = 0; i < 5000 && !D3D11Hook::IsSafeToUnload(); ++i)
+        Sleep(1);
+
+    ReleaseD3D11ResourcesNoThrow();
+
+    for (int i = 0; i < 1000 && !D3D11Hook::IsSafeToUnload(); ++i)
+        Sleep(1);
+
+    Sleep(500);
+}
+
 // MainThread following Dumper-7 recommended pattern
 DWORD WINAPI MainThread(HMODULE Module)
 {
     Logger::InitializeFileLogging();
     Logger::LogInfo("[DllEntry] MainThread start");
+#ifndef RUGIR_BUILD_TAG
+#define RUGIR_BUILD_TAG A
+#endif
+#define RUGIR_STR2(x) #x
+#define RUGIR_STR(x) RUGIR_STR2(x)
+    Logger::LogInfo(std::string("[DllEntry] BUILD_TAG=") + RUGIR_STR(RUGIR_BUILD_TAG));
 
     g_MainThreadRunning.store(true, std::memory_order_release);
     g_hModule = Module;
@@ -206,6 +241,14 @@ DWORD WINAPI MainThread(HMODULE Module)
     GameThreadHook::Log("[DllEntry] Main::Initialize begin");
     InitializeMainNoThrow();
     GameThreadHook::Log("[DllEntry] Main::Initialize end");
+
+    /* Self-update: wire cleanup + module handle, sweep any leftover backup from
+       a previous update, then kick a background manifest check. If a newer
+       version exists the menu shows the prompt (download? yes/no); the user
+       drives download + apply from the UI. Nothing is applied automatically. */
+    SelfUpdate::Configure(Module, &SelfUpdateCleanup);
+    SelfUpdate::CheckAsync();
+    GameThreadHook::Log("[DllEntry] SelfUpdate check dispatched");
 
     GameThreadHook::Log("[DllEntry] MainThread end");
     Logger::LogInfo("[DllEntry] MainThread end");
