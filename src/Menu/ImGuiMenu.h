@@ -393,6 +393,13 @@ namespace ImGuiMenu
     bool HasActiveWindowProc();
     void Render(IDXGISwapChain* pSwapChain);
 
+    // Render-only / game-incompatible mode. When enabled, Render() skips ALL
+    // SDK and menu drawing and paints only the self-update overlay (a discreet
+    // auto-update toast). Set by Main::InitializeRenderOnly() when the game was
+    // patched and the SDK offsets are no longer valid.
+    void SetCompatRenderOnly(bool enabled);
+    bool IsCompatRenderOnly();
+
     bool IsInitialized();
     bool IsVisible();
     void SetVisible(bool visible);

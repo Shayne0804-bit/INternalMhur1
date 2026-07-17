@@ -113,7 +113,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;RUGIR_INTERNAL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;RUGIR_INTERNAL_EXPORTS;RUGIR_UPDATE_CONFIG="free";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)cheat factory\projects\shared\ImGui;$(ProjectDir)cheat factory\projects\shared\ImGui\backends;$(ProjectDir)cheat factory\projects\shared;$(ProjectDir)cheat factory\vendors\FreeType\include;$(ProjectDir)src\dependencies;$(ProjectDir)4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -149,7 +149,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;RUGIR_INTERNAL_EXPORTS;RUGIR_ENABLE_UNLOAD=0;RUGIR_FULL_PROTECTION=1;RUGIR_MENU_CHEAT_FACTORY=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;RUGIR_INTERNAL_EXPORTS;RUGIR_ENABLE_UNLOAD=0;RUGIR_FULL_PROTECTION=1;RUGIR_MENU_CHEAT_FACTORY=1;RUGIR_UPDATE_CONFIG="cheat_factory";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)cheat factory\projects\shared\ImGui;$(ProjectDir)cheat factory\projects\shared\ImGui\backends;$(ProjectDir)cheat factory\projects\shared;$(ProjectDir)cheat factory\vendors\FreeType\include;$(ProjectDir)src\dependencies;$(ProjectDir)4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -168,7 +168,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ExceptionHandling>Async</ExceptionHandling>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;RUGIR_INTERNAL_EXPORTS;RUGIR_MENU_AGENCY=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;RUGIR_INTERNAL_EXPORTS;RUGIR_MENU_AGENCY=1;RUGIR_UPDATE_CONFIG="agency";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)cheat factory\projects\shared\ImGui;$(ProjectDir)cheat factory\projects\shared\ImGui\backends;$(ProjectDir)cheat factory\projects\shared;$(ProjectDir)cheat factory\vendors\FreeType\include;$(ProjectDir)src\dependencies;$(ProjectDir)4.27.2-0+++UE4+Release-4.27-HerovsGame\CppSDK;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

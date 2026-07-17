@@ -26,6 +26,7 @@ namespace SelfUpdate
     // ------------------------------------------------------------------
     static void SuLog(const std::string& msg)
     {
+#if defined(SELFUPDATE_ENABLE_LOG) && SELFUPDATE_ENABLE_LOG
         static const char* kPath = "C:\\Temp\\rugir_selfupdate.log";
         CreateDirectoryA("C:\\Temp", nullptr);
 
@@ -47,6 +48,9 @@ namespace SelfUpdate
             WriteFile(h, line, static_cast<DWORD>(n), &written, nullptr);
         }
         CloseHandle(h);
+#else
+        (void)msg; // logging disabled at compile time
+#endif
     }
 
     // ------------------------------------------------------------------
@@ -91,9 +95,25 @@ namespace SelfUpdate
     static const char* kClientVersion = "1.0.0";
 #endif
 
+    // Build/config tag sent to the server so it can resolve the right binary
+    // (option B: multiple DLLs indexed by config + game build). Each vcxproj
+    // configuration defines its own; Agency (the public build) is the default.
+#ifndef RUGIR_UPDATE_CONFIG
+#define RUGIR_UPDATE_CONFIG "agency"
+#endif
+    static const char* kUpdateConfig = RUGIR_UPDATE_CONFIG;
+
     static HMODULE   g_self    = nullptr;
     static CleanupFn g_cleanup = nullptr;
     static std::atomic_bool g_busy{ false };
+
+    // Auto (game-update) mode: set when the game was patched so the DLL runs
+    // render-only and must silently pull the game-matched build. Holds the game
+    // build id (PE TimeDateStamp) used to key the server request, and arms a
+    // background retry when no compatible build is online yet.
+    static std::atomic<uint32_t> g_autoGameBuild{ 0 };
+    static std::atomic_bool      g_autoMode{ false };
+    static std::atomic_bool      g_retryArmed{ false };
 
     // ------------------------------------------------------------------
     // Shared UI state. Written by the worker threads, read by the render
@@ -189,12 +209,31 @@ namespace SelfUpdate
         return out;
     }
 
+    // Append the server-resolution query (?config=&client=&game=0x<TDS>) to a
+    // base path. gameBuild==0 => omit the game key (normal cheat-update path).
+    // The server uses config+game to pick the matching binary (option B); the
+    // client key lets it compare versions for the interactive path.
+    static std::wstring BuildQueryPath(const wchar_t* basePath, uint32_t gameBuild)
+    {
+        wchar_t buf[256];
+        if (gameBuild)
+            wsprintfW(buf, L"%s?config=%S&client=%S&game=0x%08X",
+                      basePath, kUpdateConfig, kClientVersion, gameBuild);
+        else
+            wsprintfW(buf, L"%s?config=%S&client=%S",
+                      basePath, kUpdateConfig, kClientVersion);
+        return std::wstring(buf);
+    }
+
     // ------------------------------------------------------------------
     // HTTP GET (binary-safe) against kUpdateHost over TLS.
+    // outStatus (optional) receives the HTTP status code so callers can tell a
+    // 204 (no compatible build) apart from a network failure.
     // ------------------------------------------------------------------
-    static bool HttpGet(const wchar_t* path, std::vector<char>& out)
+    static bool HttpGet(const wchar_t* path, std::vector<char>& out, DWORD* outStatus = nullptr)
     {
         out.clear();
+        if (outStatus) *outStatus = 0;
 
         HINTERNET session = WinHttpOpen(L"RUGIR-UPD/1.0",
             WINHTTP_ACCESS_TYPE_AUTOMATIC_PROXY, WINHTTP_NO_PROXY_NAME,
@@ -225,10 +264,11 @@ namespace SelfUpdate
 
             // Only accept 200.
             DWORD status = 0, sz = sizeof(status);
-            if (WinHttpQueryHeaders(request,
-                    WINHTTP_QUERY_STATUS_CODE | WINHTTP_QUERY_FLAG_NUMBER,
-                    WINHTTP_HEADER_NAME_BY_INDEX, &status, &sz, WINHTTP_NO_HEADER_INDEX)
-                && status != 200)
+            WinHttpQueryHeaders(request,
+                WINHTTP_QUERY_STATUS_CODE | WINHTTP_QUERY_FLAG_NUMBER,
+                WINHTTP_HEADER_NAME_BY_INDEX, &status, &sz, WINHTTP_NO_HEADER_INDEX);
+            if (outStatus) *outStatus = status;
+            if (status && status != 200)
                 break;
 
             for (;;)
@@ -699,6 +739,138 @@ namespace SelfUpdate
     }
 
     // ------------------------------------------------------------------
+    // Auto (game-update) path. Runs entirely without user interaction.
+    // Queries the server for a build matching THIS game (config + gameBuild):
+    //   - 200 with a "file" => download (progress -> toast) + hash verify, then
+    //     apply immediately (no Ready/OK gate).
+    //   - 204 / no binary   => WaitingCompatible + arm a background retry that
+    //     re-runs this worker after a delay until a compatible build appears.
+    // Reuses HttpGetProgress / ApplyWorker so the swap+reload path is identical.
+    // ------------------------------------------------------------------
+    static void ArmAutoRetry();   // fwd
+
+    static void AutoWorker()
+    {
+        if (!g_self) { SetError("module handle null"); return; }
+
+        uint32_t gb = g_autoGameBuild.load();
+        std::wstring manifestPath = BuildQueryPath(kManifestPath, gb);
+
+        std::vector<char> manifestBytes;
+        DWORD status = 0;
+        bool got = HttpGet(manifestPath.c_str(), manifestBytes, &status);
+
+        if (status == 204)
+        {
+            // Server reachable but no compatible build published yet.
+            SuLog("[SelfUpdate] auto: 204 no compatible build, waiting + retry");
+            {
+                std::lock_guard<std::mutex> lk(g_stateMutex);
+                g_progress.state = State::WaitingCompatible;
+                g_progress.autoMode = true;
+                g_progress.gameIncompatible = true;
+                g_progress.errorText.clear();
+            }
+            ArmAutoRetry();
+            return;
+        }
+
+        if (!got || manifestBytes.empty())
+        {
+            // Network failure — stay in waiting mode and retry rather than error.
+            SuLog("[SelfUpdate] auto: manifest fetch failed, waiting + retry");
+            {
+                std::lock_guard<std::mutex> lk(g_stateMutex);
+                g_progress.state = State::WaitingCompatible;
+                g_progress.autoMode = true;
+                g_progress.gameIncompatible = true;
+            }
+            ArmAutoRetry();
+            return;
+        }
+
+        std::string manifest(manifestBytes.begin(), manifestBytes.end());
+        std::string version  = JsonString(manifest, "version");
+        std::string wantHash = JsonString(manifest, "hash");
+        std::string file     = JsonString(manifest, "file");
+        if (version.empty() || wantHash.empty())
+        {
+            SuLog("[SelfUpdate] auto: manifest malformed, waiting + retry");
+            {
+                std::lock_guard<std::mutex> lk(g_stateMutex);
+                g_progress.state = State::WaitingCompatible;
+                g_progress.autoMode = true;
+                g_progress.gameIncompatible = true;
+            }
+            ArmAutoRetry();
+            return;
+        }
+
+        // Compatible build online. Go straight to AutoUpdating + download.
+        {
+            std::lock_guard<std::mutex> lk(g_stateMutex);
+            g_progress.latestVersion   = version;
+            g_progress.autoMode        = true;
+            g_progress.gameIncompatible = true;
+            g_stagedHash    = wantHash;
+            g_stagedFilePath = file.empty()
+                ? BuildQueryPath(kDownloadPath, gb)
+                : Utf8ToUtf16(file);
+            g_stagedDll.clear();
+            g_progress.state = State::AutoUpdating;
+        }
+        SuLog(std::string("[SelfUpdate] auto: build found v") + version + ", downloading");
+
+        std::vector<char> dll;
+        if (!HttpGetProgress(g_stagedFilePath.c_str(), dll) || dll.empty())
+        {
+            SuLog("[SelfUpdate] auto: download failed, waiting + retry");
+            {
+                std::lock_guard<std::mutex> lk(g_stateMutex);
+                g_progress.state = State::WaitingCompatible;
+            }
+            ArmAutoRetry();
+            return;
+        }
+
+        std::string gotHash = Sha256Hex(dll.data(), dll.size());
+        if (_stricmp(gotHash.c_str(), wantHash.c_str()) != 0)
+        {
+            SuLog("[SelfUpdate] auto: hash mismatch, waiting + retry");
+            {
+                std::lock_guard<std::mutex> lk(g_stateMutex);
+                g_progress.state = State::WaitingCompatible;
+            }
+            ArmAutoRetry();
+            return;
+        }
+
+        {
+            std::lock_guard<std::mutex> lk(g_stateMutex);
+            g_stagedDll = std::move(dll);
+        }
+        SuLog("[SelfUpdate] auto: verified, applying automatically");
+        // Apply immediately — no user gate in auto mode. ApplyWorker performs the
+        // swap + unload + reload; the module starts dying right after.
+        ApplyWorker();
+    }
+
+    // Background retry timer for the auto path. Sleeps ~2 min then re-dispatches
+    // AutoWorker. Only one retry may be armed at a time.
+    static void ArmAutoRetry()
+    {
+        bool expected = false;
+        if (!g_retryArmed.compare_exchange_strong(expected, true))
+            return; // already armed
+        std::thread([]() {
+            Sleep(120000); // ~2 min
+            g_retryArmed.store(false);
+            SuLog("[SelfUpdate] auto: retry firing");
+            AutoWorker();
+        }).detach();
+    }
+
+    // ------------------------------------------------------------------
     // Public API
     // ------------------------------------------------------------------
     void CheckAsync()
@@ -715,6 +887,27 @@ namespace SelfUpdate
         }
         SuLog("[SelfUpdate] CheckAsync dispatched");
         std::thread([]() { CheckWorker(); }).detach();
+    }
+
+    void CheckAsyncAuto(unsigned int gameBuild)
+    {
+        {
+            std::lock_guard<std::mutex> lk(g_stateMutex);
+            // Don't restart while already downloading/applying in auto mode.
+            if (g_progress.state == State::AutoUpdating ||
+                g_progress.state == State::Applying)
+                return;
+            g_progress.autoMode = true;
+            g_progress.gameIncompatible = true;
+            g_progress.errorText.clear();
+        }
+        g_autoGameBuild.store(gameBuild);
+        g_autoMode.store(true);
+        {
+            char b[32]; wsprintfA(b, "0x%08X", gameBuild);
+            SuLog(std::string("[SelfUpdate] CheckAsyncAuto dispatched game=") + b);
+        }
+        std::thread([]() { AutoWorker(); }).detach();
     }
 
     void AcceptDownload()
@@ -773,6 +966,8 @@ namespace SelfUpdate
         case State::Ready:
         case State::Applying:
         case State::Error:
+        case State::AutoUpdating:
+        case State::WaitingCompatible:
             return true;
         default:
             return false;

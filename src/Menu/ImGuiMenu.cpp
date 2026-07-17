@@ -135,6 +135,9 @@ namespace ImGuiMenu
     
     static bool g_Initialized = false;
     static bool g_Visible = true;
+    // Game-incompatible render-only mode: skip all SDK/menu draws, only the
+    // self-update toast is painted. Set by Main::InitializeRenderOnly().
+    static bool g_CompatRenderOnly = false;
     static bool g_LicenseSectionUnlocked = false;
     static bool g_LicenseUnlockFailed = false;
     static char g_LicenseUnlockBuffer[64] = {};
@@ -5502,6 +5505,84 @@ namespace ImGuiMenu
         auto largeFont  = g_FreeFontLarge ? g_FreeFontLarge : ImGui::GetFont();
         auto smallFont  = g_FreeFontSmall ? g_FreeFontSmall : ImGui::GetFont();
 
+        // ====================================================================
+        // AUTO (game-update) states: discreet bottom-right toast, NO buttons,
+        // NO backdrop dim. The DLL runs render-only and self-updates silently.
+        // ====================================================================
+        if (prog.state == SelfUpdate::State::AutoUpdating ||
+            prog.state == SelfUpdate::State::WaitingCompatible)
+        {
+            ImDrawList* fgt = ImGui::GetForegroundDrawList();
+
+            const float tW = 320.0f;
+            const float tH = 74.0f;
+            const float margin = 22.0f;
+            ImVec2 tMin(io.DisplaySize.x - tW - margin, io.DisplaySize.y - tH - margin);
+            ImVec2 tMax(tMin.x + tW, tMin.y + tH);
+
+            // Panel (dark, rounded, accent left rail + subtle border).
+            fgt->AddRectFilled(tMin, tMax, ImGui::GetColorU32(ImVec4(9.0f / 255.0f, 8.0f / 255.0f, 6.0f / 255.0f, 0.96f)), 10.0f);
+            fgt->AddRectFilled(tMin, ImVec2(tMin.x + 4.0f, tMax.y), cAccent, 10.0f, ImDrawFlags_RoundCornersLeft);
+            fgt->AddRect(tMin, tMax, ImGui::GetColorU32(ImVec4(accent.x, accent.y, accent.z, 0.30f)), 10.0f, 0, 1.0f);
+
+            const float px = tMin.x + 16.0f;
+            float ty = tMin.y + 12.0f;
+
+            // Brand tag.
+            fgt->AddText(smallFont, 12.0f, ImVec2(px, ty), cAccent, "VALARIA");
+            ImVec2 tagSz = smallFont->CalcTextSizeA(12.0f, FLT_MAX, 0.0f, "VALARIA");
+            fgt->AddText(smallFont, 12.0f, ImVec2(px + tagSz.x + 8.0f, ty), cTextDim, "AUTO-UPDATE");
+            ty += 20.0f;
+
+            if (prog.state == SelfUpdate::State::AutoUpdating)
+            {
+                fgt->AddText(smallFont, 14.0f, ImVec2(px, ty), cText, "Game update detected - installing...");
+                ty += 20.0f;
+
+                // Thin progress bar.
+                const float barH = 6.0f;
+                ImVec2 bMin(px, ty + 2.0f);
+                ImVec2 bMax(tMax.x - 16.0f, ty + 2.0f + barH);
+                fgt->AddRectFilled(bMin, bMax, ImGui::GetColorU32(ImVec4(1, 1, 1, 0.08f)), 3.0f);
+                float frac = (float)prog.fraction;
+                if (frac < 0.0f) frac = 0.0f; if (frac > 1.0f) frac = 1.0f;
+                if (prog.bytesTotal)
+                {
+                    fgt->AddRectFilled(bMin, ImVec2(bMin.x + (bMax.x - bMin.x) * frac, bMax.y), cAccent, 3.0f);
+                }
+                else
+                {
+                    float t = (float)ImGui::GetTime();
+                    float w = (bMax.x - bMin.x) * 0.30f;
+                    float x0 = bMin.x + ((bMax.x - bMin.x) + w) * (0.5f + 0.5f * sinf(t * 2.0f)) - w;
+                    if (x0 < bMin.x) x0 = bMin.x;
+                    float x1 = x0 + w; if (x1 > bMax.x) x1 = bMax.x;
+                    fgt->AddRectFilled(ImVec2(x0, bMin.y), ImVec2(x1, bMax.y), cAccent, 3.0f);
+                }
+            }
+            else // WaitingCompatible
+            {
+                fgt->AddText(smallFont, 14.0f, ImVec2(px, ty), cText, "Game updated - cheat update pending...");
+                ty += 20.0f;
+
+                // Small spinner.
+                float t = (float)ImGui::GetTime();
+                ImVec2 sc(px + 7.0f, ty + 7.0f);
+                float r = 6.0f;
+                int seg = 12;
+                for (int i = 0; i < seg; ++i)
+                {
+                    float a0 = (float)i / seg * 6.2831853f + t * 3.0f;
+                    float alpha = (float)i / seg;
+                    ImVec2 p0(sc.x + cosf(a0) * r, sc.y + sinf(a0) * r);
+                    ImVec2 p1(sc.x + cosf(a0) * (r - 3.0f), sc.y + sinf(a0) * (r - 3.0f));
+                    fgt->AddLine(p0, p1, ImGui::GetColorU32(ImVec4(accent.x, accent.y, accent.z, alpha)), 1.6f);
+                }
+                fgt->AddText(smallFont, 12.0f, ImVec2(px + 22.0f, ty + 1.0f), cTextDim, "Retrying in background");
+            }
+            return; // no modal, no click-swallow
+        }
+
         // ---- Card geometry (centered) ---------------------------------------
         const float cardW = 460.0f;
         const float cardH = 232.0f;
@@ -7027,9 +7108,10 @@ return true;
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
 
-        if (g_Settings.ShowServerStatusOverlay)
+        if (!g_CompatRenderOnly && g_Settings.ShowServerStatusOverlay)
             DrawServerStatusOverlay();
-        DrawPlayerListHotkeyHint();
+        if (!g_CompatRenderOnly)
+            DrawPlayerListHotkeyHint();
         
         // Hotkey capture polls XInput directly. Keep ImGui gamepad navigation disabled so
         // the menu never steals controller input or changes nav state mid-frame.
@@ -7038,7 +7120,9 @@ return true;
         // ========================================================================
         // STEP 3B: SDK RENDERING (on RenderThread with ImGui context)
         // ========================================================================
-        if (Auth::IsAuthorized() && g_Settings.EnableGlobal)
+        // In compat render-only mode the game offsets are invalid — skip EVERY
+        // SDK/menu draw and paint only the self-update toast below.
+        if (!g_CompatRenderOnly && Auth::IsAuthorized() && g_Settings.EnableGlobal)
         {
             if (g_Settings.EnablePlayerESP)
             {
@@ -7067,7 +7151,7 @@ return true;
         // ========================================================================
         // When stream-proof is active, the main menu is drawn into the separate
         // capture-excluded window (STEP 12), NOT into the captured backbuffer.
-        if (g_Visible && !spActive)
+        if (!g_CompatRenderOnly && g_Visible && !spActive)
         {
 #if RUGIR_MENU_AGENCY
             DrawAgencyStyleMenu();
@@ -7075,7 +7159,8 @@ return true;
             DrawFreeImGuiStyleMenu();
 #endif
         }
-        DrawPlayerNetworkTableWindow();
+        if (!g_CompatRenderOnly)
+            DrawPlayerNetworkTableWindow();
 
         // ========================================================================
         // STEP 5: DRAW ESP BOXES (always drawn, menu or not)
@@ -7133,4 +7218,6 @@ return true;
     bool IsInitialized() { return g_Initialized; }
     bool IsVisible() { return g_Visible; }
     void SetVisible(bool visible) { g_Visible = visible; }
+    void SetCompatRenderOnly(bool enabled) { g_CompatRenderOnly = enabled; }
+    bool IsCompatRenderOnly() { return g_CompatRenderOnly; }
 }

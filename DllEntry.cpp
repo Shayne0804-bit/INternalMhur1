@@ -3,6 +3,7 @@
 #include "src/Core/Main.h"
 #include "src/Core/UnloadManager.h"
 #include "src/Core/SelfUpdate.h"
+#include "src/Core/GameCompat.h"
 #include "src/Hooks/D3D11Hook.h"
 #include "src/Hooks/GameThreadHook.h"
 #include "src/Hacks/HackThread.h"
@@ -138,6 +139,17 @@ static void InitializeMainNoThrow()
     }
 }
 
+static void InitializeRenderOnlyNoThrow()
+{
+    __try
+    {
+        Main::InitializeRenderOnly();
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+    }
+}
+
 static void ShutdownMainNoThrow()
 {
     __try
@@ -237,18 +249,42 @@ DWORD WINAPI MainThread(HMODULE Module)
         return 0;
     }
 
-    /* Initialize the SDK and menu silently */
-    GameThreadHook::Log("[DllEntry] Main::Initialize begin");
-    InitializeMainNoThrow();
-    GameThreadHook::Log("[DllEntry] Main::Initialize end");
+    /* Game-compatibility gate. The SDK offsets are hardcoded RVAs; when the game
+       updates they point at garbage and the first SDK access crashes. Probe the
+       offsets under SEH BEFORE hooking anything:
+         - compatible   -> full init + normal self-update (interactive prompt).
+         - incompatible  -> game was patched: DO NOT touch the SDK. Bring up only
+                            the D3D11 hook (render-only) and auto-update to the
+                            game-matched build silently (discreet toast). */
+    uint32_t gameBuild = GameCompat::GameTimeDateStamp();
+    bool compatible = GameCompat::IsGameCompatible();
+    GameThreadHook::Log("[DllEntry] game compat=%d build=0x%08X", compatible ? 1 : 0, gameBuild);
 
-    /* Self-update: wire cleanup + module handle, sweep any leftover backup from
-       a previous update, then kick a background manifest check. If a newer
-       version exists the menu shows the prompt (download? yes/no); the user
-       drives download + apply from the UI. Nothing is applied automatically. */
-    SelfUpdate::Configure(Module, &SelfUpdateCleanup);
-    SelfUpdate::CheckAsync();
-    GameThreadHook::Log("[DllEntry] SelfUpdate check dispatched");
+    if (compatible)
+    {
+        GameThreadHook::Log("[DllEntry] Main::Initialize begin");
+        InitializeMainNoThrow();
+        GameThreadHook::Log("[DllEntry] Main::Initialize end");
+
+        /* Self-update: wire cleanup + module handle, sweep any leftover backup
+           from a previous update, then kick a background manifest check. If a
+           newer version exists the menu shows the prompt (download? yes/no); the
+           user drives download + apply from the UI. */
+        SelfUpdate::Configure(Module, &SelfUpdateCleanup);
+        SelfUpdate::CheckAsync();
+        GameThreadHook::Log("[DllEntry] SelfUpdate check dispatched (interactive)");
+    }
+    else
+    {
+        /* Game patched: render-only mode. Only the D3D11 hook (SDK-independent)
+           comes up so the auto-update toast can draw, then we pull the matching
+           build automatically — no prompt, no SDK access, no crash. */
+        GameThreadHook::Log("[DllEntry] game incompatible -> render-only + auto-update");
+        InitializeRenderOnlyNoThrow();
+        SelfUpdate::Configure(Module, &SelfUpdateCleanup);
+        SelfUpdate::CheckAsyncAuto(gameBuild);
+        GameThreadHook::Log("[DllEntry] SelfUpdate auto check dispatched");
+    }
 
     GameThreadHook::Log("[DllEntry] MainThread end");
     Logger::LogInfo("[DllEntry] MainThread end");

@@ -134,6 +134,32 @@ namespace Main
         GameThreadHook::Log("[Main] Initialize end");
     }
 
+    void InitializeRenderOnly()
+    {
+        if (g_initialized) return;
+
+        GameThreadHook::Log("[Main] InitializeRenderOnly begin (game incompatible)");
+
+        // Tell the menu to skip ALL SDK/menu rendering and draw only the
+        // self-update overlay — no SDK reads happen in this mode.
+        ImGuiMenu::SetCompatRenderOnly(true);
+
+        // Only the D3D11 hook (swapchain vtable — independent of SDK offsets).
+        if (InitializeD3D11HookNoThrow())
+        {
+            GameThreadHook::Log("[Main] D3D11Hook initialized (render-only)");
+        }
+        else
+        {
+            GameThreadHook::Log("[Main] D3D11Hook init failed (render-only)");
+            return;
+        }
+
+        // Deliberately NO HackThread and NO GameThreadHook: both touch the SDK.
+        g_initialized = true;
+        GameThreadHook::Log("[Main] InitializeRenderOnly end");
+    }
+
     void Shutdown()
     {
         if (!g_initialized) return;
