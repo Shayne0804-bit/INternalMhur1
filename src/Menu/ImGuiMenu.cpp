@@ -5572,25 +5572,25 @@ namespace ImGuiMenu
         // ------------------------------------------------------------------
         case SelfUpdate::State::Available:
         {
-            centeredText(largeFont, 18.0f, y, cText, "Nouvelle mise a jour disponible");
+            centeredText(largeFont, 18.0f, y, cText, "A new update is available");
             y += 30.0f;
-            std::string sub = "Version " + prog.latestVersion + " est en ligne. La telecharger ?";
+            std::string sub = "Version " + prog.latestVersion + " is online. Download it?";
             centeredText(smallFont, 14.0f, y, cTextSec, sub.c_str());
 
             float gap = 12.0f;
             float bw = (contentW - gap) * 0.5f;
             ImVec2 y1(contentX, btnY), y2(contentX + bw, btnY + btnH);
             ImVec2 n1(contentX + bw + gap, btnY), n2(cardMax.x - padX, btnY + btnH);
-            if (themedButton("su_yes", y1, y2, "Telecharger", true))
+            if (themedButton("su_yes", y1, y2, "Download", true))
                 SelfUpdate::AcceptDownload();
-            if (themedButton("su_no", n1, n2, "Plus tard", false))
+            if (themedButton("su_no", n1, n2, "Later", false))
                 SelfUpdate::DeclineDownload();
             break;
         }
         // ------------------------------------------------------------------
         case SelfUpdate::State::Downloading:
         {
-            centeredText(largeFont, 18.0f, y, cText, "Telechargement en cours");
+            centeredText(largeFont, 18.0f, y, cText, "Downloading");
             y += 40.0f;
 
             // Progress bar (custom draw so it matches the accent).
@@ -5630,7 +5630,7 @@ namespace ImGuiMenu
             // Bytes (left) + speed (right).
             std::string bytes = prog.bytesTotal
                 ? SelfUpdate_HumanBytes((double)prog.bytesReceived) + " / " + SelfUpdate_HumanBytes((double)prog.bytesTotal)
-                : SelfUpdate_HumanBytes((double)prog.bytesReceived) + " recus";
+                : SelfUpdate_HumanBytes((double)prog.bytesReceived) + " received";
             fg->AddText(smallFont, 14.0f, ImVec2(contentX, y), cTextSec, bytes.c_str());
 
             std::string spd = SelfUpdate_HumanBytes(prog.speedBytesPerSec) + "/s";
@@ -5641,43 +5641,43 @@ namespace ImGuiMenu
         // ------------------------------------------------------------------
         case SelfUpdate::State::Ready:
         {
-            centeredText(largeFont, 18.0f, y, cText, "Telechargement termine");
+            centeredText(largeFont, 18.0f, y, cText, "Download complete");
             y += 30.0f;
-            centeredText(smallFont, 14.0f, y, cTextSec, "Cliquez sur OK pour appliquer la mise a jour.");
+            centeredText(smallFont, 14.0f, y, cTextSec, "Click OK to apply the update.");
             y += 22.0f;
-            centeredText(smallFont, 13.0f, y, cTextDim, "Le cheat se rechargera automatiquement.");
+            centeredText(smallFont, 13.0f, y, cTextDim, "The cheat will reload automatically.");
 
             ImVec2 b1(contentX + contentW * 0.25f, btnY);
             ImVec2 b2(contentX + contentW * 0.75f, btnY + btnH);
-            if (themedButton("su_ok", b1, b2, "OK, appliquer", true))
+            if (themedButton("su_ok", b1, b2, "OK, apply", true))
                 SelfUpdate::ApplyUpdate();
             break;
         }
         // ------------------------------------------------------------------
         case SelfUpdate::State::Applying:
         {
-            centeredText(largeFont, 18.0f, y, cText, "Application de la mise a jour");
+            centeredText(largeFont, 18.0f, y, cText, "Applying update");
             y += 34.0f;
             int dots = (int)(ImGui::GetTime() * 2.0f) % 4;
-            std::string s = "Rechargement du module";
+            std::string s = "Reloading module";
             for (int i = 0; i < dots; ++i) s += ".";
             centeredText(smallFont, 14.0f, y, cTextSec, s.c_str());
             y += 24.0f;
-            centeredText(smallFont, 13.0f, y, cTextDim, "Ne fermez pas le jeu.");
+            centeredText(smallFont, 13.0f, y, cTextDim, "Do not close the game.");
             break;
         }
         // ------------------------------------------------------------------
         case SelfUpdate::State::Error:
         {
-            centeredText(largeFont, 18.0f, y, ImGui::GetColorU32(g_Colors.danger), "Erreur de mise a jour");
+            centeredText(largeFont, 18.0f, y, ImGui::GetColorU32(g_Colors.danger), "Update error");
             y += 32.0f;
-            std::string msg = prog.errorText.empty() ? "Erreur inconnue." : prog.errorText;
+            std::string msg = prog.errorText.empty() ? "Unknown error." : prog.errorText;
             // Wrap crudely to card width.
             centeredText(smallFont, 13.0f, y, cTextSec, msg.c_str());
 
             ImVec2 b1(contentX + contentW * 0.30f, btnY);
             ImVec2 b2(contentX + contentW * 0.70f, btnY + btnH);
-            if (themedButton("su_close", b1, b2, "Fermer", false))
+            if (themedButton("su_close", b1, b2, "Close", false))
                 SelfUpdate::DismissError();
             break;
         }

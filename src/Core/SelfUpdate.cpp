@@ -72,14 +72,24 @@ namespace SelfUpdate
     static const wchar_t* kManifestPath = L"/api/update/manifest";
     static const wchar_t* kDownloadPath = L"/api/update/download"; // fallback if manifest has no "file"
 
-    // Client version. Overridable at compile time so the "new" build (B) can
-    // declare itself as the target version and stop the update loop:
-    //   /DSELFUPDATE_CLIENT_VERSION#\"1.0.1\"
-    // Without the override this build reports 1.0.0 (the "old" build A).
-#ifndef SELFUPDATE_CLIENT_VERSION
-#define SELFUPDATE_CLIENT_VERSION "1.0.0"
-#endif
+    // Client version. Resolution order:
+    //   1. SELFUPDATE_CLIENT_VERSION defined at compile time (manual/test builds,
+    //      e.g. /DSELFUPDATE_CLIENT_VERSION#\"1.0.1\") wins — explicit override.
+    //   2. Version.gen.h (RUGIR_AUTOVER), auto-generated & bumped on every Agency
+    //      build by tools\bump_version.ps1 — the public build stamps itself.
+    //   3. "1.0.0" fallback.
+#if defined(SELFUPDATE_CLIENT_VERSION)
     static const char* kClientVersion = SELFUPDATE_CLIENT_VERSION;
+#elif defined(__has_include)
+#  if __has_include("Version.gen.h")
+#    include "Version.gen.h"
+     static const char* kClientVersion = RUGIR_AUTOVER;
+#  else
+     static const char* kClientVersion = "1.0.0";
+#  endif
+#else
+    static const char* kClientVersion = "1.0.0";
+#endif
 
     static HMODULE   g_self    = nullptr;
     static CleanupFn g_cleanup = nullptr;
@@ -548,7 +558,7 @@ namespace SelfUpdate
         if (!HttpGet(kManifestPath, manifestBytes))
         {
             SuLog("[SelfUpdate] manifest fetch failed");
-            SetError("Impossible de contacter le serveur.");
+            SetError("Could not reach the server.");
             return;
         }
         std::string manifest(manifestBytes.begin(), manifestBytes.end());
@@ -559,7 +569,7 @@ namespace SelfUpdate
         if (version.empty() || wantHash.empty())
         {
             SuLog("[SelfUpdate] manifest malformed");
-            SetError("Manifest serveur invalide.");
+            SetError("Invalid server manifest.");
             return;
         }
 
@@ -595,7 +605,7 @@ namespace SelfUpdate
         if (!HttpGetProgress(dlPath.c_str(), dll) || dll.empty())
         {
             SuLog("[SelfUpdate] download failed");
-            SetError("Echec du telechargement.");
+            SetError("Download failed.");
             return;
         }
 
@@ -603,7 +613,7 @@ namespace SelfUpdate
         if (_stricmp(gotHash.c_str(), wantHash.c_str()) != 0)
         {
             SuLog("[SelfUpdate] hash mismatch got=" + gotHash + " want=" + wantHash);
-            SetError("Verification d'integrite echouee.");
+            SetError("Integrity check failed.");
             return;
         }
 
@@ -622,7 +632,7 @@ namespace SelfUpdate
         wchar_t modBuf[MAX_PATH] = {};
         if (GetModuleFileNameW(g_self, modBuf, MAX_PATH) == 0)
         {
-            SetError("Chemin du module introuvable.");
+            SetError("Module path not found.");
             return;
         }
         std::wstring oldPath = modBuf;
@@ -632,7 +642,7 @@ namespace SelfUpdate
             std::lock_guard<std::mutex> lk(g_stateMutex);
             dll = std::move(g_stagedDll);
         }
-        if (dll.empty()) { SetError("Aucun binaire en attente."); return; }
+        if (dll.empty()) { SetError("No binary pending."); return; }
 
         // Stage on disk (next to the module).
         std::wstring newPath = oldPath + L".new";
@@ -642,7 +652,7 @@ namespace SelfUpdate
             if (hf == INVALID_HANDLE_VALUE)
             {
                 SuLog("[SelfUpdate] cannot create staged file err=" + std::to_string(GetLastError()));
-                SetError("Ecriture disque impossible.");
+                SetError("Cannot write to disk.");
                 return;
             }
             DWORD written = 0;
@@ -651,7 +661,7 @@ namespace SelfUpdate
             if (!wok || written != dll.size())
             {
                 DeleteFileW(newPath.c_str());
-                SetError("Ecriture disque incomplete.");
+                SetError("Incomplete disk write.");
                 return;
             }
         }
@@ -659,7 +669,7 @@ namespace SelfUpdate
         // Swap names while still mapped (rename allowed on mapped module).
         if (!SwapOnDisk(oldPath, newPath))
         {
-            SetError("Remplacement du fichier echoue.");
+            SetError("File replacement failed.");
             return;
         }
 
@@ -670,7 +680,7 @@ namespace SelfUpdate
         if (!hUnload)
         {
             SuLog("[SelfUpdate] unload thread create failed");
-            SetError("Creation du thread d'unload echouee.");
+            SetError("Unload thread creation failed.");
             return;
         }
 
@@ -679,7 +689,7 @@ namespace SelfUpdate
             TerminateThread(hUnload, 0);
             CloseHandle(hUnload);
             SuLog("[SelfUpdate] trampoline arm failed, aborted unload");
-            SetError("Armement du reload echoue.");
+            SetError("Reload arming failed.");
             return;
         }
 

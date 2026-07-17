@@ -21,13 +21,19 @@ namespace SelfUpdate
 
     enum class State
     {
-        Idle,          // nothing happening / up to date
-        Checking,      // manifest fetch in flight
-        Available,     // a newer version exists; waiting for user yes/no
-        Downloading,   // pulling the new dll, progress fields live
-        Ready,         // download+hash ok, staged on disk; waiting for user OK
-        Applying,      // swap + unload + reload in progress (module dying)
-        Error          // something failed; errorText set, back to Idle-able
+        Idle,             // nothing happening / up to date
+        Checking,         // manifest fetch in flight
+        Available,        // a newer version exists; waiting for user yes/no
+        Downloading,      // pulling the new dll, progress fields live
+        Ready,            // download+hash ok, staged on disk; waiting for user OK
+        Applying,         // swap + unload + reload in progress (module dying)
+        Error,            // something failed; errorText set, back to Idle-able
+
+        // --- Auto (game-update) path — NO user interaction ------------------
+        // Entered when the game was patched (offsets invalid) so the DLL runs in
+        // render-only mode. The overlay shows a discreet toast, not the modal.
+        AutoUpdating,     // silently downloading the game-matched build (toast+bar)
+        WaitingCompatible // no compatible build online yet; retrying in background
     };
 
     // Live progress snapshot, safe to read every frame from the render thread.
@@ -41,6 +47,10 @@ namespace SelfUpdate
         unsigned long long bytesTotal    = 0;    // 0 if server sent no length
         double             speedBytesPerSec = 0; // smoothed
         double             fraction = 0.0;       // 0..1, or 0 if total unknown
+
+        // Auto-mode flags (set when the update was triggered by a game patch).
+        bool autoMode         = false; // true for AutoUpdating / WaitingCompatible
+        bool gameIncompatible = false; // game offsets invalid => render-only mode
     };
 
     // Wire the module handle + cleanup routine. Call once from MainThread.
@@ -50,6 +60,15 @@ namespace SelfUpdate
     // Kick a background manifest check. Non-blocking. Moves Idle -> Checking and
     // then to Available (update found) or Idle (up to date) / Error.
     void CheckAsync();
+
+    // Automatic (game-update) path — NO user interaction.
+    // Called when the game was patched and the SDK offsets no longer match, so
+    // the DLL is running render-only. Queries the server for a build matching
+    // this exact game (gameBuild = PE TimeDateStamp of the game .exe). If one is
+    // online it downloads and applies it fully automatically (AutoUpdating). If
+    // none is available yet it enters WaitingCompatible and retries in the
+    // background (~2 min) until a compatible build appears, then auto-applies.
+    void CheckAsyncAuto(unsigned int gameBuild);
 
     // User pressed "Yes, download". Valid only in Available. Starts the download
     // on a worker thread; progress fields update live. -> Downloading -> Ready.

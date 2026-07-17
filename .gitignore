@@ -9,6 +9,11 @@
 # Root source files
 !DllEntry.cpp
 
+# Public-build version counter (source of truth for auto-increment) + build tools
+!version.txt
+!tools/
+!tools/**
+
 # Project source tree used by RUGIR-INTERNAL.vcxproj
 !src/
 !src/Core/
@@ -97,3 +102,7 @@ Thumbs.db
 !server/**
 server/node_modules/
 server/.env
+
+# Auto-generated per Agency build by tools\bump_version.ps1 - regenerated every
+# compile, must not be tracked (would churn/conflict on every build).
+src/Core/Version.gen.h

@@ -200,6 +200,7 @@
     <ClCompile Include="src\Core\Main.cpp" />
     <ClCompile Include="src\Core\UnloadManager.cpp" />
     <ClCompile Include="src\Core\SelfUpdate.cpp" />
+    <ClCompile Include="src\Core\GameCompat.cpp" />
     <ClCompile Include="src\Hooks\D3D11Hook.cpp" />
     <ClCompile Include="src\Hooks\GameThreadHook.cpp" />
     <ClCompile Include="src\Menu\ImGuiMenu.cpp" />
@@ -256,4 +257,21 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <!-- ==========================================================================
+       Agency (public) auto-versioning.
+       Every Agency build bumps version.txt's patch component and regenerates
+       src\Core\Version.gen.h (RGUIR_AUTOVER) BEFORE compilation, so the DLL
+       stamps itself as the next update. AFTER a successful build the DLL and a
+       matching manifest.json are published into server\updates. Scoped to the
+       Agency config only — the other configs (built/injected by the dev) never
+       touch the public version counter or the server payload.
+       ========================================================================== -->
+  <Target Name="BumpAgencyVersion" BeforeTargets="ClCompile"
+          Condition="'$(Configuration)'=='Agency'">
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(ProjectDir)tools\bump_version.ps1&quot; -Root &quot;$(ProjectDir.TrimEnd('\'))&quot;" />
+  </Target>
+  <Target Name="PublishAgencyUpdate" AfterTargets="Build"
+          Condition="'$(Configuration)'=='Agency'">
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(ProjectDir)tools\publish_update.ps1&quot; -Root &quot;$(ProjectDir.TrimEnd('\'))&quot; -Dll &quot;$(TargetPath)&quot;" />
+  </Target>
 </Project>
