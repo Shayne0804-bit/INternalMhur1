@@ -204,17 +204,82 @@
         LmTextAligned(dl, g_FreeFontSmall, LM(11), mn, ImVec2(mx.x, mx.y - LM(34)), LmCol(kLmWhite, alpha), description, 0.5f, 0.78f);
     }
 
+    // Full Lumin re-theme of the shared ImGui/ImAdd style so every reused
+    // content widget (cards, sliders, toggles, buttons, dropdowns) renders in
+    // the Lumin design language — not just the shell.
+    static void SetupLuminAgencyTheme()
+    {
+        ImGuiStyle& style = ImGui::GetStyle();
+        const ImVec4 accentHover  = ImVec4(0.78f, 0.81f, 1.0f, 1.0f);
+        const ImVec4 accentActive = ImVec4(0.60f, 0.63f, 0.95f, 1.0f);
+        const ImVec4 widgetHover  = ImVec4(40.0f / 255.0f, 40.0f / 255.0f, 48.0f / 255.0f, 1.0f);
+        const ImVec4 widgetActive = ImVec4(46.0f / 255.0f, 46.0f / 255.0f, 56.0f / 255.0f, 1.0f);
+
+        g_Colors.bgDarkest         = kLmLayout;
+        g_Colors.bgDark            = kLmChild;
+        g_Colors.bgMedium          = kLmWidget;
+        g_Colors.bgLight           = widgetActive;
+        g_Colors.accentColor       = kLmAccent;
+        g_Colors.accentColorHover  = accentHover;
+        g_Colors.accentColorActive = accentActive;
+        g_Colors.textPrimary       = kLmWhite;
+        g_Colors.textSecondary     = ImVec4(0.62f, 0.62f, 0.72f, 1.0f);
+        g_Colors.textDisabled      = kLmText;
+        g_Colors.primaryBlue       = accentActive;
+        g_Colors.accentCyan        = accentHover;
+        g_Colors.accentMagenta     = ImVec4(1.0f, 1.0f, 1.0f, 0.55f);
+        g_Colors.accentPurple      = kLmAccent;
+        g_Colors.accentAqua        = accentHover;
+
+        style.ChildRounding     = LM(14);
+        style.ChildBorderSize   = 0.0f;
+        style.FrameRounding     = LM(8);
+        style.PopupRounding     = LM(10);
+        style.FramePadding      = ImVec2(LM(9), LM(5));
+        style.GrabRounding      = LM(99);
+        style.ScrollbarSize     = LM(5);
+        style.ScrollbarRounding = LM(99);
+        style.ChildPadding      = ImVec2(LM(12), LM(9));
+
+        ImVec4* colors = style.Colors;
+        colors[ImGuiCol_ChildBg]              = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
+        colors[ImGuiCol_PopupBg]              = ImVec4(kLmChild.x, kLmChild.y, kLmChild.z, 0.98f);
+        colors[ImGuiCol_Border]               = kLmBorder;
+        colors[ImGuiCol_BorderShadow]         = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
+        colors[ImGuiCol_Text]                 = kLmWhite;
+        colors[ImGuiCol_TextDisabled]         = kLmText;
+        colors[ImGuiCol_CheckMark]            = kLmAccent;
+        colors[ImGuiCol_FrameBg]              = kLmWidget;
+        colors[ImGuiCol_FrameBgHovered]       = widgetHover;
+        colors[ImGuiCol_FrameBgActive]        = widgetActive;
+        colors[ImGuiCol_FrameBgShadow]        = ImVec4(0.0f, 0.0f, 0.0f, 0.10f);
+        colors[ImGuiCol_Button]               = kLmWidget;
+        colors[ImGuiCol_ButtonHovered]        = widgetHover;
+        colors[ImGuiCol_ButtonActive]         = ImVec4(kLmAccent.x, kLmAccent.y, kLmAccent.z, 0.85f);
+        colors[ImGuiCol_ButtonShadow]         = ImVec4(0.0f, 0.0f, 0.0f, 0.10f);
+        colors[ImGuiCol_SliderGrab]           = kLmAccent;
+        colors[ImGuiCol_SliderGrabActive]     = accentHover;
+        colors[ImGuiCol_Header]               = kLmWidget;
+        colors[ImGuiCol_HeaderHovered]        = widgetHover;
+        colors[ImGuiCol_HeaderActive]         = widgetActive;
+        colors[ImGuiCol_Separator]            = kLmBorder;
+        colors[ImGuiCol_SeparatorHovered]     = accentHover;
+        colors[ImGuiCol_SeparatorActive]      = kLmAccent;
+        colors[ImGuiCol_ScrollbarBg]          = ImVec4(0.0f, 0.0f, 0.0f, 0.0f);
+        colors[ImGuiCol_ScrollbarGrab]        = kLmWidget;
+        colors[ImGuiCol_ScrollbarGrabHovered] = widgetHover;
+        colors[ImGuiCol_ScrollbarGrabActive]  = widgetActive;
+        colors[ImGuiCol_Tab]                  = kLmWidget;
+        colors[ImGuiCol_TabHovered]           = widgetHover;
+        colors[ImGuiCol_TabActive]            = kLmAccent;
+    }
+
     static void DrawAgencyStyleMenu()
     {
         struct Subtab { const char* label; unsigned int icon; };
         struct Page { const char* label; unsigned int icon; const Subtab* subtabs; int subtabCount; const int* subtabMap; };
 
-        // Lumin palette override so the reused content pages adopt the look too.
-        g_Colors.accentColor       = kLmAccent;
-        g_Colors.accentColorHover  = ImVec4(0.78f, 0.81f, 1.0f, 1.0f);
-        g_Colors.accentColorActive = ImVec4(0.60f, 0.63f, 0.95f, 1.0f);
-        g_Colors.accentPurple      = kLmAccent;
-        g_Colors.accentCyan        = ImVec4(0.78f, 0.81f, 1.0f, 1.0f);
+        SetupLuminAgencyTheme();
 
         const Subtab espSubtabs[]      = { { "ESP", 0xF5F8 } };
         const Subtab aimbotSubtabs[]   = { { "Aimbot", 0xFD5F } };

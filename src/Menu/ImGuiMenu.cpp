@@ -3271,10 +3271,18 @@ namespace ImGuiMenu
 
     static bool BeginRugirCard(const char* id, const char* title, ImVec2 size, bool* headerToggle = nullptr)
     {
+#if RUGIR_MENU_AGENCY
+        // Lumin visual section: opaque child panel, large rounding, no border.
+        ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(28.0f / 255.0f, 28.0f / 255.0f, 33.0f / 255.0f, 1.0f));
+        ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+        ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 18.0f);
+        ImGui::PushStyleVar(ImGuiStyleVar_ChildBorderSize, 0.0f);
+#else
         ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(8.0f / 255.0f, 9.0f / 255.0f, 14.0f / 255.0f, 0.40f));
         ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(g_Colors.accentColor.x, g_Colors.accentColor.y, g_Colors.accentColor.z, 0.20f));
         ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, 6.0f);
         ImGui::PushStyleVar(ImGuiStyleVar_ChildBorderSize, 1.0f);
+#endif
         bool visible = ImAdd::BeginChild(id, size);
         if (visible)
         {
