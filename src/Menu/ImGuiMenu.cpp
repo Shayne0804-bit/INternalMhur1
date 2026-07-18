@@ -5506,18 +5506,19 @@ namespace ImGuiMenu
         auto smallFont  = g_FreeFontSmall ? g_FreeFontSmall : ImGui::GetFont();
 
         // ====================================================================
-        // AUTO (game-update) states: discreet bottom-right toast, NO buttons,
-        // NO backdrop dim. The DLL runs render-only and self-updates silently.
+        // AUTO (game-update) states: top-center toast, NO buttons, NO backdrop
+        // dim. The DLL runs render-only and self-updates silently. Shows live
+        // percent, bytes and download speed.
         // ====================================================================
         if (prog.state == SelfUpdate::State::AutoUpdating ||
             prog.state == SelfUpdate::State::WaitingCompatible)
         {
             ImDrawList* fgt = ImGui::GetForegroundDrawList();
 
-            const float tW = 320.0f;
-            const float tH = 74.0f;
-            const float margin = 22.0f;
-            ImVec2 tMin(io.DisplaySize.x - tW - margin, io.DisplaySize.y - tH - margin);
+            const float tW = 440.0f;
+            const float tH = 96.0f;
+            const float topMargin = 28.0f;
+            ImVec2 tMin(io.DisplaySize.x * 0.5f - tW * 0.5f, topMargin);
             ImVec2 tMax(tMin.x + tW, tMin.y + tH);
 
             // Panel (dark, rounded, accent left rail + subtle border).
@@ -5525,30 +5526,35 @@ namespace ImGuiMenu
             fgt->AddRectFilled(tMin, ImVec2(tMin.x + 4.0f, tMax.y), cAccent, 10.0f, ImDrawFlags_RoundCornersLeft);
             fgt->AddRect(tMin, tMax, ImGui::GetColorU32(ImVec4(accent.x, accent.y, accent.z, 0.30f)), 10.0f, 0, 1.0f);
 
-            const float px = tMin.x + 16.0f;
+            const float px = tMin.x + 18.0f;
+            const float pxR = tMax.x - 18.0f;
             float ty = tMin.y + 12.0f;
 
             // Brand tag.
             fgt->AddText(smallFont, 12.0f, ImVec2(px, ty), cAccent, "VALARIA");
             ImVec2 tagSz = smallFont->CalcTextSizeA(12.0f, FLT_MAX, 0.0f, "VALARIA");
             fgt->AddText(smallFont, 12.0f, ImVec2(px + tagSz.x + 8.0f, ty), cTextDim, "AUTO-UPDATE");
-            ty += 20.0f;
+            ty += 22.0f;
 
             if (prog.state == SelfUpdate::State::AutoUpdating)
             {
                 fgt->AddText(smallFont, 14.0f, ImVec2(px, ty), cText, "Game update detected - installing...");
-                ty += 20.0f;
+                ty += 22.0f;
 
-                // Thin progress bar.
-                const float barH = 6.0f;
-                ImVec2 bMin(px, ty + 2.0f);
-                ImVec2 bMax(tMax.x - 16.0f, ty + 2.0f + barH);
-                fgt->AddRectFilled(bMin, bMax, ImGui::GetColorU32(ImVec4(1, 1, 1, 0.08f)), 3.0f);
+                // Progress bar with % centered inside.
+                const float barH = 14.0f;
+                ImVec2 bMin(px, ty);
+                ImVec2 bMax(pxR, ty + barH);
+                fgt->AddRectFilled(bMin, bMax, ImGui::GetColorU32(ImVec4(1, 1, 1, 0.08f)), 4.0f);
                 float frac = (float)prog.fraction;
                 if (frac < 0.0f) frac = 0.0f; if (frac > 1.0f) frac = 1.0f;
                 if (prog.bytesTotal)
                 {
-                    fgt->AddRectFilled(bMin, ImVec2(bMin.x + (bMax.x - bMin.x) * frac, bMax.y), cAccent, 3.0f);
+                    fgt->AddRectFilled(bMin, ImVec2(bMin.x + (bMax.x - bMin.x) * frac, bMax.y), cAccent, 4.0f);
+                    char pct[16];
+                    snprintf(pct, sizeof(pct), "%.0f%%", frac * 100.0f);
+                    ImVec2 ps = smallFont->CalcTextSizeA(12.0f, FLT_MAX, 0.0f, pct);
+                    fgt->AddText(smallFont, 12.0f, ImVec2((bMin.x + bMax.x - ps.x) * 0.5f, bMin.y + (barH - ps.y) * 0.5f), cText, pct);
                 }
                 else
                 {
@@ -5557,28 +5563,40 @@ namespace ImGuiMenu
                     float x0 = bMin.x + ((bMax.x - bMin.x) + w) * (0.5f + 0.5f * sinf(t * 2.0f)) - w;
                     if (x0 < bMin.x) x0 = bMin.x;
                     float x1 = x0 + w; if (x1 > bMax.x) x1 = bMax.x;
-                    fgt->AddRectFilled(ImVec2(x0, bMin.y), ImVec2(x1, bMax.y), cAccent, 3.0f);
+                    fgt->AddRectFilled(ImVec2(x0, bMin.y), ImVec2(x1, bMax.y), cAccent, 4.0f);
                 }
+                fgt->AddRect(bMin, bMax, ImGui::GetColorU32(ImVec4(accent.x, accent.y, accent.z, 0.35f)), 4.0f);
+                ty += barH + 8.0f;
+
+                // Bytes (left) + speed (right).
+                std::string bytes = prog.bytesTotal
+                    ? SelfUpdate_HumanBytes((double)prog.bytesReceived) + " / " + SelfUpdate_HumanBytes((double)prog.bytesTotal)
+                    : SelfUpdate_HumanBytes((double)prog.bytesReceived) + " received";
+                fgt->AddText(smallFont, 13.0f, ImVec2(px, ty), cTextSec, bytes.c_str());
+
+                std::string spd = SelfUpdate_HumanBytes(prog.speedBytesPerSec) + "/s";
+                ImVec2 ss = smallFont->CalcTextSizeA(13.0f, FLT_MAX, 0.0f, spd.c_str());
+                fgt->AddText(smallFont, 13.0f, ImVec2(pxR - ss.x, ty), ImGui::GetColorU32(g_Colors.success), spd.c_str());
             }
             else // WaitingCompatible
             {
                 fgt->AddText(smallFont, 14.0f, ImVec2(px, ty), cText, "Game updated - cheat update pending...");
-                ty += 20.0f;
+                ty += 24.0f;
 
-                // Small spinner.
+                // Small spinner + label.
                 float t = (float)ImGui::GetTime();
-                ImVec2 sc(px + 7.0f, ty + 7.0f);
-                float r = 6.0f;
+                ImVec2 sc(px + 8.0f, ty + 8.0f);
+                float r = 7.0f;
                 int seg = 12;
                 for (int i = 0; i < seg; ++i)
                 {
                     float a0 = (float)i / seg * 6.2831853f + t * 3.0f;
                     float alpha = (float)i / seg;
                     ImVec2 p0(sc.x + cosf(a0) * r, sc.y + sinf(a0) * r);
-                    ImVec2 p1(sc.x + cosf(a0) * (r - 3.0f), sc.y + sinf(a0) * (r - 3.0f));
-                    fgt->AddLine(p0, p1, ImGui::GetColorU32(ImVec4(accent.x, accent.y, accent.z, alpha)), 1.6f);
+                    ImVec2 p1(sc.x + cosf(a0) * (r - 3.5f), sc.y + sinf(a0) * (r - 3.5f));
+                    fgt->AddLine(p0, p1, ImGui::GetColorU32(ImVec4(accent.x, accent.y, accent.z, alpha)), 2.0f);
                 }
-                fgt->AddText(smallFont, 12.0f, ImVec2(px + 22.0f, ty + 1.0f), cTextDim, "Retrying in background");
+                fgt->AddText(smallFont, 13.0f, ImVec2(px + 26.0f, ty + 1.0f), cTextDim, "Retrying in background...");
             }
             return; // no modal, no click-swallow
         }
@@ -5781,7 +5799,7 @@ namespace ImGuiMenu
     static void DrawAgencyStyleMenu()
     {
         struct Subtab { const char* label; };
-        struct Page { const char* label; const Subtab* subtabs; int subtabCount; const int* subtabMap; };
+        struct Page { const char* label; const char* icon; const Subtab* subtabs; int subtabCount; const int* subtabMap; };
 
         // Signature Agency accent (amber) — override shared palette so cards/widgets
         // rendered by the reused content functions adopt the Agency look too.
@@ -5810,14 +5828,16 @@ namespace ImGuiMenu
             { "Apply Team" }, { "Apply All" }, { "Specific" }, { "Change Team" }
         };
 
+        // Icon glyphs come from the Icon_Pack font (g_FreeIconFont) — same
+        // character mapping as the Free ImGui menu sidebar.
         const Page pages[] = {
-            { "ESP",       espSubtabs,       IM_ARRAYSIZE(espSubtabs),       nullptr },
-            { "CHARACTER", characterSubtabs, IM_ARRAYSIZE(characterSubtabs), characterMap },
-            { "AIMBOT",    aimbotSubtabs,    IM_ARRAYSIZE(aimbotSubtabs),    nullptr },
-            { "COMBAT",    combatSubtabs,    IM_ARRAYSIZE(combatSubtabs),    nullptr },
-            { "HACKS",     hacksSubtabs,     IM_ARRAYSIZE(hacksSubtabs),     nullptr },
-            { "LOBBY",     lobbySubtabs,     IM_ARRAYSIZE(lobbySubtabs),     nullptr },
-            { "SETTINGS",  settingsSubtabs,  IM_ARRAYSIZE(settingsSubtabs),  nullptr },
+            { "ESP",       "E", espSubtabs,       IM_ARRAYSIZE(espSubtabs),       nullptr },
+            { "CHARACTER", "C", characterSubtabs, IM_ARRAYSIZE(characterSubtabs), characterMap },
+            { "AIMBOT",    "A", aimbotSubtabs,    IM_ARRAYSIZE(aimbotSubtabs),    nullptr },
+            { "COMBAT",    "X", combatSubtabs,    IM_ARRAYSIZE(combatSubtabs),    nullptr },
+            { "HACKS",     "H", hacksSubtabs,     IM_ARRAYSIZE(hacksSubtabs),     nullptr },
+            { "LOBBY",     "L", lobbySubtabs,     IM_ARRAYSIZE(lobbySubtabs),     nullptr },
+            { "SETTINGS",  "S", settingsSubtabs,  IM_ARRAYSIZE(settingsSubtabs),  nullptr },
         };
         const int pageCount = IM_ARRAYSIZE(pages);
         static int selectedSubtabs[7] = {};
@@ -5923,7 +5943,9 @@ namespace ImGuiMenu
         g_LicenseSectionUnlocked = true;
 
         // ---- Horizontal page nav -------------------------------------------
-        auto navButton = [&](const char* label, bool selected, const ImVec2& btnSize) -> bool
+        const float navIconSize = 17.0f;
+        const float navIconGap  = 7.0f;
+        auto navButton = [&](const char* label, const char* icon, bool selected, const ImVec2& btnSize) -> bool
         {
             ImGui::PushID(label);
             ImGui::InvisibleButton("##agency-nav", btnSize);
@@ -5940,9 +5962,15 @@ namespace ImGuiMenu
             if (selected)
                 drawList->AddRectFilled(ImVec2(mn.x + 8.0f, mx.y - 3.0f), ImVec2(mx.x - 8.0f, mx.y - 1.0f), ImGui::GetColorU32(agencyAccent));
 
+            ImFont* iconFont = g_FreeIconFont ? g_FreeIconFont : g_FreeFontLarge;
+            ImVec2 is = calcTextSize(iconFont, navIconSize, icon);
             ImVec2 ts = calcTextSize(g_FreeFontLarge, 16.0f, label);
+            float contentW = is.x + navIconGap + ts.x;
+            float startX = mn.x + (btnSize.x - contentW) * 0.5f;
+            ImU32 iconCol = ImGui::GetColorU32(selected ? agencyAccent : g_Colors.textDisabled);
             ImU32 col = ImGui::GetColorU32(selected ? g_Colors.textPrimary : g_Colors.textSecondary);
-            addText(g_FreeFontLarge, 16.0f, ImVec2(mn.x + (btnSize.x - ts.x) * 0.5f, mn.y + (btnSize.y - ts.y) * 0.5f), col, label);
+            addText(iconFont, navIconSize, ImVec2(startX, mn.y + (btnSize.y - is.y) * 0.5f), iconCol, icon);
+            addText(g_FreeFontLarge, 16.0f, ImVec2(startX + is.x + navIconGap, mn.y + (btnSize.y - ts.y) * 0.5f), col, label);
             return clicked;
         };
 
@@ -5953,8 +5981,10 @@ namespace ImGuiMenu
         {
             if (i > 0)
                 ImGui::SameLine();
-            float w = calcTextSize(g_FreeFontLarge, 16.0f, pages[i].label).x + 34.0f;
-            if (navButton(pages[i].label, g_SelectedTab == i, ImVec2(w, navH - 6.0f)))
+            ImFont* iconFont = g_FreeIconFont ? g_FreeIconFont : g_FreeFontLarge;
+            float w = calcTextSize(iconFont, navIconSize, pages[i].icon).x + navIconGap
+                    + calcTextSize(g_FreeFontLarge, 16.0f, pages[i].label).x + 30.0f;
+            if (navButton(pages[i].label, pages[i].icon, g_SelectedTab == i, ImVec2(w, navH - 6.0f)))
                 g_SelectedTab = i;
         }
         ImGui::PopStyleVar();
