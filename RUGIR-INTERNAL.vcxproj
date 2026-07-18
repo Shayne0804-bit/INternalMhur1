@@ -267,11 +267,11 @@
        touch the public version counter or the server payload.
        ========================================================================== -->
   <Target Name="BumpAgencyVersion" BeforeTargets="ClCompile"
-          Condition="'$(Configuration)'=='Agency'">
+          Condition="'$(Configuration)'=='Agency' And '$(RugirAutoVersion)'!='false'">
     <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(ProjectDir)tools\bump_version.ps1&quot; -Root &quot;$(ProjectDir.TrimEnd('\'))&quot;" />
   </Target>
   <Target Name="PublishAgencyUpdate" AfterTargets="Build"
-          Condition="'$(Configuration)'=='Agency'">
+          Condition="'$(Configuration)'=='Agency' And '$(RugirAutoVersion)'!='false'">
     <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(ProjectDir)tools\publish_update.ps1&quot; -Root &quot;$(ProjectDir.TrimEnd('\'))&quot; -Dll &quot;$(TargetPath)&quot;" />
   </Target>
 </Project>
