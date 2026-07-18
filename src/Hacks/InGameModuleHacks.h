@@ -119,6 +119,72 @@ struct Ch202Unique3ParamsConfig
     float conditionJumpAdjustMultiplyRate = 1.0f;
 };
 
+// CH025 V2 (Nejire Hado rework) tunable SDK params.
+// Sources: UBP_Ch025V2_U2_Param_C (flight), UBP_Ch025V2U3_Param_C (wave/barrier),
+// UBP_Ch025_ActionAttack_Special_C (dash), UBB_CC_CH025_WAVE_BARRIER_C,
+// UBB_CC_Ch025_Continuos_Recover_Health_C.
+struct Ch025V2ParamsConfig
+{
+    // Unique 2 — flight
+    float u2MoveSpeedXY = 1.0f;
+    float u2MoveSpeedZUp = 1.0f;
+    float u2MoveSpeedZDown = 1.0f;
+    float u2ReinforceMoveSpeedXY = 1.0f;
+    float u2ReinforceMoveSpeedZUp = 1.0f;
+    float u2ReinforceMoveSpeedZDown = 1.0f;
+    float u2ActivityLimitTime = 1.0f;
+    float u2ActivityLowestTime = 1.0f;
+    float u2ShockWaveMagRateL1 = 1.0f;
+    float u2ShockWaveMagRateL2 = 1.0f;
+    float u2ShockWaveMagRateL3 = 1.0f;
+    float u2ActionMagRateL1 = 1.0f;
+    float u2ActionMagRateL2 = 1.0f;
+    float u2ActionMagRateL3 = 1.0f;
+    // Unique 3 — wave / barrier
+    float u3InitialVerticalSpeed = 1.0f;
+    float u3LastVerticalSpeed = 1.0f;
+    float u3Span = 1.0f;
+    float u3WaitTurnTime = 1.0f;
+    float u3ApplyInertiaSpawn = 1.0f;
+    float u3ApplyInertiaSpawnHRate = 1.0f;
+    float u3ApplyInertiaSpawnVRate = 1.0f;
+    float u3ConditionTimeL1 = 1.0f;
+    float u3ConditionTimeL2 = 1.0f;
+    float u3ConditionTimeL3 = 1.0f;
+    float u3BarrierValueL1 = 1.0f;
+    float u3BarrierValueL2 = 1.0f;
+    float u3BarrierValueL3 = 1.0f;
+    float u3BarrierValueAllyL1 = 1.0f;
+    float u3BarrierValueAllyL2 = 1.0f;
+    float u3BarrierValueAllyL3 = 1.0f;
+    float u3TurnAngleDeg = 1.0f;
+    float u3TurnTime = 1.0f;
+    float u3TurnBlendExp = 1.0f;
+    int32_t u3TurnSteps = 1;
+    float u3ManyAllyBarrierRate = 1.0f;
+    float u3OwnerBarrierListValue = 1.0f;
+    float u3AllyBarrierListValue = 1.0f;
+    // Special — dash
+    float specialLowGravityTime = 1.0f;
+    float specialStartSpeed = 1.0f;
+    float specialMiddleSpeed = 1.0f;
+    float specialEndSpeed = 1.0f;
+    float specialStartSpan = 1.0f;
+    float specialEndSpan = 1.0f;
+    float specialDashTime = 1.0f;
+    float specialStartVerticalSpeed = 1.0f;
+    float specialMiddleVerticalSpeed = 1.0f;
+    float specialEndVerticalSpeed = 1.0f;
+    float specialStartVerticalSpan = 1.0f;
+    float specialEndVerticalSpan = 1.0f;
+    // Wave barrier condition effect
+    float barrierMaxTime = 1.0f;
+    float barrierDurability = 1.0f;
+    float barrierCopyRate = 1.0f;
+    // Continuous recover health
+    float recoveryHealthValue = 1.0f;
+};
+
 struct AttackChainConfig
 {
     bool useChainComboFlag = true;
@@ -842,6 +908,9 @@ bool InGameHack_SetInitTransMissionLevel(int levelIndex, int32_t newValue);
 
 bool InGameHack_ApplyCh202Unique3Params(const Ch202Unique3ParamsConfig& config);
 bool InGameHack_TryReadCh202Unique3Params(Ch202Unique3ParamsConfig& outConfig);
+
+bool InGameHack_ApplyCh025V2Params(const Ch025V2ParamsConfig& config);
+bool InGameHack_TryReadCh025V2Params(Ch025V2ParamsConfig& outConfig);
 
 /**
  * Set skill level for a character

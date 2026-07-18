@@ -4160,6 +4160,385 @@ namespace ImGuiMenu
         EndRugirCard();
     }
 
+    // ------------------------------------------------------------------------
+    //  CH025 V2 (NEJIRE) SDK PARAMS — same machinery as CH202 above.
+    // ------------------------------------------------------------------------
+    static std::mutex g_Ch025DefaultsMutex;
+    static Ch025V2ParamsConfig g_Ch025PendingDefaults{};
+    static Ch025V2ParamsConfig g_Ch025LoadedDefaults{};
+    static bool g_Ch025DefaultsPending = false;
+    static bool g_Ch025DefaultsLoaded = false;
+    static bool g_Ch025LoadedDefaultsValid = false;
+    static bool g_Ch025DefaultsRequestInFlight = false;
+    static DWORD g_Ch025LastDefaultRequestTick = 0;
+    static Ch025V2ParamsConfig g_Ch025PendingApply{};
+    static bool g_Ch025ApplyPending = false;
+    static DWORD g_Ch025LastApplyTick = 0;
+    static DWORD g_Ch025LastChangeTick = 0;
+    static std::atomic_bool g_Ch025ApplyInFlight = false;
+
+    static void ApplyCh025ConfigToSettings(const Ch025V2ParamsConfig& config)
+    {
+        g_Settings.Ch025U2MoveSpeedXY = config.u2MoveSpeedXY;
+        g_Settings.Ch025U2MoveSpeedZUp = config.u2MoveSpeedZUp;
+        g_Settings.Ch025U2MoveSpeedZDown = config.u2MoveSpeedZDown;
+        g_Settings.Ch025U2ReinforceMoveSpeedXY = config.u2ReinforceMoveSpeedXY;
+        g_Settings.Ch025U2ReinforceMoveSpeedZUp = config.u2ReinforceMoveSpeedZUp;
+        g_Settings.Ch025U2ReinforceMoveSpeedZDown = config.u2ReinforceMoveSpeedZDown;
+        g_Settings.Ch025U2ActivityLimitTime = config.u2ActivityLimitTime;
+        g_Settings.Ch025U2ActivityLowestTime = config.u2ActivityLowestTime;
+        g_Settings.Ch025U2ShockWaveMagRateL1 = config.u2ShockWaveMagRateL1;
+        g_Settings.Ch025U2ShockWaveMagRateL2 = config.u2ShockWaveMagRateL2;
+        g_Settings.Ch025U2ShockWaveMagRateL3 = config.u2ShockWaveMagRateL3;
+        g_Settings.Ch025U2ActionMagRateL1 = config.u2ActionMagRateL1;
+        g_Settings.Ch025U2ActionMagRateL2 = config.u2ActionMagRateL2;
+        g_Settings.Ch025U2ActionMagRateL3 = config.u2ActionMagRateL3;
+        g_Settings.Ch025U3InitialVerticalSpeed = config.u3InitialVerticalSpeed;
+        g_Settings.Ch025U3LastVerticalSpeed = config.u3LastVerticalSpeed;
+        g_Settings.Ch025U3Span = config.u3Span;
+        g_Settings.Ch025U3WaitTurnTime = config.u3WaitTurnTime;
+        g_Settings.Ch025U3ApplyInertiaSpawn = config.u3ApplyInertiaSpawn;
+        g_Settings.Ch025U3ApplyInertiaSpawnHRate = config.u3ApplyInertiaSpawnHRate;
+        g_Settings.Ch025U3ApplyInertiaSpawnVRate = config.u3ApplyInertiaSpawnVRate;
+        g_Settings.Ch025U3ConditionTimeL1 = config.u3ConditionTimeL1;
+        g_Settings.Ch025U3ConditionTimeL2 = config.u3ConditionTimeL2;
+        g_Settings.Ch025U3ConditionTimeL3 = config.u3ConditionTimeL3;
+        g_Settings.Ch025U3BarrierValueL1 = config.u3BarrierValueL1;
+        g_Settings.Ch025U3BarrierValueL2 = config.u3BarrierValueL2;
+        g_Settings.Ch025U3BarrierValueL3 = config.u3BarrierValueL3;
+        g_Settings.Ch025U3BarrierValueAllyL1 = config.u3BarrierValueAllyL1;
+        g_Settings.Ch025U3BarrierValueAllyL2 = config.u3BarrierValueAllyL2;
+        g_Settings.Ch025U3BarrierValueAllyL3 = config.u3BarrierValueAllyL3;
+        g_Settings.Ch025U3TurnAngleDeg = config.u3TurnAngleDeg;
+        g_Settings.Ch025U3TurnTime = config.u3TurnTime;
+        g_Settings.Ch025U3TurnBlendExp = config.u3TurnBlendExp;
+        g_Settings.Ch025U3TurnSteps = config.u3TurnSteps;
+        g_Settings.Ch025U3ManyAllyBarrierRate = config.u3ManyAllyBarrierRate;
+        g_Settings.Ch025U3OwnerBarrierListValue = config.u3OwnerBarrierListValue;
+        g_Settings.Ch025U3AllyBarrierListValue = config.u3AllyBarrierListValue;
+        g_Settings.Ch025SpecialLowGravityTime = config.specialLowGravityTime;
+        g_Settings.Ch025SpecialStartSpeed = config.specialStartSpeed;
+        g_Settings.Ch025SpecialMiddleSpeed = config.specialMiddleSpeed;
+        g_Settings.Ch025SpecialEndSpeed = config.specialEndSpeed;
+        g_Settings.Ch025SpecialStartSpan = config.specialStartSpan;
+        g_Settings.Ch025SpecialEndSpan = config.specialEndSpan;
+        g_Settings.Ch025SpecialDashTime = config.specialDashTime;
+        g_Settings.Ch025SpecialStartVerticalSpeed = config.specialStartVerticalSpeed;
+        g_Settings.Ch025SpecialMiddleVerticalSpeed = config.specialMiddleVerticalSpeed;
+        g_Settings.Ch025SpecialEndVerticalSpeed = config.specialEndVerticalSpeed;
+        g_Settings.Ch025SpecialStartVerticalSpan = config.specialStartVerticalSpan;
+        g_Settings.Ch025SpecialEndVerticalSpan = config.specialEndVerticalSpan;
+        g_Settings.Ch025BarrierMaxTime = config.barrierMaxTime;
+        g_Settings.Ch025BarrierDurability = config.barrierDurability;
+        g_Settings.Ch025BarrierCopyRate = config.barrierCopyRate;
+        g_Settings.Ch025RecoveryHealthValue = config.recoveryHealthValue;
+    }
+
+    static void PublishCh025Defaults(const Ch025V2ParamsConfig& config)
+    {
+        std::lock_guard<std::mutex> lock(g_Ch025DefaultsMutex);
+        g_Ch025PendingDefaults = config;
+        if (!g_Ch025LoadedDefaultsValid)
+        {
+            g_Ch025LoadedDefaults = config;
+            g_Ch025LoadedDefaultsValid = true;
+        }
+        g_Ch025DefaultsPending = true;
+        g_Ch025DefaultsLoaded = true;
+        g_Ch025DefaultsRequestInFlight = false;
+    }
+
+    static void FinishCh025DefaultsRequest()
+    {
+        std::lock_guard<std::mutex> lock(g_Ch025DefaultsMutex);
+        g_Ch025DefaultsRequestInFlight = false;
+    }
+
+    static bool ConsumeCh025Defaults()
+    {
+        Ch025V2ParamsConfig config{};
+        {
+            std::lock_guard<std::mutex> lock(g_Ch025DefaultsMutex);
+            if (!g_Ch025DefaultsPending)
+                return false;
+
+            config = g_Ch025PendingDefaults;
+            g_Ch025DefaultsPending = false;
+        }
+
+        ApplyCh025ConfigToSettings(config);
+        return true;
+    }
+
+    static bool HasCh025DefaultsLoaded()
+    {
+        std::lock_guard<std::mutex> lock(g_Ch025DefaultsMutex);
+        return g_Ch025DefaultsLoaded;
+    }
+
+    static bool TryGetCh025LoadedDefaults(Ch025V2ParamsConfig& outConfig)
+    {
+        std::lock_guard<std::mutex> lock(g_Ch025DefaultsMutex);
+        if (!g_Ch025LoadedDefaultsValid)
+            return false;
+
+        outConfig = g_Ch025LoadedDefaults;
+        return true;
+    }
+
+    static void RequestCh025DefaultsFromSdk(bool force)
+    {
+        {
+            std::lock_guard<std::mutex> lock(g_Ch025DefaultsMutex);
+            const DWORD now = GetTickCount();
+            if (!force && (g_Ch025DefaultsLoaded || g_Ch025DefaultsRequestInFlight))
+                return;
+
+            if (!force && g_Ch025LastDefaultRequestTick != 0 && now - g_Ch025LastDefaultRequestTick < 1000)
+                return;
+
+            g_Ch025DefaultsRequestInFlight = true;
+            g_Ch025LastDefaultRequestTick = now;
+        }
+
+        if (!EnqueueGameThreadMenuTask([]() {
+            Ch025V2ParamsConfig config{};
+            if (InGameHack_TryReadCh025V2Params(config))
+                PublishCh025Defaults(config);
+            else
+                FinishCh025DefaultsRequest();
+        }, "Load CH025 V2 SDK Params"))
+        {
+            FinishCh025DefaultsRequest();
+        }
+    }
+
+    static Ch025V2ParamsConfig BuildCh025ParamsConfig()
+    {
+        Ch025V2ParamsConfig config{};
+        config.u2MoveSpeedXY = g_Settings.Ch025U2MoveSpeedXY;
+        config.u2MoveSpeedZUp = g_Settings.Ch025U2MoveSpeedZUp;
+        config.u2MoveSpeedZDown = g_Settings.Ch025U2MoveSpeedZDown;
+        config.u2ReinforceMoveSpeedXY = g_Settings.Ch025U2ReinforceMoveSpeedXY;
+        config.u2ReinforceMoveSpeedZUp = g_Settings.Ch025U2ReinforceMoveSpeedZUp;
+        config.u2ReinforceMoveSpeedZDown = g_Settings.Ch025U2ReinforceMoveSpeedZDown;
+        config.u2ActivityLimitTime = g_Settings.Ch025U2ActivityLimitTime;
+        config.u2ActivityLowestTime = g_Settings.Ch025U2ActivityLowestTime;
+        config.u2ShockWaveMagRateL1 = g_Settings.Ch025U2ShockWaveMagRateL1;
+        config.u2ShockWaveMagRateL2 = g_Settings.Ch025U2ShockWaveMagRateL2;
+        config.u2ShockWaveMagRateL3 = g_Settings.Ch025U2ShockWaveMagRateL3;
+        config.u2ActionMagRateL1 = g_Settings.Ch025U2ActionMagRateL1;
+        config.u2ActionMagRateL2 = g_Settings.Ch025U2ActionMagRateL2;
+        config.u2ActionMagRateL3 = g_Settings.Ch025U2ActionMagRateL3;
+        config.u3InitialVerticalSpeed = g_Settings.Ch025U3InitialVerticalSpeed;
+        config.u3LastVerticalSpeed = g_Settings.Ch025U3LastVerticalSpeed;
+        config.u3Span = g_Settings.Ch025U3Span;
+        config.u3WaitTurnTime = g_Settings.Ch025U3WaitTurnTime;
+        config.u3ApplyInertiaSpawn = g_Settings.Ch025U3ApplyInertiaSpawn;
+        config.u3ApplyInertiaSpawnHRate = g_Settings.Ch025U3ApplyInertiaSpawnHRate;
+        config.u3ApplyInertiaSpawnVRate = g_Settings.Ch025U3ApplyInertiaSpawnVRate;
+        config.u3ConditionTimeL1 = g_Settings.Ch025U3ConditionTimeL1;
+        config.u3ConditionTimeL2 = g_Settings.Ch025U3ConditionTimeL2;
+        config.u3ConditionTimeL3 = g_Settings.Ch025U3ConditionTimeL3;
+        config.u3BarrierValueL1 = g_Settings.Ch025U3BarrierValueL1;
+        config.u3BarrierValueL2 = g_Settings.Ch025U3BarrierValueL2;
+        config.u3BarrierValueL3 = g_Settings.Ch025U3BarrierValueL3;
+        config.u3BarrierValueAllyL1 = g_Settings.Ch025U3BarrierValueAllyL1;
+        config.u3BarrierValueAllyL2 = g_Settings.Ch025U3BarrierValueAllyL2;
+        config.u3BarrierValueAllyL3 = g_Settings.Ch025U3BarrierValueAllyL3;
+        config.u3TurnAngleDeg = g_Settings.Ch025U3TurnAngleDeg;
+        config.u3TurnTime = g_Settings.Ch025U3TurnTime;
+        config.u3TurnBlendExp = g_Settings.Ch025U3TurnBlendExp;
+        config.u3TurnSteps = g_Settings.Ch025U3TurnSteps;
+        config.u3ManyAllyBarrierRate = g_Settings.Ch025U3ManyAllyBarrierRate;
+        config.u3OwnerBarrierListValue = g_Settings.Ch025U3OwnerBarrierListValue;
+        config.u3AllyBarrierListValue = g_Settings.Ch025U3AllyBarrierListValue;
+        config.specialLowGravityTime = g_Settings.Ch025SpecialLowGravityTime;
+        config.specialStartSpeed = g_Settings.Ch025SpecialStartSpeed;
+        config.specialMiddleSpeed = g_Settings.Ch025SpecialMiddleSpeed;
+        config.specialEndSpeed = g_Settings.Ch025SpecialEndSpeed;
+        config.specialStartSpan = g_Settings.Ch025SpecialStartSpan;
+        config.specialEndSpan = g_Settings.Ch025SpecialEndSpan;
+        config.specialDashTime = g_Settings.Ch025SpecialDashTime;
+        config.specialStartVerticalSpeed = g_Settings.Ch025SpecialStartVerticalSpeed;
+        config.specialMiddleVerticalSpeed = g_Settings.Ch025SpecialMiddleVerticalSpeed;
+        config.specialEndVerticalSpeed = g_Settings.Ch025SpecialEndVerticalSpeed;
+        config.specialStartVerticalSpan = g_Settings.Ch025SpecialStartVerticalSpan;
+        config.specialEndVerticalSpan = g_Settings.Ch025SpecialEndVerticalSpan;
+        config.barrierMaxTime = g_Settings.Ch025BarrierMaxTime;
+        config.barrierDurability = g_Settings.Ch025BarrierDurability;
+        config.barrierCopyRate = g_Settings.Ch025BarrierCopyRate;
+        config.recoveryHealthValue = g_Settings.Ch025RecoveryHealthValue;
+        return config;
+    }
+
+    static void QueueCh025Apply(const Ch025V2ParamsConfig& config)
+    {
+        g_Ch025PendingApply = config;
+        g_Ch025ApplyPending = true;
+        g_Ch025LastChangeTick = GetTickCount();
+    }
+
+    static void FlushCh025Apply(bool force)
+    {
+        if (!g_Ch025ApplyPending)
+            return;
+
+        const DWORD now = GetTickCount();
+        constexpr DWORD ApplyDebounceMs = 220;
+        if (!force && g_Ch025LastChangeTick != 0 && now - g_Ch025LastChangeTick < ApplyDebounceMs)
+            return;
+
+        if (g_Ch025ApplyInFlight.load())
+            return;
+
+        if (!force && g_Ch025LastApplyTick != 0 && now - g_Ch025LastApplyTick < ApplyDebounceMs)
+            return;
+
+        const Ch025V2ParamsConfig config = g_Ch025PendingApply;
+        g_Ch025ApplyInFlight.store(true);
+        if (EnqueueGameThreadMenuTask([config]() {
+            InGameHack_ApplyCh025V2Params(config);
+            g_Ch025ApplyInFlight.store(false);
+        }, "CH025 Params Auto Apply"))
+        {
+            g_Ch025ApplyPending = false;
+            g_Ch025LastApplyTick = now;
+        }
+        else
+        {
+            g_Ch025ApplyInFlight.store(false);
+        }
+    }
+
+    static void RenderCh025V2ParamsPage(float groupWidth)
+    {
+        RequestCh025DefaultsFromSdk(false);
+        ConsumeCh025Defaults();
+
+        if (BeginRugirCard("character-ch025-page", "CH025 V2 (NEJIRE) SDK PARAMS", ImVec2(0.0f, 0.0f)))
+        {
+            ImGuiStyle& style = ImGui::GetStyle();
+            const float columnWidth = (groupWidth > 0.0f)
+                ? groupWidth
+                : std::floor((ImGui::GetContentRegionAvail().x - style.ItemSpacing.x) * 0.5f);
+
+            ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(style.ItemSpacing.x, 6.0f));
+            ImGui::Columns(2, "character-ch025-columns", false);
+            ImGui::SetColumnWidth(0, columnWidth);
+
+            if (!HasCh025DefaultsLoaded())
+            {
+                ImGui::TextUnformatted("Waiting for loaded SDK values...");
+                if (FullWidthButton("RETRY LOAD SDK VALUES"))
+                    RequestCh025DefaultsFromSdk(true);
+
+                ImGui::Columns(1);
+                ImGui::PopStyleVar();
+                EndRugirCard();
+                return;
+            }
+
+            bool changed = false;
+
+            SeparatorLabel("Unique 2 Flight");
+            changed |= ImAdd::SliderFloat("Move Speed XY", &g_Settings.Ch025U2MoveSpeedXY, 0.0f, 10000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Move Speed Z Up", &g_Settings.Ch025U2MoveSpeedZUp, 0.0f, 10000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Move Speed Z Down", &g_Settings.Ch025U2MoveSpeedZDown, 0.0f, 10000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Reinforce Speed XY", &g_Settings.Ch025U2ReinforceMoveSpeedXY, 0.0f, 10000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Reinforce Speed Z Up", &g_Settings.Ch025U2ReinforceMoveSpeedZUp, 0.0f, 10000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Reinforce Speed Z Down", &g_Settings.Ch025U2ReinforceMoveSpeedZDown, 0.0f, 10000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Activity Limit Time", &g_Settings.Ch025U2ActivityLimitTime, 0.0f, 120.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Activity Lowest Time", &g_Settings.Ch025U2ActivityLowestTime, 0.0f, 120.0f, "%.2f");
+
+            SeparatorLabel("Unique 2 Magazine");
+            changed |= ImAdd::SliderFloat("ShockWave Mag Rate L1", &g_Settings.Ch025U2ShockWaveMagRateL1, 0.0f, 100.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("ShockWave Mag Rate L2", &g_Settings.Ch025U2ShockWaveMagRateL2, 0.0f, 100.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("ShockWave Mag Rate L3", &g_Settings.Ch025U2ShockWaveMagRateL3, 0.0f, 100.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Action Mag Rate L1", &g_Settings.Ch025U2ActionMagRateL1, 0.0f, 100.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Action Mag Rate L2", &g_Settings.Ch025U2ActionMagRateL2, 0.0f, 100.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Action Mag Rate L3", &g_Settings.Ch025U2ActionMagRateL3, 0.0f, 100.0f, "%.2f");
+
+            SeparatorLabel("Special Dash");
+            changed |= ImAdd::SliderFloat("Low Gravity Time", &g_Settings.Ch025SpecialLowGravityTime, 0.0f, 60.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Start Speed", &g_Settings.Ch025SpecialStartSpeed, 0.0f, 20000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Middle Speed", &g_Settings.Ch025SpecialMiddleSpeed, 0.0f, 20000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("End Speed", &g_Settings.Ch025SpecialEndSpeed, 0.0f, 20000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Start Span", &g_Settings.Ch025SpecialStartSpan, 0.0f, 30.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("End Span", &g_Settings.Ch025SpecialEndSpan, 0.0f, 30.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Dash Time Seconds", &g_Settings.Ch025SpecialDashTime, 0.0f, 60.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Start Vertical Speed", &g_Settings.Ch025SpecialStartVerticalSpeed, -20000.0f, 20000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Middle Vertical Speed", &g_Settings.Ch025SpecialMiddleVerticalSpeed, -20000.0f, 20000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("End Vertical Speed", &g_Settings.Ch025SpecialEndVerticalSpeed, -20000.0f, 20000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Start Vertical Span", &g_Settings.Ch025SpecialStartVerticalSpan, 0.0f, 30.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("End Vertical Span", &g_Settings.Ch025SpecialEndVerticalSpan, 0.0f, 30.0f, "%.2f");
+
+            ImGui::NextColumn();
+
+            SeparatorLabel("Unique 3 Wave");
+            changed |= ImAdd::SliderFloat("Initial Vertical Speed", &g_Settings.Ch025U3InitialVerticalSpeed, -20000.0f, 20000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Last Vertical Speed", &g_Settings.Ch025U3LastVerticalSpeed, -20000.0f, 20000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Span", &g_Settings.Ch025U3Span, 0.0f, 30.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Wait Turn Time", &g_Settings.Ch025U3WaitTurnTime, 0.0f, 30.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Apply Inertia Spawn", &g_Settings.Ch025U3ApplyInertiaSpawn, 0.0f, 30.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Inertia Spawn H Rate", &g_Settings.Ch025U3ApplyInertiaSpawnHRate, 0.0f, 30.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Inertia Spawn V Rate", &g_Settings.Ch025U3ApplyInertiaSpawnVRate, 0.0f, 30.0f, "%.2f");
+
+            SeparatorLabel("Unique 3 Condition / Barrier");
+            changed |= ImAdd::SliderFloat("Condition Time L1", &g_Settings.Ch025U3ConditionTimeL1, 0.0f, 120.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Condition Time L2", &g_Settings.Ch025U3ConditionTimeL2, 0.0f, 120.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Condition Time L3", &g_Settings.Ch025U3ConditionTimeL3, 0.0f, 120.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Barrier Value L1", &g_Settings.Ch025U3BarrierValueL1, 0.0f, 10000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Barrier Value L2", &g_Settings.Ch025U3BarrierValueL2, 0.0f, 10000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Barrier Value L3", &g_Settings.Ch025U3BarrierValueL3, 0.0f, 10000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Ally Barrier L1", &g_Settings.Ch025U3BarrierValueAllyL1, 0.0f, 10000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Ally Barrier L2", &g_Settings.Ch025U3BarrierValueAllyL2, 0.0f, 10000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Ally Barrier L3", &g_Settings.Ch025U3BarrierValueAllyL3, 0.0f, 10000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Many Ally Barrier Rate", &g_Settings.Ch025U3ManyAllyBarrierRate, 0.0f, 30.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Owner Barrier List Value", &g_Settings.Ch025U3OwnerBarrierListValue, 0.0f, 10000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Ally Barrier List Value", &g_Settings.Ch025U3AllyBarrierListValue, 0.0f, 10000.0f, "%.2f");
+
+            SeparatorLabel("Unique 3 Turn");
+            changed |= ImAdd::SliderFloat("Turn Angle Deg", &g_Settings.Ch025U3TurnAngleDeg, 0.0f, 360.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Turn Time", &g_Settings.Ch025U3TurnTime, 0.0f, 30.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Turn Blend Exp", &g_Settings.Ch025U3TurnBlendExp, 0.0f, 30.0f, "%.2f");
+            changed |= ImAdd::SliderInt("Turn Steps", &g_Settings.Ch025U3TurnSteps, 1, 100);
+
+            SeparatorLabel("Wave Barrier Effect");
+            changed |= ImAdd::SliderFloat("Barrier Max Time", &g_Settings.Ch025BarrierMaxTime, 0.0f, 120.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Barrier Durability", &g_Settings.Ch025BarrierDurability, 0.0f, 10000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Barrier Copy Rate", &g_Settings.Ch025BarrierCopyRate, 0.0f, 30.0f, "%.2f");
+
+            SeparatorLabel("Continuous Heal");
+            changed |= ImAdd::SliderFloat("Recovery Health Value", &g_Settings.Ch025RecoveryHealthValue, 0.0f, 10000.0f, "%.2f");
+
+            ImGui::Columns(1);
+
+            g_Settings.Ch025U3TurnSteps = std::clamp(g_Settings.Ch025U3TurnSteps, 1, 100);
+
+            if (changed)
+            {
+                const Ch025V2ParamsConfig config = BuildCh025ParamsConfig();
+                QueueCh025Apply(config);
+            }
+
+            if (FullWidthButton("RESET DEFAULTS"))
+            {
+                Ch025V2ParamsConfig defaults{};
+                if (TryGetCh025LoadedDefaults(defaults))
+                {
+                    ApplyCh025ConfigToSettings(defaults);
+                    QueueCh025Apply(defaults);
+                    FlushCh025Apply(true);
+                }
+            }
+
+            FlushCh025Apply(false);
+            ImGui::PopStyleVar();
+        }
+        EndRugirCard();
+    }
+
     static void RefreshClearInvincibleTargetNames(bool force)
     {
         const DWORD now = GetTickCount();
@@ -4831,6 +5210,12 @@ namespace ImGuiMenu
         if (subtab == 5)
         {
             RenderDownPowerPage(groupWidth);
+            return;
+        }
+
+        if (subtab == 6)
+        {
+            RenderCh025V2ParamsPage(groupWidth);
             return;
         }
     }
@@ -5819,9 +6204,9 @@ namespace ImGuiMenu
         // Character: no "Invincible" subtab. Map Agency index -> original index
         // consumed by RenderPreviewCharacterPage (skips original 4 = Invincible).
         const Subtab characterSubtabs[] = {
-            { "Swap" }, { "Tools" }, { "DEKU OFA OPTI" }, { "Action Cancel" }, { "DownPower" }
+            { "Swap" }, { "Tools" }, { "DEKU OFA OPTI" }, { "Action Cancel" }, { "DownPower" }, { "NEJIRE OPTI" }
         };
-        const int characterMap[] = { 0, 1, 2, 3, 5 };
+        const int characterMap[] = { 0, 1, 2, 3, 5, 6 };
 
         // Lobby: no "License EXP" subtab (indices 0..3 map 1:1 to the original).
         const Subtab lobbySubtabs[] = {
@@ -6103,6 +6488,7 @@ namespace ImGuiMenu
             { "Action Cancel", "A" },
             { "Invincible", "I" },
             { "DownPower", "D" },
+            { "NEJIRE OPTI", "N" },
         };
 
         const Subtab aimbotSubtabs[] =

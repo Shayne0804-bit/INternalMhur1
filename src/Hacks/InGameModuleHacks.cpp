@@ -10,6 +10,17 @@
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/GameModule_structs.hpp"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/CommonModule_structs.hpp"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/BackendSubsystem_classes.hpp"
+// Newer-generation Dumper-7 headers (Ch025 V2) use these macros; the rest of
+// the dump predates them, so they are defined nowhere in the SDK itself.
+#ifndef SDK_NAMESPACE_START
+#define SDK_NAMESPACE_START namespace SDK {
+#define SDK_NAMESPACE_END }
+#endif
+#include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/BP_Ch025V2_U2_Param_classes.hpp"
+#include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/BP_Ch025V2U3_Param_classes.hpp"
+#include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/BP_Ch025_ActionAttack_Special_classes.hpp"
+#include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/BB_CC_CH025_WAVE_BARRIER_classes.hpp"
+#include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/BB_CC_Ch025_Continuos_Recover_Health_classes.hpp"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/Basic.hpp"
 #include "../Utils/Logger.h"
 #include "../Utils/SafeMemory.h"
@@ -8792,6 +8803,465 @@ bool InGameHack_TryReadCh202Unique3Params(Ch202Unique3ParamsConfig& outConfig)
     catch (...)
     {
         Logger::LogError("[CH202] Unknown exception in TryReadCh202Unique3Params");
+        return false;
+    }
+}
+
+// ============================================================================
+//  CH025 V2 (NEJIRE) SDK PARAMS
+//  Same pipeline as CH202: single GObjects sweep collects every live param
+//  object (+ class default objects so future spawns inherit the values),
+//  cached list is re-applied from the game thread.
+// ============================================================================
+
+template <typename T>
+static bool AddUniqueCh025Object(std::vector<T*>& list, T* obj)
+{
+    if (!IsLiveUObjectPointer(obj))
+        return false;
+
+    if (std::find(list.begin(), list.end(), obj) != list.end())
+        return false;
+
+    list.push_back(obj);
+    return true;
+}
+
+struct Ch025V2ParamsTargets
+{
+    std::vector<SDK::UBP_Ch025V2_U2_Param_C*> u2Params;
+    std::vector<SDK::UBP_Ch025V2U3_Param_C*> u3Params;
+    std::vector<SDK::UBP_Ch025_ActionAttack_Special_C*> specialActions;
+    std::vector<SDK::UBB_CC_CH025_WAVE_BARRIER_C*> waveBarriers;
+    std::vector<SDK::UBB_CC_Ch025_Continuos_Recover_Health_C*> recoverHealths;
+
+    bool Empty() const
+    {
+        return u2Params.empty() && u3Params.empty() && specialActions.empty() &&
+               waveBarriers.empty() && recoverHealths.empty();
+    }
+};
+
+static std::mutex g_Ch025TargetsCacheMutex;
+static Ch025V2ParamsTargets g_Ch025TargetsCache;
+
+static void AddCh025DefaultObjects(Ch025V2ParamsTargets& out)
+{
+    // Blueprint classes may not be loaded yet — GetDefaultObj() then returns
+    // nullptr, which AddUniqueCh025Object rejects.
+    AddUniqueCh025Object(out.u2Params, SDK::UBP_Ch025V2_U2_Param_C::GetDefaultObj());
+    AddUniqueCh025Object(out.u3Params, SDK::UBP_Ch025V2U3_Param_C::GetDefaultObj());
+    AddUniqueCh025Object(out.specialActions, SDK::UBP_Ch025_ActionAttack_Special_C::GetDefaultObj());
+    AddUniqueCh025Object(out.waveBarriers, SDK::UBB_CC_CH025_WAVE_BARRIER_C::GetDefaultObj());
+    AddUniqueCh025Object(out.recoverHealths, SDK::UBB_CC_Ch025_Continuos_Recover_Health_C::GetDefaultObj());
+}
+
+static void CollectLoadedCh025V2Targets(Ch025V2ParamsTargets& out)
+{
+    SDK::TUObjectArray* gObjects = SDK::UObject::GObjects.GetTypedPtr();
+    int32_t objectCount = 0;
+    if (IsValidPointer(gObjects) && TryGetObjectArrayCountSafe(gObjects, objectCount) &&
+        objectCount > 0 && objectCount <= 2000000)
+    {
+        SDK::UClass* u2Class = SDK::UBP_Ch025V2_U2_Param_C::StaticClass();
+        SDK::UClass* u3Class = SDK::UBP_Ch025V2U3_Param_C::StaticClass();
+        SDK::UClass* specialClass = SDK::UBP_Ch025_ActionAttack_Special_C::StaticClass();
+        SDK::UClass* barrierClass = SDK::UBB_CC_CH025_WAVE_BARRIER_C::StaticClass();
+        SDK::UClass* recoverClass = SDK::UBB_CC_Ch025_Continuos_Recover_Health_C::StaticClass();
+
+        for (int32_t i = 0; i < objectCount; ++i)
+        {
+            SDK::UObject* obj = GetObjectByIndexSafe(gObjects, i);
+            if (!IsLiveUObjectPointer(obj) || IsObjectDefaultSafe(obj))
+                continue;
+
+            if (u2Class && IsObjectAUnsafeGuarded(obj, u2Class))
+                AddUniqueCh025Object(out.u2Params, static_cast<SDK::UBP_Ch025V2_U2_Param_C*>(obj));
+            else if (u3Class && IsObjectAUnsafeGuarded(obj, u3Class))
+                AddUniqueCh025Object(out.u3Params, static_cast<SDK::UBP_Ch025V2U3_Param_C*>(obj));
+            else if (specialClass && IsObjectAUnsafeGuarded(obj, specialClass))
+                AddUniqueCh025Object(out.specialActions, static_cast<SDK::UBP_Ch025_ActionAttack_Special_C*>(obj));
+            else if (barrierClass && IsObjectAUnsafeGuarded(obj, barrierClass))
+                AddUniqueCh025Object(out.waveBarriers, static_cast<SDK::UBB_CC_CH025_WAVE_BARRIER_C*>(obj));
+            else if (recoverClass && IsObjectAUnsafeGuarded(obj, recoverClass))
+                AddUniqueCh025Object(out.recoverHealths, static_cast<SDK::UBB_CC_Ch025_Continuos_Recover_Health_C*>(obj));
+        }
+    }
+
+    AddCh025DefaultObjects(out);
+}
+
+static void CacheCh025V2Targets(const Ch025V2ParamsTargets& targets)
+{
+    std::lock_guard<std::mutex> lock(g_Ch025TargetsCacheMutex);
+    g_Ch025TargetsCache = targets;
+}
+
+static Ch025V2ParamsTargets GetCachedCh025V2Targets()
+{
+    Ch025V2ParamsTargets targets;
+    {
+        std::lock_guard<std::mutex> lock(g_Ch025TargetsCacheMutex);
+        targets = g_Ch025TargetsCache;
+    }
+
+    if (targets.Empty())
+        AddCh025DefaultObjects(targets);
+
+    return targets;
+}
+
+static bool ApplyCh025U2ParamsToObject(SDK::UBP_Ch025V2_U2_Param_C* params, const Ch025V2ParamsConfig& config, int& writeCount, int& failCount)
+{
+    if (!IsLiveUObjectPointer(params))
+        return false;
+
+    const int beforeWrites = writeCount;
+    auto writeFloat = [&](float* target, float value)
+    {
+        if (WriteSdkFloatMember(target, value))
+            ++writeCount;
+        else
+            ++failCount;
+    };
+
+    writeFloat(&params->paramData.MoveSpeedXY_8_4867DDCF4DC63FE17902508823D76942, config.u2MoveSpeedXY);
+    writeFloat(&params->paramData.MoveSpeedZ_Up_11_4D8C4EF34738AB6DE5CB22AC3CBF010B, config.u2MoveSpeedZUp);
+    writeFloat(&params->paramData.MoveSpeedZ_Down_12_C1A007D04E737DBC02E28B910B0BE340, config.u2MoveSpeedZDown);
+    writeFloat(&params->paramData.ReinforcementMoveSpeedXY_15_BAEF93284A529C9777E8A693457780BD, config.u2ReinforceMoveSpeedXY);
+    writeFloat(&params->paramData.ReinforcementMoveSpeedZ_Up_17_DFACC4844DF11986D3A06183471918C0, config.u2ReinforceMoveSpeedZUp);
+    writeFloat(&params->paramData.ReinforcementMoveSpeedZ_Down_18_A0E251C843464C22ED5D129A003B802E, config.u2ReinforceMoveSpeedZDown);
+    writeFloat(&params->paramData.ActivityLimitTime_21_5AB3342B4D12FE4DA169DC9DCFF1859C, config.u2ActivityLimitTime);
+    writeFloat(&params->paramData.ActivityLowestTime_29_04439DD8442CAAA80E1263869A6DC384, config.u2ActivityLowestTime);
+
+    writeFloat(&params->MagazineParamData.ShockWaveMagazineRate_L1_9_599EC20444CA8139BF2260A587B585C6, config.u2ShockWaveMagRateL1);
+    writeFloat(&params->MagazineParamData.ShockWaveMagazineRate_L2_8_B0A8F1884D8D38DA2366299F63DE3B05, config.u2ShockWaveMagRateL2);
+    writeFloat(&params->MagazineParamData.ShockWaveMagazineRate_L3_7_7B4025424DF45A4333A31489045FFF07, config.u2ShockWaveMagRateL3);
+    writeFloat(&params->MagazineParamData.ActionMagazineRate_L1_13_1973789A4C1768BB5F76B1963E877215, config.u2ActionMagRateL1);
+    writeFloat(&params->MagazineParamData.ActionMagazineRate_L2_14_889B173843F58812F49435B6B464A606, config.u2ActionMagRateL2);
+    writeFloat(&params->MagazineParamData.ActionMagazineRate_L3_15_7BE4480D41EF44D8400254B11C8B7022, config.u2ActionMagRateL3);
+
+    return writeCount > beforeWrites;
+}
+
+static bool ApplyCh025U3ParamsToObject(SDK::UBP_Ch025V2U3_Param_C* params, const Ch025V2ParamsConfig& config, int& writeCount, int& failCount)
+{
+    if (!IsLiveUObjectPointer(params))
+        return false;
+
+    const int beforeWrites = writeCount;
+    auto writeFloat = [&](float* target, float value)
+    {
+        if (WriteSdkFloatMember(target, value))
+            ++writeCount;
+        else
+            ++failCount;
+    };
+    auto writeFloatArray = [&](SDK::TArray<float>& arr, float value)
+    {
+        int32_t arraySize = 0;
+        if (SafeArrayCount(arr, arraySize, 64) && arraySize > 0)
+        {
+            auto* data = const_cast<float*>(arr.GetDataPtr());
+            for (int32_t i = 0; i < arraySize; ++i)
+            {
+                if (SafeMemory::TryWrite<float>(data + i, value))
+                    ++writeCount;
+                else
+                    ++failCount;
+            }
+        }
+    };
+
+    writeFloat(&params->paramData.InitialVertivalSpeed_5_252BCD7449001545A75D1F8F500942FB, config.u3InitialVerticalSpeed);
+    writeFloat(&params->paramData.LastVertivalSpeed_6_7FCAAD8142728EED04EEEFBB6E079FD2, config.u3LastVerticalSpeed);
+    writeFloat(&params->paramData.Span_7_5C05D870432E680F6945BBA5CADC9453, config.u3Span);
+    writeFloat(&params->paramData.WaitTurnTime_54_A607F8E041D2581069FF3580E254A962, config.u3WaitTurnTime);
+    writeFloat(&params->paramData.ApplyInertiaSpawn_14_1B53DE4A4E2C35B3C0BEE091C6988620, config.u3ApplyInertiaSpawn);
+    writeFloat(&params->paramData.ApplyInertiaSpawnHRate_15_645D46144ED0F67FD740D59033151EAA, config.u3ApplyInertiaSpawnHRate);
+    writeFloat(&params->paramData.ApplyInertiaSpawnVRate_16_EA49A9BD49D13FABBC2237886CA25FF3, config.u3ApplyInertiaSpawnVRate);
+    writeFloat(&params->paramData.ConditionTimeL1_34_E21708EF44CAE87412F68BA81900B7F0, config.u3ConditionTimeL1);
+    writeFloat(&params->paramData.ConditionTimeL2_35_DF976D6648608CAE24E551B481089F5A, config.u3ConditionTimeL2);
+    writeFloat(&params->paramData.ConditionTimeL3_36_7245156C4FAE6D1B82E6D9950F4600B5, config.u3ConditionTimeL3);
+    writeFloat(&params->paramData.BarrierValueL1_40_9100106249E456D84E7088A402FE672E, config.u3BarrierValueL1);
+    writeFloat(&params->paramData.BarrierValueL2_41_74E70E164567DD49A0EB38B61B397467, config.u3BarrierValueL2);
+    writeFloat(&params->paramData.BarrierValueL3_42_B2CAF0694B21F59AEE5EA8B3788909A2, config.u3BarrierValueL3);
+    writeFloat(&params->paramData.BarrierValueL1_Ally_49_EC55E203427417C05544ED827023A314, config.u3BarrierValueAllyL1);
+    writeFloat(&params->paramData.BarrierValueL2_Ally_50_2BF55BF8429FED932A81F18EB34D5628, config.u3BarrierValueAllyL2);
+    writeFloat(&params->paramData.BarrierValueL3_Ally_51_AFEB391A425A8EB5E3CF0192328B3D84, config.u3BarrierValueAllyL3);
+
+    writeFloat(&params->turnParamData.AngleDeg_11_EDC4365B4346718C543C8A8832B04004, config.u3TurnAngleDeg);
+    writeFloat(&params->turnParamData.TurnTime_13_B7C0D49C456CBE5259E1CCBDF7F2A90A, config.u3TurnTime);
+    writeFloat(&params->turnParamData.BlendExp_15_9066E547448161562983D7BBD6B92EE4, config.u3TurnBlendExp);
+    if (WriteSdkIntMember(&params->turnParamData.Steps_16_0D474BFA4F0E303630B654BFCC4F4F3F, config.u3TurnSteps))
+        ++writeCount;
+    else
+        ++failCount;
+
+    writeFloat(&params->BarrierParam.ManyAllyBarrierValueRate_65_B22B1BE94952B2AEF41B65B31D1EB36A, config.u3ManyAllyBarrierRate);
+    writeFloatArray(params->BarrierParam.OwnerBarrierValueList_72_D978A7BF44BBD35FE2DC3DA6493F9CD9, config.u3OwnerBarrierListValue);
+    writeFloatArray(params->BarrierParam.AllyBarrierValueList_73_30C06349428B8DAE0B880FA82B6AEDC4, config.u3AllyBarrierListValue);
+
+    return writeCount > beforeWrites;
+}
+
+static bool ApplyCh025SpecialParamsToObject(SDK::UBP_Ch025_ActionAttack_Special_C* action, const Ch025V2ParamsConfig& config, int& writeCount, int& failCount)
+{
+    if (!IsLiveUObjectPointer(action))
+        return false;
+
+    const int beforeWrites = writeCount;
+    auto writeFloat = [&](float* target, float value)
+    {
+        if (WriteSdkFloatMember(target, value))
+            ++writeCount;
+        else
+            ++failCount;
+    };
+
+    writeFloat(&action->LowGravityTime, config.specialLowGravityTime);
+    writeFloat(&action->StartSpeed, config.specialStartSpeed);
+    writeFloat(&action->MiddleSpeed, config.specialMiddleSpeed);
+    writeFloat(&action->EndSpeed, config.specialEndSpeed);
+    writeFloat(&action->StratSpan, config.specialStartSpan);  // "Strat" = SDK typo
+    writeFloat(&action->EndSpan, config.specialEndSpan);
+    writeFloat(&action->DashTimeSeconds, config.specialDashTime);
+    writeFloat(&action->StartVerticalSpeed, config.specialStartVerticalSpeed);
+    writeFloat(&action->MiddleVerticalSpeed, config.specialMiddleVerticalSpeed);
+    writeFloat(&action->EndVerticalSpeed, config.specialEndVerticalSpeed);
+    writeFloat(&action->StartVerticalSpan, config.specialStartVerticalSpan);
+    writeFloat(&action->EndVerticalSpan, config.specialEndVerticalSpan);
+
+    return writeCount > beforeWrites;
+}
+
+static bool ApplyCh025BarrierParamsToObject(SDK::UBB_CC_CH025_WAVE_BARRIER_C* barrier, const Ch025V2ParamsConfig& config, int& writeCount, int& failCount)
+{
+    if (!IsLiveUObjectPointer(barrier))
+        return false;
+
+    const int beforeWrites = writeCount;
+    auto writeFloat = [&](float* target, float value)
+    {
+        if (WriteSdkFloatMember(target, value))
+            ++writeCount;
+        else
+            ++failCount;
+    };
+
+    writeFloat(&barrier->maxTimeValue, config.barrierMaxTime);
+    writeFloat(&barrier->durabilityValue, config.barrierDurability);
+    writeFloat(&barrier->copyRate, config.barrierCopyRate);
+
+    return writeCount > beforeWrites;
+}
+
+static bool ApplyCh025RecoverParamsToObject(SDK::UBB_CC_Ch025_Continuos_Recover_Health_C* recover, const Ch025V2ParamsConfig& config, int& writeCount, int& failCount)
+{
+    if (!IsLiveUObjectPointer(recover))
+        return false;
+
+    const int beforeWrites = writeCount;
+    if (WriteSdkFloatMember(&recover->recoveryHealthValue, config.recoveryHealthValue))
+        ++writeCount;
+    else
+        ++failCount;
+
+    return writeCount > beforeWrites;
+}
+
+static bool ReadCh025U2ParamsFromObject(SDK::UBP_Ch025V2_U2_Param_C* params, Ch025V2ParamsConfig& outConfig)
+{
+    if (!IsLiveUObjectPointer(params))
+        return false;
+
+    outConfig.u2MoveSpeedXY = params->paramData.MoveSpeedXY_8_4867DDCF4DC63FE17902508823D76942;
+    outConfig.u2MoveSpeedZUp = params->paramData.MoveSpeedZ_Up_11_4D8C4EF34738AB6DE5CB22AC3CBF010B;
+    outConfig.u2MoveSpeedZDown = params->paramData.MoveSpeedZ_Down_12_C1A007D04E737DBC02E28B910B0BE340;
+    outConfig.u2ReinforceMoveSpeedXY = params->paramData.ReinforcementMoveSpeedXY_15_BAEF93284A529C9777E8A693457780BD;
+    outConfig.u2ReinforceMoveSpeedZUp = params->paramData.ReinforcementMoveSpeedZ_Up_17_DFACC4844DF11986D3A06183471918C0;
+    outConfig.u2ReinforceMoveSpeedZDown = params->paramData.ReinforcementMoveSpeedZ_Down_18_A0E251C843464C22ED5D129A003B802E;
+    outConfig.u2ActivityLimitTime = params->paramData.ActivityLimitTime_21_5AB3342B4D12FE4DA169DC9DCFF1859C;
+    outConfig.u2ActivityLowestTime = params->paramData.ActivityLowestTime_29_04439DD8442CAAA80E1263869A6DC384;
+    outConfig.u2ShockWaveMagRateL1 = params->MagazineParamData.ShockWaveMagazineRate_L1_9_599EC20444CA8139BF2260A587B585C6;
+    outConfig.u2ShockWaveMagRateL2 = params->MagazineParamData.ShockWaveMagazineRate_L2_8_B0A8F1884D8D38DA2366299F63DE3B05;
+    outConfig.u2ShockWaveMagRateL3 = params->MagazineParamData.ShockWaveMagazineRate_L3_7_7B4025424DF45A4333A31489045FFF07;
+    outConfig.u2ActionMagRateL1 = params->MagazineParamData.ActionMagazineRate_L1_13_1973789A4C1768BB5F76B1963E877215;
+    outConfig.u2ActionMagRateL2 = params->MagazineParamData.ActionMagazineRate_L2_14_889B173843F58812F49435B6B464A606;
+    outConfig.u2ActionMagRateL3 = params->MagazineParamData.ActionMagazineRate_L3_15_7BE4480D41EF44D8400254B11C8B7022;
+    return true;
+}
+
+static bool ReadCh025U3ParamsFromObject(SDK::UBP_Ch025V2U3_Param_C* params, Ch025V2ParamsConfig& outConfig)
+{
+    if (!IsLiveUObjectPointer(params))
+        return false;
+
+    outConfig.u3InitialVerticalSpeed = params->paramData.InitialVertivalSpeed_5_252BCD7449001545A75D1F8F500942FB;
+    outConfig.u3LastVerticalSpeed = params->paramData.LastVertivalSpeed_6_7FCAAD8142728EED04EEEFBB6E079FD2;
+    outConfig.u3Span = params->paramData.Span_7_5C05D870432E680F6945BBA5CADC9453;
+    outConfig.u3WaitTurnTime = params->paramData.WaitTurnTime_54_A607F8E041D2581069FF3580E254A962;
+    outConfig.u3ApplyInertiaSpawn = params->paramData.ApplyInertiaSpawn_14_1B53DE4A4E2C35B3C0BEE091C6988620;
+    outConfig.u3ApplyInertiaSpawnHRate = params->paramData.ApplyInertiaSpawnHRate_15_645D46144ED0F67FD740D59033151EAA;
+    outConfig.u3ApplyInertiaSpawnVRate = params->paramData.ApplyInertiaSpawnVRate_16_EA49A9BD49D13FABBC2237886CA25FF3;
+    outConfig.u3ConditionTimeL1 = params->paramData.ConditionTimeL1_34_E21708EF44CAE87412F68BA81900B7F0;
+    outConfig.u3ConditionTimeL2 = params->paramData.ConditionTimeL2_35_DF976D6648608CAE24E551B481089F5A;
+    outConfig.u3ConditionTimeL3 = params->paramData.ConditionTimeL3_36_7245156C4FAE6D1B82E6D9950F4600B5;
+    outConfig.u3BarrierValueL1 = params->paramData.BarrierValueL1_40_9100106249E456D84E7088A402FE672E;
+    outConfig.u3BarrierValueL2 = params->paramData.BarrierValueL2_41_74E70E164567DD49A0EB38B61B397467;
+    outConfig.u3BarrierValueL3 = params->paramData.BarrierValueL3_42_B2CAF0694B21F59AEE5EA8B3788909A2;
+    outConfig.u3BarrierValueAllyL1 = params->paramData.BarrierValueL1_Ally_49_EC55E203427417C05544ED827023A314;
+    outConfig.u3BarrierValueAllyL2 = params->paramData.BarrierValueL2_Ally_50_2BF55BF8429FED932A81F18EB34D5628;
+    outConfig.u3BarrierValueAllyL3 = params->paramData.BarrierValueL3_Ally_51_AFEB391A425A8EB5E3CF0192328B3D84;
+    outConfig.u3TurnAngleDeg = params->turnParamData.AngleDeg_11_EDC4365B4346718C543C8A8832B04004;
+    outConfig.u3TurnTime = params->turnParamData.TurnTime_13_B7C0D49C456CBE5259E1CCBDF7F2A90A;
+    outConfig.u3TurnBlendExp = params->turnParamData.BlendExp_15_9066E547448161562983D7BBD6B92EE4;
+    outConfig.u3TurnSteps = params->turnParamData.Steps_16_0D474BFA4F0E303630B654BFCC4F4F3F;
+    outConfig.u3ManyAllyBarrierRate = params->BarrierParam.ManyAllyBarrierValueRate_65_B22B1BE94952B2AEF41B65B31D1EB36A;
+
+    int32_t arraySize = 0;
+    float listValue = 1.0f;
+    if (SafeArrayCount(params->BarrierParam.OwnerBarrierValueList_72_D978A7BF44BBD35FE2DC3DA6493F9CD9, arraySize, 64) && arraySize > 0 &&
+        SafeMemory::TryRead(params->BarrierParam.OwnerBarrierValueList_72_D978A7BF44BBD35FE2DC3DA6493F9CD9.GetDataPtr(), listValue))
+    {
+        outConfig.u3OwnerBarrierListValue = listValue;
+    }
+    if (SafeArrayCount(params->BarrierParam.AllyBarrierValueList_73_30C06349428B8DAE0B880FA82B6AEDC4, arraySize, 64) && arraySize > 0 &&
+        SafeMemory::TryRead(params->BarrierParam.AllyBarrierValueList_73_30C06349428B8DAE0B880FA82B6AEDC4.GetDataPtr(), listValue))
+    {
+        outConfig.u3AllyBarrierListValue = listValue;
+    }
+    return true;
+}
+
+static bool ReadCh025SpecialParamsFromObject(SDK::UBP_Ch025_ActionAttack_Special_C* action, Ch025V2ParamsConfig& outConfig)
+{
+    if (!IsLiveUObjectPointer(action))
+        return false;
+
+    outConfig.specialLowGravityTime = action->LowGravityTime;
+    outConfig.specialStartSpeed = action->StartSpeed;
+    outConfig.specialMiddleSpeed = action->MiddleSpeed;
+    outConfig.specialEndSpeed = action->EndSpeed;
+    outConfig.specialStartSpan = action->StratSpan;
+    outConfig.specialEndSpan = action->EndSpan;
+    outConfig.specialDashTime = action->DashTimeSeconds;
+    outConfig.specialStartVerticalSpeed = action->StartVerticalSpeed;
+    outConfig.specialMiddleVerticalSpeed = action->MiddleVerticalSpeed;
+    outConfig.specialEndVerticalSpeed = action->EndVerticalSpeed;
+    outConfig.specialStartVerticalSpan = action->StartVerticalSpan;
+    outConfig.specialEndVerticalSpan = action->EndVerticalSpan;
+    return true;
+}
+
+static bool ReadCh025BarrierParamsFromObject(SDK::UBB_CC_CH025_WAVE_BARRIER_C* barrier, Ch025V2ParamsConfig& outConfig)
+{
+    if (!IsLiveUObjectPointer(barrier))
+        return false;
+
+    outConfig.barrierMaxTime = barrier->maxTimeValue;
+    outConfig.barrierDurability = barrier->durabilityValue;
+    outConfig.barrierCopyRate = barrier->copyRate;
+    return true;
+}
+
+static bool ReadCh025RecoverParamsFromObject(SDK::UBB_CC_Ch025_Continuos_Recover_Health_C* recover, Ch025V2ParamsConfig& outConfig)
+{
+    if (!IsLiveUObjectPointer(recover))
+        return false;
+
+    outConfig.recoveryHealthValue = recover->recoveryHealthValue;
+    return true;
+}
+
+bool InGameHack_ApplyCh025V2Params(const Ch025V2ParamsConfig& config)
+{
+    try
+    {
+        Ch025V2ParamsTargets targets = GetCachedCh025V2Targets();
+
+        int targetCount = 0;
+        int writeCount = 0;
+        int failCount = 0;
+
+        for (SDK::UBP_Ch025V2_U2_Param_C* params : targets.u2Params)
+            if (ApplyCh025U2ParamsToObject(params, config, writeCount, failCount))
+                ++targetCount;
+        for (SDK::UBP_Ch025V2U3_Param_C* params : targets.u3Params)
+            if (ApplyCh025U3ParamsToObject(params, config, writeCount, failCount))
+                ++targetCount;
+        for (SDK::UBP_Ch025_ActionAttack_Special_C* action : targets.specialActions)
+            if (ApplyCh025SpecialParamsToObject(action, config, writeCount, failCount))
+                ++targetCount;
+        for (SDK::UBB_CC_CH025_WAVE_BARRIER_C* barrier : targets.waveBarriers)
+            if (ApplyCh025BarrierParamsToObject(barrier, config, writeCount, failCount))
+                ++targetCount;
+        for (SDK::UBB_CC_Ch025_Continuos_Recover_Health_C* recover : targets.recoverHealths)
+            if (ApplyCh025RecoverParamsToObject(recover, config, writeCount, failCount))
+                ++targetCount;
+
+        static DWORD s_lastCh025ApplyLogTick = 0;
+        const DWORD now = GetTickCount();
+        if (failCount > 0 || s_lastCh025ApplyLogTick == 0 || now - s_lastCh025ApplyLogTick >= 2000)
+        {
+            s_lastCh025ApplyLogTick = now;
+            Logger::LogInfo(
+                "[CH025] Applied params: targets=" + std::to_string(targetCount) +
+                " writes=" + std::to_string(writeCount) +
+                " fails=" + std::to_string(failCount));
+        }
+
+        return targetCount > 0 && writeCount > 0;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[CH025] Exception in ApplyCh025V2Params: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[CH025] Unknown exception in ApplyCh025V2Params");
+        return false;
+    }
+}
+
+bool InGameHack_TryReadCh025V2Params(Ch025V2ParamsConfig& outConfig)
+{
+    try
+    {
+        Ch025V2ParamsTargets targets;
+        CollectLoadedCh025V2Targets(targets);
+        CacheCh025V2Targets(targets);
+
+        bool loadedAny = false;
+        for (SDK::UBP_Ch025V2_U2_Param_C* params : targets.u2Params)
+            if (ReadCh025U2ParamsFromObject(params, outConfig)) { loadedAny = true; break; }
+        for (SDK::UBP_Ch025V2U3_Param_C* params : targets.u3Params)
+            if (ReadCh025U3ParamsFromObject(params, outConfig)) { loadedAny = true; break; }
+        for (SDK::UBP_Ch025_ActionAttack_Special_C* action : targets.specialActions)
+            if (ReadCh025SpecialParamsFromObject(action, outConfig)) { loadedAny = true; break; }
+        for (SDK::UBB_CC_CH025_WAVE_BARRIER_C* barrier : targets.waveBarriers)
+            if (ReadCh025BarrierParamsFromObject(barrier, outConfig)) { loadedAny = true; break; }
+        for (SDK::UBB_CC_Ch025_Continuos_Recover_Health_C* recover : targets.recoverHealths)
+            if (ReadCh025RecoverParamsFromObject(recover, outConfig)) { loadedAny = true; break; }
+
+        if (loadedAny)
+        {
+            Logger::LogInfo("[CH025] Loaded params from SDK objects");
+            return true;
+        }
+
+        Logger::LogWarning("[CH025] No loaded CH025 V2 params found for default slider values");
+        return false;
+    }
+    catch (const std::exception& e)
+    {
+        Logger::LogError("[CH025] Exception in TryReadCh025V2Params: " + std::string(e.what()));
+        return false;
+    }
+    catch (...)
+    {
+        Logger::LogError("[CH025] Unknown exception in TryReadCh025V2Params");
         return false;
     }
 }
