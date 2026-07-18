@@ -46,7 +46,11 @@ namespace SettingsManager
 				std::string filename = findFileData.cFileName;
 				if (filename.length() > 5) // Remove ".json"
 				{
-					profiles.push_back(filename.substr(0, filename.length() - 5));
+					std::string name = filename.substr(0, filename.length() - 5);
+					// "Default" is the baseline for users without profiles —
+					// never listed nor loadable from the profile list.
+					if (_stricmp(name.c_str(), "Default") != 0)
+						profiles.push_back(name);
 				}
 			} while (FindNextFileA(hFind, &findFileData));
 

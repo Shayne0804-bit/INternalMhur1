@@ -21,6 +21,7 @@
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/CommonModule_structs.hpp"
 #include <cmath>
 #include <cstring>
+#include <type_traits>
 #include <atomic>
 #include <functional>
 #include <mutex>
@@ -130,6 +131,43 @@ namespace ImGuiMenu
     std::vector<SDK::ACharacterBattle*> g_AllCharactersList;
     std::vector<SDK::ACharacterBattle*> g_CurrentTeamCharacters;
     ImFont* g_SymbolFont = nullptr;  // Font for menu icons
+
+#if RUGIR_MENU_AGENCY
+    // ============================================================================
+    // LUMIN WIDGET INTERCEPTION (Agency only)
+    // Content pages call ImAdd:: / ImGuiHelper:: directly. Remapping those
+    // namespace names swaps in Lumin-styled sliders/toggles without touching a
+    // single call site; untouched widgets fall through to the real ImAdd via
+    // the using-declarations. Bodies live in AgencyMenuLumin.inl.
+    // ============================================================================
+    enum LmNotifyType { LmNotifySuccess, LmNotifyWarning, LmNotifyError };
+    void LmAddNotify(std::string title, std::string text, LmNotifyType type);
+    void LmRenderNotifies();
+
+    namespace LuminImAdd
+    {
+        using ::ImAdd::BeginChild;
+        using ::ImAdd::Button;
+        using ::ImAdd::ButtonXMark;
+        using ::ImAdd::Combo;
+        using ::ImAdd::EndChild;
+        using ::ImAdd::SelectableLabel;
+        using ::ImAdd::SeparatorText;
+
+        bool SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format = "%.1f");
+        bool SliderInt(const char* label, int* v, int v_min, int v_max, const char* format = "%d");
+        bool CheckBox(const char* label, bool* checked);
+        bool ToggleButton(const char* label, bool* v);
+    }
+
+    namespace LuminImGuiHelper
+    {
+        bool ToggleSwitch(const char* label, bool* v);
+    }
+
+#define ImAdd LuminImAdd
+#define ImGuiHelper LuminImGuiHelper
+#endif  // RUGIR_MENU_AGENCY
 
     // ============================================================================
     // GLOBAL MENU STATE
@@ -506,10 +544,15 @@ namespace ImGuiMenu
     static ImFont* g_LuminIconFont = nullptr;  // Flaticon uicons (Lumin-style Agency shell)
 #endif
 
-    // Profile Management
-    static std::string g_CurrentProfileName = "Default";
-    static char g_ProfileNameBuffer[256] = "Default";
+    // Profile Management. Empty current name = no profile: the first settings
+    // modification prompts the user for a profile name, then auto-save kicks in.
+    // "Default" is only a baseline for profile-less users and is never listed.
+    static std::string g_CurrentProfileName = "";
+    static char g_ProfileNameBuffer[256] = "";
     static std::vector<std::string> g_ProfilesList;
+    static bool g_ProfileNamePromptOpen = false;
+    static bool g_ProfileNamePromptDeclined = false;
+    static char g_NewProfileNameBuffer[64] = "";
 
     // Section open/close states
     static bool g_ESP_DisplayOpen = true;
@@ -2408,7 +2451,7 @@ namespace ImGuiMenu
         ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10.0f);
         ImGui::TextColored(g_Colors.textDisabled, "Profile");
         ImGui::SameLine(78.0f);
-        ImGui::TextColored(g_Colors.textPrimary, "%s", g_CurrentProfileName.c_str());
+        ImGui::TextColored(g_Colors.textPrimary, "%s", g_CurrentProfileName.empty() ? "None" : g_CurrentProfileName.c_str());
 
         ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10.0f);
         ImGui::TextColored(g_Colors.textDisabled, "Core");
@@ -5691,67 +5734,75 @@ namespace ImGuiMenu
         EndRugirCard();
     }
 
+    static void MenuToast(const char* title, const char* text, int type)
+    {
+#if RUGIR_MENU_AGENCY
+        LmAddNotify(title ? title : "", text ? text : "",
+            type == 2 ? LmNotifyError : type == 1 ? LmNotifyWarning : LmNotifySuccess);
+#else
+        (void)title; (void)text; (void)type;
+#endif
+    }
+
     static void DrawProfileManagementSettingsSection()
     {
         SeparatorLabel("Profile Manager");
-        ImGui::InputTextWithHint("##ProfileNameInput", "Enter profile name...", g_ProfileNameBuffer, sizeof(g_ProfileNameBuffer));
-        if (FullWidthButton("Reload Profiles"))
-            g_ProfilesList = SettingsManager::GetProfilesList();
 
-        if (ImAdd::Button("Save Configuration", ImVec2((ImGui::GetContentRegionAvail().x - ImGui::GetStyle().ItemSpacing.x) * 0.5f, 0.0f)))
+        if (g_CurrentProfileName.empty())
         {
-            std::string profileName(g_ProfileNameBuffer);
-            if (!profileName.empty() && SettingsManager::SaveCurrentProfile(profileName))
-            {
-                g_CurrentProfileName = profileName;
-                g_ProfilesList = SettingsManager::GetProfilesList();
-            }
-        }
-        ImGui::SameLine();
-        if (ImAdd::Button("Load Configuration", ImVec2(ImGui::GetContentRegionAvail().x, 0.0f)))
-        {
-            std::string profileName(g_ProfileNameBuffer);
-            if (!profileName.empty() && SettingsManager::LoadCurrentProfile(profileName))
-                g_CurrentProfileName = profileName;
-        }
-
-        SeparatorLabel("Available Profiles");
-        if (g_ProfilesList.empty())
-        {
-            ImGui::TextColored(g_Colors.textDisabled, "No profiles found.");
+            ImGui::TextColored(g_Colors.textSecondary, "No active profile.");
+            ImGui::TextColored(g_Colors.textDisabled, "Your first change will ask for a profile name.");
         }
         else
         {
-            static int selectedProfile = 0;
-            std::vector<const char*> profileItems;
-            profileItems.reserve(g_ProfilesList.size());
+            ImGui::TextColored(g_Colors.textPrimary, "Active profile: %s", g_CurrentProfileName.c_str());
+            ImGui::TextColored(g_Colors.textDisabled, "Changes are saved automatically.");
+        }
 
-            for (int i = 0; i < (int)g_ProfilesList.size(); i++)
+        ImGui::Spacing();
+        ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
+        ImGui::InputTextWithHint("##ProfileNameInput", "New profile name...", g_ProfileNameBuffer, sizeof(g_ProfileNameBuffer));
+        ImGui::PopItemWidth();
+        if (FullWidthButton("CREATE PROFILE"))
+        {
+            std::string profileName(g_ProfileNameBuffer);
+            if (!profileName.empty() && _stricmp(profileName.c_str(), "Default") != 0 &&
+                SettingsManager::SaveCurrentProfile(profileName))
             {
-                profileItems.push_back(g_ProfilesList[i].c_str());
-                if (g_ProfilesList[i] == g_CurrentProfileName)
-                    selectedProfile = i;
-            }
-
-            if (selectedProfile < 0 || selectedProfile >= (int)g_ProfilesList.size())
-                selectedProfile = 0;
-
-            const int previousProfile = selectedProfile;
-            ImAdd::Combo("Profile", &selectedProfile, profileItems);
-            if (selectedProfile != previousProfile)
-            {
-                const std::string& profile = g_ProfilesList[selectedProfile];
-                if (SettingsManager::LoadCurrentProfile(profile))
-                {
-                    strcpy_s(g_ProfileNameBuffer, sizeof(g_ProfileNameBuffer), profile.c_str());
-                    g_CurrentProfileName = profile;
-                }
-                else
-                {
-                    selectedProfile = previousProfile;
-                }
+                g_CurrentProfileName = profileName;
+                g_ProfilesList = SettingsManager::GetProfilesList();
+                MenuToast("Profile created", profileName.c_str(), 0);
             }
         }
+
+        SeparatorLabel("Profiles");
+        if (g_ProfilesList.empty())
+        {
+            ImGui::TextColored(g_Colors.textDisabled, "No profiles yet.");
+        }
+        else
+        {
+            // Inline quick-selection list (replaces the old dropdown).
+            for (int i = 0; i < (int)g_ProfilesList.size(); i++)
+            {
+                const std::string& profile = g_ProfilesList[i];
+                const bool selected = profile == g_CurrentProfileName;
+                ImGui::PushID(i);
+                if (SelectableRow(profile.c_str(), selected) && !selected)
+                {
+                    if (SettingsManager::LoadCurrentProfile(profile))
+                    {
+                        g_CurrentProfileName = profile;
+                        strcpy_s(g_ProfileNameBuffer, sizeof(g_ProfileNameBuffer), profile.c_str());
+                        MenuToast("Profile loaded", profile.c_str(), 0);
+                    }
+                }
+                ImGui::PopID();
+            }
+        }
+
+        if (FullWidthButton("REFRESH LIST"))
+            g_ProfilesList = SettingsManager::GetProfilesList();
     }
 
     static void DrawMenuVisualsSettingsSection()
@@ -5874,6 +5925,115 @@ namespace ImGuiMenu
     //  accent). Reads g_Colors.accentColor, which each shell sets per frame.
     //  Drawn every frame after the menus and before ImGui::Render().
     // ============================================================================
+    // ========================================================================
+    //  PROFILE AUTO-SAVE (all configurations)
+    //  The active profile persists every menu modification automatically
+    //  (debounced). Users without a profile get a one-time name prompt on
+    //  their first modification.
+    // ========================================================================
+    static void ProfileAutoSaveTick()
+    {
+        static_assert(std::is_trivially_copyable_v<MenuSettings>, "MenuSettings must stay memcmp-able for auto-save");
+        static_assert(std::is_trivially_copyable_v<HackSettings>, "HackSettings must stay memcmp-able for auto-save");
+
+        static MenuSettings s_lastMenu;
+        static HackSettings s_lastHack;
+        static bool s_snapshotInit = false;
+        static bool s_dirty = false;
+        static DWORD s_dirtyTick = 0;
+        static DWORD s_lastCheckTick = 0;
+
+        const DWORD now = GetTickCount();
+        if (now - s_lastCheckTick >= 400)
+        {
+            s_lastCheckTick = now;
+            if (!s_snapshotInit)
+            {
+                std::memcpy(&s_lastMenu, &g_Settings, sizeof(MenuSettings));
+                std::memcpy(&s_lastHack, &g_HackSettings, sizeof(HackSettings));
+                s_snapshotInit = true;
+                return;
+            }
+
+            const bool changed =
+                std::memcmp(&s_lastMenu, &g_Settings, sizeof(MenuSettings)) != 0 ||
+                std::memcmp(&s_lastHack, &g_HackSettings, sizeof(HackSettings)) != 0;
+            if (changed)
+            {
+                std::memcpy(&s_lastMenu, &g_Settings, sizeof(MenuSettings));
+                std::memcpy(&s_lastHack, &g_HackSettings, sizeof(HackSettings));
+                s_dirty = true;
+                s_dirtyTick = now;
+
+                if (g_CurrentProfileName.empty() && !g_ProfileNamePromptDeclined &&
+                    !g_ProfileNamePromptOpen && g_Visible)
+                {
+                    g_ProfileNamePromptOpen = true;
+                }
+            }
+        }
+
+        // Persist 1.5s after the last change so slider drags coalesce into one write.
+        if (s_dirty && !g_CurrentProfileName.empty() && now - s_dirtyTick >= 1500)
+        {
+            s_dirty = false;
+            if (SettingsManager::SaveCurrentProfile(g_CurrentProfileName))
+                Logger::LogInfo("[Menu] Auto-saved profile: " + g_CurrentProfileName);
+        }
+    }
+
+    static void DrawProfileNamePromptOverlay()
+    {
+        if (!g_ProfileNamePromptOpen || !g_Visible)
+            return;
+
+        ImGuiIO& io = ImGui::GetIO();
+        ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.30f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+        ImGui::SetNextWindowSize(ImVec2(400.0f, 0.0f), ImGuiCond_Always);
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(16.0f, 14.0f));
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 14.0f);
+        ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(g_Colors.bgDark.x, g_Colors.bgDark.y, g_Colors.bgDark.z, 0.99f));
+        if (ImGui::Begin("##profile-name-prompt", nullptr,
+            ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse |
+            ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoScrollbar))
+        {
+            ImGui::TextColored(g_Colors.accentColor, "New profile");
+            ImGui::TextColored(g_Colors.textSecondary, "Your changes will be saved automatically.");
+            ImGui::TextColored(g_Colors.textSecondary, "Give this profile a name:");
+            ImGui::Spacing();
+            ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
+            ImGui::InputTextWithHint("##NewProfileName", "Profile name", g_NewProfileNameBuffer, sizeof(g_NewProfileNameBuffer));
+            ImGui::PopItemWidth();
+            ImGui::Spacing();
+
+            const float halfW = std::floor((ImGui::GetContentRegionAvail().x - ImGui::GetStyle().ItemSpacing.x) * 0.5f);
+            if (ImAdd::Button("CREATE", ImVec2(halfW, 30.0f)))
+            {
+                std::string profileName(g_NewProfileNameBuffer);
+                if (!profileName.empty() && _stricmp(profileName.c_str(), "Default") != 0 &&
+                    SettingsManager::SaveCurrentProfile(profileName))
+                {
+                    g_CurrentProfileName = profileName;
+                    strcpy_s(g_ProfileNameBuffer, sizeof(g_ProfileNameBuffer), profileName.c_str());
+                    g_ProfilesList = SettingsManager::GetProfilesList();
+                    g_ProfileNamePromptOpen = false;
+                    g_ProfileNamePromptDeclined = false;
+                    std::memset(g_NewProfileNameBuffer, 0, sizeof(g_NewProfileNameBuffer));
+                    MenuToast("Profile created", profileName.c_str(), 0);
+                }
+            }
+            ImGui::SameLine();
+            if (ImAdd::Button("LATER", ImVec2(ImGui::GetContentRegionAvail().x, 30.0f)))
+            {
+                g_ProfileNamePromptOpen = false;
+                g_ProfileNamePromptDeclined = true;
+            }
+        }
+        ImGui::End();
+        ImGui::PopStyleColor();
+        ImGui::PopStyleVar(2);
+    }
+
     static std::string SelfUpdate_HumanBytes(double b)
     {
         const char* u[] = { "B", "KB", "MB", "GB" };
@@ -6773,24 +6933,25 @@ return false;
 return false;
         }
 
-        // Initialize profile system
+        // Initialize profile system. Users with no profile run on the "Default"
+        // baseline (never listed); their first modification will prompt for a
+        // profile name and enable auto-save.
         SettingsManager::EnsureProfilesDirectory();
         g_ProfilesList = SettingsManager::GetProfilesList();
         if (g_ProfilesList.empty())
         {
-            // Create default profile with all settings disabled
             SettingsManager::CreateDefaultProfile();
-            g_ProfilesList = SettingsManager::GetProfilesList();
+            SettingsManager::LoadCurrentProfile("Default");
+            g_CurrentProfileName.clear();
         }
-
-        // Load the last saved profile if available
-        if (!g_ProfilesList.empty())
+        else
         {
-            // Get the most recently modified profile (last one saved)
+            // Load the most recently saved profile.
             std::string lastProfileName = g_ProfilesList.back();
             if (SettingsManager::LoadCurrentProfile(lastProfileName))
             {
                 g_CurrentProfileName = lastProfileName;
+                strcpy_s(g_ProfileNameBuffer, sizeof(g_ProfileNameBuffer), lastProfileName.c_str());
                 Logger::LogInfo("[Menu] Loaded last saved profile: " + lastProfileName);
             }
         }
@@ -7384,6 +7545,12 @@ return true;
         DrawSelfUpdateOverlayLumin();
 #else
         DrawSelfUpdateOverlay();
+#endif
+
+        ProfileAutoSaveTick();
+        DrawProfileNamePromptOverlay();
+#if RUGIR_MENU_AGENCY
+        LmRenderNotifies();
 #endif
 
         // ========================================================================

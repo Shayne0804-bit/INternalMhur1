@@ -962,4 +962,306 @@
         if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
             io.MouseClicked[ImGuiMouseButton_Left] = false;
     }
+
+    // ============================================================================
+    //  LUMIN NOTIFICATIONS — top-right toast stack (c_notify port).
+    // ============================================================================
+    struct LmNotifyState
+    {
+        std::string title;
+        std::string text;
+        LmNotifyType type = LmNotifySuccess;
+        float timer = 0.0f;
+        float alpha = 0.0f;
+        float slide = 28.0f;
+        float pos = 0.0f;
+        bool active = true;
+    };
+
+    static std::vector<LmNotifyState> g_LmNotifications;
+    static constexpr float kLmNotifyLifetime = 4.0f;
+
+    void LmAddNotify(std::string title, std::string text, LmNotifyType type)
+    {
+        // Same dedup rule as Lumin: swallow immediate duplicates.
+        if (!g_LmNotifications.empty())
+        {
+            LmNotifyState& last = g_LmNotifications.back();
+            if (last.title == title && last.text == text && last.type == type && last.timer < 0.22f)
+                return;
+        }
+
+        LmNotifyState n;
+        n.title = std::move(title);
+        n.text = std::move(text);
+        n.type = type;
+        g_LmNotifications.push_back(std::move(n));
+    }
+
+    static ImVec4 LmNotifyColor(LmNotifyType type)
+    {
+        if (type == LmNotifyError)
+            return ImVec4(245.0f / 255.0f, 70.0f / 255.0f, 86.0f / 255.0f, 1.0f);
+        return type == LmNotifyWarning ? kLmText : kLmAccent;
+    }
+
+    static const char* LmNotifyBadgeText(LmNotifyType type)
+    {
+        if (type == LmNotifyWarning)
+            return "DISABLED";
+        if (type == LmNotifyError)
+            return "ERROR";
+        return "ENABLED";
+    }
+
+    void LmRenderNotifies()
+    {
+        if (g_LmNotifications.empty())
+            return;
+
+        ImGuiIO& io = ImGui::GetIO();
+        ImDrawList* fg = ImGui::GetForegroundDrawList();
+        const float ns = 0.81f;  // Lumin notify_visual_scale
+        auto NS = [&](float v) { return LM(v * ns); };
+
+        const ImVec2 size(NS(288), NS(76));
+        const ImVec2 padding(NS(16), NS(16));
+        float accumulated = padding.y;
+
+        for (size_t i = 0; i < g_LmNotifications.size();)
+        {
+            LmNotifyState& n = g_LmNotifications[i];
+            if (n.active)
+                n.timer += io.DeltaTime;
+            if (n.timer >= kLmNotifyLifetime)
+                n.active = false;
+
+            LmEase(n.alpha, n.active ? 1.0f : 0.0f, 14.0f);
+            LmEase(n.slide, n.active ? 0.0f : 28.0f, 18.0f);
+            if (n.pos <= 0.0f)
+                n.pos = accumulated;
+            LmEase(n.pos, accumulated, 14.0f);
+
+            if (!n.active && n.alpha <= 0.015f)
+            {
+                g_LmNotifications.erase(g_LmNotifications.begin() + i);
+                continue;
+            }
+
+            if (n.alpha > 0.01f)
+            {
+                const float alpha = n.alpha;
+                const ImVec4 status = LmNotifyColor(n.type);
+                const bool disabled = n.type == LmNotifyWarning;
+                const ImVec2 mn(io.DisplaySize.x - padding.x - size.x + NS(n.slide), n.pos);
+                const ImVec2 mx(mn.x + size.x, mn.y + size.y);
+                const float rounding = NS(12);
+                const float progress = 1.0f - (n.timer / kLmNotifyLifetime);
+
+                fg->AddRectFilled(mn, mx, LmCol(kLmChild, 0.98f * alpha), rounding);
+                fg->AddRect(mn, mx, LmCol(kLmBorder, 0.96f * alpha), rounding);
+
+                // Status badge (rounded square + check / minus mark).
+                const ImVec2 bMin(mn.x + NS(13), mn.y + NS(15));
+                const ImVec2 bMax(mn.x + NS(49), mn.y + NS(51));
+                fg->AddRectFilled(bMin, bMax, LmCol(kLmWidget, 0.94f * alpha), NS(9));
+                fg->AddRect(bMin, bMax, LmCol(status, (disabled ? 0.30f : 0.44f) * alpha), NS(9));
+                const ImVec2 mc((bMin.x + bMax.x) * 0.5f, (bMin.y + bMax.y) * 0.5f - NS(0.5f));
+                if (disabled)
+                {
+                    fg->AddRectFilled(ImVec2(mc.x - NS(5.8f), mc.y - NS(1.15f)), ImVec2(mc.x + NS(5.8f), mc.y + NS(1.15f)),
+                        LmCol(status, 0.95f * alpha), NS(2));
+                }
+                else
+                {
+                    fg->AddLine(ImVec2(mc.x - NS(5.4f), mc.y - NS(0.6f)), ImVec2(mc.x - NS(1.6f), mc.y + NS(3.0f)), LmCol(status, alpha), NS(2));
+                    fg->AddLine(ImVec2(mc.x - NS(1.6f), mc.y + NS(3.0f)), ImVec2(mc.x + NS(6.0f), mc.y - NS(5.0f)), LmCol(status, alpha), NS(2));
+                }
+
+                // Status pill (top right).
+                const ImVec2 pillMin(mx.x - NS(84), mn.y + NS(16));
+                const ImVec2 pillMax(mx.x - NS(13), mn.y + NS(34));
+                fg->AddRectFilled(pillMin, pillMax, LmCol(status, (disabled ? 0.075f : 0.12f) * alpha), NS(99));
+                fg->AddRect(pillMin, pillMax, LmCol(status, (disabled ? 0.22f : 0.36f) * alpha), NS(99));
+                LmTextAligned(fg, g_FreeFontSmall, NS(8.5f), pillMin, pillMax, LmCol(status, alpha), LmNotifyBadgeText(n.type), 0.5f, 0.5f);
+
+                // Title + text.
+                LmText(fg, g_FreeFontLarge, NS(12), ImVec2(mn.x + NS(60), mn.y + NS(14)), LmCol(kLmWhite, alpha), n.title.c_str());
+                LmText(fg, g_FreeFontSmall, NS(10), ImVec2(mn.x + NS(60), mn.y + NS(33)), LmCol(kLmText, 0.96f * alpha), n.text.c_str());
+                fg->AddLine(ImVec2(mn.x + NS(60), mn.y + NS(54)), ImVec2(mx.x - NS(15), mn.y + NS(54)), LmCol(kLmBorder, 0.55f * alpha), 1.0f);
+
+                // Remaining-lifetime track.
+                const ImVec2 tMin(mn.x + NS(13), mn.y + NS(64));
+                const ImVec2 tMax(mx.x - NS(13), mx.y - NS(8));
+                fg->AddRectFilled(tMin, tMax, LmCol(kLmWidget, 0.78f * alpha), NS(99));
+                fg->AddRectFilled(tMin, ImVec2(tMin.x + (tMax.x - tMin.x) * (progress < 0.0f ? 0.0f : progress), tMax.y),
+                    LmCol(status, (disabled ? 0.40f : 0.88f) * alpha), NS(99));
+
+                accumulated += size.y + NS(10);
+            }
+
+            ++i;
+        }
+    }
+
+    // ============================================================================
+    //  LUMIN WIDGET BODIES — intercepted ImAdd/ImGuiHelper implementations.
+    // ============================================================================
+    static std::string LmDisplayLabel(const char* label)
+    {
+        const char* cut = strstr(label, "##");
+        return cut ? std::string(label, cut) : std::string(label);
+    }
+
+    // Lumin switch row: label left, animated pill switch right, hairline below.
+    static bool LmSwitchRowImpl(const char* label, bool* v)
+    {
+        const std::string display = LmDisplayLabel(label);
+
+        float rowW = ImGui::GetContentRegionAvail().x;
+        if (rowW < LM(70))
+            rowW = LM(70);
+        const float rowH = LM(26);
+        ImGui::InvisibleButton(label, ImVec2(rowW, rowH));
+        const bool hovered = ImGui::IsItemHovered();
+        bool changed = false;
+        if (ImGui::IsItemClicked())
+        {
+            *v = !*v;
+            changed = true;
+            LmAddNotify(*v ? "Function enabled" : "Function disabled", display, *v ? LmNotifySuccess : LmNotifyWarning);
+        }
+
+        static std::unordered_map<ImGuiID, float> s_anim;
+        float& t = s_anim[ImGui::GetItemID()];
+        if (changed && s_anim.size() > 512)
+            s_anim.clear();
+        if (t < 0.0f || t > 1.0f)
+            t = *v ? 1.0f : 0.0f;
+        LmEase(t, *v ? 1.0f : 0.0f, 20.0f);
+
+        ImDrawList* dl = ImGui::GetWindowDrawList();
+        const ImVec2 mn = ImGui::GetItemRectMin();
+        const ImVec2 mx = ImGui::GetItemRectMax();
+        const float cy = (mn.y + mx.y) * 0.5f;
+
+        const ImVec2 swSize(LM(33), LM(18));
+        const ImVec2 swMin(mx.x - swSize.x, cy - swSize.y * 0.5f);
+        const ImVec2 swMax(mx.x, cy + swSize.y * 0.5f);
+
+        LmTextAligned(dl, g_FreeFontLarge, LM(11.5f), ImVec2(mn.x, mn.y), ImVec2(swMin.x - LM(10), mx.y),
+            LmCol((*v || hovered) ? kLmWhite : kLmText), display.c_str(), 0.0f, 0.5f);
+
+        const ImVec4 trackOn(38.0f / 255.0f, 37.0f / 255.0f, 50.0f / 255.0f, 1.0f);
+        dl->AddRectFilled(swMin, swMax, LmCol(*v ? trackOn : kLmWidget), LM(99));
+
+        // Small state marker on the opposite side of the knob.
+        const float markerX = swMax.x - LM(8.5f) + ((swMin.x + LM(8.5f)) - (swMax.x - LM(8.5f))) * t;
+        dl->AddRectFilled(ImVec2(markerX - LM(1.2f), cy - LM(3.8f)), ImVec2(markerX + LM(1.2f), cy + LM(3.8f)),
+            LmCol(*v ? kLmAccent : ImVec4(132.0f / 255.0f, 113.0f / 255.0f, 198.0f / 255.0f, 1.0f), *v ? 0.92f : 0.58f), LM(2));
+
+        // Knob (accent when on) with dark inner dot — Lumin's signature look.
+        const float knobX = swMin.x + LM(9) + ((swMax.x - LM(9)) - (swMin.x + LM(9))) * t;
+        const ImVec4 knobOff(96.0f / 255.0f, 88.0f / 255.0f, 142.0f / 255.0f, 1.0f);
+        const ImVec4 innerOff(31.0f / 255.0f, 31.0f / 255.0f, 39.0f / 255.0f, 1.0f);
+        dl->AddCircleFilled(ImVec2(knobX, cy), LM(6.2f), LmCol(*v ? kLmAccent : knobOff), 24);
+        dl->AddCircleFilled(ImVec2(knobX, cy), LM(3.2f), LmCol(*v ? kLmChild : innerOff, *v ? 1.0f : 0.95f), 24);
+
+        dl->AddLine(ImVec2(mn.x, mx.y - 0.5f), ImVec2(mx.x, mx.y - 0.5f), LmCol(kLmBorder, 0.72f), 1.0f);
+
+        return changed;
+    }
+
+    bool LuminImGuiHelper::ToggleSwitch(const char* label, bool* v) { return LmSwitchRowImpl(label, v); }
+    bool LuminImAdd::ToggleButton(const char* label, bool* v)       { return LmSwitchRowImpl(label, v); }
+    bool LuminImAdd::CheckBox(const char* label, bool* checked)     { return LmSwitchRowImpl(label, checked); }
+
+    // Lumin slider row: label left, value right, thin fully-rounded track with
+    // accent fill + dark knob.
+    static bool LmSliderCore(const char* label, float* value, float vmin, float vmax, const char* valueText)
+    {
+        const std::string display = LmDisplayLabel(label);
+
+        float rowW = ImGui::GetContentRegionAvail().x;
+        if (rowW < LM(60))
+            rowW = LM(60);
+        const float labelH = LM(15);
+        const float trackH = LM(11);
+        const float rowH = labelH + LM(4) + trackH + LM(7);
+        const ImVec2 pos = ImGui::GetCursorScreenPos();
+
+        ImGui::PushID(label);
+        ImGui::InvisibleButton("##lm-slider", ImVec2(rowW, rowH));
+        const ImGuiID id = ImGui::GetItemID();
+        const bool active = ImGui::IsItemActive();
+        ImGui::PopID();
+
+        const ImVec2 trackMin(pos.x, pos.y + labelH + LM(4));
+        const ImVec2 trackMax(pos.x + rowW, trackMin.y + trackH);
+
+        bool changed = false;
+        if (active && vmax > vmin)
+        {
+            // Only drag when the press started on (or near) the track strip —
+            // clicking the label row must not jump the value.
+            const ImVec2 click = ImGui::GetIO().MouseClickedPos[0];
+            if (click.y >= trackMin.y - LM(4) && click.y <= trackMax.y + LM(5))
+            {
+                float t = (ImGui::GetIO().MousePos.x - trackMin.x) / rowW;
+                t = t < 0.0f ? 0.0f : (t > 1.0f ? 1.0f : t);
+                const float nv = vmin + t * (vmax - vmin);
+                if (nv != *value)
+                {
+                    *value = nv;
+                    changed = true;
+                }
+            }
+        }
+
+        float frac = (vmax > vmin) ? (*value - vmin) / (vmax - vmin) : 0.0f;
+        frac = frac < 0.0f ? 0.0f : (frac > 1.0f ? 1.0f : frac);
+
+        static std::unordered_map<ImGuiID, float> s_fill;
+        float& fill = s_fill[id];
+        if (fill < 0.0f || fill > 1.0f)
+            fill = frac;
+        LmEase(fill, frac, 18.0f);
+
+        ImDrawList* dl = ImGui::GetWindowDrawList();
+        LmTextAligned(dl, g_FreeFontLarge, LM(11.5f), ImVec2(pos.x, pos.y), ImVec2(pos.x + rowW - LM(60), pos.y + labelH),
+            LmCol(kLmWhite), display.c_str(), 0.0f, 0.5f);
+        LmTextAligned(dl, g_FreeFontLarge, LM(11.5f), ImVec2(pos.x + rowW - LM(120), pos.y), ImVec2(pos.x + rowW, pos.y + labelH),
+            LmCol(kLmWhite), valueText, 1.0f, 0.5f);
+
+        dl->AddRectFilled(trackMin, trackMax, LmCol(kLmWidget), LM(99));
+        float x = rowW * fill;
+        if (x < LM(12))
+            x = LM(12);
+        dl->AddRectFilled(trackMin, ImVec2(trackMin.x + x, trackMax.y), LmCol(kLmAccent), LM(99));
+        dl->AddCircleFilled(ImVec2(trackMin.x + x - LM(6), (trackMin.y + trackMax.y) * 0.5f), LM(4), LmCol(kLmBlack), 24);
+
+        return changed;
+    }
+
+    bool LuminImAdd::SliderFloat(const char* label, float* v, float v_min, float v_max, const char* format)
+    {
+        char valueText[64];
+        snprintf(valueText, sizeof(valueText), format ? format : "%.1f", *v);
+        float f = *v;
+        const bool changed = LmSliderCore(label, &f, v_min, v_max, valueText);
+        if (changed)
+            *v = f;
+        return changed;
+    }
+
+    bool LuminImAdd::SliderInt(const char* label, int* v, int v_min, int v_max, const char* format)
+    {
+        char valueText[64];
+        snprintf(valueText, sizeof(valueText), format ? format : "%d", *v);
+        float f = (float)*v;
+        const bool changed = LmSliderCore(label, &f, (float)v_min, (float)v_max, valueText);
+        if (changed)
+            *v = (int)(f + (f >= 0.0f ? 0.5f : -0.5f));
+        return changed;
+    }
 #endif  // RUGIR_MENU_AGENCY
