@@ -40,6 +40,10 @@ namespace ImGuiMenu
         bool EnableMenuBackgroundVideo = true;
         bool EnableStreamProofMenu = false;  // Render menu/ESP into a capture-excluded overlay (hidden from stream)
 
+        // Global hotkeys (configurable from Settings page)
+        HotkeySet MenuToggleKey = HotkeySet(0x2D, 0);  // KB: Insert (default), no gamepad
+        HotkeySet UnloadDllKey  = HotkeySet(0x2E, 0);  // KB: Delete (default), no gamepad
+
         // ESP - Display
         bool EnablePlayerESP = false;
         bool Player_Box = true;             // Draw the ESP box
@@ -378,6 +382,14 @@ namespace ImGuiMenu
         int AbilityMovespeedLevel = 1;
         int AbilityHealLevel = 1;
         int AbilityTechniqueLevel = 1;
+        // Sticky toggles: while enabled, the ability condition is re-applied every
+        // frame with a SHORT span so it expires naturally before match teardown and
+        // never persists into the next match (fixes the 0xBA crash).
+        bool AbilityAttackActive = false;
+        bool AbilityDurableActive = false;
+        bool AbilityMovespeedActive = false;
+        bool AbilityHealActive = false;
+        bool AbilityTechniqueActive = false;
 
         bool Hack_BypassRentalTickets = false;
 

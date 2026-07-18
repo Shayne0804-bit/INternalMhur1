@@ -1165,8 +1165,8 @@ namespace ImGuiMenu
             return DefWindowProc(hWnd, msg, wParam, lParam);
         }
 
-        // Toggle menu with INSERT key
-        if (msg == WM_KEYDOWN && wParam == VK_INSERT)
+        // Toggle menu — configurable key (default: Insert)
+        if (msg == WM_KEYDOWN && wParam == (WPARAM)g_Settings.MenuToggleKey.Keyboard)
         {
             if (!g_MenuHotkeyDown)
             {
@@ -1176,9 +1176,21 @@ namespace ImGuiMenu
             return true;
         }
 
-        if (msg == WM_KEYUP && wParam == VK_INSERT)
+        if (msg == WM_KEYUP && wParam == (WPARAM)g_Settings.MenuToggleKey.Keyboard)
         {
             g_MenuHotkeyDown = false;
+            return true;
+        }
+
+        // Unload DLL — configurable key (default: Delete)
+        if (msg == WM_KEYDOWN && wParam == (WPARAM)g_Settings.UnloadDllKey.Keyboard
+            && g_Settings.UnloadDllKey.Keyboard != 0
+            && !g_ListeningForHotkey)
+        {
+            g_Settings.EnableGlobal = false;
+            g_Visible = false;
+            g_PlayerNetworkTableVisible = false;
+            DLL_Unload();
             return true;
         }
 
@@ -5240,16 +5252,10 @@ namespace ImGuiMenu
                 InGameHack_TestUseItemAction();
             if (ImAdd::SliderFloat("Reload Rate (Blue Flame)", &g_Settings.ReloadAdjustRate_WearBlueFlame, 1.0f, 50.0f, "%.2fx"))
                 InGameHack_SetReloadAdjustRate_WearBlueFlame(g_Settings.ReloadAdjustRate_WearBlueFlame);
-            // Damage multiplier writes UBuffParam's attack-adjust fields directly in
-            // memory (not the BP_Set* function calls, which don't apply). Re-applied
-            // by the periodic sync so it survives the buff system's recompute.
-            if (ImAdd::SliderFloat("Damage Multiplier", &g_Settings.CvNoneDamageCurveValue, 1.0f, 300.0f, "%.2f"))
-            {
-                const float multiplier = g_Settings.CvNoneDamageCurveValue;
-                EnqueueGameThreadMenuTask([multiplier]() {
-                    InGameHack_SetAttackDamageMultiplier(multiplier);
-                }, "Damage Multiplier");
-            }
+            // Damage multiplier is applied by intercepting the SendDamageToClient
+            // RPC (GameThreadHook) and scaling _damageValue live. The hook reads this
+            // slider value directly each call, so moving the slider needs no action.
+            ImAdd::SliderFloat("Damage Multiplier", &g_Settings.CvNoneDamageCurveValue, 1.0f, 300.0f, "%.2f");
 
             ImGui::Columns(1);
             ImGui::PopStyleVar();
@@ -5891,6 +5897,9 @@ namespace ImGuiMenu
             DrawMenuVisualsSettingsSection();
             DrawInventoryDebugSettingsSection();
             DrawDllControlSettingsSection();
+            SeparatorLabel("Hotkeys");
+            DrawHotkeyConfigButton("Menu Toggle", g_Settings.MenuToggleKey, 200);
+            DrawHotkeyConfigButton("Unload DLL",  g_Settings.UnloadDllKey,  201);
         }
         EndRugirCard();
         ImGui::EndGroup();

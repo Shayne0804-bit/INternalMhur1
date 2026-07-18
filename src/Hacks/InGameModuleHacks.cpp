@@ -6837,7 +6837,8 @@ static bool CallSetConditionToServerSafe(
     }
 }
 
-static bool ApplyAbilityCondition(SDK::ECharacterConditionId id, int level, const char* logName)
+static bool ApplyAbilityCondition(SDK::ECharacterConditionId id, int level, const char* logName,
+                                  float span = 3.0f, bool logSuccess = true)
 {
     if (!IsAbilityConditionId(id))
     {
@@ -6847,7 +6848,8 @@ static bool ApplyAbilityCondition(SDK::ECharacterConditionId id, int level, cons
 
     if (!IsValidBattleMode())
     {
-        Logger::LogError(std::string("[COMBAT] Not in valid battle mode for ") + logName);
+        if (logSuccess)
+            Logger::LogError(std::string("[COMBAT] Not in valid battle mode for ") + logName);
         return false;
     }
 
@@ -6893,18 +6895,19 @@ static bool ApplyAbilityCondition(SDK::ECharacterConditionId id, int level, cons
         return false;
     }
 
-    // Span kept well under a match's length: a 500s condition outlives the match,
-    // and on the next match the game re-evaluates the still-persisted entry with a
-    // freed instigator PlayerState -> AV at offset 0xBA. 120s is long enough to feel
-    // permanent in-match while expiring before teardown, and the battle-exit cleanup
-    // below purges it regardless.
-    if (!CallBPSetConditionSafe(conditionComponent, id, level, 120.0f, 1000.0f, 0.1f, level, instigatedPlayer, 0))
+    // SHORT span, re-applied every frame by the ability tick while its toggle is on.
+    // A long span leaves a condition the game still considers live at match teardown;
+    // it gets saved for cross-match restore, the condition object is GC'd, and the
+    // next match dereferences the dangling entry (AV reading a flag at 0xBA). With a
+    // ~3s span the condition expires naturally before teardown, so nothing survives.
+    if (!CallBPSetConditionSafe(conditionComponent, id, level, span, 1000.0f, 0.1f, level, instigatedPlayer, 0))
     {
         Logger::LogError(std::string("[COMBAT] SEH exception calling BP_SetCondition for ") + logName);
         return false;
     }
 
-    Logger::LogInfo(std::string("[COMBAT] ") + logName + " applied with level " + std::to_string(level));
+    if (logSuccess)
+        Logger::LogInfo(std::string("[COMBAT] ") + logName + " applied with level " + std::to_string(level));
     return true;
 }
 
@@ -6933,13 +6936,14 @@ bool InGameHack_AbilityTechnique(int level)
     return ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_TECHNIQUE, level, "AbilityTechnique");
 }
 
-// Purge ability conditions on the battle->non-battle edge, while the current
-// match's character/component/PlayerState are still alive. Without this the
-// ability conditions persist into the next match with a freed instigator
-// PlayerState and the game crashes (AV reading instigator->field at 0xBA).
-void InGameHack_AutoClearConditionOnModeChange()
+// Keeps enabled ability conditions applied (throttled re-apply) and clears stale
+// ability conditions at match ENTRY, while the component is alive — unlike the old
+// exit-clear which ran after teardown and was a no-op. Called every frame update.
+void InGameHack_TickAbilityConditions()
 {
     static bool s_wasInBattle = false;
+    static bool s_entryClearPending = false;
+    static ULONGLONG s_lastApplyTick = 0;
 
     bool inBattle = false;
     try
@@ -6951,43 +6955,437 @@ void InGameHack_AutoClearConditionOnModeChange()
         inBattle = false;
     }
 
-    // Only act on the falling edge (was in battle, now leaving).
-    if (s_wasInBattle && !inBattle)
+    if (!inBattle)
+    {
+        s_wasInBattle = false;
+        return;
+    }
+
+    if (!s_wasInBattle)
+    {
+        // Entering battle: schedule the stale-condition clear and drop the throttle
+        // so enabled abilities re-apply immediately in the new match.
+        s_entryClearPending = true;
+        s_lastApplyTick = 0;
+    }
+    s_wasInBattle = inBattle;
+
+    // Entry clear stays pending until the character/component actually exist —
+    // at the exact frame the mode flips the character may not be spawned yet.
+    if (s_entryClearPending)
     {
         try
         {
             SDK::APlayerController* baseController = SDK_GetPlayerController();
-            SDK::APlayerControllerBattle* playerController =
+            SDK::APlayerControllerBattle* pc =
                 IsValidPointer(baseController) ? static_cast<SDK::APlayerControllerBattle*>(baseController) : nullptr;
-            SDK::ACharacterBattle* playerCharacter =
-                IsValidPointer(playerController) ? GetPlayerCharacterBattle(playerController) : nullptr;
-
-            if (IsValidPointer(playerCharacter) && !IsObjectDefaultSafe(playerCharacter))
+            SDK::ACharacterBattle* character =
+                IsValidPointer(pc) ? GetPlayerCharacterBattle(pc) : nullptr;
+            if (IsValidPointer(character) && !IsObjectDefaultSafe(character))
             {
-                auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
-                if (conditionComponent)
+                auto* comp = GetConditionControlComponentSafe(character);
+                if (comp)
                 {
-                    const SDK::ECharacterConditionId abilityIds[] = {
+                    const SDK::ECharacterConditionId ids[] = {
                         SDK::ECharacterConditionId::ABILITY_ATTACK,
                         SDK::ECharacterConditionId::ABILITY_DURABLE,
                         SDK::ECharacterConditionId::ABILITY_MOVESPEED,
                         SDK::ECharacterConditionId::ABILITY_HEAL,
                         SDK::ECharacterConditionId::ABILITY_TECHNIQUE,
                     };
-                    for (SDK::ECharacterConditionId id : abilityIds)
-                        ClearConditionSafe(conditionComponent, id);
-
-                    Logger::LogInfo("[COMBAT] Auto-cleared ability conditions on battle exit");
+                    for (SDK::ECharacterConditionId id : ids)
+                        ClearConditionSafe(comp, id);
+                    s_entryClearPending = false;
+                    Logger::LogInfo("[COMBAT] Cleared stale ability conditions at match entry");
                 }
             }
         }
-        catch (...)
+        catch (...) {}
+    }
+
+    // Re-apply enabled abilities THROTTLED, matching the reference cheat's cadence
+    // of 0x2EE0 ms (12s) between re-applies. Frequent-but-not-per-frame re-apply is
+    // how the reference DLL keeps the buff felt-permanent without spamming the
+    // server every frame. The 120s span comfortably overlaps the 12s cadence.
+    const ULONGLONG now = GetTickCount64();
+    if (now - s_lastApplyTick < 12000)
+        return;
+    s_lastApplyTick = now;
+
+    if (ImGuiMenu::g_HackSettings.AbilityAttackActive)
+        ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_ATTACK, ImGuiMenu::g_HackSettings.AbilityAttackLevel, "AbilityAttack", 15.0f, false);
+    if (ImGuiMenu::g_HackSettings.AbilityDurableActive)
+        ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_DURABLE, ImGuiMenu::g_HackSettings.AbilityDurableLevel, "AbilityDurable", 15.0f, false);
+    if (ImGuiMenu::g_HackSettings.AbilityMovespeedActive)
+        ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_MOVESPEED, ImGuiMenu::g_HackSettings.AbilityMovespeedLevel, "AbilityMovespeed", 15.0f, false);
+    if (ImGuiMenu::g_HackSettings.AbilityHealActive)
+        ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_HEAL, ImGuiMenu::g_HackSettings.AbilityHealLevel, "AbilityHeal", 15.0f, false);
+    if (ImGuiMenu::g_HackSettings.AbilityTechniqueActive)
+        ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_TECHNIQUE, ImGuiMenu::g_HackSettings.AbilityTechniqueLevel, "AbilityTechnique", 15.0f, false);
+}
+
+// ===== DAMAGE MULTIPLIER via RPC parameter scaling =====
+// The reference cheat (which never crashes) does NOT inject conditions or write
+// stat fields: it intercepts the SendDamageToClient_RPC_OnClient RPC and multiplies
+// the outgoing _damageValue directly in the FNetDamageBootInfo parameter, right
+// before the game processes it. We do the same, but reuse our existing ProcessEvent
+// hook (GameThreadHook) instead of an inline Detours hook — we have the SDK, so we
+// resolve the UFunction cleanly and edit the params struct in place.
+
+// Dedicated diagnostic log for the damage multiplier (separate from the global log
+// so it stays readable). Appends one line to C:\temp\rugir_dmgmult.log.
+void DmgMultLog(const std::string& line)
+{
+    HANDLE file = CreateFileA("C:\\temp\\rugir_dmgmult.log", FILE_APPEND_DATA,
+                              FILE_SHARE_READ | FILE_SHARE_WRITE, nullptr,
+                              OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+    if (file == INVALID_HANDLE_VALUE)
+        return;
+    std::string out = line + "\r\n";
+    DWORD written = 0;
+    WriteFile(file, out.c_str(), static_cast<DWORD>(out.size()), &written, nullptr);
+    CloseHandle(file);
+}
+
+// Returns the local player's damage component, the object whose ProcessEvent must be
+// hooked so its SendDamageToClient RPC passes through our handler. Null if not ready.
+// SEH-isolated read of the local player's damage component (POD only).
+static SDK::UCharacterDamageComponent* DmgMult_ReadLocalDamageComponentRaw()
+{
+    __try
+    {
+        SDK::APlayerController* pc = SDK_GetPlayerController();
+        if (!IsValidPointer(pc))
+            return nullptr;
+
+        SDK::ACharacterBattle* character = GetPlayerCharacterBattle(pc);
+        if (!IsValidPointer(character) || IsObjectDefaultSafe(character))
+            return nullptr;
+
+        SDK::UCharacterDamageComponent* dmgComp = character->_damageComponent;
+        if (!IsLiveUObjectPointer(dmgComp))
+            return nullptr;
+
+        return dmgComp;
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        return nullptr;
+    }
+}
+
+SDK::UObject* InGameHack_GetLocalDamageComponentObject()
+{
+    SDK::UCharacterDamageComponent* dmgComp = DmgMult_ReadLocalDamageComponentRaw();
+    if (!dmgComp)
+        return nullptr;
+
+    static void* s_lastLogged = nullptr;
+    if (dmgComp != s_lastLogged)
+    {
+        s_lastLogged = dmgComp;
+        DmgMultLog(std::string("local damage component found=0x") +
+            std::to_string(reinterpret_cast<uintptr_t>(dmgComp)));
+    }
+
+    return reinterpret_cast<SDK::UObject*>(dmgComp);
+}
+
+// Copies a UObject's name into a caller buffer. Has C++ unwinding (std::string) so
+// it must NOT be __try'd directly; callers wrap the CALL to this in SEH instead.
+static bool SdkGetNameToBuffer(SDK::UObject* obj, char* out, size_t outSize)
+{
+    std::string name = obj->GetName();
+    strncpy_s(out, outSize, name.c_str(), _TRUNCATE);
+    return true;
+}
+
+// SEH-isolated helper (no C++ objects to unwind, so __try is legal here). Reads the
+// function name into a fixed buffer. Returns false on fault.
+static bool DmgMult_GetFuncNameRaw(SDK::UFunction* function, char* out, size_t outSize)
+{
+    __try
+    {
+        return SdkGetNameToBuffer(function, out, outSize);
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+// SEH-isolated resolve of the damage RPC UFunction. POD only.
+static SDK::UFunction* DmgMult_ResolveRpcFunc()
+{
+    __try
+    {
+        SDK::UClass* cls = SDK::UCharacterDamageComponent::StaticClass();
+        if (!cls)
+            return nullptr;
+        return cls->GetFunction("CharacterDamageComponent", "SendDamageToClient_RPC_OnClient");
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return nullptr;
+    }
+}
+
+// SEH-isolated scale of the three int16 damage words, exactly like the reference
+// cheat: _damageValue (0x04), _guardValue (0x06), _barrierValue (0x08). The dump
+// showed the effective value lives at 0x06 (SDK calls it _guardValue) while 0x04 is
+// 0 — so scaling only 0x04 did nothing. Scaling all three matches the DLL and hits
+// the real value. Writes before/after of the 0x06 word for logging.
+static bool DmgMult_ScaleDamageRaw(void* params, float rate, int16_t* before, int16_t* after)
+{
+    __try
+    {
+        uint8_t* base = reinterpret_cast<uint8_t*>(params);
+        int16_t* dmg     = reinterpret_cast<int16_t*>(base + 0x04);
+        int16_t* guard   = reinterpret_cast<int16_t*>(base + 0x06);
+        int16_t* barrier = reinterpret_cast<int16_t*>(base + 0x08);
+
+        *before = *guard;
+
+        auto scaleWord = [rate](int16_t* w)
         {
-            Logger::LogWarning("[COMBAT] Exception during ability condition auto-clear");
+            int v = static_cast<int>(static_cast<float>(*w) * rate);
+            if (v > 32767) v = 32767;
+            if (v < -32768) v = -32768;
+            *w = static_cast<int16_t>(v);
+        };
+        scaleWord(dmg);
+        scaleWord(guard);
+        scaleWord(barrier);
+
+        *after = *guard;
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+// SEH-isolated hexdump of the first `len` bytes of params into a hex string buffer.
+static bool DmgMult_DumpParamsRaw(void* params, size_t len, char* out, size_t outSize)
+{
+    __try
+    {
+        const uint8_t* p = reinterpret_cast<const uint8_t*>(params);
+        size_t pos = 0;
+        for (size_t i = 0; i < len && pos + 3 < outSize; ++i)
+            pos += static_cast<size_t>(sprintf_s(out + pos, outSize - pos, "%02X ", p[i]));
+        return true;
+    }
+    __except (EXCEPTION_EXECUTE_HANDLER)
+    {
+        return false;
+    }
+}
+
+
+// Called from HookedProcessEvent for every intercepted call. If the function is the
+// damage RPC and the multiplier is enabled, scales _damageValue in place. Returns
+// true if it handled/scaled (purely informational; the original call still runs).
+bool InGameHack_TryScaleDamageRPC(const SDK::UObject* /*object*/, SDK::UFunction* function, void* params)
+{
+    if (!function || !params)
+        return false;
+
+    const float rate = ImGuiMenu::g_Settings.CvNoneDamageCurveValue;
+    if (!(rate > 1.0001f))
+        return false;
+
+    // Resolve the target UFunction ONCE, then compare by pointer. This runs on every
+    // ProcessEvent call (very high traffic), so we must do the cheap pointer check
+    // first and avoid GetName()/logging on the general traffic — that was a source of
+    // instability. Only the matching RPC does any extra work.
+    static SDK::UFunction* s_cachedFunc = nullptr;
+    static bool s_loggedResolve = false;
+    if (s_cachedFunc == nullptr)
+    {
+        s_cachedFunc = DmgMult_ResolveRpcFunc();
+        if (s_cachedFunc && !s_loggedResolve)
+        {
+            s_loggedResolve = true;
+            DmgMultLog(std::string("resolve SendDamageToClient funcPtr=OK 0x") +
+                std::to_string(reinterpret_cast<uintptr_t>(s_cachedFunc)));
         }
     }
 
-    s_wasInBattle = inBattle;
+    if (!s_cachedFunc || function != s_cachedFunc)
+        return false;
+
+    int16_t before = 0, after = 0;
+    if (!DmgMult_ScaleDamageRaw(params, rate, &before, &after))
+        return false;
+
+    static int s_scaleLogCount = 0;
+    if (s_scaleLogCount < 20)
+    {
+        s_scaleLogCount++;
+        char dump[256] = {};
+        DmgMult_DumpParamsRaw(params, 0x58, dump, sizeof(dump));
+        DmgMultLog(std::string("SCALED damage ") + std::to_string(before) +
+            " -> " + std::to_string(after) + " (rate=" + std::to_string(rate) + ")");
+        DmgMultLog(std::string("  params[0x58]: ") + dump);
+    }
+    return true;
+}
+
+// ===== INLINE NATIVE HOOK of UObject::ProcessEvent =====
+// The shadow-vtable ProcessEvent (GameThreadHook) and the direct per-object vtable
+// patch both failed to fire. So we hook the ONE native ProcessEvent function inline
+// — exactly the kind of native trampoline hook the reference cheat uses. The SDK
+// gives us its RVA (Offsets::ProcessEvent). Every UObject routes through it, so the
+// SendDamageToClient RPC always passes through our thunk, where `params` is already
+// a fully-deserialized FNetDamageBootInfo* (no FFrame parsing needed).
+
+using ProcessEventRawFn = void(__fastcall*)(void*, void*, void*);
+
+static std::mutex s_peHookMutex;
+static bool s_peHookInstalled = false;
+static ProcessEventRawFn s_peTrampoline = nullptr;   // calls original ProcessEvent
+static uint8_t* s_peTarget = nullptr;                 // patched function address
+static uint8_t s_peOriginalBytes[32] = {};            // saved stolen bytes (for unhook)
+static size_t s_peStolenLen = 0;                      // number of bytes patched
+
+// Our replacement. Same ABI as ProcessEvent(this, func, params).
+static void __fastcall DmgMult_ProcessEventInline(void* object, void* function, void* params)
+{
+    // Reentrancy guard: our scaling logic resolves SDK classes / logs, which could
+    // re-enter ProcessEvent. Without this, nested calls would recurse infinitely and
+    // blow the stack. When re-entered, just pass straight through to the original.
+    static thread_local bool s_inDetour = false;
+    if (!s_inDetour)
+    {
+        s_inDetour = true;
+        InGameHack_TryScaleDamageRPC(reinterpret_cast<const SDK::UObject*>(object),
+                                     reinterpret_cast<SDK::UFunction*>(function), params);
+        s_inDetour = false;
+    }
+
+    if (s_peTrampoline)
+        s_peTrampoline(object, function, params);
+}
+
+// Builds the trampoline (stolen prologue + abs jmp back) and writes the abs jmp at
+// the target. STOLEN must land on an instruction boundary. For MHUR's ProcessEvent
+// the first three `mov [rsp+X], reg` instructions are exactly 15 bytes, no relative
+// operands, so 15 is a safe steal length.
+static bool InstallInlineHook(uint8_t* target, void* detour, size_t stolenLen)
+{
+    if (!target || stolenLen < 14 || stolenLen > sizeof(s_peOriginalBytes))
+        return false;
+
+    // trampoline = stolenLen bytes + 14-byte absolute jmp back to target+stolenLen
+    const size_t trampSize = stolenLen + 14;
+    uint8_t* tramp = reinterpret_cast<uint8_t*>(
+        VirtualAlloc(nullptr, trampSize, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE));
+    if (!tramp)
+        return false;
+
+    memcpy(tramp, target, stolenLen);
+    // jmp [rip+0]; <abs8>
+    tramp[stolenLen + 0] = 0xFF;
+    tramp[stolenLen + 1] = 0x25;
+    *reinterpret_cast<uint32_t*>(tramp + stolenLen + 2) = 0;
+    *reinterpret_cast<uint64_t*>(tramp + stolenLen + 6) =
+        reinterpret_cast<uint64_t>(target + stolenLen);
+
+    // save originals, then patch target with abs jmp to detour
+    memcpy(s_peOriginalBytes, target, stolenLen);
+
+    DWORD oldProtect = 0;
+    if (!VirtualProtect(target, stolenLen, PAGE_EXECUTE_READWRITE, &oldProtect))
+    {
+        VirtualFree(tramp, 0, MEM_RELEASE);
+        return false;
+    }
+
+    target[0] = 0xFF;   // jmp [rip+0]
+    target[1] = 0x25;
+    *reinterpret_cast<uint32_t*>(target + 2) = 0;
+    *reinterpret_cast<uint64_t*>(target + 6) = reinterpret_cast<uint64_t>(detour);
+    // pad remaining stolen bytes with NOP for clean disassembly
+    for (size_t i = 14; i < stolenLen; ++i)
+        target[i] = 0x90;
+
+    DWORD unused = 0;
+    VirtualProtect(target, stolenLen, oldProtect, &unused);
+    FlushInstructionCache(GetCurrentProcess(), target, stolenLen);
+
+    s_peTrampoline = reinterpret_cast<ProcessEventRawFn>(tramp);
+    return true;
+}
+
+// Installs the inline ProcessEvent hook once. Safe to call every frame.
+void InGameHack_InstallDamageProcessEventHook()
+{
+    if (s_peHookInstalled)
+        return;
+
+    std::lock_guard<std::mutex> lock(s_peHookMutex);
+    if (s_peHookInstalled)
+        return;
+
+    uintptr_t base = SDK::InSDKUtils::GetImageBase();
+    if (!base)
+        return;
+
+    uint8_t* target = reinterpret_cast<uint8_t*>(base + SDK::Offsets::ProcessEvent);
+    // ProcessEvent prologue: push rbp/rsi/rdi/r12/r13/r14/r15 (12 bytes) + sub rsp,0xF0
+    // (7 bytes) => the first instruction boundary >= 14 is at offset 19. Stealing 15
+    // would cut the `sub rsp` mid-instruction and corrupt the trampoline (crash).
+    const size_t stolenLen = 19;
+
+    if (InstallInlineHook(target, reinterpret_cast<void*>(&DmgMult_ProcessEventInline), stolenLen))
+    {
+        s_peTarget = target;
+        s_peStolenLen = stolenLen;
+        s_peHookInstalled = true;
+        DmgMultLog(std::string("[PEHOOK] inline ProcessEvent hook installed at 0x") +
+            std::to_string(reinterpret_cast<uintptr_t>(target)) +
+            " tramp=0x" + std::to_string(reinterpret_cast<uintptr_t>(s_peTrampoline)));
+    }
+    else
+    {
+        DmgMultLog(std::string("[PEHOOK] inline install FAILED at 0x") +
+            std::to_string(reinterpret_cast<uintptr_t>(target)));
+    }
+}
+
+// Restores ProcessEvent's original bytes. MUST run before the DLL unloads, otherwise
+// the patched jmp points into freed memory (DmgMult_ProcessEventInline) and the game
+// crashes on the next ProcessEvent call. The trampoline is intentionally NOT freed:
+// another thread could be mid-flight inside it, and leaking a few bytes on unload is
+// far cheaper than a use-after-free crash.
+void InGameHack_RemoveDamageProcessEventHook()
+{
+    std::lock_guard<std::mutex> lock(s_peHookMutex);
+    if (!s_peHookInstalled || !s_peTarget || s_peStolenLen == 0)
+        return;
+
+    DWORD oldProtect = 0;
+    if (VirtualProtect(s_peTarget, s_peStolenLen, PAGE_EXECUTE_READWRITE, &oldProtect))
+    {
+        memcpy(s_peTarget, s_peOriginalBytes, s_peStolenLen);
+        DWORD unused = 0;
+        VirtualProtect(s_peTarget, s_peStolenLen, oldProtect, &unused);
+        FlushInstructionCache(GetCurrentProcess(), s_peTarget, s_peStolenLen);
+    }
+
+    s_peHookInstalled = false;
+    // Give any thread currently executing the original prologue time to leave before
+    // the module image goes away. Small, bounded, and only paid once on unload.
+    Sleep(50);
+}
+
+
+// Legacy name kept for the frame-update call site; now delegates to the tick.
+void InGameHack_AutoClearConditionOnModeChange()
+{
+    InGameHack_TickAbilityConditions();
 }
 
 // ============================================
@@ -7846,36 +8244,12 @@ bool InGameHack_SetCvNoneCurveValue(float value)
 
 bool InGameHack_SetAttackDamageMultiplier(float multiplier)
 {
-    try
-    {
-        if (!std::isfinite(multiplier))
-            multiplier = 1.0f;
-        if (multiplier < 1.0f)
-            multiplier = 1.0f;
-        if (multiplier > 300.0f)
-            multiplier = 300.0f;
-
-        SDK::APlayerController* playerController = (SDK::APlayerController*)SDK_GetPlayerController();
-        if (!IsValidPointer(playerController))
-            return false;
-
-        SDK::APlayerStateBattle* playerState = GetPlayerStateBattle(playerController);
-        if (!playerState)
-            return false;
-
-        // NOTE: the ability-condition RPC (the real server-authoritative damage lever)
-        // is intentionally NOT used here yet: it depends on the ability-condition
-        // crash being fixed, which is not the case. Until then this stays on the
-        // proven, non-crashing CV_none client-side curve patch so the feature works
-        // without regressing to a crash. Switch to the condition path once the crash
-        // is resolved.
-        (void)playerState;
-        return InGameHack_SetCvNoneCurveValue(multiplier);
-    }
-    catch (...)
-    {
-        return false;
-    }
+    // DEPRECATED: the damage multiplier is now applied by scaling the
+    // SendDamageToClient RPC parameter in HookedProcessEvent (see
+    // InGameHack_TryScaleDamageRPC). This no longer patches the CV_none curve or
+    // UBuffParam. Kept only so any stale caller links; it does nothing.
+    (void)multiplier;
+    return false;
 }
 
 bool InGameHack_DumpCvNoneCurveScan()

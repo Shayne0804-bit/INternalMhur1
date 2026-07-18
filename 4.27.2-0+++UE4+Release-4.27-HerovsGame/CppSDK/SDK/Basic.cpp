@@ -117,6 +117,47 @@ static inline bool SDK_IsReadableActor(SDK::AActor* actor, size_t requiredBytes 
 	return SDK_IsReadableMemory(actor, requiredBytes);
 }
 
+// Real liveness check for an actor before ANY virtual call (K2_GetActorLocation,
+// GetBones, etc.). SDK_IsReadableActor only proves the memory is mapped: a freed
+// UObject slot usually stays readable, so its stale pointer passes the readable
+// test but its vtable/Class is null/garbage -> ProcessEvent jumps to address 0
+// (RIP=0), an unrecoverable fault no try/catch/__except can trap because there is
+// no unwind info at the destination. We reject stale actors here by round-tripping
+// through GObjects: a live actor's Index resolves back to the exact same pointer.
+static inline bool SDK_IsLiveActor(SDK::AActor* actor)
+{
+	if (!SDK_IsReadableMemory(actor, sizeof(void*)))
+		return false;
+
+	__try
+	{
+		// vtable must be a readable code pointer (freed objects often have null here).
+		void* vtable = *reinterpret_cast<void* const*>(actor);
+		if (!SDK_IsReadableMemory(vtable, sizeof(void*)))
+			return false;
+
+		// Class pointer must be readable (K2_GetActorLocation dereferences Class).
+		SDK::UObject* obj = reinterpret_cast<SDK::UObject*>(actor);
+		if (!SDK_IsReadableMemory(obj->Class, sizeof(void*)))
+			return false;
+
+		// GObjects round-trip: the object's own Index must map back to itself. A
+		// freed/reused slot resolves to a different pointer (or none) and is rejected.
+		const int32 index = obj->Index;
+		if (index < 0 || index >= SDK::UObject::GObjects->Num())
+			return false;
+
+		if (SDK::UObject::GObjects->GetByIndex(index) != obj)
+			return false;
+
+		return true;
+	}
+	__except (EXCEPTION_EXECUTE_HANDLER)
+	{
+		return false;
+	}
+}
+
 static inline FVector SDK_GetActorLocationSafe(SDK::AActor* actor, const FVector& fallback = FVector(0, 0, 0))
 {
 	if (!SDK_IsReadableActor(actor))
@@ -408,6 +449,48 @@ static std::mutex g_ActorCacheMutex;
 static std::vector<CachedActor> g_ItemsToProcess;  // Being filled by enumeration
 static std::vector<CachedActor> g_ItemsForRendering;  // Being read by render
 static std::mutex g_ItemsCacheMutex;
+
+// Tracks the UWorld the caches were built against. When the world changes
+// (match start/end, travel), every cached actor pointer from the old world is
+// dangling: touching one via a virtual call (K2_GetActorLocation -> ProcessEvent)
+// jumps through a freed vtable to RIP=0 and crashes uncatchably. Purging all
+// caches on the world edge removes every stale pointer at the source.
+static void* g_LastCacheWorld = nullptr;
+
+// Isolated so the caller can keep C++ unwinding objects (lock_guard): a function
+// using __try/__except cannot also require object unwinding (MSVC C2712).
+static void* SDK_GetCurrentWorldRaw()
+{
+	__try
+	{
+		return reinterpret_cast<void*>(UWorld::GetWorld());
+	}
+	__except (EXCEPTION_EXECUTE_HANDLER)
+	{
+		return nullptr;
+	}
+}
+
+static void SDK_PurgeActorCachesOnWorldChange()
+{
+	void* currentWorld = SDK_GetCurrentWorldRaw();
+
+	if (currentWorld == g_LastCacheWorld)
+		return;
+
+	g_LastCacheWorld = currentWorld;
+
+	{
+		std::lock_guard<std::mutex> lock(g_ActorCacheMutex);
+		g_ActorsForRendering.clear();
+		g_ActorsToProcess.clear();
+	}
+	{
+		std::lock_guard<std::mutex> lock(g_ItemsCacheMutex);
+		g_ItemsForRendering.clear();
+		g_ItemsToProcess.clear();
+	}
+}
 
 static inline bool SDK_IsChxxxCharacterClassName(const std::string& className)
 {
@@ -2907,13 +2990,20 @@ static Bones SDK_GetBones(SDK::AActor* character, FVector* OutHeadWorldPosition)
 
 static void SDK_RefreshCachedActorFrameData()
 {
+	// Drop every cached pointer if the world changed since last frame, before we
+	// dereference any of them below. This is what prevents the next-match crash.
+	SDK_PurgeActorCachesOnWorldChange();
+
 	const bool refreshSkeleton = SDK_ShouldCacheSkeletonData();
 
 	std::lock_guard<std::mutex> lock(g_ActorCacheMutex);
 	for (CachedActor& cachedActor : g_ActorsForRendering)
 	{
 		AActor* actor = cachedActor.ActorPtr;
-		if (!actor || !SDK_IsReadableActor(actor) || actor->IsDefaultObject())
+		// SDK_IsLiveActor (not just readable) guards the virtual call below: a stale
+		// actor is often still readable but has a dead vtable. Defense in depth on
+		// top of the world-change purge.
+		if (!actor || !SDK_IsLiveActor(actor) || actor->IsDefaultObject())
 			continue;
 
 		try
