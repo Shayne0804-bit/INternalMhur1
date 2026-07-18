@@ -4498,68 +4498,79 @@ namespace ImGuiMenu
 
             bool changed = false;
 
+            // Grouped sliders: one control drives every underlying SDK field of
+            // its group (display value = first field). The full per-field set
+            // stays in settings/profiles and RESET DEFAULTS restores it.
+            auto groupSlider = [&](const char* label, std::initializer_list<float*> targets,
+                                   float vmin, float vmax, const char* fmt) -> bool
+            {
+                float* first = *targets.begin();
+                float value = *first;
+                if (ImAdd::SliderFloat(label, &value, vmin, vmax, fmt))
+                {
+                    for (float* target : targets)
+                        *target = value;
+                    return true;
+                }
+                return false;
+            };
+
             SeparatorLabel("Unique 2 Flight");
-            changed |= ImAdd::SliderFloat("Move Speed XY", &g_Settings.Ch025U2MoveSpeedXY, 0.0f, 10000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Move Speed Z Up", &g_Settings.Ch025U2MoveSpeedZUp, 0.0f, 10000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Move Speed Z Down", &g_Settings.Ch025U2MoveSpeedZDown, 0.0f, 10000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Reinforce Speed XY", &g_Settings.Ch025U2ReinforceMoveSpeedXY, 0.0f, 10000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Reinforce Speed Z Up", &g_Settings.Ch025U2ReinforceMoveSpeedZUp, 0.0f, 10000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Reinforce Speed Z Down", &g_Settings.Ch025U2ReinforceMoveSpeedZDown, 0.0f, 10000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Activity Limit Time", &g_Settings.Ch025U2ActivityLimitTime, 0.0f, 120.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Activity Lowest Time", &g_Settings.Ch025U2ActivityLowestTime, 0.0f, 120.0f, "%.2f");
+            changed |= groupSlider("Flight Speed",
+                { &g_Settings.Ch025U2MoveSpeedXY, &g_Settings.Ch025U2MoveSpeedZUp, &g_Settings.Ch025U2MoveSpeedZDown },
+                0.0f, 10000.0f, "%.2f");
+            changed |= groupSlider("Reinforced Flight Speed",
+                { &g_Settings.Ch025U2ReinforceMoveSpeedXY, &g_Settings.Ch025U2ReinforceMoveSpeedZUp, &g_Settings.Ch025U2ReinforceMoveSpeedZDown },
+                0.0f, 10000.0f, "%.2f");
+            changed |= ImAdd::SliderFloat("Flight Duration", &g_Settings.Ch025U2ActivityLimitTime, 0.0f, 120.0f, "%.2f");
 
             SeparatorLabel("Unique 2 Magazine");
-            changed |= ImAdd::SliderFloat("ShockWave Mag Rate L1", &g_Settings.Ch025U2ShockWaveMagRateL1, 0.0f, 100.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("ShockWave Mag Rate L2", &g_Settings.Ch025U2ShockWaveMagRateL2, 0.0f, 100.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("ShockWave Mag Rate L3", &g_Settings.Ch025U2ShockWaveMagRateL3, 0.0f, 100.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Action Mag Rate L1", &g_Settings.Ch025U2ActionMagRateL1, 0.0f, 100.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Action Mag Rate L2", &g_Settings.Ch025U2ActionMagRateL2, 0.0f, 100.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Action Mag Rate L3", &g_Settings.Ch025U2ActionMagRateL3, 0.0f, 100.0f, "%.2f");
+            changed |= groupSlider("ShockWave Mag Rate",
+                { &g_Settings.Ch025U2ShockWaveMagRateL1, &g_Settings.Ch025U2ShockWaveMagRateL2, &g_Settings.Ch025U2ShockWaveMagRateL3 },
+                0.0f, 100.0f, "%.2f");
+            changed |= groupSlider("Action Mag Rate",
+                { &g_Settings.Ch025U2ActionMagRateL1, &g_Settings.Ch025U2ActionMagRateL2, &g_Settings.Ch025U2ActionMagRateL3 },
+                0.0f, 100.0f, "%.2f");
 
             SeparatorLabel("Special Dash");
             changed |= ImAdd::SliderFloat("Low Gravity Time", &g_Settings.Ch025SpecialLowGravityTime, 0.0f, 60.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Start Speed", &g_Settings.Ch025SpecialStartSpeed, 0.0f, 20000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Middle Speed", &g_Settings.Ch025SpecialMiddleSpeed, 0.0f, 20000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("End Speed", &g_Settings.Ch025SpecialEndSpeed, 0.0f, 20000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Start Span", &g_Settings.Ch025SpecialStartSpan, 0.0f, 30.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("End Span", &g_Settings.Ch025SpecialEndSpan, 0.0f, 30.0f, "%.2f");
+            changed |= groupSlider("Dash Speed",
+                { &g_Settings.Ch025SpecialStartSpeed, &g_Settings.Ch025SpecialMiddleSpeed, &g_Settings.Ch025SpecialEndSpeed },
+                0.0f, 20000.0f, "%.2f");
+            changed |= groupSlider("Dash Vertical Speed",
+                { &g_Settings.Ch025SpecialStartVerticalSpeed, &g_Settings.Ch025SpecialMiddleVerticalSpeed, &g_Settings.Ch025SpecialEndVerticalSpeed },
+                -20000.0f, 20000.0f, "%.2f");
+            changed |= groupSlider("Dash Span",
+                { &g_Settings.Ch025SpecialStartSpan, &g_Settings.Ch025SpecialEndSpan, &g_Settings.Ch025SpecialStartVerticalSpan, &g_Settings.Ch025SpecialEndVerticalSpan },
+                0.0f, 30.0f, "%.2f");
             changed |= ImAdd::SliderFloat("Dash Time Seconds", &g_Settings.Ch025SpecialDashTime, 0.0f, 60.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Start Vertical Speed", &g_Settings.Ch025SpecialStartVerticalSpeed, -20000.0f, 20000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Middle Vertical Speed", &g_Settings.Ch025SpecialMiddleVerticalSpeed, -20000.0f, 20000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("End Vertical Speed", &g_Settings.Ch025SpecialEndVerticalSpeed, -20000.0f, 20000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Start Vertical Span", &g_Settings.Ch025SpecialStartVerticalSpan, 0.0f, 30.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("End Vertical Span", &g_Settings.Ch025SpecialEndVerticalSpan, 0.0f, 30.0f, "%.2f");
 
             ImGui::NextColumn();
 
             SeparatorLabel("Unique 3 Wave");
-            changed |= ImAdd::SliderFloat("Initial Vertical Speed", &g_Settings.Ch025U3InitialVerticalSpeed, -20000.0f, 20000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Last Vertical Speed", &g_Settings.Ch025U3LastVerticalSpeed, -20000.0f, 20000.0f, "%.2f");
+            changed |= groupSlider("Vertical Speed",
+                { &g_Settings.Ch025U3InitialVerticalSpeed, &g_Settings.Ch025U3LastVerticalSpeed },
+                -20000.0f, 20000.0f, "%.2f");
             changed |= ImAdd::SliderFloat("Span", &g_Settings.Ch025U3Span, 0.0f, 30.0f, "%.2f");
             changed |= ImAdd::SliderFloat("Wait Turn Time", &g_Settings.Ch025U3WaitTurnTime, 0.0f, 30.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Apply Inertia Spawn", &g_Settings.Ch025U3ApplyInertiaSpawn, 0.0f, 30.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Inertia Spawn H Rate", &g_Settings.Ch025U3ApplyInertiaSpawnHRate, 0.0f, 30.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Inertia Spawn V Rate", &g_Settings.Ch025U3ApplyInertiaSpawnVRate, 0.0f, 30.0f, "%.2f");
+            changed |= groupSlider("Inertia Rate",
+                { &g_Settings.Ch025U3ApplyInertiaSpawnHRate, &g_Settings.Ch025U3ApplyInertiaSpawnVRate },
+                0.0f, 30.0f, "%.2f");
 
             SeparatorLabel("Unique 3 Condition / Barrier");
-            changed |= ImAdd::SliderFloat("Condition Time L1", &g_Settings.Ch025U3ConditionTimeL1, 0.0f, 120.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Condition Time L2", &g_Settings.Ch025U3ConditionTimeL2, 0.0f, 120.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Condition Time L3", &g_Settings.Ch025U3ConditionTimeL3, 0.0f, 120.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Barrier Value L1", &g_Settings.Ch025U3BarrierValueL1, 0.0f, 10000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Barrier Value L2", &g_Settings.Ch025U3BarrierValueL2, 0.0f, 10000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Barrier Value L3", &g_Settings.Ch025U3BarrierValueL3, 0.0f, 10000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Ally Barrier L1", &g_Settings.Ch025U3BarrierValueAllyL1, 0.0f, 10000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Ally Barrier L2", &g_Settings.Ch025U3BarrierValueAllyL2, 0.0f, 10000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Ally Barrier L3", &g_Settings.Ch025U3BarrierValueAllyL3, 0.0f, 10000.0f, "%.2f");
+            changed |= groupSlider("Condition Time",
+                { &g_Settings.Ch025U3ConditionTimeL1, &g_Settings.Ch025U3ConditionTimeL2, &g_Settings.Ch025U3ConditionTimeL3 },
+                0.0f, 120.0f, "%.2f");
+            changed |= groupSlider("Barrier Value",
+                { &g_Settings.Ch025U3BarrierValueL1, &g_Settings.Ch025U3BarrierValueL2, &g_Settings.Ch025U3BarrierValueL3,
+                  &g_Settings.Ch025U3BarrierValueAllyL1, &g_Settings.Ch025U3BarrierValueAllyL2, &g_Settings.Ch025U3BarrierValueAllyL3,
+                  &g_Settings.Ch025U3OwnerBarrierListValue, &g_Settings.Ch025U3AllyBarrierListValue },
+                0.0f, 10000.0f, "%.2f");
             changed |= ImAdd::SliderFloat("Many Ally Barrier Rate", &g_Settings.Ch025U3ManyAllyBarrierRate, 0.0f, 30.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Owner Barrier List Value", &g_Settings.Ch025U3OwnerBarrierListValue, 0.0f, 10000.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Ally Barrier List Value", &g_Settings.Ch025U3AllyBarrierListValue, 0.0f, 10000.0f, "%.2f");
 
             SeparatorLabel("Unique 3 Turn");
             changed |= ImAdd::SliderFloat("Turn Angle Deg", &g_Settings.Ch025U3TurnAngleDeg, 0.0f, 360.0f, "%.2f");
             changed |= ImAdd::SliderFloat("Turn Time", &g_Settings.Ch025U3TurnTime, 0.0f, 30.0f, "%.2f");
-            changed |= ImAdd::SliderFloat("Turn Blend Exp", &g_Settings.Ch025U3TurnBlendExp, 0.0f, 30.0f, "%.2f");
-            changed |= ImAdd::SliderInt("Turn Steps", &g_Settings.Ch025U3TurnSteps, 1, 100);
 
             SeparatorLabel("Wave Barrier Effect");
             changed |= ImAdd::SliderFloat("Barrier Max Time", &g_Settings.Ch025BarrierMaxTime, 0.0f, 120.0f, "%.2f");
