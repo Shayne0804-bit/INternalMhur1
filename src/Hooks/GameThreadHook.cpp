@@ -158,11 +158,14 @@ namespace GameThreadHook
         }
     }
 
-    static void SetCvNoneCurveValueNoThrow(float value)
+    static void SetAttackDamageMultiplierNoThrow(float value)
     {
         __try
         {
-            InGameHack_SetAttackDamageMultiplier(value);
+            // Proven path: patch the CV_none damage attenuation curve keys in memory.
+            // The BuffParam BP_SetAttackAdjustRate* function calls were tested and
+            // do NOT apply, so we do not use InGameHack_SetAttackDamageMultiplier here.
+            InGameHack_SetCvNoneCurveValue(value);
         }
         __except (HandleAccessViolation(GetExceptionInformation()))
         {
@@ -186,14 +189,14 @@ namespace GameThreadHook
     static DWORD g_LastFrameUpdateLogTick = 0;
     static DWORD g_LastInfiniteObjectsPatchSyncTick = 0;
     static DWORD g_LastReloadAdjustSyncTick = 0;
-    static DWORD g_LastCvNoneCurveSyncTick = 0;
+    static DWORD g_LastAttackDamageMultiplierSyncTick = 0;
     static bool g_LastInfiniteObjectsPatchTarget = false;
     static bool g_HasInfiniteObjectsPatchTarget = false;
     static thread_local bool g_IsRunningFrameUpdate = false;
     static constexpr DWORD GAME_FRAME_UPDATE_INTERVAL_MS = 16;
     static constexpr DWORD INFINITE_OBJECTS_RESYNC_MS = 1000;
     static constexpr DWORD RELOAD_ADJUST_SYNC_MS = 500;
-    static constexpr DWORD CV_NONE_CURVE_RESYNC_MS = 1000;
+    static constexpr DWORD ATTACK_DAMAGE_MULTIPLIER_RESYNC_MS = 1000;
 
     static void SyncCH202InitTransNoThrow()
     {
@@ -245,20 +248,20 @@ namespace GameThreadHook
         }
     }
 
-    static void SyncCvNoneCurveNoThrow(DWORD now)
+    static void SyncAttackDamageMultiplierNoThrow(DWORD now)
     {
         __try
         {
-            const float cvNoneCurveValue = ImGuiMenu::g_Settings.CvNoneDamageCurveValue;
-            const bool needsCvNoneCurveSync = cvNoneCurveValue != 1.0f;
-            const bool cvNoneCurveDue =
-                g_LastCvNoneCurveSyncTick == 0 ||
-                now - g_LastCvNoneCurveSyncTick >= CV_NONE_CURVE_RESYNC_MS;
+            const float multiplier = ImGuiMenu::g_Settings.CvNoneDamageCurveValue;
+            const bool needsSync = multiplier != 1.0f;
+            const bool due =
+                g_LastAttackDamageMultiplierSyncTick == 0 ||
+                now - g_LastAttackDamageMultiplierSyncTick >= ATTACK_DAMAGE_MULTIPLIER_RESYNC_MS;
 
-            if (needsCvNoneCurveSync && cvNoneCurveDue)
+            if (needsSync && due)
             {
-                g_LastCvNoneCurveSyncTick = now;
-                SetCvNoneCurveValueNoThrow(cvNoneCurveValue);
+                g_LastAttackDamageMultiplierSyncTick = now;
+                SetAttackDamageMultiplierNoThrow(multiplier);
             }
         }
         __except (HandleAccessViolation(GetExceptionInformation()))
@@ -581,7 +584,7 @@ namespace GameThreadHook
 
         SyncCH202InitTransNoThrow();
         SyncReloadAdjustNoThrow(now);
-        SyncCvNoneCurveNoThrow(now);
+        SyncAttackDamageMultiplierNoThrow(now);
     }
 
     static void HookedProcessEvent(const SDK::UObject* object, SDK::UFunction* function, void* params)

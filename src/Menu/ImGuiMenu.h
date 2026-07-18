@@ -117,7 +117,7 @@ namespace ImGuiMenu
         float ReloadAdjustRate = 1.0f;                    // General reload rate (1.0 = normal)
         float ReloadAdjustRate_RollSlot = 1.0f;           // Reload rate for roll slot
         float ReloadAdjustRate_WearBlueFlame = 1.0f;      // Reload rate while wearing blue flame
-        float CvNoneDamageCurveValue = 1.0f;              // CV_None damage attenuation curve key value
+        float CvNoneDamageCurveValue = 1.0f;              // Damage multiplier via CV_None curve key memory patch (proven working)
         
         // Training Mode - Player Character Setup
         int TrainingPlayerCharacter = 0;                  // Character ID (0=UNDEF, 1=Ch000, 2=Ch001... 44=Ch999)

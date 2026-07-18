@@ -620,7 +620,7 @@ namespace SettingsManager
 		emptyMenu.ReloadAdjustRate = 1.0f;  // Keep at 1.0f (normal speed) not 0
 		emptyMenu.ReloadAdjustRate_RollSlot = 1.0f;  // Keep at 1.0f
 		emptyMenu.ReloadAdjustRate_WearBlueFlame = 1.0f;  // Keep at 1.0f
-		emptyMenu.CvNoneDamageCurveValue = 1.0f;  // Keep original CV_None curve values
+		emptyMenu.CvNoneDamageCurveValue = 1.0f;
 		emptyMenu.BulletTP_FOVRadius = 0.0f;
 		emptyMenu.BulletTP_MaxDistance = 0.0f;
 		emptyMenu.CameraFOV = 90.0f;
