@@ -162,10 +162,9 @@ namespace GameThreadHook
     {
         __try
         {
-            // Proven path: patch the CV_none damage attenuation curve keys in memory.
-            // The BuffParam BP_SetAttackAdjustRate* function calls were tested and
-            // do NOT apply, so we do not use InGameHack_SetAttackDamageMultiplier here.
-            InGameHack_SetCvNoneCurveValue(value);
+            // Direct memory write into UBuffParam attack-adjust fields (the BP_Set*
+            // function calls do NOT apply). Re-applied here so it survives recompute.
+            InGameHack_SetAttackDamageMultiplier(value);
         }
         __except (HandleAccessViolation(GetExceptionInformation()))
         {

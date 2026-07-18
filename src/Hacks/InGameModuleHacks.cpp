@@ -7864,24 +7864,36 @@ bool InGameHack_SetAttackDamageMultiplier(float multiplier)
             return false;
 
         SDK::UBuffParam* buffParam = GetBuffParamSafe(playerState);
-        if (!buffParam)
+        if (!buffParam || !IsLiveUObjectPointer(buffParam))
             return false;
 
-        // Legit path: call the game's own native buff setters, the same functions
-        // it uses to scale damage for its buffs. _allAttackAdjustRate has no setter
-        // (it is an aggregate the buff system recomputes), which is why writing it
-        // raw did nothing. BP_SetAttackAdjustRate drives _attackAdjustRate, the
-        // field the setter is built around; we also scale the per-category rates so
-        // every attack type (uniques, melee, plus ultra) is boosted, not just the
-        // base. Idempotent enough to re-run from the periodic game-thread sync.
-        buffParam->BP_SetAttackAdjustRate(multiplier);
-        buffParam->BP_SetAttackAdjustRate_Unique1(multiplier);
-        buffParam->BP_SetAttackAdjustRate_Unique2(multiplier);
-        buffParam->BP_SetAttackAdjustRate_Unique3(multiplier);
-        buffParam->BP_SetAttackAdjustRate_Melee(multiplier);
-        buffParam->BP_SetAttackAdjustRate_PlusUltra(multiplier);
+        // Direct memory write into UBuffParam's attack-adjust fields (the BP_Set*
+        // function calls do NOT apply, so we bypass them). _allAttackAdjustRate
+        // (0x74) is the aggregate the game actually reads when scaling damage;
+        // we write it plus every per-category rate so all attack types are boosted.
+        // Re-applied by the periodic sync so it survives the buff recompute.
+        auto writeRate = [&](float* target) -> int
+        {
+            return SafeMemory::TryWrite<float>(target, multiplier) ? 1 : 0;
+        };
 
-        return true;
+        int wrote = 0;
+        wrote += writeRate(&buffParam->_allAttackAdjustRate);
+        wrote += writeRate(&buffParam->_attackAdjustRate);
+        wrote += writeRate(&buffParam->_attackAdjustRate_Unique1);
+        wrote += writeRate(&buffParam->_attackAdjustRate_Unique2);
+        wrote += writeRate(&buffParam->_attackAdjustRate_Unique3);
+        wrote += writeRate(&buffParam->_attackAdjustRate_Melee);
+        wrote += writeRate(&buffParam->_attackAdjustRate_PlusUltra);
+        wrote += writeRate(&buffParam->_attackAdjustRate_SpecialRule);
+        wrote += writeRate(&buffParam->_attackAdjustRate_TeamRole);
+        wrote += writeRate(&buffParam->_attackAdjustRate_RollSlot);
+        wrote += writeRate(&buffParam->_attackAdjustRate_NormalSlot_Unique1);
+        wrote += writeRate(&buffParam->_attackAdjustRate_NormalSlot_Unique2);
+        wrote += writeRate(&buffParam->_attackAdjustRate_NormalSlot_Unique3);
+        wrote += writeRate(&buffParam->_attackAdjustRate_NormalSlot_Melee);
+
+        return wrote > 0;
     }
     catch (...)
     {

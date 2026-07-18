@@ -5240,16 +5240,14 @@ namespace ImGuiMenu
                 InGameHack_TestUseItemAction();
             if (ImAdd::SliderFloat("Reload Rate (Blue Flame)", &g_Settings.ReloadAdjustRate_WearBlueFlame, 1.0f, 50.0f, "%.2fx"))
                 InGameHack_SetReloadAdjustRate_WearBlueFlame(g_Settings.ReloadAdjustRate_WearBlueFlame);
-            // Damage multiplier works by patching the CV_none damage attenuation
-            // curve keys in memory. The BuffParam BP_SetAttackAdjustRate* setters
-            // (function calls) were tested and do NOT apply, so we stay on the
-            // proven memory-write path. Re-applied periodically by the sync in case
-            // the curve object reloads between matches.
+            // Damage multiplier writes UBuffParam's attack-adjust fields directly in
+            // memory (not the BP_Set* function calls, which don't apply). Re-applied
+            // by the periodic sync so it survives the buff system's recompute.
             if (ImAdd::SliderFloat("Damage Multiplier", &g_Settings.CvNoneDamageCurveValue, 1.0f, 300.0f, "%.2f"))
             {
-                const float curveValue = g_Settings.CvNoneDamageCurveValue;
-                EnqueueGameThreadMenuTask([curveValue]() {
-                    InGameHack_SetCvNoneCurveValue(curveValue);
+                const float multiplier = g_Settings.CvNoneDamageCurveValue;
+                EnqueueGameThreadMenuTask([multiplier]() {
+                    InGameHack_SetAttackDamageMultiplier(multiplier);
                 }, "Damage Multiplier");
             }
 
