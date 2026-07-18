@@ -9203,15 +9203,23 @@ bool InGameHack_ApplyCh025V2Params(const Ch025V2ParamsConfig& config)
 {
     try
     {
-        // Re-collect on every apply: condition effects (wave barrier, heal) and
-        // Special actions spawn per activation, so a cached list from the last
-        // menu load misses live instances. Apply is user-debounced, the sweep
-        // cost is acceptable.
-        Ch025V2ParamsTargets targets;
-        CollectLoadedCh025V2Targets(targets);
-        CacheCh025V2Targets(targets);
-        if (targets.Empty())
-            targets = GetCachedCh025V2Targets();
+        // Apply from the cached target list — never sweep GObjects here: a full
+        // 2M-object scan on every slider tick freezes the game for seconds.
+        // Condition effects (wave barrier, heal) and Special actions spawn per
+        // activation, so the cache is refreshed on a slow throttle (>=4s) to
+        // catch new live instances without stalling during a slider drag.
+        static DWORD s_lastCh025ScanTick = 0;
+        const DWORD scanNow = GetTickCount();
+        if (s_lastCh025ScanTick == 0 || scanNow - s_lastCh025ScanTick >= 4000)
+        {
+            s_lastCh025ScanTick = scanNow;
+            Ch025V2ParamsTargets fresh;
+            CollectLoadedCh025V2Targets(fresh);
+            if (!fresh.Empty())
+                CacheCh025V2Targets(fresh);
+        }
+
+        Ch025V2ParamsTargets targets = GetCachedCh025V2Targets();
 
         int targetCount = 0;
         int writeCount = 0;
