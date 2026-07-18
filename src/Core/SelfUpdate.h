@@ -92,4 +92,8 @@ namespace SelfUpdate
 
     // Delete sibling "*.old" / "*.new" backups next to the module.
     void CleanupLeftovers();
+
+    // Current client version string (auto-bumped per build, e.g. "1.0.5"). Safe
+    // to display in the menu header on any config.
+    const char* ClientVersion();
 }

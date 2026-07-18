@@ -5907,6 +5907,12 @@ namespace ImGuiMenu
         addText(g_FreeFontBrand, 30.0f, ImVec2(p.x + 24.0f, p.y + 16.0f), ImGui::GetColorU32(agencyAccent), "VALARIA");
         const ImVec2 brandSize = calcTextSize(g_FreeFontBrand, 30.0f, "VALARIA");
         addText(g_FreeFontSmall, 13.0f, ImVec2(p.x + 26.0f + brandSize.x + 10.0f, p.y + 30.0f), ImGui::GetColorU32(g_Colors.textDisabled), "INTERNAL");
+        // Current client version (auto-bumped per build).
+        {
+            char verText[32] = {};
+            snprintf(verText, sizeof(verText), "v%s", SelfUpdate::ClientVersion());
+            addText(g_FreeFontSmall, 13.0f, ImVec2(p.x + 26.0f + brandSize.x + 10.0f, p.y + 14.0f), ImGui::GetColorU32(agencyAccent), verText);
+        }
 
         // FPS pill (right side of header).
         char fpsText[32] = {};
@@ -6330,6 +6336,21 @@ namespace ImGuiMenu
         drawList->AddRectFilled(fpsBoxMin, fpsBoxMax, ImGui::GetColorU32(ImVec4(15.0f / 255.0f, 17.0f / 255.0f, 21.0f / 255.0f, 0.58f)), 4.0f);
         drawList->AddRect(fpsBoxMin, fpsBoxMax, ImGui::GetColorU32(ImVec4(g_Colors.accentColor.x, g_Colors.accentColor.y, g_Colors.accentColor.z, 0.30f)), 4.0f);
         addText(g_FreeFontSmall, 14.0f, ImVec2(fpsBoxMin.x + 9.0f, fpsBoxMin.y + 4.0f), ImGui::GetColorU32(g_Colors.textSecondary), fpsText);
+
+        // Version pill (auto-bumped per build) — sits just left of the FPS pill.
+        {
+            char verText[32] = {};
+            snprintf(verText, sizeof(verText), "v%s", SelfUpdate::ClientVersion());
+            ImGui::PushFont(g_FreeFontSmall ? g_FreeFontSmall : g_FreeFont);
+            const ImVec2 verTextSize = ImGui::CalcTextSize(verText);
+            ImGui::PopFont();
+            const ImVec2 verBoxSize(verTextSize.x + 18.0f, 24.0f);
+            const ImVec2 verBoxMin(fpsBoxMin.x - verBoxSize.x - 8.0f, fpsBoxMin.y);
+            const ImVec2 verBoxMax(verBoxMin.x + verBoxSize.x, verBoxMin.y + verBoxSize.y);
+            drawList->AddRectFilled(verBoxMin, verBoxMax, ImGui::GetColorU32(ImVec4(15.0f / 255.0f, 17.0f / 255.0f, 21.0f / 255.0f, 0.58f)), 4.0f);
+            drawList->AddRect(verBoxMin, verBoxMax, ImGui::GetColorU32(ImVec4(g_Colors.accentColor.x, g_Colors.accentColor.y, g_Colors.accentColor.z, 0.30f)), 4.0f);
+            addText(g_FreeFontSmall, 14.0f, ImVec2(verBoxMin.x + 9.0f, verBoxMin.y + 4.0f), ImGui::GetColorU32(g_Colors.accentColor), verText);
+        }
 
         float subtabY = p.y + 56.0f;
         ImGui::SetCursorScreenPos(ImVec2(contentX, subtabY));

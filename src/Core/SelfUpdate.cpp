@@ -585,6 +585,11 @@ namespace SelfUpdate
         CleanupLeftovers();
     }
 
+    const char* ClientVersion()
+    {
+        return kClientVersion;
+    }
+
     // ------------------------------------------------------------------
     // State machine workers
     // ------------------------------------------------------------------
