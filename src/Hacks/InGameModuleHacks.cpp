@@ -6668,6 +6668,28 @@ bool InGameHack_ApplyCustomCharacterCondition(int conditionId, int applyMode, in
     }
 }
 
+// SEH-guarded forced removal. Clears both server-authoritative and local scope
+// so a condition is removed regardless of how it was applied. DESTRUCTION end
+// type forces the condition off (TIME_UP can be re-validated by the server).
+static bool ClearConditionSafe(
+    SDK::UCharacterConditionControlComponent* conditionComponent,
+    SDK::ECharacterConditionId id)
+{
+    if (!IsValidPointer(conditionComponent) || !IsLiveUObjectPointer(conditionComponent))
+        return false;
+
+    __try
+    {
+        conditionComponent->ClearCondition_ToServer(id, SDK::ECharacterConditionEndType::DESTRUCTION);
+        conditionComponent->BP_ClearCondition(id);
+        return true;
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        return false;
+    }
+}
+
 bool InGameHack_ClearCustomCharacterCondition(int conditionId)
 {
     if (conditionId <= 0 || conditionId >= static_cast<int>(SDK::ECharacterConditionId::MAX))
@@ -6703,12 +6725,17 @@ bool InGameHack_ClearCustomCharacterCondition(int conditionId)
         if (!conditionComponent)
             return false;
 
-        conditionComponent->ClearCondition_ToServer(
-            static_cast<SDK::ECharacterConditionId>(conditionId),
-            SDK::ECharacterConditionEndType::TIME_UP
-        );
+        // Force removal: TIME_UP just marks the timer as elapsed and the server
+        // may re-validate/keep it. DESTRUCTION forces the condition off. Also
+        // clear the local instance (BP_ClearCondition), so conditions applied
+        // locally are removed too — the two paths cover every apply scope.
+        if (!ClearConditionSafe(conditionComponent, static_cast<SDK::ECharacterConditionId>(conditionId)))
+        {
+            Logger::LogError("[CharacterCondition] SEH exception clearing condition " + std::to_string(conditionId));
+            return false;
+        }
 
-        Logger::LogInfo("[CharacterCondition] Cleared condition ID " + std::to_string(conditionId) + " with TIME_UP");
+        Logger::LogInfo("[CharacterCondition] Cleared condition ID " + std::to_string(conditionId) + " (DESTRUCTION + local)");
         return true;
     }
     catch (const std::exception& e)
@@ -6866,7 +6893,12 @@ static bool ApplyAbilityCondition(SDK::ECharacterConditionId id, int level, cons
         return false;
     }
 
-    if (!CallBPSetConditionSafe(conditionComponent, id, level, 500.0f, 1000.0f, 0.1f, level, instigatedPlayer, 0))
+    // Span kept well under a match's length: a 500s condition outlives the match,
+    // and on the next match the game re-evaluates the still-persisted entry with a
+    // freed instigator PlayerState -> AV at offset 0xBA. 120s is long enough to feel
+    // permanent in-match while expiring before teardown, and the battle-exit cleanup
+    // below purges it regardless.
+    if (!CallBPSetConditionSafe(conditionComponent, id, level, 120.0f, 1000.0f, 0.1f, level, instigatedPlayer, 0))
     {
         Logger::LogError(std::string("[COMBAT] SEH exception calling BP_SetCondition for ") + logName);
         return false;
@@ -6899,6 +6931,63 @@ bool InGameHack_AbilityHeal(int level)
 bool InGameHack_AbilityTechnique(int level)
 {
     return ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_TECHNIQUE, level, "AbilityTechnique");
+}
+
+// Purge ability conditions on the battle->non-battle edge, while the current
+// match's character/component/PlayerState are still alive. Without this the
+// ability conditions persist into the next match with a freed instigator
+// PlayerState and the game crashes (AV reading instigator->field at 0xBA).
+void InGameHack_AutoClearConditionOnModeChange()
+{
+    static bool s_wasInBattle = false;
+
+    bool inBattle = false;
+    try
+    {
+        inBattle = IsValidBattleMode();
+    }
+    catch (...)
+    {
+        inBattle = false;
+    }
+
+    // Only act on the falling edge (was in battle, now leaving).
+    if (s_wasInBattle && !inBattle)
+    {
+        try
+        {
+            SDK::APlayerController* baseController = SDK_GetPlayerController();
+            SDK::APlayerControllerBattle* playerController =
+                IsValidPointer(baseController) ? static_cast<SDK::APlayerControllerBattle*>(baseController) : nullptr;
+            SDK::ACharacterBattle* playerCharacter =
+                IsValidPointer(playerController) ? GetPlayerCharacterBattle(playerController) : nullptr;
+
+            if (IsValidPointer(playerCharacter) && !IsObjectDefaultSafe(playerCharacter))
+            {
+                auto* conditionComponent = GetConditionControlComponentSafe(playerCharacter);
+                if (conditionComponent)
+                {
+                    const SDK::ECharacterConditionId abilityIds[] = {
+                        SDK::ECharacterConditionId::ABILITY_ATTACK,
+                        SDK::ECharacterConditionId::ABILITY_DURABLE,
+                        SDK::ECharacterConditionId::ABILITY_MOVESPEED,
+                        SDK::ECharacterConditionId::ABILITY_HEAL,
+                        SDK::ECharacterConditionId::ABILITY_TECHNIQUE,
+                    };
+                    for (SDK::ECharacterConditionId id : abilityIds)
+                        ClearConditionSafe(conditionComponent, id);
+
+                    Logger::LogInfo("[COMBAT] Auto-cleared ability conditions on battle exit");
+                }
+            }
+        }
+        catch (...)
+        {
+            Logger::LogWarning("[COMBAT] Exception during ability condition auto-clear");
+        }
+    }
+
+    s_wasInBattle = inBattle;
 }
 
 // ============================================

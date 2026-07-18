@@ -64,7 +64,7 @@ namespace ImGuiMenu
         // Aimbot
         bool EnableAimbot = false;
         bool AimbotSmoothing = false;
-        float AimbotSmoothFactor = 0.3f;  // 0.01-1.0 legacy factor; values above 1 add slower smoothing
+        float AimbotSmoothFactor = 6.0f;  // 1 = very soft .. 10 = instant snap (framerate-independent)
         bool AimbotDrawLine = false;  // Draw line from center to target
         bool AimbotDrawFOV = false;   // Draw FOV circle on screen
         bool AimbotDrawCrosshair = false;  // Draw the game crosshair at screen center

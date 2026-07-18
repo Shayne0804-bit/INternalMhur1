@@ -5307,7 +5307,7 @@ namespace ImGuiMenu
             {
                 ImAdd::CheckBox("Smooth Aiming", &g_Settings.AimbotSmoothing);
                 if (g_Settings.AimbotSmoothing)
-                    ImAdd::SliderFloat("Smooth Factor", &g_Settings.AimbotSmoothFactor, 0.01f, 10.0f, "%.2f");
+                    ImAdd::SliderFloat("Smooth Factor", &g_Settings.AimbotSmoothFactor, 1.0f, 10.0f, "%.1f");
                 ImAdd::CheckBox("Ignore Downed Targets", &g_Settings.AimbotIgnoreDownedTargets);
                 ImAdd::CheckBox("Draw Aim Line", &g_Settings.AimbotDrawLine);
                 ImAdd::CheckBox("Draw Crosshair", &g_Settings.AimbotDrawCrosshair);
@@ -5502,62 +5502,35 @@ namespace ImGuiMenu
         }
         EndRugirCard();
 
-        // ===== CUSTOM DROP (drop arbitrary world item x quantity) =====
-        static std::vector<std::string> s_dropCatalog;
-        static int s_dropScanCount = -1;
-
+        // ===== CUSTOM DROP (drop world items by serial range) =====
+        // The item type is decided by the runtime supplyId mapped to each serial,
+        // not by any catalog pick — a serial-count slider alone spans multiple item
+        // categories (e.g. count=50 drops a mix of different item types). The old
+        // item dropdown had no real effect (it was only a fallback), so it's gone.
         if (BeginRugirCard("custom-drop-page", "DROP ITEMS (CUSTOM)", ImVec2(0.0f, 0.0f), &g_Settings.EnableCustomDrop))
         {
-            if (s_dropScanCount < 0)
-            {
-                s_dropScanCount = InGameHack_ScanWorldItemCatalog();
-                InGameHack_GetWorldItemCatalogNames(s_dropCatalog);
-                if (g_Settings.CustomDropSelectedIndex >= static_cast<int>(s_dropCatalog.size()))
-                    g_Settings.CustomDropSelectedIndex = 0;
-            }
-
-            if (s_dropScanCount >= 0)
-                ImGui::TextDisabled("Loaded %d known item(s)", s_dropScanCount);
-
-            const bool hasSelection =
-                g_Settings.CustomDropSelectedIndex >= 0 &&
-                g_Settings.CustomDropSelectedIndex < static_cast<int>(s_dropCatalog.size());
-            const char* preview = hasSelection
-                ? s_dropCatalog[g_Settings.CustomDropSelectedIndex].c_str()
-                : "(catalog unavailable)";
-
-            if (ImGui::BeginCombo("Item", preview))
-            {
-                for (int i = 0; i < static_cast<int>(s_dropCatalog.size()); ++i)
-                {
-                    const bool selected = (i == g_Settings.CustomDropSelectedIndex);
-                    if (ImGui::Selectable(s_dropCatalog[i].c_str(), selected))
-                        g_Settings.CustomDropSelectedIndex = i;
-                    if (selected)
-                        ImGui::SetItemDefaultFocus();
-                }
-                ImGui::EndCombo();
-            }
-
-            ImGui::SliderInt("Quantity Passes", &g_Settings.CustomDropQuantity, 1, 100);
             if (g_Settings.CustomDropSerialId < 1)
                 g_Settings.CustomDropSerialId = 1;
             if (g_Settings.CustomDropSerialId > 512)
                 g_Settings.CustomDropSerialId = 512;
+            if (g_Settings.CustomDropQuantity < 1)
+                g_Settings.CustomDropQuantity = 1;
 
             ImGui::SliderInt("Serial Count", &g_Settings.CustomDropSerialId, 1, 512);
+            ImGui::TextDisabled("Higher counts span more item categories at once.");
+            ImGui::SliderInt("Quantity Passes", &g_Settings.CustomDropQuantity, 1, 100);
 
             if (FullWidthButton(">> DROP <<"))
             {
                 InGameHack_DropCatalogItem(
-                    g_Settings.CustomDropSelectedIndex,
+                    0,  // catalogIndex is only a fallback; serial mapping picks the real items
                     g_Settings.CustomDropQuantity,
                     g_Settings.CustomDropSerialId,
                     false);
             }
 
             DrawHotkeyConfigButton("Custom Drop", g_Settings.CustomDropKey, 109);
-            ImGui::TextDisabled("Uses the selected runtime supplyId with the selected serial ID.");
+            ImGui::TextDisabled("Drops serials 1..N; each serial resolves to its runtime item type.");
         }
         EndRugirCard();
     }

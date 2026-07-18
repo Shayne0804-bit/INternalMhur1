@@ -820,6 +820,10 @@ bool InGameHack_AbilityHeal(int level);
  */
 bool InGameHack_AbilityTechnique(int level);
 
+// Purges ability conditions on the battle->non-battle transition to avoid a
+// stale-instigator crash on the next match. Call every frame update.
+void InGameHack_AutoClearConditionOnModeChange();
+
 // ============================================
 // CHARACTER CONTROL FUNCTIONS
 // ============================================

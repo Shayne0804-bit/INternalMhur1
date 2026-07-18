@@ -4539,11 +4539,22 @@ static bool ApplyAimbotControlRotation(APlayerController* playerController, cons
 		if (targetPitch > 89.0f) targetPitch = 89.0f;
 		if (targetPitch < -89.0f) targetPitch = -89.0f;
 
+		// Smooth semantics: 1 = very soft, 10 = instant snap. Monotonic (higher =
+		// faster) and framerate-independent so the feel is identical at 60/144 fps.
+		// Legacy configs stored <1.0 factors; remap them into the 1..10 range.
 		float smoothFactor = ImGuiMenu::g_Settings.AimbotSmoothFactor;
-		if (!std::isfinite(smoothFactor)) smoothFactor = 1.0f;
-		if (smoothFactor < 0.01f) smoothFactor = 0.01f;
+		if (!std::isfinite(smoothFactor)) smoothFactor = 10.0f;
+		if (smoothFactor < 1.0f) smoothFactor = smoothFactor <= 0.0f ? 1.0f : (smoothFactor * 10.0f);
+		if (smoothFactor < 1.0f) smoothFactor = 1.0f;
 		if (smoothFactor > 10.0f) smoothFactor = 10.0f;
-		const float smoothStep = (smoothFactor <= 1.0f) ? smoothFactor : (1.0f / smoothFactor);
+
+		const float baseStep = smoothFactor / 10.0f;   // 1 -> 0.1 (soft), 10 -> 1.0 (snap)
+		float dt = ImGui::GetIO().DeltaTime;
+		if (!std::isfinite(dt) || dt <= 0.0f) dt = 1.0f / 60.0f;
+		if (dt > 0.1f) dt = 0.1f;
+		float smoothStep = 1.0f - powf(1.0f - baseStep, dt * 60.0f);
+		if (smoothStep < 0.02f) smoothStep = 0.02f;
+		if (smoothStep > 1.0f) smoothStep = 1.0f;
 
 		if (g_LastSmoothedAimbotTargetPtr == nullptr)
 		{

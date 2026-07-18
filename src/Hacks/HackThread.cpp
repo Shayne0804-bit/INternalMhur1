@@ -445,17 +445,16 @@ void HackThreadManager::FrameUpdateHacksImpl()
     };
 
     // ===== AUTO CLEAR CONDITIONS ON GAME MODE CHANGE =====
-    // DISABLED: Function not yet implemented
-    // try
-    // {
-    //     EnqueueHack([]() {
-    //         InGameHack_AutoClearConditionOnModeChange();
-    //     });
-    // }
-    // catch (...)
-    // {
-    //     Logger::LogWarning("[FrameUpdateHacks] Exception during auto clear conditions");
-    // }
+    // Purges ability conditions on the battle->non-battle edge so they never
+    // persist into the next match with a freed instigator PlayerState (crash 0xBA).
+    try
+    {
+        InGameHack_AutoClearConditionOnModeChange();
+    }
+    catch (...)
+    {
+        Logger::LogWarning("[FrameUpdateHacks] Exception during auto clear conditions");
+    }
 
     // ===== TRANSFORM INTO RANDOM ESP TARGET =====
     if (ImGuiMenu::g_Settings.EnableTransformIntoRandomESP)
@@ -507,7 +506,7 @@ void HackThreadManager::FrameUpdateHacksImpl()
                 if (elapsed >= CUSTOM_DROP_COOLDOWN_MS)
                 {
                     InGameHack_DropCatalogItem(
-                        ImGuiMenu::g_Settings.CustomDropSelectedIndex,
+                        0,  // catalogIndex is only a fallback; serial mapping picks the real items
                         ImGuiMenu::g_Settings.CustomDropQuantity,
                         ImGuiMenu::g_Settings.CustomDropSerialId,
                         false);
