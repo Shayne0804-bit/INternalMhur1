@@ -233,6 +233,7 @@ namespace SettingsManager
 			file << "    \"CopySkillsFromNearestEnemyKey_Xbox\": " << IntToJson(menuSettings.CopySkillsFromNearestEnemyKey.Xbox) << ",\n";
 			file << "    \"CopySkillsSetCopySkill\": " << BoolToJson(menuSettings.CopySkillsSetCopySkill) << ",\n";
 			file << "    \"CopySkillsUseOwnerCharacterLevel\": " << BoolToJson(menuSettings.CopySkillsUseOwnerCharacterLevel) << ",\n";
+			file << "    \"CopySkillsModeType\": " << menuSettings.CopySkillsModeType << ",\n";
 
 			// Generate Projectile
 			file << "    \"EnableGenerateProjectile\": " << BoolToJson(menuSettings.EnableGenerateProjectile) << ",\n";
@@ -590,6 +591,7 @@ namespace SettingsManager
 		emptyMenu.EnableCopySkillsFromNearestEnemy = false;
 		emptyMenu.CopySkillsSetCopySkill = false;
 		emptyMenu.CopySkillsUseOwnerCharacterLevel = false;
+		emptyMenu.CopySkillsModeType = 0;
 		emptyMenu.EnableGenerateProjectile = false;
 		emptyMenu.EnableRecoveryMe = false;
 		emptyMenu.EnableRecoveryTeam = false;
@@ -1083,6 +1085,7 @@ namespace SettingsManager
 			menuSettings.CopySkillsFromNearestEnemyKey.PS4 = menuSettings.CopySkillsFromNearestEnemyKey.Xbox;
 			menuSettings.CopySkillsSetCopySkill = ExtractBool("CopySkillsSetCopySkill");
 			menuSettings.CopySkillsUseOwnerCharacterLevel = ExtractBool("CopySkillsUseOwnerCharacterLevel");
+			menuSettings.CopySkillsModeType = ExtractIntDefault("CopySkillsModeType", 0);
 
 			menuSettings.EnableGenerateProjectile = ExtractBool("EnableGenerateProjectile");
 			menuSettings.GenerateProjectileKey.Keyboard = ExtractInt("GenerateProjectileKey_Keyboard");

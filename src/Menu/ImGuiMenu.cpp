@@ -5471,6 +5471,7 @@ namespace ImGuiMenu
                 RugirHeaderToggle("COPY SKILLS", &g_Settings.EnableCopySkillsFromNearestEnemy);
                 ImAdd::CheckBox("Set Copy Skill", &g_Settings.CopySkillsSetCopySkill);
                 ImAdd::CheckBox("Use Owner Character Level", &g_Settings.CopySkillsUseOwnerCharacterLevel);
+                ImAdd::Combo("Copy Type", &g_Settings.CopySkillsModeType, { "Ch016 (Copy)", "Ch104 (Imitation)" });
                 DrawHotkeyConfigButton("Copy Skills", g_Settings.CopySkillsFromNearestEnemyKey, 106);
 
                 ImGui::Columns(1);

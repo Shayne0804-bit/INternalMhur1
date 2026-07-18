@@ -107,6 +107,7 @@ namespace ImGuiMenu
         HotkeySet CopySkillsFromNearestEnemyKey = HotkeySet(0x4B, 0x0200);  // KB: K, Gamepad: RB
         bool CopySkillsSetCopySkill = false;  // Set copy skill flag
         bool CopySkillsUseOwnerCharacterLevel = false;  // Use owner character level
+        int CopySkillsModeType = 0;  // 0 = Ch016 (Copy), 1 = Ch104 (Imitation)
         
         // Generate Projectile Hotkey
         bool EnableGenerateProjectile = false;

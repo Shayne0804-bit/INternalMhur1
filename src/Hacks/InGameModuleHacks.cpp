@@ -4170,7 +4170,7 @@ bool InGameHack_ApplyToTeam(unsigned char teamId, int characterId, int variation
  * Automatically finds a random enemy and copies their skills
  * Returns: 1 if successful, 0 if failed
  */
-int InGameHack_CopySkillsFromNearestEnemy(bool bSetCopySkill, bool bUseOwnerCharacterLevel)
+int InGameHack_CopySkillsFromNearestEnemy(bool bSetCopySkill, bool bUseOwnerCharacterLevel, int copyModeType)
 {
     // Check if in valid battle mode
     if (!IsValidBattleMode())
@@ -4250,7 +4250,7 @@ int InGameHack_CopySkillsFromNearestEnemy(bool bSetCopySkill, bool bUseOwnerChar
         }
 
         // Now copy skills from the random enemy
-        return InGameHack_CopySkillsFromCharacter(randomEnemy, bSetCopySkill, bUseOwnerCharacterLevel);
+        return InGameHack_CopySkillsFromCharacter(randomEnemy, bSetCopySkill, bUseOwnerCharacterLevel, copyModeType);
     }
     catch (const std::exception& e)
     {
@@ -4269,7 +4269,7 @@ int InGameHack_CopySkillsFromNearestEnemy(bool bSetCopySkill, bool bUseOwnerChar
  * The character to copy from must NOT be the local player
  * Returns: 1 if successful, 0 if failed
  */
-int InGameHack_CopySkillsFromCharacter(SDK::ACharacterBattle* masterCharacter, bool bSetCopySkill, bool bUseOwnerCharacterLevel)
+int InGameHack_CopySkillsFromCharacter(SDK::ACharacterBattle* masterCharacter, bool bSetCopySkill, bool bUseOwnerCharacterLevel, int copyModeType)
 {
     // Check if in valid battle mode
     if (!IsValidBattleMode())
@@ -4342,9 +4342,12 @@ int InGameHack_CopySkillsFromCharacter(SDK::ACharacterBattle* masterCharacter, b
         // Activate copy mode first, then set the character to copy from
         try
         {
-            // Start copy mode with a 30 second duration (using None type)
-            skillMgmt->BP_StartCopyMode(300.0f, (SDK::ECopyModeCharacterType)1);
-            Logger::LogInfo("[CopySkillsFromCharacter] Started copy mode");
+            // Start copy mode: 0 = Ch016 (Copy), 1 = Ch104 (Imitation).
+            const SDK::ECopyModeCharacterType modeType = copyModeType == 1
+                ? SDK::ECopyModeCharacterType::Ch104
+                : SDK::ECopyModeCharacterType::Ch016;
+            skillMgmt->BP_StartCopyMode(300.0f, modeType);
+            Logger::LogInfo("[CopySkillsFromCharacter] Started copy mode type=" + std::to_string(copyModeType));
 
             // Verify master character is STILL valid after starting copy mode
             if (IsObjectDefaultSafe(masterCharacter))
@@ -9048,10 +9051,32 @@ static bool ApplyCh025BarrierParamsToObject(SDK::UBB_CC_CH025_WAVE_BARRIER_C* ba
         else
             ++failCount;
     };
+    auto writeFloatArray = [&](SDK::TArray<float>& arr, float value)
+    {
+        int32_t arraySize = 0;
+        if (SafeArrayCount(arr, arraySize, 64) && arraySize > 0)
+        {
+            auto* data = const_cast<float*>(arr.GetDataPtr());
+            for (int32_t i = 0; i < arraySize; ++i)
+            {
+                if (SafeMemory::TryWrite<float>(data + i, value))
+                    ++writeCount;
+                else
+                    ++failCount;
+            }
+        }
+    };
 
     writeFloat(&barrier->maxTimeValue, config.barrierMaxTime);
     writeFloat(&barrier->durabilityValue, config.barrierDurability);
     writeFloat(&barrier->copyRate, config.barrierCopyRate);
+
+    // SettingBarrierValue() re-derives durabilityValue from the inherited
+    // UCh025ConditionEffect per-level value lists at every barrier activation,
+    // so a bare durabilityValue write never survives a new barrier. Overwrite
+    // the source lists too.
+    writeFloatArray(barrier->_ownerBarrierValue, config.barrierDurability);
+    writeFloatArray(barrier->_ownerAllyBarrierValue, config.barrierDurability);
 
     return writeCount > beforeWrites;
 }
@@ -9178,7 +9203,15 @@ bool InGameHack_ApplyCh025V2Params(const Ch025V2ParamsConfig& config)
 {
     try
     {
-        Ch025V2ParamsTargets targets = GetCachedCh025V2Targets();
+        // Re-collect on every apply: condition effects (wave barrier, heal) and
+        // Special actions spawn per activation, so a cached list from the last
+        // menu load misses live instances. Apply is user-debounced, the sweep
+        // cost is acceptable.
+        Ch025V2ParamsTargets targets;
+        CollectLoadedCh025V2Targets(targets);
+        CacheCh025V2Targets(targets);
+        if (targets.Empty())
+            targets = GetCachedCh025V2Targets();
 
         int targetCount = 0;
         int writeCount = 0;

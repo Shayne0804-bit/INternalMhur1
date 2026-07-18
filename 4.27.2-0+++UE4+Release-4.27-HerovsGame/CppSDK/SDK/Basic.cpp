@@ -5202,28 +5202,19 @@ extern "C" void SDK_RunTeleportToKota()
 						IsKeyPressed(ImGuiMenu::g_Settings.TeleportToKotaKey.PS4, HotKeyType::Gamepad);
 	}
 	
+	// AUTO MODE: the ESP toggle alone teleports automatically (menu names it
+	// "Auto Teleport to Kota"); a hotkey press still forces it instantly.
 	bool hotKeyPressed = keyboardPressed || gamepadPressed;
-	if (!hotKeyPressed)
-	{
-		lastTeleportToKotaPressed = false;
-		return;  // Hotkey not pressed
-	}
-
-	if (lastTeleportToKotaPressed)
-	{
-		return;
-	}
+	const bool hotKeyEdge = hotKeyPressed && !lastTeleportToKotaPressed;
+	lastTeleportToKotaPressed = hotKeyPressed;
 
 	auto now = std::chrono::high_resolution_clock::now();
 	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastTeleportToKotaTime).count();
-	if (elapsed < TELEPORT_TO_KOTA_COOLDOWN_MS)
+	const int cooldownMs = hotKeyEdge ? TELEPORT_TO_KOTA_COOLDOWN_MS : 1500;
+	if (elapsed < cooldownMs)
 	{
-		lastTeleportToKotaPressed = true;
 		return;
 	}
-
-	lastTeleportToKotaPressed = true;
-	lastTeleportToKotaTime = now;
 	
 	// Get player controller
 	APlayerController* playerController = SDK_GetPlayerController();
@@ -5284,8 +5275,22 @@ extern "C" void SDK_RunTeleportToKota()
 	{
 		return;
 	}
-	
-	
+
+	// In auto mode, don't re-teleport while already standing at Kota.
+	if (!hotKeyEdge)
+	{
+		FVector playerPos = playerPawn->K2_GetActorLocation();
+		const float dx = playerPos.X - kotaPosition.X;
+		const float dy = playerPos.Y - kotaPosition.Y;
+		const float dz = playerPos.Z - kotaPosition.Z;
+		if (dx * dx + dy * dy + dz * dz < 400.0f * 400.0f)
+		{
+			return;
+		}
+	}
+
+	lastTeleportToKotaTime = now;
+
 	// Teleport player to Kota using K2_TeleportTo
 	FRotator dummyRotation = FRotator(0, 0, 0);  // Keep current rotation
 	bool teleportSuccess = playerPawn->K2_TeleportTo(kotaPosition, dummyRotation);

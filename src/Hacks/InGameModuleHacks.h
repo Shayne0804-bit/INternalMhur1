@@ -535,7 +535,7 @@ bool InGameHack_ApplyToTeam(unsigned char teamId, int characterId, int variation
  * @param bUseOwnerCharacterLevel - Use local player's level for copied skills
  * @return 1 if successful, 0 if failed or no enemy found
  */
-int InGameHack_CopySkillsFromNearestEnemy(bool bSetCopySkill, bool bUseOwnerCharacterLevel);
+int InGameHack_CopySkillsFromNearestEnemy(bool bSetCopySkill, bool bUseOwnerCharacterLevel, int copyModeType = 0);
 
 /**
  * Copy skills from ONE specific character to the local player
@@ -545,7 +545,8 @@ int InGameHack_CopySkillsFromNearestEnemy(bool bSetCopySkill, bool bUseOwnerChar
  * @param bUseOwnerCharacterLevel - Use local player's level for copied skills
  * @return 1 if successful, 0 if failed
  */
-int InGameHack_CopySkillsFromCharacter(SDK::ACharacterBattle* masterCharacter, bool bSetCopySkill, bool bUseOwnerCharacterLevel);
+// copyModeType: 0 = ECopyModeCharacterType::Ch016 (Copy), 1 = Ch104 (Imitation).
+int InGameHack_CopySkillsFromCharacter(SDK::ACharacterBattle* masterCharacter, bool bSetCopySkill, bool bUseOwnerCharacterLevel, int copyModeType = 0);
 
 /**
  * Change my team ID to a random available team (excluding current team)

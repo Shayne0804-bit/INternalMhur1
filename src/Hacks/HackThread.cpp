@@ -658,9 +658,10 @@ void HackThreadManager::FrameUpdateHacksImpl()
 
                 if (elapsed >= COPY_SKILLS_COOLDOWN_MS)
                 {
-                    EnqueueHack([bSetCopySkill = ImGuiMenu::g_Settings.CopySkillsSetCopySkill, 
-                                bUseOwnerCharacterLevel = ImGuiMenu::g_Settings.CopySkillsUseOwnerCharacterLevel]() {
-                        InGameHack_CopySkillsFromNearestEnemy(bSetCopySkill, bUseOwnerCharacterLevel);
+                    EnqueueHack([bSetCopySkill = ImGuiMenu::g_Settings.CopySkillsSetCopySkill,
+                                bUseOwnerCharacterLevel = ImGuiMenu::g_Settings.CopySkillsUseOwnerCharacterLevel,
+                                copyModeType = ImGuiMenu::g_Settings.CopySkillsModeType]() {
+                        InGameHack_CopySkillsFromNearestEnemy(bSetCopySkill, bUseOwnerCharacterLevel, copyModeType);
                     });
                     lastCopySkillsTime = now;
                 }
