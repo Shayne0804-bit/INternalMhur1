@@ -7863,37 +7863,14 @@ bool InGameHack_SetAttackDamageMultiplier(float multiplier)
         if (!playerState)
             return false;
 
-        SDK::UBuffParam* buffParam = GetBuffParamSafe(playerState);
-        if (!buffParam || !IsLiveUObjectPointer(buffParam))
-            return false;
-
-        // Direct memory write into UBuffParam's attack-adjust fields (the BP_Set*
-        // function calls do NOT apply, so we bypass them). _allAttackAdjustRate
-        // (0x74) is the aggregate the game actually reads when scaling damage;
-        // we write it plus every per-category rate so all attack types are boosted.
-        // Re-applied by the periodic sync so it survives the buff recompute.
-        auto writeRate = [&](float* target) -> int
-        {
-            return SafeMemory::TryWrite<float>(target, multiplier) ? 1 : 0;
-        };
-
-        int wrote = 0;
-        wrote += writeRate(&buffParam->_allAttackAdjustRate);
-        wrote += writeRate(&buffParam->_attackAdjustRate);
-        wrote += writeRate(&buffParam->_attackAdjustRate_Unique1);
-        wrote += writeRate(&buffParam->_attackAdjustRate_Unique2);
-        wrote += writeRate(&buffParam->_attackAdjustRate_Unique3);
-        wrote += writeRate(&buffParam->_attackAdjustRate_Melee);
-        wrote += writeRate(&buffParam->_attackAdjustRate_PlusUltra);
-        wrote += writeRate(&buffParam->_attackAdjustRate_SpecialRule);
-        wrote += writeRate(&buffParam->_attackAdjustRate_TeamRole);
-        wrote += writeRate(&buffParam->_attackAdjustRate_RollSlot);
-        wrote += writeRate(&buffParam->_attackAdjustRate_NormalSlot_Unique1);
-        wrote += writeRate(&buffParam->_attackAdjustRate_NormalSlot_Unique2);
-        wrote += writeRate(&buffParam->_attackAdjustRate_NormalSlot_Unique3);
-        wrote += writeRate(&buffParam->_attackAdjustRate_NormalSlot_Melee);
-
-        return wrote > 0;
+        // NOTE: the ability-condition RPC (the real server-authoritative damage lever)
+        // is intentionally NOT used here yet: it depends on the ability-condition
+        // crash being fixed, which is not the case. Until then this stays on the
+        // proven, non-crashing CV_none client-side curve patch so the feature works
+        // without regressing to a crash. Switch to the condition path once the crash
+        // is resolved.
+        (void)playerState;
+        return InGameHack_SetCvNoneCurveValue(multiplier);
     }
     catch (...)
     {
