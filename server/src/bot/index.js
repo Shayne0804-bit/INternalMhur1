@@ -60,6 +60,7 @@ const {
   rolePanelCommands,
   rolePanelCommandNames,
   handleRolePanelCommand,
+  handleApprovalButton,
   attachReactionRoles
 } = require('./reactionRoles');
 const {
@@ -340,6 +341,9 @@ function attachHandlers(client) {
           await handleTicketButton(interaction, parts[1]);
         } else if (ns === 'verify') {
           await handleVerifyButton(interaction);
+        } else if (ns === 'rrapp') {
+          if (await denyIfNotOwner(interaction)) return;
+          await handleApprovalButton(interaction, parts[1] === 'ok', parts[2], parts[3]);
         }
         return;
       }
@@ -399,7 +403,7 @@ async function startBot() {
   attachLeveling(client);
   attachWelcome(client);
   attachAutomod(client);
-  attachReactionRoles(client);
+  attachReactionRoles(client, { getOwnerId: () => primaryOwnerId });
 
   client.once(Events.ClientReady, async (c) => {
     // Force an explicit online presence so the bot never shows as offline/invisible.
