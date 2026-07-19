@@ -21,9 +21,12 @@ const builders = [
       .addChannelOption((o) =>
         o.setName('channel').setDescription('Channel to post the panel in')
           .addChannelTypes(ChannelType.GuildText).setRequired(true))
+      // Required options must come before optional ones (Discord rule):
+      // channel + role1 are required, then title + role2..8 are optional.
+      .addRoleOption((o) => o.setName('role1').setDescription('Role 1').setRequired(true))
       .addStringOption((o) => o.setName('title').setDescription('Panel title (optional)'));
-    for (let i = 1; i <= 8; i += 1) {
-      b.addRoleOption((o) => o.setName(`role${i}`).setDescription(`Role ${i}`).setRequired(i === 1));
+    for (let i = 2; i <= 8; i += 1) {
+      b.addRoleOption((o) => o.setName(`role${i}`).setDescription(`Role ${i}`).setRequired(false));
     }
     return b;
   })()
