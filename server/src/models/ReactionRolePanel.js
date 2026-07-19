@@ -19,9 +19,10 @@ const reactionRolePanelSchema = new mongoose.Schema(
       index: true
     },
     // emojiKey = custom emoji id, or the unicode emoji char.
-    // protected roles require owner approval before being granted.
+    // protected roles require owner approval; licenseGated roles require a valid
+    // linked license before being granted.
     mappings: {
-      type: [{ emojiKey: String, roleId: String, protected: Boolean }],
+      type: [{ emojiKey: String, roleId: String, protected: Boolean, licenseGated: Boolean }],
       default: []
     }
   },

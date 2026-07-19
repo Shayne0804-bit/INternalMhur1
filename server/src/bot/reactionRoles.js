@@ -10,6 +10,7 @@ const {
 } = require('discord.js');
 
 const ReactionRolePanel = require('../models/ReactionRolePanel');
+const { findLicenseByDiscordUser } = require('../services/licenseService');
 
 const ACCENT = 0x9d4bff;
 
@@ -25,6 +26,8 @@ const EMOJI_POOL = [
 // owner approval instead of self-assigning. (agencymember, staff, mod, admin,
 // owner, moderator, modder...)
 const PROTECTED_KEYWORDS = ['owner', 'admin', 'staff', 'moderator', 'modder', 'agencymember', 'mod'];
+// Roles gated behind a valid linked license (e.g. vip).
+const LICENSE_KEYWORDS = ['vip'];
 // Roles never offered in the panel at all (punishment / system roles).
 const EXCLUDED_KEYWORDS = ['muted', 'mute', 'everyone'];
 
@@ -73,23 +76,28 @@ async function handleRolePanelCommand(interaction) {
     return interaction.editReply({ content: '❌ No assignable roles found. Make sure my role is **above** the roles you want to hand out (Server Settings → Roles).' });
   }
 
-  // Build emoji->role mappings, flag protected ones.
+  // Build emoji->role mappings, flag protected / license-gated ones.
   const pairs = roles.map((role, i) => ({
     emoji: EMOJI_POOL[i],
     roleId: role.id,
     roleName: role.name,
-    protected: nameMatches(role.name, PROTECTED_KEYWORDS)
+    protected: nameMatches(role.name, PROTECTED_KEYWORDS),
+    licenseGated: nameMatches(role.name, LICENSE_KEYWORDS)
   }));
 
-  const lines = pairs.map((p) =>
-    `${p.emoji} → <@&${p.roleId}>${p.protected ? '  🔒 *(approval required)*' : ''}`);
+  const lines = pairs.map((p) => {
+    let tag = '';
+    if (p.protected) tag = '  🔒 *(approval required)*';
+    else if (p.licenseGated) tag = '  🎫 *(license required)*';
+    return `${p.emoji} → <@&${p.roleId}>${tag}`;
+  });
 
   const embed = new EmbedBuilder()
     .setColor(ACCENT)
     .setTitle('🎭 Reaction roles')
     .setDescription([
       'React to get a role — remove your reaction to lose it.',
-      '🔒 roles need owner approval before you receive them.',
+      '🔒 roles need owner approval. 🎫 roles need a valid linked license.',
       '',
       ...lines
     ].join('\n'));
@@ -110,7 +118,7 @@ async function handleRolePanelCommand(interaction) {
     guildId: guild.id,
     channelId: channel.id,
     messageId: message.id,
-    mappings: pairs.map((p) => ({ emojiKey: p.emoji, roleId: p.roleId, protected: p.protected }))
+    mappings: pairs.map((p) => ({ emojiKey: p.emoji, roleId: p.roleId, protected: p.protected, licenseGated: p.licenseGated }))
   });
 
   const protectedCount = pairs.filter((p) => p.protected).length;
@@ -203,6 +211,24 @@ function attachReactionRoles(client, { getOwnerId } = {}) {
         await user.send(ok
           ? `🔒 Your request for **${role.name}** was sent to the owner for approval.`
           : `🔒 Your request for **${role.name}** is pending, but I couldn't reach the owner.`).catch(() => {});
+        return;
+      }
+
+      if (mapping.licenseGated) {
+        // Grant only if a valid license is linked to this Discord account.
+        const license = await findLicenseByDiscordUser(user.id);
+        const valid = license && license.status === 'active' && !license.isExpired();
+        if (!valid) {
+          await reaction.users.remove(user.id).catch(() => {});
+          await user.send(
+            `🎫 The **${role.name}** role requires a valid license linked to your account.\n` +
+            (license
+              ? 'Your linked license is not active (expired or revoked). Renew it, then react again.'
+              : 'Use **/check** and enter your license key to link it, then react again.')
+          ).catch(() => {});
+          return;
+        }
+        await member.roles.add(mapping.roleId, 'VIP: valid linked license').catch(() => {});
         return;
       }
 
