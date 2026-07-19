@@ -66,6 +66,7 @@ const {
   warnCommandNames,
   handleWarnCommand
 } = require('./warns');
+const { attachAutomod } = require('./automod');
 
 const commands = [
   new SlashCommandBuilder()
@@ -372,12 +373,17 @@ async function startBot() {
       GatewayIntentBits.Guilds,
       GatewayIntentBits.GuildMessages,
       GatewayIntentBits.GuildMembers,
-      GatewayIntentBits.GuildVoiceStates
+      GatewayIntentBits.GuildVoiceStates,
+      // Optional privileged intent: enable ONLY if MessageContent is turned on
+      // in the Developer Portal, otherwise the login is rejected. Without it,
+      // automod still does rate-based anti-spam (content checks are skipped).
+      ...(process.env.ENABLE_MESSAGE_CONTENT === '1' ? [GatewayIntentBits.MessageContent] : [])
     ]
   });
   attachHandlers(client);
   attachLeveling(client);
   attachWelcome(client);
+  attachAutomod(client);
 
   client.once(Events.ClientReady, async (c) => {
     // Force an explicit online presence so the bot never shows as offline/invisible.
