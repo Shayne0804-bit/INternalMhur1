@@ -37,6 +37,11 @@ const {
   attachLeveling
 } = require('./leveling');
 const { attachWelcome } = require('./welcome');
+const {
+  configCommands,
+  configCommandNames,
+  handleConfigCommand
+} = require('./config');
 
 const commands = [
   new SlashCommandBuilder()
@@ -48,7 +53,8 @@ const commands = [
     .setDescription('Check your license and its expiration date')
     .toJSON(),
   ...moderationCommands,
-  ...levelingCommands
+  ...levelingCommands,
+  ...configCommands
 ];
 
 const ownerIds = new Set();
@@ -247,6 +253,9 @@ function attachHandlers(client) {
           await handleModerationCommand(interaction);
         } else if (levelingCommandNames.has(interaction.commandName)) {
           await handleLevelingCommand(interaction);
+        } else if (configCommandNames.has(interaction.commandName)) {
+          if (await denyIfNotOwner(interaction)) return;
+          await handleConfigCommand(interaction);
         }
         return;
       }

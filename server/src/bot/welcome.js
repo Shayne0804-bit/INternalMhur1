@@ -4,19 +4,10 @@ const {
   PermissionFlagsBits
 } = require('discord.js');
 
-const GuildConfig = require('../models/GuildConfig');
+const { getConfig } = require('../services/guildConfigService');
 
 const ACCENT = 0x9d4bff;
 const WELCOME_CHANNEL_NAME = 'welcome';
-
-// Load (or create) the persisted config row for a guild.
-async function getConfig(guildId) {
-  return GuildConfig.findOneAndUpdate(
-    { guildId },
-    { $setOnInsert: { guildId } },
-    { new: true, upsert: true, setDefaultsOnInsert: true }
-  );
-}
 
 // Creates a read-only welcome channel: @everyone can view but not send,
 // admins send via their Administrator permission (bypasses the deny).
@@ -98,6 +89,18 @@ function attachWelcome(client) {
   client.on('guildMemberAdd', async (member) => {
     try {
       if (member.user.bot) return;
+
+      // Auto-role: grant the configured member role on join.
+      const config = await getConfig(member.guild.id);
+      if (config.memberRoleId) {
+        const role = member.guild.roles.cache.get(config.memberRoleId)
+          || await member.guild.roles.fetch(config.memberRoleId).catch(() => null);
+        const me = member.guild.members.me;
+        if (role && me && role.position < me.roles.highest.position) {
+          await member.roles.add(role, 'Auto-role on join').catch(() => {});
+        }
+      }
+
       const channel = await resolveWelcomeChannel(member.guild);
       if (!channel) return;
       await channel.send({

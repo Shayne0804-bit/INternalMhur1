@@ -1,5 +1,5 @@
 const { PermissionFlagsBits } = require('discord.js');
-const GuildConfig = require('../models/GuildConfig');
+const { getConfig } = require('../services/guildConfigService');
 
 // Fixed level-role tiers (English). Auto-created on demand, replacement style:
 // a member holds only the highest tier they have reached.
@@ -13,15 +13,6 @@ const TIERS = [
 ];
 
 const TIER_LEVELS = TIERS.map((t) => t.level);
-
-// Load (or create) the persisted config row for a guild.
-async function getConfig(guildId) {
-  return GuildConfig.findOneAndUpdate(
-    { guildId },
-    { $setOnInsert: { guildId } },
-    { new: true, upsert: true, setDefaultsOnInsert: true }
-  );
-}
 
 // Highest tier whose level requirement is met by `level` (or null below tier 1).
 function tierForLevel(level) {
