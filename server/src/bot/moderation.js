@@ -6,6 +6,7 @@ const {
 } = require('discord.js');
 
 const { getUserLevel, getUserRank, countRanked, progress } = require('../services/levelService');
+const { logModAction } = require('./modlog');
 
 const OK = 0x25ff85;
 const ERR = 0xff3b6b;
@@ -150,6 +151,7 @@ async function handleKick(interaction) {
   if (!member) return replyErr(interaction, 'Member not found on this server.');
   if (!member.kickable) return replyErr(interaction, "I can't kick this member (role too high or missing permission).");
   await member.kick(reason);
+  await logModAction(interaction.guild, { action: 'kick', moderator: interaction.user, target: member.user, reason });
   return replyOk(interaction, '👢 Member kicked', `${member.user.tag} has been kicked.\n**Reason:** ${reason}`);
 }
 
@@ -160,6 +162,7 @@ async function handleBan(interaction) {
   const days = interaction.options.getInteger('delete_days') || 0;
   if (member && !member.bannable) return replyErr(interaction, "I can't ban this member (role too high or missing permission).");
   await interaction.guild.members.ban(user.id, { reason, deleteMessageSeconds: days * 86400 });
+  await logModAction(interaction.guild, { action: 'ban', moderator: interaction.user, target: user, reason });
   return replyOk(interaction, '🔨 Member banned', `${user.tag} has been banned.\n**Reason:** ${reason}`);
 }
 
@@ -171,6 +174,7 @@ async function handleUnban(interaction) {
   } catch (err) {
     return replyErr(interaction, `Could not unban (${err.message}). Check the ID.`);
   }
+  await logModAction(interaction.guild, { action: 'unban', moderator: interaction.user, target: `\`${userId}\``, reason });
   return replyOk(interaction, '♻️ Unbanned', `User \`${userId}\` has been unbanned.`);
 }
 
@@ -184,6 +188,7 @@ async function handleTimeout(interaction) {
   if (!ms) return replyErr(interaction, 'Invalid duration. Formats: 45s, 10m, 2h, 1d.');
   const capped = Math.min(ms, 28 * 86400000);
   await member.timeout(capped, reason);
+  await logModAction(interaction.guild, { action: 'timeout', moderator: interaction.user, target: member.user, reason, extra: `Duration: ${durationStr}` });
   return replyOk(interaction, '⏳ Timeout applied', `${member.user.tag} is timed out for **${durationStr}**.\n**Reason:** ${reason}`);
 }
 
@@ -191,6 +196,7 @@ async function handleUntimeout(interaction) {
   const member = interaction.options.getMember('member');
   if (!member) return replyErr(interaction, 'Member not found.');
   await member.timeout(null);
+  await logModAction(interaction.guild, { action: 'untimeout', moderator: interaction.user, target: member.user });
   return replyOk(interaction, '✅ Timeout removed', `${member.user.tag} is no longer timed out.`);
 }
 
@@ -200,6 +206,7 @@ async function handleClear(interaction) {
     return replyErr(interaction, 'This channel does not support bulk deletion.');
   }
   const deleted = await interaction.channel.bulkDelete(count, true);
+  await logModAction(interaction.guild, { action: 'clear', moderator: interaction.user, target: `${interaction.channel}`, extra: `${deleted.size} message(s)` });
   return interaction.reply({
     embeds: [embed(OK, '🧹 Messages deleted', `${deleted.size} message(s) deleted.`)],
     flags: MessageFlags.Ephemeral

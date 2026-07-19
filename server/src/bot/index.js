@@ -61,6 +61,11 @@ const {
   handleReactionRoleCommand,
   handleReactionRoleButton
 } = require('./reactionRoles');
+const {
+  warnCommands,
+  warnCommandNames,
+  handleWarnCommand
+} = require('./warns');
 
 const commands = [
   new SlashCommandBuilder()
@@ -76,7 +81,8 @@ const commands = [
   ...configCommands,
   ...licenseCommands,
   ...ticketCommands,
-  ...reactionRoleCommands
+  ...reactionRoleCommands,
+  ...warnCommands
 ];
 
 const ownerIds = new Set();
@@ -292,6 +298,8 @@ function attachHandlers(client) {
         } else if (reactionRoleCommandNames.has(interaction.commandName)) {
           if (await denyIfNotOwner(interaction)) return;
           await handleReactionRoleCommand(interaction);
+        } else if (warnCommandNames.has(interaction.commandName)) {
+          await handleWarnCommand(interaction);
         }
         return;
       }
