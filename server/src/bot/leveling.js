@@ -2,7 +2,8 @@ const {
   SlashCommandBuilder,
   EmbedBuilder,
   MessageFlags,
-  PermissionFlagsBits
+  PermissionFlagsBits,
+  AttachmentBuilder
 } = require('discord.js');
 
 const {
@@ -18,6 +19,7 @@ const {
 } = require('../services/levelService');
 const { syncMemberLevelRole } = require('./levelRoles');
 const { getConfig } = require('../services/guildConfigService');
+const { renderRankCard } = require('./rankCard');
 
 const ACCENT = 0x9d4bff;
 const OK = 0x25ff85;
@@ -80,21 +82,39 @@ async function handleRank(interaction) {
   const p = progress(doc.xp);
   const rank = await getUserRank(interaction.guildId, target.id);
   const total = await countRanked(interaction.guildId);
-  const bar = progressBar(p.current, p.needed);
 
-  const embed = new EmbedBuilder()
-    .setColor(ACCENT)
-    .setAuthor({ name: target.tag, iconURL: target.displayAvatarURL() })
-    .setTitle(`📊 Level ${p.level}`)
-    .addFields(
-      { name: 'Rank', value: `${medal(rank)} / ${total}`, inline: true },
-      { name: 'Total XP', value: `${doc.xp.toLocaleString('en-US')}`, inline: true },
-      { name: 'Messages', value: `${doc.messageCount.toLocaleString('en-US')}`, inline: true },
-      { name: `Progress (level ${p.level} → ${p.level + 1})`,
-        value: `\`${bar}\`\n**${p.current.toLocaleString('en-US')}** / ${p.needed.toLocaleString('en-US')} XP` }
-    );
+  await interaction.deferReply();
 
-  return interaction.reply({ embeds: [embed] });
+  // Render the rank card image; fall back to a text embed on failure.
+  try {
+    const buffer = await renderRankCard({
+      username: target.tag || target.username,
+      avatarURL: target.displayAvatarURL({ extension: 'png', size: 256 }),
+      level: p.level,
+      rank,
+      totalRanked: total,
+      current: p.current,
+      needed: p.needed,
+      totalXp: doc.xp
+    });
+    const file = new AttachmentBuilder(buffer, { name: 'rank.png' });
+    return interaction.editReply({ files: [file] });
+  } catch (err) {
+    console.error('[bot] rank card render failed:', err.message);
+    const bar = progressBar(p.current, p.needed);
+    const embed = new EmbedBuilder()
+      .setColor(ACCENT)
+      .setAuthor({ name: target.tag, iconURL: target.displayAvatarURL() })
+      .setTitle(`📊 Level ${p.level}`)
+      .addFields(
+        { name: 'Rank', value: `${medal(rank)} / ${total}`, inline: true },
+        { name: 'Total XP', value: `${doc.xp.toLocaleString('en-US')}`, inline: true },
+        { name: 'Messages', value: `${doc.messageCount.toLocaleString('en-US')}`, inline: true },
+        { name: `Progress (level ${p.level} → ${p.level + 1})`,
+          value: `\`${bar}\`\n**${p.current.toLocaleString('en-US')}** / ${p.needed.toLocaleString('en-US')} XP` }
+      );
+    return interaction.editReply({ embeds: [embed] });
+  }
 }
 
 async function handleLeaderboard(interaction) {
