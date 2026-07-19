@@ -63,6 +63,15 @@ const licenseSchema = new mongoose.Schema(
     keyPlain: {
       type: String,
       default: null
+    },
+    // Expiry-reminder flags so a member is DM'd at most once per window.
+    reminded3d: {
+      type: Boolean,
+      default: false
+    },
+    reminded1d: {
+      type: Boolean,
+      default: false
     }
   },
   {

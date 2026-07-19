@@ -42,6 +42,13 @@ const {
   configCommandNames,
   handleConfigCommand
 } = require('./config');
+const {
+  licenseCommands,
+  licenseCommandNames,
+  handleLicenseCommand
+} = require('./license');
+const { grantCustomerRole } = require('./customerRole');
+const { startExpiryScheduler } = require('./expiryScheduler');
 
 const commands = [
   new SlashCommandBuilder()
@@ -54,7 +61,8 @@ const commands = [
     .toJSON(),
   ...moderationCommands,
   ...levelingCommands,
-  ...configCommands
+  ...configCommands,
+  ...licenseCommands
 ];
 
 const ownerIds = new Set();
@@ -137,6 +145,11 @@ async function handleLicenceCheck(interaction) {
     interaction.user.tag || interaction.user.username,
     key.trim()
   );
+  // Grant the customer role when the license is currently valid.
+  const valid = license.status === 'active' && !license.isExpired();
+  if (valid && interaction.guild) {
+    await grantCustomerRole(interaction.guild, interaction.user.id);
+  }
   await interaction.editReply(buildMemberLicenseView(license));
 }
 
@@ -256,6 +269,9 @@ function attachHandlers(client) {
         } else if (configCommandNames.has(interaction.commandName)) {
           if (await denyIfNotOwner(interaction)) return;
           await handleConfigCommand(interaction);
+        } else if (licenseCommandNames.has(interaction.commandName)) {
+          if (await denyIfNotOwner(interaction)) return;
+          await handleLicenseCommand(interaction);
         }
         return;
       }
@@ -338,6 +354,7 @@ async function startBot() {
     });
     console.log(`[bot] connecte et en ligne: ${c.user.tag}`);
     await loadOwners(c);
+    startExpiryScheduler(c);
   });
 
   client.on(Events.Error, (err) => console.error('[bot] gateway error:', err.message));
