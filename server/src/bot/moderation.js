@@ -261,7 +261,9 @@ async function handleRole(interaction) {
       const parsed = parseInt(colorStr.replace('#', ''), 16);
       if (!Number.isNaN(parsed)) color = parsed;
     }
-    const role = await interaction.guild.roles.create({ name, color, reason: `Created by ${interaction.user.tag}` });
+    const options = { name, reason: `Created by ${interaction.user.tag}` };
+    if (color !== undefined) options.colors = { primaryColor: color };
+    const role = await interaction.guild.roles.create(options);
     return replyOk(interaction, '✅ Role created', `${role} created.`);
   }
 

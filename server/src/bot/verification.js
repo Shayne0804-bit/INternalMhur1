@@ -41,7 +41,7 @@ async function ensureVerifiedRole(guild) {
   if (existing) return existing;
   return guild.roles.create({
     name: VERIFIED_ROLE_NAME,
-    color: 0x57f287,
+    colors: { primaryColor: 0x57f287 },
     reason: 'Verification system'
   });
 }

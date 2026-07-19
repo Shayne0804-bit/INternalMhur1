@@ -53,7 +53,7 @@ async function resolveTierRole(guild, tier, config) {
   try {
     const role = await guild.roles.create({
       name: tier.name,
-      color: tier.color,
+      colors: { primaryColor: tier.color },
       hoist: true,
       reason: `Auto-created level role (level ${tier.level})`
     });
