@@ -12,6 +12,7 @@ const {
   getLeaderboard,
   countRanked
 } = require('../services/levelService');
+const { syncMemberLevelRole } = require('./levelRoles');
 
 const ACCENT = 0x9d4bff;
 const OK = 0x25ff85;
@@ -148,6 +149,14 @@ function attachLeveling(client) {
             .setDescription(`🎉 ${message.author} reached **level ${result.newLevel}**!`)],
           allowedMentions: { users: [message.author.id] }
         }).catch(() => {});
+
+        // Grant/replace the level-based role for the new level.
+        const member = message.member
+          || await message.guild.members.fetch(message.author.id).catch(() => null);
+        if (member) {
+          await syncMemberLevelRole(member, result.newLevel).catch((e) =>
+            console.error('[bot] levelRoles sync error:', e.message));
+        }
       }
     } catch (err) {
       console.error('[bot] leveling error:', err.message);

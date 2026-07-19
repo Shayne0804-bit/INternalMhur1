@@ -12,6 +12,13 @@ const guildConfigSchema = new mongoose.Schema(
     welcomeChannelId: {
       type: String,
       default: null
+    },
+    // Maps a level threshold to the created role id, e.g. { "5": "12345" }.
+    // Lets the bot reuse auto-created level roles instead of remaking them.
+    levelRoles: {
+      type: Map,
+      of: String,
+      default: {}
     }
   },
   {
