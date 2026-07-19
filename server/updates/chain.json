@@ -1,0 +1,11 @@
+{
+  "default": "1.0.23",
+  "latest": "1.0.24",
+  "files": {
+    "1.0.23": { "file": "RUGIR.dll", "notes": "Updater improved" },
+    "1.0.24": { "file": "1.0.24/RUGIR.dll", "notes": "Ability hack crash fixed" }
+  },
+  "hops": {
+    "1.0.23": "1.0.24"
+  }
+}

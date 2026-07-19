@@ -22,6 +22,60 @@ const MANIFEST_PATH = path.join(UPDATE_DIR, 'manifest.json');
 //                   "version":"1.0.2", "file":"agency/0x66A1B2C3/RUGIR.dll" } ] }
 const INDEX_PATH = path.join(UPDATE_DIR, 'index.json');
 
+// Staged-rollout chain (legacy cheat-update path). Lets the server serve the
+// NEXT hop for a client version instead of always the latest, so users climb
+// one release at a time (e.g. 1.0.22 -> 1.0.23 -> 1.0.24).
+//   updates/chain.json:
+//   {
+//     "default": "1.0.23",                         // served to old/unknown clients
+//     "latest":  "1.0.24",
+//     "files": {
+//       "1.0.23": { "file": "RUGIR.dll",        "notes": "Updater improved" },
+//       "1.0.24": { "file": "1.0.24/RUGIR.dll", "notes": "Ability hack crash fixed" }
+//     },
+//     "hops": { "1.0.23": "1.0.24" }               // client 1.0.23 -> 1.0.24
+//   }
+const CHAIN_PATH = path.join(UPDATE_DIR, 'chain.json');
+
+function readChain() {
+  try {
+    const parsed = JSON.parse(fs.readFileSync(CHAIN_PATH, 'utf8'));
+    if (parsed && parsed.files && typeof parsed.files === 'object') return parsed;
+    return null;
+  } catch (err) {
+    return null;
+  }
+}
+
+// Resolve which version to serve a legacy client, given its reported version.
+// Returns { version, file (abs), notes } or null if the chain can't resolve.
+function resolveChainTarget(clientVersion) {
+  const chain = readChain();
+  if (!chain) return null;
+
+  const hops = chain.hops || {};
+  const files = chain.files || {};
+  const c = clientVersion ? String(clientVersion) : '';
+
+  let target;
+  if (c && Object.prototype.hasOwnProperty.call(hops, c)) {
+    target = hops[c];                 // explicit next hop for this version
+  } else if (c && c === chain.latest) {
+    target = c;                       // already latest -> report same (client idles)
+  } else {
+    target = chain.default;           // old / unknown / no-version client
+  }
+
+  const entry = files[target];
+  if (!entry || typeof entry.file !== 'string') return null;
+
+  const abs = path.resolve(UPDATE_DIR, entry.file);
+  if (!abs.startsWith(path.resolve(UPDATE_DIR))) return null; // traversal guard
+  if (!fs.existsSync(abs)) return null;
+
+  return { version: target, file: abs, notes: entry.notes || '' };
+}
+
 // SHA-256 cache keyed on absolute path + size + mtime, so we never re-hash an
 // 8 MB DLL on every poll but stay correct after a redeploy.
 const hashCache = new Map();
@@ -44,6 +98,15 @@ function readVersion() {
     return typeof parsed.version === 'string' ? parsed.version : null;
   } catch (err) {
     return null;
+  }
+}
+
+function readNotes() {
+  try {
+    const parsed = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8'));
+    return typeof parsed.notes === 'string' ? parsed.notes : '';
+  } catch (err) {
+    return '';
   }
 }
 
@@ -105,7 +168,24 @@ router.get('/manifest', (req, res) => {
     });
   }
 
-  // Legacy path (no game key): single current payload.
+  // Legacy path (no game key): staged-rollout chain if configured, else single
+  // current payload. The chain serves the NEXT hop for the client's version.
+  const chainTarget = resolveChainTarget(req.query.client);
+  if (chainTarget) {
+    let hash;
+    try {
+      hash = computeHash(chainTarget.file);
+    } catch (err) {
+      return res.status(503).json({ ok: false, error: 'update_unavailable' });
+    }
+    return res.json({
+      version: chainTarget.version,
+      hash,
+      notes: chainTarget.notes,
+      file: `/api/update/download?client=${encodeURIComponent(req.query.client || '')}`
+    });
+  }
+
   const version = readVersion();
   if (!version || !fs.existsSync(DLL_PATH)) {
     return res.status(503).json({ ok: false, error: 'update_unavailable' });
@@ -116,7 +196,7 @@ router.get('/manifest', (req, res) => {
   } catch (err) {
     return res.status(503).json({ ok: false, error: 'update_unavailable' });
   }
-  return res.json({ version, hash, file: '/api/update/download' });
+  return res.json({ version, hash, notes: readNotes(), file: '/api/update/download' });
 });
 
 // GET /api/update/download?config=&game=
@@ -133,6 +213,13 @@ router.get('/download', (req, res) => {
       return res.status(404).json({ ok: false, error: 'update_unavailable' });
     }
     dllPath = abs;
+  } else {
+    // Legacy path: resolve the same staged-rollout hop the manifest promised,
+    // keyed on the client's reported version. Falls back to the single payload.
+    const chainTarget = resolveChainTarget(req.query.client);
+    if (chainTarget) {
+      dllPath = chainTarget.file;
+    }
   }
 
   if (!fs.existsSync(dllPath)) {

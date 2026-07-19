@@ -600,7 +600,11 @@ namespace SelfUpdate
         if (!g_self) { SetError("module handle null"); return; }
 
         std::vector<char> manifestBytes;
-        if (!HttpGet(kManifestPath, manifestBytes))
+        // Send our own version (?config=&client=<ver>) so the server can serve the
+        // NEXT hop in a staged rollout instead of always the latest. gameBuild=0
+        // keeps this on the legacy (non game-update) path.
+        std::wstring checkPath = BuildQueryPath(kManifestPath, 0);
+        if (!HttpGet(checkPath.c_str(), manifestBytes))
         {
             SuLog("[SelfUpdate] manifest fetch failed");
             SetError("Could not reach the server.");
