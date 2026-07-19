@@ -328,6 +328,22 @@ async function handleModerationCommand(interaction) {
     await replyErr(interaction, 'Cette commande doit etre utilisee dans un serveur.');
     return true;
   }
+  // inGuild() ne garantit que guildId, pas l'objet guild. Avec le seul intent
+  // Guilds (ou juste apres un redemarrage) la guild peut ne pas etre en cache,
+  // et interaction.guild vaut null -> tous les handlers crashent. On la resout.
+  if (!interaction.guild) {
+    try {
+      await interaction.client.guilds.fetch(interaction.guildId);
+    } catch (err) {
+      await replyErr(interaction, `Serveur inaccessible (${err.message}). Reessaie dans un instant.`);
+      return true;
+    }
+  }
+  // Certains handlers utilisent interaction.guild.members.me (gestion des roles).
+  // members.me peut etre null si la guild vient d'etre fetch a froid.
+  if (interaction.guild && !interaction.guild.members.me) {
+    await interaction.guild.members.fetchMe().catch(() => {});
+  }
   await handler(interaction);
   return true;
 }
