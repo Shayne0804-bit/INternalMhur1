@@ -2,31 +2,48 @@ const {
   SlashCommandBuilder,
   PermissionFlagsBits,
   EmbedBuilder,
-  ActionRowBuilder,
-  StringSelectMenuBuilder,
   ChannelType,
   MessageFlags
 } = require('discord.js');
 
-const ACCENT = 0x9d4bff;
+const ReactionRolePanel = require('../models/ReactionRolePanel');
 
-// /rolepanel: pick a channel + up to 8 existing roles (Discord's native role
-// picker — nothing to type). The bot posts a dropdown; members toggle roles.
+const ACCENT = 0x9d4bff;
+const MAX_PAIRS = 6;
+
+// Parse an emoji string into { key, reactable }.
+// Custom emoji <:name:id> / <a:name:id> -> key=id, reactable="name:id".
+// Unicode emoji -> key=char, reactable=char.
+function parseEmoji(input) {
+  const raw = (input || '').trim();
+  const custom = /^<(a?):(\w+):(\d+)>$/.exec(raw);
+  if (custom) {
+    return { key: custom[3], reactable: `${custom[2]}:${custom[3]}` };
+  }
+  return { key: raw, reactable: raw };
+}
+
+// Emoji key from a live reaction (custom id, else unicode name).
+function reactionKey(reaction) {
+  return reaction.emoji.id || reaction.emoji.name;
+}
+
+// /rolepanel: channel + up to 6 emoji/role pairs. Required options first.
 const builders = [
   (() => {
     const b = new SlashCommandBuilder()
       .setName('rolepanel')
-      .setDescription('Post a self-assign role dropdown in a channel (owner only)')
+      .setDescription('Post an emoji reaction-role panel (owner only)')
       .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
       .addChannelOption((o) =>
         o.setName('channel').setDescription('Channel to post the panel in')
           .addChannelTypes(ChannelType.GuildText).setRequired(true))
-      // Required options must come before optional ones (Discord rule):
-      // channel + role1 are required, then title + role2..8 are optional.
+      .addStringOption((o) => o.setName('emoji1').setDescription('Emoji for role 1').setRequired(true))
       .addRoleOption((o) => o.setName('role1').setDescription('Role 1').setRequired(true))
       .addStringOption((o) => o.setName('title').setDescription('Panel title (optional)'));
-    for (let i = 2; i <= 8; i += 1) {
-      b.addRoleOption((o) => o.setName(`role${i}`).setDescription(`Role ${i}`).setRequired(false));
+    for (let i = 2; i <= MAX_PAIRS; i += 1) {
+      b.addStringOption((o) => o.setName(`emoji${i}`).setDescription(`Emoji for role ${i}`));
+      b.addRoleOption((o) => o.setName(`role${i}`).setDescription(`Role ${i}`));
     }
     return b;
   })()
@@ -38,68 +55,98 @@ async function handleRolePanelCommand(interaction) {
   if (interaction.commandName !== 'rolepanel') return false;
 
   const channel = interaction.options.getChannel('channel');
-  const title = interaction.options.getString('title') || '🎭 Self-assign roles';
+  const title = interaction.options.getString('title') || '🎭 Reaction roles';
   const me = interaction.guild.members.me;
 
-  // Collect the chosen roles, validating each is below the bot.
-  const roles = [];
-  for (let i = 1; i <= 8; i += 1) {
+  // Collect emoji/role pairs.
+  const pairs = [];
+  for (let i = 1; i <= MAX_PAIRS; i += 1) {
+    const emoji = interaction.options.getString(`emoji${i}`);
     const role = interaction.options.getRole(`role${i}`);
-    if (!role) continue;
-    if (role.id === interaction.guild.id) continue; // skip @everyone
+    if (!emoji || !role) continue;
+    if (role.id === interaction.guild.id) continue;
     if (role.position >= me.roles.highest.position) {
-      return interaction.reply({ content: `❌ The role ${role} is above mine, I can't assign it. Move my role higher.`, flags: MessageFlags.Ephemeral });
+      return interaction.reply({ content: `❌ The role ${role} is above mine, I can't assign it. Move my role above it in Server Settings → Roles.`, flags: MessageFlags.Ephemeral });
     }
-    if (!roles.find((r) => r.id === role.id)) roles.push(role);
+    pairs.push({ emoji: parseEmoji(emoji), display: emoji.trim(), roleId: role.id, roleName: role.name });
   }
-  if (!roles.length) {
-    return interaction.reply({ content: '❌ Provide at least one role.', flags: MessageFlags.Ephemeral });
+  if (!pairs.length) {
+    return interaction.reply({ content: '❌ Provide at least one emoji + role pair.', flags: MessageFlags.Ephemeral });
   }
 
-  const menu = new StringSelectMenuBuilder()
-    .setCustomId('rolemenu')
-    .setPlaceholder('Select roles to add or remove')
-    .setMinValues(0)
-    .setMaxValues(roles.length)
-    .addOptions(roles.map((r) => ({ label: r.name, value: r.id, description: `Toggle @${r.name}` })));
-
+  const lines = pairs.map((p) => `${p.display} → <@&${p.roleId}>`);
   const embed = new EmbedBuilder()
     .setColor(ACCENT)
     .setTitle(title)
-    .setDescription('Use the menu below to pick your roles.\nSelecting a role grants it; unselecting it removes it.');
+    .setDescription(['React to get a role — remove your reaction to lose it.', '', ...lines].join('\n'));
 
-  await channel.send({ embeds: [embed], components: [new ActionRowBuilder().addComponents(menu)] });
-  return interaction.reply({ content: `✅ Role panel posted in ${channel}.`, flags: MessageFlags.Ephemeral });
-}
-
-// Select-menu handler (customId 'rolemenu'). Syncs the member's roles to the
-// selection *among the panel's roles*: chosen -> added, unchosen -> removed.
-async function handleRoleMenu(interaction) {
-  const me = interaction.guild.members.me;
-  const panelRoleIds = interaction.component.options.map((o) => o.value);
-  const chosen = new Set(interaction.values);
-
-  const added = [];
-  const removed = [];
-  for (const roleId of panelRoleIds) {
-    const role = interaction.guild.roles.cache.get(roleId);
-    if (!role || role.position >= me.roles.highest.position) continue;
-    const has = interaction.member.roles.cache.has(roleId);
-    if (chosen.has(roleId) && !has) {
-      await interaction.member.roles.add(roleId, 'Role panel').catch(() => {});
-      added.push(role.name);
-    } else if (!chosen.has(roleId) && has) {
-      await interaction.member.roles.remove(roleId, 'Role panel').catch(() => {});
-      removed.push(role.name);
-    }
+  const message = await channel.send({ embeds: [embed] }).catch((err) => {
+    console.error('[bot] rolepanel send:', err.message);
+    return null;
+  });
+  if (!message) {
+    return interaction.reply({ content: '❌ Could not post in that channel (missing permissions?).', flags: MessageFlags.Ephemeral });
   }
 
-  const parts = [];
-  if (added.length) parts.push(`➕ ${added.join(', ')}`);
-  if (removed.length) parts.push(`➖ ${removed.join(', ')}`);
-  return interaction.reply({
-    content: parts.length ? parts.join('\n') : 'No changes.',
-    flags: MessageFlags.Ephemeral
+  // React with each emoji so members just click.
+  for (const p of pairs) {
+    await message.react(p.emoji.reactable).catch((err) =>
+      console.error(`[bot] rolepanel react ${p.emoji.reactable}:`, err.message));
+  }
+
+  await ReactionRolePanel.create({
+    guildId: interaction.guild.id,
+    channelId: channel.id,
+    messageId: message.id,
+    mappings: pairs.map((p) => ({ emojiKey: p.emoji.key, roleId: p.roleId }))
+  });
+
+  return interaction.reply({ content: `✅ Reaction-role panel posted in ${channel}.`, flags: MessageFlags.Ephemeral });
+}
+
+// Resolve which role an emoji maps to on a given panel message.
+async function roleForReaction(reaction) {
+  const panel = await ReactionRolePanel.findOne({ messageId: reaction.message.id });
+  if (!panel) return null;
+  const key = reactionKey(reaction);
+  const mapping = panel.mappings.find((m) => m.emojiKey === key);
+  return mapping ? mapping.roleId : null;
+}
+
+// Attach add/remove reaction listeners for role toggling.
+function attachReactionRoles(client) {
+  client.on('messageReactionAdd', async (reaction, user) => {
+    try {
+      if (user.bot) return;
+      if (reaction.partial) await reaction.fetch().catch(() => {});
+      const roleId = await roleForReaction(reaction);
+      if (!roleId) return;
+      const guild = reaction.message.guild;
+      const member = await guild.members.fetch(user.id).catch(() => null);
+      const me = guild.members.me;
+      const role = guild.roles.cache.get(roleId);
+      if (!member || !role || role.position >= me.roles.highest.position) return;
+      await member.roles.add(roleId, 'Reaction role').catch(() => {});
+    } catch (err) {
+      console.error('[bot] reaction add:', err.message);
+    }
+  });
+
+  client.on('messageReactionRemove', async (reaction, user) => {
+    try {
+      if (user.bot) return;
+      if (reaction.partial) await reaction.fetch().catch(() => {});
+      const roleId = await roleForReaction(reaction);
+      if (!roleId) return;
+      const guild = reaction.message.guild;
+      const member = await guild.members.fetch(user.id).catch(() => null);
+      const me = guild.members.me;
+      const role = guild.roles.cache.get(roleId);
+      if (!member || !role || role.position >= me.roles.highest.position) return;
+      await member.roles.remove(roleId, 'Reaction role').catch(() => {});
+    } catch (err) {
+      console.error('[bot] reaction remove:', err.message);
+    }
   });
 }
 
@@ -107,5 +154,5 @@ module.exports = {
   rolePanelCommands: builders.map((b) => b.toJSON()),
   rolePanelCommandNames: commandNames,
   handleRolePanelCommand,
-  handleRoleMenu
+  attachReactionRoles
 };
