@@ -5384,46 +5384,24 @@ namespace ImGuiMenu
                 ImGui::NextColumn();
 
                 SeparatorLabel("Ability Levels");
+                // Persistent toggles (like the reference cheat): while ON, the ability
+                // is auto-re-applied by InGameHack_TickAbilityConditions (12s cadence,
+                // 15s span). No more one-shot buttons — flip it on and it stays on,
+                // re-applied on every match automatically.
                 ImAdd::SliderInt("Attack Level", &g_HackSettings.AbilityAttackLevel, 1, 100);
-                if (FullWidthButton("ABILITY ATTACK"))
-                {
-                    const int level = g_HackSettings.AbilityAttackLevel;
-                    EnqueueGameThreadMenuTask([level]() {
-                        InGameHack_AbilityAttack(level);
-                    }, "Ability Attack");
-                }
+                RugirHeaderToggle("ABILITY ATTACK", &g_HackSettings.AbilityAttackActive);
+
                 ImAdd::SliderInt("Durable Level", &g_HackSettings.AbilityDurableLevel, 1, 100);
-                if (FullWidthButton("ABILITY DURABLE"))
-                {
-                    const int level = g_HackSettings.AbilityDurableLevel;
-                    EnqueueGameThreadMenuTask([level]() {
-                        InGameHack_AbilityDurable(level);
-                    }, "Ability Durable");
-                }
+                RugirHeaderToggle("ABILITY DURABLE", &g_HackSettings.AbilityDurableActive);
+
                 ImAdd::SliderInt("Movespeed Level", &g_HackSettings.AbilityMovespeedLevel, 1, 100);
-                if (FullWidthButton("ABILITY MOVESPEED"))
-                {
-                    const int level = g_HackSettings.AbilityMovespeedLevel;
-                    EnqueueGameThreadMenuTask([level]() {
-                        InGameHack_AbilityMovespeed(level);
-                    }, "Ability Movespeed");
-                }
+                RugirHeaderToggle("ABILITY MOVESPEED", &g_HackSettings.AbilityMovespeedActive);
+
                 ImAdd::SliderInt("Heal Level", &g_HackSettings.AbilityHealLevel, 1, 100);
-                if (FullWidthButton("ABILITY HEAL"))
-                {
-                    const int level = g_HackSettings.AbilityHealLevel;
-                    EnqueueGameThreadMenuTask([level]() {
-                        InGameHack_AbilityHeal(level);
-                    }, "Ability Heal");
-                }
+                RugirHeaderToggle("ABILITY HEAL", &g_HackSettings.AbilityHealActive);
+
                 ImAdd::SliderInt("Technique Level", &g_HackSettings.AbilityTechniqueLevel, 1, 100);
-                if (FullWidthButton("ABILITY TECHNIQUE"))
-                {
-                    const int level = g_HackSettings.AbilityTechniqueLevel;
-                    EnqueueGameThreadMenuTask([level]() {
-                        InGameHack_AbilityTechnique(level);
-                    }, "Ability Technique");
-                }
+                RugirHeaderToggle("ABILITY TECHNIQUE", &g_HackSettings.AbilityTechniqueActive);
 
                 ImGui::Columns(1);
                 ImGui::PopStyleVar();
@@ -6232,6 +6210,11 @@ namespace ImGuiMenu
             y += 30.0f;
             std::string sub = "Version " + prog.latestVersion + " is online. Download it?";
             centeredText(smallFont, 14.0f, y, cTextSec, sub.c_str());
+            if (!prog.notes.empty())
+            {
+                y += 24.0f;
+                centeredText(smallFont, 13.0f, y, cAccent, prog.notes.c_str());
+            }
 
             float gap = 12.0f;
             float bw = (contentW - gap) * 0.5f;

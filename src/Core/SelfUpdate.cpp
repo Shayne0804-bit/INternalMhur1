@@ -611,6 +611,7 @@ namespace SelfUpdate
         std::string version = JsonString(manifest, "version");
         std::string wantHash = JsonString(manifest, "hash");
         std::string file = JsonString(manifest, "file");
+        std::string notes = JsonString(manifest, "notes");
         if (version.empty() || wantHash.empty())
         {
             SuLog("[SelfUpdate] manifest malformed");
@@ -628,6 +629,7 @@ namespace SelfUpdate
         SuLog(std::string("[SelfUpdate] update available: ") + kClientVersion + " -> " + version);
         std::lock_guard<std::mutex> lk(g_stateMutex);
         g_progress.latestVersion = version;
+        g_progress.notes = notes;
         g_stagedHash = wantHash;
         g_stagedFilePath = file.empty() ? std::wstring(kDownloadPath) : Utf8ToUtf16(file);
         g_stagedDll.clear();
@@ -798,6 +800,7 @@ namespace SelfUpdate
         std::string version  = JsonString(manifest, "version");
         std::string wantHash = JsonString(manifest, "hash");
         std::string file     = JsonString(manifest, "file");
+        std::string notes    = JsonString(manifest, "notes");
         if (version.empty() || wantHash.empty())
         {
             SuLog("[SelfUpdate] auto: manifest malformed, waiting + retry");
@@ -815,6 +818,7 @@ namespace SelfUpdate
         {
             std::lock_guard<std::mutex> lk(g_stateMutex);
             g_progress.latestVersion   = version;
+            g_progress.notes           = notes;
             g_progress.autoMode        = true;
             g_progress.gameIncompatible = true;
             g_stagedHash    = wantHash;

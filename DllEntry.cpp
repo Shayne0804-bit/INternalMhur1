@@ -7,7 +7,6 @@
 #include "src/Hooks/D3D11Hook.h"
 #include "src/Hooks/GameThreadHook.h"
 #include "src/Hacks/HackThread.h"
-#include "src/Hacks/InGameModuleHacks.h"
 #include "src/Menu/ImGuiMenu.h"
 #include "src/Utils/Logger.h"
 #include <atomic>
@@ -96,18 +95,6 @@ static void ShutdownHackThreadNoThrow()
     }
 }
 
-// Restores the inline ProcessEvent hook. MUST run before the module unmaps, else the
-// patched jmp points into freed detour code and the game crashes on next ProcessEvent.
-static void RestoreDamageProcessEventHookNoThrow()
-{
-    __try
-    {
-        InGameHack_RemoveDamageProcessEventHook();
-    }
-    __except (HandleAccessViolation(GetExceptionInformation()))
-    {
-    }
-}
 
 static void ShutdownGameThreadHookNoThrow()
 {
@@ -183,7 +170,6 @@ DWORD WINAPI UnloadThread(LPVOID lpParam)
     for (int i = 0; i < 4000 && g_MainThreadRunning.load(std::memory_order_acquire); ++i)
         Sleep(1);
 
-    RestoreDamageProcessEventHookNoThrow();
     ShutdownHackThreadNoThrow();
     ShutdownGameThreadHookNoThrow();
     RestoreD3D11HookNoThrow();
@@ -218,7 +204,6 @@ static void SelfUpdateCleanup()
     // DLL_Unload path does before its teardown.
     UnloadManager::RequestUnload();
 
-    RestoreDamageProcessEventHookNoThrow();
     ShutdownHackThreadNoThrow();
     ShutdownGameThreadHookNoThrow();
     RestoreD3D11HookNoThrow();

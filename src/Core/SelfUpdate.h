@@ -41,6 +41,7 @@ namespace SelfUpdate
     {
         State       state = State::Idle;
         std::string latestVersion;   // server version when Available/onward
+        std::string notes;           // short server-provided changelog line (optional)
         std::string errorText;       // populated on State::Error
 
         unsigned long long bytesReceived = 0;

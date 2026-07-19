@@ -8,7 +8,6 @@
 #include "../Menu/ImGuiMenu.h"
 
 #include "../Hacks/HackThread.h"
-#include "../Hacks/InGameModuleHacks.h"
 
 // Include SDK for accessing UObject, FindObjectFast, etc.
 // Using Engine_classes.hpp as recommended in Dumper-7 guide for faster compilation
@@ -256,25 +255,9 @@ namespace Main
         GameThreadHook::Log("[Main] InitializeRenderOnly end");
     }
 
-    static void RemoveDamageProcessEventHookNoThrow()
-    {
-        __try
-        {
-            InGameHack_RemoveDamageProcessEventHook();
-        }
-        __except (HandleAccessViolation(GetExceptionInformation()))
-        {
-        }
-    }
-
     void Shutdown()
     {
         if (!g_initialized) return;
-
-        // Restore the inline ProcessEvent hook FIRST: once the module unloads, the
-        // patched jmp would point into freed detour code and crash the game on the
-        // next ProcessEvent. Must happen before anything else is torn down.
-        RemoveDamageProcessEventHookNoThrow();
 
         ShutdownD3D11HookNoThrow();
         ShutdownHackThreadNoThrow();

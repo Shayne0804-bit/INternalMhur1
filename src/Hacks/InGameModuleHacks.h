@@ -813,6 +813,12 @@ bool InGameHack_AbilityMovespeed(int level);
  */
 bool InGameHack_AbilityHeal(int level);
 
+// GREEN card = ABILITY_HEAL (id 46) applied via SetCondition_ToServer using a plain
+// ProcessEvent that does NOT force FUNC_Exec (0x400) on the UFunction, unlike the
+// Dumper-7 wrapper. This matches the reference cheat and lets the NetServer RPC
+// actually route/execute (the wrapper's flag toggle silently no-ops it).
+bool InGameHack_ApplyCardGreen(int level);
+
 /**
  * Apply ABILITY_TECHNIQUE buff to player character
  * @param level - Ability level (1-100)
@@ -827,22 +833,6 @@ void InGameHack_TickAbilityConditions();
 // Legacy name for the frame-update call site; delegates to the tick above.
 void InGameHack_AutoClearConditionOnModeChange();
 
-// Damage multiplier via RPC parameter scaling (no condition injection, no crash).
-// GetLocalDamageComponentObject: the object GameThreadHook must hook so its
-// SendDamageToClient RPC passes through HookedProcessEvent. TryScaleDamageRPC:
-// called for each intercepted ProcessEvent; scales _damageValue when the function
-// is the damage RPC and the multiplier slider is > 1.
-namespace SDK { class UObject; class UFunction; }
-SDK::UObject* InGameHack_GetLocalDamageComponentObject();
-bool InGameHack_TryScaleDamageRPC(const SDK::UObject* object, SDK::UFunction* function, void* params);
-// Installs a direct vtable hook on the local damage component's ProcessEvent slot so
-// the SendDamageToClient RPC routes through our scaler. Call every frame update.
-void InGameHack_InstallDamageProcessEventHook();
-// Restores ProcessEvent's original bytes. MUST be called before DLL unload or the
-// game crashes calling into freed detour memory.
-void InGameHack_RemoveDamageProcessEventHook();
-// Dedicated damage-multiplier diagnostic log (C:\temp\rugir_dmgmult.log).
-void DmgMultLog(const std::string& line);
 
 // ============================================
 // CHARACTER CONTROL FUNCTIONS

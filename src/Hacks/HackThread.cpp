@@ -456,17 +456,6 @@ void HackThreadManager::FrameUpdateHacksImpl()
         Logger::LogWarning("[FrameUpdateHacks] Exception during auto clear conditions");
     }
 
-    // Keep the damage-component ProcessEvent hook installed (re-installs across
-    // matches when the component/vtable changes). Cheap no-op once installed.
-    try
-    {
-        InGameHack_InstallDamageProcessEventHook();
-    }
-    catch (...)
-    {
-        Logger::LogWarning("[FrameUpdateHacks] Exception installing damage PE hook");
-    }
-
     // ===== TRANSFORM INTO RANDOM ESP TARGET =====
     if (ImGuiMenu::g_Settings.EnableTransformIntoRandomESP)
     {

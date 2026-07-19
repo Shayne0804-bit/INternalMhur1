@@ -16,9 +16,20 @@ $manifest = Join-Path $destDir 'manifest.json'
 
 if (Test-Path $verFile) { $v = (Get-Content $verFile -Raw).Trim() } else { $v = '1.0.0' }
 
+# Short server-side changelog line shown in the client's download UI.
+# One line, kept in release_notes.txt at the repo root. Empty/missing => no note.
+$notesFile = Join-Path $Root 'release_notes.txt'
+$notes = ''
+if (Test-Path $notesFile) { $notes = (Get-Content $notesFile -Raw).Trim() }
+$notesJson = $notes -replace '\\','\\' -replace '"','\"'
+
 if (!(Test-Path $destDir)) { New-Item -ItemType Directory -Path $destDir -Force | Out-Null }
 
 Copy-Item -Path $Dll -Destination $destDll -Force
-Set-Content -Path $manifest -Value "{`n  `"version`": `"$v`"`n}" -Encoding ascii
+if ([string]::IsNullOrEmpty($notes)) {
+  Set-Content -Path $manifest -Value "{`n  `"version`": `"$v`"`n}" -Encoding ascii
+} else {
+  Set-Content -Path $manifest -Value "{`n  `"version`": `"$v`",`n  `"notes`": `"$notesJson`"`n}" -Encoding ascii
+}
 
-Write-Host "[publish] $Dll -> $destDll (version $v)"
+Write-Host "[publish] $Dll -> $destDll (version $v, notes: '$notes')"

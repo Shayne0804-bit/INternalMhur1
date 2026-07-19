@@ -549,30 +549,6 @@ namespace GameThreadHook
         SyncReloadAdjustNoThrow(now);
     }
 
-    // POD-only writers for the dmgmult log. Kept out of the __try functions
-    // (HookedProcessEvent / HookObjectLocked) because std::string forces unwinding.
-    static void DmgMultLogObjectHooked(const void* object, size_t totalHooks)
-    {
-        DmgMultLog(std::string("[HOOK] object hooked=0x") +
-            std::to_string(reinterpret_cast<uintptr_t>(object)) +
-            " totalHooks=" + std::to_string(totalHooks));
-    }
-
-    static void DmgMultHookHeartbeat(const void* object)
-    {
-        static DWORD s_lastDmgHeartbeat = 0;
-        static uint64_t s_hookCalls = 0;
-        ++s_hookCalls;
-        const DWORD nowHb = GetTickCount();
-        if (s_lastDmgHeartbeat == 0 || nowHb - s_lastDmgHeartbeat >= 3000)
-        {
-            s_lastDmgHeartbeat = nowHb;
-            DmgMultLog(std::string("[HB] HookedProcessEvent calls=") +
-                std::to_string(s_hookCalls) +
-                " lastObject=0x" + std::to_string(reinterpret_cast<uintptr_t>(object)));
-        }
-    }
-
     static void HookedProcessEvent(const SDK::UObject* object, SDK::UFunction* function, void* params)
     {
         struct Scope
@@ -593,15 +569,6 @@ namespace GameThreadHook
                 }
             }
         }
-
-        // Damage multiplier: scale _damageValue in the SendDamageToClient RPC param
-        // before the game processes it. No-op unless the function matches and the
-        // multiplier slider is > 1. SEH-guarded inside.
-        InGameHack_TryScaleDamageRPC(object, function, params);
-
-        // Diagnostic heartbeat (POD-only helper; keeps std::string out of this __try
-        // function). Confirms the hook fires and for which object.
-        DmgMultHookHeartbeat(reinterpret_cast<const void*>(object));
 
         const uint64_t hits = g_ProcessEventHits.fetch_add(1, std::memory_order_relaxed) + 1;
         const DWORD now = GetTickCount();
@@ -681,7 +648,6 @@ namespace GameThreadHook
             vtableSize,
             reinterpret_cast<void*>(record.originalProcessEvent),
             g_Hooks.size());
-        DmgMultLogObjectHooked(reinterpret_cast<const void*>(object), g_Hooks.size());
         return true;
     }
 
@@ -773,10 +739,6 @@ namespace GameThreadHook
             AddCandidate(candidates, viewport);
             AddCandidate(candidates, ReadGameInstanceSafe(viewport));
         }
-
-        // Local player's damage component: hooking it routes its SendDamageToClient
-        // RPC through HookedProcessEvent so the damage multiplier can scale it.
-        AddCandidate(candidates, InGameHack_GetLocalDamageComponentObject());
 
         return candidates;
     }
