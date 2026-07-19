@@ -49,6 +49,18 @@ const {
 } = require('./license');
 const { grantCustomerRole } = require('./customerRole');
 const { startExpiryScheduler } = require('./expiryScheduler');
+const {
+  ticketCommands,
+  ticketCommandNames,
+  handleTicketCommand,
+  handleTicketButton
+} = require('./tickets');
+const {
+  reactionRoleCommands,
+  reactionRoleCommandNames,
+  handleReactionRoleCommand,
+  handleReactionRoleButton
+} = require('./reactionRoles');
 
 const commands = [
   new SlashCommandBuilder()
@@ -62,7 +74,9 @@ const commands = [
   ...moderationCommands,
   ...levelingCommands,
   ...configCommands,
-  ...licenseCommands
+  ...licenseCommands,
+  ...ticketCommands,
+  ...reactionRoleCommands
 ];
 
 const ownerIds = new Set();
@@ -272,6 +286,12 @@ function attachHandlers(client) {
         } else if (licenseCommandNames.has(interaction.commandName)) {
           if (await denyIfNotOwner(interaction)) return;
           await handleLicenseCommand(interaction);
+        } else if (ticketCommandNames.has(interaction.commandName)) {
+          if (interaction.commandName === 'ticketpanel' && await denyIfNotOwner(interaction)) return;
+          await handleTicketCommand(interaction);
+        } else if (reactionRoleCommandNames.has(interaction.commandName)) {
+          if (await denyIfNotOwner(interaction)) return;
+          await handleReactionRoleCommand(interaction);
         }
         return;
       }
@@ -296,6 +316,10 @@ function attachHandlers(client) {
           await handleResetRequest(interaction, parts[2]);
         } else if (ns === 'reset') {
           await handleResetDecision(interaction, parts[1] === 'ok', parts[2], parts[3]);
+        } else if (ns === 'ticket') {
+          await handleTicketButton(interaction, parts[1]);
+        } else if (ns === 'rr') {
+          await handleReactionRoleButton(interaction, parts[1]);
         }
         return;
       }
