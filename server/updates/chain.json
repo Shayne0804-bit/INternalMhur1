@@ -1,11 +1,12 @@
 {
   "default": "1.0.23",
-  "latest": "1.0.24",
+  "latest": "1.0.25",
   "files": {
-    "1.0.23": { "file": "RUGIR.dll", "notes": "Updater improved" },
-    "1.0.24": { "file": "1.0.24/RUGIR.dll", "notes": "Ability hack crash fixed" }
+    "1.0.23": { "file": "1.0.23/RUGIR.dll", "notes": "Updater improved" },
+    "1.0.25": { "file": "1.0.25/RUGIR.dll", "notes": "Ability hack crash fixed + Ghost Kills added" }
   },
   "hops": {
-    "1.0.23": "1.0.24"
+    "1.0.23": "1.0.25",
+    "1.0.24": "1.0.25"
   }
 }

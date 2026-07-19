@@ -868,6 +868,11 @@
             y += LM(24);
             std::string sub = "Version " + prog.latestVersion + " is online. Download it?";
             centeredText(smallFont, LM(11), y, LmCol(kLmText), sub.c_str());
+            if (!prog.notes.empty())
+            {
+                y += LM(20);
+                centeredText(smallFont, LM(10), y, LmCol(kLmAccent), prog.notes.c_str());
+            }
 
             const float gap = LM(10);
             const float bw = (contentW - gap) * 0.5f;

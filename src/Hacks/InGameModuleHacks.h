@@ -11,6 +11,8 @@ namespace SDK
     struct FInGameBattleCharacterData;
     struct FVector;
     class AActor;
+    class UObject;
+    class UFunction;
     enum class ECharacterId : uint8_t;
     enum class EVariationCharacterId : uint8_t;
     enum class ESeasonType : uint8_t;
@@ -429,6 +431,18 @@ bool InGameHack_SetCvNoneCurveValue(float value);
  * is normal damage. Must be re-applied periodically as the buff system may reset it.
  */
 bool InGameHack_SetAttackDamageMultiplier(float multiplier);
+
+// "Make Your Kills Look Like Suicide": called from the ProcessEvent hook BEFORE
+// the original runs. Rewrites the outgoing attack-hit RPC so the server credits
+// the kill to the victim (appears as a give-up). Gated by the menu toggle.
+bool InGameHack_TryApplySuicideRPC(const SDK::UObject* object, SDK::UFunction* function, void* params);
+
+// Returns the local character's attack-hit RPC components so the ProcessEvent
+// hook manager can shadow-hook them. These emit CharacterAttackHit_RPC /
+// AttackHit_RPC — the RPCs the suicide hack rewrites — and are NOT reachable
+// from Engine/Viewport/GameInstance. Outputs nullptr when the toggle is off or
+// no local pawn exists yet. Both out-params may be null; safe to call anytime.
+void InGameHack_CollectSuicideHookObjects(SDK::UObject** outReplicator, SDK::UObject** outCollision);
 
 // ============================================
 // TRAINING MODE EXECUTION

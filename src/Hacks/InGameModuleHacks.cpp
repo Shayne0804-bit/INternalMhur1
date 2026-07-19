@@ -8100,6 +8100,139 @@ bool InGameHack_SetCvNoneCurveValue(float value)
     return writtenCount == keyCount;
 }
 
+// ============================================================================
+// "Make Your Kills Look Like Suicide"
+// ----------------------------------------------------------------------------
+// Reference-cheat behaviour (byte_1800E5F49): inside the ProcessEvent hook it
+// rewrites the attacker field of the outgoing attack-hit RPCs to the victim, so
+// the server credits the kill to the victim itself (appears as a give-up).
+//   - CharacterAttackHit_RPC(FCharacterAttackHitRep&): pDamageCauser <- pHitChara,
+//     damageCauserType = GIVE_UP (4).
+//   - AttackHit_RPC(FProjectileHitRep&): pAttacker <- pHitActor.
+// We do the same via NAMED SDK struct members (no raw offsets). The two
+// UFunctions are resolved once and matched by pointer, like the reference.
+// Called from HookedProcessEvent BEFORE the original runs, so the patched
+// params are what actually get replicated. SEH-isolated (POD only).
+// ============================================================================
+static int ApplySuicideRPC_Core(const SDK::UObject* object, SDK::UFunction* function, void* params)
+{
+    static SDK::UFunction* s_fnCharacterHit = nullptr; // CharacterAttackHit_RPC
+    static SDK::UFunction* s_fnAttackHit    = nullptr; // AttackHit_RPC
+    static bool s_resolved = false;
+
+    __try
+    {
+        if (!s_resolved)
+        {
+            SDK::UClass* repCls = SDK::UCharacterAttackReplicateComponent::StaticClass();
+            SDK::UClass* colCls = SDK::UCharacterAttackCollisionController::StaticClass();
+            if (repCls)
+                s_fnCharacterHit = repCls->GetFunction("CharacterAttackReplicateComponent", "CharacterAttackHit_RPC");
+            if (colCls)
+                s_fnAttackHit = colCls->GetFunction("CharacterAttackCollisionController", "AttackHit_RPC");
+            // Only mark resolved once both classes were reachable; otherwise retry
+            // next call (they may not be loaded yet before the first battle).
+            if (repCls && colCls)
+                s_resolved = true;
+        }
+
+        (void)object;
+        if (!function || !params)
+            return 0;
+
+        if (function == s_fnCharacterHit && s_fnCharacterHit)
+        {
+            auto* rep = reinterpret_cast<SDK::FCharacterAttackHitRep*>(params);
+            if (rep->pHitChara)
+            {
+                rep->pDamageCauser    = reinterpret_cast<SDK::AActor*>(rep->pHitChara);
+                rep->damageCauserType = SDK::EDamageCauserType::GIVE_UP;
+                return 1;
+            }
+            return 0;
+        }
+
+        if (function == s_fnAttackHit && s_fnAttackHit)
+        {
+            auto* rep = reinterpret_cast<SDK::FProjectileHitRep*>(params);
+            if (rep->pHitActor)
+            {
+                rep->pAttacker = rep->pHitActor;
+                return 1;
+            }
+            return 0;
+        }
+
+        return 0;
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        return -1;
+    }
+}
+
+// Public entry called from the ProcessEvent hook. Gated by the menu toggle.
+// Returns true if it patched the RPC params for a kill-as-suicide.
+bool InGameHack_TryApplySuicideRPC(const SDK::UObject* object, SDK::UFunction* function, void* params)
+{
+    if (!ImGuiMenu::g_HackSettings.MakeKillsLookLikeSuicideActive)
+        return false;
+    return ApplySuicideRPC_Core(object, function, params) == 1;
+}
+
+// ============================================================================
+// Suicide hack — hook target discovery
+// ----------------------------------------------------------------------------
+// The attack-hit RPCs (CharacterAttackHit_RPC / AttackHit_RPC) are dispatched
+// on the local character's _characterAttackReplicator and _attackCollisionCtrl
+// components — NOT on Engine/Viewport/GameInstance. Our ProcessEvent hook is a
+// per-object shadow vtable, so it only sees objects we explicitly hook. This
+// returns those two components so the hook manager can shadow them too.
+// Called every RefreshHooks tick, so it re-targets after respawn/char change.
+// SEH-isolated, POD-only body (no unwind objects).
+// ============================================================================
+static void CollectSuicideHookObjectsCore(SDK::UObject** outReplicator, SDK::UObject** outCollision)
+{
+    *outReplicator = nullptr;
+    *outCollision = nullptr;
+
+    __try
+    {
+        SDK::APlayerController* pc = SDK_GetPlayerController();
+        if (!pc)
+            return;
+
+        SDK::APawn* pawn = pc->Pawn;
+        if (!pawn)
+            return;
+
+        SDK::ACharacterBattle* character = reinterpret_cast<SDK::ACharacterBattle*>(pawn);
+        SDK::UCharacterAttackReplicateComponent* rep = character->_characterAttackReplicator;
+        SDK::UCharacterAttackCollisionController* col = character->_attackCollisionCtrl;
+
+        *outReplicator = reinterpret_cast<SDK::UObject*>(rep);
+        *outCollision  = reinterpret_cast<SDK::UObject*>(col);
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        *outReplicator = nullptr;
+        *outCollision = nullptr;
+    }
+}
+
+void InGameHack_CollectSuicideHookObjects(SDK::UObject** outReplicator, SDK::UObject** outCollision)
+{
+    SDK::UObject* rep = nullptr;
+    SDK::UObject* col = nullptr;
+
+    // Only bother while the toggle is on — no reason to churn hooks otherwise.
+    if (ImGuiMenu::g_HackSettings.MakeKillsLookLikeSuicideActive)
+        CollectSuicideHookObjectsCore(&rep, &col);
+
+    if (outReplicator) *outReplicator = rep;
+    if (outCollision)  *outCollision = col;
+}
+
 bool InGameHack_SetAttackDamageMultiplier(float multiplier)
 {
     // DEPRECATED: the damage multiplier is now applied by scaling the

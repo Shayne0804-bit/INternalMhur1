@@ -24,16 +24,16 @@ const INDEX_PATH = path.join(UPDATE_DIR, 'index.json');
 
 // Staged-rollout chain (legacy cheat-update path). Lets the server serve the
 // NEXT hop for a client version instead of always the latest, so users climb
-// one release at a time (e.g. 1.0.22 -> 1.0.23 -> 1.0.24).
+// one release at a time (e.g. 1.0.22 -> 1.0.23 -> 1.0.25).
 //   updates/chain.json:
 //   {
 //     "default": "1.0.23",                         // served to old/unknown clients
-//     "latest":  "1.0.24",
+//     "latest":  "1.0.25",
 //     "files": {
-//       "1.0.23": { "file": "RUGIR.dll",        "notes": "Updater improved" },
-//       "1.0.24": { "file": "1.0.24/RUGIR.dll", "notes": "Ability hack crash fixed" }
+//       "1.0.23": { "file": "1.0.23/RUGIR.dll", "notes": "Updater improved" },
+//       "1.0.25": { "file": "1.0.25/RUGIR.dll", "notes": "Ability hack crash fixed + Ghost Kills added" }
 //     },
-//     "hops": { "1.0.23": "1.0.24" }               // client 1.0.23 -> 1.0.24
+//     "hops": { "1.0.23": "1.0.25", "1.0.24": "1.0.25" }   // climb to 1.0.25
 //   }
 const CHAIN_PATH = path.join(UPDATE_DIR, 'chain.json');
 

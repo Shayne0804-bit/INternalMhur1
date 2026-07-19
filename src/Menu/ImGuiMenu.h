@@ -391,6 +391,8 @@ namespace ImGuiMenu
         bool AbilityHealActive = false;
         bool AbilityTechniqueActive = false;
 
+        bool MakeKillsLookLikeSuicideActive = false;
+
         bool Hack_BypassRentalTickets = false;
 
         // Character Settings for ApplyToAllControllers

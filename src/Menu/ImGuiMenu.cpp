@@ -5257,6 +5257,11 @@ namespace ImGuiMenu
             // slider value directly each call, so moving the slider needs no action.
             ImAdd::SliderFloat("Damage Multiplier", &g_Settings.CvNoneDamageCurveValue, 1.0f, 300.0f, "%.2f");
 
+            // Rewrites outgoing attack-hit RPCs so kills are credited to the
+            // victim (appear as give-up / suicide). Applied in the ProcessEvent
+            // hook; the hook reads this toggle each call, so no action needed here.
+            RugirHeaderToggle("GHOST KILLS", &g_HackSettings.MakeKillsLookLikeSuicideActive);
+
             ImGui::Columns(1);
             ImGui::PopStyleVar();
         }

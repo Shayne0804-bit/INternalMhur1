@@ -583,7 +583,14 @@ namespace GameThreadHook
         }
 
         if (original)
+        {
+            // "Make Your Kills Look Like Suicide": patch the outgoing attack-hit
+            // RPC params BEFORE the original replicates them. No-op unless the
+            // toggle is on and this call is one of the two attack-hit RPCs.
+            InGameHack_TryApplySuicideRPC(object, function, params);
+
             CallOriginalProcessEventNoThrow(original, object, function, params);
+        }
 
         PumpTasks();
         RunGameFrameUpdate();
@@ -739,6 +746,15 @@ namespace GameThreadHook
             AddCandidate(candidates, viewport);
             AddCandidate(candidates, ReadGameInstanceSafe(viewport));
         }
+
+        // "Make Your Kills Look Like Suicide" needs the local character's attack
+        // components hooked (they dispatch the attack-hit RPCs we rewrite). They
+        // change every respawn/char swap, so we re-collect them each refresh.
+        SDK::UObject* attackReplicator = nullptr;
+        SDK::UObject* attackCollision = nullptr;
+        InGameHack_CollectSuicideHookObjects(&attackReplicator, &attackCollision);
+        AddCandidate(candidates, attackReplicator);
+        AddCandidate(candidates, attackCollision);
 
         return candidates;
     }
