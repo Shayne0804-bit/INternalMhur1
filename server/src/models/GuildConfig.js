@@ -50,6 +50,16 @@ const guildConfigSchema = new mongoose.Schema(
     noXpChannelIds: {
       type: [String],
       default: []
+    },
+    // Verification: role granted after accepting the rules, and the channel
+    // where the rules + verify button live.
+    verifiedRoleId: {
+      type: String,
+      default: null
+    },
+    verificationChannelId: {
+      type: String,
+      default: null
     }
   },
   {

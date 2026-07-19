@@ -56,11 +56,17 @@ const {
   handleTicketButton
 } = require('./tickets');
 const {
-  reactionRoleCommands,
-  reactionRoleCommandNames,
-  handleReactionRoleCommand,
-  handleReactionRoleButton
+  rolePanelCommands,
+  rolePanelCommandNames,
+  handleRolePanelCommand,
+  handleRoleMenu
 } = require('./reactionRoles');
+const {
+  verificationCommands,
+  verificationCommandNames,
+  handleSetupVerification,
+  handleVerifyButton
+} = require('./verification');
 const {
   warnCommands,
   warnCommandNames,
@@ -82,7 +88,8 @@ const commands = [
   ...configCommands,
   ...licenseCommands,
   ...ticketCommands,
-  ...reactionRoleCommands,
+  ...rolePanelCommands,
+  ...verificationCommands,
   ...warnCommands
 ];
 
@@ -296,9 +303,12 @@ function attachHandlers(client) {
         } else if (ticketCommandNames.has(interaction.commandName)) {
           if (interaction.commandName === 'ticketpanel' && await denyIfNotOwner(interaction)) return;
           await handleTicketCommand(interaction);
-        } else if (reactionRoleCommandNames.has(interaction.commandName)) {
+        } else if (rolePanelCommandNames.has(interaction.commandName)) {
           if (await denyIfNotOwner(interaction)) return;
-          await handleReactionRoleCommand(interaction);
+          await handleRolePanelCommand(interaction);
+        } else if (verificationCommandNames.has(interaction.commandName)) {
+          if (await denyIfNotOwner(interaction)) return;
+          await handleSetupVerification(interaction);
         } else if (warnCommandNames.has(interaction.commandName)) {
           await handleWarnCommand(interaction);
         }
@@ -327,8 +337,15 @@ function attachHandlers(client) {
           await handleResetDecision(interaction, parts[1] === 'ok', parts[2], parts[3]);
         } else if (ns === 'ticket') {
           await handleTicketButton(interaction, parts[1]);
-        } else if (ns === 'rr') {
-          await handleReactionRoleButton(interaction, parts[1]);
+        } else if (ns === 'verify') {
+          await handleVerifyButton(interaction);
+        }
+        return;
+      }
+
+      if (interaction.isStringSelectMenu()) {
+        if (interaction.customId === 'rolemenu') {
+          await handleRoleMenu(interaction);
         }
         return;
       }

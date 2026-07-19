@@ -3,86 +3,106 @@ const {
   PermissionFlagsBits,
   EmbedBuilder,
   ActionRowBuilder,
-  ButtonBuilder,
-  ButtonStyle,
+  StringSelectMenuBuilder,
+  ChannelType,
   MessageFlags
 } = require('discord.js');
 
 const ACCENT = 0x9d4bff;
 
-// Owner posts a self-assign panel with up to 5 role buttons.
+// /rolepanel: pick a channel + up to 8 existing roles (Discord's native role
+// picker — nothing to type). The bot posts a dropdown; members toggle roles.
 const builders = [
-  new SlashCommandBuilder()
-    .setName('reactionrole')
-    .setDescription('Post a self-assign role panel (owner only)')
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-    .addStringOption((o) => o.setName('title').setDescription('Panel title').setRequired(true))
-    .addRoleOption((o) => o.setName('role1').setDescription('Role 1').setRequired(true))
-    .addStringOption((o) => o.setName('label1').setDescription('Button label 1').setRequired(true))
-    .addRoleOption((o) => o.setName('role2').setDescription('Role 2'))
-    .addStringOption((o) => o.setName('label2').setDescription('Button label 2'))
-    .addRoleOption((o) => o.setName('role3').setDescription('Role 3'))
-    .addStringOption((o) => o.setName('label3').setDescription('Button label 3'))
-    .addRoleOption((o) => o.setName('role4').setDescription('Role 4'))
-    .addStringOption((o) => o.setName('label4').setDescription('Button label 4'))
-    .addRoleOption((o) => o.setName('role5').setDescription('Role 5'))
-    .addStringOption((o) => o.setName('label5').setDescription('Button label 5'))
+  (() => {
+    const b = new SlashCommandBuilder()
+      .setName('rolepanel')
+      .setDescription('Post a self-assign role dropdown in a channel (owner only)')
+      .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+      .addChannelOption((o) =>
+        o.setName('channel').setDescription('Channel to post the panel in')
+          .addChannelTypes(ChannelType.GuildText).setRequired(true))
+      .addStringOption((o) => o.setName('title').setDescription('Panel title (optional)'));
+    for (let i = 1; i <= 8; i += 1) {
+      b.addRoleOption((o) => o.setName(`role${i}`).setDescription(`Role ${i}`).setRequired(i === 1));
+    }
+    return b;
+  })()
 ];
 
-const commandNames = new Set(['reactionrole']);
+const commandNames = new Set(['rolepanel']);
 
-async function handleReactionRoleCommand(interaction) {
-  if (interaction.commandName !== 'reactionrole') return false;
+async function handleRolePanelCommand(interaction) {
+  if (interaction.commandName !== 'rolepanel') return false;
 
+  const channel = interaction.options.getChannel('channel');
+  const title = interaction.options.getString('title') || '🎭 Self-assign roles';
   const me = interaction.guild.members.me;
-  const buttons = [];
-  const lines = [];
-  for (let i = 1; i <= 5; i += 1) {
+
+  // Collect the chosen roles, validating each is below the bot.
+  const roles = [];
+  for (let i = 1; i <= 8; i += 1) {
     const role = interaction.options.getRole(`role${i}`);
     if (!role) continue;
-    const label = interaction.options.getString(`label${i}`) || role.name;
+    if (role.id === interaction.guild.id) continue; // skip @everyone
     if (role.position >= me.roles.highest.position) {
-      return interaction.reply({ content: `❌ The role ${role} is above mine, I can't assign it.`, flags: MessageFlags.Ephemeral });
+      return interaction.reply({ content: `❌ The role ${role} is above mine, I can't assign it. Move my role higher.`, flags: MessageFlags.Ephemeral });
     }
-    buttons.push(
-      new ButtonBuilder().setCustomId(`rr:${role.id}`).setLabel(label).setStyle(ButtonStyle.Secondary)
-    );
-    lines.push(`• **${label}** → ${role}`);
+    if (!roles.find((r) => r.id === role.id)) roles.push(role);
   }
+  if (!roles.length) {
+    return interaction.reply({ content: '❌ Provide at least one role.', flags: MessageFlags.Ephemeral });
+  }
+
+  const menu = new StringSelectMenuBuilder()
+    .setCustomId('rolemenu')
+    .setPlaceholder('Select roles to add or remove')
+    .setMinValues(0)
+    .setMaxValues(roles.length)
+    .addOptions(roles.map((r) => ({ label: r.name, value: r.id, description: `Toggle @${r.name}` })));
 
   const embed = new EmbedBuilder()
     .setColor(ACCENT)
-    .setTitle(interaction.options.getString('title'))
-    .setDescription(['Click a button to get or remove a role.', '', ...lines].join('\n'));
+    .setTitle(title)
+    .setDescription('Use the menu below to pick your roles.\nSelecting a role grants it; unselecting it removes it.');
 
-  const row = new ActionRowBuilder().addComponents(...buttons);
-  await interaction.channel.send({ embeds: [embed], components: [row] });
-  return interaction.reply({ content: '✅ Reaction-role panel posted.', flags: MessageFlags.Ephemeral });
+  await channel.send({ embeds: [embed], components: [new ActionRowBuilder().addComponents(menu)] });
+  return interaction.reply({ content: `✅ Role panel posted in ${channel}.`, flags: MessageFlags.Ephemeral });
 }
 
-// Button entry point (ns === 'rr'). Toggles the role on the member.
-async function handleReactionRoleButton(interaction, roleId) {
-  const role = interaction.guild.roles.cache.get(roleId)
-    || await interaction.guild.roles.fetch(roleId).catch(() => null);
-  if (!role) {
-    return interaction.reply({ content: '❌ That role no longer exists.', flags: MessageFlags.Ephemeral });
-  }
+// Select-menu handler (customId 'rolemenu'). Syncs the member's roles to the
+// selection *among the panel's roles*: chosen -> added, unchosen -> removed.
+async function handleRoleMenu(interaction) {
   const me = interaction.guild.members.me;
-  if (role.position >= me.roles.highest.position) {
-    return interaction.reply({ content: "❌ I can't manage that role (it's above mine).", flags: MessageFlags.Ephemeral });
+  const panelRoleIds = interaction.component.options.map((o) => o.value);
+  const chosen = new Set(interaction.values);
+
+  const added = [];
+  const removed = [];
+  for (const roleId of panelRoleIds) {
+    const role = interaction.guild.roles.cache.get(roleId);
+    if (!role || role.position >= me.roles.highest.position) continue;
+    const has = interaction.member.roles.cache.has(roleId);
+    if (chosen.has(roleId) && !has) {
+      await interaction.member.roles.add(roleId, 'Role panel').catch(() => {});
+      added.push(role.name);
+    } else if (!chosen.has(roleId) && has) {
+      await interaction.member.roles.remove(roleId, 'Role panel').catch(() => {});
+      removed.push(role.name);
+    }
   }
-  const member = interaction.member;
-  if (member.roles.cache.has(role.id)) {
-    await member.roles.remove(role, 'Reaction role toggle');
-    return interaction.reply({ content: `➖ Removed ${role}.`, flags: MessageFlags.Ephemeral });
-  }
-  await member.roles.add(role, 'Reaction role toggle');
-  return interaction.reply({ content: `➕ Added ${role}.`, flags: MessageFlags.Ephemeral });
+
+  const parts = [];
+  if (added.length) parts.push(`➕ ${added.join(', ')}`);
+  if (removed.length) parts.push(`➖ ${removed.join(', ')}`);
+  return interaction.reply({
+    content: parts.length ? parts.join('\n') : 'No changes.',
+    flags: MessageFlags.Ephemeral
+  });
 }
 
 module.exports = {
-  reactionRoleCommands: builders.map((b) => b.toJSON()),
-  reactionRoleCommandNames: commandNames,
-  handleReactionRoleCommand,
-  handleReactionRoleButton
+  rolePanelCommands: builders.map((b) => b.toJSON()),
+  rolePanelCommandNames: commandNames,
+  handleRolePanelCommand,
+  handleRoleMenu
 };
