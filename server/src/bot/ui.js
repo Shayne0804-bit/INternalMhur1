@@ -13,54 +13,54 @@ const ACCENT = 0x9d4bff;
 function buildPanel() {
   const embed = new EmbedBuilder()
     .setColor(ACCENT)
-    .setTitle('🔑 Gestion des licences')
+    .setTitle('🔑 License management')
     .setDescription([
-      'Génère une clé de licence premium.',
+      'Generate a premium license key.',
       '',
-      '• **Durées rapides** — un clic crée une clé premium (1 activation).',
-      '• **Personnalisé** — choisis le tier, la durée exacte, les activations et une note.'
+      '• **Quick durations** — one click creates a premium key (1 activation).',
+      '• **Custom** — choose the tier, exact duration, activations and a note.'
     ].join('\n'))
-    .setFooter({ text: "La clé générée ne s'affiche qu'à toi (message éphémère)." });
+    .setFooter({ text: 'The generated key is only shown to you (ephemeral message).' });
 
   const presets = new ActionRowBuilder().addComponents(
-    new ButtonBuilder().setCustomId('lic:preset:7').setLabel('7 jours').setEmoji('📅').setStyle(ButtonStyle.Secondary),
-    new ButtonBuilder().setCustomId('lic:preset:30').setLabel('30 jours').setEmoji('📅').setStyle(ButtonStyle.Secondary),
-    new ButtonBuilder().setCustomId('lic:preset:90').setLabel('90 jours').setEmoji('📅').setStyle(ButtonStyle.Secondary),
-    new ButtonBuilder().setCustomId('lic:preset:lifetime').setLabel('À vie').setEmoji('♾️').setStyle(ButtonStyle.Success)
+    new ButtonBuilder().setCustomId('lic:preset:7').setLabel('7 days').setEmoji('📅').setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId('lic:preset:30').setLabel('30 days').setEmoji('📅').setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId('lic:preset:90').setLabel('90 days').setEmoji('📅').setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder().setCustomId('lic:preset:lifetime').setLabel('Lifetime').setEmoji('♾️').setStyle(ButtonStyle.Success)
   );
 
   const custom = new ActionRowBuilder().addComponents(
-    new ButtonBuilder().setCustomId('lic:custom').setLabel('Personnalisé').setEmoji('⚙️').setStyle(ButtonStyle.Primary)
+    new ButtonBuilder().setCustomId('lic:custom').setLabel('Custom').setEmoji('⚙️').setStyle(ButtonStyle.Primary)
   );
 
   return { embeds: [embed], components: [presets, custom] };
 }
 
 function buildCustomModal() {
-  const modal = new ModalBuilder().setCustomId('lic:modal').setTitle('Créer une licence');
+  const modal = new ModalBuilder().setCustomId('lic:modal').setTitle('Create a license');
 
   const inputs = [
     new TextInputBuilder()
       .setCustomId('days')
-      .setLabel('Durée en jours (vide = à vie)')
+      .setLabel('Duration in days (empty = lifetime)')
       .setStyle(TextInputStyle.Short)
       .setRequired(false)
       .setPlaceholder('30'),
     new TextInputBuilder()
       .setCustomId('tier')
-      .setLabel('Tier : premium / trial / lifetime')
+      .setLabel('Tier: premium / trial / lifetime')
       .setStyle(TextInputStyle.Short)
       .setRequired(false)
       .setValue('premium'),
     new TextInputBuilder()
       .setCustomId('acts')
-      .setLabel('Activations max (1-10)')
+      .setLabel('Max activations (1-10)')
       .setStyle(TextInputStyle.Short)
       .setRequired(false)
       .setValue('1'),
     new TextInputBuilder()
       .setCustomId('notes')
-      .setLabel('Note (optionnel)')
+      .setLabel('Note (optional)')
       .setStyle(TextInputStyle.Short)
       .setRequired(false)
   ];
@@ -72,13 +72,13 @@ function buildCustomModal() {
 function buildKeyEmbed({ key, license }) {
   const expiration = license.expiresAt
     ? `<t:${Math.floor(new Date(license.expiresAt).getTime() / 1000)}:F>`
-    : 'À vie';
+    : 'Lifetime';
 
   return new EmbedBuilder()
     .setColor(0x25ff85)
-    .setTitle('✅ Licence créée')
+    .setTitle('✅ License created')
     .addFields(
-      { name: 'Clé', value: '```' + key + '```' },
+      { name: 'Key', value: '```' + key + '```' },
       { name: 'Tier', value: String(license.tier), inline: true },
       { name: 'Activations', value: String(license.maxActivations), inline: true },
       { name: 'Expiration', value: expiration, inline: true }
@@ -87,10 +87,10 @@ function buildKeyEmbed({ key, license }) {
 }
 
 function buildKeyCheckModal() {
-  const modal = new ModalBuilder().setCustomId('chk:modal').setTitle('Verifier ma licence');
+  const modal = new ModalBuilder().setCustomId('chk:modal').setTitle('Check my license');
   const key = new TextInputBuilder()
     .setCustomId('key')
-    .setLabel('Ta cle de licence')
+    .setLabel('Your license key')
     .setStyle(TextInputStyle.Short)
     .setRequired(true)
     .setPlaceholder('RUGIR-XXXXX-XXXXX-XXXXX-XXXXX-XXXXX');
@@ -99,16 +99,16 @@ function buildKeyCheckModal() {
 }
 
 function licenseStatusLabel(license) {
-  if (license.status === 'revoked') return '⛔ Revoquee';
+  if (license.status === 'revoked') return '⛔ Revoked';
   if (license.status === 'expired' || (license.expiresAt && new Date(license.expiresAt) <= new Date())) {
-    return '⏳ Expiree';
+    return '⏳ Expired';
   }
   return '✅ Active';
 }
 
 // Member-facing view of their own license, with a "reset HWID" button.
 function buildMemberLicenseView(license) {
-  let expiration = 'À vie';
+  let expiration = 'Lifetime';
   if (license.expiresAt) {
     const unix = Math.floor(new Date(license.expiresAt).getTime() / 1000);
     expiration = `<t:${unix}:F> (<t:${unix}:R>)`;
@@ -116,25 +116,25 @@ function buildMemberLicenseView(license) {
 
   const embed = new EmbedBuilder()
     .setColor(ACCENT)
-    .setTitle('📄 Ta licence')
+    .setTitle('📄 Your license')
     .addFields(
-      { name: 'Cle', value: '```' + (license.keyPlain || 'indisponible') + '```' },
-      { name: 'Statut', value: licenseStatusLabel(license), inline: true },
+      { name: 'Key', value: '```' + (license.keyPlain || 'unavailable') + '```' },
+      { name: 'Status', value: licenseStatusLabel(license), inline: true },
       { name: 'Tier', value: String(license.tier), inline: true },
       { name: 'Activations', value: `${license.hwidHashes.length}/${license.maxActivations}`, inline: true },
       { name: 'Expiration', value: expiration }
     )
-    .setFooter({ text: 'Changement de PC ? Demande un reset HWID ci-dessous.' });
+    .setFooter({ text: 'Changing PC? Request an HWID reset below.' });
 
   const row = new ActionRowBuilder().addComponents(
     new ButtonBuilder()
       .setCustomId(`chk:reset:${license._id}`)
-      .setLabel('Reinitialiser HWID')
+      .setLabel('Reset HWID')
       .setEmoji('🔄')
       .setStyle(ButtonStyle.Danger),
     new ButtonBuilder()
       .setCustomId('chk:new')
-      .setLabel('Nouvelle licence')
+      .setLabel('New license')
       .setEmoji('➕')
       .setStyle(ButtonStyle.Secondary)
   );
@@ -146,24 +146,24 @@ function buildMemberLicenseView(license) {
 function buildResetRequest(license, member, ownerId) {
   const embed = new EmbedBuilder()
     .setColor(0xffb800)
-    .setTitle('🔄 Demande de reset HWID')
-    .setDescription(`${member} demande la reinitialisation du HWID de sa licence.`)
+    .setTitle('🔄 HWID reset request')
+    .setDescription(`${member} is requesting an HWID reset for their license.`)
     .addFields(
-      { name: 'Utilisateur', value: `${member} (\`${member.id}\`)` },
-      { name: 'Licence', value: `\`${license._id}\``, inline: true },
+      { name: 'User', value: `${member} (\`${member.id}\`)` },
+      { name: 'License', value: `\`${license._id}\``, inline: true },
       { name: 'Tier', value: String(license.tier), inline: true },
-      { name: 'Activations liees', value: `${license.hwidHashes.length}/${license.maxActivations}`, inline: true }
+      { name: 'Linked activations', value: `${license.hwidHashes.length}/${license.maxActivations}`, inline: true }
     );
 
   const row = new ActionRowBuilder().addComponents(
     new ButtonBuilder()
       .setCustomId(`reset:ok:${license._id}:${member.id}`)
-      .setLabel('Approuver')
+      .setLabel('Approve')
       .setEmoji('✅')
       .setStyle(ButtonStyle.Success),
     new ButtonBuilder()
       .setCustomId(`reset:no:${license._id}:${member.id}`)
-      .setLabel('Refuser')
+      .setLabel('Deny')
       .setEmoji('⛔')
       .setStyle(ButtonStyle.Danger)
   );

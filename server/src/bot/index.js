@@ -36,15 +36,16 @@ const {
   handleLevelingCommand,
   attachLeveling
 } = require('./leveling');
+const { attachWelcome } = require('./welcome');
 
 const commands = [
   new SlashCommandBuilder()
     .setName('licences')
-    .setDescription('Panneau de creation de licences (proprietaire)')
+    .setDescription('License creation panel (owner only)')
     .toJSON(),
   new SlashCommandBuilder()
     .setName('check')
-    .setDescription("Verifie ta licence et sa date d'expiration")
+    .setDescription('Check your license and its expiration date')
     .toJSON(),
   ...moderationCommands,
   ...levelingCommands
@@ -90,7 +91,7 @@ async function denyIfNotOwner(interaction) {
     return false;
   }
   await interaction.reply({
-    content: '⛔ Reserve au proprietaire du bot.',
+    content: '⛔ Reserved for the bot owner.',
     flags: MessageFlags.Ephemeral
   });
   return true;
@@ -111,7 +112,7 @@ async function createAndReply(interaction, options) {
     const result = await createLicense(options);
     await interaction.editReply({ embeds: [buildKeyEmbed(result)] });
   } catch (err) {
-    await interaction.editReply({ content: `❌ Echec: ${err.message}` });
+    await interaction.editReply({ content: `❌ Failed: ${err.message}` });
   }
 }
 
@@ -120,7 +121,7 @@ async function handleLicenceCheck(interaction) {
   const key = interaction.fields.getTextInputValue('key');
   const license = await findLicenseByKey(key);
   if (!license) {
-    await interaction.editReply({ content: "❌ Cle introuvable. Verifie que tu l'as copiee correctement." });
+    await interaction.editReply({ content: "❌ Key not found. Make sure you copied it correctly." });
     return;
   }
   // Register the member under their Discord identity on the license.
@@ -168,7 +169,7 @@ async function handleResetRequest(interaction, licenseId) {
   await interaction.deferReply({ flags: MessageFlags.Ephemeral });
   const license = await getLicenseById(licenseId);
   if (!license) {
-    await interaction.editReply({ content: '❌ Licence introuvable.' });
+    await interaction.editReply({ content: '❌ License not found.' });
     return;
   }
 
@@ -181,7 +182,7 @@ async function handleResetRequest(interaction, licenseId) {
         ...request,
         allowedMentions: { users: primaryOwnerId ? [primaryOwnerId] : [] }
       });
-      await interaction.editReply({ content: '✅ Demande de reset envoyee au proprietaire. Tu seras notifie.' });
+      await interaction.editReply({ content: '✅ Reset request sent to the owner. You will be notified.' });
       return;
     } catch (err) {
       console.error(`[bot] envoi demande reset echoue: ${err.message}`);
@@ -193,7 +194,7 @@ async function handleResetRequest(interaction, licenseId) {
     try {
       const owner = await interaction.client.users.fetch(primaryOwnerId);
       await owner.send(request);
-      await interaction.editReply({ content: '✅ Demande envoyee au proprietaire en message prive.' });
+      await interaction.editReply({ content: '✅ Request sent to the owner via direct message.' });
       return;
     } catch (err) {
       console.error(`[bot] DM owner echoue: ${err.message}`);
@@ -201,7 +202,7 @@ async function handleResetRequest(interaction, licenseId) {
   }
 
   await interaction.editReply({
-    content: "❌ Impossible d'envoyer la demande. Verifie que RESET_CHANNEL_ID est bien un **salon textuel** et que le bot y a les permissions **Voir le salon** + **Envoyer des messages**."
+    content: "❌ Could not send the request. Make sure RESET_CHANNEL_ID is a **text channel** and that the bot has the **View Channel** + **Send Messages** permissions there."
   });
 }
 
@@ -214,9 +215,9 @@ async function handleResetDecision(interaction, approve, licenseId, memberId) {
   let content;
   if (approve) {
     await resetLicenseHwid(licenseId);
-    content = `✅ Reset HWID **approuve** par <@${interaction.user.id}> — <@${memberId}> peut reactiver sur un nouveau PC.`;
+    content = `✅ HWID reset **approved** by <@${interaction.user.id}> — <@${memberId}> can now reactivate on a new PC.`;
   } else {
-    content = `⛔ Reset HWID **refuse** par <@${interaction.user.id}> pour <@${memberId}>.`;
+    content = `⛔ HWID reset **denied** by <@${interaction.user.id}> for <@${memberId}>.`;
   }
 
   await interaction.message.edit({
@@ -290,7 +291,7 @@ function attachHandlers(client) {
       console.error('[bot] interaction error:', err.message);
       if (interaction.isRepliable() && !interaction.replied && !interaction.deferred) {
         await interaction
-          .reply({ content: `❌ Erreur: ${err.message}`, flags: MessageFlags.Ephemeral })
+          .reply({ content: `❌ Error: ${err.message}`, flags: MessageFlags.Ephemeral })
           .catch(() => {});
       }
     }
@@ -310,10 +311,15 @@ async function startBot() {
   }
 
   const client = new Client({
-    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages]
+    intents: [
+      GatewayIntentBits.Guilds,
+      GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.GuildMembers
+    ]
   });
   attachHandlers(client);
   attachLeveling(client);
+  attachWelcome(client);
 
   client.once(Events.ClientReady, async (c) => {
     // Force an explicit online presence so the bot never shows as offline/invisible.

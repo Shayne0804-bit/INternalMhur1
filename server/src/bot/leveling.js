@@ -35,12 +35,12 @@ function medal(rank) {
 const builders = [
   new SlashCommandBuilder()
     .setName('rank')
-    .setDescription('Affiche ton niveau et ta progression XP')
-    .addUserOption((o) => o.setName('membre').setDescription('Membre (toi par defaut)')),
+    .setDescription('Show your level and XP progression')
+    .addUserOption((o) => o.setName('member').setDescription('Member (yourself by default)')),
 
   new SlashCommandBuilder()
     .setName('leaderboard')
-    .setDescription('Classement des membres les plus actifs du serveur')
+    .setDescription('Ranking of the most active members on the server')
 ];
 
 const commandNames = new Set(builders.map((b) => b.name));
@@ -50,13 +50,13 @@ const commandNames = new Set(builders.map((b) => b.name));
 // ---------------------------------------------------------------------------
 
 async function handleRank(interaction) {
-  const target = interaction.options.getUser('membre') || interaction.user;
+  const target = interaction.options.getUser('member') || interaction.user;
   const doc = await getUserLevel(interaction.guildId, target.id);
 
   if (!doc) {
     return interaction.reply({
-      embeds: [new EmbedBuilder().setColor(ACCENT).setTitle('📊 Aucune activite')
-        .setDescription(`${target} n'a pas encore gagne d'XP sur ce serveur.`)],
+      embeds: [new EmbedBuilder().setColor(ACCENT).setTitle('📊 No activity')
+        .setDescription(`${target} hasn't earned any XP on this server yet.`)],
       flags: MessageFlags.Ephemeral
     });
   }
@@ -69,13 +69,13 @@ async function handleRank(interaction) {
   const embed = new EmbedBuilder()
     .setColor(ACCENT)
     .setAuthor({ name: target.tag, iconURL: target.displayAvatarURL() })
-    .setTitle(`📊 Niveau ${p.level}`)
+    .setTitle(`📊 Level ${p.level}`)
     .addFields(
-      { name: 'Rang', value: `${medal(rank)} / ${total}`, inline: true },
-      { name: 'XP total', value: `${doc.xp.toLocaleString('fr-FR')}`, inline: true },
-      { name: 'Messages', value: `${doc.messageCount.toLocaleString('fr-FR')}`, inline: true },
-      { name: `Progression (niveau ${p.level} → ${p.level + 1})`,
-        value: `\`${bar}\`\n**${p.current.toLocaleString('fr-FR')}** / ${p.needed.toLocaleString('fr-FR')} XP` }
+      { name: 'Rank', value: `${medal(rank)} / ${total}`, inline: true },
+      { name: 'Total XP', value: `${doc.xp.toLocaleString('en-US')}`, inline: true },
+      { name: 'Messages', value: `${doc.messageCount.toLocaleString('en-US')}`, inline: true },
+      { name: `Progress (level ${p.level} → ${p.level + 1})`,
+        value: `\`${bar}\`\n**${p.current.toLocaleString('en-US')}** / ${p.needed.toLocaleString('en-US')} XP` }
     );
 
   return interaction.reply({ embeds: [embed] });
@@ -85,8 +85,8 @@ async function handleLeaderboard(interaction) {
   const rows = await getLeaderboard(interaction.guildId, 10);
   if (!rows.length) {
     return interaction.reply({
-      embeds: [new EmbedBuilder().setColor(ACCENT).setTitle('🏆 Classement')
-        .setDescription('Personne n\'a encore gagne d\'XP sur ce serveur.')],
+      embeds: [new EmbedBuilder().setColor(ACCENT).setTitle('🏆 Leaderboard')
+        .setDescription('Nobody has earned any XP on this server yet.')],
       flags: MessageFlags.Ephemeral
     });
   }
@@ -94,14 +94,14 @@ async function handleLeaderboard(interaction) {
   const lines = rows.map((r, i) => {
     const p = progress(r.xp);
     const name = r.username || `<@${r.userId}>`;
-    return `${medal(i + 1)} ${name} — **Niv. ${p.level}** · ${r.xp.toLocaleString('fr-FR')} XP`;
+    return `${medal(i + 1)} ${name} — **Lvl ${p.level}** · ${r.xp.toLocaleString('en-US')} XP`;
   });
 
   const embed = new EmbedBuilder()
     .setColor(OK)
-    .setTitle(`🏆 Classement — ${interaction.guild.name}`)
+    .setTitle(`🏆 Leaderboard — ${interaction.guild.name}`)
     .setDescription(lines.join('\n'))
-    .setFooter({ text: 'Top 10 des membres les plus actifs' });
+    .setFooter({ text: 'Top 10 most active members' });
 
   return interaction.reply({ embeds: [embed] });
 }
@@ -116,7 +116,7 @@ async function handleLevelingCommand(interaction) {
   if (!handler) return false;
   if (!interaction.inGuild()) {
     await interaction.reply({
-      content: 'Cette commande doit etre utilisee dans un serveur.',
+      content: 'This command must be used in a server.',
       flags: MessageFlags.Ephemeral
     });
     return true;
@@ -145,7 +145,7 @@ function attachLeveling(client) {
         await message.channel.send({
           embeds: [new EmbedBuilder()
             .setColor(OK)
-            .setDescription(`🎉 ${message.author} passe **niveau ${result.newLevel}** !`)],
+            .setDescription(`🎉 ${message.author} reached **level ${result.newLevel}**!`)],
           allowedMentions: { users: [message.author.id] }
         }).catch(() => {});
       }
