@@ -30,6 +30,12 @@ const {
   moderationCommandNames,
   handleModerationCommand
 } = require('./moderation');
+const {
+  levelingCommands,
+  levelingCommandNames,
+  handleLevelingCommand,
+  attachLeveling
+} = require('./leveling');
 
 const commands = [
   new SlashCommandBuilder()
@@ -40,7 +46,8 @@ const commands = [
     .setName('check')
     .setDescription("Verifie ta licence et sa date d'expiration")
     .toJSON(),
-  ...moderationCommands
+  ...moderationCommands,
+  ...levelingCommands
 ];
 
 const ownerIds = new Set();
@@ -237,6 +244,8 @@ function attachHandlers(client) {
           }
         } else if (moderationCommandNames.has(interaction.commandName)) {
           await handleModerationCommand(interaction);
+        } else if (levelingCommandNames.has(interaction.commandName)) {
+          await handleLevelingCommand(interaction);
         }
         return;
       }
@@ -300,8 +309,11 @@ async function startBot() {
     return null;
   }
 
-  const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+  const client = new Client({
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages]
+  });
   attachHandlers(client);
+  attachLeveling(client);
 
   client.once(Events.ClientReady, async (c) => {
     // Force an explicit online presence so the bot never shows as offline/invisible.

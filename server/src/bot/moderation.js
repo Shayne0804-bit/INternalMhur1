@@ -5,6 +5,8 @@ const {
   MessageFlags
 } = require('discord.js');
 
+const { getUserLevel, getUserRank, countRanked, progress } = require('../services/levelService');
+
 const OK = 0x25ff85;
 const ERR = 0xff3b6b;
 const INFO = 0x9d4bff;
@@ -268,9 +270,33 @@ async function handleRole(interaction) {
   return replyErr(interaction, 'Sous-commande inconnue.');
 }
 
+// Discord timestamp helpers. F = full date+time, R = relative.
+function tsFull(dateOrMs) {
+  const ms = dateOrMs instanceof Date ? dateOrMs.getTime() : Number(dateOrMs);
+  return `<t:${Math.floor(ms / 1000)}:F>`;
+}
+function tsBoth(dateOrMs) {
+  const ms = dateOrMs instanceof Date ? dateOrMs.getTime() : Number(dateOrMs);
+  const unix = Math.floor(ms / 1000);
+  return `<t:${unix}:F> (<t:${unix}:R>)`;
+}
+
+// Key permissions worth surfacing, mapped to readable labels.
+const KEY_PERMS = [
+  [PermissionFlagsBits.Administrator, 'Administrateur'],
+  [PermissionFlagsBits.ManageGuild, 'Gerer le serveur'],
+  [PermissionFlagsBits.BanMembers, 'Bannir'],
+  [PermissionFlagsBits.KickMembers, 'Expulser'],
+  [PermissionFlagsBits.ModerateMembers, 'Timeout'],
+  [PermissionFlagsBits.ManageMessages, 'Gerer messages'],
+  [PermissionFlagsBits.ManageRoles, 'Gerer roles'],
+  [PermissionFlagsBits.ManageChannels, 'Gerer salons']
+];
+
 async function handleUserinfo(interaction) {
   const member = interaction.options.getMember('membre') || interaction.member;
   const user = member.user;
+
   const roles = member.roles.cache
     .filter((r) => r.id !== interaction.guild.id)
     .sort((a, b) => b.position - a.position)
@@ -278,14 +304,52 @@ async function handleUserinfo(interaction) {
     .slice(0, 20)
     .join(' ') || 'Aucun';
 
+  // Leveling stats for this member on this guild.
+  const levelDoc = await getUserLevel(interaction.guildId, user.id);
+  let levelValue = 'Aucune activite';
+  if (levelDoc) {
+    const p = progress(levelDoc.xp);
+    const rank = await getUserRank(interaction.guildId, user.id);
+    const total = await countRanked(interaction.guildId);
+    levelValue = `**Niveau ${p.level}** · Rang #${rank}/${total}\n${levelDoc.xp.toLocaleString('fr-FR')} XP · ${levelDoc.messageCount.toLocaleString('fr-FR')} messages`;
+  }
+
+  // Notable permissions held on the server.
+  const perms = member.permissions;
+  const grantedPerms = KEY_PERMS.filter(([flag]) => perms.has(flag)).map(([, label]) => label);
+  const permsValue = perms.has(PermissionFlagsBits.Administrator)
+    ? 'Administrateur (toutes)'
+    : (grantedPerms.length ? grantedPerms.join(', ') : 'Aucune notable');
+
+  // Highest role as an at-a-glance identity marker.
+  const topRole = member.roles.highest && member.roles.highest.id !== interaction.guild.id
+    ? member.roles.highest.toString()
+    : 'Aucun';
+
   const e = embed(INFO, `👤 ${user.tag}`)
-    .setThumbnail(user.displayAvatarURL())
+    .setThumbnail(user.displayAvatarURL({ size: 256 }))
     .addFields(
-      { name: 'ID', value: user.id, inline: true },
-      { name: 'Compte cree', value: `<t:${Math.floor(user.createdTimestamp / 1000)}:R>`, inline: true },
-      { name: 'A rejoint', value: member.joinedTimestamp ? `<t:${Math.floor(member.joinedTimestamp / 1000)}:R>` : '—', inline: true },
-      { name: `Roles (${member.roles.cache.size - 1})`, value: roles }
+      { name: 'Utilisateur', value: `${user} \`${user.id}\`` },
+      { name: 'Compte cree le', value: tsBoth(user.createdTimestamp), inline: false },
+      { name: 'A rejoint le', value: member.joinedTimestamp ? tsBoth(member.joinedTimestamp) : '—', inline: false }
     );
+
+  // Boosting status, only when relevant.
+  if (member.premiumSinceTimestamp) {
+    e.addFields({ name: 'Booste depuis', value: tsFull(member.premiumSinceTimestamp), inline: true });
+  }
+  // Active timeout, only when relevant.
+  if (member.communicationDisabledUntilTimestamp && member.communicationDisabledUntilTimestamp > Date.now()) {
+    e.addFields({ name: '⏳ Timeout jusqu\'a', value: tsFull(member.communicationDisabledUntilTimestamp), inline: true });
+  }
+
+  e.addFields(
+    { name: '📊 Progression', value: levelValue, inline: false },
+    { name: 'Role principal', value: topRole, inline: true },
+    { name: 'Permissions cles', value: permsValue, inline: false },
+    { name: `Roles (${member.roles.cache.size - 1})`, value: roles }
+  );
+
   return interaction.reply({ embeds: [e] });
 }
 
@@ -297,7 +361,7 @@ async function handleServerinfo(interaction) {
     .addFields(
       { name: 'ID', value: g.id, inline: true },
       { name: 'Proprietaire', value: owner ? owner.user.tag : '—', inline: true },
-      { name: 'Cree', value: `<t:${Math.floor(g.createdTimestamp / 1000)}:D>`, inline: true },
+      { name: 'Cree', value: tsFull(g.createdTimestamp), inline: true },
       { name: 'Membres', value: String(g.memberCount), inline: true },
       { name: 'Salons', value: String(g.channels.cache.size), inline: true },
       { name: 'Roles', value: String(g.roles.cache.size), inline: true },
