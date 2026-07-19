@@ -1,21 +1,31 @@
 const {
   SlashCommandBuilder,
   EmbedBuilder,
-  MessageFlags
+  MessageFlags,
+  PermissionFlagsBits
 } = require('discord.js');
 
 const {
   progress,
   awardMessageXp,
+  awardXpAmount,
   getUserLevel,
   getUserRank,
   getLeaderboard,
+  getAllRanked,
+  levelFromXp,
   countRanked
 } = require('../services/levelService');
 const { syncMemberLevelRole } = require('./levelRoles');
+const { getConfig } = require('../services/guildConfigService');
 
 const ACCENT = 0x9d4bff;
 const OK = 0x25ff85;
+
+// XP granted per full minute spent in a voice channel (not muted/alone).
+const XP_PER_VOICE_MINUTE = 5;
+// In-memory voice session start timestamps, keyed by `guildId:userId`.
+const voiceSessions = new Map();
 
 // Unicode progress bar, `size` cells filled proportionally to current/needed.
 function progressBar(current, needed, size = 16) {
@@ -41,7 +51,12 @@ const builders = [
 
   new SlashCommandBuilder()
     .setName('leaderboard')
-    .setDescription('Ranking of the most active members on the server')
+    .setDescription('Ranking of the most active members on the server'),
+
+  new SlashCommandBuilder()
+    .setName('synclevelroles')
+    .setDescription('Grant level roles to all members based on their current level (owner only)')
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 ];
 
 const commandNames = new Set(builders.map((b) => b.name));
@@ -107,9 +122,23 @@ async function handleLeaderboard(interaction) {
   return interaction.reply({ embeds: [embed] });
 }
 
+async function handleSyncLevelRoles(interaction) {
+  await interaction.deferReply({ flags: MessageFlags.Ephemeral });
+  const rows = await getAllRanked(interaction.guildId);
+  let synced = 0;
+  for (const row of rows) {
+    const member = await interaction.guild.members.fetch(row.userId).catch(() => null);
+    if (!member) continue;
+    await syncMemberLevelRole(member, levelFromXp(row.xp)).catch(() => {});
+    synced += 1;
+  }
+  return interaction.editReply({ content: `✅ Synced level roles for ${synced} member(s).` });
+}
+
 const handlers = {
   rank: handleRank,
-  leaderboard: handleLeaderboard
+  leaderboard: handleLeaderboard,
+  synclevelroles: handleSyncLevelRoles
 };
 
 async function handleLevelingCommand(interaction) {
@@ -136,6 +165,10 @@ function attachLeveling(client) {
       // Ignore bots, DMs, and system messages.
       if (message.author.bot || !message.guild) return;
 
+      // Skip XP-excluded channels.
+      const config = await getConfig(message.guild.id);
+      if ((config.noXpChannelIds || []).includes(message.channelId)) return;
+
       const result = await awardMessageXp(
         message.guild.id,
         message.author.id,
@@ -160,6 +193,43 @@ function attachLeveling(client) {
       }
     } catch (err) {
       console.error('[bot] leveling error:', err.message);
+    }
+  });
+
+  // Voice XP: measure time spent in a voice channel and grant XP per minute.
+  // A "session" runs while the member is in a channel and not the only human.
+  client.on('voiceStateUpdate', async (oldState, newState) => {
+    try {
+      const member = newState.member || oldState.member;
+      if (!member || member.user.bot) return;
+      const guildId = (newState.guild || oldState.guild).id;
+      const key = `${guildId}:${member.id}`;
+
+      const wasIn = Boolean(oldState.channelId);
+      const isIn = Boolean(newState.channelId);
+
+      // Joined a voice channel.
+      if (!wasIn && isIn) {
+        voiceSessions.set(key, Date.now());
+        return;
+      }
+      // Left voice entirely, or moved: settle the elapsed session.
+      if (wasIn) {
+        const start = voiceSessions.get(key);
+        if (start) {
+          const minutes = Math.floor((Date.now() - start) / 60000);
+          if (minutes > 0) {
+            await awardXpAmount(guildId, member.id, member.user.tag || member.user.username, minutes * XP_PER_VOICE_MINUTE).catch(() => {});
+          }
+        }
+        if (isIn) {
+          voiceSessions.set(key, Date.now()); // moved channel: restart timer
+        } else {
+          voiceSessions.delete(key); // left voice
+        }
+      }
+    } catch (err) {
+      console.error('[bot] voice xp error:', err.message);
     }
   });
 }

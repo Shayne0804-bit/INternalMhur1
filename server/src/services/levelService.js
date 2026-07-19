@@ -94,6 +94,24 @@ async function getUserLevel(guildId, userId) {
   return UserLevel.findOne({ guildId, userId });
 }
 
+// Grant a raw XP amount (e.g. voice activity). Does not touch messageCount.
+// Returns { doc, leveledUp, newLevel, previousLevel } or null if amount <= 0.
+async function awardXpAmount(guildId, userId, username, amount) {
+  if (!amount || amount <= 0) return null;
+  const existing = await UserLevel.findOne({ guildId, userId });
+  const previousXp = existing ? existing.xp : 0;
+  const previousLevel = existing ? existing.level : 0;
+  const newXp = previousXp + amount;
+  const newLevel = levelFromXp(newXp);
+
+  const doc = await UserLevel.findOneAndUpdate(
+    { guildId, userId },
+    { $inc: { xp: amount }, $set: { username, level: newLevel } },
+    { new: true, upsert: true, setDefaultsOnInsert: true }
+  );
+  return { doc, leveledUp: newLevel > previousLevel, newLevel, previousLevel };
+}
+
 // Member's rank on the server (1 = highest XP). Null if the member has no doc.
 async function getUserRank(guildId, userId) {
   const doc = await UserLevel.findOne({ guildId, userId });
@@ -105,6 +123,11 @@ async function getUserRank(guildId, userId) {
 // Top N members of a guild by XP.
 async function getLeaderboard(guildId, limit = 10) {
   return UserLevel.find({ guildId }).sort({ xp: -1 }).limit(limit).lean();
+}
+
+// Every ranked member of a guild (for bulk role sync).
+async function getAllRanked(guildId) {
+  return UserLevel.find({ guildId }).lean();
 }
 
 // Total number of ranked members on the server.
@@ -119,8 +142,10 @@ module.exports = {
   levelFromXp,
   progress,
   awardMessageXp,
+  awardXpAmount,
   getUserLevel,
   getUserRank,
   getLeaderboard,
+  getAllRanked,
   countRanked
 };

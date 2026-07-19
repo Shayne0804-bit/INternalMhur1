@@ -371,7 +371,8 @@ async function startBot() {
     intents: [
       GatewayIntentBits.Guilds,
       GatewayIntentBits.GuildMessages,
-      GatewayIntentBits.GuildMembers
+      GatewayIntentBits.GuildMembers,
+      GatewayIntentBits.GuildVoiceStates
     ]
   });
   attachHandlers(client);
