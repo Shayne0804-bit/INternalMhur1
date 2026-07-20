@@ -1,4 +1,4 @@
 {
-  "version": "1.0.27",
+  "version": "1.0.26",
   "notes": "1) Ability hack fixed to prevent crash\n2) Kill All Lobby added\n3) Ghost Kill: no one can know if you killed someone"
 }
