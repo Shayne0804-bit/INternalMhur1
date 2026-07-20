@@ -33,6 +33,9 @@ namespace Cheats
     static bool  s_AllPlayersActive = false;
     static bool  s_EnemiesOnlyActive = false;
     static bool  s_TeammatesOnlyActive = false;  // NEW: Team swap persistent mode
+    static bool  s_KillAllEnemiesActive = false; // NEW: Kill-all toggle (per-frame)
+    static bool  s_MaxHitCountActive    = false; // Max hit count override toggle
+    static int   s_MaxHitCountValue     = 10;    // target _maxHitCount for UANS_Attack
     static int   s_TargetId = 0;
     static int   s_TargetVariation = 0;
     static float s_RetryIntervalSec = 2.0f;
@@ -899,7 +902,88 @@ namespace Cheats
         return changed;
     }
 
-    // ── Public API ────────────────────────────────────────────────────────────
+    // ── Fire the real melee-hit RPC on one enemy pawn ────────────────────────
+    // Vector discovered from the "ghost kill" hack: CharacterAttackHit_RPC lives
+    // on OUR OWN _characterAttackReplicator (owned → routes to server). Instead
+    // of calling it in a loop, we intercept our real outgoing hit in the
+    // ProcessEvent hook and re-broadcast it to every enemy (see InGameModuleHacks
+    // InGameHack_TryBroadcastAttackHit). This helper enumerates the targets.
+    //
+    // Fills out[] with enemy ACharacterBattle* pointers (skips own team and the
+    // optional 'exceptPawn', e.g. the enemy already hit by the real RPC).
+    int CollectEnemyBattlePawns(void** out, int maxCount, void* exceptPawn)
+    {
+        if (!out || maxCount <= 0) return 0;
+
+        SDK::APlayerController* myPC = GetLocalPC();
+        if (!myPC) return 0;
+
+        SDK::UWorld* World = SDK::UWorld::GetWorld();
+        if (IsBadReadPtr(World, sizeof(SDK::UWorld))) return 0;
+        if (IsBadReadPtr(World->PersistentLevel, sizeof(SDK::ULevel))) return 0;
+
+        uint8_t localTeam = GetLocalPlayerTeam();
+        if (localTeam == 0xFF) return 0;  // Could not determine team
+
+        std::vector<SDK::AActor*> players;
+        CollectPlayerActors(World, myPC->AcknowledgedPawn, players);
+
+        int n = 0;
+        for (SDK::AActor* Actor : players)
+        {
+            if (n >= maxCount) break;
+            if (IsSameTeam(Actor, localTeam)) continue;       // skip own team
+            if (reinterpret_cast<void*>(Actor) == exceptPawn) continue;
+            out[n++] = reinterpret_cast<void*>(Actor);
+        }
+        return n;
+    }
+
+    // Fills out[] with MY team's ACharacterBattle* pointers, INCLUDING self.
+    // Used by Max Hit Count to only touch the attack notifies active on our own
+    // side's meshes (not enemies'). Returns count.
+    int CollectMyTeamBattlePawns(void** out, int maxCount)
+    {
+        if (!out || maxCount <= 0) return 0;
+
+        SDK::APlayerController* myPC = GetLocalPC();
+        if (!myPC) return 0;
+
+        SDK::UWorld* World = SDK::UWorld::GetWorld();
+        if (IsBadReadPtr(World, sizeof(SDK::UWorld))) return 0;
+        if (IsBadReadPtr(World->PersistentLevel, sizeof(SDK::ULevel))) return 0;
+
+        uint8_t localTeam = GetLocalPlayerTeam();
+        if (localTeam == 0xFF) return 0;
+
+        // Pass nullptr so self is INCLUDED in the list.
+        std::vector<SDK::AActor*> players;
+        CollectPlayerActors(World, nullptr, players);
+
+        int n = 0;
+        for (SDK::AActor* Actor : players)
+        {
+            if (n >= maxCount) break;
+            if (!IsSameTeam(Actor, localTeam)) continue;      // keep own team only
+            out[n++] = reinterpret_cast<void*>(Actor);
+        }
+        return n;
+    }
+
+    void KillAllEnemies_Start() { s_KillAllEnemiesActive = true; }
+    void KillAllEnemies_Stop()  { s_KillAllEnemiesActive = false; }
+    bool IsKillAllEnemiesActive() { return s_KillAllEnemiesActive; }
+
+    // Max Hit Count — overrides UANS_Attack._maxHitCount so attacks land more hits.
+    void MaxHitCount_SetActive(bool a) { s_MaxHitCountActive = a; }
+    bool MaxHitCount_IsActive()        { return s_MaxHitCountActive; }
+    void MaxHitCount_SetValue(int v)
+    {
+        if (v < 1)    v = 1;
+        if (v > 1000) v = 1000;
+        s_MaxHitCountValue = v;
+    }
+    int  MaxHitCount_GetValue() { return s_MaxHitCountValue; }
 
     int CollectPlayerList(PlayerInfo* outPlayers, int maxPlayers)
     {
@@ -1374,6 +1458,9 @@ namespace Cheats
                 ApplyToTeammatesOnly(s_TargetId, s_TargetVariation);
             }
         }
+        // Kill-all-enemies is handled by re-broadcasting our real attack-hit RPC
+        // from the ProcessEvent hook (see InGameHack_TryBroadcastAttackHit), not
+        // here — nothing to do per-frame.
     }
 
     void SpawnMudClones(int numClones)

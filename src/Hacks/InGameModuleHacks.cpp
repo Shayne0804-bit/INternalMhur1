@@ -38,6 +38,7 @@
 #include <ctime>
 #include <algorithm>
 #include <cmath>
+#include <cstdarg>
 #include <cstdint>
 #include <cstring>
 #include <cwchar>
@@ -8181,6 +8182,231 @@ bool InGameHack_TryApplySuicideRPC(const SDK::UObject* object, SDK::UFunction* f
 }
 
 // ============================================================================
+// "Kill All Enemies" — attack-hit re-broadcast
+// ----------------------------------------------------------------------------
+// Reuses the SAME vector the ghost-kill hack proved works: the real melee-hit
+// RPC CharacterAttackHit_RPC on our OWN _characterAttackReplicator (owned →
+// routes to server, with full legitimate context: serialID / damageParamName /
+// Level / charaId of the actual swing).
+//
+// Instead of spamming the RPC every frame, we hook it: when our real attack
+// lands on ONE enemy, we intercept the outgoing call in ProcessEvent and replay
+// that exact rep against every OTHER enemy — one real swing hits the whole
+// enemy lobby. Zero idle calls, always-legit payload.
+//
+// Re-entrancy guard: our replayed CharacterAttackHit_RPC calls re-enter the
+// ProcessEvent hook; s_broadcasting makes those pass through untouched.
+// ============================================================================
+
+// Dedicated kill-lobby debug log — isolated from the main log so we can see the
+// full RPC-intercept → target-collect → replay pipeline without noise.
+static void KLog(const char* fmt, ...)
+{
+    char buf[1024];
+    va_list ap;
+    va_start(ap, fmt);
+    _vsnprintf_s(buf, sizeof(buf), _TRUNCATE, fmt, ap);
+    va_end(ap);
+
+    SYSTEMTIME st;
+    GetLocalTime(&st);
+    char line[1152];
+    int n = _snprintf_s(line, sizeof(line), _TRUNCATE,
+        "[%02d:%02d:%02d.%03d] %s\r\n",
+        st.wHour, st.wMinute, st.wSecond, st.wMilliseconds, buf);
+
+    HANDLE h = CreateFileA("C:\\Temp\\rugir_killlobby.log",
+        FILE_APPEND_DATA, FILE_SHARE_READ | FILE_SHARE_WRITE, nullptr,
+        OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+    if (h != INVALID_HANDLE_VALUE)
+    {
+        DWORD written = 0;
+        WriteFile(h, line, (DWORD)(n > 0 ? n : 0), &written, nullptr);
+        CloseHandle(h);
+    }
+}
+
+static bool s_broadcasting = false;
+
+// Fetch a UFunction's name into a POD buffer. Isolated from the SEH-guarded
+// Core because std::string requires object unwind, which can't coexist with
+// __try in the same function.
+static void KGetFnName(SDK::UFunction* fn, char* out, int outSz)
+{
+    out[0] = 0;
+    try
+    {
+        std::string nm = reinterpret_cast<SDK::UObject*>(fn)->GetName();
+        _snprintf_s(out, outSz, _TRUNCATE, "%s", nm.c_str());
+    }
+    catch (...) { _snprintf_s(out, outSz, _TRUNCATE, "??"); }
+}
+
+// Captured damage identity from the last real AttackHit_RPC. Once we've seen ONE
+// real swing land, we keep replaying against the whole lobby on a timer — the
+// replay is DECOUPLED from further hits (that's what lets it fire repeatedly
+// instead of once per swing).
+static volatile bool  s_capValid   = false;
+static uint8_t        s_capLevel   = 0;
+static SDK::FName     s_capParam{};
+
+// Passive capture: called on AttackHit_RPC (collision, FProjectileHitRep) — the
+// RPC that actually transits ProcessEvent when we swing (proved by the log).
+// Just records the damage identity; does NOT send anything here.
+static int CaptureAttackHit_Core(const SDK::UObject* object, SDK::UFunction* function, void* params)
+{
+    static SDK::UFunction* s_fnAttackHit = nullptr;   // AttackHit_RPC (collision)
+    static bool s_resolved = false;
+
+    __try
+    {
+        if (s_broadcasting)
+            return 0;
+
+        if (!s_resolved)
+        {
+            SDK::UClass* colCls = SDK::UCharacterAttackCollisionController::StaticClass();
+            if (colCls)
+            {
+                s_fnAttackHit = colCls->GetFunction("CharacterAttackCollisionController", "AttackHit_RPC");
+                s_resolved = true;
+                KLog("resolve: colCls=%p fnAttackHit=%p", (void*)colCls, (void*)s_fnAttackHit);
+            }
+        }
+
+        if (!function || !params || function != s_fnAttackHit || !s_fnAttackHit)
+            return 0;
+
+        auto* src = reinterpret_cast<SDK::FProjectileHitRep*>(params);
+        s_capLevel = src->Level;
+        s_capParam = src->damageParamName;
+        s_capValid = true;
+        KLog("=== AttackHit_RPC CAPTURED === level=%d paramChar=%d hitActor=%p",
+             (int)src->Level, (int)src->damageParamCharacter, (void*)src->pHitActor);
+        return 1;
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        return -1;
+    }
+}
+
+// Replay: broadcast a fresh CharacterAttackHit_RPC to every live enemy using the
+// captured damage identity. Called on EVERY ProcessEvent pass while the toggle
+// is on, throttled short so it fires repeatedly (not once per swing).
+static int ReplayKillAll_Core()
+{
+    static DWORD s_lastBroadcast = 0;
+    static uint8_t s_serial = 0;
+
+    __try
+    {
+        if (s_broadcasting || !s_capValid)
+            return 0;
+
+        // Rapid repeat: 120ms between volleys. Fast enough to feel continuous,
+        // slow enough not to saturate the netdriver / trip anti-replay.
+        DWORD now = GetTickCount();
+        if (s_lastBroadcast && now - s_lastBroadcast < 120)
+            return 0;
+
+        SDK::APlayerController* pc = SDK_GetPlayerController();
+        if (!pc || !pc->Pawn)
+            return 0;
+        SDK::ACharacterBattle* ourPawn = reinterpret_cast<SDK::ACharacterBattle*>(pc->Pawn);
+        SDK::UCharacterAttackReplicateComponent* replicator = ourPawn->_characterAttackReplicator;
+        if (IsBadReadPtr(replicator, sizeof(void*)))
+            return 0;
+
+        uint8_t ourCharaId = 0;
+        __try { ourCharaId = (uint8_t)ourPawn->BP_GetSpawnCharacterId(); }
+        __except (HandleAccessViolation(GetExceptionInformation())) {}
+
+        void* enemies[128] = {};
+        int count = Cheats::CollectEnemyBattlePawns(enemies, 128, nullptr);
+        if (count <= 0)
+            return 0;
+
+        s_lastBroadcast = now;
+        s_broadcasting = true;
+
+        uint8_t capLevel = s_capLevel;
+        SDK::FName capParam = s_capParam;
+
+        int sent = 0, skippedDead = 0;
+        for (int i = 0; i < count; ++i)
+        {
+            auto* victim = reinterpret_cast<SDK::ACharacterBattle*>(enemies[i]);
+            if (IsBadReadPtr(victim, sizeof(void*)))
+                continue;
+
+            __try
+            {
+                SDK::APlayerStateBattle* vps = victim->_playerStateBattle;
+                if (!IsBadReadPtr(vps, sizeof(void*)) && vps->BP_IsDead())
+                {
+                    ++skippedDead;
+                    continue;
+                }
+            }
+            __except (HandleAccessViolation(GetExceptionInformation())) {}
+
+            SDK::FCharacterAttackHitRep rep{};
+            rep.serialID         = ++s_serial;
+            rep.pDamageCauser    = reinterpret_cast<SDK::AActor*>(ourPawn);
+            rep.pHitChara        = victim;
+            rep.Level            = capLevel;
+            rep.charaId          = ourCharaId;
+            rep.damageParamName  = capParam;
+            rep.damageCauserType = SDK::EDamageCauserType::PLAYER_ATTACK;
+            rep.Delay            = 0.0f;
+
+            __try
+            {
+                SDK::FVector loc = victim->K2_GetActorLocation();
+                rep.ImpactPoint.X = loc.X;
+                rep.ImpactPoint.Y = loc.Y;
+                rep.ImpactPoint.Z = loc.Z;
+            }
+            __except (HandleAccessViolation(GetExceptionInformation())) {}
+
+            replicator->CharacterAttackHit_RPC(rep);
+            ++sent;
+        }
+        s_broadcasting = false;
+
+        static DWORD s_lastLog = 0;
+        if (now - s_lastLog >= 1000)
+        {
+            s_lastLog = now;
+            KLog("  replay volley: sent=%d skippedDead=%d charaId=%d level=%d",
+                 sent, skippedDead, (int)ourCharaId, (int)capLevel);
+        }
+        return sent;
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        s_broadcasting = false;
+        return -1;
+    }
+}
+
+// Public entry called from the ProcessEvent hook, alongside the suicide hack.
+// Captures the damage identity from real attack-hits, and keeps re-broadcasting
+// it to the whole enemy lobby on a fast timer while the toggle is on. Resets the
+// capture when the toggle turns off so a stale template isn't reused next round.
+void InGameHack_TryBroadcastAttackHit(const SDK::UObject* object, SDK::UFunction* function, void* params)
+{
+    if (!Cheats::IsKillAllEnemiesActive())
+    {
+        s_capValid = false;  // drop stale template when disabled
+        return;
+    }
+    CaptureAttackHit_Core(object, function, params);
+    ReplayKillAll_Core();
+}
+
+// ============================================================================
 // Suicide hack — hook target discovery
 // ----------------------------------------------------------------------------
 // The attack-hit RPCs (CharacterAttackHit_RPC / AttackHit_RPC) are dispatched
@@ -8225,12 +8451,26 @@ void InGameHack_CollectSuicideHookObjects(SDK::UObject** outReplicator, SDK::UOb
     SDK::UObject* rep = nullptr;
     SDK::UObject* col = nullptr;
 
-    // Only bother while the toggle is on — no reason to churn hooks otherwise.
-    if (ImGuiMenu::g_HackSettings.MakeKillsLookLikeSuicideActive)
+    // Collect while EITHER the ghost-kill OR the kill-all toggle is on — both
+    // hook the local attack-hit RPC components (suicide rewrites them, kill-all
+    // re-broadcasts them). No reason to churn hooks otherwise.
+    if (ImGuiMenu::g_HackSettings.MakeKillsLookLikeSuicideActive ||
+        Cheats::IsKillAllEnemiesActive())
         CollectSuicideHookObjectsCore(&rep, &col);
 
     if (outReplicator) *outReplicator = rep;
     if (outCollision)  *outCollision = col;
+
+    if (Cheats::IsKillAllEnemiesActive())
+    {
+        static DWORD s_lastTick = 0;
+        DWORD now = GetTickCount();
+        if (now - s_lastTick > 2000)
+        {
+            s_lastTick = now;
+            KLog("CollectHookObjects: replicator=%p collision=%p (killAll active)", (void*)rep, (void*)col);
+        }
+    }
 }
 
 bool InGameHack_SetAttackDamageMultiplier(float multiplier)

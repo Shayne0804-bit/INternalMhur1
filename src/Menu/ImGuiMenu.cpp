@@ -2608,11 +2608,10 @@ namespace ImGuiMenu
         drawList->AddText(font, fontSize, ImVec2(boxMin.x + padding.x, boxMin.y + padding.y), IM_COL32(255, 255, 255, 255), message);
     }
 
-    static void DrawPlayerNetworkTableWindow()
+    // Inline content (no window): kill-all + Max Hit Count + player table.
+    // Shared by the Misc tab of both the Free and Agency menus.
+    static void DrawPlayerNetworkTableContent()
     {
-        if (!g_PlayerNetworkTableVisible)
-            return;
-
         static Cheats::PlayerNetworkInfo players[128]{};
         static int playerCount = 0;
         static DWORD lastUpdateTick = 0;
@@ -2624,23 +2623,6 @@ namespace ImGuiMenu
             lastUpdateTick = now;
         }
 
-        ImGuiIO& io = ImGui::GetIO();
-        const float rowHeight = ImGui::GetTextLineHeightWithSpacing() + 4.0f;
-        const float headerAndPaddingHeight = 92.0f;
-        const float minWindowHeight = 142.0f;
-        const float desiredWindowHeight = headerAndPaddingHeight + rowHeight * (float)((std::max)(playerCount, 1));
-        const float maxWindowHeight = (std::max)(220.0f, io.DisplaySize.y - 80.0f);
-        const float windowHeight = (std::min)((std::max)(desiredWindowHeight, minWindowHeight), maxWindowHeight);
-        const float windowWidth = (std::min)(960.0f, (std::max)(760.0f, io.DisplaySize.x - 40.0f));
-
-        ImGui::SetNextWindowSize(ImVec2(windowWidth, windowHeight), ImGuiCond_Always);
-        ImGui::SetNextWindowPos(ImVec2(100.0f, 120.0f), ImGuiCond_FirstUseEver);
-        if (!ImGui::Begin("Player Network Info", nullptr, ImGuiWindowFlags_NoCollapse))
-        {
-            ImGui::End();
-            return;
-        }
-
         ImGui::TextColored(g_Colors.accentColorHover, "OTHER PLAYERS");
         ImGui::SameLine();
         ImGui::TextColored(g_Colors.textDisabled, "| %d found | refresh 1s", playerCount);
@@ -2648,7 +2630,7 @@ namespace ImGuiMenu
 
         {
             bool killActive = Cheats::IsKillAllEnemiesActive();
-            if (ImGui::Checkbox("KILL ALL ENEMIES (hold while attacking)", &killActive))
+            if (ImGui::Checkbox("KILL ALL ENEMIES (toggle)", &killActive))
             {
                 if (killActive) Cheats::KillAllEnemies_Start();
                 else            Cheats::KillAllEnemies_Stop();
@@ -2658,13 +2640,36 @@ namespace ImGuiMenu
                 ImGui::SameLine();
                 ImGui::TextColored(g_Colors.warning, "ACTIVE");
             }
+            ImGui::TextColored(g_Colors.textDisabled,
+                "Attack an enemy once to arm; then it re-broadcasts every 350ms (server-safe).");
+
+            ImGui::Separator();
+
+            // Max Hit Count — overrides UANS_Attack._maxHitCount so a single attack
+            // window lands more hits (you + teammates only). Restores on disable.
+            bool maxHitActive = Cheats::MaxHitCount_IsActive();
+            if (ImGui::Checkbox("MAX HIT COUNT", &maxHitActive))
+                Cheats::MaxHitCount_SetActive(maxHitActive);
+            if (Cheats::MaxHitCount_IsActive())
+            {
+                ImGui::SameLine();
+                ImGui::TextColored(g_Colors.warning, "ACTIVE");
+            }
+
+            int maxHit = Cheats::MaxHitCount_GetValue();
+            ImGui::PushItemWidth(200.0f);
+            if (ImGui::SliderInt("Hit Count", &maxHit, 1, 100))
+                Cheats::MaxHitCount_SetValue(maxHit);
+            if (ImGui::IsItemHovered())
+                ImGui::SetTooltip("Max hits per attack window. Restores on disable.");
+            ImGui::PopItemWidth();
+
             ImGui::Separator();
         }
 
         if (playerCount <= 0)
         {
             ImGui::TextColored(g_Colors.warning, "No other players found.");
-            ImGui::End();
             return;
         }
 
@@ -2788,7 +2793,26 @@ namespace ImGuiMenu
 
             ImGui::EndTable();
         }
+    }
 
+    // Floating-window wrapper (F8 hotkey). Reuses the shared content above.
+    static void DrawPlayerNetworkTableWindow()
+    {
+        if (!g_PlayerNetworkTableVisible)
+            return;
+
+        ImGuiIO& io = ImGui::GetIO();
+        const float windowWidth = (std::min)(960.0f, (std::max)(760.0f, io.DisplaySize.x - 40.0f));
+        const float windowHeight = (std::max)(320.0f, io.DisplaySize.y - 160.0f);
+
+        ImGui::SetNextWindowSize(ImVec2(windowWidth, windowHeight), ImGuiCond_FirstUseEver);
+        ImGui::SetNextWindowPos(ImVec2(100.0f, 120.0f), ImGuiCond_FirstUseEver);
+        if (!ImGui::Begin("Player Network Info", &g_PlayerNetworkTableVisible, ImGuiWindowFlags_NoCollapse))
+        {
+            ImGui::End();
+            return;
+        }
+        DrawPlayerNetworkTableContent();
         ImGui::End();
     }
 
@@ -5885,6 +5909,17 @@ namespace ImGuiMenu
         EndRugirCard();
     }
 
+    static void RenderPreviewMiscPage(int subtab, float groupWidth)
+    {
+        (void)subtab;
+        (void)groupWidth;
+        if (BeginRugirCard("misc-killall-page", "KILL ALL / PLAYER NETWORK", ImVec2(0.0f, 0.0f)))
+        {
+            DrawPlayerNetworkTableContent();
+        }
+        EndRugirCard();
+    }
+
     static void RenderPreviewSettingsPage(float groupWidth)
     {
         // Left card: general settings. Right card: profile management (fills the
@@ -6381,7 +6416,7 @@ namespace ImGuiMenu
             int subtabCount;
         };
 
-        static int selectedSubtabs[7] = {};
+        static int selectedSubtabs[8] = {};
 
         const Subtab espSubtabs[] =
         {
@@ -6442,6 +6477,11 @@ namespace ImGuiMenu
             { "Profiles", "P" },
         };
 
+        const Subtab miscSubtabs[] =
+        {
+            { "Kill All / Players", "K" },
+        };
+
         const Page pages[] =
         {
             { "ESP", "E", espSubtabs, IM_ARRAYSIZE(espSubtabs) },
@@ -6450,6 +6490,7 @@ namespace ImGuiMenu
             { "Combat", "X", combatSubtabs, IM_ARRAYSIZE(combatSubtabs) },
             { "Hacks", "H", hacksSubtabs, IM_ARRAYSIZE(hacksSubtabs) },
             { "Lobby", "L", lobbySubtabs, lobbySubtabCount },
+            { "Misc", "M", miscSubtabs, IM_ARRAYSIZE(miscSubtabs) },
             { "Settings", "S", settingsSubtabs, IM_ARRAYSIZE(settingsSubtabs) },
         };
 
@@ -6682,7 +6723,8 @@ namespace ImGuiMenu
             case 3: RenderPreviewCombatPage(subtab, groupWidth); break;
             case 4: RenderPreviewHacksPage(subtab, groupWidth); break;
             case 5: RenderPreviewLobbyPage(subtab, groupWidth); break;
-            case 6: RenderPreviewSettingsPage(groupWidth); break;
+            case 6: RenderPreviewMiscPage(subtab, groupWidth); break;
+            case 7: RenderPreviewSettingsPage(groupWidth); break;
             default: break;
             }
         }

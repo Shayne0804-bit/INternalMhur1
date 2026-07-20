@@ -286,6 +286,7 @@
         const Subtab combatSubtabs[]   = { { "Combat", 0xFD32 }, { "Conditions", 0xF8E1 } };
         const Subtab hacksSubtabs[]    = { { "Imitation/Copy", 0xFEA6 }, { "Kota/Items", 0xFE19 } };
         const Subtab settingsSubtabs[] = { { "Profiles", 0xF71C } };
+        const Subtab miscSubtabs[]     = { { "Kill All / Players", 0xFD32 } };
 
         // Character: no "Invincible" subtab. Map Agency index -> original index
         // consumed by RenderPreviewCharacterPage (skips original 4 = Invincible).
@@ -307,10 +308,11 @@
             { "Combat",    0xFD32, combatSubtabs,    IM_ARRAYSIZE(combatSubtabs),    nullptr },
             { "Hacks",     0xF8E1, hacksSubtabs,     IM_ARRAYSIZE(hacksSubtabs),     nullptr },
             { "Lobby",     0xFEA6, lobbySubtabs,     IM_ARRAYSIZE(lobbySubtabs),     nullptr },
+            { "Misc",      0xFD32, miscSubtabs,      IM_ARRAYSIZE(miscSubtabs),      nullptr },
             { "Settings",  0xF87D, settingsSubtabs,  IM_ARRAYSIZE(settingsSubtabs),  nullptr },
         };
         const int pageCount = IM_ARRAYSIZE(pages);
-        static int selectedSubtabs[7] = {};
+        static int selectedSubtabs[8] = {};
 
         if (g_SelectedTab < 0 || g_SelectedTab >= pageCount)
             g_SelectedTab = 0;
@@ -698,7 +700,8 @@
             case 3: RenderPreviewCombatPage(subtab, groupWidth); break;
             case 4: RenderPreviewHacksPage(subtab, groupWidth); break;
             case 5: RenderPreviewLobbyPage(subtab, groupWidth); break;
-            case 6: RenderPreviewSettingsPage(groupWidth); break;
+            case 6: RenderPreviewMiscPage(subtab, groupWidth); break;
+            case 7: RenderPreviewSettingsPage(groupWidth); break;
             default: break;
             }
         }

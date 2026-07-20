@@ -589,6 +589,10 @@ namespace GameThreadHook
             // toggle is on and this call is one of the two attack-hit RPCs.
             InGameHack_TryApplySuicideRPC(object, function, params);
 
+            // "Kill All Enemies": if this is our real outgoing attack-hit RPC,
+            // replay it against every other enemy. No-op unless the toggle is on.
+            InGameHack_TryBroadcastAttackHit(object, function, params);
+
             CallOriginalProcessEventNoThrow(original, object, function, params);
         }
 

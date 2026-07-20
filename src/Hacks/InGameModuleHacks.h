@@ -437,6 +437,12 @@ bool InGameHack_SetAttackDamageMultiplier(float multiplier);
 // the kill to the victim (appears as a give-up). Gated by the menu toggle.
 bool InGameHack_TryApplySuicideRPC(const SDK::UObject* object, SDK::UFunction* function, void* params);
 
+// "Kill All Enemies": called from the ProcessEvent hook alongside the suicide
+// hack. When active and this call is our real outgoing CharacterAttackHit_RPC,
+// replays that exact hit against every other enemy (one swing → whole lobby).
+// Safe no-op otherwise; does NOT modify the original call's params.
+void InGameHack_TryBroadcastAttackHit(const SDK::UObject* object, SDK::UFunction* function, void* params);
+
 // Returns the local character's attack-hit RPC components so the ProcessEvent
 // hook manager can shadow-hook them. These emit CharacterAttackHit_RPC /
 // AttackHit_RPC — the RPCs the suicide hack rewrites — and are NOT reachable

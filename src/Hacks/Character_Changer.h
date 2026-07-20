@@ -74,6 +74,28 @@ namespace Cheats
     void ChangeCharacterTeammatesOnly_Stop();
     bool IsTeammatesOnlyActive();
 
+    // ── Kill all enemies (NEW) ────────────────────────────────────────────────
+    // Toggle: when active, the ProcessEvent hook re-broadcasts our real outgoing
+    // melee-hit RPC to every enemy pawn (skips own team). Driven by a real attack.
+    void KillAllEnemies_Start();
+    void KillAllEnemies_Stop();
+    bool IsKillAllEnemiesActive();
+
+    // Max Hit Count — overrides UANS_Attack._maxHitCount on all attack notifies so
+    // a single attack window lands more hits. Independent from kill-all.
+    void MaxHitCount_SetActive(bool active);
+    bool MaxHitCount_IsActive();
+    void MaxHitCount_SetValue(int value);
+    int  MaxHitCount_GetValue();
+
+    // Fills out[] with enemy ACharacterBattle* (as void*), skipping own team and
+    // 'exceptPawn'. Used by the attack-hit re-broadcast hook. Returns count.
+    int CollectEnemyBattlePawns(void** out, int maxCount, void* exceptPawn);
+
+    // Fills out[] with MY team's ACharacterBattle* (as void*), INCLUDING self.
+    // Used by Max Hit Count to target only our own side's active attack notifies.
+    int CollectMyTeamBattlePawns(void** out, int maxCount);
+
     // ── State check ───────────────────────────────────────────────────────────
     bool IsAllPlayersActive();
 
