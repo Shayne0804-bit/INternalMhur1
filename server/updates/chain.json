@@ -1,14 +1,16 @@
 {
-  "default": "1.0.23",
-  "latest": "1.0.26",
+  "default": "1.0.29",
+  "latest": "1.0.29",
   "files": {
     "1.0.23": { "file": "1.0.23/RUGIR.dll", "notes": "Updater improved" },
     "1.0.25": { "file": "1.0.25/RUGIR.dll", "notes": "Ability hack crash fixed + Ghost Kills added" },
-    "1.0.26": { "file": "1.0.26/RUGIR.dll", "notes": "1) Ability hack fixed to prevent crash\n2) Kill All Lobby added\n3) Ghost Kill: no one can know if you killed someone" }
+    "1.0.26": { "file": "1.0.26/RUGIR.dll", "notes": "1) Ability hack fixed to prevent crash\n2) Kill All Lobby added\n3) Ghost Kill: no one can know if you killed someone" },
+    "1.0.29": { "file": "1.0.29/RUGIR.dll", "notes": "1) Max Hit Count added (attacks land more hits)\n2) New Misc tab (Kill All + Max Hit Count + player list)\n3) Agency menu crash fixed" }
   },
   "hops": {
-    "1.0.23": "1.0.26",
-    "1.0.24": "1.0.26",
-    "1.0.25": "1.0.26"
+    "1.0.23": "1.0.29",
+    "1.0.24": "1.0.29",
+    "1.0.25": "1.0.29",
+    "1.0.26": "1.0.29"
   }
 }
