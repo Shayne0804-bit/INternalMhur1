@@ -526,8 +526,8 @@
 
         // ---- Sidebar tabs ----------------------------------------------------
         static ImVec4 sideSelRect(0, 0, 0, 0);
-        static float tabAlphas[7] = {};
-        static ImVec4 tabIconCols[7];
+        static float tabAlphas[8] = {};
+        static ImVec4 tabIconCols[8];
         static bool tabAnimInit = false;
         if (!tabAnimInit)
         {
@@ -546,7 +546,7 @@
 
         // Animated selection pill behind the tabs.
         ImVec4 sideTarget = sideSelRect;
-        ImVec2 tabRects[7][2];
+        ImVec2 tabRects[8][2];
         for (int i = 0; i < pageCount; i++)
         {
             tabRects[i][0] = ImVec2(tabX, tabY);
