@@ -870,8 +870,13 @@
             centeredText(smallFont, LM(11), y, LmCol(kLmText), sub.c_str());
             if (!prog.notes.empty())
             {
-                y += LM(20);
-                centeredText(smallFont, LM(10), y, LmCol(kLmAccent), prog.notes.c_str());
+                y += LM(16);
+                std::string nl = prog.notes; size_t p = 0, f;
+                while ((f = nl.find('\n', p)) != std::string::npos) {
+                    centeredText(smallFont, LM(10), y, LmCol(kLmAccent), nl.substr(p, f - p).c_str());
+                    y += LM(14); p = f + 1;
+                }
+                centeredText(smallFont, LM(10), y, LmCol(kLmAccent), nl.substr(p).c_str());
             }
 
             const float gap = LM(10);

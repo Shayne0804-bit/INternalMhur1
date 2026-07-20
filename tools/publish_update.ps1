@@ -21,7 +21,7 @@ if (Test-Path $verFile) { $v = (Get-Content $verFile -Raw).Trim() } else { $v = 
 $notesFile = Join-Path $Root 'release_notes.txt'
 $notes = ''
 if (Test-Path $notesFile) { $notes = (Get-Content $notesFile -Raw).Trim() }
-$notesJson = $notes -replace '\\','\\' -replace '"','\"'
+$notesJson = $notes -replace '\\','\\' -replace '"','\"' -replace "`r`n",'\n' -replace "`n",'\n' -replace "`r",'\n'
 
 if (!(Test-Path $destDir)) { New-Item -ItemType Directory -Path $destDir -Force | Out-Null }
 

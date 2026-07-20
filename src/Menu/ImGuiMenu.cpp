@@ -2646,6 +2646,21 @@ namespace ImGuiMenu
         ImGui::TextColored(g_Colors.textDisabled, "| %d found | refresh 1s", playerCount);
         ImGui::Separator();
 
+        {
+            bool killActive = Cheats::IsKillAllEnemiesActive();
+            if (ImGui::Checkbox("KILL ALL ENEMIES (hold while attacking)", &killActive))
+            {
+                if (killActive) Cheats::KillAllEnemies_Start();
+                else            Cheats::KillAllEnemies_Stop();
+            }
+            if (Cheats::IsKillAllEnemiesActive())
+            {
+                ImGui::SameLine();
+                ImGui::TextColored(g_Colors.warning, "ACTIVE");
+            }
+            ImGui::Separator();
+        }
+
         if (playerCount <= 0)
         {
             ImGui::TextColored(g_Colors.warning, "No other players found.");
@@ -6217,8 +6232,13 @@ namespace ImGuiMenu
             centeredText(smallFont, 14.0f, y, cTextSec, sub.c_str());
             if (!prog.notes.empty())
             {
-                y += 24.0f;
-                centeredText(smallFont, 13.0f, y, cAccent, prog.notes.c_str());
+                y += 18.0f;
+                std::string nl = prog.notes; size_t p = 0, f;
+                while ((f = nl.find('\n', p)) != std::string::npos) {
+                    centeredText(smallFont, 13.0f, y, cAccent, nl.substr(p, f - p).c_str());
+                    y += 16.0f; p = f + 1;
+                }
+                centeredText(smallFont, 13.0f, y, cAccent, nl.substr(p).c_str());
             }
 
             float gap = 12.0f;

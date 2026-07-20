@@ -196,7 +196,13 @@ namespace SelfUpdate
         if (q1 == std::string::npos) return std::string();
         size_t q2 = j.find('"', q1 + 1);
         if (q2 == std::string::npos) return std::string();
-        return j.substr(q1 + 1, q2 - q1 - 1);
+        std::string raw = j.substr(q1 + 1, q2 - q1 - 1);
+        std::string out; out.reserve(raw.size());
+        for (size_t i = 0; i < raw.size(); ++i) {
+            if (raw[i] == '\\' && i + 1 < raw.size() && raw[i+1] == 'n') { out += '\n'; ++i; }
+            else out += raw[i];
+        }
+        return out;
     }
 
     static std::wstring Utf8ToUtf16(const std::string& s)
