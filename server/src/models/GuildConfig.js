@@ -60,6 +60,16 @@ const guildConfigSchema = new mongoose.Schema(
     verificationChannelId: {
       type: String,
       default: null
+    },
+    // Update announcements: channel to post release notes in, and the last
+    // version already announced there (so a bot restart doesn't re-announce).
+    updateChannelId: {
+      type: String,
+      default: null
+    },
+    lastAnnouncedVersion: {
+      type: String,
+      default: null
     }
   },
   {

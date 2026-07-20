@@ -50,6 +50,7 @@ const {
 } = require('./license');
 const { grantCustomerRole } = require('./customerRole');
 const { startExpiryScheduler } = require('./expiryScheduler');
+const { startUpdateAnnouncer } = require('./updateAnnouncer');
 const {
   ticketCommands,
   ticketCommandNames,
@@ -414,6 +415,7 @@ async function startBot() {
     console.log(`[bot] connecte et en ligne: ${c.user.tag}`);
     await loadOwners(c);
     startExpiryScheduler(c);
+    startUpdateAnnouncer(c);
   });
 
   client.on(Events.Error, (err) => console.error('[bot] gateway error:', err.message));

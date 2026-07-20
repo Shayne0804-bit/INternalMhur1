@@ -7,6 +7,7 @@ const {
 } = require('discord.js');
 
 const { getConfig } = require('../services/guildConfigService');
+const { readManifest } = require('./updateAnnouncer');
 
 const ACCENT = 0x9d4bff;
 
@@ -18,6 +19,7 @@ const KEYS = {
   staff_role: { field: 'staffRoleId', kind: 'role', label: 'Staff role (tickets)' },
   welcome_channel: { field: 'welcomeChannelId', kind: 'channel', label: 'Welcome channel' },
   modlog_channel: { field: 'modlogChannelId', kind: 'channel', label: 'Mod-log channel' },
+  update_channel: { field: 'updateChannelId', kind: 'channel', label: 'Update announcements channel' },
   ticket_category: { field: 'ticketCategoryId', kind: 'category', label: 'Ticket category' }
 };
 
@@ -73,6 +75,7 @@ async function showConfig(interaction) {
       { name: 'Staff role', value: fmtRole(interaction.guild, c.staffRoleId), inline: true },
       { name: 'Welcome channel', value: fmtChannel(c.welcomeChannelId), inline: true },
       { name: 'Mod-log channel', value: fmtChannel(c.modlogChannelId), inline: true },
+      { name: 'Update channel', value: fmtChannel(c.updateChannelId), inline: true },
       { name: 'Ticket category', value: fmtChannel(c.ticketCategoryId), inline: true },
       { name: 'XP-excluded channels', value: noxp, inline: false },
       { name: 'Auto level roles', value: `${levelRoleCount} configured`, inline: true }
@@ -104,6 +107,12 @@ async function setConfig(interaction) {
     return interaction.reply({ content: '❌ This key needs a **text channel**.', flags: MessageFlags.Ephemeral });
   }
   config[spec.field] = channel.id;
+  // Baseline the update channel to the current version so setting it doesn't
+  // immediately re-announce the release that's already live.
+  if (key === 'update_channel') {
+    const manifest = readManifest();
+    config.lastAnnouncedVersion = manifest ? manifest.version : null;
+  }
   await config.save();
   return interaction.reply({ content: `✅ **${spec.label}** set to ${channel}.`, flags: MessageFlags.Ephemeral });
 }
