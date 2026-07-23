@@ -428,7 +428,6 @@ void HackThreadManager::FrameUpdateHacksImpl()
         ImGuiMenu::g_HackSettings.EnableInvincible ||
         ImGuiMenu::g_Settings.EnableRebuildMyself ||
         ImGuiMenu::g_Settings.EnableCopySkillsFromNearestEnemy ||
-        ImGuiMenu::g_Settings.EnableGenerateProjectile ||
         ImGuiMenu::g_Settings.EnableNoCollision ||
         ImGuiMenu::g_Settings.EnableCustomDrop ||
         ImGuiMenu::g_Settings.CustomDropKey.Xbox > 0 ||
@@ -443,18 +442,6 @@ void HackThreadManager::FrameUpdateHacksImpl()
         EnqueueHack(hackFunction);
         return true;
     };
-
-    // ===== AUTO CLEAR CONDITIONS ON GAME MODE CHANGE =====
-    // Purges ability conditions on the battle->non-battle edge so they never
-    // persist into the next match with a freed instigator PlayerState (crash 0xBA).
-    try
-    {
-        InGameHack_AutoClearConditionOnModeChange();
-    }
-    catch (...)
-    {
-        Logger::LogWarning("[FrameUpdateHacks] Exception during auto clear conditions");
-    }
 
     // ===== TRANSFORM INTO RANDOM ESP TARGET =====
     if (ImGuiMenu::g_Settings.EnableTransformIntoRandomESP)
@@ -590,9 +577,7 @@ void HackThreadManager::FrameUpdateHacksImpl()
 
                 if (elapsed >= SET_INVINCIBLE_COOLDOWN_MS)
                 {
-                    EnqueueHack([]() {
-                        InGameHack_SetInvincible();
-                    });
+                    InGameHack_SetInvincible();
                     lastSetInvincibleTime = now;
                 }
             }
@@ -624,9 +609,7 @@ void HackThreadManager::FrameUpdateHacksImpl()
 
                     if (elapsed >= REBUILD_MYSELF_COOLDOWN_MS)
                     {
-                        EnqueueHack([]() {
-                            InGameHack_RebuildMyself();
-                        });
+                        InGameHack_RebuildMyself();
                         lastRebuildMyselfTime = now;
                     }
                 }
@@ -667,29 +650,6 @@ void HackThreadManager::FrameUpdateHacksImpl()
             }
 
             lastCopySkillsPressed = shouldCopySkills;
-        }
-        catch (...)
-        {
-}
-    }
-
-    // ===== GENERATE PROJECTILE HOTKEY =====
-    if (ImGuiMenu::g_Settings.EnableGenerateProjectile)
-    {
-        try
-        {
-            static bool lastGenerateProjectilePressed = false;
-            bool shouldGenerateProjectile = IsHotkeyPressed(ImGuiMenu::g_Settings.GenerateProjectileKey, gamepadSnapshot);
-
-            // Edge-triggered: Only execute on press (not held)
-            if (shouldGenerateProjectile && !lastGenerateProjectilePressed)
-            {
-                EnqueueHack([]() {
-                    InGameHack_GenerateProjectileInFront();
-                });
-            }
-
-            lastGenerateProjectilePressed = shouldGenerateProjectile;
         }
         catch (...)
         {
@@ -792,18 +752,6 @@ void HackThreadManager::FrameUpdateHacksImpl()
         }
     }
 
-    // ===== HIDE KILLS (CONTINUOUS) =====
-    if (ImGuiMenu::g_HackSettings.EnableHideKills && isBattleMode)
-    {
-        try
-        {
-            InGameHack_ApplyHideKills();
-        }
-        catch (...)
-        {
-        }
-    }
-
     // ===== INFINITE SKILLS (CONTINUOUS) =====
     if (ImGuiMenu::g_HackSettings.EnableInfiniteSkills)
     {
@@ -812,38 +760,6 @@ void HackThreadManager::FrameUpdateHacksImpl()
         {
             if (IsIntervalDue(lastInfiniteSkillsTime, 100))
                 InGameHack_ApplyInfiniteSkills();
-        }
-        catch (...)
-        {
-        }
-    }
-
-    // ===== CLEAR INVINCIBLE (AUTO) =====
-    if (ImGuiMenu::g_Settings.EnableClearInvincibleAuto)
-    {
-        try
-        {
-            static auto lastClearInvincibleTime = std::chrono::steady_clock::time_point{};
-            const int intervalMs = std::clamp(ImGuiMenu::g_Settings.ClearInvincibleIntervalMs, 50, 2000);
-            if (isBattleMode && IsIntervalDue(lastClearInvincibleTime, intervalMs))
-            {
-                const int targetMode = std::clamp(ImGuiMenu::g_Settings.ClearInvincibleTargetMode, 0, 3);
-                const int method = std::clamp(ImGuiMenu::g_Settings.ClearInvincibleMethod, 0, 2);
-                const bool ignoreFixed = ImGuiMenu::g_Settings.ClearInvincibleIgnoreFixed;
-                const int attackId = std::clamp(ImGuiMenu::g_Settings.ClearInvincibleAttackId, 0, 8);
-                const int selectedIndex = ImGuiMenu::g_Settings.ClearInvincibleSelectedCharacterIndex;
-                const std::string tag = ImGuiMenu::g_Settings.ClearInvincibleTagBuffer;
-
-                enqueueContinuousHack([targetMode, method, ignoreFixed, attackId, selectedIndex, tag]() {
-                    InGameHack_ClearInvincibleTargets(
-                        targetMode,
-                        method,
-                        ignoreFixed,
-                        attackId,
-                        tag.c_str(),
-                        selectedIndex);
-                });
-            }
         }
         catch (...)
         {
@@ -919,9 +835,7 @@ void HackThreadManager::FrameUpdateHacksImpl()
                 config.targetMode = std::clamp(ImGuiMenu::g_Settings.DownPowerTargetMode, 0, 3);
                 config.selectedCharacterIndex = ImGuiMenu::g_Settings.DownPowerSelectedCharacterIndex;
 
-                enqueueContinuousHack([config]() {
-                    InGameHack_ApplyDownPowerConfig(config);
-                });
+                InGameHack_ApplyDownPowerConfig(config);
             }
         }
         catch (...)
@@ -1010,9 +924,14 @@ void HackThreadManager::FrameUpdateHacksImpl()
         try
         {
             static auto lastAimSearchTime = std::chrono::steady_clock::time_point{};
-            if (IsIntervalDue(lastAimSearchTime, 100))
+            // Each call sets a 15-minute (900s) reveal window per enemy, so we do
+            // NOT re-force it every 100ms — that just resets a 900s timer 10x/sec
+            // and re-scans the world (GetAllCharacterBattles) for nothing. We only
+            // need to re-apply occasionally to catch newly spawned / respawned
+            // enemies, so a 2s cadence is plenty and kills the spam.
+            if (isBattleMode && IsIntervalDue(lastAimSearchTime, 2000))
             {
-                const float duration = ImGuiMenu::g_Settings.AimSearchDuration;
+                const float duration = 900.0f;
                 enqueueContinuousHack([duration]() {
                     InGameHack_AimSearch(duration);
                 });

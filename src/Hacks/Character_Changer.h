@@ -41,6 +41,35 @@ namespace Cheats
         bool isLocal;
     };
 
+    // ── Player snapshot (alive-state capture for dead-pawn swap) ─────────────
+    struct PlayerSnapshot {
+        bool valid       = false;
+        int  characterId = 0;
+        int  variationId = 0;
+        int  costumeCode = 0;
+        int  emoteCodes[8] = {};
+        int  emoteCount  = 0;
+        int  voiceCodes[8] = {};
+        int  voiceCount  = 0;
+    };
+
+    // Scan every non-dead player in world and record their loadout.
+    // Returns number of players snapshotted. Call once per match start or on demand.
+    int  SnapshotAlivePlayers();
+
+    // Look up snapshot by APlayerState* (stable key across pawn death).
+    // Returns false if no snapshot exists for that pointer.
+    bool GetPlayerSnapshot(void* playerStatePtr, PlayerSnapshot* outSnap);
+
+    // Swap every currently-dead player using their stored snapshot loadout.
+    // Returns number of swaps attempted.
+    int  SwapDeadPlayersFromSnapshot();
+
+    // Game-thread tick for the persistent respawn toggles. Auto-refreshes alive
+    // snapshots, then swaps dead players matching each active mode. MUST run on
+    // the game thread (ProcessEvent frame update), not the polling thread.
+    void DeadSwap_Tick(bool self, bool team, bool everyone);
+
     // ── Collect all players in world ───────────────────────────────────────────
     int CollectPlayerList(PlayerInfo* outPlayers, int maxPlayers);
     int CollectLobbyPlayerList(PlayerInfo* outPlayers, int maxPlayers);
@@ -81,20 +110,9 @@ namespace Cheats
     void KillAllEnemies_Stop();
     bool IsKillAllEnemiesActive();
 
-    // Max Hit Count — overrides UANS_Attack._maxHitCount on all attack notifies so
-    // a single attack window lands more hits. Independent from kill-all.
-    void MaxHitCount_SetActive(bool active);
-    bool MaxHitCount_IsActive();
-    void MaxHitCount_SetValue(int value);
-    int  MaxHitCount_GetValue();
-
     // Fills out[] with enemy ACharacterBattle* (as void*), skipping own team and
     // 'exceptPawn'. Used by the attack-hit re-broadcast hook. Returns count.
     int CollectEnemyBattlePawns(void** out, int maxCount, void* exceptPawn);
-
-    // Fills out[] with MY team's ACharacterBattle* (as void*), INCLUDING self.
-    // Used by Max Hit Count to target only our own side's active attack notifies.
-    int CollectMyTeamBattlePawns(void** out, int maxCount);
 
     // ── State check ───────────────────────────────────────────────────────────
     bool IsAllPlayersActive();

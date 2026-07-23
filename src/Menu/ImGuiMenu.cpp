@@ -2644,27 +2644,6 @@ namespace ImGuiMenu
                 "Attack an enemy once to arm; then it re-broadcasts every 350ms (server-safe).");
 
             ImGui::Separator();
-
-            // Max Hit Count — overrides UANS_Attack._maxHitCount so a single attack
-            // window lands more hits (you + teammates only). Restores on disable.
-            bool maxHitActive = Cheats::MaxHitCount_IsActive();
-            if (ImGui::Checkbox("MAX HIT COUNT", &maxHitActive))
-                Cheats::MaxHitCount_SetActive(maxHitActive);
-            if (Cheats::MaxHitCount_IsActive())
-            {
-                ImGui::SameLine();
-                ImGui::TextColored(g_Colors.warning, "ACTIVE");
-            }
-
-            int maxHit = Cheats::MaxHitCount_GetValue();
-            ImGui::PushItemWidth(200.0f);
-            if (ImGui::SliderInt("Hit Count", &maxHit, 1, 100))
-                Cheats::MaxHitCount_SetValue(maxHit);
-            if (ImGui::IsItemHovered())
-                ImGui::SetTooltip("Max hits per attack window. Restores on disable.");
-            ImGui::PopItemWidth();
-
-            ImGui::Separator();
         }
 
         if (playerCount <= 0)
@@ -3531,11 +3510,30 @@ namespace ImGuiMenu
 
     static void DrawDllControlSettingsSection()
     {
+        SeparatorLabel("Master Switch");
+        if (g_Settings.EnableGlobal)
+        {
+            ImGui::PushStyleColor(ImGuiCol_Button,        ImVec4(0.10f, 0.55f, 0.20f, 1.0f));
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.15f, 0.70f, 0.28f, 1.0f));
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive,  ImVec4(0.07f, 0.40f, 0.14f, 1.0f));
+            if (FullWidthButton("ALL HACKS: ON  (click to disable)", 32.0f))
+                g_Settings.EnableGlobal = false;
+        }
+        else
+        {
+            ImGui::PushStyleColor(ImGuiCol_Button,        ImVec4(0.25f, 0.25f, 0.25f, 1.0f));
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.35f, 0.35f, 0.35f, 1.0f));
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive,  ImVec4(0.18f, 0.18f, 0.18f, 1.0f));
+            if (FullWidthButton("ALL HACKS: OFF  (click to enable)", 32.0f))
+                g_Settings.EnableGlobal = true;
+        }
+        ImGui::PopStyleColor(3);
+
 #if RUGIR_ENABLE_UNLOAD
         SeparatorLabel("DLL Control");
-        ImGui::PushStyleColor(ImGuiCol_Button, g_Colors.danger);
+        ImGui::PushStyleColor(ImGuiCol_Button,        g_Colors.danger);
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.0f, 0.35f, 0.55f, 1.0f));
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.75f, 0.08f, 0.25f, 1.0f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive,  ImVec4(0.75f, 0.08f, 0.25f, 1.0f));
 
         if (FullWidthButton("SAFE UNLOAD", 32.0f))
         {
@@ -3798,7 +3796,7 @@ namespace ImGuiMenu
                 SeparatorLabel("Radar Pulse");
                 ImAdd::CheckBox("Radar Pulse (reveal enemies)", &g_Settings.EnableAimSearch);
                 if (g_Settings.EnableAimSearch)
-                    ImAdd::SliderFloat("Reveal Duration##RadarPulseDuration", &g_Settings.AimSearchDuration, 1.0f, 60.0f, "%.0f s");
+                    ImGui::TextColored(g_Colors.textDisabled, "Reveal duration: 15 min (fixed)");
             }
 
             ImGui::Columns(1);
@@ -4687,7 +4685,6 @@ namespace ImGuiMenu
         g_Settings.ClearInvincibleTargetMode = std::clamp(g_Settings.ClearInvincibleTargetMode, 0, 3);
         g_Settings.ClearInvincibleMethod = std::clamp(g_Settings.ClearInvincibleMethod, 0, 2);
         g_Settings.ClearInvincibleAttackId = std::clamp(g_Settings.ClearInvincibleAttackId, 0, 8);
-        g_Settings.ClearInvincibleIntervalMs = std::clamp(g_Settings.ClearInvincibleIntervalMs, 50, 2000);
 
         const int targetMode = g_Settings.ClearInvincibleTargetMode;
         const int method = g_Settings.ClearInvincibleMethod;
@@ -5070,7 +5067,6 @@ namespace ImGuiMenu
             g_Settings.ClearInvincibleTargetMode = std::clamp(g_Settings.ClearInvincibleTargetMode, 0, 3);
             g_Settings.ClearInvincibleMethod = std::clamp(g_Settings.ClearInvincibleMethod, 0, 2);
             g_Settings.ClearInvincibleAttackId = std::clamp(g_Settings.ClearInvincibleAttackId, 0, 8);
-            g_Settings.ClearInvincibleIntervalMs = std::clamp(g_Settings.ClearInvincibleIntervalMs, 50, 2000);
 
             SeparatorLabel("Target");
             ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
@@ -5130,10 +5126,6 @@ namespace ImGuiMenu
             ImGui::NextColumn();
 
             SeparatorLabel("Execution");
-            ImAdd::CheckBox("Auto Clear", &g_Settings.EnableClearInvincibleAuto);
-            if (g_Settings.EnableClearInvincibleAuto)
-                ImAdd::SliderInt("Interval", &g_Settings.ClearInvincibleIntervalMs, 50, 2000, "%d ms");
-
             if (FullWidthButton("CLEAR INVINCIBLE NOW"))
                 QueueClearInvincibleRequest("Clear Invincible");
 
@@ -5301,6 +5293,13 @@ namespace ImGuiMenu
             // hook; the hook reads this toggle each call, so no action needed here.
             RugirHeaderToggle("GHOST KILLS", &g_HackSettings.MakeKillsLookLikeSuicideActive);
 
+            SeparatorLabel("Respawn (Dead Swap)");
+            ImAdd::CheckBox("Respawn Myself", &g_HackSettings.DeadSwapSelf);
+            ImAdd::CheckBox("Respawn My Team", &g_HackSettings.DeadSwapTeam);
+            ImAdd::CheckBox("Respawn Everyone", &g_HackSettings.DeadSwapEveryone);
+            ImGui::TextColored(g_Colors.textDisabled,
+                "Loadouts are captured automatically at match start.");
+
             ImGui::Columns(1);
             ImGui::PopStyleVar();
         }
@@ -5408,22 +5407,6 @@ namespace ImGuiMenu
                 DrawHotkeyConfigButton("Invincibility", g_Settings.SetInvincibleKey, 104);
                 if (FullWidthButton("ACTIVATE INVINCIBILITY NOW"))
                     InGameHack_SetInvincible();
-
-                SeparatorLabel("Projectile Debug");
-                float halfButtonWidth = std::floor((ImGui::GetContentRegionAvail().x - style.ItemSpacing.x) * 0.5f);
-                if (ImAdd::Button("DUMP REP", ImVec2(halfButtonWidth, 0.0f)))
-                    InGameHack_DumpLastProjectileGenerateRep();
-                ImGui::SameLine();
-                if (ImAdd::Button("DUMP RUNTIME", ImVec2(ImGui::GetContentRegionAvail().x, 0.0f)))
-                    InGameHack_DumpProjectileRuntimeDebug();
-
-                if (FullWidthButton("PROJECTILE TEST"))
-                    InGameHack_GenerateProjectileInFront();
-
-                RugirHeaderToggle("PROJECTILE GENERATION", &g_Settings.EnableGenerateProjectile);
-                DrawHotkeyConfigButton("Generate Projectile", g_Settings.GenerateProjectileKey, 107);
-                if (FullWidthButton("GENERATE NOW"))
-                    InGameHack_GenerateProjectileInFront();
 
                 ImGui::NextColumn();
 
@@ -5865,50 +5848,6 @@ namespace ImGuiMenu
         EndRugirCard();
     }
 
-    static void RenderPlatformSettingsCard(float width)
-    {
-        if (BeginRugirCard("platform-settings-page", "PLATFORM", ImVec2(width, 0.0f)))
-        {
-            const char* platformItems[] = {
-                "Invalid",
-                "PlayStation",
-                "Xbox",
-                "Windows",
-                "Switch",
-                "None"
-            };
-
-            int selectedPlatform = g_HackSettings.BackendPlatformCode;
-            if (selectedPlatform < 0 || selectedPlatform > 5)
-                selectedPlatform = 3;
-
-            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-            if (ImGui::Combo("##BackendPlatformCode", &selectedPlatform, platformItems, IM_ARRAYSIZE(platformItems)))
-                g_HackSettings.BackendPlatformCode = selectedPlatform;
-
-            if (FullWidthButton("SET PLAYER PLATFORM"))
-            {
-                if (!InGameHack_SetBackendPlayerPlatform(g_HackSettings.BackendPlatformCode))
-                    Logger::LogError("[Menu] Set player platform request failed");
-            }
-
-            ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x);
-            const bool submitted = ImGui::InputTextWithHint(
-                "##FakePlatformInput",
-                "Fake platform string...",
-                g_HackSettings.FakePlatformBuffer,
-                sizeof(g_HackSettings.FakePlatformBuffer),
-                ImGuiInputTextFlags_EnterReturnsTrue);
-
-            if (submitted || FullWidthButton("FORCE FAKE PLATFORM"))
-            {
-                if (!InGameHack_ForceFakePlatform(g_HackSettings.FakePlatformBuffer))
-                    Logger::LogError("[Menu] Force fake platform request failed");
-            }
-        }
-        EndRugirCard();
-    }
-
     static void RenderPreviewMiscPage(int subtab, float groupWidth)
     {
         (void)subtab;
@@ -6192,8 +6131,18 @@ namespace ImGuiMenu
         }
 
         // ---- Card geometry (centered) ---------------------------------------
+        // Base height fits 3 note lines; grow 16px per extra line so long
+        // changelogs never overlap the buttons.
         const float cardW = 460.0f;
-        const float cardH = 232.0f;
+        float cardH = 232.0f;
+        if (prog.state == SelfUpdate::State::Available && !prog.notes.empty())
+        {
+            int noteLines = 1;
+            for (char ch : prog.notes)
+                if (ch == '\n') ++noteLines;
+            if (noteLines > 3)
+                cardH += (noteLines - 3) * 16.0f;
+        }
         const ImVec2 c(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f);
         const ImVec2 cardMin(c.x - cardW * 0.5f, c.y - cardH * 0.5f);
         const ImVec2 cardMax(cardMin.x + cardW, cardMin.y + cardH);
@@ -7003,9 +6952,7 @@ return false;
             }
         }
 
-        // preview layout has no visible master switch. Keep the legacy
-        // runtime gate enabled so preview-visible feature toggles are effective.
-        g_Settings.EnableGlobal = true;
+        // EnableGlobal defaults to true (MenuSettings struct); user can toggle it from Settings.
 
         // Initialize character icon loader
         ID3D11Device* iconDevice = D3D11Hook::GetDevice();
@@ -7306,16 +7253,6 @@ return true;
                 g_Settings.CopySkillsFromNearestEnemyKey.PS4 = pressedKey;
             }
         }
-        else if (hotkeyType == 107)  // GenerateProjectile hotkey (unified)
-        {
-            if (inputType == 0)  // Keyboard
-                g_Settings.GenerateProjectileKey.Keyboard = pressedKey;
-            else  // Gamepad
-            {
-                g_Settings.GenerateProjectileKey.Xbox = pressedKey;
-                g_Settings.GenerateProjectileKey.PS4 = pressedKey;
-            }
-        }
         else if (hotkeyType == 108)  // No Collision hotkey (unified)
         {
             if (inputType == 0)  // Keyboard
@@ -7335,6 +7272,16 @@ return true;
                 g_Settings.CustomDropKey.Xbox = pressedKey;
                 g_Settings.CustomDropKey.PS4 = pressedKey;
             }
+        }
+        else if (hotkeyType == 200)  // Menu Toggle hotkey (keyboard only)
+        {
+            if (inputType == 0)
+                g_Settings.MenuToggleKey.Keyboard = pressedKey;
+        }
+        else if (hotkeyType == 201)  // Unload DLL hotkey (keyboard only)
+        {
+            if (inputType == 0)
+                g_Settings.UnloadDllKey.Keyboard = pressedKey;
         }
 
         StopHotkeyListening();

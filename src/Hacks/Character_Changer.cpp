@@ -17,6 +17,7 @@
 #include <string>
 #include <ctime>
 #include <cstdint>
+#include <unordered_map>
 #include <Windows.h>
 
 // Global variables from ImGuiMenu - used for character customization
@@ -30,12 +31,19 @@ extern int s_lastInGameChar;
 namespace Cheats
 {
     // ── Internal state ────────────────────────────────────────────────────────
+    // ── Snapshot map: APlayerState* → last known alive loadout ───────────────
+    static std::unordered_map<void*, PlayerSnapshot> s_snapshots;
+
+    // Dead-swap ("respawn") throttle — same 900ms cadence the reference uses.
+    static uint64_t s_lastDeadSwapMs      = 0;
+    static uint64_t s_lastSnapRefreshMs   = 0;
+    static constexpr uint64_t kDeadSwapIntervalMs = 900;
+    static constexpr uint64_t kSnapRefreshMs      = 750;
+
     static bool  s_AllPlayersActive = false;
     static bool  s_EnemiesOnlyActive = false;
     static bool  s_TeammatesOnlyActive = false;  // NEW: Team swap persistent mode
     static bool  s_KillAllEnemiesActive = false; // NEW: Kill-all toggle (per-frame)
-    static bool  s_MaxHitCountActive    = false; // Max hit count override toggle
-    static int   s_MaxHitCountValue     = 10;    // target _maxHitCount for UANS_Attack
     static int   s_TargetId = 0;
     static int   s_TargetVariation = 0;
     static float s_RetryIntervalSec = 2.0f;
@@ -378,6 +386,102 @@ namespace Cheats
     {
         int chNum = GetCharNum(characterId);
         return (chNum * 100) + variation;
+    }
+
+    // ── Snapshot helpers ──────────────────────────────────────────────────────
+
+    static SDK::APlayerStateBattle* GetPlayerStateBattleSafe(SDK::ACharacterBattle* cb)
+    {
+        __try
+        {
+            if (IsBadReadPtr(cb, sizeof(void*))) return nullptr;
+            return cb->BP_GetPlayerStateBattle();
+        }
+        __except (EXCEPTION_EXECUTE_HANDLER) { return nullptr; }
+    }
+
+    static bool IsDeadSafe(SDK::APlayerStateBattle* psb)
+    {
+        __try
+        {
+            if (IsBadReadPtr(psb, sizeof(void*))) return false;
+            return psb->BP_IsDead();
+        }
+        __except (EXCEPTION_EXECUTE_HANDLER) { return false; }
+    }
+
+    static void SnapshotOnePawn(SDK::ACharacterGame* CG, SDK::APlayerState* ps)
+    {
+        PlayerSnapshot snap{};
+        __try
+        {
+            snap.characterId = static_cast<int>(CG->BP_GetCharacterId());
+            snap.variationId = CG->BP_GetVariationNo();
+            snap.costumeCode = CG->BP_GetCostumeCode();
+
+            int ec = CG->_emoteCodes.Num();
+            if (ec > 8) ec = 8;
+            snap.emoteCount = ec;
+            for (int i = 0; i < ec; ++i)
+                snap.emoteCodes[i] = CG->_emoteCodes[i];
+
+            int vc = CG->_voiceCodes.Num();
+            if (vc > 8) vc = 8;
+            snap.voiceCount = vc;
+            for (int i = 0; i < vc; ++i)
+                snap.voiceCodes[i] = CG->_voiceCodes[i];
+
+            snap.valid = (snap.characterId != 0);
+        }
+        __except (EXCEPTION_EXECUTE_HANDLER) {}
+
+        if (snap.valid)
+            s_snapshots[(void*)ps] = snap;
+    }
+
+    static SDK::FInGameBattleCharacterData BuildDataFromSnapshot(const PlayerSnapshot& snap)
+    {
+        SDK::FInGameBattleCharacterData data;
+        memset(&data, 0, sizeof(data));
+
+        int chNum = GetCharNum(snap.characterId);
+
+        data._characterId       = GetSDKCharacterId(snap.characterId);
+        data._variationId       = snap.variationId;
+        data._skillVariationCode = GetSkillVariationCode(snap.characterId, snap.variationId);
+        data._technique1Level   = s_techAlpha;
+        data._technique2Level   = s_techBeta;
+        data._technique3Level   = s_techGamma;
+        data._costumeCode       = (snap.costumeCode != 0)
+                                    ? snap.costumeCode
+                                    : CostumeHelper::GetDefaultCostumeForCharacter(chNum);
+        data._costumeAuraType   = 5;
+
+        if (snap.emoteCount > 0)
+        {
+            SDK::TArray<int> emotes;
+            for (int i = 0; i < snap.emoteCount; ++i)
+                emotes.Add(snap.emoteCodes[i]);
+            data._emoteCodes = emotes;
+        }
+        else
+        {
+            int baseEmote = chNum * 10000;
+            SDK::TArray<int> emotes;
+            for (int s = 0; s < 8; ++s)
+                emotes.Add(baseEmote + s);
+            data._emoteCodes = emotes;
+        }
+
+        if (snap.voiceCount > 0)
+        {
+            SDK::TArray<int> voices;
+            for (int i = 0; i < snap.voiceCount; ++i)
+                voices.Add(snap.voiceCodes[i]);
+            data._voiceCodes = voices;
+        }
+
+        return data;
     }
 
     // ── Build FInGameBattleCharacterData ──────────────────────────────────────
@@ -939,51 +1043,9 @@ namespace Cheats
         return n;
     }
 
-    // Fills out[] with MY team's ACharacterBattle* pointers, INCLUDING self.
-    // Used by Max Hit Count to only touch the attack notifies active on our own
-    // side's meshes (not enemies'). Returns count.
-    int CollectMyTeamBattlePawns(void** out, int maxCount)
-    {
-        if (!out || maxCount <= 0) return 0;
-
-        SDK::APlayerController* myPC = GetLocalPC();
-        if (!myPC) return 0;
-
-        SDK::UWorld* World = SDK::UWorld::GetWorld();
-        if (IsBadReadPtr(World, sizeof(SDK::UWorld))) return 0;
-        if (IsBadReadPtr(World->PersistentLevel, sizeof(SDK::ULevel))) return 0;
-
-        uint8_t localTeam = GetLocalPlayerTeam();
-        if (localTeam == 0xFF) return 0;
-
-        // Pass nullptr so self is INCLUDED in the list.
-        std::vector<SDK::AActor*> players;
-        CollectPlayerActors(World, nullptr, players);
-
-        int n = 0;
-        for (SDK::AActor* Actor : players)
-        {
-            if (n >= maxCount) break;
-            if (!IsSameTeam(Actor, localTeam)) continue;      // keep own team only
-            out[n++] = reinterpret_cast<void*>(Actor);
-        }
-        return n;
-    }
-
     void KillAllEnemies_Start() { s_KillAllEnemiesActive = true; }
     void KillAllEnemies_Stop()  { s_KillAllEnemiesActive = false; }
     bool IsKillAllEnemiesActive() { return s_KillAllEnemiesActive; }
-
-    // Max Hit Count — overrides UANS_Attack._maxHitCount so attacks land more hits.
-    void MaxHitCount_SetActive(bool a) { s_MaxHitCountActive = a; }
-    bool MaxHitCount_IsActive()        { return s_MaxHitCountActive; }
-    void MaxHitCount_SetValue(int v)
-    {
-        if (v < 1)    v = 1;
-        if (v > 1000) v = 1000;
-        s_MaxHitCountValue = v;
-    }
-    int  MaxHitCount_GetValue() { return s_MaxHitCountValue; }
 
     int CollectPlayerList(PlayerInfo* outPlayers, int maxPlayers)
     {
@@ -1497,6 +1559,231 @@ namespace Cheats
             );
 
         }
+    }
+
+    // ── Snapshot public API ───────────────────────────────────────────────────
+
+    int SnapshotAlivePlayers()
+    {
+        s_snapshots.clear();
+
+        SDK::UWorld* World = GetWorldSafe();
+        if (!World || IsBadReadPtr(World->PersistentLevel, sizeof(SDK::ULevel)))
+            return 0;
+
+        auto ScanLevel = [&](SDK::ULevel* Level) -> int
+        {
+            if (IsBadReadPtr(Level, sizeof(SDK::ULevel))) return 0;
+            int count = 0;
+            for (int i = 0; i < Level->Actors.Num(); ++i)
+            {
+                SDK::AActor* Actor = Level->Actors[i];
+                if (IsBadReadPtr(Actor, sizeof(SDK::AActor))) continue;
+                if (!Actor->IsA(SDK::ACharacterGame::StaticClass())) continue;
+
+                SDK::ACharacterGame* CG = reinterpret_cast<SDK::ACharacterGame*>(Actor);
+                if (IsBadReadPtr(CG, sizeof(SDK::ACharacterGame))) continue;
+
+                SDK::APlayerState* PS = CG->PlayerState;
+                if (IsBadReadPtr(PS, sizeof(SDK::APlayerState))) continue;
+
+                // Death check via PlayerStateBattle::BP_IsDead()
+                SDK::ACharacterBattle* CB = static_cast<SDK::ACharacterBattle*>(Actor);
+                SDK::APlayerStateBattle* PSB = GetPlayerStateBattleSafe(CB);
+                if (IsDeadSafe(PSB)) continue;
+
+                SnapshotOnePawn(CG, PS);
+                ++count;
+            }
+            return count;
+        };
+
+        int total = ScanLevel(World->PersistentLevel);
+        for (int i = 0; i < World->StreamingLevels.Num(); ++i)
+        {
+            SDK::ULevelStreaming* SL = World->StreamingLevels[i];
+            if (!IsBadReadPtr(SL, sizeof(SDK::ULevelStreaming)))
+                total += ScanLevel(SL->GetLoadedLevel());
+        }
+        return total;
+    }
+
+    bool GetPlayerSnapshot(void* playerStatePtr, PlayerSnapshot* outSnap)
+    {
+        if (!playerStatePtr || !outSnap) return false;
+        auto it = s_snapshots.find(playerStatePtr);
+        if (it == s_snapshots.end() || !it->second.valid) return false;
+        *outSnap = it->second;
+        return true;
+    }
+
+    // ── Incremental alive-snapshot refresh ────────────────────────────────────
+    // Updates the loadout of every ALIVE player, keeps dead entries intact so a
+    // player who dies still has their pre-death loadout recorded. Clears the map
+    // between matches (0 character actors found). No full clear per call — this is
+    // the "auto-capture at game start + keep updated" behaviour.
+    static void UpdateAliveSnapshots()
+    {
+        SDK::UWorld* World = GetWorldSafe();
+        if (!World || IsBadReadPtr(World->PersistentLevel, sizeof(SDK::ULevel)))
+            return;
+
+        int seen = 0;
+        auto ScanLevel = [&](SDK::ULevel* Level)
+        {
+            if (IsBadReadPtr(Level, sizeof(SDK::ULevel))) return;
+            for (int i = 0; i < Level->Actors.Num(); ++i)
+            {
+                SDK::AActor* Actor = Level->Actors[i];
+                if (IsBadReadPtr(Actor, sizeof(SDK::AActor))) continue;
+                if (!Actor->IsA(SDK::ACharacterGame::StaticClass())) continue;
+
+                SDK::ACharacterGame* CG = reinterpret_cast<SDK::ACharacterGame*>(Actor);
+                if (IsBadReadPtr(CG, sizeof(SDK::ACharacterGame))) continue;
+
+                SDK::APlayerState* PS = CG->PlayerState;
+                if (IsBadReadPtr(PS, sizeof(SDK::APlayerState))) continue;
+
+                ++seen;
+
+                // Only (re)capture while the player is still alive.
+                SDK::ACharacterBattle* CB = static_cast<SDK::ACharacterBattle*>(Actor);
+                SDK::APlayerStateBattle* PSB = GetPlayerStateBattleSafe(CB);
+                if (IsDeadSafe(PSB)) continue;
+
+                SnapshotOnePawn(CG, PS);
+            }
+        };
+
+        ScanLevel(World->PersistentLevel);
+        for (int i = 0; i < World->StreamingLevels.Num(); ++i)
+        {
+            SDK::ULevelStreaming* SL = World->StreamingLevels[i];
+            if (!IsBadReadPtr(SL, sizeof(SDK::ULevelStreaming)))
+                ScanLevel(SL->GetLoadedLevel());
+        }
+
+        // Between matches the level has no character actors — drop stale entries.
+        if (seen == 0 && !s_snapshots.empty())
+            s_snapshots.clear();
+    }
+
+    // ── Core dead-swap loop with a target filter ──────────────────────────────
+    enum DeadSwapMode { DSM_SELF = 0, DSM_TEAM = 1, DSM_EVERYONE = 2 };
+
+    static int SwapDeadCore(DeadSwapMode mode)
+    {
+        if (s_snapshots.empty()) return 0;
+
+        SDK::APlayerController* myPC = GetLocalPC();
+        if (!myPC || IsBadReadPtr(myPC, sizeof(SDK::APlayerController))) return 0;
+
+        SDK::UWorld* World = GetWorldSafe();
+        if (!World || IsBadReadPtr(World->PersistentLevel, sizeof(SDK::ULevel))) return 0;
+
+        SDK::APlayerControllerBattle* pcb = static_cast<SDK::APlayerControllerBattle*>(myPC);
+        if (IsBadReadPtr(pcb, sizeof(SDK::APlayerControllerBattle))) return 0;
+
+        SDK::APawn*  myPawn      = myPC->AcknowledgedPawn;
+        SDK::APlayerState* myPS  = myPC->PlayerState;
+        const uint8_t localTeam  = (mode == DSM_TEAM) ? GetLocalPlayerTeam() : 0xFF;
+
+        int count = 0;
+
+        auto SwapLevel = [&](SDK::ULevel* Level)
+        {
+            if (IsBadReadPtr(Level, sizeof(SDK::ULevel))) return;
+            for (int i = 0; i < Level->Actors.Num(); ++i)
+            {
+                SDK::AActor* Actor = Level->Actors[i];
+                if (IsBadReadPtr(Actor, sizeof(SDK::AActor))) continue;
+                if (!Actor->IsA(SDK::ACharacterGame::StaticClass())) continue;
+
+                SDK::ACharacterGame* CG = reinterpret_cast<SDK::ACharacterGame*>(Actor);
+                if (IsBadReadPtr(CG, sizeof(SDK::ACharacterGame))) continue;
+
+                SDK::APlayerState* PS = CG->PlayerState;
+                if (IsBadReadPtr(PS, sizeof(SDK::APlayerState))) continue;
+
+                // Target filter by mode
+                if (mode == DSM_SELF)
+                {
+                    bool isSelf = (myPawn && Actor == static_cast<SDK::AActor*>(myPawn))
+                               || (myPS && PS == myPS);
+                    if (!isSelf) continue;
+                }
+                else if (mode == DSM_TEAM)
+                {
+                    if (!IsSameTeam(Actor, localTeam)) continue;
+                }
+                // DSM_EVERYONE: no filter
+
+                // Only dead players
+                SDK::ACharacterBattle* CB = static_cast<SDK::ACharacterBattle*>(Actor);
+                SDK::APlayerStateBattle* PSB = GetPlayerStateBattleSafe(CB);
+                if (!IsDeadSafe(PSB)) continue;
+
+                // Need a pre-death snapshot
+                auto it = s_snapshots.find((void*)PS);
+                if (it == s_snapshots.end() || !it->second.valid) continue;
+                const PlayerSnapshot& snap = it->second;
+
+                // Mirror the working ApplyToActor path: FillRoleSlot +
+                // ApplyTargetRegisteredRollSlot BEFORE the RPC. Fire through the
+                // LOCAL PCB with the dead pawn as the target argument.
+                SDK::FInGameBattleCharacterData data = BuildDataFromSnapshot(snap);
+                FillRoleSlotWithGetterForChangeCharacter(data);
+                ApplyTargetRegisteredRollSlot(CB, snap.characterId, snap.variationId);
+                pcb->ChangeCharacter_OnServer(CB, data);
+                ++count;
+                std::this_thread::sleep_for(std::chrono::milliseconds(30));
+            }
+        };
+
+        SwapLevel(World->PersistentLevel);
+        for (int i = 0; i < World->StreamingLevels.Num(); ++i)
+        {
+            SDK::ULevelStreaming* SL = World->StreamingLevels[i];
+            if (!IsBadReadPtr(SL, sizeof(SDK::ULevelStreaming)))
+                SwapLevel(SL->GetLoadedLevel());
+        }
+        return count;
+    }
+
+    // Manual full swap of every dead player (kept for compatibility).
+    int SwapDeadPlayersFromSnapshot()
+    {
+        return SwapDeadCore(DSM_EVERYONE);
+    }
+
+    // ── Game-thread tick: auto-snapshot + persistent respawn toggles ──────────
+    // MUST be called from the game thread (ProcessEvent frame update). Refreshes
+    // alive snapshots automatically, then swaps the dead players matching each
+    // active mode. Self takes priority, then team, then everyone (everyone is a
+    // superset so we never run more than one broad pass per tick).
+    void DeadSwap_Tick(bool self, bool team, bool everyone)
+    {
+        const uint64_t nowMs = GetTickCount64();
+
+        // Auto-capture alive players regardless of toggles, so a loadout is
+        // already on file the moment someone dies.
+        if (nowMs - s_lastSnapRefreshMs >= kSnapRefreshMs)
+        {
+            s_lastSnapRefreshMs = nowMs;
+            UpdateAliveSnapshots();
+        }
+
+        if (!self && !team && !everyone)
+            return;
+
+        if (nowMs - s_lastDeadSwapMs < kDeadSwapIntervalMs)
+            return;
+        s_lastDeadSwapMs = nowMs;
+
+        // Everyone ⊇ team ⊇ self, so a single broadest pass covers the rest.
+        if (everyone)   SwapDeadCore(DSM_EVERYONE);
+        else if (team)  SwapDeadCore(DSM_TEAM);
+        else            SwapDeadCore(DSM_SELF);
     }
 
 } // namespace Cheats

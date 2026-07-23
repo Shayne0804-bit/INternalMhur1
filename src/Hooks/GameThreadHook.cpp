@@ -36,18 +36,20 @@ namespace GameThreadHook
         uintptr_t* shadowVTable = nullptr;
         int vtableSize = 0;
         ProcessEventFn originalProcessEvent = nullptr;
+        bool isAttackComponent = false;
     };
 
     static std::mutex g_HookMutex;
     static std::vector<HookRecord> g_Hooks;
     static std::atomic<bool> g_Initialized(false);
     static std::atomic<int> g_ProcessEventCallDepth(0);
+    static std::atomic<DWORD> g_GameThreadId(0); // captured from first attack-component PE (always game thread)
     static DWORD g_LastRefreshTick = 0;
     static constexpr DWORD REFRESH_INTERVAL_MS = 1000;
     static constexpr int PROCESS_EVENT_INDEX = SDK::Offsets::ProcessEventIdx;
     static constexpr int MAX_VTABLE_SCAN = 512;
     static constexpr int MIN_REASONABLE_VTABLE_SIZE = PROCESS_EVENT_INDEX + 1;
-    static constexpr size_t MAX_HOOKED_OBJECTS = 8;
+    static constexpr size_t MAX_HOOKED_OBJECTS = 24;
 
     static std::mutex g_TaskMutex;
     static std::queue<std::function<void()>> g_GameThreadTasks;
@@ -469,25 +471,50 @@ namespace GameThreadHook
         }
     }
 
+    static void DeadSwapTickNoThrow()
+    {
+        __try
+        {
+            if (IsValidBattleModeNoThrow("IsValidBattleMode:DeadSwap"))
+                Cheats::DeadSwap_Tick(
+                    ImGuiMenu::g_HackSettings.DeadSwapSelf,
+                    ImGuiMenu::g_HackSettings.DeadSwapTeam,
+                    ImGuiMenu::g_HackSettings.DeadSwapEveryone);
+        }
+        __except (HandleAccessViolation(GetExceptionInformation()))
+        {
+        }
+    }
+
     static bool NeedsFrameHackUpdate()
     {
         const auto& settings = ImGuiMenu::g_Settings;
+        const auto& hackSettings = ImGuiMenu::g_HackSettings;
         return settings.EnableTransformIntoRandomESP ||
             settings.EnableDuplicateIntoImitationRandomESP ||
             settings.EnableCustomDrop ||
             settings.EnableRebuildMyself ||
             settings.EnableCopySkillsFromNearestEnemy ||
-            settings.EnableGenerateProjectile ||
-            ImGuiMenu::g_HackSettings.EnableInvincible ||
-            ImGuiMenu::g_HackSettings.Hack_BypassRentalTickets ||
-            ImGuiMenu::g_HackSettings.EnableInfinitePlusUltra ||
+            hackSettings.EnableInvincible ||
+            hackSettings.Hack_BypassRentalTickets ||
+            hackSettings.EnableInfinitePlusUltra ||
+            hackSettings.EnableInfiniteSkills ||
             settings.EnableFastPlusUltraCharge ||
             settings.EnableNoCollision ||
+            settings.EnableCameraFOV ||
             settings.EnableRecoveryMe ||
             settings.EnableRecoveryTeam ||
             settings.EnableRecoverySelectedTeam ||
             settings.EnableRecoveryAllESP ||
             settings.EnableBulletTP ||
+            settings.EnableAimSearch ||
+            settings.EnableAttackChainAuto ||
+            settings.EnableDownPowerAuto ||
+            hackSettings.AbilityAttackActive ||
+            hackSettings.AbilityDurableActive ||
+            hackSettings.AbilityMovespeedActive ||
+            hackSettings.AbilityHealActive ||
+            hackSettings.AbilityTechniqueActive ||
             Cheats::IsAllPlayersActive() ||
             Cheats::IsEnemiesOnlyActive() ||
             Cheats::IsTeammatesOnlyActive();
@@ -547,6 +574,10 @@ namespace GameThreadHook
 
         SyncCH202InitTransNoThrow();
         SyncReloadAdjustNoThrow(now);
+
+        // Persistent respawn / dead-swap toggles — auto-snapshots alive players
+        // and swaps the dead ones back in. Runs on the game thread by design.
+        DeadSwapTickNoThrow();
     }
 
     static void HookedProcessEvent(const SDK::UObject* object, SDK::UFunction* function, void* params)
@@ -558,6 +589,7 @@ namespace GameThreadHook
         } scope;
 
         ProcessEventFn original = nullptr;
+        bool isAttackComponent = false;
         {
             std::lock_guard<std::mutex> lock(g_HookMutex);
             for (const HookRecord& hook : g_Hooks)
@@ -565,6 +597,7 @@ namespace GameThreadHook
                 if (hook.object == object)
                 {
                     original = hook.originalProcessEvent;
+                    isAttackComponent = hook.isAttackComponent;
                     break;
                 }
             }
@@ -582,25 +615,33 @@ namespace GameThreadHook
                 GetQueuedTaskCount());
         }
 
+        // All hooked objects (GVC + attack components) dispatch PE from the game thread.
+        // Capture once on first fire so GlobalHookedProcessEvent can filter other threads.
+        {
+            DWORD expected = 0;
+            g_GameThreadId.compare_exchange_strong(expected, GetCurrentThreadId(),
+                std::memory_order_relaxed, std::memory_order_relaxed);
+        }
+
         if (original)
         {
-            // "Make Your Kills Look Like Suicide": patch the outgoing attack-hit
-            // RPC params BEFORE the original replicates them. No-op unless the
-            // toggle is on and this call is one of the two attack-hit RPCs.
-            InGameHack_TryApplySuicideRPC(object, function, params);
-
-            // "Kill All Enemies": if this is our real outgoing attack-hit RPC,
-            // replay it against every other enemy. No-op unless the toggle is on.
-            InGameHack_TryBroadcastAttackHit(object, function, params);
-
+            if (isAttackComponent && ImGuiMenu::g_Settings.EnableGlobal)
+            {
+                InGameHack_TryApplySuicideRPC(object, function, params);
+                InGameHack_TryBroadcastAttackHit(object, function, params);
+            }
             CallOriginalProcessEventNoThrow(original, object, function, params);
         }
 
-        PumpTasks();
-        RunGameFrameUpdate();
+        // Only pump/tick from the game thread.
+        if (g_GameThreadId.load(std::memory_order_relaxed) == GetCurrentThreadId())
+        {
+            PumpTasks();
+            RunGameFrameUpdate();
+        }
     }
 
-    static bool HookObjectLocked(SDK::UObject* object)
+    static bool HookObjectLocked(SDK::UObject* object, bool isAttackComponent = false)
     {
         if (!IsWritableObjectPointer(object) || IsAlreadyHookedLocked(object))
             return false;
@@ -634,6 +675,7 @@ namespace GameThreadHook
         record.shadowVTable = shadowVTable;
         record.vtableSize = vtableSize;
         record.originalProcessEvent = reinterpret_cast<ProcessEventFn>(shadowVTable[PROCESS_EVENT_INDEX]);
+        record.isAttackComponent = isAttackComponent;
 
         if (!record.originalProcessEvent)
         {
@@ -662,13 +704,15 @@ namespace GameThreadHook
         return true;
     }
 
-    static void AddCandidate(std::vector<SDK::UObject*>& candidates, SDK::UObject* object)
+    static void AddCandidate(std::vector<std::pair<SDK::UObject*, bool>>& candidates, SDK::UObject* object, bool isAttackComponent)
     {
         if (!object)
             return;
 
-        if (std::find(candidates.begin(), candidates.end(), object) == candidates.end())
-            candidates.push_back(object);
+        for (const auto& c : candidates)
+            if (c.first == object) return;
+
+        candidates.push_back({object, isAttackComponent});
     }
 
     static SDK::UEngine* GetEngineSafe()
@@ -737,28 +781,25 @@ namespace GameThreadHook
         }
     }
 
-    static std::vector<SDK::UObject*> CollectHookCandidates()
+    static std::vector<std::pair<SDK::UObject*, bool>> CollectHookCandidates()
     {
-        std::vector<SDK::UObject*> candidates;
+        std::vector<std::pair<SDK::UObject*, bool>> candidates;
         candidates.reserve(MAX_HOOKED_OBJECTS);
 
-        SDK::UEngine* engine = GetEngineSafe();
-        if (engine)
-        {
-            AddCandidate(candidates, engine);
-            SDK::UGameViewportClient* viewport = ReadGameViewportSafe(engine);
-            AddCandidate(candidates, viewport);
-            AddCandidate(candidates, ReadGameInstanceSafe(viewport));
-        }
-
-        // "Make Your Kills Look Like Suicide" needs the local character's attack
-        // components hooked (they dispatch the attack-hit RPCs we rewrite). They
-        // change every respawn/char swap, so we re-collect them each refresh.
+        // Attack components — need isAttackComponent=true so HookedProcessEvent
+        // runs the attack-rewrite logic (TryApplySuicideRPC, TryBroadcastAttackHit).
         SDK::UObject* attackReplicator = nullptr;
         SDK::UObject* attackCollision = nullptr;
         InGameHack_CollectSuicideHookObjects(&attackReplicator, &attackCollision);
-        AddCandidate(candidates, attackReplicator);
-        AddCandidate(candidates, attackCollision);
+        AddCandidate(candidates, attackReplicator, true);
+        AddCandidate(candidates, attackCollision, true);
+
+        // PlayerController — dispatches blueprint/input/RPC events constantly from
+        // the game thread.  isAttackComponent=false: no attack-rewrite logic.
+        // The game thread ID check in HookedProcessEvent filters out net-driver
+        // thread calls, so no unsafe work runs off-thread.
+        SDK::UObject* pc = reinterpret_cast<SDK::UObject*>(GetPlayerControllerSafe());
+        AddCandidate(candidates, pc, false);
 
         return candidates;
     }
@@ -772,7 +813,7 @@ namespace GameThreadHook
         g_LastRefreshTick = now;
         Log("[GameThreadHook] refresh hooks force=%d", force ? 1 : 0);
 
-        std::vector<SDK::UObject*> candidates = CollectHookCandidates();
+        std::vector<std::pair<SDK::UObject*, bool>> candidates = CollectHookCandidates();
         std::lock_guard<std::mutex> lock(g_HookMutex);
         const bool canEraseHooks = g_ProcessEventCallDepth.load(std::memory_order_acquire) == 0;
 
@@ -783,9 +824,11 @@ namespace GameThreadHook
 
         for (auto it = g_Hooks.begin(); it != g_Hooks.end();)
         {
-            if (!IsWritableObjectPointer(it->object) ||
-                std::find(candidates.begin(), candidates.end(), it->object) == candidates.end() ||
-                !IsHookRecordActiveLocked(*it))
+            bool found = false;
+            for (const auto& c : candidates)
+                if (c.first == it->object) { found = true; break; }
+
+            if (!IsWritableObjectPointer(it->object) || !found || !IsHookRecordActiveLocked(*it))
             {
                 Log("[GameThreadHook] neutralize stale hook object=0x%p", it->object);
                 NeutralizeHookLocked(*it);
@@ -802,13 +845,119 @@ namespace GameThreadHook
             ++it;
         }
 
-        for (SDK::UObject* candidate : candidates)
+        for (const auto& candidate : candidates)
         {
             if (g_Hooks.size() >= MAX_HOOKED_OBJECTS)
                 break;
 
-            HookObjectLocked(candidate);
+            HookObjectLocked(candidate.first, candidate.second);
         }
+    }
+
+    // =========================================================================
+    // Global ProcessEvent inline hook — game-thread tick
+    // =========================================================================
+    // RVA from Dumpspace/OffsetsInfo.json: OFFSET_PROCESSEVENT = 27448624
+    // Patch: 12-byte absolute JMP (MOV RAX, addr + JMP RAX) at function entry.
+    // Trampoline: copied 12 prologue bytes + 12-byte JMP back to original+12.
+    // All UObjects whose vtable[68] points to this function are intercepted,
+    // which is the vast majority — including PlayerController, giving us a
+    // stable high-frequency game-thread tick.
+    // =========================================================================
+    static constexpr uintptr_t GLOBAL_PE_RVA = 27448624; // 0x1A2D9F0
+    static uint8_t* g_GlobalPETarget  = nullptr;
+    static uint8_t* g_GlobalPETrampoline = nullptr;
+    using GlobalPEFn = void(*)(SDK::UObject*, SDK::UFunction*, void*);
+    static GlobalPEFn g_GlobalPEOriginal = nullptr;
+
+    static void GlobalHookedProcessEvent(SDK::UObject* object, SDK::UFunction* function, void* params)
+    {
+        // Only run game logic on the game thread (ID captured from attack-component PE).
+        // Animation/render/physics threads: just forward, no hacks.
+        const DWORD knownGameThread = g_GameThreadId.load(std::memory_order_relaxed);
+        if (knownGameThread != 0 && GetCurrentThreadId() == knownGameThread)
+        {
+            PumpTasks();
+            RunGameFrameUpdate();
+        }
+
+        // Forward to original via trampoline.
+        if (g_GlobalPEOriginal)
+            g_GlobalPEOriginal(object, function, params);
+    }
+
+    static bool InstallGlobalPEHook()
+    {
+        uintptr_t base = reinterpret_cast<uintptr_t>(GetModuleHandleA("HerovsGame-Win64-Shipping.exe"));
+        if (!base)
+        {
+            Log("[GameThreadHook] GlobalPEHook: module not found");
+            return false;
+        }
+
+        uint8_t* target = reinterpret_cast<uint8_t*>(base + GLOBAL_PE_RVA);
+
+        // Allocate executable trampoline (24 bytes: 12 copied + 12 JMP back)
+        uint8_t* tramp = reinterpret_cast<uint8_t*>(
+            VirtualAlloc(nullptr, 32, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE));
+        if (!tramp)
+        {
+            Log("[GameThreadHook] GlobalPEHook: trampoline alloc failed");
+            return false;
+        }
+
+        // Copy first 12 bytes of original function to trampoline
+        memcpy(tramp, target, 12);
+
+        // Append: MOV RAX, (target+12); JMP RAX — jumps back past our patch
+        const uintptr_t retAddr = reinterpret_cast<uintptr_t>(target + 12);
+        tramp[12] = 0x48; tramp[13] = 0xB8;
+        memcpy(tramp + 14, &retAddr, 8);
+        tramp[22] = 0xFF; tramp[23] = 0xE0;
+
+        g_GlobalPETrampoline = tramp;
+        g_GlobalPEOriginal   = reinterpret_cast<GlobalPEFn>(tramp);
+
+        // Patch target: MOV RAX, &GlobalHookedProcessEvent; JMP RAX
+        DWORD oldProtect = 0;
+        if (!VirtualProtect(target, 12, PAGE_EXECUTE_READWRITE, &oldProtect))
+        {
+            VirtualFree(tramp, 0, MEM_RELEASE);
+            Log("[GameThreadHook] GlobalPEHook: VirtualProtect failed");
+            return false;
+        }
+
+        const uintptr_t hookAddr = reinterpret_cast<uintptr_t>(&GlobalHookedProcessEvent);
+        target[0] = 0x48; target[1] = 0xB8;
+        memcpy(target + 2, &hookAddr, 8);
+        target[10] = 0xFF; target[11] = 0xE0;
+
+        VirtualProtect(target, 12, oldProtect, &oldProtect);
+        FlushInstructionCache(GetCurrentProcess(), target, 12);
+
+        g_GlobalPETarget = target;
+        Log("[GameThreadHook] GlobalPEHook installed target=0x%p tramp=0x%p", target, tramp);
+        return true;
+    }
+
+    static void UninstallGlobalPEHook()
+    {
+        if (!g_GlobalPETarget || !g_GlobalPETrampoline)
+            return;
+
+        DWORD old = 0;
+        if (VirtualProtect(g_GlobalPETarget, 12, PAGE_EXECUTE_READWRITE, &old))
+        {
+            memcpy(g_GlobalPETarget, g_GlobalPETrampoline, 12); // restore original bytes
+            VirtualProtect(g_GlobalPETarget, 12, old, &old);
+            FlushInstructionCache(GetCurrentProcess(), g_GlobalPETarget, 12);
+        }
+
+        VirtualFree(g_GlobalPETrampoline, 0, MEM_RELEASE);
+        g_GlobalPETarget     = nullptr;
+        g_GlobalPETrampoline = nullptr;
+        g_GlobalPEOriginal   = nullptr;
+        Log("[GameThreadHook] GlobalPEHook uninstalled");
     }
 
     bool Initialize()
@@ -819,6 +968,8 @@ namespace GameThreadHook
         Log("[GameThreadHook] Initialize begin initialized=%d", g_Initialized.load(std::memory_order_acquire) ? 1 : 0);
         const bool sdkReady = InitializeSdkNoThrow();
         Log("[GameThreadHook] SDKInit::Initialize returned %d", sdkReady ? 1 : 0);
+
+        InstallGlobalPEHook();
 
         g_Initialized.store(true, std::memory_order_release);
         RefreshHooks(true);
@@ -835,6 +986,7 @@ namespace GameThreadHook
             static_cast<unsigned long long>(g_TasksExecuted.load(std::memory_order_relaxed)),
             static_cast<unsigned long long>(g_TasksFailed.load(std::memory_order_relaxed)));
         g_Initialized.store(false, std::memory_order_release);
+        UninstallGlobalPEHook();
         ClearTasks();
 
         {

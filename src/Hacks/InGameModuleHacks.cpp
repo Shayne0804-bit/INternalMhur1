@@ -10,6 +10,8 @@
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/GameModule_structs.hpp"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/CommonModule_structs.hpp"
 #include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/BackendSubsystem_classes.hpp"
+#include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/BackendSubsystem_structs.hpp"
+#include "../../4.27.2-0+++UE4+Release-4.27-HerovsGame/CppSDK/SDK/CosmosApi_classes.hpp"
 // Newer-generation Dumper-7 headers (Ch025 V2) use these macros; the rest of
 // the dump predates them, so they are defined nowhere in the SDK itself.
 #ifndef SDK_NAMESPACE_START
@@ -258,9 +260,10 @@ static inline bool IsCharacterDyingOffset(SDK::ACharacterBattle* Character)
 }
 
 /**
- * Check if current game mode is a valid battle mode (2-9)
- * Valid modes: SOLO_BATTLE(2), DUO_BATTLE(3), SQUAD_BATTLE(4), LEADERS_BATTLE(5),
- *             DOMINATION_BATTLE(6), SOLOPICK_BATTLE(7), TUTORIAL(8), TRAINING(9)
+ * Check if current game mode is a valid battle mode (1-9)
+ * Valid modes: VISUAL_LOBBY(1), SOLO_BATTLE(2), DUO_BATTLE(3), SQUAD_BATTLE(4),
+ *             LEADERS_BATTLE(5), DOMINATION_BATTLE(6), SOLOPICK_BATTLE(7),
+ *             TUTORIAL(8), TRAINING(9)
  */
 bool IsValidBattleMode()
 {
@@ -328,9 +331,9 @@ bool IsValidBattleMode()
             return updateCache(false);
         }
 
-        // Check if valid battle mode (2-9) - cast to int for comparison
+        // Check if valid battle mode (1-9) - cast to int for comparison
         int modeValue = (int)modeType;
-        bool isValid = (modeValue >= 2 && modeValue <= 9);
+        bool isValid = (modeValue >= 1 && modeValue <= 9);
 
         return updateCache(isValid);
     }
@@ -7036,16 +7039,15 @@ bool InGameHack_ApplyCardGreen(int level)
         GreenLog(b);
     }
 
-    // EXACT reference GREEN params (read from the disassembled apply block):
-    //   ID=46, Level=level, span=15.0, value=level*10, interval=0.5,
-    //   subLevel=level, instigatedPlayer=target PlayerState, bTimeOverwrite=true.
+    // Aligned with the other abilities: 120s span, value=1000, interval=0.1.
+    // Re-applied every 117s by the tick — heal stays permanent like the rest.
     return CallSetConditionToServerRaw(
         conditionComponent,
         SDK::ECharacterConditionId::ABILITY_HEAL, // 46
         level,
-        15.0f,                   // span
-        (float)level * 10.0f,    // value = level * 10
-        0.5f,                    // interval
+        120.0f,                  // span (2 min, same as other abilities)
+        1000.0f,                 // value
+        0.1f,                    // interval
         level,                   // subLevel = level
         instigatedPlayer,
         0,                       // damageActionSerialNo
@@ -7053,7 +7055,7 @@ bool InGameHack_ApplyCardGreen(int level)
 }
 
 static bool ApplyAbilityCondition(SDK::ECharacterConditionId id, int level, const char* logName,
-                                  float span = 15.0f, bool logSuccess = true)
+                                  float span = 120.0f, bool logSuccess = true)
 {
     if (!IsAbilityConditionId(id))
     {
@@ -7219,25 +7221,24 @@ void InGameHack_TickAbilityConditions()
         catch (...) {}
     }
 
-    // Re-apply enabled abilities THROTTLED, matching the reference cheat's cadence
-    // of 0x2EE0 ms (12s) between re-applies. Frequent-but-not-per-frame re-apply is
-    // how the reference DLL keeps the buff felt-permanent without spamming the
-    // server every frame. The 120s span comfortably overlaps the 12s cadence.
+    // Re-apply enabled abilities THROTTLED. Span is 120s (2 min) and we re-apply
+    // at 117s (1m57s), so each buff is refreshed ~3s before it expires — the buff
+    // stays felt-permanent with minimal server traffic.
     const ULONGLONG now = GetTickCount64();
-    if (now - s_lastApplyTick < 12000)
+    if (now - s_lastApplyTick < 117000)
         return;
     s_lastApplyTick = now;
 
     if (ImGuiMenu::g_HackSettings.AbilityAttackActive)
-        ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_ATTACK, ImGuiMenu::g_HackSettings.AbilityAttackLevel, "AbilityAttack", 15.0f, false);
+        ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_ATTACK, ImGuiMenu::g_HackSettings.AbilityAttackLevel, "AbilityAttack", 120.0f, false);
     if (ImGuiMenu::g_HackSettings.AbilityDurableActive)
-        ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_DURABLE, ImGuiMenu::g_HackSettings.AbilityDurableLevel, "AbilityDurable", 15.0f, false);
+        ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_DURABLE, ImGuiMenu::g_HackSettings.AbilityDurableLevel, "AbilityDurable", 120.0f, false);
     if (ImGuiMenu::g_HackSettings.AbilityMovespeedActive)
-        ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_MOVESPEED, ImGuiMenu::g_HackSettings.AbilityMovespeedLevel, "AbilityMovespeed", 15.0f, false);
+        ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_MOVESPEED, ImGuiMenu::g_HackSettings.AbilityMovespeedLevel, "AbilityMovespeed", 120.0f, false);
     if (ImGuiMenu::g_HackSettings.AbilityHealActive)
         InGameHack_ApplyCardGreen(ImGuiMenu::g_HackSettings.AbilityHealLevel);
     if (ImGuiMenu::g_HackSettings.AbilityTechniqueActive)
-        ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_TECHNIQUE, ImGuiMenu::g_HackSettings.AbilityTechniqueLevel, "AbilityTechnique", 15.0f, false);
+        ApplyAbilityCondition(SDK::ECharacterConditionId::ABILITY_TECHNIQUE, ImGuiMenu::g_HackSettings.AbilityTechniqueLevel, "AbilityTechnique", 120.0f, false);
 }
 
 
@@ -8445,6 +8446,812 @@ static void CollectSuicideHookObjectsCore(SDK::UObject** outReplicator, SDK::UOb
         *outCollision = nullptr;
     }
 }
+
+// ============================================================================
+// CROSSPLAY DIAGNOSTIC TRACER (step 1: understand the join-by-code gate)
+// ----------------------------------------------------------------------------
+// Goal: when Jack joins a squad by code and it's refused for crossplay, find out
+// WHERE the decision is made. If the game calls JoinSquad() and it returns false
+// -> backend-authoritative (unspoofable client-side). If JoinSquad() is never
+// called and the refusal comes purely from the pre-check getters
+// (IsSquadLeaderCrossPlay / GetEnableCrossPlaySetting / GetCosmosForcedDisable...)
+// -> client-side gate we can force.
+//
+// Pure log-only. Zero behavior change. Gated by CrossplayTraceActive. The hot
+// path is pointer-compare against pre-resolved UFunction singletons (no GetName
+// per ProcessEvent call).
+// ============================================================================
+static void CpTrace(const char* fmt, ...)
+{
+    char buf[1024];
+    va_list ap;
+    va_start(ap, fmt);
+    _vsnprintf_s(buf, sizeof(buf), _TRUNCATE, fmt, ap);
+    va_end(ap);
+
+    SYSTEMTIME st;
+    GetLocalTime(&st);
+    char line[1152];
+    int n = _snprintf_s(line, sizeof(line), _TRUNCATE,
+        "[%02d:%02d:%02d.%03d] %s\r\n",
+        st.wHour, st.wMinute, st.wSecond, st.wMilliseconds, buf);
+
+    HANDLE h = CreateFileA("C:\\Temp\\rugir_crossplay.log",
+        FILE_APPEND_DATA, FILE_SHARE_READ | FILE_SHARE_WRITE, nullptr,
+        OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+    if (h != INVALID_HANDLE_VALUE)
+    {
+        DWORD written = 0;
+        WriteFile(h, line, (DWORD)(n > 0 ? n : 0), &written, nullptr);
+        CloseHandle(h);
+    }
+}
+
+// Kinds of traced calls, so pre/post handlers know how to read args/return.
+enum class CpFnKind : int
+{
+    None = 0,
+    JoinSquad,              // arg0 FString password, ret bool @0x10
+    JoinSquadBySquadId,     // arg0 FString squadId,  ret bool @0x10
+    JoinSquadByInvitation,  // arg0 FString invId,    ret bool @0x10
+    GetCosmosForcedDisable, // ret bool @0x00
+    GetEnableCrossPlay,     // ret bool @0x00
+    SetEnableCrossPlay,     // arg0 bool @0x00, no ret
+    IsSquadLeaderCrossPlay, // ret bool @0x00
+    IsEnableCrossPlay_CM,   // DbpCustomMatching, ret bool @0x00
+    IsEnableCrossPlay_Set,  // DbpSetting,        ret bool @0x00
+};
+
+struct CpTargetFn
+{
+    SDK::UFunction* fn;
+    CpFnKind kind;
+    const char* label;
+};
+
+static CpTargetFn s_cpTargets[16];
+static int  s_cpTargetCount = 0;
+static bool s_cpResolved = false;
+
+static void CpResolveTargetsCore()
+{
+    __try
+    {
+        s_cpTargetCount = 0;
+
+        SDK::UClass* backendCls = SDK::UBackendSubsystem::StaticClass();
+        SDK::UClass* mainMenuCls = SDK::UDbpMainMenu::StaticClass();
+        SDK::UClass* customMatchCls = SDK::UDbpCustomMatching::StaticClass();
+        SDK::UClass* settingCls = SDK::UDbpSetting::StaticClass();
+
+        auto add = [&](SDK::UClass* cls, const char* clsName, const char* fnName,
+                       CpFnKind kind, const char* label)
+        {
+            if (!cls) return;
+            SDK::UFunction* f = cls->GetFunction(clsName, fnName);
+            if (f && s_cpTargetCount < 16)
+                s_cpTargets[s_cpTargetCount++] = { f, kind, label };
+        };
+
+        add(backendCls, "BackendSubsystem", "JoinSquad",
+            CpFnKind::JoinSquad, "JoinSquad");
+        add(backendCls, "BackendSubsystem", "JoinSquadBySquadId",
+            CpFnKind::JoinSquadBySquadId, "JoinSquadBySquadId");
+        add(backendCls, "BackendSubsystem", "JoinSquadByInvitation",
+            CpFnKind::JoinSquadByInvitation, "JoinSquadByInvitation");
+        add(backendCls, "BackendSubsystem", "GetCosmosForcedDisableCrossPlayFlag",
+            CpFnKind::GetCosmosForcedDisable, "GetCosmosForcedDisableCrossPlayFlag");
+        add(backendCls, "BackendSubsystem", "GetEnableCrossPlaySetting",
+            CpFnKind::GetEnableCrossPlay, "GetEnableCrossPlaySetting");
+        add(backendCls, "BackendSubsystem", "SetEnableCrossPlaySetting",
+            CpFnKind::SetEnableCrossPlay, "SetEnableCrossPlaySetting");
+        add(mainMenuCls, "DbpMainMenu", "IsSquadLeaderCrossPlay",
+            CpFnKind::IsSquadLeaderCrossPlay, "IsSquadLeaderCrossPlay");
+        add(customMatchCls, "DbpCustomMatching", "IsEnableCrossPlay",
+            CpFnKind::IsEnableCrossPlay_CM, "DbpCustomMatching.IsEnableCrossPlay");
+        add(settingCls, "DbpSetting", "IsEnableCrossPlay",
+            CpFnKind::IsEnableCrossPlay_Set, "DbpSetting.IsEnableCrossPlay");
+
+        s_cpResolved = (s_cpTargetCount > 0);
+        if (s_cpResolved)
+            CpTrace("[resolve] %d target functions resolved", s_cpTargetCount);
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        s_cpTargetCount = 0;
+    }
+}
+
+static CpFnKind CpMatch(SDK::UFunction* function, const char** outLabel)
+{
+    for (int i = 0; i < s_cpTargetCount; ++i)
+    {
+        if (s_cpTargets[i].fn == function)
+        {
+            if (outLabel) *outLabel = s_cpTargets[i].label;
+            return s_cpTargets[i].kind;
+        }
+    }
+    return CpFnKind::None;
+}
+
+// Registry of objects we hooked for the trace, so the pre-hook can decide whether
+// to log the NAME of an arbitrary function call on that object (not just our 9
+// known ones). Populated by InGameHack_CollectCrossplayTraceObjects each refresh.
+static SDK::UObject* s_cpTracedObjects[32] = {};
+static int s_cpTracedObjectCount = 0;
+
+// Typed pointers to the live backend + its main-menu Dbp, saved during collection
+// so the OnLoadCompleteEvent probe can call the crossplay getters directly.
+static SDK::UBackendSubsystem* s_cpBackend = nullptr;
+static SDK::UDbpMainMenu*      s_cpDbpMainMenu = nullptr;
+
+// When the squad data finishes loading (OnLoadCompleteEvent), read the crossplay
+// state the client is about to compare: our own setting vs the squad leader's vs
+// the Cosmos forced-off flag. If these are the values that gate the Join button,
+// this is where we'd force it. Called from the post-hook; own SEH.
+static void CpProbeCrossplayStateCore()
+{
+    __try
+    {
+        if (s_cpBackend && SafeMemory::IsReadable(s_cpBackend, sizeof(void*)))
+        {
+            bool myCross = s_cpBackend->GetEnableCrossPlaySetting();
+            bool cosmosOff = s_cpBackend->GetCosmosForcedDisableCrossPlayFlag();
+            CpTrace("  [probe] GetEnableCrossPlaySetting=%d  CosmosForcedDisable=%d",
+                    myCross ? 1 : 0, cosmosOff ? 1 : 0);
+        }
+        if (s_cpDbpMainMenu && SafeMemory::IsReadable(s_cpDbpMainMenu, sizeof(void*)))
+        {
+            bool leaderCross = s_cpDbpMainMenu->IsSquadLeaderCrossPlay();
+            CpTrace("  [probe] IsSquadLeaderCrossPlay=%d", leaderCross ? 1 : 0);
+        }
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        CpTrace("  [probe] <exception reading crossplay getters>");
+    }
+}
+
+// On-demand manual probe (button in Misc). Resolves the backend fresh and dumps
+// every crossplay-related value RIGHT NOW, so Jack can reproduce the refusal
+// state on screen and snapshot it without us needing to intercept an async event.
+// Declared in the header; defined here after ResolveRuntimeBackendSubsystem is
+// forward-usable (it's a static earlier in the file... it's not — so we do the
+// resolution inline via GObjects, mirroring ResolveRuntimeBackendSubsystem).
+static SDK::UBackendSubsystem* CpResolveBackendFresh()
+{
+    SDK::TUObjectArray* gObjects = SDK::UObject::GObjects.GetTypedPtr();
+    int32_t objectCount = 0;
+    if (!IsValidPointer(gObjects) || !TryGetObjectArrayCountSafe(gObjects, objectCount))
+        return nullptr;
+    if (objectCount <= 0 || objectCount > 2000000)
+        return nullptr;
+
+    SDK::UClass* backendClass = SDK::UBackendSubsystem::StaticClass();
+    if (!IsValidPointer(backendClass))
+        return nullptr;
+
+    for (int32_t i = 0; i < objectCount; ++i)
+    {
+        SDK::UObject* obj = GetObjectByIndexSafe(gObjects, i);
+        if (!IsValidPointer(obj) || IsObjectDefaultSafe(obj))
+            continue;
+        if (IsObjectAUnsafeGuarded(obj, backendClass))
+            return static_cast<SDK::UBackendSubsystem*>(obj);
+    }
+    return nullptr;
+}
+
+// Map the platform int to a readable name (mirrors BackendPlatformNameFromCode).
+static const char* CpPlatformName(int p)
+{
+    switch (p)
+    {
+    case 0: return "Invalid";
+    case 1: return "PlayStation";
+    case 2: return "Xbox";
+    case 3: return "Windows";
+    case 4: return "Switch";
+    case 5: return "None";
+    default: return "Unknown";
+    }
+}
+
+// Inner (NO __try — has C++ unwind objects). Reads the squad-membership state that
+// EXPLAINS a JoinSquad FALSE instead of guessing: are we already in a squad, our
+// current squad id, and the fetched target squad's members with their platform +
+// per-member crossplay flag. A crash here is caught by the guarded wrapper's SEH
+// (SEH unwinds across the call boundary).
+static void CpDumpSquadStateInner(SDK::UDbpMainMenu* mainMenu)
+{
+    bool joined = mainMenu->IsSquadJoined();
+    CpTrace("  [squad] IsSquadJoined=%d  (if 1, a JoinSquad FALSE just means \"already in a squad\")",
+            joined ? 1 : 0);
+
+    SDK::FString curSquad = mainMenu->GetSquadId();
+    if (curSquad.IsValid() && curSquad.CStr())
+        CpTrace("  [squad] current SquadId=\"%ls\"", curSquad.CStr());
+    else
+        CpTrace("  [squad] current SquadId=<none>");
+
+    SDK::TArray<SDK::FDbSquadMemberParam> members = mainMenu->GetFetchedSquadMemberList();
+    int n = members.Num();
+    CpTrace("  [squad] fetched target squad: %d member(s)", n);
+
+    const SDK::FDbSquadMemberParam* data = members.GetDataPtr();
+    if (!data)
+        return;
+    if (n > 8) n = 8; // cap log volume
+    for (int i = 0; i < n; ++i)
+    {
+        const SDK::FDbSquadMemberParam& m = data[i];
+        const wchar_t* idStr = (m.ID.IsValid() && m.ID.CStr()) ? m.ID.CStr() : L"?";
+        CpTrace("  [squad]   member[%d] id=\"%ls\" platform=%d(%s) crossplay=%d leader=%d",
+                i, idStr, m.platform, CpPlatformName(m.platform),
+                m.bEnabledCrossPlay ? 1 : 0, m.bSquadLeader ? 1 : 0);
+    }
+}
+
+// Guarded wrapper (has __try, no C++ objects) — SEH-protects the inner reader.
+static void CpDumpSquadStateGuarded(SDK::UDbpMainMenu* mainMenu)
+{
+    __try
+    {
+        CpDumpSquadStateInner(mainMenu);
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        CpTrace("  [squad] <exception reading squad state>");
+    }
+}
+
+// Read the raw FetchedSquadInfo from DatabaseParams.matching. This block SURVIVES
+// the MemberList filtering: even when GetFetchedSquadMemberList() returns 0 (the
+// client hid the members), FetchedSquadInfo.ID is set if the squad was actually
+// FOUND on the server. So: ID non-empty + 0 members = squad exists but filtered
+// (the crossplay/platform case). ID empty = squad not found (dead code / timing).
+//   DatabaseParams + matching(0x5660) + FetchedSquadInfo(0x1288) + field
+static constexpr size_t kFetchedSquadInfoBase = 0x5660 + 0x1288; // 0x68E8
+static void CpDumpFetchedSquadInfoInner(SDK::UDatabaseParams* dbParams)
+{
+    uint8_t* base = reinterpret_cast<uint8_t*>(dbParams) + kFetchedSquadInfoBase;
+
+    SDK::FString* id       = reinterpret_cast<SDK::FString*>(base + 0x8);
+    SDK::FString* password = reinterpret_cast<SDK::FString*>(base + 0x18);
+    int32_t playMode       = *reinterpret_cast<int32_t*>(base + 0x28);
+    int32_t squadNo        = *reinterpret_cast<int32_t*>(base + 0x80);
+
+    const wchar_t* idStr = (id->IsValid() && id->CStr()) ? id->CStr() : L"";
+    const wchar_t* pwStr = (password->IsValid() && password->CStr()) ? password->CStr() : L"";
+    bool idEmpty = (idStr[0] == L'\0');
+
+    CpTrace("  [fetched] ID=\"%ls\" password=\"%ls\" PlayMode=%d SquadNo=%d",
+            idStr, pwStr, playMode, squadNo);
+    if (idEmpty)
+        CpTrace("  [fetched] => ID EMPTY: squad was NOT found (bad/expired code or fetch not done yet)");
+    else
+        CpTrace("  [fetched] => ID SET: squad WAS found on server; empty MemberList = client FILTERED it");
+}
+
+static void CpDumpFetchedSquadInfoGuarded(SDK::UDatabaseParams* dbParams)
+{
+    __try
+    {
+        CpDumpFetchedSquadInfoInner(dbParams);
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        CpTrace("  [fetched] <exception reading FetchedSquadInfo>");
+    }
+}
+
+void InGameHack_ProbeCrossplayNow()
+{
+    CpTrace("---------- PROBE ----------");
+    __try
+    {
+        SDK::UBackendSubsystem* backend = CpResolveBackendFresh();
+        if (!backend || !SafeMemory::IsReadable(backend, 0x91B0))
+        {
+            CpTrace("  [manual] backend not resolved");
+            return;
+        }
+
+        bool myCross   = backend->GetEnableCrossPlaySetting();
+        bool cosmosOff = backend->GetCosmosForcedDisableCrossPlayFlag();
+        CpTrace("  [manual] GetEnableCrossPlaySetting=%d  CosmosForcedDisable=%d",
+                myCross ? 1 : 0, cosmosOff ? 1 : 0);
+
+        // _dbpMainMenu lives inside UDatabaseParams, NOT directly in the backend.
+        // The previous raw offset (+0x90C0) read the wrong object => null. Use the
+        // official accessor chain: backend->GetDatabaseParams()->GetMainMenuData().
+        SDK::UDatabaseParams* dbParams = backend->GetDatabaseParams();
+        SDK::UDbpMainMenu* mainMenu = nullptr;
+        SDK::UDbpSetting* setting = nullptr;
+        SDK::UDbpCustomMatching* cm = nullptr;
+        if (dbParams && SafeMemory::IsReadable(dbParams, sizeof(void*)))
+        {
+            mainMenu = dbParams->GetMainMenuData();
+            setting  = dbParams->GetSettingData();
+            cm       = dbParams->GetCustomMatchingData();
+
+            // Raw FetchedSquadInfo — survives MemberList filtering, so it tells us
+            // whether the squad was FOUND (ID set) but hidden, vs not found at all.
+            CpDumpFetchedSquadInfoGuarded(dbParams);
+        }
+        else
+        {
+            CpTrace("  [manual] DatabaseParams null");
+        }
+
+        if (mainMenu && SafeMemory::IsReadable(mainMenu, sizeof(void*)))
+        {
+            bool leaderCross = mainMenu->IsSquadLeaderCrossPlay();
+            CpTrace("  [manual] IsSquadLeaderCrossPlay=%d", leaderCross ? 1 : 0);
+            CpDumpSquadStateGuarded(mainMenu);
+        }
+        else
+        {
+            CpTrace("  [manual] dbpMainMenu null");
+        }
+
+        if (setting && SafeMemory::IsReadable(setting, sizeof(void*)))
+        {
+            bool setCross = setting->IsEnableCrossPlay();
+            CpTrace("  [manual] DbpSetting.IsEnableCrossPlay=%d", setCross ? 1 : 0);
+        }
+
+        if (cm && SafeMemory::IsReadable(cm, sizeof(void*)))
+        {
+            bool cmCross = cm->IsEnableCrossPlay();
+            CpTrace("  [manual] DbpCustomMatching.IsEnableCrossPlay=%d", cmCross ? 1 : 0);
+        }
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        CpTrace("  [manual] <exception>");
+    }
+}
+
+// ============================================================================
+// CROSSPLAY BYPASS — inline patch of the crossplay-leader getter.
+// ----------------------------------------------------------------------------
+// RE (capstone on MHUR.exe, ImageBase 0x140000000) found the SINGLE client-side
+// authority for "does the host allow crossplay": sub_10CDA60 (the real body of
+// UDbpMainMenu::IsSquadLeaderCrossPlay). It reads the squad leader's
+// bEnabledCrossPlay byte (member+0xC8E) and returns it. Every squad search/join
+// crossplay refusal branches on this bool. Forcing it to return 1 makes the
+// client treat every host as crossplay-enabled.
+//
+// Patch: 3 bytes at RVA 0x10CDA60 -> B0 01 C3 (mov al,1 ; ret).
+// Original prologue: 48 83 EC 28 48 8B 49 40 (sub rsp,0x28 ; mov rcx,[rcx+0x40]).
+// We verify the original bytes before patching (guards against a game update
+// shifting the offset), and keep the saved bytes so the toggle can restore them.
+// ============================================================================
+static constexpr uintptr_t kCrossplayGetterRVA = 0x10CDA60;
+static const uint8_t kCrossplayOrig[8] = { 0x48, 0x83, 0xEC, 0x28, 0x48, 0x8B, 0x49, 0x40 };
+static const uint8_t kCrossplayPatch[3] = { 0xB0, 0x01, 0xC3 }; // mov al,1 ; ret
+
+static bool     s_crossplayPatched = false;
+static uint8_t  s_crossplaySavedBytes[3] = {};
+
+static bool CpApplyCrossplayPatch(bool enable)
+{
+    __try
+    {
+        uintptr_t base = reinterpret_cast<uintptr_t>(GetModuleHandleA(nullptr));
+        if (!base)
+        {
+            CpTrace("  [bypass] module base null");
+            return false;
+        }
+        uint8_t* target = reinterpret_cast<uint8_t*>(base + kCrossplayGetterRVA);
+
+        if (!SafeMemory::IsReadable(target, 8))
+        {
+            CpTrace("  [bypass] target not readable @0x%p", (void*)target);
+            return false;
+        }
+
+        if (enable)
+        {
+            if (s_crossplayPatched)
+            {
+                CpTrace("  [bypass] already patched");
+                return true;
+            }
+            // Verify the original prologue matches what RE expects.
+            if (memcmp(target, kCrossplayOrig, sizeof(kCrossplayOrig)) != 0)
+            {
+                CpTrace("  [bypass] ABORT: original bytes mismatch (game updated?) "
+                        "got %02X %02X %02X %02X %02X %02X %02X %02X",
+                        target[0],target[1],target[2],target[3],
+                        target[4],target[5],target[6],target[7]);
+                return false;
+            }
+            DWORD oldProtect = 0;
+            if (!VirtualProtect(target, sizeof(kCrossplayPatch), PAGE_EXECUTE_READWRITE, &oldProtect))
+            {
+                CpTrace("  [bypass] VirtualProtect failed");
+                return false;
+            }
+            memcpy(s_crossplaySavedBytes, target, sizeof(kCrossplayPatch));
+            memcpy(target, kCrossplayPatch, sizeof(kCrossplayPatch));
+            DWORD tmp = 0;
+            VirtualProtect(target, sizeof(kCrossplayPatch), oldProtect, &tmp);
+            FlushInstructionCache(GetCurrentProcess(), target, sizeof(kCrossplayPatch));
+            s_crossplayPatched = true;
+            CpTrace("  [bypass] PATCH applied @0x%p (mov al,1; ret)", (void*)target);
+            return true;
+        }
+        else
+        {
+            if (!s_crossplayPatched)
+                return true;
+            DWORD oldProtect = 0;
+            if (!VirtualProtect(target, sizeof(kCrossplayPatch), PAGE_EXECUTE_READWRITE, &oldProtect))
+            {
+                CpTrace("  [bypass] VirtualProtect (restore) failed");
+                return false;
+            }
+            memcpy(target, s_crossplaySavedBytes, sizeof(kCrossplayPatch));
+            DWORD tmp = 0;
+            VirtualProtect(target, sizeof(kCrossplayPatch), oldProtect, &tmp);
+            FlushInstructionCache(GetCurrentProcess(), target, sizeof(kCrossplayPatch));
+            s_crossplayPatched = false;
+            CpTrace("  [bypass] PATCH reverted @0x%p", (void*)target);
+            return true;
+        }
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        CpTrace("  [bypass] <exception>");
+        return false;
+    }
+}
+
+// Public toggle entry: call whenever the menu checkbox changes. Idempotent.
+void InGameHack_SetCrossplayBypass(bool enable)
+{
+    CpTrace("========== CROSSPLAY BYPASS %s ==========", enable ? "ON" : "OFF");
+    CpApplyCrossplayPatch(enable);
+}
+
+// Force-join a squad by code, bypassing the widget's client-side crossplay gate.
+// Calls BackendSubsystem::JoinSquad(code) directly and logs the return value.
+// This is the decisive test: if it returns TRUE (or we actually enter the squad),
+// the gate was client-side and beatable; if FALSE, the backend is authoritative.
+static bool TryMakeWideStringFromUtf8(const char* text, std::wstring& outText); // fwd
+
+// SEH-isolated call: no C++ unwind objects in the __try body (FString is built by
+// the caller and passed by pointer), so this compiles under /EHa.
+static bool CpCallJoinSquadGuarded(SDK::UBackendSubsystem* backend,
+                                   SDK::FString* codeStr, bool* outRet)
+{
+    __try
+    {
+        *outRet = backend->JoinSquad(*codeStr);
+        return true;
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        return false;
+    }
+}
+
+void InGameHack_ForceJoinSquadByCode(const char* code)
+{
+    CpTrace("========== FORCE JOIN (button) code=\"%s\" ==========", code ? code : "");
+    std::wstring wideCode;
+    if (!TryMakeWideStringFromUtf8(code ? code : "", wideCode))
+    {
+        CpTrace("  [forcejoin] could not widen code");
+        return;
+    }
+
+    SDK::UBackendSubsystem* backend = CpResolveBackendFresh();
+    if (!backend || !SafeMemory::IsReadable(backend, sizeof(void*)))
+    {
+        CpTrace("  [forcejoin] backend not resolved");
+        return;
+    }
+
+    SDK::FString codeStr(wideCode.c_str());
+    bool ret = false;
+    if (CpCallJoinSquadGuarded(backend, &codeStr, &ret))
+        CpTrace("  [forcejoin] JoinSquad(\"%ls\") => %s", wideCode.c_str(),
+                ret ? "TRUE" : "FALSE");
+    else
+        CpTrace("  [forcejoin] <exception>");
+}
+
+// Find a live SquadFindWidget in GObjects (the on-screen squad-search widget).
+static SDK::USquadFindWidget* CpResolveSquadFindWidget()
+{
+    SDK::TUObjectArray* gObjects = SDK::UObject::GObjects.GetTypedPtr();
+    int32_t objectCount = 0;
+    if (!IsValidPointer(gObjects) || !TryGetObjectArrayCountSafe(gObjects, objectCount))
+        return nullptr;
+    if (objectCount <= 0 || objectCount > 2000000)
+        return nullptr;
+
+    SDK::UClass* findCls = SDK::USquadFindWidget::StaticClass();
+    if (!IsValidPointer(findCls))
+        return nullptr;
+
+    for (int32_t i = 0; i < objectCount; ++i)
+    {
+        SDK::UObject* obj = GetObjectByIndexSafe(gObjects, i);
+        if (!IsValidPointer(obj) || IsObjectDefaultSafe(obj))
+            continue;
+        if (IsObjectAUnsafeGuarded(obj, findCls))
+            return static_cast<SDK::USquadFindWidget*>(obj);
+    }
+    return nullptr;
+}
+
+static bool CpCallFindSquadGuarded(SDK::USquadFindWidget* widget, SDK::FString* numberStr)
+{
+    __try
+    {
+        widget->FindSquadRequest(*numberStr);
+        return true;
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        return false;
+    }
+}
+
+// Step 1 of the real flow: ask the live squad-search widget to fetch the squad for
+// this code, exactly like typing it in the UI. This loads the squad server-side so
+// a subsequent JoinSquad has something to attach to. Reproduces the game's own path.
+void InGameHack_FindSquadByCode(const char* code)
+{
+    CpTrace("========== FIND SQUAD (button) code=\"%s\" ==========", code ? code : "");
+    std::wstring wideCode;
+    if (!TryMakeWideStringFromUtf8(code ? code : "", wideCode))
+    {
+        CpTrace("  [findsquad] could not widen code");
+        return;
+    }
+
+    SDK::USquadFindWidget* widget = CpResolveSquadFindWidget();
+    if (!widget || !SafeMemory::IsReadable(widget, sizeof(void*)))
+    {
+        CpTrace("  [findsquad] no live SquadFindWidget (open the squad-search screen first)");
+        return;
+    }
+
+    SDK::FString numberStr(wideCode.c_str());
+    if (CpCallFindSquadGuarded(widget, &numberStr))
+        CpTrace("  [findsquad] FindSquadRequest(\"%ls\") issued — wait, then Join Fetched", wideCode.c_str());
+    else
+        CpTrace("  [findsquad] <exception>");
+}
+
+// Auto-probe: called every ProcessEvent, self-throttled to ~1s. While Crossplay
+// Trace is ON, this dumps the crossplay trio to the log continuously, so the
+// deciding values are captured at the moment of refusal with zero clicks/timing.
+// The getters call ProcessEvent (re-entering our hook on the traced backend), so
+// a reentrancy flag prevents infinite recursion.
+static volatile long s_cpAutoProbeBusy = 0;
+void InGameHack_AutoProbeCrossplayTick()
+{
+    // DISABLED: the auto-probe re-scanned all 1-2M GObjects every second (its
+    // CpResolveBackendFresh does a full sweep) which contributed to the FPS drop.
+    // We already captured the crossplay values (myCross=1, cosmosOff=0), so the
+    // continuous probe is no longer needed. The manual "Probe Crossplay Now"
+    // button still works on demand. Kept as a no-op so the hook call site stays.
+    (void)s_cpAutoProbeBusy;
+    return;
+}
+
+static bool CpIsTracedObject(const SDK::UObject* object)
+{
+    for (int i = 0; i < s_cpTracedObjectCount; ++i)
+        if (s_cpTracedObjects[i] == object)
+            return true;
+    return false;
+}
+
+// Copy class+function name into POD buffers. GetName() returns std::string (a C++
+// unwind object) which can't live inside __try under /EHa, so instead of SEH we
+// validate readability first — the object is already known-live (it's hooked) and
+// the function pointer comes straight from the engine's ProcessEvent dispatch.
+static bool CpCopyNamesGuarded(const SDK::UObject* object, SDK::UFunction* function,
+                               char* objBuf, char* fnBuf, size_t bufSize)
+{
+    if (!SafeMemory::IsReadable(object, sizeof(void*)) ||
+        !SafeMemory::IsReadable(function, sizeof(void*)))
+        return false;
+
+    std::string o = const_cast<SDK::UObject*>(object)->GetName();
+    std::string f = reinterpret_cast<SDK::UObject*>(function)->GetName();
+    strncpy_s(objBuf, bufSize, o.c_str(), _TRUNCATE);
+    strncpy_s(fnBuf, bufSize, f.c_str(), _TRUNCATE);
+    return true;
+}
+
+// Log the class + function name of an arbitrary PE call. Only ever called for
+// objects in the traced set. UI widgets fire Tick/Paint/Key/Mouse events every
+// frame — logging (GetName + file I/O) on each would tank FPS. So we keep an
+// allow-list of substrings that matter for the squad-join / crossplay flow and
+// drop everything else BEFORE any file write.
+static bool CpFnNameIsRelevant(const char* fnName)
+{
+    static const char* kKeep[] = {
+        "Squad", "Join", "Match", "Cross", "Reservation", "Room",
+        "Error", "Decide", "LoadComplete", "Request", "Enter", "Platform",
+        "UpdateJoin", "Player", "Invit", "Team",
+    };
+    for (const char* k : kKeep)
+        if (strstr(fnName, k))
+            return true;
+    return false;
+}
+
+static void CpLogGenericCall(const SDK::UObject* object, SDK::UFunction* function)
+{
+    char objBuf[256] = {};
+    char fnBuf[256] = {};
+    if (!CpCopyNamesGuarded(object, function, objBuf, fnBuf, sizeof(objBuf)))
+        return;
+
+    bool relevant = CpFnNameIsRelevant(fnBuf);
+
+    // Capture window: once the user validates a squad code (DecideId / a Request),
+    // the refusal/response comes back ASYNC and its event name may be outside the
+    // allow-list. So for 5s after such a trigger, log EVERYTHING on traced objects
+    // (still skipping the highest-frequency per-frame UI churn) so we miss nothing.
+    static DWORD s_captureUntil = 0;
+    DWORD now = GetTickCount();
+    if (relevant && (strstr(fnBuf, "Decide") || strstr(fnBuf, "Request") ||
+                     strstr(fnBuf, "Join")   || strstr(fnBuf, "Find")))
+        s_captureUntil = now + 5000;
+
+    bool inWindow = (now < s_captureUntil);
+    if (!relevant && !inWindow)
+        return; // drop per-frame UI noise outside the capture window
+
+    // Even inside the window, skip the absolute highest-frequency paint/tick calls
+    // so file I/O stays sane.
+    if (!relevant && inWindow)
+    {
+        if (strstr(fnBuf, "Tick") || strstr(fnBuf, "Paint") ||
+            strstr(fnBuf, "OnMouse") || strstr(fnBuf, "Geometry") ||
+            strstr(fnBuf, "Visibility") || strstr(fnBuf, "Animation") ||
+            strstr(fnBuf, "Focus"))
+            return;
+    }
+
+    CpTrace("  [evt] %s :: %s", objBuf, fnBuf);
+
+    // The squad data just finished loading — the client now has the leader's
+    // crossplay flag and is about to decide whether to enable the Join button.
+    // Probe the exact getters it compares, so we see the deciding values.
+    if (strstr(fnBuf, "LoadComplete") || strstr(fnBuf, "Response") ||
+        strstr(fnBuf, "Error") || strstr(fnBuf, "UpdateJoin"))
+        CpProbeCrossplayStateCore();
+}
+
+static void CpLogFStringArg(const char* label, void* params, int argOffset)
+{
+    __try
+    {
+        SDK::FString* s = reinterpret_cast<SDK::FString*>(
+            reinterpret_cast<uint8_t*>(params) + argOffset);
+        if (s && s->IsValid() && s->CStr())
+            CpTrace("  -> CALL %s(arg=\"%ls\")", label, s->CStr());
+        else
+            CpTrace("  -> CALL %s(arg=<empty>)", label);
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        CpTrace("  -> CALL %s(arg=<unreadable>)", label);
+    }
+}
+
+static void CpTraceProcessEventPreCore(const SDK::UObject* object, SDK::UFunction* function, void* params)
+{
+    (void)object;
+    const char* label = nullptr;
+    CpFnKind kind = CpMatch(function, &label);
+    if (kind == CpFnKind::None)
+    {
+        // Generic per-call name logging was removed: GetName() allocates a
+        // std::string on EVERY ProcessEvent call for the traced widgets/backend
+        // (hundreds/frame) and tanked FPS to ~5. We only pointer-compare against
+        // our 9 known decision functions now — that's essentially free.
+        return;
+    }
+
+    switch (kind)
+    {
+    case CpFnKind::JoinSquad:             CpLogFStringArg(label, params, 0x0); break;
+    case CpFnKind::JoinSquadBySquadId:    CpLogFStringArg(label, params, 0x0); break;
+    case CpFnKind::JoinSquadByInvitation: CpLogFStringArg(label, params, 0x0); break;
+    case CpFnKind::SetEnableCrossPlay:
+    {
+        __try {
+            bool en = *reinterpret_cast<bool*>(params);
+            CpTrace("  -> CALL %s(enable=%d)", label, en ? 1 : 0);
+        } __except (HandleAccessViolation(GetExceptionInformation())) {
+            CpTrace("  -> CALL %s(enable=<unreadable>)", label);
+        }
+        break;
+    }
+    default:
+        CpTrace("  -> CALL %s()", label);
+        break;
+    }
+}
+
+static void CpTraceProcessEventPostCore(SDK::UFunction* function, void* params)
+{
+    const char* label = nullptr;
+    CpFnKind kind = CpMatch(function, &label);
+    if (kind == CpFnKind::None)
+        return;
+
+    int retOffset = -1;
+    switch (kind)
+    {
+    case CpFnKind::JoinSquad:
+    case CpFnKind::JoinSquadBySquadId:
+    case CpFnKind::JoinSquadByInvitation:
+        retOffset = 0x10; break;
+    case CpFnKind::GetCosmosForcedDisable:
+    case CpFnKind::GetEnableCrossPlay:
+    case CpFnKind::IsSquadLeaderCrossPlay:
+    case CpFnKind::IsEnableCrossPlay_CM:
+    case CpFnKind::IsEnableCrossPlay_Set:
+        retOffset = 0x0; break;
+    case CpFnKind::SetEnableCrossPlay:
+    default:
+        return; // no return value to read
+    }
+
+    __try
+    {
+        bool ret = *reinterpret_cast<bool*>(
+            reinterpret_cast<uint8_t*>(params) + retOffset);
+        CpTrace("  <- RET  %s => %s", label, ret ? "TRUE" : "FALSE");
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        CpTrace("  <- RET  %s => <unreadable>", label);
+    }
+}
+
+// Public entry points called from the ProcessEvent hook (pre + post original).
+void InGameHack_TraceCrossplayPre(const SDK::UObject* object, SDK::UFunction* function, void* params)
+{
+    if (!ImGuiMenu::g_HackSettings.CrossplayTraceActive)
+        return;
+    if (!object || !function || !params)
+        return;
+    if (!s_cpResolved)
+        CpResolveTargetsCore();
+    if (s_cpResolved)
+        CpTraceProcessEventPreCore(object, function, params);
+}
+
+void InGameHack_TraceCrossplayPost(const SDK::UObject* object, SDK::UFunction* function, void* params)
+{
+    (void)object;
+    if (!ImGuiMenu::g_HackSettings.CrossplayTraceActive)
+        return;
+    if (!function || !params || !s_cpResolved)
+        return;
+    CpTraceProcessEventPostCore(function, params);
+}
+
+// Collect the objects whose ProcessEvent must be hooked so the crossplay/squad
+// calls route through our hook: the BackendSubsystem singleton and its Dbp
+// children (main menu / custom matching / setting). These carry JoinSquad and
+// all the crossplay getters. Definition lives below ResolveRuntimeBackendSubsystem.
 
 void InGameHack_CollectSuicideHookObjects(SDK::UObject** outReplicator, SDK::UObject** outCollision)
 {
@@ -13681,6 +14488,109 @@ static RuntimeBackendSubsystemSource ResolveRuntimeBackendSubsystem()
     }
 
     return result;
+}
+
+// Definition (declared earlier). Hooks the BackendSubsystem + its Dbp children so
+// JoinSquad and the crossplay getters route through our ProcessEvent hook. The
+// child pointers are private in the SDK header, so we read them by raw offset:
+//   _dbpMainMenu @0x90C0, _dbpSetting @0x9190, _dbpCustomMatching @0x91A8.
+void InGameHack_CollectCrossplayTraceObjects(SDK::UObject** outObjs, int maxObjs, int* outCount)
+{
+    if (outCount) *outCount = 0;
+    s_cpTracedObjectCount = 0;
+
+    // DISABLED: this used to scan all 1-2M GObjects every 3s to hook the backend +
+    // squad widgets so we could log their PE calls by name. That generic logging is
+    // gone (it tanked FPS), and our 9 known decision functions are native (never
+    // dispatched through ProcessEvent), so hooking these objects serves nothing.
+    // The Find/Join buttons do their own one-shot scan on click. No-op now.
+    (void)outObjs;
+    (void)maxObjs;
+    return;
+#if 0
+    static DWORD s_lastScanTick = 0;
+    DWORD now = GetTickCount();
+    bool doScan = (s_lastScanTick == 0) || (now - s_lastScanTick >= 3000);
+
+    if (!doScan)
+    {
+        int n = 0;
+        for (int i = 0; i < s_cpTracedObjectCount && n < maxObjs; ++i)
+            outObjs[n++] = s_cpTracedObjects[i];
+        if (outCount) *outCount = n;
+        return;
+    }
+    s_lastScanTick = now;
+
+    s_cpTracedObjectCount = 0;
+
+    __try
+    {
+        int count = 0;
+        auto push = [&](SDK::UObject* o) {
+            if (!o || count >= maxObjs)
+                return;
+            for (int i = 0; i < count; ++i)
+                if (outObjs[i] == o) return; // dedup
+            outObjs[count++] = o;
+            if (s_cpTracedObjectCount < 32)
+                s_cpTracedObjects[s_cpTracedObjectCount++] = o;
+        };
+
+        // 1) BackendSubsystem + its Dbp children (JoinSquad + crossplay getters).
+        RuntimeBackendSubsystemSource src = ResolveRuntimeBackendSubsystem();
+        SDK::UBackendSubsystem* backend = src.backendSubsystem;
+        s_cpBackend = nullptr;
+        s_cpDbpMainMenu = nullptr;
+        if (backend && SafeMemory::IsReadable(backend, 0x91B0))
+        {
+            uint8_t* base = reinterpret_cast<uint8_t*>(backend);
+            SDK::UObject* mainMenu = *reinterpret_cast<SDK::UObject**>(base + 0x90C0);
+            push(reinterpret_cast<SDK::UObject*>(backend));
+            push(mainMenu);                                        // _dbpMainMenu
+            push(*reinterpret_cast<SDK::UObject**>(base + 0x9190)); // _dbpSetting
+            push(*reinterpret_cast<SDK::UObject**>(base + 0x91A8)); // _dbpCustomMatching
+
+            s_cpBackend = backend;
+            s_cpDbpMainMenu = reinterpret_cast<SDK::UDbpMainMenu*>(mainMenu);
+        }
+
+        // 2) Squad UI widgets + NetworkWork — their Blueprint events (FindSquadRequest,
+        // OnDecidejoinButton, UpdateJoinSquadButton...) dispatch through ProcessEvent.
+        // They only exist while the squad-join UI is open, so scan GObjects.
+        SDK::TUObjectArray* gObjects = SDK::UObject::GObjects.GetTypedPtr();
+        int32_t objectCount = 0;
+        if (IsValidPointer(gObjects) && TryGetObjectArrayCountSafe(gObjects, objectCount) &&
+            objectCount > 0 && objectCount <= 2000000)
+        {
+            SDK::UClass* findCls = SDK::USquadFindWidget::StaticClass();
+            SDK::UClass* joinCls = SDK::USquadJoinWidget::StaticClass();
+            SDK::UClass* netCls  = SDK::UNetworkWork::StaticClass();
+            SDK::UClass* squadCls = SDK::UNetSquad::StaticClass(); // Cosmos transport
+
+            for (int32_t i = 0; i < objectCount && count < maxObjs; ++i)
+            {
+                SDK::UObject* obj = GetObjectByIndexSafe(gObjects, i);
+                if (!IsValidPointer(obj) || IsObjectDefaultSafe(obj))
+                    continue;
+                if ((findCls && IsObjectAUnsafeGuarded(obj, findCls)) ||
+                    (joinCls && IsObjectAUnsafeGuarded(obj, joinCls)) ||
+                    (squadCls && IsObjectAUnsafeGuarded(obj, squadCls)) ||
+                    (netCls  && IsObjectAUnsafeGuarded(obj, netCls)))
+                {
+                    push(obj);
+                }
+            }
+        }
+
+        if (outCount) *outCount = count;
+    }
+    __except (HandleAccessViolation(GetExceptionInformation()))
+    {
+        if (outCount) *outCount = 0;
+        s_cpTracedObjectCount = 0;
+    }
+#endif
 }
 
 static bool TryMakeWideStringFromUtf8(const char* text, std::wstring& outText)

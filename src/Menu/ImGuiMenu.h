@@ -113,10 +113,6 @@ namespace ImGuiMenu
         bool CopySkillsUseOwnerCharacterLevel = false;  // Use owner character level
         int CopySkillsModeType = 0;  // 0 = Ch016 (Copy), 1 = Ch104 (Imitation)
         
-        // Generate Projectile Hotkey
-        bool EnableGenerateProjectile = false;
-        HotkeySet GenerateProjectileKey = HotkeySet(0x47, 0x4000);  // KB: G, Gamepad: X
-        
         // Reload Adjust Rates
         float ReloadAdjustRate = 1.0f;                    // General reload rate (1.0 = normal)
         float ReloadAdjustRate_RollSlot = 1.0f;           // Reload rate for roll slot
@@ -179,12 +175,10 @@ namespace ImGuiMenu
         bool EnableNoCollision = false;  // Enable camera-driven no collision movement
         float NoCollisionSpeed = 100.0f;
         HotkeySet NoCollisionHoldKey = HotkeySet(0x54, 0);
-        bool EnableClearInvincibleAuto = false;
         int ClearInvincibleTargetMode = 1;  // 0=Forward ESP, 1=All enemies, 2=All characters, 3=Selected
         int ClearInvincibleMethod = 0;      // 0=Clear all, 1=From attack, 2=With tag
         bool ClearInvincibleIgnoreFixed = true;
         int ClearInvincibleAttackId = 4;    // EAttackId::MELEE
-        int ClearInvincibleIntervalMs = 250;
         int ClearInvincibleSelectedCharacterIndex = -1;
         char ClearInvincibleTagBuffer[64] = "";
         bool EnableAttackChainAuto = false;
@@ -392,6 +386,15 @@ namespace ImGuiMenu
         bool AbilityTechniqueActive = false;
 
         bool MakeKillsLookLikeSuicideActive = false;
+
+        // Persistent respawn / dead-swap toggles (auto-snapshot at game start).
+        bool DeadSwapSelf = false;
+        bool DeadSwapTeam = false;
+        bool DeadSwapEveryone = false;
+
+        bool CrossplayTraceActive = false;
+        bool CrossplayBypassActive = false;
+        char CrossplayJoinCode[32] = "";
 
         bool Hack_BypassRentalTickets = false;
 

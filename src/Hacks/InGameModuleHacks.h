@@ -450,6 +450,44 @@ void InGameHack_TryBroadcastAttackHit(const SDK::UObject* object, SDK::UFunction
 // no local pawn exists yet. Both out-params may be null; safe to call anytime.
 void InGameHack_CollectSuicideHookObjects(SDK::UObject** outReplicator, SDK::UObject** outCollision);
 
+// Crossplay diagnostic tracer (step 1). Pre/post ProcessEvent hooks that log the
+// squad-join + crossplay decision functions to C:\Temp\rugir_crossplay.log so we
+// can see whether the join-by-code refusal is a client-side gate or a backend
+// verdict. Pure log-only, gated by g_HackSettings.CrossplayTraceActive.
+void InGameHack_TraceCrossplayPre(const SDK::UObject* object, SDK::UFunction* function, void* params);
+void InGameHack_TraceCrossplayPost(const SDK::UObject* object, SDK::UFunction* function, void* params);
+
+// Returns the objects (BackendSubsystem + its Dbp children) whose ProcessEvent
+// must be hooked to observe the crossplay/squad calls. No-op unless the trace
+// toggle is on. Writes up to maxObjs pointers, sets *outCount.
+void InGameHack_CollectCrossplayTraceObjects(SDK::UObject** outObjs, int maxObjs, int* outCount);
+
+// On-demand manual crossplay probe. Resolves the backend fresh and dumps every
+// crossplay getter value to the log RIGHT NOW. Call it while the refusal state is
+// on screen to snapshot exactly what the client sees. Safe to call anytime.
+void InGameHack_ProbeCrossplayNow();
+
+// Crossplay bypass: inline-patches the single client-side crossplay-leader getter
+// (sub_10CDA60, RVA 0x10CDA60) to always return true, so the game treats every
+// host as crossplay-enabled and stops refusing squad search/join. Idempotent
+// toggle; restores original bytes when disabled.
+void InGameHack_SetCrossplayBypass(bool enable);
+
+// Auto-probe tick: call every ProcessEvent. Self-throttled to ~1s, no-op unless
+// Crossplay Trace is on. Continuously logs the crossplay trio so the deciding
+// values are captured at the moment of refusal without any manual timing.
+void InGameHack_AutoProbeCrossplayTick();
+
+// Decisive test: call BackendSubsystem::JoinSquad(code) directly, bypassing the
+// widget's client-side crossplay gate. Logs the return value. TRUE => client gate
+// (beatable), FALSE => backend-authoritative.
+void InGameHack_ForceJoinSquadByCode(const char* code);
+
+// Step 1 of the real join flow: ask the live SquadFindWidget to fetch the squad
+// for this code (same as typing it in the UI). Do this BEFORE ForceJoin so the
+// squad is loaded server-side. No-op if the squad-search screen isn't open.
+void InGameHack_FindSquadByCode(const char* code);
+
 // ============================================
 // TRAINING MODE EXECUTION
 // ============================================

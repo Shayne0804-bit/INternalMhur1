@@ -158,6 +158,8 @@ namespace SettingsManager
 			file << "    \"EnableESP\": " << BoolToJson(menuSettings.EnableESP) << ",\n";
 			file << "    \"EnableMenuBackgroundVideo\": " << BoolToJson(menuSettings.EnableMenuBackgroundVideo) << ",\n";
 			file << "    \"EnableStreamProofMenu\": " << BoolToJson(menuSettings.EnableStreamProofMenu) << ",\n";
+			file << "    \"MenuToggleKey_Keyboard\": " << IntToJson(menuSettings.MenuToggleKey.Keyboard) << ",\n";
+			file << "    \"UnloadDllKey_Keyboard\": " << IntToJson(menuSettings.UnloadDllKey.Keyboard) << ",\n";
 
 			// ESP - Display
 			file << "    \"EnablePlayerESP\": " << BoolToJson(menuSettings.EnablePlayerESP) << ",\n";
@@ -235,11 +237,6 @@ namespace SettingsManager
 			file << "    \"CopySkillsUseOwnerCharacterLevel\": " << BoolToJson(menuSettings.CopySkillsUseOwnerCharacterLevel) << ",\n";
 			file << "    \"CopySkillsModeType\": " << menuSettings.CopySkillsModeType << ",\n";
 
-			// Generate Projectile
-			file << "    \"EnableGenerateProjectile\": " << BoolToJson(menuSettings.EnableGenerateProjectile) << ",\n";
-			file << "    \"GenerateProjectileKey_Keyboard\": " << IntToJson(menuSettings.GenerateProjectileKey.Keyboard) << ",\n";
-			file << "    \"GenerateProjectileKey_Xbox\": " << IntToJson(menuSettings.GenerateProjectileKey.Xbox) << ",\n";
-
 			// Reload Adjust Rates
 			file << "    \"ReloadAdjustRate\": " << FloatToJson(menuSettings.ReloadAdjustRate) << ",\n";
 			file << "    \"ReloadAdjustRate_RollSlot\": " << FloatToJson(menuSettings.ReloadAdjustRate_RollSlot) << ",\n";
@@ -280,6 +277,8 @@ namespace SettingsManager
 			file << "    \"BulletTPIgnoreDownedTargets\": " << BoolToJson(menuSettings.BulletTPIgnoreDownedTargets) << ",\n";
 			file << "    \"EnableCameraFOV\": " << BoolToJson(menuSettings.EnableCameraFOV) << ",\n";
 			file << "    \"CameraFOV\": " << FloatToJson(menuSettings.CameraFOV) << ",\n";
+			file << "    \"EnableAimSearch\": " << BoolToJson(menuSettings.EnableAimSearch) << ",\n";
+			file << "    \"AimSearchDuration\": " << FloatToJson(menuSettings.AimSearchDuration) << ",\n";
 
 			// Rebuild Myself
 			file << "    \"EnableRebuildMyself\": " << BoolToJson(menuSettings.EnableRebuildMyself) << ",\n";
@@ -303,12 +302,10 @@ namespace SettingsManager
 			file << "    \"NoCollisionSpeed\": " << FloatToJson(menuSettings.NoCollisionSpeed) << ",\n";
 			file << "    \"NoCollisionHoldKey_Keyboard\": " << IntToJson(menuSettings.NoCollisionHoldKey.Keyboard) << ",\n";
 			file << "    \"NoCollisionHoldKey_Xbox\": " << IntToJson(menuSettings.NoCollisionHoldKey.Xbox) << ",\n";
-			file << "    \"EnableClearInvincibleAuto\": " << BoolToJson(menuSettings.EnableClearInvincibleAuto) << ",\n";
 			file << "    \"ClearInvincibleTargetMode\": " << IntToJson(menuSettings.ClearInvincibleTargetMode) << ",\n";
 			file << "    \"ClearInvincibleMethod\": " << IntToJson(menuSettings.ClearInvincibleMethod) << ",\n";
 			file << "    \"ClearInvincibleIgnoreFixed\": " << BoolToJson(menuSettings.ClearInvincibleIgnoreFixed) << ",\n";
 			file << "    \"ClearInvincibleAttackId\": " << IntToJson(menuSettings.ClearInvincibleAttackId) << ",\n";
-			file << "    \"ClearInvincibleIntervalMs\": " << IntToJson(menuSettings.ClearInvincibleIntervalMs) << ",\n";
 			file << "    \"ClearInvincibleSelectedCharacterIndex\": " << IntToJson(menuSettings.ClearInvincibleSelectedCharacterIndex) << ",\n";
 			file << "    \"ClearInvincibleTagBuffer\": \"" << EscapeJsonString(menuSettings.ClearInvincibleTagBuffer) << "\",\n";
 			file << "    \"EnableAttackChainAuto\": " << BoolToJson(menuSettings.EnableAttackChainAuto) << ",\n";
@@ -498,6 +495,12 @@ namespace SettingsManager
 			file << "    \"AbilityMovespeedLevel\": " << IntToJson(hackSettings.AbilityMovespeedLevel) << ",\n";
 			file << "    \"AbilityHealLevel\": " << IntToJson(hackSettings.AbilityHealLevel) << ",\n";
 			file << "    \"AbilityTechniqueLevel\": " << IntToJson(hackSettings.AbilityTechniqueLevel) << ",\n";
+			file << "    \"AbilityAttackActive\": " << BoolToJson(hackSettings.AbilityAttackActive) << ",\n";
+			file << "    \"AbilityDurableActive\": " << BoolToJson(hackSettings.AbilityDurableActive) << ",\n";
+			file << "    \"AbilityMovespeedActive\": " << BoolToJson(hackSettings.AbilityMovespeedActive) << ",\n";
+			file << "    \"AbilityHealActive\": " << BoolToJson(hackSettings.AbilityHealActive) << ",\n";
+			file << "    \"AbilityTechniqueActive\": " << BoolToJson(hackSettings.AbilityTechniqueActive) << ",\n";
+			file << "    \"Hack_BypassRentalTickets\": " << BoolToJson(hackSettings.Hack_BypassRentalTickets) << ",\n";
 			file << "    \"CharacterId\": " << IntToJson(hackSettings.CharacterId) << ",\n";
 			file << "    \"CharacterVariationId\": " << IntToJson(hackSettings.CharacterVariationId) << ",\n";
 			file << "    \"CharacterUnique1\": " << IntToJson(hackSettings.CharacterUnique1) << ",\n";
@@ -592,7 +595,6 @@ namespace SettingsManager
 		emptyMenu.CopySkillsSetCopySkill = false;
 		emptyMenu.CopySkillsUseOwnerCharacterLevel = false;
 		emptyMenu.CopySkillsModeType = 0;
-		emptyMenu.EnableGenerateProjectile = false;
 		emptyMenu.EnableRecoveryMe = false;
 		emptyMenu.EnableRecoveryTeam = false;
 		emptyMenu.EnableRecoverySelectedTeam = false;
@@ -646,20 +648,18 @@ namespace SettingsManager
 		emptyMenu.TransformIntoRandomESPKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.DuplicateIntoImitationRandomESPKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.CopySkillsFromNearestEnemyKey = ImGuiMenu::HotkeySet(0, 0);
-		emptyMenu.GenerateProjectileKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.SetInvincibleKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.RebuildMyselfKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.NoCollisionHoldKey = ImGuiMenu::HotkeySet(0, 0);
 		emptyMenu.EnableFastPlusUltraCharge = false;
 		emptyMenu.EnableNoCollision = false;
 		emptyMenu.EnableCameraFOV = false;
+		emptyMenu.EnableAimSearch = false;
 		emptyMenu.NoCollisionSpeed = 0.0f;
-		emptyMenu.EnableClearInvincibleAuto = false;
 		emptyMenu.ClearInvincibleTargetMode = 1;
 		emptyMenu.ClearInvincibleMethod = 0;
 		emptyMenu.ClearInvincibleIgnoreFixed = true;
 		emptyMenu.ClearInvincibleAttackId = 4;
-		emptyMenu.ClearInvincibleIntervalMs = 250;
 		emptyMenu.ClearInvincibleSelectedCharacterIndex = -1;
 		emptyMenu.ClearInvincibleTagBuffer[0] = '\0';
 		emptyMenu.EnableAttackChainAuto = false;
@@ -849,6 +849,12 @@ namespace SettingsManager
 		emptyHack.AbilityMovespeedLevel = 1;
 		emptyHack.AbilityHealLevel = 1;
 		emptyHack.AbilityTechniqueLevel = 1;
+		emptyHack.AbilityAttackActive = false;
+		emptyHack.AbilityDurableActive = false;
+		emptyHack.AbilityMovespeedActive = false;
+		emptyHack.AbilityHealActive = false;
+		emptyHack.AbilityTechniqueActive = false;
+		emptyHack.Hack_BypassRentalTickets = false;
 
 		// Set all character settings to 0 or default
 		emptyHack.CharacterId = 0;
@@ -1013,6 +1019,11 @@ namespace SettingsManager
 			menuSettings.EnableESP = ExtractBool("EnableESP");
 			menuSettings.EnableMenuBackgroundVideo = ExtractBoolDefault("EnableMenuBackgroundVideo", true);
 			menuSettings.EnableStreamProofMenu = ExtractBoolDefault("EnableStreamProofMenu", false);
+			menuSettings.MenuToggleKey.Keyboard = ExtractIntDefault("MenuToggleKey_Keyboard", 0x2D);
+			menuSettings.UnloadDllKey.Keyboard = ExtractIntDefault("UnloadDllKey_Keyboard", 0x2E);
+			// Never allow 0: a wiped toggle key would make the menu impossible to reopen.
+			if (menuSettings.MenuToggleKey.Keyboard == 0)
+				menuSettings.MenuToggleKey.Keyboard = 0x2D;
 			menuSettings.EnablePlayerESP = ExtractBool("EnablePlayerESP");
 			menuSettings.Player_Box = ExtractBool("Player_Box");
 			menuSettings.Player_Box_Filled = ExtractBoolDefault("Player_Box_Filled", false);
@@ -1087,11 +1098,6 @@ namespace SettingsManager
 			menuSettings.CopySkillsUseOwnerCharacterLevel = ExtractBool("CopySkillsUseOwnerCharacterLevel");
 			menuSettings.CopySkillsModeType = ExtractIntDefault("CopySkillsModeType", 0);
 
-			menuSettings.EnableGenerateProjectile = ExtractBool("EnableGenerateProjectile");
-			menuSettings.GenerateProjectileKey.Keyboard = ExtractInt("GenerateProjectileKey_Keyboard");
-			menuSettings.GenerateProjectileKey.Xbox = ExtractInt("GenerateProjectileKey_Xbox");
-			menuSettings.GenerateProjectileKey.PS4 = menuSettings.GenerateProjectileKey.Xbox;
-
 			menuSettings.ReloadAdjustRate = ExtractFloat("ReloadAdjustRate");
 			menuSettings.ReloadAdjustRate_RollSlot = ExtractFloat("ReloadAdjustRate_RollSlot");
 			menuSettings.ReloadAdjustRate_WearBlueFlame = ExtractFloat("ReloadAdjustRate_WearBlueFlame");
@@ -1127,6 +1133,8 @@ namespace SettingsManager
 			menuSettings.BulletTPIgnoreDownedTargets = ExtractBoolDefault("BulletTPIgnoreDownedTargets", true);
 			menuSettings.EnableCameraFOV = ExtractBoolDefault("EnableCameraFOV", false);
 			menuSettings.CameraFOV = ExtractFloatDefault("CameraFOV", 90.0f);
+			menuSettings.EnableAimSearch = ExtractBoolDefault("EnableAimSearch", false);
+			menuSettings.AimSearchDuration = ExtractFloatDefault("AimSearchDuration", 10.0f);
 
 			menuSettings.EnableRebuildMyself = ExtractBool("EnableRebuildMyself");
 			menuSettings.RebuildMyselfKey.Keyboard = ExtractInt("RebuildMyselfKey_Keyboard");
@@ -1149,12 +1157,10 @@ namespace SettingsManager
 			menuSettings.NoCollisionHoldKey.Keyboard = ExtractIntDefault("NoCollisionHoldKey_Keyboard", 0x54);
 			menuSettings.NoCollisionHoldKey.Xbox = ExtractIntDefault("NoCollisionHoldKey_Xbox", 0);
 			menuSettings.NoCollisionHoldKey.PS4 = menuSettings.NoCollisionHoldKey.Xbox;
-			menuSettings.EnableClearInvincibleAuto = ExtractBoolDefault("EnableClearInvincibleAuto", false);
 			menuSettings.ClearInvincibleTargetMode = ExtractIntDefault("ClearInvincibleTargetMode", 1);
 			menuSettings.ClearInvincibleMethod = ExtractIntDefault("ClearInvincibleMethod", 0);
 			menuSettings.ClearInvincibleIgnoreFixed = ExtractBoolDefault("ClearInvincibleIgnoreFixed", true);
 			menuSettings.ClearInvincibleAttackId = ExtractIntDefault("ClearInvincibleAttackId", 4);
-			menuSettings.ClearInvincibleIntervalMs = ExtractIntDefault("ClearInvincibleIntervalMs", 250);
 			menuSettings.ClearInvincibleSelectedCharacterIndex = ExtractIntDefault("ClearInvincibleSelectedCharacterIndex", -1);
 			{
 				std::string clearInvincibleTag = ExtractString("ClearInvincibleTagBuffer");
@@ -1345,6 +1351,12 @@ namespace SettingsManager
 			hackSettings.AbilityMovespeedLevel = ExtractInt("AbilityMovespeedLevel");
 			hackSettings.AbilityHealLevel = ExtractInt("AbilityHealLevel");
 			hackSettings.AbilityTechniqueLevel = ExtractInt("AbilityTechniqueLevel");
+			hackSettings.AbilityAttackActive = ExtractBoolDefault("AbilityAttackActive", false);
+			hackSettings.AbilityDurableActive = ExtractBoolDefault("AbilityDurableActive", false);
+			hackSettings.AbilityMovespeedActive = ExtractBoolDefault("AbilityMovespeedActive", false);
+			hackSettings.AbilityHealActive = ExtractBoolDefault("AbilityHealActive", false);
+			hackSettings.AbilityTechniqueActive = ExtractBoolDefault("AbilityTechniqueActive", false);
+			hackSettings.Hack_BypassRentalTickets = ExtractBoolDefault("Hack_BypassRentalTickets", false);
 			hackSettings.CharacterId = ExtractInt("CharacterId");
 			hackSettings.CharacterVariationId = ExtractInt("CharacterVariationId");
 			hackSettings.CharacterUnique1 = ExtractInt("CharacterUnique1");

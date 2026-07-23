@@ -18,8 +18,12 @@
     static const ImVec4 kLmBlack  = ImVec4(0.0f, 0.0f, 0.0f, 1.0f);
     static const ImVec4 kLmDanger = ImVec4(250.0f / 255.0f, 75.0f / 255.0f, 85.0f / 255.0f, 1.0f);
 
-    static constexpr float kLmScale = 1.30f;
-    static float LM(float v) { return v * kLmScale; }
+    // Global UI scale — Lumin's own resize method. NOT constexpr: the whole menu
+    // is drawn through LM() = value * scale, so changing this factor rescales the
+    // ENTIRE layout (fonts, spacing, panels) proportionally. The window's corner
+    // drag drives this value, so resizing the window shrinks/grows everything.
+    static float g_LmScale = 1.30f;
+    static float LM(float v) { return v * g_LmScale; }
 
     static ImU32 LmCol(const ImVec4& c, float alphaMul = 1.0f)
     {
@@ -34,6 +38,15 @@
         value += (target - value) * t;
         if (fabsf(target - value) < 0.0005f)
             value = target;
+    }
+
+    // Locks the window's aspect ratio to the Lumin main-shell ratio (527:900)
+    // while the user drags the corner, so scaling stays uniform (Lumin's own
+    // resize behaviour — the whole UI grows/shrinks as one, never stretches).
+    static void LmAspectConstraint(ImGuiSizeCallbackData* data)
+    {
+        const float ratio = 527.0f / 900.0f;
+        data->DesiredSize.y = data->DesiredSize.x * ratio;
     }
 
     static void LmEase4(ImVec4& v, const ImVec4& t, float speed)
@@ -325,31 +338,69 @@
             g_MenuEntered = false;
         const bool loginMode = !Auth::IsAuthorized() || !g_MenuEntered;
 
-        const ImVec2 loginSize(LM(380), LM(266));
-        const ImVec2 mainSize(LM(900), LM(527));
-        const ImVec2 targetSize = loginMode ? loginSize : mainSize;
+        // Base (scale-1.0) reference sizes. The whole UI is drawn in LM(base) =
+        // base * g_LmScale, so the window's natural size is base * g_LmScale.
+        const ImVec2 loginBase(380.0f, 266.0f);
+        const ImVec2 mainBase(900.0f, 527.0f);
+        const ImVec2 baseTarget = loginMode ? loginBase : mainBase;
+        const ImVec2 targetSize(baseTarget.x * g_LmScale, baseTarget.y * g_LmScale);
+
         static ImVec2 winSize(0.0f, 0.0f);
         if (winSize.x <= 0.0f)
             winSize = targetSize;
+
+        // Ease the window size for the login<->main transition (and first show).
         LmEase(winSize.x, targetSize.x, 24.0f);
         LmEase(winSize.y, targetSize.y, 24.0f);
+        const bool animating =
+            fabsf(winSize.x - targetSize.x) > 0.5f || fabsf(winSize.y - targetSize.y) > 0.5f;
 
-        ImGui::SetNextWindowSize(winSize, ImGuiCond_Always);
+        // Resizing is Lumin's OWN mechanism: it does not stretch the window, it
+        // drives the global g_LmScale. We only lock the size while animating the
+        // login/main transition or on the login card; in the settled main shell we
+        // let the user drag the corner, then convert that drag into a new scale.
+        const bool userResizable = !animating && !loginMode;
+
+        if (!userResizable)
+            ImGui::SetNextWindowSize(winSize, ImGuiCond_Always);
+        else
+            ImGui::SetNextWindowSize(winSize, ImGuiCond_FirstUseEver);
+
+        // Clamp the drag to a sane scale band (0.70x .. 2.00x of the 900px base)
+        // and keep the Lumin aspect ratio, so scaling stays uniform.
+        ImGui::SetNextWindowSizeConstraints(
+            ImVec2(mainBase.x * 0.70f, mainBase.y * 0.70f),
+            ImVec2(mainBase.x * 2.00f, mainBase.y * 2.00f),
+            LmAspectConstraint);
         ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x * 0.5f, io.DisplaySize.y * 0.5f), ImGuiCond_Once, ImVec2(0.5f, 0.5f));
         ImGui::SetNextWindowBgAlpha(0.0f);
 
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-        ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
-        ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
-        bool open = ImGui::Begin("RUGIR INTERNAL##agency", &g_Visible,
+        ImGuiWindowFlags winFlags =
             ImGuiWindowFlags_NoTitleBar |
             ImGuiWindowFlags_NoCollapse |
             ImGuiWindowFlags_NoScrollbar |
             ImGuiWindowFlags_NoScrollWithMouse |
-            ImGuiWindowFlags_NoResize |
-            ImGuiWindowFlags_NoBackground);
+            ImGuiWindowFlags_NoBackground;
+        // Lock resizing only during the size animation / login card; free otherwise.
+        if (!userResizable)
+            winFlags |= ImGuiWindowFlags_NoResize;
+
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+        ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+        bool open = ImGui::Begin("RUGIR INTERNAL##agency", &g_Visible, winFlags);
         ImGui::PopStyleColor();
         ImGui::PopStyleVar(2);
+
+        // In the settled main shell, translate the live window width into the global
+        // Lumin scale, so a corner drag shrinks/grows the ENTIRE UI (fonts, spacing,
+        // panels) uniformly next frame. Only in main mode (base width 900).
+        if (userResizable)
+        {
+            const ImVec2 realSize = ImGui::GetWindowSize();
+            g_LmScale = std::clamp(realSize.x / mainBase.x, 0.70f, 2.00f);
+            winSize = realSize;
+        }
 
         if (!open)
         {

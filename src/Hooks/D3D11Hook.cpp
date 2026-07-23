@@ -220,8 +220,6 @@ namespace D3D11Hook
 
         if (Auth::IsAuthorized() && ImGuiMenu::g_Settings.EnableGlobal)
         {
-        GameThreadHook::TickFrameHacks();
-
         // Update the actor cache only when a feature actually consumes it.
         if (NeedsActorCache())
         {
