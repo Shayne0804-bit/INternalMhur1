@@ -869,9 +869,19 @@ namespace GameThreadHook
     static uint8_t* g_GlobalPETrampoline = nullptr;
     using GlobalPEFn = void(*)(SDK::UObject*, SDK::UFunction*, void*);
     static GlobalPEFn g_GlobalPEOriginal = nullptr;
+    // Tracks threads currently executing inside GlobalHookedProcessEvent (incl.
+    // the synchronous forward through the trampoline). Uninstall drains this to
+    // zero before releasing the hook so no thread is left mid-flight.
+    static std::atomic<int> g_GlobalPECallDepth(0);
 
     static void GlobalHookedProcessEvent(SDK::UObject* object, SDK::UFunction* function, void* params)
     {
+        struct Scope
+        {
+            Scope() { g_GlobalPECallDepth.fetch_add(1, std::memory_order_acq_rel); }
+            ~Scope() { g_GlobalPECallDepth.fetch_sub(1, std::memory_order_acq_rel); }
+        } scope;
+
         // Only run game logic on the game thread (ID captured from attack-component PE).
         // Animation/render/physics threads: just forward, no hacks.
         const DWORD knownGameThread = g_GameThreadId.load(std::memory_order_relaxed);
@@ -882,8 +892,9 @@ namespace GameThreadHook
         }
 
         // Forward to original via trampoline.
-        if (g_GlobalPEOriginal)
-            g_GlobalPEOriginal(object, function, params);
+        GlobalPEFn original = g_GlobalPEOriginal;
+        if (original)
+            original(object, function, params);
     }
 
     static bool InstallGlobalPEHook()
@@ -945,19 +956,34 @@ namespace GameThreadHook
         if (!g_GlobalPETarget || !g_GlobalPETrampoline)
             return;
 
+        // 1. Restore the original prologue FIRST and flush the icache. After this,
+        //    no NEW dispatch can jump into GlobalHookedProcessEvent — the game
+        //    calls its real ProcessEvent directly again.
+        uint8_t* target = g_GlobalPETarget;
         DWORD old = 0;
-        if (VirtualProtect(g_GlobalPETarget, 12, PAGE_EXECUTE_READWRITE, &old))
+        if (VirtualProtect(target, 12, PAGE_EXECUTE_READWRITE, &old))
         {
-            memcpy(g_GlobalPETarget, g_GlobalPETrampoline, 12); // restore original bytes
-            VirtualProtect(g_GlobalPETarget, 12, old, &old);
-            FlushInstructionCache(GetCurrentProcess(), g_GlobalPETarget, 12);
+            memcpy(target, g_GlobalPETrampoline, 12); // restore original bytes
+            VirtualProtect(target, 12, old, &old);
+            FlushInstructionCache(GetCurrentProcess(), target, 12);
         }
+        g_GlobalPETarget = nullptr;
 
-        VirtualFree(g_GlobalPETrampoline, 0, MEM_RELEASE);
-        g_GlobalPETarget     = nullptr;
+        // 2. A thread may already have jumped in but not yet incremented the depth
+        //    (a few-instruction gap). Give it time to land, then drain to zero so
+        //    nobody is still inside our hook or the trampoline forward.
+        Sleep(2);
+        for (int i = 0; i < 1000 && g_GlobalPECallDepth.load(std::memory_order_acquire) > 0; ++i)
+            Sleep(1);
+
+        // 3. Intentionally LEAK the trampoline. It is VirtualAlloc'd memory (NOT
+        //    part of the DLL image), so it stays valid after we unmap. A thread
+        //    suspended by the scheduler exactly inside it — or one that captured
+        //    g_GlobalPEOriginal before the drain — must still find live forwarding
+        //    code. 32 bytes per unload is nothing; a use-after-free is a crash.
         g_GlobalPETrampoline = nullptr;
         g_GlobalPEOriginal   = nullptr;
-        Log("[GameThreadHook] GlobalPEHook uninstalled");
+        Log("[GameThreadHook] GlobalPEHook uninstalled (trampoline leaked by design)");
     }
 
     bool Initialize()
@@ -995,11 +1021,15 @@ namespace GameThreadHook
                 NeutralizeHookLocked(hook);
         }
 
-        for (int i = 0; i < 200 && g_ProcessEventCallDepth.load(std::memory_order_acquire) > 0; ++i)
+        for (int i = 0; i < 500 && g_ProcessEventCallDepth.load(std::memory_order_acquire) > 0; ++i)
             Sleep(1);
 
         {
             std::lock_guard<std::mutex> lock(g_HookMutex);
+            // Shadow vtables are intentionally NOT freed: they are neutralized
+            // (index 68 restored to the original fn) and their memory must stay
+            // valid for any thread still holding object->vtable == shadowVTable
+            // after we let go. Dropping the records here only frees HookRecord.
             g_Hooks.clear();
         }
 

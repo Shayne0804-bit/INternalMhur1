@@ -1,4 +1,4 @@
 {
-  "version": "1.0.38",
-  "notes": "1) Fixed random crashes during/after matches\n2) Hacks now work without needing to attack\n3) Abilities stay active permanently (auto-refresh)\n4) Settings autosave improved (abilities, radar, hotkeys)\n5) Menu show/hide and unload hotkeys are now rebindable\n6) Respawn toggles added (self / team / everyone, auto-capture at match start)\n7) Stability and performance improvements"
+  "version": "1.0.39",
+  "notes": "1) Fixed random crashes during/after matches\n2) Hacks now work without needing to attack\n3) Abilities stay active permanently (auto-refresh)\n4) Settings autosave improved (abilities, radar, hotkeys)\n5) Menu show/hide and unload hotkeys are now rebindable (all keyboards, incl. 60%)\n6) Fixed crashes on unload and during updates\n7) Respawn toggles added (self / team / everyone, auto-capture at match start)\n8) Stability and performance improvements"
 }

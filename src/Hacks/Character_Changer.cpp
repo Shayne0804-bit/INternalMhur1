@@ -415,7 +415,14 @@ namespace Cheats
         PlayerSnapshot snap{};
         __try
         {
-            snap.characterId = static_cast<int>(CG->BP_GetCharacterId());
+            // BP_GetCharacterId returns the SDK ECharacterId enum, but the whole
+            // BuildData pipeline (GetSDKCharacterId / GetCharNum / skillVariationCode)
+            // expects the INTERNAL Character_Data.h id. Convert once here, otherwise
+            // the id gets double-converted and everyone respawns as the wrong
+            // character/variation.
+            int sdkId = static_cast<int>(CG->BP_GetCharacterId());
+            int idx   = GetCharacterIndexFromSDKId(sdkId);
+            snap.characterId = (idx >= 0) ? Characters[idx].id : sdkId;
             snap.variationId = CG->BP_GetVariationNo();
             snap.costumeCode = CG->BP_GetCostumeCode();
 
@@ -1646,7 +1653,15 @@ namespace Cheats
 
                 ++seen;
 
-                // Only (re)capture while the player is still alive.
+                // Capture ONCE per player: the first valid snapshot is the source
+                // of truth for every later respawn. Never overwrite it — re-reading
+                // after a swap/respawn would poison the stored loadout with whatever
+                // the server assigned in between.
+                auto existing = s_snapshots.find((void*)PS);
+                if (existing != s_snapshots.end() && existing->second.valid)
+                    continue;
+
+                // Only capture while the player is alive.
                 SDK::ACharacterBattle* CB = static_cast<SDK::ACharacterBattle*>(Actor);
                 SDK::APlayerStateBattle* PSB = GetPlayerStateBattleSafe(CB);
                 if (IsDeadSafe(PSB)) continue;
@@ -1756,25 +1771,24 @@ namespace Cheats
         return SwapDeadCore(DSM_EVERYONE);
     }
 
-    // ── Game-thread tick: auto-snapshot + persistent respawn toggles ──────────
-    // MUST be called from the game thread (ProcessEvent frame update). Refreshes
-    // alive snapshots automatically, then swaps the dead players matching each
-    // active mode. Self takes priority, then team, then everyone (everyone is a
-    // superset so we never run more than one broad pass per tick).
+    // ── Game-thread tick: capture + persistent respawn toggles ────────────────
+    // MUST be called from the game thread (ProcessEvent frame update). Nothing
+    // runs unless at least one mode is active — capturing loadouts and swapping
+    // both happen only while a toggle is on. So the toggle must be enabled BEFORE
+    // the target dies for a loadout to be on file.
     void DeadSwap_Tick(bool self, bool team, bool everyone)
     {
+        if (!self && !team && !everyone)
+            return;
+
         const uint64_t nowMs = GetTickCount64();
 
-        // Auto-capture alive players regardless of toggles, so a loadout is
-        // already on file the moment someone dies.
+        // Capture alive players only while a mode is active.
         if (nowMs - s_lastSnapRefreshMs >= kSnapRefreshMs)
         {
             s_lastSnapRefreshMs = nowMs;
             UpdateAliveSnapshots();
         }
-
-        if (!self && !team && !everyone)
-            return;
 
         if (nowMs - s_lastDeadSwapMs < kDeadSwapIntervalMs)
             return;

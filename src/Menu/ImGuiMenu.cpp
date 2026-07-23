@@ -611,7 +611,9 @@ namespace ImGuiMenu
      */
     static bool IsKnownHotkeyId(int hotkeyId)
     {
-        return hotkeyId >= 100 && hotkeyId <= 109;
+        return (hotkeyId >= 100 && hotkeyId <= 109) ||
+            hotkeyId == 200 ||   // Menu Toggle
+            hotkeyId == 201;     // Unload DLL
     }
 
     static std::string GetWindowsKeyName(int keyCode)
@@ -663,10 +665,11 @@ namespace ImGuiMenu
 
     static bool IsValidKeyboardHotkey(int keyCode)
     {
+        // Accept any real VK code. Requiring a Windows key name here rejected
+        // keys 60% keyboards emit through Fn layers (F13-F24, media, OEM VKs).
         return keyCode >= 0x01 &&
                keyCode <= 0xFF &&
-               keyCode != VK_ESCAPE &&
-               !GetWindowsKeyName(keyCode).empty();
+               keyCode != VK_ESCAPE;
     }
 
     static bool IsValidGamepadHotkey(int keyCode)
@@ -876,10 +879,30 @@ namespace ImGuiMenu
                 case 0x27: return "Right Arrow";
                 case 0x28: return "Down Arrow";
                 
+                // Extended function keys (60% keyboards Fn layers, macro pads)
+                case 0x7C: return "F13";
+                case 0x7D: return "F14";
+                case 0x7E: return "F15";
+                case 0x7F: return "F16";
+                case 0x80: return "F17";
+                case 0x81: return "F18";
+                case 0x82: return "F19";
+                case 0x83: return "F20";
+                case 0x84: return "F21";
+                case 0x85: return "F22";
+                case 0x86: return "F23";
+                case 0x87: return "F24";
+
                 default:
                 {
                     std::string keyName = GetWindowsKeyName(keyCode);
-                    return keyName.empty() ? "Unassigned" : keyName;
+                    if (!keyName.empty())
+                        return keyName;
+                    // Unnameable but real VK (media/OEM keys): show the code so
+                    // the bind is visibly set instead of looking unassigned.
+                    char buf[16];
+                    snprintf(buf, sizeof(buf), "Key 0x%02X", keyCode);
+                    return buf;
                 }
             }
         }
