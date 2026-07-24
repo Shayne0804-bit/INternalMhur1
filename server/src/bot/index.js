@@ -6,8 +6,7 @@ const {
   Routes,
   SlashCommandBuilder,
   MessageFlags,
-  ActivityType,
-  Partials
+  ActivityType
 } = require('discord.js');
 
 const {
@@ -61,8 +60,8 @@ const {
   rolePanelCommands,
   rolePanelCommandNames,
   handleRolePanelCommand,
-  handleApprovalButton,
-  attachReactionRoles
+  handleRoleButton,
+  handleApprovalButton
 } = require('./reactionRoles');
 const {
   verificationCommands,
@@ -342,6 +341,8 @@ function attachHandlers(client) {
           await handleTicketButton(interaction, parts[1]);
         } else if (ns === 'verify') {
           await handleVerifyButton(interaction);
+        } else if (ns === 'rr') {
+          await handleRoleButton(interaction, parts[1]);
         } else if (ns === 'rrapp') {
           if (await denyIfNotOwner(interaction)) return;
           await handleApprovalButton(interaction, parts[1] === 'ok', parts[2], parts[3]);
@@ -390,21 +391,16 @@ async function startBot() {
       GatewayIntentBits.GuildMessages,
       GatewayIntentBits.GuildMembers,
       GatewayIntentBits.GuildVoiceStates,
-      GatewayIntentBits.GuildMessageReactions,
       // Optional privileged intent: enable ONLY if MessageContent is turned on
       // in the Developer Portal, otherwise the login is rejected. Without it,
       // automod still does rate-based anti-spam (content checks are skipped).
       ...(process.env.ENABLE_MESSAGE_CONTENT === '1' ? [GatewayIntentBits.MessageContent] : [])
-    ],
-    // Needed so reactions on messages posted before the current session still
-    // emit add/remove events (uncached messages arrive as partials).
-    partials: [Partials.Message, Partials.Reaction, Partials.User]
+    ]
   });
   attachHandlers(client);
   attachLeveling(client);
   attachWelcome(client);
   attachAutomod(client);
-  attachReactionRoles(client, { getOwnerId: () => primaryOwnerId });
 
   client.once(Events.ClientReady, async (c) => {
     // Force an explicit online presence so the bot never shows as offline/invisible.
