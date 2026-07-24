@@ -188,6 +188,17 @@ async function handleApprovalButton(interaction, approve, roleId, memberId) {
   await interaction.message.edit({ content, embeds: interaction.message.embeds, components: [] }).catch(() => {});
 }
 
+// Post a short-lived notice in the panel's channel (pings the member), then
+// auto-delete it so the channel stays clean. Used instead of DMs, which fail
+// silently when the member has DMs closed.
+async function notifyInChannel(channel, userId, text, ttlMs = 20000) {
+  const msg = await channel.send({
+    content: `<@${userId}> ${text}`,
+    allowedMentions: { users: [userId] }
+  }).catch(() => null);
+  if (msg) setTimeout(() => msg.delete().catch(() => {}), ttlMs);
+}
+
 function attachReactionRoles(client, { getOwnerId } = {}) {
   if (typeof getOwnerId === 'function') ownerIdGetter = getOwnerId;
 
@@ -205,12 +216,12 @@ function attachReactionRoles(client, { getOwnerId } = {}) {
 
       if (mapping.protected) {
         // Don't grant directly: ask the owner. Remove the member's reaction so
-        // they can re-request later, and DM them the pending status.
+        // they can re-request later, and notify them in-channel.
         await reaction.users.remove(user.id).catch(() => {});
         const ok = await requestApproval(guild, member, role, client);
-        await user.send(ok
-          ? `🔒 Your request for **${role.name}** was sent to the owner for approval.`
-          : `🔒 Your request for **${role.name}** is pending, but I couldn't reach the owner.`).catch(() => {});
+        await notifyInChannel(reaction.message.channel, user.id, ok
+          ? `🔒 your request for **${role.name}** was sent to the owner for approval.`
+          : `🔒 your request for **${role.name}** is pending, but I couldn't reach the owner.`);
         return;
       }
 
@@ -220,15 +231,15 @@ function attachReactionRoles(client, { getOwnerId } = {}) {
         const valid = license && license.status === 'active' && !license.isExpired();
         if (!valid) {
           await reaction.users.remove(user.id).catch(() => {});
-          await user.send(
-            `🎫 The **${role.name}** role requires a valid license linked to your account.\n` +
+          await notifyInChannel(reaction.message.channel, user.id,
+            `🎫 the **${role.name}** role requires a valid license linked to your account. ` +
             (license
               ? 'Your linked license is not active (expired or revoked). Renew it, then react again.'
-              : 'Use **/check** and enter your license key to link it, then react again.')
-          ).catch(() => {});
+              : 'Use **/check** to link your license key, then react again.'));
           return;
         }
         await member.roles.add(mapping.roleId, 'VIP: valid linked license').catch(() => {});
+        await notifyInChannel(reaction.message.channel, user.id, `🎫 you now have **${role.name}**!`, 10000);
         return;
       }
 
